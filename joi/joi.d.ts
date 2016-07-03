@@ -729,6 +729,7 @@ declare module 'joi' {
 
 	export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 		try(schemas: Schema[]): AlternativesSchema;
+		try(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
 		when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
 		when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
 	}
@@ -812,8 +813,9 @@ declare module 'joi' {
 	/**
 	 * Generates a type that will match one of the provided alternative schemas
 	 */
-	export function alternatives(types: Schema[]): Schema;
-	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+	export function alternatives(): AlternativesSchema;
+	export function alternatives(types: Schema[]): AlternativesSchema;
+	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
 
 	/**
 	 * Validates a value using the given schema and options.

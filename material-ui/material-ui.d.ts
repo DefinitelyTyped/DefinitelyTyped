@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.15.0
+// Type definitions for material-ui v0.15.1
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,7 @@ declare module "material-ui" {
     export import CardText = __MaterialUI.Card.CardText;
     export import CardTitle = __MaterialUI.Card.CardTitle;
     export import Checkbox = __MaterialUI.Switches.Checkbox;
+    export import Chip = __MaterialUI.Chip;
     export import CircularProgress = __MaterialUI.CircularProgress;
     export import DatePicker = __MaterialUI.DatePicker.DatePicker;
     export import Dialog = __MaterialUI.Dialog;
@@ -248,7 +249,7 @@ declare namespace __MaterialUI {
             inkBar?: {
                 backgroundColor?: string;
             };
-            navDrawer?: {
+            drawer?: {
                 width?: number;
                 color?: string;
             };
@@ -427,7 +428,7 @@ declare namespace __MaterialUI {
             menu: number;
             appBar: number;
             drawerOverlay: number;
-            navDrawer: number;
+            drawer: number;
             dialogOverlay: number;
             dialog: number;
             layer: number;
@@ -513,6 +514,7 @@ declare namespace __MaterialUI {
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
         iconStyleRight?: string;
+        iconStyleLeft?: string;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
@@ -533,6 +535,7 @@ declare namespace __MaterialUI {
     namespace propTypes {
         type horizontal = 'left' | 'middle' | 'right';
         type vertical = 'top' | 'center' | 'bottom';
+        type direction = 'left' | 'right' | 'up' | 'down';
         
         interface origin {
             horizontal: horizontal;
@@ -641,6 +644,7 @@ declare namespace __MaterialUI {
         touchRippleColor?: string;
         touchRippleOpacity?: number;
         type?: string;
+        containerElement?: React.ReactNode | string;
     }
 
     interface EnhancedButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<EnhancedButton> {
@@ -834,6 +838,18 @@ declare namespace __MaterialUI {
         }
         export class CardTitle extends React.Component<CardTitleProps, {}> {
         }
+    }
+
+    interface ChipProps extends React.Props<Chip> {
+        backgroundColor?: string;
+        className?: string;
+        labelColor?: string;
+        labelStyle?: React.CSSProperties;
+        onRequestDelete?: React.TouchEventHandler;
+        onTouchTap?: React.TouchEventHandler;
+        style?: React.CSSProperties;
+    }
+    export class Chip extends React.Component<ChipProps, {}> {
     }
 
     namespace DatePicker {
@@ -1149,6 +1165,7 @@ declare namespace __MaterialUI {
             touchTapCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
+            animated?: boolean;
             autoWidth?: boolean;
             desktop?: boolean;
             listStyle?: React.CSSProperties;
@@ -1168,6 +1185,7 @@ declare namespace __MaterialUI {
 
         interface DropDownMenuProps extends React.Props<DropDownMenu> {
             // <div/> is the element that gets the 'other' properties
+            animated?: boolean;
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
@@ -1280,6 +1298,7 @@ declare namespace __MaterialUI {
         disabled?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
+        floatingLabelFixed?: boolean;
         floatingLabelStyle?: React.CSSProperties;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
@@ -1291,7 +1310,6 @@ declare namespace __MaterialUI {
         onBlur?: React.FocusEventHandler;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler;
-        selectFieldRoot?: React.CSSProperties;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
@@ -1702,6 +1720,8 @@ declare namespace __MaterialUI {
         autoOk?: boolean;
         cancelLabel?: React.ReactNode;
         defaultTime?: Date;
+        dialogBodyStyle?: React.CSSProperties;
+        dialogStyle?: React.CSSProperties;
         disabled?: boolean;
         format?: "ampm" | "24hr";
         okLabel?: React.ReactNode;
@@ -1895,6 +1915,11 @@ declare module 'material-ui/Card/CardTitle' {
 declare module 'material-ui/Checkbox' {
     export import Checkbox = __MaterialUI.Switches.Checkbox;
     export default Checkbox;
+}
+
+declare module 'material-ui/Chip' {
+    export import Chip = __MaterialUI.Chip;
+    export default Chip;
 }
 
 declare module 'material-ui/CircularProgress' {
@@ -6782,291 +6807,291 @@ declare module 'material-ui/styles/zIndex' {
 }
 
 declare module "material-ui/styles/colors" {
-    export const red50: string;
-export const red100: string;
-export const red200: string;
-export const red300: string;
-export const red400: string;
-export const red500: string;
-export const red600: string;
-export const red700: string;
-export const red800: string;
-export const red900: string;
-export const redA100: string;
-export const redA200: string;
-export const redA400: string;
-export const redA700: string;
+  export const red50: string;
+  export const red100: string;
+  export const red200: string;
+  export const red300: string;
+  export const red400: string;
+  export const red500: string;
+  export const red600: string;
+  export const red700: string;
+  export const red800: string;
+  export const red900: string;
+  export const redA100: string;
+  export const redA200: string;
+  export const redA400: string;
+  export const redA700: string;
 
-export const pink50: string;
-export const pink100: string;
-export const pink200: string;
-export const pink300: string;
-export const pink400: string;
-export const pink500: string;
-export const pink600: string;
-export const pink700: string;
-export const pink800: string;
-export const pink900: string;
-export const pinkA100: string;
-export const pinkA200: string;
-export const pinkA400: string;
-export const pinkA700: string;
+  export const pink50: string;
+  export const pink100: string;
+  export const pink200: string;
+  export const pink300: string;
+  export const pink400: string;
+  export const pink500: string;
+  export const pink600: string;
+  export const pink700: string;
+  export const pink800: string;
+  export const pink900: string;
+  export const pinkA100: string;
+  export const pinkA200: string;
+  export const pinkA400: string;
+  export const pinkA700: string;
 
-export const purple50: string;
-export const purple100: string;
-export const purple200: string;
-export const purple300: string;
-export const purple400: string;
-export const purple500: string;
-export const purple600: string;
-export const purple700: string;
-export const purple800: string;
-export const purple900: string;
-export const purpleA100: string;
-export const purpleA200: string;
-export const purpleA400: string;
-export const purpleA700: string;
+  export const purple50: string;
+  export const purple100: string;
+  export const purple200: string;
+  export const purple300: string;
+  export const purple400: string;
+  export const purple500: string;
+  export const purple600: string;
+  export const purple700: string;
+  export const purple800: string;
+  export const purple900: string;
+  export const purpleA100: string;
+  export const purpleA200: string;
+  export const purpleA400: string;
+  export const purpleA700: string;
 
-export const deepPurple50: string;
-export const deepPurple100: string;
-export const deepPurple200: string;
-export const deepPurple300: string;
-export const deepPurple400: string;
-export const deepPurple500: string;
-export const deepPurple600: string;
-export const deepPurple700: string;
-export const deepPurple800: string;
-export const deepPurple900: string;
-export const deepPurpleA100: string;
-export const deepPurpleA200: string;
-export const deepPurpleA400: string;
-export const deepPurpleA700: string;
+  export const deepPurple50: string;
+  export const deepPurple100: string;
+  export const deepPurple200: string;
+  export const deepPurple300: string;
+  export const deepPurple400: string;
+  export const deepPurple500: string;
+  export const deepPurple600: string;
+  export const deepPurple700: string;
+  export const deepPurple800: string;
+  export const deepPurple900: string;
+  export const deepPurpleA100: string;
+  export const deepPurpleA200: string;
+  export const deepPurpleA400: string;
+  export const deepPurpleA700: string;
 
-export const indigo50: string;
-export const indigo100: string;
-export const indigo200: string;
-export const indigo300: string;
-export const indigo400: string;
-export const indigo500: string;
-export const indigo600: string;
-export const indigo700: string;
-export const indigo800: string;
-export const indigo900: string;
-export const indigoA100: string;
-export const indigoA200: string;
-export const indigoA400: string;
-export const indigoA700: string;
+  export const indigo50: string;
+  export const indigo100: string;
+  export const indigo200: string;
+  export const indigo300: string;
+  export const indigo400: string;
+  export const indigo500: string;
+  export const indigo600: string;
+  export const indigo700: string;
+  export const indigo800: string;
+  export const indigo900: string;
+  export const indigoA100: string;
+  export const indigoA200: string;
+  export const indigoA400: string;
+  export const indigoA700: string;
 
-export const blue50: string;
-export const blue100: string;
-export const blue200: string;
-export const blue300: string;
-export const blue400: string;
-export const blue500: string;
-export const blue600: string;
-export const blue700: string;
-export const blue800: string;
-export const blue900: string;
-export const blueA100: string;
-export const blueA200: string;
-export const blueA400: string;
-export const blueA700: string;
+  export const blue50: string;
+  export const blue100: string;
+  export const blue200: string;
+  export const blue300: string;
+  export const blue400: string;
+  export const blue500: string;
+  export const blue600: string;
+  export const blue700: string;
+  export const blue800: string;
+  export const blue900: string;
+  export const blueA100: string;
+  export const blueA200: string;
+  export const blueA400: string;
+  export const blueA700: string;
 
-export const lightBlue50: string;
-export const lightBlue100: string;
-export const lightBlue200: string;
-export const lightBlue300: string;
-export const lightBlue400: string;
-export const lightBlue500: string;
-export const lightBlue600: string;
-export const lightBlue700: string;
-export const lightBlue800: string;
-export const lightBlue900: string;
-export const lightBlueA100: string;
-export const lightBlueA200: string;
-export const lightBlueA400: string;
-export const lightBlueA700: string;
+  export const lightBlue50: string;
+  export const lightBlue100: string;
+  export const lightBlue200: string;
+  export const lightBlue300: string;
+  export const lightBlue400: string;
+  export const lightBlue500: string;
+  export const lightBlue600: string;
+  export const lightBlue700: string;
+  export const lightBlue800: string;
+  export const lightBlue900: string;
+  export const lightBlueA100: string;
+  export const lightBlueA200: string;
+  export const lightBlueA400: string;
+  export const lightBlueA700: string;
 
-export const cyan50: string;
-export const cyan100: string;
-export const cyan200: string;
-export const cyan300: string;
-export const cyan400: string;
-export const cyan500: string;
-export const cyan600: string;
-export const cyan700: string;
-export const cyan800: string;
-export const cyan900: string;
-export const cyanA100: string;
-export const cyanA200: string;
-export const cyanA400: string;
-export const cyanA700: string;
+  export const cyan50: string;
+  export const cyan100: string;
+  export const cyan200: string;
+  export const cyan300: string;
+  export const cyan400: string;
+  export const cyan500: string;
+  export const cyan600: string;
+  export const cyan700: string;
+  export const cyan800: string;
+  export const cyan900: string;
+  export const cyanA100: string;
+  export const cyanA200: string;
+  export const cyanA400: string;
+  export const cyanA700: string;
 
-export const teal50: string;
-export const teal100: string;
-export const teal200: string;
-export const teal300: string;
-export const teal400: string;
-export const teal500: string;
-export const teal600: string;
-export const teal700: string;
-export const teal800: string;
-export const teal900: string;
-export const tealA100: string;
-export const tealA200: string;
-export const tealA400: string;
-export const tealA700: string;
+  export const teal50: string;
+  export const teal100: string;
+  export const teal200: string;
+  export const teal300: string;
+  export const teal400: string;
+  export const teal500: string;
+  export const teal600: string;
+  export const teal700: string;
+  export const teal800: string;
+  export const teal900: string;
+  export const tealA100: string;
+  export const tealA200: string;
+  export const tealA400: string;
+  export const tealA700: string;
 
-export const green50: string;
-export const green100: string;
-export const green200: string;
-export const green300: string;
-export const green400: string;
-export const green500: string;
-export const green600: string;
-export const green700: string;
-export const green800: string;
-export const green900: string;
-export const greenA100: string;
-export const greenA200: string;
-export const greenA400: string;
-export const greenA700: string;
+  export const green50: string;
+  export const green100: string;
+  export const green200: string;
+  export const green300: string;
+  export const green400: string;
+  export const green500: string;
+  export const green600: string;
+  export const green700: string;
+  export const green800: string;
+  export const green900: string;
+  export const greenA100: string;
+  export const greenA200: string;
+  export const greenA400: string;
+  export const greenA700: string;
 
-export const lightGreen50: string;
-export const lightGreen100: string;
-export const lightGreen200: string;
-export const lightGreen300: string;
-export const lightGreen400: string;
-export const lightGreen500: string;
-export const lightGreen600: string;
-export const lightGreen700: string;
-export const lightGreen800: string;
-export const lightGreen900: string;
-export const lightGreenA100: string;
-export const lightGreenA200: string;
-export const lightGreenA400: string;
-export const lightGreenA700: string;
+  export const lightGreen50: string;
+  export const lightGreen100: string;
+  export const lightGreen200: string;
+  export const lightGreen300: string;
+  export const lightGreen400: string;
+  export const lightGreen500: string;
+  export const lightGreen600: string;
+  export const lightGreen700: string;
+  export const lightGreen800: string;
+  export const lightGreen900: string;
+  export const lightGreenA100: string;
+  export const lightGreenA200: string;
+  export const lightGreenA400: string;
+  export const lightGreenA700: string;
 
-export const lime50: string;
-export const lime100: string;
-export const lime200: string;
-export const lime300: string;
-export const lime400: string;
-export const lime500: string;
-export const lime600: string;
-export const lime700: string;
-export const lime800: string;
-export const lime900: string;
-export const limeA100: string;
-export const limeA200: string;
-export const limeA400: string;
-export const limeA700: string;
+  export const lime50: string;
+  export const lime100: string;
+  export const lime200: string;
+  export const lime300: string;
+  export const lime400: string;
+  export const lime500: string;
+  export const lime600: string;
+  export const lime700: string;
+  export const lime800: string;
+  export const lime900: string;
+  export const limeA100: string;
+  export const limeA200: string;
+  export const limeA400: string;
+  export const limeA700: string;
 
-export const yellow50: string;
-export const yellow100: string;
-export const yellow200: string;
-export const yellow300: string;
-export const yellow400: string;
-export const yellow500: string;
-export const yellow600: string;
-export const yellow700: string;
-export const yellow800: string;
-export const yellow900: string;
-export const yellowA100: string;
-export const yellowA200: string;
-export const yellowA400: string;
-export const yellowA700: string;
+  export const yellow50: string;
+  export const yellow100: string;
+  export const yellow200: string;
+  export const yellow300: string;
+  export const yellow400: string;
+  export const yellow500: string;
+  export const yellow600: string;
+  export const yellow700: string;
+  export const yellow800: string;
+  export const yellow900: string;
+  export const yellowA100: string;
+  export const yellowA200: string;
+  export const yellowA400: string;
+  export const yellowA700: string;
 
-export const amber50: string;
-export const amber100: string;
-export const amber200: string;
-export const amber300: string;
-export const amber400: string;
-export const amber500: string;
-export const amber600: string;
-export const amber700: string;
-export const amber800: string;
-export const amber900: string;
-export const amberA100: string;
-export const amberA200: string;
-export const amberA400: string;
-export const amberA700: string;
+  export const amber50: string;
+  export const amber100: string;
+  export const amber200: string;
+  export const amber300: string;
+  export const amber400: string;
+  export const amber500: string;
+  export const amber600: string;
+  export const amber700: string;
+  export const amber800: string;
+  export const amber900: string;
+  export const amberA100: string;
+  export const amberA200: string;
+  export const amberA400: string;
+  export const amberA700: string;
 
-export const orange50: string;
-export const orange100: string;
-export const orange200: string;
-export const orange300: string;
-export const orange400: string;
-export const orange500: string;
-export const orange600: string;
-export const orange700: string;
-export const orange800: string;
-export const orange900: string;
-export const orangeA100: string;
-export const orangeA200: string;
-export const orangeA400: string;
-export const orangeA700: string;
+  export const orange50: string;
+  export const orange100: string;
+  export const orange200: string;
+  export const orange300: string;
+  export const orange400: string;
+  export const orange500: string;
+  export const orange600: string;
+  export const orange700: string;
+  export const orange800: string;
+  export const orange900: string;
+  export const orangeA100: string;
+  export const orangeA200: string;
+  export const orangeA400: string;
+  export const orangeA700: string;
 
-export const deepOrange50: string;
-export const deepOrange100: string;
-export const deepOrange200: string;
-export const deepOrange300: string;
-export const deepOrange400: string;
-export const deepOrange500: string;
-export const deepOrange600: string;
-export const deepOrange700: string;
-export const deepOrange800: string;
-export const deepOrange900: string;
-export const deepOrangeA100: string;
-export const deepOrangeA200: string;
-export const deepOrangeA400: string;
-export const deepOrangeA700: string;
+  export const deepOrange50: string;
+  export const deepOrange100: string;
+  export const deepOrange200: string;
+  export const deepOrange300: string;
+  export const deepOrange400: string;
+  export const deepOrange500: string;
+  export const deepOrange600: string;
+  export const deepOrange700: string;
+  export const deepOrange800: string;
+  export const deepOrange900: string;
+  export const deepOrangeA100: string;
+  export const deepOrangeA200: string;
+  export const deepOrangeA400: string;
+  export const deepOrangeA700: string;
 
-export const brown50: string;
-export const brown100: string;
-export const brown200: string;
-export const brown300: string;
-export const brown400: string;
-export const brown500: string;
-export const brown600: string;
-export const brown700: string;
-export const brown800: string;
-export const brown900: string;
+  export const brown50: string;
+  export const brown100: string;
+  export const brown200: string;
+  export const brown300: string;
+  export const brown400: string;
+  export const brown500: string;
+  export const brown600: string;
+  export const brown700: string;
+  export const brown800: string;
+  export const brown900: string;
 
-export const blueGrey50: string;
-export const blueGrey100: string;
-export const blueGrey200: string;
-export const blueGrey300: string;
-export const blueGrey400: string;
-export const blueGrey500: string;
-export const blueGrey600: string;
-export const blueGrey700: string;
-export const blueGrey800: string;
-export const blueGrey900: string;
+  export const blueGrey50: string;
+  export const blueGrey100: string;
+  export const blueGrey200: string;
+  export const blueGrey300: string;
+  export const blueGrey400: string;
+  export const blueGrey500: string;
+  export const blueGrey600: string;
+  export const blueGrey700: string;
+  export const blueGrey800: string;
+  export const blueGrey900: string;
 
-export const grey50: string;
-export const grey100: string;
-export const grey200: string;
-export const grey300: string;
-export const grey400: string;
-export const grey500: string;
-export const grey600: string;
-export const grey700: string;
-export const grey800: string;
-export const grey900: string;
+  export const grey50: string;
+  export const grey100: string;
+  export const grey200: string;
+  export const grey300: string;
+  export const grey400: string;
+  export const grey500: string;
+  export const grey600: string;
+  export const grey700: string;
+  export const grey800: string;
+  export const grey900: string;
 
-export const black: string;
-export const white: string;
+  export const black: string;
+  export const white: string;
 
-export const transparent: string;
-export const fullBlack: string;
-export const darkBlack: string;
-export const lightBlack: string;
-export const minBlack: string;
-export const faintBlack: string;
-export const fullWhite: string;
-export const darkWhite: string;
-export const lightWhite: string;
+  export const transparent: string;
+  export const fullBlack: string;
+  export const darkBlack: string;
+  export const lightBlack: string;
+  export const minBlack: string;
+  export const faintBlack: string;
+  export const fullWhite: string;
+  export const darkWhite: string;
+  export const lightWhite: string;
 }
 
 declare module 'material-ui/Table' {
@@ -7185,15 +7210,25 @@ declare module 'material-ui/utils/colorManipulator' {
     export import darken = __MaterialUI.Utils.ColorManipulator.darken;
     export import lighten = __MaterialUI.Utils.ColorManipulator.lighten;
 }
-
 declare module 'material-ui/utils/dom' {
     export import Dom = __MaterialUI.Utils.Dom;
     export default Dom;
 }
-
 declare module 'material-ui/utils/events' {
     export import Events = __MaterialUI.Utils.Events;
     export default Events;
+}
+declare module 'material-ui/utils/withWidth' {
+  export const SMALL: number;
+  export const MEDIUM: number;
+  export const LARGE: number;
+
+  interface Options {
+      largeWidth?: number;
+      mediumWidth?: number;
+      resizeInterval?: number;
+  }
+  export default function withWidth(options?: Options): __React.ComponentClass<any>
 }
 
 declare namespace __MaterialUI.Styles {
@@ -8410,4 +8445,181 @@ declare module "material-ui/svg-icons" {
     export import ToggleStar = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star');
     export import ToggleStarBorder = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-border');
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-half');
+}
+
+
+declare module 'material-ui/internal/AppCanvas' {
+  interface AppCanvasProps extends __React.Props<AppCanvas> { }
+  class AppCanvas extends __React.Component<AppCanvasProps, {}> { }
+  export default AppCanvas;
+}
+declare module 'material-ui/internal/AutoLockScrolling' {
+  interface AutoLockScrollingProps extends __React.Props<AutoLockScrolling> {
+    lock: boolean;
+  }
+  class AutoLockScrolling extends __React.Component<AutoLockScrollingProps, {}> { }
+  export default AutoLockScrolling;
+}
+declare module 'material-ui/internal/BeforeAfterWrapper' {
+  interface BeforeAfterWrapperProps extends __React.Props<BeforeAfterWrapper> {
+    afterElementType?: string,
+    afterStyle?: __React.CSSProperties,
+    beforeElementType?: string,
+    beforeStyle?: __React.CSSProperties,
+    elementType?: string,
+    style?: __React.CSSProperties,
+  }
+  class BeforeAfterWrapper extends __React.Component<BeforeAfterWrapperProps, {}> { }
+  export default BeforeAfterWrapper;
+}
+declare module 'material-ui/internal/CircleRipple' {
+  interface CircleRippleProps extends __React.Props<CircleRipple> {
+    aborted?: boolean;
+    color?: string;
+    opacity?: number;
+    style?: __React.CSSProperties;
+  }
+  class CircleRipple extends __React.Component<CircleRippleProps, {}> { }
+  export default CircleRipple;
+}
+declare module 'material-ui/internal/ClearFix' {
+  interface ClearFixProps extends __React.Props<ClearFix> {
+    style?: __React.CSSProperties;
+  }
+  class ClearFix extends __React.Component<ClearFixProps, {}> { }
+  export default ClearFix;
+}
+declare module 'material-ui/internal/ClickAwayListener' {
+  interface ClickAwayListenerProps extends __React.Props<ClickAwayListener> {
+    onClickAway?: any,
+  }
+  class ClickAwayListener extends __React.Component<ClickAwayListenerProps, {}> { }
+  export default ClickAwayListener;
+}
+declare module 'material-ui/internal/EnhancedButton' {
+  interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {}
+  class EnhancedButton extends __React.Component<EnhancedButtonProps, {}> {}
+  export default EnhancedButton;
+}
+declare module 'material-ui/internal/EnhancedSwitch' {
+  interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {}
+  class EnhancedSwitch extends __React.Component<EnhancedSwitchProps, {}> {}
+  export default EnhancedSwitch;
+}
+declare module 'material-ui/internal/ExpandTransition' {
+  interface ExpandTransitionProps extends __React.Props<ExpandTransition> {
+    enterDelay?: number;
+    loading?: boolean;
+    open?: boolean;
+    style?: __React.CSSProperties;
+    transitionDelay?: number;
+    transitionDuration?: number;
+  }
+  class ExpandTransition extends __React.Component<ExpandTransitionProps, {}> { }
+  export default ExpandTransition;
+}
+declare module 'material-ui/internal/ExpandTransitionChild' {
+  interface ExpandTransitionChildProps extends __React.Props<ExpandTransitionChild> {
+    enterDelay?: number;
+    style?: __React.CSSProperties;
+    transitionDelay?: number;
+    transitionDuration?: number;
+  }
+  class ExpandTransitionChild extends __React.Component<ExpandTransitionChildProps, {}> { }
+  export default ExpandTransitionChild;
+}
+declare module 'material-ui/internal/FocusRipple' {
+  interface FocusRippleProps extends __React.Props<FocusRipple> {
+    color?: string,
+    innerStyle?: __React.CSSProperties,
+    opacity?: number,
+    show?: boolean,
+    style?: __React.CSSProperties
+  }
+  class FocusRipple extends __React.Component<FocusRippleProps, {}> { }
+  export default FocusRipple;
+}
+declare module 'material-ui/internal/Overlay' {
+  interface OverlayProps extends __React.Props<Overlay> {
+    autoLockScrolling?: boolean;
+    show: boolean;
+    style?: __React.CSSProperties;
+    transitionEnabled?: boolean;
+  }
+  class Overlay extends __React.Component<OverlayProps, {}> { }
+  export default Overlay;
+}
+declare module 'material-ui/internal/RenderToLayer' {
+  interface RenderToLayerProps extends __React.Props<RenderToLayer> {
+    componentClickAway?: Function;
+    open: boolean;
+    render: Function;
+    useLayerForClickAway?: boolean;
+  }
+  class RenderToLayer extends __React.Component<RenderToLayerProps, {}> { }
+  export default RenderToLayer;
+}
+declare module 'material-ui/internal/ScaleIn' {
+  interface ScaleInProps extends __React.Props<ScaleIn> {
+    childStyle?: __React.CSSProperties;
+    enterDelay?: number;
+    maxScale?: number;
+    minScale?: number;
+  }
+  class ScaleIn extends __React.Component<ScaleInProps, {}> { }
+  export default ScaleIn;
+}
+declare module 'material-ui/internal/ScaleInChild' {
+  interface ScaleInChildProps extends __React.Props<ScaleInChild> {
+    enterDelay?: number;
+    maxScale?: number;
+    minScale?: number;
+    style?: __React.CSSProperties;
+  }
+  class ScaleInChild extends __React.Component<ScaleInChildProps, {}> { }
+  export default ScaleInChild;
+}
+declare module 'material-ui/internal/SlideIn' {
+  interface SlideInProps extends __React.Props<SlideIn> {
+    childStyle?: __React.CSSProperties;
+    direction?: __MaterialUI.propTypes.direction;
+    enterDelay?: number;
+    style?: __React.CSSProperties;
+  }
+  class SlideIn extends __React.Component<SlideInProps, {}> { }
+  export default SlideIn;
+}
+declare module 'material-ui/internal/SlideInChild' {
+  interface SlideInChildProps extends __React.Props<SlideInChild> {
+    direction?: string,
+    enterDelay?: number;
+    getLeaveDirection: Function;
+    style?: __React.CSSProperties;
+  }
+  class SlideInChild extends __React.Component<SlideInChildProps, {}> { }
+  export default SlideInChild;
+}
+declare module 'material-ui/internal/Tooltip' {
+  interface TooltipProps extends __React.Props<Tooltip> {
+    className?: string;
+    horizontalPosition?: __MaterialUI.propTypes.horizontal;
+    label: any;
+    show?: boolean;
+    style?: __React.CSSProperties;
+    touch?: boolean;
+    verticalPosition?: __MaterialUI.propTypes.vertical;
+  }
+  class Tooltip extends __React.Component<TooltipProps, {}> { }
+  export default Tooltip;
+}
+declare module 'material-ui/internal/TouchRipple' {
+  interface TouchRippleProps extends __React.Props<TouchRipple> {
+    abortOnScroll?: boolean,
+    centerRipple?: boolean;
+    color?: string;
+    opacity?: number;
+    style?: __React.CSSProperties
+  }
+  class TouchRipple extends __React.Component<TouchRippleProps, {}> { }
+  export default TouchRipple;
 }

@@ -4,7 +4,50 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace olx {
+    interface StaticImageOptions {
 
+        /** Attributions */
+        attributions?: Array<ol.Attribution>
+        
+        /*** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string
+
+        /*** Extent of the image in map coordinates. This is the [left, bottom, right, top] map coordinates of your image.*/
+        imageExtent: ol.Extent;
+
+        /*** Size of the image in pixels.*/
+        imageSize?: ol.Size;
+
+        /*** experimental Optional function to load an image given a URL.*/
+        imageLoadFunction?: ol.TileLoadFunctionType;
+
+        /*** Optional logo.*/
+        logo?: olx.LogoOptions;
+
+        /*** experimental Projection.*/
+        projection: ol.proj.Projection;
+
+        /*** Image URL.*/
+        url: string;
+    }
+
+    interface ZoomToExtentOptions {
+        /*** Class name. Default is ol-zoom-extent.*/
+        className?: string;
+
+        /*** Target.*/
+        target?: Element;
+
+        /*** Text label to use for the button. Default is E. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+
+        /*** Text label to use for the button tip. Default is Zoom to extent.*/
+        tipLabel?: string;
+
+        /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
+        extent: ol.Extent;
+    }
+    
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -552,12 +595,12 @@ declare namespace olx {
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer>;
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
-            features?: ol.Collection<ol.Feature>
+            features?: ol.Collection<ol.Feature>;
             filter?: ol.interaction.SelectFilterFunction;
             wrapX?: boolean;
         }
@@ -2376,6 +2419,7 @@ declare namespace ol {
         }
 
         class ZoomToExtent {
+        	constructor(options?: olx.ZoomToExtentOptions);
         }
     }
 
@@ -4085,76 +4129,118 @@ declare namespace ol {
 
     namespace source {
 
-        class BingMaps {
+        class BingMaps extends TileImage {
         }
 
-        class Cluster {
+        class CartoDB extends XYZ {
         }
 
-        class Image {
+        class Cluster extends Vector {
         }
 
-        class ImageCanvas {
+        class Image extends Source {
+        }
+
+        class ImageArcGISRest extends Image {
+        }
+
+        class ImageCanvas extends Image {
         }
 
         class ImageEvent {
         }
 
-        class ImageMapGuide {
+        class ImageMapGuide extends Image {
         }
 
-        class ImageStatic {
+        class ImageStatic extends ol.source.Image {
+        	constructor(options?: olx.StaticImageOptions);
         }
 
-        class ImageVector {
+        class ImageVector extends ImageCanvas {
         }
 
-        class ImageWMS {
+        class ImageWMS extends Image {
             constructor(options: olx.ImageWMSOptions);
         }
 
-        class MapQuest {
+        class MapQuest extends XYZ {
             constructor(options: any);
         }
 
-        class OSM {
+        class OSM extends XYZ {
         }
 
-        class Source {
+        class Source extends ol.Object {
+            /**
+             * Get the projection of the source.
+             * @return Projection.
+             */
+            getProjection(): ol.proj.Projection;
+
+            /**
+             * Refreshes the source and finally dispatches a 'change' event.
+             */
+            refresh(): void;
         }
 
-        class Stamen {
+        class Stamen extends XYZ {
         }
 
-        class Tile {
+        class Tile extends Source {
         }
 
-        class TileArcGISRest {
+        class TileArcGISRest extends TileImage {
         }
 
-        class TileDebug {
+        class TileDebug extends Tile {
         }
 
         class TileEvent {
         }
 
-        class TileImage {
+        class TileImage extends UrlTile {
         }
 
-        class TileJSON {
+        class TileJSON extends TileImage {
         }
 
-        class TileUTFGrid {
+        class TileUTFGrid extends Tile {
         }
 
-        class TileVector {
-        }
-
-        class TileWMS {
+        class TileWMS extends TileImage {
             constructor(options: olx.TileWMSOptions);
+
+            /**
+             * Update the user-provided (WMS request) parameters.
+             */
+            updateParams(params: any): void;
+
+            /**
+             * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
+             */
+            getParams(): any;
+
+            /**
+             * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+             * projection. Return `undefined` if the GetFeatureInfo URL cannot be
+             * constructed.
+             * @param coordinate Coordinate.
+             * @param resolution Resolution.
+             * @param rojection Projection.
+             * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
+             *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
+             *     in the `LAYERS` parameter will be used. `VERSION` should not be
+             *     specified here.
+             * @return GetFeatureInfo URL.
+             */
+            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.proj.ProjectionLike, params: {}): string;
         }
 
-        class Vector {
+        class UrlTile extends Tile {
+        }
+
+        class Vector extends Source {
             constructor(opts?: olx.source.VectorOptions)
             /**
              * Add a single feature to the source. If you want to add a batch of features at once,
@@ -4198,14 +4284,17 @@ declare namespace ol {
         class VectorEvent {
         }
 
-        class WMTS {
+        class VectorTile extends UrlTile {
+        }
+
+        class WMTS extends TileImage {
             constructor(options: olx.source.WMTSOptions);
         }
 
-        class XYZ {
+        class XYZ extends TileImage {
         }
 
-        class Zoomify {
+        class Zoomify extends TileImage {
         }
 
         // Namespaces

@@ -8,8 +8,31 @@
 
 import * as serialport from 'serialport';
 
-this.port = new serialport.SerialPort("", {
-    baudrate: 0,
-    disconnectedCallback: function () { },
-    parser: serialport.parsers.readline("\n")
-});
+function test_basic_connect() {
+    let port = new serialport.SerialPort("");
+}
+
+function test_connect_config() {
+    let port = new serialport.SerialPort("", {
+        baudrate: 0,
+        disconnectedCallback: function () { },
+        parser: serialport.parsers.readline("\n")
+    });
+}
+
+function test_write() {
+    let port = new serialport.SerialPort("");
+    port.write('main screen turn on', (err, bytesWritten) => {
+    });
+}
+
+function test_events() {
+    let port = new serialport.SerialPort("");
+    port.on('open', function () { });
+}
+
+function test_list_ports() {
+    serialport.list( (err:string, ports:serialport.portConfig[]) => {
+
+    });
+}

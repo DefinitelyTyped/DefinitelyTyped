@@ -15,8 +15,22 @@ declare namespace mathjs {
 
 		e: number;
 		pi: number;
-		uninitialized: any;
+		i: number;
+		Infinity: number;
+		LN2: number;
+		LN10: number;
+		LOG2E: number;
+		LOG10E: number;
+		NaN: number;
+		null: number;
+		phi: number;
+		SQRT1_2: number;
+		SQRT2: number;
+		tau: number;
 
+		uninitialized: any;
+		version: string;
+		
 		config(options: any): void;
 
                 expression: MathNode;

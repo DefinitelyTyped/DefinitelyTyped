@@ -322,6 +322,14 @@ app.on('login', function(event, webContents, request, authInfo, callback) {
 	callback('username', 'secret');
 });
 
+var win = new BrowserWindow({show: false})
+win.once('ready-to-show', () => {
+	win.show();
+});
+
+app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
+app.exit(0);
+
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
@@ -350,6 +358,8 @@ win.show();
 
 var toolbarRect = document.getElementById('toolbar').getBoundingClientRect();
 win.setSheetOffset(toolbarRect.height);
+
+var installed = BrowserWindow.getDevToolsExtensions().hasOwnProperty('devtron');
 
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
@@ -725,6 +735,8 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+let image2 = nativeImage.createFromPath('/Users/somebody/images/icon.png');
+
 // process
 // https://github.com/electron/electron/blob/master/docs/api/process.md
 
@@ -825,15 +837,23 @@ session.defaultSession.on('will-download', (event, item, webContents) => {
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
 
-	item.on('updated', function() {
-		console.log('Received bytes: ' + item.getReceivedBytes());
+	item.on('updated', (event, state) => {
+		if (state === 'interrupted') {
+			console.log('Download is interrupted but can be resumed');
+		} else if (state === 'progressing') {
+			if (item.isPaused()) {
+				console.log('Download is paused');
+			} else {
+				console.log(`Received bytes: ${item.getReceivedBytes()}`);
+			}
+		}
 	});
 
 	item.on('done', function(e, state) {
 		if (state == "completed") {
 			console.log("Download successfully");
 		} else {
-			console.log("Download is cancelled or interrupted that can't be resumed");
+			console.log(`Download failed: ${state}`)
 		}
 	});
 });
@@ -880,4 +900,16 @@ var filter = {
 session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, callback) {
 	details.requestHeaders['User-Agent'] = "MyAgent";
 	callback({cancel: false, requestHeaders: details.requestHeaders});
+});
+
+app.on('ready', function () {
+	const protocol = session.defaultSession.protocol
+	protocol.registerFileProtocol('atom', function (request, callback) {
+		var url = request.url.substr(7);
+		callback({path: path.normalize(__dirname + '/' + url)});
+	}, function (error) {
+		if (error) {
+			console.error('Failed to register protocol');
+		}
+	})
 });
