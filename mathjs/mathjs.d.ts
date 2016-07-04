@@ -1333,10 +1333,15 @@ declare namespace mathjs {
 
 	export interface MathNode {
                 isNode: boolean;
-                isSymbolNode: boolean;
+                isSymbolNode?: boolean;
+                isConstantNode?: boolean;
+                isOperatorNode?: boolean;
+                op?: string;
+                fn?: string;
+                args?: MathNode[];
                 type: string;
-                name: string;
-                value: any;
+                name?: string;
+                value?: any;
 
                 compile(): EvalFunction;
                 eval(): any;
