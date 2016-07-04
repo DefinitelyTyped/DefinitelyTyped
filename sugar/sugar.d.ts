@@ -4128,7 +4128,7 @@ interface DateConstructor {
 	/**
 	* @see create
 	* @param timestamp 	
-	create(timestamp:number): Date;
+	create(timestamp?: number): Date;
 
 	/**
 	* @see create
