@@ -511,7 +511,6 @@ declare namespace kendo.data {
     }
 
     module binders { }
-    export var binders;
 
     interface Bindings {
         [key: string]: Binding;
