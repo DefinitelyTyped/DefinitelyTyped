@@ -10,7 +10,7 @@ declare namespace THREE {
         constructor(object: Camera, domElement?: HTMLElement);
 
         object: Camera;
-        domElement: HTMLElement;
+        domElement: HTMLElement | HTMLDocument;
 
         // API
         enabled: boolean;
