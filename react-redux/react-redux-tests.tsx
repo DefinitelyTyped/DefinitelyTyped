@@ -58,6 +58,31 @@ class CounterContainer extends Component<any, any> {
 
 }
 
+interface TSP {
+    value: number
+}
+
+function mstp (state: CounterState, own: TOP): TSP {
+    return {
+        value: 0
+    }
+}
+
+interface TDP {
+    fun: () => any
+}
+
+type TOP = TSP & TDP
+
+function mdtp (dispatch: Dispatch<CounterState>): TDP {
+    return {
+        fun: () => {}
+    }
+}
+
+@connect(mstp, mdtp)
+class CounterContainer2 extends Component<TOP, {}> {}
+
 class App extends Component<any, any> {
     render(): JSX.Element {
         // ...
