@@ -192,7 +192,7 @@ declare module "knex" {
       orOn(column1: string, raw: Raw): JoinClause;
       orOn(column1: string, operator: string, column2: string): JoinClause;
       using(column: string|string[]|Raw|{[key: string]: string|Raw}): JoinClause;
-			type(type: string): JoinClause;
+      type(type: string): JoinClause;
     }
 
     interface JoinRaw {
