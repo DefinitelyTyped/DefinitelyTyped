@@ -179,6 +179,20 @@ declare module "knex" {
       on(column1: string, column2: string): JoinClause;
       on(column1: string, raw: Raw): JoinClause;
       on(column1: string, operator: string, column2: string): JoinClause;
+      andOn(raw: Raw): JoinClause;
+      andOn(callback: Function): JoinClause;
+      andOn(columns: {[key: string]: string|Raw}): JoinClause;
+      andOn(column1: string, column2: string): JoinClause;
+      andOn(column1: string, raw: Raw): JoinClause;
+      andOn(column1: string, operator: string, column2: string): JoinClause;
+      orOn(raw: Raw): JoinClause;
+      orOn(callback: Function): JoinClause;
+      orOn(columns: {[key: string]: string|Raw}): JoinClause;
+      orOn(column1: string, column2: string): JoinClause;
+      orOn(column1: string, raw: Raw): JoinClause;
+      orOn(column1: string, operator: string, column2: string): JoinClause;
+      using(column: string|string[]|Raw|{[key: string]: string|Raw}): JoinClause;
+			type(type: string): JoinClause;
     }
 
     interface JoinRaw {
