@@ -71,8 +71,8 @@ interface HammerStatic
 type RecognizerTuple =
   [RecognizerStatic]
   | [RecognizerStatic, RecognizerOptions]
-  | [RecognizerStatic, RecognizerOptions, string[]]
-  | [RecognizerStatic, RecognizerOptions, string[], (Recognizer) => Recognizer];
+  | [RecognizerStatic, RecognizerOptions, string | string[]]
+  | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | (string | Recognizer)[]];
 
 interface HammerDefaults extends HammerOptions
 {
