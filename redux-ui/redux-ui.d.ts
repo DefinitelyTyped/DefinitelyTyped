@@ -32,7 +32,7 @@ declare module "redux-ui" {
     
     // A function accepting either a name/value pair or object which updates
     // state within `uiKey`
-    updateUI(key: string | UIStateShape, value: any): void
+    updateUI(key: string | UIStateShape, value?: any): void
     
     // A function which resets the state within `uiKey` to its default
     resetUI(): void
