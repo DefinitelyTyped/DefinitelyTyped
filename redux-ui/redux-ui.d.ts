@@ -1,6 +1,4 @@
 declare module "redux-ui" {
-  import * as ReactRedux from 'react-redux'
-  
   export interface uiParams {
     // optional key which is used to determine the UI path in which state will
     // be stored. if omitted this is randomly generated.
@@ -18,7 +16,10 @@ declare module "redux-ui" {
     mergeProps?: (stateProps: any, dispatchProps: any, ownProps: any) => any
     
     // optional `options` passed to react-redux @connect
-    options?: ReactRedux.ProviderProps
+    options?: {
+      pure?: boolean;
+      withRef?: boolean;
+    }
   }
   
   export default function ui(params: uiParams): <T>(component: T) => T
