@@ -23,9 +23,18 @@ declare module "redux-ui" {
   }
   
   export interface ReduxUIProps<UIStateShape> {
+    // The key passed to the decorator from the decorator
+    // (eg. 'some-decorator' with `@ui('some-decorator')`
     uiKey: string
+    
+    // The UI state for the component's `uiKey`
     ui: UIStateShape
+    
+    // A function accepting either a name/value pair or object which updates
+    // state within `uiKey`
     updateUI(key: string | UIStateShape, value: any): void
+    
+    // A function which resets the state within `uiKey` to its default
     resetUI(): void
   }
   
