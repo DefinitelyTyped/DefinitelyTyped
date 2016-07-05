@@ -1,10 +1,12 @@
 // Type definitions for Masonry 4.0.0 
 // Project: https://github.com/desandro/masonry 
-// Original definitions by: Travis Brown <https://github.com/warriorrocker>
 // Revised definitions by: Mark Wilson <https://github.com/m-a-wilson>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped 
 
 /// <reference path="../jquery/jquery.d.ts" /> 
+
+// Modified from original defintions by:
+// Travis Brown <https://github.com/warriorrocker>
 
 declare class Masonry implements MasonryGrid { 
     constructor(options?: MasonryOptions); 
