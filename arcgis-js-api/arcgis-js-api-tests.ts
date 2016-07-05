@@ -1,25 +1,20 @@
 /// <reference path="arcgis-js-api.d.ts" />
 
-import esri = require("esri");
-import Map = require("esri/map");
-import Point = require("esri/geometry/Point");
+import Map = require("esri/Map");
+import MapView = require("esri/views/MapView");
 
-export = MapController;
-
-class MapController {
-  map: Map;
-
-  constructor(public mapDiv: string) {
-  }
-
-  start() {
-    var point = new Point(-122.45, 37.75); // long, lat
-
-    var mapOptions: esri.MapOptions = {};
-    mapOptions.basemap = "topo";
-    mapOptions.center = point;
-    mapOptions.zoom = 13;
-
-    this.map = new Map(this.mapDiv, mapOptions);
-  }
+export default class MapController {
+    map: Map;
+    mapView: MapView;
+    
+    start() {
+        // Create a Map instance
+        this.map = new Map({
+            basemap: 'streets'
+        });
+        // Create a MapView instance (for 2D viewing) and reference the map instance
+        this.mapView = new MapView({
+            map: this.map
+        });
+    }
 }
