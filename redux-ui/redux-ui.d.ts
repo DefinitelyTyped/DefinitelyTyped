@@ -22,5 +22,12 @@ declare module "redux-ui" {
     }
   }
   
+  export interface ReduxUIProps {
+    uiKey: string
+    ui: any
+    updateUI(key: string, value: any): void
+    resetUI(): void
+  }
+  
   export default function ui(params: uiParams): <T>(component: T) => T
 }
