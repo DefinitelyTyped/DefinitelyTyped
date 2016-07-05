@@ -5,8 +5,8 @@ declare module "redux-ui" {
     key?: string
     
     // optional persist, defaults to false. if set to true persist will keep UI
-    // state for this component after it unmounts. if set to false the UI state will
-    // be deleted and recreated when the component remounts
+    // state for this component after it unmounts. if set to false the UI state
+    // will be deleted and recreated when the component remounts
     persist?: boolean
     
     // **required**: UI state for the component
