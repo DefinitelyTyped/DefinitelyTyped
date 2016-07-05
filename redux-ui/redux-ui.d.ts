@@ -15,10 +15,10 @@ declare module "redux-ui" {
     state: any
     
     // optional mergeProps passed to react-redux' @connect
-    mergeProps?: ReactRedux.MergeProps
+    mergeProps?: (stateProps: any, dispatchProps: any, ownProps: any) => any
     
     // optional `options` passed to react-redux @connect
-    options?: ReactRedux.Options
+    options?: ReactRedux.ProviderProps
   }
   
   export default function ui(params: uiParams): <T>(component: T) => T
