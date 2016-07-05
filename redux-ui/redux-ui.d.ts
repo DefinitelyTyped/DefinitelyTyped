@@ -38,5 +38,5 @@ declare module "redux-ui" {
     resetUI(): void
   }
   
-  export default function ui(params: uiParams): <T>(component: T) => T
+  export default function ui<UIStateShape>(params: uiParams<UIStateShape>): <T>(component: T) => T
 }
