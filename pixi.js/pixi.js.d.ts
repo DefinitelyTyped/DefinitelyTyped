@@ -90,7 +90,7 @@ declare namespace PIXI {
         removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
         removeAllListeners(event: string): EventEmitter;
 
-        off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
+        off(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
         addListener(event: string, fn: Function, context?: any): EventEmitter;
 
     }
