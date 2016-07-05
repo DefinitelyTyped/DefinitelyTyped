@@ -1,5 +1,5 @@
 declare module "redux-ui" {
-  export interface uiParams {
+  export interface uiParams<UIStateShape> {
     // optional key which is used to determine the UI path in which state will
     // be stored. if omitted this is randomly generated.
     key?: string
@@ -10,7 +10,7 @@ declare module "redux-ui" {
     persist?: boolean
     
     // **required**: UI state for the component
-    state: any
+    state: UIStateShape
     
     // optional mergeProps passed to react-redux' @connect
     mergeProps?: (stateProps: any, dispatchProps: any, ownProps: any) => any
@@ -22,10 +22,10 @@ declare module "redux-ui" {
     }
   }
   
-  export interface ReduxUIProps {
+  export interface ReduxUIProps<UIStateShape> {
     uiKey: string
-    ui: any
-    updateUI(key: string, value: any): void
+    ui: UIStateShape
+    updateUI(key: string | UIStateShape, value: any): void
     resetUI(): void
   }
   
