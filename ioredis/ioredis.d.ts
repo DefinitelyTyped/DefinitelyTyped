@@ -230,8 +230,12 @@ declare module IORedis {
         renamenx(...args: any[]): any;
         expire(args: any[], callback?: ResCallbackT<any>): any;
         expire(...args: any[]): any;
+        pexpire(args: any[], callback?: ResCallbackT<any>): any;
+        pexpire(...args: any[]): any;
         expireat(args: any[], callback?: ResCallbackT<any>): any;
         expireat(...args: any[]): any;
+        pexpireat(args: any[], callback?: ResCallbackT<any>): any;
+        pexpireat(...args: any[]): any;
         keys(args: any[], callback?: ResCallbackT<any>): any;
         keys(...args: any[]): any;
         dbsize(args: any[], callback?: ResCallbackT<any>): any;
@@ -507,8 +511,12 @@ declare module IORedis {
         renamenx(...args: any[]): Pipeline;
         expire(args: any[], callback?: ResCallbackT<any>): Pipeline;
         expire(...args: any[]): Pipeline;
+        pexpire(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        pexpire(...args: any[]): Pipeline;
         expireat(args: any[], callback?: ResCallbackT<any>): Pipeline;
         expireat(...args: any[]): Pipeline;
+        pexpireat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        pexpireat(...args: any[]): Pipeline;
         keys(args: any[], callback?: ResCallbackT<any>): Pipeline;
         keys(...args: any[]): Pipeline;
         dbsize(args: any[], callback?: ResCallbackT<any>): Pipeline;
