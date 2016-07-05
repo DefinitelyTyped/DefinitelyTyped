@@ -4,19 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "route-recognizer" {
-	
-	class RouteRecognizer<H> {
+
+	export default class RouteRecognizer<H> {
 		constructor()
 		add: (routes: Route<H>[]) => void
 		recognize: (path: string) => MatchedRoute<H>[]
 	}
-	
+
 	interface Route<H> {
 		path: string
 		handler: H
 	}
-	
-	export = RouteRecognizer
+
 }
 
 interface MatchedRoute<H> {
