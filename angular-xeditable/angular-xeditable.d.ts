@@ -59,12 +59,12 @@ declare namespace angular.xeditable {
         /**
          * Shows form with editable controls.
          */
-        $show();
+        $show(): void;
 
         /**
          * Hides form with editable controls without saving.
          */
-        $hide();
+        $hide(): void;
 
         /**
          * Sets focus on form field specified by `name`.<br/>
@@ -72,14 +72,14 @@ declare namespace angular.xeditable {
          * 
          * @param name name of field
          */
-        $activate(name: string);
+        $activate(name: string): void;
 
         /**
          * Triggers `oncancel` event and calls `$hide()`.
          */
-        $cancel();
+        $cancel(): void;
 
-        $setWaiting(value: boolean);
+        $setWaiting(value: boolean): void;
 
         /**
          * Shows error message for particular field.
@@ -87,11 +87,11 @@ declare namespace angular.xeditable {
          * @param name name of field
          * @param msg error message
          */
-        $setError(name: string, msg: string);
+        $setError(name: string, msg: string): void;
 
-        $submit();
+        $submit(): void;
 
-        $save();
+        $save(): void;
 
     }
     
