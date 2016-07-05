@@ -112,7 +112,7 @@ declare module 'radium' {
     }
     // @Radium decorator
     function Radium<TElement extends Function>(component: TElement): TElement;
-    function Radium<TElement extends Function>(config: Radium.RadiumConfig): (component?: TElement) => TElement;
+    function Radium(config: Radium.RadiumConfig): (component?: any) => any;
 
     export = Radium;
 }
