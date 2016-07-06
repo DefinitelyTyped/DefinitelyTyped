@@ -530,6 +530,7 @@ declare module "avoscloud-sdk" {
 
         constructor(objectClass: any);
 
+        static and(...var_args: Query[]): Query;
         static or(...var_args: Query[]): Query;
 
         addAscending(key: string): Query;
