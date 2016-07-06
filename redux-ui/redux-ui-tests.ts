@@ -2,7 +2,7 @@
 /// <reference path="../react/react.d.ts"/>
 
 import * as React from 'react'
-import ui, { ReduxUIProps } from 'redux-ui'
+import ui, { ReduxUIProps, reducer } from 'redux-ui'
 
 type UIShape = {
   s: string
@@ -18,7 +18,7 @@ type UIShape = {
   options: {}
 })
 class Root extends React.Component<ReduxUIProps<UIShape>, {}> {
-  render() {
+  componentWillMount() {
     console.info(
       this.props.ui.s,
       this.props.uiKey
@@ -26,6 +26,10 @@ class Root extends React.Component<ReduxUIProps<UIShape>, {}> {
     this.props.updateUI('s', 'a')
     this.props.updateUI({s: 'a'})
     this.props.resetUI()
-    return null
   }
 }
+
+Redux.combineReducers({
+  ui: reducer,
+})
+
