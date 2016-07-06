@@ -11,7 +11,7 @@ declare module "fetch-mock" {
      * @param url
      * @param opts
      */
-    type MockMatcherFunction = (url: string, opts: Object) => boolean;
+    type MockMatcherFunction = (url: string, opts: any) => boolean;
     /**
      * Mock matcher. Can be one of following:
      * string: Either an exact url to match e.g. 'http://www.site.com/page.html' or, if the string begins with a ^, the string following the ^ must begin the url
@@ -26,7 +26,7 @@ declare module "fetch-mock" {
      * @param url
      * @param opts
      */
-    type MockResponseFunction = (url: string, opts: Object) => MockResponse;
+    type MockResponseFunction = (url: string, opts: any) => MockResponse;
     /**
      * number: Creates a response with this status
      * string: Creates a 200 response with the string as the response body
