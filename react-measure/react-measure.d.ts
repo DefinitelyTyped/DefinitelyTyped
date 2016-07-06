@@ -1,4 +1,3 @@
-
 // Type definitions for react-measure 0.4.0
 // Project: https://github.com/souporserious/react-measure
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
