@@ -33,7 +33,7 @@ declare module "fetch-mock" {
      * object: As long as the object does not contain any of the properties below it is converted into a json string and returned as the body of a 200 response.
      * If MockResponseObject was given then it's used to configure response
      */
-    type MockResponse = number | string | Object | MockResponseObject;
+    type MockResponse = number | string | MockResponseObject | {};
 
 
     /**
@@ -43,7 +43,7 @@ declare module "fetch-mock" {
         /**
          * Set the response body
          */
-        body?: string | Object;
+        body?: string | {};
         /**
          * Set the response status
          * @default 200
