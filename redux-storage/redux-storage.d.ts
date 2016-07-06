@@ -52,7 +52,7 @@ declare module "redux-storage" {
      * Loader interface
      */
     interface Loader<TState> {
-        (store: Store<TState>): PromiseLike<any>
+        (store: Store<TState>): PromiseLike<any>;
     }
 
     /**
@@ -66,9 +66,6 @@ declare module "redux-storage" {
 declare module "redux-storage-decorator-filter" {
     import { StorageEngine } from "redux-storage";
 
-    /**
-
-     */
     interface WhitelistArg {
         [key: number]: string | string[];
     }
