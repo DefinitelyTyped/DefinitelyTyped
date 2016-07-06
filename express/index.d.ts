@@ -11,9 +11,9 @@
  =============================================== */
 
 /// <reference types="express-serve-static-core" />
+/// <reference types="serve-static" />
 
-
-import * as serveStatic from "../serve-static";
+import * as serveStatic from "serve-static";
 import * as core from "express-serve-static-core";
 
 /**
