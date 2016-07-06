@@ -118,9 +118,18 @@ declare namespace Nunjucks {
         noCache: boolean;
     }
 
+    interface FileSystemLoaderOptions {
+        /** if true, the system will automatically update templates when they are changed on the filesystem */
+        watch?: boolean;
+
+        /**  if true, the system will avoid using a cache and templates will be recompiled every single time */
+        noCache?: boolean;
+    }
+
     class FileSystemLoader extends Loader implements ILoader {
         init(searchPaths: string[], opts: any): void;
         getSource(name: string): LoaderSource;
+        constructor(searchPaths?: string | string[], opts?: FileSystemLoaderOptions);
     }
 
     class PrecompiledLoader extends Loader implements ILoader {
