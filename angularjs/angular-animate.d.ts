@@ -69,8 +69,7 @@ declare namespace angular.animate {
         * @param value If provided then set the animation on or off.
         * @returns current animation state
         */
-        enabled(): boolean;
-        enabled(value: boolean): boolean;
+        enabled(value?: boolean): boolean;
         enabled(element: JQuery, value?: boolean): boolean;
 
         /**
