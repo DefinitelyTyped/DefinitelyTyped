@@ -943,8 +943,8 @@ declare module "react-bootstrap" {
         Addon: typeof InputGroupAddon;
         Button: typeof InputGroupButton;
     }
-    type InputGroup = React.ClassicComponent<InputGroupProps, {}>;
-    var InputGroup: React.ClassicComponentClass<InputGroupProps>;
+    type InputGroup = React.Component<InputGroupProps, {}>;
+    var InputGroup: InputGroupClass;
 
 
     // <InputGroup.Addon />
