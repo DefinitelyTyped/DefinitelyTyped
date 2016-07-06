@@ -1,6 +1,9 @@
 /// <reference path="../redux/redux.d.ts"/>
 
 declare module "redux-ui" {
+
+  import * as Redux from 'redux'
+
   export interface uiParams<UIStateShape> {
     // optional key which is used to determine the UI path in which state will
     // be stored. if omitted this is randomly generated.
