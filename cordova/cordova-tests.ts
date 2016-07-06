@@ -4,6 +4,26 @@
 // Apache Cordova core
 //----------------------------------------------------------------------
 
+/// <reference path="../cordova-plugin-battery-status/index.d.ts"/>
+/// <reference path="../cordova-plugin-camera/index.d.ts"/>
+/// <reference path="../cordova-plugin-contacts/index.d.ts"/>
+/// <reference path="../cordova-plugin-device/index.d.ts"/>
+/// <reference path="../cordova-plugin-device-motion/index.d.ts"/>
+/// <reference path="../cordova-plugin-device-orientation/index.d.ts"/>
+/// <reference path="../cordova-plugin-dialogs/index.d.ts"/>
+/// <reference path="../cordova-plugin-file/index.d.ts"/>
+/// <reference path="../cordova-plugin-file-transfer/index.d.ts"/>
+/// <reference path="../cordova-plugin-globalization/index.d.ts"/>
+/// <reference path="../cordova-plugin-inappbrowser/index.d.ts"/>
+/// <reference path="../cordova-plugin-media/index.d.ts"/>
+/// <reference path="../cordova-plugin-media-capture/index.d.ts"/>
+/// <reference path="../cordova-plugin-keyboard/index.d.ts"/>
+/// <reference path="../cordova-plugin-network-information/index.d.ts"/>
+/// <reference path="../cordova-plugin-splashscreen/index.d.ts"/>
+/// <reference path="../cordova-plugin-statusbar/index.d.ts"/>
+/// <reference path="../cordova-plugin-vibration/index.d.ts"/>
+/// <reference path="../cordova-plugin-websql/index.d.ts"/>
+
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
 
 console.log(typeof window.cordova);
@@ -261,23 +281,6 @@ navigator.device.capture.captureAudio(
         duration: 10
     });
 
-// Push Notifications
-//----------------------------------------------------------------------
-
-var pushNotification = window.plugins.pushNotification;
-pushNotification.register(
-    (regId: string) => { console.log('Successfully registered'); },
-    (err: any) => { alert('Error!'); },
-    {
-        channelName: "your_channel_name",
-        ecb: "onNotification"
-    });
-
-function onNotification(e: any) {
-    navigator.notification.alert(e.text2, () => { }, e.text1);
-}
-
-window.plugins.pushNotification.unregister(() => { }, () => { });
 
 // Network Plugin
 //----------------------------------------------------------------------
@@ -343,3 +346,4 @@ Keyboard.onshowing = function () {
 Keyboard.onhiding= function () {
     console.log('onhiding');
 };
+
