@@ -1071,5 +1071,60 @@ declare module "react-bootstrap" {
     }
     class Position extends React.Component<PositionProps, {}> {
     }
+        // <Media.Left />
+    interface MediaLeftProps {
+      align?: string;
+    }
+    type MediaLeft = React.ClassicComponent<MediaLeftProps, {}>;
+    var MediaLeft: React.ClassicComponentClass<MediaLeftProps>;
+
+    // <Media.Right />
+    interface MediaRightProps {
+      align?: string;
+    }
+    type MediaRight = React.ClassicComponent<MediaRightProps, {}>;
+    var MediaRight: React.ClassicComponentClass<MediaRightProps>;
+
+    // <Media.Heading />
+    interface MediaHeadingProps {
+      componentClass?: React.ReactType;
+    }
+    type MediaHeading = React.ClassicComponent<MediaHeadingProps, {}>;
+    var MediaHeading: React.ClassicComponentClass<MediaHeadingProps>;
+
+    // <Media.Body />
+    interface MediaBodyProps {
+      componentClass?: React.ReactType;
+    }
+    type MediaBody = React.ClassicComponent<MediaBodyProps, {}>;
+    var MediaBody: React.ClassicComponentClass<MediaBodyProps>;
+
+    // <Media.List />
+    interface MediaListProps {
+    }
+    type MediaList = React.ClassicComponent<MediaListProps, {}>;
+    var MediaList: React.ClassicComponentClass<MediaListProps>;
+
+    // <Media.ListItem />
+    interface MediaListItemProps {
+      componentClass?: React.ReactType;
+    }
+    type MediaListItem = React.ClassicComponent<MediaListItemProps, {}>;
+    var MediaListItem: React.ClassicComponentClass<MediaListItemProps>;
+
+    // <Media />
+    interface MediaProps extends React.HTMLProps<Media> {
+        componentClass?: React.ReactType;
+    }
+    interface MediaClass extends React.ClassicComponentClass<MediaProps> {
+        Left?: typeof MediaLeft;
+        Right?: typeof MediaRight;
+        Heading?: typeof MediaHeading;
+        Body?: typeof MediaBody;
+        List?: typeof MediaList;
+        ListItem?: typeof MediaListItem;
+    }
+    type Media = React.ClassicComponent<MediaProps, {}>;
+    var Media: MediaClass;
 
 }
