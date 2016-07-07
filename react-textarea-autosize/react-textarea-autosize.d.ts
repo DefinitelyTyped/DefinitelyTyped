@@ -7,7 +7,7 @@
 
 
 declare module "react-textarea-autosize" {
-    import * as React from "react"
+    import * as React from "react";
 
     /**
      * <TextareaAutosize/> properties
