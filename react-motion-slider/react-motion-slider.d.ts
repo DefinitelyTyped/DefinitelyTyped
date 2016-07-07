@@ -4,9 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
+/// <reference path="../react-motion/react-motion.d.ts" />
+
 
 declare module "react-motion-slider" {
     import * as React from "react";
+    import { OpaqueConfig } from "react-motion";
 
     export interface SliderProps {
         /**
@@ -54,7 +57,7 @@ declare module "react-motion-slider" {
         /**
          * Accepts a React Motion spring config.
          */
-        springConfig?: Object;
+        springConfig?: OpaqueConfig;
         /**
          * Prop callback fired before slide change.
          * @param currentIndex
