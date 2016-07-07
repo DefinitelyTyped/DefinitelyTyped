@@ -45,6 +45,10 @@ declare namespace angular.ui {
          */
         templateProvider?: Function | Array<string|Function>;
         /**
+         * String, component name
+         */
+        component?: string;
+        /**
          * A controller paired to the state. Function, annotated array or name as String
          */
         controller?: Function|string|Array<string|Function>;
