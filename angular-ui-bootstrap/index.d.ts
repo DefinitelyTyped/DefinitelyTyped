@@ -3,7 +3,7 @@
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 // Support for AMD require
 declare module 'angular-bootstrap' {

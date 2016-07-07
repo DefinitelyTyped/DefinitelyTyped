@@ -3,7 +3,7 @@
 // Definitions by: Paul Lessing <https://github.com/paullessing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 /// <reference types="jquery" />
 
 declare namespace angularModal {

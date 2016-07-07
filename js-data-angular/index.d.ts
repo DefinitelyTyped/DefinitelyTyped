@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="js-data" />
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 import * as JSData from 'js-data';
 

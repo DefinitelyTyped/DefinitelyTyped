@@ -3,7 +3,7 @@
 // Definitions by: Julien Paroche <https://github.com/julienpa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/angular-fullscreen
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 import * as angular from 'angularjs';
 

@@ -3,7 +3,7 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace ngCommand {
 

@@ -3,7 +3,7 @@
 // Definitions by: Andrew Camilleri <https://github.com/Kukks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace Httpi {
     export interface HttpiPayload extends ng.IRequestShortcutConfig {

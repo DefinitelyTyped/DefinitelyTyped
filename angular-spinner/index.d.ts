@@ -3,7 +3,7 @@
 // Definitions by: Marcin Biegała <https://github.com/Biegal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 /**
 * SpinnerService 

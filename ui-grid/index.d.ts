@@ -15,7 +15,7 @@
 //   Added primary interfaces for row, column, api, grid, columnDef, and gridOptions.  Needs more tests!
 
 /// <reference types="jquery" />
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 export = uiGrid;
 export as namespace uiGrid;

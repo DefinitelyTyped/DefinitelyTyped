@@ -3,7 +3,7 @@
 // Definitions by: Ákos Lukács <https://github.com/AkosLukacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace angular.gettext {
   interface gettextCatalog {

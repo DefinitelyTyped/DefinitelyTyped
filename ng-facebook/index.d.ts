@@ -3,7 +3,7 @@
 // Definitions by: Crevil <https://github.com/Crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 /// <reference types="fb" />
 
 import * as angular from 'angularjs';

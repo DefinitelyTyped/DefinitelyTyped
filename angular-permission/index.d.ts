@@ -3,7 +3,7 @@
 // Definitions by: Voislav Mishevski <https://github.com/vmishevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 /// <reference types="angular-ui-router" />
 
 import * as angular from 'angularjs';

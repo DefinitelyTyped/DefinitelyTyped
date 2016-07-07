@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 // Support AMD require (copying angular.d.ts approach)
 // allows for import {IRequestConfig} from 'restangular' ES6 approach

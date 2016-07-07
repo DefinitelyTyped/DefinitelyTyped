@@ -3,7 +3,7 @@
 // Definitions by: Ryan McNamara <https://github.com/ryan10132>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="flowjs" />
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 import * as angular from 'angularjs';
 

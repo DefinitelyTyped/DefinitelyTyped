@@ -3,7 +3,7 @@
 // Definitions by: Ben Tesser <https://github.com/btesser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 export = ngtoaster;
 export as namespace toaster;

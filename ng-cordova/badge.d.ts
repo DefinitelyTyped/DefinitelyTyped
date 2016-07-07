@@ -3,7 +3,7 @@
 // Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace ngCordova {
     export interface IBadgeService {
