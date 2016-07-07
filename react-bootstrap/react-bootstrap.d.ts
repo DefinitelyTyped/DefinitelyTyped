@@ -1071,7 +1071,7 @@ declare module "react-bootstrap" {
     }
     class Position extends React.Component<PositionProps, {}> {
     }
-        // <Media.Left />
+    // <Media.Left />
     interface MediaLeftProps {
       align?: string;
     }
@@ -1117,12 +1117,12 @@ declare module "react-bootstrap" {
         componentClass?: React.ReactType;
     }
     interface MediaClass extends React.ClassicComponentClass<MediaProps> {
-        Left?: typeof MediaLeft;
-        Right?: typeof MediaRight;
-        Heading?: typeof MediaHeading;
-        Body?: typeof MediaBody;
-        List?: typeof MediaList;
-        ListItem?: typeof MediaListItem;
+        Left: typeof MediaLeft;
+        Right: typeof MediaRight;
+        Heading: typeof MediaHeading;
+        Body: typeof MediaBody;
+        List: typeof MediaList;
+        ListItem: typeof MediaListItem;
     }
     type Media = React.ClassicComponent<MediaProps, {}>;
     var Media: MediaClass;
