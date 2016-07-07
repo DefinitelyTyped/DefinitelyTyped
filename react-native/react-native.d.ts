@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.27
+// Type definitions for react-native 0.29
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3126,11 +3126,16 @@ declare namespace  __React {
 
     // see /NavigatorSceneConfigs.js
     export interface SceneConfigs {
-        FloatFromBottom: SceneConfig;
-        FloatFromRight: SceneConfig;
         PushFromRight: SceneConfig;
+        FloatFromRight: SceneConfig;
         FloatFromLeft: SceneConfig;
+        FloatFromBottom: SceneConfig;
+        FloatFromBottomAndroid: SceneConfig;
+        FadeAndroid: SceneConfig;
         HorizontalSwipeJump: SceneConfig;
+        HorizontalSwipeJumpFromRight: SceneConfig;
+        VerticalUpSwipeJump: SceneConfig;
+        VerticalDownSwipeJump: SceneConfig;
     }
 
     export interface Route {
@@ -3160,10 +3165,14 @@ declare namespace  __React {
     export interface NavigatorProperties extends React.Props<Navigator> {
         /**
          * Optional function that allows configuration about scene animations and gestures.
-         * Will be invoked with the route and should return a scene configuration object
+         * Will be invoked with `route` and `routeStack` parameters, where `route`
+         * corresponds to the current scene being rendered by the `Navigator` and
+         * `routeStack` is the set of currently mounted routes that the navigator
+         *  could transition to. The function should return a scene configuration object.
          * @param route
+         * @param routeStack
          */
-        configureScene?: ( route: Route ) => SceneConfig
+        configureScene?: ( route: Route, routeStack: Route[] ) => SceneConfig
         /**
          * Specify a route to start on.
          * A route is an object that the navigator will use to identify each scene to render.
