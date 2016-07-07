@@ -3,7 +3,7 @@
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 import * as angular from 'angularjs';
 
 declare var angularFileUploadDefaultExport: string;

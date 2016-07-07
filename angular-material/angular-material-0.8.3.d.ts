@@ -3,7 +3,7 @@
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 declare namespace angular.material {
 
     interface MDBottomSheetOptions {

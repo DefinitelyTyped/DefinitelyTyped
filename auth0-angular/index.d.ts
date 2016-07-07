@@ -3,7 +3,7 @@
 // Definitions by: Matt Emory <https://github.com/homesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace auth0.angular {
 

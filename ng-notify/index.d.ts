@@ -3,7 +3,7 @@
 // Definitions by: Nick Zamosenchuk <https://github.com/nzamosenchuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs"/>
+/// <reference types="angular"/>
 
 declare namespace ngNotify {
 

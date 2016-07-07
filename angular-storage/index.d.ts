@@ -3,7 +3,7 @@
 // Definitions by: Matthew DeKrey <https://github.com/mdekrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 import * as angular from 'angularjs';
 
