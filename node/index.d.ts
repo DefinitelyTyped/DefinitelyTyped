@@ -33,6 +33,7 @@ interface WeakSetConstructor { }
 ************************************************/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
+declare var console: Console;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -232,6 +233,11 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export var Console: {
+        prototype: Console;
+        new(stdout: WritableStream, stderr?: WritableStream): Console;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -524,6 +530,10 @@ interface NodeBuffer extends Uint8Array {
 *                   MODULES                     *
 *                                               *
 ************************************************/
+declare module "console" {
+    export = console;
+}
+
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
