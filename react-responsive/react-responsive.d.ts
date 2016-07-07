@@ -6,7 +6,7 @@
 /// <reference path="../react/react.d.ts" />
 
 declare module "react-responsive" {
-    import * as React from 'react';
+    import * as React from "react";
 
     namespace MediaQuery {
         export interface MediaQueryProps {

@@ -21,21 +21,21 @@ class Test extends React.Component<{}, {}> {
                 <MediaQuery maxDeviceWidth={1224}>
                     <div>You are a tablet or mobile phone</div>
                 </MediaQuery>
-                <MediaQuery orientation='portrait'>
+                <MediaQuery orientation="portrait">
                     <div>You are portrait</div>
                 </MediaQuery>
-                <MediaQuery orientation='landscape'>
+                <MediaQuery orientation="landscape">
                     <div>You are landscape</div>
                 </MediaQuery>
-                <MediaQuery minResolution='2dppx'>
+                <MediaQuery minResolution="2dppx">
                     <div>You are retina</div>
                 </MediaQuery>
-                <MediaQuery query='(min-device-width: 1224px)'>
+                <MediaQuery query="(min-device-width: 1224px)">
                     <div>You are a desktop or laptop</div>
-                    <MediaQuery query='(min-device-width: 1824px)'>
+                    <MediaQuery query="(min-device-width: 1824px)">
                         <div>You also have a huge screen</div>
                     </MediaQuery>
-                    <MediaQuery query='(max-width: 1224px)'>
+                    <MediaQuery query="(max-width: 1224px)">
                         <div>You are sized like a tablet or mobile phone though</div>
                     </MediaQuery>
                 </MediaQuery>
