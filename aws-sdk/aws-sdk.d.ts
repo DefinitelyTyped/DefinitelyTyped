@@ -90,8 +90,8 @@ declare module "aws-sdk" {
 	export interface ClientConfigPartial extends Services {
 		credentials?: Credentials;
 		region?: string;
-        accessKeyId: string;
-        secretAccessKey: string;
+		accessKeyId?: string;
+		secretAccessKey?: string;
 		computeChecksums?: boolean;
 		convertResponseTypes?: boolean;
 		logger?: Logger;
