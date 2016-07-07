@@ -40,7 +40,7 @@ declare module "react-measure" {
              * Determines whether or not a measurement should occur.
              * @default true
              */
-            shouldMeasure?: boolean
+            shouldMeasure?: boolean;
             /**
              * Callback when the component has been mutated. Receives dimensions, mutations, and anything passed to shouldMeasure.
              */
