@@ -134,7 +134,7 @@ declare module Elasticsearch {
         masterTimeout?: Date | number;
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         updateAllTypes?: boolean;
         index: string | string[] | boolean;
         type: string;
@@ -143,7 +143,7 @@ declare module Elasticsearch {
     export interface IndicesGetAliasParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         local?: boolean;
         index?: string | string[] | boolean;
         name: string | string[] | boolean;
@@ -275,7 +275,7 @@ declare module Elasticsearch {
     export interface SuggestParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         preference?: string;
         routing?: string;
         source?: string;
