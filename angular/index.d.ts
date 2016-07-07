@@ -172,7 +172,7 @@ declare namespace angular {
          * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
          * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
          */
-        resumeBootstrap?(extraModules?: string[]): ng.auto.IInjectorService;
+        resumeBootstrap?(extraModules?: string[]): auto.IInjectorService;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1847,7 +1847,7 @@ declare namespace angular {
         controller(name: string): any;
         injector(): any;
         scope(): IScope;
-        
+
         /**
         *   Overload for custom scope interfaces
         */
