@@ -978,7 +978,7 @@ declare namespace dojo {
              *
              * @param errback               OptionalCallback to be invoked when the promise is rejected.
              */
-            otherwise(errback: Function): any;
+            otherwise(errback?: Function): any;
             /**
              * Add new callbacks to the promise.
              * Add new callbacks to the deferred. Callbacks can be added
