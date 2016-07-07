@@ -3,28 +3,30 @@
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts" />
+
 declare module "react-user-tour" {
 
-  // Import React
-  import { HTMLAttributes, ComponentClass } from 'react';
-  
-  interface TourStep {
-    step: number
-    selector: string
-    title: string
-    body: string
-    position?: string
-  }
+    // Import React
+    import { HTMLAttributes, ComponentClass } from 'react';
 
-  interface TourProps extends HTMLAttributes {
-    steps:TourStep[]
-    active:boolean
-    step:number
-    onNext:any
-    onBack:any
-    onCancel:any
-  }
+    interface TourStep {
+        step: number
+        selector: string
+        title: string
+        body: string
+        position?: string
+    }
 
-  var ReactUserTour: ComponentClass<TourProps>;
-  export default ReactUserTour
+    interface TourProps extends HTMLAttributes {
+        steps:TourStep[]
+        active:boolean
+        step:number
+        onNext:any
+        onBack:any
+        onCancel:any
+    }
+
+    var ReactUserTour: ComponentClass<TourProps>;
+    export default ReactUserTour
 }
