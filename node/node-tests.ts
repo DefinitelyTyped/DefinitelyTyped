@@ -875,4 +875,5 @@ namespace console_tests {
     let c4: typeof console = console2;
     let c5: typeof console = new console2.Console(process.stdout);
     let c6: typeof console = new console2.Console(process.stdout, process.stderr);
+    let c7: typeof console = global.console;
 }
