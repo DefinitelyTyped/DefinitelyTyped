@@ -3,7 +3,7 @@
 // Definitions by: Spencer Williams <https://github.com/spencerwi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 interface IonicStatic {
     /**

@@ -3,7 +3,7 @@
 // Definitions by: Reto Rezzonico <https://github.com/rerezz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 import * as angular from 'angularjs';
 

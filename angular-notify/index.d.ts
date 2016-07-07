@@ -3,7 +3,7 @@
 // Definitions by: Suwato <https://github.com/Suwato/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="angularjs" />
+///<reference types="angular" />
 
 import * as angular from 'angularjs';
 

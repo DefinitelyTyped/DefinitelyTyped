@@ -3,7 +3,7 @@
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare module 'AngularFormly' {
 	export = AngularFormly;

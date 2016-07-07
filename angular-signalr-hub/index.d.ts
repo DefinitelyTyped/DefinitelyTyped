@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="signalr" />
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 declare namespace ngSignalr {
     interface HubFactory {

@@ -3,7 +3,7 @@
 // Definitions by: William Comartin <https://github.com/wcomartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs"/>
+/// <reference types="angular"/>
 /// <reference types="angular-ui-bootstrap"/>
 
 declare namespace angular.dialogservice {

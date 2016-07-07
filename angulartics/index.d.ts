@@ -3,7 +3,7 @@
 // Definitions by: Steven Fan <https://github.com/stevenfan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 declare namespace angulartics {
 
     interface IAngularticsStatic {

@@ -3,7 +3,7 @@
 // Definitions by: Mick Delaney <https://github.com/mickdelaney/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 /// <reference types="rx" />
 
 declare namespace Rx {

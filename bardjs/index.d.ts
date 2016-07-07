@@ -3,7 +3,7 @@
 // Definitions by: Andrew Archibald <https://github.com/TepigMC>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 /// <reference types="chai" />
 /// <reference types="mocha" />
 
