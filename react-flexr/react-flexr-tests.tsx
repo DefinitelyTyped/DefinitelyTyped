@@ -76,7 +76,7 @@ class App1 extends React.Component<any, any> {
 }
 
 const isMobile = /iP(hone|od)|Mobile/;
-function textFxn(req, res) {
+function textFxn(req: any, res: any): void {
     if ( isMobile.test( req.headers['user-agent'] ) ) {
         setBreakpoints(['palm', 'portable'])
     }
