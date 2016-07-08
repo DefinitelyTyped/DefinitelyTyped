@@ -5,6 +5,8 @@
 
 /// <reference types="q" />
 
+import * as Q from "q";
+
 declare type Strings = string|string[];
 
 declare class Orchestrator {
