@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference types="vinyl" />
 
-import File = require('../vinyl');
+import File = require('vinyl');
 import winston = require('winston');
 
 declare namespace sprite {

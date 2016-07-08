@@ -3,7 +3,9 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from '../moment';
+/// <reference types="moment" />
+
+import * as moment from 'moment';
 
 export as namespace MomentTimezone;
 export = moment;
@@ -56,7 +58,7 @@ declare namespace MomentTimezone {
 
 }
 
-declare module "../moment" {
+declare module "moment" {
     interface Moment {
         tz(): string;
         tz(timezone: string): Moment;

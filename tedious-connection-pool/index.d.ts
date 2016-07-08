@@ -3,7 +3,9 @@
 // Definitions by: Cyprien Autexier <https://github.com/sandorfr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import tedious = require('../tedious');
+/// <reference types="tedious" />
+
+import tedious = require('tedious');
 
 declare namespace tcp {
 

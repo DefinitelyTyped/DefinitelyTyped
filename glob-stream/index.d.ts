@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference types="glob" />
 
-import glob = require('../glob');
+import glob = require('glob');
 
 export interface Options extends glob.IOptions {
     cwd?: string;

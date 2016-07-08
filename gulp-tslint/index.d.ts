@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+/// <reference types="vinyl" />
 
-import vinyl = require("../vinyl");
+import vinyl = require("vinyl");
 
 declare namespace gulpTsLint {
     interface GulpTsLint {

@@ -10,10 +10,10 @@
  * inheriting the 'Strategy' class and reimplementing the 'authenticate' method.
  */
 
-
+/// <reference types="express" />
 
 import passport = require('passport');
-import express = require('../express');
+import express = require('express');
 
 declare class Strategy implements passport.Strategy {
     /**

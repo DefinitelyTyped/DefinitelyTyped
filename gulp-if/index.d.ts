@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+/// <reference types="vinyl" />
 
 import fs = require('fs');
-import vinyl = require('../vinyl');
+import vinyl = require('vinyl');
 
 interface GulpIf {
     /** 

@@ -10,8 +10,9 @@
  */
 
 /// <reference types="jquery"/>
+/// <reference types="moment" />
 
-import * as moment from '../moment';
+import * as moment from 'moment';
 
 export as namespace BootstrapV3DatetimePicker;
 
