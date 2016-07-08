@@ -5,6 +5,8 @@
 
 /// <reference types="redux" />
 
+import * as Redux from "redux";
+
 declare var promise: ReduxPromise.Promise;
 export default promise;
 

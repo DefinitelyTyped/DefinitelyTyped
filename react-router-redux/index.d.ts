@@ -7,6 +7,8 @@
 /// <reference types="react-router"/>
 /// <reference types="history"/>
 
+import * as Redux from "redux";
+
 export = ReactRouterRedux;
 
 declare namespace ReactRouterRedux {
