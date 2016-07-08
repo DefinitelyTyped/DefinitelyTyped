@@ -1,4 +1,4 @@
-﻿// Type definitions for Express 4.x
+﻿// Type definitions for Express 4.x (core shared with serve-static)
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
