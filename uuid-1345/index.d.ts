@@ -3,6 +3,8 @@
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 export interface UUID {
     version: string;
     variant: string;
