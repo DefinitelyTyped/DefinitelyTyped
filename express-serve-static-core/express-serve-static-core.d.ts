@@ -20,6 +20,11 @@ declare module "express-serve-static-core" {
     type PathParams = string | RegExp | (string | RegExp)[]
     type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
+    interface IRouterMatcher<T> {
+        (path: PathParams, handler: RequestHandler): T;
+        (path: PathParams, ...handlers: RequestHandlerParams[]): T;
+    }
+    
     interface IRouter extends RequestHandler {
         /**
             * Map the given param placeholder `name`(s) to the given callback(s).
@@ -70,14 +75,14 @@ declare module "express-serve-static-core" {
 
         route(prefix: PathParams): IRoute;
 
-        all(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        get(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        post(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        put(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        delete(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        patch(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        options(path: PathParams, ...handlers: RequestHandlerParams[]): this;
-        head(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        all: IRouterMatcher<this>;
+        get: IRouterMatcher<this>;
+        post: IRouterMatcher<this>;
+        put: IRouterMatcher<this>;
+        delete: IRouterMatcher<this>;
+        patch: IRouterMatcher<this>;
+        options: IRouterMatcher<this>;
+        head: IRouterMatcher<this>;
     }
 
     interface IRoute {
