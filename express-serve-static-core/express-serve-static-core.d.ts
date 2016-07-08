@@ -21,7 +21,7 @@ declare module "express-serve-static-core" {
     type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
     interface IRouterMatcher<T> {
-        (path: PathParams, handler: RequestHandler): T;
+        (path: PathParams, ...handlers: RequestHandler[]): T;
         (path: PathParams, ...handlers: RequestHandlerParams[]): T;
     }
     
@@ -69,12 +69,10 @@ declare module "express-serve-static-core" {
             * @param fn
             */
 
-        use(handler: RequestHandler): this;
-        use(handler: ErrorRequestHandler): this;
-        use(...handlers: RequestHandlerParams[]): this;
-        use(prefix: PathParams, handlers: RequestHandler): this;
-        use(prefix: PathParams, handlers: ErrorRequestHandler): this;
+        use(prefix: PathParams, ...handlers: RequestHandler[]): this;
         use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
+        use(...handlers: RequestHandler[]): this;
+        use(...handlers: RequestHandlerParams[]): this;
 
         route(prefix: PathParams): IRoute;
 
