@@ -87,10 +87,7 @@ declare module "express-serve-static-core" {
             * @param fn
             */
 
-        use(prefix: PathParams, ...handlers: RequestHandler[]): this;
-        use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
-        use(...handler: RequestHandler[]): this;
-        use(...handler: RequestHandlerParams[]): this;
+        use: IRouterHandler<this> & IRouterMatcher<this>;
 
         route(prefix: PathParams): IRoute;
 
