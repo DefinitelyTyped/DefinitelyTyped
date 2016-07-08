@@ -50,11 +50,11 @@ declare module "express-serve-static-core" {
             * @param name
             * @param fn
             */
-        param(name: string | string[], handler: RequestParamHandler): T;
-        param(name: string | string[], matcher: RegExp): T;
-        param(name: string | string[], mapper: (param: any) => any): T;
+        param(name: string | string[], handler: RequestParamHandler): this;
+        param(name: string | string[], matcher: RegExp): this;
+        param(name: string | string[], mapper: (param: any) => any): this;
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
         /**
             * Special-cased "all" method, applying the given route `path`,
