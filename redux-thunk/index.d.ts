@@ -5,6 +5,8 @@
 
 /// <reference types="redux" />
 
+import * as Redux from "redux";
+
 declare var thunk: ReduxThunk.Thunk;
 export default thunk;
 export as namespace ReduxThunk;

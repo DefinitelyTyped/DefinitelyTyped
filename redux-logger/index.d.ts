@@ -5,7 +5,7 @@
 
 /// <reference types="redux" />
 
-
+import * as Redux from "redux";
 
 type LoggerPredicate = (getState: () => any, action: any) => boolean;
 
