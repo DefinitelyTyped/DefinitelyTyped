@@ -65,18 +65,18 @@ declare module "express-serve-static-core" {
             */
 
         use(...handlers: RequestHandlerParams[]): this;
-        use(name: PathParams, ...handlers: RequestHandlerParams[]): this;
+        use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
 
-        route(path: PathParams): IRoute;
+        route(prefix: PathParams): IRoute;
 
-        all(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        get(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        post(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        put(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        delete(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        patch(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        options(name: PathParams, ...handlers: RequestHandlerParams[]): this;
-        head(name: PathParams, ...handlers: RequestHandlerParams[]): this;
+        all(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        get(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        post(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        put(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        delete(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        patch(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        options(path: PathParams, ...handlers: RequestHandlerParams[]): this;
+        head(path: PathParams, ...handlers: RequestHandlerParams[]): this;
     }
 
     interface IRoute {
