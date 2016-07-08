@@ -277,4 +277,3 @@ class SomeClass extends Component<any, any> {
     public bar: number;
 }
 let bar: number = new (connect()(SomeClass))("foo").bar;
-
