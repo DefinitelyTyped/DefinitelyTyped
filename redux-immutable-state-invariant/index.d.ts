@@ -5,6 +5,7 @@
 
 /// <reference types="redux" />
 
+import * as Redux from "redux";
 
 type isImmutableDefault = (value: any) => boolean;
 type immutableStateInvariantMiddlewareInterface = (isImmutable?: isImmutableDefault) => Redux.Middleware;
