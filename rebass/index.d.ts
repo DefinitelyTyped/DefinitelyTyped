@@ -5,6 +5,8 @@
 
 ///<reference types="react" />
 
+import * as React from "react";
+
 export interface BaseProps<C> extends React.Props<C> {
     tagName?: string;
     className?: string;

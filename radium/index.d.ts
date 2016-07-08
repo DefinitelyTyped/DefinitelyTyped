@@ -5,7 +5,6 @@
 
 /// <reference types="react"/>
 
-
 import React = require('react');
 
 interface ReactComponent<P, S> {

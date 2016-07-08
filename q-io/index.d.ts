@@ -3,8 +3,8 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
-///<reference types="Q" />
+/// <reference types="node" />
+/// <reference types="q" />
 
 //TODO add support for q-io/http-apps
 //TODO add verified support for q-io/fs-mock

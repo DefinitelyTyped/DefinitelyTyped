@@ -5,6 +5,8 @@
 
 ///<reference types="react" />
 
+import * as React from "react";
+
 declare var Dropzone: typeof ReactDropzone.Dropzone;
 export = Dropzone;
 

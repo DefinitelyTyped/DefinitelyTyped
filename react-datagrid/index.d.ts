@@ -5,6 +5,7 @@
 
 /// <reference types="react"/>
 
+import * as React from "react";
 import DataGrid = ReactDataGrid.DataGrid;
 export = DataGrid;
 
