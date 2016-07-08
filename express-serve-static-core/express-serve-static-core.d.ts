@@ -88,14 +88,14 @@ declare module "express-serve-static-core" {
     interface IRoute {
         path: string;
         stack: any;
-        all(...handlers: RequestHandlerParams[]): IRoute;
-        get(...handlers: RequestHandlerParams[]): IRoute;
-        post(...handlers: RequestHandlerParams[]): IRoute;
-        put(...handlers: RequestHandlerParams[]): IRoute;
-        delete(...handlers: RequestHandlerParams[]): IRoute;
-        patch(...handlers: RequestHandlerParams[]): IRoute;
-        options(...handlers: RequestHandlerParams[]): IRoute;
-        head(...handlers: RequestHandlerParams[]): IRoute;
+        all(...handlers: RequestHandlerParams[]): this;
+        get(...handlers: RequestHandlerParams[]): this;
+        post(...handlers: RequestHandlerParams[]): this;
+        put(...handlers: RequestHandlerParams[]): this;
+        delete(...handlers: RequestHandlerParams[]): this;
+        patch(...handlers: RequestHandlerParams[]): this;
+        options(...handlers: RequestHandlerParams[]): this;
+        head(...handlers: RequestHandlerParams[]): this;
     }
 
     export interface Router extends IRouter { }
