@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 /// <reference types="q" />
+
 declare module 'vso-node-api/Serialization' {
 	/**
 	* Metadata for deserializing an enum field on a contract/type
@@ -153,7 +154,6 @@ declare module 'vso-node-api/interfaces/common/VsoBaseInterfaces' {
 
 }
 declare module 'vso-node-api/HttpClient' {
-	/// <reference types="node" />
 	import http = require("http");
 	import ifm = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
 	export class HttpClient implements ifm.IHttpClient {
@@ -172,7 +172,6 @@ declare module 'vso-node-api/HttpClient' {
 
 }
 declare module 'vso-node-api/RestClient' {
-	/// <reference types="node" />
 	import ifm = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
 	import Serialization = require('vso-node-api/Serialization');
 	export function processResponse(url: any, res: any, contents: any, serializationData: Serialization.SerializationData, onResult: any): void;
@@ -200,7 +199,6 @@ declare module 'vso-node-api/RestClient' {
 
 }
 declare module 'vso-node-api/VsoClient' {
-	/// <reference types="Q" />
 	import Q = require("q");
 	import restm = require('vso-node-api/RestClient');
 	import ifm = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -2134,8 +2132,6 @@ declare module 'vso-node-api/interfaces/BuildInterfaces' {
 
 }
 declare module 'vso-node-api/BuildApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -3331,8 +3327,6 @@ declare module 'vso-node-api/interfaces/common/OperationsInterfaces' {
 
 }
 declare module 'vso-node-api/CoreApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -3774,8 +3768,6 @@ declare module 'vso-node-api/interfaces/FileContainerInterfaces' {
 
 }
 declare module 'vso-node-api/FileContainerApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -4379,8 +4371,6 @@ declare module 'vso-node-api/interfaces/GalleryInterfaces' {
 
 }
 declare module 'vso-node-api/GalleryApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -6062,8 +6052,6 @@ declare module 'vso-node-api/interfaces/GitInterfaces' {
 
 }
 declare module 'vso-node-api/GitApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -7667,8 +7655,6 @@ declare module 'vso-node-api/interfaces/TaskAgentInterfaces' {
 
 }
 declare module 'vso-node-api/TaskAgentApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -8126,8 +8112,6 @@ declare module 'vso-node-api/TaskAgentApi' {
 
 }
 declare module 'vso-node-api/TaskApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -9563,8 +9547,6 @@ declare module 'vso-node-api/interfaces/TestInterfaces' {
 
 }
 declare module 'vso-node-api/TestApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -11693,8 +11675,6 @@ declare module 'vso-node-api/interfaces/TfvcInterfaces' {
 
 }
 declare module 'vso-node-api/TfvcApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -12674,8 +12654,6 @@ declare module 'vso-node-api/interfaces/WorkItemTrackingInterfaces' {
 
 }
 declare module 'vso-node-api/WorkItemTrackingApi' {
-	/// <reference types="node" />
-	/// <reference types="Q" />
 	import Q = require('q');
 	import basem = require('vso-node-api/ClientApiBases');
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
@@ -13368,7 +13346,6 @@ declare module 'vso-node-api/WorkItemTrackingApi' {
 
 }
 declare module 'vso-node-api/handlers/apiversion' {
-	/// <reference types="node" />
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
 	export class ApiVersionHandler implements VsoBaseInterfaces.IRequestHandler {
 	    apiVersion: string;
@@ -13378,7 +13355,6 @@ declare module 'vso-node-api/handlers/apiversion' {
 
 }
 declare module 'vso-node-api/handlers/basiccreds' {
-	/// <reference types="node" />
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
 	export class BasicCredentialHandler implements VsoBaseInterfaces.IRequestHandler {
 	    username: string;
@@ -13389,7 +13365,6 @@ declare module 'vso-node-api/handlers/basiccreds' {
 
 }
 declare module 'vso-node-api/handlers/bearertoken' {
-	/// <reference types="node" />
 	import VsoBaseInterfaces = require('vso-node-api/interfaces/common/VsoBaseInterfaces');
 	export class BearerCredentialHandler implements VsoBaseInterfaces.IRequestHandler {
 	    token: string;

@@ -11,6 +11,7 @@ import http = require('http');
 import request = require('request');
 import bunyan = require('bunyan');
 import express = require('express');
+import Q = require('q');
 
 export declare function create(opts: {
     name: any;
@@ -25,7 +26,6 @@ export declare function create(opts: {
     };
 }): void;
 
-import Q = require('q');
 interface Result {
     response: http.IncomingMessage;
     body: any;

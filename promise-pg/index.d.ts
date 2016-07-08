@@ -4,10 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="Q" />
+/// <reference types="q" />
 
 import * as stream from 'stream';
 import * as pg from 'pg';
+import * as Q from "q";
 
 export {pg as raw};
 

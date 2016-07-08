@@ -3,13 +3,14 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="Q" />
+/// <reference types="q" />
 /// <reference types="node" />
 
 import Validation = require("business-rules-engine");
 export as namespace Validators;
 
 import * as moment from 'moment';
+import * as Q from 'q';
 
 export class LettersOnlyValidator implements Validation.IStringValidator {
     public isAcceptable(s: string): boolean;

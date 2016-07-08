@@ -5,8 +5,7 @@
 
 /// <reference types="atom" />
 /// <reference types="emissary" />
-/// <reference types="Q" />
-
+/// <reference types="q" />
 
 declare namespace TextBuffer {
 

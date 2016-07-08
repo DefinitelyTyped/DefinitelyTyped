@@ -17,7 +17,7 @@
 // You might therefore want to use a different interface from a community typings file or your custom unified interface.
 // When using f.ex. Q as Defer/Promise library replace the lines below with:
 
-// <reference types="Q" />
+// <reference types="q" />
 // interface DurandalPromise<T> extends Q.Promise<T>
 // interface DurandalDeferred<T> extends Q.Deferred<T>
 
