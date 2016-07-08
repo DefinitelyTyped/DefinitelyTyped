@@ -2000,6 +2000,18 @@ declare module _ {
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
+    // _.flattenDepth
+    interface LoDashStatic {
+        /**
+        * Recursively flatten array up to depth times.
+        *
+        * @param array The array to recursively flatten.
+        * @param number The maximum recursion depth.
+        * @return Returns the new flattened array.
+        */
+        flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T>, depth: number): T[];
+     }
+
     //_.fromPairs
     interface LoDashStatic {
         /**
