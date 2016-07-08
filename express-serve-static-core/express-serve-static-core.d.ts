@@ -20,14 +20,17 @@ declare module "express-serve-static-core" {
     interface NextFunction {
         (err?: any): void;
     }
+    
     interface RequestHandler {
         (req: Request, res: Response, next: NextFunction): any;
     }
+    
     interface ErrorRequestHandler {
         (err: any, req: Request, res: Response, next: NextFunction): any;
     }
 
     type PathParams = string | RegExp | (string | RegExp)[]
+    
     type RequestHandlerParams = RequestHandler | ErrorRequestHandler
 
     interface IRouterMatcher<T> {
