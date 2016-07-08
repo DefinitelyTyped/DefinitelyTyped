@@ -7,7 +7,7 @@
 /// <reference types="cropperjs"/>
 
 import cropperjs = require('cropperjs');
-
+import React = require("react");
 
 import Data = cropperjs.Data;
 import ContainerData = cropperjs.ContainerData;

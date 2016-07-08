@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react"/>
+
 declare namespace reactInputCalendar {
     export interface ReactInputCalendarProps {
         /**
