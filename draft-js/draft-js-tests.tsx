@@ -174,10 +174,10 @@ export class SearchField extends React.Component<any, any> {
     render() {
         const {editorState} = this.state;
         return (
-                <Editor suppressContentEditableWarning
-                        editorState={editorState}
-                        onChange={this.onChange}
-                       />
+                <Editor 
+                    editorState={editorState}
+                    onChange={this.onChange}
+               />
         )
     }
 }
