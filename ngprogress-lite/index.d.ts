@@ -3,9 +3,9 @@
 // Definitions by: Luke Forder <https://github.com/LukeForder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace progressLite {
 
         export interface INgProgressLite {
