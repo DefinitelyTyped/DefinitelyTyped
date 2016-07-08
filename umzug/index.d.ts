@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="bluebird" />
+/// <reference types="sequelize" />
 
-import Sequelize = require("../sequelize");
+import Sequelize = require("sequelize");
 
 declare namespace umzug {
 

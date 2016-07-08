@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery"/>
+/// <reference types="moment" />
 
-import * as moment from '../moment';
+import * as moment from 'moment';
 
 export as namespace FC;
 

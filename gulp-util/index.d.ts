@@ -5,8 +5,9 @@
 
 /// <reference types="node" />
 /// <reference types="chalk" />
+/// <reference types="vinyl" />
 
-import vinyl = require('../vinyl');
+import vinyl = require('vinyl');
 import chalk = require('chalk');
 import through2 = require('through2');
 

@@ -3,7 +3,9 @@
 // Definitions by: j3ko <https://github.com/j3ko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Moment, Duration } from '../moment';
+/// <reference types="moment" />
+
+import { Moment, Duration } from 'moment';
 
 export interface TwixFormatOptions {
     groupMeridiems?: boolean;
@@ -87,7 +89,7 @@ export interface TwixStatic {
     formatTemplate?: (left: any, right: any) => any;
 }
 
-declare module "../moment" {
+declare module "moment" {
     interface Moment {
         twix(date: Date): Twix;
         twix(date: Date, allDay: boolean): Twix;

@@ -3,7 +3,9 @@
 // Definitions by: Adam Babcock <https://github.com/mrhen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import swig = require('../swig');
+/// <reference types="swig" />
+
+import swig = require('swig');
 
 interface SwigRender<T> {
     (file: string, context: T, callback: (err: any, html: string, text: string) => any): any;
