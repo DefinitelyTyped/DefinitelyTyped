@@ -24,6 +24,11 @@ declare module "express-serve-static-core" {
         (path: PathParams, ...handlers: RequestHandler[]): T;
         (path: PathParams, ...handlers: RequestHandlerParams[]): T;
     }
+
+    interface IRouterHandler<T> {
+        (...handlers: RequestHandler[]): T;
+        (...handlers: RequestHandlerParams[]): T;
+    }
     
     interface IRouter extends RequestHandler {
         /**
@@ -71,8 +76,8 @@ declare module "express-serve-static-core" {
 
         use(prefix: PathParams, ...handlers: RequestHandler[]): this;
         use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
-        use(...handlers: RequestHandler[]): this;
-        use(...handlers: RequestHandlerParams[]): this;
+        use(...handler: RequestHandler[]): this;
+        use(...handler: RequestHandlerParams[]): this;
 
         route(prefix: PathParams): IRoute;
 
@@ -866,10 +871,6 @@ declare module "express-serve-static-core" {
             * @param val
             */
         set(setting: string, val: any): Application;
-        get: {
-            (name: string): any; // Getter
-            (name: string | RegExp, ...handlers: RequestHandlerParams[]): Application;
-        };
 
         /**
             * Return the app's absolute pathname
@@ -1013,8 +1014,6 @@ declare module "express-serve-static-core" {
         listen(port: number, callback?: Function): http.Server;
         listen(path: string, callback?: Function): http.Server;
         listen(handle: any, listeningListener?: Function): http.Server;
-
-        route(path: string | RegExp): IRoute;
 
         router: string;
 
