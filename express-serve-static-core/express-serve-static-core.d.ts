@@ -70,7 +70,10 @@ declare module "express-serve-static-core" {
             */
 
         use(handler: RequestHandler): this;
+        use(handler: ErrorRequestHandler): this;
         use(...handlers: RequestHandlerParams[]): this;
+        use(prefix: PathParams, handlers: RequestHandler): this;
+        use(prefix: PathParams, handlers: ErrorRequestHandler): this;
         use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
 
         route(prefix: PathParams): IRoute;
