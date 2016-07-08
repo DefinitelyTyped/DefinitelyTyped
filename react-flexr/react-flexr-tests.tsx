@@ -1,9 +1,9 @@
 /// <reference path="react-flexr.d.ts"/>
 /// <reference path="../react/react-dom.d.ts"/>
 
-import * as React from 'react';
+import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";
-import { Grid, Cell, findMatch, setBreakpoints, findBreakpoints, getCurrentBreakpoints, optimizedResize, palm, lap, portable, desk } from 'react-flexr';
+import { Grid, Cell, findMatch, setBreakpoints, findBreakpoints, getCurrentBreakpoints, optimizedResize, palm, lap, portable, desk } from "react-flexr";
 
 class Example extends React.Component<any, any> {
     render() {
@@ -21,7 +21,7 @@ class Example2 extends React.Component<any, any> {
     render() {
         return (
             <Grid>
-                <Cell size='6/12'>
+                <Cell size="6/12">
                     Fills Half
                 </Cell>
 
@@ -37,15 +37,15 @@ class Example2 extends React.Component<any, any> {
                     Fills a quarter on lap and half everywhere else
                 </Cell>
 
-                <Cell size='3/12'>
+                <Cell size="3/12">
                     Fills a quarter
                 </Cell>
 
-                <Cell palm='3/12' lap='1/2'>
+                <Cell palm="3/12" lap="1/2">
                     Fills a quarter on palm (mobile), half on lap and dynamicly sized everywhere else
                 </Cell>
 
-                <Cell palm='hidden' size='1/2'>
+                <Cell palm="hidden" size="1/2">
                     Hidden on palm, half width otherwise
                 </Cell>
             </Grid>
@@ -55,9 +55,9 @@ class Example2 extends React.Component<any, any> {
 
 class App1 extends React.Component<any, any> {
     render() {
-        const isPalm = findMatch('palm');
+        const isPalm = findMatch("palm");
 
-        if (isPalm) console.log( 'only logged in palm' );
+        if (isPalm) console.log( "only logged in palm" );
 
         return (
             <div>
@@ -67,7 +67,7 @@ class App1 extends React.Component<any, any> {
                     : null }
 
                 <h1>Allows Multiple Matches</h1>
-                { findMatch('desk', 'lap')
+                { findMatch("desk", "lap")
                     ? <h2>Lap or Desk</h2>
                     : null }
             </div>
@@ -77,15 +77,15 @@ class App1 extends React.Component<any, any> {
 
 const isMobile = /iP(hone|od)|Mobile/;
 function textFxn(req: any, res: any): void {
-    if ( isMobile.test( req.headers['user-agent'] ) ) {
-        setBreakpoints(['palm', 'portable'])
+    if ( isMobile.test( req.headers["user-agent"] ) ) {
+        setBreakpoints(["palm", "portable"])
     }
     else {
-        setBreakpoints(['desk'])
+        setBreakpoints(["desk"])
     }
     const html = ReactDOMServer.renderToString( <App1 />);
 
-    res.send( '<!doctype html>' + html );
+    res.send( "<!doctype html>" + html );
 }
 
 const breakpoints: string[] | boolean = findBreakpoints();
@@ -94,7 +94,7 @@ class App2 extends React.Component<any, any> {
     componentDidMount() {
         optimizedResize.init( () => {
             if ( findBreakpoints() ) {
-                console.log('New Breakpoints');
+                console.log("New Breakpoints");
                 this.forceUpdate();
             }
         });
