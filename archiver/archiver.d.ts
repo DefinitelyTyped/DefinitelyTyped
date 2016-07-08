@@ -24,7 +24,7 @@ declare module "archiver" {
         
     interface Archiver extends STREAM.Transform {
         pipe(writeStream: FS.WriteStream): void;
-        append(source: FS.ReadStream|Buffer|string, name: nameInterface): void;
+        append(source: FS.ReadStream | Buffer | string, name: nameInterface): void;
         finalize(): void;
     }
     
