@@ -4,9 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
 // TODO: Document manipulation and below
+
 ///<reference types="bluebird"/>
-
-
 
 export declare function connect(host: ConnectionOptions, cb?: (err: Error, conn: Connection) => void): Promise<Connection>;
 
@@ -35,11 +34,11 @@ export declare function branch(test: Expression<boolean>, trueBranch: Expression
 
 export declare class Cursor {
     hasNext(): boolean;
-    each(cb: (err: Error, row: any) => void, done?: () => void);
-    each(cb: (err: Error, row: any) => boolean, done?: () => void); // returning false stops iteration
-    next(cb: (err: Error, row: any) => void);
-    toArray(cb: (err: Error, rows: any[]) => void);
-    close();
+    each(cb: (err: Error, row: any) => void, done?: () => void): void;
+    each(cb: (err: Error, row: any) => boolean, done?: () => void): void; // returning false stops iteration
+    next(cb: (err: Error, row: any) => void): void;
+    toArray(cb: (err: Error, rows: any[]) => void): void;
+    close(): void;
 }
 
 interface ConnectionOptions {
@@ -50,11 +49,11 @@ interface ConnectionOptions {
 }
 
 interface Connection {
-    close();
+    close(): void;
     reconnect(cb?: (err: Error, conn: Connection) => void): Promise<Connection>;
-    use(dbName: string);
-    addListener(event: string, cb: Function);
-    on(event: string, cb: Function);
+    use(dbName: string): void;
+    addListener(event: string, cb: Function): void;
+    on(event: string, cb: Function): void;
 }
 
 interface Db {
