@@ -39,7 +39,7 @@ declare module "express" {
         interface Handler extends core.Handler { }
         interface IRoute extends core.IRoute { }
         interface IRouter extends core.IRouter { }
-        interface IRouterMatcher extends core.IRouterMatcher<T> { }
+        interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
         interface MediaType extends core.MediaType { }
         interface NextFunction extends core.NextFunction { }
         interface Request extends core.Request { }
