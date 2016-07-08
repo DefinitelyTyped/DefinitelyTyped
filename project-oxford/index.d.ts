@@ -3,9 +3,7 @@
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
+/// <reference types="node" />
 
 import Promise = require("bluebird");
 import stream = require("stream");
