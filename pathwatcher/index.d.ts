@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="Q" />
+/// <reference types="q" />
+
+import * as Q from "q";
 
 export as namespace PathWatcher;
 
