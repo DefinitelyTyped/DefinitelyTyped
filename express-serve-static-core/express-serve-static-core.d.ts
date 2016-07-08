@@ -17,8 +17,18 @@ declare namespace Express {
 declare module "express-serve-static-core" {
     import * as http from "http";
 
+    interface NextFunction {
+        (err?: any): void;
+    }
+    interface RequestHandler {
+        (req: Request, res: Response, next: NextFunction): any;
+    }
+    interface ErrorRequestHandler {
+        (err: any, req: Request, res: Response, next: NextFunction): any;
+    }
+
     type PathParams = string | RegExp | (string | RegExp)[]
-    type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
+    type RequestHandlerParams = RequestHandler | ErrorRequestHandler
 
     interface IRouterMatcher<T> {
         (path: PathParams, ...handlers: RequestHandler[]): T;
@@ -29,7 +39,7 @@ declare module "express-serve-static-core" {
         (...handlers: RequestHandler[]): T;
         (...handlers: RequestHandlerParams[]): T;
     }
-    
+
     interface IRouter extends RequestHandler {
         /**
             * Map the given param placeholder `name`(s) to the given callback(s).
@@ -94,14 +104,14 @@ declare module "express-serve-static-core" {
     interface IRoute {
         path: string;
         stack: any;
-        all(...handlers: RequestHandlerParams[]): this;
-        get(...handlers: RequestHandlerParams[]): this;
-        post(...handlers: RequestHandlerParams[]): this;
-        put(...handlers: RequestHandlerParams[]): this;
-        delete(...handlers: RequestHandlerParams[]): this;
-        patch(...handlers: RequestHandlerParams[]): this;
-        options(...handlers: RequestHandlerParams[]): this;
-        head(...handlers: RequestHandlerParams[]): this;
+        all: IRouterHandler<this>;
+        get: IRouterHandler<this>;
+        post: IRouterHandler<this>;
+        put: IRouterHandler<this>;
+        delete: IRouterHandler<this>;
+        patch: IRouterHandler<this>;
+        options: IRouterHandler<this>;
+        head: IRouterHandler<this>;
     }
 
     export interface Router extends IRouter { }
@@ -795,15 +805,6 @@ declare module "express-serve-static-core" {
         vary(field: string): Response;
     }
 
-    interface NextFunction {
-        (err?: any): void;
-    }
-
-    interface ErrorRequestHandler {
-        (err: any, req: Request, res: Response, next: NextFunction): any;
-    }
-
-
     interface Handler extends RequestHandler { }
 
     interface RequestParamHandler {
@@ -1061,9 +1062,5 @@ declare module "express-serve-static-core" {
         request: Request;
 
         response: Response;
-    }
-
-    interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
     }
 }
