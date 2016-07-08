@@ -3,7 +3,9 @@
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as glob from "../glob";
+/// <reference types="glob"/>
+
+import * as glob from "glob";
 
 interface Option {
     filter?: string | ((filePath: string) => boolean);

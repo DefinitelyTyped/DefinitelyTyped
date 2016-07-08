@@ -3,7 +3,7 @@
 // Definitions by: Robert Van Gorkom <https://github.com/vangorra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="../meteor" />
+/// <reference types="meteor" />
 
 declare interface PublishCompositeConfigN {
     children? : PublishCompositeConfigN[];

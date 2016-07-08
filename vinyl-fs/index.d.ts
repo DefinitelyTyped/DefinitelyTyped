@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
+/// <reference types="vinyl" />
+/// <reference types="glob-stream" />
 
 declare global {
    namespace NodeJS {
@@ -14,8 +16,8 @@ declare global {
 }
 
 import _events = require("events");
-import File = require("../vinyl");
-import globStream = require("../glob-stream");
+import File = require("vinyl");
+import globStream = require("glob-stream");
 
 interface ISrcOptions extends globStream.Options {
    /** Specifies the working directory the folder is relative to */

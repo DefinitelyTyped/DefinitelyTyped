@@ -3,7 +3,9 @@
 // Definitions by: Egor Komarov <https://github.com/Odrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as moment from '../moment';
+/// <reference types="moment" />
+
+import * as moment from 'moment';
 import * as angular from 'angularjs';
 
 declare module 'angularjs' {

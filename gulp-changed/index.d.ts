@@ -4,9 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
+/// <reference types="vinyl" />
 
 import { Transform } from "stream";
-import File = require("../vinyl");
+import File = require("vinyl");
 
 interface IComparator {
     /**

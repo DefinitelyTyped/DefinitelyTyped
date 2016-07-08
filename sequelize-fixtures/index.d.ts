@@ -3,7 +3,9 @@
 // Definitions by: Christian Schwarz <https://github.com/cschwarz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Sequelize from "../sequelize";
+/// <reference types="sequelize" />
+
+import * as Sequelize from "sequelize";
 
 declare namespace SequelizeFixtures {
     interface Options {

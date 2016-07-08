@@ -6,8 +6,9 @@
 // A simple, unobtrusive jQuery plugin that provides auto-updating timeago text to your timestamped HTML elements using Moment.js.
 
 /// <reference types="jquery"/>
+/// <reference types="moment" />
 
-import * as moment from '../moment';
+import * as moment from 'moment';
 
 export as namespace LivestampGlobal;
 
