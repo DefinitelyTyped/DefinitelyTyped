@@ -5,6 +5,8 @@
 
 /// <reference types="react" />
 
+import * as React from "react";
+
 import Select = RcSelect.Select;
 import Option = RcSelect.Option;
 import OptGroup = RcSelect.OptGroup;

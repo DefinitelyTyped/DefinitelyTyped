@@ -5,8 +5,11 @@
 
 /// <reference types="react"/>
 
+import * as React from "react";
+
 export = FixedDataTable;
 export as namespace FixedDataTable;
+
 
 declare namespace FixedDataTable {
     export var version: string;

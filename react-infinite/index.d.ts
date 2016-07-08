@@ -5,6 +5,8 @@
 
 ///<reference types="react" />
 
+import * as React from "react";
+
 import Infinite = ReactInfinite.Infinite;
 export = Infinite;
 

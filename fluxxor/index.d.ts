@@ -7,6 +7,7 @@
 /// <reference types="eventemitter3" />
 
 import * as EventEmitter3 from 'eventemitter3';
+import * as React from "react";
 
 declare namespace Fluxxor {
     class Dispatcher {

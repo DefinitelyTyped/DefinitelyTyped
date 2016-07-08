@@ -6,6 +6,5 @@
 /// <reference types="redux" />
 /// <reference types="react" />
 
-
 export declare function devTools(): Function;
 export declare function persistState(sessionId: any, stateDeserializer?: Function, actionDeserializer?: Function): Function;
