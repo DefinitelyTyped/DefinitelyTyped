@@ -64,6 +64,7 @@ declare module "express-serve-static-core" {
             * @param fn
             */
 
+        use(handler: RequestHandler): this;
         use(...handlers: RequestHandlerParams[]): this;
         use(prefix: PathParams, ...handlers: RequestHandlerParams[]): this;
 
