@@ -8,6 +8,8 @@
 /// <reference types="empower" />
 /// <reference types="power-assert-formatter" />
 
+import * as empower from "empower";
+
 export = assert;
 export as namespace assert;
 
