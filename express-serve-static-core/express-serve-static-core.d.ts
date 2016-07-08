@@ -79,10 +79,6 @@ declare module "express-serve-static-core" {
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
         param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
-        use: IRouterHandler<this> & IRouterMatcher<this>;
-
-        route(prefix: PathParams): IRoute;
-
         /**
             * Special-cased "all" method, applying the given route `path`,
             * middleware, and callback to _every_ HTTP method.
@@ -98,6 +94,10 @@ declare module "express-serve-static-core" {
         patch: IRouterMatcher<this>;
         options: IRouterMatcher<this>;
         head: IRouterMatcher<this>;
+        
+        use: IRouterHandler<this> & IRouterMatcher<this>;
+
+        route(prefix: PathParams): IRoute;
     }
 
     interface IRoute {
