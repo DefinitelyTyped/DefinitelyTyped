@@ -5,11 +5,11 @@
 
 /// <reference types="q" />
 
-import * as q from 'q';
+import * as Q from 'q';
 
 export = Q;
 
-declare module 'Q' {
+declare module 'q' {
     export interface IRetryOptions {
         limit?: number;
         interval?: number;

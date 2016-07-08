@@ -5,6 +5,8 @@
 
 /// <reference types="q" />
 
+import * as Q from "q";
+
 export = MsPortalTestFx;
 
 declare namespace MsPortalTestFx {

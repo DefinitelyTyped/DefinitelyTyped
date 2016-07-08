@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Source: typings/business-rules-engine/Validation.d.ts
-/// <reference types="Q" />
+/// <reference types="q" />
 
 declare namespace Validation {
     interface IErrorCustomMessage {

@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
-/// <reference types="Q" />
+/// <reference types="q" />
 
 interface Cordova {
 	getAppVersion: {
