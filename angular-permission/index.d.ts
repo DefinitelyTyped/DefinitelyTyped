@@ -6,9 +6,9 @@
 /// <reference types="angular" />
 /// <reference types="angular-ui-router" />
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
   export namespace permission {
     /**
      * Used as optional parameter provided on definitions of permissions and roles

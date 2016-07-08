@@ -5,7 +5,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 export as namespace oc;
 
@@ -134,7 +134,7 @@ export interface IProviderConfig {
     modules?: IModuleConfig[];
 }
 
-declare module 'angularjs' {
+declare module 'angular' {
     interface IAngularStatic {
         /**
          * The angular.module is a global place for creating, registering and retrieving Angular modules. All modules (angular core or 3rd party) that should be available to an application must be registered using this mechanism.

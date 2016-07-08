@@ -3,9 +3,9 @@
 // Definitions by: Marko Jurisic <https://github.com/mjurisic>, Ronald Wildenberg <https://github.com/rwwilden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
   export namespace mgoAngularWizard {
     interface WizardHandler {
       wizard(name?: string): Wizard;

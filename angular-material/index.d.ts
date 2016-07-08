@@ -28,7 +28,7 @@ declare namespace angular.material {
         disableParentScroll?: boolean; // default: true
     }
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace material {
 
     interface IPresetDialog<T> {

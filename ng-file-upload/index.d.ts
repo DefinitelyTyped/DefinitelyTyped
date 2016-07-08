@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace angularFileUpload  {
         interface ImageDimensions {
             height: number;

@@ -6,9 +6,9 @@
 /// <reference types="moment" />
 
 import * as moment from 'moment';
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace bootstrap.calendar {
         interface IEvent {
             /**

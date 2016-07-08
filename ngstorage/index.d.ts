@@ -3,9 +3,9 @@
 // Definitions by: Jakub Pistek <https://github.com/kubiq>
 // Definitions: https://github.com/kubiq/DefinitelyTyped
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace storage {
 
     export interface IStorageService {

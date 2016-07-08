@@ -5,7 +5,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 export type IDialogService = angular.dialog.IDialogService;
 export type IDialogOpenResult = angular.dialog.IDialogOpenResult;
@@ -17,7 +17,7 @@ export type IDialogOptions = angular.dialog.IDialogOptions;
 export type IDialogOpenOptions = angular.dialog.IDialogOpenOptions;
 export type IDialogOpenConfirmOptions = angular.dialog.IDialogOpenConfirmOptions;
 
-declare module 'angularjs' {
+declare module 'angular' {
 	export namespace dialog {
 
 		interface IDialogService {

@@ -5,9 +5,9 @@
 
 /// <reference types="angular-ui-router" />
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace ui {
 
 

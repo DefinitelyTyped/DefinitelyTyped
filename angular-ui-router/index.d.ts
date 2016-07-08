@@ -3,7 +3,7 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 // Support for AMD require and CommonJS
 declare module 'angular-ui-router' {
@@ -22,7 +22,7 @@ declare module 'angular-ui-router' {
     export type IType = angular.ui.IType;
 }
 
-declare module 'angularjs' {
+declare module 'angular' {
     export namespace ui {
         interface IState {
             name?: string;
