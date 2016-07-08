@@ -40,6 +40,7 @@ declare module "express" {
         interface IRoute extends core.IRoute { }
         interface IRouter extends core.IRouter { }
         interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
+        interface IRouterHandler<T> extends core.IRouterHandler<T> { }
         interface MediaType extends core.MediaType { }
         interface NextFunction extends core.NextFunction { }
         interface Request extends core.Request { }
