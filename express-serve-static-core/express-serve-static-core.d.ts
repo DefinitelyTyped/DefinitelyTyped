@@ -875,7 +875,7 @@ declare module "express-serve-static-core" {
             * @param val
             */
         set(setting: string, val: any): Application;
-        get: (name: string) => any | IRouterMatcher<this>;
+        get: (name: string) => any & IRouterMatcher<this>;
 
         /**
             * Return the app's absolute pathname
