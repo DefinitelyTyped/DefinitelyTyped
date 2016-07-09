@@ -5,6 +5,8 @@
 
 /// <reference types="react" />
 
+import * as React from "react";
+
 declare var Helmet: {
     (): ReactHelmet.HelmetComponent
     rewind(): ReactHelmet.HelmetData
