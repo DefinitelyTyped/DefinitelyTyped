@@ -1105,11 +1105,11 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
                 $delegate['debug'] = true;
             });
         }, 'debug-helpers'], {
-            debugInfoEnabled: true
+            strictDi: true
         });
     }
     return angular.bootstrap(element, ['main'], {
-        debugInfoEnabled: false
+        strictDi: false
     });
 }
 
