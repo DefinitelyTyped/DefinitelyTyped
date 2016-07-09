@@ -2584,7 +2584,7 @@ declare namespace Xrm
              * to provide default field values for the form, or pass data to custom
              * parameters that have been customized for the form.
              */
-            [index: string]: string;
+            [index: string]: string | undefined;
         }
 
         /**
