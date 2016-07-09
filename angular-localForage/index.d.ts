@@ -49,16 +49,16 @@ declare module 'angular' {
 
             iterate<T>(iteratorCallback: (value: string | number, key: string) => T): angular.IPromise<T>;
 
-            bind($scope: ng.IScope, key: string): angular.IPromise<any>;
+            bind($scope: angular.IScope, key: string): angular.IPromise<any>;
 
-            bind($scope: ng.IScope, config: {
+            bind($scope: angular.IScope, config: {
                 key: string;
                 defaultValue?: any;
                 scopeKey?: string;
                 name?: string;
             }): angular.IPromise<any>;
 
-            unbind($scope: ng.IScope, key: string, scopeKey?: string): void;
+            unbind($scope: angular.IScope, key: string, scopeKey?: string): void;
 
             createInstance(config: LocalForageConfig): ILocalForageService;
             instance(name: string): ILocalForageService;

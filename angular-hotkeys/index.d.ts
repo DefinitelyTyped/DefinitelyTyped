@@ -5,7 +5,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as ng from 'angular';
 
 declare module 'angular' {
     export namespace hotkeys {
