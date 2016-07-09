@@ -31,7 +31,7 @@ declare module "express-serve-static-core" {
 
     type PathParams = string | RegExp | (string | RegExp)[];
     
-    type RequestHandlerParams = RequestHandler | ErrorRequestHandler;
+    type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
     interface IRouterMatcher<T> {
         (path: PathParams, ...handlers: RequestHandler[]): T;
@@ -73,12 +73,10 @@ declare module "express-serve-static-core" {
             * @param name
             * @param fn
             */
-        param: {
-            (name: string, handler: RequestParamHandler): this;
-            // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-            // deprecated since express 4.11.0
-            (callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-        };
+        param(name: string, handler: RequestParamHandler): this;
+        // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+        // deprecated since express 4.11.0
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
         /**
             * Special-cased "all" method, applying the given route `path`,
@@ -874,12 +872,10 @@ declare module "express-serve-static-core" {
         set(setting: string, val: any): Application;
         get: {(name: string): any;} & IRouterMatcher<this>;
         
-        param: {
-            (name: string | string[], handler: RequestParamHandler): this;
-            // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-            // deprecated since express 4.11.0
-            param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
-        };
+        param(name: string[], handler: RequestParamHandler): this;
+        param(name: string, handler: RequestParamHandler): this;
+        // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
         /**
             * Return the app's absolute pathname
