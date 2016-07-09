@@ -1542,10 +1542,10 @@ declare module "fs" {
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
+    export function open(path: string | Buffer, flags: number, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
     export function open(path: string | Buffer, flags: string, mode: number, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
-    export function open(path: string | Buffer, flags: string, mode: string, callback?: (err: NodeJS.ErrnoException, fd: number) => any): void;
+    export function openSync(path: string | Buffer, flags: number, mode?: number): number;
     export function openSync(path: string | Buffer, flags: string, mode?: number): number;
-    export function openSync(path: string | Buffer, flags: string, mode?: string): number;
     export function utimes(path: string | Buffer, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function utimes(path: string | Buffer, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function utimesSync(path: string | Buffer, atime: number, mtime: number): void;
