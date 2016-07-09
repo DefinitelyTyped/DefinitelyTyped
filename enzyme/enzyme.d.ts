@@ -1,4 +1,4 @@
-// Type definitions for Enzyme v2.3.0
+// Type definitions for Enzyme v2.4.1
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -448,6 +448,11 @@ declare module "enzyme" {
          * Returns a wrapper with the direct parent of the node in the current wrapper.
          */
         parent(): ShallowWrapper<any, any>;
+
+        /**
+         * Returns true if renderer returned null
+         */
+        isEmptyRender(): boolean;
     }
 
     export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
@@ -544,10 +549,41 @@ declare module "enzyme" {
          * Returns a wrapper with the direct parent of the node in the current wrapper.
          */
         parent(): ReactWrapper<any, any>;
+
+        /**
+         * Returns true if renderer returned null
+         */
+        isEmptyRender(): boolean;
     }
 
     export interface CheerioWrapper<P, S> extends CommonWrapper<P, S> {
 
+    }
+
+    export interface ShallowRendererProps {
+        /**
+         * Enable experimental support for full react lifecycle methods
+         */
+        lifecycleExperimental?: boolean;
+        /**
+         * Context to be passed into the component
+         */
+        context?: {};
+    }
+
+    export interface MountRendererProps {
+        /**
+         * Context to be passed into the component
+         */
+        context?: {};
+        /**
+         * DOM Element to attach the component to
+         */
+        attachTo?: HTMLElement;
+        /**
+         * Merged contextTypes for all children of the wrapper
+         */
+        childContextTypes?: {};
     }
 
     /**
@@ -556,14 +592,14 @@ declare module "enzyme" {
      * @param node
      * @param [options]
      */
-    export function shallow<P, S>(node: ReactElement<P>, options?: any): ShallowWrapper<P, S>;
+    export function shallow<P, S>(node: ReactElement<P>, options?: ShallowRendererProps): ShallowWrapper<P, S>;
 
     /**
      * Mounts and renders a react component into the document and provides a testing wrapper around it.
      * @param node
      * @param [options]
      */
-    export function mount<P, S>(node: ReactElement<P>, options?: any): ReactWrapper<P, S>;
+    export function mount<P, S>(node: ReactElement<P>, options?: MountRendererProps): ReactWrapper<P, S>;
 
     /**
      * Render react components to static HTML and analyze the resulting HTML structure.
