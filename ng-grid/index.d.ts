@@ -8,6 +8,7 @@
 // Changelog:
 // 25/4/2014: Added interfaces for all classes and services
 
+/// <reference types="angular" />
 
 declare class ngGridReorderable {
     constructor();
