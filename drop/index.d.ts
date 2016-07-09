@@ -5,6 +5,8 @@
 
 ///<reference types="tether" />
 
+import Tether = require("tether");
+
 export = Drop;
 export as namespace Drop;
 
