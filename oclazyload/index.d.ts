@@ -5,7 +5,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
+import * as ng from 'angular';
 
 export as namespace oc;
 
