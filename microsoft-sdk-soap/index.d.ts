@@ -3,7 +3,7 @@
 // Definitions by: Markus Mauch <https://github.com/markusmauch/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="Q"/>
+/// <reference types="q"/>
 
 declare namespace Sdk
 {

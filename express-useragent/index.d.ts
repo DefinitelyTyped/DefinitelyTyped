@@ -3,10 +3,9 @@
 // Definitions by: Isman Usoh <https://github.com/isman-usoh/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference types="express" />
 
 declare namespace Express {
-   
     interface Request {
         useragent?: ExpressUseragent.UserAgent;
     }
@@ -14,7 +13,7 @@ declare namespace Express {
 
 declare namespace ExpressUseragent {
     import express = Express;
-    
+
     interface UserAgent {
         isMobile: boolean;
         isTablet: boolean;

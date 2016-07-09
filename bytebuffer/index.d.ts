@@ -6,6 +6,8 @@
 
 /// <reference types="long" />
 
+import Long = require("long");
+
 declare class ByteBuffer
 {
     /**
