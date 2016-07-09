@@ -86,6 +86,6 @@ export function closeAllWatchers():void;
 
 export function getWatchedPaths():string[];
 
-export var File:PathWatcher.IFileStatic;
-export var Directory:PathWatcher.IDirectoryStatic;
+export var File: IFileStatic;
+export var Directory: IDirectoryStatic;
 
