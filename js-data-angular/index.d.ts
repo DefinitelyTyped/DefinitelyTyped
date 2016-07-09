@@ -7,6 +7,7 @@
 /// <reference types="angular" />
 
 import * as JSData from 'js-data';
+import * as ng from 'angular';
 
 declare module 'js-data' {
 

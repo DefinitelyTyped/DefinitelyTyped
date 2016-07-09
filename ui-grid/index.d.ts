@@ -17,6 +17,8 @@
 /// <reference types="jquery" />
 /// <reference types="angular" />
 
+import * as ng from "angular";
+
 export = uiGrid;
 export as namespace uiGrid;
 
