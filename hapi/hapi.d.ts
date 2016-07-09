@@ -964,7 +964,7 @@ declare module "hapi" {
 		payload: string;
 		rawPayload: Buffer;
 		raw: {
-			req: http.ClientRequest;
+			req: http.IncomingMessage;
 			res: http.ServerResponse
 		};
 		result: string;
@@ -1199,7 +1199,7 @@ declare module "hapi" {
 		query: any;
 		/**  an object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.*/
 		raw: {
-			req: http.ClientRequest;
+			req: http.IncomingMessage;
 			res: http.ServerResponse;
 		};
 		/** the route public interface.*/
