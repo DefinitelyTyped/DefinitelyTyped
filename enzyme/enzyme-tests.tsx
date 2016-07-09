@@ -48,8 +48,8 @@ namespace ShallowWrapperTest {
         shallow(<MyComponent propsProperty={1}/>, {
             context: {
                 test: "a",
-                lifecycleExperimental: true
-            }
+            },
+            lifecycleExperimental: true
         });
     }
 
