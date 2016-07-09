@@ -5,7 +5,7 @@
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="i18next.d.ts" />
 
-import i18n from 'i18next';
+import * as i18n from 'i18next';
 
 i18n.init({
     debug: true,
