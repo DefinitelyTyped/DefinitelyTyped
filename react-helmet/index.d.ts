@@ -5,6 +5,8 @@
 
 /// <reference types="react" />
 
+import * as React from "react";
+
 declare var Helmet: {
     (): ReactHelmet.HelmetComponent
     rewind(): ReactHelmet.HelmetData
@@ -30,7 +32,7 @@ declare namespace ReactHelmet {
         meta: HelmetDatum;
         script: HelmetDatum;
     }
-    
+
     interface HelmetDatum {
         toString(): string;
         toComponent(): React.Component<any, any>;

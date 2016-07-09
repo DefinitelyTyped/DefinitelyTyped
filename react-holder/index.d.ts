@@ -5,6 +5,8 @@
 
 ///<reference types="react"/>
 
+import * as React from "react";
+
 interface ReactHolderProp extends React.HTMLAttributes {
     width: string | number;
     height: string | number;
