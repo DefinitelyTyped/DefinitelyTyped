@@ -6,6 +6,8 @@
 // Source: typings/business-rules-engine/Validation.d.ts
 /// <reference types="q" />
 
+import * as Q from "q";
+
 declare namespace Validation {
     interface IErrorCustomMessage {
         (config: any, args: any): string;
