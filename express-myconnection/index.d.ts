@@ -3,7 +3,8 @@
 // Definitions by: Michael Ferris <https://github.com/Cellule/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference types="express" />
+/// <reference types="mysql" />
 
 declare namespace mysql{
   export interface IConnection {}
