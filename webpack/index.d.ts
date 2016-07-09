@@ -321,7 +321,7 @@ declare namespace webpack {
         Buffer?: boolean;
         __filename?: boolean | string;
         __dirname?: boolean | string;
-        [nodeBuiltin: string]: boolean | string;
+        [nodeBuiltin: string]: boolean | string | undefined;
     }
 
     type LoaderCondition = string | RegExp | ((absPath: string) => boolean);
