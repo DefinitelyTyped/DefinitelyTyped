@@ -1,7 +1,6 @@
 // Type definitions for mobx v1.0.0
 // Project: https://mweststrate.github.io/mobservable
 // Definitions by: Michel Weststrate <https://github.com/mweststrate/>
-// Updated by: Ryan Megidov <https://github.com/nightwolfz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
