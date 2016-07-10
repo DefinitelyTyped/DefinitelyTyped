@@ -384,10 +384,6 @@ declare module "express-serve-static-core" {
 
         params: any;
 
-        user: any;
-
-        authenticatedUser: any;
-
         /**
             * Clear cookie `name`.
             *
