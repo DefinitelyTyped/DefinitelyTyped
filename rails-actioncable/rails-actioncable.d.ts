@@ -10,11 +10,18 @@ declare module ActionCable {
   }
 
   interface Subscriptions {
-    create(chan_name: string, obj: {}): Channel;
+    create(chan_name: string, obj: CreateMixin): Channel;
   }
 
   interface Cable {
     subscriptions: Subscriptions;
+  }
+
+  interface CreateMixin {
+    connected(): void;
+    disconnected(): void;
+    received(obj: Object): void;
+    [key: string]: Function;
   }
 
   function createConsumer(): Cable;
