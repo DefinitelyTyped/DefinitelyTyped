@@ -53,6 +53,7 @@ declare namespace Chance {
         wp8_anid2(): string;
 
         // Web
+        avatar(opts?: Options): string;
         color(opts?: Options): string;
         domain(opts?: Options): string;
         email(opts?: Options): string;
@@ -115,7 +116,8 @@ declare namespace Chance {
         mixin(desc: MixinDescriptor): any;
         pad(num: number, width: number, padChar?: string): string;
         pick<T>(arr: T[]): T;
-        pick<T>(arr: T[], count: number): T[];
+        pick<T>(arr: T[], count: number): T | T[];
+        pickset<T>(arr: T[], count?: number): T[];
         set: Setter;
         shuffle<T>(arr: T[]): T[];
 
