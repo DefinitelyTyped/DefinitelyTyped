@@ -828,7 +828,11 @@ declare namespace ReduxForm {
    */
   export function arrayInsert(form: string, field: string, index: number, value: any): Action;
 
-  export function arrayMove(form: string, field: string, from, to): Action;
+  /**
+   * Moves an item from one index in the array to another. In effect, it performs a remove and an
+   * insert, so the item already at the `to` position will be bumped to a higher index, not overwritten.
+   */
+  export function arrayMove(form: string, field: string, from: number, to: number): Action;
 
   /**
    * Removes an item from the end of a field array
