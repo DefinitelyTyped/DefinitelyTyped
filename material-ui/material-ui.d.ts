@@ -452,7 +452,7 @@ declare namespace __MaterialUI {
         export function themeDecorator(muiTheme: Styles.MuiTheme): <TFunction extends Function>(Component: TFunction) => TFunction;
 
         interface MuiThemeProviderProps extends React.Props<MuiThemeProvider> {
-            muiTheme: Styles.MuiTheme;
+            muiTheme?: Styles.MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps, {}>{
         }
