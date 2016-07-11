@@ -5,7 +5,7 @@
 import * as React from "react";
 
 import {
-Editor,
+    Editor,
     EditorState,
     Entity,
     CharacterMetadata,
