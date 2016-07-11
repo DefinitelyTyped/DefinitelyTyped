@@ -1058,7 +1058,6 @@ declare module "react-bootstrap" {
     type Portal = React.ClassicComponent<PortalProps, {}>;
     var Portal: React.ClassicComponentClass<PortalProps>;
 
-
     // <Position />
     interface PositionProps extends TransitionCallbacks, React.Props<Position> {
         dimension?: string | Function;
@@ -1073,28 +1072,28 @@ declare module "react-bootstrap" {
     }
     // <Media.Left />
     interface MediaLeftProps {
-      align?: string;
+        align?: string;
     }
     type MediaLeft = React.ClassicComponent<MediaLeftProps, {}>;
     var MediaLeft: React.ClassicComponentClass<MediaLeftProps>;
 
     // <Media.Right />
     interface MediaRightProps {
-      align?: string;
+        align?: string;
     }
     type MediaRight = React.ClassicComponent<MediaRightProps, {}>;
     var MediaRight: React.ClassicComponentClass<MediaRightProps>;
 
     // <Media.Heading />
     interface MediaHeadingProps {
-      componentClass?: React.ReactType;
+        componentClass?: React.ReactType;
     }
     type MediaHeading = React.ClassicComponent<MediaHeadingProps, {}>;
     var MediaHeading: React.ClassicComponentClass<MediaHeadingProps>;
 
     // <Media.Body />
     interface MediaBodyProps {
-      componentClass?: React.ReactType;
+        componentClass?: React.ReactType;
     }
     type MediaBody = React.ClassicComponent<MediaBodyProps, {}>;
     var MediaBody: React.ClassicComponentClass<MediaBodyProps>;
@@ -1107,7 +1106,7 @@ declare module "react-bootstrap" {
 
     // <Media.ListItem />
     interface MediaListItemProps {
-      componentClass?: React.ReactType;
+        componentClass?: React.ReactType;
     }
     type MediaListItem = React.ClassicComponent<MediaListItemProps, {}>;
     var MediaListItem: React.ClassicComponentClass<MediaListItemProps>;
@@ -1126,5 +1125,4 @@ declare module "react-bootstrap" {
     }
     type Media = React.ClassicComponent<MediaProps, {}>;
     var Media: MediaClass;
-
 }
