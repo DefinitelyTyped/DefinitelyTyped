@@ -1,15 +1,18 @@
 ﻿// Type definitions for Chosen.JQuery 1.6.1
 // Project: http://harvesthq.github.com/chosen/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, denis <https://github.com/denisname/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
 declare namespace Chosen {
+    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results"
+    type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close"
+
     interface Options {
         /**When set to true on a single select, Chosen adds a UI element which selects the first element (if it is blank).
          * @default: false
-		 */
+         */
         allow_single_deselect?: boolean;
         /**By default Chosen's search is case-insensitive. Setting this option to true makes the search case-sensitive.
          * @default: false
@@ -74,7 +77,7 @@ declare namespace Chosen {
          * @default: Infinity
          */
         max_shown_results?: number;
-	}
+    }
 
     interface SelectedData {
         selected: string;
@@ -84,29 +87,12 @@ declare namespace Chosen {
 
 interface JQuery {
     chosen(): JQuery;
-    chosen(options: Chosen.Options): JQuery;
-    /**To destroy Chosen and revert back to the native select. */
-    chosen(options: "destroy"): JQuery;
+    chosen(options: Chosen.Options | "destroy"): JQuery;
 
     /**Chosen triggers the standard DOM event whenever a selection is made (it also sends a selected or deselected parameter that tells you which option was changed). */
     on(events: "change", handler: (eventObject: JQueryEventObject, args: Chosen.SelectedData) => any): JQuery;
-    /**Triggered after Chosen has been fully instantiated. */
-    on(events: "chosen:ready", handler: (eventObject: JQueryEventObject) => any): JQuery;
-    /**Triggered if max_selected_options is set and that total is broken. */
-    on(events: "chosen:maxselected", handler: (eventObject: JQueryEventObject) => any): JQuery;
-    /**Triggered when Chosen’s dropdown is opened. */
-    on(events: "chosen:showing_dropdown", handler: (eventObject: JQueryEventObject) => any): JQuery;
-    /**Triggered when Chosen’s dropdown is closed. */
-    on(events: "chosen:hiding_dropdown", handler: (eventObject: JQueryEventObject) => any): JQuery;
-    /**Triggered when a search returns no matching results. */
-    on(events: "chosen:no_results", handler: (eventObject: JQueryEventObject) => any): JQuery;
 
-    /**This event should be triggered whenever Chosen’s underlying select element changes (such as a change in selected options). */
-    trigger(eventType: "chosen:updated"): JQuery;
-    /**This is the equivalant of focusing a standard HTML select field. When activated, Chosen will capure keypress events as if you had clicked the field directly. */
-    trigger(eventType: "chosen:activate"): JQuery;
-    /**This event activates Chosen and also displays the search results. */
-    trigger(eventType: "chosen:open"): JQuery;
-    /**This event deactivates Chosen and hides the search results. */
-    trigger(eventType: "chosen:close"): JQuery;
+    on(events: Chosen.OnEvent, handler: (eventObject: JQueryEventObject) => any): JQuery;
+
+    trigger(eventType: Chosen.TriggerEvent): JQuery;
 }
