@@ -1,6 +1,6 @@
 /// <reference path="http-errors.d.ts" />
 /// <reference path="../express/express.d.ts" />
-/// <reference path="../http-errors/http-errors-tests.d.ts" />
+/// <reference path="../http-errors/http-errors-tests.x.ts" />
 
 import * as createError from 'http-errors';
 import * as express from 'express';
