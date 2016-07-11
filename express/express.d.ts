@@ -38,8 +38,9 @@ declare module "express" {
         interface Express extends core.Express { }
         interface Handler extends core.Handler { }
         interface IRoute extends core.IRoute { }
-        interface IRouter<T> extends core.IRouter<T> { }
+        interface IRouter extends core.IRouter { }
         interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
+        interface IRouterHandler<T> extends core.IRouterHandler<T> { }
         interface MediaType extends core.MediaType { }
         interface NextFunction extends core.NextFunction { }
         interface Request extends core.Request { }
