@@ -4,12 +4,6 @@
 import * as createError from 'http-errors';
 import * as express from 'express';
 
-declare namespace Express {
-    export interface Request {
-        user?: any
-    }
-}
-
 var app = express();
 
 app.use(function (req, res, next) {
