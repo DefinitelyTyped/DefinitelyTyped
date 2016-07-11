@@ -23,6 +23,12 @@ declare namespace ReactDayPicker {
         getMonths: (locale: string) => string[];
     }
 
+    interface DayModifiers {
+         selected?: boolean;
+         disabled?: boolean;
+         [name: string]: boolean;
+    }
+
     interface Modifiers {
         [name: string]: (date: Date) => boolean;
     }
@@ -41,18 +47,19 @@ declare namespace ReactDayPicker {
         renderDay?: (date: Date) => number | string | JSX.Element;
         enableOutsideDays?: boolean;
         canChangeMonth?: boolean;
+        disabledDays?: (date: Date) => boolean;
         fromMonth?: Date;
         toMonth?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
         captionElement?: React.ReactElement<CaptionElementProps>;
-        onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayTouchTap?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
+        onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onMonthChange?: (month: Date) => any;
         onCaptionClick?: (e: React.SyntheticEvent, month: Date) => any;
         className?: string;
+        selectedDays?: (date: Date) => boolean;
         style?: React.CSSProperties;
         tabIndex?: number;
     }
