@@ -20,17 +20,17 @@ declare module "express-serve-static-core" {
     interface NextFunction {
         (err?: any): void;
     }
-    
+
     interface RequestHandler {
         (req: Request, res: Response, next: NextFunction): any;
     }
-    
+
     interface ErrorRequestHandler {
         (err: any, req: Request, res: Response, next: NextFunction): any;
     }
 
     type PathParams = string | RegExp | (string | RegExp)[];
-    
+
     type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
     interface IRouterMatcher<T> {
@@ -93,7 +93,7 @@ declare module "express-serve-static-core" {
         patch: IRouterMatcher<this>;
         options: IRouterMatcher<this>;
         head: IRouterMatcher<this>;
-        
+
         use: IRouterHandler<this> & IRouterMatcher<this>;
 
         route(prefix: PathParams): IRoute;
@@ -867,9 +867,8 @@ declare module "express-serve-static-core" {
             */
         set(setting: string, val: any): Application;
         get: {(name: string): any;} & IRouterMatcher<this>;
-        
-        param(name: string[], handler: RequestParamHandler): this;
-        param(name: string, handler: RequestParamHandler): this;
+
+        param(name: string | string[], handler: RequestParamHandler): this;
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
         param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
