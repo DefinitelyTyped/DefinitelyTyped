@@ -1,11 +1,18 @@
 /// <reference path="http-errors.d.ts" />
 /// <reference path="../express/express.d.ts" />
-/// <reference path="../http-errors/http-errors-tests.x.ts" />
 
 import * as createError from 'http-errors';
 import * as express from 'express';
 
 var app = express();
+
+declare global {
+    namespace Express {
+        export interface Request {
+            user?: any
+        }
+    }
+}
 
 app.use(function (req, res, next) {
     if (!req.user) return next(createError(401, 'Please login to view this page.'));
