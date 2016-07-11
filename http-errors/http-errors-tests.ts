@@ -1,5 +1,6 @@
 /// <reference path="http-errors.d.ts" />
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../http-errors/http-errors-tests.d.ts" />
 
 import * as createError from 'http-errors';
 import * as express from 'express';
@@ -10,7 +11,6 @@ app.use(function (req, res, next) {
     if (!req.user) return next(createError(401, 'Please login to view this page.'));
     next();
 });
-
 
 /* Examples taken from https://github.com/jshttp/http-errors/blob/1.3.1/test/test.js */
 
