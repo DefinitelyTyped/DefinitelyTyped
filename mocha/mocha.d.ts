@@ -46,7 +46,9 @@ declare var xit: Mocha.ITestDefinition;
 declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
-type ActionFunction = (() => void) | ((done: MochaDone) => void) | (() => PromiseLike<void>)
+interface ActionFunction {
+    (done?: MochaDone): void | PromiseLike<void>
+}
 
 declare function setup(action: ActionFunction): void;
 declare function teardown(action: ActionFunction): void;
