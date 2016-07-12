@@ -33,8 +33,7 @@ declare module 'promisify-supertest' {
       expect(field: string, val: string, callback?: CallbackHandler): this;
       expect(field: string, val: RegExp, callback?: CallbackHandler): this;
       expect(checker: (res: Response) => any): this;
-      end(callback?: CallbackHandler): this;
-      end(): Promise<Response>;
+      end(callback?: CallbackHandler): this & Promise<Response>;
     }
 
     interface Response extends superagent.Response {
