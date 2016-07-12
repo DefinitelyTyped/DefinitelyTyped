@@ -43,7 +43,7 @@ declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
 interface MochaDone {
-    (error?: Error): any;
+    (error?: any): any;
 }
 
 interface ActionFunction {
