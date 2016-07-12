@@ -22,7 +22,7 @@ declare module 'promisify-supertest' {
     interface SuperTest extends superagent.SuperAgent<Test> {
     }
 
-    interface Test extends superagent.Request<Test> {
+    interface Test extends superagent.Request {
       url: string;
       serverAddress(app: any, path: string): string;
       expect(status: number, callback?: CallbackHandler): Test;
