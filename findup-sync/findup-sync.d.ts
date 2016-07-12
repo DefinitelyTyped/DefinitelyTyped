@@ -13,6 +13,8 @@ declare module 'findup-sync' {
 	}
 
 	function mod(pattern: string[] | string, opts?: IOptions): string;
+	// workaround TS bug 
+        namespace mod {}
 
 	export = mod;
 }
