@@ -45,7 +45,7 @@ declare namespace autobahn {
 
     interface IInvocation {
         caller?: number;
-        progress?: boolean;
+        progress?: (args : any[], kwargs : any) => void;
         procedure: string;
     }
 
