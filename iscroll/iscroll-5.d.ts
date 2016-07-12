@@ -54,7 +54,7 @@ interface IScrollOptions {
 	bounceEasing?: any;
 	
 	preventDefault?: boolean;
-	preventDefaultException?: Object;
+	preventDefaultException?: Array<RegExp>|Object;
 
 	HWCompositing?: boolean;
 

@@ -34,3 +34,7 @@ myScroll2.on('scrollStart', function () { console.log('scroll started'); });
 
 var myScroll9 = new IScroll(document.getElementById('wrapper'));
 var myScroll10 = new IScroll(document.getElementById('wrapper'), { scrollbarClass: 'myScrollbar' });
+
+
+var myScroll11 = new IScroll(document.getElementById('wrapper'), { preventDefaultException: [ /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ ] });
+var myScroll12 = new IScroll(document.getElementById('wrapper'), { preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ } });
