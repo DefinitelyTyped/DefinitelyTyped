@@ -18,6 +18,20 @@ interface ErrorConstructor {
     stackTraceLimit: number;
 }
 
+// This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
+interface Console {
+    Console: typeof NodeJS.Console;
+    assert(value: any, message?: string, ...optionalParams: any[]): void;
+    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    error(message?: any, ...optionalParams: any[]): void;
+    info(message?: any, ...optionalParams: any[]): void;
+    log(message?: any, ...optionalParams: any[]): void;
+    time(label: string): void;
+    timeEnd(label: string): void;
+    trace(message?: any, ...optionalParams: any[]): void;
+    warn(message?: any, ...optionalParams: any[]): void;
+}
+
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
@@ -33,6 +47,7 @@ interface WeakSetConstructor {}
 ************************************************/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
+declare var console: Console;
 
 declare var __filename: string;
 declare var __dirname: string;
@@ -232,6 +247,11 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export var Console: {
+        prototype: Console;
+        new(stdout: WritableStream, stderr?: WritableStream): Console;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -507,6 +527,10 @@ interface NodeBuffer extends Uint8Array {
 *                   MODULES                     *
 *                                               *
 ************************************************/
+declare module "console" {
+    export = console;
+}
+
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;

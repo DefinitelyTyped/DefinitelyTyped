@@ -19,6 +19,7 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as console2 from "console";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -849,4 +850,30 @@ namespace errors_tests {
         const myObject = {};
         Error.captureStackTrace(myObject);
     }
+}
+
+////////////////////////////////////////////////////
+/// Console tests : http://nodejs.org/api/console.html
+////////////////////////////////////////////////////
+
+namespace console_tests {
+    let a: number, b: {foo:'bar'};
+    console.assert(a, 'message');
+    console.log('message');
+    console.log('message', a, b);
+    console.trace('message', a, b);
+    console.info('message', a, b);
+    console.warn('message', a, b);
+    console.error('message', a, b);
+    console.dir(b);
+    console.dir(b, {showHidden: true, depth: 4});
+    console.time('label');
+    console.timeEnd('label');
+
+    let c2: typeof console = new console.Console(process.stdout);
+    let c3: typeof console = new console.Console(process.stdout, process.stderr);
+    let c4: typeof console = console2;
+    let c5: typeof console = new console2.Console(process.stdout);
+    let c6: typeof console = new console2.Console(process.stdout, process.stderr);
+    let c7: typeof console = global.console;
 }
