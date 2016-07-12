@@ -1553,12 +1553,12 @@ declare namespace sequelize {
         /**
          * Provide a custom getter for this column. Use this.getDataValue(String) to manipulate the underlying values.
          */
-        get?: () => any;
+        get?: null | (() => any);
 
         /**
          * Provide a custom setter for this column. Use this.setDataValue(String, Value) to manipulate the underlying values.
          */
-        set?: (value?: any) => void;
+        set?: null | ((value?: any) => void);
 
         /**
          * An object of validations to execute for this column every time the model is saved. Can be either the name of a
