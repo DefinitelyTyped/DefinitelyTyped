@@ -3,6 +3,8 @@
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="jscript-extensions.d.ts" />
+
 declare namespace ADODB {
 
     //Enums

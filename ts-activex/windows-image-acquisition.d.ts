@@ -3,24 +3,26 @@
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="jscript-extensions.d.ts" />
+
 declare namespace WIA {
 
     //Enums
-    type CommandID = 
+    type CommandID =
         "'{04E725B0-ACAE-11D2-A093-00C04F72DC3C}'" //wiaCommandChangeDocument
         | "'{E208C170-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandDeleteAllItems
         | "'{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandSynchronize
         | "'{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandTakePicture
-        | "'{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}'" //wiaCommandUnloadDocument
+        | "'{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}'"; //wiaCommandUnloadDocument
     const CommandID: {
         wiaCommandChangeDocument: CommandID,
         wiaCommandDeleteAllItems: CommandID,
         wiaCommandSynchronize: CommandID,
         wiaCommandTakePicture: CommandID,
         wiaCommandUnloadDocument: CommandID
-    }
+    };
 
-    type EventID = 
+    type EventID =
         "'{A28BBADE-64B6-11D2-A231-00C04FA31809}'" //wiaEventDeviceConnected
         | "'{143E4E83-6497-11D2-A231-00C04FA31809}'" //wiaEventDeviceDisconnected
         | "'{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}'" //wiaEventItemCreated
@@ -33,7 +35,7 @@ declare namespace WIA {
         | "'{154E27BE-B617-4653-ACC5-0FD7BD4C65CE}'" //wiaEventScanImage3
         | "'{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}'" //wiaEventScanImage4
         | "'{9D095B89-37D6-4877-AFED-62A297DC6DBE}'" //wiaEventScanOCRImage
-        | "'{B441F425-8C6E-11D2-977A-0000F87A926F}'" //wiaEventScanPrintImage
+        | "'{B441F425-8C6E-11D2-977A-0000F87A926F}'"; //wiaEventScanPrintImage
     const EventID: {
         wiaEventDeviceConnected: EventID,
         wiaEventDeviceDisconnected: EventID,
@@ -48,29 +50,29 @@ declare namespace WIA {
         wiaEventScanImage4: EventID,
         wiaEventScanOCRImage: EventID,
         wiaEventScanPrintImage: EventID
-    }
+    };
 
-    type FormatID = 
+    type FormatID =
         "'{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatBMP
         | "'{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatGIF
         | "'{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatJPEG
         | "'{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatPNG
-        | "'{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatTIFF
+        | "'{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}'"; //wiaFormatTIFF
     const FormatID: {
         wiaFormatBMP: FormatID,
         wiaFormatGIF: FormatID,
         wiaFormatJPEG: FormatID,
         wiaFormatPNG: FormatID,
         wiaFormatTIFF: FormatID
-    }
+    };
 
-    type Miscellaneous = 
+    type Miscellaneous =
         "'*'" //wiaAnyDeviceID
-        | "'{00000000-0000-0000-0000-000000000000}'" //wiaIDUnknown
+        | "'{00000000-0000-0000-0000-000000000000}'"; //wiaIDUnknown
     const Miscellaneous: {
         wiaAnyDeviceID: Miscellaneous,
         wiaIDUnknown: Miscellaneous
-    }
+    };
 
     const enum WiaDeviceType {
         CameraDeviceType = 2,
