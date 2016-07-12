@@ -9,10 +9,11 @@
         "noImplicitAny": true,
         "strictNullChecks": true,
         "baseUrl": "../",
-        "typesSearchPaths": [
+        "typeRoots": [
             "../"
         ],
+        "types": [],
         "noEmit": true,
-		"forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true
     }
 }
