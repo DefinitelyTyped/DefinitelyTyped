@@ -5,16 +5,19 @@
 
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path='../supertest/supertest.d.ts' />
+/// <reference path='../bluebird/bluebird.d.ts' />
 
 declare module "supertest-as-promised" {
   import * as supertest from "supertest";
+  import * as PromiseBluebird from "bluebird";
+
   import { SuperTest, Response } from "supertest";
 
   function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
   namespace supertestAsPromised {
-    interface Test extends PromiseLike<Response>, supertest.Test {
-      toPromise(): PromiseLike<Response>;
+    interface Test extends PromiseBluebird<Response>, supertest.Test {
+      toPromise(): PromiseBluebird<Response>;
     }
     function agent(app?: any): SuperTest<Test>;
 
