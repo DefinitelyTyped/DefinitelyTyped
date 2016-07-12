@@ -46,5 +46,5 @@ declare module "redux-ui" {
 
   export const reducer: Redux.Reducer<any>
 
-  export default function ui<UIStateShape>(params: uiParams<UIStateShape>): <T>(component: T) => T
+  export default function ui<UIStateShape>(params?: uiParams<UIStateShape>): <T>(component: T) => T
 }
