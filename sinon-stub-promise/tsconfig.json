@@ -5,11 +5,12 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "typesSearchPaths": [
+        "typeRoots": [
             "../"
         ],
+        "types": [],
         "noEmit": true,
-		"forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
