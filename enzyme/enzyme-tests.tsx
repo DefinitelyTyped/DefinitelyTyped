@@ -44,6 +44,15 @@ namespace ShallowWrapperTest {
         stringVal: String,
         elementWrapper: ShallowWrapper<HTMLAttributes, {}>
 
+    function test_shallow_options() {
+        shallow(<MyComponent propsProperty={1}/>, {
+            context: {
+                test: "a",
+            },
+            lifecycleExperimental: true
+        });
+    }
+
     function test_find() {
         elementWrapper = shallowWrapper.find('.selector');
         shallowWrapper = shallowWrapper.find(MyComponent);
@@ -281,6 +290,10 @@ namespace ShallowWrapperTest {
     function test_everyWhere() {
         boolVal = shallowWrapper.everyWhere((aShallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState>) => true);
     }
+
+    function test_isEmptyRender() {
+        boolVal = shallowWrapper.isEmptyRender();
+    }
 }
 
 
@@ -301,6 +314,13 @@ namespace ReactWrapperTest {
 
     function test_mount() {
         reactWrapper = reactWrapper.mount();
+
+        mount(<MyComponent propsProperty={1}/>, {
+            attachTo: document.getElementById('test'),
+            context: {
+                a: "b"
+            }
+        });
     }
 
     function test_ref() {
@@ -541,6 +561,9 @@ namespace ReactWrapperTest {
 
     function test_everyWhere() {
         boolVal = reactWrapper.everyWhere((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>) => true);
+    }
+    function test_isEmptyRender() {
+        boolVal = reactWrapper.isEmptyRender();
     }
 }
 
