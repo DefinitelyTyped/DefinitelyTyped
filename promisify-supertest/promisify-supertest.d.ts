@@ -25,15 +25,15 @@ declare module 'promisify-supertest' {
     interface Test extends superagent.Request {
       url: string;
       serverAddress(app: any, path: string): string;
-      expect(status: number, callback?: CallbackHandler): Test;
-      expect(status: number, body: string, callback?: CallbackHandler): Test;
-      expect(body: string, callback?: CallbackHandler): Test;
-      expect(body: RegExp, callback?: CallbackHandler): Test;
-      expect(body: Object, callback?: CallbackHandler): Test;
-      expect(field: string, val: string, callback?: CallbackHandler): Test;
-      expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
-      expect(checker: (res: Response) => any): Test;
-      end(callback?: CallbackHandler): Test;
+      expect(status: number, callback?: CallbackHandler): this;
+      expect(status: number, body: string, callback?: CallbackHandler): this;
+      expect(body: string, callback?: CallbackHandler): this;
+      expect(body: RegExp, callback?: CallbackHandler): this;
+      expect(body: Object, callback?: CallbackHandler): this;
+      expect(field: string, val: string, callback?: CallbackHandler): this;
+      expect(field: string, val: RegExp, callback?: CallbackHandler): this;
+      expect(checker: (res: Response) => any): this;
+      end(callback?: CallbackHandler): this;
       end(): Promise<Response>;
     }
 
