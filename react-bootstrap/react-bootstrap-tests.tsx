@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Image, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Image, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox, Media } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -965,6 +965,19 @@ export class ReactBootstrapTest extends Component<any, any> {
                     </FormGroup>
                   </Form>
                 </div>
+
+               <div style={style}>
+                <Media>
+                  <Media.Left align="top">
+                    <img width={64} height={64} src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" alt="Image"/>
+                  </Media.Left>
+                  <Media.Body>
+                    <Media.Heading>Top aligned media</Media.Heading>
+                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                    <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                  </Media.Body>
+                </Media>
+              </div>
             </div>
         );
     }

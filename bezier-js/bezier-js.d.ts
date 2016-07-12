@@ -125,7 +125,7 @@ declare module BezierJs {
         overlaps(curve: Bezier): boolean;
         offset(t: number, d?: number): Offset | Bezier[];
         simple(): boolean;
-        reduce(): any[];
+        reduce(): Bezier[];
         scale(d: Function): Bezier;
         scale(d: number): Bezier;
         outline(d1: number, d2?: number, d3?: number, d4?: number): PolyBezier;

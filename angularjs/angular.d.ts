@@ -41,7 +41,6 @@ declare namespace angular {
 
     interface IAngularBootstrapConfig {
         strictDi?: boolean;
-        debugInfoEnabled?: boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1722,7 +1721,7 @@ declare namespace angular {
     interface IComponentTemplateFn {
         ( $element?: JQuery, $attrs?: IAttributes ): string;
     }
-    
+
     /**
      * Components have a well-defined lifecycle Each component can implement "lifecycle hooks". These are methods that
      * will be called at certain points in the life of the component.

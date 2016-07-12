@@ -87,9 +87,14 @@ declare module _fetch {
 	type BodyInit = ArrayBuffer | ArrayBufferView | Blob | FormData | string;
 	type RequestInfo = Request | string;
 
-    function fetch(url: string | Request, init?: RequestInit): Promise<Response>;
+	interface FetchStatic {
+		(url: string | Request, init?: RequestInit): Promise<Response>;
+	}
+
 }
 
 declare module "node-fetch" {
-	export = _fetch.fetch;
+	var fetch: _fetch.FetchStatic;
+	namespace fetch {}
+	export = fetch;
 }
