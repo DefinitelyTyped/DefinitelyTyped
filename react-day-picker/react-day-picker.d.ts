@@ -39,6 +39,27 @@ declare namespace ReactDayPicker {
         locale?: string;
         onClick?: React.MouseEventHandler;
     }
+    
+    interface NavbarElementProps extends React.Props<any> {
+        className?: string;
+        previousMonth?: Date;
+        nextMonth?: Date;
+        showPreviousButton?: boolean;
+        showNextButton?: boolean;
+        onPreviousClick()?: void;
+        onNextClick()?: void;
+        dir?: string;
+        localeUtils?: LocaleUtils;
+        locale?: string;
+
+    }
+    
+    interface WeekdayElementProps extends React.Props<any> {
+        weekday?: number;
+        className?: string;
+        localeUtils?: LocaleUtils;
+        locale?: string;
+    }
 
     interface Props extends React.Props<DayPicker>{
         modifiers?: Modifiers;
@@ -48,14 +69,21 @@ declare namespace ReactDayPicker {
         enableOutsideDays?: boolean;
         canChangeMonth?: boolean;
         disabledDays?: (date: Date) => boolean;
+        fixedWeeks?: boolean;
         fromMonth?: Date;
+        reverseMonths?: boolean;
         toMonth?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
         captionElement?: React.ReactElement<CaptionElementProps>;
+        navbarElement?: React.ReactElement<NavbarElementProps>;
+        weekdayElement?: React.ReactElement<WeekdayElementProps>;
         onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayKeyDown?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayTouchEnd?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayTouchStart?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onMonthChange?: (month: Date) => any;
         onCaptionClick?: (e: React.SyntheticEvent, month: Date) => any;
         className?: string;
