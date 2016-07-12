@@ -1,7 +1,7 @@
 /// <reference path="./react-flex.d.ts" />
-/// <reference path="../react/react.d.ts" />
 
 import { Flex, Item } from "react-flex";
+import * as React from "react";
 
 const ex1: JSX.Element = (
     <Flex row alignItems="center">
