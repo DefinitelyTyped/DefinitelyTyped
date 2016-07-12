@@ -46,8 +46,8 @@ declare namespace ReactDayPicker {
         nextMonth?: Date;
         showPreviousButton?: boolean;
         showNextButton?: boolean;
-        onPreviousClick()?: void;
-        onNextClick()?: void;
+        onPreviousClick(): void;
+        onNextClick(): void;
         dir?: string;
         localeUtils?: LocaleUtils;
         locale?: string;
