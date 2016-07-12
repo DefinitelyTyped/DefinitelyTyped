@@ -20,8 +20,8 @@ declare module ActionCable {
   interface CreateMixin {
     connected(): void;
     disconnected(): void;
-    received(obj: Object): void;
-    [key: string]: (obj?: string | Object) => void;
+    received(obj: {}): void;
+    [key: string]: (obj?: string | {}) => void;
   }
 
   function createConsumer(): Cable;
