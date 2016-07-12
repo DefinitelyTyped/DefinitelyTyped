@@ -33,7 +33,7 @@ declare module 'promisify-supertest' {
       expect(field: string, val: string, callback?: CallbackHandler): Test;
       expect(field: string, val: RegExp, callback?: CallbackHandler): Test;
       expect(checker: (res: Response) => any): Test;
-      end(callback: CallbackHandler): Test;
+      end(callback?: CallbackHandler): Test;
       end(): Promise<Response>;
     }
 
