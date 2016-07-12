@@ -8,24 +8,33 @@ declare module ActionCable {
     unsubscribe(): void;
     perform(action: string, data: {}): void;
   }
+
   interface Subscriptions {
-    create(chan_name: string, obj: {}): Channel;
+    create(chan_name: string, obj: CreateMixin): Channel;
   }
+
   interface Cable {
     subscriptions: Subscriptions;
   }
+
+  interface CreateMixin {
+    connected(): void;
+    disconnected(): void;
+    received(obj: {}): void;
+    [key: string]: (obj?: string | {}) => void;
+  }
+
   function createConsumer(): Cable;
   function createConsumer(url: string): Cable;
 }
 
 declare interface AppInterface {
   cable?: ActionCable.Cable;
-  network?: ActionCable.Channel; 
+  network?: ActionCable.Channel;
 }
 
 declare var App: AppInterface;
 
-
-
-
-
+declare module 'actioncable' {
+  export = ActionCable;
+}
