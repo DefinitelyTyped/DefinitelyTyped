@@ -15,14 +15,17 @@ declare module "supertest-as-promised" {
   function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
   namespace supertestAsPromised {
-    interface Test extends Promise<Response>, supertest.Test {
+    interface Request extends supertest.Request {
+    }
+
+    interface Response extends supertest.Response {
+    }
+
+    interface Test extends Promise<Response>, supertest.Test, supertest.Request {
       toPromise(): PromiseBlurbird<Response>;
     }
 
     function agent(app?: any): SuperTest<Test>;
-
-    interface Response extends supertest.Response {
-    }
 
     interface SuperTest<T extends Test> extends supertest.SuperTest<T> {
     }

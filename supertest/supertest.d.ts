@@ -6,12 +6,16 @@
 /// <reference path='../superagent/superagent.d.ts' />
 
 declare module "supertest" {
-  import { Request } from "superagent"
   import * as superagent from "superagent"
 
   function supertest(app: any): supertest.SuperTest<supertest.Test>;
 
   namespace supertest {
+    interface Response extends superagent.Response {
+    }
+
+    interface Request extends superagent.Request {
+    }
 
     type CallbackHandler = (err: any, res: Response) => void;
     interface Test extends Request {
@@ -30,9 +34,6 @@ declare module "supertest" {
     }
 
     function agent(app?: any): SuperTest<Test>;
-
-    interface Response extends superagent.Response {
-    }
 
     interface SuperTest<T extends Request> extends superagent.SuperAgent<T> {
     }
