@@ -4,6 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "object-assign" {
-  function objectAssign(target: any, ...sources: any[]): any;
-  export = objectAssign;
+  export default function(target: any, ...sources: any[]): any;
 }
