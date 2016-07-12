@@ -54,7 +54,7 @@ interface IScrollOptions {
 	bounceEasing?: any;
 	
 	preventDefault?: boolean;
-	preventDefaultException?: boolean;
+	preventDefaultException?: Object;
 
 	HWCompositing?: boolean;
 
