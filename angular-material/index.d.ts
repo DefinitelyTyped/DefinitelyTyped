@@ -5,9 +5,7 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
-
-declare module 'angular' {
+declare namespace angular {
     export namespace material {
 
         interface IBottomSheetOptions {
