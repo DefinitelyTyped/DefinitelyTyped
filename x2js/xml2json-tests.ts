@@ -4,7 +4,7 @@
 var x2js = new X2JS();
 
 // JSON to DOM
-var xmlDoc = x2js.json2xml(
+var xmlDoc = x2js.js2dom(
   {
     MyRoot: {
       MyChild: 'my_child_value',
@@ -24,7 +24,7 @@ var xmlDoc = x2js.json2xml(
 
 
 // JSON to XML string
-var xmlDocStr = x2js.json2xml_str(
+var xmlDocStr = x2js.js2xml(
   {
     MyRoot: {
       MyChild: 'my_child_value',
@@ -45,7 +45,7 @@ var xmlDocStr = x2js.json2xml_str(
 console.log(xmlDocStr);
 
 // JSON arrays to string
-var xmlDocStr = x2js.json2xml_str(
+xmlDocStr = x2js.js2xml(
   {
     MyRoot: {
       namedItemArray: {
@@ -77,28 +77,28 @@ var xmlDocStr = x2js.json2xml_str(
 
 console.log(xmlDocStr);
 
-// XML string to JSON    
+// XML string to JSON
 var xmlText = "<MyOperation><test>Success</test><test2><item>ddsfg</item><item>dsdgfdgfd</item></test2></MyOperation>";
-var jsonObj = x2js.xml_str2json<any>(xmlText);
+var jsonObj = x2js.xml2js<any>(xmlText);
 console.log(jsonObj.MyOperation.test);
 
 // Array access form examples
 console.log(x2js.asArray(jsonObj.MyOperation.test)[0]);
 // Or old style (1.0.+):
 var x2jsOld = new X2JS({arrayAccessForm: "property"});
-jsonObj = x2jsOld.xml_str2json(xmlText);
+jsonObj = x2jsOld.xml2js(xmlText);
 console.log("Old is " + jsonObj.MyOperation.test_asArray[0]);
 
-// XML/DOM to JSON    
-var xmlText = " <MyOperation> <test>- Success -</test> <test2> TestText <item> ddsfg </item> TestText2 <item>dsdgfdgfd</item></test2></MyOperation>"
-xmlDoc = x2js.parseXmlString(xmlText);
+// XML/DOM to JSON
+xmlText = " <MyOperation> <test>- Success -</test> <test2> TestText <item> ddsfg </item> TestText2 <item>dsdgfdgfd</item></test2></MyOperation>";
+xmlDoc = x2js.xml2dom(xmlText);
 
-var jsonObj = x2js.xml2json<any>(xmlDoc);
+jsonObj = x2js.xml2js<any>(xmlDoc);
 console.log(jsonObj.MyOperation.test);
 
 // Parsing XML attrs
-var xmlText = "<MyOperation myAttr='SuccessAttrValue'><txtAttrChild sAttr='SUCCESS TXT ATTR CHILD'>SUCCESS TXT</txtAttrChild><test>Success</test><test2 myAttr='SuccessAttrValueTest2'><item>ddsfg</item><item>dsdgfdgfd</item></test2></MyOperation>";
-var jsonObj = x2js.xml_str2json<any>(xmlText);
+xmlText = "<MyOperation myAttr='SuccessAttrValue'><txtAttrChild sAttr='SUCCESS TXT ATTR CHILD'>SUCCESS TXT</txtAttrChild><test>Success</test><test2 myAttr='SuccessAttrValueTest2'><item>ddsfg</item><item>dsdgfdgfd</item></test2></MyOperation>";
+jsonObj = x2js.xml2js<any>(xmlText);
 console.log(jsonObj.MyOperation._myAttr);
 console.log(jsonObj.MyOperation.test2._myAttr);
 console.log(jsonObj.MyOperation.txtAttrChild._sAttr);
@@ -106,7 +106,7 @@ console.log(jsonObj.MyOperation.txtAttrChild.__text);
 console.log(jsonObj.MyOperation.txtAttrChild.toString());
 
 // JSON to XML attrs
-var xmlDocStr = x2js.json2xml_str(
+xmlDocStr = x2js.js2xml(
   {
     TestAttrRoot: {
       _myAttr: 'myAttrValue',
@@ -127,12 +127,12 @@ var x2jsChangedAttrs = new X2JS({
   // XML attributes. Default is "_"
   attributePrefix: "$"
 });
-jsonObj = x2jsChangedAttrs.xml_str2json(xmlText);
+jsonObj = x2jsChangedAttrs.xml2js(xmlText);
 console.log(jsonObj.MyOperation.$myAttr);
 console.log(jsonObj.MyOperation.test2.$myAttr);
 console.log(jsonObj.MyOperation.txtAttrChild.$sAttr);
 
-xmlDocStr = x2jsChangedAttrs.json2xml_str({
+xmlDocStr = x2jsChangedAttrs.js2xml({
     TestAttrRoot: {
       _myAttr: 'myAttrValue',
       MyChild: 'my_child_value',
@@ -149,8 +149,8 @@ console.log(xmlDocStr);
 
 
 // Parse XML with namespaces
-var xmlText = "<testns:MyOperation xmlns:testns='http://www.example.org'><test>Success</test><test2 myAttr='SuccessAttrValueTest2'><item>ddsfg</item><item>dsdgfdgfd</item><item2>testArrSize</item2></test2></testns:MyOperation>";
-var jsonObj = x2js.xml_str2json<any>(xmlText);
+xmlText = "<testns:MyOperation xmlns:testns='http://www.example.org'><test>Success</test><test2 myAttr='SuccessAttrValueTest2'><item>ddsfg</item><item>dsdgfdgfd</item><item2>testArrSize</item2></test2></testns:MyOperation>";
+var jsonObj = x2js.xml2js<any>(xmlText);
 console.log(jsonObj.MyOperation.test);
 if (jsonObj.MyOperation.test2.item.length > 2)
   console.log("Error! Incorrect array len!");
@@ -165,7 +165,7 @@ var testObjC = {
 }
 
 // Parse JSON object with namespaces
-var xmlDocStr = x2js.json2xml_str(
+var xmlDocStr = x2js.js2xml(
   testObjC
 );
 
@@ -186,7 +186,7 @@ var testObjNew = {
 }
 
 // Parse JSON object with namespaces
-var xmlDocStr = x2js.json2xml_str(
+var xmlDocStr = x2js.js2xml(
   testObjNew
 );
 
@@ -196,26 +196,26 @@ console.log(xmlDocStr);
 var xmlText = "<?xml version='1.0' encoding='utf-8' ?>\n" +
   "<test>XML HEADER SUCCESS!</test>";
 
-var jsonObj = x2js.xml_str2json<any>(xmlText);
+var jsonObj = x2js.xml2js<any>(xmlText);
 console.log(jsonObj.test);
 
 // Parse XML with CDATA
 var xmlText = "<test><simple>simple success</simple><data><![CDATA[<success/>]]></data> </test>";
 
-var jsonObj = x2js.xml_str2json<any>(xmlText);
+var jsonObj = x2js.xml2js<any>(xmlText);
 console.log(jsonObj.test.data.toString());
 console.log(jsonObj.test.data.__cdata);
 console.log(jsonObj.test.simple);
 
 
 // Parse JSON object with CDATA
-var xmlDocStr = x2js.json2xml_str(
+var xmlDocStr = x2js.js2xml(
   jsonObj
 );
 console.log(xmlDocStr);
 
 // Parse JSON with emtpy attributes
-var xmlDocStr = x2js.json2xml_str(
+var xmlDocStr = x2js.js2xml(
   {
     MyRoot: {
       MyNullChild: <any>null,
@@ -235,7 +235,7 @@ var xmlDocStr = x2js.json2xml_str(
 console.log(xmlDocStr);
 
 // Escaping XML characters
-xmlDocStr = x2js.json2xml_str(
+xmlDocStr = x2js.js2xml(
   {
     MyRoot: {
       MyEscapeXmlChild: "<success> & \" ' / </success>",
@@ -250,7 +250,7 @@ xmlDocStr = x2js.json2xml_str(
 
 console.log(xmlDocStr);
 
-jsonObj = x2js.xml_str2json(xmlDocStr);
+jsonObj = x2js.xml2js(xmlDocStr);
 console.log(jsonObj.MyRoot.MyEscapeXmlChild);
 console.log(jsonObj.MyRoot.MyEscapeXmlChild2.toString());
 
@@ -272,7 +272,7 @@ xmlText = "<MyArrays>" +
   "</MyArrays>";
 
 
-jsonObj = x2js.xml_str2json(xmlText);
+jsonObj = x2js.xml2js(xmlText);
 console.log(jsonObj.MyArrays.test3.item[0]);
 console.log(jsonObj.MyArrays.test4.item[0]);
 console.log(jsonObj.MyArrays.test5.item);
@@ -291,7 +291,7 @@ xmlText = "<MyDts>" +
   "<testdt2>2002-10-10T12:00:00</testdt2>" +
   "<testdc>2002-10-10T12:00:00Z</testdc>" +
   "</MyDts>";
-jsonObj = x2js.xml_str2json(xmlText);
+jsonObj = x2js.xml2js(xmlText);
 
 console.log(jsonObj.MyDts.testds);
 console.log(jsonObj.MyDts.testdt1);
