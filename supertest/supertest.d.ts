@@ -34,7 +34,7 @@ declare module "supertest" {
     interface Response extends superagent.Response {
     }
 
-    interface SuperTest<T extends Test> extends superagent.SuperAgent<T> {
+    interface SuperTest<T extends Request> extends superagent.SuperAgent<T> {
     }
 
   }

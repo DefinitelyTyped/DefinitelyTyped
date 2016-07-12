@@ -6,7 +6,6 @@
 /// <reference path='../superagent/superagent.d.ts' />
 /// <reference path='../supertest/supertest.d.ts' />
 /// <reference path='../bluebird/bluebird.d.ts' />
-/// <reference path='../core-js/core-js.d.ts' />
 
 declare module "supertest-as-promised" {
   import * as supertest from "supertest";
