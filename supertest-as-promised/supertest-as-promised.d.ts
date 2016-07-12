@@ -4,42 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path='../supertest/supertest.d.ts' />
 
 declare module "supertest-as-promised" {
-  // Mostly copy-pasted from supertest.d.ts
+  import * as supertest from "supertest";
+  import { SuperTest, Response } from "supertest";
 
-  import * as superagent from 'superagent';
-  import * as PromiseBluebird from 'bluebird';
+  function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
-  function supertest(app: any): supertest.SuperTest;
+  namespace supertestAsPromised {
+    interface Test extends PromiseLike<Response>, supertest.Test {
+      toPromise(): PromiseLike<Response>;
+    }
+    function agent(app?: any): SuperTest<Test>;
 
-  namespace supertest {
-    function agent(app?: any): supertest.SuperTest;
-
-    interface SuperTest extends superagent.SuperAgent<Test> {
+    interface Response extends supertest.Response {
     }
 
-    interface Promise<T> extends PromiseBluebird<T> {
-      toPromise(): PromiseBluebird<T>;
-    }
-
-    interface Test extends superagent.Request<Test> {
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number): Promise<supertest.Response>;
-      expect(status: number, body: string): Promise<supertest.Response>;
-      expect(body: string): Promise<supertest.Response>;
-      expect(body: RegExp): Promise<supertest.Response>;
-      expect(body: Object): Promise<supertest.Response>;
-      expect(field: string, val: string): Promise<supertest.Response>;
-      expect(field: string, val: RegExp): Promise<supertest.Response>;
-      expect(checker: (res: Response) => any): Promise<supertest.Response>;
-    }
-
-    interface Response extends superagent.Response {
+    interface SuperTest<T extends Test> extends supertest.SuperTest<T> {
     }
   }
-
-  export = supertest;
+  export = supertestAsPromised
 }
