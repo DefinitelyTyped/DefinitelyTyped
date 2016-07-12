@@ -9,6 +9,7 @@
 
 declare module "supertest-as-promised" {
   import * as supertest from "supertest";
+  import * as supersgent from "superagent";
   import { SuperTest, Response } from "supertest";
   import * as PromiseBlurbird from "bluebird";
 
@@ -21,7 +22,7 @@ declare module "supertest-as-promised" {
     interface Response extends supertest.Response {
     }
 
-    interface Test extends Promise<Response>, supertest.Test, supertest.Request {
+    interface Test extends Promise<Response>, supertest.Test, supersgent.Request {
       toPromise(): PromiseBlurbird<Response>;
     }
 
