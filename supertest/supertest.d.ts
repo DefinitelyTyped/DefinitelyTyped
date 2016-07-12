@@ -35,7 +35,7 @@ declare module "supertest" {
 
     function agent(app?: any): SuperTest<Test>;
 
-    interface SuperTest<T extends Test> extends superagent.SuperAgent<T> {
+    interface SuperTest<T> extends superagent.SuperAgent<T> {
     }
 
   }

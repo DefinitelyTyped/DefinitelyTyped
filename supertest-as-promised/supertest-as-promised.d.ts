@@ -28,7 +28,7 @@ declare module "supertest-as-promised" {
 
     function agent(app?: any): SuperTest<Test>;
 
-    interface SuperTest<T extends Test> extends supertest.SuperTest<T> {
+    interface SuperTest<T> extends supertest.SuperTest<T> {
     }
   }
   export = supertestAsPromised
