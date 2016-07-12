@@ -656,6 +656,13 @@ declare namespace Parse {
         escape(attr: string): any;
     }
 
+    class Session extends Object {
+        static current(): Promise<Session>;
+
+        getSessionToken(): string;
+        isCurrentSessionRevocable(): boolean;
+    }
+
     /**
      * Routers map faux-URLs to actions, and fire events when routes are
      * matched. Creating a new one sets its `routes` hash, if not set statically.
