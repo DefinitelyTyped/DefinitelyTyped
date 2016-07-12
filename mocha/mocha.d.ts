@@ -29,10 +29,6 @@ interface MochaSetupOptions {
     grep?: any;
 }
 
-interface MochaDone {
-    (error?: Error): void;
-}
-
 declare var mocha: Mocha;
 declare var describe: Mocha.IContextDefinition;
 declare var xdescribe: Mocha.IContextDefinition;
@@ -46,8 +42,12 @@ declare var xit: Mocha.ITestDefinition;
 declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
+interface MochaDone {
+    (error?: Error): any;
+}
+
 interface ActionFunction {
-    (done?: MochaDone): void | PromiseLike<void>
+    (done?: MochaDone): any | PromiseLike<any>
 }
 
 declare function setup(action: ActionFunction): void;
