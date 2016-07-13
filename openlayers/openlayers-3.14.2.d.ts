@@ -3572,6 +3572,8 @@ declare namespace ol {
         }
 
         class DrawEvent {
+            constructor (type: ol.interaction.DrawEventType, feature: ol.Feature)
+            feature: ol.Feature
         }
 
         class Interaction extends ol.Object {
@@ -3611,6 +3613,11 @@ declare namespace ol {
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
         interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
+
+        interface DrawEventType extends String {
+            DRAWSTART
+            DRAWEND
+        }
     }
 
     namespace layer {
