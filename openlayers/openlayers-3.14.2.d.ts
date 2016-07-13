@@ -558,7 +558,14 @@ declare namespace olx {
             wrapX?: boolean;
         }
         interface InteractionOptions {
-            handleEvent: (e: ol.MapBrowserEvent) => boolean
+            handleEvent: (e: ol.MapBrowserEvent) => boolean;
+        }
+        interface PointerOptions {
+            handleDownEvent?: (e: ol.MapBrowserPointerEvent) => boolean;
+            handleDragEvent?: (e: ol.MapBrowserPointerEvent) => void;
+            handleEvent?: (e: ol.MapBrowserEvent) => boolean;
+            handleMoveEvent?: (e: ol.MapBrowserPointerEvent) => void;
+            handleUpEvent?: (e: ol.MapBrowserPointerEvent) => boolean;
         }
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
@@ -1881,6 +1888,15 @@ declare namespace ol {
         stopPropagation(): void;
     }
 
+    class MapBrowserPointerEvent extends ol.MapBrowserEvent {
+        constructor (type: string,
+                     map: ol.Map,
+                     pointerEvent: ol.pointer.PointerEvent,
+                     opt_dragging?: boolean,
+                     opt_frameState?: olx.FrameState)
+        pointerEvent: ol.pointer.PointerEvent;
+    }
+
     /**
      * Events emitted as map events are instances of this type. See ol.Map for which events trigger a map event.
      */
@@ -2461,6 +2477,11 @@ declare namespace ol {
         * @returns Output between 0 and 1
         */
         function upAndDown(t: number): number;
+    }
+
+    interface ModifyEventType extends String {
+        MODIFYSTART
+        MODIFYEND
     }
 
     namespace events {
@@ -3606,6 +3627,16 @@ declare namespace ol {
             constructor(opt_options?: olx.interaction.ModifyOptions)
         }
 
+        class ModifyEvent extends ol.events.Event {
+            constructor (
+                type: ol.ModifyEventType,
+                features: ol.Collection<ol.Feature>,
+                mapBrowserPointerEvent: ol.MapBrowserPointerEvent
+            )
+            features: ol.Collection<ol.Feature>;
+            mapBrowserPointerEvent: ol.MapBrowserPointerEvent;
+        }
+
         class MouseWheelZoom {
         }
 
@@ -4003,6 +4034,42 @@ declare namespace ol {
          * @returns Loading strategy
          */
         function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
+    }
+
+    namespace pointer {
+
+        class PointerEvent {
+            constructor (type: string,
+                         originalEvent: Event,
+                         opt_eventDict?: {[x: string]: any})
+            originalEvent: Event;
+            buttons: number;
+            pressure: number;
+            bubbles: boolean;
+            cancelable: boolean;
+            view: Object;
+            detail: number;
+            screenX: number;
+            screenY: number;
+            clientX: number;
+            clientY: number;
+            ctrlKey: boolean;
+            altKey: boolean;
+            shiftKey: boolean;
+            metaKey: boolean;
+            button: number;
+            relatedTarget: Node;
+            pointerId: number;
+            width: number;
+            height: number;
+            tiltX: number;
+            tiltY: number;
+            pointerType: string;
+            hwTimestamp: number;
+            isPrimary: boolean;
+            preventDefault: () => void;
+        }
+
     }
 
     namespace proj {
