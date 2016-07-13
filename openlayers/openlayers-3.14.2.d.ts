@@ -1176,7 +1176,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.Collection instances are instances of this type.
      */
-    class CollectionEvent<T> {
+    class CollectionEvent<T> extends ol.events.Event {
 
         /**
          * The element that is added to or removed from the collection.
