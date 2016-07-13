@@ -1260,7 +1260,6 @@ declare namespace ol {
             coordinate: ol.Coordinate,
             mapBrowserEvent: ol.MapBrowserEvent
         )
-
         /**
          * The coordinate of the drag event.
          */
