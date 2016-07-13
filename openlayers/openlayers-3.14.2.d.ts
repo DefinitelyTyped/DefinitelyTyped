@@ -1146,7 +1146,7 @@ declare namespace ol {
 
         /**
          * Insert the provided element at the end of the collection.
-         * @param Element.
+         * @param elem Element.
          * @returns Length.
          */
         push(elem: T): number;
@@ -1250,7 +1250,7 @@ declare namespace ol {
 
         /**
          * @constructor
-         * @param geometry Geometry.
+         * @param geometryOrProperties Geometry.
          */
         // TODO: replace any with Object <string, *>
         constructor(geometryOrProperties?: ol.geom.Geometry | any);
@@ -1490,7 +1490,7 @@ declare namespace ol {
 
         /**
          * Set the tracking options.
-         * @param PositionOptions as defined by the HTML5 Geolocation spec.
+         * @param options PositionOptions as defined by the HTML5 Geolocation spec.
          */
         setTrackingOptions(options: PositionOptions): void;
     }
@@ -1599,8 +1599,8 @@ declare namespace ol {
         /**
          * @constructor
          * @param decay Rate of decay (must be negative).
-         * @param Minimum velocity (pixels/millisecond).
-         * @param Delay to consider to calculate the kinetic initial values (milliseconds).
+         * @param minVelocity Minimum velocity (pixels/millisecond).
+         * @param delay Delay to consider to calculate the kinetic initial values (milliseconds).
          */
         constructor(decay: number, minVelocity: number, delay: number);
     }
@@ -1630,7 +1630,7 @@ declare namespace ol {
 
         /**
          * Adds the given layer to the top of this map. If you want to add a layer elsewhere in the stack, use getLayers() and the methods available on ol.Collection.
-         * @param Layer.
+         * @param layer Layer.
          */
         addLayer(layer: ol.layer.Base): void;
 
@@ -1767,7 +1767,7 @@ declare namespace ol {
 
         /**
          * Remove the given control from the map.
-         * @param Control.
+         * @param control Control.
          * @returns The removed control (or undefined if the control was not found).
          */
         removeControl(control: ol.control.Control): ol.control.Control;
@@ -1781,14 +1781,14 @@ declare namespace ol {
 
         /**
          * Removes the given layer from the map.
-         * @param Layer.
+         * @param layer Layer.
          * @returns The removed layer (or undefined if the layer was not found).
          */
         removeLayer(layer: ol.layer.Base): ol.layer.Base;
 
         /**
          * Remove the given overlay from the map.
-         * @param Overlay.
+         * @param overlay Overlay.
          * @returns The removed overlay (or undefined if the overlay was not found).
          */
         removeOverlay(overlay: ol.Overlay): ol.Overlay;
@@ -1957,7 +1957,7 @@ declare namespace ol {
 
         /**
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
-         * @param Values.
+         * @param values Values.
          */
         setProperties(values: GlobalObject): void;
 
@@ -2104,7 +2104,7 @@ declare namespace ol {
 
         /**
          * Set the positioning for this overlay.
-         * @param How the overlay is positioned relative to its point on the map.
+         * @param positioning How the overlay is positioned relative to its point on the map.
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
@@ -2213,9 +2213,9 @@ declare namespace ol {
 
         /**
           * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-          * @param extent Extent.
+          * @param geometry Extent.
           * @param size Box pixel size.
-          * @param options Options
+          * @param opt_options Options
           */
         fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, opt_options?: olx.view.FitGeometryOptions): void;
 
@@ -2445,35 +2445,35 @@ declare namespace ol {
 
         /**
          * Start slow and speed up.
-         * @param number Input between 0 and 1
+         * @param t Input between 0 and 1
          * @returns Output between 0 and 1
          */
         function easeIn(t: number): number;
 
         /**
          * Start fast and slow down.
-         * @param number Input between 0 and 1
+         * @param t Input between 0 and 1
          * @returns Output between 0 and 1
          */
         function easeOut(t: number): number;
 
         /**
         * Start slow, speed up, and then slow down again.
-        * @param number Input between 0 and 1
+        * @param t Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function inAndOut(t: number): number;
 
         /**
         * Maintain a constant speed over time.
-        * @param number Input between 0 and 1
+        * @param t Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function linear(t: number): number;
 
         /**
         * Start slow, speed up, and at the very end slow down again. This has the same general behavior as ol.easing.inAndOut, but the final slowdown is delayed.
-        * @param number Input between 0 and 1
+        * @param t Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function upAndDown(t: number): number;
@@ -2718,7 +2718,7 @@ declare namespace ol {
 
             /**
              * @constructor
-             * @param Options
+             * @param options Options
              */
             constructor(options?: olx.format.GeoJSONOptions);
 
@@ -2748,7 +2748,7 @@ declare namespace ol {
 
             /**
              * Read the projection from a GeoJSON source.
-             * @param Source
+             * @param source Source
              * @returns Projection
              */
             readProjection(source: Document | Node | JSON | string): ol.proj.Projection;
@@ -2796,6 +2796,7 @@ declare namespace ol {
             /**
              * Encode a geometry as a GeoJSON object.
              * @param geometry Geometry
+             * @param options Options
              * @options Write options
              * @returns GeoJSON object
              */
@@ -2981,7 +2982,7 @@ declare namespace ol {
 
             /**
              * Get the extent of the geometry.
-             * @param Extent
+             * @param extent Extent
              * @returns Extent
              */
             getExtent(extent?: ol.Extent): ol.Extent;
@@ -3761,7 +3762,7 @@ declare namespace ol {
              * Adjust the layer brightness. A value of -1 will render the layer completely black. A value of 0 will leave the brightness unchanged. A value of 1 will render the layer completely white. Other values are linear multipliers on the effect (values are clamped between -1 and 1).
              * @param brightness The brightness of the layer
              */
-            setBrightness(brigthness: number): void;
+            setBrightness(brightness: number): void;
 
             /**
              * Adjust the layer contrast. A value of 0 will render the layer completely grey. A value of 1 will leave the contrast unchanged. Other values are linear multipliers on the effect (and values over 1 are permitted).
@@ -3795,7 +3796,7 @@ declare namespace ol {
 
             /**
              * Set the opacity of the layer, allowed values range from 0 to 1.
-             * @param opactity The opacity of the layer.
+             * @param opacity The opacity of the layer.
              */
             setOpacity(opacity: number): void;
 
@@ -4050,7 +4051,7 @@ declare namespace ol {
 
         /**
          * Creates a strategy function for loading features based on a tile grid.
-         * @param tilegrid Tile grid
+         * @param tileGrid Tile grid
          * @returns Loading strategy
          */
         function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
@@ -4130,7 +4131,7 @@ declare namespace ol {
         /**
          * Transforms a coordinate from longitude/latitude to a different projection.
          * @param coordinate Coordinate as longitude and latitude, i.e. an array with longitude as 1st and latitude as 2nd element.
-         * @param projection Target projection. The default is Web Mercator, i.e. 'EPSG:3857'.
+         * @param opt_projection Target projection. The default is Web Mercator, i.e. 'EPSG:3857'.
          */
         function fromLonLat(coordinate: Coordinate, opt_projection: ProjectionLike): Coordinate;
 
