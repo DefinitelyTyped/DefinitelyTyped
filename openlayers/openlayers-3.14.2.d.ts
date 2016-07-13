@@ -2526,6 +2526,8 @@ declare namespace ol {
         interface ListenerFunctionType {
             (evt: ol.events.Event): boolean | void;
         }
+
+        interface Key extends GlobalObject {}
     }
 
     namespace extent {
@@ -2920,12 +2922,30 @@ declare namespace ol {
          */
         class Circle extends ol.geom.SimpleGeometry {
 
+            constructor(center: ol.Coordinate, opt_radius?: number, opt_layout?: ol.geom.GeometryLayout);
+
+            clone(): ol.geom.Circle;
+
+            getCenter(): ol.Coordinate;
+
+            getRadius(): number;
+
+            getType(): ol.geom.GeometryType;
+
             /**
-            * Test if the geometry and the passed extent intersect.
-            * @param extent Extent
-            * @returns true if the geometry and the extent intersect.
-            */
+             * Test if the geometry and the passed extent intersect.
+             * @param extent Extent
+             * @returns true if the geometry and the extent intersect.
+             */
             intersectsExtent(extent: ol.Extent): boolean;
+
+            setCenter(center: ol.Coordinate): void;
+
+            setCenterAndRadius(center: ol.Coordinate, radius: number, opt_layout?: ol.geom.GeometryLayout): void;
+
+            setFlatCoordinates(layout: ol.geom.GeometryLayout, flatCoordinates: number[]): void;
+
+            setRadius(radius: number): void;
 
             /**
              * Transform each coordinate of the circle from one coordinate reference system
@@ -2939,9 +2959,9 @@ declare namespace ol {
              * So the resulting geometry is also a circle, and that circle does not
              * correspond to the shape that would be obtained by transforming every point
              * of the original circle.
-             * @param source The current projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
-             * @param destination The desired projection.  Can be a string identifier or a {@link ol.proj.Projection} object.
-             * @returns This geometry.  Note that original geometry is  modified in place.
+             * @param source The current projection.	Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @param destination The desired projection.	Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @returns This geometry.	Note that original geometry is	modified in place.
              */
             transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Circle;
         }
