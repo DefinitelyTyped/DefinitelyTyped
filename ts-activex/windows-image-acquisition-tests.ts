@@ -1,4 +1,4 @@
-/// <reference path="microsoft-windows-image-acquisition.d.ts" />
+/// <reference path="windows-image-acquisition.d.ts" />
 
 //source -- https://msdn.microsoft.com/en-us/library/windows/desktop/ms630826(v=vs.85).aspx
 
@@ -6,17 +6,17 @@
 //Convert a file
 var commonDialog = new ActiveXObject('WIA.CommonDialog');
 var img = commonDialog.ShowAcquireImage();
-if (img.FormatID != WIA.FormatID.wiaFormatJPEG) {
+if (img.FormatID !== WIA.FormatID.wiaFormatJPEG) {
     var ip = new ActiveXObject('WIA.ImageProcess');
     ip.Filters.Add(ip.FilterInfos.Item('Convert').FilterID);
-    ip.Filters.Item(1).Properties.Item("FormatID").Value = WIA.FormatID.wiaFormatJPEG;
+    ip.Filters.Item(1).Properties.Item('FormatID').Value = WIA.FormatID.wiaFormatJPEG;
     img = ip.Apply(img);
 }
 
 
 //Take a picture
 var dev = commonDialog.ShowSelectDevice();
-if (dev.Type == WIA.WiaDeviceType.CameraDeviceType) {
+if (dev.Type === WIA.WiaDeviceType.CameraDeviceType) {
     var itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
 }
 
@@ -32,8 +32,8 @@ while (!e.atEnd()) {
         s += '[vector of data]';
     } else {
         s += p.Value;
-        if (p.SubType != WIA.WiaSubType.UnspecifiedSubType) {
-            if (p.Value != p.SubTypeDefault) {
+        if (p.SubType !== WIA.WiaSubType.UnspecifiedSubType) {
+            if (p.Value !== p.SubTypeDefault) {
                 s += ' (Default = ' + p.SubTypeDefault + ')';
             }
         }
@@ -45,7 +45,7 @@ while (!e.atEnd()) {
         switch (p.SubType) {
             case WIA.WiaSubType.FlagSubType:
             case WIA.WiaSubType.ListSubType:
-                if (p.SubType == WIA.WiaSubType.FlagSubType) {
+                if (p.SubType === WIA.WiaSubType.FlagSubType) {
                     s += ' [valid flags include: ';
                 } else {
                     s += ' [valid values include: ';
