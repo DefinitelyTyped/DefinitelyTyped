@@ -535,6 +535,14 @@ declare namespace olx {
             zoomDelta?: number;
             zoomDuration?: number;
         }
+        interface DragBoxOptions {
+            className?: string
+            condition?: ol.events.ConditionType
+            boxEndCondition?: ol.interaction.DragBoxEndConditionType
+        }
+        interface InteractionOptions {
+            handleEvent (e: ol.MapBrowserEvent): boolean
+        }
         interface ModifyOptions {
             deleteCondition?: ol.events.ConditionType;
             pixelTolerance?: number;
