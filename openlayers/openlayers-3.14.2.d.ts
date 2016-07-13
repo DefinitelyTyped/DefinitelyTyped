@@ -682,19 +682,19 @@ declare namespace olx {
         interface VectorOptions extends LayerOptions {
 
             /**
-             * When set to true, feature batches will be recreated during animations. This means that no vectors will be shown clipped, but the setting will have a performance impact for large amounts of vector data. When set to false, batches will be recreated when no animation is active. Default is false.
-             */
-            updateWhileAnimating?: boolean;
-
-            /**
-             * When set to true, feature batches will be recreated during interactions. See also updateWhileInteracting. Default is false.
-             */
-            updateWhileInteracting?: boolean;
-
-            /**
              * Render order. Function to be used when sorting features before rendering. By default features are drawn in the order that they are created. Use null to avoid the sort, but get an undefined draw order.
              */
-            renderOrder? (a: ol.Feature, b: ol.Feature): number;
+            renderOrder?: (a: ol.Feature, b: ol.Feature) => number;
+
+            map?: ol.Map;
+
+            extent?: ol.Extent;
+
+            minResolution?: number;
+
+            maxResolution?: number;
+
+            opacity?: number;
 
             /**
              * The buffer around the viewport extent used by the renderer when getting features from the vector source for the rendering or hit-detection. Recommended value: the size of the largest symbol, line width or label. Default is 100 pixels.
@@ -704,12 +704,24 @@ declare namespace olx {
             /**
              * Source.
              */
-            source?: ol.source.Vector;
+            source: ol.source.Vector;
 
             /**
              * Layer style. See ol.style for default style which will be used if this is not defined.
              */
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+
+            /**
+             * When set to true, feature batches will be recreated during animations. This means that no vectors will be shown clipped, but the setting will have a performance impact for large amounts of vector data. When set to false, batches will be recreated when no animation is active. Default is false.
+             */
+            updateWhileAnimating?: boolean;
+
+            /**
+             * When set to true, feature batches will be recreated during interactions. See also updateWhileInteracting. Default is false.
+             */
+            updateWhileInteracting?: boolean;
+
+            visible?: boolean;
         }
     }
 
