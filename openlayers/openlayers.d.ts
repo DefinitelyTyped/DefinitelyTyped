@@ -2395,6 +2395,8 @@ declare namespace ol {
         }
 
         class Control {
+            //TODO: Replace with olx.control.ControlOptions
+            constructor(options?: any);
         }
 
         class FullScreen {
