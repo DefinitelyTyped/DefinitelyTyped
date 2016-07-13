@@ -177,15 +177,15 @@ declare namespace olx {
      * Object literal with config options for the map logo.
      */
     interface LogoOptions {
-		/**
-		* Link url for the logo. Will be followed when the logo is clicked.
-		*/
-		href: string;
+        /**
+         * Link url for the logo. Will be followed when the logo is clicked.
+         */
+        href: string;
 
-		/**
-		* Image src for the logo
-		*/
-		src: string;
+        /**
+         * Image src for the logo
+         */
+        src: string;
 
     }
 
@@ -351,35 +351,35 @@ declare namespace olx {
         code: string;
 
         /**
-        * Units. Required unless a proj4 projection is defined for code.
-        */
+         * Units. Required unless a proj4 projection is defined for code.
+         */
         units?: ol.proj.Units;
 
         /**
-        * The validity extent for the SRS.
-        */
+         * The validity extent for the SRS.
+         */
         extent?: Array<number>;
 
         /**
-        * The axis orientation as specified in Proj4. The default is enu.
-        */
+         * The axis orientation as specified in Proj4. The default is enu.
+         */
         axisOrientation?: string;
 
         /**
-        * Whether the projection is valid for the whole globe. Default is false.
-        */
+         * Whether the projection is valid for the whole globe. Default is false.
+         */
         global?: boolean;
 
         /**
-        * experimental The world extent for the SRS.
-        */
+         * experimental The world extent for the SRS.
+         */
         worldExtent?: ol.Extent;
 
         /**
-        *  experimental Function to determine resolution at a point. The function is called with
-        *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number}
-        *  resolution at the passed coordinate.
-        */
+         *  experimental Function to determine resolution at a point. The function is called with
+         *  a {number} view resolution and an {ol.Coordinate} as arguments, and returns the {number}
+         *  resolution at the passed coordinate.
+         */
         getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
     }
 
@@ -495,7 +495,7 @@ declare namespace olx {
             /**
              * Attribution options.
              */
-            //TODO: Replace with olx.control.AttributionOptions
+                //TODO: Replace with olx.control.AttributionOptions
             attributionOptions?: any;
 
             /**
@@ -506,7 +506,7 @@ declare namespace olx {
             /**
              * Rotate options
              */
-            //TODO: Replace with olx.control.RotateOptions
+                //TODO: Replace with olx.control.RotateOptions
             rotateOptions?: any;
 
             /**
@@ -517,7 +517,7 @@ declare namespace olx {
             /**
              *
              */
-            //TODO: Replace with olx.control.ZoomOptions
+                //TODO: Replace with olx.control.ZoomOptions
             zoomOptions?: any;
         }
     }
@@ -694,8 +694,7 @@ declare namespace olx {
             /**
              * Render order. Function to be used when sorting features before rendering. By default features are drawn in the order that they are created. Use null to avoid the sort, but get an undefined draw order.
              */
-            // TODO: replace any with the expected function, unclear in documentation what the parameters are
-            renderOrder?: any;
+            renderOrder? (a: ol.Feature, b: ol.Feature): number;
 
             /**
              * The buffer around the viewport extent used by the renderer when getting features from the vector source for the rendering or hit-detection. Recommended value: the size of the largest symbol, line width or label. Default is 100 pixels.
@@ -710,7 +709,7 @@ declare namespace olx {
             /**
              * Layer style. See ol.style for default style which will be used if this is not defined.
              */
-            style?: ol.style.Style | Array<ol.style.Style> | any;
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
         }
     }
 
@@ -2220,11 +2219,11 @@ declare namespace ol {
         constrainResolution(resolution: number, delta?: number, direction?: number): number;
 
         /**
-          * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-          * @param geometry Extent.
-          * @param size Box pixel size.
-          * @param opt_options Options
-          */
+         * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
+         * @param geometry Extent.
+         * @param size Box pixel size.
+         * @param opt_options Options
+         */
         fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, opt_options?: olx.view.FitGeometryOptions): void;
 
         /**
@@ -2466,24 +2465,24 @@ declare namespace ol {
         function easeOut(t: number): number;
 
         /**
-        * Start slow, speed up, and then slow down again.
-        * @param t Input between 0 and 1
-        * @returns Output between 0 and 1
-        */
+         * Start slow, speed up, and then slow down again.
+         * @param t Input between 0 and 1
+         * @returns Output between 0 and 1
+         */
         function inAndOut(t: number): number;
 
         /**
-        * Maintain a constant speed over time.
-        * @param t Input between 0 and 1
-        * @returns Output between 0 and 1
-        */
+         * Maintain a constant speed over time.
+         * @param t Input between 0 and 1
+         * @returns Output between 0 and 1
+         */
         function linear(t: number): number;
 
         /**
-        * Start slow, speed up, and at the very end slow down again. This has the same general behavior as ol.easing.inAndOut, but the final slowdown is delayed.
-        * @param t Input between 0 and 1
-        * @returns Output between 0 and 1
-        */
+         * Start slow, speed up, and at the very end slow down again. This has the same general behavior as ol.easing.inAndOut, but the final slowdown is delayed.
+         * @param t Input between 0 and 1
+         * @returns Output between 0 and 1
+         */
         function upAndDown(t: number): number;
     }
 
@@ -3008,8 +3007,8 @@ declare namespace ol {
         }
 
         /**
-        * An array of ol.geom.Geometry objects.
-        */
+         * An array of ol.geom.Geometry objects.
+         */
         class GeometryCollection extends ol.geom.Geometry {
 
             /**
@@ -3059,9 +3058,9 @@ declare namespace ol {
         }
 
         /**
-        * Linear ring geometry. Only used as part of polygon; cannot be rendered
-        * on its own.
-        */
+         * Linear ring geometry. Only used as part of polygon; cannot be rendered
+         * on its own.
+         */
         class LinearRing extends SimpleGeometry {
 
             /**
@@ -3096,17 +3095,17 @@ declare namespace ol {
             getType(): ol.geom.GeometryType;
 
             /**
-            * @Set the coordinates of the linear ring
-            * @param coordinates Coordinates.
-            * @param layout Layout.
-            */
+             * @Set the coordinates of the linear ring
+             * @param coordinates Coordinates.
+             * @param layout Layout.
+             */
             setCoordinates(coordinates: Array<ol.Coordinate>, layout?: any): void;
 
         }
 
         /**
-        * Linestring geometry.
-        */
+         * Linestring geometry.
+         */
         class LineString extends ol.geom.SimpleGeometry {
 
             /**
@@ -3177,8 +3176,8 @@ declare namespace ol {
         }
 
         /**
-        * Multi-linestring geometry.
-        */
+         * Multi-linestring geometry.
+         */
         class MultiLineString extends ol.geom.SimpleGeometry {
 
             /**
@@ -3264,8 +3263,8 @@ declare namespace ol {
         }
 
         /**
-        * Multi-point geometry.
-        */
+         * Multi-point geometry.
+         */
         class MultiPoint extends ol.geom.SimpleGeometry {
 
             /**
@@ -3412,8 +3411,8 @@ declare namespace ol {
         }
 
         /**
-        * Point geometry.
-        */
+         * Point geometry.
+         */
         class Point extends SimpleGeometry {
 
             /**
@@ -3457,8 +3456,8 @@ declare namespace ol {
         }
 
         /**
-        * Polygon geometry.
-        */
+         * Polygon geometry.
+         */
         class Polygon extends SimpleGeometry {
 
             /**
@@ -3591,11 +3590,11 @@ declare namespace ol {
             getLayout(): ol.geom.GeometryLayout;
 
             /**
-            * Translate the geometry. This modifies the geometry coordinates in place.
-            * If instead you want a new geometry, first clone() this geometry.
-            * @param deltaX Delta X
-            * @param deltaY Delta Y
-            */
+             * Translate the geometry. This modifies the geometry coordinates in place.
+             * If instead you want a new geometry, first clone() this geometry.
+             * @param deltaX Delta X
+             * @param deltaY Delta Y
+             */
             translate(deltaX: number, deltaY: number): void;
         }
     }
@@ -4731,9 +4730,9 @@ declare namespace ol {
             constructor(canvas: HTMLCanvasElement, gl: WebGLRenderingContext);
 
             /**
-            Get the WebGL rendering context
+             Get the WebGL rendering context
              @returns The rendering context.
-            */
+             */
             getGL(): WebGLRenderingContext;
 
             /**
