@@ -43,11 +43,11 @@ declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
 interface MochaDone {
-    (error: any): any;
+    (error?: any): any;
 }
 
 interface ActionFunction {
-    (done: MochaDone): any | PromiseLike<any>
+    (done?: MochaDone): any | PromiseLike<any>
 }
 
 declare function setup(action: ActionFunction): void;
