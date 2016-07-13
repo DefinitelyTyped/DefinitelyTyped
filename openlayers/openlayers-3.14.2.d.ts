@@ -552,6 +552,9 @@ declare namespace olx {
             minPoints?: number;
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             geometryFunction?: ol.interaction.DrawGeometryFunctionType;
+            geometryName?: string;
+            condition?: ol.events.ConditionType;
+            freehandCondition?: ol.events.ConditionType;
             wrapX?: boolean;
         }
         interface InteractionOptions {
