@@ -5,9 +5,9 @@
 
 ///<reference path="../react/react.d.ts"/>
 
-declare module "react-bootstrap" {
+declare namespace ReactBootstrap {
     // Import React
-    import React = require("react");
+    import React = __React;
 
 
     type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'lg' | 'large';
@@ -1125,4 +1125,8 @@ declare module "react-bootstrap" {
     }
     type Media = React.ClassicComponent<MediaProps, {}>;
     var Media: MediaClass;
+}
+
+declare module "react-bootstrap" {
+    export = ReactBootstrap;
 }
