@@ -4177,16 +4177,19 @@ declare namespace ol {
         }
 
         class Source extends ol.Object {
+            getAttributions(): Array<ol.Attribution>;
+
+            getLogo(): string | olx.LogoOptions | void;
+
             /**
              * Get the projection of the source.
              * @return Projection.
              */
             getProjection(): ol.proj.Projection;
 
-            /**
-             * Refreshes the source and finally dispatches a 'change' event.
-             */
-            refresh(): void;
+            getState(): ol.source.State;
+
+            setAttributions(attributions: Array<ol.Attribution>): void;
         }
 
         class Stamen extends XYZ {
