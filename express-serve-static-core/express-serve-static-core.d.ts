@@ -241,6 +241,8 @@ declare module "express-serve-static-core" {
         accepted: MediaType[];
 
         /**
+            * @deprecated Use either req.params, req.body or req.query, as applicable.
+            *
             * Return the value of param `name` when present or `defaultValue`.
             *
             *  - Checks route placeholders, ex: _/user/:id_
