@@ -4260,20 +4260,24 @@ declare namespace ol {
 
             /**
              * Remove all features from the source.
-             * @param Skip dispatching of removefeature events.
+             * @param opt_fast Skip dispatching of removefeature events.
              */
-            clear(fast?: boolean): void;
+            clear(opt_fast?: boolean): void;
+
+            forEachFeature(callback: (f: ol.Feature) => any, opt_this?: any): any;
+
+            forEachFeatureInExtent(extent: ol.Extent, callback: (f: ol.Feature) => any, opt_this?: any): any;
+
+            forEachFeatureIntersectingExtent(extent: ol.Extent, callback: (f: ol.Feature) => any, opt_this?: any): any;
+
+            getClosestFeatureToCoordinate(coordinate: ol.Coordinate): ol.Feature;
+
             /**
              * Get the extent of the features currently in the source.
              */
             getExtent(): ol.Extent;
 
-            /**
-             * Get all features in the provided extent. Note that this returns all features whose bounding boxes
-             * intersect the given extent (so it may include features whose geometries do not intersect the extent).
-             * This method is not available when the source is configured with useSpatialIndex set to false.
-             */
-            getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
+            getFeatureById(id: string | number): ol.Feature;
 
             /**
              * Get all features on the source
@@ -4284,6 +4288,17 @@ declare namespace ol {
              * Get all features whose geometry intersects the provided coordinate.
              */
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            getFeaturesCollection(): ol.Collection<ol.Feature>;
+
+            /**
+             * Get all features in the provided extent. Note that this returns all features whose bounding boxes
+             * intersect the given extent (so it may include features whose geometries do not intersect the extent).
+             * This method is not available when the source is configured with useSpatialIndex set to false.
+             */
+            getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
+
+            removeFeature(feature: ol.Feature): void;
         }
 
         class VectorEvent {
