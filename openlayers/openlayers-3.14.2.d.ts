@@ -554,6 +554,9 @@ declare namespace olx {
             geometryFunction?: ol.interaction.DrawGeometryFunctionType;
             wrapX?: boolean;
         }
+        interface InteractionOptions {
+            handleEvent: (e: ol.MapBrowserEvent) => boolean
+        }
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
@@ -3577,6 +3580,11 @@ declare namespace ol {
         }
 
         class Interaction extends ol.Object {
+            constructor (options: olx.interaction.InteractionOptions)
+            handleEvent (e: ol.MapBrowserEvent): boolean
+            getActive (): boolean;
+            getMap (): ol.Map;
+            setActive (active: boolean): void;
         }
 
         class KeyboardPan {
