@@ -61,11 +61,11 @@ class CounterContainer extends Component<any, any> {
 class App extends Component<any, any> {
     render(): JSX.Element {
         // ...
-        return null;
+        return <div/>;
     }
 }
 
-const targetEl = document.getElementById('root');
+const targetEl = document.getElementById('root')!;
 
 ReactDOM.render((
     <Provider store={store}>
@@ -158,6 +158,7 @@ export default connect(mapStateToProps2)(TodoApp);
 //}
 
 connect(mapStateToProps2, actionCreators)(TodoApp);
+connect(null, actionCreators)(TodoApp);
 
 // Inject todos and all action creators (addTodo, completeTodo, ...) as actions
 
@@ -170,6 +171,7 @@ function mapDispatchToProps2(dispatch: Dispatch<TodoState>) {
 }
 
 connect(mapStateToProps2, mapDispatchToProps2)(TodoApp);
+connect(null, mapDispatchToProps2)(TodoApp);
 
 // Inject todos and a specific action creator (addTodo)
 
@@ -182,6 +184,7 @@ function mapDispatchToProps3(dispatch: Dispatch<TodoState>) {
 }
 
 connect(mapStateToProps2, mapDispatchToProps3)(TodoApp);
+connect(null, mapDispatchToProps3)(TodoApp);
 
 // Inject todos, todoActionCreators as todoActions, and counterActionCreators as counterActions
 
@@ -197,6 +200,7 @@ function mapDispatchToProps4(dispatch: Dispatch<TodoState>) {
 }
 
 connect(mapStateToProps2, mapDispatchToProps4)(TodoApp);
+connect(null, mapDispatchToProps4)(TodoApp);
 
 // Inject todos, and todoActionCreators and counterActionCreators together as actions
 
@@ -211,6 +215,7 @@ function mapDispatchToProps5(dispatch: Dispatch<TodoState>) {
 }
 
 connect(mapStateToProps2, mapDispatchToProps5)(TodoApp);
+connect(null, mapDispatchToProps5)(TodoApp);
 
 // Inject todos, and all todoActionCreators and counterActionCreators directly as props
 
@@ -223,6 +228,7 @@ function mapDispatchToProps6(dispatch: Dispatch<TodoState>) {
 }
 
 connect(mapStateToProps2, mapDispatchToProps6)(TodoApp);
+connect(null, mapDispatchToProps6)(TodoApp);
 
 // Inject todos of a specific user depending on props
 
@@ -263,7 +269,7 @@ class TestComponent extends Component<TestProp, TestState> { }
 const WrappedTestComponent = connect()(TestComponent);
 
 // return value of the connect()(TestComponent) is of the type TestComponent
-let ATestComponent: typeof TestComponent = null;
+let ATestComponent: typeof TestComponent;
 ATestComponent = TestComponent;
 ATestComponent = WrappedTestComponent;
 
@@ -282,8 +288,8 @@ function HelloMessage(props: HelloMessageProps) {
     return <div>Hello {props.name}</div>;
 }
 let ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
-ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
+ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content')!);
+ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content')!);
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
 namespace TestStatelessFunctionWithMapArguments {
