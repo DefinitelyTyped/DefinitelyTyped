@@ -1964,12 +1964,12 @@ declare namespace ol {
     /**
      * Abstract base class; normally only used for creating subclasses and not instantiated in apps. An event target providing convenient methods for listener registration and unregistration. A generic change event is always available through ol.Observable#changed.
      */
-    class Observable {
+    class Observable extends ol.events.EventTarget {
 
         /**
          * Removes an event listener using the key returned by on() or once().
          */
-        unByKey(key: any): void;
+        static unByKey(key: any): void;
 
         /**
          * Increases the revision counter and dispatches a 'change' event.
@@ -1983,54 +1983,36 @@ declare namespace ol {
 
         /**
          * Listen for a certain type of event.
-         * @param type The event type.
-         * @param listener The listener function.
-         * @param ref The object to use as this in listener.
-         * @returns Unique key for the listener.
-         */
-        on(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
-
-        /**
-         * Listen for a certain type of event.
          * @param type The array of event types.
          * @param listener The listener function.
-         * @param ref The object to use as this in listener.
+         * @param opt_this The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
-
-        /**
-         * Listen once for a certain type of event.
-         * @param type The event type.
-         * @param listener The listener function.
-         * @param ref The object to use as this in listener.
-         * @returns Unique key for the listener.
-         */
-        once(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: string | Array<string>, listener: Function, opt_this?: GlobalObject): ol.events.Key | Array<ol.events.Key>;
 
         /**
          * Listen once for a certain type of event.
          * @param type The array of event types.
          * @param listener The listener function.
-         * @param ref The object to use as this in listener.
+         * @param opt_this The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: string | Array<string>, listener: Function, opt_this?: GlobalObject): ol.events.Key | Array<ol.events.Key>;
 
         /**
          * Unlisten for a certain type of event.
          * @param type The array of event types.
          * @param listener The listener function.
-         * @param ref The object to use as this in listener.
+         * @param opt_this The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        un(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        un(type: string | Array<string>, listener: Function, opt_this?: GlobalObject): any;
 
         /**
          * Removes an event listener using the key returned by on() or once(). Note that using the ol.Observable.unByKey static function is to be preferred.
          * @param key The key returned by on() or once()
          */
-        unByKey(key: any): void;
+        unByKey(key: ol.events.Key | Array<ol.events.Key>): void;
     }
 
     /**
@@ -2506,10 +2488,11 @@ declare namespace ol {
 
         class EventTarget {
             addEventListener(type: string, listener: ol.events.ListenerFunctionType): void;
-            dispatchEvent(event: string | ol.events.Event | {type: string}): void | boolean;
-            disposeInternal(): void;
-            getListeners(type: string): ol.events.ListenerFunctionType[];
-            hasListener(opt_type?: string): boolean;
+            dispatchEvent(event: {type: string, target?: GlobalEventTarget | ol.events.EventTarget, [x: string]: any}): void | boolean;
+            dispatchEvent(event: ol.events.Event): void | boolean;
+            dispatchEvent(event: string): void | boolean;
+            //getListeners(type: string): ol.events.ListenerFunctionType[];
+            //hasListener(opt_type?: string): boolean;
             removeEventListener(type: string, listener: ol.events.ListenerFunctionType): void;
         }
 
