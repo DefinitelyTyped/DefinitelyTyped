@@ -2492,6 +2492,30 @@ declare namespace ol {
             function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
         interface ConditionType { (mapBrowseEvent: ol.MapBrowserEvent): boolean; }
+
+        class Event {
+            constructor(type: string, opt_target?: GlobalObject);
+            propagationStopped: boolean;
+            type: string;
+            target: Object;
+            preventDefault(): void;
+            stopPropagation(): void;
+            static preventDefault(evt: GlobalEvent | ol.events.Event): void;
+            static stopPropagation(evt: GlobalEvent | ol.events.Event): void;
+        }
+
+        class EventTarget {
+            addEventListener(type: string, listener: ol.events.ListenerFunctionType): void;
+            dispatchEvent(event: string | ol.events.Event | {type: string}): void | boolean;
+            disposeInternal(): void;
+            getListeners(type: string): ol.events.ListenerFunctionType[];
+            hasListener(opt_type?: string): boolean;
+            removeEventListener(type: string, listener: ol.events.ListenerFunctionType): void;
+        }
+
+        interface ListenerFunctionType {
+            (evt: ol.events.Event): boolean | void;
+        }
     }
 
     namespace extent {
