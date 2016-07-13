@@ -1637,7 +1637,7 @@ declare namespace ol {
          * Add functions to be called before rendering. This can be used for attaching animations before updating the map's view. The ol.animation namespace provides several static methods for creating prerender functions.
          * @param var_args Any number of pre-render functions.
          */
-        beforeRender(var_args: ol.PreRenderFunction): void;
+        beforeRender(...var_args: ol.PreRenderFunction[]): void;
 
         /**
          * Detect features that intersect a pixel on the viewport, and execute a callback with each intersecting feature. Layers included in the detection can be configured through opt_layerFilter. Feature overlays will always be included in the detection.
