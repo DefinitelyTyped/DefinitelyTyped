@@ -4089,6 +4089,24 @@ declare namespace ol {
              * @param extent The new extent of the projection.
              */
             setExtent(extent: Extent): void;
+
+            getCode(): string;
+
+            getMetersPerUnit(): number;
+
+            getPointResolution(resolution: number, point: ol.Coordinate): number;
+
+            getUnits(): ol.proj.Units;
+
+            getWorldExtent(): ol.Extent;
+
+            isGlobal(): boolean;
+
+            setGetPointResolution(func: (n: number, c: ol.Coordinate) => number): void;
+
+            setGlobal(global: boolean): void;
+
+            setWorldExtent(worldExtent: ol.Extent): void;
         }
     }
 
