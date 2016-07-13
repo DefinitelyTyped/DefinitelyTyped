@@ -1,6 +1,6 @@
 // Type definitions for Mongoose 4.5.4
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>,
+// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../mongodb/mongodb.d.ts" />
