@@ -2161,6 +2161,7 @@ declare module "stream" {
         highWaterMark?: number;
         encoding?: string;
         objectMode?: boolean;
+        read?: (size?: number) => any;
     }
 
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
@@ -2182,6 +2183,8 @@ declare module "stream" {
         highWaterMark?: number;
         decodeStrings?: boolean;
         objectMode?: boolean;
+        write?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
+        writev?: (chunks: {chunk: string|Buffer, encoding: string}[], callback: Function) => any;
     }
 
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
@@ -2197,6 +2200,8 @@ declare module "stream" {
 
     export interface DuplexOptions extends ReadableOptions, WritableOptions {
         allowHalfOpen?: boolean;
+        readableObjectMode?: boolean;
+        writableObjectMode?: boolean;
     }
 
     // Note: Duplex extends both Readable and Writable.
@@ -2211,7 +2216,10 @@ declare module "stream" {
         end(chunk: any, encoding?: string, cb?: Function): void;
     }
 
-    export interface TransformOptions extends ReadableOptions, WritableOptions { }
+    export interface TransformOptions extends ReadableOptions, WritableOptions {
+        transform?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
+        flush?: (callback: Function) => any;
+    }
 
     // Note: Transform lacks the _read and _write methods of Readable/Writable.
     export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
