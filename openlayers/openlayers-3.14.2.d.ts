@@ -565,9 +565,6 @@ declare namespace olx {
             freehandCondition?: ol.events.ConditionType;
             wrapX?: boolean;
         }
-        interface InteractionOptions {
-            handleEvent: (e: ol.MapBrowserEvent) => boolean;
-        }
         interface PointerOptions {
             handleDownEvent?: (e: ol.MapBrowserPointerEvent) => boolean;
             handleDragEvent?: (e: ol.MapBrowserPointerEvent) => void;
@@ -2508,8 +2505,8 @@ declare namespace ol {
     }
 
     interface ModifyEventType extends String {
-        MODIFYSTART
-        MODIFYEND
+        MODIFYSTART: any;
+        MODIFYEND: any;
     }
 
     namespace events {
@@ -3724,8 +3721,8 @@ declare namespace ol {
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
 
         interface DrawEventType extends String {
-            DRAWSTART
-            DRAWEND
+            DRAWSTART: any;
+            DRAWEND: any;
         }
     }
 
