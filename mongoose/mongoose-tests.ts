@@ -57,7 +57,7 @@ mongoose.modelNames()[0].toLowerCase();
 new (new mongoose.Mongoose()).Mongoose().connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
-mongoose.set('debug', function(collectionName, methodName, arg1, arg2) {});
+mongoose.set('debug', function(collectionName: any, methodName: any, arg1: any, arg2: any) {});
 mongoose.STATES.hasOwnProperty('');
 mongoose.connection.on('error', cb);
 new mongoose.mongo.MongoError('error').stack;
@@ -81,9 +81,9 @@ querystream.getMaxListeners();
 /* practical examples */
 var QSModel: typeof mongoose.Model;
 var QSStream: mongoose.QueryStream = QSModel.find().stream();
-QSStream.on('data', function (doc) {
+QSStream.on('data', function (doc: any) {
   doc.save();
-}).on('error', function (err) {
+}).on('error', function (err: any) {
   throw err;
 }).on('close', cb);
 QSModel.where('created').gte(20000).stream().pipe(process.stdout);
@@ -180,9 +180,9 @@ querycursor.pause();
 querycursor.pipe(process.stdout);
 /* practical example */
 var QCModel = mongoose.model('QC', new mongoose.Schema({name: String}));
-QCModel.find({}).cursor({}).on('data', function (doc) {
+QCModel.find({}).cursor({}).on('data', function (doc: any) {
   doc.depopulate('name');
-}).on('error', function (error) {
+}).on('error', function (error: any) {
   throw error;
 }).close().then(cb).catch(cb);
 
@@ -270,12 +270,12 @@ var animalSchema = new mongoose.Schema({
   name: String,
   type: String
 });
-animalSchema.methods.findSimilarTypes = function (cb) {
+animalSchema.methods.findSimilarTypes = function (cb: any) {
   return this.model('Aminal').find({ type: this.type }, cb);
 };
-var Animal = mongoose.model('Animal', animalSchema);
-var dog = new Animal({type: 'dog'});
-dog['findSimilarTypes'](function (err, dogs) {
+var Animal: any = mongoose.model('Animal', animalSchema);
+var dog: any = new Animal({type: 'dog'});
+dog['findSimilarTypes'](function (err: any, dogs: any) {
   console.log(dogs);
 });
 new mongoose.Schema({
@@ -290,10 +290,10 @@ new mongoose.Schema({
     favs:  Number
   }
 });
-animalSchema.statics.findByName = function(name, cb) {
+animalSchema.statics.findByName = function(name: any, cb: any) {
   return this.find({ name: new RegExp(name, 'i') }, cb);
 };
-Animal['findByName']('fido', function(err, animals) {
+Animal['findByName']('fido', function(err: any, animals: any) {
   console.log(animals);
 });
 animalSchema.virtual('name.full').get(function () {
@@ -318,18 +318,18 @@ new mongoose.Schema({
   }
 });
 
-(new mongoose.Schema({})).plugin(function (schema, options) {
+(new mongoose.Schema({})).plugin(function (schema: any, options: any) {
   schema.add({ lastMod: Date })
-  schema.pre('save', function (next) {
+  schema.pre('save', function (next: Function) {
     this.lastMod = new Date
     next()
   })
   if (options && options['index']) {
     schema.path('lastMod').index(options['index'])
   }
-}, { index: true }).plugin(function (schema, options) {
+}, { index: true }).plugin(function (schema: any, options: any) {
   schema.add({ lastMod: Date })
-  schema.pre('save', function (next) {
+  schema.pre('save', function (next: Function) {
     this.lastMod = new Date
     next()
   })
@@ -442,7 +442,7 @@ mongooseArray.pull(5, 4, 'hi').$shift();
 mongooseArray.push([]).toFixed();
 mongooseArray.set(1, 'hi').$shift();
 mongooseArray.shift().toLowerCase();
-mongooseArray.sort(function (a, b) {
+mongooseArray.sort(function (a: any, b: any) {
   return a.length - b.length;
 }).unshift();
 mongooseArray.splice(4, 1).unshift();
@@ -612,7 +612,7 @@ query.where('path').intersects({
     type: 'LineString'
   , coordinates: [[180.0, 11.0], [180, 9.0]]
 });
-query.find().lean().exec(function (err, docs) {
+query.find().lean().exec(function (err: any, docs: any) {
   docs[0];
 });
 query.limit(20).limit(20);
@@ -682,8 +682,8 @@ query.where('comments').slice([-10, 5]);
 query.snapshot().snapshot(true);
 query.sort({ field: 'asc', test: -1 });
 query.sort('field -test');
-query.stream().on('data', function (doc) {
-}).on('error', function (err) {
+query.stream().on('data', function (doc: any) {
+}).on('error', function (err: any) {
 }).on('close', function () {
 });
 query.tailable().tailable(false);
@@ -941,33 +941,33 @@ schematype.validate(/re/)
  * http://mongoosejs.com/docs/api.html#promise-js
  */
 var mongopromise = new mongoose.Promise();
-mongopromise = new mongoose.Promise(function (err, arg) {
+mongopromise = new mongoose.Promise(function (err: any, arg: any) {
   arg.sparse(true);
   err.stack;
 });
-mongopromise = new mongoose.Promise(function (err, arg1, arg2) {
+mongopromise = new mongoose.Promise(function (err: any, arg1: any, arg2: any) {
   arg1.sparse(true);
   arg2.sparse(true);
   err.stack;
 });
-mongopromise.addBack(function (err, arg) {
+mongopromise.addBack(function (err: any, arg: any) {
   err.stack;
   arg.sparse(true);
-}).addBack(function (err, arg1, arg2) {
+}).addBack(function (err: any, arg1: any, arg2: any) {
   err.stack;
   arg1.sparse(true);
   arg2.sparse(true);
 });
-mongopromise.addCallback(function (arg) {
+mongopromise.addCallback(function (arg: any) {
   arg.sparse(true);
-}).addCallback(function (arg1, arg2) {
+}).addCallback(function (arg1: any, arg2: any) {
   arg1.sparse(true);
   arg2.sparse(true);
 });
-mongopromise.addErrback(function (err) {
+mongopromise.addErrback(function (err: any) {
   err.stack;
 }).addErrback(function () {});
-mongopromise.catch(function (err) {
+mongopromise.catch(function (err: any) {
   err.stack;
 }).catch(function () {});
 mongopromise.end();
@@ -975,11 +975,11 @@ mongopromise.error(999).error([]);
 mongopromise.on('init', function () {}).on('init', function () {});
 mongopromise.reject({}).reject('').reject(new Error('hi'));
 mongopromise.resolve(new Error('hi'), {}).resolve();
-mongopromise.then(function (arg) {
+mongopromise.then(function (arg: any) {
   arg.sparse(true);
-}, function (err) {
+}, function (err: any) {
   err.stack;
-}).then(function (arg1, arg2) {
+}).then(function (arg1: any, arg2: any) {
   arg1.sparse(true);
   arg2.sparse(true);
 });
@@ -988,7 +988,7 @@ mongopromise.complete(new mongoose.SchemaType('')).complete(
   new mongoose.SchemaType('')
 );
 /* static properties */
-mongoose.Promise.ES6(function (complete, error) {
+mongoose.Promise.ES6(function (complete: any, error: any) {
   complete.apply(this);
   error.apply(this);
 }).end();
@@ -1005,7 +1005,7 @@ mongoose.Promise = bluebird;
 var bluebirdPromise: bluebird<any> = new mongoose.Promise();
 bluebirdPromise.cancellable().lastly(cb);
 
-var PQuery: mongoose.Query<any>;
+var PQuery: any;
 PQuery.find().exec()['reduce']().then(cb).catch(cb);
 (<any>PQuery).find().exec().reduce().then(cb).catch(cb);
 

@@ -258,9 +258,10 @@ declare module "mongoose" {
     interface Document extends _mongoose.Document {}
     interface Error extends _mongoose.Error {}
     interface ValidationError extends _mongoose.ValidationError {}
-    interface model extends _mongoose._Model, events.EventEmitter {}
-    type Model = _mongoose.ModelConstructor;
-    interface Promise<F, R> extends _mongoose.Promise<F, R> {}
+    type model = _mongoose.Model;
+    type Model<any> = _mongoose.ModelConstructor;   // compatibilty with rest-io.d.ts
+    type Mongoose = typeof mongoose;
+    interface Promise<F> extends _mongoose.Promise<F, any> {}
     interface Query<T> extends _mongoose.Query<T> {}
     interface QueryCursor extends _mongoose.QueryCursor {}
     interface QueryStream extends _mongoose.QueryStream {}
