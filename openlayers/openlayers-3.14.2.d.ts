@@ -3414,19 +3414,23 @@ declare namespace ol {
             /**
              * constructor
              * @param coordinates Coordinates.
-             * @param layout Layout.
+             * @param opt_layout Layout.
              */
-            constructor(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout);
+            constructor(coordinates: Array<Array<ol.Coordinate>>, opt_layout?: ol.geom.GeometryLayout);
 
             /**
              * Create an approximation of a circle on the surface of a sphere.
              * @param sphere The sphere.
              * @param center Center (`[lon, lat]` in degrees).
              * @param radius The great-circle distance from the center to the polygon vertices.
-             * @param n Optional number of vertices for the resulting polygon. Default is `32`.
+             * @param opt_n Optional number of vertices for the resulting polygon. Default is `32`.
              * @returns The "circular" polygon.
              */
-            static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, n?: number): ol.geom.Polygon;
+            static circular(sphere: ol.Sphere, center: ol.Coordinate, radius: number, opt_n?: number): ol.geom.Polygon;
+
+            static fromCircle(circle: ol.geom.Circle, opt_sides?: number, opt_angle?: number): ol.geom.Polygon;
+
+            static fromExtent(extent: ol.Extent): ol.geom.Polygon;
 
             /**
              * Append the passed linear ring to this polygon.
@@ -3450,7 +3454,7 @@ declare namespace ol {
              * Get the coordinate array for this geometry.  This array has the structure
              * of a GeoJSON coordinate array for polygons.
              *
-             * @param right Orient coordinates according to the right-hand
+             * @param opt_right Orient coordinates according to the right-hand
              *     rule (counter-clockwise for exterior and clockwise for interior rings).
              *     If `false`, coordinates will be oriented according to the left-hand rule
              *     (clockwise for exterior and counter-clockwise for interior rings).
@@ -3458,7 +3462,7 @@ declare namespace ol {
              *     constructed.
              * @returns Coordinates.
              */
-            getCoordinates(right?: boolean): Array<Array<ol.Coordinate>>;
+            getCoordinates(opt_right?: boolean): Array<Array<ol.Coordinate>>;
 
             /**
              * Return an interior point of the polygon.
@@ -3476,6 +3480,8 @@ declare namespace ol {
              * @returns Linear ring.
              */
             getLinearRing(index: number): ol.geom.LinearRing;
+
+            getLinearRingCount(): number;
 
             /**
              * Return the linear rings of the polygon.
