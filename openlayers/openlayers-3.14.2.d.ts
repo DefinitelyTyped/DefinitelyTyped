@@ -1108,9 +1108,9 @@ declare namespace ol {
 
         /**
          * @constructor
-         * @param values Array.
+         * @param opt_array Array.
          */
-        constructor(values: Array<T>)
+        constructor(opt_array?: Array<T>)
 
         /**
          * Remove all elements from the collection.
@@ -1127,9 +1127,9 @@ declare namespace ol {
         /**
          * Iterate over each element, calling the provided callback.
          * @param f The function to call for every element. This function takes 3 arguments (the element, the index and the array).
-         * @param ref The object to use as this in f.
+         * @param opt_this The object to use as this in f.
          */
-        forEach(f: (element: T, index: number, array: Array<T>) => void, ref?: any): void;
+        forEach(f: (element: T, index: number, array: Array<T>) => any, opt_this?: any): void;
 
         /**
          * Get a reference to the underlying Array object. Warning: if the array is mutated, no events will be dispatched by the collection, and the collection's "length" property won't be in sync with the actual length of the array.
@@ -1161,7 +1161,7 @@ declare namespace ol {
          * Remove the last element of the collection and return it. Return undefined if the collection is empty.
          * @returns Element
          */
-        pop(): T;
+        pop(): T | void;
 
         /**
          * Insert the provided element at the end of the collection.
@@ -1175,14 +1175,14 @@ declare namespace ol {
          * @param elem Element.
          * @returns The removed element or undefined if none found.
          */
-        remove(elem: T): T;
+        remove(elem: T): T | void;
 
         /**
          * Remove the element at the provided index and return it. Return undefined if the collection does not contain this index.
          * @param index Index.
          * @returns Value.
          */
-        removeAt(index: number): T;
+        removeAt(index: number): T | void;
 
         /**
          * Set the element at the provided index.
@@ -1254,12 +1254,18 @@ declare namespace ol {
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
-    class DragBoxEvent {
+    class DragBoxEvent extends ol.events.Event {
+        constructor (
+            type: string,
+            coordinate: ol.Coordinate,
+            mapBrowserEvent: ol.MapBrowserEvent
+        )
 
         /**
          * The coordinate of the drag event.
          */
-        coordinate: ol.Coordinate;
+        coordinate: ol.Coordinate
+        mapBrowserEvent: ol.MapBrowserEvent
     }
 
     /**
@@ -1919,7 +1925,9 @@ declare namespace ol {
     /**
      * Events emitted as map events are instances of this type. See ol.Map for which events trigger a map event.
      */
-    class MapEvent {
+    class MapEvent extends ol.events.Event {
+
+        constructor (type: string, map: ol.Map, opt_frameState: olx.FrameState)
 
         /**
          * The frame state at the time of the event.
@@ -1971,25 +1979,27 @@ declare namespace ol {
          * Sets a value.
          * @param key Key name.
          * @param value Value.
+         * @param opt_silent Update without triggering an event.
          */
-        set(key: string, value: any): void;
+        set(key: string, value: any, opt_silent?: boolean): void;
 
         /**
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
          * @param values Values.
+         * @param opt_silent Update without triggering an event.
          */
-        setProperties(values: GlobalObject): void;
+        setProperties(values: GlobalObject, opt_silent?: boolean): void;
 
         /**
          * Unsets a property.
          */
-        unset(key: string): void;
+        unset(key: string, opt_silent?: boolean): void;
     }
 
     /**
      * Events emitted by ol.Object instances are instances of this type.
      */
-    class ObjectEvent {
+    class ObjectEvent extends ol.events.Event {
 
         /**
          * The name of the property whose value is changing.
@@ -2005,7 +2015,7 @@ declare namespace ol {
     /**
      * Abstract base class; normally only used for creating subclasses and not instantiated in apps. An event target providing convenient methods for listener registration and unregistration. A generic change event is always available through ol.Observable#changed.
      */
-    class Observable extends ol.events.EventTarget {
+    class Observable {
 
         /**
          * Removes an event listener using the key returned by on() or once().
@@ -2232,7 +2242,7 @@ declare namespace ol {
 
         /**
          * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-         * @param geometry Extent.
+         * @param geometry Geometry.
          * @param size Box pixel size.
          * @param opt_options Options
          */
@@ -2868,7 +2878,7 @@ declare namespace ol {
             /**
              * Read a feature from a WKT source.
              * @param source Source
-             * @param options Read options
+             * @param opt_options Read options
              * @returns Feature
              */
             readFeature(source: Document | Node | JSON | string, opt_options?: olx.format.ReadOptions): ol.Feature;
@@ -2979,9 +2989,9 @@ declare namespace ol {
              * So the resulting geometry is also a circle, and that circle does not
              * correspond to the shape that would be obtained by transforming every point
              * of the original circle.
-             * @param source The current projection.	Can be a string identifier or a {@link ol.proj.Projection} object.
-             * @param destination The desired projection.	Can be a string identifier or a {@link ol.proj.Projection} object.
-             * @returns This geometry.	Note that original geometry is	modified in place.
+             * @param source The current projection. Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @param destination The desired projection. Can be a string identifier or a {@link ol.proj.Projection} object.
+             * @returns This geometry. Note that original geometry is modified in place.
              */
             transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Circle;
         }
@@ -3015,7 +3025,7 @@ declare namespace ol {
              * @param destination The desired projection. Can be a string identifier or a ol.proj.Projection object.
              * @return This geometry. Note that original geometry is modified in place.
              */
-            transform(source: ol.proj.ProjectionLike | ol.proj.Projection, destination: ol.proj.ProjectionLike | ol.proj.Projection): ol.geom.Geometry;
+            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Geometry;
         }
 
         /**
@@ -3066,6 +3076,8 @@ declare namespace ol {
              * @param geometries Geometries.
              */
             setGeometries(geometries: Array<ol.geom.Geometry>): void;
+
+            translate(deltaX: number, deltaY: number): void;
 
         }
 
@@ -3625,7 +3637,13 @@ declare namespace ol {
         class DragAndDropEvent {
         }
 
-        class DragBox {
+        class DragBox extends ol.interaction.Pointer {
+            constructor (opt_options?: olx.interaction.DragBoxOptions)
+            getGeometry (): ol.geom.Polygon
+        }
+
+        interface DragBoxEndConditionType {
+            (evt: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel): boolean
         }
 
         class DragPan {
@@ -3644,7 +3662,7 @@ declare namespace ol {
             constructor(opt_options?: olx.interaction.DrawOptions)
         }
 
-        class DrawEvent {
+        class DrawEvent extends ol.events.Event {
             constructor (type: ol.interaction.DrawEventType, feature: ol.Feature)
             feature: ol.Feature
         }
@@ -3687,6 +3705,8 @@ declare namespace ol {
         }
 
         class Pointer extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.PointerOptions)
+            handleEvent(mapBrowserEvent: ol.MapBrowserEvent): boolean
         }
 
         class Select extends ol.interaction.Interaction {
@@ -4023,19 +4043,19 @@ declare namespace ol {
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param layer Layer style
+             * @param style Layer style
              */
             setStyle(style: ol.style.Style): void;
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param layer Layer style
+             * @param style Layer style
              */
             setStyle(style: Array<ol.style.Style>): void;
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param Layer style
+             * @param style Layer style
              */
             setStyle(style: ol.style.StyleFunction): void;
 
