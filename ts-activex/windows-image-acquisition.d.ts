@@ -1,4 +1,4 @@
-// Type definitions for Microsoft Windows Image Acquisition
+// Type definitions for Microsoft Windows Image Acquisition Library v2.0
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630827(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,34 +8,34 @@
 declare namespace WIA {
 
     //Enums
-    type CommandID = 
-        "{04E725B0-ACAE-11D2-A093-00C04F72DC3C}" //wiaCommandChangeDocument
-        | "{E208C170-ACAD-11D2-A093-00C04F72DC3C}" //wiaCommandDeleteAllItems
-        | "{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}" //wiaCommandSynchronize
-        | "{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}" //wiaCommandTakePicture
-        | "{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}" //wiaCommandUnloadDocument
+    type CommandID =
+        "'{04E725B0-ACAE-11D2-A093-00C04F72DC3C}'" //wiaCommandChangeDocument
+        | "'{E208C170-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandDeleteAllItems
+        | "'{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandSynchronize
+        | "'{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}'" //wiaCommandTakePicture
+        | "'{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}'"; //wiaCommandUnloadDocument
     const CommandID: {
         wiaCommandChangeDocument: CommandID,
         wiaCommandDeleteAllItems: CommandID,
         wiaCommandSynchronize: CommandID,
         wiaCommandTakePicture: CommandID,
         wiaCommandUnloadDocument: CommandID
-    }
+    };
 
-    type EventID = 
-        "{A28BBADE-64B6-11D2-A231-00C04FA31809}" //wiaEventDeviceConnected
-        | "{143E4E83-6497-11D2-A231-00C04FA31809}" //wiaEventDeviceDisconnected
-        | "{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}" //wiaEventItemCreated
-        | "{1D22A559-E14F-11D2-B326-00C04F68CE61}" //wiaEventItemDeleted
-        | "{C686DCEE-54F2-419E-9A27-2FC7F2E98F9E}" //wiaEventScanEmailImage
-        | "{C00EB793-8C6E-11D2-977A-0000F87A926F}" //wiaEventScanFaxImage
-        | "{9B2B662C-6185-438C-B68B-E39EE25E71CB}" //wiaEventScanFilmImage
-        | "{A6C5A715-8C6E-11D2-977A-0000F87A926F}" //wiaEventScanImage
-        | "{FC4767C1-C8B3-48A2-9CFA-2E90CB3D3590}" //wiaEventScanImage2
-        | "{154E27BE-B617-4653-ACC5-0FD7BD4C65CE}" //wiaEventScanImage3
-        | "{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}" //wiaEventScanImage4
-        | "{9D095B89-37D6-4877-AFED-62A297DC6DBE}" //wiaEventScanOCRImage
-        | "{B441F425-8C6E-11D2-977A-0000F87A926F}" //wiaEventScanPrintImage
+    type EventID =
+        "'{A28BBADE-64B6-11D2-A231-00C04FA31809}'" //wiaEventDeviceConnected
+        | "'{143E4E83-6497-11D2-A231-00C04FA31809}'" //wiaEventDeviceDisconnected
+        | "'{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}'" //wiaEventItemCreated
+        | "'{1D22A559-E14F-11D2-B326-00C04F68CE61}'" //wiaEventItemDeleted
+        | "'{C686DCEE-54F2-419E-9A27-2FC7F2E98F9E}'" //wiaEventScanEmailImage
+        | "'{C00EB793-8C6E-11D2-977A-0000F87A926F}'" //wiaEventScanFaxImage
+        | "'{9B2B662C-6185-438C-B68B-E39EE25E71CB}'" //wiaEventScanFilmImage
+        | "'{A6C5A715-8C6E-11D2-977A-0000F87A926F}'" //wiaEventScanImage
+        | "'{FC4767C1-C8B3-48A2-9CFA-2E90CB3D3590}'" //wiaEventScanImage2
+        | "'{154E27BE-B617-4653-ACC5-0FD7BD4C65CE}'" //wiaEventScanImage3
+        | "'{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}'" //wiaEventScanImage4
+        | "'{9D095B89-37D6-4877-AFED-62A297DC6DBE}'" //wiaEventScanOCRImage
+        | "'{B441F425-8C6E-11D2-977A-0000F87A926F}'"; //wiaEventScanPrintImage
     const EventID: {
         wiaEventDeviceConnected: EventID,
         wiaEventDeviceDisconnected: EventID,
@@ -50,29 +50,29 @@ declare namespace WIA {
         wiaEventScanImage4: EventID,
         wiaEventScanOCRImage: EventID,
         wiaEventScanPrintImage: EventID
-    }
+    };
 
-    type FormatID = 
-        "{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}" //wiaFormatBMP
-        | "{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}" //wiaFormatGIF
-        | "{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}" //wiaFormatJPEG
-        | "{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}" //wiaFormatPNG
-        | "{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}" //wiaFormatTIFF
+    type FormatID =
+        "'{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatBMP
+        | "'{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatGIF
+        | "'{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatJPEG
+        | "'{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}'" //wiaFormatPNG
+        | "'{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}'"; //wiaFormatTIFF
     const FormatID: {
         wiaFormatBMP: FormatID,
         wiaFormatGIF: FormatID,
         wiaFormatJPEG: FormatID,
         wiaFormatPNG: FormatID,
         wiaFormatTIFF: FormatID
-    }
+    };
 
-    type Miscellaneous = 
-        "*" //wiaAnyDeviceID
-        | "{00000000-0000-0000-0000-000000000000}" //wiaIDUnknown
+    type Miscellaneous =
+        "'*'" //wiaAnyDeviceID
+        | "'{00000000-0000-0000-0000-000000000000}'"; //wiaIDUnknown
     const Miscellaneous: {
         wiaAnyDeviceID: Miscellaneous,
         wiaIDUnknown: Miscellaneous
-    }
+    };
 
     const enum WiaDeviceType {
         CameraDeviceType = 2,
@@ -185,7 +185,7 @@ declare namespace WIA {
         UnspecifiedSubType = 0
     }
 
-    //Classes
+    //Interfaces
     interface CommonDialog {
         ShowAcquireImage: (DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean, CancelError?: boolean) => ImageFile;
         ShowAcquisitionWizard: (Device: Device) => any;
@@ -361,7 +361,7 @@ declare namespace WIA {
         Count: number;
         Date: VarDate;
         ImageFile: (Width?: number, Height?: number) => ImageFile;
-        Item: (Index: number) => any  //Also has setter with parameters;
+        Item: (Index: number) => any;   //Also has setter with parameters
         Picture: (Width?: number, Height?: number) => any;
         Remove: (Index: number) => any;
         SetFromString: (Value: string, Resizable?: boolean, Unicode?: boolean) => void;
@@ -378,3 +378,4 @@ interface ActiveXObject {
     new (progID: 'WIA.CommonDialog'): WIA.CommonDialog;
     new (progID: 'WIA.DeviceManager'): WIA.DeviceManager;
 }
+
