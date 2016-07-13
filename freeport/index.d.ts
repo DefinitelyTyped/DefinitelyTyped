@@ -5,5 +5,6 @@
 
 
 declare function freeport(cb: (err: Error, port: number) => void): void;
+declare namespace freeport {}
 
 export = freeport;
