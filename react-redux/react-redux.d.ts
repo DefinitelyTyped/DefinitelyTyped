@@ -45,12 +45,12 @@ declare module "react-redux" {
   export function connect(): InferableComponentDecorator;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>|null,
     mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
   ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
+    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>|null,
     mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
