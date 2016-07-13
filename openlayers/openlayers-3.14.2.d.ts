@@ -3623,7 +3623,7 @@ declare namespace ol {
 
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
         interface DrawGeometryFunctionType {
-            (coordinates: ol.Coordinate | Array<ol.Coordinate> | Aray<Array<ol.Coordinate>>, geom?: ol.geom.SimpleGeometry): ol.geom.SimpleGeometry;
+            (coordinates: ol.Coordinate | Array<ol.Coordinate> | Array<Array<ol.Coordinate>>, geom?: ol.geom.SimpleGeometry): ol.geom.SimpleGeometry;
         }
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
 
