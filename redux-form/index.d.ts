@@ -904,7 +904,7 @@ declare namespace ReduxForm {
   /**
    * Registers a field with the given name and field type ('Field' or 'FieldArray') from the store.
    */
-  export function registerField(form: string, name: string, type: 'Field' | 'FieldArray'): Action;
+  function registerField(form: string, name: string, type: 'Field' | 'FieldArray'): Action;
 
   /**
    * Resets the values in the form back to the values past in with the most recent initialize action.
@@ -946,9 +946,9 @@ declare namespace ReduxForm {
   /**
    * Unregisters a field with the given name from the store.
    */
-  export function unregisterField(form: string, name: string): Action;
+  function unregisterField(form: string, name: string): Action;
 
-  export function updateSyncErrors(form: string, syncErrors: Object): Action;
+  function updateSyncErrors(form: string, syncErrors: Object): Action;
 }
 
 export = ReduxForm;
