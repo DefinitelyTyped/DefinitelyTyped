@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
-/// <reference types="FileTransfer" />
+/// <reference types="cordova" />
 /// <reference types="FileSystem" />
 
 declare namespace ngCordova {

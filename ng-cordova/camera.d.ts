@@ -3,7 +3,7 @@
 // Definitions by: Jacques Kang <https://www.linkedin.com/in/jacqueskang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="Camera" />
+/// <reference types="cordova" />
 /// <reference types="angular" />
 
 declare namespace ngCordova {
