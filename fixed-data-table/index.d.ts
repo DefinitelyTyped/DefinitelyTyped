@@ -212,30 +212,30 @@ declare namespace FixedDataTable {
         /**
           * Callback that is called when a row is clicked.
           */
-        onRowClick?: (event: React.SyntheticEvent, rowIndex: number) => void;
+        onRowClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a row is double clicked.
           */
-        onRowDoubleClick?: (event: React.SyntheticEvent, rowIndex: number) => void;
+        onRowDoubleClick?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-down event happens
           * on a row.
           */
-        onRowMouseDown?: (event: React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseDown?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-enter event happens
           * on a row.
           */
-        onRowMouseEnter?: (event: React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseEnter?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when a mouse-leave event happens
           * on a row.
           */
-        onRowMouseLeave?: (event: React.SyntheticEvent, rowIndex: number) => void;
+        onRowMouseLeave?: (event: React.SyntheticEvent<Table>, rowIndex: number) => void;
 
         /**
           * Callback that is called when resizer has been released
@@ -464,7 +464,7 @@ declare namespace FixedDataTable {
      *   />
      * );
      */
-    export interface CellProps extends React.HTMLAttributes {
+    export interface CellProps extends React.HTMLAttributes<Cell> {
         /**
          * The row index of the cell.
          */
