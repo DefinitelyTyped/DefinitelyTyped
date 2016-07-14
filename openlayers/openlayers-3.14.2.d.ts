@@ -766,7 +766,7 @@ declare namespace olx {
              * one-off download of all features from that URL.
              * Requires `format` to be set as well.
              */
-            url?: string;
+            url?: string | ol.FeatureUrlFunction;
 
             /**
              * By default, an RTree is used as spatial index. When features are removed and
@@ -1078,6 +1078,8 @@ declare namespace olx {
 declare namespace ol {
 
     interface TileLoadFunctionType { (image: ol.Image, url: string): void }
+
+    interface FeatureUrlFunction { (extent: ol.Extent, resolution: number, projection: ol.proj.Projection): string }
 
     interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
 
@@ -2011,7 +2013,7 @@ declare namespace ol {
     /**
      * Abstract base class; normally only used for creating subclasses and not instantiated in apps. An event target providing convenient methods for listener registration and unregistration. A generic change event is always available through ol.Observable#changed.
      */
-    class Observable {
+    class Observable extends ol.events.EventTarget {
 
         /**
          * Removes an event listener using the key returned by on() or once().
@@ -2053,7 +2055,7 @@ declare namespace ol {
          * @param opt_this The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        un(type: string | Array<string>, listener: Function, opt_this?: GlobalObject): any;
+        un(type: string | Array<string>, listener: Function, opt_this?: GlobalObject): void;
 
         /**
          * Removes an event listener using the key returned by on() or once(). Note that using the ol.Observable.unByKey static function is to be preferred.

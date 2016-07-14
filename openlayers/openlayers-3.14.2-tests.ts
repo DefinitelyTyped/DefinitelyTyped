@@ -1,11 +1,17 @@
-/// <reference path="openlayers.d.ts" />
+/// <reference path="openlayers-3.14.2.d.ts" />
 
 // Basic type variables for test functions
+var anyValue: any;
 var voidValue: void;
 var numberValue: number;
 var booleanValue: boolean;
 var stringValue: string;
+var stringArray: Array<string>;
 var jsonValue: JSON;
+var voidOrBooleanValue: void | boolean;
+var domEventTarget: EventTarget;
+var fn: Function;
+var object: Object;
 
 // Callback predefinitions for OpenLayers
 var preRenderFunction: ol.PreRenderFunction;
@@ -14,45 +20,54 @@ var coordinateFormatType: ol.CoordinateFormatType;
 var featureStyleFunction: ol.FeatureStyleFunction;
 var featureLoader: ol.FeatureLoader;
 var easingFunction: (t: number) => number;
+var drawGeometryFunction: ol.interaction.DrawGeometryFunctionType;
 
 // Type variables for OpenLayers
+var attribution: ol.Attribution;
+var boundingCoordinates: Array<ol.Coordinate>;
 var circle: ol.geom.Circle;
 var color: ol.Color;
 var coordinate: ol.Coordinate;
 var coordinatesArray: Array<ol.Coordinate>;
 var coordinatesArrayDim2: Array<Array<ol.Coordinate>>;
 var extent: ol.Extent;
-var boundingCoordinates: Array<ol.Coordinate>;
-var size: ol.Size;
-var style: ol.style.Style;
-var styleArray: Array<ol.style.Style>;
-var styleFunction: ol.style.StyleFunction;
+var olEvent: ol.events.Event;
+var eventKey: ol.events.Key;
+var eventKeyArray: Array<ol.events.Key>;
+var eventKeyMixed: ol.events.Key | Array<ol.events.Key>;
+var eventTarget: ol.events.EventTarget;
 var feature: ol.Feature;
 var featureArray: Array<ol.Feature>;
-var graticule: ol.Graticule
-var geometry: ol.geom.Geometry;
-var geometriesArray: Array<ol.geom.Geometry>;
-var feature: ol.Feature;
-var featureArray: Array<ol.Feature>;
+var featureCollection: ol.Collection<ol.Feature>;
 var featureFormat: ol.format.Feature;
+var featureUrlFunction: ol.FeatureUrlFunction;
+var graticule: ol.Graticule;
+var geometriesArray: Array<ol.geom.Geometry>;
 var geometry: ol.geom.Geometry;
 var geometryCollection: ol.geom.GeometryCollection;
 var geometryLayout: ol.geom.GeometryLayout;
 var geometryType: ol.geom.GeometryType;
 var linearRing: ol.geom.LinearRing;
 var lineString: ol.geom.LineString;
-var loadingstrategy: ol.LoadingStrategy;
+var loadingStrategy: ol.LoadingStrategy;
+var logoOptions: olx.LogoOptions;
+var mapBrowserEvent: ol.MapBrowserEvent;
 var multiLineString: ol.geom.MultiLineString;
 var multiPoint: ol.geom.MultiPoint;
 var multiPolygon: ol.geom.MultiPolygon;
 var point: ol.geom.Point;
 var polygon: ol.geom.Polygon;
-var simpleGeometry: ol.geom.SimpleGeometry;
-var tilegrid: ol.tilegrid.TileGrid;
-var vector: ol.source.Vector;
 var projection: ol.proj.Projection;
 var projectionLike: ol.proj.ProjectionLike;
+var simpleGeometry: ol.geom.SimpleGeometry;
+var size: ol.Size;
+var style: ol.style.Style;
+var styleArray: Array<ol.style.Style>;
+var styleFunction: ol.style.StyleFunction;
+var tilegrid: ol.tilegrid.TileGrid;
 var transformFn: ol.TransformFunction;
+var vectorSource: ol.source.Vector;
+var units: ol.proj.Units;
 
 //
 // ol.Attribution
@@ -117,9 +132,9 @@ featureLoader = ol.featureloader.xhr(stringValue, featureFormat);
 //
 // ol.loadingstrategy
 //
-loadingstrategy = ol.loadingstrategy.all;
-loadingstrategy = ol.loadingstrategy.bbox;
-loadingstrategy = ol.loadingstrategy.tile(tilegrid);
+loadingStrategy = ol.loadingstrategy.all;
+loadingStrategy = ol.loadingstrategy.bbox;
+loadingStrategy = ol.loadingstrategy.tile(tilegrid);
 
 //
 //
@@ -137,7 +152,7 @@ coordinate = geometryResult.getClosestPoint(coordinate);
 geometryResult.getClosestPoint(coordinate, coordinate);
 extent = geometryResult.getExtent();
 geometryResult.getExtent(extent);
-geometryResult.transform(projection, projection);
+geometryResult.transform(projectionLike, projectionLike);
 
 //
 //
@@ -267,6 +282,10 @@ polygon = new ol.geom.Polygon(coordinatesArrayDim2);
 polygon = new ol.geom.Polygon(coordinatesArrayDim2, geometryLayout);
 polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue);
 polygon = ol.geom.Polygon.circular(localSphere, coordinate, numberValue, numberValue);
+polygon = ol.geom.Polygon.fromCircle(circle);
+polygon = ol.geom.Polygon.fromCircle(circle, numberValue);
+polygon = ol.geom.Polygon.fromCircle(circle, numberValue, numberValue);
+polygon = ol.geom.Polygon.fromExtent(extent);
 voidValue = polygon.appendLinearRing(linearRing);
 polygon = polygon.clone();
 numberValue = polygon.getArea();
@@ -274,9 +293,12 @@ coordinatesArrayDim2 = polygon.getCoordinates();
 coordinatesArrayDim2 = polygon.getCoordinates(booleanValue);
 point = polygon.getInteriorPoint();
 linearRing = polygon.getLinearRing(numberValue);
+numberValue = polygon.getLinearRingCount();
 linearRingsArray = polygon.getLinearRings();
 geometryType = polygon.getType();
 booleanValue = polygon.intersectsExtent(extent);
+voidValue = polygon.setCoordinates([[coordinate]]);
+voidValue = polygon.setCoordinates([[coordinate]], geometryLayout);
 
 //
 //
@@ -291,9 +313,42 @@ voidValue = simpleGeometry.translate(numberValue, numberValue);
 //
 // ol.source
 //
-vector = new ol.source.Vector({
-    features: [feature]
+var featureCallback: (f: ol.Feature) => any;
+vectorSource = new ol.source.Vector({
+    attributions: [attribution],
+    features: featureCollection,
+    format: featureFormat,
+    loader: featureLoader,
+    logo: logoOptions,
+    strategy: loadingStrategy,
+    url: stringValue,
+    useSpatialIndex: booleanValue,
+    wrapX: booleanValue
 });
+vectorSource = new ol.source.Vector({
+    features: featureArray
+});
+vectorSource = new ol.source.Vector({
+    url: featureUrlFunction,
+    loader: featureLoader
+});
+voidValue = vectorSource.addFeature(feature);
+voidValue = vectorSource.addFeatures(featureArray);
+voidValue = vectorSource.clear();
+voidValue = vectorSource.clear(booleanValue);
+anyValue = vectorSource.forEachFeature(featureCallback);
+anyValue = vectorSource.forEachFeature(featureCallback, object);
+anyValue = vectorSource.forEachFeatureInExtent(extent, featureCallback, object);
+anyValue = vectorSource.forEachFeatureIntersectingExtent(extent, featureCallback, object);
+feature = vectorSource.getClosestFeatureToCoordinate(coordinate);
+extent = vectorSource.getExtent();
+feature = vectorSource.getFeatureById(stringValue);
+feature = vectorSource.getFeatureById(numberValue);
+featureArray = vectorSource.getFeatures();
+featureArray = vectorSource.getFeaturesAtCoordinate(coordinate);
+featureCollection = vectorSource.getFeaturesCollection();
+featureArray = vectorSource.getFeaturesInExtent(extent);
+voidValue = vectorSource.removeFeature(feature);
 
 //
 // ol.Feature
@@ -301,7 +356,11 @@ vector = new ol.source.Vector({
 feature = new ol.Feature();
 feature = new ol.Feature(geometry);
 feature = new ol.Feature({
-    geometry: geometry
+    geometry: geometry,
+    a: numberValue,
+    b: stringValue,
+    c: null,
+    d: object
 });
 feature = feature.clone();
 geometry = feature.getGeometry();
@@ -316,6 +375,7 @@ voidValue = feature.setId(numberValue);
 voidValue = feature.setStyle(style);
 voidValue = feature.setStyle(styleArray);
 voidValue = feature.setStyle(featureStyleFunction);
+voidValue = feature.setProperties(object);
 
 //
 // ol.View
@@ -334,12 +394,64 @@ var tileLayer: ol.layer.Tile = new ol.layer.Tile({
 });
 
 //
+// ol.Object
+//
+var olObject: ol.Object = new ol.Object({
+    a: numberValue,
+    b: stringValue,
+    c: booleanValue,
+    d: voidValue,
+    e: object,
+    f: fn
+});
+anyValue = olObject.get(stringValue);
+stringArray = olObject.getKeys();
+object = olObject.getProperties();
+voidValue = olObject.set(stringValue, anyValue);
+voidValue = olObject.set(stringValue, anyValue, booleanValue);
+voidValue = olObject.setProperties(object, booleanValue);
+voidValue = olObject.unset(stringValue, booleanValue);
+
+//
+// ol.Observable
+//
+ol.Observable.unByKey(eventKey);
+var observable: ol.Observable = new ol.Observable();
+voidValue = observable.changed();
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: domEventTarget});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: eventTarget});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {}});
+voidOrBooleanValue = observable.dispatchEvent(olEvent);
+voidOrBooleanValue = observable.dispatchEvent(stringValue);
+numberValue = observable.getRevision();
+eventKeyMixed = observable.on(stringValue, fn);
+eventKeyMixed = observable.on([stringValue, stringValue], fn, {});
+eventKeyMixed = observable.once(stringValue, fn);
+eventKeyMixed = observable.once([stringValue, stringValue], fn, {});
+voidValue = observable.un(stringValue, fn);
+voidValue = observable.un([stringValue, stringValue], fn, {});
+voidValue = observable.unByKey(eventKey);
+voidValue = observable.unByKey(eventKeyArray);
+
+//
 // ol.proj
 //
+var getPointResolutionFn: (n: number, c: ol.Coordinate) => number;
 projection = new ol.proj.Projection({
     code:stringValue,
 });
-projection.setExtent(projection.getExtent());
+stringValue = projection.getCode();
+extent = projection.getExtent();
+numberValue = projection.getMetersPerUnit();
+numberValue = projection.getPointResolution(numberValue, coordinate);
+units = projection.getUnits();
+extent = projection.getWorldExtent();
+booleanValue = projection.isGlobal();
+voidValue = projection.setExtent(extent);
+voidValue = projection.setGetPointResolution(getPointResolutionFn);
+voidValue = projection.setGlobal(booleanValue);
+voidValue = projection.setWorldExtent(extent);
 
 //
 // ol.Map
@@ -350,7 +462,7 @@ var map: ol.Map = new ol.Map({
     layers: [tileLayer],
     target: stringValue
 });
-map.beforeRender(preRenderFunction);
+voidValue = map.beforeRender(preRenderFunction);
 
 //
 // ol.source.ImageWMS
@@ -364,7 +476,6 @@ var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
 // ol.source.Source
 //
 const source = imageWMS as ol.source.Source;
-voidValue = source.refresh();
 projection = source.getProjection();
 
 //
@@ -376,7 +487,7 @@ var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     url:stringValue
 });
 
-tileWMS.updateParams(tileWMS.getParams());
+voidValue = tileWMS.updateParams(tileWMS.getParams());
 stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 
 //
@@ -421,7 +532,7 @@ zoomOptions.start = numberValue;
 zoomOptions.resolution = numberValue;
 zoomOptions.easing = easingFunction;
 preRenderFunction = ol.animation.zoom(zoomOptions);
-map.beforeRender(preRenderFunction);
+voidValue = map.beforeRender(preRenderFunction);
 
 //
 // ol.coordinate
@@ -453,9 +564,7 @@ easingFunction = ol.easing.upAndDown;
 var geolocation: ol.Geolocation = new ol.Geolocation({
     projection: projection
 });
-geolocation.on('change', function (evt) {
-    window.console.log(geolocation.getPosition());
-});
+coordinate = geolocation.getPosition();
 
 //
 // ol.Graticule
@@ -468,7 +577,7 @@ graticule = new ol.Graticule({
 var graticuleMap: ol.Map = graticule.getMap();
 var graticuleMeridians: Array<ol.geom.LineString> = graticule.getMeridians();
 var graticuleParallels: Array<ol.geom.LineString> = graticule.getParallels();
-graticule.setMap(graticuleMap);
+voidValue = graticule.setMap(graticuleMap);
 
 //
 // ol.DeviceOrientation
@@ -477,9 +586,7 @@ graticule.setMap(graticuleMap);
 var deviceOrientation: ol.DeviceOrientation = new ol.DeviceOrientation({
     tracking: true,
 });
-deviceOrientation.on('change', function (evt) {
-    window.console.log(deviceOrientation.getHeading());
-});
+numberValue = deviceOrientation.getHeading();
 
 //
 // ol.Overlay
@@ -488,17 +595,17 @@ deviceOrientation.on('change', function (evt) {
 var popup: ol.Overlay = new ol.Overlay({
     element: document.getElementById('popup')
 });
-map.addOverlay(popup);
+voidValue = map.addOverlay(popup);
 var popupElement: Element = popup.getElement();
 var popupMap: ol.Map = popup.getMap();
 var popupOffset: Array<number> = popup.getOffset();
 coordinate = popup.getPosition();
 var popupPositioning: ol.OverlayPositioning = popup.getPositioning();
-popup.setElement(popupElement);
-popup.setMap(popupMap);
-popup.setOffset(popupOffset);
-popup.setPosition(coordinate);
-popup.setPositioning(popupPositioning);
+voidValue = popup.setElement(popupElement);
+voidValue = popup.setMap(popupMap);
+voidValue = popup.setOffset(popupOffset);
+voidValue = popup.setPosition(coordinate);
+voidValue = popup.setPositioning(popupPositioning);
 
 
 //
@@ -559,12 +666,12 @@ var draw: ol.interaction.Draw = new ol.interaction.Draw({
     type: "Point",
     clickTolerance: numberValue,
     features: new ol.Collection([]),
-    source: ol.source.Vector,
+    source: vectorSource,
     snapTolerance: numberValue,
     maxPoints: numberValue,
     minPoints: numberValue,
     style: style,
-    geometryFunction: ol.interaction.DrawGeometryFunctionType,
+    geometryFunction: drawGeometryFunction,
     geometryName: stringValue,
     condition: ol.events.condition.never,
     freehandCondition: ol.events.condition.never,
@@ -595,10 +702,10 @@ var interaction: ol.interaction.Interaction = new ol.interaction.Interaction({
         return booleanValue;
     }
 });
-booleanValue = interaction.handleEvent(new ol.MapBrowserEvent({type: stringValue, map: map}));
+booleanValue = interaction.handleEvent(mapBrowserEvent);
 booleanValue = interaction.getActive();
 map = interaction.getMap();
-interaction.setActive(true);
+voidValue = interaction.setActive(true);
 
 
 
