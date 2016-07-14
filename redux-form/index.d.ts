@@ -16,7 +16,7 @@ export type FieldValue = any;
 
 export type FormData = { [fieldName: string]: FieldValue };
 
-export interface FieldProp {
+export interface FieldProp<T> {
     /**
      * true if this field currently has focus. It will only work if you are
      * passing onFocus to your input element.
@@ -65,14 +65,14 @@ export interface FieldProp {
      * either receive the React SyntheticEvent or the current value of the
      * field.
      */
-    onBlur(eventOrValue: SyntheticEvent | FieldValue): void;
+    onBlur(eventOrValue: SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field is changed. It expects to either
      * receive the React SyntheticEvent or the new value of the field.
      * @param eventOrValue
      */
-    onChange(eventOrValue: SyntheticEvent | FieldValue): void;
+    onChange(eventOrValue: SyntheticEvent<T> | FieldValue): void;
 
     /**
      * A function to call when the form field receives a 'dragStart' event.
@@ -129,7 +129,7 @@ export interface FieldProp {
     visited: boolean;
 }
 
-export interface ReduxFormProps {
+export interface ReduxFormProps<T> {
     /**
      * The name of the currently active (with focus) field.
      */
@@ -172,7 +172,7 @@ export interface ReduxFormProps {
      * props, e.g. <input type="text" {...field.name}/>. Each field Object has
      * the following properties:
      */
-    fields?: { [field: string]: FieldProp };
+    fields?: { [field: string]: FieldProp<T> };
 
     /**
      * A function meant to be passed to <form onSubmit={handleSubmit}> or to
@@ -191,7 +191,7 @@ export interface ReduxFormProps {
      * that as if it were the error for a field called _error, and it will be
      * given as the error prop.
      */
-    handleSubmit?(event: SyntheticEvent): void;
+    handleSubmit?(event: SyntheticEvent<T>): void;
 
     handleSubmit?(submit:(data:FormData, dispatch?:Dispatch<any>)
       => Promise<any>|void):FormEventHandler;
@@ -438,7 +438,7 @@ export interface ReduxFormConfig {
      * { field1: <String>, field2: <String> }.
      * Defaults to (values, props) => ({}).
      */
-    validate?(values: FormData, props: { [fieldName: string]: FieldProp }): Object;
+    validate?(values: FormData, props: { [fieldName: string]: FieldProp<any> }): Object;
 }
 
 /**

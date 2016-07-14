@@ -442,7 +442,7 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      * @default "No results found"
      */
     noResultsText?: string;
-    onBlur?: React.FocusEventHandler;
+    onBlur?: React.FocusEventHandler<ReactSelect>;
     /**
      * whether to clear input on blur or not
      * @default true
@@ -450,7 +450,7 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
     onBlurResetsInput?: boolean;
     onChange?: (newValue: Option | Option[]) => void;
     onClose?: () => void;
-    onFocus?: React.FocusEventHandler;
+    onFocus?: React.FocusEventHandler<ReactSelect>;
     onInputChange?: (inputValue: string) => void;
     onOpen?: () => void;
     onOptionLabelClick?: (value: string, event: Event) => void;
