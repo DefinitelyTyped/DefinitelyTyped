@@ -167,7 +167,7 @@ mongoose.Error.Messages.hasOwnProperty('');
  * section querycursor.js
  * http://mongoosejs.com/docs/api.html#querycursor-js
  */
-var querycursor: mongoose.QueryCursor;
+var querycursor: mongoose.QueryCursor<any>;
 querycursor.close(function (error, result) {
   result.execPopulate();
 }).catch(cb);
@@ -1212,3 +1212,45 @@ MongoModel.find({
   options: { limit: 5 }
 })
 .exec();
+/* practical example */
+interface Location extends mongoose.Document {
+  name: string;
+  address: string;
+  rating: number;
+  facilities: string[];
+  coords: number[];
+  openingTimes: any[];
+  reviews: any[];
+};
+const locationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  address: String,
+  rating: { type: Number, "default": 0, min: 0, max: 5 },
+  facilities: [String],
+  coords: { type: [Number], index: "2dsphere" },
+  openingTimes: [mongoose.Schema.Types.Mixed],
+  reviews: [mongoose.SchemaTypes.Mixed]
+});
+var LocModel = mongoose.model<Location>("Location", locationSchema);
+LocModel.findById(999)
+  .select("-reviews -rating")
+  .exec(function (err, location) {
+    location.name = 'blah';
+    location.address = 'blah';
+    location.reviews.forEach(review => {});
+    location.facilities.forEach(facility => {
+      facility.toLowerCase();
+    });
+  });
+LocModel.find()
+  .select('-reviews -rating')
+  .exec(function (err, locations) {
+    locations.forEach(location => {
+      location.name = 'blah';
+      location.address = 'blah';
+      location.reviews.forEach(review => {});
+      location.facilities.forEach(facility => {
+        facility.toLowerCase();
+      });
+    });
+  });
