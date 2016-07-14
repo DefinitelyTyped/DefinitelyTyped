@@ -536,7 +536,7 @@ declare namespace Antd {
         /** 经 `Form.create()` 包装过的组件会自带 `this.props.form` 属性，直接传给 Form 即可*/
         form?: Object,
         /** 数据验证成功后回调事件*/
-        onSubmit?: (e: React.FormEvent) => void,
+        onSubmit?: (e: React.FormEvent<Form>) => void,
     }
     /**
      * #Form
@@ -1560,11 +1560,11 @@ declare namespace Antd {
     选项卡切换组件。
 
     ## 何时使用
-    
+
     提供平级的区域将大块内容进行收纳和展现，保持界面整洁。
-    
+
     Ant Design 依次提供了三级选项卡，分别用于不同的场景。
-    
+
     - 卡片式的页签，提供可关闭的样式，常用于容器顶部。
     - 标准线条式页签，用于容器内部的主功能切换，这是最常用的 Tabs。
     - [RadioButton](/components/radio/#demo-radiobutton) 可作为更次级的页签来使用。*/
@@ -1590,9 +1590,9 @@ declare namespace Antd {
     /**
      * #Tag
     进行标记和分类的小标签。
-    
+
     ## 何时使用
-    
+
     - 用于标记事物的属性和维度。
     - 进行分类。*/
     export class Tag extends React.Component<TagProps, {}> {
@@ -1633,10 +1633,10 @@ declare namespace Antd {
     /**
      * #TimePicker
     输入或选择时间的控件。
-    
+
     何时使用
     --------
-    
+
     当用户需要输入一个时间，可以点击标准输入框，弹出时间面板进行选择。
     */
     export class TimePicker extends React.Component<TimePickerProps, {}> {
@@ -1662,9 +1662,9 @@ declare namespace Antd {
     /**
      * #Timeline
     垂直展示的时间流信息。
-    
+
     ## 何时使用
-    
+
     - 当有一系列信息需要从上至下按时间排列时；
     - 需要有一条时间轴进行视觉上的串联时；*/
     export class Timeline extends React.Component<TimelineProps, {}> {
@@ -1685,11 +1685,11 @@ declare namespace Antd {
     /**
      * #Tooltip
     简单的文字提示气泡框。
-    
+
     ## 何时使用
-    
+
     鼠标移入则显示提示，移出消失，气泡浮层不承载复杂文本和操作。
-    
+
     可用来代替系统默认的 `title` 提示，提供一个`按钮/文字/操作`的文案解释。*/
     export class Tooltip extends React.Component<TooltipProps, {}> {
         render(): JSX.Element
@@ -1729,9 +1729,9 @@ declare namespace Antd {
     /**
      * #Transfer
     双栏穿梭选择框。
-    
+
     ## 何时使用
-    
+
     用直观的方式在两栏中移动元素，完成选择行为。
     */
     export class Transfer extends React.Component<TransferProps, {}> {
@@ -1882,9 +1882,9 @@ declare namespace Antd {
     /**
      * #TreeSelect
     树型选择控件。
-    
+
     ## 何时使用
-    
+
     类似 Select 的选择控件，可选择的数据结构是一个树形结构时，可以使用 TreeSelect，例如公司层级、学科系统、分类目录等等。
     */
     export class TreeSelect extends React.Component<TreeSelectProps, {}> {
@@ -1926,11 +1926,11 @@ declare namespace Antd {
     /**
      * #Upload
     文件选择上传和拖拽上传控件。
-    
+
     ## 何时使用
-    
+
     上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。
-    
+
     - 当需要上传一个或一些文件时。
     - 当需要展现上传的进度时。
     - 当需要使用拖拽交互时。*/
