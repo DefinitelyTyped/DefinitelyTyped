@@ -633,7 +633,7 @@ interface CommonWrapper<P, S> {
      */
     filter<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
-    filter(selector: string): CommonWrapper<HTMLAttributes, any>;
+    filter(selector: string): CommonWrapper<HTMLAttributes<any>, any>;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
@@ -673,7 +673,7 @@ interface CommonWrapper<P, S> {
      */
     children<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
-    children(selector: string): CommonWrapper<HTMLAttributes, any>;
+    children(selector: string): CommonWrapper<HTMLAttributes<any>, any>;
     children(): CommonWrapper<any, any>;
 
     /**
@@ -685,7 +685,7 @@ interface CommonWrapper<P, S> {
      */
     parents<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
-    parents(selector: string): CommonWrapper<HTMLAttributes, any>;
+    parents(selector: string): CommonWrapper<HTMLAttributes<any>, any>;
     parents(): CommonWrapper<any, any>;
 
     /**
@@ -702,7 +702,7 @@ interface CommonWrapper<P, S> {
      */
     closest<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
-    closest(selector: string): CommonWrapper<HTMLAttributes, any>;
+    closest(selector: string): CommonWrapper<HTMLAttributes<any>, any>;
 
     /**
      * Returns a string of the rendered text of the current render tree. This function should be looked at with
@@ -910,7 +910,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      */
     find<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     find<P2>(statelessComponent: (props: P2) => JSX.Element): ShallowWrapper<P2, {}>;
-    find(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    find(selector: string): ShallowWrapper<HTMLAttributes<any>, any>;
 
     /**
      * Removes nodes in the current wrapper that do not match the provided selector.
@@ -918,7 +918,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      */
     filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
-    filter(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    filter(selector: string): ShallowWrapper<HTMLAttributes<any>, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -933,7 +933,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      */
     children<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
-    children(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    children(selector: string): ShallowWrapper<HTMLAttributes<any>, any>;
     children(): ShallowWrapper<any, any>;
 
     /**
@@ -945,7 +945,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      */
     parents<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
-    parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    parents(selector: string): ShallowWrapper<HTMLAttributes<any>, any>;
     parents(): ShallowWrapper<any, any>;
 
     /**
@@ -957,7 +957,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      */
     closest<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
-    closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
+    closest(selector: string): ShallowWrapper<HTMLAttributes<any>, any>;
 
     /**
      * Returns a wrapper with the direct parent of the node in the current wrapper.
