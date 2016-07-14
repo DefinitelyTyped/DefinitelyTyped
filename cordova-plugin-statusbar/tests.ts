@@ -1,5 +1,4 @@
-// Licensed under the MIT license.
-
+/// <reference path="index.d.ts"/>
 
 
 var statusBar: StatusBar = window.StatusBar;
