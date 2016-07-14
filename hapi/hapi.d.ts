@@ -1180,7 +1180,7 @@ declare module "hapi" {
 			payload: any;
 		};
 		/**  an object where each key is a path parameter name with matching value as described in Path parameters.*/
-		params: IDictionary<string>;
+		params: any;
 		/** an array containing all the path params values in the order they appeared in the path.*/
 		paramsArray: string[];
 		/**  the request URI's path component. */
