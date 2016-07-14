@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="angular" />
-/// <reference types="FileSystem" />
+/// <reference types="cordova" />
 
 declare namespace ngCordova {
     export interface IFileService {
