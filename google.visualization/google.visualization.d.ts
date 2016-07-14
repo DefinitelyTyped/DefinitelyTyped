@@ -199,7 +199,7 @@ declare namespace google {
             setTimeout(timeoutSeconds: number): void;
             setQuery(queryString:string): void;
 
-            send(responseHandler): void;
+            send(callback: (response: QueryResponse) => void): void;
         }
 
         export interface QueryOptions {
