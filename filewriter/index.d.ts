@@ -1,7 +1,7 @@
 // Type definitions for File API: Writer
 // Project: http://www.w3.org/TR/file-writer-api/
-// Definitions by: Kon <http://phyzkit.net/> 
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+// Definitions by: Kon <http://phyzkit.net/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * This interface provides methods to monitor the asynchronous writing of blobs to disk using progress events [PROGRESS-EVENTS] and event handler attributes.
@@ -21,25 +21,25 @@ interface FileSaver extends EventTarget {
      * <li> Terminate this algorithm. </li>
      * </ol>
      */
-    abort():void;
+    abort(): void;
 
     /**
      * The blob is being written.
      * @readonly
      */
-    INIT:number;
+    INIT: number;
 
     /**
      * The object has been constructed, but there is no pending write.
      * @readonly
      */
-    WRITING:number;
+    WRITING: number;
 
     /**
      * The entire Blob has been written to the file, an error occurred during the write, or the write was aborted using abort(). The FileSaver is no longer writing the blob.
      * @readonly
      */
-    DONE:number;
+    DONE: number;
 
     /**
      * The FileSaver object can be in one of 3 states. The readyState attribute, on getting, must return the current state, which must be one of the following values:
@@ -50,43 +50,43 @@ interface FileSaver extends EventTarget {
      * <ul>
      * @readonly
      */
-    readyState:number;
+    readyState: number;
 
     /**
      * The last error that occurred on the FileSaver.
-     * @readonly     
+     * @readonly
      */
-    error:DOMError;
+    error: Error;
 
     /**
      * Handler for writestart events
      */
-    onwritestart:Function;
+    onwritestart: (event: ProgressEvent) => void;
 
     /**
      * Handler for progress events.
      */
-    onprogress:Function;
+    onprogress: (event: ProgressEvent) => void;
 
     /**
      * Handler for write events.
      */
-   	onwrite:Function;
+    onwrite: (event: ProgressEvent) => void;
 
     /**
      * Handler for abort events.
      */
-    onabort:Function;
+    onabort: (event: ProgressEvent) => void;
 
     /**
      * Handler for error events.
      */
-    onerror:Function;
+    onerror: (event: ProgressEvent) => void;
 
     /**
      * Handler for writeend events.
      */
-    onwriteend:Function;
+    onwriteend: (event: ProgressEvent) => void;
 }
 
 declare var FileSaver: {
@@ -113,7 +113,7 @@ interface FileWriter extends FileSaver {
     length:number;
 
     /**
-     * Write the supplied data to the file at position. 
+     * Write the supplied data to the file at position.
      * @param data The blob to write.
      */
     write(data:Blob):void;
@@ -171,6 +171,6 @@ interface FileWriterSync {
      *      </li>
      *  </ul>
      * @param size The size to which the length of the file is to be adjusted, measured in bytes.
-     */     
+     */
     truncate(size:number):void;
 }
