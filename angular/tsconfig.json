@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "angular-mocks-tests.ts"
+        "angular-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",
