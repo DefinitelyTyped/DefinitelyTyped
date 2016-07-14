@@ -1262,6 +1262,11 @@ declare module "mongoose" {
      * http://mongoosejs.com/docs/api.html#query-js
      */
     type Query<T> = ModelQuery<T, any>;
+
+    /*
+     * Query.find() will return Query<Model<T>[]> however we need the
+     * type T to create this so we save T in another parameter.
+     */
     class ModelQuery<T, ModelType> extends mquery {
       /**
        * Specifies a javascript function or expression to pass to MongoDBs query system.
