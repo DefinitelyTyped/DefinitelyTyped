@@ -6,8 +6,8 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 
 declare namespace Chosen {
-    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results"
-    type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close"
+    type OnEvent = "chosen:ready" | "chosen:maxselected" | "chosen:showing_dropdown" | "chosen:hiding_dropdown" | "chosen:no_results";
+    type TriggerEvent = "chosen:updated" | "chosen:activate" | "chosen:open" | "chosen:close";
 
     interface Options {
         /**When set to true on a single select, Chosen adds a UI element which selects the first element (if it is blank).
