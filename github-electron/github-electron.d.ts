@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.5
+// Type definitions for Electron v1.2.6
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -341,6 +341,10 @@ declare namespace Electron {
 		 * This method can only be called before app is ready.
 		 */
 		disableHardwareAcceleration(): void;
+		/**
+		 * @returns whether current desktop environment is Unity launcher. (Linux)
+		 */
+		isUnityRunning(): boolean;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on macOS.
@@ -414,6 +418,16 @@ declare namespace Electron {
 		 * Note: This API is only available on macOS.
 		 */
 		getBadge(): string;
+		/**
+		 * Sets the counter badge for current app. Setting the count to 0 will hide the badge.
+		 *
+		 * @returns True when the call succeeded, otherwise returns false.
+		 */
+		setBadgeCount(count: number): boolean;
+		/**
+		 * @returns The current value displayed in the counter badge.
+		 */
+		getBadgeCount(): number;
 		/**
 		 * Hides the dock icon.
 		 *
@@ -1541,9 +1555,22 @@ declare namespace Electron {
 			html?: string;
 			image?: NativeImage;
 		}, type?: ClipboardType): void;
+		/**
+		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
+		 */
+		readBookmark(): Bookmark;
+		/**
+		 * Writes the title and url into the clipboard as a bookmark.
+		 */
+		writeBookmark(title: string, url: string, type?: ClipboardType): void;
 	}
 
 	type ClipboardType = '' | 'selection';
+
+	interface Bookmark {
+		title: string;
+		url: string;
+	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/content-tracing.md
 
@@ -3292,6 +3319,11 @@ declare namespace Electron {
 		metaKey: boolean;
 	}
 
+	interface DragItem {
+		file: string;
+		icon: NativeImage;
+	}
+
 	// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
 
 	/**
@@ -3739,7 +3771,7 @@ declare namespace Electron {
 		 * Begin subscribing for presentation events and captured frames,
 		 * The callback will be called when there is a presentation event.
 		 */
-		beginFrameSubscription(callback: (
+		beginFrameSubscription(onlyDirty: boolean, callback: (
 			/**
 			 * The frameBuffer is a Buffer that contains raw pixel data.
 			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
@@ -3749,6 +3781,7 @@ declare namespace Electron {
 			 */
 			frameBuffer: Buffer
 		) => void): void;
+		beginFrameSubscription(callback: (frameBuffer: Buffer) => void): void;
 		/**
 		 * End subscribing for frame presentation events.
 		 */
@@ -3762,6 +3795,11 @@ declare namespace Electron {
 		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * Sets the item as dragging item for current drag-drop operation, file is the absolute path of
+		 * the file to be dragged, and icon is the image showing under the cursor when dragging.
+		 */
+		startDrag(item: DragItem): void;
 		/**
 		 * @returns The unique ID of this WebContents.
 		 */

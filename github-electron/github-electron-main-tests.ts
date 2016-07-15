@@ -96,6 +96,7 @@ app.on('ready', () => {
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
+	mainWindow.webContents.startDrag({path: '/path/to/img.png', icon: nativeImage.createFromPath('/path/to/icon.png')});
 	mainWindow.webContents.findInPage('blah');
 	mainWindow.webContents.findInPage('blah', {
 		forward: true,
@@ -220,6 +221,7 @@ app.dock.setBadge('foo');
 var id = app.dock.bounce('informational');
 app.dock.cancelBounce(id);
 app.dock.setIcon('/path/to/icon.png');
+app.dock.setBadgeCount(app.dock.getBadgeCount() + 1);
 
 app.setUserTasks([
 	<Electron.Task>{
@@ -232,6 +234,8 @@ app.setUserTasks([
 	}
 ]);
 app.setUserTasks([]);
+if (app.isUnityRunning()) {
+}
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -700,8 +704,11 @@ app.on('ready', () => {
 
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
+clipboard.writeBookmark('foo', 'http://example.com');
+clipboard.writeBookmark('foo', 'http://example.com', 'selection');
 console.log(clipboard.readText('selection'));
 console.log(clipboard.availableFormats());
+console.log(clipboard.readBookmark().title);
 clipboard.clear();
 
 clipboard.write({
