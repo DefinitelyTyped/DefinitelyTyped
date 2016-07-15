@@ -357,7 +357,7 @@ interface Promise<T> extends PromiseLike<T>, Promise.Inspection<T> {
     /**
      * Promises/A+ `.then()` with progress handler. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
      */
-    then<U>(onFulfill: (value: T) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
+    then<U>(onFulfill?: (value: T) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>, onProgress?: (note: any) => any): Promise<U>;
     then<U>(onFulfill: (value: T) => U | PromiseLike<U>, onReject?: (error: any) => void | PromiseLike<void>, onProgress?: (note: any) => any): Promise<U>;
 
     /**
