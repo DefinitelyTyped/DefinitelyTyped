@@ -126,7 +126,7 @@ declare namespace TestUtils {
 
     export function isElementOfType<T extends HTMLElement>(
         element: ReactElement<any>, type: string): element is ReactHTMLElement<T>;
-    export function isElementOfType<P extends DOMAttributes, T extends Element>(
+    export function isElementOfType<P extends DOMAttributes<{}>, T extends Element>(
         element: ReactElement<any>, type: string): element is DOMElement<P, T>;
     export function isElementOfType<P>(
         element: ReactElement<any>, type: SFC<P>): element is SFCElement<P>;

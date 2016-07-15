@@ -1,6 +1,4 @@
-
-
-
+import * as Q from 'q';
 import testFx = require('msportalfx-test');
 
 var galleryPackageName = "My.Package";

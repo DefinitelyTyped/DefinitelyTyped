@@ -1,5 +1,4 @@
-/// <reference types="angularjs" />
-
+/// <reference types="angular" />
 
 namespace ngStompTesting {
 

@@ -1,5 +1,4 @@
-
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 var options1: ngGrid.IGridOptions = {
     data: [{ 'Name': 'Bob' }, { 'Name': 'Jane' }]
