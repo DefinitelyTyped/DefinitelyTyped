@@ -599,6 +599,7 @@ declare module "http" {
         statusMessage: string;
         headersSent: boolean;
         setHeader(name: string, value: string | string[]): void;
+        setTimeout(msecs: number, callback: Function): ServerResponse;
         sendDate: boolean;
         getHeader(name: string): string;
         removeHeader(name: string): void;
