@@ -1,7 +1,4 @@
-
-/// <reference types="Q" />
-
-export interface IPerson{
+interface IPerson{
     Checked:boolean;
     FirstName:string;
     LastName:string;

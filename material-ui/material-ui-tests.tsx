@@ -174,7 +174,7 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
     private touchTapEventHandler(e: TouchTapEvent) {
         console.info("Received touch tap", e);
     }
-    private formEventHandler(e: React.FormEvent) {
+    private formEventHandler(e: React.FormEvent<{}>) {
     }
     private selectFieldChangeHandler(e: TouchTapEvent, si: number, mi: any) {
     }
@@ -188,9 +188,9 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
     private handleClose() {
         this.setState(Object.assign({}, this.state, { open: false }));
     }
-    private handleChangeSingle(event: React.MouseEvent, value: string){
+    private handleChangeSingle(event: React.MouseEvent<{}>, value: string){
     }
-    private handleChangeMultiple(event: React.MouseEvent, value: string[]) {
+    private handleChangeMultiple(event: React.MouseEvent<{}>, value: string[]) {
     }
 
     private handleChange = (e: TouchTapEvent, index: number, value: number) => this.setState(Object.assign({}, this.state, { value }));
@@ -207,7 +207,7 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
         this.setState(Object.assign({}, this.state, {open: false,}));
         alert('Event removed from your calendar.');
     }
-    private handleChangeDuration = (event: React.FormEvent) => {
+    private handleChangeDuration = (event: React.FormEvent<{}>) => {
         const value = event.target["value"];
         this.setState(Object.assign({}, this.state, {
             autoHideDuration: value.length > 0 ? parseInt(value) : 0,
@@ -218,7 +218,7 @@ class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> implemen
     private handleActive(tab: Tab) {
         alert(`A tab with this route property ${tab.props.value} was activated.`);
     }
-    private handleChangeTabs(value: any, e: React.FormEvent, tab: Tab) {
+    private handleChangeTabs(value: any, e: React.FormEvent<{}>, tab: Tab) {
     }
     private handleChangeTimePicker12(err, time) {
         this.picker12hr.setTime(time);

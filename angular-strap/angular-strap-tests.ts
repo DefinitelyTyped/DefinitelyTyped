@@ -1,5 +1,3 @@
-/// <reference types="angularjs"/>
-
 namespace angularStrapTests {
 
     import ngStrap = mgcrea.ngStrap;

@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();
 

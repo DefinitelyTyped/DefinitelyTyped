@@ -832,7 +832,7 @@ declare namespace Xrm
             /**
              * @param   {EventContext}  context The context.
              */
-            ( context?: EventContext ): void;
+            ( context: EventContext ): void;
         }
 
         /**

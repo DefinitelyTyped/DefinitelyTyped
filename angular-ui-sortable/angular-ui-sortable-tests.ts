@@ -1,6 +1,3 @@
-/// <reference types="angularjs" />
-
-
 var myApp = angular.module('testModule');
 
 interface MySortableControllerScope extends ng.IScope {

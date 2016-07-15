@@ -29,6 +29,7 @@ declare namespace karmaCoverage {
         includeAllSources?: boolean;
         sourceStore?: istanbul.Store;
         instrumenter?: any;
+        [moreSettings: string]: any;
     }
 }
 

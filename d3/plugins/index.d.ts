@@ -1,3 +1,7 @@
+// Type definitions for d3JS plugins
+// Project: http://d3js.org/
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as d3 from 'd3';
 

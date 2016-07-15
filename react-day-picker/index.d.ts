@@ -29,7 +29,7 @@ declare namespace ReactDayPicker {
         date?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
-        onClick?: React.MouseEventHandler;
+        onClick?: React.MouseEventHandler<{}>;
     }
 
     interface Props extends React.Props<DayPicker>{
@@ -44,12 +44,12 @@ declare namespace ReactDayPicker {
         localeUtils?: LocaleUtils;
         locale?: string;
         captionElement?: React.ReactElement<CaptionElementProps>;
-        onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayTouchTap?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
+        onDayClick?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
+        onDayTouchTap?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
+        onDayMouseEnter?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
+        onDayMouseLeave?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
         onMonthChange?: (month: Date) => any;
-        onCaptionClick?: (e: React.SyntheticEvent, month: Date) => any;
+        onCaptionClick?: (e: React.SyntheticEvent<{}>, month: Date) => any;
         className?: string;
         style?: React.CSSProperties;
         tabIndex?: number;
