@@ -5,8 +5,8 @@
 
 declare module CryptoJS {
 	interface Crypt {
-		encrypt(message: string, key?: string, ...options: any[]);
-		decrypt(message: string, key?: string, ...options: any[]);
+		encrypt(message: string, key?: string, ...options: any[]): string;
+		decrypt(message: string, key?: string, ...options: any[]): string;
 	}
 
 	type Hash = (message: string, key?: string, ...options: any[]) => string;
