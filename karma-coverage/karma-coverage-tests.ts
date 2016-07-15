@@ -1,6 +1,4 @@
-
 import * as karma from 'karma-coverage';
-
 
 // See https://github.com/karma-runner/karma-coverage/blob/v0.5.3/README.md#basic
 module.exports = function(config: karma.Config) {

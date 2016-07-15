@@ -1,12 +1,11 @@
 /// <reference types="node" />
-
 /// <reference types="pathwatcher" />
 
 import path = require("path");
 import _atom = require("atom");
 
-import pathwatcher = require("pathwatcher");
-var File = pathwatcher.File;
+import PathWatcher = require("pathwatcher");
+var File = PathWatcher.File;
 
 class SampleView extends _atom.ScrollView {
 

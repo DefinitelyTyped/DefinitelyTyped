@@ -1,5 +1,5 @@
-import * as ng from 'angularjs';
-import * as angular from 'angularjs';
+import * as ng from 'angular';
+import * as angular from 'angular';
 
 import uiRouterModule from "angular-ui-router";
 var myApp = angular.module("testModule", [uiRouterModule]);

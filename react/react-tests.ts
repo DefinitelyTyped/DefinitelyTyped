@@ -167,9 +167,9 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<React.DOMAttributes, Element> =
+var domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
@@ -304,7 +304,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
-    onClick: (event: React.MouseEvent) => {
+    onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },

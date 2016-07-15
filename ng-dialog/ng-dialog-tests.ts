@@ -1,6 +1,5 @@
-
-/// <reference types="angularjs" />
-import * as angular from 'angularjs';
+/// <reference types="angular" />
+import * as angular from 'angular';
 
 var app = angular.module('testModule', ['ngDialog']);
 

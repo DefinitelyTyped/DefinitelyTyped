@@ -1,6 +1,4 @@
-
-/// <reference types="Q" />
-
+import * as Q from 'q';
 import * as pg from 'promise-pg';
 
 var conString = "postgres://username:password@localhost/database";

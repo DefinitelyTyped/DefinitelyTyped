@@ -40,7 +40,7 @@ interface CreateElement {
      * @param children A single React node (string or ReactElement) or array of nodes.
      * Note that unlike with React itself, multiple children must be placed into an array. 
      */
-    <P>(specString: string, props?: React.HTMLAttributes, children?: React.ReactNode): React.DOMElement<P, Element>
+    <P>(specString: string, props?: React.HTMLAttributes<{}>, children?: React.ReactNode): React.DOMElement<P, Element>
 
 
     /**

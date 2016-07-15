@@ -1,4 +1,4 @@
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 interface ITodo {
 	_id?: string;

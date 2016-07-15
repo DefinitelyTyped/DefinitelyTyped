@@ -1,5 +1,4 @@
-/// <reference types="react" />
-
+import * as React from 'react';
 import * as DayPicker2 from "react-day-picker";
 
 function isSunday(day: Date) {

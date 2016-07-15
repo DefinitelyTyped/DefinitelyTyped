@@ -35,7 +35,7 @@ declare namespace ReactDayPicker {
         date?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
-        onClick?: React.MouseEventHandler;
+        onClick?: React.MouseEventHandler<{}>;
     }
     
     interface NavbarElementProps extends React.Props<any> {
@@ -83,7 +83,7 @@ declare namespace ReactDayPicker {
         onDayTouchEnd?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onDayTouchStart?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onMonthChange?: (month: Date) => any;
-        onCaptionClick?: (e: React.SyntheticEvent, month: Date) => any;
+        onCaptionClick?: (e: React.SyntheticEvent<{}>, month: Date) => any;
         className?: string;
         selectedDays?: (date: Date) => boolean;
         style?: React.CSSProperties;

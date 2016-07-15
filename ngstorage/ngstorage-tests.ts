@@ -1,4 +1,4 @@
-/// <reference types="angularjs" />
+/// <reference types="angular" />
 
 
 var app: any;

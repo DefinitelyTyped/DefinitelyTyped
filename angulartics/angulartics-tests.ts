@@ -1,6 +1,3 @@
-
-/// <reference types="angularjs" />
-
 namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
         .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {

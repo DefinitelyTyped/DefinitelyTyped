@@ -1,4 +1,5 @@
 import angularTouchSpin = require("angular-touchspin");
+import * as angular from 'angular';
 
 angular
     .module('touchspin-tests', ['nk.touchspin'])

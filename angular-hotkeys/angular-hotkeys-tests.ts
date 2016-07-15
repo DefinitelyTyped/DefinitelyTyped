@@ -1,5 +1,4 @@
-/// <reference types="angularjs" />
-
+/// <reference types="angular" />
 
 var scope: ng.IScope;
 var hotkeyProvider: ng.hotkeys.HotkeysProvider;

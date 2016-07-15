@@ -1,5 +1,5 @@
+import * as ng from 'angular';
 import uiGrid = require("ui-grid");
-/// <reference types="angularjs" />
 
 interface IMyEntity {
     name: string;

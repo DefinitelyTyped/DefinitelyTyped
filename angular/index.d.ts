@@ -10,8 +10,10 @@
 declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
-interface Function {
-    $inject?: string[];
+declare global {
+    interface Function {
+        $inject?: string[];
+    }
 }
 
 export as namespace angular;

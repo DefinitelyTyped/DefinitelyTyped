@@ -296,9 +296,9 @@ declare namespace ReactDataGrid {
         showRefreshIcon: boolean;
 				iconSize: number;
 				iconProps: {
-  					style: React.SVGAttributes,
-  					overStyle: React.SVGAttributes,
-  					disabledStyle: React.SVGAttributes
+  					style: React.SVGAttributes<{}>,
+  					overStyle: React.SVGAttributes<{}>,
+  					disabledStyle: React.SVGAttributes<{}>
 				}
     }
 

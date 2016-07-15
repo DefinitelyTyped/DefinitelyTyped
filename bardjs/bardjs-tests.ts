@@ -1,8 +1,7 @@
 /// <reference types="mocha" />
 /// <reference types="chai" />
-/// <reference types="angularjs" />
 
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 namespace bardTests {
     var expect = chai.expect,
