@@ -3,7 +3,7 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from './index';
+import * as angular from 'angular';
 
 declare module "angular-mocks/ngMock" {
     var _: string;

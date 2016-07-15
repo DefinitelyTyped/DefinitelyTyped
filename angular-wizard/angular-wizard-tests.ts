@@ -1,5 +1,4 @@
 /// <reference types="jasmine" />
-/// <reference types="angularjs" />
 
 // test file taken from https://github.com/mgonto/angular-wizard
 

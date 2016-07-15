@@ -1,10 +1,8 @@
-/// <reference types="angularjs" />
-
 interface TestScope extends ng.IScope {
   viewType: string;
 }
 
-export class TestController {
+class TestController {
   constructor(private $scope: TestScope, private storage: ng.localStorage.ILocalStorageService) {
     storage.bind($scope, 'varName');
     storage.bind($scope,'varName', { defaultValue: 'randomValue123', storeName: 'customStoreKey' });

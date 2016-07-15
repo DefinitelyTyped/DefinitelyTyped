@@ -5,7 +5,6 @@
 
 /// <reference types="angular" />
 /// <reference types="cordova" />
-/// <reference types="FileSystem" />
 
 declare namespace ngCordova {
     export interface IFileTransferService {
