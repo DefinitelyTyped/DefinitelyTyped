@@ -28,7 +28,7 @@
     "help": "dt -h"
   },
   "devDependencies": {
-    "definition-tester": "0.5.2",
+    "definition-tester": ">= 2.0.0-alpha",
     "typescript": "next"
   }
 }
