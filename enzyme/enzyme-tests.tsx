@@ -42,7 +42,7 @@ namespace ShallowWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ShallowWrapper<HTMLAttributes, {}>
+        elementWrapper: ShallowWrapper<HTMLAttributes<any>, {}>
 
     function test_find() {
         elementWrapper = shallowWrapper.find('.selector');
@@ -236,7 +236,7 @@ namespace ReactWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ReactWrapper<HTMLAttributes, {}>
+        elementWrapper: ReactWrapper<HTMLAttributes<any>, {}>
 
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
@@ -418,7 +418,7 @@ namespace CheerioWrapperTest {
         objectVal: Object,
         boolVal: Boolean,
         stringVal: String,
-        elementWrapper: ReactWrapper<HTMLAttributes, {}>
+        elementWrapper: ReactWrapper<HTMLAttributes<any>, {}>
 
     function test_find() {
         elementWrapper = cheerioWrapper.find('.selector');

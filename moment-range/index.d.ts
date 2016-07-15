@@ -5,7 +5,6 @@
 
 import * as moment from 'moment';
 
-export as namespace moment;
 export = moment;
 
 declare module 'moment' {

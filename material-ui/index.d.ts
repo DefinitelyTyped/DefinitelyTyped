@@ -103,7 +103,7 @@ declare namespace __MaterialUI {
     }
 
     // What's common between React.TouchEvent and React.MouseEvent
-    interface TouchTapEvent extends React.SyntheticEvent {
+    interface TouchTapEvent extends React.SyntheticEvent<{}> {
         altKey: boolean;
         ctrlKey: boolean;
         getModifierState(key: string): boolean;
@@ -554,11 +554,11 @@ declare namespace __MaterialUI {
         focusRippleOpacity?: number;
         keyboardFocused?: boolean;
         linkButton?: boolean;
-        onBlur?: React.FocusEventHandler;
-        onFocus?: React.FocusEventHandler;
-        onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
-        onKeyDown?: React.KeyboardEventHandler;
-        onKeyUp?: React.KeyboardEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}>;
+        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onKeyDown?: React.KeyboardEventHandler<{}>;
+        onKeyUp?: React.KeyboardEventHandler<{}>;
         onTouchTap?: TouchTapEventHandler;
         style?: React.CSSProperties;
         tabIndex?: number;
@@ -567,7 +567,7 @@ declare namespace __MaterialUI {
         type?: string;
     }
 
-    interface EnhancedButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<EnhancedButton> {
+    interface EnhancedButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<EnhancedButton> {
         // container element, <button/>, or <span/>(if disabled link) is the element that get the 'other' properties
         containerElement?: React.ReactNode | string;
         disabled?: boolean;
@@ -575,7 +575,7 @@ declare namespace __MaterialUI {
     export class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {
     }
 
-    interface FlatButtonProps extends React.DOMAttributes, SharedEnhancedButtonProps<FlatButton> {
+    interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         disabled?: boolean;
@@ -586,10 +586,10 @@ declare namespace __MaterialUI {
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
-        onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        onTouchStart?: React.TouchEventHandler;
+        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
+        onTouchStart?: React.TouchEventHandler<{}>;
         primary?: boolean;
         rippleColor?: string;
         secondary?: boolean;
@@ -613,12 +613,12 @@ declare namespace __MaterialUI {
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
-        onMouseDown?: React.MouseEventHandler;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        onMouseUp?: React.MouseEventHandler;
-        onTouchEnd?: React.TouchEventHandler;
-        onTouchStart?: React.TouchEventHandler;
+        onMouseDown?: React.MouseEventHandler<{}>;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
+        onMouseUp?: React.MouseEventHandler<{}>;
+        onTouchEnd?: React.TouchEventHandler<{}>;
+        onTouchStart?: React.TouchEventHandler<{}>;
         primary?: boolean;
         rippleStyle?: React.CSSProperties;
         secondary?: boolean;
@@ -627,7 +627,7 @@ declare namespace __MaterialUI {
     export class RaisedButton extends React.Component<RaisedButtonProps, {}> {
     }
 
-    interface FloatingActionButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<FloatingActionButton> {
+    interface FloatingActionButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<FloatingActionButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
         className?: string;
@@ -638,12 +638,12 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         linkButton?: boolean;
         mini?: boolean;
-        onMouseDown?: React.MouseEventHandler;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        onMouseUp?: React.MouseEventHandler;
-        onTouchEnd?: React.TouchEventHandler;
-        onTouchStart?: React.TouchEventHandler;
+        onMouseDown?: React.MouseEventHandler<{}>;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
+        onMouseUp?: React.MouseEventHandler<{}>;
+        onTouchEnd?: React.TouchEventHandler<{}>;
+        onTouchStart?: React.TouchEventHandler<{}>;
         secondary?: boolean;
         style?: React.CSSProperties;
         zDepth?: number;
@@ -651,17 +651,17 @@ declare namespace __MaterialUI {
     export class FloatingActionButton extends React.Component<FloatingActionButtonProps, {}> {
     }
 
-    interface IconButtonProps extends React.HTMLAttributes, SharedEnhancedButtonProps<IconButton> {
+    interface IconButtonProps extends React.HTMLAttributes<{}>, SharedEnhancedButtonProps<IconButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         className?: string;
         disabled?: boolean;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
-        onBlur?: React.FocusEventHandler;
-        onFocus?: React.FocusEventHandler;
-        onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}>;
+        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
         tooltip?: string;
         tooltipPosition?: string;
@@ -773,9 +773,9 @@ declare namespace __MaterialUI {
             mode?: string;
             onChange?: (e: any, date: Date) => void; // e is always null
             onDismiss?: () => void;
-            onFocus?: React.FocusEventHandler;
+            onFocus?: React.FocusEventHandler<{}>;
             onShow?: () => void;
-            onTouchTap?: React.TouchEventHandler;
+            onTouchTap?: React.TouchEventHandler<{}>;
             shouldDisableDate?: (day: Date) => boolean;
             /** @deprecated use noFilter instead */
             showYearSelector?: boolean;
@@ -797,8 +797,8 @@ declare namespace __MaterialUI {
             hintText?: React.ReactNode;
             id?: string;
             inputStyle?: React.CSSProperties;
-            onBlur?: React.FocusEventHandler;
-            onKeyDown?: React.KeyboardEventHandler;
+            onBlur?: React.FocusEventHandler<{}>;
+            onKeyDown?: React.KeyboardEventHandler<{}>;
             rows?: number,
             rowsMax?: number,
             type?: string;
@@ -837,12 +837,12 @@ declare namespace __MaterialUI {
     /** @deprecated use array of components instead */
     export interface DialogAction {
         id?: string;
-        onClick?: React.MouseEventHandler;
+        onClick?: React.MouseEventHandler<{}>;
         onTouchTap?: TouchTapEventHandler;
         ref?: string;
         text: string;
     }
-    interface DialogProps extends React.DOMAttributes, React.Props<Dialog> {
+    interface DialogProps extends React.DOMAttributes<{}>, React.Props<Dialog> {
         /** @deprecated use a custom `actions` property instead */
         actionFocus?: string;
         actions?: Array<DialogAction | React.ReactElement<any>>;
@@ -907,23 +907,23 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface FontIconProps extends React.HTMLAttributes, React.Props<FontIcon> {
+    interface FontIconProps extends React.HTMLAttributes<{}>, React.Props<FontIcon> {
         // <span/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
     }
     export class FontIcon extends React.Component<FontIconProps, {}> {
     }
 
-    interface SvgIconProps extends React.SVGAttributes, React.Props<SvgIcon> {
+    interface SvgIconProps extends React.SVGAttributes<{}>, React.Props<SvgIcon> {
         // <svg/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
-        onMouseEnter?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
+        onMouseEnter?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
         viewBox?: string;
     }
@@ -993,7 +993,7 @@ declare namespace __MaterialUI {
         export class ListDivider extends React.Component<ListDividerProps, {}> {
         }
 
-        interface ListItemProps extends React.HTMLAttributes, React.Props<ListItem> {
+        interface ListItemProps extends React.HTMLAttributes<{}>, React.Props<ListItem> {
             // <EnhancedButton/> is the element that get the 'other' properties
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
@@ -1007,11 +1007,11 @@ declare namespace __MaterialUI {
             nestedItems?: React.ReactElement<ListItemProps>[];
             nestedLevel?: number;
             nestedListStyle?: React.CSSProperties;
-            onKeyboardFocus?: React.FocusEventHandler;
-            onMouseEnter?: React.MouseEventHandler;
-            onMouseLeave?: React.MouseEventHandler;
+            onKeyboardFocus?: React.FocusEventHandler<{}>;
+            onMouseEnter?: React.MouseEventHandler<{}>;
+            onMouseLeave?: React.MouseEventHandler<{}>;
             onNestedListToggle?: (item: ListItem) => void;
-            onTouchStart?: React.TouchEventHandler;
+            onTouchStart?: React.TouchEventHandler<{}>;
             onTouchTap?: TouchTapEventHandler;
             primaryText?: React.ReactNode;
             primaryTogglesNestedList?: boolean;
@@ -1038,9 +1038,9 @@ declare namespace __MaterialUI {
             maxHeight?: number;
             multiple?: boolean;
             onChange?: (e: TouchTapEvent, itemValue: any | any[]) => void;
-            onEscKeyDown?: React.KeyboardEventHandler;
+            onEscKeyDown?: React.KeyboardEventHandler<{}>;
             onItemTouchTap?: (e: TouchTapEvent, item: MenuItem) => void;
-            onKeyDown?: React.KeyboardEventHandler;
+            onKeyDown?: React.KeyboardEventHandler<{}>;
             openDirection?: string;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
@@ -1052,7 +1052,7 @@ declare namespace __MaterialUI {
         export class Menu extends React.Component<MenuProps, {}>{
         }
 
-        interface MenuItemProps extends React.HTMLAttributes, React.Props<MenuItem> {
+        interface MenuItemProps extends React.HTMLAttributes<{}>, React.Props<MenuItem> {
             // <ListItem/> is the element that get the 'other' properties
             checked?: boolean;
             desktop?: boolean;
@@ -1084,11 +1084,11 @@ declare namespace __MaterialUI {
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
             onItemTouchTap?: (e: TouchTapEvent, item: MenuItem) => void;
-            onKeyboardFocus?: React.FocusEventHandler;
-            onMouseDown?: React.MouseEventHandler;
-            onMouseEnter?: React.MouseEventHandler;
-            onMouseLeave?: React.MouseEventHandler;
-            onMouseUp?: React.MouseEventHandler;
+            onKeyboardFocus?: React.FocusEventHandler<{}>;
+            onMouseDown?: React.MouseEventHandler<{}>;
+            onMouseEnter?: React.MouseEventHandler<{}>;
+            onMouseLeave?: React.MouseEventHandler<{}>;
+            onMouseUp?: React.MouseEventHandler<{}>;
             onRequestChange?: (opening: boolean, reason: string) => void;
             onTouchTap?: TouchTapEventHandler;
             open?: boolean;
@@ -1103,7 +1103,7 @@ declare namespace __MaterialUI {
             maxHeight?: number;
             multiple?: boolean;
             onChange?: (e: TouchTapEvent, itemValue: any | any[]) => void;
-            onKeyDown?: React.KeyboardEventHandler;
+            onKeyDown?: React.KeyboardEventHandler<{}>;
             openDirection?: string;
             selectedMenuItemStyle?: React.CSSProperties;
             value?: any | any[];
@@ -1152,7 +1152,7 @@ declare namespace __MaterialUI {
     export class Overlay extends React.Component<OverlayProps, {}> {
     }
 
-    interface PaperProps extends React.HTMLAttributes, React.Props<Paper> {
+    interface PaperProps extends React.HTMLAttributes<{}>, React.Props<Paper> {
         circle?: boolean;
         rounded?: boolean;
         style?: React.CSSProperties;
@@ -1259,9 +1259,9 @@ declare namespace __MaterialUI {
         labelStyle?: React.CSSProperties;
         /** @deprecated use composability instead */
         menuItems?: any[];
-        onBlur?: React.FocusEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
-        onFocus?: React.FocusEventHandler;
+        onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
         /** @deprecated use value instead */
         selectedIndex?: number;
@@ -1293,11 +1293,11 @@ declare namespace __MaterialUI {
         max?: number;
         min?: number;
         name?: string;
-        onBlur?: React.FocusEventHandler;
-        onChange?: (e: React.MouseEvent, value: number) => void;
-        onDragStart?: React.MouseEventHandler;
-        onDragStop?: React.MouseEventHandler;
-        onFocus?: React.FocusEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onChange?: (e: React.MouseEvent<{}>, value: number) => void;
+        onDragStart?: React.MouseEventHandler<{}>;
+        onDragStop?: React.MouseEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}>;
         required?: boolean;
         step?: number;
         style?: React.CSSProperties;
@@ -1307,7 +1307,7 @@ declare namespace __MaterialUI {
     }
 
     // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
+    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes<{}>, React.Props<T> {
     }
 
     interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
@@ -1325,15 +1325,15 @@ declare namespace __MaterialUI {
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
         name?: string;
-        onBlur?: React.FocusEventHandler;
-        onFocus?: React.FocusEventHandler;
-        onMouseDown?: React.MouseEventHandler;
-        onMouseLeave?: React.MouseEventHandler;
-        onMouseUp?: React.MouseEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}>;
+        onMouseDown?: React.MouseEventHandler<{}>;
+        onMouseLeave?: React.MouseEventHandler<{}>;
+        onMouseUp?: React.MouseEventHandler<{}>;
         onParentShouldUpdate: (isInputChecked: boolean) => void;
-        onSwitch?: (e: React.MouseEvent, isInputChecked: boolean) => void;
-        onTouchEnd?: React.TouchEventHandler;
-        onTouchStart?: React.TouchEventHandler;
+        onSwitch?: (e: React.MouseEvent<{}>, isInputChecked: boolean) => void;
+        onTouchEnd?: React.TouchEventHandler<{}>;
+        onTouchStart?: React.TouchEventHandler<{}>;
         required?: boolean;
         rippleColor?: string;
         rippleStyle?: React.CSSProperties;
@@ -1360,7 +1360,7 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
-        onCheck?: (event: React.MouseEvent, checked: boolean) => void;
+        onCheck?: (event: React.MouseEvent<{}>, checked: boolean) => void;
         style?: React.CSSProperties;
         /** @deprecated Use uncheckedIcon instead */
         unCheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
@@ -1381,7 +1381,7 @@ declare namespace __MaterialUI {
         inputStyle?: React.CSSProperties;
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
-        onCheck?: (e: React.FormEvent, selected: string) => void;
+        onCheck?: (e: React.FormEvent<{}>, selected: string) => void;
         style?: React.CSSProperties;
         uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
         value?: string;
@@ -1396,7 +1396,7 @@ declare namespace __MaterialUI {
         defaultSelected?: string;
         labelPosition?: string; // oneOf(['left', 'right'])
         name: string;
-        onChange?: (e: React.FormEvent, selected: string) => void;
+        onChange?: (e: React.FormEvent<{}>, selected: string) => void;
         style?: React.CSSProperties;
         valueSelected?: string;
     }
@@ -1415,7 +1415,7 @@ declare namespace __MaterialUI {
         inputStyle?: React.CSSProperties;
         labelPosition?: string; // oneOf(['left', 'right'])
         labelStyle?: React.CSSProperties;
-        onToggle?: (e: React.MouseEvent, isInputChecked: boolean) => void;
+        onToggle?: (e: React.MouseEvent<{}>, isInputChecked: boolean) => void;
         rippleStyle?: React.CSSProperties;
         style?: React.CSSProperties;
         thumbStyle?: React.CSSProperties;
@@ -1434,7 +1434,7 @@ declare namespace __MaterialUI {
         bodyStyle?: React.CSSProperties;
         className?: string;
         message: string;
-        onActionTouchTap?: React.TouchEventHandler;
+        onActionTouchTap?: React.TouchEventHandler<{}>;
         /** @deprecated Use the open property to control the component instead */
         onDismiss?: () => void; // DEPRECATED
         onRequestClose: (reason: string) => void;
@@ -1479,12 +1479,12 @@ declare namespace __MaterialUI {
             displayBorder?: boolean;
             hoverable?: boolean;
             hovered?: boolean;
-            onCellClick?: (e: React.MouseEvent, row: number, column: number) => void;
-            onCellHover?: (e: React.MouseEvent, row: number, column: number) => void;
-            onCellHoverExit?: (e: React.MouseEvent, row: number, column: number) => void;
-            onRowClick?: (e: React.MouseEvent, row: number) => void;
-            onRowHover?: (e: React.MouseEvent, row: number) => void;
-            onRowHoverExit?: (e: React.MouseEvent, row: number) => void;
+            onCellClick?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onCellHover?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onCellHoverExit?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onRowClick?: (e: React.MouseEvent<{}>, row: number) => void;
+            onRowHover?: (e: React.MouseEvent<{}>, row: number) => void;
+            onRowHoverExit?: (e: React.MouseEvent<{}>, row: number) => void;
             rowNumber?: number;
             selectable?: boolean;
             selected?: boolean;
@@ -1500,9 +1500,9 @@ declare namespace __MaterialUI {
             columnNumber?: number;
             hoverable?: boolean;
             key?: string;
-            onClick?: (e: React.MouseEvent, column: number) => void;
-            onHover?: (e: React.MouseEvent, column: number) => void;
-            onHoverExit?: (e: React.MouseEvent, column: number) => void;
+            onClick?: (e: React.MouseEvent<{}>, column: number) => void;
+            onHover?: (e: React.MouseEvent<{}>, column: number) => void;
+            onHoverExit?: (e: React.MouseEvent<{}>, column: number) => void;
             style?: React.CSSProperties;
 
             // useful attributes passed to <td/>
@@ -1528,7 +1528,7 @@ declare namespace __MaterialUI {
             className?: string;
             columnNumber?: number;
             key?: string;
-            onClick?: (e: React.MouseEvent, column: number) => void;
+            onClick?: (e: React.MouseEvent<{}>, column: number) => void;
             style?: React.CSSProperties;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
@@ -1577,7 +1577,7 @@ declare namespace __MaterialUI {
             contentContainerStyle?: React.CSSProperties;
             initialSelectedIndex?: number;
             inkBarStyle?: React.CSSProperties;
-            onChange?: (value: any, e: React.FormEvent, tab: Tab) => void;
+            onChange?: (value: any, e: React.FormEvent<{}>, tab: Tab) => void;
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
             tabTemplate?: React.ComponentClass<any>;
@@ -1615,11 +1615,11 @@ declare namespace __MaterialUI {
         id?: string;
         inputStyle?: React.CSSProperties;
         multiLine?: boolean;
-        onBlur?: React.FocusEventHandler;
-        onChange?: React.FormEventHandler;
-        onEnterKeyDown?: React.KeyboardEventHandler;
-        onFocus?: React.FocusEventHandler;
-        onKeyDown?: React.KeyboardEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onChange?: React.FormEventHandler<{}>;
+        onEnterKeyDown?: React.KeyboardEventHandler<{}>;
+        onFocus?: React.FocusEventHandler<{}>;
+        onKeyDown?: React.KeyboardEventHandler<{}>;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
@@ -1649,7 +1649,7 @@ declare namespace __MaterialUI {
         format?: string; // 'ampm' or '24hr'
         onChange?: (e: any, time: Date) => void;
         onDismiss?: () => void;
-        onFocus?: React.FocusEventHandler;
+        onFocus?: React.FocusEventHandler<{}>;
         onShow?: () => void;
         onTouchTap?: TouchTapEventHandler;
         pedantic?: boolean;
@@ -1668,8 +1668,8 @@ declare namespace __MaterialUI {
         hintText?: React.ReactNode;
         id?: string;
         inputStyle?: React.CSSProperties;
-        onBlur?: React.FocusEventHandler;
-        onKeyDown?: React.KeyboardEventHandler;
+        onBlur?: React.FocusEventHandler<{}>;
+        onKeyDown?: React.KeyboardEventHandler<{}>;
         rows?: number,
         rowsMax?: number,
         type?: string;
@@ -1710,7 +1710,7 @@ declare namespace __MaterialUI {
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
-        interface ToolbarTitleProps extends React.HTMLAttributes, React.Props<ToolbarTitle> {
+        interface ToolbarTitleProps extends React.HTMLAttributes<{}>, React.Props<ToolbarTitle> {
             className?: string;
             style?: React.CSSProperties;
             text?: string;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Select from "react-select";
+import Select, * as ReactSelect from "react-select";
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 

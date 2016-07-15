@@ -1,6 +1,4 @@
 /// <reference types="jquery" />
-/// <reference types="angularjs" />
-
 
 var btfModal: angularModal.AngularModalFactory;
 

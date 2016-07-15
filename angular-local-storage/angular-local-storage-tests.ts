@@ -9,7 +9,7 @@ interface TestScope extends ng.IScope {
   property: string;
 }
 
-export class TestController {
+class TestController {
   constructor($scope: TestScope, localStorageService: ng.local.storage.ILocalStorageService) {
     // isSupported
     if (localStorageService.isSupported) {

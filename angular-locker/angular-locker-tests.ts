@@ -1,4 +1,4 @@
-import * as angular from 'angularjs';
+import * as angular from 'angular';
 
 angular
     .module('angular-locker-tests', ['angular-locker'])

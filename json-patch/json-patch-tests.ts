@@ -1,5 +1,4 @@
-
-
+import jsonpatch = require("json-patch");
 import jp = require("json-patch");
 
 // Add property, result: {foo: 'bar'}

@@ -1,3 +1,5 @@
+import * as angular from 'angular';
+import * as ng from 'angular';
 import oc = require('oclazyload');
 
 angular.module('app', ['oc.lazyLoad']).config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider: oc.ILazyLoadProvider) {

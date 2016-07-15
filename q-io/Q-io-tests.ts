@@ -1,5 +1,4 @@
-/// <reference types="Q" />
-
+import * as Q from 'q';
 
 var fs:typeof QioFS = require('q-io/fs');
 var http:typeof QioHTTP = require('q-io/http');
