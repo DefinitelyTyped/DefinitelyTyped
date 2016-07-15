@@ -797,7 +797,6 @@ fooProm = Promise.race(fooArr);
 
 //TODO expand tests to overloads
 fooArrProm = Promise.some(fooThenArrThen, num);
-fooArrProm = Promise.some(fooArrThen, num);
 fooArrProm = Promise.some(fooThenArr, num);
 fooArrProm = Promise.some(fooArr, num);
 
