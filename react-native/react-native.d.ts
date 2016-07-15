@@ -1767,7 +1767,7 @@ declare namespace  __React {
          *
          * enum('small', 'large')
          */
-        size?: string
+        size?: 'small' | 'large'
 
         style?: ViewStyle
     }
@@ -1807,11 +1807,14 @@ declare namespace  __React {
          *
          * enum('small', 'large')
          */
-        size?: string
+        size?: 'small' | 'large'
 
         style?: ViewStyle
     }
 
+    /**
+     * @Deprecated since version 0.28.0
+     */ 
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
