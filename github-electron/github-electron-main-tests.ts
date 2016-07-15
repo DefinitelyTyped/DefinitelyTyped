@@ -96,7 +96,7 @@ app.on('ready', () => {
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
-	mainWindow.webContents.startDrag({path: '/path/to/img.png', icon: nativeImage.createFromPath('/path/to/icon.png')});
+	mainWindow.webContents.startDrag({file: '/path/to/img.png', icon: nativeImage.createFromPath('/path/to/icon.png')});
 	mainWindow.webContents.findInPage('blah');
 	mainWindow.webContents.findInPage('blah', {
 		forward: true,
