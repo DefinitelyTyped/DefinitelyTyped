@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.6
+// Type definitions for Electron v1.2.7
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -160,6 +160,10 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
+		/**
+		 * Emitted when Chrome's accessibility support changes.
+		 */
+		on(event: 'accessibility-support-changed', listener: (event: Event, accessibilitySupportEnabled: boolean) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -345,6 +349,14 @@ declare namespace Electron {
 		 * @returns whether current desktop environment is Unity launcher. (Linux)
 		 */
 		isUnityRunning(): boolean;
+		/**
+		 * @returns an Object with the login item settings of the app.
+		 */
+		getLoginItemSettings(): LoginItemSettings;
+		/**
+		 * Set the app's login item settings.
+		 */
+		setLoginItemSettings(settings: LoginItemSettings): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on macOS.
@@ -484,6 +496,32 @@ declare namespace Electron {
 		 * one icon, this value is 0.
 		 */
 		iconIndex?: number;
+	}
+
+	interface LoginItemSettings {
+		/**
+		 * True if the app is set to open at login.
+		 */
+		openAtLogin: boolean;
+		/**
+		 * True if the app is set to open as hidden at login. This setting is only supported on macOS.
+		 */
+		openAsHidden: boolean;
+		/**
+		 * True if the app was opened at login automatically. This setting is only supported on macOS.
+		 */
+		wasOpenedAtLogin?: boolean;
+		/**
+		 * True if the app was opened as a hidden login item. This indicates that the app should not
+		 * open any windows at startup. This setting is only supported on macOS.
+		 */
+		wasOpenedAsHidden?: boolean;
+		/**
+		 * True if the app was opened as a login item that should restore the state from the previous session.
+		 * This indicates that the app should restore the windows that were open the last time the app was closed.
+		 * This setting is only supported on macOS.
+		 */
+		restoreState?: boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/auto-updater.md
@@ -1473,14 +1511,19 @@ declare namespace Electron {
 		 */
 		titleBarStyle?: 'default' | 'hidden' | 'hidden-inset';
 		/**
+		 * Use WS_THICKFRAME style for frameless windows on Windows
+		 */
+		thickFrame?: boolean;
+		/**
 		 * Settings of web page’s features.
 		 */
 		webPreferences?: WebPreferences;
 	}
 
-	type BrowserWindowType = BrowserWindowTypeLinux | BrowserWindowTypeMac;
+	type BrowserWindowType = BrowserWindowTypeLinux | BrowserWindowTypeMac | BrowserWindowTypeWindows;
 	type BrowserWindowTypeLinux = 'desktop' | 'dock' | 'toolbar' | 'splash' | 'notification';
 	type BrowserWindowTypeMac = 'desktop' | 'textured';
+	type BrowserWindowTypeWindows = 'toolbar';
 
 	interface Rectangle {
 		x?: number;
@@ -1863,7 +1906,7 @@ declare namespace Electron {
 		/**
 		 * Contains which features the dialog should use.
 		 */
-		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory')[];
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles')[];
 	}
 
 	interface SaveDialogOptions {
@@ -3800,6 +3843,11 @@ declare namespace Electron {
 		 * the file to be dragged, and icon is the image showing under the cursor when dragging.
 		 */
 		startDrag(item: DragItem): void;
+		/**
+		 * Captures a snapshot of the page within rect.
+		 */
+		capturePage(callback: (image: NativeImage) => void): void;
+		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * @returns The unique ID of this WebContents.
 		 */

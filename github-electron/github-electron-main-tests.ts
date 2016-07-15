@@ -134,6 +134,12 @@ app.on('ready', () => {
 	});
 
 	mainWindow.webContents.debugger.sendCommand("Network.enable");
+	mainWindow.webContents.capturePage(image => {
+		console.log(image.toDataURL());
+	});
+	mainWindow.webContents.capturePage({width: 100, height: 200}, image => {
+		console.log(image.toPNG());
+	});
 });
 
 app.commandLine.appendSwitch('enable-web-bluetooth');
@@ -236,6 +242,8 @@ app.setUserTasks([
 app.setUserTasks([]);
 if (app.isUnityRunning()) {
 }
+app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
+console.log(app.getLoginItemSettings().wasOpenedAtLogin);
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -251,6 +259,7 @@ app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
+app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
 
 ipcMain.on('online-status-changed', (event: any, status: any) => {
 	console.log(status);
@@ -431,6 +440,14 @@ ipcMain.on('asynchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
+});
+
+var winWindows = new BrowserWindow({
+	width: 800,
+	height: 600,
+	show: false,
+	thickFrame: false,
+	type: 'toolbar',
 });
 
 // menu-item
