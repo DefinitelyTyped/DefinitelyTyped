@@ -413,7 +413,6 @@ declare namespace THREE {
         lookAt(vector: Vector3): void;
 
         clone(): Camera;
-        copy(camera?: Camera): Camera;
     }
 
     export class CubeCamera extends Object3D {
