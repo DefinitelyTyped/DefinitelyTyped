@@ -1,15 +1,16 @@
 // Type definitions for crypto-js v3.1.3
 // Project: https://github.com/evanvosberg/crypto-js
 // Definitions by: Michael Zabka <https://github.com/misak113/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+declare module CryptoJS {
+	interface Crypt {
+		encrypt(message: string, key?: string, ...options: any[]);
+		decrypt(message: string, key?: string, ...options: any[]);
+	}
 
-import hashes = CryptoJS.hashes;
-export = hashes;
-export as namespace CryptoJS;
-
-declare namespace CryptoJS {
 	type Hash = (message: string, key?: string, ...options: any[]) => string;
+
 
 	export interface Hashes {
 		MD5: Hash;
@@ -29,9 +30,9 @@ declare namespace CryptoJS {
 		HmacSHA3: Hash;
 		HmacRIPEMD160: Hash;
 		PBKDF2: Hash;
-		AES: Hash;
-		TripleDES: Hash;
-		RC4: Hash;
+		AES: Crypt;
+		TripleDES: Crypt;
+		RC4: Crypt;
 		Rabbit: Hash;
 		RabbitLegacy: Hash;
 		EvpKDF: Hash;
@@ -66,3 +67,7 @@ declare namespace CryptoJS {
 	export var hashes: Hashes;
 }
 
+declare module 'crypto-js' {
+	import hashes = CryptoJS.hashes;
+	export = hashes;
+}
