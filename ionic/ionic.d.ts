@@ -33,6 +33,10 @@ interface IonicStatic {
          */
         device(): any;
         /**
+         * Check if the platform name provided is detected.
+         */
+        is(platformName: string): boolean;
+        /**
          * Check if we are running within a WebView (such as Cordova).
          */
         isWebView(): boolean;
@@ -354,6 +358,7 @@ declare namespace ionic {
                 transition(transition?: string): string;
                 maxCache(maxNumber?: number): number;
                 forwardCache(value?: boolean): boolean;
+                swipeBackEnabled(value?: boolean): boolean;
             };
             scrolling: {
                 jsScrolling(value?: boolean): boolean;

@@ -100,7 +100,7 @@ declare module 'oracledb' {
 
 	export interface IMetaData {
 		/** Column name */
-		columnName: string;
+		name: string;
 	}
 
 	export interface IResultSet {

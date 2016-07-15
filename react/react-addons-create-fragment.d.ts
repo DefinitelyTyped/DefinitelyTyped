@@ -12,5 +12,6 @@ declare namespace __React {
 }
 
 declare module "react-addons-create-fragment" {
-    export = __React.__Addons.createFragment;
+    var createFragment: typeof __React.__Addons.createFragment;
+    export = createFragment;
 }

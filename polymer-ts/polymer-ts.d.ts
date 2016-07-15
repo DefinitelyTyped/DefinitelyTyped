@@ -1,4 +1,4 @@
-// Type definitions for PolymerTS 0.1.19
+// Type definitions for PolymerTS 0.1.25
 // Project: https://github.com/nippur72/PolymerTS
 // Definitions by: Louis Grignon <https://github.com/lgrignon/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -20,7 +20,7 @@ declare namespace polymer {
         cancelAsync(handle: number): void;
         cancelDebouncer(jobName: string): void;
         classFollows(name: string, toElement: HTMLElement, fromElement: HTMLElement): void;
-        create(tag: string, props: Object): any;
+        create(tag: string, props?: Object): HTMLElement;
         debounce(jobName: string, callback: Function, wait?: number): void;
         deserialize(value: string, type: any): any;
         distributeContent(): void;
@@ -33,13 +33,20 @@ declare namespace polymer {
         getContentChildren(slctr: string): any;
         getNativePrototype(tag: string): any;
         getPropertyInfo(property: string): any;
-        importHref(href: string, onload?: Function, onerror?: Function): any;
+        importHref(href: string, onload?: Function, onerror?: Function, optAsync?: boolean): any;
         instanceTemplate(template: any): any;
         isDebouncerActive(jobName: string): any;
         linkPaths(to: string, from: string): void;
         listen(node: Element, eventName: string, methodName: string): void;
         mixin(target: Object, source: Object): void;
         notifyPath(path: string, value: any, fromAbove?: any): void;
+        notifySplices(path: string, splices: {
+            index: number;
+            removed: Array<any>;
+            addedCount: number;
+            object: Array<any>;
+            type: "splice";
+        }): void;
         pop(path: string): any;
         push(path: string, value: any): any;
         reflectPropertyToAttribute(name: string): void;
@@ -47,10 +54,10 @@ declare namespace polymer {
         scopeSubtree(container: Element, shouldObserve: boolean): void;
         serialize(value: string): any;
         serializeValueToAttribute(value: any, attribute: string, node: Element): void;
-        set(path: string, value: any, root?: Object): any;
+        set(path: string | Array<string | number>, value: any, root?: Object): any;
         setScrollDirection(direction: string, node: HTMLElement): void;
         shift(path: string, value: any): any;
-        splice(path: string, start: number, deleteCount: number): any;
+        splice(path: string, start: number, deleteCount: number, ...items: any[]): any;
         toggleAttribute(name: string, bool: boolean, node?: HTMLElement): void;
         toggleClass(name: string, bool: boolean, node?: HTMLElement): void;
         transform(transform: string, node?: HTMLElement): void;

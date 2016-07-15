@@ -178,7 +178,7 @@ interface PouchRevsDiffOptions {
 
 interface PouchReplicateOptions {
 	continuous?: boolean;
-	onChange?: (any) => void;
+	onChange?: (e: any) => void;
 	filter?: any;			// Can be either string or PouchFilter
 	complete?: (err: PouchError, res: PouchChanges) => void;
 }
@@ -207,11 +207,13 @@ interface PouchApi {
 interface PouchOptions {
 	name?: string;
 	adapter?: string;
+	skip_setup?: boolean;
 }
 
 interface PouchDB extends PouchApi {
     new (name: string, opts: PouchOptions, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
     new (name: string, callback: (err: PouchError, res: PouchDB) => void): PouchDB;
+    new (name: string, opts: PouchOptions): PouchDB;
     new (name: string): PouchDB;
 	destroy(name: string, callback: (err: PouchError) => void): void;
 }
@@ -227,4 +229,4 @@ declare module 'pouchdb' {
 // emit is the function that the PouchFilter.map function should call in order to add a particular item to
 // a filter view.
 //
-declare function emit(key: any, value: any);
+declare function emit(key: any, value: any): void;

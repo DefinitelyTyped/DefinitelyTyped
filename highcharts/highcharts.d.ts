@@ -4954,7 +4954,7 @@ interface HighchartsDataPoint {
      * The inner radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    innerRadius?: number;
+    innerRadius?: number|string;
     /**
      * When this property is true, the points acts as a summary column for the values added or substracted since the
      * last intermediate sum, or since the start of the series. The y value is ignored.
@@ -5005,7 +5005,7 @@ interface HighchartsDataPoint {
      * The outer radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    radius?: number;
+    radius?: number|string;
     /**
      * Whether the data point is selected initially.
      * @default false
@@ -5681,6 +5681,30 @@ interface HighchartsChartObject {
      * @since 2.0
      */
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @since 2.0
+     */
+    exportChartLocal(): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server.
+     * Requires modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @param {HighchartsOptions} chartOptions Additional chart options for the
+     * exported chart. Same as the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
     /**
      * Get an axis, series or point by its id as given in the configuration options.
      * @param  {string} id The id of the axis, series or point to get.

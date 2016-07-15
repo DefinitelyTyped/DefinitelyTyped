@@ -135,7 +135,7 @@ declare namespace Faker {
 		};
 
 		lorem: {
-			words(num?: number): string[];
+			words(num?: number): string;
 			sentence(wordCount?: number, range?: number): string;
 			sentences(sentenceCount?: number): string;
 			paragraph(sentenceCount?: number): string;

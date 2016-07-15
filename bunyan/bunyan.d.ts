@@ -20,6 +20,9 @@ declare module "bunyan" {
         level(value: number | string):void;
         levels(name: number | string, value: number | string):void;
 
+        fields:any;
+        src:boolean;       
+
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;
         trace(obj:Object, format?:any, ...params:any[]):void;

@@ -66,10 +66,13 @@ declare namespace angular.translate {
         useFallbackLanguage(langKey?: string): void;
         versionInfo(): string;
         loaderCache(): any;
+        isReady(): boolean;
+        onReady(): angular.IPromise<void>;
+        resolveClientLocale():string;
     }
 
     interface ITranslateProvider extends angular.IServiceProvider {
-        translations(): ITranslationTable;
+        translations(key?: string): ITranslationTable;
         translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
         cloakClassName(): string;
         cloakClassName(name: string): ITranslateProvider;
@@ -109,6 +112,7 @@ declare namespace angular.translate {
         registerAvailableLanguageKeys(): string[];
         registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
         useLoaderCache(cache?: any): ITranslateProvider;
+        resolveClientLocale():string;
     }
 }
 

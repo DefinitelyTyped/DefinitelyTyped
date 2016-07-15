@@ -19,6 +19,7 @@ import {
 	screen,
 	shell,
 	session,
+	systemPreferences,
 	hideInternalModules
 } from 'electron';
 
@@ -44,7 +45,6 @@ var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) 
 	if (mainWindow.isMinimized()) mainWindow.restore();
 	mainWindow.focus();
   }
-  return true;
 });
 
 if (shouldQuit) {
@@ -65,7 +65,7 @@ app.on('ready', () => {
 
 	mainWindow.webContents.openDevTools();
 	mainWindow.webContents.toggleDevTools();
-	mainWindow.webContents.openDevTools({detach: true});
+	mainWindow.webContents.openDevTools({mode: 'detach'});
 	mainWindow.webContents.closeDevTools();
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
@@ -79,18 +79,8 @@ app.on('ready', () => {
 		mainWindow = null;
 	});
 
-	mainWindow.print({silent: true, printBackground: false});
 	mainWindow.webContents.print({silent: true, printBackground: false});
-	mainWindow.print();
 	mainWindow.webContents.print();
-
-	mainWindow.printToPDF({
-		marginsType: 1,
-		pageSize: 'A3',
-		printBackground: true,
-		printSelectionOnly: true,
-		landscape: true,
-	}, (error: Error, data: Buffer) => {});
 
 	mainWindow.webContents.printToPDF({
 		marginsType: 1,
@@ -100,7 +90,6 @@ app.on('ready', () => {
 		landscape: true,
 	}, (error: Error, data: Buffer) => {});
 
-	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
 	mainWindow.webContents.executeJavaScript('return true;');
@@ -144,6 +133,29 @@ app.on('ready', () => {
 	});
 
 	mainWindow.webContents.debugger.sendCommand("Network.enable");
+});
+
+app.commandLine.appendSwitch('enable-web-bluetooth');
+
+app.on('ready', () => {
+	mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
+		event.preventDefault();
+
+		let result = (() => {
+			for (let device of deviceList) {
+				if (device.deviceName === 'test') {
+					return device;
+				}
+			}
+			return null;
+		})();
+
+		if (!result) {
+			callback('');
+		} else {
+			callback(result.deviceId);
+		}
+	});
 });
 
 // Locale
@@ -260,8 +272,8 @@ app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-// app
-// https://github.com/atom/electron/blob/master/docs/api/app.md
+// systemPreferences
+// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
 
 var browserOptions = {
 	width: 1000,
@@ -271,7 +283,7 @@ var browserOptions = {
 };
 
 // Make the window transparent only if the platform supports it.
-if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
 }
@@ -287,9 +299,8 @@ if (browserOptions.transparent) {
   	win.loadURL('file://' + __dirname + '/fallback.html');
 }
 
-app.on('platform-theme-changed', () => {
-	console.log(app.isDarkMode());
-});
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
 
 app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
 	if (url == "https://github.com") {
@@ -310,6 +321,14 @@ app.on('login', function(event, webContents, request, authInfo, callback) {
 	event.preventDefault();
 	callback('username', 'secret');
 });
+
+var win = new BrowserWindow({show: false})
+win.once('ready-to-show', () => {
+	win.show();
+});
+
+app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
+app.exit(0);
 
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
@@ -337,14 +356,23 @@ win.on('closed', () => {
 win.loadURL('https://github.com');
 win.show();
 
+var toolbarRect = document.getElementById('toolbar').getBoundingClientRect();
+win.setSheetOffset(toolbarRect.height);
+
+var installed = BrowserWindow.getDevToolsExtensions().hasOwnProperty('devtron');
+
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
 
-contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
-	console.log('Tracing started');
+const options = {
+	categoryFilter: '*',
+	traceOptions: 'record-until-full,enable-sampling'
+}
 
-	setTimeout(() => {
-		contentTracing.stopRecording('', path => {
+contentTracing.startRecording(options, function() {
+	console.log('Tracing started');
+	setTimeout(function() {
+		contentTracing.stopRecording('', function(path) {
 			console.log('Tracing data recorded to ' + path);
 		});
 	}, 5000);
@@ -408,7 +436,7 @@ var menuItem = new MenuItem({});
 
 menuItem.label = 'Hello World!';
 menuItem.click = (menuItem, browserWindow) => {
-    console.log('click', menuItem, browserWindow);
+	console.log('click', menuItem, browserWindow);
 };
 
 // menu
@@ -513,12 +541,20 @@ var template = <Electron.MenuItemOptions[]>[
 			{
 				label: 'Reload',
 				accelerator: 'Command+R',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.reloadIgnoringCache();
+					}
+				}
 			},
 			{
 				label: 'Toggle DevTools',
 				accelerator: 'Alt+Command+I',
-				click: () => { BrowserWindow.getFocusedWindow().webContents.toggleDevTools(); }
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.toggleDevTools();
+					}
+				}
 			}
 		]
 	},
@@ -644,7 +680,7 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
-    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
+	appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
 
 	appIcon.on('click', (event, bounds) => {
 		console.log('click', event, bounds);
@@ -699,6 +735,20 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+let image2 = nativeImage.createFromPath('/Users/somebody/images/icon.png');
+
+// process
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+console.log(process.type);
+console.log(process.resourcesPath);
+console.log(process.mas);
+console.log(process.windowsStore);
+process.noAsar = true;
+process.crash();
+process.hang();
+process.setFdLimit(8192);
+
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
@@ -745,7 +795,7 @@ shell.openItem('/home/user/Desktop/test.txt');
 shell.moveItemToTrash('/home/user/Desktop/test.txt');
 
 shell.openExternal('https://github.com', {
-    activate: false
+	activate: false
 });
 
 shell.beep();
@@ -775,7 +825,7 @@ session.defaultSession.cookies.get({ url : "http://www.github.com" }, (error, co
 var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
 session.defaultSession.cookies.set(cookie, (error) => {
 	if (error) {
-    	console.error(error);
+		console.error(error);
 	}
 });
 
@@ -787,15 +837,23 @@ session.defaultSession.on('will-download', (event, item, webContents) => {
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
 
-	item.on('updated', function() {
-		console.log('Received bytes: ' + item.getReceivedBytes());
+	item.on('updated', (event, state) => {
+		if (state === 'interrupted') {
+			console.log('Download is interrupted but can be resumed');
+		} else if (state === 'progressing') {
+			if (item.isPaused()) {
+				console.log('Download is paused');
+			} else {
+				console.log(`Received bytes: ${item.getReceivedBytes()}`);
+			}
+		}
 	});
 
 	item.on('done', function(e, state) {
 		if (state == "completed") {
 			console.log("Download successfully");
 		} else {
-			console.log("Download is cancelled or interrupted that can't be resumed");
+			console.log(`Download failed: ${state}`)
 		}
 	});
 });
@@ -814,4 +872,44 @@ session.defaultSession.enableNetworkEmulation({
 
 session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
 	callback((hostname === 'github.com') ? true : false);
+});
+
+session.defaultSession.setPermissionRequestHandler(function(webContents, permission, callback) {
+	if (webContents.getURL() === 'github.com') {
+		if (permission == "notifications") {
+			callback(false);
+			return;
+		}
+	}
+
+	callback(true);
+});
+
+// consider any url ending with `example.com`, `foobar.com`, `baz`
+// for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*example.com, *foobar.com, *baz')
+
+// consider all urls for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*')
+
+// Modify the user agent for all requests to the following urls.
+var filter = {
+	urls: ["https://*.github.com/*", "*://electron.github.io"]
+};
+
+session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, callback) {
+	details.requestHeaders['User-Agent'] = "MyAgent";
+	callback({cancel: false, requestHeaders: details.requestHeaders});
+});
+
+app.on('ready', function () {
+	const protocol = session.defaultSession.protocol
+	protocol.registerFileProtocol('atom', function (request, callback) {
+		var url = request.url.substr(7);
+		callback({path: path.normalize(__dirname + '/' + url)});
+	}, function (error) {
+		if (error) {
+			console.error('Failed to register protocol');
+		}
+	})
 });

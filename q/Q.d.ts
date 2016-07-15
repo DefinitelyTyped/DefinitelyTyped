@@ -206,6 +206,26 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
+    export function all<A, B, C, D, E, F>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>, IPromise<F>]): Promise<[A, B, C, D, E, F]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C, D, E>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>]): Promise<[A, B, C, D, E]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C, D>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>]): Promise<[A, B, C, D]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C>(promises: [IPromise<A>, IPromise<B>, IPromise<C>]): Promise<[A, B, C]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B>(promises: [IPromise<A>, IPromise<B>]): Promise<[A, B]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
 
     /**
@@ -292,6 +312,14 @@ declare namespace Q {
      * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
      */
     export function isPending(object: any): boolean;
+    /**
+     * If an object is not a promise, it is as "near" as possible.
+     * If a promise is rejected, it is as "near" as possible too.
+     * If it’s a fulfilled promise, the fulfillment value is nearer.
+     * If it’s a deferred promise and the deferred has been resolved, the
+     * resolution is "nearer".
+     */
+    export function nearer<T>(promise: Promise<T>): T;
 
     /**
      * This is an experimental tool for converting a generator function into a deferred function. This has the potential of reducing nested callbacks in engines that support yield.

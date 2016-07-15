@@ -477,9 +477,10 @@ declare namespace JQueryUI {
     }
 
     interface DroppableOptions extends DroppableEvents {
-        disabled?: boolean;
         accept?: any;
         activeClass?: string;
+        addClasses?: boolean;
+        disabled?: boolean;
         greedy?: boolean;
         hoverClass?: string;
         scope?: string;
@@ -1794,7 +1795,7 @@ interface JQuery {
     uniqueId(): JQuery;
     removeUniqueId(): JQuery;
     scrollParent(): JQuery;
-    zIndex(): JQuery;
+    zIndex(): number;
     zIndex(zIndex: number): JQuery;
 
     widget: JQueryUI.Widget;

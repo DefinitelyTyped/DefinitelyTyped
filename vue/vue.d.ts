@@ -1,4 +1,4 @@
-// Type definitions for vuejs 1.0.16
+// Type definitions for vuejs 1.0.21
 // Project: https://github.com/vuejs/vue
 // Definitions by: odangosan <https://github.com/odangosan>, kaorun343 <https://github.com/kaorun343>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ interface Array<T> {
 declare namespace vuejs {
 
     interface PropOption {
-        type?: { new (...args: any[]): any; };
+        type?: { new (...args: any[]): any; } | { new (...args: any[]): any; }[];
         required?: boolean;
         default?: any;
         twoWay?: boolean;
@@ -68,13 +68,14 @@ declare namespace vuejs {
 
     interface ComponentOption {
         data?: { [key: string]: any } | Function;
-        props?: string[] | { [key: string]: (PropOption | { new (...args: any[]): any; }) };
+        props?: string[] | { [key: string]: (PropOption | { new (...args: any[]): any; } | { new (...args: any[]): any; }[]) };
         computed?: { [key: string]: (Function | ComputedOption) };
         methods?: { [key: string]: Function };
         watch?: { [key: string]: ((val: any, oldVal: any) => void) | string | WatchOption };
         el?: string | HTMLElement | (() => HTMLElement);
         template?: string;
         replace?: boolean;
+        init?(): void;
         created?(): void;
         beforeCompile?(): void;
         compiled?(): void;
@@ -143,7 +144,7 @@ declare namespace vuejs {
         unsafeDelimiters: [string, string];
         silent: boolean;
         async: boolean;
-        convertAllProperties: boolean;
+        devtools: boolean;
     }
 
     interface VueUtil {

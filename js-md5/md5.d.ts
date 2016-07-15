@@ -29,4 +29,8 @@ interface String {
     md5(value: Uint8Array): string;
 }
 
+declare module "js-md5" {
+    export = md5;
+}
+
 declare var md5: md5;

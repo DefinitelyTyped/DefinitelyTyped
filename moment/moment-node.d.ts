@@ -307,7 +307,7 @@ declare namespace moment {
         isAfter(b: MomentComparable, granularity?: string): boolean;
 
         isSame(b: MomentComparable, granularity?: string): boolean;
-        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string): boolean;
+        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string, inclusivity?: string): boolean;
 
         /**
          * @since 2.10.7+
@@ -605,10 +605,10 @@ declare namespace moment {
 
         invalid(parsingFlags?: Object): Moment;
         isMoment(): boolean;
-        isMoment(m: any): boolean;
-        isDate(m: any): boolean;
+        isMoment(m: any): m is Moment;
+        isDate(m: any): m is Date;
         isDuration(): boolean;
-        isDuration(d: any): boolean;
+        isDuration(d: any): d is Duration;
 
         /**
          * @deprecated since version 2.8.0
@@ -683,6 +683,11 @@ declare namespace moment {
 }
 
 declare module 'moment' {
+    var moment: moment.MomentStatic;
+    export = moment;
+}
+
+declare module 'moment/moment' {
     var moment: moment.MomentStatic;
     export = moment;
 }

@@ -334,6 +334,46 @@ interface FirebaseAuthData {
 	expires: number;
 	auth: Object;
 	google?: FirebaseAuthDataGoogle;
+	twitter?: FirebaseAuthDataTwitter;
+	github?: FirebaseAuthDataGithub;
+	facebook?: FirebaseAuthDataFacebook;
+	password?: FirebaseAuthDataPassword;
+	anonymous?: any;
+}
+
+interface FirebaseAuthDataPassword{
+	email: string;
+	isTemporaryPassword: boolean;
+	profileImageURL: string;
+}
+
+interface FirebaseAuthDataTwitter{
+	id: string;
+	accessToken: string;
+	accessTokenSecret: string;
+	displayName: string;
+	username: string;
+	profileImageURL: string;
+	cachedUserProfile: any;
+}
+
+interface FirebaseAuthDataGithub{
+	id: string;
+	accessToken: string;
+	displayName: string;
+	email?: string;
+	username: string;
+	profileImageURL: string;
+	cachedUserProfile: any;
+}
+
+interface FirebaseAuthDataFacebook{
+	id: string;
+	accessToken: string;
+	displayName: string;
+	email?: string;
+	profileImageURL: string;
+	cachedUserProfile: any;
 }
 
 interface FirebaseAuthDataGoogle {

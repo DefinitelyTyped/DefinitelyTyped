@@ -339,6 +339,7 @@ declare namespace google.maps {
         getCursor(): string;
         getDraggable(): boolean;
         getIcon(): string|Icon|Symbol;
+        getLabel(): MarkerLabel;
         getMap(): Map|StreetViewPanorama;
         getOpacity(): number;
         getPlace(): Place;
@@ -353,6 +354,7 @@ declare namespace google.maps {
         setCursor(cursor: string): void;
         setDraggable(flag: boolean): void;
         setIcon(icon: string|Icon|Symbol): void;
+        setLabel(label: string|MarkerLabel): void;
         setMap(map: Map|StreetViewPanorama): void;
         setOpacity(opacity: number): void;
         setOptions(options: MarkerOptions): void;
@@ -390,6 +392,12 @@ declare namespace google.maps {
          * @type {(string|Icon|Symbol)}
          */
         icon?: string|Icon|Symbol;
+        /**
+         * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
+         * Only the first character of the string will be displayed.
+         * @type {(string|MarkerLabel)}
+         */
+        label?: string|MarkerLabel;
         /**
          * Map on which to display Marker.
          * @type {(Map|StreetViewPanorama)}
@@ -468,6 +476,19 @@ declare namespace google.maps {
         url?: string;
     }
 
+    export interface MarkerLabel {
+        /** The color of the label text. Default color is black. */
+        color?: string;
+        /** The font family of the label text (equivalent to the CSS font-family property). */
+        fontFamily?: string;
+        /** The font size of the label text (equivalent to the CSS font-size property). Default size is 14px. */
+        fontSize?: string;
+        /** The font weight of the label text (equivalent to the CSS font-weight property). */
+        fontWeight?: string;
+        /** The text to be displayed in the label. Only the first character of this string will be shown. */
+        text?: string;
+    }
+    
     export interface MarkerShape {
         coords?: number[];
         type?: string;
@@ -1564,15 +1585,22 @@ declare namespace google.maps {
         setZoom(zoom: number): void;
     }
 
+    export interface FullscreenControlOptions {
+        position?: ControlPosition;
+    }
+
     export interface StreetViewPanoramaOptions {
         addressControl?: boolean;
         addressControlOptions?: StreetViewAddressControlOptions;
         clickToGo?: boolean;
-        disableDefaultUi?: boolean;
+        disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
+        fullscreenControl?: boolean;
+        fullscreenControlOptions?: FullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
         pano?: string;
@@ -1581,6 +1609,7 @@ declare namespace google.maps {
         pov?: StreetViewPov;
         scrollwheel?: boolean;
         visible?: boolean;
+        zoom?: number;
         zoomControl?: boolean;
         zoomControlOptions?: ZoomControlOptions;
     }
@@ -1622,7 +1651,29 @@ declare namespace google.maps {
         worldSize?: Size;
     }
 
+    export enum StreetViewPreference {
+        BEST,
+        NEAREST
+    }
+
+    export enum StreetViewSource {
+        DEFAULT,
+        OUTDOOR
+    }
+
+    export interface StreetViewLocationRequest {
+        location: LatLng|LatLngLiteral;
+        preference?: StreetViewPreference;
+        radius?: number;
+        source?: StreetViewSource;
+    }
+
+    export interface StreetViewPanoRequest {
+        pano: string;
+    }
+
     export class StreetViewService {
+        getPanorama(request: StreetViewLocationRequest|StreetViewPanoRequest, cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void): void;
         getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void): void;
         getPanoramaByLocation(latlng: LatLng|LatLngLiteral, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
     }

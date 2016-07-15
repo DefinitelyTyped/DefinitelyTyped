@@ -127,6 +127,8 @@ declare module "winston" {
 
     setLevels(target: any): any;
     cli(): LoggerInstance;
+    
+    level: string;
   }
 
   export interface LoggerOptions {
