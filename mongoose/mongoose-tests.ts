@@ -1254,3 +1254,36 @@ LocModel.find()
       });
     });
   });
+LocModel.$where('')
+  .exec(function (err, locations) {
+    locations[0].name;
+    locations[1].openingTimes;
+  });
+LocModel.count({})
+  .exec(function (err, count) {
+    count.toFixed();
+  });
+LocModel.distinct('')
+  .select('-review')
+  .exec(function (err, distinct) {
+    distinct.concat;
+  })
+  .then(cb).catch(cb);
+LocModel.findByIdAndRemove()
+  .exec(function (err, doc) {
+    doc.addListener;
+    doc.openingTimes;
+  });
+LocModel.findByIdAndUpdate()
+  .select({})
+  .exec(function (err, location) {
+    location.reviews;
+  });
+LocModel.findOne({}, function (err, doc) { doc.openingTimes; });
+LocModel.findOneAndRemove()
+  .exec(function (err, location) { location.name; });
+LocModel.findOneAndUpdate().exec().then(function (arg) { arg.openingTimes; });
+LocModel.geoSearch({}, {
+  near: [1, 2],
+  maxDistance: 22
+}, function (err, res) { res[0].openingTimes; });
