@@ -1067,7 +1067,7 @@ declare module "mongoose" {
         $shift(): T;
 
         /** Alias of pull */
-        remove(...args: any[]): Array<T>;
+        remove(...args: any[]): this;
 
         /**
          * Pops the array atomically at most one time per document save().
@@ -1113,7 +1113,7 @@ declare module "mongoose" {
          * the provided value to an embedded document and comparing using
          * the Document.equals() function.
          */
-        pull(...args: any[]): Array<T>;
+        pull(...args: any[]): this;
 
         /**
          * Wraps Array#push with proper change tracking.
@@ -1122,7 +1122,7 @@ declare module "mongoose" {
         push(...args: any[]): number;
 
         /** Sets the casted val at index i and marks the array modified. */
-        set(i: number, val: any): Array<T>;
+        set(i: number, val: any): this;
 
         /**
          * Wraps Array#shift with proper change tracking.
