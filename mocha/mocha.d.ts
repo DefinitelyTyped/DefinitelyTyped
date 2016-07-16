@@ -47,7 +47,7 @@ interface MochaDone {
 }
 
 interface ActionFunction {
-    (done?: MochaDone): any | PromiseLike<any>
+    (done: MochaDone): any | PromiseLike<any>
 }
 
 declare function setup(action: ActionFunction): void;
