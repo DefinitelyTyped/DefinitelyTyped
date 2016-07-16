@@ -47,14 +47,14 @@ declare module "react-redux" {
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
     mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
-  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+  ): ComponentClass<TStateProps & TDispatchProps & TOwnProps>;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
-  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+  ): ComponentClass<TStateProps & TDispatchProps & TOwnProps>;
 
   interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
