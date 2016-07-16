@@ -1,8 +1,7 @@
 /// <reference path="mongoose.d.ts" />
-/// <reference path="../core-js/core-js.d.ts" />
+/// <reference path="../bluebird/bluebird.d.ts" />
 
 import * as mongoose from 'mongoose';
-import * as core from 'core-js';
 var fs = require('fs');
 
 // dummy variables
@@ -1026,7 +1025,7 @@ mongoose.model('')
   });
 
 /* pluggable promise */
-mongoose.Promise = core.Promise;
+mongoose.Promise = Promise;
 mongoose.Promise.race;
 mongoose.Promise.all;
 
