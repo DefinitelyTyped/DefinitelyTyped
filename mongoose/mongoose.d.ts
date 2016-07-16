@@ -2182,7 +2182,7 @@ declare module "mongoose" {
       addErrback(listener: (err: R) => void): this;
 
       /** ES6-style .catch() shorthand */
-      catch(onReject?: (err: R) => void): Promise<F, R>;
+      catch<TRes, TErr>(onReject?: (err: R) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>): Promise<TRes, TErr>;
 
       /**
        * Signifies that this promise was the last in a chain of then()s: if a handler passed
@@ -2225,8 +2225,10 @@ declare module "mongoose" {
        * SUCCESS/ERROR callbacks to this promise after the nextTick.
        * Conforms to promises/A+ specification.
        */
-      then(onFulFill: (arg: F) => void, onReject?: (err: R) => void): Promise<F, R>;
-      then(onFulfill: (...args: F[]) => void, onReject?: (err: R) => void): Promise<F, R>;
+      then<TRes, TErr>(onFulFill: (arg: F) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>,
+        onReject?: (err: R) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>): Promise<TRes, TErr>;
+      then<TRes, TErr>(onFulfill: (...args: F[]) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>,
+        onReject?: (err: R) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>): Promise<TRes, TErr>;
 
       /**
        * Fulfills this promise with passed arguments. Alias of mpromise#fulfill.
@@ -2240,10 +2242,10 @@ declare module "mongoose" {
       fulfill(arg: F): this;
 
       /** ES6-style promise constructor wrapper around mpromise. */
-      static ES6<F, R>(resolver: (
-        complete: (...args: F[]) => void,
-        error: (e: R) => void
-      ) => void): Promise<F, R>;
+      static ES6<TRes, TErr>(resolver: (
+        complete: (...args: TRes[]) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>,
+        error: (e: TErr) => void | TRes | Promise<TRes, TErr> | PromiseLike<TRes>
+      ) => void): Promise<TRes, TErr>;
     }
 
     /*
