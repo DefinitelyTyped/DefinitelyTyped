@@ -9,7 +9,7 @@ declare module "victory" {
     /**
      * Single animation object to interpolate
      */
-    export type AnimationStyle = { [key: number ]: string | number };
+    export type AnimationStyle = { [key: string ]: string | number };
     /**
      * Animation styles to interpolate
      */
@@ -287,15 +287,15 @@ declare module "victory" {
          */
         onExit?: {
             duration?: number;
-            before?: () => AnimationStyle;
+            before?: (datum: any) => AnimationStyle;
         };
         /**
          * Animation enter transition configuration
          */
         onEnter?: {
             duration?: number;
-            before?: () => AnimationStyle;
-            after?: () => AnimationStyle;
+            before?: (datum: any) => AnimationStyle;
+            after?: (datum: any) => AnimationStyle;
         };
     }
 
@@ -337,7 +337,12 @@ declare module "victory" {
         /**
          * Event handlers map. Keys are standard event names (such as onClick) and values are event callbacks
          */
-        eventHandlers: { [key: string]: EventCallbackInterface<TTarget, TEventKey> | EventCallbackInterface<TTarget, TEventKey>[] };
+        eventHandlers: {
+            [key: string]: {
+                (event: React.SyntheticEvent): EventCallbackInterface<TTarget, TEventKey> } |
+                { (event: React.SyntheticEvent): EventCallbackInterface<TTarget, TEventKey>[]
+            }
+        };
     }
 
     /**
@@ -351,8 +356,8 @@ declare module "victory" {
      * Domain padding
      */
     type DomainPaddingPropType = number | {
-        x: number;
-        y: number;
+        x?: number;
+        y?: number;
     };
 
     /**
@@ -417,10 +422,10 @@ declare module "victory" {
          * @default 50
          */
         padding?: number | {
-            top: number;
-            bottom: number;
-            left: number;
-            right: number;
+            top?: number;
+            bottom?: number;
+            left?: number;
+            right?: number;
         };
         /**
          * The scale prop determines which scales your chart should use. This prop can be
@@ -430,8 +435,8 @@ declare module "victory" {
          * @default "linear"
          */
         scale?: ScalePropType | D3Scale | {
-            x: ScalePropType | D3Scale;
-            y: ScalePropType | D3Scale;
+            x?: ScalePropType | D3Scale;
+            y?: ScalePropType | D3Scale;
         };
         /**
          * The standalone prop determines whether the component will render a standalone svg
@@ -779,12 +784,12 @@ declare module "victory" {
          * tickLabels: {fontSize: 10, padding: 5}, axisLabel: {fontSize: 16, padding: 20}}
          */
         style?: {
-            parent: React.CSSProperties;
-            axis: React.CSSProperties;
-            axisLabel: React.CSSProperties;
-            grid: React.CSSProperties;
-            ticks: React.CSSProperties;
-            tickLabels: React.CSSProperties;
+            parent?: React.CSSProperties;
+            axis?: React.CSSProperties;
+            axisLabel?: React.CSSProperties;
+            grid?: React.CSSProperties;
+            ticks?: React.CSSProperties;
+            tickLabels?: React.CSSProperties;
         };
         /**
          * The tickComponent prop takes in an entire component which will be used
@@ -822,12 +827,12 @@ declare module "victory" {
          * an array of display values for each tickValue.
          * @example d3.time.format("%Y"), (x) => x.toPrecision(2), ["first", "second", "third"]
          */
-        tickFormat?: number[] | string[] | { (data: any): number | string };
+        tickFormat?: any[] | { (data: any): string | number };
         /**
          * The tickValues prop explicitly specifies which tick values to draw on the axis.
          * @example ["apples", "bananas", "oranges"], [2, 4, 6, 8]
          */
-        tickValues?: number[] | string[];
+        tickValues?: any[]
     }
 
     /**
@@ -967,7 +972,7 @@ declare module "victory" {
          * ]}
          *}}
          */
-        events?: EventPropTypeInterface<string, number | string | { (data: any): number | string }>[];
+        events?: EventPropTypeInterface<string, StringOrNumberOrCallback>[];
         /**
          * Similar to data accessor props `x` and `y`, this prop may be used to functionally
          * assign eventKeys to data
@@ -1071,7 +1076,7 @@ declare module "victory" {
          * ]}
          *}}
          */
-        events?: EventPropTypeInterface<"data" | "labels" | "parent", number | string | { (data: any): number | string }>[];
+        events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback>[];
         /**
          * Similar to data accessor props `x` and `y`, this prop may be used to functionally
          * assign eventKeys to data
@@ -1336,6 +1341,11 @@ declare module "victory" {
          */
         horizontal?: boolean;
         /**
+         * The style prop specifies styles for your grouped chart. These styles will be
+         * applied to all grouped children
+         */
+        style?: VictoryStyleInterface;
+        /**
          * The xOffset prop is used for grouping stacks of bars. This prop will be set
          * by the VictoryGroup component wrapper, or can be set manually.
          */
@@ -1419,7 +1429,7 @@ declare module "victory" {
          * ]}
          *}}
          */
-        events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback>[];
+        events?: EventPropTypeInterface<"data" | "labels" | "parent", StringOrNumberOrCallback | string[] | number[]>[];
         /**
          * Similar to data accessor props `x` and `y`, this prop may be used to functionally
          * assign eventKeys to data
