@@ -1,7 +1,6 @@
 /// <reference path="mongoose.d.ts" />
 /// <reference path="../bluebird/bluebird.d.ts" />
 
-import * as bluebird from 'bluebird';
 import * as mongoose from 'mongoose';
 var fs = require('fs');
 
@@ -988,26 +987,47 @@ mongopromise.complete(new mongoose.SchemaType('')).complete(
   new mongoose.SchemaType('')
 );
 /* static properties */
-mongoose.Promise.ES6(function (complete: any, error: any) {
+mongoose.Promise.ES6(function (complete: Function, error: Function) {
   complete.apply(this);
   error.apply(this);
-}).end();
+});
+
 /* inherited properties */
 mongopromise.chain(mongopromise);
 mongoose.Promise.FAILURE;
+/* practical example */
+mongoose.model('')
+  .findOne({})
+  .exec()
+  .then(function (arg) {
+    arg.save;
+    return 1;
+  }).then(function (num) {
+    num.toFixed;
+    return new Promise<string>((resolve, reject) => {
+      resolve('string');
+    });
+  }).then(function (str) {
+    str.toLowerCase
+    return (mongoose.model('')).findOne({}).exec();
+  }).then(function (arg) {
+    arg.save;
+  }).catch(function (err) {
+    return 1;
+  }).then(function (arg) {
+    arg.toFixed;
+    return new Promise<{a: string, b: number}>((resolve, reject) => {
+      resolve({a: 'hi', b: 29});
+    });
+  }).then(function (arg) {
+    arg.a.toLowerCase;
+    arg.b.toFixed;
+  });
 
 /* pluggable promise */
-mongoose.Promise = global.Promise;
-var nativePromise: Promise<any> = new mongoose.Promise();
-nativePromise.race().then(cb).catch(cb);
-
-mongoose.Promise = bluebird;
-var bluebirdPromise: bluebird<any> = new mongoose.Promise();
-bluebirdPromise.cancellable().lastly(cb);
-
-var PQuery: any;
-PQuery.find().exec()['reduce']().then(cb).catch(cb);
-(<any>PQuery).find().exec().reduce().then(cb).catch(cb);
+mongoose.Promise = Promise;
+mongoose.Promise.race;
+mongoose.Promise.all;
 
 /*
  * section model.js
