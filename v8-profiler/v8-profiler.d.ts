@@ -59,7 +59,13 @@ declare module "v8-profiler" {
              * callback(error, data) receives serialized snapshot as second argument. (Serialization is not equal to JSON.stringify result).
              * If callback will not be passed, export returns transform stream.
              */
-            export: (callback?: (error?: Error, data?: any) => void) => fs.ReadStream | void;
+            export(callback: (error?: Error, data?: any) => void): void;
+            /**
+             * provides simple export API for snapshot.
+             * callback(error, data) receives serialized snapshot as second argument. (Serialization is not equal to JSON.stringify result).
+             * If callback will not be passed, export returns transform stream.
+             */
+            export(): fs.ReadStream;
             /**
              * low level serialization method.
              * Look Snapshot.export source for usage example.
@@ -80,7 +86,12 @@ declare module "v8-profiler" {
              * provides simple export API for profile.
              * callback(error, data) receives serialized profile as second argument. (Serialization is equal to JSON.stringify result).
              */
-            export: (callback?: (error?: Error, data?: any) => void) => fs.ReadStream | void;
+            export(callback: (error?: Error, data?: any) => void): void;
+            /**
+             * provides simple export API for profile.
+             * callback(error, data) receives serialized profile as second argument. (Serialization is equal to JSON.stringify result).
+             */
+            export(): fs.ReadStream;
         }
     }
 

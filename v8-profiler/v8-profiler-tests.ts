@@ -30,7 +30,7 @@ import * as profiler from "v8-profiler";
     });
 
     // Export snapshot to file stream
-    (snapshot2.export() as fs.ReadStream)
+    snapshot2.export()
         .pipe(fs.createWriteStream('snapshot2.json'))
         .on('finish', snapshot2.delete);
 }
@@ -47,7 +47,7 @@ import * as profiler from "v8-profiler";
         profile1.delete();
     });
 
-    (profile2.export() as fs.ReadStream)
+    profile2.export()
         .pipe(fs.createWriteStream('profile2.json'))
         .on('finish', function () {
             profile2.delete();
