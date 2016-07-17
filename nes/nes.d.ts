@@ -94,7 +94,7 @@ declare module 'nes' {
         path: string;
         method?: string;
         headers?: Object;
-        payload: any;
+        payload?: any;
     }
 
     export interface ClientSubscribeFlags {
