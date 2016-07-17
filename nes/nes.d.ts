@@ -121,5 +121,10 @@ declare module 'nes' {
 }
 
 declare module 'nes/client' {
-    export { Client } from 'nes';
+    export {
+        Client,
+        ClientConnnectOptions,
+        ClientRequestOptions,
+        ClientSubscribeFlags
+    } from 'nes';
 }
