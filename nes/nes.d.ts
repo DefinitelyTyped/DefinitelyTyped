@@ -92,8 +92,8 @@ declare module 'nes' {
 
     export interface ClientRequestOptions {
         path: string;
-        method: string;
-        headers: Object;
+        method?: string;
+        headers?: Object;
         payload: any;
     }
 
