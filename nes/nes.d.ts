@@ -114,7 +114,7 @@ declare module 'nes' {
         request(options: string | ClientRequestOptions, callback: (err: any, payload: any, statusCode?: number, headers?: Object) => void): void;
         message(message: any, callback: (err: any, message: any) => void): void;
         subscribe(path: string, handler: (message: any, flags: ClientSubscribeFlags) => void, callback: (err?: any) => void): void;
-        unsubscribe(path: string, handler: any | Function, callback: (err?: any) => void): void;
+        unsubscribe(path: string, handler: (message: any, flags: ClientSubscribeFlags) => void, callback: (err?: any) => void): void;
         subscriptions(): string[];
         overrideReconnectionAuth(auth: any): void;
     }
