@@ -309,13 +309,14 @@ declare module "mongoose" {
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static then(onFulfill?: () => void, onRejected?: (err: mongodb.MongoError) => void): typeof MongooseThenable;
+      static then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
+        onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
       /**
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static catch(onRejected?: (err: mongodb.MongoError) => void): typeof MongooseThenable;
+      static catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
     }
 
     class CastError extends _mongoose.Error {

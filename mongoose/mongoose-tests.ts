@@ -28,7 +28,7 @@ mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true
-}).then(cb);
+}).then(cb).onReject;
 mongoose.connect(connectUri, function (error) {
   error.stack;
 });
@@ -46,7 +46,7 @@ mongoose.createConnection('localhost', 'database', 3000, {
     autoIndex: false
   }
 }).open('');
-mongoose.disconnect(cb).then(cb);
+mongoose.disconnect(cb).then(cb).fulfill;
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
