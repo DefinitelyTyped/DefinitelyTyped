@@ -1024,6 +1024,31 @@ mongoose.model('')
     arg.b.toFixed;
   });
 
+mongoose.model('').findOne({})
+  .then(function (arg) {
+    arg.save;
+    return 2;
+  }).then(function (num) {
+    num.toFixed;
+    return new Promise<string>((resolve, reject) => {
+      resolve('str');
+    });
+  }).then(function (str) {
+    str.toLowerCase;
+  });
+
+mongoose.model('').aggregate()
+  .then(function (arg) {
+    return 2;
+  }).then(function (num) {
+    num.toFixed;
+    return new Promise<string>((resolve, reject) => {
+      resolve('str');
+    });
+  }).then(function (str) {
+    str.toLowerCase;
+  });
+
 /* pluggable promise */
 mongoose.Promise = Promise;
 mongoose.Promise.race;
