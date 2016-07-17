@@ -134,11 +134,11 @@ declare namespace rosie {
      *   Factory.define('Person').sequence('id');
      *
      * @param {string} attr
-     * @param {Array.<string>=} dependencies
+     * @param {Array.<string>=} | Function dependencies or builder
      * @param {function(number): *=} builder
      * @return {Factory}
      */
-    sequence(name: string, dependencies?: string[], builder?: Function) : IFactory;
+    sequence(name: string, dependenciesOrBuilder?: Function | string[], builder?: Function) : IFactory;
 
     /**
      * Sets a post-processor callback that will receive built objects and the
