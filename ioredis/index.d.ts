@@ -22,8 +22,8 @@ interface RedisStatic {
     Cluster: IORedis.Cluster;
 }
 
-declare var redis: RedisStatic;
-export = redis;
+declare var IORedis: RedisStatic;
+export = IORedis;
 
 declare module IORedis {
     interface Commander {
