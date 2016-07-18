@@ -38,3 +38,8 @@ var mailOptions: nodemailer.SendMailOptions = {
 transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });
+
+// promise send mail without callback
+transporter
+  .sendMail(mailOptions)
+  .then(info => info.messageId)
