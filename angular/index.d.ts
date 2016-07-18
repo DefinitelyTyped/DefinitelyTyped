@@ -3,8 +3,6 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="angular-mocks.d.ts" />
-
 /// <reference types="jquery" />
 
 declare var angular: angular.IAngularStatic;
