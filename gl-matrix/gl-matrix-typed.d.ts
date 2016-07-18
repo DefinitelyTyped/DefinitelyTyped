@@ -1,16 +1,16 @@
 // Type definitions for gl-matrix 2.2.2
 // Project: https://github.com/toji/gl-matrix
-// Definitions by: Tat <https://github.com/tatchx>
+// Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Common
-declare namespace glMatrix {
+export class glMatrix {
     /**
-    * Convert Degree To Radian
-    *
-    * @param a Angle in Degrees
-    */
-    export function toRadian(a: number): number;
+     * Convert Degree To Radian
+     *
+     * @param a Angle in Degrees
+     */
+    public static toRadian(a: number): number;
 }
 
 // vec2
@@ -396,8 +396,8 @@ export class vec2 extends Float32Array {
      * @param arg additional argument to pass to fn
      * @returns a
      */
-    public static forEach(a: vec2, stride: number, offset: number, count: number,
-        fn: (a: vec2, b: vec2, arg: any) => void, arg: any): vec2;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec2, b: vec2, arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec2s.
@@ -409,8 +409,8 @@ export class vec2 extends Float32Array {
      * @param fn Function to call for each vector in the array
      * @returns a
      */
-    public static forEach(a: vec2, stride: number, offset: number, count: number,
-        fn: (a: vec2, b: vec2) => void): vec2;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec2, b: vec2) => void): Float32Array;
 
     /**
      * Returns a string representation of a vector
@@ -868,8 +868,8 @@ export class vec3 extends Float32Array {
      * @returns a
      * @function
      */
-    public static forEach(a: vec3, stride: number, offset: number, count: number,
-        fn: (a: vec3, b: vec3, arg: any) => void, arg: any): vec3;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec3, b: vec3, arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec3s.
@@ -882,8 +882,8 @@ export class vec3 extends Float32Array {
      * @returns a
      * @function
      */
-    public static forEach(a: vec3, stride: number, offset: number, count: number,
-        fn: (a: vec3, b: vec3) => void): vec3;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec3, b: vec3) => void): Float32Array;
 
     /**
      * Get the angle between two 3D vectors
@@ -908,7 +908,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static exactEquals (a, b): boolean
+    public static exactEquals (a:vec3, b:vec3): boolean
 
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -917,7 +917,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static equals (a, b) : boolean
+    public static equals (a:vec3, b:vec3) : boolean
 }
 
 // vec4
@@ -1274,8 +1274,8 @@ export class vec4 extends Float32Array {
      * @returns a
      * @function
      */
-    public static forEach(a: vec4, stride: number, offset: number, count: number,
-        fn: (a: vec4, b: vec4, arg: any) => void, arg: any): vec4;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec4, b: vec4, arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec4s.
@@ -1288,8 +1288,8 @@ export class vec4 extends Float32Array {
      * @returns a
      * @function
      */
-    public static forEach(a: vec4, stride: number, offset: number, count: number,
-        fn: (a: vec4, b: vec4) => void): vec4;
+    public static forEach(a: Float32Array, stride: number, offset: number, count: number,
+                          fn: (a: vec4, b: vec4) => void): Float32Array;
 
     /**
      * Returns a string representation of a vector
@@ -1476,7 +1476,7 @@ export class mat2 extends Float32Array {
      * @param {vec2} v Scaling vector
      * @returns {mat2} out
      */
-    public static fromScaling(out:mat2, v:vec2);
+    public static fromScaling(out:mat2, v:vec2):mat2;
 
     /**
      * Returns a string representation of a mat2
@@ -1623,7 +1623,7 @@ export class mat2d extends Float32Array {
      * @param {number} ty Component TY (index 5)
      * @returns {mat2d} A new mat2d
      */
-     public static fromValues (a:number, b:number, c:number, d:number, tx:number, ty:number) : mat2d
+    public static fromValues (a:number, b:number, c:number, d:number, tx:number, ty:number) : mat2d
 
 
     /**
@@ -1800,7 +1800,7 @@ export class mat2d extends Float32Array {
      * @param {number} b amount to scale the matrix's elements by
      * @returns {mat2d} out
      */
-    public static multiplyScalar (out: mat2d, a: mat2d, b: mat2d): mat2d;
+    public static multiplyScalar (out: mat2d, a: mat2d, b: number): mat2d;
 
     /**
      * Adds two mat2d's after multiplying each element of the second operand by a scalar value.
@@ -1883,7 +1883,7 @@ export class mat3 extends Float32Array {
      * @param {number} m22 Component in column 2, row 2 position (index 8)
      * @returns {mat3} A new mat3
      */
-    public static fromValues(m00, m01, m02, m10, m11, m12, m20, m21, m22):mat3;
+    public static fromValues(m00:number, m01:number, m02:number, m10:number, m11:number, m12:number, m20:number, m21:number, m22:number):mat3;
 
 
     /**
@@ -2046,15 +2046,6 @@ export class mat3 extends Float32Array {
     public static fromMat2d(out:mat3, a:mat2d):mat3;
 
     /**
-     * Copies the upper-left 3x3 values into the given mat3.
-     *
-     * @param out the receiving 3x3 matrix
-     * @param a   the source 4x4 matrix
-     * @returns out
-     */
-    public static fromMat4(out:mat3, a:mat4):mat3;
-
-    /**
      * Calculates a 3x3 matrix from the given quaternion
      *
      * @param out mat3 receiving operation result
@@ -2072,7 +2063,7 @@ export class mat3 extends Float32Array {
      *
      * @returns out
      */
-    public static normalFromMat4(out:mat3, a:mat3):mat3;
+    public static normalFromMat4(out:mat3, a:mat4):mat3;
 
     /**
      * Returns a string representation of a mat3
@@ -2210,7 +2201,7 @@ export class mat4 extends Float32Array {
      * @param {number} m33 Component in column 3, row 3 position (index 15)
      * @returns {mat4} A new mat4
      */
-    public static fromValues(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33):mat4;
+    public static fromValues(m00:number, m01:number, m02:number, m03:number, m10:number, m11:number, m12:number, m13:number, m20:number, m21:number, m22:number, m23:number, m30:number, m31:number, m32:number, m33:number):mat4;
 
     /**
      * Set the components of a mat4 to the given values
@@ -2234,7 +2225,7 @@ export class mat4 extends Float32Array {
      * @param {number} m33 Component in column 3, row 3 position (index 15)
      * @returns {mat4} out
      */
-    public static set(out, m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33):mat4;
+    public static set(out:mat4, m00:number, m01:number, m02:number, m03:number, m10:number, m11:number, m12:number, m13:number, m20:number, m21:number, m22:number, m23:number, m30:number, m31:number, m32:number, m33:number):mat4;
 
     /**
      * Set a mat4 to the identity matrix
@@ -2571,7 +2562,7 @@ export class mat4 extends Float32Array {
      */
     public static perspectiveFromFieldOfView(out:mat4,
                                              fov:{upDegrees:number, downDegrees:number, leftDegrees:number, rightDegrees:number},
-                                             near, far):mat4
+                                             near:number, far:number):mat4
 
     /**
      * Generates a orthogonal projection matrix with the given bounds
@@ -2653,7 +2644,7 @@ export class mat4 extends Float32Array {
      * @param {number} b amount to scale the matrix's elements by
      * @returns {mat4} out
      */
-    public static multiplyScalar(out:mat4, a:mat4, b:mat4):mat4
+    public static multiplyScalar(out:mat4, a:mat4, b:number):mat4
 
     /**
      * Adds two mat4's after multiplying each element of the second operand by a scalar value.
@@ -3059,5 +3050,5 @@ export class quat extends Float32Array {
      * @param {quat} b The second vector.
      * @returns {boolean} True if the quaternions are equal, false otherwise.
      */
-    public static equals (a:quat, b:quat) : boolean;    
+    public static equals (a:quat, b:quat) : boolean;
 }
