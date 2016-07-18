@@ -2,7 +2,7 @@
 
 function testSimplemde() {
 
-    function customMarkdownParser(markdown) {
+    function customMarkdownParser(markdown: string) {
         return "<div>" + markdown + "</div>";
     }
 
