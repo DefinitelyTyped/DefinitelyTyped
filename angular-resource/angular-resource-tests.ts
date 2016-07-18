@@ -1,6 +1,4 @@
 
-
-
 import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
 
 interface IMyData {}

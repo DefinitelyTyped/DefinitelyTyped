@@ -3,22 +3,10 @@
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Tony Curtis <http://github.com/daltin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="angular" />
+/// <reference path="mocks.d.ts" />
+
 import * as angular from 'angular';
-
-declare module "angular-mocks/ngMock" {
-    var _: string;
-    export = _;
-}
-
-declare module "angular-mocks/ngMockE2E" {
-    var _: string;
-    export = _;
-}
-
-declare module "angular-mocks/ngAnimateMock" {
-    var _: string;
-    export = _;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)

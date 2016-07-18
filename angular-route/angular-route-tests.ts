@@ -1,6 +1,4 @@
 
-
-
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
  * (c) 2013 Jonathan Park @ Daptiv Solutions Inc
