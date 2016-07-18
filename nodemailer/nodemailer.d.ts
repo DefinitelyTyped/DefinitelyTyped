@@ -31,7 +31,7 @@ declare module "nodemailer" {
 		/**
 		 * Send a mail with callback
 		 */
-		sendMail(mail: SendMailOptions, callback?: (error: Error, info: SentMessageInfo) => void): void;
+		sendMail(mail: SendMailOptions, callback: (error: Error, info: SentMessageInfo) => void): void;
 
 		/**
 		 * Send a mail
