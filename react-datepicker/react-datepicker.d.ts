@@ -38,7 +38,8 @@ declare module "react-datepicker" {
         tabIndex?: number;
         tetherConstraints?: any[];
         title?: string;
-        todayButton?:  string;
+        todayButton?: string;
+        fixedHeight?: boolean;
     }
     let ReactDatePicker: __React.ClassicComponentClass<ReactDatePicker>;
     export = ReactDatePicker;
