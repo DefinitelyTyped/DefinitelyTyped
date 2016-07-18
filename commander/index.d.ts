@@ -5,8 +5,8 @@
 
 /// <reference types="node" />
 
-declare var _tmp: commander.IExportedCommand;
-export = _tmp;
+declare var commander: commander.IExportedCommand;
+export = commander;
 
 declare namespace commander {
     interface ICommandStatic {
