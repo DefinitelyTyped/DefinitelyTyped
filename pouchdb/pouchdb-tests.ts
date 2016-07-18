@@ -1,6 +1,6 @@
-/// <reference path="./pouchdb-core.d.ts" />
+/// <reference path="./pouchdb.d.ts" />
 
-namespace PouchDBCoreTests {
+namespace PouchDBTests {
     function isString(someString: string) {
     }
     function isNumber(someNumber: number) {
@@ -53,7 +53,32 @@ namespace PouchDBCoreTests {
         let model: PouchDB.Core.Document<MyModel>;
         const id = 'model';
 
-        const db = new PouchDB<MyModel>();
+        let db = new PouchDB<MyModel>();
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'fruitdown'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'http'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'idb'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'leveldb'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'localstorage'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'memory'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'websql'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'websql',
+            size: 100
+        });
 
         db.post(model).then((result) => {
             isString(result.id);
@@ -73,6 +98,9 @@ namespace PouchDBCoreTests {
         db.info().then((info) => {
         });
         db.info({ ajax: { cache: true }}, (error, result) => {
+        });
+
+        db.viewCleanup().catch((error) => {
         });
     }
 }

@@ -6,13 +6,27 @@
 /// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
 
 declare namespace PouchDB {
-    export namespace Remote {
-        export interface NewDbOptions {
+    namespace Core {
+        interface DatabaseInfo {
+            sqlite_plugin?: boolean;
+            websql_encoding?: 'UTF-8' | 'UTF-16';
+        }
+    }
+
+    namespace AdapterWebSql {
+        interface Configuration
+                extends Configuration.LocalDatabaseConfiguration {
             /**
              * Amount in MB to request for storage.
              */
-            size?: number
+            size?: number;
+            adapter: 'websql';
         }
+    }
+
+    interface Static {
+        new<Content extends Core.Encodable>(name: string | void,
+            options: AdapterWebSql.Configuration): Database<Content>;
     }
 }
 
