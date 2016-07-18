@@ -9,5 +9,3 @@ var media = new Media('',
 media.play();
 media.setVolume(10);
 
-console.log('Supported audio modes are: ' + JSON.stringify(navigator.device.capture.supportedAudioModes));
-
