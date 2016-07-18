@@ -1,14 +1,16 @@
-// Type definitions for React Big Calendar v0.10.X (react-big-calendar)
+// Type definitions for react-big-calendar v0.10.X
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <piotrek.witek@gmail.com> (http://piotrwitek.github.io)
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../react/react.d.ts"/>
 
 declare module 'react-big-calendar' {
   import * as React from 'react';
 
   type stringOrDate = string | Date;
-
-  interface Props {
+  
+  interface BigCalendarProps extends React.Props<BigCalendar> {
     date?: stringOrDate;
     view?: string;
     events?: Object[];
@@ -37,8 +39,14 @@ declare module 'react-big-calendar' {
     messages?: Object;
   }
 
-  export class BigCalendar extends React.Component<Props, any> {
+  export class BigCalendar extends React.Component<BigCalendarProps, {}> {
+    /**
+     * Setup the localizer by providing the moment Object
+     */
     static momentLocalizer(momentInstance: Object): void;
+    /**
+     * Setup the localizer by providing the globalize Object
+     */
     static globalizeLocalizer(globalizeInstance: Object): void;
   }
 
