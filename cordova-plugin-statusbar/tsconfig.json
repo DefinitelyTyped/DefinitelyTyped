@@ -8,6 +8,6 @@
     },
     "files": [
         "index.d.ts",
-        "tests.ts"
+        "cordova-plugin-statusbar-tests.ts"
     ]
 }
