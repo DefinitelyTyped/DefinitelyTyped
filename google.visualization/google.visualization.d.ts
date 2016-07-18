@@ -11,7 +11,7 @@ declare namespace google {
 
     // https://developers.google.com/chart/interactive/docs/basic_load_libs
     namespace charts {
-        function load(version: string, packages: Object);
+        function load(version: string, packages: Object): void;
         function setOnLoadCallback(handler: Function): void;
     }
 
