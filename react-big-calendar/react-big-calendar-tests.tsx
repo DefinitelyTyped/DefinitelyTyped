@@ -7,7 +7,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import BigCalendar from 'react-big-calendar';
-import moment from 'moment';
 
 // init localizer
 BigCalendar.momentLocalizer(moment);
