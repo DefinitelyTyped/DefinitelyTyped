@@ -13,7 +13,7 @@ declare module "angular-translate" {
 declare namespace angular.translate {
 
     interface ITranslationTable {
-        [key: string]: any;
+        [key: string]: string | ITranslationTable;
     }
 
     interface ILanguageKeyAlias {
