@@ -1,6 +1,6 @@
 // Type definitions for react-big-calendar v0.10.X
 // Project: https://github.com/intljusticemission/react-big-calendar
-// Definitions by: Piotr Witek <piotrek.witek@gmail.com> (http://piotrwitek.github.io)
+// Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
