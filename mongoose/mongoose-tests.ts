@@ -28,7 +28,7 @@ mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true
-}).then(cb);
+}).then(cb).onReject;
 mongoose.connect(connectUri, function (error) {
   error.stack;
 });
@@ -46,7 +46,7 @@ mongoose.createConnection('localhost', 'database', 3000, {
     autoIndex: false
   }
 }).open('');
-mongoose.disconnect(cb).then(cb);
+mongoose.disconnect(cb).then(cb).fulfill;
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
@@ -1022,6 +1022,31 @@ mongoose.model('')
   }).then(function (arg) {
     arg.a.toLowerCase;
     arg.b.toFixed;
+  });
+
+mongoose.model('').findOne({})
+  .then(function (arg) {
+    arg.save;
+    return 2;
+  }).then(function (num) {
+    num.toFixed;
+    return new Promise<string>((resolve, reject) => {
+      resolve('str');
+    });
+  }).then(function (str) {
+    str.toLowerCase;
+  });
+
+mongoose.model('').aggregate()
+  .then(function (arg) {
+    return 2;
+  }).then(function (num) {
+    num.toFixed;
+    return new Promise<string>((resolve, reject) => {
+      resolve('str');
+    });
+  }).then(function (str) {
+    str.toLowerCase;
   });
 
 /* pluggable promise */
