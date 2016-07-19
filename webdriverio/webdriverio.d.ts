@@ -1,4 +1,4 @@
-// Type definitions for webdriverio 3.3.0
+// Type definitions for webdriverio 4.0.4
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
