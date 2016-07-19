@@ -510,6 +510,10 @@ interface JQueryKeyEventListener extends BaseJQueryEventListener<JQueryKeyEventO
 
 }
 
+interface JQueryMouseEventListener extends BaseJQueryEventListener<JQueryMouseEventObject> {
+
+}
+
 /*
     Collection of properties of the current browser
 */
@@ -2191,14 +2195,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mousedown(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to the "mousedown" JavaScript event.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mousedown(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousedown(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mouseenter" event on an element.
@@ -2209,14 +2213,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mouseenter(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to be fired when the mouse enters an element.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseenter(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseenter(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mouseleave" event on an element.
@@ -2227,14 +2231,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mouseleave(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to be fired when the mouse leaves an element.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseleave(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseleave(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mousemove" event on an element.
@@ -2245,14 +2249,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mousemove(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to the "mousemove" JavaScript event.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mousemove(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mousemove(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mouseout" event on an element.
@@ -2263,14 +2267,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mouseout(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to the "mouseout" JavaScript event.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseout(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseout(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mouseover" event on an element.
@@ -2281,14 +2285,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mouseover(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to the "mouseover" JavaScript event.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseover(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseover(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Trigger the "mouseup" event on an element.
@@ -2299,14 +2303,14 @@ interface JQuery {
      *
      * @param handler A function to execute when the event is triggered.
      */
-    mouseup(handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(handler: JQueryMouseEventListener): JQuery;
     /**
      * Bind an event handler to the "mouseup" JavaScript event.
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute when the event is triggered.
      */
-    mouseup(eventData: Object, handler: (eventObject: JQueryMouseEventObject) => any): JQuery;
+    mouseup(eventData: Object, handler: JQueryMouseEventListener): JQuery;
 
     /**
      * Remove an event handler.
