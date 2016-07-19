@@ -309,13 +309,14 @@ declare module "mongoose" {
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static then(onFulfill?: () => void, onRejected?: (err: mongodb.MongoError) => void): typeof MongooseThenable;
+      static then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
+        onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
       /**
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static catch(onRejected?: (err: mongodb.MongoError) => void): typeof MongooseThenable;
+      static catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): Promise<TRes>;
     }
 
     class CastError extends _mongoose.Error {
@@ -1307,7 +1308,7 @@ declare module "mongoose" {
        * resolved with either the doc(s) or rejected with the error.
        * Like .then(), but only takes a rejection handler.
        */
-      catch(reject?: (err: any) => void): Promise<T>;
+      catch<TRes>(reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
       /**
        * DEPRECATED Alias for circle
@@ -1651,7 +1652,8 @@ declare module "mongoose" {
       }): this;
 
       /** Executes this query and returns a promise */
-      then(resolve?: (res: T) => void, reject?: (err: any) => void): Promise<T>;
+      then<TRes>(resolve?: (res: T) => void | TRes | PromiseLike<TRes>,
+        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
       /**
        * Converts this query to a customized, reusable query
@@ -2071,7 +2073,8 @@ declare module "mongoose" {
       sort(arg: string | Object): this;
 
       /** Provides promise for aggregate. */
-      then(resolve?: (val: T) => void, reject?: (err: any) => void): Promise<T>
+      then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
+        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>
 
       /**
        * Appends new custom $unwind operator(s) to this aggregate pipeline.
