@@ -61,11 +61,11 @@ declare module "react-redux" {
   }
 
   interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps?: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<any>, ownProps?: TOwnProps): TDispatchProps;
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
@@ -92,7 +92,7 @@ declare module "react-redux" {
     /**
      * The single Redux store in your application.
      */
-    store?: Store;
+    store?: Store<any>;
     children?: ReactNode;
   }
 
