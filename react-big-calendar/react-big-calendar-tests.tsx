@@ -26,8 +26,8 @@ const BasicExample = React.createClass({
     }
 });
 ReactDOM.render(<BasicExample />, document.body);
-const results = ReactDOMServer.renderToString(<BasicExample />);
-console.log('Test Results -> BasicExample', results);
+const basicExampleHtml = ReactDOMServer.renderToString(<BasicExample />);
+console.log('Test Results -> BasicExample', basicExampleHtml);
 
 // Full API Example Test - based on API Documentation
 // http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
@@ -75,8 +75,8 @@ const FullAPIExample = React.createClass({
     }
 });
 ReactDOM.render(<FullAPIExample />, document.body);
-const results = ReactDOMServer.renderToString(<FullAPIExample />);
-console.log('Test Results -> FullAPIExample', results);
+const fullApiExampleHtml = ReactDOMServer.renderToString(<FullAPIExample />);
+console.log('Test Results -> FullAPIExample', fullApiExampleHtml);
 
 // Test fixtures
 function getEvents(): Object[] {
