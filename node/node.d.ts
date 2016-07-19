@@ -1055,6 +1055,7 @@ declare module "child_process" {
         connected: boolean;
         disconnect(): void;
         unref(): void;
+        ref(): void;
     }
 
     export interface SpawnOptions {
