@@ -175,27 +175,29 @@ export function variance<T>(array: T[], accessor: (datum: T, index: number, arra
 
 
 // --------------------------------------------------------------------------------------
-// Searching Arrrays
+// Searching Arrays
 // --------------------------------------------------------------------------------------
 
 export function scan<T>(array: T[], comparator: (a: T, b: T) => number): number;
 
 export function bisectLeft(array: number[], x: number, lo?: number, hi?: number): number;
 export function bisectLeft(array: string[], x: string, lo?: number, hi?: number): number;
+export function bisectLeft(array: Date[], x: Date, lo?: number, hi?: number): number;
+
+export function bisectRight(array: number[], x: number, lo?: number, hi?: number): number;
+export function bisectRight(array: string[], x: string, lo?: number, hi?: number): number;
+export function bisectRight(array: Date[], x: Date, lo?: number, hi?: number): number;
 
 export var bisect: typeof bisectRight;
 
-export function bisectRight<T>(array: T[], x: T, lo?: number, hi?: number): number;
-
-export function bisector<T, U>(accessor: (x: T) => U): {
+export interface Bisector<T, U> {
     left: (array: T[], x: U, lo?: number, hi?: number) => number;
     right: (array: T[], x: U, lo?: number, hi?: number) => number;
 }
 
-export function bisector<T, U>(comparator: (a: T, b: U) => number): {
-    left: (array: T[], x: U, lo?: number, hi?: number) => number;
-    right: (array: T[], x: U, lo?: number, hi?: number) => number;
-}
+export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
+
+export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -281,9 +283,9 @@ export function zip<T>(...arrays: T[][]): T[][];
 // Histogram
 // --------------------------------------------------------------------------------------
 
-export interface Bin<T> extends Array<T> {
-    x0: number;
-    x1: number;
+export interface Bin<Datum, Value extends number | Date> extends Array<Datum> {
+    x0: Value;
+    x1: Value;
 }
 
 /**
@@ -294,25 +296,54 @@ export type ThresholdCountGenerator = (values: number[], min?: number, max?: num
 /**
  * Type definition for threshold generator which returns an array of recommended thresholds
  */
-export type ThresholdArrayGenerator = (values: number[], min?: number, max?: number) => number[];
+export type ThresholdArrayGenerator<Value extends number | Date> = (values: Value[], min?: Value, max?: Value) => Value[];
 
 
 
-export interface HistogramGenerator<T> {
-    (data: T[]): Array<Bin<T>>;
-    value(): (d: T, i: number, data: T[]) => number;
-    value(valueAccessor: (d: T, i: number, data: T[]) => number): HistogramGenerator<T>;
-    domain(): (values: number[]) => [number, number];
-    domain(domainAccessor: (values: number[]) => [number, number]): HistogramGenerator<T>;
-    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator;
-    thresholds(count: number): HistogramGenerator<T>;
-    thresholds(thresholds: number[]): HistogramGenerator<T>;
-    thresholds(thresholds: ThresholdCountGenerator): HistogramGenerator<T>;
-    thresholds(thresholds: ThresholdArrayGenerator): HistogramGenerator<T>;
+export interface HistogramGenerator<Datum, Value extends number | Date> {
+    (data: Datum[]): Array<Bin<Datum, Value>>;
+    value(): (d: Datum, i: number, data: Datum[]) => Value;
+    value(valueAccessor: (d: Datum, i: number, data: Datum[]) => Value): this;
+    domain(): (values: Value[]) => [Value, Value];
+    domain(domain: [Value, Value]): this;
+    domain(domainAccessor: (values: Value[]) => [Value, Value]): this;
+    thresholds(): ThresholdCountGenerator | ThresholdArrayGenerator<Value>;
+    /**
+     * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold
+     * setting approach only works, when the materialized values are numbers!
+     * 
+     * @param count The desired number of uniform bins.
+     */
+    thresholds(count: number): this;
+    /**
+     * Set a threshold accessor function, which returns the desired number of bins.
+     * Divides the domain uniformly into approximately count bins. IMPORTANT: This threshold
+     * setting approach only works, when the materialized values are numbers!
+     * 
+     * @param count A function which accepts as arguments the array of materialized values, and
+     * optionally the domain minimum and maximum. The function calcutates and returns the suggested
+     * number of bins. 
+     */
+    thresholds(count: ThresholdCountGenerator): this;
+    /**
+     * Set the array of values to be used as thresholds in determining the bins.
+     * @param thresholds Array of threshold values used for binning. The elements must
+     * be of the same type as the materialized values of the histogram.
+     */
+    thresholds(thresholds: Value[]): this;
+    /**
+     * Set a threshold accessor function, which returns the array of values to be used as 
+     * thresholds in determining the bins.
+     * 
+     * @param thresholds A function which accepts as arguments the array of materialized values, and
+     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as 
+     * thresholds in determining the bins. 
+     */
+    thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
 }
 
-export function histogram(): HistogramGenerator<number>;
-export function histogram<T>(): HistogramGenerator<T>;
+export function histogram(): HistogramGenerator<number, number>;
+export function histogram<Datum, Value extends number | Date>(): HistogramGenerator<Datum, Value>;
 
 // --------------------------------------------------------------------------------------
 // Histogram Thresholds
