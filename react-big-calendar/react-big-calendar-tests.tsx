@@ -8,7 +8,7 @@ import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
 import BigCalendar from 'react-big-calendar';
 
-// init localizer
+// Init localizer
 BigCalendar.momentLocalizer(moment);
 
 // Testing examples from demos page
@@ -19,8 +19,8 @@ const BasicExample = React.createClass({
     render() {
         return (
             <BigCalendar
-            {...this.props}
-            events={getEvents()}
+                {...this.props}
+                events={getEvents()}
             />
         );
     }
@@ -29,9 +29,56 @@ ReactDOM.render(<BasicExample />, document.body);
 const results = ReactDOMServer.renderToString(<BasicExample />);
 console.log('Test Results -> BasicExample', results);
 
+// Full API Example Test - based on API Documentation
+// http://intljusticemission.github.io/react-big-calendar/examples/index.html#api
+const FullAPIExample = React.createClass({
+    render() {
+        return (
+            <BigCalendar
+                {...this.props}
+                date={new Date()}
+                view={'string'}
+                events={getEvents()}
+                onNavigate={() => { } }
+                onView={() => { } }
+                onSelectSlot={(slotInfo) => {
+                    const start = slotInfo.start;
+                    const end = slotInfo.end;
+                    const slots = slotInfo.slots;
+                } }
+                onSelectEvent={(event) => { } }
+                onSelecting={(slotInfo) => {
+                    const start = slotInfo.start;
+                    const end = slotInfo.end;
+                    return true;
+                } }
+                views={{}}
+                toolbar={true}
+                popup={true}
+                popupOffset={20}
+                selectable={true}
+                step={20}
+                rtl={true}
+                eventPropGetter={(event, start, end, isSelected) => { } }
+                titleAccessor={'string'}
+                allDayAccessor={true}
+                startAccessor={new Date()}
+                endAccessor={new Date()}
+                min={new Date()}
+                max={new Date()}
+                scrollToTime={new Date()}
+                formats={{}}
+                components={{}}
+                messages={{}}
+            />
+        );
+    }
+});
+ReactDOM.render(<FullAPIExample />, document.body);
+const results = ReactDOMServer.renderToString(<FullAPIExample />);
+console.log('Test Results -> FullAPIExample', results);
 
-
-// test fixtures
+// Test fixtures
 function getEvents(): Object[] {
     return [
     {
