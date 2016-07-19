@@ -1,5 +1,3 @@
-
-
 var shouldBeString: string;
 
 declare var $sanitizeService: ng.sanitize.ISanitizeService;
