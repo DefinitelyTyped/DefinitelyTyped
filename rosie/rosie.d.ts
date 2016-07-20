@@ -119,7 +119,7 @@ declare namespace rosie {
      * @param {*=} value
      * @return {Factory}
      */
-    option(name: string, dependenciesOrValue: any | string[], value?: any): IFactory;
+    option(name: string, dependenciesOrValue?: any | string[], value?: any): IFactory;
 
     /**
      * Defines an attribute that, by default, simply has an auto-incrementing
