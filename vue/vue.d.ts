@@ -43,6 +43,17 @@ declare namespace vuejs {
         [key: string]: any;
     }
 
+    interface Directive {
+        el: HTMLElement;
+        vm: Vue;
+        expression: string;
+        arg?: string;
+        name: string;
+        modifiers: { [key: string]: boolean };
+        descriptor: any;
+        params?: { [key: string]: any };
+    }
+
     interface FilterOption {
         read?: Function;
         write?: Function;
