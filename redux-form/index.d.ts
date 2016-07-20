@@ -13,12 +13,12 @@ declare namespace ReduxForm {
    * Decorator / Form Config
    */
 
-  export function reduxForm<T extends (typeof Component), FormData extends DataShape, P, S>(
+  export function reduxForm<FormData extends DataShape, P, S>(
     config: Config<FormData, P, S>
-  ): FormDecorator<T, FormData, P, S>;
+  ): FormDecorator<FormData, P, S>;
 
-  interface FormDecorator<T extends (typeof Component), FormData extends DataShape, P, S> {
-    (component: T): T & Form<FormData, P, S>;
+  interface FormDecorator<FormData extends DataShape, P, S> {
+    <T extends (typeof Component)>(component: T): T & Form<FormData, P, S>;
   }
 
   interface Config<FormData extends DataShape, P, S> {
