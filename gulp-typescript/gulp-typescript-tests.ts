@@ -9,7 +9,8 @@ gulp.task('scripts', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(typescript({
             declarationFiles: true,
-            noExternalResolve: true
+            noExternalResolve: true,
+            skipLibCheck: true
         }));
 
     return merge([

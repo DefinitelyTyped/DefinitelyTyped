@@ -36,6 +36,7 @@ declare namespace GulpTypescript {
         noEmitHelpers?: boolean;
         preserveConstEnums?: boolean;
         isolatedModules?: boolean;
+        skipLibCheck?: boolean;
     }
 
     interface TsConfig {
