@@ -1,6 +1,6 @@
 ﻿// Type definitions for sanitize-html 1.12.0
 // Project: https://github.com/punkave/sanitize-html
-// Definitions by: Afshin Darian <https://github.com/afshin>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Afshin Darian <https://github.com/afshin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -8,19 +8,15 @@ declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
 
 declare namespace sanitize {
-  export
   type Attributes = { [attr: string]: string };
 
 
-  export
   type Tag = { tagName: string; attributes: Attributes; };
 
 
-  export
   type Transformer = (tagName: string, attributes: Attributes) => Tag;
 
 
-  export
   interface IDefaults {
     allowedAttributes: { [index: string]: string[] };
     allowedSchemes: string[];
@@ -30,7 +26,6 @@ declare namespace sanitize {
   }
 
 
-  export
   interface IFrame {
     tag: string;
     attributes: { [index: string]: string };
@@ -39,7 +34,6 @@ declare namespace sanitize {
   }
 
 
-  export
   interface IOptions {
     allowedAttributes?: { [index: string]: string[] };
     allowedClasses?: { [index: string]: string[] };
@@ -51,11 +45,9 @@ declare namespace sanitize {
   }
 
 
-  export
   var defaults: IDefaults;
 
 
-  export
   function simpleTransform(tagName: string, attributes: Attributes, merge?: boolean): Transformer;
 }
 
