@@ -3,9 +3,6 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-import nodeSchedule = require('node-schedule');
-
 /**
  * Recurrence rules.
  */
