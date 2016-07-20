@@ -38,6 +38,7 @@ declare namespace vuejs {
         deep?: boolean;
         twoWay?: boolean;
         acceptStatement?: boolean;
+        terminal?: boolean;
         priority?: number;
         [key: string]: any;
     }
