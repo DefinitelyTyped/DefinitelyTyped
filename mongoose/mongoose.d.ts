@@ -509,6 +509,12 @@ declare module "mongoose" {
      * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
      */
     interface Collection extends CollectionBase {
+      /**
+       * Collection constructor
+       * @param name name of the collection
+       * @param conn A MongooseConnection instance
+       * @param opts optional collection options
+       */
       new(name: string, conn: Connection, opts?: Object): Collection;
       /** Formatter for debug print args */
       $format(arg: any): string;
@@ -2571,15 +2577,6 @@ declare module "mongoose" {
      * http://mongoosejs.com/docs/api.html#collection-js
      */
     interface CollectionBase extends mongodb.Collection {
-      /**
-       * Abstract Collection constructor
-       * This is the base class that drivers inherit from and implement.
-       * @param name name of the collection
-       * @param conn A MongooseConnection instance
-       * @param opts optional collection options
-       */
-      constructor(name: string, conn: Connection, opts?: Object);
-
       /*
        * Abstract methods. Some of these are already defined on the
        * mongodb.Collection interface so they've been commented out.
