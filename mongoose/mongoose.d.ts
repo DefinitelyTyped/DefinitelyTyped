@@ -127,7 +127,7 @@ declare module "mongoose" {
     /* Class constructors */
     static Aggregate: typeof _mongoose.Aggregate;
     static CastError: typeof _mongoose.CastError;
-    static Collection: typeof _mongoose.Collection;
+    static Collection: _mongoose.Collection;
     static Connection: typeof _mongoose.Connection;
     static Document: typeof _mongoose.Document;
     static DocumentProvider: any;
@@ -508,7 +508,8 @@ declare module "mongoose" {
      * section drivers/node-mongodb-native/collection.js
      * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
      */
-    class Collection extends CollectionBase {
+    interface Collection extends CollectionBase {
+      new(name: string, conn: Connection, opts?: Object): Collection;
       /** Formatter for debug print args */
       $format(arg: any): string;
       /** Debug print helper */
@@ -2569,7 +2570,7 @@ declare module "mongoose" {
      * section collection.js
      * http://mongoosejs.com/docs/api.html#collection-js
      */
-    abstract class CollectionBase {
+    interface CollectionBase extends mongodb.Collection {
       /**
        * Abstract Collection constructor
        * This is the base class that drivers inherit from and implement.
@@ -2577,18 +2578,21 @@ declare module "mongoose" {
        * @param conn A MongooseConnection instance
        * @param opts optional collection options
        */
-      constructor(name: string, conn: Connection, opts: Object);
+      constructor(name: string, conn: Connection, opts?: Object);
 
-      /* abstract methods */
-      insureIndex(...args: any[]): any;
-      find(...args: any[]): any;
+      /*
+       * Abstract methods. Some of these are already defined on the
+       * mongodb.Collection interface so they've been commented out.
+       */
+      ensureIndex(...args: any[]): any;
+      //find(...args: any[]): any;
       findAndModify(...args: any[]): any;
-      findOne(...args: any[]): any;
+      //findOne(...args: any[]): any;
       getIndexes(...args: any[]): any;
-      insert(...args: any[]): any;
-      mapReduce(...args: any[]): any;
-      save(...args: any[]): any;
-      update(...args: any[]): any;
+      //insert(...args: any[]): any;
+      //mapReduce(...args: any[]): any;
+      //save(...args: any[]): any;
+      //update(...args: any[]): any;
 
       /** The collection name */
       collectionName: string;
