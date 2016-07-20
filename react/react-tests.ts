@@ -218,6 +218,8 @@ var componentElementOrNull: ModernComponent =
     ReactDOM.render(element, document.getElementById("anelement"));    
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
+var componentNoStateElementOrNull: ModernComponentNoState =
+    ReactDOM.render(elementNoState, document.getElementById("anelement"));
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
