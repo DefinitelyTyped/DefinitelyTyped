@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-quadtree module
+// Type definitions for D3JS d3-quadtree module 1.0.0
 // Project: https://github.com/d3/d3-quadtree/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
