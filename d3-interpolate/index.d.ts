@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-interpolate module
+// Type definitions for D3JS d3-interpolate module 1.1.0
 // Project: https://github.com/d3/d3-interpolate/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-voronoi module
+// Type definitions for D3JS d3-voronoi module 1.0.1
 // Project: https://github.com/d3/d3-voronoi/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
