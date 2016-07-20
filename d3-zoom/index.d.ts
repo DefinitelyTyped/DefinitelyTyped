@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-zoom module
+// Type definitions for d3JS d3-zoom module 1.0.2
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
