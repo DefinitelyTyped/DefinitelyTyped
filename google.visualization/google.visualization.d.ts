@@ -147,6 +147,7 @@ declare namespace google {
             id?: string;
             role?: string;
             pattern?: string;
+            p?: any;
         }
 
         export interface DataObject {
