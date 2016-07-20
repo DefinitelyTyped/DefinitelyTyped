@@ -178,7 +178,7 @@ declare class HammerInput
   pointerType:string;
 
   /** Event type, matches the INPUT constants. */
-  eventType:string;
+  eventType:number;
 
   /** true when the first input. */
   isFirst:boolean;
