@@ -7318,8 +7318,12 @@ declare namespace chrome.webRequest {
 		error: string;
     }
 
-	interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => void> {
-		addListener(callback: (details: WebRequestBodyDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+	interface WebRequestBodyEvent extends chrome.events.Event<(details: WebRequestBodyDetails) => BlockingResponse | undefined> {
+		addListener(callback: (details: WebRequestBodyDetails) => BlockingResponse | undefined, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
+
+	interface WebRequestBeforeHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => BlockingResponse | undefined> {
+		addListener(callback: (details: WebRequestHeadersDetails) => BlockingResponse | undefined, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
 	interface WebRequestHeadersEvent extends chrome.events.Event<(details: WebRequestHeadersDetails) => void> {
@@ -7330,13 +7334,15 @@ declare namespace chrome.webRequest {
 		addListener(callback: (details: T) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
     }
 
-    interface WebResponseHeadersEvent extends _WebResponseHeadersEvent<WebResponseHeadersDetails> {}
+	interface WebResponseHeadersEvent extends chrome.events.Event<(details: WebResponseHeadersDetails) => BlockingResponse | undefined> {
+		addListener(callback: (details: WebResponseHeadersDetails) => BlockingResponse | undefined, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
 
     interface WebResponseCacheEvent extends _WebResponseHeadersEvent<WebResponseCacheDetails> {}
 
 	interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
 
-	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {}
+	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => BlockingResponse | undefined> { }
 
 	interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 
@@ -7352,7 +7358,7 @@ declare namespace chrome.webRequest {
 	/** Fired when a request is about to occur. */
 	var onBeforeRequest: WebRequestBodyEvent;
 	/** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
-	var onBeforeSendHeaders: WebRequestHeadersEvent;
+	var onBeforeSendHeaders: WebRequestBeforeHeadersEvent;
 	/** Fired just before a request is going to be sent to the server (modifications of previous onBeforeSendHeaders callbacks are visible by the time onSendHeaders is fired). */
 	var onSendHeaders: WebRequestHeadersEvent;
 	/** Fired when HTTP response headers of a request have been received. */
