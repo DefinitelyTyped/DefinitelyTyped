@@ -101,9 +101,15 @@ coll1.getIndexes();
 coll1.collectionName;
 coll1.conn;
 coll1.name;
-coll1.insureIndex();
+coll1.ensureIndex();
 coll1.find({});
-coll1.insert({}, {}, {});
+coll1.insert({}, {});
+
+var coll2 = new mongoose.Collection('', new mongoose.Connection(null));
+coll2.$format(999).toLowerCase();
+/* inherited properties */
+coll2.initializeOrderedBulkOp;
+coll2.indexExists;
 
 /*
  * section connection.js
@@ -1232,6 +1238,8 @@ MongoModel.where('age').gte(21).lte(65).where('name', /^b/i);
 new (mongoModel.base.model(''))();
 mongoModel.baseModelName.toLowerCase();
 mongoModel.collection.$format(99);
+mongoModel.collection.initializeOrderedBulkOp;
+mongoModel.collection.findOne;
 mongoModel.db.openSet('');
 mongoModel.discriminators;
 mongoModel.modelName.toLowerCase();
