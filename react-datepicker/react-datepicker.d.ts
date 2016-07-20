@@ -1,4 +1,4 @@
-// Type definitions for react-datepicker v0.27.0
+// Type definitions for react-datepicker v0.28.1
 // Project: https://github.com/Hacker0x01/react-datepicker
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>, Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
