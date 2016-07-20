@@ -10,7 +10,6 @@
  */
 
 /// <reference types="jquery"/>
-/// <reference types="moment" />
 
 import * as moment from 'moment';
 
