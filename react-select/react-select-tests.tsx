@@ -132,6 +132,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             onChange: onChange,
             value: options,
             valueComponent: CustomValue,
+            valueRenderer: optionRenderer
         };
 
         return <div>
