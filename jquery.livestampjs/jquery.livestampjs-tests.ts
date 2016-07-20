@@ -1,5 +1,5 @@
 /// <reference types="jquery"/>
-/// <reference types="moment"/>
+import * as moment from 'moment';
 
 $('#test1').livestamp(new Date('June 18, 1987'));
 $('#test2').livestamp(1362282933);

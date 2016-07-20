@@ -4,6 +4,11 @@
             "libraryName": "Angular 2",
             "typingsPackageName": "angular2",
             "sourceRepoURL": "https://github.com/angular/angular"
+        },
+        {
+            "libraryName": "Moment",
+            "typingsPackageName": "moment",
+            "sourceRepoURL": "https://github.com/moment/moment"
         }
     ]
 }

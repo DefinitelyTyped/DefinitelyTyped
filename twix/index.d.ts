@@ -3,8 +3,6 @@
 // Definitions by: j3ko <https://github.com/j3ko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="moment" />
-
 import { Moment, Duration } from 'moment';
 
 export interface TwixFormatOptions {
@@ -122,10 +120,8 @@ declare module "moment" {
         twix(date: string, format: string, options: TwixParseAndFormatOptions): Twix;
     }
 
-    interface MomentStatic {
-        twix(start: Moment, end: Moment): Twix;
-        twixClass: TwixStatic;
-    }
+    function twix(start: Moment, end: Moment): Twix;
+    const twixClass: TwixStatic;
 
     interface Duration {
         afterMoment(date: string): string;
