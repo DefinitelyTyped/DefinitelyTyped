@@ -350,6 +350,15 @@ declare namespace Electron {
 		 */
 		isUnityRunning(): boolean;
 		/**
+		 * Returns a Boolean, true if Chrome's accessibility support is enabled, false otherwise.
+		 * This API will return true if the use of assistive technologies, such as screen readers,
+		 * has been detected.
+		 * See https://www.chromium.org/developers/design-documents/accessibility for more details.
+		 *
+		 * Note: This API is only available on macOS.
+		 */
+		isAccessibilitySupportEnabled(): boolean;
+		/**
 		 * @returns an Object with the login item settings of the app.
 		 */
 		getLoginItemSettings(): LoginItemSettings;
@@ -3363,7 +3372,13 @@ declare namespace Electron {
 	}
 
 	interface DragItem {
+		/**
+		* The absolute path of the file to be dragged
+		*/
 		file: string;
+		/**
+		* The image showing under the cursor when dragging.
+		*/
 		icon: NativeImage;
 	}
 
@@ -3822,7 +3837,12 @@ declare namespace Electron {
 			 * (most modern processors are little-endian, on machines with big-endian
 			 * processors the data is in 32bit ARGB format).
 			 */
-			frameBuffer: Buffer
+			frameBuffer: Buffer,
+			/**
+			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
+			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
+			 */
+			dirtyRect: Bounds
 		) => void): void;
 		beginFrameSubscription(callback: (frameBuffer: Buffer) => void): void;
 		/**
@@ -3839,8 +3859,7 @@ declare namespace Electron {
 		 */
 		showDefinitionForSelection(): void;
 		/**
-		 * Sets the item as dragging item for current drag-drop operation, file is the absolute path of
-		 * the file to be dragged, and icon is the image showing under the cursor when dragging.
+		 * Sets the item as dragging item for current drag-drop operation.
 		 */
 		startDrag(item: DragItem): void;
 		/**
@@ -4642,6 +4661,11 @@ declare namespace Electron {
 		 * @returns The WebContents associated with this webview.
 		 */
 		getWebContents(): WebContents;
+		/**
+		 * Captures a snapshot of the webview's page. Same as webContents.capturePage([rect, ]callback).
+		 */
+		capturePage(callback: (image: NativeImage) => void): void;
+		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * Fired when a load has committed. This includes navigation within the current document
 		 * as well as subframe document-level loads, but does not include asynchronous resource loads.

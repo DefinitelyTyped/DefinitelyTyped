@@ -242,6 +242,8 @@ app.setUserTasks([
 app.setUserTasks([]);
 if (app.isUnityRunning()) {
 }
+if (app.isAccessibilitySupportEnabled()) {
+}
 app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
 console.log(app.getLoginItemSettings().wasOpenedAtLogin);
 
