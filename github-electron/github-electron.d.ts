@@ -504,6 +504,8 @@ declare namespace Electron {
 		 * Set the url and initialize the auto updater.
 		 */
 		setFeedURL(url: string, requestHeaders?: Headers): void;
+		/** Returns the current update feed URL. */
+		getFeedURL():string;
 		/**
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
