@@ -7,7 +7,7 @@
  */
 
 import * as d3Brush from 'd3-brush';
-import { event, select, Selection } from 'd3-selection';
+import { ArrayLike, event, select, Selection } from 'd3-selection';
 import { Transition } from 'd3-transition';
 
 // -----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ let brushY: d3Brush.BrushBehavior<BrushDatum> = d3Brush.brushY<BrushDatum>();
 
 // extent() ----------------------------------------------------------------------
 
-let extent: (this: SVGGElement, d: BrushDatum, i: number, group: Array<SVGGElement> | NodeListOf<SVGGElement>) => [[number, number], [number, number]];
+let extent: (this: SVGGElement, d: BrushDatum, i: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => [[number, number], [number, number]];
 extent = brush.extent();
 
 // chainable with array
@@ -67,9 +67,9 @@ let handleSize: number = brush.handleSize();
 
 // on() ------------------------------------------------------------------------
 
-let brushed: (this: SVGGElement, datum: BrushDatum, index: number, group: Array<SVGGElement> | NodeListOf<SVGGElement>) => void;
-let wrongHandler1: (this: SVGSVGElement, datum: BrushDatum, index: number, group: Array<SVGSVGElement> | NodeListOf<SVGSVGElement>) => void;
-let wrongHandler2: (this: SVGGElement, datum: { test: string }, index: number, group: Array<SVGGElement> | NodeListOf<SVGGElement>) => void;
+let brushed: (this: SVGGElement, datum: BrushDatum, index: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => void;
+let wrongHandler1: (this: SVGSVGElement, datum: BrushDatum, index: number, group: Array<SVGSVGElement> | ArrayLike<SVGSVGElement>) => void;
+let wrongHandler2: (this: SVGGElement, datum: { test: string }, index: number, group: Array<SVGGElement> | ArrayLike<SVGGElement>) => void;
 
 // chainable
 brush = brush.on('end', brushed);
