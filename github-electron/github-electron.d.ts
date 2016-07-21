@@ -1041,6 +1041,13 @@ declare namespace Electron {
 		 * @param callback Supplies the image that stores data of the snapshot.
 		 */
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures the snapshot of page within rect, upon completion the callback
+		 * will be called. Omitting the rect would capture the whole visible page.
+		 * Note: Be sure to read documents on remote buffer in remote if you are going
+		 * to use this API in renderer process.
+		 * @param callback Supplies the image that stores data of the snapshot.
+		 */
 		capturePage(callback: (image: NativeImage) => void): void;
 		/**
 		 * Same as webContents.loadURL(url).
@@ -3882,6 +3889,9 @@ declare namespace Electron {
 		 * Captures a snapshot of the page within rect.
 		 */
 		capturePage(callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures a snapshot of the page within rect.
+		 */
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * @returns The unique ID of this WebContents.
@@ -4681,6 +4691,9 @@ declare namespace Electron {
 		 * Captures a snapshot of the webview's page. Same as webContents.capturePage([rect, ]callback).
 		 */
 		capturePage(callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures a snapshot of the webview's page. Same as webContents.capturePage([rect, ]callback).
+		 */
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * Fired when a load has committed. This includes navigation within the current document
