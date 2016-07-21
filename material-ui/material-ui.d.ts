@@ -662,7 +662,7 @@ declare namespace __MaterialUI {
         hoverColor?: string;
         href?: string;
         icon?: React.ReactNode;
-        label?: string;
+        label?: React.ReactNode;
         labelPosition?: "before" | "after";
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
@@ -688,7 +688,7 @@ declare namespace __MaterialUI {
         fullWidth?: boolean;
         href?: string;
         icon?: React.ReactNode;
-        label?: string;
+        label?: React.ReactNode;
         labelColor?: string;
         labelPosition?: "before" | "after";
         labelStyle?: React.CSSProperties;

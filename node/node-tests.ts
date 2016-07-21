@@ -19,6 +19,9 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+import * as stream from "stream";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -286,6 +289,70 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();
+}
+
+// Simplified constructors
+function simplified_stream_ctor_test() {
+    new stream.Readable({
+        read: function (size) {
+            size.toFixed();
+        }
+    });
+
+    new stream.Writable({
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    });
+
+    new stream.Duplex({
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        },
+        readableObjectMode: true,
+        writableObjectMode: true
+    });
+
+    new stream.Transform({
+        transform: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb();
+        },
+        flush: function (cb) {
+            cb()
+        },
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    })
 }
 
 ////////////////////////////////////////////////////
@@ -721,6 +788,21 @@ namespace readline_tests {
 
         readline.clearScreenDown(stream);
     }
+}
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder1 = new StringDecoder();
+    const decoder2 = new StringDecoder('utf8');
+    const part1: string = decoder1.write(new Buffer('test'));
+    const end1: string = decoder1.end();
+    const part2: string = decoder2.write(new Buffer('test'));
+    const end2: string = decoder1.end(new Buffer('test'));
 }
 
 //////////////////////////////////////////////////////////////////////

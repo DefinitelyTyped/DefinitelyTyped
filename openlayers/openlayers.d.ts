@@ -1079,6 +1079,25 @@ declare namespace olx {
             rightHanded?: boolean;
         }
     }
+
+    namespace control {
+        interface ControlOptions {
+            /**
+             * The element is the control's container element. This only needs to be specified if you're developing a custom control.
+             */
+            element?: Element;
+
+            /**
+             * Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.
+             */
+            render?: any;
+
+            /**
+             * Specify a target if you want the control to be rendered outside of the map's viewport.
+             */
+            target?: Element | string;
+        }
+    }
 }
 
 /**
@@ -2395,6 +2414,7 @@ declare namespace ol {
         }
 
         class Control {
+            constructor(options: olx.control.ControlOptions);
         }
 
         class FullScreen {
