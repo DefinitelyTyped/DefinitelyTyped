@@ -1,12 +1,12 @@
 // Type definitions for json-pointer 1.0 l
 // Project: https://www.npmjs.org/package/json-pointer
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "json-pointer" {
 	function JSON_Pointer(object: Object): JSON_Pointer.JSON_PointerWrap;
 
-	module JSON_Pointer {
+	namespace JSON_Pointer {
 		/**
 		 *  Wrap an object with accessors
 		 */

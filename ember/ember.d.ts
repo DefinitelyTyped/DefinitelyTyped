@@ -1,14 +1,14 @@
-// Type definitions for Ember.js 1.11.3
+// Type definitions for Ember.js 2.0
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
 
 declare var Handlebars: HandlebarsStatic;
 
-declare module EmberStates {
+declare namespace EmberStates {
 
     interface Transition {
         targetName: string;
@@ -156,9 +156,9 @@ declare module EmberStates {
 
 }
 
-declare module EmberTesting {
+declare namespace EmberTesting {
 
-    module Test {
+    namespace Test {
 
         class Adapter {
             asyncEnd(): void;
@@ -349,7 +349,7 @@ interface CoreObjectArguments {
     Override to implement teardown.
     **/
     willDestroy?: Function;
-    
+
     [propName: string]: any;
 }
 
@@ -402,7 +402,7 @@ interface ModifyObserver {
     (obj: any, path: string, func: Function, method?: string): void;
 }
 
-declare module Ember {
+declare namespace Ember {
     /**
     Alias for jQuery.
     **/
@@ -594,50 +594,6 @@ declare module Ember {
         length: number;
     }
     /**
-    Provides a way for you to publish a collection of objects so that you can easily bind to the
-    collection from a Handlebars #each helper, an Ember.CollectionView, or other controllers.
-    **/
-    class ArrayController extends ArrayProxy implements SortableMixin, ControllerMixin {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-        lookupItemController(object: any): string;
-        arrangedContent: any;
-        itemController: string;
-        sortAscending: boolean;
-        sortFunction: Comparable;
-        sortProperties: any[];
-        replaceRoute(name: string, ...args: any[]): void;
-        transitionToRoute(name: string, ...args: any[]): void;
-        controllers: {};
-        needs: string[];
-        target: any;
-        model: any;
-        queryParams: any;
-        send(name: string, ...args: any[]): void;
-        actions: {};
-
-    }
-    /**
-    Array polyfills to support ES5 features in older browsers.
-    **/
-    var ArrayPolyfills: {
-        map: typeof Array.prototype.map;
-        forEach: typeof Array.prototype.forEach;
-        indexOf: typeof Array.prototype.indexOf;
-    };
-    /**
     An ArrayProxy wraps any other object that implements Ember.Array and/or Ember.MutableArray,
     forwarding all requests. This makes it very useful for a number of binding use cases or other cases
     where being able to swap out the underlying array is useful.
@@ -743,12 +699,11 @@ declare module Ember {
         copy(): Binding;
         disconnect(obj: any): Binding;
         from(path: string): Binding;
-        static oneWay(from: string, flag?: boolean): Binding;
         to(path: string): Binding;
         to(pathTuple: any[]): Binding;
         toString(): string;
     }
-    class Button extends View implements TargetActionSupport {
+    class Button extends Component implements TargetActionSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -769,7 +724,7 @@ declare module Ember {
     The internal class used to create text inputs when the {{input}} helper is used
     with type of checkbox. See Handlebars.helpers.input for usage details.
     **/
-    class Checkbox extends View {
+    class Checkbox extends Component {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -786,23 +741,6 @@ declare module Ember {
         static isMethod: boolean;
     }
     /**
-    An Ember.View descendent responsible for managing a collection (an array or array-like object)
-    by maintaining a child view object and associated DOM representation for each item in the array
-    and ensuring that child views and their associated rendered HTML are updated when items in the
-    array are added, removed, or replaced.
-    **/
-    class CollectionView extends ContainerView {
-        arrayDidChange(content: any[], start: number, removed: number, added: number): void;
-        arrayWillChange(content: any[], start: number, removed: number): void;
-        createChildView(viewClass: {}, attrs?: {}): CollectionView;
-        destroy(): CollectionView;
-        init(): void;
-        static CONTAINER_MAP: {};
-        content: any[];
-        emptyView: View;
-        itemViewClass: View;
-    }
-    /**
     Implements some standard methods for comparing objects. Add this mixin to any class
     you create that can compare its instances.
     **/
@@ -814,7 +752,7 @@ declare module Ember {
     and actions are targeted at the view object. There is no access to the surrounding context or
     outer controller; all contextual information is passed in.
     **/
-    class Component extends View {
+    class Component {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -839,7 +777,6 @@ declare module Ember {
     This will force the cached result to be recomputed if the dependencies are modified.
     **/
     class ComputedProperty {
-        cacheable(aFlag?: boolean): ComputedProperty;
         get(keyName: string): any;
         meta(meta: {}): ComputedProperty;
         property(...args: string[]): ComputedProperty;
@@ -865,41 +802,12 @@ declare module Ember {
         @param fullName type:name (e.g., 'model:user')
         @param factory (e.g., App.Person)
         **/
-        register(fullName: string, factory: Function, options?: {}): void;
-        unregister(fullName: string): void;
-        resolve(fullName: string): Function;
         describe(fullName: string): string;
-        normalize(fullName: string): string;
         makeToString(factory: any, fullName: string): Function;
         lookup(fullName: string, options?: {}): any;
         lookupFactory(fullName: string): any;
-        has(fullName: string): boolean;
-        optionsForType(type: string, options: {}): void;
-        options(type: string, options: {}): void;
-        injection(factoryName: string, property: string, injectionName: string): void;
-        factoryInjection(factoryName: string, property: string, injectionName: string): void;
         destroy(): void;
         reset(): void;
-    }
-    /**
-    An Ember.View subclass that implements Ember.MutableArray allowing programatic
-    management of its child views.
-    **/
-    class ContainerView extends View {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
     }
     class Controller extends Object implements ControllerMixin {
         replaceRoute(name: string, ...args: any[]): void;
@@ -1079,30 +987,6 @@ declare module Ember {
         **/
         static eachComputedProperty(callback: Function, binding: {}): void;
     }
-    /**
-    An abstract class that exists to give view-like behavior to both Ember's main view class Ember.View
-    and other classes like Ember._SimpleMetamorphView that don't need the fully functionaltiy of Ember.View.
-    Unless you have specific needs for CoreView, you will use Ember.View in your applications.
-    **/
-    class CoreView extends Object implements ActionHandlerMixin {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-        send(name: string, ...args: any[]): void;
-        actions: ActionsHash;
-        parentView: CoreView;
-    }
     class DAG {
         add(name: string): any;
         map(name: string, value: any): void;
@@ -1123,16 +1007,6 @@ declare module Ember {
     class DefaultResolver {
         resolve(fullName: string): {};
         namespace: Application;
-    }
-    class Deferred {
-        reject(value: any): void;
-        resolve(value: any): void;
-        then(resolve: Function, reject: Function): void;
-    }
-    class DeferredMixin extends Mixin {
-        reject(value: any): void;
-        resolve(value: any): void;
-        then(resolve: Function, reject: Function): void;
     }
     /**
     Objects of this type can implement an interface to respond to requests to get and set.
@@ -1217,7 +1091,6 @@ declare module Ember {
         hasEnumerableObservers: boolean;
         lastObject: any;
     }
-    var EnumerableUtils: {}; // TODO: define interface
     /**
     A subclass of the JavaScript Error object for use in Ember.
     **/
@@ -1262,40 +1135,11 @@ declare module Ember {
         isFrozen: boolean;
     }
     var GUID_KEY: string;
-    module Handlebars {
+    namespace Handlebars {
         function compile(string: string): Function;
-        function get(root: any, path: string, options?: {}): any;
-        function helper(name: string, func: Function, dependentKeys?: string): void;
-        function helper(name: string, view: View, dependentKeys?: string): void;
-        class helpers {
-            action(actionName: string, context: any, options?: {}): void;
-            bindAttr(options?: {}): string;
-            connectOutlet(outletName: string, view: {}): void;
-            control(path: string, modelPath: string, options?: {}): string;
-            debugger(property: string): void;
-            disconnectOutlet(outletName: string): void;
-            each(name: string, path: string, options?: {}): void;
-            if(context: Function, options?: {}): string;
-            init(): void;
-            input(options?: {}): void;
-            linkTo(routeName: string, context: any, options?: {}): string;
-            loc(str: string): void;
-            log(property: string): void;
-            outlet(property: string): string;
-            partial(partialName: string): void;
-            render(name: string, context?: string, options?: {}): string;
-            textarea(options?: {}): void;
-            unbound(property: string): string;
-            unless(context: Function, options?: {}): string;
-            view(path: string, options?: {}): string;
-            with(context: Function, options?: {}): string;
-            yield(options?: {}): string;
-        }
         function precompile(string: string): void;
-        function registerBoundHelper(name: string, func: Function, dependentKeys?: string): void;
         class Compiler { }
         class JavaScriptCompiler { }
-        function registerHelper(name: string, fn: Function, inverse?: boolean): void;
         function registerPartial(name: string, str: any): void;
         function K(): any;
         function createFrame(objec: any): any;
@@ -1356,38 +1200,6 @@ declare module Ember {
     var LOG_BINDINGS: boolean;
     var LOG_STACKTRACE_ON_DEPRECATION: boolean;
     var LOG_VERSION: boolean;
-    class LinkView extends View {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-        init(): void;
-        active: any;
-        activeClass: string;
-        attributeBindings: any;
-        classNameBindings: string[];
-        disabled: any;
-        disabledClass: string;
-        eventName: string;
-        href: any;
-        loading: any;
-        loadingClass: string;
-        loadingHref: string;
-        rel: any;
-        replace: boolean;
-        title: any;
-        click: Function;
-    }
     class Location {
         create(options?: {}): any;
         registerImplementation(name: string, implementation: any): void;
@@ -1408,7 +1220,6 @@ declare module Ember {
         forEach(callback: Function, self: any): void;
         get(key: any): any;
         has(key: any): boolean;
-        remove(key: any): boolean;
         set(key: any, value: any): void;
         length: number;
     }
@@ -1716,17 +1527,6 @@ declare module Ember {
         setProperties(hash: {}): Observable;
         toggleProperty(keyName: string): any;
     }
-    class ObjectController extends ObjectProxy implements ControllerMixin {
-        replaceRoute(name: string, ...args: any[]): void;
-        transitionToRoute(name: string, ...args: any[]): void;
-        controllers: Object;
-        needs: string[];
-        target: any;
-        model: any;
-        queryParams: any;
-        send(name: string, ...args: any[]): void;
-        actions: {};
-    }
     class ObjectProxy extends Object {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -1779,12 +1579,11 @@ declare module Ember {
         forEach(fn: Function, self: any): void;
         has(obj: any): boolean;
         isEmpty(): boolean;
-        remove(obj: any): void;
         toArray(): any[];
     }
 
     // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve {
             (value?: any): void;
         }
@@ -1847,25 +1646,6 @@ declare module Ember {
             */
             finally(callback: Function, label?: string): Promise;
         }
-    }
-    class RenderBuffer {
-        addClass(className: string): RenderBuffer;
-        attr(name: string, value: any): any;
-        element(): HTMLElement;
-        id(id: string): RenderBuffer;
-        prop(name: string, value: string): any;
-        push(string: string): RenderBuffer;
-        removeAttr(name: string): RenderBuffer;
-        removeProp(name: string): RenderBuffer;
-        string(): string;
-        style(name: string, value: string): RenderBuffer;
-        classes: any[];
-        elementAttributes: {};
-        elementId: string;
-        elementProperties: {};
-        elementStyle: {};
-        elementTag: string;
-        parentBuffer: RenderBuffer;
     }
 
     /**
@@ -2416,7 +2196,7 @@ declare module Ember {
     }
     var SHIM_ES5: boolean;
     var STRINGS: boolean;
-    class Select extends View {
+    class SelectOption extends Component {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2431,151 +2211,6 @@ declare module Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        content: any[];
-        groupView: View;
-        multiple: boolean;
-        optionGroupPath: string;
-        optionLabelPath: string;
-        optionValuePath: string;
-        optionView: View;
-        prompt: string;
-        selection: any;
-        value: string;
-    }
-    class SelectOption extends View {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-    }
-    class Set extends CoreObject implements MutableEnumberable, Copyable, Freezable {
-        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Set;
-        addObject(object: any): any;
-        addObjects(objects: Enumerable): Set;
-        any(callback: Function, target?: any): boolean;
-        anyBy(key: string, value?: string): boolean;
-        someProperty(key: string, value?: string): boolean;
-        compact(): any[];
-        contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number): any;
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
-        enumerableContentDidChange(removing: number, adding: number): any;
-        enumerableContentDidChange(removing: Enumerable, adding: number): any;
-        enumerableContentDidChange(removing: number, adding: Enumerable): any;
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
-        enumerableContentWillChange(removing: number, adding: number): Set;
-        enumerableContentWillChange(removing: Enumerable, adding: number): Set;
-        enumerableContentWillChange(removing: number, adding: Enumerable): Set;
-        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): Set;
-        every(callback: Function, target?: any): boolean;
-        everyBy(key: string, value?: string): boolean;
-        everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
-        filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
-        findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
-        getEach(key: string): any[];
-        invoke(methodName: string, ...args: any[]): any[];
-        map: ItemIndexEnumerableCallbackTarget;
-        mapBy(key: string): any[];
-        nextObject(index: number, previousObject: any, context: any): any;
-        reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
-        reject: ItemIndexEnumerableCallbackTarget;
-        rejectBy(key: string, value?: string): any[];
-        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Set;
-        removeObject(object: any): any;
-        removeObjects(objects: Enumerable): Set;
-        setEach(key: string, value?: any): any;
-        some(callback: Function, target?: any): boolean;
-        toArray(): any[];
-        uniq(): Set;
-        without(value: any): Set;
-        '[]': any[];
-        firstObject: any;
-        hasEnumerableObservers: boolean;
-        lastObject: any;
-        copy(deep: boolean): Set;
-        frozenCopy(): Set;
-        freeze(): Set;
-        isFrozen: boolean;
-        add(obj: any): Set;
-        addEach(...args: any[]): Set;
-        clear(): Set;
-        isEqual(obj: Set): boolean;
-        pop(): any;
-        push(obj: any): Set;
-        remove(obj: any): Set;
-        removeEach(...args: any[]): Set;
-        shift(): any;
-        unshift(obj: any): Set;
-        length: number;
-    }
-    class SortableMixin implements MutableEnumberable {
-        addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        addObject(object: any): any;
-        addObjects(objects: Enumerable): MutableEnumberable;
-        any(callback: Function, target?: any): boolean;
-        anyBy(key: string, value?: string): boolean;
-        someProperty(key: string, value?: string): boolean;
-        compact(): any[];
-        contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: number, adding: number): any;
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: number): any;
-        enumerableContentDidChange(start: number, removing: number, adding: Enumerable): any;
-        enumerableContentDidChange(start: number, removing: Enumerable, adding: Enumerable): any;
-        enumerableContentDidChange(removing: number, adding: number): any;
-        enumerableContentDidChange(removing: Enumerable, adding: number): any;
-        enumerableContentDidChange(removing: number, adding: Enumerable): any;
-        enumerableContentDidChange(removing: Enumerable, adding: Enumerable): any;
-        enumerableContentWillChange(removing: number, adding: number): Enumerable;
-        enumerableContentWillChange(removing: Enumerable, adding: number): Enumerable;
-        enumerableContentWillChange(removing: number, adding: Enumerable): Enumerable;
-        enumerableContentWillChange(removing: Enumerable, adding: Enumerable): Enumerable;
-        every(callback: Function, target?: any): boolean;
-        everyBy(key: string, value?: string): boolean;
-        everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
-        filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
-        findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
-        getEach(key: string): any[];
-        invoke(methodName: string, ...args: any[]): any[];
-        map: ItemIndexEnumerableCallbackTarget;
-        mapBy(key: string): any[];
-        nextObject(index: number, previousObject: any, context: any): any;
-        reduce(callback: ReduceCallback, initialValue: any, reducerProperty: string): any;
-        reject: ItemIndexEnumerableCallbackTarget;
-        rejectBy(key: string, value?: string): any[];
-        removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        removeObject(object: any): any;
-        removeObjects(objects: Enumerable): MutableEnumberable;
-        setEach(key: string, value?: any): any;
-        some(callback: Function, target?: any): boolean;
-        toArray(): any[];
-        uniq(): Enumerable;
-        without(value: any): Enumerable;
-        '[]': any[];
-        arrangedContent: any;
-        firstObject: any;
-        hasEnumerableObservers: boolean;
-        lastObject: any;
-        sortAscending: boolean;
-        sortFunction: Comparable;
-        sortProperties: any[];
     }
     class State extends Object implements Evented {
         static detect(obj: any): boolean;
@@ -2643,7 +2278,7 @@ declare module Ember {
         errorOnUnhandledEvents: boolean;
         transitionEvent: string;
     }
-    module String {
+    namespace String {
         function camelize(str: string): string;
         function capitalize(str: string): string;
         function classify(str: string): string;
@@ -2677,7 +2312,7 @@ declare module Ember {
         static adapter: Object;
         testHelpers: {};
     }
-    class TextArea extends View implements TextSupport {
+    class TextArea extends Component implements TextSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2701,7 +2336,7 @@ declare module Ember {
         bubbles: boolean;
         onEvent: string;
     }
-    class TextField extends View implements TextSupport {
+    class TextField extends Component implements TextSupport {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
         /**
@@ -2740,76 +2375,11 @@ declare module Ember {
         onEvent: string;
     }
     var VERSION: string;
-    class View extends CoreView {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-        $(): JQuery;
-        append(): View;
-        // ReSharper disable InconsistentNaming
-        appendTo(A: string): View;
-        appendTo(A: HTMLElement): View;
-        appendTo(A: JQuery): View;
-        // ReSharper restore InconsistentNaming
-        createChildView(viewClass: {}, attrs?: {}): View;
-        createChildView(viewClass: string, attrs?: {}): View;
-        createElement(): View;
-        destroy(): View;
-        destroyElement(): View;
-        findElementInParentElement(parentElement: HTMLElement): HTMLElement;
-        remove(): View;
-        removeAllChildren(): View;
-        removeChild(view: View): View;
-        removeFromParent(): View;
-        render(buffer: RenderBuffer): void;
-        // ReSharper disable InconsistentNaming
-        replaceIn(A: string): View;
-        replaceIn(A: HTMLElement): View;
-        replaceIn(A: JQuery): View;
-        // ReSharper restore InconsistentNaming
-        rerender(): void;
-        ariaRole: string;
-        attributeBindings: any;
-        classNameBindings: string[];
-        classNames: string[];
-        context: any;
-        controller: any;
-        element: HTMLElement;
-        isView: boolean;
-        isVisible: boolean;
-        layout: Function;
-        layoutName: string;
-        nearestChildOf: View;
-        nearestOfType: View;
-        nearestWithProperty: View;
-        tagName: string;
-        template: Function;
-        templateName: string;
-        templates: {};
-        views: {};
-        didInsertElement: Function;
-        parentViewDidChange: Function;
-        willClearRender: Function;
-        willDestroyElement: Function;
-        willInsertElement: Function;
-    }
     class ViewTargetActionSupport extends Mixin {
         target: any;
         actionContext: any;
     }
     var ViewUtils: {}; // TODO: define interface
-    function addBeforeObserver(obj: any, path: string, target: any, method: Function): any;
     function addListener(obj: any, eventName: string, target: any, method: Function, once?: boolean): void;
     function addListener(obj: any, eventName: string, target: any, method: string, once?: boolean): void;
     function addListener(obj: any, eventName: string, func: Function, method: Function, once?: boolean): void;
@@ -2822,8 +2392,6 @@ declare module Ember {
     function aliasMethod(methodName: string): Descriptor;
     var anyUnprocessedMixins: boolean;
     function assert(desc: string, test: boolean): void;
-    function beforeObserver(func: Function, propertyName: string): Function;
-    function beforeObserversFor(obj: any, path: string): string[];
     function beginPropertyChanges(): void;
     function bind(obj: any, to: string, from: string): Binding;
     function cacheFor(obj: any, key: string): any;
@@ -2880,7 +2448,6 @@ declare module Ember {
     function generateController(container: Container, controllerName: string, context: any): Controller;
     function generateGuid(obj: any, prefix?: string): string;
     function get(obj: any, keyName: string): any;
-    function getMeta(obj: any, property: string): any;
     /**
     getPath is deprecated since get now supports paths.
     **/
@@ -2911,7 +2478,6 @@ declare module Ember {
     function makeArray(obj: any): any[];
     function merge(original: any, updates: any): any;
     function meta(obj: any, writable?: boolean): {};
-    function metaPath(obj: any, path: string, writable?: boolean): any;
     function mixin(obj: any, ...args: any[]): any;
     /**
     Ember.none is deprecated. Please use Ember.isNone instead.
@@ -2921,22 +2487,16 @@ declare module Ember {
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
-    function oneWay(obj: any, to: string, from: string): Binding;
     var onError: Error;
     function overrideChains(obj: any, keyName: string, m: any): boolean;
     // ReSharper disable once DuplicatingLocalDeclaration
     var platform: {
-        addBeforeObserver: ModifyObserver;
-        addObserver: ModifyObserver;
-        defineProperty(obj: any, keyName: string, desc: {}): void;
-        removeBeforeObserver: ModifyObserver;
-        removeObserver: ModifyObserver;
+        defineProperty: boolean;
         hasPropertyAccessors: boolean;
     };
     function propertyDidChange(obj: any, keyName: string): void;
     function propertyIsEnumerable(prop: string): boolean;
     function propertyWillChange(obj: any, keyName: string): void;
-    function removeBeforeObserver(obj: any, path: string, target: any, method: Function): any;
     function removeChainWatcher(obj: any, keyName: string, node: any): void;
     function removeListener(obj: any, eventName: string, target: any, method: Function): void;
     function removeListener(obj: any, eventName: string, target: any, method: string): void;
@@ -2972,7 +2532,6 @@ declare module Ember {
     function runLoadHooks(name: string, object: any): void;
     function sendEvent(obj: any, eventName: string, params?: any[], actions?: any[]): boolean;
     function set(obj: any, keyName: string, value: any): any;
-    function setMeta(obj: any, property: string, value: any): void;
     /**
     setPath is deprecated since set now supports paths.
     **/
@@ -2982,7 +2541,6 @@ declare module Ember {
     function toLocaleString(): string;
     function toString(): string;
     function tryCatchFinally(tryable: Function, catchable: Function, finalizer: Function, binding?: any): any;
-    function tryFinally(tryable: Function, finalizer: Function, binding?: any): any;
     function tryInvoke(obj: any, methodName: string, args?: any[]): any;
     function trySet(obj: any, path: string, value: any): void;
     /**
@@ -3005,7 +2563,7 @@ declare module Ember {
 }
 
 // ReSharper disable DuplicatingLocalDeclaration
-declare module Em {
+declare namespace Em {
     /**
     Alias for jQuery.
     **/
@@ -3014,52 +2572,39 @@ declare module Em {
     class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
     class Application extends Ember.Application { }
     class Array extends Ember.Array { }
-    class ArrayController extends Ember.ArrayController { }
-    var ArrayPolyfills: typeof Ember.ArrayPolyfills;
     class ArrayProxy extends Ember.ArrayProxy { }
     var BOOTED: typeof Ember.BOOTED;
     class Binding extends Ember.Binding { }
     class Button extends Ember.Button { }
     class Checkbox extends Ember.Checkbox { }
-    class CollectionView extends Ember.CollectionView { }
     class Comparable extends Ember.Comparable { }
     class Component extends Ember.Component { }
     class ComputedProperty extends Ember.ComputedProperty { }
     class Container extends Ember.Container { }
-    class ContainerView extends Ember.ContainerView { }
     class Controller extends Ember.Controller { }
     class ControllerMixin extends Ember.ControllerMixin { }
     class Copyable extends Ember.Copyable { }
     class CoreObject extends Ember.CoreObject { }
-    class CoreView extends Ember.CoreView { }
     class DAG extends Ember.DAG { }
     var DEFAULT_GETTER_FUNCTION: typeof Ember.DEFAULT_GETTER_FUNCTION;
     class DefaultResolver extends Ember.DefaultResolver { }
-    class Deffered extends Ember.Deferred { }
-    class DeferredMixin extends Ember.DeferredMixin { }
     class Descriptor extends Ember.Descriptor { }
     var EMPTY_META: typeof Ember.EMPTY_META;
     var ENV: typeof Ember.ENV;
     var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
     class EachProxy extends Ember.EachProxy { }
     class Enumerable extends Ember.Enumerable { }
-    var EnumerableUtils: typeof Ember.EnumerableUtils;
     var Error: typeof Ember.Error;
     class EventDispatcher extends Ember.EventDispatcher { }
     class Evented extends Ember.Evented { }
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
     class Freezable extends Ember.Freezable { }
     var GUID_KEY: typeof Ember.GUID_KEY;
-    module Handlebars {
+    namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
-        var get: typeof Ember.Handlebars.get;
-        var helper: typeof Ember.Handlebars.helper;
-        class helpers extends Ember.Handlebars.helpers { }
         var precompile: typeof Ember.Handlebars.precompile;
-        var registerBoundHelper: typeof Ember.Handlebars.registerBoundHelper;
         class Compiler extends Ember.Handlebars.Compiler { }
         class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler { }
-        var registerHelper: typeof Ember.Handlebars.registerHelper;
         var registerPartial: typeof Ember.Handlebars.registerPartial;
         var K: typeof Ember.Handlebars.K;
         var createFrame: typeof Ember.Handlebars.createFrame;
@@ -3078,7 +2623,6 @@ declare module Em {
     var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
     var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
     var LOG_VERSION: typeof Ember.LOG_VERSION;
-    class LinkView extends Ember.LinkView { }
     class Location extends Ember.Location { }
     var Logger: typeof Ember.Logger;
     var MANDATORY_SETTER_FUNCTION: typeof Ember.MANDATORY_SETTER_FUNCTION;
@@ -3094,29 +2638,24 @@ declare module Em {
     class NoneLocation extends Ember.NoneLocation { }
     var ORDER_DEFINITION: typeof Ember.ORDER_DEFINITION;
     class Object extends Ember.Object { }
-    class ObjectController extends Ember.ObjectController { }
     class ObjectProxy extends Ember.ObjectProxy { }
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
         interface PromiseReject extends Ember.RSVP.PromiseReject { }
         interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
         class Promise extends Ember.RSVP.Promise { }
     }
-    class RenderBuffer extends Ember.RenderBuffer { }
     class Route extends Ember.Route { }
     class Router extends Ember.Router { }
     class RouterDSL extends Ember.RouterDSL { }
     var SHIM_ES5: typeof Ember.SHIM_ES5;
     var STRINGS: typeof Ember.STRINGS;
-    class Select extends Ember.Select { }
     class SelectOption extends Ember.SelectOption { }
-    class Set extends Ember.Set { }
-    class SortableMixin extends Ember.SortableMixin { }
     class State extends Ember.State { }
     class StateManager extends Ember.StateManager { }
-    module String {
+    namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
         var classify: typeof Ember.String.classify;
@@ -3135,18 +2674,14 @@ declare module Em {
     class TextField extends Ember.TextField { }
     class TextSupport extends Ember.TextSupport { }
     var VERSION: typeof Ember.VERSION;
-    class View extends Ember.View { }
     class ViewTargetActionSupport extends Ember.ViewTargetActionSupport { }
     var ViewUtils: typeof Ember.ViewUtils;
-    var addBeforeObserver: typeof Ember.addBeforeObserver;
     var addListener: typeof Ember.addListener;
     var addObserver: typeof Ember.addObserver;
     var alias: typeof Ember.alias;
     var aliasMethod: typeof Ember.aliasMethod;
     var anyUnprocessedMixins: typeof Ember.anyUnprocessedMixins;
     var assert: typeof Ember.assert;
-    var beforeObserver: typeof Ember.beforeObserver;
-    var beforeObserversFor: typeof Ember.beforeObserversFor;
     var beginPropertyChanges: typeof Ember.beginPropertyChanges;
     var bind: typeof Ember.bind;
     var cacheFor: typeof Ember.cacheFor;
@@ -3171,7 +2706,6 @@ declare module Em {
     var generateController: typeof Ember.generateController;
     var generateGuid: typeof Ember.generateGuid;
     var get: typeof Ember.get;
-    var getMeta: typeof Ember.getMeta;
     var getPath: typeof Ember.getPath;
     var getWithDefault: typeof Ember.getWithDefault;
     var guidFor: typeof Ember.guidFor;
@@ -3198,21 +2732,18 @@ declare module Em {
     var makeArray: typeof Ember.makeArray;
     var merge: typeof Ember.merge;
     var meta: typeof Ember.meta;
-    var metaPath: typeof Ember.metaPath;
     var mixin: typeof Ember.mixin;
     var none: typeof Ember.none;
     var normalizeTuple: typeof Ember.normalizeTuple;
     var observer: typeof Ember.observer;
     var observersFor: typeof Ember.observersFor;
     var onLoad: typeof Ember.onLoad;
-    var oneWay: typeof Ember.oneWay;
     var onError: typeof Ember.onError;
     var overrideChains: typeof Ember.overrideChains;
     var platform: typeof Ember.platform;
     var propertyDidChange: typeof Ember.propertyDidChange;
     var propertyIsEnumerable: typeof Ember.propertyIsEnumerable;
     var propertyWillChange: typeof Ember.propertyWillChange;
-    var removeBeforeObserver: typeof Ember.removeBeforeObserver;
     var removeChainWatcher: typeof Ember.removeChainWatcher;
     var removeListener: typeof Ember.removeListener;
     var removeObserver: typeof Ember.removeObserver;
@@ -3222,14 +2753,12 @@ declare module Em {
     var runLoadHooks: typeof Ember.runLoadHooks;
     var sendEvent: typeof Ember.sendEvent;
     var set: typeof Ember.set;
-    var setMeta: typeof Ember.setMeta;
     var setPath: typeof Ember.setPath;
     var setProperties: typeof Ember.setProperties;
     var subscribe: typeof Ember.subscribe;
     var toLocaleString: typeof Ember.toLocaleString;
     var toString: typeof Ember.toString;
     var tryCatchFinally: typeof Ember.tryCatchFinally;
-    var tryFinally: typeof Ember.tryFinally;
     var tryInvoke: typeof Ember.tryInvoke;
     var trySet: typeof Ember.trySet;
     var trySetPath: typeof Ember.trySetPath;
@@ -3258,52 +2787,39 @@ declare module "Ember" {
     class ActionHandlerMixin extends Ember.ActionHandlerMixin { }
     class Application extends Ember.Application { }
     class Array extends Ember.Array { }
-    class ArrayController extends Ember.ArrayController { }
-    var ArrayPolyfills: typeof Ember.ArrayPolyfills;
     class ArrayProxy extends Ember.ArrayProxy { }
     var BOOTED: typeof Ember.BOOTED;
     class Binding extends Ember.Binding { }
     class Button extends Ember.Button { }
     class Checkbox extends Ember.Checkbox { }
-    class CollectionView extends Ember.CollectionView { }
     class Comparable extends Ember.Comparable { }
     class Component extends Ember.Component { }
     class ComputedProperty extends Ember.ComputedProperty { }
     class Container extends Ember.Container { }
-    class ContainerView extends Ember.ContainerView { }
     class Controller extends Ember.Controller { }
     class ControllerMixin extends Ember.ControllerMixin { }
     class Copyable extends Ember.Copyable { }
     class CoreObject extends Ember.CoreObject { }
-    class CoreView extends Ember.CoreView { }
     class DAG extends Ember.DAG { }
     var DEFAULT_GETTER_FUNCTION: typeof Ember.DEFAULT_GETTER_FUNCTION;
     class DefaultResolver extends Ember.DefaultResolver { }
-    class Deffered extends Ember.Deferred { }
-    class DeferredMixin extends Ember.DeferredMixin { }
     class Descriptor extends Ember.Descriptor { }
     var EMPTY_META: typeof Ember.EMPTY_META;
     var ENV: typeof Ember.ENV;
     var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
     class EachProxy extends Ember.EachProxy { }
     class Enumerable extends Ember.Enumerable { }
-    var EnumerableUtils: typeof Ember.EnumerableUtils;
     var Error: typeof Ember.Error;
     class EventDispatcher extends Ember.EventDispatcher { }
     class Evented extends Ember.Evented { }
     var FROZEN_ERROR: typeof Ember.FROZEN_ERROR;
     class Freezable extends Ember.Freezable { }
     var GUID_KEY: typeof Ember.GUID_KEY;
-    module Handlebars {
+    namespace Handlebars {
         var compile: typeof Ember.Handlebars.compile;
-        var get: typeof Ember.Handlebars.get;
-        var helper: typeof Ember.Handlebars.helper;
-        class helpers extends Ember.Handlebars.helpers { }
         var precompile: typeof Ember.Handlebars.precompile;
-        var registerBoundHelper: typeof Ember.Handlebars.registerBoundHelper;
         class Compiler extends Ember.Handlebars.Compiler { }
         class JavaScriptCompiler extends Ember.Handlebars.JavaScriptCompiler { }
-        var registerHelper: typeof Ember.Handlebars.registerHelper;
         var registerPartial: typeof Ember.Handlebars.registerPartial;
         var K: typeof Ember.Handlebars.K;
         var createFrame: typeof Ember.Handlebars.createFrame;
@@ -3322,7 +2838,6 @@ declare module "Ember" {
     var LOG_BINDINGS: typeof Ember.LOG_BINDINGS;
     var LOG_STACKTRACE_ON_DEPRECATION: typeof Ember.LOG_STACKTRACE_ON_DEPRECATION;
     var LOG_VERSION: typeof Ember.LOG_VERSION;
-    class LinkView extends Ember.LinkView { }
     class Location extends Ember.Location { }
     var Logger: typeof Ember.Logger;
     var MANDATORY_SETTER_FUNCTION: typeof Ember.MANDATORY_SETTER_FUNCTION;
@@ -3338,29 +2853,24 @@ declare module "Ember" {
     class NoneLocation extends Ember.NoneLocation { }
     var ORDER_DEFINITION: typeof Ember.ORDER_DEFINITION;
     class Object extends Ember.Object { }
-    class ObjectController extends Ember.ObjectController { }
     class ObjectProxy extends Ember.ObjectProxy { }
     class Observable extends Ember.Observable { }
     class OrderedSet extends Ember.OrderedSet { }
-    module RSVP {
+    namespace RSVP {
         interface PromiseResolve extends Ember.RSVP.PromiseResolve { }
         interface PromiseReject extends Ember.RSVP.PromiseReject { }
         interface PromiseResolverFunction extends Ember.RSVP.PromiseResolverFunction { }
         class Promise extends Ember.RSVP.Promise { }
     }
-    class RenderBuffer extends Ember.RenderBuffer { }
     class Route extends Ember.Route { }
     class Router extends Ember.Router { }
     class RouterDSL extends Ember.RouterDSL { }
     var SHIM_ES5: typeof Ember.SHIM_ES5;
     var STRINGS: typeof Ember.STRINGS;
-    class Select extends Ember.Select { }
     class SelectOption extends Ember.SelectOption { }
-    class Set extends Ember.Set { }
-    class SortableMixin extends Ember.SortableMixin { }
     class State extends Ember.State { }
     class StateManager extends Ember.StateManager { }
-    module String {
+    namespace String {
         var camelize: typeof Ember.String.camelize;
         var capitalize: typeof Ember.String.capitalize;
         var classify: typeof Ember.String.classify;
@@ -3379,18 +2889,14 @@ declare module "Ember" {
     class TextField extends Ember.TextField { }
     class TextSupport extends Ember.TextSupport { }
     var VERSION: typeof Ember.VERSION;
-    class View extends Ember.View { }
     class ViewTargetActionSupport extends Ember.ViewTargetActionSupport { }
     var ViewUtils: typeof Ember.ViewUtils;
-    var addBeforeObserver: typeof Ember.addBeforeObserver;
     var addListener: typeof Ember.addListener;
     var addObserver: typeof Ember.addObserver;
     var alias: typeof Ember.alias;
     var aliasMethod: typeof Ember.aliasMethod;
     var anyUnprocessedMixins: typeof Ember.anyUnprocessedMixins;
     var assert: typeof Ember.assert;
-    var beforeObserver: typeof Ember.beforeObserver;
-    var beforeObserversFor: typeof Ember.beforeObserversFor;
     var beginPropertyChanges: typeof Ember.beginPropertyChanges;
     var bind: typeof Ember.bind;
     var cacheFor: typeof Ember.cacheFor;
@@ -3415,7 +2921,6 @@ declare module "Ember" {
     var generateController: typeof Ember.generateController;
     var generateGuid: typeof Ember.generateGuid;
     var get: typeof Ember.get;
-    var getMeta: typeof Ember.getMeta;
     var getPath: typeof Ember.getPath;
     var getWithDefault: typeof Ember.getWithDefault;
     var guidFor: typeof Ember.guidFor;
@@ -3442,21 +2947,18 @@ declare module "Ember" {
     var makeArray: typeof Ember.makeArray;
     var merge: typeof Ember.merge;
     var meta: typeof Ember.meta;
-    var metaPath: typeof Ember.metaPath;
     var mixin: typeof Ember.mixin;
     var none: typeof Ember.none;
     var normalizeTuple: typeof Ember.normalizeTuple;
     var observer: typeof Ember.observer;
     var observersFor: typeof Ember.observersFor;
     var onLoad: typeof Ember.onLoad;
-    var oneWay: typeof Ember.oneWay;
     var onError: typeof Ember.onError;
     var overrideChains: typeof Ember.overrideChains;
     var platform: typeof Ember.platform;
     var propertyDidChange: typeof Ember.propertyDidChange;
     var propertyIsEnumerable: typeof Ember.propertyIsEnumerable;
     var propertyWillChange: typeof Ember.propertyWillChange;
-    var removeBeforeObserver: typeof Ember.removeBeforeObserver;
     var removeChainWatcher: typeof Ember.removeChainWatcher;
     var removeListener: typeof Ember.removeListener;
     var removeObserver: typeof Ember.removeObserver;
@@ -3466,14 +2968,12 @@ declare module "Ember" {
     var runLoadHooks: typeof Ember.runLoadHooks;
     var sendEvent: typeof Ember.sendEvent;
     var set: typeof Ember.set;
-    var setMeta: typeof Ember.setMeta;
     var setPath: typeof Ember.setPath;
     var setProperties: typeof Ember.setProperties;
     var subscribe: typeof Ember.subscribe;
     var toLocaleString: typeof Ember.toLocaleString;
     var toString: typeof Ember.toString;
     var tryCatchFinally: typeof Ember.tryCatchFinally;
-    var tryFinally: typeof Ember.tryFinally;
     var tryInvoke: typeof Ember.tryInvoke;
     var trySet: typeof Ember.trySet;
     var trySetPath: typeof Ember.trySetPath;

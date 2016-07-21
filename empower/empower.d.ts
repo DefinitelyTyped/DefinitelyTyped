@@ -1,11 +1,11 @@
 // Type definitions for empower
 // Project: https://github.com/twada/empower
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function empower(originalAssert:any, formatter:any, options?:empower.Options):any;
 
-declare module empower {
+declare namespace empower {
     export interface Options {
         destructive?: boolean;
         modifyMessageOnRethrow?: boolean;

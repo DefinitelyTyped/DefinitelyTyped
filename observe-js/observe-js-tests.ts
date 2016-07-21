@@ -1,6 +1,6 @@
 /// <reference path="observe-js.d.ts" />
 
-module observejs {
+namespace observejs {
 
 	function Test_PathObserver() {
 		var obj = { foo: { bar: 'baz' } };

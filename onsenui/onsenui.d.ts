@@ -1,7 +1,7 @@
 // Type definitions for Onsen UI
 // Project: http://onsen.io
 // Definitions by: Fran Dios <https://github.com/frankdiox/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 // Some useful types

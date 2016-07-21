@@ -1,11 +1,11 @@
 // Type definitions for Backgrid 0.2.6
 // Project: http://backgridjs.com/
 // Definitions by: Jeremy Lujan <https://github.com/jlujan/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Backgrid {
+declare namespace Backgrid {
 
     interface GridOptions {
         columns: Column[];

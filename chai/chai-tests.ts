@@ -1097,6 +1097,12 @@ function use() {
     chai.use((_chai) => {
         _chai.can.use.any();
     });
+
+    // chain style: use mulptile plug-ins
+    let expect = chai
+        .use((_chai, util) => {})
+        .use((_chai, util) => {})
+        .expect;
 }
 
 class Klass {

@@ -1,7 +1,7 @@
 // Type definitions for statuses v1.2.1
 // Project: https://github.com/jshttp/statuses
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'statuses' {
     interface Status {

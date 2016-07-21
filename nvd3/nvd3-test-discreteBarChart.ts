@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_discreteBarChart {
+namespace nvd3_test_discreteBarChart {
     var historicalBarChart = [
         {
             key: "Cumulative Return",

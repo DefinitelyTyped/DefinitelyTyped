@@ -1,7 +1,7 @@
 // Type definitions for Spin.js 2.3.2
 // Project: http://fgnass.github.com/spin.js/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface SpinnerOptions {
@@ -47,4 +47,8 @@ declare class Spinner {
     stop(): Spinner;
     lines(el:HTMLElement, o:SpinnerOptions):HTMLElement;
     opacity(el:HTMLElement, i:number, val:number, o:SpinnerOptions):void;
+}
+
+declare module "spin.js" {
+    export = Spinner;
 }

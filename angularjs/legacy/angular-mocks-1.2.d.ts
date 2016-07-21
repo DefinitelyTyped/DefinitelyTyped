@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.2 (ngMock, ngMockE2E module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular-1.2.d.ts" />
 
@@ -14,7 +14,7 @@ declare var inject: (...fns: Function[]) => any;
 ///////////////////////////////////////////////////////////////////////////////
 // ngMock module (angular-mocks.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng {
+declare namespace ng {
 
     ///////////////////////////////////////////////////////////////////////////
     // AngularStatic
@@ -59,7 +59,7 @@ declare module ng {
         flushNext(expectedDelay?: number): void;
         verifyNoPendingTasks(): void;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // IntervalService
     // see https://code.angularjs.org/1.2.26/docs/api/ngMock/service/$interval

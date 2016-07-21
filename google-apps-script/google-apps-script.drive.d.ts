@@ -6,13 +6,13 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Drive {
     /**
      * An enum representing classes of users who can access a file or folder, besides any individual
      *  users who have been explicitly given access. These properties can be accessed from
      *  DriveApp.Access.
-     * 
+     *
      *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
      *      // administrators can prohibit this setting for users of Google Apps for Business, Google Apps
      *      // for Education, or Google Apps for Your Domain.)
@@ -23,7 +23,7 @@ declare module GoogleAppsScript {
 
     /**
      * Allows scripts to create, find, and modify files and folders in Google Drive.
-     * 
+     *
      *      // Log the name of every file in the user's Drive.
      *      var files = DriveApp.getFiles();
      *      while (files.hasNext()) {
@@ -62,7 +62,7 @@ declare module GoogleAppsScript {
 
     /**
      * A file in Google Drive. Files can be accessed or created from DriveApp.
-     * 
+     *
      *      // Trash every untitled spreadsheet that hasn't been updated in a week.
      *      var files = DriveApp.getFilesByName('Untitled spreadsheet');
      *      while (files.hasNext()) {
@@ -131,7 +131,7 @@ declare module GoogleAppsScript {
     /**
      * An iterator that allows scripts to iterate over a potentially large collection of files. File
      *  iterators can be acccessed from DriveApp or a Folder.
-     * 
+     *
      *      // Log the name of every file in the user's Drive.
      *      var files = DriveApp.getFiles();
      *      while (files.hasNext()) {
@@ -147,7 +147,7 @@ declare module GoogleAppsScript {
 
     /**
      * A folder in Google Drive. Folders can be accessed or created from DriveApp.
-     * 
+     *
      *      // Log the name of every folder in the user's Drive.
      *      var folders = DriveApp.getFolders();
      *      while (folders.hasNext()) {
@@ -214,7 +214,7 @@ declare module GoogleAppsScript {
     /**
      * An object that allows scripts to iterate over a potentially large collection of folders. Folder
      *  iterators can be acccessed from DriveApp, a File, or a Folder.
-     * 
+     *
      *      // Log the name of every folder in the user's Drive.
      *      var folders = DriveApp.getFolders();
      *      while (folders.hasNext()) {
@@ -232,7 +232,7 @@ declare module GoogleAppsScript {
      * An enum representing the permissions granted to users who can access a file or folder, besides
      *  any individual users who have been explicitly given access. These properties can be accessed from
      *  DriveApp.Permission.
-     * 
+     *
      *      // Creates a folder that anyone on the Internet can read from and write to. (Domain
      *      // administrators can prohibit this setting for users of Google Apps for Business, Google Apps
      *      // for Education, or Google Apps for Your Domain.)
@@ -244,7 +244,7 @@ declare module GoogleAppsScript {
     /**
      * A user associated with a file in Google Drive. Users can be accessed from
      *  File.getEditors(), Folder.getViewers(), and other methods.
-     * 
+     *
      *      // Log the email address of all users who have edit access to a file.
      *      var file = DriveApp.getFileById('1234567890abcdefghijklmnopqrstuvwxyz');
      *      var editors = file.getEditors();

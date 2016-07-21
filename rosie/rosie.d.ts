@@ -1,8 +1,9 @@
 // Type definitions for rosie
 // Project: https://github.com/rosiejs/rosie
 // Definitions by: Abner Oliveira <https://github.com/abner/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module rosie {
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace rosie {
   interface IFactoryStatic {
 
 
@@ -118,7 +119,7 @@ declare module rosie {
      * @param {*=} value
      * @return {Factory}
      */
-    option(name: string, dependenciesOrValue: any | string[], value?: any): IFactory;
+    option(name: string, dependenciesOrValue?: any | string[], value?: any): IFactory;
 
     /**
      * Defines an attribute that, by default, simply has an auto-incrementing
@@ -190,6 +191,15 @@ declare module rosie {
 
     buildList(size: number, attributes: Object, options: Object): Object[];
 
+    /**
+     * Extends a given factory by copying over its attributes, options,
+     * callbacks, and constructor. This can be useful when you want to make
+     * different types which all share certain attributes.
+     *
+     * @param {string|Factory} name The factory to extend.
+     * @return {Factory}
+     */
+    extend(name: String | IFactory): IFactory;
   }
 
 }

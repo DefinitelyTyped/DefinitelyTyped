@@ -1,6 +1,6 @@
 /// <reference path="nodemailer.d.ts" />
 
-import nodemailer = require('nodemailer');
+import * as nodemailer from 'nodemailer'
 
 // create reusable transporter object using SMTP transport
 var transporter: nodemailer.Transporter = nodemailer.createTransport({
@@ -38,3 +38,8 @@ var mailOptions: nodemailer.SendMailOptions = {
 transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });
+
+// promise send mail without callback
+transporter
+  .sendMail(mailOptions)
+  .then(info => info.messageId)

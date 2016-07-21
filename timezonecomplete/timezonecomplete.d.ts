@@ -1,7 +1,7 @@
 // Type definitions for timezonecomplete 1.15.0
 // Project: https://github.com/SpiritIT/timezonecomplete
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'timezonecomplete' {
     import basics = require("__timezonecomplete/basics");
@@ -275,27 +275,27 @@ declare module '__timezonecomplete/basics' {
                     /**
                         * Year, 1970-...
                         */
-                    year?: number, 
+                    year?: number,
                     /**
                         * Month 1-12
                         */
-                    month?: number, 
+                    month?: number,
                     /**
                         * Day of month, 1-31
                         */
-                    day?: number, 
+                    day?: number,
                     /**
                         * Hour 0-23
                         */
-                    hour?: number, 
+                    hour?: number,
                     /**
                         * Minute 0-59
                         */
-                    minute?: number, 
+                    minute?: number,
                     /**
                         * Seconds, 0-59
                         */
-                    second?: number, 
+                    second?: number,
                     /**
                         * Milliseconds 0-999
                         */
@@ -1517,4 +1517,3 @@ declare module '__timezonecomplete/globals' {
         */
     export function abs(d: Duration): Duration;
 }
-

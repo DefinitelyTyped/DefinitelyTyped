@@ -1,7 +1,7 @@
 // Type definitions for jsdom 2.0.0
 // Project: https://github.com/tmpvar/jsdom
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
 /// <reference path='../jquery/jquery.d.ts' />

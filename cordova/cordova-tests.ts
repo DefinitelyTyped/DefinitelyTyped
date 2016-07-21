@@ -192,7 +192,7 @@ file.upload('cdvfile://localhost/persistent/path/to/downloads/',
             console.error('Failed with exception ' + err.exception);
         }
     },
-    { headers: null, httpMethod: "PUT" },
+    { headers: {"X-Email": "user@mail.com", 'X-Token': "asdf3w234"}, httpMethod: "PUT" },
     true);
 
 file.abort();

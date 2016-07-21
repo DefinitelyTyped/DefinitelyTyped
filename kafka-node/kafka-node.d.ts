@@ -1,7 +1,7 @@
 // Type definitions for kafka-node 0.2.22
 // Project: https://github.com/SOHU-Co/kafka-node/
 // Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'kafka-node' {
 

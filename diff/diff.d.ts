@@ -1,11 +1,12 @@
 // Type definitions for diff
 // Project: https://github.com/kpdecker/jsdiff
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module JsDiff {
+declare namespace JsDiff {
     interface IDiffResult {
         value: string;
+        count?: number;
         added?: boolean;
         removed?: boolean;
     }

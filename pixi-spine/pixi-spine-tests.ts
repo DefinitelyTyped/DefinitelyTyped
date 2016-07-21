@@ -1,7 +1,7 @@
 ﻿/// <reference path="../pixi.js/pixi.js.d.ts" />
 /// <reference path="pixi-spine.d.ts" />
 
-module Spine {
+namespace Spine {
 
     export class Dragon {
 
@@ -69,7 +69,7 @@ module Spine {
 
 }
 
-module Spine {
+namespace Spine {
 
     export class Goblin {
 
@@ -133,7 +133,7 @@ module Spine {
 
 }
 
-module Spine {
+namespace Spine {
 
     export class Pixie {
 
@@ -245,7 +245,7 @@ module Spine {
 
     }
 
-    module Spine {
+    namespace Spine {
 
         export class SpineBoy {
 

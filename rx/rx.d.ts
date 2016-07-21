@@ -1,11 +1,11 @@
 ﻿// Type definitions for RxJS v2.5.3
 // Project: http://rx.codeplex.com/
 // Definitions by: gsino <http://www.codeplex.com/site/users/view/gsino>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx-lite.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
     export interface IScheduler {
 		catch(handler: (exception: any) => boolean): IScheduler;
 		catchException(handler: (exception: any) => boolean): IScheduler;

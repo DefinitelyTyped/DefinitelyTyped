@@ -150,8 +150,8 @@ map.addControl(L.control.attribution({position: 'bottomright'}));
 map.removeControl(L.control.attribution({ position: 'bottomright' }));
 
 L.control.layers({'Base': layer}).addTo(map);
-map.on('baseLayerChange', function(e: L.LeafletLayersControlEvent) { 
-  alert(e.name); 
+map.on('baseLayerChange', function(e: L.LeafletLayersControlEvent) {
+  alert(e.name);
 });
 
 map.latLngToLayerPoint(map.layerPointToLatLng(L.point(0, 0)));
@@ -305,7 +305,7 @@ tileLayer.bringToBack()
     .setUrl('http://perdu.com')
     .getContainer();
 
-module CustomControl {
+namespace CustomControl {
     export interface Options {
         title: string;
         position?: string;

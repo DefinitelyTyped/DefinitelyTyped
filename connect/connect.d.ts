@@ -1,22 +1,22 @@
 // Type definitions for connect v3.4.0
 // Project: https://github.com/senchalabs/connect
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
 declare module "connect" {
     import * as http from "http";
-    
+
     /**
      * Create a new connect server.
      * @public
      */
     function createServer(): createServer.Server;
-    
-    module createServer {
+
+    namespace createServer {
     	export type ServerHandle = HandleFunction | http.Server;
-        
+
         export type SimpleHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse) => void;
         export type NextHandleFunction = (req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
         export type ErrorHandleFunction = (err: Error, req: http.IncomingMessage, res: http.ServerResponse, next: Function) => void;
@@ -26,7 +26,7 @@ declare module "connect" {
             route: string;
             handle: ServerHandle;
     	}
-    	
+
         export interface Server extends NodeJS.EventEmitter {
             (req: http.IncomingMessage, res: http.ServerResponse, next?: Function): void;
 
@@ -48,7 +48,7 @@ declare module "connect" {
             */
             use(fn: HandleFunction): Server;
             use(route: string, fn: HandleFunction): Server;
-		
+
             /**
             * Handle server requests, punting them down
             * the middleware stack.
@@ -56,7 +56,7 @@ declare module "connect" {
             * @private
             */
             handle(req: http.IncomingMessage, res: http.ServerResponse, next: Function): void;
-		
+
             /**
             * Listen for connections.
             *
@@ -87,6 +87,6 @@ declare module "connect" {
             listen(handle: any, listeningListener?: Function): http.Server;
         }
     }
-    
+
     export = createServer;
 }

@@ -1,9 +1,9 @@
 // Type definitions for intercom.js
 // Project: https://github.com/diy/intercom.js
 // Definitions by: spencerwi <http://github.com/spencerwi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module intercom {
+declare namespace intercom {
     interface Intercom {
         /**
           * Broadcasts a message to all open windows (including the current window).

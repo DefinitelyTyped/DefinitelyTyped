@@ -1,7 +1,7 @@
-// Type definitions for Application Insights v0.15.8
+// Type definitions for Application Insights v0.15.12
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AutoCollectConsole {
     constructor(client: Client): AutoCollectConsole;
@@ -28,7 +28,7 @@ interface AutoCollectRequests {
 }
 
 
-declare module ContractsModule {
+declare namespace ContractsModule {
     enum DataPointType {
         Measurement = 0,
         Aggregation = 1,
@@ -338,10 +338,34 @@ interface Client {
      * @param max    the max sample for this set
      * @param stdDev the standard deviation of the set
      */
-    trackMetric(name: string, value: number, count?:number, min?: number, max?: number, stdDev?: number): void;
+    trackMetric(name: string, value: number, count?:number, min?: number, max?: number, stdDev?: number, properties?: {
+        [key: string]: string;
+    }): void;
+    
+    /**
+     * Log an incoming http request to your server. The request data will be tracked during the response "finish" event if it is successful or the request "error" 
+     * event if it fails. The request duration is automatically calculated as the timespan between when the trackRequest method was called, and when the response "finish"
+     * or request "error" events were fired.
+     * @param request   The http.ServerRequest object to track
+     * @param response  The http.ServerResponse object for this request
+     * @param properties    map[string, string] - additional data used to filter requests in the portal. Defaults to empty.
+     */
     trackRequest(request: any /* http.ServerRequest */, response: any /* http.ServerResponse */, properties?: {
         [key: string]: string;
     }): void;
+    
+    /**
+     * Log an incoming http request to your server. The request data is tracked synchronously rather than waiting for the response "finish"" or request "error"" events.
+     * Use this if you need your request telemetry to respect custom app insights operation and user context (for example if you set any appInsights.client.context.tags).
+     * @param request   The http.ServerRequest object to track
+     * @param response  The http.ServerResponse object for this request
+     * @param ellapsedMilliseconds  The duration for this request. Defaults to 0.
+     * @param properties    map[string, string] - additional data used to filter requests in the portal. Defaults to empty.
+     * @param error     An error that was returned for this request if it was unsuccessful. Defaults to null.
+     */
+    trackRequestSync(request: any /*http.ServerRequest */, response: any /*http.ServerResponse */, ellapsedMilliseconds?: number, properties?: {
+        [key: string]: string;}, error?: any) : void;
+    
     /**
      * Log information about a dependency of your app. Typically used to track the time database calls or outgoing http requests take from your server.
      * @param name   The name of the dependency (i.e. "myDatabse")
@@ -352,7 +376,7 @@ interface Client {
      * @param properties   map[string, string] - additional data used to filter events and metrics in the portal. Defaults to empty.
      * @param dependencyKind   ContractsModule.DependencyKind of this dependency. Defaults to Other.
      * @param async  True if the dependency was executed asynchronously, false otherwise. Defaults to false
-     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined. 
+     * @param dependencySource  ContractsModule.DependencySourceType of this dependency. Defaults to Undefined.
      */
     trackDependency(name: string, commandName: string, elapsedTimeMs: number, success: boolean, dependencyTypeName?: string, properties?: {}, dependencyKind?: any, async?: boolean, dependencySource?: number): void;
     /**

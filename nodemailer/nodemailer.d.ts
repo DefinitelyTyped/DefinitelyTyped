@@ -1,7 +1,7 @@
 // Type definitions for Nodemailer 1.3.2
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="./nodemailer-types.d.ts" />
@@ -29,9 +29,15 @@ declare module "nodemailer" {
 	 */
 	export interface Transporter {
 		/**
-		 * Send a mail
+		 * Send a mail with callback
 		 */
-		sendMail(mail: SendMailOptions, callback?: (error: Error, info: SentMessageInfo) => void): void;
+		sendMail(mail: SendMailOptions, callback: (error: Error, info: SentMessageInfo) => void): void;
+
+		/**
+		 * Send a mail
+		 * return Promise
+		 */
+		sendMail(mail: SendMailOptions): Promise<SentMessageInfo>;
 
 		/**
 		 * Attach a plugin. 'compile' and 'stream' plugins can be attached with use(plugin) method

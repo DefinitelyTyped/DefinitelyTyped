@@ -1,8 +1,8 @@
 // Type definitions for Apache Cordova File System plugin.
 // Project: https://github.com/apache/cordova-plugin-file
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-// 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
 
@@ -19,6 +19,15 @@ interface Window {
         size: number,
         successCallback: (fileSystem: FileSystem) => void,
         errorCallback?: (fileError: FileError) => void): void;
+    /**
+     * Look up file system Entry referred to by local URL.
+     * @param string url       URL referring to a local file or directory
+     * @param successCallback  invoked with Entry object corresponding to URL
+     * @param errorCallback    invoked if error occurs retrieving file system entry
+     */
+    resolveLocalFileSystemURL(url: string,
+        successCallback: (entry: Entry) => void,
+        errorCallback?: (error: FileError) => void): void;
     /**
      * Look up file system Entry referred to by local URI.
      * @param string uri       URI referring to a local file or directory
@@ -40,7 +49,7 @@ interface FileSystem {
     root: DirectoryEntry;
 }
 
-/** 
+/**
  * An abstract interface representing entries in a file system,
  * each of which may be a File or DirectoryEntry.
  */

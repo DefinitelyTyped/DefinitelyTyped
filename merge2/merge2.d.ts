@@ -1,7 +1,7 @@
 // Type definitions for merge2 v0.3.6
 // Project: https://github.com/teambition/merge2
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

@@ -1,7 +1,7 @@
 /// <reference path="angulartics.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-module Analytics {
+namespace Analytics {
     angular.module("angulartics.app", ["angulartics"])
         .config(["$analyticsProvider", ($analyticsProvider:angulartics.IAnalyticsServiceProvider) => {
             angulartics.waitForVendorApi("location", 1000, (message: string) => {
@@ -20,7 +20,7 @@ module Analytics {
             $analyticsProvider.registerPageTrack((path:string, locationObj:angular.ILocationService) => {
                 console.log("viewed " + path);
             });
-            
-            $analyticsProvider.settings.pageTracking.basePath = "/my/base/path";        
+
+            $analyticsProvider.settings.pageTracking.basePath = "/my/base/path";
         }]);
 }

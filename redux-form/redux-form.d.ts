@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
@@ -193,7 +192,7 @@ declare module 'redux-form' {
      */
     handleSubmit?(event:SyntheticEvent):void;
 
-    handleSubmit?(submit:(data:FormData, dispatch?:Dispatch)
+    handleSubmit?(submit:(data:FormData, dispatch?:Dispatch<any>)
       => Promise<any>|void):FormEventHandler;
 
     /**
@@ -286,11 +285,11 @@ declare module 'redux-form' {
   }
 
   interface MapDispatchToPropsFunction {
-    (dispatch:Dispatch, ownProps?:any): any;
+    (dispatch:Dispatch<any>, ownProps?:any): any;
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   export function reduxForm(config:ReduxFormConfig,
@@ -311,6 +310,18 @@ declare module 'redux-form' {
     form: string;
 
     /**
+     * By default, async blur validation is only triggered if synchronous
+     * validation passes, and the form is dirty or was never initialized (or if
+     * submitting). Sometimes it may be desirable to trigger asynchronous
+     * validation even in these cases, for example if all validation is performed
+     * asynchronously and you want to display validation messages if a user does
+     * not change a field, but does touch and blur it. Setting
+     * alwaysAsyncValidate to true will always run asynchronous validation on
+     * blur, even if the form is pristine or sync validation fails.
+     */
+    alwaysAsyncValidate?: boolean;
+
+    /**
      * field names for which onBlur should trigger a call to the asyncValidate
      * function. Defaults to [].
      *
@@ -326,7 +337,7 @@ declare module 'redux-form' {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values:Object, dispatch:Dispatch, props:Object):
+    asyncValidate?(values:FormData, dispatch:Dispatch<any>, props:Object):
       Promise<any>;
 
     /**
@@ -366,7 +377,14 @@ declare module 'redux-form' {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?: Function;
+    onSubmit?(values:FormData, dispatch?:Dispatch<any>): any;
+
+    /**
+     * If true, the form values will be overwritten whenever the initialValues
+     * prop changes. If false, the values will not be overwritten if the form has
+     * previously been initialized. Defaults to true.
+     */
+    overwriteOnInitialValuesChange?: boolean;
 
     /**
      * If specified, all the props normally passed into your decorated
@@ -448,7 +466,7 @@ declare module 'redux-form' {
       [formName:string]: {
         [fieldName:string]: Normalizer
       }
-    }):Reducer;
+    }):Reducer<any>;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -457,6 +475,6 @@ declare module 'redux-form' {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers:{[formName:string]: Reducer}):Reducer;
+    plugin(reducers:{[formName:string]: Reducer<any>}):Reducer<any>;
   }
 }

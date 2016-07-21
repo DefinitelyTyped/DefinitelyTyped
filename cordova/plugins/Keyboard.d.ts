@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova Keyboard plugin v0.1.2
 // Project: https://github.com/apache/cordova-plugins/tree/master/keyboard
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * The Keyboard object provides some functions to customize the iOS keyboard.
