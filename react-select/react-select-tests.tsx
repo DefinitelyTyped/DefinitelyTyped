@@ -1,7 +1,9 @@
+/// <reference path="../lodash/lodash.d.ts" />
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../react/react-dom.d.ts" />
 /// <reference path="./react-select.d.ts" />
 
+import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -61,6 +63,30 @@ const CustomValue = React.createClass({
     }
 });
 
+const filterOptions = (options: Array<Option>, filter: string, values: Array<Option>) => {
+    // Filter already selected values
+    let filteredOptions = options.filter(option => {
+        return !(_.includes(values, option));
+    });
+
+    // Filter by label
+    if (filter !== undefined && filter != null && filter.length > 0) {
+        filteredOptions = filteredOptions.filter(option => {
+            return RegExp(filter, 'ig').test(option.label);
+        });
+    }
+
+    // Append Addition option
+    if (filteredOptions.length == 0) {
+        filteredOptions.push({
+            label:  `Create: ${filter}`,
+            value:  filter
+        });
+    }
+
+    return filteredOptions;
+};
+
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
@@ -89,6 +115,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             autosize: true,
             clearable: true,
             escapeClearsValue: true,
+            filterOptions: filterOptions,
             ignoreAccents: true,
             joinValues: false,
             matchPos: "any",

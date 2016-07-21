@@ -1742,6 +1742,41 @@ declare namespace  __React {
 
 
     /**
+     * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
+     */
+    export interface ActivityIndicatorProperties extends React.Props<ActivityIndicatorStatic> {
+
+        /**
+         * Whether to show the indicator (true, the default) or hide it (false).
+         */
+        animating?: boolean
+
+        /**
+         * The foreground color of the spinner (default is gray).
+         */
+        color?: string
+
+        /**
+         * Whether the indicator should hide when not animating (true by default).
+         */
+        hidesWhenStopped?: boolean
+
+        /**
+         * Size of the indicator.
+         * Small has a height of 20, large has a height of 36.
+         *
+         * enum('small', 'large')
+         */
+        size?: 'small' | 'large'
+
+        style?: ViewStyle
+    }
+
+    export interface ActivityIndicatorStatic extends React.ComponentClass<ActivityIndicatorProperties> {
+    }
+
+
+    /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
     export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
@@ -1772,11 +1807,14 @@ declare namespace  __React {
          *
          * enum('small', 'large')
          */
-        size?: string
+        size?: 'small' | 'large'
 
         style?: ViewStyle
     }
 
+    /**
+     * @Deprecated since version 0.28.0
+     */ 
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
@@ -5585,6 +5623,8 @@ declare namespace  __React {
 
     // export var AppRegistry: AppRegistryStatic;
 
+    export var ActivityIndicator: ActivityIndicatorStatic
+    export type ActivityIndicator = ActivityIndicatorStatic
 
     export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic
     export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic

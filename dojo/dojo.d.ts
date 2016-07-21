@@ -5617,7 +5617,7 @@ declare namespace dojo {
              * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: Function): any;
+            hitch(scope: Object, method: (...args: any[]) => any, ...args: any[]): any;
             /**
              * Returns a function that will only ever execute in the a given scope.
              * This allows for easy use of object member functions
@@ -5631,7 +5631,7 @@ declare namespace dojo {
              * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: String[]): any;
+            hitch(scope: Object, method: string, ...args: any[]): any;
             /**
              * Returns true if it is a built-in function or some other kind of
              * oddball that should report as a function but doesn't
