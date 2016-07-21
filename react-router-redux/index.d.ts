@@ -3,11 +3,10 @@
 // Definitions by: Isman Usoh <http://github.com/isman-usoh>, Noah Shipley <https://github.com/noah79>, Dimitri Rosenberg <https://github.com/rosendi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="redux" />
 /// <reference types="react-router"/>
-/// <reference types="history"/>
 
 import * as Redux from "redux";
+import * as History from "history";
 
 export = ReactRouterRedux;
 
