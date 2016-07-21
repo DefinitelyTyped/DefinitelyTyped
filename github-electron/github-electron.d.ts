@@ -3987,7 +3987,7 @@ declare namespace Electron {
 		 */
 		isEditable: boolean;
 		/**
-		 * These flags indicate wether the renderer believes it is able to perform the corresponding action.
+		 * These flags indicate whether the renderer believes it is able to perform the corresponding action.
 		 */
 		editFlags: {
 			/**
