@@ -1,2 +1,2 @@
-import { CreateHistory } from 'history';
+import { CreateHistory } from '../index';
 export default function useBasename<T>(createHistory: CreateHistory<T>): CreateHistory<T>;
