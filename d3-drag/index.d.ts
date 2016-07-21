@@ -3,7 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Selection } from 'd3-selection';
+import { ArrayLike, Selection } from 'd3-selection';
 
 
 // --------------------------------------------------------------------------
@@ -35,16 +35,16 @@ export interface SubjectPosition {
 
 export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Subject> extends Function {
     (selection: Selection<GElement, Datum, any, any>, ...args: any[]): void;
-    container(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => DragContainerElement;
-    container(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => DragContainerElement): DragBehavior<GElement, Datum, Subject>;
+    container(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => DragContainerElement;
+    container(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => DragContainerElement): DragBehavior<GElement, Datum, Subject>;
     container(container: DragContainerElement): DragBehavior<GElement, Datum, Subject>;
-    filter(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| NodeListOf<GElement>) => boolean;
-    filter(filterFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| NodeListOf<GElement>) => boolean): DragBehavior<GElement, Datum, Subject>;
-    subject(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => Subject;
-    subject(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => Subject): DragBehavior<GElement, Datum, Subject>;
-    on(typenames: string): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => any;
+    filter(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| ArrayLike<GElement>) => boolean;
+    filter(filterFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| ArrayLike<GElement>) => boolean): DragBehavior<GElement, Datum, Subject>;
+    subject(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => Subject;
+    subject(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => Subject): DragBehavior<GElement, Datum, Subject>;
+    on(typenames: string): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => any;
     on(typenames: string, callback: null): DragBehavior<GElement, Datum, Subject>;
-    on(typenames: string, callback: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => any): DragBehavior<GElement, Datum, Subject>;
+    on(typenames: string, callback: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => any): DragBehavior<GElement, Datum, Subject>;
 }
 
 export function drag<GElement extends DraggedElementBaseType, Datum>(): DragBehavior<GElement, Datum, Datum | SubjectPosition>;
@@ -62,9 +62,9 @@ export interface D3DragEvent<GElement extends DraggedElementBaseType, Datum, Sub
     identifier: 'mouse' | number;
     active: number;
     sourceEvent: any;
-    on(typenames: string): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => void;
+    on(typenames: string): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => void;
     on(typenames: string, callback: null): D3DragEvent<GElement, Datum, Subject>;
-    on(typenames: string, callback: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => void): D3DragEvent<GElement, Datum, Subject>;
+    on(typenames: string, callback: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => void): D3DragEvent<GElement, Datum, Subject>;
 }
 
 export function dragDisable(window: Window): void;
