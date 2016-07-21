@@ -133,6 +133,10 @@ conn1.openSet('mongodb://localhost/test', 'db', {
 conn1.close().catch(function (err) {});
 conn1.collection('name').$format(999);
 conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
+interface IStatics {
+  staticMethod1: (a: number) => string;
+}
+conn1.model<{}, IStatics>('').staticMethod1;
 conn1.modelNames()[0].toLowerCase();
 conn1.config.hasOwnProperty('');
 conn1.db.bufferMaxEntries;
@@ -1339,3 +1343,13 @@ LocModel.geoSearch({}, {
   near: [1, 2],
   maxDistance: 22
 }, function (err, res) { res[0].openingTimes; });
+interface IStatics {
+  staticMethod2: (a: number) => string;
+}
+var StaticModel = mongoose.model<Location, IStatics>('Location');
+StaticModel.staticMethod2(9).toUpperCase();
+(new StaticModel()).save(function (err, doc) {
+  doc.openingTimes;
+  doc.model<Location, IStatics>('').staticMethod2;
+});
+StaticModel.model<Location, IStatics>('').staticMethod2;

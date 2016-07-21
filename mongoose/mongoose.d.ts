@@ -225,6 +225,8 @@ declare module "mongoose" {
      */
     static model<T>(name: string, schema?: _mongoose.Schema, collection?: string,
       skipInit?: boolean): _mongoose.ModelConstructor<T>;
+    static model<T, Statics>(name: string, schema?: _mongoose.Schema, collection?: string,
+      skipInit?: boolean): Statics & _mongoose.ModelConstructor<T>;
 
     /**
      * Returns an array of model names created on this instance of Mongoose.
@@ -448,6 +450,7 @@ declare module "mongoose" {
        * @returns The compiled model
        */
       model<T>(name: string, schema?: Schema, collection?: string): ModelConstructor<T>;
+      model<T, Statics>(name: string, schema?: Schema, collection?: string): Statics & ModelConstructor<T>;
 
       /** Returns an array of model names created on this connection. */
       modelNames(): string[];
@@ -2211,7 +2214,8 @@ declare module "mongoose" {
       findById(id: Object | string | number, projection: Object, options: Object,
         callback?: (err: any, res: Model<T>) => void): ModelQuery<Model<T>, T>;
 
-      model<U>(name: string): ModelConstructor<U>;
+      model<T>(name: string): ModelConstructor<T>;
+      model<T, Statics>(name: string): Statics & ModelConstructor<T>;
 
       /**
        * Creates a Query and specifies a $where condition.
@@ -2442,7 +2446,8 @@ declare module "mongoose" {
        * Returns another Model instance.
        * @param name model name
        */
-      model<U>(name: string): ModelConstructor<U>;
+      model<T>(name: string): ModelConstructor<T>;
+      model<T, Statics>(name: string): Statics & ModelConstructor<T>;
 
       /**
        * Removes this document from the db.
