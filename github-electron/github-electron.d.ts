@@ -162,6 +162,8 @@ declare namespace Electron {
 		on(event: 'gpu-process-crashed', listener: Function): this;
 		/**
 		 * Emitted when Chrome's accessibility support changes.
+		 *
+		 * Note: This API is only available on macOS and Windows.
 		 */
 		on(event: 'accessibility-support-changed', listener: (event: Event, accessibilitySupportEnabled: boolean) => void): this;
 		on(event: string, listener: Function): this;
@@ -347,6 +349,8 @@ declare namespace Electron {
 		disableHardwareAcceleration(): void;
 		/**
 		 * @returns whether current desktop environment is Unity launcher. (Linux)
+		 *
+		 * Note: This API is only available on Linux.
 		 */
 		isUnityRunning(): boolean;
 		/**
@@ -355,15 +359,19 @@ declare namespace Electron {
 		 * has been detected.
 		 * See https://www.chromium.org/developers/design-documents/accessibility for more details.
 		 *
-		 * Note: This API is only available on macOS.
+		 * Note: This API is only available on macOS and Windows.
 		 */
 		isAccessibilitySupportEnabled(): boolean;
 		/**
 		 * @returns an Object with the login item settings of the app.
+		 *
+		 * Note: This API is only available on macOS and Windows.
 		 */
 		getLoginItemSettings(): LoginItemSettings;
 		/**
 		 * Set the app's login item settings.
+		 *
+		 * Note: This API is only available on macOS and Windows.
 		 */
 		setLoginItemSettings(settings: LoginItemSettings): void;
 		commandLine: CommandLine;
@@ -443,10 +451,14 @@ declare namespace Electron {
 		 * Sets the counter badge for current app. Setting the count to 0 will hide the badge.
 		 *
 		 * @returns True when the call succeeded, otherwise returns false.
+		 *
+		 * Note: This API is only available on macOS and Linux.
 		 */
 		setBadgeCount(count: number): boolean;
 		/**
 		 * @returns The current value displayed in the counter badge.
+		 *
+		 * Note: This API is only available on macOS and Linux.
 		 */
 		getBadgeCount(): number;
 		/**
@@ -1609,10 +1621,14 @@ declare namespace Electron {
 		}, type?: ClipboardType): void;
 		/**
 		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
+		 *
+		 * Note: This API is available on macOS and Windows.
 		 */
 		readBookmark(): Bookmark;
 		/**
 		 * Writes the title and url into the clipboard as a bookmark.
+		 *
+		 * Note: This API is available on macOS and Windows.
 		 */
 		writeBookmark(title: string, url: string, type?: ClipboardType): void;
 	}
