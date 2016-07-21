@@ -2,6 +2,7 @@
 /// <reference types="chai" />
 
 import * as angular from 'angular';
+import 'angular-mocks';
 
 namespace bardTests {
     var expect = chai.expect,
