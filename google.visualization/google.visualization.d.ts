@@ -9,6 +9,12 @@ declare namespace google {
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
 
+    // https://developers.google.com/chart/interactive/docs/basic_load_libs
+    namespace charts {
+        function load(version: string, packages: Object): void;
+        function setOnLoadCallback(handler: Function): void;
+    }
+
     //https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
 
@@ -141,6 +147,7 @@ declare namespace google {
             id?: string;
             role?: string;
             pattern?: string;
+            p?: any;
         }
 
         export interface DataObject {

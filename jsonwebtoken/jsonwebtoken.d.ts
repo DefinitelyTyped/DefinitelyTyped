@@ -1,4 +1,4 @@
-﻿// Type definitions for jsonwebtoken 6.2.0
+﻿// Type definitions for jsonwebtoken 7.1.6
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -49,14 +49,17 @@ declare module "jsonwebtoken" {
         jwtid?: string;
         noTimestamp?: boolean;
         header?: Object;
+        encoding?: string;
     }
 
     export interface VerifyOptions {
         algorithms?: string[];
-        audience?: string;
-        issuer?: string;
+        audience?: string | string[];
+        clockTolerance?: number;
+        issuer?: string | string[];
         ignoreExpiration?: boolean;
         ignoreNotBefore?: boolean;
+        jwtId?: string;
         subject?: string;
         /**
          *@deprecated
