@@ -3852,22 +3852,12 @@ declare namespace Electron {
 		 * Begin subscribing for presentation events and captured frames,
 		 * The callback will be called when there is a presentation event.
 		 */
-		beginFrameSubscription(onlyDirty: boolean, callback: (
-			/**
-			 * The frameBuffer is a Buffer that contains raw pixel data.
-			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
-			 * but the actual representation depends on the endianness of the processor
-			 * (most modern processors are little-endian, on machines with big-endian
-			 * processors the data is in 32bit ARGB format).
-			 */
-			frameBuffer: Buffer,
-			/**
-			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
-			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
-			 */
-			dirtyRect: Bounds
-		) => void): void;
-		beginFrameSubscription(callback: (frameBuffer: Buffer) => void): void;
+		beginFrameSubscription(onlyDirty: boolean, callback: BeginFrameSubscriptionCallback): void;
+		/**
+		 * Begin subscribing for presentation events and captured frames,
+		 * The callback will be called when there is a presentation event.
+		 */
+		beginFrameSubscription(callback: BeginFrameSubscriptionCallback): void;
 		/**
 		 * End subscribing for frame presentation events.
 		 */
@@ -3915,6 +3905,24 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	interface BeginFrameSubscriptionCallback {
+		(
+			/**
+			 * The frameBuffer is a Buffer that contains raw pixel data.
+			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
+			 * but the actual representation depends on the endianness of the processor
+			 * (most modern processors are little-endian, on machines with big-endian
+			 * processors the data is in 32bit ARGB format).
+			 */
+			frameBuffer: Buffer,
+			/**
+			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
+			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
+			 */
+			dirtyRect?: Bounds
+		): void
 	}
 
 	interface ContextMenuParams {
