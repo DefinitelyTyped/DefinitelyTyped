@@ -83,9 +83,9 @@ declare module "mongoose" {
    * Some mongoose classes have the same name as the native JS classes
    * Keep references to native classes using a "Native" prefix
    */
-  interface NativeBuffer extends Buffer {}
-  interface NativeDate extends Date {}
-  interface NativeError extends Error {}
+  type NativeBuffer = Buffer;
+  type NativeDate = Date;
+  type NativeError = Error;
 
   /*
    * Public API
@@ -1171,7 +1171,7 @@ declare module "mongoose" {
        * section types/documentarray.js
        * http://mongoosejs.com/docs/api.html#types-documentarray-js
        */
-      class DocumentArray<T extends Document> extends Array<T> {
+      class DocumentArray<T extends Document> extends _mongoose.Types.Array<T> {
         /**
          * Creates a subdocument casted to this schema.
          * This is the same subdocument constructor used for casting.
