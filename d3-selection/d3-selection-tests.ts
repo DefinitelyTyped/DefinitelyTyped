@@ -77,7 +77,7 @@ let body: d3Selection.Selection<HTMLBodyElement, BodyDatum, HTMLElement, any> = 
 // with Group element of type BaseType and datum of type 'any' The parent element is of type 'null' with datum of type 'undefined'
 
 let baseTypeEl2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.select(baseTypeEl.node());
-// let body2: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.select(baseTypeEl.node()); // Fails, group element types not of compatible for baseTypeEl
+// let body2: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.select(baseTypeEl.node()); // fails as baseTypeEl.node() is of type cannot be assigned to HTMLElement
 
 let body3: d3Selection.Selection<HTMLBodyElement, any, null, undefined> = d3Selection.select(body.node()); // element types match, but datum is of type 'any' as it cannot be inferred from .node()
 
@@ -91,8 +91,8 @@ let body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = 
 
 // TODO: The below are related to github issue #2 (BaseType choice)
 
-// d3Selection.select(xDoc); // Note: Creates error because BaseType for selection is Element (-> e.g. classList property missing)
-// d3Selection.select(xWindow); // Note: Creates error because BaseType for selection is Element (-> e.g. classList property missing)
+d3Selection.select(xDoc);
+// d3Selection.select(xWindow); // Window cannot does not match type BaseType = Element | EnterElement
 
 
 // test top-level selectAll() -------------------------------------------------------------
@@ -118,7 +118,7 @@ let divElements: d3Selection.Selection<HTMLDivElement, DivDatum, HTMLElement, an
 // with Group element of type BaseType and datum of type 'any' The parent element is of type 'null' with datum of type 'undefined'
 
 let baseTypeElements2: d3Selection.Selection<d3Selection.BaseType, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes());
-// let divElements2: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes()); // Fails, group elements types not of compatible for baseTypeElements
+// let divElements2: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(baseTypeElements.nodes()); // fails, group elements types not of compatible for baseTypeElements
 
 let divElements3: d3Selection.Selection<HTMLDivElement, any, null, undefined> = d3Selection.selectAll(divElements.nodes()); // element types match, but datum is of type 'any' as it cannot be inferred from .nodes()
 
@@ -139,10 +139,7 @@ let circleSelection: d3Selection.Selection<SVGCircleElement, any, null, undefine
 
 // selectAll(...) accepts HTMLCollection, HTMLCollectionOf<...> argument
 
-
-// NB: The below line compiles with target ES5, but not with target ES6!!!
-
-// let documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links); // fails, as HTMLCollectionOf cannot be passed to NodeListOf
+let documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, any, null, undefined> = d3Selection.selectAll(document.links);
 
 
 
@@ -226,7 +223,7 @@ gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function () {
     return this.querySelectorAll('g'); // this of type SVGSVGElement by type inference
 });
 
-gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function (d, i, group) { // fails, because Datum type is not compatible as selectAll defaults to 'any', but gElementsOldData expects CircleDatum
+gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function (d, i, group) {
     console.log('Get <svg> Element width using "this": ', this.width.baseVal.value); // 'this' type is SVGSVGElement
     console.log('Width in datum:', d.width); // type of d is SVGDatum
     if (group.length > 1) {
@@ -236,7 +233,7 @@ gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function (d, i, gro
 });
 
 // gElementsOldData = svgEl.selectAll(function() { // fails, because Datum type is not compatible as selectAll defaults to 'any', but gElementsOldData expects CircleDatum
-//     return this.querySelectorAll('g');  
+//     return this.querySelectorAll('g');
 // });
 
 // gElementsOldData = svgEl.selectAll<SVGGElement, CircleDatum>(function() {  // fails, return type HTMLAnchorElement is not compatible with SVGGElement expected by selectAll-typing
@@ -551,9 +548,7 @@ circles2 = circles2 // returned update selection has the same type parameters as
 
 // TODO: Related to BaseType Choice issue
 
-// let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAlternative, SVGSVGElement, SVGDatum>; ,fails as current BaseType is Element
-
-let enterElements: d3Selection.Selection<SVGCircleElement, CircleDatumAlternative, SVGSVGElement, SVGDatum>;
+let enterElements: d3Selection.Selection<d3Selection.EnterElement, CircleDatumAlternative, SVGSVGElement, SVGDatum>;
 
 enterElements = circles2.enter(); // enter selection
 
@@ -585,7 +580,7 @@ exitCircles
 // exitCircles
 //     .style('opacity', function (d) {
 //         console.log('Circle Radius exit node: ', this.r.baseVal.value);
-//         return d.color === 'green' ? 1 : 0; // fails, as data type is defaulted to {}. If datum access is required, this should trigger the thought to type .exit<...>
+//          return d.color === 'green' ? 1 : 0; // fails, as data type is defaulted to {}. If datum access is required, this should trigger the thought to type .exit<...>
 //     });
 
 // MERGE ENTER + UPDATE ------------------------------------------------------------------
@@ -794,7 +789,7 @@ circles = circles.call(enforceMinRadius, 40); // check chaining return type by r
 
 // on(...) -------------------------------------------------------------------------------
 
-let listener: (this: HTMLBodyElement, datum: BodyDatum, index: number, group: Array<HTMLBodyElement> | NodeListOf<HTMLBodyElement>) => void;
+let listener: (this: HTMLBodyElement, datum: BodyDatum, index: number, group: Array<HTMLBodyElement> | ArrayLike<HTMLBodyElement>) => void;
 
 // returns 'this' selection
 body = body.on('click', listener); // check chaining return type by re-assigning
