@@ -446,7 +446,7 @@ mongooseArray.pull(5, 4, 'hi').$shift();
 mongooseArray.push([]).toFixed();
 mongooseArray.set(1, 'hi').$shift();
 mongooseArray.shift().toLowerCase();
-mongooseArray.sort(function (a: any, b: any) {
+mongooseArray.sort(function (a, b) {
   return a.length - b.length;
 }).unshift();
 mongooseArray.splice(4, 1).unshift();
