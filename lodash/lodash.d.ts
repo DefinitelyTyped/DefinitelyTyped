@@ -13477,29 +13477,26 @@ declare module _ {
 
         /**
          * @see _.sumBy
-         **/
-        sumBy<T>(
-            collection: Dictionary<T>,
-            iteratee: DictionaryIterator<T, number>
-        ): number;
-
-        /**
-         * @see _.sumBy
          */
-        sumBy<T>(
-            collection: List<number>|Dictionary<number>,
+        sumBy(
+            collection: List<{}>,
             iteratee: string
         ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy<T>(collection: List<T>|Dictionary<T>): number;
+        sumBy(
+            collection: List<number>
+        ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy(collection: List<number>|Dictionary<number>): number;
+        sumBy(
+            collection: List<{}>,
+            iteratee: Dictionary<{}>
+        ): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -13518,15 +13515,15 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
-         **/
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+         */
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): number;
 
         /**
@@ -13537,7 +13534,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
@@ -13557,14 +13554,19 @@ declare module _ {
          * @see _.sumBy
          */
         sumBy(): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
          */
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -13575,7 +13577,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): LoDashExplicitWrapper<number>;
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     /**********

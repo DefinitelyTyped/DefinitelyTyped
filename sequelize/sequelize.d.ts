@@ -3727,7 +3727,7 @@ declare module "sequelize" {
              * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
              *     which case the complete data result is returned.
              */
-            aggregate( field : string, aggregateFunction : Function, options? : AggregateOptions ) : Promise<Object>;
+            aggregate( field : string, aggregateFunction : string, options? : AggregateOptions ) : Promise<Object>;
 
             /**
              * Count the number of records matching the provided where clause.
