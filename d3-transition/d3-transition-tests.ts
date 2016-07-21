@@ -7,6 +7,7 @@
  */
 
 import {
+    ArrayLike,
     selection,
     select,
     selectAll,
@@ -250,7 +251,7 @@ exitTransition = exitTransition.styleTween('fill', function (d, i, group) {
     return interpolateRgb(c, d.color); // datum type is CircleDatum
 });
 
-let tweenFnAccessor: (this: SVGCircleElement, datum?: CircleDatum, i?: number, group?: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => ((t: number) => void);
+let tweenFnAccessor: (this: SVGCircleElement, datum?: CircleDatum, i?: number, group?: SVGCircleElement[] | ArrayLike<SVGCircleElement>) => ((t: number) => void);
 
 
 // chainable
@@ -286,7 +287,7 @@ exitTransition.remove();
 // Test Event Handling
 // --------------------------------------------------------------------------
 
-let listener: (this: SVGCircleElement, datum: CircleDatum, index: number, group: Array<SVGCircleElement> | NodeListOf<SVGCircleElement>) => void;
+let listener: (this: SVGCircleElement, datum: CircleDatum, index: number, group: Array<SVGCircleElement> | ArrayLike<SVGCircleElement>) => void;
 
 // returns 'this' transition
 enterTransition = enterTransition.on('end', listener); // check chaining return type by re-assigning
@@ -309,7 +310,7 @@ enterTransition = enterTransition.on('end', null); // check chaining return type
 
 // each() -------------------------------------------------------------------------------
 
-// each(valueFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | NodeListOf<GElement>) => void): Transition<GElement, Datum, PElement, PDatum>;
+// each(valueFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => void): Transition<GElement, Datum, PElement, PDatum>;
 
 // returns 'this' transition
 enterTransition = enterTransition.each(function (d, i, group) {  // check chaining return type by re-assigning
