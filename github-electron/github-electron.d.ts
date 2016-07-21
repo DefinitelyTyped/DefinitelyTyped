@@ -3911,44 +3911,44 @@ declare namespace Electron {
 		 */
 		mediaFlags: {
 			/**
-			 * Wether the media element has crashed.
+			 * Whether the media element has crashed.
 			 */
 			inError: boolean;
 			/**
-			 * Wether the media element is paused.
+			 * Whether the media element is paused.
 			 */
 			isPaused: boolean;
 			/**
-			 * Wether the media element is muted.
+			 * Whether the media element is muted.
 			 */
 			isMuted: boolean;
 			/**
-			 * Wether the media element has audio.
+			 * Whether the media element has audio.
 			 */
 			hasAudio: boolean;
 			/**
-			 * Wether the media element is looping.
+			 * Whether the media element is looping.
 			 */
 			isLooping: boolean;
 			/**
-			 * Wether the media element's controls are visible.
+			 * Whether the media element's controls are visible.
 			 */
 			isControlsVisible: boolean;
 			/**
-			 * Wether the media element's controls are toggleable.
+			 * Whether the media element's controls are toggleable.
 			 */
 			canToggleControls: boolean;
 			/**
-			 * Wether the media element can be rotated.
+			 * Whether the media element can be rotated.
 			 */
 			canRotate: boolean;
 		}
 		/**
-		 * Wether the context menu was invoked on an image which has non-empty contents.
+		 * Whether the context menu was invoked on an image which has non-empty contents.
 		 */
 		hasImageContents: boolean;
 		/**
-		 * Wether the context is editable.
+		 * Whether the context is editable.
 		 */
 		isEditable: boolean;
 		/**
@@ -3956,31 +3956,31 @@ declare namespace Electron {
 		 */
 		editFlags: {
 			/**
-			 * Wether the renderer believes it can undo.
+			 * Whether the renderer believes it can undo.
 			 */
 			canUndo: boolean;
 			/**
-			 * Wether the renderer believes it can redo.
+			 * Whether the renderer believes it can redo.
 			 */
 			canRedo: boolean;
 			/**
-			 * Wether the renderer believes it can cut.
+			 * Whether the renderer believes it can cut.
 			 */
 			canCut: boolean;
 			/**
-			 * Wether the renderer believes it can copy
+			 * Whether the renderer believes it can copy
 			 */
 			canCopy: boolean;
 			/**
-			 * Wether the renderer believes it can paste.
+			 * Whether the renderer believes it can paste.
 			 */
 			canPaste: boolean;
 			/**
-			 * Wether the renderer believes it can delete.
+			 * Whether the renderer believes it can delete.
 			 */
 			canDelete: boolean;
 			/**
-			 * Wether the renderer believes it can select all.
+			 * Whether the renderer believes it can select all.
 			 */
 			canSelectAll: boolean;
 		}
