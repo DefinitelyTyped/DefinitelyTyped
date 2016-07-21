@@ -244,51 +244,55 @@ declare module "mongoose" {
     static set(key: string, value: any): void;
   }
 
-  /** Interfaces for all classes in mongoose used for type-checking. */
+  /** All the types that are exposed for type checking. */
   namespace mongoose {
-    interface Aggregate<T> extends _mongoose.Aggregate<T> {}
-    interface CastError extends _mongoose.CastError {}
-    interface Collection extends _mongoose.Collection {}
-    interface Connection extends _mongoose.Connection {}
-    interface Document extends _mongoose.Document {}
-    interface Error extends _mongoose.Error {}
-    interface ValidationError extends _mongoose.ValidationError {}
+    type Aggregate<T> = _mongoose.Aggregate<T>;
+    type CastError = _mongoose.CastError;
+    type Collection = _mongoose.Collection;
+    type Connection = _mongoose.Connection;
+    type Document = _mongoose.Document;
+    type Error = _mongoose.Error;
+    type ValidationError = _mongoose.ValidationError;
+
+    /** Document created from model constructors. */
     type model<T> = _mongoose.Model<T>;
+    /** Model Constructor. */
     type Model<T> = _mongoose.ModelConstructor<T>;
+
     type Mongoose = typeof mongoose;
-    interface Promise<T> extends _mongoose._MongoosePromise<T> {}
-    interface Query<T> extends _mongoose.Query<T> {}
-    interface QueryCursor<T> extends _mongoose.QueryCursor<T> {}
-    interface QueryStream extends _mongoose.QueryStream {}
-    interface Schema extends _mongoose.Schema {}
+    type Promise<T> = _mongoose._MongoosePromise<T>;
+    type Query<T> = _mongoose.Query<T>;
+    type QueryCursor<T> = _mongoose.QueryCursor<T>;
+    type QueryStream = _mongoose.QueryStream;
+    type Schema = _mongoose.Schema;
     namespace Schema {
       namespace Types {
-        interface Array extends _mongoose.Schema._Types.Array {}
-        interface String extends _mongoose.Schema._Types.String {}
-        interface DocumentArray extends _mongoose.Schema._Types.DocumentArray {}
-        interface Number extends _mongoose.Schema._Types.Number {}
-        interface Date extends _mongoose.Schema._Types.Date {}
-        interface Buffer extends _mongoose.Schema._Types.Buffer {}
-        interface Boolean extends _mongoose.Schema._Types.Boolean {}
-        interface Bool extends _mongoose.Schema._Types.Boolean {}
-        interface ObjectId extends _mongoose.Schema._Types.ObjectId {}
-        interface Oid extends _mongoose.Schema._Types.ObjectId {}
-        interface Mixed extends _mongoose.Schema._Types.Mixed {}
-        interface Object extends _mongoose.Schema._Types.Mixed {}
-        interface Embedded extends _mongoose.Schema._Types.Embedded {}
+        type Array = _mongoose.Schema._Types.Array;
+        type String = _mongoose.Schema._Types.String;
+        type DocumentArray = _mongoose.Schema._Types.DocumentArray;
+        type Number = _mongoose.Schema._Types.Number;
+        type Date = _mongoose.Schema._Types.Date;
+        type Buffer = _mongoose.Schema._Types.Buffer;
+        type Boolean = _mongoose.Schema._Types.Boolean;
+        type Bool = _mongoose.Schema._Types.Boolean;
+        type ObjectId = _mongoose.Schema._Types.ObjectId;
+        type Oid = _mongoose.Schema._Types.ObjectId;
+        type Mixed = _mongoose.Schema._Types.Mixed;
+        type Object = _mongoose.Schema._Types.Mixed;
+        type Embedded = _mongoose.Schema._Types.Embedded;
       }
     }
-    interface SchemaType extends _mongoose.SchemaType {}
+    type SchemaType = _mongoose.SchemaType;
     namespace Types {
-      interface Subdocument extends _mongoose.Types.Subdocument {}
-      interface Array<T> extends _mongoose.Types.Array<T> {}
-      interface DocumentArray<T extends _mongoose.Document> extends _mongoose.Types.DocumentArray<T> {}
-      interface Buffer extends _mongoose.Types.Buffer {}
-      interface ObjectId extends _mongoose.Types.ObjectId {}
-      interface Embedded extends _mongoose.Types.Embedded {}
+      type Subdocument = _mongoose.Types.Subdocument;
+      type Array<T> = _mongoose.Types.Array<T>;
+      type DocumentArray<T extends _mongoose.Document> = _mongoose.Types.DocumentArray<T>;
+      type Buffer = _mongoose.Types.Buffer;
+      type ObjectId = _mongoose.Types.ObjectId;
+      type Embedded = _mongoose.Types.Embedded;
     }
-    interface VirtualType extends _mongoose.VirtualType {}
-    interface ConnectionOptions extends _mongoose.MongooseConnectOptions {}
+    type VirtualType = _mongoose.VirtualType;
+    type ConnectionOptions = _mongoose.MongooseConnectOptions;
   }
 
   /*
