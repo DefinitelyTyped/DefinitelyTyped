@@ -14,6 +14,15 @@
     },
     "files": [
         "index.d.ts",
-        "history-tests.ts"
+        "history-tests.ts",
+        "lib/actions.d.ts",
+        "lib/createBrowserHistory.d.ts",
+        "lib/createHashHistory.d.ts",
+        "lib/createLocation.d.ts",
+        "lib/createMemoryHistory.d.ts",
+        "lib/DOMUtils.d.ts",
+        "lib/useBasename.d.ts",
+        "lib/useBeforeUnload.d.ts",
+        "lib/useQueries.d.ts"
     ]
 }

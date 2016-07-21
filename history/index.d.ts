@@ -117,12 +117,12 @@ export interface Module {
     };
 }
 
-export { default as createHistory } from "history/lib/createBrowserHistory";
-export { default as createHashHistory } from "history/lib/createHashHistory";
-export { default as createMemoryHistory } from "history/lib/createMemoryHistory";
-export { default as createLocation } from "history/lib/createLocation";
-export { default as useBasename } from "history/lib/useBasename";
-export { default as useBeforeUnload } from "history/lib/useBeforeUnload";
-export { default as useQueries } from "history/lib/useQueries";
-import * as Actions from "history/lib/actions";
+export { default as createHistory } from "./lib/createBrowserHistory";
+export { default as createHashHistory } from "./lib/createHashHistory";
+export { default as createMemoryHistory } from "./lib/createMemoryHistory";
+export { default as createLocation } from "./lib/createLocation";
+export { default as useBasename } from "./lib/useBasename";
+export { default as useBeforeUnload } from "./lib/useBeforeUnload";
+export { default as useQueries } from "./lib/useQueries";
+import * as Actions from "./lib/actions";
 export { Actions };
