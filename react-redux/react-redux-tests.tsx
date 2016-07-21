@@ -11,6 +11,7 @@ import { Router, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
+import * as History from 'history';
 
 //
 // Quick Start
