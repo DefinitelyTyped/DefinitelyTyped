@@ -70,3 +70,7 @@ declare module "aphrodite" {
 
     export var StyleSheetTestUtils: StyleSheetTestUtilsStatic;
 }
+
+declare module "aphrodite/no-important" {
+    export * from "aphrodite";
+}
