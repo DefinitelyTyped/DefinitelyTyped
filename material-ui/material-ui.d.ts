@@ -7228,7 +7228,7 @@ declare module 'material-ui/utils/withWidth' {
       mediumWidth?: number;
       resizeInterval?: number;
   }
-  export default function withWidth<C extends __React.ComponentClass<any> | __React.StatelessComponent<any>>(options?: Options): (component: T) => T;
+  export default function withWidth<C extends __React.ComponentClass<any> | __React.StatelessComponent<any>>(options?: Options): (component: C) => C;
 }
 
 declare namespace __MaterialUI.Styles {
