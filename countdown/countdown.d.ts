@@ -65,5 +65,5 @@ declare module 'countdown' {
       setFormat(format: Format): void;
   }
 
-  export var countdown: CountdownStatic;
+  export let countdown: CountdownStatic;
 }
