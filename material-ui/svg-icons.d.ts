@@ -1,6 +1,6 @@
 // Type definitions for material-ui v0.15.2
 // Project: https://github.com/callemall/material-ui
-// Definitions by: "Isman Usoh <https://github.com/isman-usoh>"
+// Definitions by: Isman Usoh <https://github.com/isman-usoh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='material-ui.d.ts' />
