@@ -83,9 +83,9 @@ declare module "mongoose" {
    * Some mongoose classes have the same name as the native JS classes
    * Keep references to native classes using a "Native" prefix
    */
-  interface NativeBuffer extends Buffer {}
-  interface NativeDate extends Date {}
-  interface NativeError extends Error {}
+  type NativeBuffer = Buffer;
+  type NativeDate = Date;
+  type NativeError = Error;
 
   /*
    * Public API
@@ -225,6 +225,8 @@ declare module "mongoose" {
      */
     static model<T>(name: string, schema?: _mongoose.Schema, collection?: string,
       skipInit?: boolean): _mongoose.ModelConstructor<T>;
+    static model<T, Statics>(name: string, schema?: _mongoose.Schema, collection?: string,
+      skipInit?: boolean): Statics & _mongoose.ModelConstructor<T>;
 
     /**
      * Returns an array of model names created on this instance of Mongoose.
@@ -244,51 +246,55 @@ declare module "mongoose" {
     static set(key: string, value: any): void;
   }
 
-  /** Interfaces for all classes in mongoose used for type-checking. */
+  /** All the types that are exposed for type checking. */
   namespace mongoose {
-    interface Aggregate<T> extends _mongoose.Aggregate<T> {}
-    interface CastError extends _mongoose.CastError {}
-    interface Collection extends _mongoose.Collection {}
-    interface Connection extends _mongoose.Connection {}
-    interface Document extends _mongoose.Document {}
-    interface Error extends _mongoose.Error {}
-    interface ValidationError extends _mongoose.ValidationError {}
+    type Aggregate<T> = _mongoose.Aggregate<T>;
+    type CastError = _mongoose.CastError;
+    type Collection = _mongoose.Collection;
+    type Connection = _mongoose.Connection;
+    type Document = _mongoose.Document;
+    type Error = _mongoose.Error;
+    type ValidationError = _mongoose.ValidationError;
+
+    /** Document created from model constructors. */
     type model<T> = _mongoose.Model<T>;
+    /** Model Constructor. */
     type Model<T> = _mongoose.ModelConstructor<T>;
+
     type Mongoose = typeof mongoose;
-    interface Promise<T> extends MongoosePromise<T> {}
-    interface Query<T> extends _mongoose.Query<T> {}
-    interface QueryCursor<T> extends _mongoose.QueryCursor<T> {}
-    interface QueryStream extends _mongoose.QueryStream {}
-    interface Schema extends _mongoose.Schema {}
+    type Promise<T> = _mongoose._MongoosePromise<T>;
+    type Query<T> = _mongoose.Query<T>;
+    type QueryCursor<T> = _mongoose.QueryCursor<T>;
+    type QueryStream = _mongoose.QueryStream;
+    type Schema = _mongoose.Schema;
     namespace Schema {
       namespace Types {
-        interface Array extends _mongoose.Schema._Types.Array {}
-        interface String extends _mongoose.Schema._Types.String {}
-        interface DocumentArray extends _mongoose.Schema._Types.DocumentArray {}
-        interface Number extends _mongoose.Schema._Types.Number {}
-        interface Date extends _mongoose.Schema._Types.Date {}
-        interface Buffer extends _mongoose.Schema._Types.Buffer {}
-        interface Boolean extends _mongoose.Schema._Types.Boolean {}
-        interface Bool extends _mongoose.Schema._Types.Boolean {}
-        interface ObjectId extends _mongoose.Schema._Types.ObjectId {}
-        interface Oid extends _mongoose.Schema._Types.ObjectId {}
-        interface Mixed extends _mongoose.Schema._Types.Mixed {}
-        interface Object extends _mongoose.Schema._Types.Mixed {}
-        interface Embedded extends _mongoose.Schema._Types.Embedded {}
+        type Array = _mongoose.Schema._Types.Array;
+        type String = _mongoose.Schema._Types.String;
+        type DocumentArray = _mongoose.Schema._Types.DocumentArray;
+        type Number = _mongoose.Schema._Types.Number;
+        type Date = _mongoose.Schema._Types.Date;
+        type Buffer = _mongoose.Schema._Types.Buffer;
+        type Boolean = _mongoose.Schema._Types.Boolean;
+        type Bool = _mongoose.Schema._Types.Boolean;
+        type ObjectId = _mongoose.Schema._Types.ObjectId;
+        type Oid = _mongoose.Schema._Types.ObjectId;
+        type Mixed = _mongoose.Schema._Types.Mixed;
+        type Object = _mongoose.Schema._Types.Mixed;
+        type Embedded = _mongoose.Schema._Types.Embedded;
       }
     }
-    interface SchemaType extends _mongoose.SchemaType {}
+    type SchemaType = _mongoose.SchemaType;
     namespace Types {
-      interface Subdocument extends _mongoose.Types.Subdocument {}
-      interface Array<T> extends _mongoose.Types.Array<T> {}
-      interface DocumentArray<T extends _mongoose.Document> extends _mongoose.Types.DocumentArray<T> {}
-      interface Buffer extends _mongoose.Types.Buffer {}
-      interface ObjectId extends _mongoose.Types.ObjectId {}
-      interface Embedded extends _mongoose.Types.Embedded {}
+      type Subdocument = _mongoose.Types.Subdocument;
+      type Array<T> = _mongoose.Types.Array<T>;
+      type DocumentArray<T extends _mongoose.Document> = _mongoose.Types.DocumentArray<T>;
+      type Buffer = _mongoose.Types.Buffer;
+      type ObjectId = _mongoose.Types.ObjectId;
+      type Embedded = _mongoose.Types.Embedded;
     }
-    interface VirtualType extends _mongoose.VirtualType {}
-    interface ConnectionOptions extends _mongoose.MongooseConnectOptions {}
+    type VirtualType = _mongoose.VirtualType;
+    type ConnectionOptions = _mongoose.MongooseConnectOptions;
   }
 
   /*
@@ -305,13 +311,13 @@ declare module "mongoose" {
        * and .disconnect().then() are viable.
        */
       static then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
-        onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
+        onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
 
       /**
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
+      static catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
     }
 
     class CastError extends _mongoose.Error {
@@ -422,7 +428,7 @@ declare module "mongoose" {
         callback?: (err: any) => void): any;
 
       /** Closes the connection */
-      close(callback?: (err: any) => void): MongoosePromise<void>;
+      close(callback?: (err: any) => void): _MongoosePromise<void>;
 
       /**
        * Retrieves a collection, creating it if not cached.
@@ -444,6 +450,7 @@ declare module "mongoose" {
        * @returns The compiled model
        */
       model<T>(name: string, schema?: Schema, collection?: string): ModelConstructor<T>;
+      model<T, Statics>(name: string, schema?: Schema, collection?: string): Statics & ModelConstructor<T>;
 
       /** Returns an array of model names created on this connection. */
       modelNames(): string[];
@@ -600,7 +607,7 @@ declare module "mongoose" {
       constructor(query: Query<T>, options: Object): QueryCursor<T>;
 
       /** Marks this cursor as closed. Will stop streaming and subsequent calls to next() will error. */
-      close(callback?: (error: any, result: any) => void): MongoosePromise<any>;
+      close(callback?: (error: any, result: any) => void): _MongoosePromise<any>;
 
       /**
        * Execute fn for every document in the cursor. If fn returns a promise,
@@ -608,13 +615,13 @@ declare module "mongoose" {
        * Returns a promise that resolves when done.
        * @param callback executed when all docs have been processed
        */
-      eachAsync(fn: (doc: Model<T>) => any, callback?: (err: any) => void): MongoosePromise<Model<T>>;
+      eachAsync(fn: (doc: Model<T>) => any, callback?: (err: any) => void): _MongoosePromise<Model<T>>;
 
       /**
        * Get the next document from this cursor. Will return null when there are
        * no documents left.
        */
-      next(callback?: (err: any) => void): MongoosePromise<any>;
+      next(callback?: (err: any) => void): _MongoosePromise<any>;
     }
 
     /*
@@ -871,7 +878,7 @@ declare module "mongoose" {
        * Useful for ES2015 integration.
        * @returns promise that resolves to the document when population is done
        */
-      execPopulate(): MongoosePromise<this>;
+      execPopulate(): _MongoosePromise<this>;
 
       /**
        * Returns the value of a path.
@@ -990,8 +997,8 @@ declare module "mongoose" {
        * @param optional options internal options
        * @param callback callback called after validation completes, passing an error if one occurred
        */
-      validate(callback?: (err: any) => void): MongoosePromise<void>;
-      validate(optional: Object, callback?: (err: any) => void): MongoosePromise<void>;
+      validate(callback?: (err: any) => void): _MongoosePromise<void>;
+      validate(optional: Object, callback?: (err: any) => void): _MongoosePromise<void>;
 
       /**
        * Executes registered validation rules (skipping asynchronous validators) for this document.
@@ -1141,7 +1148,7 @@ declare module "mongoose" {
          * potentially overwritting any changes that happen between when you retrieved the object
          * and when you save it.
          */
-        sort(compare?: Function): T[];
+        sort(compareFn?: (a: T, b: T) => number): T[];
 
         /**
          * Wraps Array#splice with proper change tracking and casting.
@@ -1167,7 +1174,7 @@ declare module "mongoose" {
        * section types/documentarray.js
        * http://mongoosejs.com/docs/api.html#types-documentarray-js
        */
-      class DocumentArray<T extends Document> extends Array<T> {
+      class DocumentArray<T extends Document> extends _mongoose.Types.Array<T> {
         /**
          * Creates a subdocument casted to this schema.
          * This is the same subdocument constructor used for casting.
@@ -1310,7 +1317,7 @@ declare module "mongoose" {
        * resolved with either the doc(s) or rejected with the error.
        * Like .then(), but only takes a rejection handler.
        */
-      catch<TRes>(reject?: (err: any) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
+      catch<TRes>(reject?: (err: any) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
 
       /**
        * DEPRECATED Alias for circle
@@ -1363,8 +1370,8 @@ declare module "mongoose" {
       equals(val: Object): this;
 
       /** Executes the query */
-      exec(callback?: (err: any, res: T) => void): MongoosePromise<T>;
-      exec(operation: string | Function, callback?: (err: any, res: T) => void): MongoosePromise<T>;
+      exec(callback?: (err: any, res: T) => void): _MongoosePromise<T>;
+      exec(operation: string | Function, callback?: (err: any, res: T) => void): _MongoosePromise<T>;
 
       /** Specifies an $exists condition */
       exists(val?: boolean): this;
@@ -1655,7 +1662,7 @@ declare module "mongoose" {
 
       /** Executes this query and returns a promise */
       then<TRes>(resolve?: (res: T) => void | TRes | PromiseLike<TRes>,
-        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
+        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
 
       /**
        * Converts this query to a customized, reusable query
@@ -1998,10 +2005,10 @@ declare module "mongoose" {
 
       // If cursor option is on, could return an object
       /** Executes the aggregate pipeline on the currently bound Model. */
-      exec(callback?: (err: any, result: T) => void): MongoosePromise<T> | any;
+      exec(callback?: (err: any, result: T) => void): _MongoosePromise<T> | any;
 
       /** Execute the aggregation with explain */
-      explain(callback?: (err: any, result: T) => void): MongoosePromise<T>;
+      explain(callback?: (err: any, result: T) => void): _MongoosePromise<T>;
 
       /**
        * Appends a new custom $group operator to this aggregate pipeline.
@@ -2076,7 +2083,7 @@ declare module "mongoose" {
 
       /** Provides promise for aggregate. */
       then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
-        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>
+        reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>
 
       /**
        * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2144,6 +2151,25 @@ declare module "mongoose" {
         type?: string): this;
     }
 
+    /**
+     * section promise.js
+     * http://mongoosejs.com/docs/api.html#promise-js
+     *
+     * You must assign a promise library:
+     *
+     * 1. To use mongoose's default promise library:
+     *    Install mongoose-promise.d.ts
+     *
+     * 2. To use native ES6 promises, add this line to your main .d.ts file:
+     *    type MongoosePromise<T> = Promise<T>;
+     *
+     * 3. To use another promise library (for example q):
+     *    Install q.d.ts
+     *    Then add this line to your main .d.ts file:
+     *    type MongoosePromise<T> = Q.Promise<T>;
+     */
+    type _MongoosePromise<T> = MongoosePromise<T>;
+
     /*
      * section model.js
      * http://mongoosejs.com/docs/api.html#model-js
@@ -2188,7 +2214,8 @@ declare module "mongoose" {
       findById(id: Object | string | number, projection: Object, options: Object,
         callback?: (err: any, res: Model<T>) => void): ModelQuery<Model<T>, T>;
 
-      model<U>(name: string): ModelConstructor<U>;
+      model<T>(name: string): ModelConstructor<T>;
+      model<T, Statics>(name: string): Statics & ModelConstructor<T>;
 
       /**
        * Creates a Query and specifies a $where condition.
@@ -2203,7 +2230,7 @@ declare module "mongoose" {
        * @param ... aggregation pipeline operator(s) or operator array
        */
       aggregate(...aggregations: Object[]): Aggregate<Object[]>;
-      aggregate(...aggregationsWithCallback: Object[]): MongoosePromise<Object[]>;
+      aggregate(...aggregationsWithCallback: Object[]): _MongoosePromise<Object[]>;
 
       /** Counts number of matching documents in a database collection. */
       count(conditions: Object, callback?: (err: any, count: number) => void): Query<number>;
@@ -2213,9 +2240,9 @@ declare module "mongoose" {
        * does new MyModel(doc).save() for every doc in docs.
        * Triggers the save() hook.
        */
-      create(docs: any[], callback?: (err: any, res: Model<T>[]) => void): MongoosePromise<Model<T>[]>;
-      create(...docs: Object[]): MongoosePromise<Model<T>>;
-      create(...docsWithCallback: Object[]): MongoosePromise<Model<T>>;
+      create(docs: any[], callback?: (err: any, res: Model<T>[]) => void): _MongoosePromise<Model<T>[]>;
+      create(...docs: Object[]): _MongoosePromise<Model<T>>;
+      create(...docsWithCallback: Object[]): _MongoosePromise<Model<T>>;
 
       /**
        * Adds a discriminator type.
@@ -2234,8 +2261,8 @@ declare module "mongoose" {
        * @param options internal options
        * @param cb optional callback
        */
-      ensureIndexes(callback?: (err: any) => void): MongoosePromise<void>;
-      ensureIndexes(options: Object, callback?: (err: any) => void): MongoosePromise<void>;
+      ensureIndexes(callback?: (err: any) => void): _MongoosePromise<void>;
+      ensureIndexes(options: Object, callback?: (err: any) => void): _MongoosePromise<void>;
 
       /**
        * Finds documents.
@@ -2370,9 +2397,9 @@ declare module "mongoose" {
        * document.
        * This function does not trigger save middleware.
        */
-      insertMany(docs: any[], callback?: (error: any, docs: Model<T>[]) => void): MongoosePromise<Model<T>[]>;
-      insertMany(doc: any, callback?: (error: any, doc: Model<T>) => void): MongoosePromise<Model<T>>;
-      insertMany(...docsWithCallback: Object[]): MongoosePromise<Model<T>>;
+      insertMany(docs: any[], callback?: (error: any, docs: Model<T>[]) => void): _MongoosePromise<Model<T>[]>;
+      insertMany(doc: any, callback?: (error: any, doc: Model<T>) => void): _MongoosePromise<Model<T>>;
+      insertMany(...docsWithCallback: Object[]): _MongoosePromise<Model<T>>;
 
       /**
        * Executes a mapReduce command.
@@ -2382,7 +2409,7 @@ declare module "mongoose" {
       mapReduce<Key, Value>(
         o: ModelMapReduceOption<Model<T>, Key, Value>,
         callback?: (err: any, res: any) => void
-      ): MongoosePromise<any>;
+      ): _MongoosePromise<any>;
 
       /**
        * Populates document references.
@@ -2391,9 +2418,9 @@ declare module "mongoose" {
        * @param callback Optional callback, executed upon completion. Receives err and the doc(s).
        */
       populate(docs: Object[], options: ModelPopulateOptions | ModelPopulateOptions[],
-        callback?: (err: any, res: Model<T>[]) => void): MongoosePromise<Model<T>[]>;
+        callback?: (err: any, res: Model<T>[]) => void): _MongoosePromise<Model<T>[]>;
       populate<T>(docs: Object, options: ModelPopulateOptions | ModelPopulateOptions[],
-        callback?: (err: any, res: Model<T>) => void): MongoosePromise<Model<T>>;
+        callback?: (err: any, res: Model<T>) => void): _MongoosePromise<Model<T>>;
 
       /** Removes documents from the collection. */
       remove(conditions: Object, callback?: (err: any) => void): Query<void>;
@@ -2419,13 +2446,14 @@ declare module "mongoose" {
        * Returns another Model instance.
        * @param name model name
        */
-      model<U>(name: string): ModelConstructor<U>;
+      model<T>(name: string): ModelConstructor<T>;
+      model<T, Statics>(name: string): Statics & ModelConstructor<T>;
 
       /**
        * Removes this document from the db.
        * @param fn optional callback
        */
-      remove(fn?: (err: any, product: Model<T>) => void): MongoosePromise<Model<T>>;
+      remove(fn?: (err: any, product: Model<T>) => void): _MongoosePromise<Model<T>>;
 
       /**
        * Saves this document.
@@ -2434,7 +2462,7 @@ declare module "mongoose" {
        * @param options.validateBeforeSave set to false to save without validating.
        * @param fn optional callback
        */
-      save(fn?: (err: any, product: Model<T>, numAffected: number) => void): MongoosePromise<Model<T>>;
+      save(fn?: (err: any, product: Model<T>, numAffected: number) => void): _MongoosePromise<Model<T>>;
 
       /** Base Mongoose instance the model uses. */
       base: typeof mongoose;
