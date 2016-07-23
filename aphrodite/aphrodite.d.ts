@@ -30,7 +30,7 @@ declare module "aphrodite" {
     /**
      * Get class names from passed styles
      */
-    export function css(...styles: React.CSSProperties[]): string;
+    export function css(...styles: any[]): string;
 
     interface StaticRendererResult {
         html: string;
