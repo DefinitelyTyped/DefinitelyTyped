@@ -7304,7 +7304,7 @@ declare namespace chrome.webRequest {
 
 	interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
 		/** The authentication scheme, e.g. Basic or Digest. */
-		schema: string;
+		scheme: string;
 		/** The authentication realm provided by the server, if there is one. */
 		realm?: string;
 		/** The server requesting authentication. */
