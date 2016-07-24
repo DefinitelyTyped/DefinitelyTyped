@@ -7233,6 +7233,7 @@ declare namespace chrome.webRequest {
 	}
 
 	interface ResourceRequest {
+		url: string;
 		/** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
         requestId: string;
 		/** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
@@ -7251,7 +7252,6 @@ declare namespace chrome.webRequest {
     }
 
 	interface WebRequestDetails extends ResourceRequest {
-		url: string;
 		/** Standard HTTP method. */
 		method: string;
     }
