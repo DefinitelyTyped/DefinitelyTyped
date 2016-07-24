@@ -1087,10 +1087,10 @@ declare namespace Parse {
 }
 
 declare module "parse/node" {
-    export = { Parse };
+    export = Parse;
 }
 
 declare module "parse" {
-    import parse = require("parse/node");
+    import * as parse from "parse/node";
     export = parse
 }
