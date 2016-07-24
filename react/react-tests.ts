@@ -211,8 +211,15 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNullContainer: ModernComponent =
+    ReactDOM.render(element, null);
+
+var componentElementOrNull: ModernComponent = 
+    ReactDOM.render(element, document.getElementById("anelement"));    
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
+var componentNoStateElementOrNull: ModernComponentNoState =
+    ReactDOM.render(elementNoState, document.getElementById("anelement"));
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
