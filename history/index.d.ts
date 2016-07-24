@@ -1,63 +1,59 @@
-// Type definitions for history v2.0.0
-// Project: https://github.com/rackt/history
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>
+// Type definitions for history v3.0.0
+// Project: https://github.com/ReactTraining/history
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Viacheslav Slinko <https://github.com/vslinko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// types based on https://github.com/rackt/history/blob/master/docs/Terms.md
+// types based on https://github.com/ReactTraining/history/blob/master/docs/Glossary.md
 
-export as namespace History;
+export as namespace ReactTrainingHistory;
 
-export type Action = string;
-export type BeforeUnloadHook = () => string | boolean;
-export type CreateHistory<T> = (options?: HistoryOptions) => T;
-export type CreateHistoryEnhancer<T, E> = (createHistory: CreateHistory<T>) => CreateHistory<T & E>;
+export type Action = 'PUSH' | 'REPLACE' | 'POP';
+export type BeforeUnloadHook = () => string | void;
+export type CreateHistory<THistory, THistoryOptions> = (options?: THistoryOptions) => THistory;
+export type CreateHistoryEnhancer<THistory, THistoryOptions, THistoryMixin, THistoryOptionsMixin> = (createHistory: CreateHistory<THistory, THistoryOptions>) => CreateHistory<THistory & THistoryMixin, THistoryOptions & THistoryOptionsMixin>;
+
+export type Hash = string;
 
 export interface History {
+    getCurrentLocation(): Location;
     listenBefore(hook: TransitionHook): () => void;
     listen(listener: LocationListener): () => void;
     transitionTo(location: Location): void;
-    push(path: LocationDescriptor): void;
-    replace(path: LocationDescriptor): void;
+    push(location: LocationDescriptor): void;
+    replace(location: LocationDescriptor): void;
     go(n: number): void;
     goBack(): void;
     goForward(): void;
     createKey(): LocationKey;
-    createPath(path: LocationDescriptor): Path;
-    createHref(path: LocationDescriptor): Href;
-    createLocation(path?: LocationDescriptor, action?: Action, key?: LocationKey): Location;
-
-    /** @deprecated use a location descriptor instead */
-    createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location;
-    /** @deprecated use location.key to save state instead */
-    pushState(state: LocationState, path: Path): void;
-    /** @deprecated use location.key to save state instead */
-    replaceState(state: LocationState, path: Path): void;
-    /** @deprecated use location.key to save state instead */
-    setState(state: LocationState): void;
-    /** @deprecated use listenBefore instead */
-    registerTransitionHook(hook: TransitionHook): void;
-    /** @deprecated use the callback returned from listenBefore instead */
-    unregisterTransitionHook(hook: TransitionHook): void;
+    createPath(location: LocationDescriptor): Path;
+    createHref(location: LocationDescriptor): Href;
+    createLocation(location?: LocationDescriptor, action?: Action, key?: LocationKey): Location;
 }
 
-export type HistoryOptions = {
-    getCurrentLocation?: () => Location;
-    finishTransition?: (nextLocation: Location) => boolean;
-    saveState?: (key: LocationKey, state: LocationState) => void;
-    go?: (n: number) => void;
+export interface HistoryOptions {
     getUserConfirmation?: (message: string, callback: (result: boolean) => void) => void;
     keyLength?: number;
-    queryKey?: string | boolean;
-    stringifyQuery?: (obj: any) => string;
-    parseQueryString?: (str: string) => any;
-    basename?: string;
-    entries?: string | [any];
+}
+
+export interface BrowserHistoryOptions extends HistoryOptions {
+    forceRefresh?: boolean;
+}
+
+export interface HashHistoryOptions extends HistoryOptions {
+    queryKey?: string;
+    hashType?: string;
+}
+
+export interface MemoryHistoryOptionsObject extends HistoryOptions {
+    entries: LocationDescriptor[];
     current?: number;
 }
 
-export type Href = string
+export type MemoryHistoryOptions = MemoryHistoryOptionsObject | LocationDescriptor[] | Path;
 
-export type Location = {
+export type Href = string;
+
+export interface Location {
     pathname: Pathname;
     search: Search;
     query: Query;
@@ -65,64 +61,45 @@ export type Location = {
     action: Action;
     key: LocationKey;
     basename?: string;
-};
+}
 
-export type LocationDescriptorObject = {
+export interface LocationDescriptorObject {
     pathname?: Pathname;
     search?: Search;
     query?: Query;
     state?: LocationState;
-};
+}
 
 export type LocationDescriptor = LocationDescriptorObject | Path;
+
 export type LocationKey = string;
 export type LocationListener = (location: Location) => void;
 export type LocationState = Object;
-export type Path = string // Pathname + QueryString;
+export type Path = string; // Pathname + Search + Hash
 export type Pathname = string;
 export type Query = Object;
-export type QueryString = string;
 export type Search = string;
 
-export type TransitionHook = (location: Location, callback: (result: any) => void) => any
+export type TransitionHook = (location: Location, callback: (result: any) => void) => any;
 
+export interface BasenameHistoryOptionsMixin {
+    basename: string;
+}
 
-export interface HistoryBeforeUnload {
+export interface BeforeUnloadHistoryMixin {
     listenBeforeUnload(hook: BeforeUnloadHook): () => void;
 }
 
-export interface HistoryQueries {
-    pushState(state: LocationState, pathname: Pathname | Path, query?: Query): void;
-    replaceState(state: LocationState, pathname: Pathname | Path, query?: Query): void;
-    createPath(path: Path, query?: Query): Path;
-    createHref(path: Path, query?: Query): Href;
+export interface UseQueriesHistoryOptionsMixin {
+    stringifyQuery?: (obj: any) => string;
+    parseQueryString?: (str: string) => any;
 }
 
-
-// Global usage, without modules, needs the small trick, because lib.d.ts
-// already has `history` and `History` global definitions:
-// var createHistory = ((window as any).History as HistoryModule.Module).createHistory;
-export interface Module {
-    createHistory: CreateHistory<History>;
-    createHashHistory: CreateHistory<History>;
-    createMemoryHistory: CreateHistory<History>;
-    createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location;
-    useBasename<T>(createHistory: CreateHistory<T>): CreateHistory<T>;
-    useBeforeUnload<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryBeforeUnload>;
-    useQueries<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryQueries>;
-    actions: {
-        PUSH: string;
-        REPLACE: string;
-        POP: string;
-    };
-}
-
-export { default as createHistory } from "./lib/createBrowserHistory";
-export { default as createHashHistory } from "./lib/createHashHistory";
-export { default as createMemoryHistory } from "./lib/createMemoryHistory";
-export { default as createLocation } from "./lib/createLocation";
-export { default as useBasename } from "./lib/useBasename";
-export { default as useBeforeUnload } from "./lib/useBeforeUnload";
-export { default as useQueries } from "./lib/useQueries";
-import * as Actions from "./lib/actions";
-export { Actions };
+export { default as createHistory } from './lib/createBrowserHistory';
+export { default as createHashHistory } from './lib/createHashHistory';
+export { default as createMemoryHistory } from './lib/createMemoryHistory';
+export { default as useBasename } from './lib/useBasename';
+export { default as useBeforeUnload } from './lib/useBeforeUnload';
+export { default as useQueries } from './lib/useQueries';
+export { default as Actions } from './lib/Actions';
+export { locationsAreEqual } from './lib/LocationUtils';

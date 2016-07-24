@@ -1,2 +1,3 @@
-import { HistoryOptions, History } from '../index';
-export default function createHashHistory(options?: HistoryOptions): History;
+import { History, HashHistoryOptions } from '../index';
+
+export default function createHashHistory(options?: HashHistoryOptions): History;

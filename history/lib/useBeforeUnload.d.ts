@@ -1,2 +1,3 @@
-import { CreateHistory, HistoryBeforeUnload } from '../index';
-export default function useBeforeUnload<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryBeforeUnload>;
+import { CreateHistory, BeforeUnloadHistoryMixin } from '../index';
+
+export default function useBeforeUnload<THistory, THistoryOptions>(createHistory: CreateHistory<THistory, THistoryOptions>): CreateHistory<THistory & BeforeUnloadHistoryMixin, THistoryOptions>;

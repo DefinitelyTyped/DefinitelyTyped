@@ -1,2 +1,3 @@
-import { HistoryOptions, History } from '../index';
-export default function createBrowserHistory(options?: HistoryOptions): History;
+import { History, BrowserHistoryOptions } from '../index';
+
+export default function createBrowserHistory(options?: BrowserHistoryOptions): History;
