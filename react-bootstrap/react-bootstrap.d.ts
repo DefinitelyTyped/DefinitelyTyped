@@ -1,8 +1,6 @@
 // Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>,
-// Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>,
-// Batbold Gansukh <https://github.com/Batbold-Gansukh>
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
@@ -74,7 +72,6 @@ declare namespace ReactBootstrap {
     {
         active?: boolean;
         id?: string | number;
-        // linkId?: string | number; // TODO: Removed since v0.30.0
         href?: string;
         title?: React.ReactNode;
         target?: string;
@@ -91,8 +88,6 @@ declare namespace ReactBootstrap {
         block?: boolean;
         bsStyle?: string;
         bsSize?: Sizes;
-        // navItem?: boolean; // TODO: Removed since v0.30.0
-        // navDropdown?: boolean; // TODO: Removed since v0.30.0
         componentClass?: React.ReactType;
     }
     type Button = React.ClassicComponent<ButtonProps, {}>;
@@ -447,8 +442,8 @@ declare namespace ReactBootstrap {
         bsSize?: Sizes;
         bsStyle?: string;
         placement?: string;
-        positionLeft?: number|string; // String support added since v0.30.0
-        positionTop?: number|string; // String support added since v0.30.0
+        positionLeft?: number | string; // String support added since v0.30.0
+        positionTop?: number | string; // String support added since v0.30.0
     }
     type Popover = React.ClassicComponent<PopoverProps, {}>;
     var Popover: React.ClassicComponentClass<PopoverProps>;
@@ -591,7 +586,7 @@ declare namespace ReactBootstrap {
     interface NavDropdownBaseProps
         extends DropdownBaseProps
     {
-        active?:boolean;
+        active?: boolean;
         noCaret?: boolean;
     }
     type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
@@ -656,8 +651,7 @@ declare namespace ReactBootstrap {
 
 
     // <Pager />
-    interface PagerProps extends React.HTMLProps<Pager>
-    {
+    interface PagerProps extends React.HTMLProps<Pager> {
         onSelect?: SelectCallback;
     }
     interface PagerClass extends React.ClassicComponentClass<PagerProps> {
@@ -747,7 +741,6 @@ declare namespace ReactBootstrap {
         active?: boolean;
         animtateIn?: boolean;
         animateOut?: boolean;
-        // caption?: any; // TODO: Removed since v0.30.0
         direction?: string;
         index?: number;
         onAnimateOutEnd?: Function;
@@ -897,47 +890,6 @@ declare namespace ReactBootstrap {
     }
     type Table = React.ClassicComponent<TableProps, {}>;
     var Table: React.ClassicComponentClass<TableProps>;
-
-    // <Input /> // Removed since v0.30.0
-    // interface InputProps extends React.HTMLProps<Input> {
-    //     defaultValue?:string;
-    //     addonAfter?: any; // TODO: Add more specific type
-    //     addonBefore?: any; // TODO: Add more specific type
-    //     bsSize?: Sizes;
-    //     bsStyle?: string;
-    //     buttonAfter?: any; // TODO: Add more specific type
-    //     buttonBefore?: any; // TODO: Add more specific type
-    //     feedbackIcon?: any; // TODO: Add more specific type
-    //     groupClassName?: string;
-    //     hasFeedback?: boolean;
-    //     help?: any; // TODO: Add more specific type
-    //     labelClassName?: string;
-    //     wrapperClassName?: string;
-    // }
-    /** @deprecated since v0.29.0 */
-    // class Input extends React.Component<InputProps, {}> {
-    // }
-
-
-    // <ButtonInput /> // Removed since v0.30.
-    // interface ButtonInputProps extends React.HTMLProps<ButtonInput> {
-    //     addonAfter?: any; // TODO: Add more specific type
-    //     addonBefore?: any; // TODO: Add more specific type
-    //     bsSize?: Sizes;
-    //     bsStyle?: string;
-    //     buttonAfter?: any; // TODO: Add more specific type
-    //     buttonBefore?: any; // TODO: Add more specific type
-    //     feedbackIcon?: any; // TODO: Add more specific type
-    //     groupClassName?: string;
-    //     hasFeedback?: boolean;
-    //     help?: any; // TODO: Add more specific type
-    //     labelClassName?: string;
-    //     wrapperClassName?: string;
-    // }
-    /** @deprecated since v0.29.0 */
-    // class ButtonInput extends React.Component<ButtonInputProps, {}> {
-    // }
-
 
     // <InputGroup />
     interface InputGroupProps
