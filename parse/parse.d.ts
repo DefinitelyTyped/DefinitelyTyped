@@ -25,6 +25,10 @@ declare namespace Parse {
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
     }
+    
+    interface SessionTokenOption {
+        sessionToken?: string;
+    }
 
     interface WaitOption {
         /**
@@ -589,7 +593,7 @@ declare namespace Parse {
         doesNotExist(key: string): Query;
         doesNotMatchKeyInQuery(key: string, queryKey: string, query: Query): Query;
         doesNotMatchQuery(key: string, query: Query): Query;
-        each<T>(callback: Function, options?: SuccessFailureOptions): Promise<T>;
+        each<T>(callback: Function, options?: Query.EachOptions): Promise<T>;
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
@@ -619,6 +623,7 @@ declare namespace Parse {
     }
 
     namespace Query {
+        interface EachOptions extends SuccessFailureOptions, UseMasterKeyOption { }
         interface CountOptions extends SuccessFailureOptions, UseMasterKeyOption { }
         interface FindOptions extends SuccessFailureOptions, UseMasterKeyOption { }
         interface FirstOptions extends SuccessFailureOptions, UseMasterKeyOption { }
@@ -885,8 +890,10 @@ declare namespace Parse {
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
-        function run<T>(name: string, data?: any, options?: SuccessFailureOptions): Promise<T>;
+        function run<T>(name: string, data?: any, options?: RunOptions): Promise<T>;
         function useMasterKey(): void;
+
+        interface RunOptions extends SuccessFailureOptions, UseMasterKeyOption, SessionTokenOption { }
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
