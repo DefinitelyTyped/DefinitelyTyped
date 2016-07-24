@@ -985,7 +985,9 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {}
+    interface IDocumentService extends JQuery {
+        [index: number]: Document;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
