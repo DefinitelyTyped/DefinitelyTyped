@@ -397,7 +397,7 @@ declare module "aws-sdk" {
 		}
 
 		export interface SendMessageParams {
-			QueueUrl: string;
+			QueueUrl?: string;
 			MessageBody: string;
 			DelaySeconds?: number;
 			MessageAttributes?: { [name:string]: MessageAttribute; }
