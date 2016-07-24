@@ -3575,6 +3575,11 @@ declare namespace  __React {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
+        
+        /**
+         * Color of text on unselected tabs
+         */
+        unselectedTintColor?: string
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
