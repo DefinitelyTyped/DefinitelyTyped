@@ -22,6 +22,7 @@ declare module "ws" {
         url: string;
         supports: any;
         upgradeReq: http.ServerRequest;
+        protocol: string;
 
         CONNECTING: number;
         OPEN: number;
@@ -91,11 +92,12 @@ declare module "ws" {
             host?: string;
             port?: number;
             server?: http.Server;
-            verifyClient?: {
-                (info: {origin: string; secure: boolean; req: http.ServerRequest}): boolean;
-                (info: {origin: string; secure: boolean; req: http.ServerRequest},
-                                                 callback: (res: boolean) => void): void;
-            };
+            verifyClient?: (
+                ((info: {origin: string; secure: boolean; req: http.ServerRequest}) => boolean)
+                |
+                ((info: {origin: string; secure: boolean; req: http.ServerRequest},
+                    callback: (res: boolean) => void) => void)
+            );
             handleProtocols?: any;
             path?: string;
             noServer?: boolean;
