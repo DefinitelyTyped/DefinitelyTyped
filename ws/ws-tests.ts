@@ -1,8 +1,7 @@
 /// <reference path="ws.d.ts" />
 
-import WebSocket = require('ws');
-import http = require('http');
-// import * as http from 'http'
+import * as WebSocket from 'ws';
+import * as http from'http';
 
 var WebSocketServer = WebSocket.Server;
 
@@ -56,7 +55,6 @@ var WebSocketServer = WebSocket.Server;
 }
 
 {
-    
     const verifyClient = function(
       info: {
         origin: string
