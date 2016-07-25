@@ -3,11 +3,9 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference types="bluebird" />
+/// <reference types="bluebird" />
 /// <reference types="node" />
 
-
-// import Promise = require("bluebird");
 import * as events from "events";
 
 type Callback = Function;
@@ -299,46 +297,47 @@ declare namespace Knex {
     // Schema builder
     //
 
-    interface SchemaBuilder {
-        createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): Promise<void>;
-        renameTable(oldTableName: string, newTableName: string): Promise<void>;
-        dropTable(tableName: string): Promise<void>;
-        hasTable(tableName: string): Promise<boolean>;
-        hasColumn(tableName: string, columnName: string): Promise<boolean>;
-        table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
-        dropTableIfExists(tableName: string): Promise<void>;
-        raw(statement: string): SchemaBuilder;
+    interface SchemaBuilder extends Promise<any> {
+      createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
+      renameTable(oldTableName: string, newTableName: string): Promise<void>;
+      dropTable(tableName: string): Promise<void>;
+      hasTable(tableName: string): Promise<boolean>;
+      hasColumn(tableName: string, columnName: string): Promise<boolean>;
+      table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
+      dropTableIfExists(tableName: string): Promise<void>;
+      raw(statement: string): SchemaBuilder;
     }
 
     interface TableBuilder {
-        increments(columnName?: string): ColumnBuilder;
-        dropColumn(columnName: string): TableBuilder;
-        dropColumns(...columnNames: string[]): TableBuilder;
-        renameColumn(from: string, to: string): ColumnBuilder;
-        integer(columnName: string): ColumnBuilder;
-        bigInteger(columnName: string): ColumnBuilder;
-        text(columnName: string, textType?: string): ColumnBuilder;
-        string(columnName: string, length?: number): ColumnBuilder;
-        float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
-        boolean(columnName: string): ColumnBuilder;
-        date(columnName: string): ColumnBuilder;
-        dateTime(columnName: string): ColumnBuilder;
-        time(columnName: string): ColumnBuilder;
-        timestamp(columnName: string): ColumnBuilder;
-        timestamps(): ColumnBuilder;
-        binary(columnName: string): ColumnBuilder;
-        enum(columnName: string, values: Value[]): ColumnBuilder;
-        enu(columnName: string, values: Value[]): ColumnBuilder;
-        json(columnName: string): ColumnBuilder;
-        uuid(columnName: string): ColumnBuilder;
-        comment(val: string): TableBuilder;
-        specificType(columnName: string, type: string): ColumnBuilder;
-        primary(columnNames: string[]): TableBuilder;
-        index(columnNames: string[], indexName?: string, indexType?: string): TableBuilder;
-        unique(columnNames: string[], indexName?: string): TableBuilder;
-        foreign(column: string): ForeignConstraintBuilder;
-        foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      increments(columnName?: string): ColumnBuilder;
+      dropColumn(columnName: string): TableBuilder;
+      dropColumns(...columnNames: string[]): TableBuilder;
+      renameColumn(from: string, to: string): ColumnBuilder;
+      integer(columnName: string): ColumnBuilder;
+      bigInteger(columnName: string): ColumnBuilder;
+      text(columnName: string, textType?: string): ColumnBuilder;
+      string(columnName: string, length?: number): ColumnBuilder;
+      float(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+      decimal(columnName: string, precision?: number, scale?: number): ColumnBuilder;
+      boolean(columnName: string): ColumnBuilder;
+      date(columnName: string): ColumnBuilder;
+      dateTime(columnName: string): ColumnBuilder;
+      time(columnName: string): ColumnBuilder;
+      timestamp(columnName: string): ColumnBuilder;
+      timestamps(): ColumnBuilder;
+      binary(columnName: string): ColumnBuilder;
+      enum(columnName: string, values: Value[]): ColumnBuilder;
+      enu(columnName: string, values: Value[]): ColumnBuilder;
+      json(columnName: string): ColumnBuilder;
+      uuid(columnName: string): ColumnBuilder;
+      comment(val: string): TableBuilder;
+      specificType(columnName: string, type: string): ColumnBuilder;
+      primary(columnNames: string[]) : TableBuilder;
+      index(columnNames: string[], indexName?: string, indexType?: string) : TableBuilder;
+      unique(columnNames: string[], indexName?: string) : TableBuilder;
+      foreign(column: string): ForeignConstraintBuilder;
+      foreign(columns: string[]): MultikeyForeignConstraintBuilder;
+      dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {

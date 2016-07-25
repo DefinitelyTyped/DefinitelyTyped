@@ -29,3 +29,7 @@ declare namespace Dagre {
 }
 
 declare var dagreD3: Dagre.DagreD3Factory;
+
+declare module "dagre-d3" {
+    export = dagreD3;
+}

@@ -54,6 +54,14 @@ declare namespace karma {
         run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
     }
 
+    interface TestResults {
+        disconnected: boolean;
+        error: boolean;
+        exitCode: number;
+        failed: number;
+        success: number;
+    }
+
     interface Server extends NodeJS.EventEmitter {
         new (options?: ConfigOptions | ConfigFile, callback?: ServerCallback): Server;
         /**
@@ -69,6 +77,13 @@ declare namespace karma {
          * Force a refresh of the file list
          */
         refreshFiles(): Promise<any>;
+
+        on(event: string, listener: Function): this;
+
+        /**
+         * Listen to the 'run_complete' event.
+         */
+        on(event: 'run_complete', listener: (browsers: any, results: TestResults) => void): this;
 
         ///**
         // * Backward-compatibility with karma-intellij bundled with WebStorm.
