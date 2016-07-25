@@ -562,9 +562,11 @@ declare namespace moment {
         unix(timestamp: number): Moment;
 
         invalid(parsingFlags?: Object): Moment;
-        isMoment(m?: any): boolean;
-        isDate(m: any): boolean;
-        isDuration(d?: any): boolean;
+        isMoment(): boolean;
+        isMoment(m: any): m is Moment;
+        isDate(m: any): m is Date;
+        isDuration(): boolean;
+        isDuration(d: any): d is Duration;
 
         /**
          * @deprecated since version 2.8.0

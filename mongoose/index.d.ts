@@ -40,6 +40,7 @@ export declare class Mongoose {
     mquery: any;
     version: string;
     connection: Connection;
+    Promise: any;
 }
 
 export interface Connection extends NodeJS.EventEmitter {
@@ -129,7 +130,7 @@ export declare module Types {
         isValid(): boolean;
         static createFromTime(time: number): ObjectId;
         static createFromHexString(hexString: string): ObjectId;
-	  static isValid(id?: string|number):boolean;
+        static isValid(id?: string | number): boolean;
     }
 }
 
@@ -307,8 +308,8 @@ export declare class Query<T> {
     circle(area: Object): Query<T>;
     circle(path: string, area: Object): Query<T>;
     comment(val: any): Query<T>;
-    count(callback?: (err: any, count: number) => void): Query<T>;
-    count(criteria: Object, callback?: (err: any, count: number) => void): Query<T>;
+    count(callback?: (err: any, count: number) => void): Query<number>;
+    count(criteria: Object, callback?: (err: any, count: number) => void): Query<number>;
     distinct(callback?: (err: any, res: T) => void): Query<T>;
     distinct(field: string, callback?: (err: any, res: T) => void): Query<T>;
     distinct(criteria: Object, field: string, callback?: (err: any, res: T) => void): Query<T>;
@@ -481,7 +482,7 @@ export declare class Aggregate<T> {
 export declare class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
-    then<U>(onFulFill: (result: T) => void, onReject?: (err: any) => void): Promise<U>;
+    then<U>(onFulFill: (result: T) => void | U | Promise<U>, onReject?: (err: any) => void | U | Promise<U>): Promise<U>;
     end(): void;
 
     fulfill(result: T): Promise<T>;

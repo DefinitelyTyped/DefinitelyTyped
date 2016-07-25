@@ -14,7 +14,7 @@ declare module "react-calendar-timeline" {
         items:{
             id: number;
             group: number;
-            title?: string;
+            title?: any; // string | Element (__React.ClassicComponentClass<any>);
             start_time: any;
             end_time: any;
             canMove?: boolean;
@@ -65,7 +65,6 @@ declare module "react-calendar-timeline" {
         onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
         children?: any;
     }
-
-    let ReactCalendarTimeline: __React.ClassicComponentClass<ReactCalendarTimeline>;
-    export = ReactCalendarTimeline;
+    let ReactCalendarTimeline : __React.ClassicComponentClass<ReactCalendarTimeline>;
+    export default ReactCalendarTimeline;
 }

@@ -3,11 +3,13 @@
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react" />
 
-declare namespace ReactSelect {
+import * as React from 'react';
+import * as ReactSelect from "react-select";
 
-    interface Option {
+declare module "react-select" {
+    export interface Option {
         /** Text for rendering */
         label: string;
         /** Value for searching */
@@ -19,7 +21,7 @@ declare namespace ReactSelect {
         clearableValue?: boolean;
     }
 
-    interface MenuRendererProps {
+    export interface MenuRendererProps {
         /**
          * The currently focused option; should be visible in the menu by default.
          * default {}
@@ -52,7 +54,7 @@ declare namespace ReactSelect {
         valueArray: Option[];
     }
 
-    interface ReactSelectProps extends __React.Props<ReactSelect> {
+    export interface ReactSelectProps extends React.Props<ReactSelect> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
@@ -178,7 +180,7 @@ declare namespace ReactSelect {
         /**
          * renders a custom menu with options
          */
-        menuRenderer?: (props: MenuRendererProps) => __React.ReactElement<any>;
+        menuRenderer?: (props: MenuRendererProps) => React.ReactElement<any>;
         /**
          * optional style to apply to the menu
          */
@@ -203,10 +205,6 @@ declare namespace ReactSelect {
          */
         noResultsText?: string;
         /**
-         * onBlur handler: function (event) {}
-         */
-        onBlur?: __React.FocusEventHandler;
-        /**
          * whether to clear input on blur or not
          * @default true
          */
@@ -219,10 +217,6 @@ declare namespace ReactSelect {
          * fires when the menu is closed
          */
         onClose?: () => void;
-        /**
-         * onFocus handler: function (event) {}
-         */
-        onFocus?: __React.FocusEventHandler;
         /**
          * onInputChange handler: function (inputValue) {}
          */
@@ -245,9 +239,14 @@ declare namespace ReactSelect {
          */
         openAfterFocus?: boolean;
         /**
+         * open the options menu when the input gets focus (requires searchable = true)
+         * @default false
+         */
+        openOnFocus?: boolean;
+        /**
          * option component to render in dropdown
          */
-        optionComponent?: __React.ReactElement<any>;
+        optionComponent?: React.ReactElement<any>;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -261,7 +260,7 @@ declare namespace ReactSelect {
          * field placeholder, displayed when there's no value
          * @default "Select..."
          */
-        placeholder?: string | __React.ReactElement<any>;
+        placeholder?: string | React.ReactElement<any>;
         /**
          * applies HTML5 required attribute when needed
          * @default false
@@ -309,10 +308,6 @@ declare namespace ReactSelect {
          */
         tabIndex?: string;
 
-        /**
-         *  value component to render
-         */
-        valueComponent?: __React.ReactElement<any>;
 
         /**
          *  optional style to apply to the component wrapper
@@ -320,22 +315,12 @@ declare namespace ReactSelect {
         wrapperStyle?: any;
 
         /**
-         * onClick handler for value labels: function (value, event) {}
-         */
-        onValueClick?: (value: string, event: Event) => void;
-
-        /**
          *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
          */
         simpleValue?: boolean;
     }
 
-    interface ReactAsyncSelectProps extends ReactSelectProps {
-        /**
-         *  object to use to cache results; can be null to disable cache
-         */
-        cache?: Object | boolean;
-
+    export interface ReactAsyncSelectProps extends ReactSelectProps {
         /**
          *  whether to strip diacritics when filtering (shared with Select)
          */
@@ -386,21 +371,10 @@ declare namespace ReactSelect {
         searchingText?: string;
     }
 
-    interface ReactSelect extends  __React.ReactElement<ReactSelectProps> { }
-    interface ReactSelectAsyncClass extends __React.ComponentClass<ReactAsyncSelectProps> {
+    export interface ReactSelect extends  React.ReactElement<ReactSelectProps> { }
+    export interface ReactSelectAsyncClass extends React.ComponentClass<ReactAsyncSelectProps> {
     }
-    const Async: ReactSelectAsyncClass;
-    interface ReactSelectClass extends __React.ComponentClass<ReactSelectProps> {
+    export interface ReactSelectClass extends React.ComponentClass<ReactSelectProps> {
         Async: ReactSelectAsyncClass;
     }
-
-}
-
-declare module "react-select" {
-    const select: ReactSelect.ReactSelectClass;
-    interface Option extends ReactSelect.Option {}
-    interface MenuRendererProps extends ReactSelect.MenuRendererProps {}
-
-    export default select;
-    export { MenuRendererProps, Option };
 }
