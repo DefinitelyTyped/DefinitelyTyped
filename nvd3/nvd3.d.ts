@@ -1204,6 +1204,10 @@ id(value: number|string): this;
         style(offset: 'expand'): this;
         style(offset: 'stack_percent'): this;
         style(offset: string): this;
+        width(): number;
+        width(value: number): this;
+        height(): number;
+        height(value: number): this;
     }
 
     interface Sunburst extends Nvd3Element {
@@ -3270,6 +3274,15 @@ id(value: number|string): this;
         useInteractiveGuideline(): boolean;
         /*Sets the chart to use a guideline and floating tooltip instead of requiring the user to hover over specific hotspots. Turning this on will set the 'interactive' and 'useVoronoi' options to false to avoid conflicting.*/
         useInteractiveGuideline(value: boolean): this;
+
+        focusEnable(): boolean;
+        focusEnable(value: boolean): this;
+        focusHeight(): number;
+        focusHeight(value: number): this;
+        showControls(): boolean;
+        showControls(value: boolean): this;
+        brushExtent(): [number, number] | [[number, number], [number, number]];
+        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
     }
 
     interface SunburstChart extends Sunburst, Chart {
