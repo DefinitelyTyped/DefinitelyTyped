@@ -1072,7 +1072,7 @@ export declare module s3 {
         GrantReadACP?: string;
         GrantWriteACP?: string;
         Key: string;
-        Metadata?: string[];
+        Metadata?: { [key: string]: string; };
         ServerSideEncryption?: string;
         StorageClass?: string;
         WebsiteRedirectLocation?: string;

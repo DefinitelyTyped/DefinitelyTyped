@@ -6211,6 +6211,11 @@ declare namespace chrome.tabs {
 		 * @since Chrome 27.
 		 */
 		faviconUrl?: string;
+		/**
+		 * The tab's new title.
+		 * @since Chrome 48.
+		 */
+		title?: string;
     }
 
     interface TabMoveInfo {

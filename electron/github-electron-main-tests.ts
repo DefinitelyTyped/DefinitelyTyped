@@ -19,6 +19,7 @@ import {
 	screen,
 	shell,
 	session,
+	systemPreferences,
 	hideInternalModules
 } from 'electron';
 
@@ -260,8 +261,8 @@ app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-// app
-// https://github.com/atom/electron/blob/master/docs/api/app.md
+// systemPreferences
+// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
 
 var browserOptions = {
 	width: 1000,
@@ -271,7 +272,7 @@ var browserOptions = {
 };
 
 // Make the window transparent only if the platform supports it.
-if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
 }
@@ -288,8 +289,11 @@ if (browserOptions.transparent) {
 }
 
 app.on('platform-theme-changed', () => {
-	console.log(app.isDarkMode());
+	console.log(systemPreferences.isDarkMode());
 });
+
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
 
 app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
 	if (url == "https://github.com") {

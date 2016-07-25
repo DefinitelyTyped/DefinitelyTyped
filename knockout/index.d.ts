@@ -1,6 +1,6 @@
-﻿// Type definitions for Knockout v3.2.0
+﻿// Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -387,6 +387,17 @@ interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
     rewriteTemplate(template: any, rewriterCallback: Function, templateDocument: Document): void;
 }
 
+//////////////////////////////////
+// tasks.js
+//////////////////////////////////
+
+interface KnockoutTasks {
+    scheduler: (callback: Function) => any;
+    schedule(task: Function): number;
+    cancel(handle: number): void;
+    runEarly(): void;
+}
+
 /////////////////////////////////
 
 interface KnockoutStatic {
@@ -544,7 +555,13 @@ interface KnockoutStatic {
         deferUpdates: boolean,
         
         useOnlyNativeEvents: boolean
-    }
+    };
+    
+    /////////////////////////////////
+    // tasks.js
+    /////////////////////////////////
+    
+    tasks: KnockoutTasks;
 }
 
 interface KnockoutBindingProvider {

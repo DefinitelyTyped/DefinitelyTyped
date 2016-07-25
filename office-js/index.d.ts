@@ -1743,20 +1743,17 @@ declare namespace Excel {
          * Protect a worksheet. It throws if the worksheet has been protected.
          *
          * @param options sheet protection options.
-         * @param password sheet protection password.
          *
          * [Api set: ExcelApi 1.2]
          */
-        protect(options?: Excel.WorksheetProtectionOptions, password?: string): void;
+        protect(options?: Excel.WorksheetProtectionOptions): void;
         /**
          *
          * Unprotect a worksheet
          *
-         * @param password sheet protection password.
-         *
          * [Api set: ExcelApi 1.2]
          */
-        unprotect(password?: string): void;
+        unprotect(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -8566,7 +8563,6 @@ declare namespace Excel {
     }
     namespace ErrorCodes {
         var accessDenied: string;
-        var badPassword: string;
         var generalException: string;
         var insertDeleteConflict: string;
         var invalidArgument: string;

@@ -13,6 +13,7 @@
 /// <reference types="express-serve-static-core" />
 
 import * as express from "express-serve-static-core";
+import * as m from "mime";
 
 /**
  * Create a new middleware function to serve files from within a given root directory.
@@ -42,12 +43,18 @@ declare function serveStatic(root: string, options?: {
      * The default value is false.
      */
     extensions?: string[];
-
+    
+    /**
+     * Let client errors fall-through as unhandled requests, otherwise forward a client error.
+     * The default value is false.
+     */
+    fallthrough?: boolean;
+    
     /**
      * By default this module will send "index.html" files in response to a request on a directory.
      * To disable this set false or to supply a new index pass a string or an array in preferred order.
      */
-    index?: boolean | string | string[];
+    index?: boolean|string|string[];
 
     /**
      * Enable or disable Last-Modified header, defaults to true. Uses the file system's last modified value.
@@ -57,7 +64,7 @@ declare function serveStatic(root: string, options?: {
     /**
      * Provide a max-age in milliseconds for http caching, defaults to 0. This can also be a string accepted by the ms module.
      */
-    maxAge?: number | string;
+    maxAge?: number|string;
 
     /**
      * Redirect to trailing "/" when the pathname is a dir. Defaults to true.
@@ -73,8 +80,6 @@ declare function serveStatic(root: string, options?: {
      */
     setHeaders?: (res: express.Response, path: string, stat: any) => any;
 }): express.Handler;
-
-import * as m from "mime";
 
 declare namespace serveStatic {
     var mime: typeof m;

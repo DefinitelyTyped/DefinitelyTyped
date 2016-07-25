@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-
+import * as ReactSelect from 'react-select';
 
 declare namespace mqtt {
 
@@ -444,3 +444,7 @@ declare namespace mqtt {
 }
 
 export = mqtt;
+
+declare module "react-select" {
+    const select: ReactSelect.ReactSelectClass;
+}
