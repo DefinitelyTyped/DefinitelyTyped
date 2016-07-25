@@ -14,6 +14,7 @@ declare module "knex" {
   type Client = Function;
   type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
+  type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
   interface Knex extends Knex.QueryInterface {
     (tableName?: string): Knex.QueryBuilder;
@@ -164,12 +165,12 @@ declare module "knex" {
 
     interface Join {
       (raw: Raw): QueryBuilder;
-      (tableName: string, callback: (joinClause: JoinClause) => any): QueryBuilder;
-      (tableName: string, columns: {[key: string]: string|Raw}): QueryBuilder;
-      (tableName: string, raw: Raw): QueryBuilder;
-      (tableName: string, column1: string, column2: string): QueryBuilder;
-      (tableName: string, column1: string, raw: Raw): QueryBuilder;
-      (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+      (tableName: TableName, callback: (joinClause: JoinClause) => any): QueryBuilder;
+      (tableName: TableName, columns: {[key: string]: string|Raw}): QueryBuilder;
+      (tableName: TableName, raw: Raw): QueryBuilder;
+      (tableName: TableName, column1: string, column2: string): QueryBuilder;
+      (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
+      (tableName: TableName, column1: string, operator: string, column2: string): QueryBuilder;
     }
 
     interface JoinClause {
