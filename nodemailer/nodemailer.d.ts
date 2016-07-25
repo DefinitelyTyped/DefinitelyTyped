@@ -50,6 +50,11 @@ declare module "nodemailer" {
 		/**
          * Verifies connection with server
          */
+        verify(callback: (error: Error, success?: boolean) => void): void;
+
+        /**
+         * Verifies connection with server
+         */
         verify(): Promise<void>;
 
 		/**
