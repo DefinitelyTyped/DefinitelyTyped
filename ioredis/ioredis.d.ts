@@ -41,7 +41,8 @@ declare module IORedis {
     }
 
     interface Redis extends NodeJS.EventEmitter, Commander {
-        connect(callback: Function): Promise<any>;
+        status: string;
+        connect(callback?: Function): Promise<any>;
         disconnect(): void;
         duplicate(): Redis;
         monitor(calback: (error: Error, monitor: NodeJS.EventEmitter) => void): Promise<NodeJS.EventEmitter>;
@@ -59,6 +60,7 @@ declare module IORedis {
         subscribe(channel: string): any;
         get(args: any[], callback?: ResCallbackT<string>): any;
         get(...args: any[]): any;
+        getBuffer(key: string, callback?: ResCallbackT<Buffer>): any;
         set(args: any[], callback?: ResCallbackT<string>): any;
         set(...args: any[]): any;
         setnx(args: any[], callback?: ResCallbackT<any>): any;
@@ -230,8 +232,12 @@ declare module IORedis {
         renamenx(...args: any[]): any;
         expire(args: any[], callback?: ResCallbackT<any>): any;
         expire(...args: any[]): any;
+        pexpire(args: any[], callback?: ResCallbackT<any>): any;
+        pexpire(...args: any[]): any;
         expireat(args: any[], callback?: ResCallbackT<any>): any;
         expireat(...args: any[]): any;
+        pexpireat(args: any[], callback?: ResCallbackT<any>): any;
+        pexpireat(...args: any[]): any;
         keys(args: any[], callback?: ResCallbackT<any>): any;
         keys(...args: any[]): any;
         dbsize(args: any[], callback?: ResCallbackT<any>): any;
@@ -507,8 +513,12 @@ declare module IORedis {
         renamenx(...args: any[]): Pipeline;
         expire(args: any[], callback?: ResCallbackT<any>): Pipeline;
         expire(...args: any[]): Pipeline;
+        pexpire(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        pexpire(...args: any[]): Pipeline;
         expireat(args: any[], callback?: ResCallbackT<any>): Pipeline;
         expireat(...args: any[]): Pipeline;
+        pexpireat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        pexpireat(...args: any[]): Pipeline;
         keys(args: any[], callback?: ResCallbackT<any>): Pipeline;
         keys(...args: any[]): Pipeline;
         dbsize(args: any[], callback?: ResCallbackT<any>): Pipeline;

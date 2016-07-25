@@ -35,6 +35,7 @@ declare module  RefluxCore {
         stopListeningToAll(): void,
         fetchInitialState(listenable: Listenable, defaultCallback: Function): void,
         trigger(state: any):void;
+        listen(callback: Function, bindContext: any): Function;
     }
 
     interface ActionsDefinition {

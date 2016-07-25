@@ -5,9 +5,9 @@
 
 ///<reference path="../react/react.d.ts"/>
 
-declare module "react-bootstrap" {
+declare namespace ReactBootstrap {
     // Import React
-    import React = require("react");
+    import React = __React;
 
 
     type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'lg' | 'large';
@@ -943,8 +943,8 @@ declare module "react-bootstrap" {
         Addon: typeof InputGroupAddon;
         Button: typeof InputGroupButton;
     }
-    type InputGroup = React.ClassicComponent<InputGroupProps, {}>;
-    var InputGroup: React.ClassicComponentClass<InputGroupProps>;
+    type InputGroup = React.Component<InputGroupProps, {}>;
+    var InputGroup: InputGroupClass;
 
 
     // <InputGroup.Addon />
@@ -1058,7 +1058,6 @@ declare module "react-bootstrap" {
     type Portal = React.ClassicComponent<PortalProps, {}>;
     var Portal: React.ClassicComponentClass<PortalProps>;
 
-
     // <Position />
     interface PositionProps extends TransitionCallbacks, React.Props<Position> {
         dimension?: string | Function;
@@ -1071,5 +1070,63 @@ declare module "react-bootstrap" {
     }
     class Position extends React.Component<PositionProps, {}> {
     }
+    // <Media.Left />
+    interface MediaLeftProps {
+        align?: string;
+    }
+    type MediaLeft = React.ClassicComponent<MediaLeftProps, {}>;
+    var MediaLeft: React.ClassicComponentClass<MediaLeftProps>;
 
+    // <Media.Right />
+    interface MediaRightProps {
+        align?: string;
+    }
+    type MediaRight = React.ClassicComponent<MediaRightProps, {}>;
+    var MediaRight: React.ClassicComponentClass<MediaRightProps>;
+
+    // <Media.Heading />
+    interface MediaHeadingProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaHeading = React.ClassicComponent<MediaHeadingProps, {}>;
+    var MediaHeading: React.ClassicComponentClass<MediaHeadingProps>;
+
+    // <Media.Body />
+    interface MediaBodyProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaBody = React.ClassicComponent<MediaBodyProps, {}>;
+    var MediaBody: React.ClassicComponentClass<MediaBodyProps>;
+
+    // <Media.List />
+    interface MediaListProps {
+    }
+    type MediaList = React.ClassicComponent<MediaListProps, {}>;
+    var MediaList: React.ClassicComponentClass<MediaListProps>;
+
+    // <Media.ListItem />
+    interface MediaListItemProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaListItem = React.ClassicComponent<MediaListItemProps, {}>;
+    var MediaListItem: React.ClassicComponentClass<MediaListItemProps>;
+
+    // <Media />
+    interface MediaProps extends React.HTMLProps<Media> {
+        componentClass?: React.ReactType;
+    }
+    interface MediaClass extends React.ClassicComponentClass<MediaProps> {
+        Left: typeof MediaLeft;
+        Right: typeof MediaRight;
+        Heading: typeof MediaHeading;
+        Body: typeof MediaBody;
+        List: typeof MediaList;
+        ListItem: typeof MediaListItem;
+    }
+    type Media = React.ClassicComponent<MediaProps, {}>;
+    var Media: MediaClass;
+}
+
+declare module "react-bootstrap" {
+    export = ReactBootstrap;
 }

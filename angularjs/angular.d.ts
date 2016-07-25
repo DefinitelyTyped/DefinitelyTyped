@@ -41,7 +41,6 @@ declare namespace angular {
 
     interface IAngularBootstrapConfig {
         strictDi?: boolean;
-        debugInfoEnabled?: boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -874,7 +873,7 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
-        (expression: string): ICompiledExpression;
+        (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
     }
 
     interface IParseProvider {
@@ -986,7 +985,9 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {}
+    interface IDocumentService extends JQuery {
+        [index: number]: Document;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -1716,13 +1717,19 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
+        /**
+         * Requires the controllers of other directives and binds them to this component's controller.
+         * The object keys specify the property names under which the required controllers (object values) will be bound.
+         * Note that the required controllers will not be available during the instantiation of the controller,
+         * but they are guaranteed to be available just before the $onInit method is executed!
+         */
         require?: {[controller: string]: string};
     }
 
     interface IComponentTemplateFn {
         ( $element?: JQuery, $attrs?: IAttributes ): string;
     }
-    
+
     /**
      * Components have a well-defined lifecycle Each component can implement "lifecycle hooks". These are methods that
      * will be called at certain points in the life of the component.

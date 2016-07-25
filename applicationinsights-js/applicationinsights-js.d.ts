@@ -1,4 +1,4 @@
-// Type definitions for ApplicationInsights-JS v0.22.14
+// Type definitions for ApplicationInsights-JS v0.23.2
 // Project: https://github.com/Microsoft/ApplicationInsights-JS
 // Definitions by: Kamil Szostak <https://github.com/kamilszostak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -788,3 +788,9 @@ declare module Microsoft.ApplicationInsights {
         _onerror(message: string, url: string, lineNumber: number, columnNumber: number, error: Error): any;
     }
 }
+
+declare module 'applicationinsights-js' {
+    export = appInsights;
+}
+
+declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;

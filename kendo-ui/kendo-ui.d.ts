@@ -4417,6 +4417,7 @@ declare namespace kendo.ui {
         name?: string;
         text?: GridColumnCommandItemText;
         className?: string;
+        template?: string;
         imageClass?: string;
         click?: Function;
     }

@@ -61,6 +61,26 @@ const CustomValue = React.createClass({
     }
 });
 
+const filterOptions = (options: Array<Option>, filter: string, values: Array<Option>) => {
+    // Filter already selected values
+    let filteredOptions = options.filter(option => values.indexOf(option) < 0);
+
+    // Filter by label
+    if (filter != null && filter.length > 0) {
+        filteredOptions = filteredOptions.filter(option => RegExp(filter, 'ig').test(option.label));
+    }
+
+    // Append Addition option
+    if (filteredOptions.length === 0) {
+        filteredOptions.push({
+            label:  `Create: ${filter}`,
+            value:  filter
+        });
+    }
+
+    return filteredOptions;
+};
+
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
@@ -89,6 +109,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             autosize: true,
             clearable: true,
             escapeClearsValue: true,
+            filterOptions: filterOptions,
             ignoreAccents: true,
             joinValues: false,
             matchPos: "any",
@@ -111,6 +132,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             onChange: onChange,
             value: options,
             valueComponent: CustomValue,
+            valueRenderer: optionRenderer
         };
 
         return <div>
