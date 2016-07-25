@@ -300,7 +300,7 @@ declare namespace Knex {
     interface SchemaBuilder extends Promise<any> {
         createTable(tableName: string, callback: (tableBuilder: CreateTableBuilder) => any): SchemaBuilder;
         renameTable(oldTableName: string, newTableName: string): Promise<void>;
-        dropTable(tableName: string): Promise<void>;
+        dropTable(tableName: string): SchemaBuilder;
         hasTable(tableName: string): Promise<boolean>;
         hasColumn(tableName: string, columnName: string): Promise<boolean>;
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;

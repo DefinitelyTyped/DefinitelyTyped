@@ -50,7 +50,7 @@ declare module  RefluxCore {
 
     function createStore(definition: StoreDefinition): Store;
 
-    function createAction(definition: ActionsDefinition): any;
+    function createAction(definition?: ActionsDefinition): any;
 
     function createActions(definition: ActionsDefinition): any;
     function createActions(definitions: string[]): any;
@@ -58,4 +58,6 @@ declare module  RefluxCore {
     function connect(store: Store, key?: string):void;
     function listenTo(store: Store, handler: string):void;
     function setState(state: any):void;
+
+    function ListenerMixin(): any;
 }

@@ -1,3 +1,5 @@
+/// <reference types="mqtt" />
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -55,7 +57,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
                 onChange={onChange}
                 simpleValue
                 value={options}
-                valueComponent={<span></span>}
+                valueComponent={() => <span></span>}
                  />
         </div>;
     }
@@ -88,7 +90,6 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
                 loadOptions={getOptions}
                 cache={{}}
                 ignoreAccents={false}
-                ignoreCase={{}}
                 isLoading={false}
                 minimumInput={5}
                 searchPromptText={"search..."}

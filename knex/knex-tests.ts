@@ -1,7 +1,7 @@
-import Knex = require('knex');
-import _ = require('lodash');
+"use strict";
+import * as Knex from 'knex';
+import * as _ from 'lodash';
 
-'use strict';
 // Initializing the Library
 var knex = Knex({
   client: 'sqlite3',
