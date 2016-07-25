@@ -3234,7 +3234,9 @@ id(value: number|string): this;
         legend: Legend;
         controls: Legend;
         xAxis: Nvd3Axis;
+        x2Axis: Nvd3Axis;
         yAxis: Nvd3Axis;
+        y2Axis: Nvd3Axis;
         tooltip: Tooltip;
 
         controlLabels(): any;
