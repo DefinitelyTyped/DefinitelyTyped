@@ -6,17 +6,17 @@
 ///<reference path='./react-dnd.d.ts' />
 
 declare module "react-dnd-test-backend" {
-  class TestBackend {
-    setup(): void;
-    teardown(): void;
-    connectDragSource(): void;
-    connectDropTarget(): void;
-    simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
-    simulatePublishDragSource(): void;
-    simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
-    simulateDrop(): void;
-    simulateEndDrag(): void;
-  }
+    class TestBackend {
+        setup(): void;
+        teardown(): void;
+        connectDragSource(): void;
+        connectDropTarget(): void;
+        simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
+        simulatePublishDragSource(): void;
+        simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
+        simulateDrop(): void;
+        simulateEndDrag(): void;
+    }
 
-  export { TestBackend as default };
+    export { TestBackend as default };
 }
