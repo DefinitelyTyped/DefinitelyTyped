@@ -2657,7 +2657,6 @@ declare namespace kendo.ui {
         separator?: string;
         suggest?: boolean;
         headerTemplate?: string|Function;
-        headerTemplate?: string | Function;
         template?: string | Function;
         valuePrimitive?: boolean;
         virtual?: boolean|AutoCompleteVirtual;
