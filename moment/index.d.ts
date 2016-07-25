@@ -274,7 +274,7 @@ declare namespace moment {
         isBefore(b?: MomentComparable, granularity?: string): boolean;
         isAfter(b?: MomentComparable, granularity?: string): boolean;
         isSame(b: MomentComparable, granularity?: string): boolean;
-        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string): boolean;
+        isBetween(a: MomentComparable, b: MomentComparable, granularity?: string, inclusivity?: string): boolean;
 
         /**
          * @since 2.10.7+

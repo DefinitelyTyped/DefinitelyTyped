@@ -35,6 +35,7 @@ interface DatepickerOptions {
     multidate?: any;
     multidateSeparator?: string;
     orientation?: string;
+    assumeNearbyYear?: any;
 }
 
 interface DatepickerEventObject extends JQueryEventObject {
