@@ -48,14 +48,14 @@ declare module "nodemailer" {
 		use(step: string, plugin: Plugin): void;
 		
 		/**
-         * Verifies connection with server
-         */
-        verify(callback: (error: Error, success?: boolean) => void): void;
-
-        /**
-         * Verifies connection with server
-         */
-        verify(): Promise<void>;
+	         * Verifies connection with server
+	         */
+	        verify(callback: (error: Error, success?: boolean) => void): void;
+	
+	        /**
+	         * Verifies connection with server
+	         */
+	        verify(): Promise<void>;
 
 		/**
 		 * Close all connections
