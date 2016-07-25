@@ -1,25 +1,25 @@
-// Type definitions for GoJS v1.6.0
-// Project: http://gojs.net
+// Type definitions for GoJS v1.6.13
+// Project: https://gojs.net
 // Definitions by: Northwoods Software <https://github.com/NorthwoodsSoftware>
 // Definitions: https://github.com/NorthwoodsSoftware/GoJS
 
 /* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 
-declare module go {
+declare namespace go {
     /** A number in place of a Margin object is treated as a uniform Margin with that thickness */
-    type MarginLike = Margin | number;
+    export type MarginLike = Margin | number;
 
     /** A string in place of a Brush object is treated as a Solid Brush of that color. */
-    type BrushLike = Brush | string;
+    export type BrushLike = Brush | string;
 
     /** A Key is the type of the unique identifier managed by Models for each node data object. */
-    type Key = string | number;
+    export type Key = string | number;
 
     /** Either name a property or get the value of a property from an object. */
-    type PropertyAccessor = string | ((data: any, newval: any) => any);
+    export type PropertyAccessor = string | ((data: any, newval: any) => any);
 
     /** A constructor */
-    type Constructor = new (...args: Array<any>) => Object;
+    export type Constructor = new (...args: Array<any>) => Object;
 
     /**
     * An adornment is a special kind of Part that is associated with another Part,
@@ -28,7 +28,7 @@ declare module go {
     * that is the value of .adornedObject.
     * However, the .adornedObject may be null, in which case the .adornedPart will also be null.
     */
-    class Adornment extends Part {
+    export class Adornment extends Part {
         /**
         * @param {EnumValue=} type if not supplied, the default Panel type is Panel.Position.
         */
@@ -47,7 +47,7 @@ declare module go {
     /**
     * This class handles animations in a Diagram.  Each Diagram has one, the Diagram.animationManager.
     */
-    class AnimationManager {
+    export class AnimationManager {
         /**You do not normally need to create an instance of this class because one already exists as the Diagram.animationManager, which you can modify.*/
         constructor();
 
@@ -78,7 +78,7 @@ declare module go {
     * The CommandHandler includes keyboard event handling to interpret
     * key presses as commands.
     */
-    class CommandHandler {
+    export class CommandHandler {
         /**
         * The constructor produces a CommandHandler with the default key bindings.
         */
@@ -205,7 +205,6 @@ declare module go {
         /**
         * This predicate controls whether or not the user can invoke the scrollToPart command.
         * This returns false if there is no argument Part and there are no selected Parts.
-        * @this {CommandHandler}
         * @param {Part=} part This defaults to the first selected Part of Diagram.selection
         * @return {boolean}
         * This returns true if Diagram.allowHorizontalScroll and Diagram.allowVerticalScroll are true.
@@ -360,8 +359,6 @@ declare module go {
         * <p>
         * This is normally invoked by the <code>Space</code> keyboard shortcut.
         * If there is no argument and there is no highlighted or selected Part, this command does nothing.
-        * @expose
-        * @this {CommandHandler}
         * @param {Part=} part This defaults to the first highlighted Part of Diagram.highlighteds,
         *                     or, if there are no highlighted Parts, the first selected Part.
         */
@@ -409,7 +406,7 @@ declare module go {
     * GoJS will manage the contents of this DIV, and the contents should not be modified otherwise,
     * though the given DIV may be styled (background, border, etc) and positioned as needed.
     */
-    class Diagram {
+    export class Diagram {
         /**
         * Construct an empty Diagram for a particular DIV HTML element.
         * @param {HTMLDivElement} div A reference to a DIV HTML element in the DOM.
@@ -805,7 +802,7 @@ declare module go {
         * @param {Diagram} diagram  The destination diagram; if null, the copied parts are not added to this diagram.
         * @param {boolean} check  Whether to check Part.canCopy on each part.
         */
-        copyParts(coll: Iterable<Part>, diagram: Diagram, check: boolean): void;
+        copyParts(coll: Iterable<Part>, diagram: Diagram, check: boolean): Map<Part, Part>;
 
         /**
         * Updates the diagram immediately, then resets initialization flags so that actions taken in the argument function will be considered part of Diagram initialization, and will participate in initial layouts, .initialAutoScale, .initialContentAlignment, etc.
@@ -1239,7 +1236,7 @@ declare module go {
     * such as "ViewportBoundsChanged", which can happen due to programmatic
     * changes to the Diagram.position and Diagram.scale properties.
     */
-    class DiagramEvent {
+    export class DiagramEvent {
         /**
         * The DiagramEvent class constructor produces an empty DiagramEvent.
         */
@@ -1264,7 +1261,7 @@ declare module go {
     /**
     * This is the abstract base class for all graphical objects.
     */
-    abstract class GraphObject {
+    export abstract class GraphObject {
         /**
         * This is an abstract class, so you should not use this constructor.
         */
@@ -1444,6 +1441,9 @@ declare module go {
         /**Gets or sets the orientation of a GraphObject that is in a Link.*/
         segmentOrientation: EnumValue;
 
+        /**Gets or sets whether this GraphObject will be shadowed inside a Part that has Part.isShadowed set to true; default is null, meaning obey default shadow rules for Part.isShadowed.*/
+        shadowVisible: boolean;
+
         /**Gets or sets the stretch of the GraphObject.*/
         stretch: EnumValue;
 
@@ -1599,7 +1599,7 @@ declare module go {
     * This simple layout places all of the Parts in a grid-like arrangement, ordered, spaced apart,
     * and wrapping as needed.  It ignores any Links connecting the Nodes being laid out.
     */
-    class Group extends Node {
+    export class Group extends Node {
         /**
         * Constructs an empty Group with no visual elements and no member parts; normally a Group will have some visual elements surrounding a Placeholder.
         * @param {EnumValue=} type if not supplied, the default Panel type is Panel.Position.
@@ -1711,7 +1711,7 @@ declare module go {
     * Additional descriptive properties include .clickCount, .delta,
     * .timestamp, and the source event .event (if available).
     */
-    class InputEvent {
+    export class InputEvent {
         /**
         * The InputEvent class constructor produces an empty InputEvent.
         */
@@ -1807,7 +1807,7 @@ declare module go {
     * Layers are how named collections of Parts are drawn in front or behind other collections of Parts in a Diagram.
     * Layers can only contain Parts -- they cannot hold GraphObjects directly.
     */
-    class Layer {
+    export class Layer {
         /**
         * This constructs an empty Layer; you should set the .name before adding the Layer to a Diagram.
         */
@@ -1938,7 +1938,7 @@ declare module go {
     * A link can connect to a specific port element in a node, as named by the Link.fromPortId
     * and Link.toPortId properties.
     */
-    class Link extends Part {
+    export class Link extends Part {
         /**
         * Constructs an empty link that does not connect any nodes.
         */
@@ -2305,7 +2305,7 @@ declare module go {
     * Group inherits from Node,
     * enabling nodes to logically contain other nodes and links.
     */
-    class Node extends Part {
+    export class Node extends Part {
         /**
         * Constructs an empty Node.
         * @param {EnumValue=} type if not supplied, the default Panel type is Panel.Position.
@@ -2507,7 +2507,7 @@ declare module go {
     * with a rectangular box showing the viewport displayed by that other diagram.
     * All you need to do is set Overview.observed.
     */
-    class Overview extends Diagram {
+    export class Overview extends Diagram {
         /**
         * @param {HTMLDivElement} div A reference to a DIV element in the DOM.
         */
@@ -2532,7 +2532,7 @@ declare module go {
     * Its Diagram.layout is a GridLayout.
     * The Palette is Diagram.isReadOnly but to support drag-and-drop its Diagram.allowDragOut is true.
     */
-    class Palette extends Diagram {
+    export class Palette extends Diagram {
         /**
         * @param {HTMLDivElement} div A reference to a DIV in the DOM.
         */
@@ -2549,7 +2549,7 @@ declare module go {
     * Every Panel has a .type and establishes its own coordinate system. The .type of a Panel
     * determines how it will size and arrange its elements.
     */
-    class Panel extends GraphObject {
+    export class Panel extends GraphObject {
         /**
         * Constructs an empty Panel of the given .type.
         * @param {EnumValue=} type If not supplied, the default Panel type is Panel.Position.
@@ -2781,7 +2781,7 @@ declare module go {
     * Because it thus also inherits from GraphObject, it also has properties such as
     * GraphObject.actualBounds, GraphObject.contextMenu, and GraphObject.visible.
     */
-    class Part extends Panel {
+    export class Part extends Panel {
         /**
         * The constructor builds an empty Part.
         * @param {EnumValue=} type if not supplied, the default Panel type is Panel.Position.
@@ -2925,9 +2925,6 @@ declare module go {
 
         /**Gets or sets the X and Y offset of this part's shadow.*/
         shadowOffset: Point;
-
-        /**Gets or sets whether this GraphObject will be shadowed inside a Part that has Part.isShadowed set to true; default is null, meaning obey default shadow rules for Part.isShadowed.*/
-        shadowVisible: boolean;
 
         /**Gets or sets a text string that is associated with this part.*/
         text: string;
@@ -3123,7 +3120,7 @@ declare module go {
     * to a URL string or the .element property to an HTMLImageElement,
     * HTMLCanvasElement, or HTMLVideoElement.
     */
-    class Picture extends GraphObject {
+    export class Picture extends GraphObject {
         /**
         * The constructor creates a picture that shows nothing until the .source or .element is specified.
         */
@@ -3150,6 +3147,7 @@ declare module go {
         /**Gets or sets the rectangular area of the source image that this picture should display.*/
         sourceRect: Rect;
 
+        successFunction: (pic: Picture, e: Event) => void;  // undocumented
         static clearCache(url?: string): void;  // undocumented
     }
 
@@ -3159,7 +3157,7 @@ declare module go {
     * It can only be used in the visual tree of a Group node or an Adornment.
     * There can be at most one Placeholder in a Group or an Adornment.
     */
-    class Placeholder extends GraphObject {
+    export class Placeholder extends GraphObject {
         /**
         * The only common initialize of a Placeholder is to set its .padding.
         */
@@ -3175,7 +3173,7 @@ declare module go {
     * It also provides information about the actual layout after the
     * Table Panel has been arranged.
     */
-    class RowColumnDefinition {
+    export class RowColumnDefinition {
         /**
         * You do not need to use this constructor, because calls to Panel.getRowDefinition or Panel.getColumnDefinition will automatically create and remember a RowColumnDefinition for you.
         */
@@ -3263,7 +3261,7 @@ declare module go {
     * the properties .fill and .stroke
     * (and other stroke properties) determine how it is drawn.
     */
-    class Shape extends GraphObject {
+    export class Shape extends GraphObject {
         /**
         * A newly constructed Shape has a default .figure of "None", which constructs a rectangular geometry, and is filled and stroked with a black brush.
         */
@@ -3374,7 +3372,7 @@ declare module go {
     /**
     * A TextBlock is a GraphObject that displays a .text string in a given .font.
     */
-    class TextBlock extends GraphObject {
+    export class TextBlock extends GraphObject {
         /**
         * A newly constructed TextBlock has no string to show; if it did, it would draw the text, wrapping if needed, in the default font using a black stroke.
         */
@@ -3460,7 +3458,7 @@ declare module go {
     * or GraphObject.background.
     * However, a Brush may be shared by multiple GraphObjects.
     */
-    class Brush {
+    export class Brush {
         /**
         * Construct a Brush class of a given type.
         * @param {EnumValue} type one of the values  Brush.Solid, Brush.Linear, Brush.Radial, Brush.Pattern.
@@ -3540,7 +3538,7 @@ declare module go {
     * A Geometry must not be modified once it has been used by a Shape.
     * However, a Geometry may be shared by multiple Shapes.
     */
-    class Geometry {
+    export class Geometry {
         /**
         * Construct an empty Geometry.
         * The geometry type must be one of the following values:
@@ -3674,7 +3672,7 @@ declare module go {
     * A Margin represents a band of space outside or inside a rectangular area,
     * with possibly different values on each of the four sides.
     */
-    class Margin {
+    export class Margin {
         /**
         * If zero arguments are supplied, zero is used for all four sides.
         */
@@ -3775,7 +3773,7 @@ declare module go {
     * It is a single connected series of
     * two-dimensional geometric PathSegments.
     */
-    class PathFigure {
+    export class PathFigure {
         /**
         * Constructs an empty figure.
         * The optional arguments specify the starting point of the figure.
@@ -3824,7 +3822,7 @@ declare module go {
     * A PathSegment must not be modified once its containing PathFigure's
     * Geometry has been assigned to a Shape.
     */
-    class PathSegment {
+    export class PathSegment {
         /**
         * Constructs a segment that goes nowhere unless you specify some Points.
         * @param {EnumValue} type
@@ -3924,7 +3922,7 @@ declare module go {
     /**
     * A Point represents an x- and y-coordinate pair in two-dimensional space.
     */
-    class Point {
+    export class Point {
         /**
         * The default constructor produces the Point(0,0).
         */
@@ -4153,7 +4151,7 @@ declare module go {
     * A Rect describes a rectangular two-dimensional area as a top-left point (x and y values)
     * and a size (width and height values).
     */
-    class Rect {
+    export class Rect {
         /**
          * The default constructor (no argument) results in a Rect(0,0,0,0).
          */
@@ -4450,7 +4448,7 @@ declare module go {
     * A Size describes a width and a height in two-dimensional coordinates.
     * The width and height must both be non-negative.
     */
-    class Size {
+    export class Size {
         /**
         * The default constructor produces the Size(0,0).
         */
@@ -4526,7 +4524,7 @@ declare module go {
     * A Spot represents a relative point from(0, 0) to(1, 1) within the bounds of
     * a rectangular area plus an absolute offset.
     */
-    class Spot {
+    export class Spot {
         /**
         * The default constructor produces the Spot(0, 0, 0, 0), at the top-left corner.
         */
@@ -4740,7 +4738,7 @@ declare module go {
     * The target property name and the data source property name are strings.
     * All name matching is case-sensitive.
     */
-    class Binding {
+    export class Binding {
         /**
         * The constructor creates an empty one-way binding.
         * @param {string=} targetprop A string naming the target property on the target object.
@@ -4887,7 +4885,7 @@ declare module go {
     * You can listen for changed events on the model using Model.addChangedListener
     * and on the Diagram using Diagram.addChangedListener.
     */
-    class ChangedEvent {
+    export class ChangedEvent {
         /**
         * The ChangedEvent class constructor produces an empty ChangedEvent object.
         */
@@ -4990,7 +4988,7 @@ declare module go {
     * but they could be represented by simple Parts or by Groups.
     * Link data should be represented by instances of Link.
     */
-    class GraphLinksModel extends Model {
+    export class GraphLinksModel extends Model {
         /**
         * This constructs an empty GraphLinksModel unless one provides arguments as the initial data array values for the Model.nodeDataArray and GraphLinksModel.linkDataArray properties.
         * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Nodes.
@@ -5349,7 +5347,7 @@ declare module go {
     * without specifying the appearance and behavior of the Nodes and Links and Groups that represent them visually.
     * Models tend to hold only relatively simple data, making them easy to persist by serialization as JSON or XML formatted text.
     */
-    class Model {
+    export class Model {
         /**
         * You probably don't want to call this constructor, because this class does not support links (relationships between nodes) or groups (nodes and links and subgraphs as nodes): instead, create instances of a subclass such as GraphLinksModel or TreeModel.
         * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Parts.
@@ -5722,7 +5720,7 @@ declare module go {
     * A Transaction holds a list of ChangedEvents collected during a transaction,
     * as the value of the read-only .changes property.
     */
-    class Transaction {
+    export class Transaction {
         /**
         * Construct an object holding an empty list of ChangedEvents and no .name.
         */
@@ -5768,7 +5766,7 @@ declare module go {
     * Each node can have at most one "tree parent"; cycles are not permitted.
     * The reference to the parent node's key is a property of the child node data.
     */
-    class TreeModel extends Model {
+    export class TreeModel extends Model {
         /**
         * This constructs an empty TreeModel unless one provides arguments as the initial data array values for the Model.nodeDataArray property.
         * @param {Array<Object>=} nodedataarray an optional Array containing JavaScript objects to be represented by Nodes.
@@ -5829,7 +5827,7 @@ declare module go {
     * A Transaction holds a list of ChangedEvents collected during a transaction,
     * as the value of the read-only .changes property.
     */
-    class UndoManager {
+    export class UndoManager {
         /**
         * The constructor produces an empty UndoManager with no transaction history.
         */
@@ -5979,7 +5977,7 @@ declare module go {
      * CircularVertexes and CircularEdges that normally
      * correspond to the Nodes and Links of the Diagram.
      */
-    class CircularLayout extends Layout {
+    export class CircularLayout extends Layout {
         /**
         * Constructs a CircularLayout with no Layout.network and with no owning Layout.diagram.
         */
@@ -6099,15 +6097,15 @@ declare module go {
         static Reverse: EnumValue;
     }
 
-    class CircularNetwork extends LayoutNetwork {  // undocumented
+    export class CircularNetwork extends LayoutNetwork {  // undocumented
     }
 
     /** This holds CircularLayout-specific information about Links.*/
-    class CircularEdge extends LayoutEdge {
+    export class CircularEdge extends LayoutEdge {
     }
 
     /** This holds CircularLayout-specific information about Nodes.*/
-    class CircularVertex extends LayoutVertex {
+    export class CircularVertex extends LayoutVertex {
         /**Gets or sets the value used as the vertex's angle.*/
         actualAngle: number;
 
@@ -6121,7 +6119,7 @@ declare module go {
     * The algorithm seeks a configuration of the bodies with locally minimal energy,
     * i.e. vertex positions such that the sum of the forces on each vertex is zero.
     */
-    class ForceDirectedLayout extends Layout {
+    export class ForceDirectedLayout extends Layout {
         /**
         * Constructs a ForceDirectedLayout with no Layout.network and with no owning Layout.diagram.
         */
@@ -6294,11 +6292,11 @@ declare module go {
         springStiffness(e: ForceDirectedEdge): number;
     }
 
-    class ForceDirectedNetwork extends LayoutNetwork {  // undocumented
+    export class ForceDirectedNetwork extends LayoutNetwork {  // undocumented
     }
 
     /** This holds ForceDirectedLayout-specific information about Links.*/
-    class ForceDirectedEdge extends LayoutEdge {
+    export class ForceDirectedEdge extends LayoutEdge {
         /**Gets or sets the length of this edge.*/
         length: number;
 
@@ -6307,7 +6305,7 @@ declare module go {
     }
 
     /** This holds ForceDirectedLayout-specific information about Nodes.*/
-    class ForceDirectedVertex extends LayoutVertex {
+    export class ForceDirectedVertex extends LayoutVertex {
         /**Gets or sets the electrical charge for this vertex.*/
         charge: number;
 
@@ -6328,7 +6326,7 @@ declare module go {
     * This simple layout places all of the Parts in a grid-like arrangement, ordered, spaced apart,
     * and wrapping as needed.  It ignores any Links connecting the Nodes being laid out.
     */
-    class GridLayout extends Layout {
+    export class GridLayout extends Layout {
         /**
         * This simple layout places all of the Parts in a grid-like arrangement, ordered, spaced apart,
         * and wrapping as needed.  It ignores any Links connecting the Nodes being laid out.
@@ -6397,7 +6395,7 @@ declare module go {
     * The layout algorithm consists of four-major steps: Cycle Removal,
     * Layer Assignment, Crossing Reduction, and Straightening and Packing.
     */
-    class LayeredDigraphLayout extends Layout {
+    export class LayeredDigraphLayout extends Layout {
         /**
         * Constructs a LayeredDigraphLayout with no Layout.network and with no owning Layout.diagram.
         */
@@ -6540,11 +6538,11 @@ declare module go {
         protected nodeMinColumnSpace(v: LayeredDigraphVertex, tl: boolean): number;  // undocumented
     }
 
-    class LayeredDigraphNetwork extends LayoutNetwork {  // undocumented
+    export class LayeredDigraphNetwork extends LayoutNetwork {  // undocumented
     }
 
     /** This holds LayeredDigraphLayout-specific information about Link s.*/
-    class LayeredDigraphEdge extends LayoutEdge {
+    export class LayeredDigraphEdge extends LayoutEdge {
         /**True if the link is part of the depth first forest.*/
         forest: boolean;
 
@@ -6568,7 +6566,7 @@ declare module go {
     }
 
     /** This holds LayeredDigraphLayout-specific information about Nodes.*/
-    class LayeredDigraphVertex extends LayoutVertex {
+    export class LayeredDigraphVertex extends LayoutVertex {
         /**The column to which the node is assigned.*/
         column: number;
 
@@ -6591,7 +6589,7 @@ declare module go {
     * They only arrange Parts (primarily Nodes and Links) in a Diagram,
     * not to GraphObjects in Panels (i.e. panel layout).
     */
-    class Layout {
+    export class Layout {
         /**
         * Create a minimal layout that only positions Nodes that do not have a location.
         */
@@ -6678,7 +6676,7 @@ declare module go {
      * network (graph) of vertexes and directed edges.
      * The network contains vertexes and edges corresponding to Nodes and Links.
      */
-    class LayoutNetwork {
+    export class LayoutNetwork {
         /**
         * This constructs an empty network.
         */
@@ -6810,7 +6808,7 @@ declare module go {
     }
 
     /** An edge represents a link in a LayoutNetwork. It holds layout-specific data for the link. */
-    class LayoutEdge {
+    export class LayoutEdge {
         /**
         * This constructs an edge that does not know about any Link.
         */
@@ -6844,7 +6842,7 @@ declare module go {
     }
 
     /** A vertex represents a node in a LayoutNetwork. It holds layout-specific data for the node. */
-    class LayoutVertex {
+    export class LayoutVertex {
         /**
         * This constructs a vertex that does not know about any Node.
         */
@@ -6958,7 +6956,7 @@ declare module go {
     /**
     * This layout positions nodes in a tree-like arrangement.
     */
-    class TreeLayout extends Layout {
+    export class TreeLayout extends Layout {
         /**
         * Constructs a TreeLayout with no Layout.network and with no owning Layout.diagram.
         */
@@ -7250,11 +7248,11 @@ declare module go {
         static StyleRootOnly: EnumValue;
     }
 
-    class TreeNetwork extends LayoutNetwork {  // undocumented
+    export class TreeNetwork extends LayoutNetwork {  // undocumented
     }
 
     /** This holds TreeLayout-specific information about Links.*/
-    class TreeEdge extends LayoutEdge {
+    export class TreeEdge extends LayoutEdge {
         /**Gets or sets a Point, relative to the parent node, that may be useful in routing this link.*/
         relativePoint: Point;
 
@@ -7265,7 +7263,7 @@ declare module go {
     }
 
     /** This holds TreeLayout-specific information about Nodes.*/
-    class TreeVertex extends LayoutVertex {
+    export class TreeVertex extends LayoutVertex {
         /**Gets or sets how this parent node should be aligned relative to its children.*/
         alignment: EnumValue;
 
@@ -7373,7 +7371,7 @@ declare module go {
     * This is how one implements "controls", such as buttons or sliders or knobs, as GraphObjects
     * that can be inside Parts without interfering with the standard tool behaviors.
     */
-    class ActionTool extends Tool {
+    export class ActionTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.actionTool.
         */
@@ -7410,7 +7408,7 @@ declare module go {
     * By default a double-click is required to start this tool;
     * set .isDoubleClick to false if you want a single-click to create a node.
     */
-    class ClickCreatingTool extends Tool {
+    export class ClickCreatingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.clickCreatingTool, which you can modify.
         */
@@ -7445,7 +7443,7 @@ declare module go {
     * It is also responsible for handling and dispatching click events on GraphObjects
     * by calling Tool.standardMouseClick.
     */
-    class ClickSelectingTool extends Tool {
+    export class ClickSelectingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.clickSelectingTool.
         */
@@ -7466,7 +7464,7 @@ declare module go {
     * The ContextMenuTool is used to create and show a context menu.
     * It automatically disables any browser context menu.
     */
-    class ContextMenuTool extends Tool {
+    export class ContextMenuTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.contextMenuTool, which you can modify.
         */
@@ -7539,7 +7537,7 @@ declare module go {
     /**
     * This helper structure for DraggingTool holds the original location Point.
     */
-    interface DraggingInfo {  // undocumented
+    export interface DraggingInfo {  // undocumented
         point: Point;
     }
 
@@ -7549,7 +7547,7 @@ declare module go {
     * If the user holds down the Control key, this tool will make a copy of the parts being dragged,
     * for those parts for which Part.canCopy is true.
     */
-    class DraggingTool extends Tool {
+    export class DraggingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.draggingTool, which you can modify.
         */
@@ -7711,7 +7709,7 @@ declare module go {
     * The default drag selection box is a blue rectangle.
     * You can change the .box to customize its appearance -- see its documentation for an example.
     */
-    class DragSelectingTool extends Tool {
+    export class DragSelectingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.dragSelectingTool, which you can modify.
         */
@@ -7769,7 +7767,7 @@ declare module go {
     * that are used during any linking operation, as well as access to the existing diagram's nodes and link
     * (if any) that are involved with the linking operation.
     */
-    abstract class LinkingBaseTool extends Tool {
+    export abstract class LinkingBaseTool extends Tool {
         /**
         * Don't construct this directly -- this is an abstract class.
         */
@@ -7920,7 +7918,7 @@ declare module go {
 
     /**
     */
-    class LinkingTool extends LinkingBaseTool {
+    export class LinkingTool extends LinkingBaseTool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.linkingTool, which you can modify.
         */
@@ -7989,7 +7987,7 @@ declare module go {
     * This tool conducts a transaction while the tool is active.
     * A successful reshaping will result in a "LinkReshaped" DiagramEvent and a "LinkReshaping" transaction.
     */
-    class LinkReshapingTool extends Tool {
+    export class LinkReshapingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.linkReshapingTool, which you can modify.
         */
@@ -8091,7 +8089,7 @@ declare module go {
     * The PanningTool supports manual panning, where the user can shift the
     * Diagram.position by dragging the mouse.
     */
-    class PanningTool extends Tool {
+    export class PanningTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.panningTool.
         */
@@ -8138,7 +8136,7 @@ declare module go {
     * The RelinkingTool allows the user to reconnect an existing Link
     * if the Link.relinkableTo and/or Link.relinkableFrom properties are true.
     */
-    class RelinkingTool extends LinkingBaseTool {
+    export class RelinkingTool extends LinkingBaseTool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.relinkingTool, which you can modify.
         */
@@ -8201,7 +8199,7 @@ declare module go {
     * in the selected Part or Node.
     * This tool does not operate on Links.
     */
-    class ResizingTool extends Tool {
+    export class ResizingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.resizingTool, which you can modify.
         */
@@ -8309,7 +8307,7 @@ declare module go {
     * Normally this works with Parts or Nodes; it does not make sense for Links.
     * The Part must be Part.rotatable, which is false by default.
     */
-    class RotatingTool extends Tool {
+    export class RotatingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.rotatingTool, which you can modify.
         */
@@ -8387,7 +8385,7 @@ declare module go {
     * You do not normally need to create an instance of this tool
     * because one already exists as the ToolManager.clickSelectingTool.
     */
-    class TextEditingTool extends Tool {
+    export class TextEditingTool extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the ToolManager.textEditingTool, which you can modify.
         */
@@ -8481,7 +8479,7 @@ declare module go {
     * Tools handle mouse events and keyboard events.
     * The currently running tool, Diagram.currentTool, receives all input events from the Diagram.
     */
-    abstract class Tool {
+    export abstract class Tool {
         /**
         * Don't construct this directly -- this is an abstract class.
         */
@@ -8596,8 +8594,9 @@ declare module go {
         * @param {function(GraphObject):GraphObject | null=} navig An optional custom navigation
         * function to find target objects.
         * @param {function(GraphObject):boolean | null=} pred An optional custom predicate
+        * @return {boolean} true if InputEvent#handled had been set to true on the Diagram#lastInput.
         */
-        standardMouseClick(navig?: (obj: GraphObject) => GraphObject, pred?: (obj: GraphObject) => boolean): void;
+        standardMouseClick(navig?: (obj: GraphObject) => GraphObject, pred?: (obj: GraphObject) => boolean): boolean;
 
         /**
         * Implement the standard behavior for mouse enter, over, and leave events, where the mouse is moving but no button is pressed.
@@ -8657,7 +8656,7 @@ declare module go {
     * This special Tool is responsible for managing all of the Diagram's
     * mode-less tools.
     */
-    class ToolManager extends Tool {
+    export class ToolManager extends Tool {
         /**
         * You do not normally need to create an instance of this tool because one already exists as the Diagram.toolManager, which you can modify.
         */
@@ -8833,7 +8832,7 @@ declare module go {
     * This interface is implemented by the List, Set, and Map
     * classes; it provides the .iterator read-only property that returns an Iterator.
     */
-    class Iterable<T> {
+    export interface Iterable<T> {
         /*This is an interface and thus does not have a constructor.*/
 
         /**Gets an Iterator that can iterate over the items in the collection.*/
@@ -8845,7 +8844,7 @@ declare module go {
     * it provides the .next predicate and the .value read-only property.
     * Some Iterators also provide key property values along with each value.
     */
-    class Iterator<T> extends Iterable<T> {
+    export interface Iterator<T> extends Iterable<T> {
         /*This is an interface and thus does not have a constructor.*/
 
         /**This read-only property returns the total number of items in the iterated collection.*/
@@ -8916,7 +8915,7 @@ declare module go {
     * An ordered iterable collection.
     * It optionally enforces the type of elements that may be added to the List.
     */
-    class List<T> extends Iterable<T> {
+    export class List<T> implements Iterable<T> {
         /**
         * This creates a List that checks the type of the values to be instances of a particular kind of Object.
         * @param {function(...)} type this must be a class function/constructor.
@@ -9125,7 +9124,7 @@ declare module go {
     /**
     * This is a structure used by Map to hold key-value pairs.
     */
-    interface KeyValuePair<K,V> {  // undocumented
+    export interface KeyValuePair<K,V> {  // undocumented
         key: K;
         value: V;
     }
@@ -9135,7 +9134,7 @@ declare module go {
     * same key.
     * It optionally enforces the type of the key and the type of the associated value.
     */
-    class Map<K,V> extends Iterator<KeyValuePair<K,V>> {
+    export class Map<K,V> implements Iterable<KeyValuePair<K,V>> {
         /**
         * This creates a Map that may check the types of the keys and/or values.
         * @param {function(...)} keytype if supplied, this must be a class function/constructor.
@@ -9301,7 +9300,7 @@ declare module go {
     * An unordered iterable collection that cannot contain two instances of the same kind of value.
     * It optionally enforces the type of elements that may be added to the Set.
     */
-    class Set<T> extends Iterable<T> {
+    export class Set<T> implements Iterable<T> {
         /**
         * This creates a Set that checks the type of the values.
         * @param {function(...)} type this must be a class function/constructor.
@@ -9453,11 +9452,16 @@ declare module go {
         toList(): List<T>;
     }
 
-    class EnumValue {  // undocumented
+    export class EnumValue {  // undocumented
         //Rawr!
     }
 } //END go
 
-declare module "go" {
-    export = go;
+// for TypeScript 1.*:
+declare module "go" {  // comment out module declaration for TypeScript 2.0
+  export = go;         // but keep export = go in all versions for compatibility with AMD and CommonJS
 }
+
+// for TypeScript 2.0:
+//export = go;
+//export as namespace go;
