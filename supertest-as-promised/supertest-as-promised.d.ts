@@ -4,42 +4,56 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../superagent/superagent.d.ts' />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path='../supertest/supertest.d.ts' />
+/// <reference path='../bluebird/bluebird.d.ts' />
 
 declare module "supertest-as-promised" {
-  // Mostly copy-pasted from supertest.d.ts
+  import * as supertest from "supertest";
+  import * as supersgent from "superagent";
+  import { SuperTest, Response } from "supertest";
+  import * as PromiseBlurbird from "bluebird";
 
-  import * as superagent from 'superagent';
-  import * as PromiseBluebird from 'bluebird';
+  function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
-  function supertest(app: any): supertest.SuperTest;
-
-  namespace supertest {
-    function agent(app?: any): supertest.SuperTest;
-
-    interface SuperTest extends superagent.SuperAgent<Test> {
+  namespace supertestAsPromised {
+    interface Request extends supertest.Request {
     }
 
-    interface Promise<T> extends PromiseBluebird<T> {
-      toPromise(): PromiseBluebird<T>;
+    interface Response extends supertest.Response {
     }
 
-    interface Test extends superagent.Request<Test> {
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number): Promise<supertest.Response>;
-      expect(status: number, body: string): Promise<supertest.Response>;
-      expect(body: string): Promise<supertest.Response>;
-      expect(body: RegExp): Promise<supertest.Response>;
-      expect(body: Object): Promise<supertest.Response>;
-      expect(field: string, val: string): Promise<supertest.Response>;
-      expect(field: string, val: RegExp): Promise<supertest.Response>;
-      expect(checker: (res: Response) => any): Promise<supertest.Response>;
+    interface Test extends Promise<Response>, supertest.Test, supersgent.Request {
+      toPromise(): PromiseBlurbird<Response>;
     }
 
-    interface Response extends superagent.Response {
+    function agent(app?: any): SuperTest<Test>;
+
+    interface SuperTest<T> extends supertest.SuperTest<T> {
     }
   }
+  export = supertestAsPromised
 
-  export = supertest;
+  // from core-js.d.ts
+  /**
+   * Represents the completion of an asynchronous operation
+   */
+  interface Promise<T> {
+      /**
+      * Attaches callbacks for the resolution and/or rejection of the Promise.
+      * @param onfulfilled The callback to execute when the Promise is resolved.
+      * @param onrejected The callback to execute when the Promise is rejected.
+      * @returns A Promise for the completion of which ever callback is executed.
+      */
+      then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
+      then<TResult>(onfulfilled?: (value: T) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
+
+      /**
+       * Attaches a callback for only the rejection of the Promise.
+       * @param onrejected The callback to execute when the Promise is rejected.
+       * @returns A Promise for the completion of the callback.
+       */
+      catch(onrejected?: (reason: any) => T | PromiseLike<T>): Promise<T>;
+      catch(onrejected?: (reason: any) => void): Promise<T>;
+  }
+
 }

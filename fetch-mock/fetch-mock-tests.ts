@@ -18,17 +18,15 @@ fetchMock.mock(/test/, {
     }
 });
 
-fetchMock.reMock();
-
 fetchMock.restore().reset();
 
-fetchMock.calls().matched[0][1].body;
+(fetchMock.calls().matched[0][1] as RequestInit).body;
 fetchMock.calls().unmatched[0][0].toUpperCase();
 fetchMock.calls("http://test.com")[0][0].toUpperCase();
-fetchMock.calls("http://test.com")[0][1].body;
+(fetchMock.calls("http://test.com")[0][1] as RequestInit).body;
 
 fetchMock.called("http://test.com");
 
-fetchMock.lastCall()[1].body;
+(fetchMock.lastCall()[1] as RequestInit).body;
 fetchMock.lastUrl();
 fetchMock.lastOptions();

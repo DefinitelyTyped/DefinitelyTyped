@@ -13,6 +13,7 @@ declare module "superagent" {
   var request: request.SuperAgentStatic;
 
   namespace request {
+    interface SuperAgentRequest extends Request {}
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
       (url: string): SuperAgentRequest;
       (method: string, url: string): SuperAgentRequest;
@@ -20,7 +21,7 @@ declare module "superagent" {
       agent(): SuperAgent<SuperAgentRequest>;
     }
 
-    interface SuperAgent<Req extends Request<any>> extends stream.Stream {
+    interface SuperAgent<Req> extends stream.Stream {
       get(url: string, callback?: CallbackHandler): Req;
       post(url: string, callback?: CallbackHandler): Req;
       put(url: string, callback?: CallbackHandler): Req;
@@ -79,38 +80,36 @@ declare module "superagent" {
       get(header: string): string;
     }
 
-    interface Request<Req extends Request<any>> /* extends NodeJS.WritableStream */ {
+    interface Request /* extends NodeJS.WritableStream */ {
       abort(): void;
-      accept(type: string): Req;
-      attach(field: string, file: string, filename?: string): Req;
-      auth(user: string, name: string): Req;
-      buffer(val: boolean): Req;
-      clearTimeout(): Req;
-      end(callback?: CallbackHandler): Req;
-      field(name: string, val: string): Req;
+      accept(type: string): this;
+      attach(field: string, file: string, filename?: string): this;
+      auth(user: string, name: string): this;
+      buffer(val: boolean): this;
+      clearTimeout(): this;
+      end(callback?: CallbackHandler): this;
+      field(name: string, val: string): this;
       get(field: string): string;
-      on(name: string, handler: Function): Req;
-      on(name: 'error', handler: (err: any) => void): Req;
-      part(): Req;
+      on(name: string, handler: Function): this;
+      on(name: 'error', handler: (err: any) => void): this;
+      part(): this;
       pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
-      query(val: Object): Req;
-      redirects(n: number): Req;
-      send(data: string): Req;
-      send(data: Object): Req;
-      send(): Req;
-      set(field: string, val: string): Req;
-      set(field: Object): Req;
-      timeout(ms: number): Req;
-      type(val: string): Req;
-      use(fn: Function): Req;
-      withCredentials(): Req;
-      write(data: string, encoding?: string): Req;
-      write(data: Buffer, encoding?: string): Req;
+      query(val: Object): this;
+      redirects(n: number): this;
+      send(data: string): this;
+      send(data: Object): this;
+      send(): this;
+      set(field: string, val: string): this;
+      set(field: Object): this;
+      timeout(ms: number): this;
+      type(val: string): this;
+      use(fn: Function): this;
+      withCredentials(): this;
+      write(data: string, encoding?: string): this;
+      write(data: Buffer, encoding?: string): this;
     }
-    interface SuperAgentRequest extends Request<Request<Request<Request<any>>>> {}
 
   }
 
   export = request;
 }
-
