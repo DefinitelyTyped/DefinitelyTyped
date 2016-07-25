@@ -129,77 +129,77 @@ function sample3() {
     canvas.setActiveObject(oImg);
   });
 
-  $('grayscale').onclick = function() {
+  $('grayscale').onclick = function(this: HTMLInputElement) {
     applyFilter(0, this.checked && new f.Grayscale());
   };
-  $('invert').onclick = function() {
+  $('invert').onclick = function(this: HTMLInputElement) {
     applyFilter(1, this.checked && new f.Invert());
   };
-  $('remove-white').onclick = function() {
+  $('remove-white').onclick = function(this: HTMLInputElement) {
     applyFilter(2, this.checked && new f.RemoveWhite({
       threshold: parseInt((<HTMLInputElement>$('remove-white-threshold')).value),
       distance: parseInt((<HTMLInputElement>$('remove-white-distance')).value)
     }));
   };
-  $('remove-white-threshold').onchange = function() {
+  $('remove-white-threshold').onchange = function(this: HTMLInputElement) {
     applyFilterValue(2, 'threshold', this.value);
   };
-  $('remove-white-distance').onchange = function() {
+  $('remove-white-distance').onchange = function(this: HTMLInputElement) {
     applyFilterValue(2, 'distance', this.value);
   };
-  $('sepia').onclick = function() {
+  $('sepia').onclick = function(this: HTMLInputElement) {
     applyFilter(3, this.checked && new f.Sepia());
   };
-  $('sepia2').onclick = function() {
+  $('sepia2').onclick = function(this: HTMLInputElement) {
     applyFilter(4, this.checked && new f.Sepia2());
   };
-  $('brightness').onclick = function() {
+  $('brightness').onclick = function(this: HTMLInputElement) {
     applyFilter(5, this.checked && new f.Brightness({
       brightness: parseInt((<HTMLInputElement>$('brightness-value')).value, 10)
     }));
   };
-  $('brightness-value').onchange = function() {
+  $('brightness-value').onchange = function(this: HTMLInputElement) {
     applyFilterValue(5, 'brightness', parseInt(this.value, 10));
   };
-  $('noise').onclick = function() {
+  $('noise').onclick = function(this: HTMLInputElement) {
     applyFilter(6, this.checked && new f.Noise({
       noise: parseInt((<HTMLInputElement>$('noise-value')).value, 10)
     }));
   };
-  $('noise-value').onchange = function() {
+  $('noise-value').onchange = function(this: HTMLInputElement) {
     applyFilterValue(6, 'noise', parseInt(this.value, 10));
   };
-  $('gradient-transparency').onclick = function() {
+  $('gradient-transparency').onclick = function(this: HTMLInputElement) {
     applyFilter(7, this.checked && new f.GradientTransparency({
       threshold: parseInt((<HTMLInputElement>$('gradient-transparency-value')).value, 10)
     }));
   };
-  $('gradient-transparency-value').onchange = function() {
+  $('gradient-transparency-value').onchange = function(this: HTMLInputElement) {
     applyFilterValue(7, 'threshold', parseInt(this.value, 10));
   };
-  $('pixelate').onclick = function() {
+  $('pixelate').onclick = function(this: HTMLInputElement) {
     applyFilter(8, this.checked && new f.Pixelate({
       blocksize: parseInt((<HTMLInputElement>$('pixelate-value')).value, 10)
     }));
   };
-  $('pixelate-value').onchange = function() {
+  $('pixelate-value').onchange = function(this: HTMLInputElement) {
     applyFilterValue(8, 'blocksize', parseInt(this.value, 10));
   };
-  $('blur').onclick = function() {
+  $('blur').onclick = function(this: HTMLInputElement) {
     applyFilter(9, this.checked && new f.Convolute({
       matrix: [1 / 9, 1 / 9, 1 / 9,
         1 / 9, 1 / 9, 1 / 9,
         1 / 9, 1 / 9, 1 / 9]
     }));
   };
-  $('sharpen').onclick = function() {
+  $('sharpen').onclick = function(this: HTMLInputElement) {
     applyFilter(10, this.checked && new f.Convolute({
       matrix: [0, -1, 0,
         -1, 5, -1,
         0, -1, 0]
     }));
   };
-  $('emboss').onclick = function() {
+  $('emboss').onclick = function(this: HTMLInputElement) {
     applyFilter(11, this.checked && new f.Convolute({
       matrix: [1, 1, 1,
         1, 0.7, -1,
@@ -224,26 +224,26 @@ function sample4() {
   canvas.add(rect);
 
   var angleControl = <HTMLInputElement>$('angle-control');
-  angleControl.onchange = function() {
-    rect.setAngle(this.value).setCoords();
+  angleControl.onchange = function(this: HTMLInputElement) {
+    rect.setAngle(+this.value).setCoords();
     canvas.renderAll();
   };
 
   var scaleControl = <HTMLInputElement>$('scale-control');
-  scaleControl.onchange = function() {
-    rect.scale(this.value).setCoords();
+  scaleControl.onchange = function(this: HTMLInputElement) {
+    rect.scale(+this.value).setCoords();
     canvas.renderAll();
   };
 
   var topControl = <HTMLInputElement>$('top-control');
-  topControl.onchange = function() {
-    rect.setTop(this.value).setCoords();
+  topControl.onchange = function(this: HTMLInputElement) {
+    rect.setTop(+this.value).setCoords();
     canvas.renderAll();
   };
 
   var leftControl = <HTMLInputElement>$('left-control');
-  leftControl.onchange = function() {
-    rect.setLeft(this.value).setCoords();
+  leftControl.onchange = function(this: HTMLInputElement) {
+    rect.setLeft(+this.value).setCoords();
     canvas.renderAll();
   };
 
@@ -964,7 +964,7 @@ function sample8() {
   var textAlignSwitch = document.getElementById('text-align');
   if (textAlignSwitch) {
     activeObjectButtons.push(textAlignSwitch);
-    textAlignSwitch.onchange = function() {
+    textAlignSwitch.onchange = function(this: HTMLInputElement) {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.textAlign = this.value.toLowerCase();
@@ -976,7 +976,7 @@ function sample8() {
   var fontFamilySwitch = document.getElementById('font-family');
   if (fontFamilySwitch) {
     activeObjectButtons.push(fontFamilySwitch);
-    fontFamilySwitch.onchange = function() {
+    fontFamilySwitch.onchange = function(this: HTMLInputElement) {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.fontFamily = this.value;
@@ -987,7 +987,7 @@ function sample8() {
 
   var bgColorField = document.getElementById('text-bg-color');
   if (bgColorField) {
-    bgColorField.onchange = function() {
+    bgColorField.onchange = function(this: HTMLInputElement) {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.backgroundColor = this.value;
@@ -998,7 +998,7 @@ function sample8() {
 
   var strokeColorField = document.getElementById('text-stroke-color');
   if (strokeColorField) {
-    strokeColorField.onchange = function() {
+    strokeColorField.onchange = function(this: HTMLInputElement) {
       var activeObject = <fabric.IText>canvas.getActiveObject();
       if (activeObject && activeObject.type === 'text') {
         activeObject.stroke = this.value;
@@ -1024,7 +1024,7 @@ function sample8() {
       slider.onchange = function() {
         var activeObject = <fabric.IText>canvas.getActiveObject();
         if (activeObject && activeObject.type === 'text') {
-          activeObject.lineHeight = this.value;
+          activeObject.lineHeight = +this.value;
           canvas.renderAll();
         }
       };
