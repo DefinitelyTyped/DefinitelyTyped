@@ -4954,7 +4954,7 @@ interface HighchartsDataPoint {
      * The inner radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    innerRadius?: number;
+    innerRadius?: number|string;
     /**
      * When this property is true, the points acts as a summary column for the values added or substracted since the
      * last intermediate sum, or since the start of the series. The y value is ignored.
@@ -5005,7 +5005,7 @@ interface HighchartsDataPoint {
      * The outer radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    radius?: number;
+    radius?: number|string;
     /**
      * Whether the data point is selected initially.
      * @default false

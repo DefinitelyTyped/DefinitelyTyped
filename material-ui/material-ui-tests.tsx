@@ -18,6 +18,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import Avatar from 'material-ui/Avatar';
 import Badge from 'material-ui/Badge';
 import Checkbox from 'material-ui/Checkbox';
+import Chip from 'material-ui/Chip';
 import CircularProgress from 'material-ui/CircularProgress';
 import DatePicker from 'material-ui/DatePicker';
 import Dialog from 'material-ui/Dialog';
@@ -140,6 +141,9 @@ const styles = {
   button: {
     margin: 12,
   },
+  chip: {
+    margin: 4
+  },
   smallIcon: {
     width: 36,
     height: 36,
@@ -260,7 +264,6 @@ const customContentStyle = {
 const iconStyles = {
   marginRight: 24,
 };
-
 
 // "http://www.material-ui.com/#/customization/themes"
 
@@ -677,7 +680,7 @@ const FlatButtonExampleComplex = () => (
     </FlatButton>
 
     <FlatButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       style={styles.button}
@@ -738,7 +741,7 @@ const RaisedButtonExampleComplex = () => (
       <input type="file" style={styles.exampleImageInput} />
     </RaisedButton>
     <RaisedButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       icon={<ActionAndroid />}
@@ -1025,6 +1028,35 @@ class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
           <FlatButton label="Reduce" onTouchTap={this.handleReduce} />
         </CardActions>
       </Card>
+    );
+  }
+}
+
+// "http://www.material-ui.com/#/components/chip"
+const ChipExampleSimple = () => (
+  <div>
+    <Chip>Basic Chip</Chip>
+    <Chip backgroundColor={blue300}>Blue Background</Chip>
+    <Chip labelColor={blue500}>Blue Label Color</Chip>
+    <Chip><Avatar size={32} color={blue300} backgroundColor={indigo900}>UI</Avatar> Avatar</Chip>
+    <Chip style={styles.chip}>Styled</Chip>
+  </div>
+);
+
+class ChipExampleComplex extends React.Component<{}, {}>{
+  handleRequestDelete = () => {
+    alert('You clicked the delete button.');
+  }
+
+  handleTouchTap = () => {
+    alert('You clicked the Chip.');
+  }
+
+  render() {
+    return (
+      <div>
+        <Chip onTouchTap={this.handleTouchTap} onRequestDelete={this.handleRequestDelete}>Click Me</Chip>
+      </div>
     );
   }
 }
@@ -2433,6 +2465,7 @@ const MenuExampleNested = () => (
 const IconMenuExampleSimple = () => (
   <div>
     <IconMenu
+      animated={true}
       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'top'}}
       targetOrigin={{horizontal: 'left', vertical: 'top'}}
@@ -2444,6 +2477,7 @@ const IconMenuExampleSimple = () => (
       <MenuItem primaryText="Sign out" />
     </IconMenu>
     <IconMenu
+      animated={false}
       iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
       anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
       targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
@@ -2674,7 +2708,7 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
   render() {
     return (
       <div>
-        <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+        <DropDownMenu animated={false} value={this.state.value} onChange={this.handleChange}>
           <MenuItem value={1} primaryText="Never" />
           <MenuItem value={2} primaryText="Every Night" />
           <MenuItem value={3} primaryText="Weeknights" />
@@ -2683,6 +2717,7 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
         </DropDownMenu>
         <br />
         <DropDownMenu
+          animated={true}
           value={this.state.value}
           onChange={this.handleChange}
           style={styles.customWidth}
@@ -3339,6 +3374,7 @@ export default class SelectFieldExampleFloatingLabel extends React.Component<{},
         <SelectField
           value={this.state.value}
           onChange={this.handleChange}
+          floatingLabelFixed={true}
           floatingLabelText="Styled Floating Label Text"
           floatingLabelStyle={{color: 'red'}}
         >

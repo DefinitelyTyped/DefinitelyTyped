@@ -1,4 +1,4 @@
-﻿// Type definitions for jsonwebtoken 6.2.0
+﻿// Type definitions for jsonwebtoken 7.1.6
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,24 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "jsonwebtoken" {
+
+    export class JsonWebTokenError extends Error {
+        inner: Error;
+
+        constructor(message: string, error?: Error);
+    }
+
+    export class TokenExpiredError extends JsonWebTokenError {
+        expiredAt: number;
+
+        constructor(message: string, expiredAt: number);
+    }
+
+    export class NotBeforeError extends JsonWebTokenError {
+        date: Date;
+
+        constructor(message: string, date: Date);
+    }
 
     export interface SignOptions {
         /**
@@ -31,14 +49,17 @@ declare module "jsonwebtoken" {
         jwtid?: string;
         noTimestamp?: boolean;
         header?: Object;
+        encoding?: string;
     }
 
     export interface VerifyOptions {
         algorithms?: string[];
-        audience?: string;
-        issuer?: string;
+        audience?: string | string[];
+        clockTolerance?: number;
+        issuer?: string | string[];
         ignoreExpiration?: boolean;
         ignoreNotBefore?: boolean;
+        jwtId?: string;
         subject?: string;
         /**
          *@deprecated
@@ -53,7 +74,7 @@ declare module "jsonwebtoken" {
     }
 
     export interface VerifyCallback {
-        (err: Error, decoded: any): void;
+        (err: JsonWebTokenError | TokenExpiredError | NotBeforeError, decoded: any): void;
     }
 
     export interface SignCallback {

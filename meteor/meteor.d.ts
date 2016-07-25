@@ -686,6 +686,8 @@ declare namespace Mongo {
 		new(hexString?: string): ObjectID;
 	}
 	interface ObjectID {
+		valueOf(): string;
+		getTimestamp(): Date;
 	}
 
 }

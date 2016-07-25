@@ -58,7 +58,7 @@ declare namespace SocketIORedis {
 		 * The optional port to connect to redis on
 		 * @default 6379
 		 */
-		port?: string;
+		port?: number;
 
 		/**
 		 * The optional redis client to publish events on

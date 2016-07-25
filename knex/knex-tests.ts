@@ -156,11 +156,17 @@ knex('users')
   .join('contacts', 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
+knex('users')
+  .join(knex('contacts').select('user_id', 'phone').as('contacts'), 'users.id', 'contacts.user_id')
+  .select('users.id', 'contacts.phone');
+
 knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
+
+knex.raw('select * from users where id = :user_id', { user_id: 1 });
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 

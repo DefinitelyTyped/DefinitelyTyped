@@ -2000,7 +2000,19 @@ declare module _ {
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    //_.fromPairs DUMMY
+    // _.flattenDepth
+    interface LoDashStatic {
+        /**
+        * Recursively flatten array up to depth times.
+        *
+        * @param array The array to recursively flatten.
+        * @param number The maximum recursion depth.
+        * @return Returns the new flattened array.
+        */
+        flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T>, depth?: number): T[];
+     }
+
+    //_.fromPairs
     interface LoDashStatic {
         /**
          * The inverse of `_.toPairs`; this method returns an object composed
@@ -2016,8 +2028,15 @@ declare module _ {
          * _.fromPairs([['fred', 30], ['barney', 40]]);
          * // => { 'fred': 30, 'barney': 40 }
          */
+        fromPairs<T>(
+          array: List<[_.StringRepresentable, T]>
+        ): Dictionary<T>;
+
+        /**
+         @see _.fromPairs
+         */
         fromPairs(
-            array: any[]|List<any>
+            array: List<any[]>
         ): Dictionary<any>;
     }
 
@@ -8540,6 +8559,21 @@ declare module _ {
             callback: MemoIterator<TValue, TResult>): TResult;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
@@ -10253,6 +10287,35 @@ declare module _ {
          * @param funcs Functions to invoke.
          * @return Returns the new function.
          */
+        // 1-argument first function
+        flow<A1, R1, R2>(f1: (a1: A1) => R1, f2: (a: R1) => R2): (a1: A1) => R2;
+        flow<A1, R1, R2, R3>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1) => R3;
+        flow<A1, R1, R2, R3, R4>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (a1: A1) => R4;
+        flow<A1, R1, R2, R3, R4, R5>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1) => R5;
+        flow<A1, R1, R2, R3, R4, R5, R6>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1) => R6;
+        flow<A1, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1) => R7;
+        // 2-argument first function
+        flow<A1, A2, R1, R2>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2) => R2;
+        flow<A1, A2, R1, R2, R3>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2) => R3;
+        flow<A1, A2, R1, R2, R3, R4>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (a1: A1, a2: A2) => R4;
+        flow<A1, A2, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2) => R5;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2) => R6;
+        flow<A1, A2, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2) => R7;
+        // 3-argument first function
+        flow<A1, A2, A3, R1, R2>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2, a3: A3) => R2;
+        flow<A1, A2, A3, R1, R2, R3>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2, a3: A3) => R3;
+        flow<A1, A2, A3, R1, R2, R3, R4>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (a1: A1, a2: A2, a3: A3) => R4;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2, a3: A3) => R5;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2, a3: A3) => R6;
+        flow<A1, A2, A3, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3) => R7;
+        // 4-argument first function
+        flow<A1, A2, A3, A4, R1, R2>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2): (a1: A1, a2: A2, a3: A3, a4: A4) => R2;
+        flow<A1, A2, A3, A4, R1, R2, R3>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3): (a1: A1, a2: A2, a3: A3, a4: A4) => R3;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4): (a1: A1, a2: A2, a3: A3, a4: A4) => R4;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5): (a1: A1, a2: A2, a3: A3, a4: A4) => R5;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6): (a1: A1, a2: A2, a3: A3, a4: A4) => R6;
+        flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3, a4: A4) => R7;
+        // generic function
         flow<TResult extends Function>(...funcs: Function[]): TResult;
     }
 
@@ -13414,29 +13477,26 @@ declare module _ {
 
         /**
          * @see _.sumBy
-         **/
-        sumBy<T>(
-            collection: Dictionary<T>,
-            iteratee: DictionaryIterator<T, number>
-        ): number;
-
-        /**
-         * @see _.sumBy
          */
-        sumBy<T>(
-            collection: List<number>|Dictionary<number>,
+        sumBy(
+            collection: List<{}>,
             iteratee: string
         ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy<T>(collection: List<T>|Dictionary<T>): number;
+        sumBy(
+            collection: List<number>
+        ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy(collection: List<number>|Dictionary<number>): number;
+        sumBy(
+            collection: List<{}>,
+            iteratee: Dictionary<{}>
+        ): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -13455,15 +13515,15 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
-         **/
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+         */
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): number;
 
         /**
@@ -13474,7 +13534,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
@@ -13494,14 +13554,19 @@ declare module _ {
          * @see _.sumBy
          */
         sumBy(): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
          */
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -13512,7 +13577,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): LoDashExplicitWrapper<number>;
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     /**********
@@ -17004,6 +17069,11 @@ declare module _ {
          * @param object The object to query.
          * @return Returns an array of property values.
          */
+        values<T>(object?: Dictionary<T>): T[];
+
+         /**
+          * @see _.values
+          */
         values<T>(object?: any): T[];
     }
 
@@ -17028,6 +17098,11 @@ declare module _ {
          *
          * @param object The object to query.
          * @return Returns the array of property values.
+         */
+        valuesIn<T>(object?: Dictionary<T>): T[];
+
+        /**
+         * @see _.valuesIn
          */
         valuesIn<T>(object?: any): T[];
     }
@@ -19353,15 +19428,10 @@ declare module "lodash/flattenDeep" {
    export = flattenDeep;
 }
 
-/**
-* uncoment it if definition exists
-*/
-/*
 declare module "lodash/flattenDepth" {
    const flattenDepth: typeof _.flattenDepth;
    export = flattenDepth;
 }
-*/
 
 declare module "lodash/flip" {
    const flip: typeof _.flip;

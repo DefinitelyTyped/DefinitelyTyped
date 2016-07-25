@@ -973,19 +973,26 @@ namespace TestFlattenDeep {
 
 // _.fromPairs
 namespace TestFromPairs {
-    let array: string[][];
-    let result: _.Dictionary<any>;
+    let twoDimensionalArray: string[][];
+    let numberTupleArray: [string, number][];
+    let stringDict: _.Dictionary<string>;
+    let numberDict: _.Dictionary<number>;
 
     {
-        result = _.fromPairs(array);
+        stringDict = _.fromPairs(twoDimensionalArray);
+        numberDict = _.fromPairs(numberTupleArray);
+        // Ensure we're getting the parameterized overload rather than the 'any' catch-all.
+        numberDict = _.fromPairs<number>(numberTupleArray);
+        // This doesn't compile because you can't assign arrays to tuples.
+        // stringDict = _.fromPairs<string>(twoDimensionalArray);
     }
 
     {
-        result = _(array).fromPairs().value();
+        stringDict = _(twoDimensionalArray).fromPairs().value();
     }
 
     {
-        result = _.chain(array).fromPairs().value();
+        stringDict = _.chain(twoDimensionalArray).fromPairs().value();
     }
 }
 
@@ -5724,6 +5731,21 @@ namespace TestFlip {
 namespace TestFlow {
     let Fn1: (n: number) => number;
     let Fn2: (m: number, n: number) => number;
+    let Fn3: (a: number) => string;
+    let Fn4: (a: string) => number;
+    
+    {
+        // type infer test
+        let result: (m: number, n: number) => number;
+        
+        result = _.flow(Fn2, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn3, Fn4);
+    }
 
     {
         let result: (m: number, n: number) => number;
@@ -7874,49 +7896,41 @@ namespace TestSum {
 // _.sumBy
 namespace TestSumBy {
     let array: number[];
+    let objectArray: { 'age': number }[];
+
     let list: _.List<number>;
-    let dictionary: _.Dictionary<number>;
+    let objectList: _.List<{ 'age': number }>;
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => number;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
 
     {
         let result: number;
 
-        result = _.sumBy<number>(array);
-        result = _.sumBy<number>(array, listIterator);
-        result = _.sumBy<number>(array, '');
+        result = _.sumBy(array);
+        result = _.sumBy(array, listIterator);
+        result = _.sumBy(objectArray, 'age');
+        result = _.sumBy(objectArray, { 'age': 30 });
 
-
-        result = _.sumBy<number>(list);
-        result = _.sumBy<number>(list, listIterator);
-        result = _.sumBy<number>(list, '');
-
-        result = _.sumBy<number>(dictionary);
-        result = _.sumBy<number>(dictionary, dictionaryIterator);
-        result = _.sumBy<number>(dictionary, '');
+        result = _.sumBy(list);
+        result = _.sumBy(list, listIterator);
+        result = _.sumBy(objectList, 'age');
+        result = _.sumBy(objectList, { 'age': 30 });
 
         result = _(array).sumBy(listIterator);
-        result = _(array).sumBy('');
+        result = _(objectArray).sumBy('age');
 
-        result = _(list).sumBy<number>(listIterator);
-        result = _(list).sumBy('');
-
-        result = _(dictionary).sumBy<number>(dictionaryIterator);
-        result = _(dictionary).sumBy('');
+        result = _(list).sumBy(listIterator);
+        result = _(objectList).sumBy('age');
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _(array).chain().sumBy(listIterator);
-        result = _(array).chain().sumBy('');
+        result = _(objectArray).chain().sumBy('age');
 
-        result = _(list).chain().sumBy<number>(listIterator);
-        result = _(list).chain().sumBy('');
-
-        result = _(dictionary).chain().sumBy<number>(dictionaryIterator);
-        result = _(dictionary).chain().sumBy('');
+        result = _(list).chain().sumBy(listIterator);
+        result = _(objectList).chain().sumBy('age');
     }
 }
 
@@ -10277,7 +10291,14 @@ namespace TestValues {
     {
         let result: TResult[];
 
-        result = _.values<TResult>(object);
+        result = _.values(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.values<TResult>(new Object);
     }
 
     {
@@ -10300,7 +10321,20 @@ namespace TestValuesIn {
     {
         let result: TResult[];
 
-        result = _.valuesIn<TResult>(object);
+        result = _.valuesIn(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.valuesIn<TResult>(new Object);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.values(object);
     }
 
     {

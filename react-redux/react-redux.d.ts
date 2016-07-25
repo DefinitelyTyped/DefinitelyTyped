@@ -6,9 +6,13 @@
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
-declare module "react-redux" {
-  import { ComponentClass, Component, StatelessComponent, ReactNode } from 'react';
-  import { Store, Dispatch, ActionCreator } from 'redux';
+declare namespace ReactRedux {
+  type ComponentClass<P> = __React.ComponentClass<P>;
+  type StatelessComponent<P> = __React.StatelessComponent<P>;
+  type ReactNode = __React.ReactNode;
+  type Store<S> = Redux.Store<S>;
+  type Dispatch<S> = Redux.Dispatch<S>;
+  type ActionCreator<A> = Redux.ActionCreator<A>;
 
   interface ComponentDecorator<TOriginalProps, TOwnProps> {
     (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
@@ -45,27 +49,29 @@ declare module "react-redux" {
   export function connect(): InferableComponentDecorator;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
-    mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject>
   ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject,
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
   ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+
+  type FuncOrSelf<T> = T | (() => T);
 
   interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
   }
 
   interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps?: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<any>, ownProps?: TOwnProps): TDispatchProps;
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
@@ -92,12 +98,16 @@ declare module "react-redux" {
     /**
      * The single Redux store in your application.
      */
-    store?: Store;
+    store?: Store<any>;
     children?: ReactNode;
   }
 
   /**
    * Makes the Redux store available to the connect() calls in the component hierarchy below.
    */
-  export class Provider extends Component<ProviderProps, {}> { }
+  export class Provider extends __React.Component<ProviderProps, {}> { }
+}
+
+declare module "react-redux" {
+  export = ReactRedux;
 }
