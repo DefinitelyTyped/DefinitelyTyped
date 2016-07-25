@@ -18,17 +18,17 @@ declare namespace ProtoBuf {
 
     // var Lang: Lang; TODO: implement interface Lang
 
-    export function loadJson(json: string, builder?: ProtoBuilder | string | Object,
-        filename?: string | Object): ProtoBuilder;
+    export function loadJson(json: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
 
-    export function loadJsonFile(filename: string | Object,
+    export function loadJsonFile(filename: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
 
-    export function loadProto(proto: string, builder?: ProtoBuilder | string | Object,
-        filename?: string | Object): ProtoBuilder;
+    export function loadProto(proto: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
 
-    export function loadProtoFile(filePath: string | Object,
+    export function loadProtoFile(filePath: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
 
