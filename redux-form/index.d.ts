@@ -777,7 +777,7 @@ declare namespace ReduxForm {
    * Reducer
    */
 
-  export function reducer<S>(state: S, action: Action): S | FormReducer;
+  export function reducer(state: FormStateMap, action: Action): FormStateMap & FormReducer;
 
   interface FormReducer {
     /**
