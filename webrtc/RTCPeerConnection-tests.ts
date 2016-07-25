@@ -41,7 +41,7 @@ navigator.getUserMedia({ audio: true, video: true },
   });
 
 peerConnection.onaddstream = ev => console.log(ev.type);
-peerConnection.ondatachannel = ev => console.log(ev.type);
+peerConnection.ondatachannel = ev => console.log(ev.channel);
 peerConnection.oniceconnectionstatechange = ev => console.log(ev.type);
 peerConnection.onnegotiationneeded = ev => console.log(ev.type);
 peerConnection.onopen = ev => console.log(ev.type);

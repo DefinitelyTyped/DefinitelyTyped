@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.5
+// Type definitions for Electron v1.2.7
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -160,6 +160,12 @@ declare namespace Electron {
 		 * Emitted when the gpu process crashes.
 		 */
 		on(event: 'gpu-process-crashed', listener: Function): this;
+		/**
+		 * Emitted when Chrome's accessibility support changes.
+		 *
+		 * Note: This API is only available on macOS and Windows.
+		 */
+		on(event: 'accessibility-support-changed', listener: (event: Event, accessibilitySupportEnabled: boolean) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Try to close all windows. The before-quit event will first be emitted.
@@ -341,6 +347,33 @@ declare namespace Electron {
 		 * This method can only be called before app is ready.
 		 */
 		disableHardwareAcceleration(): void;
+		/**
+		 * @returns whether current desktop environment is Unity launcher. (Linux)
+		 *
+		 * Note: This API is only available on Linux.
+		 */
+		isUnityRunning(): boolean;
+		/**
+		 * Returns a Boolean, true if Chrome's accessibility support is enabled, false otherwise.
+		 * This API will return true if the use of assistive technologies, such as screen readers,
+		 * has been detected.
+		 * See https://www.chromium.org/developers/design-documents/accessibility for more details.
+		 *
+		 * Note: This API is only available on macOS and Windows.
+		 */
+		isAccessibilitySupportEnabled(): boolean;
+		/**
+		 * @returns an Object with the login item settings of the app.
+		 *
+		 * Note: This API is only available on macOS and Windows.
+		 */
+		getLoginItemSettings(): LoginItemSettings;
+		/**
+		 * Set the app's login item settings.
+		 *
+		 * Note: This API is only available on macOS and Windows.
+		 */
+		setLoginItemSettings(settings: LoginItemSettings): void;
 		commandLine: CommandLine;
 		/**
 		 * Note: This API is only available on macOS.
@@ -415,6 +448,20 @@ declare namespace Electron {
 		 */
 		getBadge(): string;
 		/**
+		 * Sets the counter badge for current app. Setting the count to 0 will hide the badge.
+		 *
+		 * @returns True when the call succeeded, otherwise returns false.
+		 *
+		 * Note: This API is only available on macOS and Linux.
+		 */
+		setBadgeCount(count: number): boolean;
+		/**
+		 * @returns The current value displayed in the counter badge.
+		 *
+		 * Note: This API is only available on macOS and Linux.
+		 */
+		getBadgeCount(): number;
+		/**
 		 * Hides the dock icon.
 		 *
 		 * Note: This API is only available on macOS.
@@ -470,6 +517,32 @@ declare namespace Electron {
 		 * one icon, this value is 0.
 		 */
 		iconIndex?: number;
+	}
+
+	interface LoginItemSettings {
+		/**
+		 * True if the app is set to open at login.
+		 */
+		openAtLogin: boolean;
+		/**
+		 * True if the app is set to open as hidden at login. This setting is only supported on macOS.
+		 */
+		openAsHidden: boolean;
+		/**
+		 * True if the app was opened at login automatically. This setting is only supported on macOS.
+		 */
+		wasOpenedAtLogin?: boolean;
+		/**
+		 * True if the app was opened as a hidden login item. This indicates that the app should not
+		 * open any windows at startup. This setting is only supported on macOS.
+		 */
+		wasOpenedAsHidden?: boolean;
+		/**
+		 * True if the app was opened as a login item that should restore the state from the previous session.
+		 * This indicates that the app should restore the windows that were open the last time the app was closed.
+		 * This setting is only supported on macOS.
+		 */
+		restoreState?: boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/auto-updater.md
@@ -968,6 +1041,13 @@ declare namespace Electron {
 		 * @param callback Supplies the image that stores data of the snapshot.
 		 */
 		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures the snapshot of page within rect, upon completion the callback
+		 * will be called. Omitting the rect would capture the whole visible page.
+		 * Note: Be sure to read documents on remote buffer in remote if you are going
+		 * to use this API in renderer process.
+		 * @param callback Supplies the image that stores data of the snapshot.
+		 */
 		capturePage(callback: (image: NativeImage) => void): void;
 		/**
 		 * Same as webContents.loadURL(url).
@@ -1459,14 +1539,19 @@ declare namespace Electron {
 		 */
 		titleBarStyle?: 'default' | 'hidden' | 'hidden-inset';
 		/**
+		 * Use WS_THICKFRAME style for frameless windows on Windows
+		 */
+		thickFrame?: boolean;
+		/**
 		 * Settings of web page’s features.
 		 */
 		webPreferences?: WebPreferences;
 	}
 
-	type BrowserWindowType = BrowserWindowTypeLinux | BrowserWindowTypeMac;
+	type BrowserWindowType = BrowserWindowTypeLinux | BrowserWindowTypeMac | BrowserWindowTypeWindows;
 	type BrowserWindowTypeLinux = 'desktop' | 'dock' | 'toolbar' | 'splash' | 'notification';
 	type BrowserWindowTypeMac = 'desktop' | 'textured';
+	type BrowserWindowTypeWindows = 'toolbar';
 
 	interface Rectangle {
 		x?: number;
@@ -1541,9 +1626,26 @@ declare namespace Electron {
 			html?: string;
 			image?: NativeImage;
 		}, type?: ClipboardType): void;
+		/**
+		 * @returns An Object containing title and url keys representing the bookmark in the clipboard.
+		 *
+		 * Note: This API is available on macOS and Windows.
+		 */
+		readBookmark(): Bookmark;
+		/**
+		 * Writes the title and url into the clipboard as a bookmark.
+		 *
+		 * Note: This API is available on macOS and Windows.
+		 */
+		writeBookmark(title: string, url: string, type?: ClipboardType): void;
 	}
 
 	type ClipboardType = '' | 'selection';
+
+	interface Bookmark {
+		title: string;
+		url: string;
+	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/content-tracing.md
 
@@ -1836,7 +1938,7 @@ declare namespace Electron {
 		/**
 		 * Contains which features the dialog should use.
 		 */
-		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory')[];
+		properties?: ('openFile' | 'openDirectory' | 'multiSelections' | 'createDirectory' | 'showHiddenFiles')[];
 	}
 
 	interface SaveDialogOptions {
@@ -3292,6 +3394,17 @@ declare namespace Electron {
 		metaKey: boolean;
 	}
 
+	interface DragItem {
+		/**
+		* The absolute path of the file to be dragged
+		*/
+		file: string;
+		/**
+		* The image showing under the cursor when dragging.
+		*/
+		icon: NativeImage;
+	}
+
 	// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
 
 	/**
@@ -3739,16 +3852,12 @@ declare namespace Electron {
 		 * Begin subscribing for presentation events and captured frames,
 		 * The callback will be called when there is a presentation event.
 		 */
-		beginFrameSubscription(callback: (
-			/**
-			 * The frameBuffer is a Buffer that contains raw pixel data.
-			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
-			 * but the actual representation depends on the endianness of the processor
-			 * (most modern processors are little-endian, on machines with big-endian
-			 * processors the data is in 32bit ARGB format).
-			 */
-			frameBuffer: Buffer
-		) => void): void;
+		beginFrameSubscription(onlyDirty: boolean, callback: BeginFrameSubscriptionCallback): void;
+		/**
+		 * Begin subscribing for presentation events and captured frames,
+		 * The callback will be called when there is a presentation event.
+		 */
+		beginFrameSubscription(callback: BeginFrameSubscriptionCallback): void;
 		/**
 		 * End subscribing for frame presentation events.
 		 */
@@ -3762,6 +3871,18 @@ declare namespace Electron {
 		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * Sets the item as dragging item for current drag-drop operation.
+		 */
+		startDrag(item: DragItem): void;
+		/**
+		 * Captures a snapshot of the page within rect.
+		 */
+		capturePage(callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures a snapshot of the page within rect.
+		 */
+		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * @returns The unique ID of this WebContents.
 		 */
@@ -3784,6 +3905,24 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	interface BeginFrameSubscriptionCallback {
+		(
+			/**
+			 * The frameBuffer is a Buffer that contains raw pixel data.
+			 * On most machines, the pixel data is effectively stored in 32bit BGRA format,
+			 * but the actual representation depends on the endianness of the processor
+			 * (most modern processors are little-endian, on machines with big-endian
+			 * processors the data is in 32bit ARGB format).
+			 */
+			frameBuffer: Buffer,
+			/**
+			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
+			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
+			 */
+			dirtyRect?: Bounds
+		): void
 	}
 
 	interface ContextMenuParams {
@@ -3825,76 +3964,76 @@ declare namespace Electron {
 		 */
 		mediaFlags: {
 			/**
-			 * Wether the media element has crashed.
+			 * Whether the media element has crashed.
 			 */
 			inError: boolean;
 			/**
-			 * Wether the media element is paused.
+			 * Whether the media element is paused.
 			 */
 			isPaused: boolean;
 			/**
-			 * Wether the media element is muted.
+			 * Whether the media element is muted.
 			 */
 			isMuted: boolean;
 			/**
-			 * Wether the media element has audio.
+			 * Whether the media element has audio.
 			 */
 			hasAudio: boolean;
 			/**
-			 * Wether the media element is looping.
+			 * Whether the media element is looping.
 			 */
 			isLooping: boolean;
 			/**
-			 * Wether the media element's controls are visible.
+			 * Whether the media element's controls are visible.
 			 */
 			isControlsVisible: boolean;
 			/**
-			 * Wether the media element's controls are toggleable.
+			 * Whether the media element's controls are toggleable.
 			 */
 			canToggleControls: boolean;
 			/**
-			 * Wether the media element can be rotated.
+			 * Whether the media element can be rotated.
 			 */
 			canRotate: boolean;
 		}
 		/**
-		 * Wether the context menu was invoked on an image which has non-empty contents.
+		 * Whether the context menu was invoked on an image which has non-empty contents.
 		 */
 		hasImageContents: boolean;
 		/**
-		 * Wether the context is editable.
+		 * Whether the context is editable.
 		 */
 		isEditable: boolean;
 		/**
-		 * These flags indicate wether the renderer believes it is able to perform the corresponding action.
+		 * These flags indicate whether the renderer believes it is able to perform the corresponding action.
 		 */
 		editFlags: {
 			/**
-			 * Wether the renderer believes it can undo.
+			 * Whether the renderer believes it can undo.
 			 */
 			canUndo: boolean;
 			/**
-			 * Wether the renderer believes it can redo.
+			 * Whether the renderer believes it can redo.
 			 */
 			canRedo: boolean;
 			/**
-			 * Wether the renderer believes it can cut.
+			 * Whether the renderer believes it can cut.
 			 */
 			canCut: boolean;
 			/**
-			 * Wether the renderer believes it can copy
+			 * Whether the renderer believes it can copy
 			 */
 			canCopy: boolean;
 			/**
-			 * Wether the renderer believes it can paste.
+			 * Whether the renderer believes it can paste.
 			 */
 			canPaste: boolean;
 			/**
-			 * Wether the renderer believes it can delete.
+			 * Whether the renderer believes it can delete.
 			 */
 			canDelete: boolean;
 			/**
-			 * Wether the renderer believes it can select all.
+			 * Whether the renderer believes it can select all.
 			 */
 			canSelectAll: boolean;
 		}
@@ -4556,6 +4695,14 @@ declare namespace Electron {
 		 * @returns The WebContents associated with this webview.
 		 */
 		getWebContents(): WebContents;
+		/**
+		 * Captures a snapshot of the webview's page. Same as webContents.capturePage([rect, ]callback).
+		 */
+		capturePage(callback: (image: NativeImage) => void): void;
+		/**
+		 * Captures a snapshot of the webview's page. Same as webContents.capturePage([rect, ]callback).
+		 */
+		capturePage(rect: Rectangle, callback: (image: NativeImage) => void): void;
 		/**
 		 * Fired when a load has committed. This includes navigation within the current document
 		 * as well as subframe document-level loads, but does not include asynchronous resource loads.

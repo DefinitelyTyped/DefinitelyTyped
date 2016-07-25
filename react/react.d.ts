@@ -2500,6 +2500,7 @@ declare namespace JSX {
         image: React.SVGProps;
         line: React.SVGProps;
         linearGradient: React.SVGProps;
+        marker: React.SVGProps;
         mask: React.SVGProps;
         path: React.SVGProps;
         pattern: React.SVGProps;

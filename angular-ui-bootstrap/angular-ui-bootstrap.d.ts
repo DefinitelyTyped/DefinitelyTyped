@@ -393,6 +393,13 @@ declare namespace angular.ui.bootstrap {
          */
         
         windowTopClass?: string;
+        
+        /**
+         * Appends the modal to a specific element.
+         * 
+         * @default 'body'
+         */
+        appendTo?: angular.IAugmentedJQuery;
     }
 
     interface IModalStackService {

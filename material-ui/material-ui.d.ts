@@ -452,7 +452,7 @@ declare namespace __MaterialUI {
         export function themeDecorator(muiTheme: Styles.MuiTheme): <TFunction extends Function>(Component: TFunction) => TFunction;
 
         interface MuiThemeProviderProps extends React.Props<MuiThemeProvider> {
-            muiTheme: Styles.MuiTheme;
+            muiTheme?: Styles.MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps, {}>{
         }
@@ -662,7 +662,7 @@ declare namespace __MaterialUI {
         hoverColor?: string;
         href?: string;
         icon?: React.ReactNode;
-        label?: string;
+        label?: React.ReactNode;
         labelPosition?: "before" | "after";
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
@@ -688,7 +688,7 @@ declare namespace __MaterialUI {
         fullWidth?: boolean;
         href?: string;
         icon?: React.ReactNode;
-        label?: string;
+        label?: React.ReactNode;
         labelColor?: string;
         labelPosition?: "before" | "after";
         labelStyle?: React.CSSProperties;

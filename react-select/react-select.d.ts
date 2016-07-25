@@ -134,7 +134,7 @@ declare namespace ReactSelect {
         /**
          * method to filter the options array
          */
-        filterOptions?: (options: Array<Option>, filter: string, currentValues: (string | number)[]) => Array<Option>;
+        filterOptions?: (options: Array<Option>, filter: string, currentValues: Array<Option>) => Array<Option>;
         /**
          * whether to strip diacritics when filtering
          * @default true
@@ -313,7 +313,7 @@ declare namespace ReactSelect {
          * function which returns a custom way to render the value selected
          * @default false
          */
-        valueRenderer?: () => void;
+        valueRenderer?: (option: Option) => JSX.Element;
         /**
          *  optional style to apply to the control
          */

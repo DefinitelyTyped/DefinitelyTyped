@@ -1,4 +1,4 @@
-// Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
+// Type definitions for Angular Material 1.1.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,11 +19,12 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         controller?: string|Function;
         locals?: {[index: string]: any};
-        targetEvent?: MouseEvent;
-        resolve?: {[index: string]: angular.IPromise<any>}
+        clickOutsideToClose?: boolean;
+        disableBackdrop?: boolean;
+        escapeToClose?: boolean;
+        resolve?: {[index: string]: angular.IPromise<any>};
         controllerAs?: string;
-        bindToController?: boolean;
-        parent?: string|Element|JQuery; // default: root node
+        parent?: Function|string|Object; // default: root node
         disableParentScroll?: boolean; // default: true
     }
 
@@ -134,6 +135,7 @@ declare namespace angular.material {
     }
 
     interface ISidenavService {
+        (component: string, enableWait: boolean): angular.IPromise<ISidenavObject>;
         (component: string): ISidenavObject;
     }
 
