@@ -46,7 +46,11 @@ declare module "nodemailer" {
 		 * @param pluginFunc is a function that takes two arguments: the mail object and a callback function
 		 */
 		use(step: string, plugin: Plugin): void;
-
+		
+		/**
+         * Verifies connection with server
+         */
+        verify(): Promise<void>;
 
 		/**
 		 * Close all connections
