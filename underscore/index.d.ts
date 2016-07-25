@@ -539,6 +539,19 @@ declare module _ {
 		**/
 		max(list: _.List<number>): number;
 
+	 	/**
+		* @see _.max
+		*/
+		max(object: _.Dictionary<number>): number;
+
+	 	/**
+		* @see _.max
+		*/
+		max<T>(
+			list: _.Dictionary<T>,
+			iterator?: _.ObjectIterator<T, any>,
+			context?: any): T;
+
 		/**
 		* Returns the maximum value in list. If iterator is passed, it will be used on each value to generate
 		* the criterion by which the value is ranked.
@@ -558,6 +571,16 @@ declare module _ {
 		* @return Minimum value in `list`.
 		**/
 		min(list: _.List<number>): number;
+
+	 	/**
+		* @see _.min
+		*/
+		min(object: _.Dictionary<number>): number;
+
+	 	/**
+		 * @see _.min
+		 */
+		min(o: _.Dictionary<number>): number;
 
 		/**
 		* Returns the minimum value in list. If iterator is passed, it will be used on each value to generate

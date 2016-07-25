@@ -36,7 +36,7 @@ declare namespace AmCharts {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    class AmPieChart {
+    class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -198,7 +198,7 @@ declare namespace AmCharts {
                 If the type is "rollOverSlice", dispatched when user rolls-over the slice.
         */
         addListener(type: string, handler: (e: {/** Always "rollOverSlice". */
-            type: string; dataItem: Slice;
+            type: string; dataItem: Slice; chart: AmChart;
         }) => void): void;
     }
 

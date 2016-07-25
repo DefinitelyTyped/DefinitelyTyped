@@ -1,11 +1,9 @@
-﻿// Type definitions for jsonwebtoken 5.7.0
+﻿// Type definitions for jsonwebtoken 6.2.0
 // Project: https://github.com/auth0/node-jsonwebtoken
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Daniel Heim <https://github.com/danielheim>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
-
 
 export interface SignOptions {
     /**
@@ -22,11 +20,6 @@ export interface SignOptions {
      * - none:     No digital signature or MAC value included
      */
     algorithm?: string;
-    /**
-     *@deprecated - see expiresIn
-     *@member {number} - Lifetime for the token in minutes
-     */
-    expiresInMinutes?: number;
     /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
     expiresIn?: string;
     notBefore?: string;
@@ -62,7 +55,7 @@ export interface VerifyCallback {
 }
 
 export interface SignCallback {
-    (encoded: string): void;
+    (err: Error, encoded: string): void;
 }
 
 /**

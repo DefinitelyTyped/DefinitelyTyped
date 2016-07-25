@@ -2,16 +2,25 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import Select, * as ReactSelect from "react-select";
-import { Option } from "react-select";
+import { Option, MenuRendererProps } from "react-select";
 
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
         const options: Option[] = [{ label: "Foo", value: "bar" }];
         const onChange = (value: any) => console.log(value);
+        const renderMenu = ({
+            focusedOption,
+            focusOption,
+            labelKey,
+            options,
+            selectValue,
+            valueArray
+        }: MenuRendererProps) => { return <div></div> };
         const onOpen = () => { return; };
         const onClose = () => { return; };
         const optionRenderer = (option: Option) => <span>{option.label}</span>
+
         return <div>
             <Select
                 name="test-select"
@@ -19,17 +28,34 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
                 key="1"
                 options={options}
                 optionRenderer={optionRenderer}
+                allowCreate={true}
+                autofocus={true}
+                autosize={true}
+                clearable={true}
+                escapeClearsValue={true}
+                ignoreAccents={true}
+                joinValues={false}
                 matchPos={"any"}
                 matchProp={"any"}
+                menuContainerStyle={{}}
+                menuRenderer={renderMenu}
+                menuStyle={{}}
                 multi={true}
+                onMenuScrollToBottom={() => {}}
                 onValueClick={onChange}
                 onOpen={onOpen}
                 onClose={onClose}
+                openAfterFocus={false}
+                optionComponent={<div></div>}
+                required={false}
+                resetValue={"resetValue"}
+                scrollMenuIntoView={false}
                 valueKey="github"
                 labelKey="name"
                 onChange={onChange}
                 simpleValue
                 value={options}
+                valueComponent={<span></span>}
                  />
         </div>;
     }
@@ -60,6 +86,13 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
                 simpleValue
                 value={options}
                 loadOptions={getOptions}
+                cache={{}}
+                ignoreAccents={false}
+                ignoreCase={{}}
+                isLoading={false}
+                minimumInput={5}
+                searchPromptText={"search..."}
+                searchingText={"searching..."}
             />
         </div>;
     }

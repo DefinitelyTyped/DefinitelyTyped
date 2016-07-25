@@ -685,7 +685,7 @@ declare namespace chrome.usb {
 	interface DeviceEvent extends chrome.events.Event<(device: Device) => void> {}
 
 	export var onDeviceAdded: DeviceEvent;
-	export var onDeviceAdded: DeviceEvent;
+	export var onDeviceRemoved: DeviceEvent;
 
 	export function getDevices(options: { vendorId?: number, productId?: number, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
 	export function getUserSelectedDevices(options: { multiple?: boolean, filters?: DeviceFilter[] }, callback: (devices: Device[]) => void): void;
