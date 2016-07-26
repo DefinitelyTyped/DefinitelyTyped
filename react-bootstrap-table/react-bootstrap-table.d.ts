@@ -556,6 +556,12 @@ declare module "react-bootstrap-table" {
 
 		 */
 		options?: any;
+
+		/**
+		 Configuration for the textarea editable type
+		 */
+		cols?: number;
+		rows?: number;
 	}
 	
 	export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
