@@ -3,7 +3,7 @@
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angular" />
 
 declare var deferredBootstrapper: angular.IDeferredBootstrapperStatic;
 
