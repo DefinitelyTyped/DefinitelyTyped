@@ -156,7 +156,7 @@ declare module "nw.gui" {
         eval(frame: HTMLIFrameElement, script: string): void;
     }
 
-    export interface App {
+    export interface App extends EventEmitter {
         argv: any;
         fullArgv: any;
         dataPath: string;
