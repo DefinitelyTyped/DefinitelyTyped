@@ -363,6 +363,8 @@ export interface RedisClient extends NodeJS.EventEmitter {
     script(key: string, callback?: ResCallbackT<any>): boolean;
     quit(args: any[], callback?: ResCallbackT<any>): boolean;
     quit(...args: any[]): boolean;
+    sscan(...args: any[]): boolean;
+    sscan(args: any[], callback?: ResCallbackT<any>): boolean;
     scan(...args: any[]): boolean;
     scan(args: any[], callback?: ResCallbackT<any>): boolean;
     hscan(...args: any[]): boolean;

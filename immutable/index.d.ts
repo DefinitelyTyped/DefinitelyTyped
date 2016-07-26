@@ -35,6 +35,8 @@
  * [ES6]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla
  */
 
+export = Immutable;
+
 declare namespace Immutable {
 
   /**
@@ -2539,8 +2541,4 @@ declare namespace Immutable {
     next(): { value: T; done: boolean; }
   }
 
-}
-
-declare module "immutable" {
-  export = Immutable;
 }
