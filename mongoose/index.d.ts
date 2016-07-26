@@ -3,28 +3,28 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node" />
+/// <reference types="node" />
 
+declare module "mongoose" {
+  function connect(uri: string, options?: ConnectionOptions, callback?: (err: any) => void): Mongoose;
+  function createConnection(): Connection;
+  function createConnection(uri: string, options?: ConnectionOptions): Connection;
+  function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
+  function disconnect(callback?: (err?: any) => void): Mongoose;
 
-declare function connect(uri: string, options?: ConnectionOptions, callback?: (err: any) => void): Mongoose;
-declare function createConnection(): Connection;
-declare function createConnection(uri: string, options?: ConnectionOptions): Connection;
-declare function createConnection(host: string, database_name: string, port?: number, options?: ConnectionOptions): Connection;
-declare function disconnect(callback?: (err?: any) => void): Mongoose;
+  function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
+  function modelNames(): string[];
+  function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
 
-declare function model<T extends Document>(name: string, schema?: Schema, collection?: string, skipInit?: boolean): Model<T>;
-declare function modelNames(): string[];
-declare function plugin(plugin: (schema: Schema, options?: Object) => void, options?: Object): Mongoose;
+  function get(key: string): any;
+  function set(key: string, value: any): void;
 
-declare function get(key: string): any;
-declare function set(key: string, value: any): void;
+  var mongo: any;
+  var mquery: any;
+  var version: string;
+  var connection: Connection;
 
-declare var mongo: any;
-declare var mquery: any;
-declare var version: string;
-declare var connection: Connection;
-
-export declare class Mongoose {
+  export class Mongoose {
     connect(uri: string, options?: ConnectOpenOptionsBase, callback?: (err: any) => void): Mongoose;
     createConnection(): Connection;
     createConnection(uri: string, options?: Object): Connection;
@@ -41,9 +41,9 @@ export declare class Mongoose {
     version: string;
     connection: Connection;
     Promise: any;
-}
+  }
 
-export interface Connection extends NodeJS.EventEmitter {
+  export interface Connection extends NodeJS.EventEmitter {
     constructor(base: Mongoose): Connection;
 
     close(callback?: (err: any) => void): Connection;
@@ -56,9 +56,9 @@ export interface Connection extends NodeJS.EventEmitter {
     db: any;
     collections: { [index: string]: Collection };
     readyState: number;
-}
+  }
 
-export interface ConnectOpenOptionsBase {
+  export interface ConnectOpenOptionsBase {
     db?: any;
     server?: any;
     replset?: any;
@@ -68,19 +68,19 @@ export interface ConnectOpenOptionsBase {
     pass?: string;
     /** Options for authentication */
     auth?: any;
-}
+  }
 
-export interface ConnectionOptions extends ConnectOpenOptionsBase {
+  export interface ConnectionOptions extends ConnectOpenOptionsBase {
     /** Passed to the underlying driver's Mongos instance. */
     mongos?: MongosOptions;
-}
+  }
 
-interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
+  interface OpenSetConnectionOptions extends ConnectOpenOptionsBase {
     /** If true, enables High Availability support for mongos */
     mongos?: boolean;
-}
+  }
 
-interface MongosOptions {
+  interface MongosOptions {
     /** Turn on high availability monitoring. (default: true) */
     ha?: boolean;
     /** Time between each replicaset status check. (default: 5000) */
@@ -105,41 +105,156 @@ interface MongosOptions {
     sslKey?: Buffer | string;
     sslPass?: Buffer | string;
     socketOptions?: {
-        noDelay?: boolean;
-        keepAlive?: number;
-        connectionTimeoutMS?: number;
-        socketTimeoutMS?: number;
+      noDelay?: boolean;
+      keepAlive?: number;
+      connectionTimeoutMS?: number;
+      socketTimeoutMS?: number;
     };
-}
+  }
 
-export interface Collection {
-}
+  export interface Collection {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeOrderedBulkOp
+    initializeOrderedBulkOp(options?: CollectionOptions): OrderedBulkOperation;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#initializeUnorderedBulkOp
+    initializeUnorderedBulkOp(options?: CollectionOptions): UnorderedBulkOperation;
+  }
 
+  export interface CollectionOptions {
+    //The write concern.
+    w?: number | string;
+    //The write concern timeout.
+    wtimeout?: number;
+    //Specify a journal write concern.
+    j?: boolean;
+  }
 
-export declare class SchemaType { }
-export declare class VirtualType {
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html
+  export interface OrderedBulkOperation {
+    length: number;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#execute
+    execute(callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions): Promise<BulkWriteResult>;
+    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#find
+    find(selector: Object): FindOperatorsOrdered;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/OrderedBulkOperation.html#insert
+    insert(doc: Object): OrderedBulkOperation;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html
+  export interface UnorderedBulkOperation {
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#execute
+    execute(callback: MongoCallback<BulkWriteResult>): void;
+    execute(options?: FSyncOptions): Promise<BulkWriteResult>;
+    execute(options: FSyncOptions, callback: MongoCallback<BulkWriteResult>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#find
+    find(selector: Object): FindOperatorsUnordered;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/UnorderedBulkOperation.html#insert
+    insert(doc: Object): UnorderedBulkOperation;
+  }
+
+  export interface MongoCallback<T> {
+    (error: MongoError, result: T): void;
+  }
+
+  // http://mongodb.github.io/node-mongodb-native/2.1/api/MongoError.html
+  export class MongoError extends Error {
+    constructor(message: string);
+    static create(options: Object): MongoError;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/BulkWriteResult.html
+  export interface BulkWriteResult {
+    ok: number;
+    nInserted: number;
+    nUpdated: number;
+    nUpserted: number;
+    nModified: number;
+    nRemoved: number;
+
+    getInsertedIds(): Array<Object>;
+    getLastOp(): Object;
+    getRawResponse(): Object;
+    getUpsertedIdAt(index: number): Object;
+    getUpsertedIds(): Array<Object>;
+    getWriteConcernError(): WriteConcernError;
+    getWriteErrorAt(index: number): WriteError;
+    getWriteErrorCount(): number;
+    getWriteErrors(): Array<Object>;
+    hasWriteErrors(): boolean;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteError.html
+  export interface WriteError {
+    //Write concern error code.
+    code: number;
+    //Write concern error original bulk operation index.
+    index: number;
+    //Write concern error message.
+    errmsg: string;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/WriteConcernError.html
+  export interface WriteConcernError {
+    //Write concern error code.
+    code: number;
+    //Write concern error message.
+    errmsg: string;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/Admin.html#removeUser
+  export interface FSyncOptions {
+    w?: number | string;
+    wtimeout?: number;
+    j?: boolean;
+    fsync?: boolean
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsOrdered.html
+  export interface FindOperatorsOrdered {
+    delete(): OrderedBulkOperation;
+    deleteOne(): OrderedBulkOperation;
+    replaceOne(doc: Object): OrderedBulkOperation;
+    update(doc: Object): OrderedBulkOperation;
+    updateOne(doc: Object): OrderedBulkOperation;
+    upsert(): FindOperatorsOrdered;
+  }
+
+  //http://mongodb.github.io/node-mongodb-native/2.1/api/FindOperatorsUnordered.html
+  export interface FindOperatorsUnordered {
+    length: number;
+    remove(): UnorderedBulkOperation;
+    removeOne(): UnorderedBulkOperation;
+    replaceOne(doc: Object): UnorderedBulkOperation;
+    update(doc: Object): UnorderedBulkOperation;
+    updateOne(doc: Object): UnorderedBulkOperation;
+    upsert(): FindOperatorsUnordered;
+  }
+
+  export class SchemaType { }
+  export class VirtualType {
     get(fn: Function): VirtualType;
     set(fn: Function): VirtualType;
-}
-export declare module Types {
+  }
+  export module Types {
     export class ObjectId {
-        constructor(id?: string | number);
-        toHexString(): string;
-        equals(other: ObjectId): boolean;
-        getTimestamp(): Date;
-        isValid(): boolean;
-        static createFromTime(time: number): ObjectId;
-        static createFromHexString(hexString: string): ObjectId;
-        static isValid(id?: string | number): boolean;
+      constructor(id?: string | number);
+      toHexString(): string;
+      equals(other: ObjectId): boolean;
+      getTimestamp(): Date;
+      isValid(): boolean;
+      static createFromTime(time: number): ObjectId;
+      static createFromHexString(hexString: string): ObjectId;
+      static isValid(id?: string | number): boolean;
     }
-}
+  }
 
-export declare class Schema {
+  export class Schema {
     static Types: {
-        String: String;
-        ObjectId: Types.ObjectId;
-        OId: Types.ObjectId;
-        Mixed: any;
+      String: String;
+      ObjectId: Types.ObjectId;
+      OId: Types.ObjectId;
+      Mixed: any;
     };
     constructor(schema?: Object, options?: Object);
 
@@ -161,8 +276,8 @@ export declare class Schema {
     static(name: string, fn: Function): Schema;
     virtual(name: string, options?: Object): VirtualType;
     virtualpath(name: string): VirtualType;
-}
-export interface SchemaOption {
+  }
+  export interface SchemaOption {
     autoIndex?: boolean;
     bufferCommands?: boolean;
     capped?: boolean;
@@ -177,9 +292,9 @@ export interface SchemaOption {
     toJSON?: Object;
     toObject?: Object;
     versionKey?: boolean;
-}
+  }
 
-export interface Model<T extends Document> extends NodeJS.EventEmitter {
+  export interface Model<T extends Document> extends NodeJS.EventEmitter {
     new (doc?: Object, fields?: Object, skipInit?: boolean): T;
 
     aggregate(...aggregations: Object[]): Aggregate<T[]>;
@@ -240,20 +355,20 @@ export interface Model<T extends Document> extends NodeJS.EventEmitter {
     discriminators: any;
     modelName: string;
     schema: Schema;
-}
-export interface FindAndUpdateOption {
+  }
+  export interface FindAndUpdateOption {
     new?: boolean;
     upsert?: boolean;
     sort?: Object;
     select?: Object;
-}
-export interface GeoSearchOption {
+  }
+  export interface GeoSearchOption {
     near: number[];
     maxDistance: number;
     limit?: number;
     lean?: boolean;
-}
-export interface MapReduceOption<T extends Document, Key, Val> {
+  }
+  export interface MapReduceOption<T extends Document, Key, Val> {
     map: () => void;
     reduce: (key: Key, vals: T[]) => Val;
     query?: Object;
@@ -264,13 +379,13 @@ export interface MapReduceOption<T extends Document, Key, Val> {
     jsMode?: boolean;
     verbose?: boolean;
     out?: {
-        inline?: number;
-        replace?: string;
-        reduce?: string;
-        merge?: string;
+      inline?: number;
+      replace?: string;
+      reduce?: string;
+      merge?: string;
     };
-}
-export interface MapReduceOption2<T extends Document, Key, Val> {
+  }
+  export interface MapReduceOption2<T extends Document, Key, Val> {
     map: string;
     reduce: (key: Key, vals: T[]) => Val;
     query?: Object;
@@ -281,18 +396,18 @@ export interface MapReduceOption2<T extends Document, Key, Val> {
     jsMode?: boolean;
     verbose?: boolean;
     out?: {
-        inline?: number;
-        replace?: string;
-        reduce?: string;
-        merge?: string;
+      inline?: number;
+      replace?: string;
+      reduce?: string;
+      merge?: string;
     };
-}
-export interface MapReduceResult<Key, Val> {
+  }
+  export interface MapReduceResult<Key, Val> {
     _id: Key;
     value: Val;
-}
+  }
 
-export declare class Query<T> {
+  export class Query<T> {
     exec(callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: string, callback?: (err: any, res: T) => void): Promise<T>;
     exec(operation: Function, callback?: (err: any, res: T) => void): Promise<T>;
@@ -405,26 +520,26 @@ export declare class Query<T> {
     $where(argument: Function): Query<T>;
 
     static use$geoWithin: boolean;
-}
+  }
 
-export interface PopulateOption {
+  export interface PopulateOption {
     path: string;
     select?: string;
     model?: string;
     match?: Object;
     options?: Object;
-}
+  }
 
-export interface QueryStream extends NodeJS.EventEmitter {
+  export interface QueryStream extends NodeJS.EventEmitter {
     destory(err?: any): void;
     pause(): void;
     resume(): void;
     pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     paused: number;
     readable: boolean;
-}
+  }
 
-export interface Document {
+  export interface Document {
     id?: string;
     _id: any;
 
@@ -457,10 +572,10 @@ export interface Document {
     isNew: boolean;
     errors: Object;
     schema: Object;
-}
+  }
 
 
-export declare class Aggregate<T> {
+  export class Aggregate<T> {
     constructor(...options: Object[]);
 
     append(...options: Object[]): Aggregate<T>;
@@ -478,9 +593,9 @@ export declare class Aggregate<T> {
 
     exec(callback?: (err: any, result: T) => void): Promise<T>;
     read(pref: string, ...tags: Object[]): Aggregate<T>;
-}
+  }
 
-export declare class Promise<T> {
+  export class Promise<T> {
     constructor(fn?: (err: any, result: T) => void);
 
     then<U>(onFulFill: (result: T) => void | U | Promise<U>, onReject?: (err: any) => void | U | Promise<U>): Promise<U>;
@@ -501,4 +616,6 @@ export declare class Promise<T> {
     addErrback(listener: (err: any) => void): Promise<T>;
     complete(result: T): Promise<T>;
     error(err: any): Promise<T>;
+  }
+
 }
