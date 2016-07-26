@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap-table v2.3.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>, Michael Scharf <https://github.com/scharf>
+// Definitions by: Frank Laub <https://github.com/flaub>, Michael Scharf <https://github.com/scharf>, Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
