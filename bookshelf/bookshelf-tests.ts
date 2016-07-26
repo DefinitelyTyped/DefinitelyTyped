@@ -245,7 +245,7 @@ bookshelf.transaction(t => {
 			});
 		});
 }).then(library => {
-	console.log(library.relatedBooks().pluck('title'));
+	console.log(library.done(lib => lib.relatedBooks().pluck('title')));
 }).catch(err => {
 	console.error(err);
 });

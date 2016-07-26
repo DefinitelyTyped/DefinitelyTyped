@@ -3,11 +3,10 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-import hashes = CryptoJS.hashes;
-export = hashes;
+export = CryptoJS;
 export as namespace CryptoJS;
 
+declare var CryptoJS: CryptoJS.Hashes;
 declare namespace CryptoJS {
 	type Hash = (message: string, key?: string, ...options: any[]) => string;
 	interface Cipher {
@@ -114,7 +113,5 @@ declare namespace CryptoJS {
 			NoPadding: Padding;
 		};
 	}
-
-	export var hashes: Hashes;
 }
 

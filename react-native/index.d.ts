@@ -15,10 +15,12 @@
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-/// <reference types="react" />
+import * as React from 'react';
+
+export = React;
 
 //react-native "extends" react
-declare namespace  __React {
+declare module "react" {
 
     export type MeasureOnSuccessCallback = (
         x: number,
@@ -320,29 +322,68 @@ declare namespace  __React {
         */
       setNativeProps(nativeProps: Object): void;
 
-      /**
-       * Requests focus for the given input or view. The exact behavior triggered
-       * will depend on the platform and type of view.
-       */
-      focus(): void;
+        /**
+         * Determines the location of the given view in the window and returns the
+         * values via an async callback. If the React root view is embedded in
+         * another native view, this will give you the absolute coordinates. If
+         * successful, the callback will be called with the following
+         * arguments:
+         *
+         *  - x
+         *  - y
+         *  - width
+         *  - height
+         *
+         * Note that these measurements are not available until after the rendering
+         * has been completed in native.
+         */
+        measureInWindow(callback: NativeMethodsMixin.MeasureInWindowOnSuccessCallback): void;
 
-      /**
-       * Removes focus from an input or view. This is the opposite of `focus()`.
-       */
-      blur(): void;
+        /**
+         * Like [`measure()`](#measure), but measures the view relative an ancestor,
+         * specified as `relativeToNativeNode`. This means that the returned x, y
+         * are relative to the origin x, y of the ancestor view.
+         *
+         * As always, to obtain a native node handle for a component, you can use
+         * `React.findNodeHandle(component)`.
+         */
+        measureLayout(
+            relativeToNativeNode: number,
+            onSuccess: NativeMethodsMixin.MeasureLayoutOnSuccessCallback,
+            onFail: () => void /* currently unused */
+        ): void;
 
-      refs: {
-        [key: string]: Component<any, any>
-      };
+        /**
+         * This function sends props straight to native. They will not participate in
+         * future diff process - this means that if you do not include them in the
+         * next render, they will remain active (see [Direct
+         * Manipulation](docs/direct-manipulation.html)).
+         */
+        setNativeProps(nativeProps: Object): void;
+
+        /**
+         * Requests focus for the given input or view. The exact behavior triggered
+         * will depend on the platform and type of view.
+         */
+        focus(): void;
+
+        /**
+         * Removes focus from an input or view. This is the opposite of `focus()`.
+         */
+        blur(): void;
+
+        refs: {
+            [key: string]: Component<any, any>
+        };
     }
 
     // see react-jsx.d.ts
-    export function createElement<P>( type: React.ReactType,
-                                      props?: P,
-                                      ...children: React.ReactNode[] ): React.ReactElement<P>;
+    export function createElement<P>(type: React.ReactType,
+        props?: P,
+        ...children: React.ReactNode[]): React.ReactElement<P>;
 
 
-    export type Runnable = ( appParameters: any ) => void;
+    export type Runnable = (appParameters: any) => void;
 
 
     // Similar to React.SyntheticEvent except for nativeEvent
@@ -405,14 +446,14 @@ declare namespace  __React {
         /**
          * Array of all current touches on the screen
          */
-        touches : NativeTouchEvent[]
+        touches: NativeTouchEvent[]
     }
 
     export interface GestureResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {
     }
 
 
-    export interface  PointProperties {
+    export interface PointProperties {
         x: number
         y: number
     }
@@ -429,11 +470,11 @@ declare namespace  __React {
      * @see React.DOMAtributes
      */
     export interface Touchable {
-        onTouchStart?: ( event: GestureResponderEvent ) => void
-        onTouchMove?: ( event: GestureResponderEvent ) => void
-        onTouchEnd?: ( event: GestureResponderEvent ) => void
-        onTouchCancel?: ( event: GestureResponderEvent ) => void
-        onTouchEndCapture?: ( event: GestureResponderEvent ) => void
+        onTouchStart?: (event: GestureResponderEvent) => void
+        onTouchMove?: (event: GestureResponderEvent) => void
+        onTouchEnd?: (event: GestureResponderEvent) => void
+        onTouchCancel?: (event: GestureResponderEvent) => void
+        onTouchEndCapture?: (event: GestureResponderEvent) => void
     }
 
     export type ComponentProvider = () => React.ComponentClass<any>
@@ -461,17 +502,17 @@ declare namespace  __React {
      * `require`d.
      */
     export class AppRegistry {
-        static registerConfig( config: AppConfig[] ): void;
+        static registerConfig(config: AppConfig[]): void;
 
         static registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
 
-        static registerRunnable( appKey: string, func: Runnable ): string;
+        static registerRunnable(appKey: string, func: Runnable): string;
 
         static getAppKeys(): string[];
 
         static unmountApplicationComponentAtRootTag(rootTag: number): void;
 
-        static runApplication( appKey: string, appParameters: any ): void;
+        static runApplication(appKey: string, appParameters: any): void;
     }
 
     export interface LayoutAnimationTypes {
@@ -522,7 +563,7 @@ declare namespace  __React {
         configChecker: (shapeTypes: {[key: string]: any}) => any
         Presets : {
             easeInEaseOut: LayoutAnimationConfig
-            linear:LayoutAnimationConfig
+            linear: LayoutAnimationConfig
             spring: LayoutAnimationConfig
         }
         easeInEaseOut: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
@@ -602,7 +643,7 @@ declare namespace  __React {
          * Sets the drop shadow offset
          * @platform ios
          */
-        shadowOffset: {width: number, height: number}
+        shadowOffset: { width: number, height: number }
 
         /**
          * Sets the drop shadow opacity (multiplied by the color's alpha component)
@@ -647,7 +688,7 @@ declare namespace  __React {
 
     export interface TransformsStyle {
 
-        transform?: [{perspective: number}, {rotate: string}, {rotateX: string}, {rotateY: string}, {rotateZ: string}, {scale: number}, {scaleX: number}, {scaleY: number}, {translateX: number}, {translateY: number}, {skewX: string}, {skewY: string}]
+        transform?: [{ perspective: number }, { rotate: string }, { rotateX: string }, { rotateY: string }, { rotateZ: string }, { scale: number }, { scaleX: number }, { scaleY: number }, { translateX: number }, { translateY: number }, { skewX: string }, { skewY: string }]
         transformMatrix?: Array<number>
         rotation?: number
         scaleX?: number
@@ -677,14 +718,14 @@ declare namespace  __React {
     }
 
     export interface TextStyleIOS extends ViewStyle {
-      letterSpacing?: number
-      textDecorationColor?: string
-      textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
-      writingDirection?: "auto" | "ltr" | "rtl"
+        letterSpacing?: number
+        textDecorationColor?: string
+        textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
+        writingDirection?: "auto" | "ltr" | "rtl"
     }
 
     export interface TextStyleAndroid extends ViewStyle {
-      textAlignVertical?: "auto" | "top" | "bottom" | "center"
+        textAlignVertical?: "auto" | "top" | "bottom" | "center"
     }
 
     // @see https://facebook.github.io/react-native/docs/text.html#style
@@ -710,7 +751,7 @@ declare namespace  __React {
         textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
         textDecorationColor?: string
         textShadowColor?: string
-        textShadowOffset?: {width: number, height: number}
+        textShadowOffset?: { width: number, height: number }
         textShadowRadius?: number
         testID?: string
     }
@@ -798,7 +839,7 @@ declare namespace  __React {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: ( event: LayoutChangeEvent ) => void
+        onLayout?: (event: LayoutChangeEvent) => void
 
         /**
          * This function is called on press.
@@ -1049,13 +1090,13 @@ declare namespace  __React {
         /**
          * Callback that is called when the text input's text changes.
          */
-        onChange?: ( event: {nativeEvent: {text: string}} ) => void
+        onChange?: (event: { nativeEvent: { text: string } }) => void
 
         /**
          * Callback that is called when the text input's text changes.
          * Changed text is passed as an argument to the callback handler.
          */
-        onChangeText?: ( text: string ) => void
+        onChangeText?: (text: string) => void
 
         /**
          * Callback that is called when the text input's content size changes.
@@ -1069,7 +1110,7 @@ declare namespace  __React {
         /**
          * Callback that is called when text input ends.
          */
-        onEndEditing?: ( event: {nativeEvent: {text: string}} ) => void
+        onEndEditing?: (event: { nativeEvent: { text: string } }) => void
 
         /**
          * Callback that is called when the text input is focused
@@ -1084,7 +1125,7 @@ declare namespace  __React {
         /**
          * Callback that is called when the text input's submit button is pressed.
          */
-        onSubmitEditing?: ( event: {nativeEvent: {text: string}} ) => void
+        onSubmitEditing?: (event: { nativeEvent: { text: string } }) => void
 
         /**
          * The string that will be rendered before text input has been entered
@@ -1368,12 +1409,12 @@ declare namespace  __React {
         /**
          * Does this view want to become responder on the start of a touch?
          */
-        onStartShouldSetResponder?: ( event: GestureResponderEvent ) => boolean
+        onStartShouldSetResponder?: (event: GestureResponderEvent) => boolean
 
         /**
          * Called for every touch move on the View when it is not the responder: does this view want to "claim" touch responsiveness?
          */
-        onMoveShouldSetResponder?: ( event: GestureResponderEvent ) => boolean
+        onMoveShouldSetResponder?: (event: GestureResponderEvent) => boolean
 
         /**
          * If the View returns true and attempts to become the responder, one of the following will happen:
@@ -1385,12 +1426,12 @@ declare namespace  __React {
          * The View is now responding for touch events.
          * This is the time to highlight and show the user what is happening
          */
-        onResponderGrant?: ( event: GestureResponderEvent ) => void
+        onResponderGrant?: (event: GestureResponderEvent) => void
 
         /**
          * Something else is the responder right now and will not release it
          */
-        onResponderReject?: ( event: GestureResponderEvent ) => void
+        onResponderReject?: (event: GestureResponderEvent) => void
 
         /**
          * If the view is responding, the following handlers can be called:
@@ -1399,12 +1440,12 @@ declare namespace  __React {
         /**
          * The user is moving their finger
          */
-        onResponderMove?: ( event: GestureResponderEvent ) => void
+        onResponderMove?: (event: GestureResponderEvent) => void
 
         /**
          * Fired at the end of the touch, ie "touchUp"
          */
-        onResponderRelease?: ( event: GestureResponderEvent ) => void
+        onResponderRelease?: (event: GestureResponderEvent) => void
 
         onResponderStart?: ( event: GestureResponderEvent ) => void
 
@@ -1412,14 +1453,14 @@ declare namespace  __React {
          *  Something else wants to become responder.
          *  Should this view release the responder? Returning true allows release
          */
-        onResponderTerminationRequest?: ( event: GestureResponderEvent ) => boolean
+        onResponderTerminationRequest?: (event: GestureResponderEvent) => boolean
 
         /**
          * The responder has been taken from the View.
          * Might be taken by other views after a call to onResponderTerminationRequest,
          * or might be taken by the OS without asking (happens with control center/ notification center on iOS)
          */
-        onResponderTerminate?: ( event: GestureResponderEvent ) => void
+        onResponderTerminate?: (event: GestureResponderEvent) => void
 
         /**
          * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -1434,7 +1475,7 @@ declare namespace  __React {
          * So if a parent View wants to prevent the child from becoming responder on a touch start,
          * it should have a onStartShouldSetResponderCapture handler which returns true.
          */
-        onStartShouldSetResponderCapture?: ( event: GestureResponderEvent ) => boolean
+        onStartShouldSetResponderCapture?: (event: GestureResponderEvent) => boolean
 
         /**
          * onStartShouldSetResponder and onMoveShouldSetResponder are called with a bubbling pattern,
@@ -1474,7 +1515,7 @@ declare namespace  __React {
         opacity?: number;
         overflow?: "visible" | "hidden"
         shadowColor?: string;
-        shadowOffset?: {width: number, height: number};
+        shadowOffset?: { width: number, height: number };
         shadowOpacity?: number;
         shadowRadius?: number;
         elevation?: number;
@@ -1612,7 +1653,7 @@ declare namespace  __React {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: ( event: LayoutChangeEvent ) => void;
+        onLayout?: (event: LayoutChangeEvent) => void;
 
         /**
          * When accessible is true, the system will invoke this function when the user performs the magic tap gesture.
@@ -1966,22 +2007,22 @@ declare namespace  __React {
         /**
          * Invoked when load fails
          */
-        onError?:  ( event: NavState ) => void
+        onError?: (event: NavState) => void
 
         /**
          * Invoked when load finish
          */
-        onLoad?:  ( event: NavState ) => void
+        onLoad?: (event: NavState) => void
 
         /**
          * Invoked when load either succeeds or fails
          */
-        onLoadEnd?:  ( event: NavState ) => void
+        onLoadEnd?: (event: NavState) => void
 
         /**
          * Invoked on load start
          */
-        onLoadStart?:  ( event: NavState ) => void
+        onLoadStart?: (event: NavState) => void
 
         /**
          * Function that is invoked when the `WebView` loading starts or ends.
@@ -2015,7 +2056,7 @@ declare namespace  __React {
          * Determines whether HTML5 audio & videos require the user to tap
          * before they can start playing. The default value is false.
          */
-         mediaPlaybackRequiresUserAction?: boolean
+        mediaPlaybackRequiresUserAction?: boolean
 
         /**
          * sets whether the webpage scales to fit the view and the user can change the scale
@@ -2208,7 +2249,7 @@ declare namespace  __React {
         /**
          * Navigate forward to a new route
          */
-        push: ( route: Route ) => void
+        push: (route: Route) => void
 
         /**
          * Go back one page
@@ -2218,32 +2259,32 @@ declare namespace  __React {
         /**
          * Go back N pages at once. When N=1, behavior matches pop()
          */
-        popN: ( n: number ) => void
+        popN: (n: number) => void
 
         /**
          * Replace the route for the current page and immediately load the view for the new route
          */
-        replace: ( route: Route ) => void
+        replace: (route: Route) => void
 
         /**
          * Replace the route/view for the previous page
          */
-        replacePrevious: ( route: Route ) => void
+        replacePrevious: (route: Route) => void
 
         /**
          * Replaces the previous route/view and transitions back to it
          */
-        replacePreviousAndPop: ( route: Route ) => void
+        replacePreviousAndPop: (route: Route) => void
 
         /**
          * Replaces the top item and popToTop
          */
-        resetTo: ( route: Route ) => void
+        resetTo: (route: Route) => void
 
         /**
          * Go back to the item for a particular route object
          */
-        popToRoute( route: Route ): void
+        popToRoute(route: Route): void
 
         /**
          * Go back to the top item
@@ -2315,7 +2356,7 @@ declare namespace  __React {
         /**
          * Invoked on mount and layout changes with
          */
-        onLayout?: ( event: {nativeEvent: { layout: {x: number, y: number , width: number, height: number}}} ) => void
+        onLayout?: (event: { nativeEvent: { layout: { x: number, y: number, width: number, height: number } } }) => void
 
         /**
          * Size of the indicator.
@@ -2471,7 +2512,7 @@ declare namespace  __React {
          *   it's closing or opening animation
          * @param event
          */
-        onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
+        onDrawerStateChanged?: (event: "Idle" | "Dragging" | "Settling") => void
 
         /**
          * The navigation view that will be rendered to the side of the
@@ -2581,7 +2622,7 @@ declare namespace  __React {
          * @param itemValue
          * @param itemPosition
          */
-        onValueChange?: ( itemValue: any, itemPosition: number ) => void
+        onValueChange?: (itemValue: any, itemPosition: number) => void
 
         /**
          * Value matching value of one of the items.
@@ -2973,7 +3014,7 @@ declare namespace  __React {
         /**
          * Callback that is called when the user toggles the switch.
          */
-        onValueChange?: ( value: boolean ) => void
+        onValueChange?: (value: boolean) => void
 
         /**
          * Background color for the switch round button.
@@ -3103,7 +3144,7 @@ declare namespace  __React {
         /**
          * Invoked on load error with {nativeEvent: {error}}
          */
-        onError?: ( error: {nativeEvent: any} ) => void
+        onError?: (error: { nativeEvent: any }) => void
 
         /**
          * Invoked on download progress with {nativeEvent: {loaded, total}}
@@ -3176,7 +3217,7 @@ declare namespace  __React {
          *
          * {nativeEvent: { layout: {x, y, width, height}}}.
          */
-        onLayout?: ( event: LayoutChangeEvent ) => void;
+        onLayout?: (event: LayoutChangeEvent) => void;
 
         /**
          * Invoked when load completes successfully
@@ -3258,7 +3299,7 @@ declare namespace  __React {
          *
          * Style
          */
-        style?:  ImageStyle;
+        style?: ImageStyle;
 
         /**
          * A unique identifier for this element to be used in UI Automation testing scripts.
@@ -3310,7 +3351,7 @@ declare namespace  __React {
          * that have changed their visibility, with true indicating visible, and
          * false indicating the view has moved out of view.
          */
-        onChangeVisibleRows?: ( visibleRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}>, changedRows: Array<{[sectionId: string]: {[rowID: string]: boolean}}> ) => void
+        onChangeVisibleRows?: (visibleRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>, changedRows: Array<{ [sectionId: string]: { [rowID: string]: boolean } }>) => void
 
         /**
          * Called when all rows have been rendered and the list has been scrolled
@@ -3370,7 +3411,7 @@ declare namespace  __React {
          * A function that returns the scrollable component in which the list rows are rendered.
          * Defaults to returning a ScrollView with the given props.
          */
-        renderScrollComponent?: ( props: ScrollViewProperties ) => React.ReactElement<ScrollViewProperties>
+        renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
 
         /**
          * (sectionData, sectionID) => renderable
@@ -3381,7 +3422,7 @@ declare namespace  __React {
          * stick to the top until it is pushed off the screen by the next section
          * header.
          */
-        renderSectionHeader?: ( sectionData: any, sectionId: string | number ) => React.ReactElement<any>
+        renderSectionHeader?: (sectionData: any, sectionId: string | number) => React.ReactElement<any>
 
 
         /**
@@ -3390,7 +3431,7 @@ declare namespace  __React {
          * but not the last row if there is a section header below.
          * Take a sectionID and rowID of the row above and whether its adjacent row is highlighted.
          */
-        renderSeparator?: ( sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean ) => React.ReactElement<any>
+        renderSeparator?: (sectionID: string | number, rowID: string | number, adjacentRowHighlighted?: boolean) => React.ReactElement<any>
 
         /**
          * How early to start rendering rows before they come on screen, in
@@ -3481,7 +3522,7 @@ declare namespace  __React {
     }
 
     export interface MapViewOverlay {
-        coordinates: ({latitude: number, longitude: number})[]
+        coordinates: ({ latitude: number, longitude: number })[]
         lineWidth?: number
         strokeColor?: string
         fillColor?: string
@@ -3552,12 +3593,12 @@ declare namespace  __React {
         /**
          * Callback that is called continuously when the user is dragging the map.
          */
-        onRegionChange?: ( region: MapViewRegion ) => void
+        onRegionChange?: (region: MapViewRegion) => void
 
         /**
          * Callback that is called once, when the user is done moving the map.
          */
-        onRegionChangeComplete?: ( region: MapViewRegion ) => void
+        onRegionChangeComplete?: (region: MapViewRegion) => void
 
         /**
          * When this property is set to true and a valid camera is associated with the map,
@@ -3801,7 +3842,7 @@ declare namespace  __React {
          * Invoked on mount and layout changes with
          * {nativeEvent: {layout: {x, y, width, height}}}
          */
-        onLayout?: ( event: LayoutChangeEvent ) => void
+        onLayout?: (event: LayoutChangeEvent) => void
 
         onLongPress?: () => void;
 
@@ -4222,12 +4263,12 @@ declare namespace  __React {
         /**
          * Transition to an existing scene without unmounting
          */
-        jumpTo( route: Route ): void;
+        jumpTo(route: Route): void;
 
         /**
          * Navigate forward to a new scene, squashing any scenes that you could jumpForward to
          */
-        push( route: Route ): void;
+        push(route: Route): void;
 
         /**
          * Transition back and unmount the current scene
@@ -4244,27 +4285,27 @@ declare namespace  __React {
         /**
          * Replace the current scene with a new route
          */
-        replace( route: Route ): void;
+        replace(route: Route): void;
 
         /**
          * Replace a scene as specified by an index
          */
-        replaceAtIndex( route: Route, index: number ): void;
+        replaceAtIndex(route: Route, index: number): void;
 
         /**
          *  Replace the previous scene
          */
-        replacePrevious( route: Route ): void;
+        replacePrevious(route: Route): void;
 
         /**
          * Reset every scene with an array of routes
          */
-        immediatelyResetRouteStack( routes: Route[] ): void;
+        immediatelyResetRouteStack(routes: Route[]): void;
 
         /**
          * Pop to a particular scene, as specified by its route. All scenes after it will be unmounted
          */
-        popToRoute( route: Route ): void;
+        popToRoute(route: Route): void;
 
         /**
          * Pop to the first scene in the stack, unmounting every other scene
@@ -4327,9 +4368,9 @@ declare namespace  __React {
 
 
         export interface NavigationBarRouteMapper {
-            Title: ( route: Route, nav: Navigator, index: number, navState: NavState ) => React.ReactElement<any>;
-            LeftButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
-            RightButton: ( route: Route, nav: Navigator, index: number, navState: NavState )=> React.ReactElement<any>;
+            Title: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
+            LeftButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
+            RightButton: (route: Route, nav: Navigator, index: number, navState: NavState) => React.ReactElement<any>;
         }
 
         /**
@@ -4364,11 +4405,11 @@ declare namespace  __React {
         }
 
         export interface BreadcrumbNavigationBarRouteMapper {
-            rightContentForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
-            titleContentForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
-            iconForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
+            rightContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            titleContentForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
+            iconForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
             //in samples...
-            separatorForRoute: ( route: Route, navigator: Navigator ) => React.ReactElement<any>
+            separatorForRoute: (route: Route, navigator: Navigator) => React.ReactElement<any>
         }
 
         /**
@@ -4553,10 +4594,10 @@ declare namespace  __React {
      * //FIXME: Could not find docs. Inferred from examples and jscode : ListViewDataSource.js
      */
     export interface DataSourceAssetCallback {
-        rowHasChanged?: ( r1: any, r2: any ) => boolean
-        sectionHeaderHasChanged?: ( h1: any, h2: any ) => boolean
-        getRowData?: <T>( dataBlob: any, sectionID: number | string, rowID: number | string ) => T
-        getSectionHeaderData?: <T>( dataBlob: any, sectionID: number | string ) => T
+        rowHasChanged?: (r1: any, r2: any) => boolean
+        sectionHeaderHasChanged?: (h1: any, h2: any) => boolean
+        getRowData?: <T>(dataBlob: any, sectionID: number | string, rowID: number | string) => T
+        getSectionHeaderData?: <T>(dataBlob: any, sectionID: number | string) => T
     }
 
     /**
@@ -4616,7 +4657,7 @@ declare namespace  __React {
          * handle merging of old and new data separately and then pass that into
          * this function as the `dataBlob`.
          */
-        cloneWithRows<T>( dataBlob: Array<any> | {[key: string ]: any}, rowIdentities?: Array<string | number> ): ListViewDataSource
+        cloneWithRows<T>(dataBlob: Array<any> | { [key: string]: any }, rowIdentities?: Array<string | number>): ListViewDataSource
 
         /**
          * This performs the same function as the `cloneWithRows` function but here
@@ -4629,7 +4670,7 @@ declare namespace  __React {
          *
          * Note: this returns a new object!
          */
-        cloneWithRowsAndSections( dataBlob: Array<any> | {[key: string]: any}, sectionIdentities?: Array<string | number>, rowIdentities?: Array<Array<string | number>> ): ListViewDataSource
+        cloneWithRowsAndSections(dataBlob: Array<any> | { [key: string]: any }, sectionIdentities?: Array<string | number>, rowIdentities?: Array<Array<string | number>>): ListViewDataSource
 
         getRowCount(): number
         getRowAndSectionCount(): number
@@ -4642,19 +4683,19 @@ declare namespace  __React {
         /**
          * Gets the data required to render the row.
          */
-        getRowData( sectionIndex: number, rowIndex: number ): any
+        getRowData(sectionIndex: number, rowIndex: number): any
 
         /**
          * Gets the rowID at index provided if the dataSource arrays were flattened,
          * or null of out of range indexes.
          */
-        getRowIDForFlatIndex( index: number ): string
+        getRowIDForFlatIndex(index: number): string
 
         /**
          * Gets the sectionID at index provided if the dataSource arrays were flattened,
          * or null for out of range indexes.
          */
-        getSectionIDForFlatIndex( index: number ): string
+        getSectionIDForFlatIndex(index: number): string
 
         /**
          * Returns an array containing the number of rows in each section
@@ -4664,12 +4705,12 @@ declare namespace  __React {
         /**
          * Returns if the section header is dirtied and needs to be rerendered
          */
-        sectionHeaderShouldUpdate( sectionIndex: number ): boolean
+        sectionHeaderShouldUpdate(sectionIndex: number): boolean
 
         /**
          * Gets the data required to render the section header
          */
-        getSectionHeaderData( sectionIndex: number ): any
+        getSectionHeaderData(sectionIndex: number): any
     }
 
 
@@ -4681,7 +4722,7 @@ declare namespace  __React {
         /**
          * Little red bubble that sits at the top right of the icon.
          */
-        badge?:  string | number
+        badge?: string | number
 
         /**
          * A custom icon for the tab. It is ignored when a system icon is defined.
@@ -4900,7 +4941,7 @@ declare namespace  __React {
          @param {string} dim Name of dimension as defined when calling set.
          @returns {Object?} Value for the dimension.
          */
-        get( dim: "window" | "screen" ): ScaledSize;
+        get(dim: "window" | "screen"): ScaledSize;
 
         /**
          * This should only be called from native code by sending the didUpdateDimensions event.
@@ -4979,7 +5020,7 @@ declare namespace  __React {
         opacity?: number
         overflow?: "visible" | "hidden"
         shadowColor?: string
-        shadowOffset?: {width: number; height: number}
+        shadowOffset?: { width: number; height: number }
         shadowOpacity?: number
         shadowRadius?: number
         elevation?: number
@@ -5691,7 +5732,7 @@ declare namespace  __React {
          * - `title` (string) - a title to show above the action sheet
          * - `message` (string) - a message to show below the title
          */
-        showActionSheetWithOptions: ( options: ActionSheetIOSOptions, callback: ( buttonIndex: number ) => void ) => void
+        showActionSheetWithOptions: (options: ActionSheetIOSOptions, callback: (buttonIndex: number) => void) => void
 
         /**
          * Display the iOS share sheet. The `options` object should contain
@@ -5707,7 +5748,7 @@ declare namespace  __React {
          * uri, the file it points to will be loaded and shared directly.
          * In this way, you can share images, videos, PDF files, etc.
          */
-        showShareActionSheetWithOptions: ( options: ShareActionSheetIOSOptions, failureCallback: ( error: Error ) => void, successCallback: ( success: boolean, method: string ) => void ) => void
+        showShareActionSheetWithOptions: (options: ShareActionSheetIOSOptions, failureCallback: (error: Error) => void, successCallback: (success: boolean, method: string) => void) => void
     }
 
     export type ShareContent = {
@@ -5766,9 +5807,9 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/alert.html#content
      */
     export interface AlertButton {
-      text?: string
-      onPress?: () => void
-      style?: "default" | "cancel" | "destructive"
+        text?: string
+        onPress?: () => void
+        style?: "default" | "cancel" | "destructive"
     }
 
     interface AlertOptions {
@@ -5829,8 +5870,8 @@ declare namespace  __React {
      * //FIXME: No documentation - inferred from RCTAdSupport.m
      */
     export interface AdSupportIOSStatic {
-        getAdvertisingId: ( onSuccess: ( deviceId: string ) => void, onFailure: ( err: Error ) => void ) => void
-        getAdvertisingTrackingEnabled: ( onSuccess: ( hasTracking: boolean ) => void, onFailure: ( err: Error ) => void ) => void
+        getAdvertisingId: (onSuccess: (deviceId: string) => void, onFailure: (err: Error) => void) => void
+        getAdvertisingTrackingEnabled: (onSuccess: (hasTracking: boolean) => void, onFailure: (err: Error) => void) => void
     }
 
     interface AlertIOSButton {
@@ -5920,12 +5961,12 @@ declare namespace  __React {
          * Add a handler to AppState changes by listening to the change event
          * type and providing the handler
          */
-        addEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
+        addEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void
 
         /**
          * Remove a handler by passing the change event type and the handler
          */
-        removeEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
+        removeEventListener(type: AppStateEvent, listener: (state: AppStateStatus) => void): void
     }
 
     /**
@@ -5948,48 +5989,48 @@ declare namespace  __React {
         /**
          * Fetches key and passes the result to callback, along with an Error if there is any.
          */
-        getItem( key: string, callback?: ( error?: Error, result?: string ) => void ): Promise<string>
+        getItem(key: string, callback?: (error?: Error, result?: string) => void): Promise<string>
 
         /**
          * Sets value for key and calls callback on completion, along with an Error if there is any
          */
-        setItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>
+        setItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
 
-        removeItem( key: string, callback?: ( error?: Error ) => void ): Promise<string>
+        removeItem(key: string, callback?: (error?: Error) => void): Promise<string>
 
         /**
          * Merges existing value with input value, assuming they are stringified json. Returns a Promise object.
          * Not supported by all native implementation
          */
-        mergeItem( key: string, value: string, callback?: ( error?: Error ) => void ): Promise<string>
+        mergeItem(key: string, value: string, callback?: (error?: Error) => void): Promise<string>
 
         /**
          * Erases all AsyncStorage for all clients, libraries, etc. You probably don't want to call this.
          * Use removeItem or multiRemove to clear only your own keys instead.
          */
-        clear( callback?: ( error?: Error ) => void ): Promise<string>
+        clear(callback?: (error?: Error) => void): Promise<string>
 
         /**
          * Gets all keys known to the app, for all callers, libraries, etc
          */
-        getAllKeys( callback?: ( error?: Error, keys?: string[] ) => void ): Promise<string>
+        getAllKeys(callback?: (error?: Error, keys?: string[]) => void): Promise<string>
 
         /**
          * multiGet invokes callback with an array of key-value pair arrays that matches the input format of multiSet
          */
-        multiGet( keys: string[], callback?: ( errors?: Error[], result?: string[][] ) => void ): Promise<string>
+        multiGet(keys: string[], callback?: (errors?: Error[], result?: string[][]) => void): Promise<string>
 
         /**
          * multiSet and multiMerge take arrays of key-value array pairs that match the output of multiGet,
          *
          * multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
          */
-        multiSet( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
+        multiSet(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
 
         /**
          * Delete all the keys in the keys array.
          */
-        multiRemove( keys: string[], callback?: ( errors?: Error[] ) => void ): Promise<string>
+        multiRemove(keys: string[], callback?: (errors?: Error[]) => void): Promise<string>
 
         /**
          * Merges existing values with input values, assuming they are stringified json.
@@ -5997,7 +6038,7 @@ declare namespace  __React {
          *
          * Not supported by all native implementations.
          */
-        multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
+        multiMerge(keyValuePairs: string[][], callback?: (errors?: Error[]) => void): Promise<string>
     }
 
     export type BackPressEventName = "hardwareBackPress"
@@ -6103,7 +6144,7 @@ declare namespace  __React {
          *
          * @deprecated use saveToCameraRoll instead
          */
-        saveImageWithTag( tag: string ): Promise<string>
+        saveImageWithTag(tag: string): Promise<string>
 
         /**
          * Saves the photo or video to the camera roll / gallery.
@@ -6182,13 +6223,13 @@ declare namespace  __React {
          * eventName is expected to be `change`
          * //FIXME: No doc - inferred from NetInfo.js
          */
-        addEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
+        addEventListener: (eventName: string, listener: (result: T) => void) => void
 
         /**
          * eventName is expected to be `change`
          * //FIXME: No doc - inferred from NetInfo.js
          */
-        removeEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
+        removeEventListener: (eventName: string, listener: (result: T) => void) => void
     }
 
     export interface IntentAndroidStatic {
@@ -6227,7 +6268,7 @@ declare namespace  __React {
 
          @deprecated
          */
-        getInitialURL(callback: (url: string) => void):void
+        getInitialURL(callback: (url: string) => void): void
     }
 
     export interface LinkingStatic extends NativeEventEmitter {
@@ -6270,13 +6311,13 @@ declare namespace  __React {
          * Add a handler to LinkingIOS changes by listening to the url event type and providing the handler
          @deprecated
          */
-        addEventListener(type: string, handler: (event: {url: string}) => void): void
+        addEventListener(type: string, handler: (event: { url: string }) => void): void
 
         /**
          * Remove a handler by passing the url event type and the handler
          @deprecated
          */
-        removeEventListener(type: string, handler: (event: {url: string}) => void): void
+        removeEventListener(type: string, handler: (event: { url: string }) => void): void
 
         /**
          * Try to open the given url with any of the installed apps.
@@ -6399,19 +6440,19 @@ declare namespace  __React {
      * @see documentation of GestureResponderHandlers
      */
     export interface PanResponderCallbacks {
-        onMoveShouldSetPanResponder?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onStartShouldSetPanResponder?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderGrant?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderMove?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderRelease?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderTerminate?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
+        onMoveShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+        onStartShouldSetPanResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderGrant?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderMove?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderRelease?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderTerminate?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
 
-        onMoveShouldSetPanResponderCapture?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onStartShouldSetPanResponderCapture?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
-        onPanResponderReject?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderStart?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderEnd?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => void
-        onPanResponderTerminationRequest?: ( e: GestureResponderEvent, gestureState: PanResponderGestureState ) => boolean
+        onMoveShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+        onStartShouldSetPanResponderCapture?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+        onPanResponderReject?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
+        onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
     }
 
     export interface PanResponderInstance {
@@ -6458,7 +6499,7 @@ declare namespace  __React {
          *  accordingly. (numberActiveTouches) may not be totally accurate unless you
          *  are the responder.
          */
-        create( config: PanResponderCallbacks ): PanResponderInstance
+        create(config: PanResponderCallbacks): PanResponderInstance
     }
 
     export interface Rationale {
@@ -6597,12 +6638,12 @@ declare namespace  __React {
         /**
          * Sets the badge number for the app icon on the home screen
          */
-        setApplicationIconBadgeNumber( number: number ): void
+        setApplicationIconBadgeNumber(number: number): void
 
         /**
          * Gets the current badge number for the app icon on the home screen
          */
-        getApplicationIconBadgeNumber( callback: ( badge: number ) => void ): void
+        getApplicationIconBadgeNumber(callback: (badge: number) => void): void
 
         /**
          * Gets the local notifications that are currently scheduled.
@@ -6651,7 +6692,7 @@ declare namespace  __React {
          *  - `badge` :boolean
          *  - `sound` :boolean
          */
-        checkPermissions( callback: ( permissions: PushNotificationPermissions ) => void ): void
+        checkPermissions(callback: (permissions: PushNotificationPermissions) => void): void
 
         /**
          * This method returns a promise that resolves to either the notification
@@ -6671,7 +6712,7 @@ declare namespace  __React {
     /**
      * @enum('default', 'light-content')
      */
-    export type StatusBarStyle =  "default" | "light-content"
+    export type StatusBarStyle = "default" | "light-content"
 
     /**
      * @enum('fade', 'slide')
@@ -6817,7 +6858,7 @@ declare namespace  __React {
          * still be resolved with action being `TimePickerAndroid.dismissedAction` and all the other keys
          * being undefined. **Always** check whether the `action` before reading the values.
          */
-        open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
+        open(options: TimePickerAndroidOpenOptions): Promise<{ action: string, hour: number, minute: number }>
 
         /**
          * A time has been selected.
@@ -7022,55 +7063,95 @@ declare namespace  __React {
         elastic: EasingFunction;
         back(s: number): EasingFunction;
         bounce: EasingFunction;
-        bezier( x1: number,
-                y1: number,
-                x2: number,
-                y2: number): EasingFunction;
+        bezier(x1: number,
+            y1: number,
+            x2: number,
+            y2: number): EasingFunction;
         in(easing: EasingFunction): EasingFunction;
         out(easing: EasingFunction): EasingFunction;
         inOut(easing: EasingFunction): EasingFunction;
     }
 
     export module Animated {
-      // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
-      type AnimatedValue = Animated;
-      type AnimatedValueXY = ValueXY;
+        // Most (all?) functions where AnimatedValue is used any subclass of Animated can be used as well.
+        type AnimatedValue = Animated;
+        type AnimatedValueXY = ValueXY;
 
-      type Base = Animated;
+        type Base = Animated;
 
-      class Animated {
-        // Internal class, no public API.
-      }
+        class Animated {
+            // Internal class, no public API.
+        }
 
-      class AnimatedWithChildren extends Animated {
-        // Internal class, no public API.
-      }
+        class AnimatedWithChildren extends Animated {
+            // Internal class, no public API.
+        }
 
-      class AnimatedInterpolation extends AnimatedWithChildren {
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
-      }
+        class AnimatedInterpolation extends AnimatedWithChildren {
+            interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+        }
 
-      type ExtrapolateType = 'extend' | 'identity' | 'clamp';
+        type ExtrapolateType = 'extend' | 'identity' | 'clamp';
 
-      type InterpolationConfigType = {
-        inputRange: number[];
-        outputRange: (number[] | string[]);
-        easing?: ((input: number) => number);
-        extrapolate?: ExtrapolateType;
-        extrapolateLeft?: ExtrapolateType;
-        extrapolateRight?: ExtrapolateType;
-      };
+        type InterpolationConfigType = {
+            inputRange: number[];
+            outputRange: (number[] | string[]);
+            easing?: ((input: number) => number);
+            extrapolate?: ExtrapolateType;
+            extrapolateLeft?: ExtrapolateType;
+            extrapolateRight?: ExtrapolateType;
+        };
 
-      type ValueListenerCallback = (state: {value: number}) => void;
+        type ValueListenerCallback = (state: { value: number }) => void;
 
-      /**
-       * Standard value for driving animations.  One `Animated.Value` can drive
-       * multiple properties in a synchronized fashion, but can only be driven by one
-       * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
-       * or calling `setValue`) will stop any previous ones.
-       */
-      export class Value extends AnimatedWithChildren {
-        constructor(value: number);
+        /**
+         * Standard value for driving animations.  One `Animated.Value` can drive
+         * multiple properties in a synchronized fashion, but can only be driven by one
+         * mechanism at a time.  Using a new mechanism (e.g. starting a new animation,
+         * or calling `setValue`) will stop any previous ones.
+         */
+        export class Value extends AnimatedWithChildren {
+            constructor(value: number);
+
+            setValue(value: number): void;
+
+            /**
+             * Sets an offset that is applied on top of whatever value is set, whether via
+             * `setValue`, an animation, or `Animated.event`.  Useful for compensating
+             * things like the start of a pan gesture.
+             */
+            setOffset(offset: number): void;
+
+            /**
+             * Merges the offset value into the base value and resets the offset to zero.
+             * The final output of the value is unchanged.
+             */
+            flattenOffset(): void;
+
+            /**
+             * Adds an asynchronous listener to the value so you can observe updates from
+             * animations.  This is useful because there is no way to
+             * synchronously read the value because it might be driven natively.
+             */
+            addListener(callback: ValueListenerCallback): string;
+
+            removeListener(id: string): void;
+
+            removeAllListeners(): void;
+
+            /**
+             * Stops any running animation or tracking.  `callback` is invoked with the
+             * final value after stopping the animation, which is useful for updating
+             * state to match the animation position with layout.
+             */
+            stopAnimation(callback?: (value: number) => void): void;
+
+            /**
+             * Interpolates the value before updating the property, e.g. mapping 0-1 to
+             * 0-10.
+             */
+            interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+        }
 
         /**
          * Directly set the value.  This will stop any animations running on the value
@@ -7079,84 +7160,193 @@ declare namespace  __React {
         setValue(value: number): void;
 
         /**
-         * Sets an offset that is applied on top of whatever value is set, whether via
-         * `setValue`, an animation, or `Animated.event`.  Useful for compensating
-         * things like the start of a pan gesture.
+         * 2D Value for driving 2D animations, such as pan gestures.  Almost identical
+         * API to normal `Animated.Value`, but multiplexed.  Contains two regular
+         * `Animated.Value`s under the hood.
          */
-        setOffset(offset: number): void;
+        export class ValueXY extends AnimatedWithChildren {
+            x: AnimatedValue;
+            y: AnimatedValue;
+
+            constructor(valueIn?: { x: number | AnimatedValue; y: number | AnimatedValue });
+
+            setValue(value: { x: number; y: number }): void;
+
+            setOffset(offset: { x: number; y: number }): void;
+
+            flattenOffset(): void
+
+            stopAnimation(callback?: () => number): void;
+
+            addListener(callback: ValueXYListenerCallback): string;
+
+            removeListener(id: string): void;
+
+            /**
+             * Converts `{x, y}` into `{left, top}` for use in style, e.g.
+             *
+             *```javascript
+             *  style={this.state.anim.getLayout()}
+             *```
+             */
+            getLayout(): { left: AnimatedValue, top: AnimatedValue };
+
+            /**
+             * Converts `{x, y}` into a useable translation transform, e.g.
+             *
+             *```javascript
+             *  style={{
+             *    transform: this.state.anim.getTranslateTransform()
+             *  }}
+             *```
+             */
+            getTranslateTransform(): { [key: string]: AnimatedValue }[];
+
+        }
+
+        type EndResult = { finished: boolean };
+        type EndCallback = (result: EndResult) => void;
+
+        interface CompositeAnimation {
+            start: (callback?: EndCallback) => void;
+            stop: () => void;
+        }
+
+        interface AnimationConfig {
+            isInteraction?: boolean;
+            useNativeDriver?: boolean;
+        }
 
         /**
-         * Merges the offset value into the base value and resets the offset to zero.
-         * The final output of the value is unchanged.
+         * Animates a value from an initial velocity to zero based on a decay
+         * coefficient.
          */
-        flattenOffset(): void;
+        export function decay(
+            value: AnimatedValue | AnimatedValueXY,
+            config: DecayAnimationConfig
+        ): CompositeAnimation;
+
+        interface DecayAnimationConfig extends AnimationConfig {
+            velocity: number | { x: number, y: number };
+            deceleration?: number;
+        }
 
         /**
-         * Adds an asynchronous listener to the value so you can observe updates from
-         * animations.  This is useful because there is no way to
-         * synchronously read the value because it might be driven natively.
+         * Animates a value along a timed easing curve.  The `Easing` module has tons
+         * of pre-defined curves, or you can use your own function.
          */
-        addListener(callback: ValueListenerCallback): string;
+        export var timing: (
+            value: AnimatedValue | AnimatedValueXY,
+            config: TimingAnimationConfig
+        ) => CompositeAnimation;
 
-        removeListener(id: string): void;
+        interface TimingAnimationConfig extends AnimationConfig {
+            toValue: number | AnimatedValue | { x: number, y: number } | AnimatedValueXY;
+            easing?: (value: number) => number;
+            duration?: number;
+            delay?: number;
+        }
 
-        removeAllListeners(): void;
+        interface SpringAnimationConfig extends AnimationConfig {
+            toValue: number | AnimatedValue | { x: number, y: number } | AnimatedValueXY;
+            overshootClamping?: boolean;
+            restDisplacementThreshold?: number;
+            restSpeedThreshold?: number;
+            velocity?: number | { x: number, y: number };
+            bounciness?: number;
+            speed?: number;
+            tension?: number;
+            friction?: number;
+        }
 
         /**
-         * Stops any running animation or tracking.  `callback` is invoked with the
-         * final value after stopping the animation, which is useful for updating
-         * state to match the animation position with layout.
+         * Creates a new Animated value composed from two Animated values added
+         * together.
          */
-        stopAnimation(callback?: (value: number) => void): void;
+        export function add(
+            a: Animated,
+            b: Animated
+        ): AnimatedAddition;
+
+        class AnimatedAddition extends AnimatedInterpolation { }
 
         /**
-         * Interpolates the value before updating the property, e.g. mapping 0-1 to
-         * 0-10.
+         * Creates a new Animated value composed from two Animated values multiplied
+         * together.
          */
-        interpolate(config: InterpolationConfigType): AnimatedInterpolation;
-      }
+        export function multiply(
+            a: Animated,
+            b: Animated
+        ): AnimatedMultiplication;
 
-      type ValueXYListenerCallback = (value: {x: number; y: number}) => void;
+        class AnimatedMultiplication extends AnimatedInterpolation { }
 
-      /**
-       * 2D Value for driving 2D animations, such as pan gestures.  Almost identical
-       * API to normal `Animated.Value`, but multiplexed.  Contains two regular
-       * `Animated.Value`s under the hood.
-       */
-      export class ValueXY extends AnimatedWithChildren {
-        x: AnimatedValue;
-        y: AnimatedValue;
+        /**
+         * Creates a new Animated value that is the (non-negative) modulo of the
+         * provided Animated value
+         */
+        export function modulo(
+            a: Animated,
+            modulus: number
+        ): AnimatedModulo;
 
-        constructor(valueIn?: {x: number | AnimatedValue; y: number | AnimatedValue});
+        class AnimatedModulo extends AnimatedInterpolation { }
 
-        setValue(value: {x: number; y: number}): void;
+        /**
+         * Starts an animation after the given delay.
+         */
+        export function delay(time: number): CompositeAnimation;
 
-        setOffset(offset: {x: number; y: number}): void;
+        /**
+         * Starts an array of animations in order, waiting for each to complete
+         * before starting the next.  If the current running animation is stopped, no
+         * following animations will be started.
+         */
+        export function sequence(
+            animations: Array<CompositeAnimation>
+        ): CompositeAnimation;
 
-        flattenOffset(): void
+        /**
+         * Array of animations may run in parallel (overlap), but are started in
+         * sequence with successive delays.  Nice for doing trailing effects.
+         */
 
         stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
 
-        addListener(callback: ValueXYListenerCallback): string;
+        /**
+         * Spring animation based on Rebound and Origami.  Tracks velocity state to
+         * create fluid motions as the `toValue` updates, and can be chained together.
+         */
+        export var spring: (
+            value: AnimatedValue | AnimatedValueXY,
+            config: SpringAnimationConfig
+        ) => CompositeAnimation;
 
-        removeListener(id: string): void;
+        type ParallelConfig = {
+            stopTogether?: boolean; // If one is stopped, stop all.  default: true
+        }
 
         /**
-         * Converts `{x, y}` into `{left, top}` for use in style, e.g.
-         *
-         *```javascript
-         *  style={this.state.anim.getLayout()}
-         *```
+         * Starts an array of animations all at the same time.  By default, if one
+         * of the animations is stopped, they will all be stopped.  You can override
+         * this with the `stopTogether` flag.
          */
         getLayout(): { [key: string]: AnimatedValue };
 
         /**
-         * Converts `{x, y}` into a useable translation transform, e.g.
+         *  Takes an array of mappings and extracts values from each arg accordingly,
+         *  then calls `setValue` on the mapped outputs.  e.g.
          *
          *```javascript
-         *  style={{
-         *    transform: this.state.anim.getTranslateTransform()
-         *  }}
+         *  onScroll={Animated.event(
+         *    [{nativeEvent: {contentOffset: {x: this._scrollX}}}]
+         *    {listener},          // Optional async listener
+         *  )
+         *  ...
+         *  onPanResponderMove: Animated.event([
+         *    null,                // raw event arg ignored
+         *    {dx: this._panX},    // gestureState arg
+         *  ]),
          *```
          */
         getTranslateTransform(): {[key: string]: AnimatedValue}[];
@@ -7471,15 +7661,14 @@ declare namespace  __React {
         JumpToAction(index: number): any;
     }
 
-    export type TabsReducerFunction = (params:any) => any;
+    export type TabsReducerFunction = (params: any) => any;
 
     export interface NavigationTab
     {
         key: string;
     }
 
-    export interface NavigationAction
-    {
+    export interface NavigationAction {
         type: string;
     }
 
@@ -7944,7 +8133,7 @@ declare namespace  __React {
     export type TouchableOpacity = TouchableOpacityStatic
 
     export var TouchableWithoutFeedback: TouchableWithoutFeedbackStatic
-    export type TouchableWithoutFeedback= TouchableWithoutFeedbackStatic
+    export type TouchableWithoutFeedback = TouchableWithoutFeedbackStatic
 
     export var View: ViewStatic
     export type View = ViewStatic
@@ -7975,7 +8164,7 @@ declare namespace  __React {
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
 
-    export var AppState : AppStateStatic;
+    export var AppState: AppStateStatic;
     export type AppState = AppStateStatic;
 
     export var AppStateIOS: AppStateStatic
@@ -8133,7 +8322,7 @@ declare namespace  __React {
     //
     //////////////////////////////////////////////////////////////////////////
 
-    export function __spread( target: any, ...sources: any[] ): any;
+    export function __spread(target: any, ...sources: any[]): any;
 
     export interface GlobalStatic {
 
@@ -8143,7 +8332,7 @@ declare namespace  __React {
          * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
          * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
          */
-        requestAnimationFrame( fn: () => void ) : void;
+        requestAnimationFrame(fn: () => void): void;
 
     }
 
@@ -8155,8 +8344,8 @@ declare namespace  __React {
         //FIXME: Documentation ?
         export interface TestModuleStatic {
 
-            verifySnapshot: ( done: ( indicator?: any ) => void ) => void
-            markTestPassed: ( indicator: any ) => void
+            verifySnapshot: (done: (indicator?: any) => void) => void
+            markTestPassed: (indicator: any) => void
             markTestCompleted: () => void
         }
 
@@ -8172,9 +8361,9 @@ declare namespace  __React {
     export var PointPropType: Requireable<any>
 }
 
-declare module "react-native" {
-    import ReactNative = __React
-    export = ReactNative
+declare global {
+    const global: React.GlobalStatic;
+    function require(name: string): any;
 }
 
 declare var global: __React.GlobalStatic

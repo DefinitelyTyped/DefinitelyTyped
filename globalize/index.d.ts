@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Note: You'll need the cldr.js definition file to use the globalize (https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/cldr.js)
 
-/// <reference path="../cldr.js/cldr.js.d.ts" />
+/// <reference types="cldrjs" />
 
 interface DateFormatterOptions {
 	/**
@@ -124,7 +124,7 @@ interface UnitFormatterOptions {
 
 interface GlobalizeStatic {
 
-	cldr: cldr.CldrStatic;
+	cldr: Cldr.CldrStatic;
 
 	/**
 	 * Globalize.load( json, ... )
@@ -138,7 +138,7 @@ interface GlobalizeStatic {
 	 * Globalize.locale()
 	 * Return the default Cldr instance.
 	 */
-	locale(): cldr.CldrStatic;
+	locale(): Cldr.CldrStatic;
 
 	/**
 	 * Globalize.locale( [locale] )
@@ -147,14 +147,14 @@ interface GlobalizeStatic {
 	 * Return the default Cldr instance.
 	 */
 
-	locale(locale: string): cldr.CldrStatic;
+	locale(locale: string): Cldr.CldrStatic;
 	/**
 	 * Globalize.locale( cldr )
 	 * @param {Cldr} cldr [Cldr instance]
 	 * Set default Cldr instance
 	 * Return the default Cldr instance.
 	 */
-	locale(cldr: cldr.CldrStatic): cldr.CldrStatic;
+	locale(cldr: Cldr.CldrStatic): Cldr.CldrStatic;
 
 	/**
 	 * .dateFormatter( options )
@@ -324,7 +324,7 @@ interface GlobalizeStatic {
 	 * @param cldr Cldr instance of the instance.
 	 * @returns {Globalize} A Globalize instance
 	 */
-	new (cldr: cldr.CldrStatic): GlobalizeStatic;
+	new (cldr: Cldr.CldrStatic): GlobalizeStatic;
 }
 
 declare var Globalize: GlobalizeStatic;

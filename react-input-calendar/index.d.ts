@@ -53,7 +53,7 @@ declare namespace reactInputCalendar {
         /**
         * Set a function that will be triggered when the input field is focused.
         */
-        onFocus?: (event: __React.SyntheticEvent) => void;
+        onFocus?: (event: React.SyntheticEvent<ReactInputCalendar>) => void;
         /**
         * Define state when date picker would close once the user has clicked on a date.
         */

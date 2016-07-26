@@ -314,17 +314,45 @@ export as namespace ReactSelect;
          */
         style?: any;
 
-export interface ReactSelectProps extends React.Props<ReactSelect> {
+export interface MenuRendererProps {
+    /**
+     * The currently focused option; should be visible in the menu by default.
+     * default {}
+     */
+    focusedOption: Option;
+
+    /**
+     * Callback to focus a new option; receives the option as a parameter.
+     */
+    focusOption: (option: Option) => void;
+
+    /**
+     * Option labels are accessible with this string key.
+     */
+    labelKey: string;
+
+    /**
+     * Ordered array of options to render.
+     */
+    options: Option[];
+
+    /**
+     * Callback to select a new option; receives the option as a parameter.
+     */
+    selectValue: (option: Option) => void;
+
+    /**
+     * Array of currently selected options.
+     */
+    valueArray: Option[];
+}
+
+export interface ReactSelectProps extends React.Props<ReactSelectClass> {
     /**
      * text to display when `allowCreate` is true.
      * @default 'Add "{label}"?'
      */
     addLabelText?: string;
-    /**
-     * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
-     * @default false
-     */
-    autoBlur?: boolean;
     /**
      * allow new options to be created in multi mode (displays an "Add <option> ?" item
      * when a value not already in the options array is entered)
@@ -332,29 +360,28 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      */
     allowCreate?: boolean;
     /**
-     * whether to auto-load the default async options set
-     * @default true
+     * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
+     * @default false
      */
-    autoload?: boolean;
+    autoBlur?: boolean;
+    /**
+     * autofocus the component on mount
+     * @default false
+     */
+    autofocus?: boolean;
+    /**
+     *  If enabled, the input will expand as the length of its value increases
+     */
+    autosize?: boolean;
     /**
      * whether pressing backspace removes the last item when there is no input value
      * @default true
      */
     backspaceRemoves?: boolean;
     /**
-     * enables the options cache for `asyncOptions`
-     * @default true
-     */
-    cacheAsyncResults?: boolean;
-    /**
      * CSS className for the outer element
      */
     className?: string;
-    /**
-     * whether it is possible to reset value. if enabled, an X button will appear at the right side.
-     * @default true
-     */
-    clearable?: boolean;
     /**
      * title for the "clear" control when `multi` is true
      * @default "Clear all"
@@ -366,6 +393,11 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      */
     clearValueText?: string;
     /**
+     * whether it is possible to reset value. if enabled, an X button will appear at the right side.
+     * @default true
+     */
+    clearable?: boolean;
+    /**
      * delimiter to use to join multiple values
      * @default ","
      */
@@ -376,13 +408,23 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      */
     disabled?: boolean;
     /**
+     * whether escape clears the value when the menu is closed
+     * @default true
+     */
+    escapeClearsValue?: boolean;
+    /**
      * method to filter a single option
      */
     filterOption?: (option: Option, filter: string) => Option;
     /**
      * method to filter the options array
      */
-    filterOptions?: (options: Array<Option>, filter: string, currentValues: (string | number)[]) => Array<Option>;
+    filterOptions?: (options: Array<Option>, filter: string, currentValues: Array<Option>) => Array<Option>;
+    /**
+     * whether to strip diacritics when filtering
+     * @default true
+     */
+    ignoreAccents?: boolean;
     /**
      * whether to perform case-insensitive filtering
      * @default true
@@ -400,14 +442,15 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      */
     isLoading?: boolean;
     /**
+     * (legacy mode) joins multiple values into a single form field with the delimiter
+     * @default false
+     */
+    joinValues?: boolean;
+    /**
      * the option property to use for the label
      * @default "label"
      */
     labelKey?: string;
-    /**
-     * function that calls a callback with the options
-     */
-    loadOptions?: (input: string, callback: (options: Option[]) => any) => any;
     /**
      * (any, start) match the start or entire string when filtering
      * @default "any"
@@ -423,6 +466,18 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      * @default 0
      */
     menuBuffer?: number;
+    /**
+     * optional style to apply to the menu container
+     */
+    menuContainerStyle?: {}
+    /**
+     * renders a custom menu with options
+     */
+    menuRenderer?: (props: MenuRendererProps) => React.ReactElement<any>;
+    /**
+     * optional style to apply to the menu
+     */
+    menuStyle?: {}
     /**
      * multi-value input
      * @default false
@@ -442,17 +497,42 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
      * @default "No results found"
      */
     noResultsText?: string;
-    onBlur?: React.FocusEventHandler<ReactSelect>;
+    /**
+     * onBlur handler: function (event) {}
+     */
+    onBlur?: React.FocusEventHandler<{}>;
     /**
      * whether to clear input on blur or not
      * @default true
      */
     onBlurResetsInput?: boolean;
+    /**
+     * onChange handler: function (newValue) {}
+     */
     onChange?: (newValue: Option | Option[]) => void;
+    /**
+     * fires when the menu is closed
+     */
     onClose?: () => void;
-    onFocus?: React.FocusEventHandler<ReactSelect>;
+    /**
+     * onFocus handler: function (event) {}
+     */
+    onFocus?: React.FocusEventHandler<{}>;
+    /**
+     * onInputChange handler: function (inputValue) {}
+     */
     onInputChange?: (inputValue: string) => void;
+    /**
+     * fires when the menu is scrolled to the bottom; can be used to paginate options
+     */
+    onMenuScrollToBottom?: () => void;
+    /**
+     * fires when the menu is opened
+     */
     onOpen?: () => void;
+    /**
+     * @deprecated use onValueClick isntead
+     */
     onOptionLabelClick?: (value: string, event: Event) => void;
 
         /**

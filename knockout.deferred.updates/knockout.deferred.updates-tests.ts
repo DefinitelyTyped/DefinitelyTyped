@@ -201,8 +201,6 @@ function nestedComputedPlugin() {
         vm.doUpdate();
     };
 
-    vm.runWrappedDefer = ko.tasks.makeProcessedCallback(vm.runDefer);
-
     vm.A = ko.computed(function () {
         var result = '' + vm.a();
         firstUpdate();

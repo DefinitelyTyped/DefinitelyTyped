@@ -1947,19 +1947,21 @@ declare namespace angular {
     }
 }
 
-interface JQuery {
-    // TODO: events, how to define?
-    //$destroy
+declare global {
+    interface JQuery {
+        // TODO: events, how to define?
+        //$destroy
 
-    find(element: any): JQuery;
-    find(obj: JQuery): JQuery;
-    controller(name?: string): any;
-    injector(): ng.auto.IInjectorService;
-    /** It's declared generic for custom scope interfaces */
-    scope<T extends ng.IScope>(): T;
-    isolateScope<T extends ng.IScope>(): T;
+        find(element: any): JQuery;
+        find(obj: JQuery): JQuery;
+        controller(name?: string): any;
+        injector(): ng.auto.IInjectorService;
+        /** It's declared generic for custom scope interfaces */
+        scope<T extends ng.IScope>(): T;
+        isolateScope<T extends ng.IScope>(): T;
 
-    inheritedData(key: string, value: any): JQuery;
-    inheritedData(obj: { [key: string]: any; }): JQuery;
-    inheritedData(key?: string): any;
+        inheritedData(key: string, value: any): JQuery;
+        inheritedData(obj: { [key: string]: any; }): JQuery;
+        inheritedData(key?: string): any;
+    }
 }
