@@ -6,6 +6,7 @@
 export = NeDBDataStore;
 export as namespace Nedb;
 
+declare namespace NeDBDataStore { }
 declare class NeDBDataStore {
     constructor();
     constructor(path:string);
