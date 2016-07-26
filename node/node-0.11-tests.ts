@@ -24,7 +24,8 @@ assert.notStrictEqual(2, "2", "uses === comparator");
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////

@@ -3,8 +3,6 @@
 // Definitions by: Matt Traynham <https://github.com/mtraynham>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
-
 import * as angular from 'angular';
 
 declare module 'angular' {
@@ -64,6 +62,11 @@ declare module 'angular' {
             cancel(cancel: string): IConfirmDialog;
         }
 
+        interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+            cancel(cancel: string): IPromptDialog;
+            placeholder(placeholder: string): IPromptDialog;
+        }
+
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
@@ -94,6 +97,7 @@ declare module 'angular' {
             show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog): angular.IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
+            prompt(): IPromptDialog;
             hide(response?: any): angular.IPromise<any>;
             cancel(response?: any): void;
         }
