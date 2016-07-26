@@ -4,9 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
-/// <reference types="long" />
-
 import Long = require("long");
+
+declare namespace ByteBuffer {}
+export = ByteBuffer;
+export as namespace ByteBuffer;
 
 declare class ByteBuffer
 {
@@ -611,7 +613,3 @@ declare class ByteBuffer
      */
     writeVarint64ZigZag( value: number | Long, offset?: number ): ByteBuffer | number;
 }
-
-declare namespace ByteBuffer {}
-export = ByteBuffer;
-export as namespace ByteBuffer;

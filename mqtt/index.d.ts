@@ -246,7 +246,7 @@ declare module "react-select" {
         /**
          * option component to render in dropdown
          */
-        optionComponent?: React.ReactElement<any>;
+        optionComponent?: React.ComponentClass<any>;
         /**
          * function which returns a custom way to render the options in the menu
          */
@@ -308,6 +308,10 @@ declare module "react-select" {
          */
         tabIndex?: string;
 
+        /**
+         *  value component to render
+         */
+        valueComponent?: React.ComponentClass<any>;
 
         /**
          *  optional style to apply to the component wrapper

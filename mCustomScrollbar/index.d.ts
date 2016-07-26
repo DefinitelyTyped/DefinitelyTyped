@@ -36,9 +36,48 @@ declare namespace MCustomScrollbar {
         */
         scrollInertia?: number;
         /**
-        * Mouse wheel support, value: true, false
+        * Mouse wheel support
         */
-        mouseWheel?: boolean;
+        mouseWheel?: {
+            /**
+             * Enable or disable content scrolling via mouse-wheel.
+             */
+            enable?: boolean;
+            /**
+             * Set the mouse-wheel scrolling amount (in pixels).
+             * The default value "auto" adjusts scrolling amount according to scrollable content length.
+             */
+            scrollAmount?: number;
+            /**
+             * Define the mouse-wheel scrolling axis when both vertical and horizontal scrollbars are present.
+             * Set axis: "y" (default) for vertical or axis: "x" for horizontal scrolling.
+             */
+            axis?: "x"|"y";
+            /**
+             * Prevent the default behaviour which automatically scrolls the parent element when end
+             * or beginning of scrolling is reached (same bahavior with browser’s native scrollbar).
+             */
+            preventDefault?: boolean;
+            /**
+             * Set the number of pixels one wheel notch scrolls. The default value “auto” uses the OS/browser value.
+             */
+            deltaFactor?: number;
+            /**
+             * Enable or disable mouse-wheel (delta) acceleration.
+             * Setting normalizeDelta: true translates mouse-wheel delta value to -1 or 1.
+             */
+            normalizeDelta?:boolean;
+            /**
+             * Invert mouse-wheel scrolling direction.
+             * Set to true to scroll down or right when mouse-wheel is turned upwards.
+             */
+            invert?: boolean;
+            /**
+             * Set the tags that disable mouse-wheel when cursor is over them.
+             * Default value: ["select","option","keygen","datalist","textarea"]
+             */
+            disableOver?: string[]
+        }
         /**
         * Mouse wheel scrolling pixels amount, value in pixels (integer) or "auto" (script calculates and sets pixels amount according to content length)
         */
