@@ -2,7 +2,9 @@
 // Project: https://github.com/Microsoft/maker.js
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../pdfkit/pdfkit.d.ts" />
+
+/// <reference types="pdfkit" />
+
 /**
  * Root module for Maker.js.
  *

@@ -3,9 +3,11 @@
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import Knex = require('knex');
 import knex = require('knex');
 import Promise = require('bluebird');
 import Lodash = require('lodash');
+import createError = require('create-error');
 
 interface Bookshelf extends Bookshelf.Events<any> {
 	VERSION: string;

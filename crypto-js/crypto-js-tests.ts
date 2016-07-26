@@ -1,5 +1,3 @@
-
-
 import CryptoJS = require('crypto-js');
 
 // Hashers

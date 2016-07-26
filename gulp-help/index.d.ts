@@ -1,295 +1,114 @@
-// Type definitions for node-schedule 1.1.0
-// Project: https://github.com/tejasmanohar/node-schedule/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Florian Plattner <https://github.com/flowpl>
+// Type definitions for gulp-help
+// Project: https://github.com/chmontgomery/gulp-help
+// Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts"/>
+/// <reference types="node" />
+/// <reference types="gulp" />
+/// <reference types="orchestrator" />
 
-declare module 'node-schedule' {
-    import nodeSchedule = require('node-schedule');
-    import {EventEmitter} from 'events';
+import Orchestrator = require('orchestrator');
+import gulp = require('gulp');
+type HelpOption = string|boolean;
 
-    /**
-     * The callback executed by a Job
-     */
-    export interface JobCallback {
-        ():void;
+declare namespace gulpHelp {
+    interface TaskMethod {
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param help Custom help message as a string. If you want to hide the task from the help menu, supply false
+         * @param deps an array of tasks to be executed and completed before your task will run.
+         * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
+         * @param option task options
+         */
+        (name: string, help: HelpOption, deps: string[], fn?: gulp.TaskCallback, option?: TaskOptions): any;
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param help Custom help message as a string. If you want to hide the task from the help menu, supply false
+         * @param deps an array of tasks to be executed and completed before your task will run.
+         */
+        (name: string, help: HelpOption, deps: string[]): any;
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param help Custom help message as a string. If you want to hide the task from the help menu, supply false
+         * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
+         * @param option task options
+         */
+        (name: string, help: HelpOption, fn?: gulp.TaskCallback, option?: TaskOptions): any;
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param help Custom help message as a string. If you want to hide the task from the help menu, supply false
+         */
+        (name: string, help: HelpOption): any;
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param deps an array of tasks to be executed and completed before your task will run.
+         * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
+         * @param option task options
+         */
+        (name: string, deps: string[], fn?: gulp.TaskCallback, option?: TaskOptions): any;
+        /**
+         * Define a task.
+         *
+         * @param name the name of the task. Tasks that you want to run from the command line should not have spaces in them.
+         * @param fn the function that performs the task's operations. Generally this takes the form of gulp.src().pipe(someplugin()).
+         * @param option task options
+         */
+        (name: string, fn?: gulp.TaskCallback, option?: TaskOptions): any;
     }
 
-    /**
-     * Scheduler jobs.
-     *
-     * @class
-     */
-    export class Job extends EventEmitter {
-        /**
-         * This Job's name. read-only.
-         */
-        name:string;
-
-        /**
-         * Use the function scheduleJob() to create new Job objects.
-         *
-         * @constructor
-         * @internal
-         * @param {string|JobCallback}   name     either an optional name for this Job or this Job's callback
-         * @param {JobCallback|Function} job      either this Job's callback or an optional callback function
-         * @param {Function}             callback optional callback that is executed right before the JobCallback
-         */
-        constructor(name: string|JobCallback, job?: JobCallback|Function, callback?: Function);
-
-        /**
-         * Adds an Invocation to this job. For internal use.
-         * @internal
-         * @param {Invocation} invokation
-         * @return {boolean} whether the invocation could be added
-         */
-        trackInvocation(invokation:Invocation):boolean;
-
-        /**
-         * removes an Invocation from this Job's tracking list. For internal use.
-         * @internal
-         * @param invocation {Invocation}
-         * @return boolean whether the invocation was successful. Removing an Invocation that doesn't exist, returns false.
-         */
-        stopTrackingInvocation(invocation:Invocation):boolean;
-
-        /**
-         * @internal
-         * @return {number} the number of currently running instances of this Job.
-         */
-        triggeredJobs():number;
-
-        /**
-         * set the number of currently running Jobs.
-         * @internal
-         * @param triggeredJobs
-         */
-        setTriggeredJobs(triggeredJobs:number):void;
-
-        /**
-         * cancel all pending Invocations of this Job.
-         * @param reschedule {boolean} whether to reschedule the canceled Invocations.
-         */
-        cancel(reschedule?:boolean):boolean;
-
-        /**
-         * cancel the next Invocation of this Job.
-         * @param reschedule {boolean} whether to reschedule the canceled Invocation.
-         * @return {boolean} whether cancelation was successful
-         */
-        cancelNext(reschedule?:boolean):boolean;
-
-        /**
-         * Changes the scheduling information for this Job.
-         * @param spec {RecurrenceRule|string|number} the
-         * @return {boolean} whether the reschedule was successful
-         */
-        reschedule(spec:RecurrenceRule|string|number):boolean;
-
-        /**
-         * Returns the Date on which this Job will be run next.
-         * @return {Date}
-         */
-        nextInvocation():Date;
-
-        /**
-         * @return Invocation[] a list of all pending Invocations
-         */
-        pendingInvocations():Invocation[];
-
-        /**
-         * run this Job immediately.
-         */
-        invoke():void;
-
-        /**
-         * schedule this Job to be run on the specified date.
-         * @param date {Date}
-         */
-        runOnDate(date:Date): void;
-
-        /**
-         * set scheduling information
-         * @param {Date|string|number} date
-         * @public
-         */
-        schedule(date: Date|string|number): boolean;
+    interface GulpHelp extends Orchestrator {
+        task: TaskMethod;
+        src: gulp.SrcMethod;
+        dest: gulp.DestMethod;
+        watch: gulp.WatchMethod;
     }
 
-    /**
-     * Range.
-     *
-     * @class
-     */
-    export class Range {
+    interface TaskOptions {
         /**
-         * Constructor.
-         *
-         * @constructor
-         * @param {number} start The start.
-         * @param {end}    end   The end.
-         * @param {step}   step  The step.
+         * List of aliases for this task
          */
-        constructor(start?: number, end?: number, step?: number);
-
+        aliases?: string[];
         /**
-         * Return a {boolean} if the class contains the specified value.
-         *
-         * @param {number} value The value.
-         * @returns {boolean} {true} if the class contains the specified value, otherwise, {false}.
+         * Object documenting options which can be passed to your task
          */
-        contains(value: number): boolean;
+        options?: { [key: string]: string };
     }
 
-    /**
-     * Recurrence rules.
-     */
-    export class RecurrenceRule {
+    interface GulpHelpOptions {
         /**
-         * Day of the month.
-         *
-         * @public
-         * @type {number}
+         * Modifies the default help message
          */
-        date: number;
-
+        description?: string;
         /**
-         * Day of the week.
-         *
-         * @public
-         * @type {number|Array<number|Range>}
+         * Adds aliases to the default help task
          */
-        dayOfWeek: number|Array<number|Range>;
-
+        aliases?: string[];
         /**
-         * Hour.
-         *
-         * @public
-         * @type {number}
+         * Hide all tasks with no help message defined. Useful when including 3rd party tasks
          */
-        hour: number;
-
+        hideEmpty?: boolean;
         /**
-         * Minute.
-         *
-         * @public
-         * @type {number}
+         * Hide all task dependencies
          */
-        minute: number;
-
+        hideDepsMessage?: boolean;
         /**
-         * Month.
-         *
-         * @public
-         * @type {number}
+         * A function to run after the default help task runs
          */
-        month: number;
-
-        /**
-         * Second.
-         *
-         * @public
-         * @type {number}
-         */
-        second: number;
-
-        /**
-         * Year.
-         *
-         * @public
-         * @type {number}
-         */
-        year: number;
-
-        constructor(year:number,
-                    month:number,
-                    date:number,
-                    dayOfWeek:number|Array<number|Range>,
-                    hour:number,
-                    minute:number,
-                    second:number);
-
-        nextInvocationDate(base:Date):Date;
+        afterPrintCallback?: Function;
     }
 
-    /**
-     * Invocation.
-     *
-     * @class
-     */
-    export class Invocation {
-        /**
-         * Fire date.
-         *
-         * @public
-         * @type {Date}
-         */
-        public fireDate: Date;
-
-        /**
-         * Job.
-         *
-         * @public
-         * @type {Job}
-         */
-        public job: Job;
-
-        /**
-         * Recurrence rule.
-         *
-         * @public
-         * @type {RecurrenceRule}
-         */
-        public recurrenceRule: RecurrenceRule;
-
-        /**
-         * Timer identifier.
-         *
-         * @public
-         * @type {number}
-         */
-        public timerID: number;
-
-        /**
-         * Constructor.
-         *
-         * @constructor
-         * @param {Job}             job             The job.
-         * @param {Date}            fireDate        The fire date.
-         * @param {RecurrenceRule}  recurrenceRule  The recurrence rule.
-         */
-        constructor(job: Job, fireDate: Date, recurrenceRule: RecurrenceRule);
-    }
-
-    /**
-     * Create a schedule job.
-     *
-     * @param {string|RecurrenceRule|Date} name     either an optional name for the new Job or scheduling information
-     * @param {RecurrenceRule|Date|string} rule     either the scheduling info or the JobCallback
-     * @param {JobCallback}                callback The callback to be executed on each invocation.
-     */
-    export function scheduleJob(name:string|RecurrenceRule|Date, rule: RecurrenceRule|Date|string|JobCallback, callback?: JobCallback): Job;
-
-    /**
-     * Changes the timing of a Job, canceling all pending invocations.
-     *
-     * @param job {Job}
-     * @param spec {JobCallback} the new timing for this Job
-     * @return {Job} if the job could be rescheduled, {null} otherwise.
-     */
-    export function rescheduleJob(job:Job|string, spec:RecurrenceRule|Date|string):Job;
-
-    /**
-     * Dictionary of all Jobs, accessible by name.
-     */
-    export let scheduledJobs:{[jobName:string]:Job};
-
-    /**
-     * Cancels the job.
-     *
-     * @param {Job} job The job.
-     * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
-     */
-    export function cancelJob(job: Job|string): boolean;
 }
+
+declare function gulpHelp(gulp: gulp.Gulp, options?: gulpHelp.GulpHelpOptions): gulpHelp.GulpHelp;
+
+export = gulpHelp;

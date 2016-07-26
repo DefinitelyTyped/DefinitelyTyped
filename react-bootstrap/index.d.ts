@@ -445,7 +445,7 @@ declare module "react-bootstrap" {
     
     // <Tab.Container />
     // ----------------------------------------
-    interface TabContainerProps extends React.HTMLAttributes {
+    interface TabContainerProps extends React.HTMLAttributes<{}> {
       activeKey?: any;
       defaultActiveKey?: any;
       generateChildId?: (eventKey: any, type: any) => string;
@@ -454,7 +454,7 @@ declare module "react-bootstrap" {
     
     // <Tab.Pane />
     // ----------------------------------------
-    interface TabPaneProps extends React.HTMLAttributes {
+    interface TabPaneProps extends React.HTMLAttributes<{}> {
       animation?: boolean | React.ComponentClass<any>;
       'aria-labelledby'?: string;
       bsClass?: string;
