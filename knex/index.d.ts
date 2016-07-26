@@ -29,6 +29,7 @@ interface Knex extends Knex.QueryInterface {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
+    on(eventName: string, callback: Function): Knex.QueryBuilder;
 }
 
 declare function Knex(config: Knex.Config): Knex;
@@ -312,6 +313,7 @@ declare namespace Knex {
 
     interface TableBuilder {
         increments(columnName?: string): ColumnBuilder;
+        bigIncrements(columnName?: string): ColumnBuilder;
         dropColumn(columnName: string): TableBuilder;
         dropColumns(...columnNames: string[]): TableBuilder;
         renameColumn(from: string, to: string): ColumnBuilder;

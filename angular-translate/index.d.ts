@@ -66,11 +66,11 @@ declare module 'angular' {
             loaderCache(): any;
             isReady(): boolean;
             onReady(): angular.IPromise<void>;
-            resolveClientLocale():string;
+            resolveClientLocale(): string;
         }
 
         interface ITranslateProvider extends angular.IServiceProvider {
-            translations(): ITranslationTable;
+            translations(key?: string): ITranslationTable;
             translations(key: string, translationTable: ITranslationTable): ITranslateProvider;
             cloakClassName(): string;
             cloakClassName(name: string): ITranslateProvider;
@@ -110,12 +110,12 @@ declare module 'angular' {
             registerAvailableLanguageKeys(): string[];
             registerAvailableLanguageKeys(languageKeys: string[], aliases?: ILanguageKeyAlias): ITranslateProvider;
             useLoaderCache(cache?: any): ITranslateProvider;
-            resolveClientLocale():string;
+            resolveClientLocale(): string;
         }
     }
 
     interface IFilterService {
-        (name:'translate'): {
+        (name: 'translate'): {
             (translationId: string, interpolateParams?: any, interpolation?: string): string;
         };
     }
