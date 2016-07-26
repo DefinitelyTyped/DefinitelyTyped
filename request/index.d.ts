@@ -108,7 +108,7 @@ declare namespace request {
         key?: Buffer;
         cert?: Buffer;
         passphrase?: string;
-        ca?: Buffer;
+        ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
     }

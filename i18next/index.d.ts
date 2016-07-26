@@ -94,6 +94,10 @@ declare namespace i18n {
 
         loadResources(callback?:(err:any) => void):void;
 
+        language:string;
+
+        languages:string[];
+
         use(module:any):I18n;
 
         changeLanguage(lng:string, callback?:(err:any, t:TranslationFunction) => void):void;

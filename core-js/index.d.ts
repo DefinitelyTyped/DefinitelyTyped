@@ -1266,6 +1266,8 @@ interface String {
 declare function delay(msec: number): Promise<void>;
 
 declare namespace core {
+    var version: string;
+
     namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;

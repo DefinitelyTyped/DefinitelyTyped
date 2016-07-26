@@ -5,6 +5,7 @@
 
 /// <reference types="d3"/>
 /// <reference types="dagre"/>
+/// <reference types="jquery"/>
 
 declare namespace Dagre {
 
@@ -23,6 +24,8 @@ declare namespace Dagre {
     }
 
     interface Render {
+        // see http://cpettitt.github.io/project/dagre-d3/latest/demo/user-defined.html for example usage
+        arrows (): { [arrowStyleName: string]: (parent: JQuery, id: string, edge: Dagre.Edge, type: string) => void };
         new (): Render;
         (selection: d3.Selection<any>, g: Dagre.Graph): void;
     }

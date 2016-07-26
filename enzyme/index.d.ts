@@ -1,4 +1,4 @@
-// Type definitions for Enzyme v1.2.0
+// Type definitions for Enzyme v2.3.0
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,34 @@ interface CommonWrapper<P, S> {
     contains(node: ReactElement<any>): Boolean;
 
     /**
+         * Returns whether or not a given react element exists in the shallow render tree.
+         * @param node
+         */
+        containsMatchingElement(node: ReactElement<any>): Boolean;
+
+        /**
+         * Returns whether or not all the given react elements exists in the shallow render tree
+         * @param nodes
+         */
+        containsAllMatchingElements(nodes: ReactElement<any>[]): Boolean;
+
+        /**
+         * Returns whether or not one of the given react elements exists in the shallow render tree.
+         * @param nodes
+         */
+        containsAnyMatchingElements(nodes: ReactElement<any>[]): Boolean;
+
+        /**
+         * Returns whether or not the current render tree is equal to the given node, based on the expected value.
+         */
+        equals(node: ReactElement<any>): Boolean;
+
+        /**
+         * Returns whether or not a given react element matches the shallow render tree.
+         */
+        matchesElement(node: ReactElement<any>): Boolean;
+
+        /**
      * Returns whether or not the current node has a className prop including the passed in class name.
      * @param className
      */
@@ -87,6 +115,13 @@ interface CommonWrapper<P, S> {
     children(): CommonWrapper<any, any>;
 
     /**
+         * Returns a new wrapper with child at the specified index.
+         * @param index
+         */
+        childAt(index: Number): CommonWrapper<any, any>;
+        childAt<P2, S2>(index: Number): CommonWrapper<P2, S2>;
+
+        /**
      * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
@@ -157,6 +192,13 @@ interface CommonWrapper<P, S> {
      * @param [key]
      */
     state(key?: String): any;
+        state<T>(key?: String): T;
+
+        /**
+         * Returns the context hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
+         */
+        context(key?: String): any;
+        context<T>(key?: String): T;
 
     /**
      * Returns the props hash for the current node of the wrapper.
@@ -172,6 +214,13 @@ interface CommonWrapper<P, S> {
      * @param key
      */
     prop(key: String): any;
+        prop<T>(key: String): T;
+
+        /**
+         * Returns the key value for the node of the current wrapper.
+         * NOTE: can only be called on a wrapper of a single node.
+         */
+        key(): String;
 
     /**
      * Simulate events.
@@ -248,6 +297,11 @@ interface CommonWrapper<P, S> {
     type(): String | Function;
 
     /**
+         * Returns the name of the current node of the wrapper.
+         */
+        name(): String;
+
+        /**
      * Iterates through each node of the current wrapper and executes the provided function with a wrapper around
      * the corresponding node passed in as the first argument.
      *
@@ -348,6 +402,13 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     children(): ShallowWrapper<any, any>;
 
     /**
+         * Returns a new wrapper with child at the specified index.
+         * @param index
+         */
+        childAt(index: Number): ShallowWrapper<any, any>;
+        childAt<P2, S2>(index: Number): ShallowWrapper<P2, S2>;
+
+        /**
      * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
      * current wrapper. Optionally, a selector can be provided and it will filter the parents by this selector.
      *
@@ -381,6 +442,25 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
         mount(): ReactWrapper<any, any>;
 
         /**
+         * Returns a wrapper of the node that matches the provided reference name.
+         * 
+         * NOTE: can only be called on a wrapper instance that is also the root instance.
+         */
+        ref(refName: String): ReactWrapper<any, any>;
+        ref<P2, S2>(refName: String): ReactWrapper<P2, S2>;
+
+        /**
+         * Detaches the react tree from the DOM. Runs ReactDOM.unmountComponentAtNode() under the hood.
+         * 
+         * This method will most commonly be used as a "cleanup" method if you decide to use the attachTo option in mount(node, options).
+         * 
+         * The method is intentionally not "fluent" (in that it doesn't return this) because you should not be doing anything with this wrapper after this method is called.
+         * 
+         * Using the attachTo is not generally recommended unless it is absolutely necessary to test something. It is your responsibility to clean up after yourself at the end of the test if you do decide to use it, though.
+         */
+        detach() : void;
+
+        /**
          * Find every node in the render tree that matches the provided selector.
          * @param selector The selector to match.
          */
@@ -411,6 +491,13 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
         children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
         children(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
         children(): ReactWrapper<any, any>;
+
+        /**
+         * Returns a new wrapper with child at the specified index.
+         * @param index
+         */
+        childAt(index: Number): ReactWrapper<any, any>;
+        childAt<P2, S2>(index: Number): ReactWrapper<P2, S2>;
 
         /**
          * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the
