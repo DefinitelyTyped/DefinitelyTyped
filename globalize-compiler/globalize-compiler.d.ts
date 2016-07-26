@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./../globalize/globalize.d.ts" />
+/// <reference path="../estree/estree.d.ts" />
 
 declare namespace GlobalizeCompiler {
   interface CompileTemplateOptions {
@@ -84,7 +85,7 @@ declare namespace GlobalizeCompiler {
      * @returns an extract. An extract is a Function taking one argument: Globalize, the Globalize Object;
      *  and returning an Array with the formatters and parsers created using the passed Globalize.
      */
-    extract(input: string | Object): ExtractFunction;
+    extract(input: string | ESTree.Program): ExtractFunction;
 
     /**
      * Generates a JavaScript bundle containing the specified globalize formatters and parsers.

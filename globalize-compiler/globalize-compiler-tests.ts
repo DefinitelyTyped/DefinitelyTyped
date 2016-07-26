@@ -20,7 +20,9 @@ compileOutput = globalizeCompiler.compile({ x: () => "test", y: (x: string) => x
 
 let extractOutput: GlobalizeCompiler.ExtractFunction;
 extractOutput = globalizeCompiler.extract("path");
-extractOutput = globalizeCompiler.extract({});
+
+const ast: ESTree.Program = undefined;
+extractOutput = globalizeCompiler.extract(ast);
 
 extractsArray = extractOutput(globalize);
 
