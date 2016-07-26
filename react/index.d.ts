@@ -2475,6 +2475,7 @@ declare global {
             clipPath: React.SVGProps;
             defs: React.SVGProps;
             ellipse: React.SVGProps;
+        foreignObject: React.SVGProps;
             g: React.SVGProps;
             image: React.SVGProps;
             line: React.SVGProps;

@@ -2952,17 +2952,15 @@ declare namespace sequelize {
          * AddScope Options for Model.addScope
          */
     interface AddScopeOptions {
-
         /**
          * If a scope of the same name already exists, should it be overwritten?
          */
         override: boolean;
-
     }
 
     /**
- * Scope Options for Model.scope
- */
+* Scope Options for Model.scope
+*/
     interface ScopeOptions {
 
         /**
@@ -3116,10 +3114,15 @@ declare namespace sequelize {
     }
 
     /**
-     * Options that are passed to any model creating a SELECT query
-     *
-     * A hash of options to describe the scope of the search
-     */
+         * Shortcut for types used in FindOptions.attributes
+         */
+    type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+
+    /**
+ * Options that are passed to any model creating a SELECT query
+ *
+ * A hash of options to describe the scope of the search
+ */
     interface FindOptions {
 
         /**
@@ -3133,7 +3136,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: Array<string> | { include?: Array<string>, exclude?: Array<string> };
+        attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3199,7 +3202,6 @@ declare namespace sequelize {
          * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-
     }
 
     /**
@@ -3671,52 +3673,52 @@ declare namespace sequelize {
         addScope(name: string, scope: FindOptions | Function, options?: AddScopeOptions): void;
 
         /**
-     * Apply a scope created in `define` to the model. First let's look at how to create scopes:
-     * ```js
-     * var Model = sequelize.define('model', attributes, {
-     *   defaultScope: {
-     *     where: {
-     *       username: 'dan'
-     *     },
-     *     limit: 12
-     *   },
-     *   scopes: {
-     *     isALie: {
-     *       where: {
-     *         stuff: 'cake'
-     *       }
-     *     },
-     *     complexFunction: function(email, accessLevel) {
-     *       return {
-     *         where: {
-     *           email: {
-     *             $like: email
-     *           },
-     *           accesss_level {
-     *             $gte: accessLevel
-     *           }
-     *         }
-     *       }
-     *     }
-     *   }
-     * })
-     * ```
-     * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
-     * your query. Here's a couple of examples:
-     * ```js
-     * Model.findAll() // WHERE username = 'dan'
-     * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
-     * ```
-     *
-     * To invoke scope functions you can do:
-     * ```js
-     * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
-     * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
-     * ```
-     *
-     * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
-     *     model will clear the previous scope.
-     */
+ * Apply a scope created in `define` to the model. First let's look at how to create scopes:
+ * ```js
+ * var Model = sequelize.define('model', attributes, {
+ *   defaultScope: {
+ *     where: {
+ *       username: 'dan'
+ *     },
+ *     limit: 12
+ *   },
+ *   scopes: {
+ *     isALie: {
+ *       where: {
+ *         stuff: 'cake'
+ *       }
+ *     },
+ *     complexFunction: function(email, accessLevel) {
+ *       return {
+ *         where: {
+ *           email: {
+ *             $like: email
+ *           },
+ *           accesss_level {
+ *             $gte: accessLevel
+ *           }
+ *         }
+ *       }
+ *     }
+ *   }
+ * })
+ * ```
+ * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
+ * your query. Here's a couple of examples:
+ * ```js
+ * Model.findAll() // WHERE username = 'dan'
+ * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
+ * ```
+ *
+ * To invoke scope functions you can do:
+ * ```js
+ * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
+ * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
+ * ```
+ *
+ * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
+ *     model will clear the previous scope.
+ */
         scope(options?: string | string[] | ScopeOptions | WhereOptions): this;
 
         /**

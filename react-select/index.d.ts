@@ -219,7 +219,7 @@ export interface ReactSelectProps extends React.Props<ReactSelect> {
     /**
      *  value component to render
      */
-    valueComponent?: Function;
+    valueComponent?: React.ComponentClass<any>;
 
     /**
      *  optional style to apply to the component wrapper

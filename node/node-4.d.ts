@@ -300,6 +300,7 @@ declare namespace NodeJS {
             ares: string;
             uv: string;
             zlib: string;
+            modules: string;
             openssl: string;
         };
         config: {

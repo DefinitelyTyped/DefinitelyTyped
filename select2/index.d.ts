@@ -29,6 +29,7 @@ interface Select2AjaxOptions {
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
+    processResults?:(data: any, params: any) => any;
 }
 
 interface IdTextPair {
