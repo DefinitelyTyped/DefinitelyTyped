@@ -1946,9 +1946,9 @@ declare namespace THREE {
     }
 
     export interface LoaderHandler{
-        handlers: any[];
+        handlers: (RegExp | Loader)[];
 
-        add(regex: string, loader: Loader): void;
+        add(regex: RegExp, loader: Loader): void;
         get(file: string): Loader;
     }
 

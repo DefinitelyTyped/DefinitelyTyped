@@ -13,5 +13,6 @@ namespace DagreD3Tests {
 
     const render = new dagreD3.render();
     const svg = d3.select("svg");
+    render.arrows()["arrowType"] = (parent: JQuery, id: string, edge: Dagre.Edge, type: string) => {};
     render(svg, graph);
 }
