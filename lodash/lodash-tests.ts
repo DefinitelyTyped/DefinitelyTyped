@@ -973,19 +973,26 @@ namespace TestFlattenDeep {
 
 // _.fromPairs
 namespace TestFromPairs {
-    let array: string[][];
-    let result: _.Dictionary<any>;
+    let twoDimensionalArray: string[][];
+    let numberTupleArray: [string, number][];
+    let stringDict: _.Dictionary<string>;
+    let numberDict: _.Dictionary<number>;
 
     {
-        result = _.fromPairs(array);
+        stringDict = _.fromPairs(twoDimensionalArray);
+        numberDict = _.fromPairs(numberTupleArray);
+        // Ensure we're getting the parameterized overload rather than the 'any' catch-all.
+        numberDict = _.fromPairs<number>(numberTupleArray);
+        // This doesn't compile because you can't assign arrays to tuples.
+        // stringDict = _.fromPairs<string>(twoDimensionalArray);
     }
 
     {
-        result = _(array).fromPairs().value();
+        stringDict = _(twoDimensionalArray).fromPairs().value();
     }
 
     {
-        result = _.chain(array).fromPairs().value();
+        stringDict = _.chain(twoDimensionalArray).fromPairs().value();
     }
 }
 
@@ -5724,6 +5731,21 @@ namespace TestFlip {
 namespace TestFlow {
     let Fn1: (n: number) => number;
     let Fn2: (m: number, n: number) => number;
+    let Fn3: (a: number) => string;
+    let Fn4: (a: string) => number;
+    
+    {
+        // type infer test
+        let result: (m: number, n: number) => number;
+        
+        result = _.flow(Fn2, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
+        result = _.flow(Fn2, Fn1, Fn3, Fn4);
+    }
 
     {
         let result: (m: number, n: number) => number;
@@ -10277,7 +10299,14 @@ namespace TestValues {
     {
         let result: TResult[];
 
-        result = _.values<TResult>(object);
+        result = _.values(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.values<TResult>(new Object);
     }
 
     {
@@ -10300,7 +10329,20 @@ namespace TestValuesIn {
     {
         let result: TResult[];
 
-        result = _.valuesIn<TResult>(object);
+        result = _.valuesIn(object);
+    }
+
+    {
+        let result: TResult[];
+
+        // Without this type hint, this will fail to compile, as expected.
+        result = _.valuesIn<TResult>(new Object);
+    }
+
+    {
+        let result: TResult[];
+
+        result = _.values(object);
     }
 
     {

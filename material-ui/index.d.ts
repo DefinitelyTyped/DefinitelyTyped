@@ -247,7 +247,7 @@ declare namespace __MaterialUI {
             inkBar?: {
                 backgroundColor?: string;
             };
-            drawer?: {
+            navDrawer?: {
                 width?: number;
                 color?: string;
             };
@@ -426,7 +426,7 @@ declare namespace __MaterialUI {
             menu: number;
             appBar: number;
             drawerOverlay: number;
-            drawer: number;
+            navDrawer: number;
             dialogOverlay: number;
             dialog: number;
             layer: number;

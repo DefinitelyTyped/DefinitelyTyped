@@ -23,6 +23,11 @@ interface Console {
     warn(message?: any, ...optionalParams: any[]): void;
 }
 
+interface ErrorConstructor {
+    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    stackTraceLimit: number;
+}
+
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
 // use the lib.es6.d.ts that is bundled with TypeScript 1.8.
@@ -555,12 +560,15 @@ declare module "events" {
         addListener(event: string, listener: Function): this;
         on(event: string, listener: Function): this;
         once(event: string, listener: Function): this;
+        prependListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: Function): this;
         removeListener(event: string, listener: Function): this;
         removeAllListeners(event?: string): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        eventNames(): string[];
         listenerCount(type: string): number;
     }
 }
@@ -878,7 +886,7 @@ declare module "os" {
 
     export function tmpdir(): string;
     export function homedir(): string;
-    export function endianness(): string;
+    export function endianness(): "BE" | "LE";
     export function hostname(): string;
     export function type(): string;
     export function platform(): string;

@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, createMemoryHistory, Router, Route, IndexRoute, Link, RouterOnContext } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, routerShape, Router, Route, IndexRoute, Link, RouterOnContext } from "react-router"
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -10,7 +10,7 @@ interface MasterContext {
 class Master extends React.Component<React.Props<{}>, {}> {
 
 	static contextTypes: React.ValidationMap<any> = {
-		router: React.PropTypes.object
+		router: routerShape
 	};
 	context: MasterContext;
 
