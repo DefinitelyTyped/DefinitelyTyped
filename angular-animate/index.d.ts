@@ -27,7 +27,7 @@ declare module 'angular' {
             enter?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
             leave?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
             move?: (element: JQuery, doneFunction: Function, options: IAnimationOptions) => any;
-            animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;tions) => any;
+            animate?: (element: JQuery, fromStyles: string, toStyles: string, doneFunction: Function, options: IAnimationOptions) => any;
         }
 
         interface IAnimationPromise extends IPromise<void> { }

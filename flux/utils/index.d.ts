@@ -1,3 +1,8 @@
+// Type definitions for Flux Utils
+// Project: http://facebook.github.io/flux/
+// Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 import * as React from 'react';
 import * as Flux from 'flux';
 import * as fbEmitter from 'fbemitter';
