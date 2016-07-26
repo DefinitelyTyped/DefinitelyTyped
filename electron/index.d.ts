@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.2
+// Type definitions for Electron v1.2.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -115,6 +115,10 @@ declare namespace Electron {
 		 * Emitted when a new browserWindow is created.
 		 */
 		on(event: 'browser-window-created', listener: (event: Event, browserWindow: BrowserWindow) => void): this;
+		/**
+		 * Emitted when a new webContents is created.
+		 */
+		on(event: 'web-contents-created', listener: (event: Event, webContents: WebContents) => void): this;
 		/**
 		 * Emitted when failed to verify the certificate for url, to trust the certificate
 		 * you should prevent the default behavior with event.preventDefault() and call callback(true).
@@ -344,7 +348,7 @@ declare namespace Electron {
 		dock: Dock;
 	}
 
-	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos';
+	type AppPathName = 'home'|'appData'|'userData'|'temp'|'exe'|'module'|'desktop'|'documents'|'downloads'|'music'|'pictures'|'videos'|'pepperFlashSystemPlugin';
 
 	interface ImportCertificateOptions {
 		/**
@@ -498,9 +502,8 @@ declare namespace Electron {
 		on(event: string, listener: Function): this;
 		/**
 		 * Set the url and initialize the auto updater.
-		 * The url cannot be changed once it is set.
 		 */
-		setFeedURL(url: string): void;
+		setFeedURL(url: string, requestHeaders?: Headers): void;
 		/**
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
@@ -559,6 +562,10 @@ declare namespace Electron {
 		 * Emitted when the window is hidden.
 		 */
 		on(event: 'hide', listener: Function): this;
+		/**
+		 * Emitted when the web page has been rendered and window can be displayed without visual flash.
+		 */
+		on(event: 'ready-to-show', listener: Function): this;
 		/**
 		 * Emitted when window is maximized.
 		 */
@@ -650,6 +657,10 @@ declare namespace Electron {
 		 * @param name The name of the devtools extension to remove.
 		 */
 		static removeDevToolsExtension(name: string): void;
+		/**
+		 * @returns devtools extensions.
+		 */
+		static getDevToolsExtensions(): DevToolsExtensions;
 		/**
 		 * The WebContents object this window owns, all web page related events and
 		 * operations would be done via it.
@@ -996,7 +1007,7 @@ declare namespace Electron {
 		 */
 		setThumbarButtons(buttons: ThumbarButton[]): boolean;
 		/**
-		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on OS X.
 		 */
 		showDefinitionForSelection(): void;
@@ -1042,6 +1053,11 @@ declare namespace Electron {
 		 * but if this window has focus, it will still receive keyboard events.
 		 */
 		setIgnoreMouseEvents(ignore: boolean): void;
+		/**
+		 * Changes whether the window can be focused.
+		 * Note: This API is available only on Windows.
+		 */
+		setFocusable(focusable: boolean): void;
 	}
 
 	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
@@ -1053,6 +1069,13 @@ declare namespace Electron {
 		click: Function;
 		tooltip?: string;
 		flags?: ThumbarButtonFlags[];
+	}
+
+	interface DevToolsExtensions {
+		[name: string]: {
+			name: string;
+			value: string;
+		}
 	}
 
 	interface WebPreferences {
@@ -1290,6 +1313,14 @@ declare namespace Electron {
 		 * Default: true.
 		 */
 		closable?: boolean;
+		/**
+		 * Whether the window can be focused.
+		 * On Windows setting focusable: false also implies setting skipTaskbar: true.
+		 * On Linux setting focusable: false makes the window stop interacting with wm,
+		 * so the window will always stay on top in all workspaces.
+		 * Default: true.
+		 */
+		focusable?: boolean;
 		/**
 		 * Whether the window should always stay on top of other windows.
 		 * Default: false.
@@ -1832,9 +1863,9 @@ declare namespace Electron {
 	 */
 	interface DownloadItem extends NodeJS.EventEmitter {
 		/**
-		 * Emits when the downloadItem gets updated.
+		 * Emitted when the download has been updated and is not done.
 		 */
-		on(event: 'updated', listener: Function): this;
+		on(event: 'updated', listener: (event: Event, state: 'progressing' | 'interrupted') => void): this;
 		/**
 		 * Emits when the download is in a terminal state. This includes a completed download,
 		 * a cancelled download (via downloadItem.cancel()), and interrupted download that can’t be resumed.
@@ -1853,9 +1884,17 @@ declare namespace Electron {
 		 */
 		pause(): void;
 		/**
+		 * @returns Whether the download is paused.
+		 */
+		isPaused(): boolean;
+		/**
 		 * Resumes the download that has been paused.
 		 */
 		resume(): void;
+		/**
+		 * @returns Whether the download can resume.
+		 */
+		canResume(): boolean;
 		/**
 		 * Cancels the download operation.
 		 */
@@ -1891,6 +1930,10 @@ declare namespace Electron {
 		 * @returns The Content-Disposition field from the response header.
 		 */
 		getContentDisposition(): string;
+		/**
+		 * @returns The current state.
+		 */
+		getState(): 'progressing' | 'completed' | 'cancelled' | 'interrupted';
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/global-shortcut.md
@@ -2042,7 +2085,7 @@ declare namespace Electron {
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
 	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close';
-	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'window' | 'help' | 'services';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
 		/**
@@ -2635,6 +2678,10 @@ declare namespace Electron {
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
 		webRequest: WebRequest;
+		/**
+		 * @returns An instance of protocol module for this session.
+		 */
+		protocol: Protocol;
 	}
 
 	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
@@ -3644,6 +3691,11 @@ declare namespace Electron {
 		 */
 		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
 		/**
+		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Note: This API is available only on OS X.
+		 */
+		showDefinitionForSelection(): void;
+		/**
 		 * @returns The unique ID of this WebContents.
 		 */
 		id: number;
@@ -4428,6 +4480,11 @@ declare namespace Electron {
 		 * See webContents.sendInputEvent for detailed description of event object.
 		 */
 		sendInputEvent(event: SendInputEvent): void
+		/**
+		 * Shows pop-up dictionary that searches the selected word on the page.
+		 * Note: This API is available only on OS X.
+		 */
+		showDefinitionForSelection(): void;
 		/**
 		 * @returns The WebContents associated with this webview.
 		 */

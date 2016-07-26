@@ -3,6 +3,8 @@
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path='../geojson/geojson.d.ts' />
+
 declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
@@ -220,7 +222,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
     }
 }
@@ -255,11 +257,6 @@ declare namespace L {
           * Sets the radius of a circle marker. Units are in pixels.
           */
         setRadius(radius: number): CircleMarker;
-
-        /**
-          * Returns a GeoJSON representation of the circle marker (GeoJSON Point Feature).
-          */
-        toGeoJSON(): any;
     }
 }
 
@@ -1710,8 +1707,9 @@ declare namespace L {
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
+          * Note: Descendent classes MultiPolygon & MultiPolyLine return `Feature`s, not `FeatureCollection`s
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|GeoJSON.Feature<GeoJSON.MultiLineString|GeoJSON.MultiPolygon>;
 
         ////////////
         ////////////
@@ -2001,7 +1999,7 @@ declare namespace L {
         export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
-          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show 
+          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show
           * polyline points that are on the screen or near, increasing performance. Returns
           * either false or a length-2 array of clipped points.
           */
@@ -2938,7 +2936,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
         /**
           * Marker dragging handler (by both mouse and touch).
@@ -3098,7 +3096,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiPolygon>;
     }
 }
 
@@ -3139,7 +3137,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiLineString>;
     }
 }
 
@@ -3401,7 +3399,7 @@ declare namespace L {
         className?: string;
 
 	/**
-	 * Sets the radius of a circle marker. 
+	 * Sets the radius of a circle marker.
 	 */
 	radius?: number;
 
@@ -3560,7 +3558,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.LineString>;
     }
 }
 

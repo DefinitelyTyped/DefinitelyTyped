@@ -9,7 +9,8 @@ class SimpleTest {
 
         this.element.mCustomScrollbar({
             scrollButtons: {
-                enable: true
+                enable: true,
+                scrollAmount: 2
             }
         });
     }
@@ -22,38 +23,78 @@ class SimpleTestAllParams {
         this.element = $(".content");
 
         this.element.mCustomScrollbar({
-            setWidth: false,
-            setHeight: false,
+            setWidth: 22,
+            setHeight: "40%",
+            setTop: 0,
+            setLeft: 22,
             axis: "y",
+            scrollbarPosition: "inside",
             scrollInertia: 950,
-            mouseWheel: true,
-            mouseWheelPixels: "auto",
             autoDraggerLength: true,
             autoHideScrollbar: false,
+            autoExpandScrollbar: false,
+            alwaysShowScrollbar: 0,
+            snapAmount: [3,3],
+            snapOffset: 3,
+            mouseWheel: {
+                enable: true,
+                scrollAmount: 1,
+                axis:"x",
+                preventDefault: false,
+                deltaFactor:12,
+                normalizeDelta:true,
+                invert: false,
+                disableOver: ["select","option"]
+
+            },
             scrollButtons: {
                 enable: false,
-                scrollType: "continuous",
-                scrollSpeed: "auto",
-                scrollAmount: 40
+                scrollType: "stepped",
+                scrollAmount: 40,
+                tabindex: 33,
+            },
+            keyboard:{
+                enable: true,
+                scrollAmount:5,
+                scrollType:"stepless"
             },
             advanced: {
                 updateOnBrowserResize: true,
                 updateOnContentResize: false,
+                updateOnImageLoad: true,
+                updateOnSelectorChange: "ul li",
+                extraDraggableSelectors: ".myClass",
+                releaseDraggableSelectors: ".myClass",
+                autoUpdateTimeout:60,
                 autoExpandHorizontalScroll: false,
-                autoScrollOnFocus: true,
-                normalizeMouseWheelDelta: false
+                autoScrollOnFocus: "input",
             },
             contentTouchScroll: true,
+            documentTouchScroll: false,
+
             callbacks: {
+                onCreate: () => { },
+                onInit: () => { },
                 onScrollStart: () => { },
                 onScroll: () => { },
                 onTotalScroll: () => { },
                 onTotalScrollBack: () => { },
                 onTotalScrollOffset: 0,
                 onTotalScrollBackOffset: 0,
-                whileScrolling: () => { }
+                whileScrolling: () => { },
+                alwaysTriggerOffsets: false,
+                onOverflowY: () => { },
+                onOverflowX: () => { },
+                onOverflowYNone: () => {},
+                onOverflowXNone: () => {},
+                onBeforeUpdate: () => {},
+                onUpdate: () => {},
+                onImageLoad: () => {},
+                onSelectorChange: () => {},
             },
-            theme: "light"
+            theme: "light",
+            live: true,
+            liveSelector: ".myClass"
         });
     }
 }

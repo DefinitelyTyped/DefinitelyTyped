@@ -2463,7 +2463,7 @@ declare namespace THREE {
         constructor(parameters?: MeshLambertMaterialParameters);
 
         color: Color;
-        emissive: number|string;
+        emissive: Color;
         emissiveIntensity: number;
         emissiveMap: Texture;
         map: Texture;
@@ -2569,6 +2569,25 @@ declare namespace THREE {
         setValues(parameters: MeshStandardMaterialParameters): void;
         clone(): MeshStandardMaterial;
         copy(source: MeshStandardMaterial): MeshStandardMaterial;
+    }
+
+    export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
+        reflectivity?: number;
+        clearCoat?: number;
+        clearCoatRoughness?: number;
+    }
+
+    export class MeshPhysicalMaterial extends MeshStandardMaterial {
+        constructor(parameters?: MeshPhysicalMaterialParameters);
+
+        defines: any;
+        reflectivity: number;
+        clearCoat: number;
+        clearCoatRoughness: number;
+
+        setValues(parameters: MeshPhysicalMaterialParameters): void;
+        clone(): MeshPhysicalMaterial;
+        copy(source: MeshPhysicalMaterial): MeshPhysicalMaterial;
     }
 
     export interface MeshNormalMaterialParameters extends MaterialParameters {
@@ -3334,13 +3353,21 @@ declare namespace THREE {
         clone(): Matrix3;
         copy(m: Matrix3): Matrix3;
         setFromMatix4(m: Matrix4): Matrix3;
-        multiplyVector3Array(a: any): any; // deprecated, use applyToVector3Array()
+
+        /**
+         * @deprecated Use applyToVector3Array()
+         */
+        multiplyVector3Array(a: any): any;
         applyToVector3Array(array: number[], offset?: number, length?: number): number[];
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
         getInverse(matrix: Matrix3, throwOnDegenerate?: boolean): Matrix3;
-        getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3; // deprecated
+
+        /**
+         * @deprecated No longer takes a Matrix4 argument.
+         */
+        getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3;
 
         /**
          * Transposes this matrix in place.
@@ -3356,7 +3383,10 @@ declare namespace THREE {
         fromArray(array: number[]): Matrix3;
         toArray(): number[];
 
-        multiplyVector3(vector: Vector3): any; // deprecated, use vector.applyMatrix3( matrix )
+        /**
+         * @deprecated Use vector.applyMatrix3( matrix )
+         */
+        multiplyVector3(vector: Vector3): any;
     }
 
     /**
@@ -3539,11 +3569,26 @@ declare namespace THREE {
         fromArray(array: number[]): Matrix4;
         toArray(): number[];
 
-        getPosition(): any; // deprecated, use Vector3.setFromMatrixPosition( matrix )
-        multiplyVector3(v: any): any; // deprecated, use vector.applyMatrix4( matrix ) or vector.applyProjection( matrix )
-        multiplyVector4(v: any): any; // deprecated, use vector.applyMatrix4( matrix )
-        rotateAxis(v: any): void; // deprecated, use Vector3.transformDirection( matrix )
-        crossVector(v: any): void; // deprecated, use vector.applyMatrix( matrix )
+        /**
+         * @deprecated Use Vector3.setFromMatrixPosition( matrix )
+         */
+        getPosition(): any;
+        /**
+         * @deprecated Use Vector3.applyMatrix4( matrix ) or Vector3.applyProjection( matrix )
+         */
+        multiplyVector3(v: any): any;
+        /**
+         * @deprecated Use Vector3.applyMatrix4( matrix )
+         */
+        multiplyVector4(v: any): any;
+        /**
+         * @deprecated Use Vector3.transformDirection( matrix )
+         */
+        rotateAxis(v: any): void;
+        /**
+         * @deprecated Use Vector3.applyMatrix( matrix )
+         */
+        crossVector(v: any): void;
     }
 
     export class Plane {
