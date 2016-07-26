@@ -18,7 +18,8 @@ interface PNotifyStack {
     spacing2?: number;
     firstpos1?: number;
     firstpos2?: number;
-    context?: JQuery
+    context?: JQuery;
+    modal?: boolean;
 }
 
 interface PNotifyLabel {
@@ -228,7 +229,7 @@ interface PNotifyOptions {
     }
 
     /**
-     * After a delay, remove the notice.
+     * After a delay, remove the notice, set to false for sticky note.
      */
     hide?: boolean;
     /**

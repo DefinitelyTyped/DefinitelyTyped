@@ -153,6 +153,7 @@ declare namespace React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
+    var version: string;
 
     //
     // Component API
@@ -349,11 +350,23 @@ declare namespace React {
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends SyntheticEvent<T> {
+    interface WheelEvent<T> extends MouseEvent<T> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent<{}> {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+    
+    interface TransitionEvent extends SyntheticEvent<{}> {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -376,6 +389,8 @@ declare namespace React {
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
     type UIEventHandler<T> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -499,6 +514,14 @@ declare namespace React {
 
         // Wheel Events
         onWheel?: WheelEventHandler<T>;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting

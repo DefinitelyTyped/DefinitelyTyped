@@ -10,7 +10,7 @@ import * as events from "events";
 
 type Callback = Function;
 type Client = Function;
-type Value = string | number | boolean | Date;
+type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean>;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
