@@ -77,8 +77,9 @@ interface HeatmapConfiguration {
 
     /*
      * The property name of the value/weight in a datapoint
+     * Default value: 'value'
      */
-    valueField: string;
+    valueField?: string;
 }
 
 /*

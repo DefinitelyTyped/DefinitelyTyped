@@ -66,6 +66,21 @@ function test_test() {
     });
 }
 
+function test_specify() {
+
+    specify('does something', () => { });
+
+    specify('does something', (done) => { done(); });
+
+    specify.only('does something', () => { });
+
+    specify.skip('does something', () => { });
+
+    specify('does something', function () {
+        this.timeout(2000);
+    });
+}
+
 function test_before() {
     before(() => { });
 
