@@ -199,7 +199,7 @@ declare module "nw.gui" {
         menu?: Menu;
     }
 
-    export class Tray implements TrayOption {
+    export class Tray extends EventEmitter implements TrayOption {
         constructor(option: TrayOption);
         title: string;
         tooltip: string;
