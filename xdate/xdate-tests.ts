@@ -2,7 +2,7 @@
 
 //Those classes were tested by compile time only!
 
-module XDate_Test
+namespace XDate_Test
 {
 
     class test_base
@@ -261,7 +261,7 @@ module XDate_Test
 	    //var xdate = new XDate(YEAR, MONTH, DATE, true);
 	    var xdate = new XDate(YEAR, MONTH, DATE);
 	    xdate.setUTCMode(true);
-	    return xdate.getUTCMode()
+	    return xdate.getUTCMode() &&
 	    xdate.getFullYear() == YEAR &&
 		xdate.getMonth() == MONTH &&
 		xdate.getDate() == DATE &&

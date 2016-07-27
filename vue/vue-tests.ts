@@ -8,7 +8,7 @@ namespace TestConfig {
   Vue.config.unsafeDelimiters = ['{!!', '!!}'];
   Vue.config.silent = true;
   Vue.config.async = false;
-  Vue.config.convertAllProperties = true;
+  Vue.config.devtools = true;
 }
 
 namespace TestGlobalAPI {
@@ -30,9 +30,20 @@ namespace TestGlobalAPI {
     twoWay: true,
     acceptStatement: true,
     priority: 1,
+    terminal: true,
     count: 30
   });
-  Vue.directive("my-directive", () => {});
+  Vue.directive("my-directive", function() {
+    const d = this as vuejs.Directive;
+    d.el;
+    d.vm;
+    d.expression;
+    d.arg;
+    d.name;
+    d.modifiers;
+    d.descriptor;
+    d.params;
+  });
   var myDirective = Vue.directive("my-directive");
   var elementDirective = Vue.elementDirective("element-directive");
   Vue.elementDirective("element-directive", elementDirective);
@@ -66,6 +77,16 @@ namespace TestGlobalAPI {
         set: function(val: number) { this.d = val; }
       }
     }
+  });
+  Vue.component("component", {
+    props: {
+      a: [String, Number],
+      b: {
+        type: [Number, Function],
+        required: true
+      }
+    },
+    init: function() {}
   });
   var transition = Vue.transition("transition");
   Vue.transition("transition", transition);
@@ -126,7 +147,7 @@ namespace TestInstanceProperty {
 
 namespace TestInscanceMethods {
   "use strict";
-  
+
   var vm = new Vue({el: '#app'});
   vm.$watch('a.b.c', function(newVal: string, oldVal: number) {});
   vm.$watch(function() {return this.a + this.b}, function(newVal: string, oldVal: string) {});
@@ -141,7 +162,7 @@ namespace TestInscanceMethods {
   s = vm.$interpolate('{{msg}} world!');
   vm.$log();
   vm.$log('item');
-  
+
   vm
     .$on('test', (msg: any) => {})
     .$once('testOnce', (msg: any) => {})
@@ -149,13 +170,13 @@ namespace TestInscanceMethods {
     .$emit("event", 1, 2)
     .$dispatch("event", 1, 2, 3)
     .$broadcast("event", 1, 2, 3, 4)
-    
+
     .$appendTo(document.createElement("div"), () => {})
     .$before('#app', () => {})
     .$after(document.getElementById('app'))
     .$remove(() => {})
     .$nextTick(() => {});
-    
+
   vm
     .$mount('#app')
     .$destroy(false);
@@ -163,7 +184,7 @@ namespace TestInscanceMethods {
 
 namespace TestVueUtil {
   "use strict";
-  
+
   var _ = Vue.util;
   var target = document.createElement('div');
   var child = document.createElement('div');
@@ -221,6 +242,15 @@ namespace TestExplicitExtend {
         },
         methods: {
           action: this.action
+        },
+        props: {
+            propA: Object,
+            propB: {
+                type: Application,
+                default: () => new Application(),
+                twoWay: true,
+                coerce(value: any) {}
+            }
         }
       });
     }

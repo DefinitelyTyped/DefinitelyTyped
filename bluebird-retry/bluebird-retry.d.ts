@@ -1,7 +1,7 @@
 // Type definitions for bluebird-retry
 // Project: https://github.com/jut-io/bluebird-retry
 // Definitions by: Pascal Vomhoff <https://github.com/pvomhoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 declare module "bluebird-retry" {
@@ -9,7 +9,7 @@ declare module "bluebird-retry" {
 
 	function retry<T>(func:(param:T)=>void, options?:retry.Options):Promise<T>;
 
-	module retry {
+	namespace retry {
 		export interface Options {
 			interval?:number;
 			backoff?:number;

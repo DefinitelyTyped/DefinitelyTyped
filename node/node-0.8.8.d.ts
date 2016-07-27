@@ -1,7 +1,7 @@
 // Type definitions for Node.js v0.8.8
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -170,7 +170,7 @@ interface Buffer {
     length: number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -772,7 +772,7 @@ declare module "fs" {
     export function write(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: Buffer) =>any): void;
     export function writeSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): any[];
+    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position?: number): any[];
     export function readFile(filename: string, encoding: string, callback: (err: ErrnoException, data: string) => void ): void;
     export function readFile(filename: string, callback: (err: ErrnoException, data: Buffer) => void ): void;
     export function readFileSync(filename: string): Buffer;

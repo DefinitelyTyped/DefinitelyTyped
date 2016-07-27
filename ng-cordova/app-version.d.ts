@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface IAppVersionService {
         getVersionNumber(): ng.IPromise<string>;
         getVersionCode(): ng.IPromise<string>;

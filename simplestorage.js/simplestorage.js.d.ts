@@ -1,9 +1,9 @@
-// Type definitions for simpleStorage v0.1.3
+// Type definitions for simplestorage.js v0.2.1
 // Project: https://github.com/andris9/simpleStorage
-// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>, Michael Ledin <https://github.com/mxl>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module simplestoragejs {
+declare namespace simplestoragejs {
 
     /**
      * {@link simpleStorage} API is a subset of {@link http://www.jstorage.info/|jStorage} with slight modifications, so for most cases it should work out of the box if you are converting from {@link http://www.jstorage.info/|jStorage}. Main difference is between return values - if an action failed because of an error (storage full, storage not available, invalid data used etc.), you get the error object as the return value. {@link http://www.jstorage.info/|jStorage} never indicated anything if an error occurred.
@@ -37,6 +37,14 @@ declare module simplestoragejs {
          * @see https://github.com/andris9/simpleStorage#getkey
          */
         get(key: string): any;
+
+        /**
+         * Checks if there's a value with the given key in the local storage.
+         * Returns <code>true</code> if the given key exists, <code>false</code> otherwise.
+         * @param key The key to be checked.
+         * @see https://github.com/andris9/simpleStorage#haskeykey
+         */
+        hasKey(key: string): boolean;
 
         /**
          * Removes a value from local storage.
@@ -96,7 +104,7 @@ declare module simplestoragejs {
 
 }
 
-declare module "simpleStorage" {
+declare module "simplestorage.js" {
     export = simpleStorage;
 }
 
@@ -107,4 +115,4 @@ declare module "simpleStorage" {
  * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
  * @see https://github.com/andris9/simpleStorage#simplestorage
  */
-declare var simpleStorage:simplestoragejs.SimpleStorage;
+declare var simpleStorage: simplestoragejs.SimpleStorage;

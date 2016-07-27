@@ -1,12 +1,12 @@
-// Type definitions for jQueryUI 1.9
+// Type definitions for jQueryUI 1.11
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     // Accordion //////////////////////////////////////////////////
 
     interface AccordionOptions extends AccordionEvents {
@@ -77,6 +77,7 @@ declare module JQueryUI {
 
     interface Autocomplete extends Widget, AutocompleteOptions {
         escapeRegex: (value: string) => string;
+        filter: (array: any, term: string) => any;
     }
 
 
@@ -363,7 +364,7 @@ declare module JQueryUI {
         title?: string;
         width?: any; // number or string
         zIndex?: number;
-		
+
 		open?: DialogEvent;
         close?: DialogEvent;
     }
@@ -476,9 +477,10 @@ declare module JQueryUI {
     }
 
     interface DroppableOptions extends DroppableEvents {
-        disabled?: boolean;
         accept?: any;
         activeClass?: string;
+        addClasses?: boolean;
+        disabled?: boolean;
         greedy?: boolean;
         hoverClass?: string;
         scope?: string;
@@ -622,6 +624,36 @@ declare module JQueryUI {
     }
 
     interface Selectable extends Widget, SelectableOptions {
+    }
+
+    // SelectMenu //////////////////////////////////////////////////
+
+    interface SelectMenuOptions extends SelectMenuEvents {
+        appendTo?: string;
+        disabled?: boolean;
+        icons?: any;
+        position?: JQueryPositionOptions;
+        width?: number;
+    }
+
+    interface SelectMenuUIParams {
+        item?: JQuery;
+    }
+
+    interface SelectMenuEvent {
+        (event: Event, ui: SelectMenuUIParams): void;
+    }
+
+    interface SelectMenuEvents {
+        change?: SelectMenuEvent;
+        close?: SelectMenuEvent;
+        create?: SelectMenuEvent;
+        focus?: SelectMenuEvent;
+        open?: SelectMenuEvent;
+        select?: SelectMenuEvent;
+    }
+
+    interface SelectMenu extends Widget, SelectMenuOptions {
     }
 
     // Slider //////////////////////////////////////////////////
@@ -1674,6 +1706,22 @@ interface JQuery {
     selectable(optionLiteral: string, options: JQueryUI.SelectableOptions): any;
     selectable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
+    selectmenu(): JQuery;
+    selectmenu(methodName: 'close'): JQuery;
+    selectmenu(methodName: 'destroy'): JQuery;
+    selectmenu(methodName: 'disable'): JQuery;
+    selectmenu(methodName: 'enable'): JQuery;
+    selectmenu(methodName: 'instance'): any;
+    selectmenu(methodName: 'menuWidget'): JQuery;
+    selectmenu(methodName: 'open'): JQuery;
+    selectmenu(methodName: 'refresh'): JQuery;
+    selectmenu(methodName: 'widget'): JQuery;
+    selectmenu(methodName: string): JQuery;
+    selectmenu(options: JQueryUI.SelectMenuOptions): JQuery;
+    selectmenu(optionLiteral: string, optionName: string): any;
+    selectmenu(optionLiteral: string, options: JQueryUI.SelectMenuOptions): any;
+    selectmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
     slider(): JQuery;
     slider(methodName: 'destroy'): void;
     slider(methodName: 'disable'): void;
@@ -1703,7 +1751,7 @@ interface JQuery {
     sortable(methodName: string): JQuery;
     sortable(options: JQueryUI.SortableOptions): JQuery;
     sortable(optionLiteral: string, optionName: string): any;
-    sortable(methodName: 'serialize', options: { key?: string; attribute?: string; expression?: RegExp }): string;
+    sortable(methodName: 'serialize', options?: { key?: string; attribute?: string; expression?: RegExp }): string;
     sortable(optionLiteral: string, options: JQueryUI.SortableOptions): any;
     sortable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
@@ -1793,7 +1841,7 @@ interface JQuery {
     uniqueId(): JQuery;
     removeUniqueId(): JQuery;
     scrollParent(): JQuery;
-    zIndex(): JQuery;
+    zIndex(): number;
     zIndex(zIndex: number): JQuery;
 
     widget: JQueryUI.Widget;

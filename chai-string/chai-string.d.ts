@@ -1,11 +1,11 @@
 // Type definitions for chai-string 1.1.4
 // Project: https://github.com/onechiporenko/chai-string
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         startsWith(expected: string, message?: string): Assertion;
         startWith(expected: string, message?: string): Assertion;

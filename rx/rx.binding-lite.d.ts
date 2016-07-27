@@ -5,7 +5,7 @@
 
 ///<reference path="rx-lite.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
 	export interface BehaviorSubject<T> extends Subject<T> {
 		getValue(): T;
 	}

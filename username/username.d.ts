@@ -6,14 +6,14 @@
 declare module "username" {
     /**
      * Tries to get the username from the LOGNAME, USER, LNAME or USERNAME environment variables.
-     * Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment 
+     * Falls back to `id -un` on OS X / Linux and `whoami` on Windows in the rare case none of the environment
      * variables are set. The result is cached.
      *
      * @param callback The callback function to call asynchronously with the result.
      */
     function username(callback: (err: Error, result: string) => void): void;
-    
-    module username {
+
+    namespace username {
         /**
          * Tries to get the username from the LOGNAME, USER, LNAME or USERNAME environment variables. Falls back
          * to returning an empty string in the reare case none of the environment variables are set.

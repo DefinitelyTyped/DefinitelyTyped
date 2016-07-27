@@ -1,21 +1,24 @@
-// Type definitions for redux-thunk
+// Type definitions for redux-thunk v2.1.0
 // Project: https://github.com/gaearon/redux-thunk
-// Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Qubo <https://github.com/tkqubo>, Kaur Kuut <https://github.com/xStrom>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../redux/redux.d.ts" />
 
-declare module "redux-thunk" {
-    import { Middleware, Dispatch } from 'redux';
+declare namespace Redux {
+	type ThunkAction<R, S, E> = (dispatch: Dispatch<S>, getState: () => S, extraArgument: E) => R;
 
-    export interface Thunk extends Middleware { }
-
-    export interface ThunkInterface {
-        <T>(dispatch: Dispatch, getState?: () => T): any;
-    }
-
-    var thunk: Thunk;
-
-    export default thunk;
+	interface Dispatch<S> {
+		<R, E>(asyncAction: ThunkAction<R, S, E>): R;
+	}
 }
 
+declare module "redux-thunk" {
+	import { Middleware } from "redux";
+
+	const thunk: Middleware & {
+		withExtraArgument(extraArgument: any): Middleware;
+	};
+
+	export default thunk;
+}

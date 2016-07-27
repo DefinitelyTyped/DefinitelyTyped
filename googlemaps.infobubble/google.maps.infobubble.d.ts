@@ -1,7 +1,7 @@
 // Type definitions for CSS3 InfoBubble with tabs for Google Maps API V3
 // Project: http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/
 // Definitions by: Johan Nilsson <https://github.com/Dashue>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../googlemaps/google.maps.d.ts" />
 
@@ -38,7 +38,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-declare module google.maps.infobubble {
+declare namespace google.maps.infobubble {
 
     export interface InfoBubble {
         /**
@@ -57,11 +57,11 @@ declare module google.maps.infobubble {
           * @marker The marker used for anchoring the infobubble to
           */
         open(map: google.maps.Map, marker: google.maps.Marker) : void;
-		
+
 		/**
           * Returns the position of the InfoBubble
           */
-        getPosition(): google.maps.LatLng; 
+        getPosition(): google.maps.LatLng;
     }
 
     export interface InfoBubbleOptions {

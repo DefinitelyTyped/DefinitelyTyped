@@ -1,7 +1,7 @@
 // Type definitions for swaggerize-express 4.x
 // Project: https://github.com/krakenjs/swaggerize-express
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
@@ -22,7 +22,7 @@ declare module "swaggerize-express" {
     import express = require('express');
     function swaggerize(options: swaggerize.Options): express.RequestHandler;
 
-    module swaggerize {
+    namespace swaggerize {
         export module Swagger {
             export interface ApiDefinition {
                 swagger: string

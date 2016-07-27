@@ -1,17 +1,17 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash.d.ts' />
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
 
-    module sequelize {
+    namespace sequelize {
 
         //
         //  Associations
@@ -1736,7 +1736,15 @@ declare module "sequelize" {
 
         interface DataTypeTime extends DataTypeAbstract { }
 
-        interface DataTypeDate extends DataTypeAbstract { }
+        interface DataTypeDate extends DataTypeAbstract {
+
+            /**
+             * Length of decimal places of time
+             */
+            ( options? : { length?: number } ) : DataTypeDate;
+            ( length? : number) : DataTypeDate;
+
+        }
 
         interface DataTypeDateOnly extends DataTypeAbstract { }
 
@@ -1778,7 +1786,16 @@ declare module "sequelize" {
 
         interface DataTypeUUIDv4 extends DataTypeAbstract { }
 
-        interface DataTypeVirtual extends DataTypeAbstract { }
+        interface DataTypeVirtual extends DataTypeAbstract {
+
+            /**
+             * Virtual field
+             *
+             * Accepts subtype any of the DataTypes
+             * Array of required attributes that are available on the model
+             */
+            new( subtype : DataTypeAbstract, requireAttributes? : Array<string> ) : DataTypeVirtual;
+        }
 
         interface DataTypeEnum extends DataTypeAbstract {
 
@@ -2578,7 +2595,6 @@ declare module "sequelize" {
              * Transaction to run query under
              */
             transaction? : Transaction;
-
         }
 
         /**
@@ -2635,13 +2651,7 @@ declare module "sequelize" {
         /**
          * Options used for Instance.save method
          */
-        interface InstanceSaveOptions {
-
-            /**
-             * An optional array of strings, representing database columns. If fields is provided, only those columns
-             * will be validated and saved.
-             */
-            fields? : string[];
+        interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions, SearchPathOptions {
 
             /**
              * If true, the updatedAt timestamp will not be updated.
@@ -2649,23 +2659,6 @@ declare module "sequelize" {
              * Defaults to false
              */
             silent? : boolean;
-
-            /**
-             * If false, validations won't be run.
-             *
-             * Defaults to true
-             */
-            validate? : boolean;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * Transaction to run the query in
-             */
-            transaction? : Transaction;
 
         }
 
@@ -2690,7 +2683,7 @@ declare module "sequelize" {
          *
          * @see Sequelize.define for more information about getters and setters
          */
-        interface Instance<TInstance, TAttributes> {
+        interface Instance<TAttributes> {
 
             /**
              * Returns true if this instance has not yet been persisted to the database
@@ -2702,7 +2695,7 @@ declare module "sequelize" {
              *
              * @see Model
              */
-            Model : Model<TInstance, TAttributes>;
+            Model : Model<this, TAttributes>;
 
             /**
              * A reference to the sequelize instance
@@ -2759,10 +2752,10 @@ declare module "sequelize" {
              * @param options.raw If set to true, field and virtual setters will be ignored
              * @param options.reset Clear all previously set data values
              */
-            set( key : string, value : any, options? : InstanceSetOptions ) : TInstance;
-            set( keys : Object, options? : InstanceSetOptions ) : TInstance;
-            setAttributes( key : string, value : any, options? : InstanceSetOptions ) : TInstance;
-            setAttributes( keys : Object, options? : InstanceSetOptions ) : TInstance;
+            set( key : string, value : any, options? : InstanceSetOptions ) : this;
+            set( keys : Object, options? : InstanceSetOptions ) : this;
+            setAttributes( key : string, value : any, options? : InstanceSetOptions ) : this;
+            setAttributes( keys : Object, options? : InstanceSetOptions ) : this;
 
             /**
              * If changed is called with a string it will return a boolean indicating whether the value of that key in
@@ -2787,7 +2780,7 @@ declare module "sequelize" {
              * called with an instance of `Sequelize.ValidationError`. This error will have a property for each of the
              * fields for which validation failed, with the error message for that field.
              */
-            save( options? : InstanceSaveOptions ) : Promise<TInstance>;
+            save( options? : InstanceSaveOptions ) : Promise<this>;
 
             /**
              * Refresh the current instance in-place, i.e. update the object with current data from the DB and return
@@ -2795,7 +2788,7 @@ declare module "sequelize" {
              * return a new instance. With this method, all references to the Instance are updated with the new data
              * and no new objects are created.
              */
-            reload( options? : FindOptions ) : Promise<TInstance>;
+            reload( options? : FindOptions ) : Promise<this>;
 
             /**
              * Validate the attribute of this instance according to validation rules set in the model definition.
@@ -2810,10 +2803,10 @@ declare module "sequelize" {
             /**
              * This is the same as calling `set` and then calling `save`.
              */
-            update( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            update( keys : Object, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            updateAttributes( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<TInstance>;
-            updateAttributes( keys : Object, options? : InstanceUpdateOptions ) : Promise<TInstance>;
+            update( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
+            update( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
+            updateAttributes( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
+            updateAttributes( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
 
             /**
              * Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will
@@ -2847,7 +2840,7 @@ declare module "sequelize" {
              *               If and object is provided, each column is incremented by the value given.
              */
             increment( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<TInstance>;
+                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
 
             /**
              * Decrement the value of one or more columns. This is done in the database, which means it does not use
@@ -2870,17 +2863,17 @@ declare module "sequelize" {
              *               If and object is provided, each column is decremented by the value given
              */
             decrement( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<TInstance>;
+                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
 
             /**
              * Check whether all values of this and `other` Instance are the same
              */
-            equals( other : Instance<any, any> ) : boolean;
+            equals( other : Instance<any> ) : boolean;
 
             /**
              * Check if this is eqaul to one of `others` by calling equals
              */
-            equalsOneOf( others : Instance<any, any>[] ) : boolean;
+            equalsOneOf( others : Instance<any>[] ) : boolean;
 
             /**
              * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
@@ -2888,6 +2881,50 @@ declare module "sequelize" {
              */
             toJSON() : TAttributes;
 
+        }
+
+        interface LoggingOptions {
+            /**
+            * A function that gets executed while running the query to log the sql.
+            */
+
+            logging?: boolean | Function;
+
+            /**
+             * Print query execution time in milliseconds when logging SQL.
+             */
+            benchmark?: boolean;
+        }
+
+        interface SearchPathOptions {
+            /**
+             * Transaction to run query under
+             */
+            transaction? : Transaction;
+
+            /**
+             * An optional parameter to specify the schema search_path (Postgres only)
+             */
+            searchPath? : string;
+        }
+
+        interface ReturningOptions {
+            /**
+             * Append RETURNING * to get back auto generated values (Postgres only)
+             */
+            returning? : boolean;
+        }
+
+        interface FieldsOptions {
+            /**
+             * Run validations before the row is inserted
+             */
+            validate? : boolean;
+
+            /**
+             * The fields to insert / update. Defaults to all fields
+             */
+            fields? : string[];
         }
 
         //
@@ -2900,34 +2937,43 @@ declare module "sequelize" {
         /**
          * Options to pass to Model on drop
          */
-        interface DropOptions {
+        interface DropOptions extends LoggingOptions {
 
             /**
              * Also drop all objects depending on this table, such as views. Only works in postgres
              */
             cascade?: boolean;
 
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging?: boolean | Function;
-
         }
 
         /**
          * Schema Options provided for applying a schema to a model
          */
-        interface SchemaOptions {
+        interface SchemaOptions extends LoggingOptions {
 
             /**
              * The character(s) that separates the schema name from the table name
              */
             schemaDelimeter? : string;
 
+        }
+        /**
+         * GetTableName Options
+         */
+        interface GetTableNameOptions extends LoggingOptions {
+            // no addition properties
+        }
+
+
+        /**
+         * AddScope Options for Model.addScope
+         */
+        interface AddScopeOptions {
+
             /**
-             * A function that gets executed while running the query to log the sql.
+             * If a scope of the same name already exists, should it be overwritten?
              */
-            logging? : Function | boolean;
+            override: boolean;
 
         }
 
@@ -3087,16 +3133,21 @@ declare module "sequelize" {
         }
 
         /**
+         * Shortcut for types used in FindOptions.attributes
+         */
+		type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+
+        /**
          * Options that are passed to any model creating a SELECT query
          *
          * A hash of options to describe the scope of the search
          */
-        interface FindOptions {
+	interface FindOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * A hash of attributes to describe your search. See above for examples.
              */
-            where? : WhereOptions | Array<col | and | or | string>;
+            where?: WhereOptions | Array<col | and | or | string>;
 
             /**
              * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
@@ -3104,7 +3155,7 @@ declare module "sequelize" {
              * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
              * have in the returned instance
              */
-            attributes? : Array<string | [string, string]>;
+            attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
 
             /**
              * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3139,11 +3190,6 @@ declare module "sequelize" {
             offset?: number;
 
             /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
              * Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE.
              * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
              * locks with joins. See [transaction.LOCK for an example](transaction#lock)
@@ -3156,21 +3202,22 @@ declare module "sequelize" {
             raw? : boolean;
 
             /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
              * having ?!?
              */
             having? : WhereOptions;
+
+            /**
+             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+             */
+            group?: string | string[] | Object;
 
         }
 
         /**
          * Options for Model.count method
          */
-        interface CountOptions {
+        interface CountOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * A hash of search attributes.
@@ -3198,19 +3245,12 @@ declare module "sequelize" {
              * TODO: Check?
              */
             group? : Object;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            transaction?: Transaction;
         }
 
         /**
          * Options for Model.build method
          */
-        interface BuildOptions {
+        interface BuildOptions extends ReturningOptions {
 
             /**
              * If set to true, values will ignore field and virtual setters.
@@ -3228,43 +3268,23 @@ declare module "sequelize" {
              * TODO: See set
              */
             include? :  Array<Model<any, any> | IncludeOptions>;
-
         }
 
         /**
          * Options for Model.create method
          */
-        interface CreateOptions extends BuildOptions {
-
-            /**
-             * If set, only columns matching those in fields will be saved
-             */
-            fields? : string[];
+        interface CreateOptions extends BuildOptions, InstanceSaveOptions {
 
             /**
              * On Duplicate
              */
             onDuplicate? : string;
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            silent? : boolean;
-
-            returning? : boolean;
         }
 
         /**
          * Options for Model.findOrInitialize method
          */
-        interface FindOrInitializeOptions<TAttributes> {
+        interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
 
             /**
              * A hash of search attributes.
@@ -3280,51 +3300,35 @@ declare module "sequelize" {
              * Transaction to run query under
              */
             transaction? : Transaction;
+        }
+
+        /**
+         * Options for Model.findOrInitialize method
+         */
+        interface FindCreateFindOptions<TAttributes> {
 
             /**
-             * A function that gets executed while running the query to log the sql.
+             * A hash of search attributes.
              */
-            logging? : boolean | Function;
+            where : string | WhereOptions;
 
+            /**
+             * Default values to use if building a new instance
+             */
+            defaults? : TAttributes;
         }
 
         /**
          * Options for Model.upsert method
          */
-        interface UpsertOptions {
-
-            /**
-             * Run validations before the row is inserted
-             */
-            validate? : boolean;
-
-            /**
-             * The fields to insert / update. Defaults to all fields
-             */
-            fields? : string[];
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
+        interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
         }
 
         /**
          * Options for Model.bulkCreate method
          */
-        interface BulkCreateOptions {
 
-            /**
-             * Fields to insert (defaults to all fields)
-             */
-            fields? : string[];
-
-            /**
-             * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-             * fails validation
-             */
-            validate? : boolean;
+        interface BulkCreateOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
 
             /**
              * Run before / after bulk create hooks?
@@ -3349,28 +3353,12 @@ declare module "sequelize" {
              * mariadb). By default, all fields are updated.
              */
             updateOnDuplicate? : string[];
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
         }
 
         /**
          * The options passed to Model.destroy in addition to truncate
          */
-        interface TruncateOptions {
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
+        interface TruncateOptions extends LoggingOptions, SearchPathOptions {
 
             /**
              * Only used in conjuction with TRUNCATE. Truncates  all tables that have foreign-key references to the
@@ -3379,12 +3367,6 @@ declare module "sequelize" {
              * Defaults to false;
              */
             cascade? : boolean;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
         }
 
         /**
@@ -3429,7 +3411,7 @@ declare module "sequelize" {
         /**
          * Options for Model.restore
          */
-        interface RestoreOptions {
+        interface RestoreOptions extends LoggingOptions {
 
             /**
              * Filter the restore
@@ -3453,11 +3435,6 @@ declare module "sequelize" {
             limit? : number;
 
             /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
              * Transaction to run query under
              */
             transaction? : Transaction;
@@ -3467,25 +3444,12 @@ declare module "sequelize" {
         /**
          * Options used for Model.update
          */
-        interface UpdateOptions {
+        interface UpdateOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
 
             /**
              * Options to describe the scope of the search.
              */
             where: WhereOptions;
-
-            /**
-             * Fields to update (defaults to all fields)
-             */
-            fields? : string[];
-
-            /**
-             * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-             * fails validation.
-             *
-             * Defaults to true
-             */
-            validate? : boolean;
 
             /**
              * Run before / after bulk update hooks?
@@ -3510,31 +3474,25 @@ declare module "sequelize" {
             individualHooks? : boolean;
 
             /**
-             * Return the affected rows (only for postgres)
-             */
-            returning? : boolean;
-
-            /**
              * How many rows to update (only for mysql and mariadb)
              */
             limit? : number;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
 
             /**
              * Transaction to run query under
              */
             transaction? : Transaction;
 
+           /**
+	        * If true, the updatedAt timestamp will not be updated.
+	        */
+            silent? : boolean;
         }
 
         /**
          * Options used for Model.aggregate
          */
-        interface AggregateOptions extends QueryOptions {
+        interface AggregateOptions extends LoggingOptions {
 
             /**
              * A hash of search attributes.
@@ -3552,6 +3510,17 @@ declare module "sequelize" {
              */
             distinct? : boolean;
 
+            /**
+             * The transaction that the query should be executed under
+             */
+            transaction?: Transaction;
+
+            /**
+             * When `true`, the first returned value of `aggregateFunction` is cast to `dataType` and returned.
+             * If additional attributes are specified, along with `group` clauses, set `plain` to `false` to return all values of all returned rows.
+             * Defaults to `true`
+             */
+            plain?: boolean;
         }
 
         /**
@@ -3577,7 +3546,7 @@ declare module "sequelize" {
              * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the
              * model instance (this)
              */
-            sync( options? : SyncOptions ) : Promise<Model<TInstance, TAttributes>>;
+            sync( options? : SyncOptions ) : Promise<this>;
 
             /**
              * Drop the table represented by this Model
@@ -3595,7 +3564,7 @@ declare module "sequelize" {
              * @param schema The name of the schema
              * @param options
              */
-            schema( schema : string, options? : SchemaOptions ) : Model<TInstance, TAttributes>;
+            schema( schema : string, options? : SchemaOptions ) : this;
 
             /**
              * Get the tablename of the model, taking schema into account. The method will return The name as a string
@@ -3607,7 +3576,19 @@ declare module "sequelize" {
              *     subscribers_1, subscribers_2)
              * @param options.logging=false A function that gets executed while running the query to log the sql.
              */
-            getTableName( options? : { logging : Function } ) : string | Object;
+            getTableName( options? : GetTableNameOptions ) : string | Object;
+
+            /**
+             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
+             *
+             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
+             *
+             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+             * @param {Object|Function} scope
+             * @param {Object}          [options]
+             * @param {Boolean}         [options.override=false]
+             */
+            addScope( name : string, scope : FindOptions | Function, options? : AddScopeOptions ): void;
 
             /**
              * Apply a scope created in `define` to the model. First let's look at how to create scopes:
@@ -3656,7 +3637,7 @@ declare module "sequelize" {
              * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
              *     model will clear the previous scope.
              */
-            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : Model<TInstance, TAttributes>;
+            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : this;
 
             /**
              * Search for multiple instances.
@@ -3735,7 +3716,7 @@ declare module "sequelize" {
              * instance.
              */
             findOne( options? : FindOptions ) : Promise<TInstance>;
-            find( optionz? : FindOptions ) : Promise<TInstance>;
+            find( options? : FindOptions ) : Promise<TInstance>;
 
             /**
              * Run an aggregation method on the specified field
@@ -3746,7 +3727,7 @@ declare module "sequelize" {
              * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
              *     which case the complete data result is returned.
              */
-            aggregate( field : string, aggregateFunction : Function, options? : AggregateOptions ) : Promise<Object>;
+            aggregate( field : string, aggregateFunction : string, options? : AggregateOptions ) : Promise<Object>;
 
             /**
              * Count the number of records matching the provided where clause.
@@ -3844,6 +3825,12 @@ declare module "sequelize" {
             findOrCreate( options : FindOrInitializeOptions<TAttributes> ) : Promise<TInstance>;
 
             /**
+             * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
+             * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
+             */
+            findCreateFind( options : FindCreateFindOptions<TAttributes> ) : Promise<TInstance>;
+
+            /**
              * Insert or update a single row. An update will be executed if a row which matches the supplied values on
              * either the primary key or a unique key is found. Note that the unique index must be defined in your
              * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
@@ -3911,7 +3898,7 @@ declare module "sequelize" {
             /**
              * Unscope the model
              */
-            unscoped() : Model<TInstance, TAttributes>;
+            unscoped() : this;
 
         }
 
@@ -4089,7 +4076,7 @@ declare module "sequelize" {
             /**
              * Inserts a new record
              */
-            insert( instance : Instance<any, any>, tableName : string, values : Object,
+            insert( instance : Instance<any>, tableName : string, values : Object,
                     options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4107,7 +4094,7 @@ declare module "sequelize" {
             /**
              * Updates a row
              */
-            update( instance : Instance<any, any>, tableName : string, values : Object, identifier : Object,
+            update( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
                     options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4119,7 +4106,7 @@ declare module "sequelize" {
             /**
              * Deletes a row
              */
-            "delete"( instance : Instance<any, any>, tableName : string, identifier : Object,
+            "delete"( instance : Instance<any>, tableName : string, identifier : Object,
                       options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4136,7 +4123,7 @@ declare module "sequelize" {
             /**
              * Increments a row value
              */
-            increment( instance : Instance<any, any>, tableName : string, values : Object, identifier : Object,
+            increment( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
                        options? : QueryOptions ) : Promise<Object>;
 
             /**
@@ -4427,7 +4414,7 @@ declare module "sequelize" {
          *
          * @see Options
          */
-        interface QueryOptions {
+        interface QueryOptions extends SearchPathOptions, ReturningOptions {
 
             /**
              * If true, sequelize will not try to format the results of the query, or build an instance of a model from
@@ -4435,10 +4422,6 @@ declare module "sequelize" {
              */
             raw?: boolean;
 
-            /**
-             * The transaction that the query should be executed under
-             */
-            transaction?: Transaction;
 
             /**
              * The type of query you are executing. The query type affects how results are formatted before they are
@@ -4468,6 +4451,12 @@ declare module "sequelize" {
             replacements? : Object | string[];
 
             /**
+             * Either an object of named bind parameter in the format `$param` or an array of unnamed
+             * bind parameter to replace `$1`, `$2`, ... in your SQL.
+             */
+            bind?: Object | string[];
+
+            /**
              * Force the query to use the write pool, regardless of the query type.
              *
              * Defaults to false
@@ -4477,20 +4466,36 @@ declare module "sequelize" {
             /**
              * A function that gets executed while running the query to log the sql.
              */
-            logging? : Function;
+            logging? : boolean | Function;
 
             /**
              * A sequelize instance used to build the return instance
              */
-            instance? : Instance<any, any>;
+            instance? : Instance<any>;
 
             /**
              * A sequelize model used to build the returned model instances (used to be called callee)
              */
             model? : Model<any, any>;
 
-            // TODO: force, cascade
+            /**
+             * Set of flags that control when a query is automatically retried.
+             */
+            retry? : {match?: string[], max?: number};
 
+            /**
+             * If false do not prepend the query with the search_path (Postgres only)
+             */
+	        supportsSearchPath? : boolean;
+
+            /**
+             * Map returned fields to model's fields if `options.model` or `options.instance` is present.
+             * Mapping will occur before building the model instance.
+             */
+            mapToModel? : boolean;
+
+            // TODO: force, cascade
+            fieldMap? : { [key: string]: string; }
         }
 
         /**
@@ -5159,6 +5164,14 @@ declare module "sequelize" {
              */
             isolationLevel? : string;
 
+            /**
+             * Set the default transaction type. See `Sequelize.Transaction.TYPES` for possible
+             * options.
+             *
+             * Defaults to 'DEFERRED'
+             */
+            transactionType? : string;
+
         }
 
         /**
@@ -5210,7 +5223,7 @@ declare module "sequelize" {
             /**
              * A reference to the sequelize instance class.
              */
-            Instance : Instance<any, any>;
+            Instance : Instance<any>;
 
             /**
              * Creates a object representing a database function. This can be used in search queries, both in where and
@@ -5348,9 +5361,17 @@ declare module "sequelize" {
              */
             new ( uri : string, options? : Options ) : Sequelize;
 
+            /**
+             * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
+             */
+            cls: any;
+
         }
 
         interface QueryOptionsTransactionRequired { }
+        interface ModelsHashInterface {
+            [name: string]: Model<any, any>;
+        }
 
         /**
          * This is the main class, the entry point to sequelize. To use it, you just need to
@@ -5370,6 +5391,11 @@ declare module "sequelize" {
              * A reference to Sequelize constructor from sequelize. Useful for accessing DataTypes, Errors etc.
              */
             Sequelize: SequelizeStatic;
+
+            /**
+             * Defined models.
+             */
+            models: ModelsHashInterface;
 
             /**
              * Returns the specified dialect.
@@ -5666,7 +5692,7 @@ declare module "sequelize" {
         /**
          * Validator Interface
          */
-        interface Validator extends IValidatorStatic {
+        interface Validator extends ValidatorJS.ValidatorStatic {
 
             notEmpty( str : string ) : boolean;
             len( str : string, min : number, max : number ) : boolean;
@@ -5765,6 +5791,41 @@ declare module "sequelize" {
             ISOLATION_LEVELS : TransactionIsolationLevels;
 
             /**
+             * Transaction type can be set per-transaction by passing `options.type` to
+             * `sequelize.transaction`. Default to `DEFERRED` but you can override the default isolation level
+             * by passing `options.transactionType` in `new Sequelize`.
+             *
+             * The transaction types to use when starting a transaction:
+             *
+             * ```js
+             * {
+             *   DEFERRED: "DEFERRED",
+             *   IMMEDIATE: "IMMEDIATE",
+             *   EXCLUSIVE: "EXCLUSIVE"
+             * }
+             * ```
+             *
+             * Pass in the transaction type the first argument:
+             *
+             * ```js
+             * return sequelize.transaction({
+             *   type: Sequelize.Transaction.EXCLUSIVE
+             * }, function (t) {
+             *
+             *  // your transactions
+             *
+             * }).then(function(result) {
+             *   // transaction has been committed. Do something after the commit if required.
+             * }).catch(function(err) {
+             *   // do something with the err.
+             * });
+             * ```
+             *
+             * @see Sequelize.Transaction.TYPES
+             */
+            TYPES : TransactionTypes;
+
+            /**
              * Possible options for row locking. Used in conjuction with `find` calls:
              *
              * ```js
@@ -5816,6 +5877,17 @@ declare module "sequelize" {
         }
 
         /**
+         * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
+         * Default to `DEFERRED` but you can override the default isolation level by passing
+         * `options.transactionType` in `new Sequelize`.
+         */
+        interface TransactionTypes {
+          DEFERRED: string; // 'DEFERRED'
+          IMMEDIATE: string; // 'IMMEDIATE'
+          EXCLUSIVE: string; // 'EXCLUSIVE'
+        }
+
+        /**
          * Possible options for row locking. Used in conjuction with `find` calls:
          */
         interface TransactionLock {
@@ -5838,6 +5910,11 @@ declare module "sequelize" {
              *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
              */
             isolationLevel?: string;
+
+            /**
+             *  See `Sequelize.Transaction.TYPES` for possible options
+             */
+            type?: string;
 
             /**
              * A function that gets executed while running the query to log the sql.

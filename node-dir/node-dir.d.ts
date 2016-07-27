@@ -1,7 +1,7 @@
 // Type definitions for node-dir
 // Project: https://github.com/fshost/node-dir
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-dir" {
     export interface Options {

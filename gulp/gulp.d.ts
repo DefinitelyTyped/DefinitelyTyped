@@ -1,7 +1,7 @@
 // Type definitions for Gulp v3.8.x
 // Project: http://gulpjs.com
 // Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../orchestrator/orchestrator.d.ts" />
@@ -149,6 +149,11 @@ declare module "gulp" {
              * Note that an explicit dot in a portion of the pattern will always match dot files.
              */
             dot?: boolean;
+            
+            /**
+             * Set to match only fles, not directories. Set this flag to prevent copying empty directories
+             */
+            nodir?: boolean;
 
             /**
              * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid

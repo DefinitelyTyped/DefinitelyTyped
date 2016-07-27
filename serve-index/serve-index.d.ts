@@ -1,7 +1,7 @@
 // Type definitions for serve-index v1.7.2
 // Project: https://github.com/expressjs/serve-index
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

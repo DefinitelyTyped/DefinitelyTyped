@@ -14,6 +14,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as string_decoder from "string_decoder";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -26,7 +27,8 @@ assert.notStrictEqual(2, "2", "uses === comparator");
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
@@ -209,7 +211,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
@@ -251,7 +253,7 @@ console.log(unescaped);
 /// path tests : http://nodejs.org/api/path.html
 ////////////////////////////////////////////////////
 
-module path_tests {
+namespace path_tests {
 
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
@@ -402,6 +404,18 @@ rl.prompt(true);
 rl.question("do you like typescript?", function(answer: string) {
   rl.close();
 });
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    var StringDecoder = string_decoder.StringDecoder;
+    var buffer = new Buffer('test');
+    var decoder = new StringDecoder('utf8');
+    var part: string = decoder.write(new Buffer('test'));
+    var end: string = decoder.end();
+}
 
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///

@@ -1,10 +1,10 @@
 // Type definitions for big.js
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module BigJsLibrary {
+declare namespace BigJsLibrary {
 
     export const enum RoundingMode {
         RoundTowardsZero = 0,
@@ -15,7 +15,7 @@ declare module BigJsLibrary {
 
     interface BigJS extends BigJS_Constructors {
         /** The maximum number of decimal places of the results of operations involving division.
-            It is relevant only to the div and sqrt methods, and the pow method when the exponent is negative. 
+            It is relevant only to the div and sqrt methods, and the pow method when the exponent is negative.
             @default 40 */
         DP: number;
 
@@ -42,7 +42,7 @@ declare module BigJsLibrary {
         (value: string): BigJS;
         /** A decimal value.  */
         (value: BigJS): BigJS;
-		
+
 		/** A decimal value.  */
         (): BigJS;
     }
@@ -55,19 +55,19 @@ declare module BigJsLibrary {
         /** Compare
             @returns {Number}
              1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
+            -1 = If the value of this Big number is less than the value of n
              0 = If this Big number and n have the same value */
         cmp(n: number): number;
         /** Compare
             @returns {Number}
              1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
+            -1 = If the value of this Big number is less than the value of n
              0 = If this Big number and n have the same value */
         cmp(n: string): number;
         /** Compare
             @returns {Number}
              1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
+            -1 = If the value of this Big number is less than the value of n
              0 = If this Big number and n have the same value */
         cmp(n: BigJS): number;
 
@@ -120,13 +120,13 @@ declare module BigJsLibrary {
         /** Returns a Big number whose value is the value of this Big number minus n.  */
         minus(n: BigJS): BigJS;
 
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
+        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n.
             The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
         mod(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
+        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n.
             The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
         mod(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
+        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n.
             The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
         mod(n: BigJS): BigJS;
 
@@ -137,7 +137,7 @@ declare module BigJsLibrary {
         /** Returns a Big number whose value is the value of this Big number plus n.  */
         plus(n: BigJS): BigJS;
 
-        /** Returns a Big number whose value is the value of this Big number raised to the power exp. 
+        /** Returns a Big number whose value is the value of this Big number raised to the power exp.
             If exp is negative and the result has more fraction digits than is specified by Big.DP, it will be rounded to Big.DP decimal places using rounding mode Big.RM.
             @param exp integer, -1e+6 to 1e+6 inclusive */
         pow(exp: number): BigJS;

@@ -1,7 +1,7 @@
 // Type definitions for iban.js 0.0.5
 // Project: https://github.com/arhs/iban.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * @summary Interface for {@link IBAN} object.
@@ -56,3 +56,7 @@ interface IBANStatic {
 }
 
 declare var IBAN: IBANStatic;
+
+declare module 'iban' {
+  export = IBAN;
+}

@@ -6,7 +6,7 @@ var noArgument = bigInt(),
     stringArgument = bigInt( "75643564363473453456342378564387956906736546456235345" ),
     baseArgumentInt = bigInt( "101010", 2 ),
     baseArgumentStr = bigInt( "101010", "2" ),
-    baseArgumentBi  = bigInt( "101010", bigInt( 2 ) ), 
+    baseArgumentBi  = bigInt( "101010", bigInt( 2 ) ),
     bigIntArgument = bigInt( noArgument );
 
 // method tests
@@ -26,13 +26,13 @@ isBigInteger = x.add( 0 );
 isBigInteger = x.add( x );
 isBigInteger = x.add( "100" );
 
-isBigInteger = x.compare( 0 );
-isBigInteger = x.compare( x );
-isBigInteger = x.compare( "100" );
+isNumber = x.compare( 0 );
+isNumber = x.compare( x );
+isNumber = x.compare( "100" );
 
-isBigInteger = x.compareAbs( 0 );
-isBigInteger = x.compareAbs( x );
-isBigInteger = x.compareAbs( "100" );
+isNumber = x.compareAbs( 0 );
+isNumber = x.compareAbs( x );
+isNumber = x.compareAbs( "100" );
 
 isBigInteger = x.divide( 0 );
 isBigInteger = x.divide( x );

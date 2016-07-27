@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Image, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Radio, Checkbox, Media } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -281,7 +281,7 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <div className='static-modal'>
-                    <Modal.Dialog>
+                    <Modal.Dialog onHide={this.callback} onEnter={this.callback} onEntered={this.callback} onEntering={this.callback} onExit={this.callback} onExited={this.callback} onExiting={this.callback}>
                       <Modal.Header>
                         <Modal.Title>Modal title</Modal.Title>
                       </Modal.Header>
@@ -375,6 +375,9 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <OverlayTrigger trigger='focus' placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Focus</Button>
                     </OverlayTrigger>
+                    <OverlayTrigger trigger={['click', 'hover', 'focus']} placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
+                      <Button bsStyle='default'>Click or hover or focus</Button>
+                    </OverlayTrigger>
                     <OverlayTrigger trigger='click' rootClose placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Click + rootClose</Button>
                     </OverlayTrigger>
@@ -453,17 +456,25 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <Navbar brand='React-Bootstrap'>
-                    <Nav>
-                      <NavItem eventKey={1} href='#'>Link</NavItem>
-                      <NavItem eventKey={2} href='#'>Link</NavItem>
-                      <NavDropdown eventKey={3} title='Dropdown' id='basic-nav-dropdown'>
-                        <MenuItem eventKey='1'>Action</MenuItem>
-                        <MenuItem eventKey='2'>Another action</MenuItem>
-                        <MenuItem eventKey='3'>Something else here</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey='4'>Separated link</MenuItem>
-                      </NavDropdown>
-                    </Nav>
+                    <Navbar.Header>
+                      <Navbar.Brand>
+                        <a href="#">React-Bootstrap</a>
+                      </Navbar.Brand>
+                      <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                      <Nav>
+                        <NavItem eventKey={1} href='#'>Link</NavItem>
+                        <NavItem eventKey={2} href='#'>Link</NavItem>
+                        <NavDropdown eventKey={3} title='Dropdown' id='basic-nav-dropdown'>
+                          <MenuItem eventKey='1'>Action</MenuItem>
+                          <MenuItem eventKey='2'>Another action</MenuItem>
+                          <MenuItem eventKey='3'>Something else here</MenuItem>
+                          <MenuItem divider />
+                          <MenuItem eventKey='4'>Separated link</MenuItem>
+                        </NavDropdown>
+                      </Nav>
+                    </Navbar.Collapse>
                   </Navbar>
                 </div>
 
@@ -489,6 +500,33 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <Tab eventKey={2} title='Tab 2'>Tab 2 content</Tab>
                     <Tab eventKey={3} title='Tab 3' disabled>Tab 3 content</Tab>
                   </Tabs>
+                </div>
+
+                <div style={style}>
+                  <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                    <Row className="clearfix">
+                      <Col sm={4}>
+                        <Nav bsStyle="pills" stacked>
+                          <NavItem eventKey="first">
+                            Tab 1
+                          </NavItem>
+                          <NavItem eventKey="second">
+                            Tab 2
+                          </NavItem>
+                        </Nav>
+                      </Col>
+                      <Col sm={8}>
+                        <Tab.Content animation>
+                          <Tab.Pane eventKey="first">
+                            Tab 1 content
+                          </Tab.Pane>
+                          <Tab.Pane eventKey="second">
+                            Tab 2 content
+                          </Tab.Pane>
+                        </Tab.Content>
+                      </Col>
+                    </Row>
+                  </Tab.Container>
                 </div>
 
                 <div style={style}>
@@ -685,6 +723,10 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
+                    <Image src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" rounded />
+                </div>
+
+                <div style={style}>
                   <PageHeader>Example page header <small>Subtext for header</small></PageHeader>
                 </div>
 
@@ -836,7 +878,7 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <form>
-                    <Input type="text" ref="input" onChange={this.callback} />
+                    <Input type="text" name="text" ref="input" onChange={this.callback} />
                       <ButtonInput bsSize="small">Child Text</ButtonInput>
                       <ButtonInput type="reset" bsStyle="primary" onClick={this.callback} />
                       <ButtonInput type="submit" value="Submit Your Input" bsStyle="success" bsSize="large" disabled={false} />
@@ -892,6 +934,50 @@ export class ReactBootstrapTest extends Component<any, any> {
                     </Row>
                   </Input>
                 </div>
+
+                <div style={style}>
+                  <Form>
+                    <FormGroup
+                      controlId="formBasicText"
+                    >
+                      <ControlLabel>Control Label</ControlLabel>
+                      <FormControl
+                        type="text"
+                        placeholder="Enter text"
+                      />
+                      <FormControl.Feedback />
+                      <HelpBlock>Help block message.</HelpBlock>
+                    </FormGroup>
+
+                    <FormGroup>
+                      <Checkbox name="checkbox" inline>1</Checkbox>
+                      {' '}
+                      <Checkbox name="checkbox" inline>2</Checkbox>
+                      {' '}
+                      <Checkbox name="checkbox" inline>3</Checkbox>
+                    </FormGroup>
+                    <FormGroup>
+                      <Radio name="radio" inline>1</Radio>
+                      {' '}
+                      <Radio name="radio" inline>2</Radio>
+                      {' '}
+                      <Radio name="radio" inline>3</Radio>
+                    </FormGroup>
+                  </Form>
+                </div>
+
+               <div style={style}>
+                <Media>
+                  <Media.Left align="top">
+                    <img width={64} height={64} src="https://placeholdit.imgix.net/~text?txtsize=33&txt=AUDIO&w=150&h=150" alt="Image"/>
+                  </Media.Left>
+                  <Media.Body>
+                    <Media.Heading>Top aligned media</Media.Heading>
+                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                    <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                  </Media.Body>
+                </Media>
+              </div>
             </div>
         );
     }
