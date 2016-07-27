@@ -345,6 +345,10 @@ declare namespace  __React {
         height?: number
         justifyContent?: FlexJustifyType
         left?: number
+        minWidth: number
+        maxWidth: number
+        minHeight: number
+        maxHeight: number
         margin?: number
         marginBottom?: number
         marginHorizontal?: number
