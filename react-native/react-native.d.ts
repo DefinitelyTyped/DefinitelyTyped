@@ -5528,7 +5528,6 @@ declare namespace  __React {
     export interface NavigationAnimatedViewStaticProps {
         route?: any
         style?: ViewStyle
-        onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
         applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
         renderScene?(props: Object): JSX.Element
@@ -5550,7 +5549,6 @@ declare namespace  __React {
         direction?: 'horizontal' | 'vertical'
         style?: ViewStyle
         route?: any
-        onNavigate(action: Object): boolean
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
     }
 
