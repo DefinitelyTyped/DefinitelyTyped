@@ -3354,7 +3354,99 @@ declare namespace  __React {
     }
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
-        create<T>( styles: T ): T;
+
+        /**
+         * Creates a StyleSheet style reference from the given object.
+         */
+        create(obj: {[key: string]: any}): {[key: string]: number}
+
+        /**
+         * Flattens an array of style objects, into one aggregated style object.
+         * Alternatively, this method can be used to lookup IDs, returned by
+         * StyleSheet.register.
+         *
+         * > **NOTE**: Exercise caution as abusing this can tax you in terms of
+         * > optimizations.
+         * >
+         * > IDs enable optimizations through the bridge and memory in general. Refering
+         * > to style objects directly will deprive you of these optimizations.
+         *
+         * Example:
+         * ```
+         * var styles = StyleSheet.create({
+         *   listItem: {
+         *     flex: 1,
+         *     fontSize: 16,
+         *     color: 'white'
+         *   },
+         *   selectedListItem: {
+         *     color: 'green'
+         *   }
+         * });
+         *
+         * StyleSheet.flatten([styles.listItem, styles.selectedListItem])
+         * // returns { flex: 1, fontSize: 16, color: 'green' }
+         * ```
+         * Alternative use:
+         * ```
+         * StyleSheet.flatten(styles.listItem);
+         * // return { flex: 1, fontSize: 16, color: 'white' }
+         * // Simply styles.listItem would return its ID (number)
+         * ```
+         * This method internally uses `StyleSheetRegistry.getStyleByID(style)`
+         * to resolve style objects represented by IDs. Thus, an array of style
+         * objects (instances of StyleSheet.create), are individually resolved to,
+         * their respective objects, merged as one and then returned. This also explains
+         * the alternative use.
+         */
+        flatten(style: Object): Object
+
+        /**
+         * This is defined as the width of a thin line on the platform. It can be
+         * used as the thickness of a border or division between two elements.
+         * Example:
+         * ```
+         *   {
+         *     borderBottomColor: '#bbb',
+         *     borderBottomWidth: StyleSheet.hairlineWidth
+         *   }
+         * ```
+         *
+         * This constant will always be a round number of pixels (so a line defined
+         * by it look crisp) and will try to match the standard width of a thin line
+         * on the underlying platform. However, you should not rely on it being a
+         * constant size, because on different platforms and screen densities its
+         * value may be calculated differently.
+         */
+        hairlineWidth: number
+
+        /**
+         * A very common pattern is to create overlays with position absolute and zero positioning,
+         * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+         * styles.
+         */
+        absoluteFill: number
+
+
+        /**
+         * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
+         * used to create a customized entry in a `StyleSheet`, e.g.:
+         *
+         *   const styles = StyleSheet.create({
+         *     wrapper: {
+         *       ...StyleSheet.absoluteFillObject,
+         *       top: 10,
+         *       backgroundColor: 'transparent',
+         *     },
+         *   });
+         */
+        absoluteFillObject: {
+            position: string
+            left: number
+            right: number
+            top: number
+            bottom: number
+        }
     }
 
     /**
