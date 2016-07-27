@@ -86,6 +86,13 @@ interface LocalForage {
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any): Promise<any>;
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any,
             callback: (err: any, result: any) => void): void;
+    
+    /**
+     * Create a new instance of localForage to point to a different store.
+     * All the configuration options used by config are supported.
+     * @param {LocalForageOptions} options
+     */
+    createInstance(options: LocalForageOptions): LocalForage;
 }
 
 declare module "localforage" {

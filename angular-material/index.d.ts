@@ -1,12 +1,13 @@
 // Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
-// Definitions by: Matt Traynham <https://github.com/mtraynham>
+// Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
 
-declare var _: string;
-export = _;
+
+declare module 'angular-material' {
+}
 
 declare module 'angular' {
     export namespace material {
@@ -70,18 +71,19 @@ declare module 'angular' {
         }
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
-            cancel(cancel: string): IPromptDialog;
             placeholder(placeholder: string): IPromptDialog;
         }
 
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
             placeholder(placeholder: string): IPromptDialog;
+            initialValue(value: string): IPromptDialog;
         }
 
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
+            contentElement?: string | Element;
             autoWrap?: boolean; // default: true
             targetEvent?: MouseEvent;
             openFrom?: any;
@@ -89,7 +91,7 @@ declare module 'angular' {
             scope?: angular.IScope; // default: new child scope
             preserveScope?: boolean; // default: false
             disableParentScroll?: boolean; // default: true
-            hasBackdrop?: boolean // default: true
+            hasBackdrop?: boolean; // default: true
             clickOutsideToClose?: boolean; // default: false
             escapeToClose?: boolean; // default: true
             focusOnOpen?: boolean; // default: true
@@ -102,7 +104,7 @@ declare module 'angular' {
             onShowing?: Function;
             onComplete?: Function;
             onRemoving?: Function;
-            fullscreen?: boolean;
+            fullscreen?: boolean; // default: false
             skipHide?: boolean;
         }
 
@@ -305,13 +307,13 @@ declare module 'angular' {
             panelClass?: string;
             zIndex?: number; // default: 80
             position?: IPanelPosition;
+            hasBackdrop?: boolean; // default: true
             clickOutsideToClose?: boolean; // default: false
             escapeToClose?: boolean; // default: false
             trapFocus?: boolean; // default: false
             focusOnOpen?: boolean; // default: true
             fullscreen?: boolean; // default: false
             animation?: IPanelAnimation;
-            hasBackdrop?: boolean // default: false
             disableParentScroll?: boolean; // default: false
             onDomAdded?: Function;
             onOpenComplete?: Function;

@@ -222,6 +222,8 @@ declare namespace JQueryValidation
          */
         form(): boolean;
 
+        elementValue(element: Element): any;
+
         invalidElements(): HTMLElement[];
 
         /**

@@ -158,7 +158,6 @@ export declare class S3 {
 
 export class STS {
     constructor(options?: any);
-
     /**
      * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
      */
@@ -204,8 +203,8 @@ export class STS {
 export declare class ECS {
     constructor(options?: any);
     /**
-     * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
-     */
+		 * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
+		 */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
     /**
      * Describes one or more of your clusters.
@@ -307,7 +306,6 @@ export declare module DynamoDB {
         ScanFilter?: _DDBDC_KeyComparison;
         TotalSegments?: number;
     }
-
     interface GetParam extends _DDBDC_Reader {
         Key: _DDBDC_Keys;
     }
@@ -334,6 +332,8 @@ export declare module DynamoDB {
     }
 
 }
+
+// ===========================================================
 
 // ===========================================================
 
@@ -1408,6 +1408,24 @@ export module sts {
         Policy?: string;
         SerialNumber?: string;
         TokenCode?: string;
+    }
+
+    export interface AssumeRoleCallbackData {
+        Credentials: TemporaryCredentials;
+        AssumedRoleUser: AssumedRoleUser;
+        PackedPolicySize: number;
+    }
+
+    export interface TemporaryCredentials {
+        AccessKeyId: string;
+        SecretAccessKey: string;
+        SessionToken: string;
+        Expiration: Date;
+    }
+
+    export interface AssumedRoleUser {
+        AssumedRoleId: string;
+        Arn: string;
     }
 
     export interface AssumeRoleWithSAMLParams {

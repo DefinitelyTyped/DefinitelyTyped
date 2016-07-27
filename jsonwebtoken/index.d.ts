@@ -5,6 +5,24 @@
 
 /// <reference types="node" />
 
+export class JsonWebTokenError extends Error {
+    inner: Error;
+
+    constructor(message: string, error?: Error);
+}
+
+export class TokenExpiredError extends JsonWebTokenError {
+    expiredAt: number;
+
+    constructor(message: string, expiredAt: number);
+}
+
+export class NotBeforeError extends JsonWebTokenError {
+    date: Date;
+
+    constructor(message: string, date: Date);
+}
+
 export interface SignOptions {
     /**
      * Signature algorithm. Could be one of these values :
@@ -51,7 +69,7 @@ export interface DecodeOptions {
 }
 
 export interface VerifyCallback {
-    (err: Error, decoded: any): void;
+    (err: JsonWebTokenError | TokenExpiredError | NotBeforeError, decoded: any): void;
 }
 
 export interface SignCallback {

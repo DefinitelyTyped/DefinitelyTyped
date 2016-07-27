@@ -4,7 +4,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import Select, * as ReactSelect from "react-select";
-import { Option, MenuRendererProps } from "react-select";
+import { Option, ReactSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select";
 
 const CustomOption = React.createClass({
     propTypes: {
@@ -76,42 +76,43 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
         const onClose = () => { return; };
         const optionRenderer = (option: Option) => <span>{option.label}</span>
 
+        const selectProps: ReactSelectProps = {
+            name: "test-select",
+            className: "test-select",
+            key: "1",
+            options: options,
+            optionRenderer: optionRenderer,
+            allowCreate: true,
+            autofocus: true,
+            autosize: true,
+            clearable: true,
+            escapeClearsValue: true,
+            ignoreAccents: true,
+            joinValues: false,
+            matchPos: "any",
+            matchProp: "any",
+            menuContainerStyle: {},
+            menuRenderer: renderMenu,
+            menuStyle: {},
+            multi: true,
+            onMenuScrollToBottom: () => {},
+            onValueClick: onChange,
+            onOpen: onOpen,
+            onClose: onClose,
+            openAfterFocus: false,
+            optionComponent: CustomOption as any,
+            required: false,
+            resetValue: "resetValue",
+            scrollMenuIntoView: false,
+            valueKey: "github",
+            labelKey: "name",
+            onChange: onChange,
+            value: options,
+            valueComponent: CustomValue as any,
+        };
+
         return <div>
-            <Select
-                name="test-select"
-                className="test-select"
-                key="1"
-                options={options}
-                optionRenderer={optionRenderer}
-                allowCreate={true}
-                autofocus={true}
-                autosize={true}
-                clearable={true}
-                escapeClearsValue={true}
-                ignoreAccents={true}
-                joinValues={false}
-                matchPos={"any"}
-                matchProp={"any"}
-                menuContainerStyle={{}}
-                menuRenderer={renderMenu}
-                menuStyle={{}}
-                multi={true}
-                onMenuScrollToBottom={() => {}}
-                onValueClick={onChange}
-                onOpen={onOpen}
-                onClose={onClose}
-                openAfterFocus={false}
-                optionComponent={CustomOption}
-                required={false}
-                resetValue={"resetValue"}
-                scrollMenuIntoView={false}
-                valueKey="github"
-                labelKey="name"
-                onChange={onChange}
-                simpleValue
-                value={options}
-                valueComponent={CustomValue}
-                 />
+            <Select {...(selectProps as any)} />
         </div>;
     }
 }
@@ -126,28 +127,32 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
         };
         const options: Option[] = [{ label: "Foo", value: "bar" }];
         const onChange = (value: any) => console.log(value);
+
+        const asyncSelectProps: ReactAsyncSelectProps = {
+            name: "test-select",
+            className: "test-select",
+            key: "1",
+            matchPos: "any",
+            matchProp: "any",
+            multi: true,
+            onValueClick: onChange,
+            valueKey: "github",
+            labelKey: "name",
+            onChange: onChange,
+            simpleValue: undefined,
+            value: options,
+            loadOptions: getOptions,
+            cache: {},
+            ignoreAccents: false,
+            ignoreCase: true,
+            isLoading: false,
+            minimumInput: 5,
+            searchPromptText: "search...",
+            searchingText: "searching...",
+        };
+
         return <div>
-            <Select.Async
-                name="test-select"
-                className="test-select"
-                key="1"
-                matchPos={"any"}
-                matchProp={"any"}
-                multi={true}
-                onValueClick={onChange}
-                valueKey="github"
-                labelKey="name"
-                onChange={onChange}
-                simpleValue
-                value={options}
-                loadOptions={getOptions}
-                cache={{}}
-                ignoreAccents={false}
-                isLoading={false}
-                minimumInput={5}
-                searchPromptText={"search..."}
-                searchingText={"searching..."}
-            />
+            <Select.Async {...(asyncSelectProps as any)} />
         </div>;
     }
 
