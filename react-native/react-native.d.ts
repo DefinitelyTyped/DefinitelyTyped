@@ -3788,9 +3788,11 @@ declare namespace  __React {
 
         /**
          * Schedule a function to run after all interactions have completed.
+         * Returns a cancellable
          * @param fn
          */
-        runAfterInteractions( fn: () => void | PromiseTask): Promise<any>
+        runAfterInteractions( fn: () => void | PromiseTask):
+          {then: Function, done: Function, cancel: Function}
 
         /**
          * Notify manager that an interaction has started.
