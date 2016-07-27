@@ -371,7 +371,7 @@ declare namespace  __React {
         /**
          * @platform ios
          */
-        zIndex: number
+        zIndex?: number
     }
 
     /**
