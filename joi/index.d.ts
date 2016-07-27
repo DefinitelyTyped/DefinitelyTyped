@@ -495,8 +495,8 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
     ordered(type: Schema, ...types: Schema[]): ArraySchema;
 
     /**
- * Specifies the minimum number of items in the array.
- */
+* Specifies the minimum number of items in the array.
+*/
     min(limit: number): ArraySchema;
 
     /**
@@ -729,8 +729,36 @@ export interface FunctionSchema extends AnySchema<FunctionSchema> {
 
 export interface AlternativesSchema extends AnySchema<FunctionSchema> {
     try(schemas: Schema[]): AlternativesSchema;
+    try(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
     when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
     when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
+}
+
+export interface Terms {
+    value: any;
+    state: {
+        key: string,
+        path: string,
+        parent: any
+    };
+    options: ValidationOptions;
+}
+
+export interface Rules {
+    name: string;
+    params?: ObjectSchema | { [key: string]: Schema };
+    setup?: Function;
+    validate?: Function;
+    description: string | Function;
+}
+
+export interface Extension {
+    name: string;
+    base?: Schema;
+    pre?: Function;
+    language?: {};
+    describe?: Function;
+    rules?: Rules[];
 }
 
 export interface Terms {
@@ -839,8 +867,9 @@ export declare function string(): StringSchema;
 /**
  * Generates a type that will match one of the provided alternative schemas
  */
-export declare function alternatives(types: Schema[]): Schema;
-export declare function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+export function alternatives(): AlternativesSchema;
+export function alternatives(types: Schema[]): Schema;
+export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
 
 /**
  * Validates a value using the given schema and options.
@@ -875,12 +904,12 @@ export function attempt(value: any, schema: Schema, message?: string | Error): v
 
 
 /**
- * Validates a value against a schema, returns valid object, and throws if validation fails where:
- *
- * @param value - the value to validate.
- * @param schema - the schema object.
- * @param message - optional message string prefix added in front of the error message. may also be an Error object.
- */
+	 * Validates a value against a schema, returns valid object, and throws if validation fails where:
+	 *
+	 * @param value - the value to validate.
+	 * @param schema - the schema object.
+	 * @param message - optional message string prefix added in front of the error message. may also be an Error object.
+	 */
 export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
 
 
@@ -888,6 +917,25 @@ export function attempt<T>(value: T, schema: Schema, message?: string | Error): 
 * Generates a reference to the value of the named key.
 */
 export declare function ref(key: string, options?: ReferenceOptions): Reference;
+
+
+/**
+ * Checks whether or not the provided argument is a reference. It's especially useful if you want to post-process error messages.
+ */
+export function isRef(ref: any): boolean;
+
+
+/**
+ * Get a sub-schema of an existing schema based on a path. Path separator is a dot (.).
+ */
+export function reach(schema: Schema, path: string): Schema;
+
+
+/**
+ * Creates a new Joi instance customized with the extension(s) you provide included.
+ */
+export function extend(extention: Extension): any;
+
 
 
 /**

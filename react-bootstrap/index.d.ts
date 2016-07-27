@@ -821,6 +821,16 @@ interface JumbotronProps extends React.HTMLProps<Jumbotron> {
 type Jumbotron = React.ClassicComponent<JumbotronProps, {}>;
 export var Jumbotron: React.ClassicComponentClass<JumbotronProps>;
 
+ // <Image />
+interface ImageProps extends React.HTMLProps<Image> {
+    circle?: boolean;
+    responsive?: boolean;
+    rounded?: boolean;
+    thumbnail?: boolean;
+}
+type Image = React.ClassicComponent<ImageProps, {}>;
+export var Image: React.ClassicComponentClass<ImageProps>;
+
 // <PageHeader />
 interface PageHeaderProps extends React.HTMLProps<PageHeader> {
 }

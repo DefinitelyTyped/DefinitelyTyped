@@ -39,6 +39,9 @@ declare namespace Html2Canvas {
         
         /** Use svg powered rendering where available (FF11+). */
         svgRendering?: boolean;
+
+        /** Use svg powered rendering where available (FF11+). */
+        svgRendering?: boolean;
     }
 }
 

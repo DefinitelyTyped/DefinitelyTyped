@@ -5,6 +5,9 @@
 
 import * as angular from 'angular';
 
+declare var _: string;
+export = _;
+
 declare module 'angular' {
     export namespace material {
         interface IBottomSheetOptions {
@@ -71,6 +74,11 @@ declare module 'angular' {
             placeholder(placeholder: string): IPromptDialog;
         }
 
+        interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+            cancel(cancel: string): IPromptDialog;
+            placeholder(placeholder: string): IPromptDialog;
+        }
+
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
@@ -99,7 +107,7 @@ declare module 'angular' {
         }
 
         interface IDialogService {
-            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog): angular.IPromise<any>;
+            show(dialog: IDialogOptions | IAlertDialog | IConfirmDialog | IPromptDialog): angular.IPromise<any>;
             confirm(): IConfirmDialog;
             alert(): IAlertDialog;
             prompt(): IPromptDialog;
@@ -283,6 +291,78 @@ declare module 'angular' {
             brown: IPalette;
             grey: IPalette;
             'blue-grey': IPalette;
+        }
+
+        interface IPanelConfig {
+            template?: string;
+            templateUrl?: string;
+            controller?: string | Function;
+            controllerAs?: string;
+            bindToController?: boolean; // default: true
+            locals?: { [index: string]: any };
+            resolve?: { [index: string]: angular.IPromise<any> }
+            attachTo?: string | JQuery | Element;
+            panelClass?: string;
+            zIndex?: number; // default: 80
+            position?: IPanelPosition;
+            clickOutsideToClose?: boolean; // default: false
+            escapeToClose?: boolean; // default: false
+            trapFocus?: boolean; // default: false
+            focusOnOpen?: boolean; // default: true
+            fullscreen?: boolean; // default: false
+            animation?: IPanelAnimation;
+            hasBackdrop?: boolean // default: false
+            disableParentScroll?: boolean; // default: false
+            onDomAdded?: Function;
+            onOpenComplete?: Function;
+            onRemoving?: Function;
+            onDomRemoved?: Function;
+            origin?: string | JQuery | Element;
+        }
+
+        interface IPanelRef {
+            id: string;
+            config: IPanelConfig;
+            isAttached: boolean;
+            open(): angular.IPromise<any>;
+            close(): angular.IPromise<any>;
+            attach(): angular.IPromise<any>;
+            detach(): angular.IPromise<any>;
+            show(): angular.IPromise<any>;
+            hide(): angular.IPromise<any>;
+            destroy(): void;
+            addClass(newClass: string): void;
+            removeClass(oldClass: string): void;
+            toggleClass(toggleClass: string): void;
+            focusOnOpen(): void;
+        }
+
+        interface IPanelPosition {
+            absolute(): IPanelPosition;
+            relativeTo(someElement: string | JQuery | Element): IPanelPosition;
+            top(opt_top: string): IPanelPosition; // default: '0'
+            bottom(opt_bottom: string): IPanelPosition; // default: '0'
+            left(opt_left: string): IPanelPosition; // default: '0'
+            right(opt_right: string): IPanelPosition; // default: '0'
+            centerHorizontally(): IPanelPosition;
+            centerVertically(): IPanelPosition;
+            center(): IPanelPosition;
+            addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
+            withOffsetX(offsetX: string): IPanelPosition;
+            withOffsetY(offsetY: string): IPanelPosition;
+        }
+
+        interface IPanelAnimation {
+            openFrom(from: string | Element | Event | { top: number, left: number }): IPanelAnimation;
+            closeTo(to: string | Element | { top: number, left: number }): IPanelAnimation;
+            withAnimation(cssClass: string | { open: string, close: string }): IPanelAnimation;
+        }
+
+        interface IPanelService {
+            create(opt_config: IPanelConfig): IPanelRef;
+            open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
+            newPanelPosition(): IPanelPosition;
+            newPanelAnimation(): IPanelAnimation;
         }
     }
 }
