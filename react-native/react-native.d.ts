@@ -1459,7 +1459,7 @@ declare namespace  __React {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
-        
+
         ref?: Ref<WebViewStatic & ViewStatic>
     }
 
@@ -1728,7 +1728,7 @@ declare namespace  __React {
 
     /**
      * @Deprecated since version 0.28.0
-     */ 
+     */
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
@@ -2134,7 +2134,7 @@ declare namespace  __React {
          * Size of the refresh indicator, see RefreshControl.SIZE.
          */
         size?: number
-        
+
         /**
          * Progress view top offset
          * @platform android
@@ -2155,7 +2155,7 @@ declare namespace  __React {
          * Whether the view should be indicating an active refresh.
          */
         refreshing?: boolean
-        
+
         ref?: Ref<RefreshControlStatic>
     }
 
@@ -3516,12 +3516,12 @@ declare namespace  __React {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
-        
+
         /**
          * Color of text on unselected tabs
          */
         unselectedTintColor?: string
-        
+
         ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
@@ -3950,7 +3950,7 @@ declare namespace  __React {
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
-        
+
         /**
          * When true the scroll view stops on multiples of the scroll view's size
          * when scrolling. This can be used for horizontal pagination. The default
@@ -4055,7 +4055,7 @@ declare namespace  __React {
         layoutMeasurement: NativeScrollSize;
         zoomScale: number;
     }
-    
+
     // Deduced from
     // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
 
@@ -4075,18 +4075,18 @@ declare namespace  __React {
         getOpenRowID(): string
         setOpenRowID(rowID: string): ListViewDataSource
     }
-    
+
     export interface SwipeableListViewProps extends React.Props<SwipeableListViewStatic> {
         dataSource: SwipeableListViewDataSource
         maxSwipeDistance?: number
-        
+
         // Callback method to render the swipeable view
         renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
-        
+
         // Callback method to render the view that will be unveiled on swipe
         renderQuickActions(rowData: Object, sectionID: string, rowID: string): React.ReactElement<any>
     }
-    
+
     export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
         getNewDataSource(): SwipeableListViewDataSource
     }
@@ -5072,7 +5072,7 @@ declare namespace  __React {
          * Default value is false.
          */
         value?: boolean
-	
+
 	    style?: ViewStyle
 
         ref?: Ref<SwitchStatic>
@@ -5494,24 +5494,24 @@ declare namespace  __React {
         type: string;
     }
 
-    export interface NavigationState {
+    export interface NavigationRoute {
       key: string;
     }
 
-    export interface NavigationParentState extends NavigationState {
+    export interface NavigationState extends NavigationRoute {
         index: number;
-        children: NavigationState[];
+        routes: NavigationRoute[];
     }
 
     export type NavigationRenderer = (
-        navigationState: NavigationParentState,
+        route: NavigationState,
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
     // Definitions for NavigationExperimental feature are deduced
     // from code examples
     export interface NavigationAnimatedViewStaticProps {
-        navigationState?: any
+        route?: any
         style?: ViewStyle
         onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
@@ -5521,24 +5521,24 @@ declare namespace  __React {
 
     export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
     }
-    
+
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
     }
-    
+
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
         Title: JSX.Element
         HEIGHT: number
     }
-    
+
     export interface NavigationCardStackProps {
         direction?: 'horizontal' | 'vertical'
         style?: ViewStyle
-        navigationState?: any
+        route?: any
         onNavigate(action: Object): boolean
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
     }
-    
+
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
     }
 
@@ -5548,7 +5548,7 @@ declare namespace  __React {
         Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
     }
-    
+
     export interface NavigationContainerProps {
         tabs: NavigationTab[];
         index: number;
@@ -5639,7 +5639,7 @@ declare namespace  __React {
 
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
-    
+
     export var SwipeableListView: SwipeableListViewStatic
     export type SwipeableListView = SwipeableListViewStatic
 
