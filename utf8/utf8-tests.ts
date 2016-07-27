@@ -1,6 +1,6 @@
 /// <reference path="utf8.d.ts" />
 
-import utf8 = require("utf8");
+import * as utf8 from "utf8";
 
 function test_encode(): void {
     utf8.encode("\x49");
