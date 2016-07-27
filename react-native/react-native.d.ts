@@ -510,6 +510,12 @@ declare namespace  __React {
         allowFontScaling?: boolean
 
         /**
+         * Line Break mode. Works only with numberOfLines.
+         * clip is working only for iOS
+         */
+        lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
+
+        /**
          * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
          */
         numberOfLines?: number
