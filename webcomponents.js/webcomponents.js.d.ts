@@ -33,7 +33,7 @@ declare namespace webcomponents {
 
     export interface ShadowRootPolyfill extends DocumentFragment {
         innerHTML: string;
-        readonly host: Element;
+        host: Element;
     }
 
     export interface Polyfill {
