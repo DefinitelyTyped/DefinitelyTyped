@@ -15,7 +15,7 @@
     "node": ">= 0.12.0"
   },
   "scripts": {
-    "test": "dt --changes",
+    "test": "dt --all",
     "changes": "dt --changes",
     "lint": "dt --lint",
     "tscparams": "dt --tscparams --no-tests --no-headers",
