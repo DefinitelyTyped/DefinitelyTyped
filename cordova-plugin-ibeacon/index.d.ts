@@ -50,6 +50,7 @@ declare namespace BeaconPlugin {
 		beacons: Beacon[];
 		authorizationStatus: string;
 		state: string;
+		error: string;
 	}
 
 	export interface Delegate {

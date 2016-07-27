@@ -276,8 +276,7 @@ declare module "mongoose" {
 
     pre(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
     pre(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
-    post(method: string, fn: HookSyncCallback, errorCb?: HookErrorCallback): Schema;
-    post(method: string, isAsync: boolean, fn: HookAsyncCallback, errorCb?: HookErrorCallback): Schema;
+    post(method: string, fn: (doc: Document, next?: HookNextFunction) => any ): Schema;
 
     requiredPaths(): string[];
     set(key: string, value: any): void;

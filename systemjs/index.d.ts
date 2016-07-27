@@ -101,6 +101,12 @@ declare namespace SystemJSLoader {
          * Use this option to disable this iteration and copying of the exports.
          */
         esmExports?: boolean;
+        
+        /**
+         * To ignore resources that shouldn't be traced as part of the build.
+         * Use with the SystemJS Builder. (https://github.com/systemjs/builder#ignore-resources)
+         */
+        build?: boolean;
     }
 
     interface PackageConfig {
