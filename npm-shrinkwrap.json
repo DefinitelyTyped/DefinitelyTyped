@@ -190,11 +190,6 @@
       "from": "type-detect@>=0.1.2 <0.2.0",
       "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-0.1.2.tgz"
     },
-    "typescript": {
-      "version": "1.8.7",
-      "from": "typescript@1.8.7",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-1.8.7.tgz"
-    },
     "wordwrap": {
       "version": "0.0.3",
       "from": "wordwrap@>=0.0.2 <0.1.0",
