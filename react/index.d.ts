@@ -166,7 +166,7 @@ declare namespace React {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`

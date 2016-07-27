@@ -1,4 +1,4 @@
-// Type definitions for material-ui v0.15.0
+// Type definitions for material-ui v0.15.1
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>, Oliver Herrmann <https://github.com/herrmanno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,6 +18,7 @@ declare module "material-ui" {
     export import CardText = __MaterialUI.Card.CardText;
     export import CardTitle = __MaterialUI.Card.CardTitle;
     export import Checkbox = __MaterialUI.Switches.Checkbox;
+    export import Chip = __MaterialUI.Chip;
     export import CircularProgress = __MaterialUI.CircularProgress;
     export import DatePicker = __MaterialUI.DatePicker.DatePicker;
     export import Dialog = __MaterialUI.Dialog;
@@ -247,7 +248,7 @@ declare namespace __MaterialUI {
             inkBar?: {
                 backgroundColor?: string;
             };
-            navDrawer?: {
+            drawer?: {
                 width?: number;
                 color?: string;
             };
@@ -426,7 +427,7 @@ declare namespace __MaterialUI {
             menu: number;
             appBar: number;
             drawerOverlay: number;
-            navDrawer: number;
+            drawer: number;
             dialogOverlay: number;
             dialog: number;
             layer: number;
@@ -512,6 +513,7 @@ declare namespace __MaterialUI {
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
         iconStyleRight?: string;
+        iconStyleLeft?: string;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
@@ -532,6 +534,7 @@ declare namespace __MaterialUI {
     namespace propTypes {
         type horizontal = 'left' | 'middle' | 'right';
         type vertical = 'top' | 'center' | 'bottom';
+        type direction = 'left' | 'right' | 'up' | 'down';
 
         interface origin {
             horizontal: horizontal;
@@ -834,6 +837,18 @@ declare namespace __MaterialUI {
         }
         export class CardTitle extends React.Component<CardTitleProps, {}> {
         }
+    }
+
+    interface ChipProps extends React.Props<Chip> {
+        backgroundColor?: string;
+        className?: string;
+        labelColor?: string;
+        labelStyle?: React.CSSProperties;
+        onRequestDelete?: React.TouchEventHandler<Chip>;
+        onTouchTap?: React.TouchEventHandler<Chip>;
+        style?: React.CSSProperties;
+    }
+    export class Chip extends React.Component<ChipProps, {}> {
     }
 
     namespace DatePicker {
@@ -1161,6 +1176,7 @@ declare namespace __MaterialUI {
             touchTapCloseDelay?: number;
             useLayerForClickAway?: boolean;
 
+            animated?: boolean;
             autoWidth?: boolean;
             desktop?: boolean;
             listStyle?: React.CSSProperties;
@@ -1180,6 +1196,7 @@ declare namespace __MaterialUI {
 
         interface DropDownMenuProps extends React.Props<DropDownMenu> {
             // <div/> is the element that gets the 'other' properties
+            animated?: boolean;
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
@@ -1300,6 +1317,7 @@ declare namespace __MaterialUI {
         disabled?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
+        floatingLabelFixed?: boolean;
         floatingLabelStyle?: React.CSSProperties;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
@@ -1784,6 +1802,8 @@ declare namespace __MaterialUI {
         autoOk?: boolean;
         cancelLabel?: React.ReactNode;
         defaultTime?: Date;
+        dialogBodyStyle?: React.CSSProperties;
+        dialogStyle?: React.CSSProperties;
         disabled?: boolean;
         format?: "ampm" | "24hr";
         okLabel?: React.ReactNode;
@@ -1977,6 +1997,11 @@ declare module 'material-ui/Card/CardTitle' {
 declare module 'material-ui/Checkbox' {
     export import Checkbox = __MaterialUI.Switches.Checkbox;
     export default Checkbox;
+}
+
+declare module 'material-ui/Chip' {
+    export import Chip = __MaterialUI.Chip;
+    export default Chip;
 }
 
 declare module 'material-ui/CircularProgress' {
@@ -7267,15 +7292,25 @@ declare module 'material-ui/utils/colorManipulator' {
     export import darken = __MaterialUI.Utils.ColorManipulator.darken;
     export import lighten = __MaterialUI.Utils.ColorManipulator.lighten;
 }
-
 declare module 'material-ui/utils/dom' {
     export import Dom = __MaterialUI.Utils.Dom;
     export default Dom;
 }
-
 declare module 'material-ui/utils/events' {
     export import Events = __MaterialUI.Utils.Events;
     export default Events;
+}
+declare module 'material-ui/utils/withWidth' {
+  export const SMALL: number;
+  export const MEDIUM: number;
+  export const LARGE: number;
+
+  interface Options {
+      largeWidth?: number;
+      mediumWidth?: number;
+      resizeInterval?: number;
+  }
+  export default function withWidth(options?: Options): React.ComponentClass<any>
 }
 
 declare namespace __MaterialUI.Styles {
@@ -8492,4 +8527,181 @@ declare module "material-ui/svg-icons" {
     export import ToggleStar = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star');
     export import ToggleStarBorder = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-border');
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-half');
+}
+
+
+declare module 'material-ui/internal/AppCanvas' {
+  interface AppCanvasProps extends React.Props<AppCanvas> { }
+  class AppCanvas extends React.Component<AppCanvasProps, {}> { }
+  export default AppCanvas;
+}
+declare module 'material-ui/internal/AutoLockScrolling' {
+  interface AutoLockScrollingProps extends React.Props<AutoLockScrolling> {
+    lock: boolean;
+  }
+  class AutoLockScrolling extends React.Component<AutoLockScrollingProps, {}> { }
+  export default AutoLockScrolling;
+}
+declare module 'material-ui/internal/BeforeAfterWrapper' {
+  interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
+    afterElementType?: string,
+    afterStyle?: React.CSSProperties,
+    beforeElementType?: string,
+    beforeStyle?: React.CSSProperties,
+    elementType?: string,
+    style?: React.CSSProperties,
+  }
+  class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps, {}> { }
+  export default BeforeAfterWrapper;
+}
+declare module 'material-ui/internal/CircleRipple' {
+  interface CircleRippleProps extends React.Props<CircleRipple> {
+    aborted?: boolean;
+    color?: string;
+    opacity?: number;
+    style?: React.CSSProperties;
+  }
+  class CircleRipple extends React.Component<CircleRippleProps, {}> { }
+  export default CircleRipple;
+}
+declare module 'material-ui/internal/ClearFix' {
+  interface ClearFixProps extends React.Props<ClearFix> {
+    style?: React.CSSProperties;
+  }
+  class ClearFix extends React.Component<ClearFixProps, {}> { }
+  export default ClearFix;
+}
+declare module 'material-ui/internal/ClickAwayListener' {
+  interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
+    onClickAway?: any,
+  }
+  class ClickAwayListener extends React.Component<ClickAwayListenerProps, {}> { }
+  export default ClickAwayListener;
+}
+declare module 'material-ui/internal/EnhancedButton' {
+  interface EnhancedButtonProps extends __MaterialUI.SharedEnhancedButtonProps<EnhancedButton> {}
+  class EnhancedButton extends React.Component<EnhancedButtonProps, {}> {}
+  export default EnhancedButton;
+}
+declare module 'material-ui/internal/EnhancedSwitch' {
+  interface EnhancedSwitchProps extends __MaterialUI.Switches.CommonEnhancedSwitchProps<EnhancedSwitch> {}
+  class EnhancedSwitch extends React.Component<EnhancedSwitchProps, {}> {}
+  export default EnhancedSwitch;
+}
+declare module 'material-ui/internal/ExpandTransition' {
+  interface ExpandTransitionProps extends React.Props<ExpandTransition> {
+    enterDelay?: number;
+    loading?: boolean;
+    open?: boolean;
+    style?: React.CSSProperties;
+    transitionDelay?: number;
+    transitionDuration?: number;
+  }
+  class ExpandTransition extends React.Component<ExpandTransitionProps, {}> { }
+  export default ExpandTransition;
+}
+declare module 'material-ui/internal/ExpandTransitionChild' {
+  interface ExpandTransitionChildProps extends React.Props<ExpandTransitionChild> {
+    enterDelay?: number;
+    style?: React.CSSProperties;
+    transitionDelay?: number;
+    transitionDuration?: number;
+  }
+  class ExpandTransitionChild extends React.Component<ExpandTransitionChildProps, {}> { }
+  export default ExpandTransitionChild;
+}
+declare module 'material-ui/internal/FocusRipple' {
+  interface FocusRippleProps extends React.Props<FocusRipple> {
+    color?: string,
+    innerStyle?: React.CSSProperties,
+    opacity?: number,
+    show?: boolean,
+    style?: React.CSSProperties
+  }
+  class FocusRipple extends React.Component<FocusRippleProps, {}> { }
+  export default FocusRipple;
+}
+declare module 'material-ui/internal/Overlay' {
+  interface OverlayProps extends React.Props<Overlay> {
+    autoLockScrolling?: boolean;
+    show: boolean;
+    style?: React.CSSProperties;
+    transitionEnabled?: boolean;
+  }
+  class Overlay extends React.Component<OverlayProps, {}> { }
+  export default Overlay;
+}
+declare module 'material-ui/internal/RenderToLayer' {
+  interface RenderToLayerProps extends React.Props<RenderToLayer> {
+    componentClickAway?: Function;
+    open: boolean;
+    render: Function;
+    useLayerForClickAway?: boolean;
+  }
+  class RenderToLayer extends React.Component<RenderToLayerProps, {}> { }
+  export default RenderToLayer;
+}
+declare module 'material-ui/internal/ScaleIn' {
+  interface ScaleInProps extends React.Props<ScaleIn> {
+    childStyle?: React.CSSProperties;
+    enterDelay?: number;
+    maxScale?: number;
+    minScale?: number;
+  }
+  class ScaleIn extends React.Component<ScaleInProps, {}> { }
+  export default ScaleIn;
+}
+declare module 'material-ui/internal/ScaleInChild' {
+  interface ScaleInChildProps extends React.Props<ScaleInChild> {
+    enterDelay?: number;
+    maxScale?: number;
+    minScale?: number;
+    style?: React.CSSProperties;
+  }
+  class ScaleInChild extends React.Component<ScaleInChildProps, {}> { }
+  export default ScaleInChild;
+}
+declare module 'material-ui/internal/SlideIn' {
+  interface SlideInProps extends React.Props<SlideIn> {
+    childStyle?: React.CSSProperties;
+    direction?: __MaterialUI.propTypes.direction;
+    enterDelay?: number;
+    style?: React.CSSProperties;
+  }
+  class SlideIn extends React.Component<SlideInProps, {}> { }
+  export default SlideIn;
+}
+declare module 'material-ui/internal/SlideInChild' {
+  interface SlideInChildProps extends React.Props<SlideInChild> {
+    direction?: string,
+    enterDelay?: number;
+    getLeaveDirection: Function;
+    style?: React.CSSProperties;
+  }
+  class SlideInChild extends React.Component<SlideInChildProps, {}> { }
+  export default SlideInChild;
+}
+declare module 'material-ui/internal/Tooltip' {
+  interface TooltipProps extends React.Props<Tooltip> {
+    className?: string;
+    horizontalPosition?: __MaterialUI.propTypes.horizontal;
+    label: any;
+    show?: boolean;
+    style?: React.CSSProperties;
+    touch?: boolean;
+    verticalPosition?: __MaterialUI.propTypes.vertical;
+  }
+  class Tooltip extends React.Component<TooltipProps, {}> { }
+  export default Tooltip;
+}
+declare module 'material-ui/internal/TouchRipple' {
+  interface TouchRippleProps extends React.Props<TouchRipple> {
+    abortOnScroll?: boolean,
+    centerRipple?: boolean;
+    color?: string;
+    opacity?: number;
+    style?: React.CSSProperties
+  }
+  class TouchRipple extends React.Component<TouchRippleProps, {}> { }
+  export default TouchRipple;
 }
