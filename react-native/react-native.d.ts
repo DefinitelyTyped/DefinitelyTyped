@@ -1279,6 +1279,21 @@ declare namespace  __React {
       setPageWithoutAnimation: (selectedPage: number) => void
     }
 
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+    }
+
     /**
      * //FIXME: No documentation extracted from code comment on WebView.ios.js
      */
@@ -5819,6 +5834,9 @@ declare namespace  __React {
 
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
+
+    export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
+    export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
 
     export var Linking: LinkingStatic
     export type Linking = LinkingStatic
