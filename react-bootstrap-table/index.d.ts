@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap-table v2.3.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>, Michael Scharf <https://github.com/scharf>
+// Definitions by: Frank Laub <https://github.com/flaub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
@@ -57,9 +57,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	Assign the class name of row(tr). This attribute accept a string or function and function is a better way to do more customization.
 	If a string given, means the value will be presented as the row class.
 	If a function given, will pass rowData and rowIndex as params and should return string for presenting class. for examples:
-	
 	@example
-	
 			function trClassFormat(rowData,rowIndex){
 				return rowIndex%2==0?"tr-odd":"tr-even";  //return a class name.
 			}
@@ -116,8 +114,6 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	For some options setting on this component, you can set the options attribute and give an object which contain following properties
 	*/
     options?: Options;
-
-
     fetchInfo?: FetchInfo;
 
     tableStyle?: any;
@@ -126,7 +122,6 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
     bodyStyle?: any;
 
 }
-
 export type SelectRowMode = 'none' | 'radio' | 'checkbox';
 
 export interface SelectRow {
@@ -167,24 +162,17 @@ export interface SelectRow {
 	/**
 	Accept a custom callback function, if a row be selected or unselected, this function will be called.
 	This callback function taking three arguments row, isSelected and event:
-	
 		`row`: is the row data which you wanted to select or unselect.
-		
 		`isSelected`: it's a boolean value means "whether or not that row will be selected?".
-		
 		`event`: The event target object.
-	
 	If return value of this function is false, the select or deselect action will not be applied.
 	*/
     onSelect?: (row: any, isSelected: Boolean, event: any) => boolean;
 	/**
 	Accept a custom callback function, if click select all checkbox, this function will be called.
 	This callback function taking two arguments isSelected and currentSelectedAndDisplayData:
-	
 		`isSelected`: it's a boolean value means "whether or not that row will be selected?".
-	
 		`currentSelectedAndDisplayData`: If pagination enabled, this result is the data which in a page. In contrast, this is all data in table.
-	
 	If return value of this function is false, the select all or deselect all action will not be applied.
 	*/
     onSelectAll?: (isSelected: boolean, currentSelectedAndDisplayData: any) => boolean;
@@ -308,43 +296,34 @@ export interface Options {
 	/**
 	Assign a callback function which will be called after page changed.
 	This function taking two argument: page and sizePerPage.
-	
 	`page`: Current page.
-	
 	`sizePerPage`: The data size which in one page.
 	*/
     onPageChange?: (page: number, sizePerPage: number) => void;
 	/**
 	Assign a callback function which will be called after size per page dropdown changed.
 	This function taking one argument: sizePerPage.
-	
 	`sizePerPage`: The data size which in one page.
 	*/
     onSizePerPageList?: (sizePerPage: number) => void;
 	/**
 	Assign a callback function which will be called after trigger sorting.
 	This function taking two argument: `sortName` and `sortOrde`r.
-	
 		`sortName`: The sort column name
-		
 		`sortOrder`: The sort ordering.
 	*/
     onSortChange?: (sortName: string, sortOrder: SortOrder) => void;
 	/**
 	Assign a callback function which will be called after trigger searching.
 	This function taking two argument: search and result.
-	
 	`search`: The search text which user input.
-	
 	`result`: The results after searching.
 	*/
     afterSearch?: (search: string, result: any) => void;
 	/**
 	Assign a callback function which will be called after trigger column filtering.
 	This function taking two argument: filterConds and result.
-	
 	`filterConds`: It's an array object which contain all column filter conditions.
-	
 	`result`: The results after filtering.
 	*/
     afterColumnFilter?: (filterConds: any[], result: any) => void;
@@ -371,6 +350,9 @@ export interface Options {
 	This function taking one argument: row which is the row data which mouse out.
 	*/
     onRowMouseOut?: Function;
+
+    paginationShowsTotal?: boolean;
+
 	/**
 	Assign a callback function which will be called when row dropping.
 	It give you a chance to customize your confirmation for row deletion.
@@ -381,19 +363,14 @@ export interface Options {
 	  `rowKeys` is the row keys which been deleted, you can call next function to apply this deletion.
 	*/
     handleConfirmDeleteRow?: (next: Function, rowKeys: any[]) => void;
+    deleteText?: string;
+    saveText?: string;
 
-    paginationShowsTotal?: boolean;
-
-    onSearchChange?: Function;
     onAddRow?: Function;
     onExportToCSV?: Function;
 
     insertText?: string;
-    deleteText?: string;
-    saveText?: string;
     closeText?: string;
-
-
 }
 
 
@@ -439,7 +416,8 @@ export interface BootstrapTable extends ComponentClass<BootstrapTableProps> {
 	 */
     cleanSelected(): void;
 }
-export const BootstrapTable: BootstrapTable;
+interface BootstrapTable extends ComponentClass<BootstrapTableProps> { }
+declare const BootstrapTable: BootstrapTable;
 export type DataAlignType = 'left' | 'center' | 'right' | 'start' | 'end';
 
 export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
@@ -510,7 +488,6 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	/**
 	Add True to set column editable, false is non-editable. If give Object,
 	you can do more customization when editing cell. This object have following properties:
-	
 	@example
 	{
 		type: //edit type, avaiable value is textarea, select, checkbox
@@ -519,7 +496,6 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 			values: //values means data in select or checkbox.If checkbox, use ':'(colon) to separate value, ex: Y:N
 		}
 	}
-			
 	*/
     editable?: boolean | Editable;
 	/**
@@ -536,7 +512,6 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 
     onSort?: Function;
     csvFormat?: Function;
-
     columnTitle?: boolean;
     sort?: SortOrder;
     formatExtraData?: any;
@@ -554,10 +529,14 @@ export interface Editable {
 
 	 */
     options?: any;
+
+	/**
+	 Configuration for the textarea editable type
+	 */
+    cols?: number;
+    rows?: number;
 }
-
 export type FilterType = 'TextFilter' | 'RegexFilter' | 'SelectFilter' | 'NumberFilter' | 'DateFilter' | 'CustomFilter';
-
 export interface Filter {
 	/**
 	 "TextFilter"||"SelectFilter"||"NumberFilter"||"DateFilter"||"RegexFilter"||"YOUR_CUSTOM_FILTER"

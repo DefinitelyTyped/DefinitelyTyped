@@ -471,6 +471,7 @@ interface Client {
     head: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
     post: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
     put: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    patch: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
     del: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
     basicAuth: (username: string, password: string) => any;
 }
@@ -480,6 +481,7 @@ interface HttpClient extends Client {
     head: (path?: any, callback?: Function) => any;
     post: (opts?: any, callback?: Function) => any;
     put: (opts?: any, callback?: Function) => any;
+    patch: (opts?: any, callback?: Function) => any;
     del: (opts?: any, callback?: Function) => any;
 }
 
@@ -496,7 +498,7 @@ interface ThrottleOptions {
 
 interface Next {
     (err?: any): any;
-    ifError: (err?: any) => any;
+    ifError?: (err?: any) => any;
 }
 
 interface RequestHandler {

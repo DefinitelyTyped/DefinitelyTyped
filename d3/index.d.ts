@@ -2991,6 +2991,7 @@ declare namespace d3 {
 
             range(): (values: T[], index: number) => [number, number];
             range(range: (values: T[], index: number) => [number, number]): Histogram<T>;
+            range(range: [number, number]): Histogram<T>;
 
             bins(): (range: [number, number], values: T[], index: number) => number[];
             bins(count: number): Histogram<T>;

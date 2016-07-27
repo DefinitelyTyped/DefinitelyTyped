@@ -427,7 +427,7 @@ declare namespace JQueryUI {
         appendTo?: any;
         axis?: string;
         cancel?: string;
-        connectToSortable?: string;
+        connectToSortable?: Element | Element[] | JQuery | string;
         containment?: any;
         cursor?: string;
         cursorAt?: any;

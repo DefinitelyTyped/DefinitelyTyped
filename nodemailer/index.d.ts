@@ -30,9 +30,9 @@ export interface Transporter {
     sendMail(mail: SendMailOptions, callback: (error: Error, info: SentMessageInfo) => void): void;
 
     /**
- * Send a mail
+* Send a mail
      * return Promise
- */
+*/
     sendMail(mail: SendMailOptions): Promise<SentMessageInfo>;
 
     /**
@@ -43,6 +43,15 @@ export interface Transporter {
      */
     use(step: string, plugin: Plugin): void;
 
+    /**
+         * Verifies connection with server
+         */
+    verify(callback: (error: Error, success?: boolean) => void): void;
+
+    /**
+     * Verifies connection with server
+     */
+    verify(): Promise<void>;
 
     /**
      * Close all connections

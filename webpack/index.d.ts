@@ -101,7 +101,7 @@ declare namespace webpack {
         /** Include comments with information about the modules. */
         pathinfo?: boolean;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: boolean;
+        library?: string;
         /**
          * Which format to export the library:
          * <ul>

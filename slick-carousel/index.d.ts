@@ -38,34 +38,34 @@ interface JQuerySlickOptions {
     arrows?: boolean;
 
     /**
-     * Set the slider to be the navigation of other slider (Class or ID Name)
+     * Set the slider to be the navigation of other slider
      * Default: null
      */
-    asNavFor?: string;
+    asNavFor?: Element | JQuery | string;
 
     /**
      * Change where the navigation arrows are attached (Selector, htmlString, Array, Element, jQuery object)
      * Default: $(element)
      */
-    appendArrows?: any;
+    appendArrows?: Element | Element[] | JQuery | string;
 
     /**
      * Change where the navigation dots are attached (Selector, htmlString, Array, Element, jQuery object)
      * Default: $(element)
      */
-    appendDots?: any;
+    appendDots?: Element | Element[] | JQuery | string;
 
     /**
      * Allows you to select a node or customize the HTML for the "Previous" arrow.
      * Default: <button type="button" class="slick-prev">Previous</button>
      */
-    prevArrow?: string | Object;
+    prevArrow?: Element | JQuery | string;
 
     /**
      * Allows you to select a node or customize the HTML for the "Next" arrow.
      * Default: <button type="button" class="slick-next">Next</button>
      */
-    nextArrow?: string | Object;
+    nextArrow?: Element | JQuery | string;
 
     /**
      * Enables centered view with partial prev/next slides. Use with odd numbered slidesToShow counts.
