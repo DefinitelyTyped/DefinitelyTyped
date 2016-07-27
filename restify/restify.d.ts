@@ -500,7 +500,7 @@ declare module "restify" {
 
   interface Next {
     (err?: any): any;
-    ifError: (err?: any) => any;
+    ifError?: (err?: any) => any;
   }
 
   interface RequestHandler {
