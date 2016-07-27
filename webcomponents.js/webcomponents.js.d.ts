@@ -40,7 +40,6 @@ declare namespace webcomponents {
         flags: any;
     }
 
-
 }
 
 declare module "webcomponents.js" {
