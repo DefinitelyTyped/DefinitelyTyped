@@ -11,6 +11,120 @@ declare module AI {
         Error = 3,
         Critical = 4,
     }
+
+    enum DependencyKind {
+        SQL = 0,
+        Http = 1,
+        Other = 2,
+    }
+
+    enum DependencySourceType {
+        Undefined = 0,
+        Aic = 1,
+        Apmc = 2,
+    }
+
+    class StackFrame {
+        level: number;
+        method: string;
+        assembly: string;
+        fileName: string;
+        line: number;
+        constructor();
+    }
+
+    class ExceptionDetails {
+        id: number;
+        outerId: number;
+        typeName: string;
+        message: string;
+        hasFullStack: boolean;
+        stack: string;
+        parsedStack: StackFrame[];
+        constructor();
+    }
+
+    enum DataPointType {
+        Measurement = 0,
+        Aggregation = 1,
+    }
+
+    class DataPoint {
+        name: string;
+        kind: AI.DataPointType;
+        value: number;
+        count: number;
+        min: number;
+        max: number;
+        stdDev: number;
+        constructor();
+    }
+
+    class EventData extends Microsoft.Telemetry.Domain {
+        ver: number;
+        name: string;
+        properties: any;
+        measurements: any;
+        constructor();
+    }
+
+    class PageViewData extends AI.EventData {
+        ver: number;
+        url: string;
+        name: string;
+        duration: string;
+        referrer: string;
+        referrerData: string;
+        properties: any;
+        measurements: any;
+        constructor();
+    }
+
+    class PageViewPerfData extends AI.PageViewData {
+        ver: number;
+        url: string;
+        perfTotal: string;
+        name: string;
+        duration: string;
+        networkConnect: string;
+        referrer: string;
+        sentRequest: string;
+        referrerData: string;
+        receivedResponse: string;
+        domProcessing: string;
+        properties: any;
+        measurements: any;
+        constructor();
+    }
+
+    class RemoteDependencyData extends Microsoft.Telemetry.Domain {
+        ver: number;
+        name: string;
+        id: string;
+        resultCode: string;
+        kind: AI.DataPointType;
+        value: number;
+        count: number;
+        min: number;
+        max: number;
+        stdDev: number;
+        dependencyKind: AI.DependencyKind;
+        success: boolean;
+        async: boolean;
+        dependencySource: AI.DependencySourceType;
+        commandName: string;
+        dependencyTypeName: string;
+        properties: any;
+        constructor();
+    }
+
+    class MessageData extends Microsoft.Telemetry.Domain {
+        ver: number;
+        message: string;
+        severityLevel: AI.SeverityLevel;
+        properties: any;
+        constructor();
+    }
 }
 
 declare module Microsoft.ApplicationInsights.Context {
@@ -24,8 +138,8 @@ declare module Microsoft.ApplicationInsights.Context {
          */
         build: string;
     }
-	
-	interface IDevice {
+
+    interface IDevice {
         /**
          * The type for the current device.
          */
@@ -71,7 +185,7 @@ declare module Microsoft.ApplicationInsights.Context {
          */
         osversion: string;
     }
-	
+
     interface ILocation {
         /**
          * Client IP address for reverse lookup
@@ -88,15 +202,15 @@ declare module Microsoft.ApplicationInsights.Context {
          * The SDK agent version.
          */
         agentVersion: string;
-    }	
-	
+    }
+
     interface ISample {
         /**
         * Sample rate
         */
         sampleRate: number;
     }
-	
+
     interface ISession {
         /**
         * The session ID.
@@ -117,8 +231,8 @@ declare module Microsoft.ApplicationInsights.Context {
          * Per the spec the ID will be regenerated if more than renewalSpan milliseconds elapse from this time with no activity.
          */
         renewalDate: number;
-    }	
-	
+    }
+
     interface IOperation {
         /**
          * Operation id
@@ -141,8 +255,8 @@ declare module Microsoft.ApplicationInsights.Context {
          */
         syntheticSource: string;
     }
-	
-	interface IUser {
+
+    interface IUser {
         /**
         * The telemetry configuration.
         */
@@ -175,12 +289,221 @@ declare module Microsoft.ApplicationInsights.Context {
 }
 
 declare module Microsoft.Telemetry {
+    class Domain {
+        constructor();
+    }
+
     class Base {
         baseType: string;
         constructor();
     }
-	
-	class Envelope {
+
+    class Data<TDomain> extends Microsoft.Telemetry.Base {
+        baseType: string;
+        baseData: TDomain;
+        constructor();
+    }
+}
+
+declare module Microsoft.ApplicationInsights.Telemetry {
+
+    class Event implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        ver: number;
+        name: string;
+        properties: any;
+        measurements: any;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            name: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+            measurements: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Constructs a new instance of the EventTelemetry object
+         */
+        constructor(name: string, properties?: Object, measurements?: Object);
+    }
+
+    class Exception implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        ver: number;
+        handledAt: string;
+        exceptions: AI.ExceptionDetails[];
+        severityLevel: AI.SeverityLevel;
+        problemId: string;
+        crashThreadId: number;
+        properties: any;
+        measurements: any;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            handledAt: Microsoft.ApplicationInsights.FieldType;
+            exceptions: Microsoft.ApplicationInsights.FieldType;
+            severityLevel: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+            measurements: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+        * Constructs a new isntance of the ExceptionTelemetry object
+        */
+        constructor(exception: Error, handledAt?: string, properties?: Object, measurements?: Object, severityLevel?: AI.SeverityLevel);
+        /**
+        * Creates a simple exception with 1 stack frame. Useful for manual constracting of exception.
+        */
+        static CreateSimpleException(message: string, typeName: string, assembly: string, fileName: string, details: string, line: number, handledAt?: string): Telemetry.Exception;
+    }
+
+    class Metric implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        ver: number;
+        metrics: AI.DataPoint[];
+        properties: any;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            metrics: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Constructs a new instance of the MetricTelemetry object
+         */
+        constructor(name: string, value: number, count?: number, min?: number, max?: number, properties?: Object);
+    }
+
+    class PageView extends AI.PageViewData implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            name: Microsoft.ApplicationInsights.FieldType;
+            url: Microsoft.ApplicationInsights.FieldType;
+            duration: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+            measurements: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Constructs a new instance of the PageEventTelemetry object
+         */
+        constructor(name?: string, url?: string, durationMs?: number, properties?: any, measurements?: any);
+    }
+
+    class PageViewPerformance extends AI.PageViewPerfData implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            name: Microsoft.ApplicationInsights.FieldType;
+            url: Microsoft.ApplicationInsights.FieldType;
+            duration: Microsoft.ApplicationInsights.FieldType;
+            perfTotal: Microsoft.ApplicationInsights.FieldType;
+            networkConnect: Microsoft.ApplicationInsights.FieldType;
+            sentRequest: Microsoft.ApplicationInsights.FieldType;
+            receivedResponse: Microsoft.ApplicationInsights.FieldType;
+            domProcessing: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+            measurements: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Field indicating whether this instance of PageViewPerformance is valid and should be sent
+         */
+        private isValid;
+        /**
+         * Indicates whether this instance of PageViewPerformance is valid and should be sent
+         */
+        getIsValid(): boolean;
+        private durationMs;
+        /**
+        * Gets the total duration (PLT) in milliseconds. Check getIsValid() before using this method.
+        */
+        getDurationMs(): number;
+        /**
+         * Constructs a new instance of the PageEventTelemetry object
+         */
+        constructor(name: string, url: string, unused: number, properties?: any, measurements?: any);
+        static getPerformanceTiming(): PerformanceTiming;
+        /**
+        * Returns true is window performance timing API is supported, false otherwise.
+        */
+        static isPerformanceTimingSupported(): PerformanceTiming;
+        /**
+         * As page loads different parts of performance timing numbers get set. When all of them are set we can report it.
+         * Returns true if ready, false otherwise.
+         */
+        static isPerformanceTimingDataReady(): boolean;
+        static getDuration(start: any, end: any): number;
+    }
+
+    class RemoteDependencyData extends AI.RemoteDependencyData implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        aiDataContract: {
+            id: Microsoft.ApplicationInsights.FieldType;
+            ver: Microsoft.ApplicationInsights.FieldType;
+            name: Microsoft.ApplicationInsights.FieldType;
+            kind: Microsoft.ApplicationInsights.FieldType;
+            value: Microsoft.ApplicationInsights.FieldType;
+            count: Microsoft.ApplicationInsights.FieldType;
+            min: Microsoft.ApplicationInsights.FieldType;
+            max: Microsoft.ApplicationInsights.FieldType;
+            stdDev: Microsoft.ApplicationInsights.FieldType;
+            dependencyKind: Microsoft.ApplicationInsights.FieldType;
+            success: Microsoft.ApplicationInsights.FieldType;
+            async: Microsoft.ApplicationInsights.FieldType;
+            dependencySource: Microsoft.ApplicationInsights.FieldType;
+            commandName: Microsoft.ApplicationInsights.FieldType;
+            dependencyTypeName: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+            resultCode: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Constructs a new instance of the RemoteDependencyData object
+         */
+        constructor(id: string, absoluteUrl: string, commandName: string, value: number, success: boolean, resultCode: number, method?: string);
+        private formatDependencyName(method, absoluteUrl);
+    }
+
+    class Trace extends AI.MessageData implements Microsoft.ApplicationInsights.ISerializable {
+        static envelopeType: string;
+        static dataType: string;
+        aiDataContract: {
+            ver: Microsoft.ApplicationInsights.FieldType;
+            message: Microsoft.ApplicationInsights.FieldType;
+            severityLevel: Microsoft.ApplicationInsights.FieldType;
+            measurements: Microsoft.ApplicationInsights.FieldType;
+            properties: Microsoft.ApplicationInsights.FieldType;
+        };
+        /**
+         * Constructs a new instance of the MetricTelemetry object
+         */
+        constructor(message: string, properties?: Object);
+    }
+}
+
+declare module Microsoft.ApplicationInsights.Telemetry.Common {
+    class Base extends Microsoft.Telemetry.Base implements Microsoft.ApplicationInsights.ISerializable {
+        /**
+         * The data contract for serializing this object.
+         */
+        aiDataContract: {};
+    }
+
+    class Data<TDomain> extends Microsoft.Telemetry.Data<TDomain> implements Microsoft.ApplicationInsights.ISerializable {
+        /**
+         * The data contract for serializing this object.
+         */
+        aiDataContract: {
+            baseType: FieldType;
+            baseData: FieldType;
+        };
+        /**
+         * Constructs a new instance of telemetry data.
+         */
+        constructor(type: string, data: TDomain);
+    }
+
+    class Envelope implements IEnvelope {
         ver: number;
         name: string;
         time: string;
@@ -196,7 +519,27 @@ declare module Microsoft.Telemetry {
         userId: string;
         tags: any;
         data: Base;
-        constructor();
+
+        /**
+         * The data contract for serializing this object.
+         */
+        aiDataContract: any;
+        /**
+         * Constructs a new instance of telemetry data.
+         */
+        constructor(data: Microsoft.Telemetry.Base, name: string);
+    }
+
+    class DataSanitizer {
+        static sanitizeKeyAndAddUniqueness(key: any, map: any): any;
+        static sanitizeKey(name: any): any;
+        static sanitizeString(value: any): any;
+        static sanitizeUrl(url: any): any;
+        static sanitizeMessage(message: any): any;
+        static sanitizeException(exception: any): any;
+        static sanitizeProperties(properties: any): any;
+        static sanitizeMeasurements(measurements: any): any;
+        static padNumber(num: any): string;
     }
 }
 
@@ -226,6 +569,45 @@ declare module Microsoft.ApplicationInsights {
         enableSessionStorageBuffer?: boolean;
         cookieDomain?: string;
         url?: string;
+    }
+
+    /**
+     * Enum is used in aiDataContract to describe how fields are serialized.
+     * For instance: (Fieldtype.Required | FieldType.Array) will mark the field as required and indicate it's an array
+     */
+    enum FieldType {
+        Default = 0,
+        Required = 1,
+        Array = 2,
+        Hidden = 4,
+    }
+
+    interface ISerializable {
+        /**
+         * The set of fields for a serializeable object.
+         * This defines the serialization order and a value of true/false
+         * for each field defines whether the field is required or not.
+         */
+        aiDataContract: any;
+    }
+
+    interface IEnvelope extends ISerializable {
+        ver: number;
+        name: string;
+        time: string;
+        sampleRate: number;
+        seq: string;
+        iKey: string;
+        flags: number;
+        deviceId: string;
+        os: string;
+        osVer: string;
+        appId: string;
+        appVer: string;
+        userId: string;
+        tags: {
+            [name: string]: any;
+        };
     }
 
     interface ITelemetryContext {
@@ -265,11 +647,11 @@ declare module Microsoft.ApplicationInsights {
         * Adds telemetry initializer to the collection. Telemetry initializers will be called one by one
         * before telemetry item is pushed for sending and in the order they were added.
         */
-        addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.Telemetry.Envelope) => boolean): any;
+        addTelemetryInitializer(telemetryInitializer: (envelope: Microsoft.ApplicationInsights.IEnvelope) => boolean): any;
         /**
         * Tracks telemetry object.
         */
-        track(envelope: Microsoft.Telemetry.Envelope): any;
+        track(envelope: Microsoft.ApplicationInsights.IEnvelope): any;
     }
 
     interface IAppInsights {

@@ -3,6 +3,11 @@
 // Definitions by: Fidan Hakaj <https://github.com/fdnhkj/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// Static methods that are defined in JQueryStatic.fn are not typed
+// as jquery.d.ts has no interface for fn
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery/jquery.d.ts#L958
+//     fn: any;  //TODO: Decide how we want to type this
+
 /// <reference path="../jquery/jquery.d.ts" />
 
 declare namespace IntlTelInput {
@@ -113,21 +118,6 @@ declare namespace IntlTelInput {
     iso2: string;
     dialCode: string;
   }
-
-  interface Static {
-    /**
-     * Get all of the plugin's country data.
-     * Note that any modifications must be done before initialising the plugin.
-     */
-    getCountryData: () => Array<CountryData>;
-    /**
-     * Note: this is only needed if you're lazy loading the plugin script itself (intlTelInput.js).
-     * If not then just use the utilsScript option. Load the utils.js script
-     * (included in the lib directory) to enable formatting/validation etc.
-     * @param path path to the utils.js script.
-     */
-    loadUtils: (path: string) => void;
-  }
 }
 
 declare namespace intlTelInputUtils {
@@ -161,10 +151,6 @@ declare namespace intlTelInputUtils {
       TOO_LONG = 3,
       NOT_A_NUMBER = 4
     }
-}
-
-interface JQueryStatic {
-  intlTelInput: IntlTelInput.Static;
 }
 
 interface JQuery {
