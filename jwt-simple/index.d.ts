@@ -1,6 +1,6 @@
-// Type definitions for jwt-simple v0.2.0
+// Type definitions for jwt-simple v0.5.0
 // Project: https://github.com/hokaccha/node-jwt-simple
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
+// Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Gael Magnan <https://github.com/GaelMagnan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -8,14 +8,16 @@
  * @param token
  * @param key
  * @param noVerify
+   * @param algorithm default is HS256
  * @api public
  */
-export declare function decode(token: any, key: string, noVerify?: boolean): any;
+export function decode(token: any, key: string, noVerify?: boolean): any;
 /**
  * Encode jwt
  * @param payload
  * @param key
  * @param algorithm default is HS256
+   * @param options
  * @api public
  */
-export declare function encode(payload: any, key: string, algorithm?: string): string;
+export function encode(payload: any, key: string, algorithm?: string): string;

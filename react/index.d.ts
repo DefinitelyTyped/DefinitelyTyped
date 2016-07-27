@@ -291,7 +291,7 @@ declare namespace React {
         data: string;
     }
 
-    interface DragEvent<T> extends SyntheticEvent<T> {
+    interface DragEvent<T> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
     }
 
