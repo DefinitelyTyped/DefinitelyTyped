@@ -1307,6 +1307,8 @@ declare namespace  __React {
          * may be non-zero in some use cases.
          */
         keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
     }
 
     /**
