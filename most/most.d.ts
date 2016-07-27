@@ -1,5 +1,6 @@
 // Type definitions for most 1.0.0
 // Project: https://github.com/cujojs/most
+// Definitions by: Brian Cavalier <https://github.com/briancavalier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module most {
