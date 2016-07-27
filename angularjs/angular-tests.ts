@@ -1098,6 +1098,12 @@ function parseTyping() {
     }
 }
 
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
+}
+
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
     if (mode === 'debug') {
         return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
