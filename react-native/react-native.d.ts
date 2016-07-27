@@ -5538,6 +5538,7 @@ declare namespace  __React {
 
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        onNavigateBack(): void
     }
 
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
@@ -5550,6 +5551,7 @@ declare namespace  __React {
         style?: ViewStyle
         route?: any
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
+        onNavigateBack(): void
     }
 
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
