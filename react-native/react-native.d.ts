@@ -4985,17 +4985,10 @@ declare namespace  __React {
 
 
     /**
-     * //FIXME: No documentation is available (although this is self explanatory)
-     *
-     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     * StatusBarIOS is being deprecated.
+     * @see https://github.com/facebook/react-native/commit/4de616b4c1a9d3556632a93504828f0539fa4fa5
      */
     export interface StatusBarIOSStatic {
-
-        setStyle(style: StatusBarStyle, animated?: boolean): void
-
-        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
-
-        setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
     type TimePickerAndroidOpenOptions = {
