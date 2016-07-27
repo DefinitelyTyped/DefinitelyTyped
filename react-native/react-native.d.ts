@@ -363,6 +363,11 @@ declare namespace  __React {
         right?: number
         top?: number
         width?: number
+
+        /**
+         * @platform ios
+         */
+        zIndex: number
     }
 
     /**
