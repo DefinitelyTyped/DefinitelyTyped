@@ -2037,9 +2037,6 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: boolean;
-
-        // Allows aria- and data- Attributes
-        [key: string]: any;
     }
 
     interface SVGAttributes<T> extends HTMLAttributes<T> {
