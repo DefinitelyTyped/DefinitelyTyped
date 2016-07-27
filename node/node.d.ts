@@ -438,6 +438,7 @@ declare namespace NodeJS {
         unescape: (str: string) => string;
         gc: () => void;
         v8debug?: any;
+        [propName: string]: any;
     }
 
     export interface Timer {
