@@ -340,7 +340,7 @@ declare namespace  __React {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: "row" | "column"
+        flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
         flexWrap?: "wrap" | "nowrap"
         height?: number
         justifyContent?: FlexJustifyType
