@@ -3390,7 +3390,7 @@ declare namespace  __React {
         /**
          * Creates a StyleSheet style reference from the given object.
          */
-        create(style: {[key: string]: any}): {[key: string]: number}
+        create<T>( styles: T ): T;
 
         /**
          * Flattens an array of style objects, into one aggregated style object.
