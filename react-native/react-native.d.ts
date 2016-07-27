@@ -3606,6 +3606,21 @@ declare namespace  __React {
 
     export interface DeviceEventEmitterStatic {
         addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
+
+        /**
+         * Removes the given listener for event of specific type.
+         *
+         * @param {string} eventType - Name of the event to emit
+         * @param {function} listener - Function to invoke when the specified event is
+         *   emitted
+         *
+         * @example
+         *   emitter.removeListener('someEvent', function(message) {
+         *     console.log(message);
+         *   }); // removes the listener if already registered
+         *
+         */
+        removeListener( eventType: String, listener: Function): void
     }
 
     // Used by Dimensions below
