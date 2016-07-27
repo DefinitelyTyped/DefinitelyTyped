@@ -1802,7 +1802,7 @@ declare namespace angular {
              * that is passed to the link function instead.
              */
             transclude: ITranscludeFunction
-        ): IDirectivePrePost;
+        ): void | IDirectivePrePost;
     }
 
     interface IDirective {

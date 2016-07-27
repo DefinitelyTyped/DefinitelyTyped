@@ -10,6 +10,16 @@ export as namespace ReactSelect;
 declare const select: ReactSelectClass;
 export default select;
 
+interface AutocompleteResult {
+    /** the search-results to be displayed  */
+    data: Option[],
+    /** Should be set to true, if and only if a longer query with the same prefix
+     * would return a subset of the results
+     * If set to true, more specific queries will not be sent to the server.
+     **/
+    complete: boolean;
+}
+
 export interface Option {
     /** Text for rendering */
     label: string;
@@ -55,7 +65,7 @@ export interface MenuRendererProps {
     valueArray: Option[];
 }
 
-export interface ReactSelectProps extends React.Props<ReactSelectClass> {
+export interface ReactSelectProps extends React.Props<ReactSelect> {
     /**
      * text to display when `allowCreate` is true.
      * @default 'Add "{label}"?'
@@ -248,14 +258,14 @@ export interface ReactSelectProps extends React.Props<ReactSelectClass> {
      */
     openAfterFocus?: boolean;
     /**
-     * open the options menu when the input gets focus (requires searchable = true)
-     * @default false
-     */
+         * open the options menu when the input gets focus (requires searchable = true)
+         * @default false
+         */
     openOnFocus?: boolean;
     /**
-     * option component to render in dropdown
-     */
-    optionComponent?: React.ComponentClass<any>;
+ * option component to render in dropdown
+ */
+    optionComponent?: React.ReactElement<any>;
     /**
      * function which returns a custom way to render the options in the menu
      */
@@ -320,7 +330,7 @@ export interface ReactSelectProps extends React.Props<ReactSelectClass> {
     /**
      *  value component to render
      */
-    valueComponent?: React.ComponentClass<any>;
+    valueComponent?: React.ReactElement<any>;
 
     /**
      *  optional style to apply to the component wrapper
@@ -362,7 +372,7 @@ export interface ReactAsyncSelectProps extends ReactSelectProps {
     /**
      *  function to call to load options asynchronously
      */
-    loadOptions: (input: string, callback: (options: Option[]) => any) => any;
+    loadOptions: (input: string, callback: (err: any, result: AutocompleteResult) => any) => any;
 
     /**
      *  replaces the placeholder while options are loading
@@ -394,10 +404,10 @@ export interface ReactAsyncSelectProps extends ReactSelectProps {
     searchingText?: string;
 }
 
-export interface ReactSelect extends  React.ReactElement<ReactSelectProps> { }
-export interface ReactSelectAsyncClass extends React.ComponentClass<ReactAsyncSelectProps> {
+interface ReactSelect extends React.ReactElement<ReactSelectProps> { }
+interface ReactSelectAsyncClass extends React.ComponentClass<ReactAsyncSelectProps> {
 }
-export declare const Async: ReactSelectAsyncClass;
-export interface ReactSelectClass extends React.ComponentClass<ReactSelectProps> {
+declare const Async: ReactSelectAsyncClass;
+interface ReactSelectClass extends React.ComponentClass<ReactSelectProps> {
     Async: ReactSelectAsyncClass;
 }

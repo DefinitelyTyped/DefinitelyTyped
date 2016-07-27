@@ -1,8 +1,8 @@
-
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 
 import * as FullCalendar from 'fullCalendar';
+import * as moment from 'moment';
 
 // All examples from http://arshaw.com/fullcalendar/docs/
 
@@ -601,17 +601,17 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    events: function (start, end, callback) {
+    events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
         $.ajax({
             url: 'myxmlfeed.php',
             dataType: 'xml',
             data: {
                 // our hypothetical feed requires UNIX timestamps
-                start: Math.round(start.getTime() / 1000),
-                end: Math.round(end.getTime() / 1000)
+                start: Math.round(start.toDate().getTime() / 1000),
+                end: Math.round(end.toDate().getTime() / 1000)
             },
             success: function (doc) {
-                var events = [];
+                var events: any[] = [];
                 $(doc).find('event').each(function () {
                     events.push({
                         title: $(this).attr('title'),
@@ -630,7 +630,7 @@ $('#calendar').fullCalendar({
 
         // your event source
         {
-            events: function (start, end, callback) {
+            events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
                 // ...
             },
             color: 'yellow',   // an option!
@@ -683,7 +683,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event: EventWithDescription, element) {
+    eventRender: function (event: EventWithDescription, element: any, view: any) {
         element.qtip({
             content: event.description
         });
