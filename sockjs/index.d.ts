@@ -11,16 +11,20 @@ interface SockJSSimpleEvent {
     toString(): string;
 }
 
-interface SJSOpenEvent extends SockJSSimpleEvent, Event {}
+interface SJSOpenEvent extends SockJSSimpleEvent, Event {
+    type: string;
+}
 
 interface SJSCloseEvent extends SockJSSimpleEvent, CloseEvent {
     code: number;
     reason: string;
     wasClean: boolean;
+    type: string;
 }
 
 interface SJSMessageEvent extends SockJSSimpleEvent, MessageEvent {
     data: string;
+    type: string;
 }
 
 interface SockJS extends WebSocket {

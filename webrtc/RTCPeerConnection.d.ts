@@ -50,7 +50,7 @@ type RTCIceCredentialType = 'password' | 'token';
 
 // https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 interface RTCIceServer {
-  urls: string | string[];
+  urls?: any;
   username?: string;
   credential?: string;
   credentialType?: RTCIceCredentialType; // default = 'password'

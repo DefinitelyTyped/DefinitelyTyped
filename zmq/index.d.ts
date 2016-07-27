@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-interface EventEmitter {}
+interface EventEmitter { }
 
 declare module 'zmq' {
 
@@ -387,6 +387,9 @@ interface Socket extends EventEmitter {
      */
     on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
+    pause(): void;
+    resume(): void;
+
     // Socket Options
     _fd: any;
     _ioevents: any;
@@ -406,8 +409,6 @@ interface Socket extends EventEmitter {
     recovery_ivl: any;
     sndbuf: any;
     swap: any;
-
-
 }
 
 export var version: string;
