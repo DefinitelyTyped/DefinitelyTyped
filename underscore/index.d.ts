@@ -309,13 +309,13 @@ declare module _ {
             iterator: string): T;
 
         /**
-                * Looks through each value in the list, returning an array of all the values that pass a truth
-                * test (iterator). Delegates to the native filter method, if it exists.
-                * @param list Filter elements out of this list.
-                * @param iterator Filter iterator function for each element in `list`.
-                * @param context `this` object in `iterator`, optional.
-                * @return The filtered list of elements.
-                **/
+                    * Looks through each value in the list, returning an array of all the values that pass a truth
+                    * test (iterator). Delegates to the native filter method, if it exists.
+                    * @param list Filter elements out of this list.
+                    * @param iterator Filter iterator function for each element in `list`.
+                    * @param context `this` object in `iterator`, optional.
+                    * @return The filtered list of elements.
+                    **/
         filter<T>(
             list: _.List<T>,
             iterator: _.ListIterator<T, boolean>,
@@ -461,6 +461,10 @@ declare module _ {
             object: _.Dictionary<T>,
             iterator?: _.ObjectIterator<T, boolean>,
             context?: any): boolean;
+
+        any<T>(
+            list: _.List<T>,
+            value: T): boolean;
 
 		/**
 		* Returns true if the value is present in the list. Uses indexOf internally,
@@ -3525,10 +3529,10 @@ declare module _ {
         keys(object: any): string[];
 
         /**
-            * Retrieve all the names of object's own and inherited properties.
-            * @param object Retrieve the key or property names from this object.
-            * @return List of all the property names on `object`.
-            **/
+                * Retrieve all the names of object's own and inherited properties.
+                * @param object Retrieve the key or property names from this object.
+                * @return List of all the property names on `object`.
+                **/
         allKeys(object: any): string[];
 
 		/**
@@ -3718,10 +3722,10 @@ declare module _ {
         property(key: string): (object: Object) => any;
 
         /**
-            * Returns a function that will itself return the value of a object key property.
-            * @param key The object to get the property value from.
-            * @return Function which accept a key property in `object` and returns its value.
-            **/
+                * Returns a function that will itself return the value of a object key property.
+                * @param key The object to get the property value from.
+                * @return Function which accept a key property in `object` and returns its value.
+                **/
         propertyOf(object: Object): (key: string) => any;
 
 		/**
@@ -3968,7 +3972,7 @@ declare module _ {
 		* If the value of the named property is a function then invoke it; otherwise, return it.
 		* @param object Object to maybe invoke function `property` on.
 		* @param property The function by name to invoke on `object`.
-    * @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
+	* @param defaultValue The value to be returned in case `property` doesn't exist or is undefined.
 		* @return The result of invoking the function `property` on `object.
 		**/
         result(object: any, property: string, defaultValue?: any): any;
@@ -4452,9 +4456,9 @@ declare module _ {
         zip(...arrays: any[][]): any[][];
 
         /**
-            * Wrapped type `any[][]`.
-            * @see _.unzip
-            **/
+                * Wrapped type `any[][]`.
+                * @see _.unzip
+                **/
         unzip(...arrays: any[][]): any[][];
 
 		/**
@@ -4617,9 +4621,9 @@ declare module _ {
         keys(): string[];
 
         /**
-            * Wrapped type `object`.
-            * @see _.allKeys
-            **/
+                * Wrapped type `object`.
+                * @see _.allKeys
+                **/
         allKeys(): string[];
 
 		/**
@@ -4710,9 +4714,9 @@ declare module _ {
         property(): (object: Object) => any;
 
         /**
-            * Wrapped type `object`.
-            * @see _.propertyOf
-            **/
+                * Wrapped type `object`.
+                * @see _.propertyOf
+                **/
         propertyOf(): (key: string) => any;
 
 		/**
@@ -4764,9 +4768,9 @@ declare module _ {
         isFunction(): boolean;
 
         /**
-            * Wrapped type `object`.
-            * @see _.isError
-            **/
+                * Wrapped type `object`.
+                * @see _.isError
+                **/
         isError(): boolean;
 
 		/**
@@ -5370,9 +5374,9 @@ declare module _ {
         zip(...arrays: any[][]): _Chain<T>;
 
         /**
-            * Wrapped type `any[][]`.
-            * @see _.unzip
-            **/
+                * Wrapped type `any[][]`.
+                * @see _.unzip
+                **/
         unzip(...arrays: any[][]): _Chain<T>;
 
 		/**
@@ -5535,9 +5539,9 @@ declare module _ {
         keys(): _Chain<string>;
 
         /**
-            * Wrapped type `object`.
-            * @see _.allKeys
-            **/
+                * Wrapped type `object`.
+                * @see _.allKeys
+                **/
         allKeys(): _Chain<string>;
 
 		/**
@@ -5628,9 +5632,9 @@ declare module _ {
         property(): _Chain<T>;
 
         /**
-            * Wrapped type `object`.
-            * @see _.propertyOf
-            **/
+                * Wrapped type `object`.
+                * @see _.propertyOf
+                **/
         propertyOf(): _Chain<T>;
 
 		/**
@@ -5682,9 +5686,9 @@ declare module _ {
         isFunction(): _Chain<T>;
 
         /**
-            * Wrapped type `object`.
-            * @see _.isError
-            **/
+                * Wrapped type `object`.
+                * @see _.isError
+                **/
         isError(): _Chain<T>;
 
 		/**

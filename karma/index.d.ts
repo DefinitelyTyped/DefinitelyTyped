@@ -25,6 +25,7 @@ declare namespace karma {
         server: DeprecatedServer;
         Server: Server;
         runner: Runner;
+        stopper: Stopper;
         launcher: Launcher;
         VERSION: string;
     }
@@ -53,6 +54,15 @@ declare namespace karma {
     interface Runner {
         run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
     }
+
+
+    interface Stopper {
+        /**
+          * This function will signal a running server to stop. The equivalent of karma stop.
+          */
+        stop(options?: ConfigOptions, callback?: ServerCallback): void;
+    }
+
 
     interface TestResults {
         disconnected: boolean;

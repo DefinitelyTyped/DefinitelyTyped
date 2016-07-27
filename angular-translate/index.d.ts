@@ -11,7 +11,7 @@ declare module 'angular' {
     export namespace translate {
 
         interface ITranslationTable {
-            [key: string]: any;
+            [key: string]: string | ITranslationTable;
         }
 
         interface ILanguageKeyAlias {
@@ -94,7 +94,7 @@ declare module 'angular' {
             storageKey(): string;
             storageKey(key: string): void; // JeroMiya - the library should probably return ITranslateProvider but it doesn't here
             useUrlLoader(url: string): ITranslateProvider;
-            useStaticFilesLoader(options: IStaticFilesLoaderOptions): ITranslateProvider;
+            useStaticFilesLoader(options: IStaticFilesLoaderOptions | { files: IStaticFilesLoaderOptions[] }): ITranslateProvider;
             useLoader(loaderFactory: string, options?: any): ITranslateProvider;
             useLocalStorage(): ITranslateProvider;
             useCookieStorage(): ITranslateProvider;

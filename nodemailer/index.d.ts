@@ -25,9 +25,15 @@ export interface Plugin {
  */
 export interface Transporter {
     /**
-     * Send a mail
-     */
-    sendMail(mail: SendMailOptions, callback?: (error: Error, info: SentMessageInfo) => void): void;
+		 * Send a mail with callback
+		 */
+    sendMail(mail: SendMailOptions, callback: (error: Error, info: SentMessageInfo) => void): void;
+
+    /**
+ * Send a mail
+     * return Promise
+ */
+    sendMail(mail: SendMailOptions): Promise<SentMessageInfo>;
 
     /**
      * Attach a plugin. 'compile' and 'stream' plugins can be attached with use(plugin) method

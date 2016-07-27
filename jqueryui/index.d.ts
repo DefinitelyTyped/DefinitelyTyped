@@ -1,4 +1,4 @@
-// Type definitions for jQueryUI 1.9
+// Type definitions for jQueryUI 1.11
 // Project: http://jqueryui.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -624,6 +624,36 @@ declare namespace JQueryUI {
     }
 
     interface Selectable extends Widget, SelectableOptions {
+    }
+
+    // SelectMenu //////////////////////////////////////////////////
+
+    interface SelectMenuOptions extends SelectMenuEvents {
+        appendTo?: string;
+        disabled?: boolean;
+        icons?: any;
+        position?: JQueryPositionOptions;
+        width?: number;
+    }
+
+    interface SelectMenuUIParams {
+        item?: JQuery;
+    }
+
+    interface SelectMenuEvent {
+        (event: Event, ui: SelectMenuUIParams): void;
+    }
+
+    interface SelectMenuEvents {
+        change?: SelectMenuEvent;
+        close?: SelectMenuEvent;
+        create?: SelectMenuEvent;
+        focus?: SelectMenuEvent;
+        open?: SelectMenuEvent;
+        select?: SelectMenuEvent;
+    }
+
+    interface SelectMenu extends Widget, SelectMenuOptions {
     }
 
     // Slider //////////////////////////////////////////////////
@@ -1675,6 +1705,22 @@ interface JQuery {
     selectable(optionLiteral: string, optionName: string): any;
     selectable(optionLiteral: string, options: JQueryUI.SelectableOptions): any;
     selectable(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    selectmenu(): JQuery;
+    selectmenu(methodName: 'close'): JQuery;
+    selectmenu(methodName: 'destroy'): JQuery;
+    selectmenu(methodName: 'disable'): JQuery;
+    selectmenu(methodName: 'enable'): JQuery;
+    selectmenu(methodName: 'instance'): any;
+    selectmenu(methodName: 'menuWidget'): JQuery;
+    selectmenu(methodName: 'open'): JQuery;
+    selectmenu(methodName: 'refresh'): JQuery;
+    selectmenu(methodName: 'widget'): JQuery;
+    selectmenu(methodName: string): JQuery;
+    selectmenu(options: JQueryUI.SelectMenuOptions): JQuery;
+    selectmenu(optionLiteral: string, optionName: string): any;
+    selectmenu(optionLiteral: string, options: JQueryUI.SelectMenuOptions): any;
+    selectmenu(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     slider(): JQuery;
     slider(methodName: 'destroy'): void;

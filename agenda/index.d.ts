@@ -18,8 +18,8 @@ interface ResultCallback<T> {
     (err?: Error, result?: T): void;
 }
 
-declare class Agenda extends EventEmitter {
 
+declare class Agenda extends EventEmitter {
     /**
      * Constructs a new Agenda object.
      * @param config Optional configuration to initialize the Agenda.
@@ -164,6 +164,7 @@ declare class Agenda extends EventEmitter {
 }
 
 declare namespace Agenda {
+
     /**
      * Agenda Configuration.
      */
@@ -318,6 +319,11 @@ declare namespace Agenda {
          * The date/time the job last failed.
          */
         failedAt: Date;
+
+        /**
+         * Job's state
+         */
+        disabled: boolean
     }
 
     /**
@@ -408,6 +414,11 @@ declare namespace Agenda {
          * @param cb Called after the job has been saved to the database.
          */
         touch(cb?: Callback): void;
+
+        /**
+         * Calculates next time the job should run
+         */
+        computeNextRunAt(): Job;
     }
 
     interface JobOptions {

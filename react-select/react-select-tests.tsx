@@ -1,9 +1,7 @@
-/// <reference types="mqtt" />
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Select, * as ReactSelect from "react-select";
+import Select = require("react-select");
 import { Option, ReactSelectProps, ReactAsyncSelectProps, MenuRendererProps } from "react-select";
 
 const CustomOption = React.createClass({
@@ -59,6 +57,26 @@ const CustomValue = React.createClass({
     }
 });
 
+const filterOptions = (options: Array<Option>, filter: string, values: Array<Option>) => {
+    // Filter already selected values
+    let filteredOptions = options.filter(option => values.indexOf(option) < 0);
+
+    // Filter by label
+    if (filter != null && filter.length > 0) {
+        filteredOptions = filteredOptions.filter(option => RegExp(filter, 'ig').test(option.label));
+    }
+
+    // Append Addition option
+    if (filteredOptions.length === 0) {
+        filteredOptions.push({
+            label:  `Create: ${filter}`,
+            value:  filter
+        });
+    }
+
+    return filteredOptions;
+};
+
 class SelectTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
@@ -87,6 +105,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             autosize: true,
             clearable: true,
             escapeClearsValue: true,
+            filterOptions: filterOptions,
             ignoreAccents: true,
             joinValues: false,
             matchPos: "any",
@@ -100,7 +119,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             onOpen: onOpen,
             onClose: onClose,
             openAfterFocus: false,
-            optionComponent: CustomOption as any,
+            optionComponent: CustomOption,
             required: false,
             resetValue: "resetValue",
             scrollMenuIntoView: false,
@@ -108,11 +127,12 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             labelKey: "name",
             onChange: onChange,
             value: options,
-            valueComponent: CustomValue as any,
+            valueComponent: CustomValue,
+            valueRenderer: optionRenderer
         };
 
         return <div>
-            <Select {...(selectProps as any)} />
+            <Select {...selectProps} />
         </div>;
     }
 }
@@ -152,7 +172,7 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
         };
 
         return <div>
-            <Select.Async {...(asyncSelectProps as any)} />
+            <Select.Async {...asyncSelectProps} />
         </div>;
     }
 

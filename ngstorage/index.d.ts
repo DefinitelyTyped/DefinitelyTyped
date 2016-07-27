@@ -12,7 +12,8 @@ declare module 'angular' {
             $default(items: {}): IStorageService;
             $reset(items?: {}): IStorageService;
             $apply(): void;
-        $sync(): void;
+            $sync(): void;
+            get<T>(key: string): T;
         }
 
         export interface IStorageProvider extends angular.IServiceProvider {

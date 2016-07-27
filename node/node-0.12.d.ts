@@ -1233,7 +1233,7 @@ declare module "fs" {
     export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     /*
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1480,10 +1480,10 @@ declare module "path" {
 declare module "string_decoder" {
     export interface NodeStringDecoder {
         write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        end(): string;
     }
     export var StringDecoder: {
-        new (encoding: string): NodeStringDecoder;
+        new (encoding?: string): NodeStringDecoder;
     };
 }
 

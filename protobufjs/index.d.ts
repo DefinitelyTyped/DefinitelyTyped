@@ -387,3 +387,7 @@ declare namespace ProtoBuf {
 declare module "protobufjs" {
     export = ProtoBuf;
 }
+
+declare module "protobufjs/dist/protobuf-light" {
+    export = ProtoBuf;
+}

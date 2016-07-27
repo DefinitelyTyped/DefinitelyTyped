@@ -12065,8 +12065,8 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum<T>(
-            collection: List<number>|Dictionary<number>,
+        sum(
+            collection: List<{}>|Dictionary<{}>,
             iteratee: string
         ): number;
 

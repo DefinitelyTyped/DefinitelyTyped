@@ -17,13 +17,13 @@ interface JQueryFileInputOptions {
      * The drop target element(s), by the default the complete document.
      * Set to null to disable drag & drop support:
      */
-    dropZone?: HTMLElement;
+    dropZone?: Element | Element[] | JQuery | string;
 
     /**
      * The paste target element(s), by the default the complete document.
      * Set to null to disable paste support:
      */
-    pasteZone?: HTMLElement;
+    pasteZone?: Element | Element[] | JQuery | string;
 
     /**
      * The file input field(s), that are listened to for change events.
@@ -31,7 +31,7 @@ interface JQueryFileInputOptions {
      * of the widget element on plugin initialization.
      * Set to null to disable the change listener.
      */
-    fileInput?: HTMLElement;
+    fileInput?: Element | Element[] | JQuery | string;
 
     /**
      * By default, the file input field is replaced with a clone after

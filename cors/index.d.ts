@@ -16,6 +16,7 @@ declare namespace e {
         exposedHeaders?: any;
         credentials?: boolean;
         maxAge?: number;
+        preflightContinue?: boolean;
     }
 }
 

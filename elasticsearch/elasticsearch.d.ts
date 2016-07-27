@@ -38,6 +38,8 @@ declare module Elasticsearch {
         create(params: IndicesCreateParams): PromiseLike<any>;
         exists(params: IndicesIndexExitsParams, callback: (error: any, response: any, status: any) => void): void;
         exists(params: IndicesIndexExitsParams): PromiseLike<any>;
+        existsType(params: IndicesIndexExitsParams & {type: string}, callback: (error: any, response: any, status: any) => void): void;
+        existsType(params: IndicesIndexExitsParams & {type: string}): PromiseLike<any>;
         get(params: IndicesGetParams, callback: (error: any, response: any, status: any) => void): void;
         get(params: IndicesGetParams): PromiseLike<any>;
         getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
@@ -46,6 +48,8 @@ declare module Elasticsearch {
         putAlias(params: IndicesPutAliasParams): PromiseLike<any>;
         putTemplate(params: IndicesPutTemplateParams, callback: (error: any, response: any) => void): void;
         putTemplate(params: IndicesPutTemplateParams): PromiseLike<any>;
+        putMapping(params: IndicesPutMappingParams, callback: (error: any, response: any) => void): void;
+        putMapping(params: IndicesPutMappingParams): PromiseLike<any>;
         refresh(params: IndicesRefreshParams, callback: (error: any, response: any) => void): void;
         refresh(params: IndicesRefreshParams): PromiseLike<any>;
     }
@@ -125,10 +129,21 @@ declare module Elasticsearch {
         body: string | any;
     }
 
+    export interface IndicesPutMappingParams extends GenericParams {
+        timeout?: Date | number;
+        masterTimeout?: Date | number;
+        ignoreUnavailable?: boolean;
+        allowNoIndices?: boolean;
+        expandWildcards?: "open" | "closed" | "none" | "all";
+        updateAllTypes?: boolean;
+        index: string | string[] | boolean;
+        type: string;
+    }
+
     export interface IndicesGetAliasParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         local?: boolean;
         index?: string | string[] | boolean;
         name: string | string[] | boolean;
@@ -260,7 +275,7 @@ declare module Elasticsearch {
     export interface SuggestParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         preference?: string;
         routing?: string;
         source?: string;
