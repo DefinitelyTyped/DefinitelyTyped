@@ -20,7 +20,7 @@ import {
 	shell,
 	session,
 	systemPreferences,
-	hideInternalModules
+	webContents
 } from 'electron';
 
 import * as path from 'path';
@@ -939,3 +939,9 @@ app.on('ready', function () {
 		}
 	})
 });
+
+// webContents
+// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+
+console.log(webContents.getAllWebContents());
+console.log(webContents.getFocusedWebContents());

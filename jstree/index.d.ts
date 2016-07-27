@@ -830,7 +830,7 @@ interface JSTree extends JQuery {
     * @param  {Boolean} ids if set to true build the path using ID, otherwise node text is used
     * @return {mixed}
     */
-    get_path: (obj: any, glue: string, ids: boolean) => any;
+    get_path: (obj: any, glue?: string, ids?: boolean) => any;
 
     /**
     * get the next visible node that is below the `obj` node. If `strict` is set to `true` only sibling nodes are returned.
