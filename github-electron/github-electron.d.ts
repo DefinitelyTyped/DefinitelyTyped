@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.7
+// Type definitions for Electron v1.2.8
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -578,6 +578,10 @@ declare namespace Electron {
 		 */
 		setFeedURL(url: string, requestHeaders?: Headers): void;
 		/**
+		 * @returns The current update feed URL.
+		 */
+		getFeedURL(): string;
+		/**
 		 * Ask the server whether there is an update, you have to call setFeedURL
 		 * before using this API
 		 */
@@ -702,6 +706,9 @@ declare namespace Electron {
 		 */
 		on(event: 'swipe', listener: (event: Event, direction: SwipeDirection) => void): this;
 		on(event: string, listener: Function): this;
+		/**
+		 * Creates a new BrowserWindow with native properties as set by the options.
+		 */
 		constructor(options?: BrowserWindowOptions);
 		/**
 		 * @returns All opened browser windows.
@@ -1094,8 +1101,18 @@ declare namespace Electron {
 		 * Add a thumbnail toolbar with a specified set of buttons to the thumbnail image
 		 * of a window in a taskbar button layout.
 		 * @returns Whether the thumbnail has been added successfully.
+		 *
+		 * Note: This API is available only on Windows.
 		 */
 		setThumbarButtons(buttons: ThumbarButton[]): boolean;
+		/**
+		 * Sets the region of the window to show as the thumbnail image displayed when hovering
+		 * over the window in the taskbar. You can reset the thumbnail to be the entire window
+		 * by specifying an empty region: {x: 0, y: 0, width: 0, height: 0}.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		setThumbnailClip(region: Bounds): void;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on macOS.
@@ -2743,7 +2760,7 @@ declare namespace Electron {
 		/**
 		 * @returns a new Session instance from partition string.
 		 */
-		static fromPartition(partition: string): Session;
+		static fromPartition(partition: string, options?: FromPartitionOptions): Session;
 		/**
 		 * @returns the default session object of the app.
 		 */
@@ -2842,6 +2859,13 @@ declare namespace Electron {
 	}
 
 	type Permission = 'media' | 'geolocation' | 'notifications' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal';
+
+	interface FromPartitionOptions {
+		/**
+		 * Whether to enable cache.
+		 */
+		cache?: boolean;
+	}
 
 	interface ClearStorageDataOptions {
 		/**
@@ -3316,6 +3340,11 @@ declare namespace Electron {
 		 */
 		on(event: 'drop-files', listener: (event: Event, files: string[]) => void): this;
 		/**
+		 * Emitted when dragged text is dropped in the tray icon.
+		 * Note: This is only implemented on macOS
+		 */
+		on(event: 'drop-text', listener: (event: Event, text: string) => void): this;
+		/**
 		 * Emitted when a drag operation enters the tray icon.
 		 * Note: This is only implemented on macOS
 		 */
@@ -3406,6 +3435,18 @@ declare namespace Electron {
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+
+	interface WebContentsStatic {
+		/**
+		 * @returns An array of all web contents. This will contain web contents for all windows,
+		 * webviews, opened devtools, and devtools extension background pages.
+		 */
+		getAllWebContents(): WebContents[];
+		/**
+		 * @returns The web contents that is focused in this application, otherwise returns null.
+		 */
+		getFocusedWebContents(): WebContents;
+	}
 
 	/**
 	 * A WebContents is responsible for rendering and controlling a web page.
@@ -4145,10 +4186,33 @@ declare namespace Electron {
 
 	interface Certificate {
 		/**
-		 * PEM encoded data
+		 * PEM encoded data.
 		 */
 		data: Buffer;
+		/**
+		 * Issuer's Common Name.
+		 */
 		issuerName: string;
+		/**
+		 * Subject's Common Name.
+		 */
+		subjectName: string;
+		/**
+		 * Hex value represented string.
+		 */
+		serialNumber: string;
+		/**
+		 * Start date of the certificate being valid in seconds.
+		 */
+		validStart: number;
+		/**
+		 * End date of the certificate being valid in seconds.
+		 */
+		validExpiry: number;
+		/**
+		 * Fingerprint of the certificate.
+		 */
+		fingerprint: string;
 	}
 
 	interface LoginRequest {
@@ -5003,7 +5067,7 @@ declare namespace Electron {
 		session: typeof Electron.Session;
 		systemPreferences: Electron.SystemPreferences;
 		Tray: Electron.Tray;
-		hideInternalModules(): void;
+		webContents: Electron.WebContentsStatic;
 	}
 
 	interface ElectronMainAndRenderer extends CommonElectron {
