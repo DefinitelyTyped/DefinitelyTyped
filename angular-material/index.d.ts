@@ -7,7 +7,6 @@ import * as angular from 'angular';
 
 declare module 'angular' {
     export namespace material {
-
         interface IBottomSheetOptions {
             templateUrl?: string;
             template?: string;
@@ -67,6 +66,11 @@ declare module 'angular' {
             placeholder(placeholder: string): IPromptDialog;
         }
 
+        interface IPromptDialog extends IPresetDialog<IPromptDialog> {
+            cancel(cancel: string): IPromptDialog;
+            placeholder(placeholder: string): IPromptDialog;
+        }
+
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
@@ -91,6 +95,7 @@ declare module 'angular' {
             onComplete?: Function;
             onRemoving?: Function;
             fullscreen?: boolean;
+            skipHide?: boolean;
         }
 
         interface IDialogService {

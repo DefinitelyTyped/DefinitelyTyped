@@ -150,6 +150,7 @@ interface FBSDKCanvas{
 }
 
 interface FBResponseObject {
+    data: any;
     error: any;
 }
 

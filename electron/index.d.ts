@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.3
+// Type definitions for Electron v1.2.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,7 +34,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when the application has finished basic startup.
 		 * On Windows and Linux, the will-finish-launching event
-		 * is the same as the ready event; on OS X, this event represents
+		 * is the same as the ready event; on macOS, this event represents
 		 * the applicationWillFinishLaunching notification of NSApplication.
 		 * You would usually set up listeners for the open-file and open-url events here,
 		 * and start the crash reporter and auto updater.
@@ -81,7 +81,7 @@ declare namespace Electron {
 		 *
 		 * You should call event.preventDefault() if you want to handle this event.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'open-file', listener: (event: Event, url: string) => void): this;
 		/**
@@ -90,12 +90,12 @@ declare namespace Electron {
 		 *
 		 * You should call event.preventDefault() if you want to handle this event.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'open-url', listener: (event: Event, url: string) => void): this;
 		/**
 		 * Emitted when the application is activated, which usually happens when clicks on the applications’s dock icon.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'activate', listener: Function): this;
 		/**
@@ -197,18 +197,18 @@ declare namespace Electron {
 		}): void;
 		/**
 		 * On Linux, focuses on the first visible window.
-		 * On OS X, makes the application the active app.
+		 * On macOS, makes the application the active app.
 		 * On Windows, focuses on the application’s first window.
 		 */
 		focus(): void;
 		/**
 		 * Hides all application windows without minimizing them.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		hide(): void;
 		/**
 		 * Shows application windows after they were hidden. Does not automatically focus them.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		show(): void;
 		/**
@@ -257,36 +257,36 @@ declare namespace Electron {
 		 * Adds path to recent documents list.
 		 *
 		 * This list is managed by the system, on Windows you can visit the list from
-		 * task bar, and on Mac you can visit it from dock menu.
+		 * task bar, and on macOS you can visit it from dock menu.
 		 *
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		addRecentDocument(path: string): void;
 		/**
 		 * Clears the recent documents list.
 		 *
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		clearRecentDocuments(): void;
 		/**
 		 * Sets the current executable as the default handler for a protocol (aka URI scheme).
-		 * Once registered, all links with your-protocol:// will be openend with the current executable.
+		 * Once registered, all links with your-protocol:// will be opened with the current executable.
 		 * The whole link, including protocol, will be passed to your application as a parameter.
 		 *
-		 * Note: This is only implemented on OS X and Windows.
-		 *       On OS X, you can only register protocols that have been added to your app's info.plist.
+		 * Note: This is only implemented on macOS and Windows.
+		 *       On macOS, you can only register protocols that have been added to your app's info.plist.
 		 */
 		setAsDefaultProtocolClient(protocol: string): void;
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		removeAsDefaultProtocolClient(protocol: string): void;
 		/**
 		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
 		 *
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		isDefaultProtocolClient(protocol: string): boolean;
 		/**
@@ -315,13 +315,13 @@ declare namespace Electron {
 		 * @param webpageURL The webpage to load in a browser if no suitable app is
 		 * 					 installed on the resuming device. The scheme must be http or https.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		setUserActivity(type: string, userInfo: Object, webpageURL?: string): void;
 		/**
 		 * @returns The type of the currently running activity.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		getCurrentActivityType(): string;
 		/**
@@ -343,7 +343,7 @@ declare namespace Electron {
 		disableHardwareAcceleration(): void;
 		commandLine: CommandLine;
 		/**
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		dock: Dock;
 	}
@@ -393,49 +393,49 @@ declare namespace Electron {
 		/**
 		 * Cancel the bounce of id.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		cancelBounce(id: number): void;
 		/**
 		 * Bounces the Downloads stack if the filePath is inside the Downloads folder.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		downloadFinished(filePath: string): void;
 		/**
 		 * Sets the string to be displayed in the dock’s badging area.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		setBadge(text: string): void;
 		/**
 		 * Returns the badge string of the dock.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		getBadge(): string;
 		/**
 		 * Hides the dock icon.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		hide(): void;
 		/**
 		 * Shows the dock icon.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		show(): void;
 		/**
 		 * Sets the application dock menu.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		setMenu(menu: Menu): void;
 		/**
 		 * Sets the image associated with this dock icon.
 		 *
-		 * Note: This API is only available on Mac.
+		 * Note: This API is only available on macOS.
 		 */
 		setIcon(icon: NativeImage | string): void;
 	}
@@ -615,17 +615,17 @@ declare namespace Electron {
 		on(event: 'app-command', listener: (event: Event, command: string) => void): this;
 		/**
 		 * Emitted when scroll wheel event phase has begun.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'scroll-touch-begin', listener: Function): this;
 		/**
 		 * Emitted when scroll wheel event phase has ended.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'scroll-touch-end', listener: Function): this;
 		/**
 		 * Emitted on 3-finger swipe.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'swipe', listener: (event: Event, direction: SwipeDirection) => void): this;
 		on(event: string, listener: Function): this;
@@ -650,15 +650,21 @@ declare namespace Electron {
 		 * Adds devtools extension located at path. The extension will be remembered
 		 * so you only need to call this API once, this API is not for programming use.
 		 * @returns The extension's name.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static addDevToolsExtension(path: string): string;
 		/**
 		 * Remove a devtools extension.
 		 * @param name The name of the devtools extension to remove.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static removeDevToolsExtension(name: string): void;
 		/**
 		 * @returns devtools extensions.
+		 *
+		 * Note: This API cannot be called before the ready event of the app module is emitted.
 		 */
 		static getDevToolsExtensions(): DevToolsExtensions;
 		/**
@@ -714,6 +720,10 @@ declare namespace Electron {
 		 */
 		isVisible(): boolean;
 		/**
+		 * @returns Whether the window is a modal window.
+		 */
+		isModal(): boolean;
+		/**
 		 * Maximizes the window.
 		 */
 		maximize(): void;
@@ -752,7 +762,7 @@ declare namespace Electron {
 		 * not included within the aspect ratio calculations.
 		 * This API already takes into account the difference between a window’s size and its content size.
 		 *
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		setAspectRatio(aspectRatio: number, extraSize?: Dimension): void;
 		/**
@@ -805,31 +815,31 @@ declare namespace Electron {
 		isResizable(): boolean;
 		/**
 		 * Sets whether the window can be moved by user. On Linux does nothing.
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 */
 		setMovable(movable: boolean): void;
 		/**
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 * @returns Whether the window can be moved by user. On Linux always returns true.
 		 */
 		isMovable(): boolean;
 		/**
 		 * Sets whether the window can be manually minimized by user. On Linux does nothing.
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 */
 		setMinimizable(minimizable: boolean): void;
 		/**
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 * @returns Whether the window can be manually minimized by user. On Linux always returns true.
 		 */
 		isMinimizable(): boolean;
 		/**
 		 * Sets whether the window can be manually maximized by user. On Linux does nothing.
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 */
 		setMaximizable(maximizable: boolean): void;
 		/**
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 * @returns Whether the window can be manually maximized by user. On Linux always returns true.
 		 */
 		isMaximizable(): boolean;
@@ -843,11 +853,11 @@ declare namespace Electron {
 		isFullScreenable(): boolean;
 		/**
 		 * Sets whether the window can be manually closed by user. On Linux does nothing.
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 */
 		setClosable(closable: boolean): void;
 		/**
-		 * Note: This API is available only on OS X and Windows.
+		 * Note: This API is available only on macOS and Windows.
 		 * @returns Whether the window can be manually closed by user. On Linux always returns true.
 		 */
 		isClosable(): boolean;
@@ -883,8 +893,8 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
-		 * Changes the attachment point for sheets on Mac OS X.
-		 * Note: This API is available only on OS X.
+		 * Changes the attachment point for sheets on macOS.
+		 * Note: This API is available only on macOS.
 		 */
 		setSheetOffset(offsetY: number, offsetX?: number): void;
 		/**
@@ -904,7 +914,7 @@ declare namespace Electron {
 		 */
 		isKiosk(): boolean;
 		/**
-		 * The native type of the handle is HWND on Windows, NSView* on OS X,
+		 * The native type of the handle is HWND on Windows, NSView* on macOS,
 		 * and Window (unsigned long) on Linux.
 		 * @returns The platform-specific handle of the window as Buffer.
 		 */
@@ -929,22 +939,22 @@ declare namespace Electron {
 		/**
 		 * Sets the pathname of the file the window represents, and the icon of the
 		 * file will show in window's title bar.
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		setRepresentedFilename(filename: string): void;
 		/**
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 * @returns The pathname of the file the window represents.
 		 */
 		getRepresentedFilename(): string;
 		/**
 		 * Specifies whether the window’s document has been edited, and the icon in
 		 * title bar will become grey when set to true.
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		setDocumentEdited(edited: boolean): void;
 		/**
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 * @returns Whether the window's document has been edited.
 		 */
 		isDocumentEdited(): boolean;
@@ -969,7 +979,7 @@ declare namespace Electron {
 		reload(): void;
 		/**
 		 * Sets the menu as the window top menu.
-		 * Note: This API is not available on OS X.
+		 * Note: This API is not available on macOS.
 		 */
 		setMenu(menu: Menu): void;
 		/**
@@ -992,11 +1002,11 @@ declare namespace Electron {
 		setOverlayIcon(overlay: NativeImage, description: string): void;
 		/**
 		 * Sets whether the window should have a shadow. On Windows and Linux does nothing.
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		setHasShadow(hasShadow: boolean): void;
 		/**
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 * @returns whether the window has a shadow. On Windows and Linux always returns true.
 		 */
 		hasShadow(): boolean;
@@ -1008,12 +1018,12 @@ declare namespace Electron {
 		setThumbarButtons(buttons: ThumbarButton[]): boolean;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
 		/**
 		 * Changes window icon.
-		 * Note: This API is not available on OS X.
+		 * Note: This API is not available on macOS.
 		 */
 		setIcon(icon: NativeImage): void;
 		/**
@@ -1058,6 +1068,20 @@ declare namespace Electron {
 		 * Note: This API is available only on Windows.
 		 */
 		setFocusable(focusable: boolean): void;
+		/**
+		 * Sets parent as current window's parent window,
+		 * passing null will turn current window into a top-level window.
+		 * Note: This API is not available on Windows.
+		 */
+		setParentWindow(parent: BrowserWindow): void;
+		/**
+		 * @returns The parent window.
+		 */
+		getParentWindow(): BrowserWindow;
+		/**
+		 * @returns All child windows.
+		 */
+		getChildWindows(): BrowserWindow[];
 	}
 
 	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
@@ -1176,7 +1200,7 @@ declare namespace Electron {
 		 */
 		directWrite?: boolean;
 		/**
-		 * Enables scroll bounce (rubber banding) effect on OS X.
+		 * Enables scroll bounce (rubber banding) effect on macOS.
 		 * Default: false.
 		 */
 		scrollBounce?: boolean;
@@ -1328,13 +1352,13 @@ declare namespace Electron {
 		alwaysOnTop?: boolean;
 		/**
 		 * Whether the window should show in fullscreen.
-		 * When explicitly set to false the fullscreen button will be hidden or disabled on OS X.
+		 * When explicitly set to false the fullscreen button will be hidden or disabled on macOS.
 		 * Default: false.
 		 */
 		fullscreen?: boolean;
 		/**
 		 * Whether the window can be put into fullscreen mode.
-		 * On OS X, also whether the maximize/zoom button should toggle full screen mode or maximize window.
+		 * On macOS, also whether the maximize/zoom button should toggle full screen mode or maximize window.
 		 * Default: true.
 		 */
 		fullscreenable?: boolean;
@@ -1368,6 +1392,16 @@ declare namespace Electron {
 		 */
 		frame?: boolean;
 		/**
+		 * Specify parent window.
+		 * Default: null.
+		 */
+		parent?: BrowserWindow;
+		/**
+		 * Whether this is a modal window. This only works when the window is a child window.
+		 * Default: false.
+		 */
+		modal?: boolean;
+		/**
 		 * Whether the web view accepts a single mouse-down event that simultaneously activates the window.
 		 * Default: false.
 		 */
@@ -1394,7 +1428,7 @@ declare namespace Electron {
 		backgroundColor?: string;
 		/**
 		 * Whether window should have a shadow.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 * Default: true.
 		 */
 		hasShadow?: boolean;
@@ -1620,7 +1654,7 @@ declare namespace Electron {
 		/**
 		 * You are required to call this method before using other crashReporter APIs.
 		 *
-		 * Note: On OS X, Electron uses a new crashpad client, which is different from breakpad
+		 * Note: On macOS, Electron uses a new crashpad client, which is different from breakpad
 		 * on Windows and Linux. To enable the crash collection feature, you are required to call
 		 * the crashReporter.start API to initialize crashpad in the main process and in each
 		 * renderer process from which you wish to collect crash reports.
@@ -1843,7 +1877,7 @@ declare namespace Electron {
 		/**
 		 * The value will be returned when user cancels the dialog instead of clicking the buttons of the dialog.
 		 * By default it is the index of the buttons that have "cancel" or "no" as label,
-		 * or 0 if there is no such buttons. On OS X and Windows the index of "Cancel" button
+		 * or 0 if there is no such buttons. On macOS and Windows the index of "Cancel" button
 		 * will always be used as cancelId, not matter whether it is already specified.
 		 */
 		cancelId?: number;
@@ -2084,7 +2118,7 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen';
 	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
@@ -2108,13 +2142,13 @@ declare namespace Electron {
 		 *
 		 * Platform notice:
 		 *   On Linux and Windows, the Command key would not have any effect,
-		 *   you can use CommandOrControl which represents Command on OS X and Control on
+		 *   you can use CommandOrControl which represents Command on macOS and Control on
 		 *   Linux and Windows to define some accelerators.
 		 *
-		 *   Use Alt instead of Option. The Option key only exists on OS X, whereas
+		 *   Use Alt instead of Option. The Option key only exists on macOS, whereas
 		 *   the Alt key is available on all platforms.
 		 *
-		 *   The Super key is mapped to the Windows key on Windows and Linux and Cmd on OS X.
+		 *   The Super key is mapped to the Windows key on Windows and Linux and Cmd on macOS.
 		 *
 		 * Available modifiers:
 		 *   Command (or Cmd for short)
@@ -2200,16 +2234,20 @@ declare namespace Electron {
 		 */
 		constructor();
 		/**
-		 * Sets menu as the application menu on OS X. On Windows and Linux, the menu
+		 * Sets menu as the application menu on macOS. On Windows and Linux, the menu
 		 * will be set as each window's top menu.
 		 */
 		static setApplicationMenu(menu: Menu): void;
+		/**
+		 * @returns The application menu if set, or null if not set.
+		 */
+		static getApplicationMenu(): Menu;
 		/**
 		 * Sends the action to the first responder of application.
 		 * This is used for emulating default Cocoa menu behaviors,
 		 * usually you would just use the role property of MenuItem.
 		 *
-		 * Note: This method is OS X only.
+		 * Note: This method is macOS only.
 		 */
 		static sendActionToFirstResponder(action: string): void;
 		/**
@@ -2219,7 +2257,7 @@ declare namespace Electron {
 		 */
 		static buildFromTemplate(template: MenuItemOptions[]): Menu;
 		/**
-		 * Popups this menu as a context menu in the browserWindow. You can optionally
+		 * Pops up this menu as a context menu in the browserWindow. You can optionally
 		 * provide a (x,y) coordinate to place the menu at, otherwise it will be placed
 		 * at the current mouse cursor position.
 		 * @param x Horizontal coordinate where the menu will be placed.
@@ -2276,8 +2314,8 @@ declare namespace Electron {
 		 */
 		toDataURL(): string;
 		/**
-		 * The native type of the handle is NSImage* on OS X.
-		 * Note: This is only implemented on OS X.
+		 * The native type of the handle is NSImage* on macOS.
+		 * Note: This is only implemented on macOS.
 		 * @returns The platform-specific handle of the image as Buffer.
 		 */
 		getNativeHandle(): Buffer;
@@ -3072,26 +3110,34 @@ declare namespace Electron {
 		/**
 		 * @returns If the system is in Dark Mode.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		isDarkMode(): boolean;
 		/**
-		 * Subscribes to native notifications of OS X, callback will be called when the corresponding event happens.
+		 * Subscribes to native notifications of macOS, callback will be called when the corresponding event happens.
 		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		subscribeNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
 		/**
 		 * Removes the subscriber with id.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		unsubscribeNotification(id: number): void;
 		/**
+		 * Same as subscribeNotification, but uses NSNotificationCenter for local defaults.
+		 */
+		subscribeLocalNotification(event: string, callback: (event: Event, userInfo: Object) => void): number;
+		/**
+		 * Same as unsubscribeNotification, but removes the subscriber from NSNotificationCenter.
+		 */
+		unsubscribeLocalNotification(id: number): void;
+		/**
 		 * Get the value of key in system preferences.
 		 *
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url' | 'array' | 'dictionary'): any;
 		/**
@@ -3112,17 +3158,17 @@ declare namespace Electron {
 	interface Tray extends NodeJS.EventEmitter {
 		/**
 		 * Emitted when the tray icon is clicked.
-		 * Note: The bounds payload is only implemented on OS X and Windows.
+		 * Note: The bounds payload is only implemented on macOS and Windows.
 		 */
 		on(event: 'click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
 		/**
 		 * Emitted when the tray icon is right clicked.
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
 		/**
 		 * Emitted when the tray icon is double clicked.
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
 		/**
@@ -3142,27 +3188,27 @@ declare namespace Electron {
 		on(event: 'balloon-closed', listener: Function): this;
 		/**
 		 * Emitted when any dragged items are dropped on the tray icon.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'drop', listener: Function): this;
 		/**
 		 * Emitted when dragged files are dropped in the tray icon.
-		 * Note: This is only implemented on OS X
+		 * Note: This is only implemented on macOS
 		 */
 		on(event: 'drop-files', listener: (event: Event, files: string[]) => void): this;
 		/**
 		 * Emitted when a drag operation enters the tray icon.
-		 * Note: This is only implemented on OS X
+		 * Note: This is only implemented on macOS
 		 */
 		on(event: 'drag-enter', listener: Function): this;
 		/**
 		 * Emitted when a drag operation exits the tray icon.
-		 * Note: This is only implemented on OS X
+		 * Note: This is only implemented on macOS
 		 */
 		on(event: 'drag-leave', listener: Function): this;
 		/**
 		 * Emitted when a drag operation ends on the tray or ends at another location.
-		 * Note: This is only implemented on OS X
+		 * Note: This is only implemented on macOS
 		 */
 		on(event: 'drag-end', listener: Function): this;
 		on(event: string, listener: Function): this;
@@ -3188,12 +3234,12 @@ declare namespace Electron {
 		setToolTip(toolTip: string): void;
 		/**
 		 * Sets the title displayed aside of the tray icon in the status bar.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		setTitle(title: string): void;
 		/**
 		 * Sets whether the tray icon is highlighted when it is clicked.
-		 * Note: This is only implemented on OS X.
+		 * Note: This is only implemented on macOS.
 		 */
 		setHighlightMode(highlight: boolean): void;
 		/**
@@ -3206,16 +3252,20 @@ declare namespace Electron {
 			content?: string;
 		}): void;
 		/**
-		 * Popups the context menu of tray icon. When menu is passed,
+		 * Pops up the context menu of tray icon. When menu is passed,
 		 * the menu will showed instead of the tray's context menu.
 		 * The position is only available on Windows, and it is (0, 0) by default.
-		 * Note: This is only implemented on OS X and Windows.
+		 * Note: This is only implemented on macOS and Windows.
 		 */
 		popUpContextMenu(menu?: Menu, position?: Point): void;
 		/**
 		 * Sets the context menu for this icon.
 		 */
 		setContextMenu(menu: Menu): void;
+		/**
+		 * @returns The bounds of this tray icon.
+		 */
+		getBounds(): Bounds;
 	}
 
 	interface Modifiers {
@@ -3692,7 +3742,7 @@ declare namespace Electron {
 		savePage(fullPath: string, saveType: 'HTMLOnly' | 'HTMLComplete' | 'MHTML', callback?: (eror: Error) => void): boolean;
 		/**
 		 * Shows pop-up dictionary that searches the selected word on the page.
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
 		/**
@@ -3721,11 +3771,11 @@ declare namespace Electron {
 
 	interface ContextMenuParams {
 		/**
-		 * x coodinate
+		 * x coordinate
 		 */
 		x: number;
 		/**
-		 * y coodinate
+		 * y coordinate
 		 */
 		y: number;
 		/**
@@ -4482,7 +4532,7 @@ declare namespace Electron {
 		sendInputEvent(event: SendInputEvent): void
 		/**
 		 * Shows pop-up dictionary that searches the selected word on the page.
-		 * Note: This API is available only on OS X.
+		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
 		/**
@@ -4873,7 +4923,7 @@ declare namespace NodeJS {
 		 * Sets the file descriptor soft limit to maxDescriptors or the OS hard limit,
 		 * whichever is lower for the current process.
 		 *
-		 * Note: This API is only available on Mac and Linux.
+		 * Note: This API is only available on macOS and Linux.
 		 */
 		setFdLimit(maxDescriptors: number): void;
 		/**
