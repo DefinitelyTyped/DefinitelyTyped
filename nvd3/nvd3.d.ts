@@ -3349,3 +3349,7 @@ id(value: number|string): this;
 	}
 }
 declare var nv : nv.Nvd3Static;
+
+declare module "nvd3" {
+    export = nv;
+}

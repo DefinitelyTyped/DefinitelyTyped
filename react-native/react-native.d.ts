@@ -24,102 +24,6 @@ import React = __React;
 //react-native "extends" react
 declare namespace  __React {
 
-    /**
-     * Represents the completion of an asynchronous operation
-     * @see lib.es6.d.ts
-     */
-    export interface Promise<T> {
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult>( onfulfilled?: ( value: T ) => TResult | Promise<TResult>, onrejected?: ( reason: any ) => TResult | Promise<TResult> ): Promise<TResult>;
-
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch( onrejected?: ( reason: any ) => T | Promise<T> ): Promise<T>;
-
-
-        // not in lib.es6.d.ts but called by react-native
-        done( callback?: ( value: T ) => void ): void;
-    }
-
-    export interface PromiseConstructor {
-        /**
-         * A reference to the prototype.
-         */
-        prototype: Promise<any>;
-
-        /**
-         * Creates a new Promise.
-         * @param init A callback used to initialize the promise. This callback is passed two arguments:
-         * a resolve callback used resolve the promise with a value or the result of another promise,
-         * and a reject callback used to reject the promise with a provided reason or error.
-         */
-        new <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        all<T>( values: (T | Promise<T>)[] ): Promise<T[]>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of values.
-         * @returns A new Promise.
-         */
-        all( values: Promise<void>[] ): Promise<void>;
-
-        /**
-         * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-         * or rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        race<T>( values: (T | Promise<T>)[] ): Promise<T>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject( reason: any ): Promise<void>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject<T>( reason: any ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise for the provided value.
-         * @param value A promise.
-         * @returns A promise whose internal state matches the provided promise.
-         */
-        resolve<T>( value: T | Promise<T> ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise .
-         * @returns A resolved promise.
-         */
-        resolve(): Promise<void>;
-    }
-
-    // @see lib.es6.d.ts
-    export var Promise: PromiseConstructor;
-
     module NativeMethodsMixin {
       type MeasureOnSuccessCallback = (
         x: number,
@@ -918,7 +822,7 @@ declare namespace  __React {
         showWithText?: boolean
     }
 
-    export interface ToolbarAndroidProperties extends React.Props<ToolbarAndroidStatic> {
+    export interface ToolbarAndroidProperties extends ViewProperties, React.Props<ToolbarAndroidStatic> {
         actions?: ToolbarAndroidAction[]
 
         /**
@@ -1000,6 +904,8 @@ declare namespace  __React {
          * Sets the toolbar title color.
          */
         titleColor?: string
+
+        ref?: Ref<ToolbarAndroidStatic>
     }
 
     export interface ToolbarAndroidStatic extends React.ComponentClass<ToolbarAndroidProperties> {
@@ -1479,7 +1385,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/webview.html#props
      */
-    export interface WebViewProperties extends WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
+    export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
 
         automaticallyAdjustContentInsets?: boolean
 
@@ -1553,6 +1459,8 @@ declare namespace  __React {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
+        
+        ref?: Ref<WebViewStatic & ViewStatic>
     }
 
 
@@ -1590,7 +1498,7 @@ declare namespace  __React {
          target: number
      }
 
-     export interface SegmentedControlIOSProperties extends React.Props<SegmentedControlIOSStatic> {
+     export interface SegmentedControlIOSProperties extends ViewProperties, React.Props<SegmentedControlIOSStatic> {
 
          /**
           * If false the user won't be able to interact with the control. Default value is true.
@@ -1630,6 +1538,8 @@ declare namespace  __React {
           * The labels for the control's segment buttons, in order.
           */
          values?: string[]
+
+         ref?: Ref<SegmentedControlIOSStatic>
      }
 
     export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
@@ -1744,7 +1654,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
      */
-    export interface ActivityIndicatorProperties extends React.Props<ActivityIndicatorStatic> {
+    export interface ActivityIndicatorProperties extends ViewProperties, React.Props<ActivityIndicatorStatic> {
 
         /**
          * Whether to show the indicator (true, the default) or hide it (false).
@@ -1770,6 +1680,8 @@ declare namespace  __React {
         size?: 'small' | 'large'
 
         style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorStatic>
     }
 
     export interface ActivityIndicatorStatic extends React.ComponentClass<ActivityIndicatorProperties> {
@@ -1779,7 +1691,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
-    export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
+    export interface ActivityIndicatorIOSProperties extends ViewProperties, React.Props<ActivityIndicatorIOSStatic> {
 
         /**
          * Whether to show the indicator (true, the default) or hide it (false).
@@ -1810,6 +1722,8 @@ declare namespace  __React {
         size?: 'small' | 'large'
 
         style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorIOSStatic>
     }
 
     /**
@@ -1819,7 +1733,7 @@ declare namespace  __React {
     }
 
 
-    export interface DatePickerIOSProperties extends React.Props<DatePickerIOSStatic> {
+    export interface DatePickerIOSProperties extends ViewProperties, React.Props<DatePickerIOSStatic> {
 
         /**
          * The currently selected date.
@@ -1865,6 +1779,7 @@ declare namespace  __React {
          */
         timeZoneOffsetInMinutes?: number
 
+        ref?: Ref<DatePickerIOSStatic>
     }
 
     export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
@@ -1876,7 +1791,7 @@ declare namespace  __React {
     /**
      * @see DrawerLayoutAndroid.android.js
      */
-    export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
+    export interface DrawerLayoutAndroidProperties extends ViewProperties, React.Props<DrawerLayoutAndroidStatic> {
 
         /**
          * Specifies the background color of the drawer. The default value
@@ -1967,6 +1882,7 @@ declare namespace  __React {
          */
         statusBarBackgroundColor?: any
 
+        ref?: Ref<DrawerLayoutAndroidStatic & ViewStatic>
     }
 
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
@@ -2010,18 +1926,22 @@ declare namespace  __React {
     export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
     }
 
-    export interface PickerPropertiesIOS extends React.Props<PickerStatic> {
+    export interface PickerPropertiesIOS extends ViewProperties, React.Props<PickerStatic> {
 
         itemStyle?: ViewStyle
+
+        ref?: Ref<PickerStatic & ViewStatic>
     }
 
-    export interface PickerPropertiesAndroid extends React.Props<PickerStatic> {
+    export interface PickerPropertiesAndroid extends ViewProperties, React.Props<PickerStatic> {
 
         enabled?: boolean
 
         mode?: "dialog" | "dropdown"
 
         prompt?: string
+
+        ref?: Ref<PickerStatic & ViewStatic>
     }
 
     /**
@@ -2052,6 +1972,8 @@ declare namespace  __React {
          * Used to locate this view in end-to-end tests.
          */
         testId?: string
+
+        ref?: Ref<PickerStatic>
     }
 
     /**
@@ -2086,7 +2008,7 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
      * @see ProgressBarAndroid.android.js
      */
-    export interface ProgressBarAndroidProperties extends React.Props<ProgressBarAndroidStatic> {
+    export interface ProgressBarAndroidProperties extends ViewProperties, React.Props<ProgressBarAndroidStatic> {
 
         style?: ViewStyle
 
@@ -2122,6 +2044,8 @@ declare namespace  __React {
          * Used to locate this view in end-to-end tests.
          */
         testID?: string
+
+        ref?: Ref<ProgressBarAndroidStatic>
     }
     export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
     }
@@ -2130,7 +2054,7 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/progressviewios.html
      * @see ProgressViewIOS.ios.js
      */
-    export interface ProgressViewIOSProperties extends React.Props<ProgressViewIOSStatic> {
+    export interface ProgressViewIOSProperties extends ViewProperties, React.Props<ProgressViewIOSStatic> {
 
         style?: ViewStyle
 
@@ -2163,11 +2087,13 @@ declare namespace  __React {
          * A stretchable image to display behind the progress bar.
          */
         trackImage?: any
+
+        ref?: Ref<ProgressViewIOSStatic>
     }
     export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
     }
 
-    export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
+    export interface RefreshControlPropertiesIOS extends ViewProperties, React.Props<RefreshControlStatic> {
 
         /**
          * The color of the refresh indicator.
@@ -2183,9 +2109,11 @@ declare namespace  __React {
          * Title color.
          */
         titleColor?: string
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
     }
 
-    export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
+    export interface RefreshControlPropertiesAndroid extends ViewProperties, React.Props<RefreshControlStatic> {
 
         /**
          * The colors (at least one) that will be used to draw the refresh indicator.
@@ -2212,6 +2140,8 @@ declare namespace  __React {
          * @platform android
          */
         progressViewOffset?: number
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
     }
 
     export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
@@ -2225,13 +2155,15 @@ declare namespace  __React {
          * Whether the view should be indicating an active refresh.
          */
         refreshing?: boolean
+        
+        ref?: Ref<RefreshControlStatic>
     }
 
     export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
         SIZE: Object // Undocumented
     }
 
-    export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
+    export interface SliderPropertiesIOS extends ViewProperties, React.Props<SliderStatic> {
 
         /**
          * Assigns a maximum track image. Only static images are supported.
@@ -2268,6 +2200,8 @@ declare namespace  __React {
          * to fill the track.
          */
         trackImage?: any
+
+        ref?: Ref<SliderStatic>
     }
 
     export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
@@ -2333,7 +2267,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
-    export interface SliderIOSProperties extends React.Props<SliderIOSStatic> {
+    export interface SliderIOSProperties extends ViewProperties, React.Props<SliderIOSStatic> {
 
         /**
          * If true the user won't be able to move the slider. Default value is false.
@@ -2393,6 +2327,8 @@ declare namespace  __React {
          * This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
          */
         value?: number
+
+        ref?: Ref<SliderIOSStatic>
     }
 
     export interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
@@ -2721,6 +2657,8 @@ declare namespace  __React {
          * pixels.
          */
         scrollRenderAheadDistance?: number
+
+        ref?: Ref<ListViewStatic & ScrollViewStatic & ViewStatic>
     }
 
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
@@ -2815,7 +2753,7 @@ declare namespace  __React {
         active?: boolean
     }
 
-    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, React.Props<MapViewStatic> {
+    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, ViewProperties, React.Props<MapViewStatic> {
 
 
 
@@ -2884,6 +2822,8 @@ declare namespace  __React {
          * Default value is true.
          */
         zoomEnabled?: boolean
+
+        ref?: Ref<MapViewStatic & ViewStatic>
     }
 
     /**
@@ -3502,7 +3442,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
      */
-    export interface TabBarItemProperties extends React.Props<TabBarItemStatic> {
+    export interface TabBarItemProperties extends ViewProperties, React.Props<TabBarItemStatic> {
 
         /**
          * Little red bubble that sits at the top right of the icon.
@@ -3549,6 +3489,7 @@ declare namespace  __React {
          */
         title?: string
 
+        ref?: Ref<TabBarItemStatic & ViewStatic>
     }
 
     export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {
@@ -3557,7 +3498,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
      */
-    export interface TabBarIOSProperties extends React.Props<TabBarIOSStatic> {
+    export interface TabBarIOSProperties extends ViewProperties, React.Props<TabBarIOSStatic> {
 
         /**
          * Background color of the tab bar
@@ -3575,6 +3516,13 @@ declare namespace  __React {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
+        
+        /**
+         * Color of text on unselected tabs
+         */
+        unselectedTintColor?: string
+        
+        ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -3954,7 +3902,7 @@ declare namespace  __React {
 
     }
 
-    export interface ScrollViewProperties extends ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable {
+    export interface ScrollViewProperties extends ViewProperties, ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable, React.Props<ScrollViewStatic> {
 
         /**
          * These styles will be applied to the scroll view content container which
@@ -4038,10 +3986,12 @@ declare namespace  __React {
          * functionality for the ScrollView.
          */
         refreshControl?: RefreshControl
+
+        ref?: Ref<ScrollViewStatic & ViewStatic>
     }
 
     export interface ScrollViewProps extends ScrollViewProperties, React.Props<ScrollViewStatic> {
-
+        ref?: Ref<ScrollViewStatic>
     }
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
@@ -5079,7 +5029,7 @@ declare namespace  __React {
         LONG: number
     }
 
-    export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
+    export interface SwitchPropertiesIOS extends ViewProperties, React.Props<SwitchStatic> {
 
         /**
          * Background color when the switch is turned on.
@@ -5095,9 +5045,11 @@ declare namespace  __React {
          * Background color when the switch is turned off.
          */
         tintColor?: string
+
+        ref?: Ref<SwitchStatic>
     }
 
-    export interface SwitchProperties extends React.Props<SwitchStatic> {
+    export interface SwitchProperties extends ViewProperties, React.Props<SwitchStatic> {
 
         /**
          * If true the user won't be able to toggle the switch.
@@ -5121,7 +5073,9 @@ declare namespace  __React {
          */
         value?: boolean
 	
-	style?: ViewStyle
+	    style?: ViewStyle
+
+        ref?: Ref<SwitchStatic>
     }
 
     export interface SwitchStatic extends React.ComponentClass<SwitchProperties> {

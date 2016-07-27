@@ -873,7 +873,7 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
-        (expression: string): ICompiledExpression;
+        (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
     }
 
     interface IParseProvider {
@@ -985,7 +985,10 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {}
+    interface IDocumentService extends JQuery {
+        // Must return intersection type for index signature compatibility with JQuery
+        [index: number]: HTMLElement & Document;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService

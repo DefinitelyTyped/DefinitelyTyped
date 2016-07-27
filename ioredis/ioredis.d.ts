@@ -41,7 +41,8 @@ declare module IORedis {
     }
 
     interface Redis extends NodeJS.EventEmitter, Commander {
-        connect(callback: Function): Promise<any>;
+        status: string;
+        connect(callback?: Function): Promise<any>;
         disconnect(): void;
         duplicate(): Redis;
         monitor(calback: (error: Error, monitor: NodeJS.EventEmitter) => void): Promise<NodeJS.EventEmitter>;
@@ -59,6 +60,7 @@ declare module IORedis {
         subscribe(channel: string): any;
         get(args: any[], callback?: ResCallbackT<string>): any;
         get(...args: any[]): any;
+        getBuffer(key: string, callback?: ResCallbackT<Buffer>): any;
         set(args: any[], callback?: ResCallbackT<string>): any;
         set(...args: any[]): any;
         setnx(args: any[], callback?: ResCallbackT<any>): any;
