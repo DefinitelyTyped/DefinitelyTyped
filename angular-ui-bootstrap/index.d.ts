@@ -379,12 +379,18 @@ declare module 'angular' {
              * @default 'model-open'
              */
             openedClass?: string;
-
             /**
              * CSS class(es) to be added to the top modal window.
      */
         
             windowTopClass?: string;
+
+            /**
+             * Appends the modal to a specific element.
+             * 
+             * @default 'body'
+             */
+            appendTo?: angular.IAugmentedJQuery;
         }
 
         interface IModalStackService {

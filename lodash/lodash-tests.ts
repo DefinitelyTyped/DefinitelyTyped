@@ -7896,49 +7896,41 @@ namespace TestSum {
 // _.sumBy
 namespace TestSumBy {
     let array: number[];
+    let objectArray: { 'age': number }[];
+
     let list: _.List<number>;
-    let dictionary: _.Dictionary<number>;
+    let objectList: _.List<{ 'age': number }>;
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => number;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
 
     {
         let result: number;
 
-        result = _.sumBy<number>(array);
-        result = _.sumBy<number>(array, listIterator);
-        result = _.sumBy<number>(array, '');
+        result = _.sumBy(array);
+        result = _.sumBy(array, listIterator);
+        result = _.sumBy(objectArray, 'age');
+        result = _.sumBy(objectArray, { 'age': 30 });
 
-
-        result = _.sumBy<number>(list);
-        result = _.sumBy<number>(list, listIterator);
-        result = _.sumBy<number>(list, '');
-
-        result = _.sumBy<number>(dictionary);
-        result = _.sumBy<number>(dictionary, dictionaryIterator);
-        result = _.sumBy<number>(dictionary, '');
+        result = _.sumBy(list);
+        result = _.sumBy(list, listIterator);
+        result = _.sumBy(objectList, 'age');
+        result = _.sumBy(objectList, { 'age': 30 });
 
         result = _(array).sumBy(listIterator);
-        result = _(array).sumBy('');
+        result = _(objectArray).sumBy('age');
 
-        result = _(list).sumBy<number>(listIterator);
-        result = _(list).sumBy('');
-
-        result = _(dictionary).sumBy<number>(dictionaryIterator);
-        result = _(dictionary).sumBy('');
+        result = _(list).sumBy(listIterator);
+        result = _(objectList).sumBy('age');
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _(array).chain().sumBy(listIterator);
-        result = _(array).chain().sumBy('');
+        result = _(objectArray).chain().sumBy('age');
 
-        result = _(list).chain().sumBy<number>(listIterator);
-        result = _(list).chain().sumBy('');
-
-        result = _(dictionary).chain().sumBy<number>(dictionaryIterator);
-        result = _(dictionary).chain().sumBy('');
+        result = _(list).chain().sumBy(listIterator);
+        result = _(objectList).chain().sumBy('age');
     }
 }
 

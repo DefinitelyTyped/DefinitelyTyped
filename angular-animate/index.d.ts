@@ -71,7 +71,7 @@ declare module 'angular' {
             * @returns current animation state
             */
             enabled(element: JQuery, value?: boolean): boolean;
-            enabled(value: boolean): boolean;
+            enabled(value?: boolean): boolean;
 
             /**
              * Cancels the provided animation.

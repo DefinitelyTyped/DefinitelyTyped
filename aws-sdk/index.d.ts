@@ -88,8 +88,6 @@ export interface Services {
 export interface ClientConfigPartial extends Services {
     credentials?: Credentials;
     region?: string;
-    accessKeyId: string;
-    secretAccessKey: string;
     computeChecksums?: boolean;
     convertResponseTypes?: boolean;
     logger?: Logger;
@@ -152,9 +150,15 @@ export declare class SimpleWorkflow {
 
 export declare class S3 {
     constructor(options?: any);
-    putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
-    getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
+    headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+    getSignedUrl(operation: string, params: any): string;
+    getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
+    upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
 }
+
 
 export class STS {
     constructor(options?: any);
@@ -162,7 +166,6 @@ export class STS {
      * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
      */
     assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
-
     /**
      * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
      */
@@ -306,6 +309,7 @@ export declare module DynamoDB {
         ScanFilter?: _DDBDC_KeyComparison;
         TotalSegments?: number;
     }
+
     interface GetParam extends _DDBDC_Reader {
         Key: _DDBDC_Keys;
     }
@@ -394,7 +398,7 @@ export declare module SQS {
     }
 
     export interface SendMessageParams {
-        QueueUrl: string;
+        QueueUrl?: string;
         MessageBody: string;
         DelaySeconds?: number;
         MessageAttributes?: { [name: string]: MessageAttribute; }
@@ -1272,6 +1276,33 @@ export declare module s3 {
         VersionId?: string;
     }
 
+    export interface DeleteObjectRequest {
+        Bucket: string;
+        Key: string;
+        MFA?: string;
+        RequestPayer?: string;
+        VersionId?: string;
+    }
+
+    export interface HeadObjectRequest {
+        Bucket: string;
+        Key: string;
+        IfMatch?: string;
+        IfModifiedSince?: Date;
+        IfNoneMatch?: string;
+        IfUnmodifiedSince?: Date;
+        Range?: string;
+        RequestPayer?: string;
+        SSECustomerAlgorithm?: string;
+        SSECustomerKey?: Buffer | string;
+        SSECustomerKeyMD5?: string;
+        VersionId?: string;
+    }
+
+    export interface UploadOptions {
+        partSize?: number;
+        queueSize?: number;
+    }
 }
 
 export declare module ecs {

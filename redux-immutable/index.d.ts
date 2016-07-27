@@ -5,4 +5,4 @@
 
 import * as Redux from 'redux';
 
-export declare function combineReducers(reducers: Object): Redux.Reducer;
+export declare function combineReducers(reducers: Object): Redux.Reducer<any>;

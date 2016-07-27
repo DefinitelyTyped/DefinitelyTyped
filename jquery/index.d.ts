@@ -442,6 +442,7 @@ interface JQueryDeferred<T> extends JQueryGenericPromise<T> {
  * Interface of the JQuery extension of the W3C event object
  */
 interface BaseJQueryEventObject extends Event {
+    currentTarget: Element;
     data: any;
     delegateTarget: Element;
     isDefaultPrevented(): boolean;

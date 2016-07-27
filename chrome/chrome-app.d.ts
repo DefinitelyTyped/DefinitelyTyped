@@ -7,6 +7,17 @@
 /// <reference types="filesystem"/>
 
 ////////////////////
+// App
+////////////////////
+declare namespace chrome.app {
+	interface AppDetails extends chrome.runtime.Manifest {
+		id: string;
+	}
+
+	export function getDetails(): AppDetails;
+}
+
+////////////////////
 // App Runtime
 ////////////////////
 declare namespace chrome.app.runtime {

@@ -20,4 +20,5 @@ Logging.level = 4;
 
 auth.info("Logging message");
 
-var userName: string = auth.getCachedUser().userName;
+var userName: string = auth.getCachedUser().userName;var postLogoutRedirectUrl = auth.config.postLogoutRedirectUri;
+var isValidRequest = auth.getRequestInfo('hash').valid;

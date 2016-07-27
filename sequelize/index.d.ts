@@ -2958,8 +2958,8 @@ declare namespace sequelize {
 
     }
     /**
-     * GetTableName Options
-     */
+ * GetTableName Options
+ */
     interface GetTableNameOptions extends LoggingOptions {
         // no addition properties
     }
@@ -2968,18 +2968,6 @@ declare namespace sequelize {
     /**
      * AddScope Options for Model.addScope
      */
-    interface AddScopeOptions {
-
-        /**
-         * If a scope of the same name already exists, should it be overwritten?
-         */
-        override: boolean;
-
-    }
-
-    /**
-         * AddScope Options for Model.addScope
-         */
     interface AddScopeOptions {
         /**
          * If a scope of the same name already exists, should it be overwritten?
@@ -3212,13 +3200,13 @@ declare namespace sequelize {
         raw?: boolean;
 
         /**
-         * having ?!?
+             * having ?!?
          */
         having?: WhereOptions;
 
         /**
-         * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
-         * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
     }
@@ -3328,7 +3316,7 @@ declare namespace sequelize {
     }
 
     /**
-     * Options for Model.upsert method
+ * Options for Model.upsert method
      */
     interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
     }
@@ -3748,7 +3736,7 @@ declare namespace sequelize {
          * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
          *     which case the complete data result is returned.
          */
-        aggregate(field: string, aggregateFunction: Function, options?: AggregateOptions): Promise<Object>;
+        aggregate(field: string, aggregateFunction: string, options?: AggregateOptions): Promise<Object>;
 
         /**
          * Count the number of records matching the provided where clause.
@@ -3852,24 +3840,24 @@ declare namespace sequelize {
         findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<TInstance>;
 
         /**
-     * Insert or update a single row. An update will be executed if a row which matches the supplied values on
-     * either the primary key or a unique key is found. Note that the unique index must be defined in your
-     * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
-     * because sequelize fails to identify the row that should be updated.
-     *
-     * **Implementation details:**
-     *
-     * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
-     * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
-     *   unique_constraint UPDATE
-     * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
-     * regardless
-     *   of whether the row already existed or not
-     *
-     * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
-     * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
-     * whether the row was inserted or not.
-     */
+ * Insert or update a single row. An update will be executed if a row which matches the supplied values on
+ * either the primary key or a unique key is found. Note that the unique index must be defined in your
+ * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
+ * because sequelize fails to identify the row that should be updated.
+ *
+ * **Implementation details:**
+ *
+ * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
+ * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
+ *   unique_constraint UPDATE
+ * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
+ * regardless
+ *   of whether the row already existed or not
+ *
+ * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
+ * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
+ * whether the row was inserted or not.
+ */
         upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
 
@@ -4478,10 +4466,10 @@ declare namespace sequelize {
         bind?: Object | string[];
 
         /**
-     * Force the query to use the write pool, regardless of the query type.
-     *
-     * Defaults to false
-     */
+ * Force the query to use the write pool, regardless of the query type.
+ *
+ * Defaults to false
+ */
         useMaster?: boolean;
 
         /**

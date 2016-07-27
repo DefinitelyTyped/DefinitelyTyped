@@ -191,9 +191,7 @@ export interface ReduxFormProps<T> {
      * given as the error prop.
      */
     handleSubmit?(event: SyntheticEvent<T>): void;
-
-    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch)
-        => Promise<any> | void): FormEventHandler<T>;
+    handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): FormEventHandler<T>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
@@ -285,11 +283,11 @@ interface MapStateToProps {
 }
 
 interface MapDispatchToPropsFunction {
-    (dispatch: Dispatch, ownProps?: any): any;
+    (dispatch: Dispatch<any>, ownProps?: any): any;
 }
 
 interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
 }
 
 export declare function reduxForm(config: ReduxFormConfig,
@@ -337,8 +335,7 @@ export interface ReduxFormConfig {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values: FormData, dispatch: Dispatch, props: Object):
-        Promise<any>;
+    asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: Object): Promise<any>;
 
     /**
      * Whether or not to automatically destroy your form's state in the Redux
@@ -377,7 +374,7 @@ export interface ReduxFormConfig {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?(values: FormData, dispatch?: Dispatch): any;
+    onSubmit?(values: FormData, dispatch?: Dispatch<any>): any;
 
     /**
      * If true, the form values will be overwritten whenever the initialValues
@@ -466,7 +463,7 @@ export declare const reducer: {
         [formName: string]: {
             [fieldName: string]: Normalizer
         }
-    }): Reducer;
+    }): Reducer<any>;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -475,5 +472,6 @@ export declare const reducer: {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers: { [formName: string]: Reducer }): Reducer;
+    plugin(reducers: { [formName: string]: Reducer<any> }): Reducer<any>;
 }
+

@@ -13,10 +13,14 @@ declare module "samlp" {
 
     export function auth(options: IdPOptions): express.Handler;
     export function logout(options: IdPOptions): express.Handler;
-    export function parseRequest(req: express.Request, callback: (err: any, data: any) => void): void;
-    export function getSamlResponse(options: IdPOptions, user: any, callback: (err: any, samlResponse: any) => void): void;
+    export function parseRequest(req: express.Request, callback: (err: any, data: SamlRequest) => void): void;
+    export function getSamlResponse(options: IdPOptions, user: any, callback: (err: any, samlResponse: string) => void): void;
     export function sendError(options: IdPOptions): express.Handler;
     export function metadata(options: IdPMetadataOptions): express.Handler;
+
+
+    export type DigestAlgorithmType = 'sha1' | 'sha256';
+    export type SignatureAlgorithmType = 'rsa-sha1' | 'rsa-sha256';
 
     export interface IdPOptions {
         issuer: string;
@@ -26,8 +30,8 @@ declare module "samlp" {
         recipient?: string;
         destination?: string;
         RelayState?: string;
-        digestAlgorithm?: 'sha1' | 'sha256';
-        signatureAlgorithm?: 'rsa-sha1' | 'rsa-sha256';
+        digestAlgorithm?: DigestAlgorithmType;
+        signatureAlgorithm?: SignatureAlgorithmType;
         signResponse?: boolean;
         encryptionCert?: string | Buffer;
         encryptionPublicKey?: string | Buffer;
@@ -35,14 +39,16 @@ declare module "samlp" {
         keyEncryptionAlgorighm?: string;
         lifetimeInSeconds?: number;
         authnContextClassRef?: string;
-        profileMapper?: PassportProfileMapper;
+        inResponseTo?: string;
+        profileMapper?: ProfileMapperConstructor;
         getUserFromRequest?: (req: express.Request) => any;
         getPostURL: (audience: string, authnRequestDom: any, req: express.Request, callback: (err: any, url: string) => void) => void;
     }
+
     export interface IdPMetadataOptions {
         issuer: string;
         cert: string | Buffer;
-        profileMapper?: PassportProfileMapper;
+        profileMapper?: ProfileMapperConstructor;
         redirectEndpointPath?: string;
         postEndpointPath?: string;
         logoutEndpointPaths?: {
@@ -51,12 +57,26 @@ declare module "samlp" {
         };
     }
 
-    export class PassportProfileMapper {
-        constructor(pu: passport.Profile);
+    export interface SamlRequest {
+        id?: string;
+        issuer?: string;
+        assertionConsumerServiceURL?: string;
+        destination?: string;
+        forceAuthn?: string;
+    }
+
+
+    export interface ProfileMapper {
         metadata: MetadataItem[];
         getClaims(): any;
         getNameIdentifier(): any;
     }
+    export interface ProfileMapperConstructor {
+        (pu: passport.Profile): ProfileMapper;
+        prototype: ProfileMapper;
+    }
+    export var PassportProfileMapper: ProfileMapperConstructor;
+
     export interface MetadataItem {
         id: string;
         optional: boolean;

@@ -1,13 +1,12 @@
-// Type definitions for Angular Material 1.0.0-rc5+ (angular.material module)
+// Type definitions for Angular Material 1.1.0-rc5+ (angular.material module)
 // Project: https://github.com/angular/material
 // Definitions by: Alex Staroselsky <https://github.com/AlStar01>, Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as angular from 'angular';
 
-
-declare module 'angular-material' {
-}
+declare var _: string;
+export = _;
 
 declare module 'angular' {
     export namespace material {
@@ -18,11 +17,12 @@ declare module 'angular' {
             preserveScope?: boolean; // default: false
             controller?: string | Function;
             locals?: { [index: string]: any };
-            targetEvent?: MouseEvent;
-            resolve?: { [index: string]: angular.IPromise<any> }
+            clickOutsideToClose?: boolean;
+            disableBackdrop?: boolean;
+            escapeToClose?: boolean;
+            resolve?: { [index: string]: angular.IPromise<any> };
             controllerAs?: string;
-            bindToController?: boolean;
-            parent?: string | Element | JQuery; // default: root node
+            parent?: Function | string | Object; // default: root node
             disableParentScroll?: boolean; // default: true
         }
 
@@ -68,16 +68,7 @@ declare module 'angular' {
         interface IPromptDialog extends IPresetDialog<IPromptDialog> {
             cancel(cancel: string): IPromptDialog;
             placeholder(placeholder: string): IPromptDialog;
-        }
-
-        interface IPromptDialog extends IPresetDialog<IPromptDialog> {
-            placeholder(placeholder: string): IPromptDialog;
-        }
-
-        interface IPromptDialog extends IPresetDialog<IPromptDialog> {
-            cancel(cancel: string): IPromptDialog;
-            placeholder(placeholder: string): IPromptDialog;
-            initialValue(value: string): IPromptDialog;
+            initialValue(initialValue: string): IPromptDialog;
         }
 
         interface IDialogOptions {
@@ -104,8 +95,8 @@ declare module 'angular' {
             onShowing?: Function;
             onComplete?: Function;
             onRemoving?: Function;
-            fullscreen?: boolean; // default: false
             skipHide?: boolean;
+            fullscreen?: boolean; // default: false
         }
 
         interface IDialogService {
@@ -142,6 +133,7 @@ declare module 'angular' {
         }
 
         interface ISidenavService {
+            (component: string, enableWait: boolean): angular.IPromise<ISidenavObject>;
             (component: string): ISidenavObject;
         }
 
@@ -307,13 +299,13 @@ declare module 'angular' {
             panelClass?: string;
             zIndex?: number; // default: 80
             position?: IPanelPosition;
-            hasBackdrop?: boolean; // default: true
             clickOutsideToClose?: boolean; // default: false
             escapeToClose?: boolean; // default: false
             trapFocus?: boolean; // default: false
             focusOnOpen?: boolean; // default: true
             fullscreen?: boolean; // default: false
             animation?: IPanelAnimation;
+            hasBackdrop?: boolean; // default: false
             disableParentScroll?: boolean; // default: false
             onDomAdded?: Function;
             onOpenComplete?: Function;

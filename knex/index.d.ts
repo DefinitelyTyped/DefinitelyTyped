@@ -12,6 +12,7 @@ type Callback = Function;
 type Client = Function;
 type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean>;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
+type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
 interface Knex extends Knex.QueryInterface {
     (tableName?: string): Knex.QueryBuilder;
@@ -162,12 +163,12 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (tableName: string, callback: (joinClause: JoinClause) => any): QueryBuilder;
         (tableName: string, columns: { [key: string]: string | Raw }): QueryBuilder;
-        (tableName: string, raw: Raw): QueryBuilder;
-        (tableName: string, column1: string, column2: string): QueryBuilder;
-        (tableName: string, column1: string, raw: Raw): QueryBuilder;
-        (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+        (tableName: string, callback: Function): QueryBuilder;
+        (tableName: TableName, raw: Raw): QueryBuilder;
+        (tableName: TableName, column1: string, column2: string): QueryBuilder;
+        (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
+        (tableName: TableName, column1: string, operator: string, column2: string): QueryBuilder;
     }
 
     interface JoinClause {
@@ -177,6 +178,20 @@ declare namespace Knex {
         on(column1: string, column2: string): JoinClause;
         on(column1: string, raw: Raw): JoinClause;
         on(column1: string, operator: string, column2: string): JoinClause;
+        andOn(raw: Raw): JoinClause;
+        andOn(callback: Function): JoinClause;
+        andOn(columns: { [key: string]: string | Raw }): JoinClause;
+        andOn(column1: string, column2: string): JoinClause;
+        andOn(column1: string, raw: Raw): JoinClause;
+        andOn(column1: string, operator: string, column2: string): JoinClause;
+        orOn(raw: Raw): JoinClause;
+        orOn(callback: Function): JoinClause;
+        orOn(columns: { [key: string]: string | Raw }): JoinClause;
+        orOn(column1: string, column2: string): JoinClause;
+        orOn(column1: string, raw: Raw): JoinClause;
+        orOn(column1: string, operator: string, column2: string): JoinClause;
+        using(column: string | string[] | Raw | { [key: string]: string | Raw }): JoinClause;
+        type(type: string): JoinClause;
     }
 
     interface JoinRaw {

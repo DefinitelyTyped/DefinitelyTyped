@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.27
+// Type definitions for react-native 0.29
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1741,6 +1741,41 @@ declare module "react" {
 
 
     /**
+     * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
+     */
+    export interface ActivityIndicatorProperties extends React.Props<ActivityIndicatorStatic> {
+
+        /**
+         * Whether to show the indicator (true, the default) or hide it (false).
+         */
+        animating?: boolean
+
+        /**
+         * The foreground color of the spinner (default is gray).
+         */
+        color?: string
+
+        /**
+         * Whether the indicator should hide when not animating (true by default).
+         */
+        hidesWhenStopped?: boolean
+
+        /**
+         * Size of the indicator.
+         * Small has a height of 20, large has a height of 36.
+         *
+         * enum('small', 'large')
+         */
+        size?: 'small' | 'large'
+
+        style?: ViewStyle
+    }
+
+    export interface ActivityIndicatorStatic extends React.ComponentClass<ActivityIndicatorProperties> {
+    }
+
+
+    /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
     export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
@@ -1771,11 +1806,14 @@ declare module "react" {
          *
          * enum('small', 'large')
          */
-        size?: string
+        size?: 'small' | 'large'
 
         style?: ViewStyle
     }
 
+    /**
+     * @Deprecated since version 0.28.0
+     */
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
@@ -3125,11 +3163,16 @@ declare module "react" {
 
     // see /NavigatorSceneConfigs.js
     export interface SceneConfigs {
-        FloatFromBottom: SceneConfig;
-        FloatFromRight: SceneConfig;
         PushFromRight: SceneConfig;
+        FloatFromRight: SceneConfig;
         FloatFromLeft: SceneConfig;
+        FloatFromBottom: SceneConfig;
+        FloatFromBottomAndroid: SceneConfig;
+        FadeAndroid: SceneConfig;
         HorizontalSwipeJump: SceneConfig;
+        HorizontalSwipeJumpFromRight: SceneConfig;
+        VerticalUpSwipeJump: SceneConfig;
+        VerticalDownSwipeJump: SceneConfig;
     }
 
     export interface Route {
@@ -3159,10 +3202,14 @@ declare module "react" {
     export interface NavigatorProperties extends React.Props<Navigator> {
         /**
          * Optional function that allows configuration about scene animations and gestures.
-         * Will be invoked with the route and should return a scene configuration object
+         * Will be invoked with `route` and `routeStack` parameters, where `route`
+         * corresponds to the current scene being rendered by the `Navigator` and
+         * `routeStack` is the set of currently mounted routes that the navigator
+         *  could transition to. The function should return a scene configuration object.
          * @param route
+         * @param routeStack
          */
-        configureScene?: (route: Route) => SceneConfig
+        configureScene?: (route: Route, routeStack: Route[]) => SceneConfig
         /**
          * Specify a route to start on.
          * A route is an object that the navigator will use to identify each scene to render.
@@ -3527,6 +3574,11 @@ declare module "react" {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
+
+        /**
+         * Color of text on unselected tabs
+         */
+        unselectedTintColor?: string
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -5573,6 +5625,8 @@ declare module "react" {
 
     // export var AppRegistry: AppRegistryStatic;
 
+    export var ActivityIndicator: ActivityIndicatorStatic
+    export type ActivityIndicator = ActivityIndicatorStatic
 
     export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic
     export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic

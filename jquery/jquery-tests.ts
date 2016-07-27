@@ -1524,6 +1524,9 @@ function test_eventParams() {
     $(window).on('mousewheel', (e) => {
         var delta = (<WheelEvent>e.originalEvent).deltaY;
     });
+    $( "p" ).click(function( event ) {
+      alert( event.currentTarget === this ); // true
+    });
 }
 
 function test_extend() {
