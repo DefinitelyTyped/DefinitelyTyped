@@ -8,9 +8,9 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
-// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
-// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+// CONTRIBUTING: please open pull requests
 //
 // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
@@ -1339,6 +1339,17 @@ declare namespace  __React {
         domStorageEnabled?: boolean
     }
 
+    export interface WebViewIOSLoadRequestEvent {
+        target: number
+        canGoBack: boolean
+        lockIdentifier: number
+        loading: boolean
+        title: string
+        canGoForward: boolean
+        navigationType: 'other' | 'click'
+        url: string
+    }
+
     export interface WebViewPropertiesIOS {
 
         /**
@@ -1368,7 +1379,7 @@ declare namespace  __React {
          * Return true or false from this method to continue loading the
          * request.
          */
-        onShouldStartLoadWithRequest?: () => boolean
+        onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
 
         scrollEnabled?: boolean
     }
@@ -1463,12 +1474,12 @@ declare namespace  __React {
         /**
          * view to show if there's an error
          */
-        renderError?: () => ViewStatic
+        renderError?: () => React.ReactElement<ViewProperties>
 
         /**
          * loading indicator to show
          */
-        renderLoading?: () => ViewStatic
+        renderLoading?: () => React.ReactElement<ViewProperties>
 
         scrollEnabled?: boolean
 
@@ -3313,6 +3324,16 @@ declare namespace  __React {
          */
         popToTop(): void;
 
+        /**
+         *  Replace the previous scene and pop to it.
+         */
+        replacePreviousAndPop( route: Route ): void;
+
+        /**
+         * Navigate to a new scene and reset route stack.
+         */
+        resetTo( route: Route ): void;
+
     }
 
     namespace NavigatorStatic {
@@ -3720,8 +3741,10 @@ declare namespace  __React {
     export interface PlatformStatic {
         OS: PlatformOSType,
 
-        // only documented in PlatformSpecificInformation.md
-        select({PlatformOSType: any}): any
+        /**
+         * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+         */
+        select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -5721,6 +5744,27 @@ declare namespace  __React {
         handleNavigation( action: NavigationAction ): boolean;
     }
 
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
+    }
+
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
@@ -5923,6 +5967,16 @@ declare namespace  __React {
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
 
+    //Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
+    //See https://facebook.github.io/react-native/docs/native-modules-ios.html
+
+    /**
+     * Use:
+     * <code>const MyModule = NativeModules.ModuleName</code>
+     */
+    export var NativeModules: any
+    export var NativeAppEventEmitter: NativeAppEventEmitterStatic
+
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //
@@ -5986,3 +6040,12 @@ declare module "react-native" {
 declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
+
+/**
+ * This variable is set to true when react-native is running in Dev mode
+ * Typical usage:
+ * <code> if (__DEV__) console.log('Running in dev mode')</code>
+ */
+declare var __DEV__: boolean
+
+
