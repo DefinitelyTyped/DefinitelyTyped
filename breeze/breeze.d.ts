@@ -12,6 +12,7 @@
 // Updated Jan 20 2015 for Breeze 1.5.2 and merging changes from DefinitelyTyped
 // Updated Feb 28 2015 add any/all clause on Predicate
 // Updated Jun 27 2016 - Marcel Good (www.ideablade.com)
+// Updated Jul 28 2016 - Serkan "coni2k" Holat
 
 declare namespace breeze.core {
 
