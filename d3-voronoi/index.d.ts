@@ -11,14 +11,14 @@
 /**
  * The Point type is defined as a cue that the array is strictly of type [number, number] with two elements
  * for x and y coordinates. However, it is used as a base for interface definitions, and [number, number]
- * cannot be extended. 
+ * cannot be extended.
  */
 export type VoronoiPoint = Array<number>;
 
 /**
  * The PointPair type is defined as a cue that the array is strictly of type [[number, number], [number, number]] with two elements, one
- * for each point containing the respective x and y coordinates. However, it is used as a base for interface definitions, and 
- * [[number, number], [number, number]]cannot be extended. 
+ * for each point containing the respective x and y coordinates. However, it is used as a base for interface definitions, and
+ * [[number, number], [number, number]]cannot be extended.
  */
 export type VoronoiPointPair = Array<[number, number]> // [Point, Point];
 

@@ -1,7 +1,7 @@
 
 /**
  * Typescript definition tests for d3/d3-selection module
- * 
+ *
  * Note: These tests are intended to test the definitions only
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
@@ -154,7 +154,7 @@ let documentLinks: d3Selection.Selection<HTMLAnchorElement | HTMLAreaElement, an
 // Expected: datum propagates down from selected element to sub-selected descendant element
 // Parent element and Parent Datum of sub-selected element is the same as starting selection
 
-// Using select(...) sub-selection with a string argument. 
+// Using select(...) sub-selection with a string argument.
 
 let svgEl: d3Selection.Selection<SVGSVGElement, SVGDatum, HTMLElement, any> = d3Selection.select<SVGSVGElement, SVGDatum>('svg');
 
@@ -375,7 +375,7 @@ circles = circles
     .property('__hitchhikersguide__', {
         value: 42,
         survival: 'towel'
-    }); // any 
+    }); // any
 
 circles = circles
     .property('__hitchhikersguide__', function (d, i, group) {
@@ -542,7 +542,7 @@ circles2 = d3Selection.select<SVGSVGElement, any>('#svg2')
 circles2 = circles2 // returned update selection has the same type parameters as original selection, if data type is unchanged
     .data<CircleDatumAlternative>(endCircleData, function (d) { return d.nodeId; });
 
-// circles2.data<DivDatum>(endCircleData, function (d) { return d.nodeId; }); // fails, forced data type parameter and data argument mismatch 
+// circles2.data<DivDatum>(endCircleData, function (d) { return d.nodeId; }); // fails, forced data type parameter and data argument mismatch
 
 // ENTER-selection -----------------------------------------------------------------
 
@@ -612,7 +612,7 @@ tr = d3Selection.select('body')
     // .data<number[]>([{test: 1}, {test: 2}]) // fails, using this data statement instead, would fail because of its type parameter not being met by input
     .enter().append<HTMLTableRowElement>('tr');
 
-nMatrix = tr.data(); // i.e. matrix 
+nMatrix = tr.data(); // i.e. matrix
 
 let td: d3Selection.Selection<HTMLTableDataCellElement, number, HTMLTableRowElement, number[]>;
 td = tr.selectAll()
@@ -633,7 +633,7 @@ let tr2 = d3Selection.select('body')
     .data(matrix)
     .enter().append('tr');
 
-nMatrix = tr2.data(); // i.e. matrix 
+nMatrix = tr2.data(); // i.e. matrix
 
 let td2 = tr2.selectAll('td')
     .data(function (d) { return d; }) // d : Array<number> inferred (Array[4] of number per parent <tr>)
@@ -773,7 +773,7 @@ function enforceMinRadius(selection: d3Selection.Selection<SVGCircleElement, Cir
 }
 
 // returns 'this' selection
-circles = circles.call(enforceMinRadius, 40); // check chaining return type by re-assigning 
+circles = circles.call(enforceMinRadius, 40); // check chaining return type by re-assigning
 
 // circles.call(function (selection: d3Selection.Selection<HTMLDivElement, CircleDatum, any, any>):void {
 //     // fails, group element types of selection not compatible: SVGCircleElement v HTMLDivElement

@@ -1,6 +1,6 @@
 /**
  * Typescript definition tests for d3/d3-format module
- * 
+ *
  * Note: These tests are intended to test the definitions only
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
@@ -79,5 +79,5 @@ localeObj = d3Format.formatLocale(localeDef);
 
 localeObj = d3Format.formatDefaultLocale(localeDef);
 
-let formatFactory: (specifier: string)  => ((n: number) => string) = localeObj.format;
-let formatPrefixFactory: (specifier: string, value: number)  => ((n: number) => string) = localeObj.formatPrefix;
+let formatFactory: (specifier: string) => ((n: number) => string) = localeObj.format;
+let formatPrefixFactory: (specifier: string, value: number) => ((n: number) => string) = localeObj.formatPrefix;

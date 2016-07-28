@@ -26,7 +26,7 @@ export type DragContainerElement = HTMLElement | SVGSVGElement | SVGGElement; //
 
 /**
  * The subject datum should at a minimum expose x and y properties, so that the relative position
- * of the subject and the pointer can be preserved during the drag gesture. 
+ * of the subject and the pointer can be preserved during the drag gesture.
  */
 export interface SubjectPosition {
     x: number;
@@ -38,8 +38,8 @@ export interface DragBehavior<GElement extends DraggedElementBaseType, Datum, Su
     container(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => DragContainerElement;
     container(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => DragContainerElement): DragBehavior<GElement, Datum, Subject>;
     container(container: DragContainerElement): DragBehavior<GElement, Datum, Subject>;
-    filter(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| ArrayLike<GElement>) => boolean;
-    filter(filterFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement>| ArrayLike<GElement>) => boolean): DragBehavior<GElement, Datum, Subject>;
+    filter(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => boolean;
+    filter(filterFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => boolean): DragBehavior<GElement, Datum, Subject>;
     subject(): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => Subject;
     subject(accessor: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => Subject): DragBehavior<GElement, Datum, Subject>;
     on(typenames: string): (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => any;

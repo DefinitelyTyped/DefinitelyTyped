@@ -82,7 +82,7 @@ export interface TransitionLike<GElement extends BaseType, Datum> {
 // --------------------------------------------------------------------------
 
 // NB: Note that, d3.select does not generate the same parent element, when targeting the same DOM element with string selector
-// or node element  
+// or node element
 export function select<GElement extends BaseType, OldDatum>(selector: string): Selection<GElement, OldDatum, HTMLElement, any>;
 export function select<GElement extends BaseType, OldDatum>(node: GElement): Selection<GElement, OldDatum, null, undefined>;
 
@@ -273,7 +273,7 @@ export interface Local {
     set(node: Element, value: any): Element;
     /**
      * Obtain a string with the internally assigned property name for the local
-     * which is used to store the value on a node 
+     * which is used to store the value on a node
      */
     toString(): string;
 }
@@ -306,8 +306,8 @@ export type NamespaceLocalObject = {
  * name of local by parsing a shorthand string "prefix:local". If the prefix
  * does not exist in the "namespaces" object provided by d3-selection, then
  * the local name is returned as a simple string.
- * 
- * @param prefixedLocal A string composed of the namespace prefix and local 
+ *
+ * @param prefixedLocal A string composed of the namespace prefix and local
  * name separated by colon, e.g. "svg:text".
  */
 export function namespace(prefixedLocal: string): NamespaceLocalObject | string;
@@ -345,7 +345,7 @@ export function window(DOMNode: Window | Document | Element): Window;
  * Returns a closure structure which can be invoked in the 'this' context
  * of a group element. Depending on the use of namespacing, the NewGElement can be HTMLElement,
  * SVGElement an extension thereof or an element from a different namespace.
- * 
+ *
  * @param elementName Name of the element to be added
  */
 export function creator<NewGElement extends Element>(elementName: string): (this: BaseType) => NewGElement;
@@ -353,7 +353,7 @@ export function creator<NewGElement extends Element>(elementName: string): (this
 /**
  * Returns a closure structure which can be invoked in the 'this' context
  * of a group element. Returns true, if the element in the 'this' context matches the selector
- * 
+ *
  * @param selector A valid selector string
  */
 export function matcher<GElement extends Element>(selector: string): (this: BaseType) => boolean;

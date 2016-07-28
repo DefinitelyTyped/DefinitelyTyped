@@ -8,7 +8,7 @@ import { Selection, TransitionLike } from 'd3-selection';
 // TODO: The below import is commented out, as d3-axis does not have a dependency
 // on d3-time. d3-time may only be loaded, if the use case requires a TimeInterval (or CountableTimeInterval)
 // for an axis. In which case, the ticks(...) signature with interval argument, would be best-specified
-// with the below import. 
+// with the below import.
 
 // import { TimeInterval } from 'd3-time';
 
@@ -46,7 +46,7 @@ export interface Axis<Domain> {
 
     // ticks(interval: TimeInterval, specifier?: string): Axis<Domain>;
 
-    // HACK: use `any` instead of TimeInterval 
+    // HACK: use `any` instead of TimeInterval
     ticks(interval: any, specifier?: string): Axis<Domain>;
     ticks(arg0: any, ...args: any[]): Axis<Domain>;
     tickArguments(): any[];
