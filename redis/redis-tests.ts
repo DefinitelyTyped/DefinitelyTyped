@@ -27,6 +27,28 @@ redis.print(err, value);
 
 client = redis.createClient(num, str, options);
 
+// Test the `retry_strategy` property
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+interface RedisRetryStrategyOptions {
+  error: Error;
+  total_retry_time: number;
+  times_connected: number;
+  attempt: number;
+}
+function retryStrategyNumber(options: RedisRetryStrategyOptions): number {
+  return 5000;
+}
+function retryStrategyError(options: RedisRetryStrategyOptions): Error {
+  return new Error('Foo');
+}
+redis.createClient({
+  retry_strategy: retryStrategyNumber
+});
+redis.createClient({
+  retry_strategy: retryStrategyError
+});
+// ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
 bool = client.connected;
 num = client.retry_delay;
 num = client.retry_backoff;
