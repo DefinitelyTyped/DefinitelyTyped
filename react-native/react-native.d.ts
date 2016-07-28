@@ -5744,6 +5744,27 @@ declare namespace  __React {
         handleNavigation( action: NavigationAction ): boolean;
     }
 
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
+    }
+
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
