@@ -95,7 +95,7 @@ export function set<T>(array: Array<T>, key: (value: T, index?: number, array?: 
 // if AT LEAST ONE KEY was set. This seems a reasonable constraint in practice, given the intent of the nest operator.
 // Otherwise, an additional '| Array<Datum> | RollupType` would have to be added to the union type. This would cover
 // cases (a) without key or rollup (b) without key but with rollup. However, again, the union types make it cumbersome
-// without much gain. 
+// without much gain.
 
 export interface NestedArray<Datum, RollupType> extends Array<{ key: string, values: NestedArray<Datum, RollupType> | Array<Datum> | undefined, value: RollupType | undefined }> { }
 export interface NestedMap<Datum, RollupType> extends Map<NestedMap<Datum, RollupType> | Array<Datum> | RollupType> { }

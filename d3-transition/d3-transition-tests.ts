@@ -1,6 +1,6 @@
 /**
  * Typescript definition tests for d3/d3-transition module
- * 
+ *
  * Note: These tests are intended to test the definitions only
  * in the sense of typing and call signature consistency. They
  * are not intended as functional tests.
@@ -329,7 +329,7 @@ function changeExitColor(transition: d3Transition.Transition<SVGCircleElement, C
 }
 
 // returns 'this' transition
-exitTransition = exitTransition.call(changeExitColor, 'midnightblue', 'black'); // check chaining return type by re-assigning 
+exitTransition = exitTransition.call(changeExitColor, 'midnightblue', 'black'); // check chaining return type by re-assigning
 
 // exitTransition.call(function (transition: d3Transition.Transition<HTMLDivElement, CircleDatum, any, any>): void {
 //     // fails, group element types of selection not compatible: SVGCircleElement v HTMLDivElement

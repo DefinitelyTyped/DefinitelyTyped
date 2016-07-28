@@ -99,4 +99,3 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
 
 export function transition(name: string): Transition<HTMLElement, any, null, undefined>;
 export function transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(transition: Transition<GElement, Datum, PElement, PDatum>): Transition<GElement, Datum, PElement, PDatum>;
-

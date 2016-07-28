@@ -17,7 +17,7 @@ export interface QuadtreeLeaf<T> {
  * 1 - the top-right quadrant, if any.
  * 2 - the bottom-left quadrant, if any.
  * 3 - the bottom-right quadrant, if any.
- * 
+ *
  * A child quadrant may be undefined if it is empty.
  */
 export interface QuadtreeInternalNode<T> extends Array<QuadtreeInternalNode<T> | QuadtreeLeaf<T> | undefined> {}
@@ -47,4 +47,4 @@ export interface Quadtree<T> {
 export function quadtree(): Quadtree<[number, number]>;
 export function quadtree(data: Array<[number, number]>): Quadtree<[number, number]>;
 export function quadtree<T>(): Quadtree<T>;
-export function quadtree<T>(data: Array<T>, x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>; 
+export function quadtree<T>(data: Array<T>, x?: (d: T) => number, y?: (d: T) => number): Quadtree<T>;

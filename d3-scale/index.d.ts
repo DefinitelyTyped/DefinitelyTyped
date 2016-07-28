@@ -384,7 +384,7 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      */
     padding(): number;
     /**
-     * Sets the outer padding to the specified value which must be in the range [0, 1]. 
+     * Sets the outer padding to the specified value which must be in the range [0, 1].
      * The outer padding determines the ratio of the range that is reserved for blank space
      * before the first point and after the last point.
      */
