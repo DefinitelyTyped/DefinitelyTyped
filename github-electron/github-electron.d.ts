@@ -401,7 +401,7 @@ declare namespace Electron {
 		 * Note: This will not affect process.argv, and is mainly used by developers
 		 * to control some low-level Chromium behaviors.
 		 */
-		appendSwitch(_switch: string, value?: string|number): void;
+		appendSwitch(_switch: string, value?: string): void;
 		/**
 		 * Append an argument to Chromium's command line. The argument will quoted properly.
 		 *
@@ -4365,7 +4365,7 @@ declare namespace Electron {
 		wheelTicksY?: number;
 		accelerationRatioX?: number;
 		accelerationRatioY?: number;
-		hasPreciseScrollingDeltas?: number;
+		hasPreciseScrollingDeltas?: boolean;
 		canScroll?: boolean;
 	}
 
@@ -4642,7 +4642,7 @@ declare namespace Electron {
 		/**
 		 * Navigates to the specified offset from the "current entry".
 		 */
-		goToOffset(offset: boolean): void;
+		goToOffset(offset: number): void;
 		/**
 		 * @returns Whether the renderer process has crashed.
 		 */
