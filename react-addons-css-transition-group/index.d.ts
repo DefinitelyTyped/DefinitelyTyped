@@ -3,8 +3,8 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ComponentClass } from 'react';
-import { TransitionGroupProps } from 'react-addons-transition-group';
+import 'react-addons-transition-group';
+import { ComponentClass, TransitionGroupProps } from 'react';
 
 declare var CSSTransitionGroup: CSSTransitionGroup;
 type CSSTransitionGroup = ComponentClass<CSSTransitionGroupProps>;

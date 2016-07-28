@@ -5,6 +5,8 @@
 
 import * as Backbone from 'backbone';
 
+export = Backbone.Radio;
+
 declare module "backbone" {
     interface Radio {
         tuneIn(channelName: string): Radio;
@@ -90,3 +92,4 @@ declare module "backbone" {
         }
     }
 }
+

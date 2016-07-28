@@ -1,7 +1,19 @@
-﻿// Type definitions for simpleStorage v0.1.3
+// Type definitions for simplestorage.js v0.2.1
 // Project: https://github.com/andris9/simpleStorage
-// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>
+// Definitions by: Áxel Costas Pena <https://github.com/axelcostaspena>, Michael Ledin <https://github.com/mxl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+export = simpleStorage;
+export as namespace simpleStorage;
+
+/**
+ * Cross-browser key-value store database to store data locally in the browser.
+ * {@link simpleStorage} is a fork of {@link http://www.jstorage.info/|jStorage} that only includes the minimal set of features. Basically it is a wrapper for native <code>{@link JSON}</code> + <code>{@link WindowLocalStorage.localStorage|localStorage}</code> with some TTL magic mixed in.
+ * The module has no dependencies, you can use it as a standalone script (introduces {@link simpleStorage} global) or as an AMD module. All modern browsers (including mobile) are supported, older browsers (IE7, Firefox 3) are not.
+ * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
+ * @see https://github.com/andris9/simpleStorage#simplestorage
+ */
+declare var simpleStorage: simplestoragejs.SimpleStorage;
 
 declare namespace simplestoragejs {
 
@@ -37,6 +49,14 @@ declare namespace simplestoragejs {
          * @see https://github.com/andris9/simpleStorage#getkey
          */
         get(key: string): any;
+
+        /**
+         * Checks if there's a value with the given key in the local storage.
+         * Returns <code>true</code> if the given key exists, <code>false</code> otherwise.
+         * @param key The key to be checked.
+         * @see https://github.com/andris9/simpleStorage#haskeykey
+         */
+        hasKey(key: string): boolean;
 
         /**
          * Removes a value from local storage.
@@ -95,15 +115,3 @@ declare namespace simplestoragejs {
     }
 
 }
-
-export = simpleStorage;
-export as namespace simpleStorage;
-
-/**
- * Cross-browser key-value store database to store data locally in the browser.
- * {@link simpleStorage} is a fork of {@link http://www.jstorage.info/|jStorage} that only includes the minimal set of features. Basically it is a wrapper for native <code>{@link JSON}</code> + <code>{@link WindowLocalStorage.localStorage|localStorage}</code> with some TTL magic mixed in.
- * The module has no dependencies, you can use it as a standalone script (introduces {@link simpleStorage} global) or as an AMD module. All modern browsers (including mobile) are supported, older browsers (IE7, Firefox 3) are not.
- * {@link simpleStorage} is very small - about 1kB in size when minimized and gzipped.
- * @see https://github.com/andris9/simpleStorage#simplestorage
- */
-declare var simpleStorage:simplestoragejs.SimpleStorage;

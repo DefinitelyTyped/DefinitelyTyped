@@ -463,7 +463,7 @@ export declare function exec(command: string, options: ExecOptions, callback: Ex
 export declare function exec(command: string, callback: ExecCallback): child.ChildProcess;
 
 export interface ExecCallback {
-    (code: number, output: string): any;
+    (code: number, output: string, error?: string): any;
 }
 
 export interface ExecOptions {

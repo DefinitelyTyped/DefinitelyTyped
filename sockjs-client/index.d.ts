@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace __SockJSClient {
-  interface BaseEvent {
+  interface BaseEvent extends Event {
     type: string;
   }
 

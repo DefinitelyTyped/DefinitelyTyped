@@ -41,7 +41,7 @@ function test_addClass() {
 
 function test_after() {
     $('.inner').after('<p>Test</p>');
-    $('<div/>').after('<p></p>');
+    $('<div/>').after('<p></p>').after(document.createDocumentFragment());
     $('<div/>').after('<p></p>').addClass('foo')
       .filter('p').attr('id', 'bar').html('hello')
     .end()
@@ -509,7 +509,7 @@ function test_toggle() {
 
 function test_append() {
     $('.inner').append('<p>Test</p>');
-    $('.container').append($('h2'));
+    $('.container').append($('h2')).append(document.createDocumentFragment());
 
     var $newdiv1 = $('<div id="object1"/>'),
     newdiv2 = document.createElement('div'),
@@ -559,7 +559,7 @@ function test_attributeSelectors() {
 
 function test_before() {
     $('.inner').before('<p>Test</p>');
-    $('.container').before($('h2'));
+    $('.container').before($('h2')).before(document.createDocumentFragment());
     $("<div/>").before("<p></p>");
     var $newdiv1 = $('<div id="object1"/>'),
         newdiv2 = document.createElement('div'),
@@ -944,6 +944,17 @@ function test_clone() {
           .prepend('foo - ')
           .parent()
           .clone());
+}
+
+function test_prepend() {
+    $('.inner').prepend('<p>Test</p>');
+    $('.container').prepend($('h2')).prepend(document.createDocumentFragment());
+
+    var $newdiv1 = $('<div id="object1"/>'),
+        newdiv2 = document.createElement('div'),
+        existingdiv1 = document.getElementById('foo');
+
+    $('body').prepend($newdiv1, [newdiv2, existingdiv1]);
 }
 
 function test_prependTo() {
@@ -1512,6 +1523,9 @@ function test_eventParams() {
     });
     $(window).on('mousewheel', (e) => {
         var delta = (<WheelEvent>e.originalEvent).deltaY;
+    });
+    $( "p" ).click(function( event ) {
+      alert( event.currentTarget === this ); // true
     });
 }
 

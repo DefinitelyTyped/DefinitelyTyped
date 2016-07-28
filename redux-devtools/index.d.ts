@@ -9,12 +9,12 @@ import * as React from 'react';
 
 interface IDevTools {
     new (): JSX.ElementClass;
-    instrument(): Function;
+    instrument(): Function
 }
 
 export declare function createDevTools(el: React.ReactElement<any>): IDevTools;
 export declare function persistState(debugSessionKey: string): Function;
 
-declare var factory: { instrument(): Function };
+declare const factory: { instrument(): Function };
 
 export default factory;

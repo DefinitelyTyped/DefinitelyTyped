@@ -7,8 +7,6 @@
 
 /// <reference types="node" />
 
-
-
 export declare var config: ClientConfig;
 
 export declare function Config(json: any): void;
@@ -16,6 +14,10 @@ export declare function Config(json: any): void;
 export declare class Credentials {
     constructor(accessKeyId: string, secretAccessKey: string, sessionToken?: string);
     accessKeyId: string;
+}
+
+export class EnvironmentCredentials extends Credentials {
+    constructor(profile: string);
 }
 
 export interface Logger {
@@ -138,7 +140,7 @@ export declare class SES {
 
 export declare class SNS {
     constructor(options?: any);
-    public client: Sns.Client;
+    publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 }
 
 export declare class SimpleWorkflow {
@@ -148,17 +150,88 @@ export declare class SimpleWorkflow {
 
 export declare class S3 {
     constructor(options?: any);
-    putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
-    getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
+    headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+    getSignedUrl(operation: string, params: any): string;
+    getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
+    upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
+}
+
+
+export class STS {
+    constructor(options?: any);
+    /**
+     * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
+     */
+    assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
+     */
+    assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
+     */
+    assumeRoleWithWebIdentity(params: sts.AssumeRoleWithWebIdentityParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Creates a credentials object from STS response data containing credentials information.
+     */
+    credentialsFrom(params: sts.CredentialsFromParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+     */
+    decodeAuthorizationMessage(params: sts.DecodeAuthorizationMessageParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns details about the IAM identity whose credentials are used to call the API.
+     */
+    getCallerIdentity(params: {}, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
+     */
+    getFederationToken(params: sts.GetFederationTokenParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary credentials for an AWS account or IAM user.
+     */
+    getSessionToken(params: sts.GetSessionTokenParams, callback: (err: any, data: any) => void): void;
+
 }
 
 export declare class ECS {
     constructor(options?: any);
-
+    /**
+		 * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
+		 */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes one or more of your clusters.
+     */
+    describeClusters(params: ecs.DescribeClustersParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes the specified services running in your cluster.
+     */
     describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes a specified task or tasks.
+     */
+    describeTasks(params: ecs.DescribeTasksParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
+     */
     describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
+     */
     registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Modifies the desired count, deployment configuration, or task definition used in a service.
+     */
     updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
 }
 
@@ -166,11 +239,111 @@ export declare class DynamoDB {
     constructor(options?: any);
 }
 
+// ==========================================================
+
 export declare module DynamoDB {
+
+    interface _DDBDC_Generic {
+        TableName: string;
+        ExpressionAttributeNames?: string[];
+        ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
+    }
+
+    type _DDBDC_ComparisonOperator = "EQ" | "NE" | "IN" | "LE" | "LT" | "GE" | "GT" | "BETWEEN" | "NOT_NULL" | "NULL" | "CONTAINS" | "NOT_CONTAINS" | "BEGINS_WITH"
+    type _DDBDC_Keys = { [someKey: string]: any };
+    type _DDBDC_KeyComparison = {
+        [someKey: string]: {
+            AttributeValueList: any[];
+            ComparisonOperator: _DDBDC_ComparisonOperator;
+        }
+    };
+
+    interface _DDBDC_Reader extends _DDBDC_Generic {
+        ConsistentRead?: boolean;
+        ProjectionExpression?: string;
+        AttributesToGet?: string[];
+    }
+
+    interface _DDBDC_Writer extends _DDBDC_Generic {
+        ExpressionAttributeValues?: _DDBDC_Keys;
+        ReturnItemCollectionMetrics?: "SIZE" | "NONE";
+        ReturnValues?: "NONE" | "ALL_OLD" | "UPDATED_OLD" | "ALL_NEW" | "UPDATED_NEW";
+        ConditionExpression?: string;
+        ConditionalOperator?: "AND" | "OR";
+        Expected?: {
+            [someKey: string]: {
+                AttributeValueList: any[];
+                ComparisonOperator: _DDBDC_ComparisonOperator;
+                Exists: boolean;
+                Value: any;
+            }
+        }
+    }
+
+    interface UpdateParam extends _DDBDC_Writer {
+        Key: _DDBDC_Keys;
+        AttributeUpdates: {
+            [someKey: string]: {
+                Action: "PUT" | "ADD" | "DELETE";
+                Value: any
+            }
+        }
+    }
+
+    interface QueryParam extends _DDBDC_Reader {
+        ConditionalOperator?: "AND" | "OR";
+        ExclusiveStartKey?: _DDBDC_Keys;
+        ExpressionAttributeValues?: _DDBDC_Keys;
+        FilterExpression?: string;
+        IndexName?: string;
+        KeyConditionExpression?: string;
+        KeyConditions?: _DDBDC_KeyComparison;
+        Limit?: number;
+        QueryFilter?: _DDBDC_KeyComparison;
+        ScanIndexForward?: boolean;
+        Select?: "ALL_ATTRIBUTES" | "ALL_PROJECTED_ATTRIBUTES" | "SPECIFIC_ATTRIBUTES" | "COUNT";
+    }
+
+    interface ScanParam extends QueryParam {
+        Segment?: number;
+        ScanFilter?: _DDBDC_KeyComparison;
+        TotalSegments?: number;
+    }
+
+    interface GetParam extends _DDBDC_Reader {
+        Key: _DDBDC_Keys;
+    }
+
+    interface PutParam extends _DDBDC_Writer {
+        Item: _DDBDC_Keys;
+    }
+
+    interface DeleteParam extends _DDBDC_Writer {
+        Key: _DDBDC_Keys;
+    }
+
     export class DocumentClient {
         constructor(options?: any);
+        get(params: GetParam, next: (err: any, data: any) => void): void;
+        put(params: PutParam, next: (err: any, data: any) => void): void;
+        delete(params: DeleteParam, next: (err: any, data: any) => void): void;
+        query(params: QueryParam, next: (err: any, data: any) => void): void;
+        scan(params: ScanParam, next: (err: any, data: any) => void): void;
+        update(params: UpdateParam, next: (err: any, data: any) => void): void;
+        createSet(list: any[], options?: { validate?: boolean }): { values: any[], type: string };
+        batchGet(params: any, next: (err: any, data: any) => void): void;
+        batchWrite(params: any, next: (err: any, data: any) => void): void;
     }
+
 }
+
+// ===========================================================
+
+// ===========================================================
+
+// ===========================================================
+
+// ===========================================================
 
 export declare module SQS {
 
@@ -225,7 +398,7 @@ export declare module SQS {
     }
 
     export interface SendMessageParams {
-        QueueUrl: string;
+        QueueUrl?: string;
         MessageBody: string;
         DelaySeconds?: number;
         MessageAttributes?: { [name: string]: MessageAttribute; }
@@ -1023,16 +1196,24 @@ export declare module Sns {
     export interface Client {
         config: ClientConfig;
 
-        publicTopic(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
+        publish(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
         createTopic(params: CreateTopicRequest, callback: (err: any, data: CreateTopicResult) => void): void;
         deleteTopic(params: DeleteTopicRequest, callback: (err: any, data: any) => void): void;
     }
 
     export interface PublishRequest {
         TopicArn?: string;
+        TargetArn?: string;
+        MessageAttributes?: { [name: string]: MessageAttribute; };
         Message?: string;
         MessageStructure?: string;
         Subject?: string;
+    }
+
+    export interface MessageAttribute {
+        DataType: string;
+        StringValue?: string;
+        BinaryValue: any; // (Buffer, Typed Array, Blob, String)
     }
 
     export interface PublishResult {
@@ -1072,7 +1253,7 @@ export declare module s3 {
         GrantReadACP?: string;
         GrantWriteACP?: string;
         Key: string;
-        Metadata?: string[];
+        Metadata?: { [key: string]: string; };
         ServerSideEncryption?: string;
         StorageClass?: string;
         WebsiteRedirectLocation?: string;
@@ -1095,6 +1276,33 @@ export declare module s3 {
         VersionId?: string;
     }
 
+    export interface DeleteObjectRequest {
+        Bucket: string;
+        Key: string;
+        MFA?: string;
+        RequestPayer?: string;
+        VersionId?: string;
+    }
+
+    export interface HeadObjectRequest {
+        Bucket: string;
+        Key: string;
+        IfMatch?: string;
+        IfModifiedSince?: Date;
+        IfNoneMatch?: string;
+        IfUnmodifiedSince?: Date;
+        Range?: string;
+        RequestPayer?: string;
+        SSECustomerAlgorithm?: string;
+        SSECustomerKey?: Buffer | string;
+        SSECustomerKeyMD5?: string;
+        VersionId?: string;
+    }
+
+    export interface UploadOptions {
+        partSize?: number;
+        queueSize?: number;
+    }
 }
 
 export declare module ecs {
@@ -1117,11 +1325,38 @@ export declare module ecs {
     }
 
     export interface DescribeServicesParams {
+        /**
+         * A list of services to describe.
+         */
         services: string[];
-        cluster: string;
+        /**
+         * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
+         */
+        cluster?: string;
+    }
+
+    export interface DescribeClustersParams {
+        /**
+         * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+         */
+        clusters?: string[];
+    }
+
+    export interface DescribeTasksParams {
+        /**
+         * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
+         */
+        tasks: string[];
+        /**
+         * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to describe. If you do not specify a cluster, the default cluster is assumed.
+         */
+        cluster?: string;
     }
 
     export interface DescribeTaskDefinitionParams {
+        /**
+         * The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
+         */
         taskDefinition: string;
     }
 
@@ -1192,5 +1427,79 @@ export declare module ecs {
         };
         desiredCount?: number;
         taskDefinition: string;
+    }
+}
+
+export module sts {
+    export interface AssumeRoleParams {
+        RoleArn: string;
+        RoleSessionName: string;
+        DurationSeconds?: number;
+        ExternalId?: string;
+        Policy?: string;
+        SerialNumber?: string;
+        TokenCode?: string;
+    }
+
+    export interface AssumeRoleCallbackData {
+        Credentials: TemporaryCredentials;
+        AssumedRoleUser: AssumedRoleUser;
+        PackedPolicySize: number;
+    }
+
+    export interface TemporaryCredentials {
+        AccessKeyId: string;
+        SecretAccessKey: string;
+        SessionToken: string;
+        Expiration: Date;
+    }
+
+    export interface AssumedRoleUser {
+        AssumedRoleId: string;
+        Arn: string;
+    }
+
+    export interface AssumeRoleWithSAMLParams {
+        PrincipalArn: string;
+        RoleArn: string;
+        SAMLAssertion: string;
+        DurationSeconds?: number;
+        Policy?: string;
+    }
+
+    export interface AssumeRoleWithWebIdentityParams {
+        RoleArn: string;
+        RoleSessionName: string;
+        WebIdentityToken: string;
+        DurationSeconds?: number;
+        Policy?: string;
+        ProviderId?: string;
+    }
+
+    export interface CredentialsFromParams {
+        /**
+         * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
+         */
+        Data: any;
+        /**
+         * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
+         */
+        Credentials?: Credentials
+    }
+
+    export interface DecodeAuthorizationMessageParams {
+        EncodedMessage: string;
+    }
+
+    export interface GetFederationTokenParams {
+        Name: string;
+        DurationSeconds?: number,
+        Policy?: string
+    }
+
+    export interface GetSessionTokenParams {
+        DurationSeconds: number,
+        SerialNumber: string;
+        TokenCode: string;
     }
 }

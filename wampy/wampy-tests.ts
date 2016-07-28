@@ -13,7 +13,8 @@ ws.options({
     onConnect: function () { console.log('Yahoo! We are online!'); },
     onClose: function () { console.log('See you next time!'); },
     onError: function () { console.log('Breakdown happened'); },
-    onReconnect: function () { console.log('Reconnecting...'); }
+    onReconnect: function () { console.log('Reconnecting...'); },
+    onReconnectSuccess: function () { console.log('Successfully reconnected!'); }
 });
 
 ws.connect();
@@ -93,7 +94,7 @@ var status = ws.getOpStatus();
 
 ws.cancel(status.reqId);
 
-var sqrt_f = function (x: number) { return x*x; };
+var sqrt_f = function (x: number, y: any) { return [{}, x*x]; };
 
 ws.register('sqrt.value', sqrt_f);
 

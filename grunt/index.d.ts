@@ -773,6 +773,7 @@ declare namespace grunt {
              * The taskList argument must be an array of tasks.
              */
             registerTask(taskName: string, taskList: string[]): void
+            registerTask(taskName: string, description: string, taskList: string[]): void
 
             /**
              * If a description and taskFunction are passed, the specified function will be executed
@@ -784,6 +785,7 @@ declare namespace grunt {
              *
              * @note taskFunction.apply(scope: grunt.task.ITask, args: any[])
              */
+            registerTask(taskName: string, taskFunction: Function): void
             registerTask(taskName: string, description: string, taskFunction: Function): void
 
             /**

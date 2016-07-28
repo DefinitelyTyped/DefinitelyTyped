@@ -35,6 +35,7 @@ client.connect((err) => {
         if (err) {
             return console.error("Error running query", err);
         }
+        console.log(result.rowCount);
         console.log(result.rows[0]["theTime"]);
         client.end();
         return null;

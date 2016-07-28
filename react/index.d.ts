@@ -153,6 +153,7 @@ declare namespace React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
+    var version: string;
 
     //
     // Component API
@@ -290,7 +291,7 @@ declare namespace React {
         data: string;
     }
 
-    interface DragEvent<T> extends SyntheticEvent<T> {
+    interface DragEvent<T> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
     }
 
@@ -349,11 +350,23 @@ declare namespace React {
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends SyntheticEvent<T> {
+    interface WheelEvent<T> extends MouseEvent<T> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent<{}> {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+    
+    interface TransitionEvent extends SyntheticEvent<{}> {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -376,6 +389,8 @@ declare namespace React {
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
     type UIEventHandler<T> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -499,6 +514,14 @@ declare namespace React {
 
         // Wheel Events
         onWheel?: WheelEventHandler<T>;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -2009,7 +2032,7 @@ declare namespace React {
         title?: string;
         type?: string;
         useMap?: string;
-        value?: string | string[];
+        value?: string | string[] | number;
         width?: number | string;
         wmode?: string;
         wrap?: string;
@@ -2449,10 +2472,30 @@ declare global {
             clipPath: React.SVGProps;
             defs: React.SVGProps;
             ellipse: React.SVGProps;
+        feBlend: React.SVGProps;
+        feColorMatrix: React.SVGProps;
+        feComponentTransfer: React.SVGProps;
+        feComposite: React.SVGProps;
+        feConvolveMatrix: React.SVGProps;
+        feDiffuseLighting: React.SVGProps;
+        feDisplacementMap: React.SVGProps;
+        feFlood: React.SVGProps;
+        feGaussianBlur: React.SVGProps;
+        feImage: React.SVGProps;
+        feMerge: React.SVGProps;
+        feMergeNode: React.SVGProps;
+        feMorphology: React.SVGProps;
+        feOffset: React.SVGProps;
+        feSpecularLighting: React.SVGProps;
+        feTile: React.SVGProps;
+        feTurbulence: React.SVGProps;
+        filter: React.SVGProps;
+        foreignObject: React.SVGProps;
             g: React.SVGProps;
             image: React.SVGProps;
             line: React.SVGProps;
             linearGradient: React.SVGProps;
+        marker: React.SVGProps;
             mask: React.SVGProps;
             path: React.SVGProps;
             pattern: React.SVGProps;
