@@ -3741,8 +3741,10 @@ declare namespace  __React {
     export interface PlatformStatic {
         OS: PlatformOSType,
 
-        // only documented in PlatformSpecificInformation.md
-        select({PlatformOSType: any}): any
+        /**
+         * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+         */
+        select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
     export interface DeviceEventSubscriptionStatic {
