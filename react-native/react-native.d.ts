@@ -1474,12 +1474,12 @@ declare namespace  __React {
         /**
          * view to show if there's an error
          */
-        renderError?: () => ViewStatic
+        renderError?: () => React.ReactElement<ViewProperties>
 
         /**
          * loading indicator to show
          */
-        renderLoading?: () => ViewStatic
+        renderLoading?: () => React.ReactElement<ViewProperties>
 
         scrollEnabled?: boolean
 
