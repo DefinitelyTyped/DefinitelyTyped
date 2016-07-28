@@ -3597,7 +3597,7 @@ declare namespace  __React {
         OS: PlatformOSType,
 
         // only documented in PlatformSpecificInformation.md
-        select({PlatformOSType}:{PlatformOSType: any}): any
+        select<T>( specifics: { ios?: T, android?: T} ): T
     }
 
     export interface DeviceEventSubscriptionStatic {
