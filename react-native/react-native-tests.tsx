@@ -78,6 +78,28 @@ var styles = StyleSheet.create<LocalStyles>(
     }
 )
 
+//alternative declaration of styles (inline typings)
+const stylesAlt = StyleSheet.create(
+    {
+        container:    {
+            flex:            1,
+            justifyContent:  'center',
+            alignItems:      'center',
+            backgroundColor: '#F5FCFF',
+        } as React.ViewStyle,
+        welcome:   {
+            fontSize:  20,
+            textAlign: 'center',
+            margin:    10,
+        } as React.TextStyle,
+        instructions: {
+            textAlign:    'center',
+            color:        '#333333',
+            marginBottom: 5,
+        } as React.TextStyle
+    }
+)
+
 
 class Welcome extends React.Component<any,any> {
 
@@ -85,7 +107,7 @@ class Welcome extends React.Component<any,any> {
       [key: string]: any
       rootView: View
     }
-  
+
     testNativeMethods() {
       // this.setNativeProps({});
 
