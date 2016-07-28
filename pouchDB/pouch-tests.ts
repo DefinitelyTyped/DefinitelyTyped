@@ -1,142 +1,106 @@
+import * as PouchDB from 'pouchdb';
 
+namespace PouchDBTests {
+    function isString(someString: string) {
+    }
+    function isNumber(someNumber: number) {
+    }
 
-window.alert = function (thing?: string) {    
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(thing));
-    document.getElementsByTagName('body')[0].appendChild(div);
-}
+    function testAllDocs() {
+        const db = new PouchDB<{ foo: number }>();
 
-var pouch: PouchDB;
+        db.allDocs().then(({ offset, total_rows, rows }) => {
+            isNumber(offset);
+            isNumber(total_rows);
 
-function pouchTests() {
-    new PouchDB('testdb', function (err: PouchError, res: PouchDB) {
-		if (err) {
-			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-		}
-		else {
-			pouch = res;
-			alert("database opened");
-			runTests();
-		}
-	});
-}
+            rows.forEach(({ id, key, value, doc }) => {
+                isString(id);
+                isString(key);
+                isString(value.rev);
 
-var tests = [
-	setupTests,
-	testId,
-	testAllDocs,
-	testGet,
-	testUpdate,
-	testDelete,
-	deleteDb
-];
+                // check document property
+                isNumber(doc.foo);
+            })
+        });
 
-var testIndex;
+        db.allDocs({ startkey: "a", endkey: "b" });
+        db.allDocs({ startkey: "a", endkey: "b", inclusive_end: true });
+        db.allDocs({ keys: ["a", "b", "c" ]});
+        db.allDocs({ key: "a" });
+        db.allDocs({
+            attachments: true,
+            binary: true,
+            conflicts: true,
+            descending: true,
+            include_docs: true,
+            limit: 5,
+            skip: 1
+        });
+    }
 
-var revs: any = {};
+    function testDestroy() {
+        const db = new PouchDB<{}>();
 
-function runTests() {
-	testIndex = 0;
-	tests[testIndex++]();
-}
+        db.destroy({}, (error) => {
+        });
+        db.destroy().then(() => {
+                }).catch((error) => {
+                });
+    }
 
-// each test function except the last one needs to call nextTest when it is finished doing its thing.
-function nextTest() {
-	alert("starting test " + testIndex);
-	tests[testIndex++]();
-}
+    function testBasics() {
+        type MyModel = { property: 'someProperty '};
+        let model: PouchDB.Core.Document<MyModel>;
+        const id = 'model';
 
-function setupTests() {
-	alert('setupTests');
-	pouch.bulkDocs({
-		docs: [{ _id: '1', name: 'record 1' },
-			{ _id: '2', name: 'record 2' },
-			{ _id: '3', name: 'record 3' }
-		]
-	}, function (err: PouchError, res: PouchUpdateResponse[]) {
-		if (err) {
-			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-		}
-		else {
-			for (var i = 0; i < res.length; i++) {
-				if (res[i].ok) {
-					revs[res[i].id] = res[i].rev;
-				}
-			}
-			alert("test records loaded");
-		}
-		nextTest();
-	});
-}
+        let db = new PouchDB<MyModel>();
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'fruitdown'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'http'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'idb'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'leveldb'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'localstorage'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'memory'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'websql'
+        });
+        db = new PouchDB<MyModel>(null, {
+            adapter: 'websql',
+            size: 100
+        });
 
-function testId() {
-	alert('testId');
-	var id = pouch.id();
-	alert('Database Id = ' + id);
-	nextTest();
-}
+        db.post(model).then((result) => {
+            isString(result.id);
+        });
+        db.post(model, null, (error, response) => {
+        });
 
-function testGet() {
-	alert('testGet');
-	pouch.get('1', function (err: PouchError, res: PouchGetResponse) {
-		if (err) {
-			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-		}
-		else {
-			alert('Retrieved record with id=1, name=[' + res['name'] + ']');
-		}
-		nextTest();
-	});
-}
+        db.get(id).then((result) => model = result);
+        db.get(id, null, (error, result) => {
+        });
 
-function testAllDocs() {
-	alert('testAllDocs');
-	pouch.allDocs(function (err: PouchError, res: PouchAllDocsResponse) {
-		alert('allDocs resulted in ' + res.total_rows + ' results');
-		for (var i = 0; i < res.total_rows; i++) {
-			alert('Retrieved record with id=' + res.rows[i].id + ', rev=[' + res.rows[i].value.rev + ']');
-		}
-		nextTest();
-	});
-}
+        db.put(model).then((error) => {
+        });
+        db.put(model, null, null, null, (error) => {
+        });
 
-function testUpdate() {
-	alert('testUpdate');
-	pouch.put({ _id: '2', _rev: revs['2'], name: 'record 2 updated' }, function (err: PouchError, res: PouchUpdateResponse) {
-		if (err) {
-			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-		}
-		else {
-			alert('record updated id=' + res.id + ', rev=[' + res.rev + ']');
-		}
-		testAllDocs();		// spit out the db contents and then go on
-	});
-}
+        db.info().then((info) => {
+        });
+        db.info({ ajax: { cache: true }}, (error, result) => {
+        });
 
-function testDelete() {
-	alert('testDelete');
-	pouch.remove({ _id: '3', _rev: revs['3'] }, function (err: PouchError, res: PouchUpdateResponse) {
-		if (err) {
-			alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-		}
-		else {
-			alert('record deleted id=' + res.id + ', rev=[' + res.rev + ']');
-		}
-		testAllDocs();		// spit out the db contents and then go on
-	});
-}
-
-function deleteDb() {
-	alert('deleteDb');
-	if (pouch) {
-		pouch = null;
-		PouchDB.destroy('testdb', function (err: PouchError) {
-			if (err) {
-				alert('Error ' + err.status + ' occurred ' + err.error + ' - ' + err.reason);
-			}
-			else {
-				alert("database destroyed");
-			}
-		});
-	}
+        db.viewCleanup().catch((error) => {
+        });
+    }
 }

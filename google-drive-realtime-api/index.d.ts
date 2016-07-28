@@ -430,6 +430,38 @@ declare namespace gapi.drive.realtime {
 		events : BaseModelEvent[];
 	}
 
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.ValuesAddedEvent
+	export interface ValuesAddedEvent<V> extends BaseModelEvent {
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
+		     isLocal:boolean, isUndo:boolean, isRedo:boolean, index:number,
+		     values:V[], movedFromList:CollaborativeList<V>, movedFromIndex:number):ValuesAddedEvent<V>;
+	
+		// The index of the first added value
+		index:number;
+
+		// The index in the source collaborative list that the values were moved from, or null if this insert is not the result of a move operation.
+		movedFromIndex:number;
+
+		// The collaborative list that the values were moved from, or null if this insertion is not the result of a move operation.
+		movedFromList:CollaborativeList<V>;
+	}
+
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.ValuesRemovedEvent
+	export interface ValuesRemovedEvent<V> extends BaseModelEvent {
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
+		     isLocal:boolean, isUndo:boolean, isRedo:boolean, index:number,
+		     values:V[], movedToList:CollaborativeList<V>, movedToIndex:number):ValuesRemovedEvent<V>;
+
+		// The index of the first removed value.
+		index:number;
+
+		// The index in the collaborative list that the values were moved to, or null if this delete is not the result of a move operation.
+		movedToIndex:number;
+
+		// The collaborative list that the values were moved to, or null if this delete is not the result of a move operation.
+		movedToList:CollaborativeList<V>;
+	}
+
 
 	// Complete
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Document
@@ -513,6 +545,30 @@ declare namespace gapi.drive.realtime {
 		opt_initializerFn? : (m:Model) => void,
 		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
 	) : Document;
+	
+	/* Loads an existing file by id.
+	https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.load
+	
+	 @Param fileId {string}  Id of the file to load.
+	 
+	 @Param onLoaded {function(non-null gapi.drive.realtime.Document)}
+	 A callback that will be called when the realtime document is ready. The created or opened realtime document
+	 object will be passed to this function.
+
+	 @Param opt_initializerFn {function(non-null gapi.drive.realtime.Model)}
+	 An optional initialization function that will be called before onLoaded only the first time that the document
+	 is loaded. The document's gapi.drive.realtime.Model object will be passed to this function.
+
+	 @Param opt_errorFn {function(non-null gapi.drive.realtime.Error)}
+	 An optional error handling function that will be called if an error occurs while the document is being
+	 loaded or edited. A gapi.drive.realtime.Error object describing the error will be passed to this function.
+	*/
+	export function load(
+		fileId:string,
+		onLoaded? : (d:Document) => void,
+		opt_initializerFn? : (m:Model) => void,
+		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
+	):void;
 }
 
 
@@ -540,6 +596,10 @@ declare namespace gapi.drive.realtime.EventType {
 	export var TEXT_INSERTED: string
 	export var TEXT_DELETED: string
 	export var OBJECT_CHANGED: string
+	// List
+	export var VALUES_ADDED:string;
+	export var VALUES_REMOVED:string;
+	export var VALUES_SET:string;
 }
 
 

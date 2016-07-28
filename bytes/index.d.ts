@@ -1,10 +1,14 @@
-﻿// Type definitions for bytes v2.1.0
+﻿// Type definitions for bytes v2.4.0
 // Project: https://github.com/visionmedia/bytes.js
 // Definitions by: Zhiyuan Wang <https://github.com/danny8002/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+interface BytesOptions {
+    decimalPlaces?: number,
+    thousandsSeparator?: string,
+    unitSeparator?: string,
+    fixedDecimals?: boolean
+}
 /**
  *Convert the given value in bytes into a string.
  *
@@ -37,7 +41,7 @@ declare namespace bytes {
      * @param {BytesFormatOptions} [options]
      */
 
-    function format(value: number, options?: { thousandsSeparator: string }): string;
+    function format(value: number, options?: BytesOptions): string;
 
     /**
      * Just return the input number value.

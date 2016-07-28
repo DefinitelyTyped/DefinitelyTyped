@@ -6,9 +6,9 @@
 export = self;
 export as namespace Cldr;
 
-declare var self: cldr.CldrFactory;
+declare var self: self.CldrFactory;
 
-declare namespace cldr {
+declare namespace self {
     /**
      * @name Attributes
      * @memberof cldr

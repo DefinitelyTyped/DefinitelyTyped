@@ -125,7 +125,7 @@ declare module 'angular' {
             /*
              * Note: named views are mandatory when using sticky states!
              */
-            views?: { [name:string]: angular.ui.IState };
+            views?: { [name: string]: angular.ui.IState };
         }
 
 
@@ -145,7 +145,9 @@ declare module 'angular' {
             registerStickyState(state: IStickyState): void;
         }
 
+        interface IStateProvider extends angular.IServiceProvider {
+            state(config: IStickyState): IStateProvider;
+            state(name: string, config: IStickyState): IStateProvider;
+        }
     }
 }
-
-

@@ -883,7 +883,7 @@ function test_config() {
     o = config.getAdapter("myInterfaceName", "myAdapterName");
     o = config.getAdapterInstance("myInterfaceName", "myAdapterName");
     config.initializeAdapterInstance("myInterfaceName", "myAdapterName", true);
-    config.initializeAdapterInstances({ x: 3, y: "not" });
+    config.initializeAdapterInstances({ ajax: "", dataService: "" });
     s = config.interfaceInitialized.type;
     o = config.interfaceRegistry;
     o = config.objectRegistry;

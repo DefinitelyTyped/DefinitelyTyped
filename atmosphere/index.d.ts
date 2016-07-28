@@ -55,7 +55,7 @@ declare namespace Atmosphere {
         connectTimeout?: number;
         reconnectInterval?: number;
         dropHeaders?: boolean;
-        uuid?: number;
+        uuid?: string;
         async?: boolean;
         shared?: boolean;
         readResponsesHeaders?: boolean;
@@ -102,5 +102,6 @@ declare namespace Atmosphere {
 }
 
 declare var atmosphere:Atmosphere.Atmosphere;
-
-
+declare module 'atmosphere' {
+    export = atmosphere;
+}

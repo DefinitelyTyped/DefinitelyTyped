@@ -1,5 +1,3 @@
-/// <reference types="escodegen" />
-
 import * as escodegen from 'escodegen';
 
 let emptyIndentOptions: escodegen.IndentOptions = {};
@@ -24,7 +22,7 @@ let formatOptions: escodegen.FormatOptions = {
     semicolons: true,
     safeConcatenation: true,
     preserveBlankLines: true
-}
+};
 
 let emptyMozillaOptions: escodegen.MozillaOptions = {};
 let mozillaOptions: escodegen.MozillaOptions = {
@@ -50,7 +48,5 @@ let generateOptions: escodegen.GenerateOptions = {
 };
 
 let precedence: escodegen.Precedence = escodegen.Precedence.Primary;
-
 let myCode: string = escodegen.generate({}, generateOptions);
-
 let ast: any = escodegen.attachComments({}, {}, {});

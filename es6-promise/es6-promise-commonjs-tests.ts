@@ -1,6 +1,7 @@
 
 
 import rsvp = require('es6-promise');
+rsvp.polyfill(); // Test for polyfill method existence
 var Promise = rsvp.Promise;
 
 var promiseString: Promise<string>,

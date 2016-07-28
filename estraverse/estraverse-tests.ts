@@ -1,5 +1,3 @@
-/// <reference types="estraverse" />
-
 import * as estraverse from 'estraverse';
 
 let ast: any = {
