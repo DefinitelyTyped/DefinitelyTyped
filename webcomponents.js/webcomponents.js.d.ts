@@ -48,6 +48,7 @@ declare module "webcomponents.js" {
 
 interface Element {
     createShadowRoot(): webcomponents.ShadowRootPolyfill;
+    shadowRoot?: webcomponents.ShadowRootPolyfill;
 }
 
 interface Document {

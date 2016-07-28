@@ -41,6 +41,7 @@ document.querySelectorAll(`link[type=${window.HTMLImports.IMPORT_LINK_TYPE}`);
  */
 
 var shadow = xFoo.createShadowRoot();
+xFoo.shadowRoot;
 shadow.innerHTML;
 shadow.host;
 
