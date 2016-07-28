@@ -3,11 +3,7 @@
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="react" />
-/// <reference types="redux" />
-
-
+import * as React from 'react';
 import { Component, SyntheticEvent, FormEventHandler } from 'react';
 import { Dispatch, ActionCreator, Reducer } from 'redux';
 
@@ -191,6 +187,7 @@ export interface ReduxFormProps<T> {
      * given as the error prop.
      */
     handleSubmit?(event: SyntheticEvent<T>): void;
+    handleSubmit?(event: React.MouseEvent<HTMLButtonElement>): void;
     handleSubmit?(submit: (data: FormData, dispatch?: Dispatch<any>) => Promise<any> | void): FormEventHandler<T>;
 
     /**
