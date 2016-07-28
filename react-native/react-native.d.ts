@@ -340,11 +340,15 @@ declare namespace  __React {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: "row" | "column"
+        flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
         flexWrap?: "wrap" | "nowrap"
         height?: number
         justifyContent?: FlexJustifyType
         left?: number
+        minWidth?: number
+        maxWidth?: number
+        minHeight?: number
+        maxHeight?: number
         margin?: number
         marginBottom?: number
         marginHorizontal?: number
@@ -363,6 +367,11 @@ declare namespace  __React {
         right?: number
         top?: number
         width?: number
+
+        /**
+         * @platform ios
+         */
+        zIndex?: number
     }
 
     /**
@@ -508,6 +517,12 @@ declare namespace  __React {
          * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
          */
         allowFontScaling?: boolean
+
+        /**
+         * Line Break mode. Works only with numberOfLines.
+         * clip is working only for iOS
+         */
+        lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
 
         /**
          * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
@@ -1279,6 +1294,23 @@ declare namespace  __React {
       setPageWithoutAnimation: (selectedPage: number) => void
     }
 
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
+    }
+
     /**
      * //FIXME: No documentation extracted from code comment on WebView.ios.js
      */
@@ -1459,7 +1491,7 @@ declare namespace  __React {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
-        
+
         ref?: Ref<WebViewStatic & ViewStatic>
     }
 
@@ -1728,7 +1760,7 @@ declare namespace  __React {
 
     /**
      * @Deprecated since version 0.28.0
-     */ 
+     */
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
@@ -2134,7 +2166,7 @@ declare namespace  __React {
          * Size of the refresh indicator, see RefreshControl.SIZE.
          */
         size?: number
-        
+
         /**
          * Progress view top offset
          * @platform android
@@ -2155,7 +2187,7 @@ declare namespace  __React {
          * Whether the view should be indicating an active refresh.
          */
         refreshing?: boolean
-        
+
         ref?: Ref<RefreshControlStatic>
     }
 
@@ -3354,7 +3386,99 @@ declare namespace  __React {
     }
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
+
+        /**
+         * Creates a StyleSheet style reference from the given object.
+         */
         create<T>( styles: T ): T;
+
+        /**
+         * Flattens an array of style objects, into one aggregated style object.
+         * Alternatively, this method can be used to lookup IDs, returned by
+         * StyleSheet.register.
+         *
+         * > **NOTE**: Exercise caution as abusing this can tax you in terms of
+         * > optimizations.
+         * >
+         * > IDs enable optimizations through the bridge and memory in general. Refering
+         * > to style objects directly will deprive you of these optimizations.
+         *
+         * Example:
+         * ```
+         * var styles = StyleSheet.create({
+         *   listItem: {
+         *     flex: 1,
+         *     fontSize: 16,
+         *     color: 'white'
+         *   },
+         *   selectedListItem: {
+         *     color: 'green'
+         *   }
+         * });
+         *
+         * StyleSheet.flatten([styles.listItem, styles.selectedListItem])
+         * // returns { flex: 1, fontSize: 16, color: 'green' }
+         * ```
+         * Alternative use:
+         * ```
+         * StyleSheet.flatten(styles.listItem);
+         * // return { flex: 1, fontSize: 16, color: 'white' }
+         * // Simply styles.listItem would return its ID (number)
+         * ```
+         * This method internally uses `StyleSheetRegistry.getStyleByID(style)`
+         * to resolve style objects represented by IDs. Thus, an array of style
+         * objects (instances of StyleSheet.create), are individually resolved to,
+         * their respective objects, merged as one and then returned. This also explains
+         * the alternative use.
+         */
+        flatten(style: Object): Object
+
+        /**
+         * This is defined as the width of a thin line on the platform. It can be
+         * used as the thickness of a border or division between two elements.
+         * Example:
+         * ```
+         *   {
+         *     borderBottomColor: '#bbb',
+         *     borderBottomWidth: StyleSheet.hairlineWidth
+         *   }
+         * ```
+         *
+         * This constant will always be a round number of pixels (so a line defined
+         * by it look crisp) and will try to match the standard width of a thin line
+         * on the underlying platform. However, you should not rely on it being a
+         * constant size, because on different platforms and screen densities its
+         * value may be calculated differently.
+         */
+        hairlineWidth: number
+
+        /**
+         * A very common pattern is to create overlays with position absolute and zero positioning,
+         * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+         * styles.
+         */
+        absoluteFill: number
+
+
+        /**
+         * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
+         * used to create a customized entry in a `StyleSheet`, e.g.:
+         *
+         *   const styles = StyleSheet.create({
+         *     wrapper: {
+         *       ...StyleSheet.absoluteFillObject,
+         *       top: 10,
+         *       backgroundColor: 'transparent',
+         *     },
+         *   });
+         */
+        absoluteFillObject: {
+            position: string
+            left: number
+            right: number
+            top: number
+            bottom: number
+        }
     }
 
     /**
@@ -3516,12 +3640,12 @@ declare namespace  __React {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
-        
+
         /**
          * Color of text on unselected tabs
          */
         unselectedTintColor?: string
-        
+
         ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
@@ -3606,6 +3730,21 @@ declare namespace  __React {
 
     export interface DeviceEventEmitterStatic {
         addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
+
+        /**
+         * Removes the given listener for event of specific type.
+         *
+         * @param {string} eventType - Name of the event to emit
+         * @param {function} listener - Function to invoke when the specified event is
+         *   emitted
+         *
+         * @example
+         *   emitter.removeListener('someEvent', function(message) {
+         *     console.log(message);
+         *   }); // removes the listener if already registered
+         *
+         */
+        removeListener( eventType: String, listener: Function): void
     }
 
     // Used by Dimensions below
@@ -3666,9 +3805,11 @@ declare namespace  __React {
 
         /**
          * Schedule a function to run after all interactions have completed.
+         * Returns a cancellable
          * @param fn
          */
-        runAfterInteractions( fn: () => void | PromiseTask): Promise<any>
+        runAfterInteractions( fn: () => void | PromiseTask):
+          {then: Function, done: Function, cancel: Function}
 
         /**
          * Notify manager that an interaction has started.
@@ -3950,7 +4091,7 @@ declare namespace  __React {
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
-        
+
         /**
          * When true the scroll view stops on multiples of the scroll view's size
          * when scrolling. This can be used for horizontal pagination. The default
@@ -3985,7 +4126,7 @@ declare namespace  __React {
          * A RefreshControl component, used to provide pull-to-refresh
          * functionality for the ScrollView.
          */
-        refreshControl?: RefreshControl
+        refreshControl?: React.ReactElement<RefreshControlProperties>
 
         ref?: Ref<ScrollViewStatic & ViewStatic>
     }
@@ -4055,7 +4196,7 @@ declare namespace  __React {
         layoutMeasurement: NativeScrollSize;
         zoomScale: number;
     }
-    
+
     // Deduced from
     // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
 
@@ -4075,18 +4216,18 @@ declare namespace  __React {
         getOpenRowID(): string
         setOpenRowID(rowID: string): ListViewDataSource
     }
-    
+
     export interface SwipeableListViewProps extends React.Props<SwipeableListViewStatic> {
         dataSource: SwipeableListViewDataSource
         maxSwipeDistance?: number
-        
+
         // Callback method to render the swipeable view
         renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
-        
+
         // Callback method to render the view that will be unveiled on swipe
         renderQuickActions(rowData: Object, sectionID: string, rowID: string): React.ReactElement<any>
     }
-    
+
     export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
         getNewDataSource(): SwipeableListViewDataSource
     }
@@ -4399,8 +4540,26 @@ declare namespace  __React {
          *      assets-library tag
          *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
          *
+         * @deprecated use saveToCameraRoll instead
+         *
          */
         saveImageWithTag( tag: string ): Promise<string>
+
+        /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
@@ -4858,7 +5017,7 @@ declare namespace  __React {
          * Requests all notification permissions from iOS, prompting the user's
          * dialog box.
          */
-        requestPermissions( permissions?: PushNotificationPermissions[] ): void
+        requestPermissions( permissions?: PushNotificationPermissions[] ): Promise<PushNotificationPermissions>
 
         /**
          * Unregister for all remote notifications received via Apple Push
@@ -4970,17 +5129,10 @@ declare namespace  __React {
 
 
     /**
-     * //FIXME: No documentation is available (although this is self explanatory)
-     *
-     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     * StatusBarIOS is being deprecated.
+     * @see https://github.com/facebook/react-native/commit/4de616b4c1a9d3556632a93504828f0539fa4fa5
      */
     export interface StatusBarIOSStatic {
-
-        setStyle(style: StatusBarStyle, animated?: boolean): void
-
-        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
-
-        setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
     type TimePickerAndroidOpenOptions = {
@@ -5072,7 +5224,7 @@ declare namespace  __React {
          * Default value is false.
          */
         value?: boolean
-	
+
 	    style?: ViewStyle
 
         ref?: Ref<SwitchStatic>
@@ -5494,26 +5646,25 @@ declare namespace  __React {
         type: string;
     }
 
-    export interface NavigationState {
+    export interface NavigationRoute {
       key: string;
     }
 
-    export interface NavigationParentState extends NavigationState {
+    export interface NavigationState extends NavigationRoute {
         index: number;
-        children: NavigationState[];
+        routes: NavigationRoute[];
     }
 
     export type NavigationRenderer = (
-        navigationState: NavigationParentState,
+        route: NavigationState,
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
     // Definitions for NavigationExperimental feature are deduced
     // from code examples
     export interface NavigationAnimatedViewStaticProps {
-        navigationState?: any
+        route?: any
         style?: ViewStyle
-        onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
         applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
         renderScene?(props: Object): JSX.Element
@@ -5521,24 +5672,25 @@ declare namespace  __React {
 
     export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
     }
-    
+
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        onNavigateBack(): void
     }
-    
+
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
         Title: JSX.Element
         HEIGHT: number
     }
-    
+
     export interface NavigationCardStackProps {
         direction?: 'horizontal' | 'vertical'
         style?: ViewStyle
-        navigationState?: any
-        onNavigate(action: Object): boolean
+        route?: any
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
+        onNavigateBack(): void
     }
-    
+
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
     }
 
@@ -5548,7 +5700,7 @@ declare namespace  __React {
         Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
     }
-    
+
     export interface NavigationContainerProps {
         tabs: NavigationTab[];
         index: number;
@@ -5639,7 +5791,7 @@ declare namespace  __React {
 
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
-    
+
     export var SwipeableListView: SwipeableListViewStatic
     export type SwipeableListView = SwipeableListViewStatic
 
@@ -5719,6 +5871,9 @@ declare namespace  __React {
 
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
+
+    export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
+    export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
 
     export var Linking: LinkingStatic
     export type Linking = LinkingStatic
