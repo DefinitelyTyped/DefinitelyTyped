@@ -2042,7 +2042,7 @@ declare namespace React {
         title?: string;
         type?: string;
         useMap?: string;
-        value?: string | string[];
+        value?: string | string[] | number;
         width?: number | string;
         wmode?: string;
         wrap?: string;

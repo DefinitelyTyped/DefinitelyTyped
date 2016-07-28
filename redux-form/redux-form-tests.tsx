@@ -8,7 +8,7 @@ import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form
 namespace SimpleForm {
   export const fields = ['firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes'];
 
-  class SimpleForm extends Component<ReduxFormProps<SimpleForm>, void> {
+  class SimpleForm extends Component<ReduxFormProps<SimpleForm & HTMLFormElement>, void> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -123,7 +123,7 @@ namespace SynchronousValidation {
     return errors;
   };
 
-  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm>, any> {
+  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>, any> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -204,7 +204,7 @@ namespace SumbitValidation {
 
     render() {
       const {fields: {username, password}, error, resetForm, handleSubmit, submitting} = this.props;
-      return (<form onSubmit={handleSubmit(submit)}>
+      return (<form onSubmit={submit => handleSubmit(submit as any)}>
           <div>
             <label>Username</label>
             <div>
@@ -255,7 +255,7 @@ namespace InitializingFromState {
     load: Function;
   }
 
-  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm>, any> {
+  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm & HTMLFormElement>, any> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,

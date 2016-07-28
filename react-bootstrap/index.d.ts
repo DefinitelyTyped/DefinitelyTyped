@@ -10,7 +10,7 @@ declare namespace ReactBootstrap {
     import React = __React;
 
 
-    type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'lg' | 'large';
+    type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'medium' | 'lg' | 'large';
 
 
     // Change onSelect signature to be (eventKey: any, event: SyntheticEvent) => any on all React-Bootstrap components, instead of the old inconsistent mishmash (#1604, #1677, #1756)
@@ -282,6 +282,13 @@ declare namespace ReactBootstrap {
     // <Modal.Dialog />
     interface ModalDialogProps extends React.HTMLProps<ModalDialog> {
         // TODO: Add more specific type
+        onHide?: Function;
+        onEnter?: Function;
+        onEntered?: Function;
+        onEntering?: Function;    
+        onExit?: Function;
+        onExited?: Function;
+        onExiting?: Function;    
     }
     type ModalDialog = React.ClassicComponent<ModalDialogProps, {}>;
     var ModalDialog: React.ClassicComponentClass<ModalDialogProps>;
@@ -545,6 +552,7 @@ declare namespace ReactBootstrap {
     interface NavDropdownBaseProps extends DropdownBaseProps {
         active?: boolean;
         noCaret?: boolean;
+        eventKey?: any;
     }
     type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
     class NavDropdown extends React.Component<NavDropdownProps, {}> { }

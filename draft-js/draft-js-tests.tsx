@@ -111,7 +111,7 @@ class StyleButton extends React.Component<{key: string, active: boolean, label: 
     }
 
     return (
-      <span className={className} onMouseDown={this.onToggle}>
+      <span className={className} onMouseDown={e => this.onToggle(e as any)}>
         {this.props.label}
       </span>
     );
