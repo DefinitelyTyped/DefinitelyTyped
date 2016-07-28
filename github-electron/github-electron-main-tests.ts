@@ -766,6 +766,8 @@ let image2 = nativeImage.createFromPath('/Users/somebody/images/icon.png');
 // process
 // https://github.com/electron/electron/blob/master/docs/api/process.md
 
+console.log(process.versions.electron);
+console.log(process.versions.chrome);
 console.log(process.type);
 console.log(process.resourcesPath);
 console.log(process.mas);
