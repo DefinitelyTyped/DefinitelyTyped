@@ -1043,6 +1043,10 @@ declare namespace breeze.config {
     @return {an instance of the specified adapter}
     **/
     export function getAdapterInstance(interfaceName: string, adapterName?: string): Object;
+
+    export interface Adapter {
+        getRoutePrefix: Function
+    }
     /**
     Initializes a single adapter implementation. Initialization means either newing a instance of the 
     specified interface and then calling "initialize" on it or simply calling "initialize" on the instance
@@ -1052,7 +1056,7 @@ declare namespace breeze.config {
     @param isDefault=true {Boolean} - Whether to make this the default "adapter" for this interface. 
     @return {an instance of the specified adapter}
     **/
-    export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): void;
+    export function initializeAdapterInstance(interfaceName: string, adapterName: string, isDefault?: boolean): Adapter;
 
     export interface AdapterInstancesConfig {
         /** the name of a previously registered "ajax" adapter */
