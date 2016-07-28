@@ -23,7 +23,7 @@ interface Utf8 {
     decode(byteString: string): string;
 }
 
-declare var Utf8: Utf8;
+declare const Utf8: Utf8;
 declare module "utf8" {
     export = Utf8;
 }
