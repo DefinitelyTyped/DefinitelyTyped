@@ -30,19 +30,19 @@ export interface FormatLocaleDefinition {
 export interface FormatLocaleObject {
 
     /**
-     * Returns a new format function for the given string specifier. The returned function 
+     * Returns a new format function for the given string specifier. The returned function
      * takes a number as the only argument, and returns a string representing the formatted number.
-     *  
+     *
      * @param specifier A Specifier string
      */
     format(specifier: string): (n: number) => string;
 
     /**
-     * Returns a new format function for the given string specifier. The returned function 
+     * Returns a new format function for the given string specifier. The returned function
      * takes a number as the only argument, and returns a string representing the formatted number.
-     * The returned function will convert values to the units of the appropriate SI prefix for the 
+     * The returned function will convert values to the units of the appropriate SI prefix for the
      * specified numeric reference value before formatting in fixed point notation.
-     * 
+     *
      * @param specifier A Specifier string
      * @param value The reference value to determine the appropriate SI prefix.
      */
@@ -77,39 +77,39 @@ export function formatLocale(locale: FormatLocaleDefinition): FormatLocaleObject
 export function formatDefaultLocale(defaultLocale: FormatLocaleDefinition): FormatLocaleObject;
 
 /**
- * Returns a new format function for the given string specifier. The returned function 
+ * Returns a new format function for the given string specifier. The returned function
  * takes a number as the only argument, and returns a string representing the formatted number.
- * 
+ *
  * Uses the current default locale.
- *  
+ *
  * @param specifier A Specifier string
  */
 export function format(specifier: string): (n: number) => string;
 
 /**
- * Returns a new format function for the given string specifier. The returned function 
+ * Returns a new format function for the given string specifier. The returned function
  * takes a number as the only argument, and returns a string representing the formatted number.
- * The returned function will convert values to the units of the appropriate SI prefix for the 
+ * The returned function will convert values to the units of the appropriate SI prefix for the
  * specified numeric reference value before formatting in fixed point notation.
- * 
+ *
  *  Uses the current default locale.
- * 
+ *
  * @param specifier A Specifier string
  * @param value The reference value to determine the appropriate SI prefix.
  */
 export function formatPrefix(specifier: string, value: number): (n: number) => string;
 
 /**
- * Parses the specified specifier, returning an object with exposed fields that correspond to the 
+ * Parses the specified specifier, returning an object with exposed fields that correspond to the
  * format specification mini-language and a toString method that reconstructs the specifier.
- * 
+ *
  * @param specifier A specifier string.
  */
 export function formatSpecifier(specifier: string): FormatSpecifier;
 
 /**
  * Returns a suggested decimal precision for fixed point notation given the specified numeric step value.
- * 
+ *
  * @param step The step represents the minimum absolute difference between values that will be formatted.
  * (This assumes that the values to be formatted are also multiples of step.)
  */
@@ -118,7 +118,7 @@ export function precisionFixed(step: number): number;
 /**
  * Returns a suggested decimal precision for use with locale.formatPrefix given the specified
  * numeric step and reference value.
- * 
+ *
  * @param step The step represents the minimum absolute difference between values that will be formatted.
  * (This assumes that the values to be formatted are also multiples of step.)
  * @param value Reference value determines which SI prefix will be used.
@@ -127,9 +127,9 @@ export function precisionPrefix(step: number, value: number): number;
 
 
 /**
- * Returns a suggested decimal precision for format types that round to significant digits 
+ * Returns a suggested decimal precision for format types that round to significant digits
  * given the specified numeric step and max values.
- *  
+ *
  * @param step The step represents the minimum absolute difference between values that will be formatted.
  * (This assumes that the values to be formatted are also multiples of step.)
  * @param max max represents the largest absolute value that will be formatted.
