@@ -6114,7 +6114,7 @@ interface HighchartsPointObject {
      */
     category: string | number;
     name: string;
-	index: number;
+    index: number;
     /**
      * The percentage for points in a stacked series or pies.
      * @since 1.2.0
