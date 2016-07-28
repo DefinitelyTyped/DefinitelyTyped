@@ -41,7 +41,7 @@ function mapStateToProps(state: CounterState) {
 }
 
 // Which action creators does it want to receive by props?
-function mapDispatchToProps(dispatch: Dispatch) {
+function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
     return {
         onIncrement: () => dispatch(increment())
     };
@@ -77,7 +77,7 @@ ReactDOM.render((
 // API
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
-declare var store: Store;
+declare var store: Store<TodoState>;
 declare var routerState: RouterState;
 declare var history: HistoryModule.History;
 class MyRootComponent extends Component<any, any> {
@@ -165,7 +165,7 @@ connect(mapStateToProps2, actionCreators)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps2(dispatch: Dispatch) {
+function mapDispatchToProps2(dispatch: Dispatch<TodoState>) {
     return { actions: bindActionCreators(actionCreators, dispatch) };
 }
 
@@ -177,7 +177,7 @@ connect(mapStateToProps2, mapDispatchToProps2)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps3(dispatch: Dispatch) {
+function mapDispatchToProps3(dispatch: Dispatch<TodoState>) {
     return bindActionCreators({ addTodo }, dispatch);
 }
 
@@ -189,7 +189,7 @@ connect(mapStateToProps2, mapDispatchToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps4(dispatch: Dispatch) {
+function mapDispatchToProps4(dispatch: Dispatch<TodoState>) {
     return {
         todoActions: bindActionCreators(todoActionCreators, dispatch),
         counterActions: bindActionCreators(counterActionCreators, dispatch)
@@ -204,7 +204,7 @@ connect(mapStateToProps2, mapDispatchToProps4)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps5(dispatch: Dispatch) {
+function mapDispatchToProps5(dispatch: Dispatch<TodoState>) {
     return {
         actions: bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch)
     };
@@ -218,7 +218,7 @@ connect(mapStateToProps2, mapDispatchToProps5)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mapDispatchToProps6(dispatch: Dispatch) {
+function mapDispatchToProps6(dispatch: Dispatch<TodoState>) {
     return bindActionCreators(objectAssign({}, todoActionCreators, counterActionCreators), dispatch);
 }
 
@@ -302,7 +302,7 @@ namespace TestStatelessFunctionWithMapArguments {
         };
     };
 
-    const mapDispatchToProps = (dispatch: Dispatch, ownProps: GreetingProps) => {
+    const mapDispatchToProps = (dispatch: Dispatch<any>, ownProps: GreetingProps) => {
         return {
             onClick: () => {
                 dispatch({ type: 'GREETING', name: ownProps.name });
