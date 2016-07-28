@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.8
+// Type definitions for Electron v1.3.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2799,7 +2799,7 @@ declare namespace Electron {
 		/**
 		 * Sets the proxy settings.
 		 */
-		setProxy(config: string, callback: Function): void;
+		setProxy(config: ProxyConfig, callback: Function): void;
 		/**
 		 * Resolves the proxy information for url.
 		 */
@@ -2880,6 +2880,21 @@ declare namespace Electron {
 		 * The types of quotas to clear.
 		 */
 		quotas?: ('temporary' | 'persistent' | 'syncable')[];
+	}
+
+	interface ProxyConfig {
+		/**
+		 * The URL associated with the PAC file.
+		 */
+		pacScript: string;
+		/**
+		 * Rules indicating which proxies to use.
+		 */
+		proxyRules: string;
+		/**
+		 * Rules indicating which URLs should bypass the proxy settings.
+		 */
+		proxyBypassRules: string;
 	}
 
 	interface NetworkEmulationOptions {
@@ -3386,10 +3401,10 @@ declare namespace Electron {
 		 */
 		setTitle(title: string): void;
 		/**
-		 * Sets whether the tray icon is highlighted when it is clicked.
+		 * Sets when the tray's icon background becomes highlighted.
 		 * Note: This is only implemented on macOS.
 		 */
-		setHighlightMode(highlight: boolean): void;
+		setHighlightMode(mode: 'selection' | 'always' | 'never'): void;
 		/**
 		 * Displays a tray balloon.
 		 * Note: This is only implemented on Windows.
@@ -3641,6 +3656,10 @@ declare namespace Electron {
 		 * passing empty string to callback will cancel the request.
 		 */
 		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
+		/**
+		 * Emitted when a page's view is repainted.
+		 */
+		on(event: 'view-painted', listener: Function): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3766,6 +3785,10 @@ declare namespace Electron {
 		 * Executes Edit -> Copy command in page.
 		 */
 		copy(): void;
+		/**
+		 * Copy the image at the given position to the clipboard.
+		 */
+		copyImageAt(x: number, y: number): void;
 		/**
 		 * Executes Edit -> Paste command in page.
 		 */
