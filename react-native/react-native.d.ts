@@ -1339,6 +1339,17 @@ declare namespace  __React {
         domStorageEnabled?: boolean
     }
 
+    export interface WebViewIOSLoadRequestEvent {
+        target: number
+        canGoBack: boolean
+        lockIdentifier: number
+        loading: boolean
+        title: string
+        canGoForward: boolean
+        navigationType: 'other' | 'click'
+        url: string
+    }
+
     export interface WebViewPropertiesIOS {
 
         /**
@@ -1368,7 +1379,7 @@ declare namespace  __React {
          * Return true or false from this method to continue loading the
          * request.
          */
-        onShouldStartLoadWithRequest?: () => boolean
+        onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
 
         scrollEnabled?: boolean
     }
