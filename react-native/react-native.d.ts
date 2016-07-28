@@ -5967,6 +5967,16 @@ declare namespace  __React {
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
 
+    //Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
+    //See https://facebook.github.io/react-native/docs/native-modules-ios.html
+
+    /**
+     * Use:
+     * <code>const MyModule = NativeModules.ModuleName</code>
+     */
+    export var NativeModules: any
+    export var NativeAppEventEmitter: NativeAppEventEmitterStatic
+
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //
