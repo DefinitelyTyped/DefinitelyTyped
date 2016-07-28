@@ -34,8 +34,15 @@ declare module "redis" {
         versions: number[];
     }
 
+    interface RedisRetryStrategyOptions {
+      error: Error;
+      total_retry_time: number;
+      times_connected: number;
+      attempt: number;
+    }
+
     interface RetryStrategy {
-      (options: {error: Error, total_retry_time: number, times_connected: number, attempt: number}): number;
+      (options: RedisRetryStrategyOptions): number | Error;
     }
 
     export interface ClientOpts {
