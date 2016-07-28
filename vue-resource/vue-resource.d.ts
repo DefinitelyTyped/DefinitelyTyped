@@ -23,21 +23,22 @@ declare namespace vuejs {
         status: number;
         statusText: string;
         headers: Function;
+        text():string;
+        json():string;
+        blob():string;
     }
 
     interface HttpOptions {
         url?: string;
         method?: string;
-        data?: any;
+        body?: any;
         params?: any;
         headers?: any;
-        beforeSend?(request: any): any;
+        before?(request: any): any;
+        progress?(event: any): any;
+        credentials:boolean;
         emulateHTTP?: boolean;
         emulateJSON?: boolean;
-        xhr?: any;
-        upload?: any;
-        jsonp?: string;
-        timeout?: string;
     }
 
     interface $http {
