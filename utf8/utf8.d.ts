@@ -7,7 +7,7 @@ declare module "utf8" {
     /**
      * A string representing the semantic version number.
      */
-    const version: string;
+    let version: string;
     /**
      * Encodes any given JavaScript string (string) as UTF-8, and returns the UTF-8-encoded version of the string.
      * It throws an error if the input string contains a non-scalar value, i.e. a lone surrogate.
