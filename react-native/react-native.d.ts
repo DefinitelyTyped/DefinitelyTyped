@@ -8,9 +8,9 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
-// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
-// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+// CONTRIBUTING: please open pull requests
 //
 // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
