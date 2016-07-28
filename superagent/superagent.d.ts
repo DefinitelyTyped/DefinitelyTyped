@@ -101,6 +101,8 @@ declare module "superagent" {
       send(): this;
       set(field: string, val: string): this;
       set(field: Object): this;
+      then<TResult>(onfulfilled?: (value: Response) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
+      then<TResult>(onfulfilled?: (value: Response) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
       timeout(ms: number): this;
       type(val: string): this;
       use(fn: Function): this;
