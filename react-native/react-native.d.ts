@@ -3324,6 +3324,16 @@ declare namespace  __React {
          */
         popToTop(): void;
 
+        /**
+         *  Replace the previous scene and pop to it.
+         */
+        replacePreviousAndPop( route: Route ): void;
+
+        /**
+         * Navigate to a new scene and reset route stack.
+         */
+        resetTo( route: Route ): void;
+
     }
 
     namespace NavigatorStatic {
