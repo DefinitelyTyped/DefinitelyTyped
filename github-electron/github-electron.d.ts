@@ -3770,19 +3770,19 @@ declare namespace Electron {
 		 */
 		isAudioMuted(): boolean;
 		/**
-		 * Executes Edit -> Undo command in page.
+		 * Executes the editing command undo in web page.
 		 */
 		undo(): void;
 		/**
-		 * Executes Edit -> Redo command in page.
+		 * Executes the editing command redo in web page.
 		 */
 		redo(): void;
 		/**
-		 * Executes Edit -> Cut command in page.
+		 * Executes the editing command cut in web page.
 		 */
 		cut(): void;
 		/**
-		 * Executes Edit -> Copy command in page.
+		 * Executes the editing command copy in web page.
 		 */
 		copy(): void;
 		/**
@@ -3790,31 +3790,31 @@ declare namespace Electron {
 		 */
 		copyImageAt(x: number, y: number): void;
 		/**
-		 * Executes Edit -> Paste command in page.
+		 * Executes the editing command paste in web page.
 		 */
 		paste(): void;
 		/**
-		 * Executes Edit -> Paste and Match Style in page.
+		 * Executes the editing command pasteAndMatchStyle in web page.
 		 */
 		pasteAndMatchStyle(): void;
 		/**
-		 * Executes Edit -> Delete command in page.
+		 * Executes the editing command delete in web page.
 		 */
 		delete(): void;
 		/**
-		 * Executes Edit -> Select All command in page.
+		 * Executes the editing command selectAll in web page.
 		 */
 		selectAll(): void;
 		/**
-		 * Executes Edit -> Unselect command in page.
+		 * Executes the editing command unselect in web page.
 		 */
 		unselect(): void;
 		/**
-		 * Executes Edit -> Replace command in page.
+		 * Executes the editing command replace in web page.
 		 */
 		replace(text: string): void;
 		/**
-		 * Executes Edit -> Replace Misspelling command in page.
+		 * Executes the editing command replaceMisspelling in web page.
 		 */
 		replaceMisspelling(text: string): void;
 		/**
