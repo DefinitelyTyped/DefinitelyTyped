@@ -15,7 +15,7 @@ declare namespace vuejs {
         common?: { [key: string]: string };
         custom?: { [key: string]: string };
         [key: string]: any;
-    }
+    } 
 
     interface HttpResponse {
         data: Object;
@@ -36,7 +36,7 @@ declare namespace vuejs {
         headers?: any;
         before?(request: any): any;
         progress?(event: any): any;
-        credentials:boolean;
+        credentials?:boolean;
         emulateHTTP?: boolean;
         emulateJSON?: boolean;
     }
