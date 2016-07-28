@@ -6040,3 +6040,12 @@ declare module "react-native" {
 declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
+
+/**
+ * This variable is set to true when react-native is running in Dev mode
+ * Typical usage:
+ * <code> if (__DEV__) console.log('Running in dev mode')</code>
+ */
+declare var __DEV__: boolean
+
+
