@@ -10,7 +10,7 @@
 declare module "gulp-help-doc" {
 
     import gulp = require('gulp');
-    import Promise = require('es6-promise');
+    import promise = require('es6-promise');
 
     namespace usage {
 
