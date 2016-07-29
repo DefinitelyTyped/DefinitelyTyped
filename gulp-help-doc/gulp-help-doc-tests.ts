@@ -15,7 +15,7 @@ gulp.task('demo', function() {});
 
 let logger: {
     output: string,
-    log(msg: string)
+    log(msg: string): any
 } = {
     output: '',
     log: msg => logger.output += msg + '\n'
