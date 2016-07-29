@@ -76,8 +76,8 @@ interface HelloJSThenable<T> {
 
 interface HelloJSStatic extends HelloJSEvent {
     init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
-    login(network: string, options?: HelloJSLoginOptions, callback?: () => void): HelloJSThenable;
-    logout(network: string, options?: HelloJSLogoutOptions, callback?: () => void): HelloJSThenable;
+    login(network: string, options?: HelloJSLoginOptions, callback?: () => void): HelloJSThenable<void>;
+    logout(network: string, options?: HelloJSLogoutOptions, callback?: () => void): HelloJSThenable<void>;
     getAuthResponse(network: string): any;
     service(network: string): HelloJSServiceDef;
     settings: HelloJSLoginOptions;
@@ -90,10 +90,10 @@ interface HelloJSStatic extends HelloJSEvent {
 
 
 interface HelloJSStaticNamed {
-    login(option?: HelloJSLoginOptions, callback?: () => void): HelloJSThenable;
-    logout(callback?: () => void): HelloJSThenable;
+    login(option?: HelloJSLoginOptions, callback?: () => void):  HelloJSThenable<void>;
+    logout(callback?: () => void):  HelloJSThenable<void>;
     getAuthResponse(): any;
-    api(path?: string, method?: string, data?: any, callback?: (json?: any) => void): HelloJSThenable;
+    api(path?: string, method?: string, data?: any, callback?: (json?: any) => void):  HelloJSThenable<void>;
 }
 
 interface HelloJSOAuthDef {
