@@ -5,12 +5,10 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "gulp-help-doc" {
 
     import gulp = require('gulp');
-    import promise = require('es6-promise');
 
     namespace usage {
 
@@ -47,7 +45,7 @@ declare module "gulp-help-doc" {
         }
 
         interface Usage {
-            (gulp: gulp.Gulp, options?: UsageOptions): promise.Promise
+            (gulp: gulp.Gulp, options?: UsageOptions): Promise
         }
 
     }
