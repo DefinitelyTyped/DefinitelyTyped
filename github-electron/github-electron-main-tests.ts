@@ -137,7 +137,7 @@ app.on('ready', () => {
 	mainWindow.webContents.capturePage(image => {
 		console.log(image.toDataURL());
 	});
-	mainWindow.webContents.capturePage({width: 100, height: 200}, image => {
+	mainWindow.webContents.capturePage({x: 0, y: 0, width: 100, height: 200}, image => {
 		console.log(image.toPNG());
 	});
 });
