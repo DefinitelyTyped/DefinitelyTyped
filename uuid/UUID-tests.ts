@@ -1,7 +1,6 @@
 
 import UUID = require("uuid");
 
-
 const uuid1: string = UUID.generate()
 const uuid2: UUID.UUID = UUID.genV4()
 const uuid3: UUID.UUID = UUID.genV1()

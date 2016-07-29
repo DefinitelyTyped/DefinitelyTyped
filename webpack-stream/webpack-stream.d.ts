@@ -1,4 +1,4 @@
-// Type definitions for Combokeys v3.20.0
+// Type definitions for webpack-stream v3.2.0
 // Project: https://github.com/shama/webpack-stream
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

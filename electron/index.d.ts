@@ -5107,6 +5107,18 @@ interface File {
 // https://github.com/electron/electron/blob/master/docs/api/process.md
 
 declare namespace NodeJS {
+
+	interface ProcessVersions {
+		/**
+		 * Electron's version string.
+		 */
+		electron: string;
+		/**
+		 * Chrome's version string.
+		 */
+		chrome: string;
+	}
+
 	interface Process {
 		/**
 		 * Setting this to true can disable the support for asar archives in Node's built-in modules.
