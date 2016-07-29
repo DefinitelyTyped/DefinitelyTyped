@@ -8,9 +8,9 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
-// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
-// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+// CONTRIBUTING: please open pull requests
 //
 // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
@@ -434,11 +434,15 @@ declare module "react" {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: "row" | "column"
+        flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
         flexWrap?: "wrap" | "nowrap"
         height?: number
         justifyContent?: FlexJustifyType
         left?: number
+        minWidth?: number
+        maxWidth?: number
+        minHeight?: number
+        maxHeight?: number
         margin?: number
         marginBottom?: number
         marginHorizontal?: number
@@ -457,6 +461,11 @@ declare module "react" {
         right?: number
         top?: number
         width?: number
+
+        /**
+         * @platform ios
+         */
+        zIndex?: number
     }
 
     /**
@@ -602,6 +611,12 @@ declare module "react" {
          * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
          */
         allowFontScaling?: boolean
+
+        /**
+         * Line Break mode. Works only with numberOfLines.
+         * clip is working only for iOS
+         */
+        lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
 
         /**
          * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
@@ -1373,6 +1388,23 @@ declare module "react" {
         setPageWithoutAnimation: (selectedPage: number) => void
     }
 
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
+    }
+
     /**
      * //FIXME: No documentation extracted from code comment on WebView.ios.js
      */
@@ -1399,6 +1431,17 @@ declare module "react" {
          * or not android
          */
         domStorageEnabled?: boolean
+    }
+
+    export interface WebViewIOSLoadRequestEvent {
+        target: number
+        canGoBack: boolean
+        lockIdentifier: number
+        loading: boolean
+        title: string
+        canGoForward: boolean
+        navigationType: 'other' | 'click'
+        url: string
     }
 
     export interface WebViewPropertiesIOS {
@@ -1430,7 +1473,7 @@ declare module "react" {
          * Return true or false from this method to continue loading the
          * request.
          */
-        onShouldStartLoadWithRequest?: () => boolean
+        onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
 
         scrollEnabled?: boolean
     }
@@ -1525,12 +1568,12 @@ declare module "react" {
         /**
          * view to show if there's an error
          */
-        renderError?: () => ViewStatic
+        renderError?: () => React.ReactElement<ViewProperties>
 
         /**
          * loading indicator to show
          */
-        renderLoading?: () => ViewStatic
+        renderLoading?: () => React.ReactElement<ViewProperties>
 
         scrollEnabled?: boolean
 
@@ -3375,6 +3418,17 @@ declare module "react" {
          */
         popToTop(): void;
 
+        /**
+         *  Replace the previous scene and pop to it.
+         */
+        replacePreviousAndPop( route: Route ): void;
+
+        /**
+         * Navigate to a new scene and reset route stack.
+         */
+        resetTo( route: Route ): void;
+
+
     }
 
     namespace NavigatorStatic {
@@ -3448,7 +3502,99 @@ declare module "react" {
     }
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
-        create<T>(styles: T): T;
+
+        /**
+         * Creates a StyleSheet style reference from the given object.
+         */
+        create<T>( styles: T ): T;
+
+        /**
+         * Flattens an array of style objects, into one aggregated style object.
+         * Alternatively, this method can be used to lookup IDs, returned by
+         * StyleSheet.register.
+         *
+         * > **NOTE**: Exercise caution as abusing this can tax you in terms of
+         * > optimizations.
+         * >
+         * > IDs enable optimizations through the bridge and memory in general. Refering
+         * > to style objects directly will deprive you of these optimizations.
+         *
+         * Example:
+         * ```
+         * var styles = StyleSheet.create({
+         *   listItem: {
+         *     flex: 1,
+         *     fontSize: 16,
+         *     color: 'white'
+         *   },
+         *   selectedListItem: {
+         *     color: 'green'
+         *   }
+         * });
+         *
+         * StyleSheet.flatten([styles.listItem, styles.selectedListItem])
+         * // returns { flex: 1, fontSize: 16, color: 'green' }
+         * ```
+         * Alternative use:
+         * ```
+         * StyleSheet.flatten(styles.listItem);
+         * // return { flex: 1, fontSize: 16, color: 'white' }
+         * // Simply styles.listItem would return its ID (number)
+         * ```
+         * This method internally uses `StyleSheetRegistry.getStyleByID(style)`
+         * to resolve style objects represented by IDs. Thus, an array of style
+         * objects (instances of StyleSheet.create), are individually resolved to,
+         * their respective objects, merged as one and then returned. This also explains
+         * the alternative use.
+         */
+        flatten(style: Object): Object
+
+        /**
+         * This is defined as the width of a thin line on the platform. It can be
+         * used as the thickness of a border or division between two elements.
+         * Example:
+         * ```
+         *   {
+         *     borderBottomColor: '#bbb',
+         *     borderBottomWidth: StyleSheet.hairlineWidth
+         *   }
+         * ```
+         *
+         * This constant will always be a round number of pixels (so a line defined
+         * by it look crisp) and will try to match the standard width of a thin line
+         * on the underlying platform. However, you should not rely on it being a
+         * constant size, because on different platforms and screen densities its
+         * value may be calculated differently.
+         */
+        hairlineWidth: number
+
+        /**
+         * A very common pattern is to create overlays with position absolute and zero positioning,
+         * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+         * styles.
+         */
+        absoluteFill: number
+
+
+        /**
+         * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
+         * used to create a customized entry in a `StyleSheet`, e.g.:
+         *
+         *   const styles = StyleSheet.create({
+         *     wrapper: {
+         *       ...StyleSheet.absoluteFillObject,
+         *       top: 10,
+         *       backgroundColor: 'transparent',
+         *     },
+         *   });
+         */
+        absoluteFillObject: {
+            position: string
+            left: number
+            right: number
+            top: number
+            bottom: number
+        }
     }
 
     /**
@@ -3690,8 +3836,10 @@ declare module "react" {
     export interface PlatformStatic {
         OS: PlatformOSType,
 
-        // only documented in PlatformSpecificInformation.md
-        select(PlatformOSType: any): any
+        /**
+         * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+         */
+        select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -3699,7 +3847,22 @@ declare module "react" {
     }
 
     export interface DeviceEventEmitterStatic {
-        addListener<T>(type: string, onReceived: (data: T) => void): DeviceEventSubscription;
+        addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
+
+        /**
+         * Removes the given listener for event of specific type.
+         *
+         * @param {string} eventType - Name of the event to emit
+         * @param {function} listener - Function to invoke when the specified event is
+         *   emitted
+         *
+         * @example
+         *   emitter.removeListener('someEvent', function(message) {
+         *     console.log(message);
+         *   }); // removes the listener if already registered
+         *
+         */
+        removeListener( eventType: String, listener: Function): void
     }
 
     // Used by Dimensions below
@@ -3760,9 +3923,11 @@ declare module "react" {
 
         /**
          * Schedule a function to run after all interactions have completed.
+         * Returns a cancellable
          * @param fn
          */
-        runAfterInteractions(fn: () => void | PromiseTask): Promise<any>
+        runAfterInteractions( fn: () => void | PromiseTask):
+          {then: Function, done: Function, cancel: Function}
 
         /**
          * Notify manager that an interaction has started.
@@ -4079,7 +4244,7 @@ declare module "react" {
          * A RefreshControl component, used to provide pull-to-refresh
          * functionality for the ScrollView.
          */
-        refreshControl?: RefreshControl
+        refreshControl?: React.ReactElement<RefreshControlProperties>
 
         ref?: Ref<ScrollViewStatic & ViewStatic>
     }
@@ -4495,6 +4660,22 @@ declare module "react" {
          *
          */
         saveImageWithTag(tag: string): Promise<string>
+
+        /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
@@ -4955,6 +5136,12 @@ declare module "react" {
         requestPermissions(permissions?: PushNotificationPermissions[]): void
 
         /**
+         * Requests all notification permissions from iOS, prompting the user's
+         * dialog box.
+         */
+        requestPermissions( permissions?: PushNotificationPermissions[] ): Promise<PushNotificationPermissions>
+        
+        /**
          * Unregister for all remote notifications received via Apple Push
          * Notification service.
          * You should call this method in rare circumstances only, such as when
@@ -5064,17 +5251,10 @@ declare module "react" {
 
 
     /**
-     * //FIXME: No documentation is available (although this is self explanatory)
-     *
-     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     * StatusBarIOS is being deprecated.
+     * @see https://github.com/facebook/react-native/commit/4de616b4c1a9d3556632a93504828f0539fa4fa5
      */
     export interface StatusBarIOSStatic {
-
-        setStyle(style: StatusBarStyle, animated?: boolean): void
-
-        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
-
-        setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
     type TimePickerAndroidOpenOptions = {
@@ -5584,26 +5764,25 @@ declare module "react" {
         type: string;
     }
 
-    export interface NavigationState {
-        key: string;
+     export interface NavigationRoute {
+      key: string;
     }
 
-    export interface NavigationParentState extends NavigationState {
+    export interface NavigationState extends NavigationRoute {
         index: number;
-        children: NavigationState[];
+        routes: NavigationRoute[];
     }
 
     export type NavigationRenderer = (
-        navigationState: NavigationParentState,
+        route: NavigationState,
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
     // Definitions for NavigationExperimental feature are deduced
     // from code examples
     export interface NavigationAnimatedViewStaticProps {
-        navigationState?: any
+        route?: any
         style?: ViewStyle
-        onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
         applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
         renderScene?(props: Object): JSX.Element
@@ -5614,6 +5793,7 @@ declare module "react" {
 
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        onNavigateBack(): void
     }
 
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
@@ -5624,9 +5804,9 @@ declare module "react" {
     export interface NavigationCardStackProps {
         direction?: 'horizontal' | 'vertical'
         style?: ViewStyle
-        navigationState?: any
-        onNavigate(action: Object): boolean
+        route?: any
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
+        onNavigateBack(): void
     }
 
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
@@ -5657,6 +5837,26 @@ declare module "react" {
     export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
         getBackAction(): NavigationAction;
         handleNavigation(action: NavigationAction): boolean;
+    }
+
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -5810,6 +6010,9 @@ declare module "react" {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
+    export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
+    export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
+
     export var Linking: LinkingStatic
     export type Linking = LinkingStatic
 
@@ -5857,6 +6060,16 @@ declare module "react" {
 
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
+
+    //Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
+    //See https://facebook.github.io/react-native/docs/native-modules-ios.html
+
+    /**
+     * Use:
+     * <code>const MyModule = NativeModules.ModuleName</code>
+     */
+    export var NativeModules: any
+    export var NativeAppEventEmitter: NativeAppEventEmitterStatic
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
@@ -5917,3 +6130,10 @@ declare global {
     const global: React.GlobalStatic;
     function require(name: string): any;
 }
+
+/**
+ * This variable is set to true when react-native is running in Dev mode
+ * Typical usage:
+ * <code> if (__DEV__) console.log('Running in dev mode')</code>
+ */
+declare var __DEV__: boolean
