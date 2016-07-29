@@ -488,8 +488,7 @@ interface BaseModuleSpecifier extends BaseNode {
 
 export interface ImportDeclaration extends BaseModuleDeclaration {
   type: "ImportDeclaration";
-  specifiers: Array<
-      ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
+  specifiers: Array<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
   source: Literal;
 }
 
