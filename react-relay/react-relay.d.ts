@@ -8,7 +8,7 @@
 declare module "react-relay" {
     import * as React from "react";
 
-    // fragments are a hash of functions
+    /** Fragments are a hash of functions */
     interface Fragments {
         [query: string]: ((variables?: RelayVariables) => string)
     }
@@ -23,7 +23,7 @@ declare module "react-relay" {
         [name: string]: any
     }
 
-    // add static getFragment method to the component constructor
+    /** add static getFragment method to the component constructor */
     interface RelayContainerClass<T> extends React.ComponentClass<T> {
         getFragment: ((q: string) => string)
     }
@@ -67,9 +67,11 @@ declare module "react-relay" {
         constructor(params?: RelayVariables)
     }
 
-    // Relay Mutation class, where T are the props it takes and S is the returned payload from Relay.Store.update.
-    // S is typically dynamic as it depends on the data the app is currently using, but it's possible to always
-    // return some data in the payload using REQUIRED_CHILDREN which is where specifying S is the most useful.
+    /**
+     * Relay Mutation class, where T are the props it takes and S is the returned payload from Relay.Store.update.
+     * S is typically dynamic as it depends on the data the app is currently using, but it's possible to always
+     * return some data in the payload using REQUIRED_CHILDREN which is where specifying S is the most useful.
+     */
     class Mutation<T,S> {
         props: T
 
