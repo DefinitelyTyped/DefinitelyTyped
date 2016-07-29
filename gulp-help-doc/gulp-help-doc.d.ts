@@ -5,11 +5,12 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 declare module "gulp-help-doc" {
 
     import gulp = require('gulp');
-    import promise = require('es6-promise');
+    import Promise = require('es6-promise');
 
     namespace usage {
 

@@ -13,7 +13,10 @@ import usage = require('gulp-help-doc');
  */
 gulp.task('demo', function() {});
 
-var logger = {
+let logger: {
+    output: string,
+    log(msg: string)
+} = {
     output: '',
     log: msg => logger.output += msg + '\n'
 };
