@@ -164,7 +164,8 @@ declare namespace ProtoBuf {
         define(pkg: string, options?: {[key: string]: any}): ProtoBuilder;
         create(defs?: {[key: string]: any}[]): ProtoBuilder;
         resolveAll(): void;
-    		build(path?: string): ProtoBuf;
+        build(path?: string | [string]): MetaMessage<Message>;
+   	    build<T>(path?: string | [string]): MetaMessage<T>;
         lookup(path?: string): ReflectT;
   	}
 
