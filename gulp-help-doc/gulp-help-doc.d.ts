@@ -45,7 +45,7 @@ declare module "gulp-help-doc" {
         }
 
         interface Usage {
-            (gulp: gulp.Gulp, options?: UsageOptions): Promise
+            (gulp: gulp.Gulp, options?: UsageOptions): Promise<any>
         }
 
     }
