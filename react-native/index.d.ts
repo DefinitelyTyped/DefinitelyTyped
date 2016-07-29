@@ -8,6 +8,7 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
 // CONTRIBUTING: please open pull requests
 //
@@ -1842,6 +1843,23 @@ declare module "react" {
          * The style of the content container(View) when behavior is 'position'.
          */
         contentContainerStyle: ViewStyle
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
+    }
+
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
 
         /**
          * This is the distance between the top of the user screen and the react native view,
@@ -6163,6 +6181,22 @@ declare module "react" {
         saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
+
+        /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
          *
          * @param {object} params See getPhotosParamChecker.
@@ -6672,6 +6706,12 @@ declare module "react" {
          */
         requestPermissions( permissions?: PushNotificationPermissions ): Promise<PushNotificationPermissions>
 
+        /**
+         * Requests all notification permissions from iOS, prompting the user's
+         * dialog box.
+         */
+        requestPermissions( permissions?: PushNotificationPermissions[] ): Promise<PushNotificationPermissions>
+        
         /**
          * Unregister for all remote notifications received via Apple Push
          * Notification service.
@@ -8016,6 +8056,26 @@ declare module "react" {
          * cropped image from the ImageStore when you are done with it.
          */
         cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
+    }
+
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
     }
 
     //////////////////////////////////////////////////////////////////////////
