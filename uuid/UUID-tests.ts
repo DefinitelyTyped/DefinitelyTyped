@@ -1,4 +1,3 @@
-
 import UUID = require("uuid");
 
 const uuid1: string = UUID.generate()

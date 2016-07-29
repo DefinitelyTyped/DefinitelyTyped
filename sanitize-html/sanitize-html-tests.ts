@@ -9,11 +9,15 @@ let options: sanitize.IOptions = {
   },
 	transformTags: { 
     'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
-    'img': 'canvas'
-	},
+    'img': (tagName: string, attribs: sanitize.Attributes) => {
+      let img = { tagName, attribs };
+      img.attribs['alt'] = 'transformed' ;
+      return img;
+    }
+  },
   exclusiveFilter: function(frame: sanitize.IFrame) {
-		return frame.tag === 'a' && !frame.text.trim();
-		}
+    return frame.tag === 'a' && !frame.text.trim();
+  }
 };
 
 let unsafe = '<div><script>alert("hello");</script></div>';

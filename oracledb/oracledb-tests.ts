@@ -1,4 +1,3 @@
-
 /// <reference types="node" />
 
 import * as OracleDB from 'oracledb';
