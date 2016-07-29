@@ -26,8 +26,8 @@ interface BaseNode {
   // The type property should be a string literal. For example, Identifier
   // has: `type: "Identifier"`
 
-  leadingComments?: Comment[];
-  trailingComments?: Comment[];
+  leadingComments?: Array<Comment>;
+  trailingComments?: Array<Comment>;
   loc?: SourceLocation;
   range?: [number, number];
 }
@@ -222,7 +222,7 @@ export interface ArrayExpression extends BaseExpression {
 
 export interface ObjectExpression extends BaseExpression {
   type: "ObjectExpression";
-  properties: Property[];
+  properties: Array<Property>;
 }
 
 export interface Property extends BaseNode {
@@ -488,7 +488,8 @@ interface BaseModuleSpecifier extends BaseNode {
 
 export interface ImportDeclaration extends BaseModuleDeclaration {
   type: "ImportDeclaration";
-  specifiers: (ImportSpecifier|ImportDefaultSpecifier|ImportNamespaceSpecifier)[];
+  specifiers: Array<
+      ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>;
   source: Literal;
 }
 

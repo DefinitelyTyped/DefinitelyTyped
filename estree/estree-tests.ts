@@ -221,12 +221,12 @@ boolean = memberExpression.computed;
 // Declarations
 var functionDeclaration: ESTree.FunctionDeclaration;
 identifier = functionDeclaration.id;
-var params:ESTree.Pattern[] = functionDeclaration.params;
+var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
 
 var variableDeclaration: ESTree.VariableDeclaration;
-var declarations:ESTree.VariableDeclarator[] = variableDeclaration.declarations;
+var declarations: Array<ESTree.VariableDeclarator> = variableDeclaration.declarations;
 string = variableDeclaration.kind; // "var" | "let" | "const"
 
 var variableDeclarator: ESTree.VariableDeclarator;
