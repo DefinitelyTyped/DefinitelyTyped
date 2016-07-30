@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.2.8
+// Type definitions for Electron v1.3.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
