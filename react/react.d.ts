@@ -2485,6 +2485,7 @@ declare namespace JSX {
         feDiffuseLighting: React.SVGProps;
         feDisplacementMap: React.SVGProps;
         feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
         feGaussianBlur: React.SVGProps;
         feImage: React.SVGProps;
         feMerge: React.SVGProps;
@@ -2511,6 +2512,7 @@ declare namespace JSX {
         stop: React.SVGProps;
         symbol: React.SVGProps;
         text: React.SVGProps;
+        textPath: React.SVGProps;
         tspan: React.SVGProps;
         use: React.SVGProps;
     }
