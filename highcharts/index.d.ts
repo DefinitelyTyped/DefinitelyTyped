@@ -724,9 +724,6 @@ interface HighchartsAxisOptions {
      * @since 1.2.0
      */
     startOnTick?: boolean;
-
-    stops?: [number, string][];
-
     /**
      * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
      * a chart. This option overrides the tickPixelInterval option.
@@ -5475,7 +5472,6 @@ interface HighchartsOptions {
      * lineWidth is specified in plotOptions.series, an individual lineWidth can be specified for each series.
      */
     series?: HighchartsIndividualSeriesOptions[];
-
     /**
      * The chart's subtitle
      */
@@ -5498,7 +5494,6 @@ interface HighchartsOptions {
      * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
      */
     yAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
-
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
