@@ -1334,7 +1334,7 @@ declare namespace THREE {
     }
 
     export namespace GeometryUtils { // deprecated
-        export function merge(goemetry1: any, goemetry2: any, materialIndexOffset?: any): any; // deprecated, use geometry.merge( geometry2, matrix, materialIndexOffset )
+        export function merge(geometry1: any, geometry2: any, materialIndexOffset?: any): any; // deprecated, use geometry.merge( geometry2, matrix, materialIndexOffset )
         export function center(geometry: any): any; // deprecated, use geometry.center()
     }
 
