@@ -80,7 +80,7 @@ declare namespace VoxImplant {
 		TransferFailed
 	}
 
-	namespace Events {
+	namespace EventTypes {
 
 		/**
 		*	Event dispatched after login , loginWithOneTimeKey, requestOneTimeLoginKey or loginWithCode function call
@@ -989,9 +989,9 @@ declare namespace VoxImplant {
 
 	}
 
-	type VoxImplantEvent = Events.AuthResult | Events.ConnectionClosed | Events.ConnectionEstablished |
-		Events.ConnectionFailed | Events.IncomingCall | Events.MicAccessResult |
-		Events.NetStatsReceived | Events.PlaybackFinished | Events.SDKReady | Events.SourcesInfoUpdated;
+	type VoxImplantEvent = EventTypes.AuthResult | EventTypes.ConnectionClosed | EventTypes.ConnectionEstablished |
+		EventTypes.ConnectionFailed | EventTypes.IncomingCall | EventTypes.MicAccessResult |
+		EventTypes.NetStatsReceived | EventTypes.PlaybackFinished | EventTypes.SDKReady | EventTypes.SourcesInfoUpdated;
 
 
 	type VoxImplantCallEvent = CallEvents.Connected | CallEvents.Disconnected | CallEvents.Failed |

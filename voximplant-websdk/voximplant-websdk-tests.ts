@@ -7,25 +7,25 @@ vox.init({
 	micRequired: true
 });
 
-vox.addEventListener(VoxImplant.Events.SDKReady, function(event: VoxImplant.Events.SDKReady) {
+vox.addEventListener(VoxImplant.Events.SDKReady, function(event: VoxImplant.EventTypes.SDKReady) {
 	console.log("VoxImplant SDK ver. " + event.version + " initialized");
 	vox.connect();
 });
 
-vox.addEventListener(VoxImplant.Events.ConnectionEstablished, function(event: VoxImplant.Events.ConnectionEstablished) {
+vox.addEventListener(VoxImplant.Events.ConnectionEstablished, function(event: VoxImplant.EventTypes.ConnectionEstablished) {
 	console.log("Connection established");
 	vox.login("username", "password");
 });
 
-vox.addEventListener(VoxImplant.Events.ConnectionClosed, function(event: VoxImplant.Events.ConnectionClosed) {
+vox.addEventListener(VoxImplant.Events.ConnectionClosed, function(event: VoxImplant.EventTypes.ConnectionClosed) {
 	console.log("Connection closed");
 });
 
-vox.addEventListener(VoxImplant.Events.ConnectionFailed, function(event: VoxImplant.Events.ConnectionFailed) {
+vox.addEventListener(VoxImplant.Events.ConnectionFailed, function(event: VoxImplant.EventTypes.ConnectionFailed) {
 	console.log("Connection failed. Reason: " + event.message);
 });
 
-vox.addEventListener(VoxImplant.Events.AuthResult, function(event: VoxImplant.Events.AuthResult) {
+vox.addEventListener(VoxImplant.Events.AuthResult, function(event: VoxImplant.EventTypes.AuthResult) {
 	if (event.result === true) {
 		// Authorized successfully
 		console.log("Logged in as " + event.displayName);
@@ -48,11 +48,11 @@ vox.addEventListener(VoxImplant.Events.AuthResult, function(event: VoxImplant.Ev
 	}
 });
 
-vox.addEventListener(VoxImplant.Events.MicAccessResult, function(event: VoxImplant.Events.MicAccessResult) {
+vox.addEventListener(VoxImplant.Events.MicAccessResult, function(event: VoxImplant.EventTypes.MicAccessResult) {
 	console.log("Microphone access allowed: " + event.result);
 });
 
-vox.addEventListener(VoxImplant.Events.IncomingCall, function(event: VoxImplant.Events.IncomingCall) {
+vox.addEventListener(VoxImplant.Events.IncomingCall, function(event: VoxImplant.EventTypes.IncomingCall) {
 	call = event.call;
 	call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEvents.Connected) {
 		console.log("Inbound Call Connected");
@@ -67,7 +67,7 @@ vox.addEventListener(VoxImplant.IMEvents.MessageReceived, function(event: VoxImp
 	console.log("Message received: " + event.content + " from " + event.id + " id " + event.message_id);
 });
 
-vox.addEventListener(VoxImplant.Events.SourcesInfoUpdated, function(event: VoxImplant.Events.SourcesInfoUpdated) {
+vox.addEventListener(VoxImplant.Events.SourcesInfoUpdated, function(event: VoxImplant.EventTypes.SourcesInfoUpdated) {
 	var audioSources: VoxImplant.AudioSourceInfo[] = vox.audioSources(),
 		videoSources: VoxImplant.VideoSourceInfo[] = vox.videoSources();
 	console.log("Received recording sources data:");
