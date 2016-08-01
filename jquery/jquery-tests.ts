@@ -1397,7 +1397,8 @@ function test_each() {
     });
     var arr = ["one", "two", "three", "four", "five"];
     var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-    jQuery.each(arr, function () {
+    // TODO: Should not need explicit type annotation https://github.com/Microsoft/TypeScript/issues/10072
+    jQuery.each<string>(arr, function () {
         $("#" + this).text("Mine is " + this + ".");
         return (this != "three");
     });
