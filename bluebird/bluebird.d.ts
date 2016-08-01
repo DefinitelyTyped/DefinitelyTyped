@@ -768,6 +768,4 @@ declare namespace Promise {
     }
 }
 
-declare module 'bluebird' {
-    export = Promise;
-}
+export = Promise;
