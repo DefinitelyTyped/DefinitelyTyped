@@ -25,6 +25,11 @@ import * as stream from "stream";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
+
+global['simpleTest'] = true;
+
+assert(true === (global['simpleTest'] as boolean), "This should compile");
+
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
 assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
