@@ -178,6 +178,8 @@ declare namespace __React {
             [key: string]: ReactInstance
         };
     }
+    
+    class PureComponent<P, S> extends Component<P, S> {}
 
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -2485,6 +2487,7 @@ declare namespace JSX {
         feDiffuseLighting: React.SVGProps;
         feDisplacementMap: React.SVGProps;
         feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
         feGaussianBlur: React.SVGProps;
         feImage: React.SVGProps;
         feMerge: React.SVGProps;
@@ -2511,6 +2514,7 @@ declare namespace JSX {
         stop: React.SVGProps;
         symbol: React.SVGProps;
         text: React.SVGProps;
+        textPath: React.SVGProps;
         tspan: React.SVGProps;
         use: React.SVGProps;
     }
