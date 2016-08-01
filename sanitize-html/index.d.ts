@@ -6,7 +6,6 @@
 
 declare function sanitize(dirty: string, options?: sanitize.IOptions): string;
 
-
 declare namespace sanitize {
   type Attributes = { [attr: string]: string };
 
@@ -50,9 +49,4 @@ declare namespace sanitize {
 
 
   function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
-}
-
-
-declare module 'sanitize-html' {
-  export = sanitize;
 }
