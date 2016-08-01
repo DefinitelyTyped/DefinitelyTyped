@@ -284,7 +284,6 @@ app.on('ready', () => {
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
-app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 // systemPreferences
