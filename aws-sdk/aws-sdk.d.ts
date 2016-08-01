@@ -1523,10 +1523,10 @@ declare module "aws-sdk" {
 
 		export interface AssumeRoleWithSAMLParams {
 			PrincipalArn: string;
-			  RoleArn: string;
-			  SAMLAssertion: string;
-			  DurationSeconds?: number;
-			  Policy?: string;
+			RoleArn: string;
+			SAMLAssertion: string;
+			DurationSeconds?: number;
+			Policy?: string;
 		}
 
 		export interface AssumeRoleWithWebIdentityParams {
@@ -1555,14 +1555,14 @@ declare module "aws-sdk" {
 
 		export interface GetFederationTokenParams {
 			Name: string;
-			  DurationSeconds?: number,
-			  Policy?: string
+			DurationSeconds?: number,
+			Policy?: string
 		}
 
 		export interface GetSessionTokenParams {
 			DurationSeconds: number,
-			  SerialNumber: string;
-			  TokenCode: string;
+			SerialNumber: string;
+			TokenCode: string;
 		}
 	}
 }
