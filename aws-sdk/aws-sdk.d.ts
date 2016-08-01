@@ -1782,13 +1782,13 @@ declare module "aws-sdk" {
     }
 
     export interface CredentialsFromParams {
-                /**
-                * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
-                */
+                    /**
+                    * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
+                    */
       Data: any;
-                /**
-                * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
-                */
+                    /**
+                    * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
+                    */
       Credentials?: Credentials
     }
 
