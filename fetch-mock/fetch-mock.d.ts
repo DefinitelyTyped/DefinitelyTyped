@@ -2,7 +2,8 @@
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Tamir Duberstein <https://github.com/tamird>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../whatwg-fetch/whatwg-fetch.d.ts" />
+
+/// <reference types="whatwg-fetch" />
 
 declare module "fetch-mock" {
     type MockRequest = Request | RequestInit;
