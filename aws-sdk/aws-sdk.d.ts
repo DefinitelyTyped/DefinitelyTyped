@@ -241,44 +241,44 @@ declare module "aws-sdk" {
     constructor(options?: any);
     endpoint: Endpoint;
 
-        /**
-         * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
-         */
+                /**
+                * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
+                */
     assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: sts.AssumeRoleCallbackData) => void): void;
 
-        /**
-         * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
-         */
+                /**
+                * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
+                */
     assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
-         */
+                /**
+                * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
+                */
     assumeRoleWithWebIdentity(params: sts.AssumeRoleWithWebIdentityParams, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Creates a credentials object from STS response data containing credentials information.
-         */
+                /**
+                * Creates a credentials object from STS response data containing credentials information.
+                */
     credentialsFrom(params: sts.CredentialsFromParams, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
-         */
+                /**
+                * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+                */
     decodeAuthorizationMessage(params: sts.DecodeAuthorizationMessageParams, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Returns details about the IAM identity whose credentials are used to call the API.
-         */
+                /**
+                * Returns details about the IAM identity whose credentials are used to call the API.
+                */
     getCallerIdentity(params: {}, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
-         */
+                /**
+                * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
+                */
     getFederationToken(params: sts.GetFederationTokenParams, callback: (err: any, data: any) => void): void;
 
-        /**
-         * Returns a set of temporary credentials for an AWS account or IAM user.
-         */
+                /**
+                * Returns a set of temporary credentials for an AWS account or IAM user.
+                */
     getSessionToken(params: sts.GetSessionTokenParams, callback: (err: any, data: any) => void): void;
 
   }
@@ -290,29 +290,29 @@ declare module "aws-sdk" {
     * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
     */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Describes one or more of your clusters.
-         */
+            /**
+            * Describes one or more of your clusters.
+            */
     describeClusters(params: ecs.DescribeClustersParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Describes the specified services running in your cluster.
-         */
+            /**
+            * Describes the specified services running in your cluster.
+            */
     describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Describes a specified task or tasks.
-         */
+            /**
+            * Describes a specified task or tasks.
+            */
     describeTasks(params: ecs.DescribeTasksParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
-         */
+            /**
+            * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
+            */
     describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
-         */
+            /**
+            * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
+            */
     registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
-        /**
-         * Modifies the desired count, deployment configuration, or task definition used in a service.
-         */
+            /**
+            * Modifies the desired count, deployment configuration, or task definition used in a service.
+            */
     updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
   }
 
