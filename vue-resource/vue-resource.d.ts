@@ -1,6 +1,7 @@
 // Type definitions for vue-resoure 0.9.3
 // Project: https://github.com/vuejs/vue-resource
 // Definitions by: kaorun343 <https://github.com/kaorun343>
+// Updated to 0.9.3 by: itsFrank <https://github.com/itsFrank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../vue/vue.d.ts" />
