@@ -88,7 +88,7 @@ function test_ajax() {
             alert('Load was performed.');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON);
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
@@ -1353,7 +1353,8 @@ function test_each() {
     });
     var arr = ["one", "two", "three", "four", "five"];
     var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-    jQuery.each(arr, function () {
+    // TODO: Should not need explicit type annotation https://github.com/Microsoft/TypeScript/issues/10072
+    jQuery.each<string>(arr, function () {
         $("#" + this).text("Mine is " + this + ".");
         return (this != "three");
     });
@@ -3262,7 +3263,7 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
-    
+
     var el1 = $("<div/>")[0];
     var el2 = $("<div/>")[0];
     $("p").not([el1, el2]);
