@@ -233,50 +233,52 @@ declare module "aws-sdk" {
     getSignedUrl(operation: string, params: any): string;
     getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
     upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
+    listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
+    listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
   }
 
   export class STS {
     constructor(options?: any);
     endpoint: Endpoint;
 
-		/**
-		 * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
-		 */
+        /**
+         * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
+         */
     assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: sts.AssumeRoleCallbackData) => void): void;
 
-		/**
-		 * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
-		 */
+        /**
+         * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
+         */
     assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
-		 */
+        /**
+         * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
+         */
     assumeRoleWithWebIdentity(params: sts.AssumeRoleWithWebIdentityParams, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Creates a credentials object from STS response data containing credentials information.
-		 */
+        /**
+         * Creates a credentials object from STS response data containing credentials information.
+         */
     credentialsFrom(params: sts.CredentialsFromParams, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
-		 */
+        /**
+         * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+         */
     decodeAuthorizationMessage(params: sts.DecodeAuthorizationMessageParams, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Returns details about the IAM identity whose credentials are used to call the API.
-		 */
+        /**
+         * Returns details about the IAM identity whose credentials are used to call the API.
+         */
     getCallerIdentity(params: {}, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
-		 */
+        /**
+         * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
+         */
     getFederationToken(params: sts.GetFederationTokenParams, callback: (err: any, data: any) => void): void;
 
-		/**
-		 * Returns a set of temporary credentials for an AWS account or IAM user.
-		 */
+        /**
+         * Returns a set of temporary credentials for an AWS account or IAM user.
+         */
     getSessionToken(params: sts.GetSessionTokenParams, callback: (err: any, data: any) => void): void;
 
   }
@@ -288,29 +290,29 @@ declare module "aws-sdk" {
     * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
     */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Describes one or more of your clusters.
-		 */
+        /**
+         * Describes one or more of your clusters.
+         */
     describeClusters(params: ecs.DescribeClustersParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Describes the specified services running in your cluster.
-		 */
+        /**
+         * Describes the specified services running in your cluster.
+         */
     describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Describes a specified task or tasks.
-		 */
+        /**
+         * Describes a specified task or tasks.
+         */
     describeTasks(params: ecs.DescribeTasksParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
-		 */
+        /**
+         * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
+         */
     describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
-		 */
+        /**
+         * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
+         */
     registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
-		/**
-		 * Modifies the desired count, deployment configuration, or task definition used in a service.
-		 */
+        /**
+         * Modifies the desired count, deployment configuration, or task definition used in a service.
+         */
     updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
   }
 
@@ -1479,6 +1481,44 @@ declare module "aws-sdk" {
   }
 
   export module s3 {
+    interface Owner {
+        DisplayName: string;
+        ID: string;
+    }
+
+    interface ObjectKeyPrefix {
+        Prefix: string;
+    }
+
+    export interface ListObjectContent {
+        Key: string;
+        LastModified: Date;
+        ETag: string;
+        Size: number;
+        StorageClass: "STANDARD" | "REDUCED_REDUNDANCY" | "GLACIER";
+        Owner?: Owner
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Request and is exposed via V1 and V2 subclasses
+    interface ListObjectRequestBase {
+        Bucket: string;
+        Delimiter?: string;
+        EncodingType?: 'url';
+        MaxKeys?: number;
+        Prefix?: string;
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Response and is exposed via V1 and V2 subclasses
+    interface ListObjectResponseBase {
+        IsTruncated: boolean;
+        Contents: ListObjectContent[];
+        Name: string;
+        Prefix?: string;
+        Delimiter?: string;
+        MaxKeys: number;
+        CommonPrefixes?: ObjectKeyPrefix[];
+        EncodingType?: "url";
+    }
     export interface PutObjectRequest {
       ACL?: string;
       Body?: any;
@@ -1498,7 +1538,7 @@ declare module "aws-sdk" {
       Key: string;
       Metadata?: { [key: string]: string; };
       ServerSideEncryption?: string;
-      StorageClass?: string;
+      StorageClass?: "STANDARD" | "REDUCED_REDUNDANCY" | "GLACIER";
       WebsiteRedirectLocation?: string;
     }
 
@@ -1546,6 +1586,28 @@ declare module "aws-sdk" {
       partSize?: number;
       queueSize?: number;
     }
+
+    export interface ListObjectRequest extends ListObjectRequestBase {
+        Marker?: string;
+    }
+
+    export interface ListObjectV2Request extends ListObjectRequestBase {
+        ContinuationToken?: string;
+        FetchOwner?: boolean;
+        StartAfter?: string;
+    }
+
+    export interface ListObjectResponse extends ListObjectResponseBase {
+        Marker?: string;
+        NextMarker?: string;
+    }
+
+    export interface ListObjectV2Response extends ListObjectResponseBase {
+        KeyCount: number;
+        ContinuationToken?: string;
+        NextContinuationToken?: string;
+        StartAfter?: string;
+    }
   }
 
   export module ecs {
@@ -1568,38 +1630,38 @@ declare module "aws-sdk" {
     }
 
     export interface DescribeServicesParams {
-			/**
-			 * A list of services to describe.
-			 */
+            /**
+             * A list of services to describe.
+             */
       services: string[];
-			/**
-			 * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
-			 */
+            /**
+             * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
+             */
       cluster?: string;
     }
 
     export interface DescribeClustersParams {
-			/**
-			 * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
-			 */
+            /**
+             * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+             */
       clusters?: string[];
     }
 
     export interface DescribeTasksParams {
-			/**
-			 * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
-			 */
+            /**
+             * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
+             */
       tasks: string[];
-			/**
-			 * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to describe. If you do not specify a cluster, the default cluster is assumed.
-			 */
+            /**
+             * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to describe. If you do not specify a cluster, the default cluster is assumed.
+             */
       cluster?: string;
     }
 
     export interface DescribeTaskDefinitionParams {
-			/**
-			 * The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
-			 */
+            /**
+             * The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
+             */
       taskDefinition: string;
     }
 
@@ -1720,13 +1782,13 @@ declare module "aws-sdk" {
     }
 
     export interface CredentialsFromParams {
-			/**
-			 * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
-			 */
+            /**
+             * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
+             */
       Data: any;
-			/**
-			 * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
-			 */
+            /**
+             * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
+             */
       Credentials?: Credentials
     }
 
