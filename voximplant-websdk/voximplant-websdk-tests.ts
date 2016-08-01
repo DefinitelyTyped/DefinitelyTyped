@@ -31,13 +31,13 @@ vox.addEventListener(VoxImplant.Events.AuthResult, function(event: VoxImplant.Ev
 		console.log("Logged in as " + event.displayName);
 
 		call = vox.call("some_number", false);
-		call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEvents.Connected) {
+		call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEventTypes.Connected) {
 			console.log("Call connected");
 		});
-		call.addEventListener(VoxImplant.CallEvents.Failed, function(callevent: VoxImplant.CallEvents.Failed) {
+		call.addEventListener(VoxImplant.CallEvents.Failed, function(callevent: VoxImplant.CallEventTypes.Failed) {
 			console.log("Call failed, reason: " + callevent.reason);
 		});
-		call.addEventListener(VoxImplant.CallEvents.Disconnected, function(callevent: VoxImplant.CallEvents.Disconnected) {
+		call.addEventListener(VoxImplant.CallEvents.Disconnected, function(callevent: VoxImplant.CallEventTypes.Disconnected) {
 			console.log("Call disconnected");
 		});
 
@@ -54,7 +54,7 @@ vox.addEventListener(VoxImplant.Events.MicAccessResult, function(event: VoxImpla
 
 vox.addEventListener(VoxImplant.Events.IncomingCall, function(event: VoxImplant.EventTypes.IncomingCall) {
 	call = event.call;
-	call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEvents.Connected) {
+	call.addEventListener(VoxImplant.CallEvents.Connected, function(callevent: VoxImplant.CallEventTypes.Connected) {
 		console.log("Inbound Call Connected");
 		setTimeout(function() {
 			vox.disconnect();
@@ -63,7 +63,7 @@ vox.addEventListener(VoxImplant.Events.IncomingCall, function(event: VoxImplant.
 	call.answer();
 });
 
-vox.addEventListener(VoxImplant.IMEvents.MessageReceived, function(event: VoxImplant.IMEvents.MessageReceived) {
+vox.addEventListener(VoxImplant.IMEvents.MessageReceived, function(event: VoxImplant.IMEventTypes.MessageReceived) {
 	console.log("Message received: " + event.content + " from " + event.id + " id " + event.message_id);
 });
 
@@ -78,12 +78,12 @@ vox.addEventListener(VoxImplant.Events.SourcesInfoUpdated, function(event: VoxIm
 	vox.useVideoSource(videoSources[0].id, function() { console.log('OK'); }, function() { console.log('Failed'); });
 });
 
-vox.addEventListener(VoxImplant.IMEvents.RosterReceived, function(event: VoxImplant.IMEvents.RosterReceived) {
+vox.addEventListener(VoxImplant.IMEvents.RosterReceived, function(event: VoxImplant.IMEventTypes.RosterReceived) {
 	var roster: VoxImplant.RosterItem[] = event.roster;
 	console.log("Roster received: " + roster);
 });
 
-vox.addEventListener(VoxImplant.IMEvents.ChatRoomBanList, function(event: VoxImplant.IMEvents.ChatRoomBanList) {
+vox.addEventListener(VoxImplant.IMEvents.ChatRoomBanList, function(event: VoxImplant.IMEventTypes.ChatRoomBanList) {
 	console.log("Banned participants: " + event.participants + " in room " + event.room);
 });
 
