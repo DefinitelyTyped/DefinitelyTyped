@@ -1395,9 +1395,13 @@ declare namespace Slick {
 
 	export interface OnSortEventArgs<T extends SlickData> extends GridEventArgs<T> {
 		multiColumnSort: boolean;
-		sortCol?: SortColumn<T>;
-		sortCols?: SortColumn<T>[];
+
+		// Single column returned
+		sortCol?: Column<T>;
 		sortAsc: boolean;
+
+		// Multiple columns returned
+		sortCols?: SortColumn<T>[];
 	}
 
 	export interface OnScrollEventArgs<T extends SlickData> extends GridEventArgs<T> {

@@ -1683,7 +1683,7 @@ declare namespace protractor {
          * @return {!webdriver.promise.Promise} A promise that will resolve to the
          *    scripts return value.
          */
-        waitForAngular(): webdriver.promise.Promise<void>;
+        waitForAngular(): webdriver.promise.Promise<any>;
 
         /**
          * Add a module to load before Angular whenever Protractor.get is called.

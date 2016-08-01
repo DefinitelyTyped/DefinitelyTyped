@@ -1,11 +1,16 @@
-// Type definitions for CybozuLabs.MD5
-// Project: http://labs.cybozu.co.jp/blog/mitsunari/2007/07/md5js_1.html
-// Definitions by: MIZUNE Pine <https://github.com/pine613>
+// Type definitions for md5 v2.1.0
+// Project: https://github.com/pvorb/node-md5
+// Definitions by: Bill Sourour <https://github.com/arcdev1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace CybozuLabs.MD5 {
-    var VERSION: string;
-    var BY_ASCII: number;
-    var BY_UTF16: number;
-    function calc(str: string, option?: number): string;
+/// <reference path="../node/node.d.ts" />
+declare module 'md5' {
+/**
+ * js function for hashing messages with MD5
+ * 
+ * @param {(string | Buffer)} message - a string or buffer to hash
+ * @returns {string} the resultant MD5 hash of the given message
+ */
+    function main(message: string | Buffer): string;
+    export = main;
 }
