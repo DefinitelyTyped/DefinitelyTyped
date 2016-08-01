@@ -593,7 +593,7 @@ declare namespace THREE {
             height: number
         };
         filmGauge: number;
-        filmAcces: number;
+        filmOffset: number;
 
         setFocalLength(focalLength: number): void;
         getFocalLength(): number;
