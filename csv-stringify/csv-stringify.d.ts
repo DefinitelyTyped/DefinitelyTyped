@@ -59,7 +59,7 @@ declare module "csv-stringify" {
 		interface Stringifier extends NodeJS.ReadWriteStream {
 
 			// Stringifier stream takes array of strings
-			write(line: string[]): boolean;
+			write(line: string[] | Object): boolean;
 
 			// repeat declarations from NodeJS.WritableStream to avoid compile error
 			write(buffer: Buffer, cb?: Function): boolean;
