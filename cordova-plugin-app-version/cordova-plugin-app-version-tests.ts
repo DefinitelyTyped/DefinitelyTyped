@@ -1,6 +1,5 @@
 ﻿/// <reference types="cordova" />
 
-
 cordova.getAppVersion.getAppName()
 	.then(appName=> {
 		console.log(appName)
