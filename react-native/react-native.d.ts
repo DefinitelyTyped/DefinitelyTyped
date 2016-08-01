@@ -894,6 +894,8 @@ declare namespace  __React {
          * onCreate method.
          */
         rtl?: boolean
+        
+        style?: ViewStyle
 
         /**
          * Sets the toolbar subtitle.
