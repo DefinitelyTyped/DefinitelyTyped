@@ -918,6 +918,14 @@ declare module "https" {
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
+        pfx?: any;
+        key?: any;
+        passphrase?: string;
+        cert?: any;
+        ca?: any;
+        ciphers?: string;
+        rejectUnauthorized?: boolean;
+        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
