@@ -26,10 +26,11 @@ declare namespace jest {
     function autoMockOn(): void;
     function clearAllTimers(): void;
     function currentTestPath(): string;
+    function disableAutomock(): void;
     function fn<T>(implementation?: Function): Mock<T>;
     function dontMock(moduleName: string): void;
     function genMockFromModule<T>(moduleName: string): Mock<T>;
-    function mock(moduleName: string): void;
+    function mock(moduleName: string, factory?: Function): void;
     function runAllTicks(): void;
     function runAllTimers(): void;
     function runOnlyPendingTimers(): void;

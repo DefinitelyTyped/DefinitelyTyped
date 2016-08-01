@@ -5,6 +5,10 @@
 
 /// <reference path="../node/node.d.ts" />
 
+// Note: the types seen in the JSDoc are wrong:
+//   https://github.com/ChadKillingsworth/closure-compiler-npm/issues/21
+// Be careful to read the code when choosing types.
+
 declare module 'google-closure-compiler' {
     import * as child_process from 'child_process';
 
@@ -26,7 +30,8 @@ declare module 'google-closure-compiler' {
         
         getFullCommand(): string;
     }
-    type CompileOptions = {[key: string]: string};
+    type CompileOption = string | boolean;
+    type CompileOptions = string[] | {[key: string]: (CompileOption|CompileOption[])};
     var compiler: {
         new (opts: (CompileOptions|string[]),
              extraCommandArgs?: string[]): Compiler;

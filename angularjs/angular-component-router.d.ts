@@ -428,4 +428,55 @@ declare namespace angular {
     interface OnReuse {
         $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
     }
+
+    /**
+     * Runtime representation a type that a Component or other object is instances of.
+     *
+     * An example of a `Type` is `MyCustomComponent` class, which in JavaScript is be represented by
+     * the `MyCustomComponent` constructor function.
+     */
+    interface Type extends Function {
+    }
+
+    /**
+     * `RouteDefinition` defines a route within a {@link RouteConfig} decorator.
+     *
+     * Supported keys:
+     * - `path` or `aux` (requires exactly one of these)
+     * - `component`, `loader`,  `redirectTo` (requires exactly one of these)
+     * - `name` or `as` (optional) (requires exactly one of these)
+     * - `data` (optional)
+     *
+     * See also {@link Route}, {@link AsyncRoute}, {@link AuxRoute}, and {@link Redirect}.
+     */
+    interface RouteDefinition {
+        path?: string;
+        aux?: string;
+        component?: Type | ComponentDefinition | string;
+        loader?: Function;
+        redirectTo?: any[];
+        as?: string;
+        name?: string;
+        data?: any;
+        useAsDefault?: boolean;
+    }
+
+    /**
+     * Represents either a component type (`type` is `component`) or a loader function
+     * (`type` is `loader`).
+     *
+     * See also {@link RouteDefinition}.
+     */
+    interface ComponentDefinition {
+        type: string;
+        loader?: Function;
+        component?: Type;
+    }
+
+    // Supplement IComponentOptions from angular.d.ts with router-specific
+    // fields.
+    interface IComponentOptions {
+      $canActivate?: () => boolean;
+      $routeConfig?: RouteDefinition[];
+    }
 }

@@ -12,6 +12,7 @@ declare module "hapi" {
 	import http = require("http");
 	import stream = require("stream");
 	import Events = require("events");
+	import url = require("url");
 
 	interface IDictionary<T> {
 		[key: string]: T;
@@ -303,7 +304,7 @@ declare module "hapi" {
 		response(result: any): Response;
 
 		/** Sets a cookie on the response */
-		state(name: string, value: string, options?: any): void;
+		state(name: string, value: any, options?: any): void;
 
 		/** Clears a cookie on the response */
 		unstate(name: string, options?: any): void;
@@ -874,7 +875,7 @@ declare module "hapi" {
 		/**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
 		vhost?: string;
 		/**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-		handler: ISessionHandler | string | IRouteHandlerConfig;
+		handler?: ISessionHandler | string | IRouteHandlerConfig;
 		/** - additional route options.*/
 		config?: IRouteAdditionalConfigurationOptions;
 	}
@@ -963,7 +964,7 @@ declare module "hapi" {
 		payload: string;
 		rawPayload: Buffer;
 		raw: {
-			req: http.ClientRequest;
+			req: http.IncomingMessage;
 			res: http.ServerResponse
 		};
 		result: string;
@@ -1198,7 +1199,7 @@ declare module "hapi" {
 		query: any;
 		/**  an object containing the Node HTTP server objects. Direct interaction with these raw objects is not recommended.*/
 		raw: {
-			req: http.ClientRequest;
+			req: http.IncomingMessage;
 			res: http.ServerResponse;
 		};
 		/** the route public interface.*/
@@ -1250,8 +1251,7 @@ declare module "hapi" {
 		request.setUrl('/test');
 		return reply.continue();
 		});*/
-		setUrl(url: string): void;
-
+		setUrl(url: string | url.Url): void;
 		/** request.setMethod(method)
 
 		 Available only in 'onRequest' extension methods.
@@ -1301,7 +1301,7 @@ declare module "hapi" {
 		log(/** a string or an array of strings (e.g. ['error', 'database', 'read']) used to identify the event. Tags are used instead of log levels and provide a much more expressive mechanism for describing and filtering events.*/
 			tags: string | string[],
 			/** an optional message string or object with the application data being logged.*/
-			data?: string,
+			data?: any,
 			/**  an optional timestamp expressed in milliseconds. Defaults to Date.now() (now).*/
 			timestamp?: number): void;
 

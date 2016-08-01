@@ -173,6 +173,10 @@ _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
 _.min(stooges, (stooge) => stooge.age);
+_.max({ a: 1, b: 2 });
+_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+_.min({ a: 1, b: 2 });
+_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
 var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
@@ -236,6 +240,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);

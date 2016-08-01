@@ -3,7 +3,7 @@
 // Definitions by: Jason Jarrett <https://github.com/staxmanade/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "UUID" {
+declare module UUID {
 
     interface UUID {
         intFields: UUIDArray<number>;
