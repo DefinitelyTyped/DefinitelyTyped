@@ -1,6 +1,6 @@
 ﻿
 
-function test_HeadersCopiedFromHeaders() {
+function test_HeadersCopiedFromHeaders1() {
 	var source = new Headers();
 	source.append('Content-Type', 'application/json');
 	return new Headers(source);
@@ -13,26 +13,26 @@ function test_HeadersCopiedFromHash() {
 	return new Headers(source);
 }
 
-function test_HeadersCopiedFromHeaders() {
+function test_HeadersCopiedFromHeaders2() {
 	var source = new Headers();
 	source.append('Content-Type', 'application/json');
 	return new Headers(source);
 }
 
-function test_HeadersCopiedFromHash() {
+function test_HeadersCopiedFromHash2() {
 	var source:HeadersMap = {
 		'Content-Type': 'application/json'
 	};
 	return new Headers(source);
 }
 
-function test_HeadersCopiedFromHeaders() {
+function test_HeadersCopiedFromHeaders3() {
 	var source = new Headers();
 	source.append('Content-Type', 'application/json');
 	return new Headers(source);
 }
 
-function test_HeadersCopiedFromHash() {
+function test_HeadersCopiedFromHash3() {
 	var source:HeadersMap = {
 		'Content-Type': 'application/json'
 	};
