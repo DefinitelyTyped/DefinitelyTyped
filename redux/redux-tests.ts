@@ -173,7 +173,7 @@ namespace EnumTypeAction {
     const t2: string = R.compose(numberToString, numberToNumber)(5);
     const t3: string = R.compose(numberToString, stringToNumber)("f");
     const t4: (a: string) => number = R.compose(
-      (f: (a: string) => number) => ((p: string) => 5),
+      (f: (a: string) => number) => ((p: string): number => 5),
       (f: (a: number) => string) => ((p: string) => 4)
     )(numberToString);
 
