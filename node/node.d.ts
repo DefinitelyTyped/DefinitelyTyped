@@ -607,6 +607,7 @@ declare module "http" {
         removeHeader(name: string): void;
         write(chunk: any, encoding?: string): any;
         addTrailers(headers: any): void;
+        finished: boolean;
 
         // Extended base methods
         end(): void;
