@@ -119,6 +119,8 @@ declare namespace I18next {
         createInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
 
         cloneInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+
+        on(event: string, listener: (options: I18next.Options) => void ): void;
     }
 }
 
