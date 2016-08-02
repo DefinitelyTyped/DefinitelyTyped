@@ -975,3 +975,76 @@ export function untouch(form: string, ...fields: string[]): Action;
 function unregisterField(form: string, name: string): Action;
 
 function updateSyncErrors(form: string, syncErrors: Object): Action;
+
+/**
+ * Selectors
+ *
+ * Used to query the state of any of your forms.
+ *
+ * All of the selectors listed below have the same usage pattern:
+ * they all take the name of the form, and create a selector for
+ * whatever form state the selector is for.
+ *
+ * import {
+ *   getFormValues,
+ *   isDirty,
+ *   isPristine,
+ *   isValid,
+ *   isInvalid
+ * } from 'redux-form';
+ *
+ * MyComponent = connect(
+ *   state => ({
+ *     values: getFormValues('myForm'),
+ *     dirty: isDirty('myForm'),
+ *     pristine: isPristine('myForm'),
+ *     valid: isValid('myForm'),
+ *     invalid: isInvalid('myForm')
+ *   })
+ * )(MyComponent)
+ */
+
+/**
+ * Gets form data.
+ */
+interface DataSelector {
+  <FormData extends DataShape, State>(formName: string): (state: State) => FormData;
+  <FormData extends DataShape>(formName: string): (state: any) => FormData;
+}
+
+/**
+ * Gets boolean info from form.
+ */
+interface BooleanSelector {
+  <State>(formName: string): (state: State) => boolean;
+  (formName: string): (state: any) => boolean;
+}
+
+/**
+ * Gets the form values. Shocking, right?
+ */
+export const getFormValues: DataSelector;
+
+/**
+ * Returns true if the form is dirty, i.e. the values have been altered
+ * from the original initialValues provided. The opposite of isPristine.
+ */
+export const isDirty: BooleanSelector;
+
+/**
+ * Returns true if the form is pristine, i.e. the values have NOT been altered
+ * from the original initialValues provided. The opposite of isDirty.
+ */
+export const isPristine: BooleanSelector;
+
+/**
+ * Returns true if the form is valid, i.e. has no sync, async, or submission
+ * errors. The opposite of isInvalid.
+ */
+export const isValid: BooleanSelector;
+
+/**
+ * Returns true if the form is invalid, i.e. has sync, async, or submission
+ * errors. The opposite of isValid.
+ */
+export const isInvalid: BooleanSelector;
