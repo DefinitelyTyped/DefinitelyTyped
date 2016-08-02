@@ -1,4 +1,4 @@
-// Type definitions for react-material-ui-keyboard 1.0.4
+// Type definitions for react-material-ui-keyboard 1.1.0
 // Project: https://github.com/NoHomey/react-material-ui-keyboard
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,11 +12,11 @@ declare module 'react-material-ui-keyboard' {
 
 declare module 'react-material-ui-keyboard/Keyboard' {
 	import * as React from 'react';
-	import { KeyboardKeyContext } from 'react-material-ui-keyboard/KeyboardKey';
+	import { MuiTheme } from 'material-ui/styles';
 	const AlphaNumericKeyboard: KeyboardLayout;
 	const CapsedAlphaNumbericKeyboard: KeyboardLayout;
 	const NumericKeyboard: KeyboardLayout;
-	export { KeyboardKeyContext, AlphaNumericKeyboard, CapsedAlphaNumbericKeyboard, NumericKeyboard };
+	export { AlphaNumericKeyboard, CapsedAlphaNumbericKeyboard, NumericKeyboard };
 	export type KeyboardLayout = Array<Array<string>>;
 	export function KyeboardCapsLock(layout: KeyboardLayout, caps: boolean): KeyboardLayout;
 	export type RequestCloseHandler = () => void;
@@ -27,22 +27,29 @@ declare module 'react-material-ui-keyboard/Keyboard' {
 	    onRequestClose: RequestCloseHandler;
 	    onInput: InputHandler;
 	    layout: Array<KeyboardLayout>;
+	    keyboardKeyWidth?: number;
+	    keyboardKeyHeight?: number;
+	    keyboardKeySymbolSize?: number;
 	}
 	export interface KeyboardState {
 	    value?: string;
 	    layout?: number;
 	    capsLock?: boolean;
 	}
+	export interface KeyboardContext {
+	    muiTheme?: MuiTheme;
+	}
 	export class Keyboard extends React.Component<KeyboardProps, KeyboardState> {
-	    static contextTypes: Object;
-	    context: KeyboardKeyContext;
+	    static contextTypes: {
+	        muiTheme: React.Requireable<any>;
+	    };
+	    context: KeyboardContext;
 	    private _onKeyboard;
 	    private _onKeyDown;
 	    private _handleKeyboard(key);
 	    private _handleKeyDown(event);
-	    constructor(props: KeyboardProps, context: KeyboardKeyContext);
+	    constructor(props: KeyboardProps, context: KeyboardContext);
 	    shouldComponentUpdate(props: KeyboardProps, state: KeyboardState): boolean;
-	    componentDidUpdate(props: KeyboardProps, state: KeyboardState): void;
 	    render(): JSX.Element;
 	}
 	export default Keyboard;
@@ -54,12 +61,10 @@ declare module 'react-material-ui-keyboard/KeyboardKey' {
 	export type KeyboardKeyPressHandler = (key: string) => void;
 	export interface KeyboardKeyProps {
 	    keyboardKey: string;
+	    onKeyPress: KeyboardKeyPressHandler;
 	}
 	export interface KeyboardKeyContext {
 	    muiTheme: MuiTheme;
-	}
-	export class KeyboardKeyHandller {
-	    static onKeyPress: KeyboardKeyPressHandler;
 	}
 	export class KeyboardKey extends React.Component<KeyboardKeyProps, void> {
 	    static contextTypes: Object;
