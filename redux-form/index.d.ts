@@ -1,4 +1,13 @@
-import { Component, ComponentClass, StatelessComponent, ReactElement, ReactEventHandler, SyntheticEvent } from 'react';
+import {
+  Component,
+  ComponentClass,
+  DragEventHandler,
+  FocusEventHandler,
+  ReactElement,
+  ReactEventHandler,
+  StatelessComponent,
+  SyntheticEvent
+} from 'react';
 import { Dispatch, Reducer, Action } from 'redux';
 
 type FieldValue = any;
@@ -314,7 +323,7 @@ interface FormProps<FormData extends DataShape, S> {
    * may pass that as if it were the error for a field called _error, and
    * it will be given as the error prop.
    */
-  handleSubmit?(event: SyntheticEvent): void; // same as ReactEventHandler
+  handleSubmit?: ReactEventHandler;
 
   handleSubmit?(submit: SubmitHandler<FormData, S>): ReactEventHandler;
 
@@ -538,17 +547,17 @@ interface WrappedFieldInputProps {
    * Saves the field value in the event for giving the field it is dropped
    * into.
    */
-  onDragStart(): void;
+  onDragStart: DragEventHandler;
 
   /**
    * A function to call when the form field receives a drop event.
    */
-  onDrop(): void;
+  onDrop: DragEventHandler;
 
   /**
    * A function to call when the form field receives focus.
    */
-  onFocus(): void;
+  onFocus: FocusEventHandler;
 
   /**
    * The value of this form field. It will be a boolean for checkboxes, and
