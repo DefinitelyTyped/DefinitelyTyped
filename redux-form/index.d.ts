@@ -376,6 +376,13 @@ interface FormProps<FormData extends DataShape, S> {
   submitFailed?: boolean;
 
   /**
+   * Starts as false. If onSubmit is called, and succeed to submit,
+   * submitSucceeded will be set to true. A subsequent unsuccessful
+   * submit will set it back to false.
+   */
+  submitSucceeded?: boolean;
+
+  /**
    * Marks the given fields as "touched" to show errors.
    */
   touch?(...field: string[]): void;
@@ -969,6 +976,8 @@ export function stopSubmit(form: string, errors?: Object): Action;
 export function stopAsyncValidation(form: string, errors?: Object): Action;
 
 export function setSubmitFailed(form: string, ...fields: string[]): Action;
+
+export function setSubmitSucceeded(form: string, ...fields: string[]): Action;
 
 /**
  * Marks all the fields passed in as touched.
