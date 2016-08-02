@@ -700,23 +700,11 @@ export class FieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayPro
  */
 interface WrappedFieldArrayProps<T> {
   fields: FieldsProps<T>;
+
+  meta: FieldArrayMetaProps;
 }
 
 interface FieldsProps<T> {
-  /**
-   * true if the any of the fields in the field array have changed from their
-   * initialized value. Opposite of pristine.
-   */
-  dirty: boolean;
-
-  /**
-   * The error for this field array if its value is not passing validation. Both
-   * synchronous, asynchronous, and submit validation errors will be reported here.
-   * Array-specific errors should be returned from the validation function as an
-   * _error key on the array.
-   */
-  error?: string
-
   /**
    * A method to iterate over each value of the array.
    */
@@ -726,12 +714,6 @@ interface FieldsProps<T> {
    * A function to insert a new value into the array at any arbitrary index.
    */
   insert(index: number, value: T): void;
-
-  /**
-   * true if the field array value fails validation (has a validation error).
-   * Opposite of valid.
-   */
-  invalid: boolean;
 
   /**
    * The current length of the array.
@@ -748,12 +730,6 @@ interface FieldsProps<T> {
    * Removes an item from the end of the array. Returns the item removed.
    */
   pop(): T;
-
-  /**
-   * true if the all of the fields in the field array are the same as their
-   * initialized value. Opposite of dirty.
-   */
-  pristine: boolean;
 
   /**
    * Adds a value to the end of the array.
@@ -779,6 +755,34 @@ interface FieldsProps<T> {
    * Adds an item to the beginning of the array.
    */
   unshift(value: T): void;
+}
+
+interface FieldArrayMetaProps {
+  /**
+   * true if the any of the fields in the field array have changed from their
+   * initialized value. Opposite of pristine.
+   */
+  dirty: boolean;
+
+  /**
+   * The error for this field array if its value is not passing validation. Both
+   * synchronous, asynchronous, and submit validation errors will be reported here.
+   * Array-specific errors should be returned from the validation function as an
+   * _error key on the array.
+   */
+  error?: string;
+
+  /**
+   * true if the field array value fails validation (has a validation error).
+   * Opposite of valid.
+   */
+  invalid: boolean;
+
+  /**
+   * true if the all of the fields in the field array are the same as their
+   * initialized value. Opposite of dirty.
+   */
+  pristine: boolean;
 
   /**
    * true if the field value passes validation (has no validation errors).
