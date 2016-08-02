@@ -12,6 +12,8 @@ import { Dispatch, Reducer, Action } from 'redux';
 
 type FieldValue = any;
 
+type FieldType = 'Field' | 'FieldArray';
+
 type DataShape = {[fieldName:string]: FieldValue};
 
 type FormErrors<FormData extends DataShape> = FormData & { _error?: string };
@@ -216,12 +218,6 @@ interface Form<FormData extends DataShape, P, S> extends Component<P, any> {
   dirty: boolean;
 
   /**
-   * An array of strings representing all the fields in the form.
-   * Mainly useful for testing.
-   */
-  fieldList: string[];
-
-  /**
    * true if the form has validation errors. Opposite of valid.
    */
   invalid: boolean;
@@ -231,6 +227,12 @@ interface Form<FormData extends DataShape, P, S> extends Component<P, any> {
    * of dirty.
    */
   pristine: boolean;
+
+  /**
+   * An array of objects with fields `name` and `type` for each field
+   * representing all the fields in the form. Mainly useful for testing.
+   */
+  registeredFields: RegisteredFieldState[];
 
   /**
    * Resets all the values in the form to the initialized state, making it
@@ -829,7 +831,7 @@ interface FormStateMap {
 }
 
 interface FormState {
-  registeredFields: {name: string, type: string}[];
+  registeredFields: RegisteredFieldState[];
   fields?: {[name: string]: FieldState};
   values?: { [fieldName: string]: string };
   active?: string;
@@ -837,6 +839,11 @@ interface FormState {
   submitting?: boolean;
   submitErrors?: { [fieldName: string]: string };
   submitFailed?: boolean;
+}
+
+interface RegisteredFieldState {
+  name: string;
+  type: FieldType;
 }
 
 interface FieldState {
@@ -930,7 +937,7 @@ export function initialize(form: string, data: Object, fields: string[]): Action
 /**
  * Registers a field with the given name and field type ('Field' or 'FieldArray') from the store.
  */
-function registerField(form: string, name: string, type: 'Field' | 'FieldArray'): Action;
+function registerField(form: string, name: string, type: FieldType): Action;
 
 /**
  * Resets the values in the form back to the values past in with the most recent initialize action.
