@@ -233,6 +233,8 @@ declare module "aws-sdk" {
     getSignedUrl(operation: string, params: any): string;
     getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
     upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
+    listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
+    listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
   }
 
   export class STS {
@@ -1479,6 +1481,45 @@ declare module "aws-sdk" {
   }
 
   export module s3 {
+    interface Owner {
+        DisplayName: string;
+        ID: string;
+    }
+
+    interface ObjectKeyPrefix {
+        Prefix: string;
+    }
+
+    export interface ListObjectContent {
+        Key: string;
+        LastModified: Date;
+        ETag: string;
+        Size: number;
+        StorageClass: "STANDARD" | "REDUCED_REDUNDANCY" | "GLACIER";
+        Owner?: Owner
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Request and is exposed via V1 and V2 subclasses
+    interface ListObjectRequestBase {
+        Bucket: string;
+        Delimiter?: string;
+        EncodingType?: 'url';
+        MaxKeys?: number;
+        Prefix?: string;
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Response and is exposed via V1 and V2 subclasses
+    interface ListObjectResponseBase {
+        IsTruncated: boolean;
+        Contents: ListObjectContent[];
+        Name: string;
+        Prefix?: string;
+        Delimiter?: string;
+        MaxKeys: number;
+        CommonPrefixes?: ObjectKeyPrefix[];
+        EncodingType?: "url";
+    }
+
     export interface PutObjectRequest {
       ACL?: string;
       Body?: any;
@@ -1545,6 +1586,28 @@ declare module "aws-sdk" {
     export interface UploadOptions {
       partSize?: number;
       queueSize?: number;
+    }
+
+    export interface ListObjectRequest extends ListObjectRequestBase {
+        Marker?: string;
+    }
+
+    export interface ListObjectV2Request extends ListObjectRequestBase {
+        ContinuationToken?: string;
+        FetchOwner?: boolean;
+        StartAfter?: string;
+    }
+
+    export interface ListObjectResponse extends ListObjectResponseBase {
+        Marker?: string;
+        NextMarker?: string;
+    }
+
+    export interface ListObjectV2Response extends ListObjectResponseBase {
+        KeyCount: number;
+        ContinuationToken?: string;
+        NextContinuationToken?: string;
+        StartAfter?: string;
     }
   }
 
