@@ -772,7 +772,7 @@ declare namespace THREE {
         morphAttributes: any;
         groups: {start: number, count: number, materialIndex?: number}[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         drawRange: { start: number, count: number };
 
         getIndex(): BufferAttribute;
@@ -932,7 +932,7 @@ declare namespace THREE {
         skinWeights: number[];
         skinIndices: number[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         verticesNeedUpdate: boolean;
         normalsNeedUpdate: boolean;
         colorsNeedUpdate: boolean;
@@ -1105,10 +1105,6 @@ declare namespace THREE {
         normals: Vector3[];
     }
 
-    export interface BoundingSphere {
-        radius: number;
-    }
-
     export let GeometryIdCount: number;
 
     /**
@@ -1208,7 +1204,7 @@ declare namespace THREE {
         /**
          * Bounding sphere.
          */
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
 
         /**
          * Set to true if the vertices array has been updated.
@@ -2858,7 +2854,7 @@ declare namespace THREE {
         min: Vector3;
 
         set(min: Vector3, max: Vector3): Box3;
-        setFromArray(array: number[]): Box3;
+        setFromArray(array: ArrayLike<number>): Box3;
         setFromPoints(points: Vector3[]): Box3;
         setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
         setFromObject(object: Object3D): Box3;
@@ -3366,8 +3362,8 @@ declare namespace THREE {
         identity(): Matrix3;
         clone(): Matrix3;
         copy(m: Matrix3): Matrix3;
-        setFromMatix4(m: Matrix4): Matrix3;
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        setFromMatrix4(m: Matrix4): Matrix3;
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
@@ -3467,7 +3463,7 @@ declare namespace THREE {
          * Multiplies this matrix by s.
          */
         multiplyScalar(s: number): Matrix4;
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         /**
          * Computes determinant of this matrix.
