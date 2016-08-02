@@ -3366,7 +3366,7 @@ declare namespace THREE {
         identity(): Matrix3;
         clone(): Matrix3;
         copy(m: Matrix3): Matrix3;
-        setFromMatix4(m: Matrix4): Matrix3;
+        setFromMatrix4(m: Matrix4): Matrix3;
         applyToVector3Array(array: number[], offset?: number, length?: number): number[];
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
