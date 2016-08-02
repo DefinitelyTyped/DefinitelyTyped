@@ -153,7 +153,7 @@ interface Config<FormData extends DataShape, P, S> {
    * { field1: <String>, field2: <String> }.
    * Defaults to (values, props) => ({}).
    */
-  validate?(values: FormData): FormErrors<FormData>;
+  validate?(values: FormData, props: FormProps<FormData, S> & P): FormErrors<FormData>;
 }
 
 /**
