@@ -387,6 +387,7 @@ declare namespace angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
+        $name: string;
         $pending: any;
         $addControl(control: INgModelController | IFormController): void;
         $removeControl(control: INgModelController | IFormController): void;
