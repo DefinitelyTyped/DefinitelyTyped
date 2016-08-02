@@ -3,13 +3,13 @@ import {
   ComponentClass,
   DragEventHandler,
   FocusEventHandler,
+  FormEventHandler,
   ReactElement,
   ReactEventHandler,
   StatelessComponent,
   SyntheticEvent
 } from 'react';
 import { Dispatch, Reducer, Action } from 'redux';
-import FormEventHandler = __React.FormEventHandler;
 
 type FieldValue = any;
 
