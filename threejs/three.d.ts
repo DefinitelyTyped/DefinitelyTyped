@@ -772,7 +772,7 @@ declare namespace THREE {
         morphAttributes: any;
         groups: {start: number, count: number, materialIndex?: number}[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         drawRange: { start: number, count: number };
 
         getIndex(): BufferAttribute;
@@ -932,7 +932,7 @@ declare namespace THREE {
         skinWeights: number[];
         skinIndices: number[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         verticesNeedUpdate: boolean;
         normalsNeedUpdate: boolean;
         colorsNeedUpdate: boolean;
@@ -1105,10 +1105,6 @@ declare namespace THREE {
         normals: Vector3[];
     }
 
-    export interface BoundingSphere {
-        radius: number;
-    }
-
     export let GeometryIdCount: number;
 
     /**
@@ -1208,7 +1204,7 @@ declare namespace THREE {
         /**
          * Bounding sphere.
          */
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
 
         /**
          * Set to true if the vertices array has been updated.
