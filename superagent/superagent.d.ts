@@ -1,4 +1,4 @@
-// Type definitions for SuperAgent v1.4.0
+// Type definitions for SuperAgent v2.0.0
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -80,7 +80,7 @@ declare module "superagent" {
       get(header: string): string;
     }
 
-    interface Request /* extends NodeJS.WritableStream */ {
+    interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
       abort(): void;
       accept(type: string): this;
       attach(field: string, file: string, filename?: string): this;
@@ -101,8 +101,6 @@ declare module "superagent" {
       send(): this;
       set(field: string, val: string): this;
       set(field: Object): this;
-      then<TResult>(onfulfilled?: (value: Response) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult>): Promise<TResult>;
-      then<TResult>(onfulfilled?: (value: Response) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => void): Promise<TResult>;
       timeout(ms: number): this;
       type(val: string): this;
       use(fn: Function): this;
