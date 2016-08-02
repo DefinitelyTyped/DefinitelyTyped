@@ -334,7 +334,7 @@ interface FormProps<FormData extends DataShape, S> {
    * may pass that as if it were the error for a field called _error, and
    * it will be given as the error prop.
    */
-  handleSubmit?: ReactEventHandler;
+  handleSubmit?(event: SyntheticEvent): void; // same as ReactEventHandler
 
   handleSubmit?(submit: SubmitHandler<FormData, S>): ReactEventHandler;
 
