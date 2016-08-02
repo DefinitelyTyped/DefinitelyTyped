@@ -5,7 +5,6 @@
 
 /// <reference types="node" />
 
-import nodeSchedule = require('node-schedule');
 import {EventEmitter} from 'events';
 
 /**
