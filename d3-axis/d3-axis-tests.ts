@@ -80,8 +80,6 @@ let axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
 
 topAxis = topAxis.ticks(20, ',f');
 
-// TODO: currently no strict typing for TimeInterval due to choice of
-// limiting imports into definition file when d3-axis module has no dependency on d3-time
 rightAxis = rightAxis.ticks(timeMinute.every(5));
 
 // tickArguments(...) ----------------------------------------------------------------
