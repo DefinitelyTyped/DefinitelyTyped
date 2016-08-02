@@ -9,6 +9,7 @@ import {
   SyntheticEvent
 } from 'react';
 import { Dispatch, Reducer, Action } from 'redux';
+import FormEventHandler = __React.FormEventHandler;
 
 type FieldValue = any;
 
@@ -569,17 +570,14 @@ interface WrappedFieldInputProps {
   name: string;
 
   /**
-   * A function to call when the form field loses focus. It expects to
-   * either receive the React SyntheticEvent or the current value of the
-   * field.
+   * A function to call when the form field loses focus.
    */
-  onBlur(eventOrValue: SyntheticEvent | FieldValue): void;
+  onBlur: FocusEventHandler;
 
   /**
-   * A function to call when the form field is changed. It expects to either
-   * receive the React SyntheticEvent or the new value of the field.
+   * A function to call when the form field is changed.
    */
-  onChange(eventOrValue: SyntheticEvent | FieldValue): void;
+  onChange: FormEventHandler;
 
   /**
    * A function to call when the form field receives a 'dragStart' event.
