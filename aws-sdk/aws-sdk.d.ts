@@ -286,9 +286,9 @@ declare module "aws-sdk" {
   export class ECS {
     constructor(options?: any);
     endpoint: Endpoint;
-        /**
-        * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
-        */
+      /**
+      * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
+      */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
 	    /**
 	    * Describes one or more of your clusters.
@@ -1630,26 +1630,26 @@ declare module "aws-sdk" {
     }
 
     export interface DescribeServicesParams {
-	    /**
-	    * A list of services to describe.
-	    */
+	      /**
+	      * A list of services to describe.
+	      */
       services: string[];
-	    /**
-	    * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
-	    */
+	      /**
+	      * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
+	      */
       cluster?: string;
     }
 
     export interface DescribeClustersParams {
-	    /**
-	    * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
-	    */
+	      /**
+	      * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+	      */
       clusters?: string[];
     }
 
     export interface DescribeTasksParams {
-	    /**
-	    * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
+	      /**
+	      * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
         */
       tasks: string[];
         /**
