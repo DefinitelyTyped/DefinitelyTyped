@@ -7,7 +7,6 @@
 ///<reference path="../mpromise/mpromise.d.ts" />
 ///<reference path="../node/node.d.ts" />
 ///<reference path="../mongoose-promise/mongoose-promise.d.ts" />
-///<reference path="../passport-local/passport-local.d.ts" />
 
 /*
  * Guidelines for maintaining these definitions:
