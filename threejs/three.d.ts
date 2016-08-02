@@ -2858,7 +2858,7 @@ declare namespace THREE {
         min: Vector3;
 
         set(min: Vector3, max: Vector3): Box3;
-        setFromArray(array: number[]): Box3;
+        setFromArray(array: ArrayLike<number>): Box3;
         setFromPoints(points: Vector3[]): Box3;
         setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
         setFromObject(object: Object3D): Box3;
@@ -3367,7 +3367,7 @@ declare namespace THREE {
         clone(): Matrix3;
         copy(m: Matrix3): Matrix3;
         setFromMatrix4(m: Matrix4): Matrix3;
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
@@ -3467,7 +3467,7 @@ declare namespace THREE {
          * Multiplies this matrix by s.
          */
         multiplyScalar(s: number): Matrix4;
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         /**
          * Computes determinant of this matrix.
