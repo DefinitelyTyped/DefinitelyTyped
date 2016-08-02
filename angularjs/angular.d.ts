@@ -118,14 +118,14 @@ declare namespace angular {
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
-        isArray(value: any): boolean;
-        isDate(value: any): boolean;
+        isArray(value: any): value is Array<any>;
+        isDate(value: any): value is Date;
         isDefined(value: any): boolean;
         isElement(value: any): boolean;
-        isFunction(value: any): boolean;
-        isNumber(value: any): boolean;
-        isObject(value: any): boolean;
-        isString(value: any): boolean;
+        isFunction(value: any): value is Function;
+        isNumber(value: any): value is number;
+        isObject(value: any): value is Object;
+        isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
 
