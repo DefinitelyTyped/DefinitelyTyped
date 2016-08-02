@@ -457,7 +457,7 @@ interface Normalizer {
 /**
  * The Field Instance API.
  */
-export class Field<MyFieldProps> extends Component<BaseFieldProps & MyFieldProps, {}> {
+export class Field<FieldCustomProps> extends Component<BaseFieldProps & FieldCustomProps, {}> {
   /**
    * true if the current value is different from the initialized value,
    * false otherwise.
@@ -485,13 +485,86 @@ export class Field<MyFieldProps> extends Component<BaseFieldProps & MyFieldProps
    * provide a withRef prop, and your component must not be a stateless function
    * component.
    */
-  getRenderedComponent(): Component<WrappedFieldProps<MyFieldProps>, any>;
+  getRenderedComponent(): Component<WrappedFieldProps & FieldCustomProps, any>;
 }
 
 /**
- * These are props that `Field` will pass to your wrapped component.
+ * These are props that `Field` will pass to your wrapped component (not including custom props).
  */
-interface WrappedFieldProps<MyFieldProps> {
+interface WrappedFieldProps {
+  /**
+   * An object containing all the props that you will normally want to pass to
+   * your input component.
+   */
+  input: WrappedFieldInputProps;
+
+  /**
+   * An object containing all the metadata props.
+   */
+  meta: WrappedFieldMetaProps;
+}
+
+/**
+ * These props are meant to be destructured into your <input/> component.
+ */
+interface WrappedFieldInputProps {
+  /**
+   * An alias for value only when value is a boolean. Provided for
+   * convenience of destructuring the whole field object into the props of a
+   * form element.
+   */
+  checked?: boolean;
+
+  /**
+   * The name prop passed in.
+   */
+  name: string;
+
+  /**
+   * A function to call when the form field loses focus. It expects to
+   * either receive the React SyntheticEvent or the current value of the
+   * field.
+   */
+  onBlur(eventOrValue: SyntheticEvent | FieldValue): void;
+
+  /**
+   * A function to call when the form field is changed. It expects to either
+   * receive the React SyntheticEvent or the new value of the field.
+   */
+  onChange(eventOrValue: SyntheticEvent | FieldValue): void;
+
+  /**
+   * A function to call when the form field receives a 'dragStart' event.
+   * Saves the field value in the event for giving the field it is dropped
+   * into.
+   */
+  onDragStart(): void;
+
+  /**
+   * A function to call when the form field receives a drop event.
+   */
+  onDrop(): void;
+
+  /**
+   * A function to call when the form field receives focus.
+   */
+  onFocus(): void;
+
+  /**
+   * The value of this form field. It will be a boolean for checkboxes, and
+   * a string for all other input types. If there is no value in the Redux
+   * state for this field, it will default to the defaultValue prop given to
+   * Field. If no such defaultValue is specified, it will be ''. This is to
+   * ensure that the input is controlled.
+   */
+  value: FieldValue;
+}
+
+/**
+ * These props are metadata about the state of this field that redux-form is tracking for you.
+ */
+interface WrappedFieldMetaProps {
+
   /**
    * true if this field currently has focus. It will only work if you are
    * passing onFocus to your input element.
@@ -515,12 +588,6 @@ interface WrappedFieldProps<MyFieldProps> {
    * synchronous, asynchronous, and submit validation errors will be reported here.
    */
   error?: string;
-
-  /**
-   * An object containing all the props that you will normally want to pass to
-   * your input component.
-   */
-  input: WrappedFieldInputProps & MyFieldProps;
 
   /**
    * true if the field value fails validation (has a validation error).
@@ -551,62 +618,6 @@ interface WrappedFieldProps<MyFieldProps> {
    * passing onFocus to your input element.
    */
   visited?: boolean;
-}
-
-/**
- * These props will always be given to your wrapped field's `input` property.
- */
-interface WrappedFieldInputProps {
-  /**
-   * An alias for value only when value is a boolean. Provided for
-   * convenience of destructuring the whole field object into the props of a
-   * form element.
-   */
-  checked?: boolean;
-
-  /**
-   * The name prop passed in.
-   */
-  name: string;
-
-  /**
-   * A function to call when the form field loses focus. It expects to
-   * either receive the React SyntheticEvent or the current value of the
-   * field.
-   */
-  onBlur(eventOrValue: SyntheticEvent | FieldValue): void;
-
-  /**
-   * A function to call when the form field is changed. It expects to either
-   * receive the React SyntheticEvent or the new value of the field.
-   */
-  onChange(eventOrValue: SyntheticEvent | FieldValue):void;
-
-  /**
-   * A function to call when the form field receives a 'dragStart' event.
-   * Saves the field value in the event for giving the field it is dropped
-   * into.
-   */
-  onDragStart(): void;
-
-  /**
-   * A function to call when the form field receives a drop event.
-   */
-  onDrop(): void;
-
-  /**
-   * A function to call when the form field receives focus.
-   */
-  onFocus(): void;
-
-  /**
-   * The value of this form field. It will be a boolean for checkboxes, and
-   * a string for all other input types. If there is no value in the Redux
-   * state for this field, it will default to the defaultValue prop given to
-   * Field. If no such defaultValue is specified, it will be ''. This is to
-   * ensure that the input is controlled.
-   */
-  value: FieldValue;
 }
 
 
@@ -645,7 +656,7 @@ interface BaseFieldArrayProps {
 /**
  * The FieldArray Instance API.
  */
-export class FieldArray<T, MyFieldProps> extends Component<BaseFieldArrayProps & MyFieldProps, {}> {
+export class FieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps, {}> {
 
   /**
    * The name prop that you passed in.
@@ -662,7 +673,7 @@ export class FieldArray<T, MyFieldProps> extends Component<BaseFieldArrayProps &
    * provide a withRef prop, and your component must not be a stateless function
    * component.
    */
-  getRenderedComponent(): Component<WrappedFieldArrayProps<T> & MyFieldProps, any>;
+  getRenderedComponent(): Component<WrappedFieldArrayProps<T> & FieldCustomProps, any>;
 }
 
 /**
