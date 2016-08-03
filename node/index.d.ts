@@ -3,11 +3,11 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/************************************************
+/*==============================================*
 *                                               *
 *               Node.js v6.x API                *
 *                                               *
-************************************************/
+*===============================================*/
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
@@ -36,11 +36,12 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 
-/************************************************
+/*==============================================*
 *                                               *
 *                   GLOBAL                      *
 *                                               *
-************************************************/
+*===============================================*/
+
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -237,7 +238,7 @@ declare var Buffer: {
     allocUnsafeSlow(size: number): Buffer;
 };
 
-/************************************************
+/* **********************************************
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
@@ -1892,7 +1893,7 @@ declare module "tls" {
     export class TLSSocket extends stream.Duplex {
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
-         * the operating system. 
+         * the operating system.
          * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
          */
         address(): { port: number; family: string; address: string };
@@ -1969,7 +1970,7 @@ declare module "tls" {
         remotePort: number;
         /**
          * Initiate TLS renegotiation process.
-         *  
+         *
          * NOTE: Can be used to request peer's certificate after the secure connection has been established.
          * ANOTHER NOTE: When running as the server, socket will be destroyed with an error after handshakeTimeout timeout.
          * @param {TlsOptions} options - The options may contain the following fields: rejectUnauthorized,
@@ -1990,7 +1991,7 @@ declare module "tls" {
          */
         setMaxSendFragment(size: number): boolean;
     }
-    
+
     export interface TlsOptions {
         host?: string;
         port?: number;
