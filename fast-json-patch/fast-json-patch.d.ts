@@ -1,6 +1,6 @@
 // Type definitions for JSON-Patch v1.0.0
 // Project: https://github.com/Starcounter-Jack/JSON-Patch/releases
-// Definitions by: Francis O'Brien <https://github.com/itsFrank>
+// Definitions by: Francis OBrien <https://github.com/itsFrank>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace fastjsonpatch {
