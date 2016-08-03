@@ -3,8 +3,6 @@
 // Definitions by: kmxz <https://github.com/kmxz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 export declare class EventSubscription {
 
     listener: Function;

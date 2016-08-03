@@ -51,6 +51,12 @@ declare namespace Drop {
         constrainToScrollParent?: boolean;
         remove?: boolean;
         beforeClose?: () => boolean;
+        openDelay?: number;
+        closeDelay?: number;
+        focusDelay?: number;
+        blurDelay?: number;
+        hoverOpenDelay?: number;
+        hoverCloseDelay?: number;
         tetherOptions?: Tether.ITetherOptions;
     }
 }

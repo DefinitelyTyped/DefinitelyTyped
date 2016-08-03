@@ -1,3 +1,5 @@
+///<reference path="react-dnd-html5-backend.d.ts" />
+///<reference path="react-dnd-test-backend.d.ts" />
 "use strict";
 
 // Test adapted from the ReactDnD chess game tutorial:
@@ -12,8 +14,8 @@ import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
 import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
-import HTML5Backend, { getEmptyImage } from 'react-dnd/modules/backends/HTML5';
-import TestBackend = require('react-dnd/modules/backends/Test');
+import HTML5Backend, { getEmptyImage, NativeTypes } from "react-dnd-html5-backend";
+import TestBackend from "react-dnd-test-backend";
 
 // Game Component
 // ----------------------------------------------------------------------
@@ -198,6 +200,7 @@ namespace BoardSquare {
     }
 
     export var DndBoardSquare = DropTarget(ItemTypes.KNIGHT, boardSquareTarget, boardSquareCollect)(BoardSquare);
+    export var fileDropTarget = DropTarget(NativeTypes.FILE, boardSquareTarget, boardSquareCollect)(BoardSquare);
     export var create = React.createFactory(DndBoardSquare);
 }
 

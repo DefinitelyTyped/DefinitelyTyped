@@ -211,7 +211,7 @@ interface RaphaelPaper {
     getFont(family: string, weight?: number, style?: string, stretch?: string): RaphaelFont;
     height: number;
     image(src: string, x: number, y: number, width: number, height: number): RaphaelElement;
-    path(pathString?: string): RaphaelPath;
+    path(pathString?: string | (string | number)[]): RaphaelPath;
     print(x: number, y: number, str: string, font: RaphaelFont, size?: number, origin?: string, letter_spacing?: number): RaphaelPath;
     rect(x: number, y: number, width: number, height: number, r?: number): RaphaelElement;
     remove(): void;

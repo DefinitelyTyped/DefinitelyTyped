@@ -1,5 +1,5 @@
 /// <reference types="rx"/>
-/// <reference types="Q"/>
+/// <reference types="q"/>
 /// <reference types="when"/>
 
 var thenNum: PromisesAPlus.Thenable<number>;

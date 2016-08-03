@@ -1,5 +1,44 @@
 ﻿
 
+function test_HeadersCopiedFromHeaders1() {
+	var source = new Headers();
+	source.append('Content-Type', 'application/json');
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHash1() {
+	var source:HeadersMap = {
+		'Content-Type': 'application/json'
+	};
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHeaders2() {
+	var source = new Headers();
+	source.append('Content-Type', 'application/json');
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHash2() {
+	var source:HeadersMap = {
+		'Content-Type': 'application/json'
+	};
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHeaders3() {
+	var source = new Headers();
+	source.append('Content-Type', 'application/json');
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHash3() {
+	var source:HeadersMap = {
+		'Content-Type': 'application/json'
+	};
+	return new Headers(source);
+}
+
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();
 	headers.append("Content-Type", "application/json");
@@ -8,7 +47,8 @@ function test_fetchUrlWithOptions() {
 		headers: headers,
 		mode: 'same-origin',
 		credentials: 'omit',
-		cache: 'default'
+		cache: 'default',
+		redirect: 'manual'
 	};
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }

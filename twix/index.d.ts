@@ -61,8 +61,8 @@ export interface Twix {
     overlaps(other: Twix): boolean;
     engulfs(other: Twix): boolean;
     equals(other: Twix): boolean;
-    union(other: Twix): string;
-    intersection(other: Twix): string;
+        union(other: Twix): Twix;
+        intersection(other: Twix): Twix;
 
     xor(other: Twix): Twix[];
     difference(other: Twix): Twix[];

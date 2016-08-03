@@ -1,6 +1,7 @@
 import mailparser_mod = require("mailparser");
 import MailParser = mailparser_mod.MailParser;
 import ParsedMail = mailparser_mod.ParsedMail;
+import Attachment = mailparser_mod.Attachment;
 
 var mailparser = new MailParser();
 
@@ -57,7 +58,7 @@ var mp = new MailParser({
     streamAttachments: true
 })
 
-mp.on("attachment", function(attachment, mail){
+mp.on("attachment", function(attachment : Attachment, mail : ParsedMail){
     var output = fs.createWriteStream(attachment.generatedFileName);
     attachment.stream.pipe(output);
 });

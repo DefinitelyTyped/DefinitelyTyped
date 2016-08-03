@@ -582,6 +582,7 @@ declare namespace Meteor {
 	var isDevelopment: boolean;
 	var isProduction: boolean;
 	var isServer: boolean;
+	var isTest: boolean;
 	function loggingIn(): boolean;
 	function loginWith<ExternalService>(options?: {
 		requestPermissions?: string[];
@@ -685,6 +686,8 @@ declare namespace Mongo {
 		new(hexString?: string): ObjectID;
 	}
 	interface ObjectID {
+		valueOf(): string;
+		getTimestamp(): Date;
 	}
 
 }

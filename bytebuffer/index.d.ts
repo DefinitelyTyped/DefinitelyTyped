@@ -4,9 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
-/// <reference types="long" />
-
 import Long = require("long");
+
+declare namespace ByteBuffer {}
+export = ByteBuffer;
+export as namespace ByteBuffer;
 
 declare class ByteBuffer
 {
@@ -24,6 +26,11 @@ declare class ByteBuffer
      * Default initial capacity of 16.
      */
     static DEFAULT_CAPACITY: number;
+
+    /**
+     * Default endianess of false for big endian.
+     */
+    static DEFAULT_ENDIAN: boolean;
 
     /**
      * Default no assertions flag of false.
@@ -98,7 +105,7 @@ declare class ByteBuffer
     /**
      * Allocates a new ByteBuffer backed by a buffer of the specified capacity.
      */
-    static allocate( capacity?: number, littleEndian?: number, noAssert?: boolean ): ByteBuffer;
+    static allocate( capacity?: number, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a base64 encoded string to binary like window.atob does.
@@ -611,7 +618,3 @@ declare class ByteBuffer
      */
     writeVarint64ZigZag( value: number | Long, offset?: number ): ByteBuffer | number;
 }
-
-declare namespace ByteBuffer {}
-export = ByteBuffer;
-export as namespace ByteBuffer;

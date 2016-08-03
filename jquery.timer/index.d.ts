@@ -29,3 +29,7 @@ interface JQueryTimer {
 interface JQuery {
     timer: JQueryTimer;
 }
+
+interface JQueryStatic {
+    timer: JQueryTimer;
+}

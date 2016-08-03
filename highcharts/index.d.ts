@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 4.1.9
+// Type definitions for Highcharts 4.2.5
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -724,9 +724,6 @@ interface HighchartsAxisOptions {
      * @since 1.2.0
      */
     startOnTick?: boolean;
-
-    stops?: [number, string][];
-
     /**
      * The amount of ticks to draw on the axis. This opens up for aligning the ticks of multiple charts or panes within
      * a chart. This option overrides the tickPixelInterval option.
@@ -4821,6 +4818,17 @@ interface HighchartsPlotOptions {
 interface HighchartsIndividualSeriesOptions {
     type?: string;
     /**
+     * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
+     *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
+     *     value is pulled from the options.colors array.
+     */
+    color?: string;
+    /**
+     * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
+     *     that the points and lines can be clicked.
+     */
+    cursor?: string;
+    /**
      * An array of data points for the series. For the area series type, points can be given in the following ways:
      *
      * 1. An array of numerical values. In this case, the numerical values will be interpreted as y options. The x
@@ -4870,6 +4878,11 @@ interface HighchartsIndividualSeriesOptions {
      * The name of the series as shown in the legend, tooltip etc.
      */
     name?: string;
+    /**
+     * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
+     * the pointPadding and groupPadding.
+     */
+    pointWidth?: number;
     /**
      * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
      * else, as long as the grouped series' stack options match each other.
@@ -4957,7 +4970,7 @@ interface HighchartsDataPoint {
      * The inner radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    innerRadius?: number;
+    innerRadius?: number|string;
     /**
      * When this property is true, the points acts as a summary column for the values added or substracted since the
      * last intermediate sum, or since the start of the series. The y value is ignored.
@@ -5008,7 +5021,7 @@ interface HighchartsDataPoint {
      * The outer radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    radius?: number;
+    radius?: number|string;
     /**
      * Whether the data point is selected initially.
      * @default false
@@ -5459,7 +5472,6 @@ interface HighchartsOptions {
      * lineWidth is specified in plotOptions.series, an individual lineWidth can be specified for each series.
      */
     series?: HighchartsIndividualSeriesOptions[];
-
     /**
      * The chart's subtitle
      */
@@ -5476,13 +5488,12 @@ interface HighchartsOptions {
      * The X axis or category axis. Normally this is the horizontal axis, though if the chart is inverted this is the
      * vertical axis. In case of multiple axes, the xAxis node is an array of configuration objects.
      */
-    xAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
+    xAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
     /**
      * The Y axis or value axis. Normally this is the vertical axis, though if the chart is inverted this is the
      * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
      */
-    yAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
-
+    yAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
@@ -5686,6 +5697,30 @@ interface HighchartsChartObject {
      * @since 2.0
      */
     exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @since 2.0
+     */
+    exportChartLocal(): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server. Requires
+     * modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions): void;
+    /**
+     * Export the chart to a PNG or SVG without sending it to a server.
+     * Requires modules/exporting.js and modules/offline-exporting.js.
+     * @param {HighchartsExportingOptions} options Exporting options. Same as
+     * the exportChart params.
+     * @param {HighchartsOptions} chartOptions Additional chart options for the
+     * exported chart. Same as the exportChart params.
+     * @since 2.0
+     */
+    exportChartLocal(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
     /**
      * Get an axis, series or point by its id as given in the configuration options.
      * @param  {string} id The id of the axis, series or point to get.
@@ -6079,6 +6114,7 @@ interface HighchartsPointObject {
      */
     category: string | number;
     name: string;
+    index: number;
     /**
      * The percentage for points in a stacked series or pies.
      * @since 1.2.0

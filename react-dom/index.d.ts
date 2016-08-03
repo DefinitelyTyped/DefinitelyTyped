@@ -18,19 +18,19 @@ declare namespace ReactDOM {
 
     function render<P extends DOMAttributes<T>, T extends Element>(
         element: DOMElement<P, T>,
-        container: Element,
+        container: Element | null,
         callback?: (element: T) => any): T;
     function render<P>(
         element: SFCElement<P>,
-        container: Element,
+        container: Element | null,
         callback?: () => any): void;
     function render<P, T extends Component<P, ComponentState>>(
         element: CElement<P, T>,
-        container: Element,
+        container: Element | null,
         callback?: (component: T) => any): T;
     function render<P>(
         element: ReactElement<P>,
-        container: Element,
+        container: Element | null,
         callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
 
     function unmountComponentAtNode(container: Element): boolean;

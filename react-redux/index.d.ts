@@ -3,11 +3,15 @@
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
-/// <reference types="redux" />
+import * as React from 'react';
+import * as Redux from 'redux';
 
-import { ComponentClass, Component, StatelessComponent, ReactNode } from 'react';
-import { Store, Dispatch, ActionCreator } from 'redux';
+type ComponentClass<P> = React.ComponentClass<P>;
+type StatelessComponent<P> = React.StatelessComponent<P>;
+type ReactNode = React.ReactNode;
+type Store<S> = Redux.Store<S>;
+type Dispatch<S> = Redux.Dispatch<S>;
+type ActionCreator<A> = Redux.ActionCreator<A>;
 
 interface ComponentDecorator<TOriginalProps, TOwnProps> {
     (component: ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
@@ -44,27 +48,29 @@ export interface InferableComponentDecorator {
 export declare function connect(): InferableComponentDecorator;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
-    mapDispatchToProps?: MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>
 ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
-    mapStateToProps: MapStateToProps<TStateProps, TOwnProps>,
-    mapDispatchToProps: MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject,
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
 ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+
+type FuncOrSelf<T> = T | (() => T);
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
 }
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch, ownProps?: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<any>, ownProps?: TOwnProps): TDispatchProps;
 }
 
 interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
 }
 
 interface MergeProps<TStateProps, TDispatchProps, TOwnProps> {
@@ -79,18 +85,23 @@ interface Options {
      * Defaults to true.
      * @default true
      */
-    pure: boolean;
+    pure?: boolean;
+    /**
+    * If true, stores a ref to the wrapped component instance and makes it available via 
+    * getWrappedInstance() method. Defaults to false.
+    */
+    withRef?: boolean;
 }
 
 export interface ProviderProps {
     /**
      * The single Redux store in your application.
      */
-    store?: Store;
+    store?: Store<any>;
     children?: ReactNode;
 }
 
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export declare class Provider extends Component<ProviderProps, {}> { }
+export class Provider extends React.Component<ProviderProps, {}> { }

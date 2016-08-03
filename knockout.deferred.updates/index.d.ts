@@ -13,7 +13,6 @@ interface KnockoutDeferredTasks {
 
 // Knockout global
 interface KnockoutStatic {
-    tasks: KnockoutDeferredTasks;
     processAllDeferredBindingUpdates(): void;
     processAllDeferredUpdates(): void;
     evaluateAsynchronously(evaluator: Function, timeout?: any): number;
