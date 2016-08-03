@@ -1,6 +1,6 @@
 // Type definitions for twit 2.2
 // Project: https://github.com/ttezel/twit
-// Definitions by: Volox https://github.com/Volox
+// Definitions by: Volox <https://github.com/Volox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
