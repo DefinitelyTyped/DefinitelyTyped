@@ -120,13 +120,13 @@ declare namespace I18next {
 
         cloneInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
-        on(initialized: 'initialized', listener: (options: I18next.Options) => void): void;
-        on(loaded: 'loaded', listener: (loaded: any) => void): void;
-        on(failedLoading: 'failedLoading', listener: (lng: string, ns: string, msg: string) => void): void;
-        on(missingKey: 'missingKey', listener: (lngs: any, namespace: string, key: string, res: any) => void): void;
-        on(added: 'added', listener: (lng: string, ns: string) => void): void;
-        on(removed: 'removed', listener: (lng: string, ns: string) => void): void;
-        on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
+        on(initialized: string, listener: (options: I18next.Options) => void): void;
+        on(loaded: string, listener: (loaded: any) => void): void;
+        on(failedLoading: string, listener: (lng: string, ns: string, msg: string) => void): void;
+        on(missingKey: string, listener: (lngs: any, namespace: string, key: string, res: any) => void): void;
+        on(added: string, listener: (lng: string, ns: string) => void): void;
+        on(removed: string, listener: (lng: string, ns: string) => void): void;
+        on(languageChanged: string, listener: (lng: string) => void): void;
 
         off(event: string, listener: () => void): void;
     }
