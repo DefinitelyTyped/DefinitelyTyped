@@ -966,11 +966,6 @@ export function focus(form: string, field: string): Action;
 export function initialize(form: string, data: Object, fields: string[]): Action;
 
 /**
- * Registers a field with the given name and field type ('Field' or 'FieldArray') from the store.
- */
-function registerField(form: string, name: string, type: FieldType): Action;
-
-/**
  * Resets the values in the form back to the values past in with the most recent initialize action.
  */
 export function reset(form: string): Action;
@@ -1008,13 +1003,6 @@ export function touch(form: string, ...fields: string[]): Action;
  * Resets the 'touched' flag for all the fields passed in.
  */
 export function untouch(form: string, ...fields: string[]): Action;
-
-/**
- * Unregisters a field with the given name from the store.
- */
-function unregisterField(form: string, name: string): Action;
-
-function updateSyncErrors(form: string, syncErrors: Object): Action;
 
 /**
  * Selectors
