@@ -245,6 +245,7 @@ declare module 'angular' {
             extendPalette(name: string, palette: IPalette): IPalette;
             setDefaultTheme(theme: string): void;
             alwaysWatchTheme(alwaysWatch: boolean): void;
+            setNonce(nonce: string): void;
         }
 
         interface IDateLocaleProvider {

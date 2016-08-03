@@ -25,6 +25,23 @@ declare namespace Electron {
 		sender: EventEmitter;
 	}
 
+	type Point = {
+		x: number;
+		y: number;
+	}
+
+	type Size = {
+		width: number;
+		height: number;
+	}
+
+	type Rectangle = {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+	}
+
 	// https://github.com/electron/electron/blob/master/docs/api/app.md
 
 	/**
@@ -844,7 +861,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on macOS.
 		 */
-		setAspectRatio(aspectRatio: number, extraSize?: Dimension): void;
+		setAspectRatio(aspectRatio: number, extraSize?: Size): void;
 		/**
 		 * Resizes and moves the window to width, height, x, y.
 		 */
@@ -1112,7 +1129,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on Windows.
 		 */
-		setThumbnailClip(region: Bounds): void;
+		setThumbnailClip(region: Rectangle): void;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on macOS.
@@ -1360,7 +1377,7 @@ declare namespace Electron {
 		backgroundThrottling?: boolean;
 	}
 
-	interface BrowserWindowOptions extends Rectangle {
+	interface BrowserWindowOptions {
 		/**
 		 * Window’s width in pixels.
 		 * Default: 800.
@@ -1569,13 +1586,6 @@ declare namespace Electron {
 	type BrowserWindowTypeLinux = 'desktop' | 'dock' | 'toolbar' | 'splash' | 'notification';
 	type BrowserWindowTypeMac = 'desktop' | 'textured';
 	type BrowserWindowTypeWindows = 'toolbar';
-
-	interface Rectangle {
-		x?: number;
-		y?: number;
-		width?: number;
-		height?: number;
-	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/clipboard.md
 
@@ -1853,7 +1863,7 @@ declare namespace Electron {
 		 * The suggested size that thumbnail should be scaled.
 		 * Default: {width: 150, height: 150}
 		 */
-		thumbnailSize?: Dimension;
+		thumbnailSize?: Size;
 	}
 
 	interface DesktopCapturerSource {
@@ -2452,7 +2462,7 @@ declare namespace Electron {
 		/**
 		 * @returns {} The size of the image.
 		 */
-		getSize(): Dimension;
+		getSize(): Size;
 		/**
 		 * Marks the image as template image.
 		 */
@@ -2675,10 +2685,10 @@ declare namespace Electron {
 		 * Unique identifier associated with the display.
 		 */
 		id: number;
-		bounds: Bounds;
-		workArea: Bounds;
-		size: Dimension;
-		workAreaSize: Dimension;
+		bounds: Rectangle;
+		workArea: Rectangle;
+		size: Size;
+		workAreaSize: Size;
 		/**
 		 * Output device’s pixel scale factor.
 		 */
@@ -2688,23 +2698,6 @@ declare namespace Electron {
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
-	}
-
-	type Bounds = {
-		x: number;
-		y: number;
-		width: number;
-		height: number;
-	}
-
-	type Dimension = {
-		width: number;
-		height: number;
-	}
-
-	type Point = {
-		x: number;
-		y: number;
 	}
 
 	type DisplayMetrics = 'bounds' | 'workArea' | 'scaleFactor' | 'rotation';
@@ -2746,7 +2739,7 @@ declare namespace Electron {
 		/**
 		 * @returns The display that most closely intersects the provided bounds.
 		 */
-		getDisplayMatching(rect: Bounds): Display;
+		getDisplayMatching(rect: Rectangle): Display;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/session.md
@@ -3318,17 +3311,17 @@ declare namespace Electron {
 		 * Emitted when the tray icon is clicked.
 		 * Note: The bounds payload is only implemented on macOS and Windows.
 		 */
-		on(event: 'click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray icon is right clicked.
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray icon is double clicked.
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray balloon shows.
 		 * Note: This is only implemented on Windows.
@@ -3428,7 +3421,7 @@ declare namespace Electron {
 		/**
 		 * @returns The bounds of this tray icon.
 		 */
-		getBounds(): Bounds;
+		getBounds(): Rectangle;
 	}
 
 	interface Modifiers {
@@ -3985,7 +3978,7 @@ declare namespace Electron {
 			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
 			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
 			 */
-			dirtyRect?: Bounds
+			dirtyRect?: Rectangle
 		): void
 	}
 
@@ -4189,7 +4182,7 @@ declare namespace Electron {
 		 * Specify page size of the generated PDF.
 		 * Default: A4.
 		 */
-		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Dimension;
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Size;
 		/**
 		 * Whether to print CSS backgrounds.
 		 * Default: false.
@@ -4294,7 +4287,7 @@ declare namespace Electron {
 		/**
 		 * Coordinates of first match region.
 		 */
-		selectionArea?: Bounds;
+		selectionArea?: Rectangle;
 	}
 
 	interface DeviceEmulationParameters {
@@ -4306,7 +4299,7 @@ declare namespace Electron {
 		/**
 		 * Set the emulated screen size (screenPosition == mobile)
 		 */
-		screenSize?: Dimension;
+		screenSize?: Size;
 		/**
 		 * Position the view on the screen (screenPosition == mobile)
 		 * Default: {x: 0, y: 0}
@@ -4320,7 +4313,7 @@ declare namespace Electron {
 		/**
 		 * Set the emulated view size (empty means no override).
 		 */
-		viewSize?: Dimension;
+		viewSize?: Size;
 		/**
 		 * Whether emulated view should be scaled down if necessary to fit into available space
 		 * Default: false

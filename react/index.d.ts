@@ -182,6 +182,8 @@ declare namespace React {
         };
     }
 
+    class PureComponent<P, S> extends Component<P, S> {}
+
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
         isMounted(): boolean;
@@ -2471,6 +2473,7 @@ declare global {
             circle: React.SVGProps;
             clipPath: React.SVGProps;
             defs: React.SVGProps;
+        desc: React.SVGProps;
             ellipse: React.SVGProps;
         feBlend: React.SVGProps;
         feColorMatrix: React.SVGProps;
@@ -2479,14 +2482,21 @@ declare global {
         feConvolveMatrix: React.SVGProps;
         feDiffuseLighting: React.SVGProps;
         feDisplacementMap: React.SVGProps;
+        feDistantLight: React.SVGProps;
         feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
+        feFuncB: React.SVGProps;
+        feFuncG: React.SVGProps;
+        feFuncR: React.SVGProps;
         feGaussianBlur: React.SVGProps;
         feImage: React.SVGProps;
         feMerge: React.SVGProps;
         feMergeNode: React.SVGProps;
         feMorphology: React.SVGProps;
         feOffset: React.SVGProps;
+        fePointLight: React.SVGProps;
         feSpecularLighting: React.SVGProps;
+        feSpotLight: React.SVGProps;
         feTile: React.SVGProps;
         feTurbulence: React.SVGProps;
         filter: React.SVGProps;
@@ -2497,6 +2507,7 @@ declare global {
             linearGradient: React.SVGProps;
         marker: React.SVGProps;
             mask: React.SVGProps;
+        metadata: React.SVGProps;
             path: React.SVGProps;
             pattern: React.SVGProps;
             polygon: React.SVGProps;
@@ -2504,10 +2515,13 @@ declare global {
             radialGradient: React.SVGProps;
             rect: React.SVGProps;
             stop: React.SVGProps;
+        switch: React.SVGProps;
             symbol: React.SVGProps;
             text: React.SVGProps;
+        textPath: React.SVGProps;
             tspan: React.SVGProps;
             use: React.SVGProps;
+        view: React.SVGProps;
         }
     }
 }
