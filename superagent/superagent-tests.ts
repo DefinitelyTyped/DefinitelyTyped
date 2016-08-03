@@ -279,3 +279,9 @@ request
   .attach('image', 'path/to/tobi.png')
   .on('error', (err: any) => {})
   .end(callback);
+
+//Promise
+request
+  .get('/search')
+  .then((response) => {})
+  .catch((error) => {}); 
