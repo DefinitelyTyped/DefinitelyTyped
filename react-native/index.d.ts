@@ -8426,10 +8426,6 @@ declare global {
     function require(name: string): any;
 }
 
-declare var global: __React.GlobalStatic
-
-declare function require( name: string ): any
-
 /**
  * This variable is set to true when react-native is running in Dev mode
  * Typical usage:
