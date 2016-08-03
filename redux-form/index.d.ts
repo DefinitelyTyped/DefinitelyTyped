@@ -276,6 +276,62 @@ interface FormProps<FormData extends DataShape, S> {
   anyTouched?: boolean;
 
   /**
+   * A set of pre-bound action creators for you to operate on array fields in your form.
+   */
+  array?: {
+    /**
+     * Inserts a value into the given array field in your form.
+     */
+    insert(field: string, index: number, value: FieldValue): void;
+
+    /**
+     * Moves a value at the given from index to the given to index in
+     * the given array field in your form.
+     */
+    move(field: string, from: number, to: number): void;
+
+    /**
+     * Pops a value off of the end of a given array field in your form.
+     */
+    pop(field: string): void;
+
+    /**
+     * Pushes the given value onto the end of the given array field in your form.
+     */
+    push(field: string, value: FieldValue): void;
+
+    /**
+     * Removes a value at the given index from the given array field in your form.
+     */
+    remove(field: string, index: number): void;
+
+    /**
+     * Removes all the values from the given array field in your form.
+     */
+    removeAll(field: string): void;
+
+    /**
+     * Shifts a value out of the beginning of the given array in your form.
+     */
+    shift(field: string): void;
+
+    /**
+     * Performs an Array.splice operation on the given array in your form.
+     */
+    splice(field: string, index: number, removeNum: number, value: FieldValue): void;
+
+    /**
+     * Swaps two values at the given indexes of the given array field in your form.
+     */
+    swap(field: string, indexA: number, indexB: number): void;
+
+    /**
+     * Unshifts the given value into the beginning of the given array field in your form.
+     */
+    unshift(field: string, value: FieldValue): void;
+  }
+
+  /**
    * A function that may be called to initiate asynchronous validation if
    * asynchronous validation is enabled.
    */
