@@ -401,7 +401,7 @@ declare module _ {
 
     interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
 
-    /*********
+    /* *******
      * Array *
      *********/
 
@@ -5742,7 +5742,7 @@ declare module _ {
         zipWith<TResult>(...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    /*********
+    /* *******
      * Chain *
      *********/
 
@@ -6091,7 +6091,7 @@ declare module _ {
         valueOf(): T;
     }
 
-    /**************
+    /* ************
      * Collection *
      **************/
 
@@ -9726,7 +9726,7 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    /********
+    /* ******
      * Date *
      ********/
 
@@ -9754,7 +9754,7 @@ declare module _ {
         now(): LoDashExplicitWrapper<number>;
     }
 
-    /*************
+    /* ***********
      * Functions *
      *************/
 
@@ -11024,7 +11024,7 @@ declare module _ {
         wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
     }
 
-    /********
+    /* ******
      * Lang *
      ********/
 
@@ -13061,7 +13061,7 @@ declare module _ {
         toString(value: any): string;
     }
 
-    /********
+    /* ******
      * Math *
      ********/
 
@@ -13670,7 +13670,7 @@ declare module _ {
         sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
-    /**********
+    /* ********
      * Number *
      **********/
 
@@ -13880,7 +13880,7 @@ declare module _ {
         random(floating?: boolean): LoDashExplicitWrapper<number>;
     }
 
-    /**********
+    /* ********
      * Object *
      **********/
 
@@ -17211,7 +17211,7 @@ declare module _ {
         valuesIn<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    /**********
+    /* ********
      * String *
      **********/
 
@@ -18205,7 +18205,7 @@ declare module _ {
         words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
     }
 
-    /***********
+    /* *********
      * Utility *
      ***********/
 

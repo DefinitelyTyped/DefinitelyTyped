@@ -3,11 +3,11 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/************************************************
+/*==============================================*
 *                                               *
 *               Node.js v6.x API                *
 *                                               *
-************************************************/
+*===============================================*/
 
 interface Error {
     stack?: string;
@@ -26,11 +26,12 @@ interface WeakMapConstructor { }
 interface SetConstructor { }
 interface WeakSetConstructor { }
 
-/************************************************
+/*==============================================*
 *                                               *
 *                   GLOBAL                      *
 *                                               *
-************************************************/
+*===============================================*/
+
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -227,7 +228,7 @@ declare var Buffer: {
     allocUnsafeSlow(size: number): Buffer;
 };
 
-/************************************************
+/* **********************************************
 *                                               *
 *               GLOBAL INTERFACES               *
 *                                               *
