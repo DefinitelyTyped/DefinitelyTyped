@@ -577,6 +577,42 @@ var template = <Electron.MenuItemOptions[]>[
 						focusedWindow.webContents.toggleDevTools();
 					}
 				}
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'Actual Size',
+				accelerator: 'CmdOrCtrl+0',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.setZoomLevel(0)
+					}
+				}
+			},
+			{
+				label: 'Zoom In',
+				accelerator: 'CmdOrCtrl+Plus',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel + 0.5)
+						});
+					}
+				}
+			},
+			{
+				label: 'Zoom Out',
+				accelerator: 'CmdOrCtrl+-',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel - 0.5)
+						});
+					}
+				}
 			}
 		]
 	},
@@ -827,6 +863,8 @@ shell.openExternal('https://github.com', {
 
 shell.beep();
 
+shell.writeShortcutLink('/home/user/Desktop/shortcut.lnk', 'update', shell.readShortcutLink('/home/user/Desktop/shortcut.lnk'));
+
 // session
 // https://github.com/atom/electron/blob/master/docs/api/session.md
 
@@ -860,6 +898,7 @@ session.defaultSession.cookies.set(cookie, (error) => {
 session.defaultSession.on('will-download', (event, item, webContents) => {
 	// Set the save path, making Electron not to prompt a save dialog.
 	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getSavePath());
 	console.log(item.getMimeType());
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
