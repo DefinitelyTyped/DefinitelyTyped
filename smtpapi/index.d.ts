@@ -3,8 +3,8 @@
 // Definitions by: Antonio Morales <https://github.com/a-morales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var smtp: SmtpApi.Constructor;
-export = smtp;
+declare var SmtpApi: SmtpApi.Constructor;
+export = SmtpApi;
 
 declare namespace SmtpApi {
 

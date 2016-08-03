@@ -1475,6 +1475,59 @@ function test_menu() {
     $(".selector").menu({ select: (e, ui) => { } });
 }
 
+function test_selectmenu() {
+    // Options
+    $("#selectmenu").selectmenu();
+    $(".selector").selectmenu({ appendTo: ".selector" });
+    $(".selector").selectmenu({ disabled: true });
+    $(".selector").selectmenu({ icons: { submenu: "ui-icon-circle-triangle-e" } });
+    $(".selector").selectmenu({ position: { my: "left top", at: "right-5 top+5" } });
+    $(".selector").selectmenu({ width: 47 });
+
+    // Events
+    $("#selectmenu").selectmenu({ change: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ close: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ create: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ focus: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ open: (event, ui) => {}});
+    $("#selectmenu").selectmenu({ select: (event, ui) => {}});
+
+    // Events and options
+    $("#selectmenu").selectmenu({
+        appendTo: ".selector",
+        disabled: true,
+        icons: { submenu: "ui-icon-circle-triangle-e" },
+        position: { my: "left top", at: "right-5 top+5" },
+        width: 47,
+        change: (event, ui) => {},
+        close: (event, ui) => {},
+        create: (event, ui) => {},
+        focus: (event, ui) => {},
+        open: (event, ui) => {},
+        select: (event, ui) => {}
+    });
+
+    // passing in option
+    $(".selector").selectmenu("option", { disabled: true });
+
+    // Fetching option value
+    var disabled = $(".selector").selectmenu("option", "disabled");
+
+    // Setting option value
+    $(".selector").selectmenu("option", "disabled", true);
+    $(".selector").selectmenu("option", "position", { my: "left top", at: "right-5 top+5" } );
+
+    // Methods
+    $(".selector").selectmenu("close");
+    $(".selector").selectmenu("destroy");
+
+    // Chaining
+    $("#number")
+        .selectmenu()
+        .selectmenu("menuWidget")
+        .addClass("overflow");
+}
+
 
 function test_progressbar() {
     $("#progressbar").progressbar({

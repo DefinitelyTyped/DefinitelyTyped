@@ -181,7 +181,7 @@ export interface TreeAdapter {
     getFirstChild(node: ASTNode): ASTNode;
     getChildNodes(node: ASTNode): ASTNode[];
     getParentNode(node: ASTNode): ASTNode;
-    getAttrList(node: ASTNode): Attribute[];
+    getAttrList(node: ASTNode): ASTAttribute[];
     getTagName(element: ASTNode): string;
     getNamespaceURI(element: ASTNode): string;
     getTextNodeContent(textNode: ASTNode): string;

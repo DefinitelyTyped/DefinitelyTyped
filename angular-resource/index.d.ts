@@ -110,7 +110,7 @@ declare module 'angular' {
         // Also, static calls always return the IResource (or IResourceArray) retrieved
         // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
         interface IResourceClass<T> {
-            new (dataOrParams?: any): T;
+            new(dataOrParams? : any) : T & IResource<T>;
             get: IResourceMethod<T>;
 
             query: IResourceArrayMethod<T>;

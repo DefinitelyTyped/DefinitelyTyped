@@ -56,6 +56,7 @@ declare namespace Router {
 	    onUpdate?: () => any;
 	    parseQueryString?: ParseQueryString;
 	    stringifyQuery?: StringifyQuery;
+        basename?: string;
 	}
 
     interface PlainRoute {

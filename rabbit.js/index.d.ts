@@ -22,6 +22,7 @@ export interface SocketOptions {
     persistent?: any;
     topic?: any;
     task?: any;
+    routing?: any;
 }
 
 export interface Socket {
@@ -43,6 +44,7 @@ export declare class PubSocket extends stream.Writable implements Socket {
 export declare class SubSocket extends stream.Readable implements Socket {
     constructor(channel: string, opts: SocketOptions);
     connect(source: string, callback?: Function): any;
+    connect(source: string, topic?: string, callback?: Function): any;
     setsockopt(opt: string, value: string): any;
     close(): any;
 }

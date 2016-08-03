@@ -19,7 +19,8 @@ import {
 	screen,
 	shell,
 	session,
-	hideInternalModules
+	systemPreferences,
+	webContents
 } from 'electron';
 
 import * as path from 'path';
@@ -44,7 +45,6 @@ var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) 
 	if (mainWindow.isMinimized()) mainWindow.restore();
 	mainWindow.focus();
   }
-  return true;
 });
 
 if (shouldQuit) {
@@ -79,18 +79,8 @@ app.on('ready', () => {
 		mainWindow = null;
 	});
 
-	mainWindow.print({silent: true, printBackground: false});
 	mainWindow.webContents.print({silent: true, printBackground: false});
-	mainWindow.print();
 	mainWindow.webContents.print();
-
-	mainWindow.printToPDF({
-		marginsType: 1,
-		pageSize: 'A3',
-		printBackground: true,
-		printSelectionOnly: true,
-		landscape: true,
-	}, (error: Error, data: Buffer) => {});
 
 	mainWindow.webContents.printToPDF({
 		marginsType: 1,
@@ -100,13 +90,13 @@ app.on('ready', () => {
 		landscape: true,
 	}, (error: Error, data: Buffer) => {});
 
-	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
 
 	mainWindow.webContents.executeJavaScript('return true;');
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
+	mainWindow.webContents.startDrag({file: '/path/to/img.png', icon: nativeImage.createFromPath('/path/to/icon.png')});
 	mainWindow.webContents.findInPage('blah');
 	mainWindow.webContents.findInPage('blah', {
 		forward: true,
@@ -144,6 +134,35 @@ app.on('ready', () => {
 	});
 
 	mainWindow.webContents.debugger.sendCommand("Network.enable");
+	mainWindow.webContents.capturePage(image => {
+		console.log(image.toDataURL());
+	});
+	mainWindow.webContents.capturePage({width: 100, height: 200}, image => {
+		console.log(image.toPNG());
+	});
+});
+
+app.commandLine.appendSwitch('enable-web-bluetooth');
+
+app.on('ready', () => {
+	mainWindow.webContents.on('select-bluetooth-device', (event, deviceList, callback) => {
+		event.preventDefault();
+
+		let result = (() => {
+			for (let device of deviceList) {
+				if (device.deviceName === 'test') {
+					return device;
+				}
+			}
+			return null;
+		})();
+
+		if (!result) {
+			callback('');
+		} else {
+			callback(result.deviceId);
+		}
+	});
 });
 
 // Locale
@@ -208,6 +227,7 @@ app.dock.setBadge('foo');
 var id = app.dock.bounce('informational');
 app.dock.cancelBounce(id);
 app.dock.setIcon('/path/to/icon.png');
+app.dock.setBadgeCount(app.dock.getBadgeCount() + 1);
 
 app.setUserTasks([
 	<Electron.Task>{
@@ -220,6 +240,12 @@ app.setUserTasks([
 	}
 ]);
 app.setUserTasks([]);
+if (app.isUnityRunning()) {
+}
+if (app.isAccessibilitySupportEnabled()) {
+}
+app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
+console.log(app.getLoginItemSettings().wasOpenedAtLogin);
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -235,6 +261,7 @@ app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
+app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
 
 ipcMain.on('online-status-changed', (event: any, status: any) => {
 	console.log(status);
@@ -257,11 +284,11 @@ app.on('ready', () => {
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
-app.commandLine.appendSwitch('v', -1);
+app.commandLine.appendSwitch('v', '-1');
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
-// app
-// https://github.com/atom/electron/blob/master/docs/api/app.md
+// systemPreferences
+// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
 
 var browserOptions = {
 	width: 1000,
@@ -271,7 +298,7 @@ var browserOptions = {
 };
 
 // Make the window transparent only if the platform supports it.
-if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
 }
@@ -287,9 +314,8 @@ if (browserOptions.transparent) {
   	win.loadURL('file://' + __dirname + '/fallback.html');
 }
 
-app.on('platform-theme-changed', () => {
-	console.log(app.isDarkMode());
-});
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
 
 app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
 	if (url == "https://github.com") {
@@ -310,6 +336,14 @@ app.on('login', function(event, webContents, request, authInfo, callback) {
 	event.preventDefault();
 	callback('username', 'secret');
 });
+
+var win = new BrowserWindow({show: false})
+win.once('ready-to-show', () => {
+	win.show();
+});
+
+app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
+app.exit(0);
 
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
@@ -339,6 +373,8 @@ win.show();
 
 var toolbarRect = document.getElementById('toolbar').getBoundingClientRect();
 win.setSheetOffset(toolbarRect.height);
+
+var installed = BrowserWindow.getDevToolsExtensions().hasOwnProperty('devtron');
 
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
@@ -406,6 +442,14 @@ ipcMain.on('asynchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
+});
+
+var winWindows = new BrowserWindow({
+	width: 800,
+	height: 600,
+	show: false,
+	thickFrame: false,
+	type: 'toolbar',
 });
 
 // menu-item
@@ -679,8 +723,11 @@ app.on('ready', () => {
 
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
+clipboard.writeBookmark('foo', 'http://example.com');
+clipboard.writeBookmark('foo', 'http://example.com', 'selection');
 console.log(clipboard.readText('selection'));
 console.log(clipboard.availableFormats());
+console.log(clipboard.readBookmark().title);
 clipboard.clear();
 
 clipboard.write({
@@ -714,9 +761,13 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+let image2 = nativeImage.createFromPath('/Users/somebody/images/icon.png');
+
 // process
 // https://github.com/electron/electron/blob/master/docs/api/process.md
 
+console.log(process.versions.electron);
+console.log(process.versions.chrome);
 console.log(process.type);
 console.log(process.resourcesPath);
 console.log(process.mas);
@@ -814,15 +865,23 @@ session.defaultSession.on('will-download', (event, item, webContents) => {
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
 
-	item.on('updated', function() {
-		console.log('Received bytes: ' + item.getReceivedBytes());
+	item.on('updated', (event, state) => {
+		if (state === 'interrupted') {
+			console.log('Download is interrupted but can be resumed');
+		} else if (state === 'progressing') {
+			if (item.isPaused()) {
+				console.log('Download is paused');
+			} else {
+				console.log(`Received bytes: ${item.getReceivedBytes()}`);
+			}
+		}
 	});
 
 	item.on('done', function(e, state) {
 		if (state == "completed") {
 			console.log("Download successfully");
 		} else {
-			console.log("Download is cancelled or interrupted that can't be resumed");
+			console.log(`Download failed: ${state}`)
 		}
 	});
 });
@@ -854,6 +913,13 @@ session.defaultSession.setPermissionRequestHandler(function(webContents, permiss
 	callback(true);
 });
 
+// consider any url ending with `example.com`, `foobar.com`, `baz`
+// for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*example.com, *foobar.com, *baz')
+
+// consider all urls for integrated authentication.
+session.defaultSession.allowNTLMCredentialsForDomains('*')
+
 // Modify the user agent for all requests to the following urls.
 var filter = {
 	urls: ["https://*.github.com/*", "*://electron.github.io"]
@@ -863,3 +929,21 @@ session.defaultSession.webRequest.onBeforeSendHeaders(filter, function(details, 
 	details.requestHeaders['User-Agent'] = "MyAgent";
 	callback({cancel: false, requestHeaders: details.requestHeaders});
 });
+
+app.on('ready', function () {
+	const protocol = session.defaultSession.protocol
+	protocol.registerFileProtocol('atom', function (request, callback) {
+		var url = request.url.substr(7);
+		callback({path: path.normalize(__dirname + '/' + url)});
+	}, function (error) {
+		if (error) {
+			console.error('Failed to register protocol');
+		}
+	})
+});
+
+// webContents
+// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+
+console.log(webContents.getAllWebContents());
+console.log(webContents.getFocusedWebContents());

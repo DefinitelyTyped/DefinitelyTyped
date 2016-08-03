@@ -395,7 +395,7 @@ declare namespace __ReactMDL {
         title ?: string;
     }
     interface HeaderProps extends __MDLOtherProps {
-        title ?: string;
+        title ?: any; // string | JSX.Element
         scroll ?: boolean;
         seamed ?: boolean;
         transparent ?: boolean;
@@ -412,7 +412,7 @@ declare namespace __ReactMDL {
     interface LayoutProps extends __MDLOtherProps {
         fixedDrawer ?: boolean;
         fixedHeader ?: boolean;
-        fixedTabse ?: boolean;
+        fixedTabs ?: boolean;
     }
     interface NavigationProps extends __MDLOtherProps {}
     class Content extends __MDLComponent<ContentProps> {}

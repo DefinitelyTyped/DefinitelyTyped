@@ -1585,15 +1585,22 @@ declare namespace google.maps {
         setZoom(zoom: number): void;
     }
 
+    export interface FullscreenControlOptions {
+        position?: ControlPosition;
+    }
+
     export interface StreetViewPanoramaOptions {
         addressControl?: boolean;
         addressControlOptions?: StreetViewAddressControlOptions;
         clickToGo?: boolean;
-        disableDefaultUi?: boolean;
+        disableDefaultUI?: boolean;
         disableDoubleClickZoom?: boolean;
         enableCloseButton?: boolean;
+        fullscreenControl?: boolean;
+        fullscreenControlOptions?: FullscreenControlOptions;
         imageDateControl?: boolean;
         linksControl?: boolean;
+        mode?: "html4" | "html5" |"webgl";
         panControl?: boolean;
         panControlOptions?: PanControlOptions;
         pano?: string;
@@ -1602,6 +1609,7 @@ declare namespace google.maps {
         pov?: StreetViewPov;
         scrollwheel?: boolean;
         visible?: boolean;
+        zoom?: number;
         zoomControl?: boolean;
         zoomControlOptions?: ZoomControlOptions;
     }
@@ -1643,7 +1651,29 @@ declare namespace google.maps {
         worldSize?: Size;
     }
 
+    export enum StreetViewPreference {
+        BEST,
+        NEAREST
+    }
+
+    export enum StreetViewSource {
+        DEFAULT,
+        OUTDOOR
+    }
+
+    export interface StreetViewLocationRequest {
+        location: LatLng|LatLngLiteral;
+        preference?: StreetViewPreference;
+        radius?: number;
+        source?: StreetViewSource;
+    }
+
+    export interface StreetViewPanoRequest {
+        pano: string;
+    }
+
     export class StreetViewService {
+        getPanorama(request: StreetViewLocationRequest|StreetViewPanoRequest, cb: (data: StreetViewPanoramaData, status: StreetViewStatus) => void): void;
         getPanoramaById(pano: string, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void): void;
         getPanoramaByLocation(latlng: LatLng|LatLngLiteral, radius: number, callback: (streetViewPanoramaData: StreetViewPanoramaData, streetViewStatus: StreetViewStatus) => void ): void;
     }

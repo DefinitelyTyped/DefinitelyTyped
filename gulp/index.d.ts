@@ -151,9 +151,14 @@ declare namespace gulp {
         dot?: boolean;
 
         /**
-         * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid
-         * filesystem path is returned. Set this flag to disable that behavior.
-         */
+             * Set to match only fles, not directories. Set this flag to prevent copying empty directories
+             */
+        nodir?: boolean;
+
+        /**
+     * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid
+     * filesystem path is returned. Set this flag to disable that behavior.
+     */
         nomount?: boolean;
 
         /**

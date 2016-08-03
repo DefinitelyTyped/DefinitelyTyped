@@ -39,6 +39,10 @@ declare class Dexie {
     static shallowClone(obj: Object): Object;
 
     static deepClone(obj: Object): Object;
+    
+    static delete(databaseName : string): Dexie.Promise<void>;
+    
+    static exists(databaseName : string): Dexie.Promise<boolean>;
 
     version(versionNumber: Number): Dexie.Version
 
