@@ -3428,7 +3428,6 @@ declare module "react" {
          */
         resetTo( route: Route ): void;
 
-
     }
 
     namespace NavigatorStatic {
@@ -4658,8 +4657,26 @@ declare module "react" {
          *      assets-library tag
          *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
          *
+         * @deprecated use saveToCameraRoll instead
+         *
          */
         saveImageWithTag(tag: string): Promise<string>
+
+        /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
          * Saves the photo or video to the camera roll / gallery.
@@ -5858,6 +5875,27 @@ declare module "react" {
     export interface NativeAppEventEmitterStatic {
         addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
     }
+
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //

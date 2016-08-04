@@ -4995,17 +4995,17 @@ declare namespace sequelize {
         /**
          * Maximum connections of the pool
          */
-        maxConnections?: number;
+        max?: number;
 
         /**
          * Minimum connections of the pool
          */
-        minConnections?: number;
+        min?: number;
 
         /**
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
-        maxIdleTime?: number;
+        idle?: number;
 
         /**
          * A function that validates a connection. Called with client. The default function checks that client is an

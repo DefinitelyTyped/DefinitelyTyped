@@ -1,4 +1,4 @@
-// Type definitions for semver v4.3.4
+// Type definitions for semver v5.3.0
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
@@ -28,6 +28,10 @@ declare namespace SemVerModule {
      * Return the patch version number.
      */
     function patch(v: string, loose?: boolean): number;
+    /**
+     * Returns an array of prerelease components, or null if none exist.
+     */
+    function prerelease(v: string, loose?: boolean): string[];
 
     // Comparison
     /**
@@ -84,6 +88,10 @@ declare namespace SemVerModule {
      * Return the highest version in the list that satisfies the range, or null if none of them do.
      */
     function maxSatisfying(versions: string[], range: string, loose?: boolean): string;
+    /**
+     * Return the lowest version in the list that satisfies the range, or null if none of them do.
+     */
+    function minSatisfying(versions: string[], range: string, loose?: boolean): string;
     /**
      * Return true if version is greater than all the versions possible in the range.
      */

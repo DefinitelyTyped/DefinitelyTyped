@@ -137,7 +137,7 @@ app.on('ready', () => {
 	mainWindow.webContents.capturePage(image => {
 		console.log(image.toDataURL());
 	});
-	mainWindow.webContents.capturePage({width: 100, height: 200}, image => {
+	mainWindow.webContents.capturePage({x: 0, y: 0, width: 100, height: 200}, image => {
 		console.log(image.toPNG());
 	});
 });
@@ -284,7 +284,6 @@ app.on('ready', () => {
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
-app.commandLine.appendSwitch('v', '-1');
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 // systemPreferences
