@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'alexa-sdk' {
-    export function handler(event: Request, context: Context, callback?: () => void): AlexaHandler;
+    export function handler(event: RequestBody, context: Context, callback?: () => void): AlexaHandler;
     export function CreateStateHandler(state: string, obj: any): any;
     export var StateString: string;
 
@@ -17,13 +17,17 @@ declare module 'alexa-sdk' {
         response: any;
         dynamoDBTableName: any;
         saveBeforeResponse: boolean;
-        registerHandlers: (...handlers: any[]) => any;
+        registerHandlers: (...handlers: Handlers[]) => any;
         execute: () => void;
+    }
+
+    interface Handlers {
+        [intent: string]: () => void;
     }
 
     interface Handler {
         on: any;
-        emit: any;
+        emit(event: string, ...args: any[]): boolean;
         emitWithState: any;
         state: any;
         handler: any;
@@ -32,12 +36,6 @@ declare module 'alexa-sdk' {
         context: any;
         name: any;
         isOverriden: any;
-    }
-
-    interface Request {
-        version: string;
-        request: any;
-        session: any;
     }
 
     interface Context {
@@ -50,4 +48,85 @@ declare module 'alexa-sdk' {
         invokeid: string;
         awsRequestId: string;
     }
+
+    interface RequestBody {
+        version: string;
+        session: Session;
+        request: LaunchRequest | IntentRequest | SessionEndedRequest;
+    }
+
+    interface Session {
+        new: boolean;
+        sessionId: string;
+        attributes: any;
+        application: SessionApplication;
+        user: SessionUser;
+    }
+
+    interface SessionApplication {
+        applicationId: string;
+    }
+
+    interface SessionUser {
+        userId: string;
+        accessToken: string;
+    }
+
+    interface LaunchRequest extends IRequest {}
+
+    interface IntentRequest extends IRequest {
+        intent: Intent;
+    }
+
+    interface Intent {
+        name: string;
+        slots: any;
+    }
+
+    interface SessionEndedRequest extends IRequest{
+        reason: string;
+    }
+
+    interface IRequest {
+        type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
+        requestId: string;
+        timeStamp: string;
+    }
+
+    interface ResponseBody {
+        version: string;
+        sessionAttributes?: any;
+        response: Response;
+    }
+
+    interface Response {
+        outputSpeech?: OutputSpeech;
+        card?: Card;
+        reprompt?: Reprompt;
+        shouldEndSession: boolean;
+    }
+
+    interface OutputSpeech {
+        type: "PlainText" | "SSML";
+        text?: string;
+        ssml?: string;
+    }
+
+    interface Card {
+        type: "Simple" | "Standard" | "LinkAccount";
+        title?: string;
+        content?: string;
+        text?: string;
+        image?: Image;
+    }
+
+    interface Image {
+        smallImageUrl: string;
+        largeImageUrl: string;
+    }
+
+    interface Reprompt {
+        outputSpeech: OutputSpeech;
+    }
 }
+
