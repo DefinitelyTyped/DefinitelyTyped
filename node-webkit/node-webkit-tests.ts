@@ -3,7 +3,7 @@
 
 // Load native UI library
 // See docs: https://github.com/rogerwang/node-webkit/wiki/Shell
-import gui = require("nw.gui");
+import * as gui from "nw.gui";
 
 
 /* WINDOW */
