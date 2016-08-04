@@ -480,10 +480,10 @@ declare module "cassandra-driver" {
   interface QueryOptions {
     autoPage?: boolean;
     captureStackTrace?: boolean;
-    consistency: number;
+    consistency?: number;
     customPayload?: any;
     fetchSize?: number;
-    hints: Array<string> | Array<Array<string>>;
+    hints?: Array<string> | Array<Array<string>>;
     logged?: boolean;
     pageState?: Buffer|string;
     prepare?: boolean;
