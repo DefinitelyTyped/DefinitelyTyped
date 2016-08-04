@@ -1,4 +1,4 @@
-// Type definitions for Backbone 1.0.0
+// Type definitions for Backbone 1.3.3
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -109,8 +109,14 @@ declare namespace Backbone {
 
         attributes: any;
         changed: any[];
+        cidPrefix: string;
         cid: string;
         collection: Collection<any>;
+
+        private _changing: boolean;
+        private _previousAttributes : any;
+        private _pending: boolean;
+
 
         /**
         * Default attributes for the model. It can be an object hash or a method returning an object hash.
@@ -147,7 +153,7 @@ declare namespace Backbone {
         /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
-        changedAttributes(attributes?: any): any[];
+        changedAttributes(attributes?: any): any | boolean;
         clear(options?: Silenceable): any;
         clone(): Model;
         destroy(options?: ModelDestroyOptions): any;
@@ -178,6 +184,7 @@ declare namespace Backbone {
         omit(fn: (value: any, key: any, object: any) => any): any;
         chain(): any;
         isEmpty(): boolean;
+        matches(attrs: any): boolean;
     }
 
     class Collection<TModel extends Model> extends ModelBase {
@@ -208,6 +215,7 @@ declare namespace Backbone {
          * Get a model from a collection, specified by an id, a cid, or by passing in a model.
          **/
         get(id: number|string|Model): TModel;
+        has(key: number|string|Model): boolean;
         create(attributes: any, options?: ModelSaveOptions): TModel;
         pluck(attribute: string): any[];
         push(model: TModel, options?: AddOptions): TModel;
@@ -221,10 +229,12 @@ declare namespace Backbone {
         unshift(model: TModel, options?: AddOptions): TModel;
         where(properties: any): TModel[];
         findWhere(properties: any): TModel;
+        modelId(attrs: any) : any
 
         private _prepareModel(attributes?: any, options?: any): any;
         private _removeReference(model: TModel): void;
         private _onModelEvent(event: string, model: TModel, collection: Collection<TModel>, options: any): void;
+        private _isModel(obj: any) : obj is Model;
 
         /**
          * Return a shallow copy of this collection's models, using the same options as native Array#slice.
@@ -314,6 +324,8 @@ declare namespace Backbone {
         navigate(fragment: string, options?: NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
 
+        execute(callback: Function, args: any[], name: string) : void;
+
         private _bindRoutes(): void;
         private _routeToRegExp(route: string): RegExp;
         private _extractParameters(route: RegExp, fragment: string): string[];
@@ -330,9 +342,14 @@ declare namespace Backbone {
 
         getHash(window?: Window): string;
         getFragment(fragment?: string): string;
+        decodeFragment(fragment: string): string;
+        getSearch(): string;
         stop(): void;
         route(route: string, callback: Function): number;
         checkUrl(e?: any): void;
+        getPath(): string;
+        matchRoot(): boolean;
+        atRoot(): boolean;
         loadUrl(fragmentOverride?: string): boolean;
         navigate(fragment: string, options?: any): boolean;
         static started: boolean;
