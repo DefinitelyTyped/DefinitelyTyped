@@ -304,7 +304,7 @@ declare namespace ReactSelectClass {
         /**
          * initial field value
          */
-        value?: Option | Option[];
+        value?: Option | Option[] | string | string[] | number | number[];
         /**
          * the option property to use for the value
          * @default "value"
