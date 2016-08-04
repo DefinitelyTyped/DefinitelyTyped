@@ -219,3 +219,23 @@ declare module "nw.gui" {
     export var Shell: Shell;
 
 }
+
+interface Notification {
+    body:string;
+    icon:string;
+
+    new( title:string, options:NotificationOptions ):Notification;
+    close():void;
+
+    onclick:() => void;
+    onshow:() => void;
+    onerror:( error:Error ) => void;
+    onclose:() => void;
+}
+
+declare var Notification: Notification;
+
+declare interface NotificationOptions {
+    body:string;
+    icon:string;
+}
