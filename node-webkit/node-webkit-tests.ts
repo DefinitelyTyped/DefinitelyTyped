@@ -203,3 +203,28 @@ import gui = require("nw.gui");
 
     // Open a file in file explorer.
     gui.Shell.showItemInFolder('test.txt');
+
+
+/* Notification */
+
+    let options = {
+        icon: "http://yourimage.jpg",
+        body: "Here is the notification text"
+    };
+
+    let notification = new Notification( "Notification Title", options );
+    console.log( notification.body );
+    console.log( notification.dir );
+    console.log( notification.icon );
+    console.log( notification.lang );
+    console.log( notification.title );
+
+    notification.onclick = function () {
+        console.log( "Notification: onclick" )
+    };
+    notification.onerror = function ( err:Error ) {
+        console.log( "Notification: error", err )
+    };
+    notification.onshow = function () {
+        notification.close();
+    };
