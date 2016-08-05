@@ -529,6 +529,7 @@ declare namespace Ember {
         Application's router.
         **/
         Router: Router;
+        registry: Registry;
     }
     /**
     This module implements Observer-friendly Array-like behavior. This mixin is picked up by the
@@ -792,7 +793,7 @@ declare namespace Ember {
         owner: any;
         ownerInjection(): any;
         resolver: Function;
-        registry: {};
+        registry: Registry;
         cache: {};
         typeInjections: {};
         injections: {};
@@ -1591,6 +1592,10 @@ declare namespace Ember {
         has(obj: any): boolean;
         isEmpty(): boolean;
         toArray(): any[];
+    }
+    class Registry {
+        constructor (options: any);
+        static set: typeof Ember.set;
     }
 
     // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
