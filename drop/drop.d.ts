@@ -63,4 +63,3 @@ declare namespace Drop {
 declare module "drop" {
     export = Drop;
 }
-
