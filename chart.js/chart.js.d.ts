@@ -332,6 +332,32 @@ interface ChartScales {
     gridLines?: GridLineOptions;
     scaleLabel?: ScaleTitleOptions;
     ticks?: TickOptions;
+    xAxes?: ChartXAxe[];
+    yAxes?: ChartYAxe[];
+}
+
+interface ChartXAxe {
+    type?: string;
+    display?: boolean;
+    id?: string;
+    stacked?: boolean;
+    categoryPercentage?: number;
+    barPercentage?: number;
+    gridLines?: GridLineOptions;
+    position?: string;
+    ticks?: TickOptions;
+    time?: TimeScale;
+    scaleLabel?: ScaleTitleOptions;
+}
+
+interface ChartYAxe {
+    type?: string;
+    display?: boolean;
+    id?: string;
+    stacked?: boolean;
+    position?: string;
+    ticks?: TickOptions;
+    scaleLabel?: ScaleTitleOptions;
 }
 
 interface LinearScale extends ChartScales {
@@ -343,6 +369,7 @@ interface LogarithmicScale extends ChartScales {
 }
 
 interface TimeScale extends ChartScales {
+    format?: string;
     displayFormats?: string;
     isoWeekday?: boolean;
     max?: string;
