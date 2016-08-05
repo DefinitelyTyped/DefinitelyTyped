@@ -27,7 +27,7 @@ declare class Drop {
     public once(event: string, handler: Function, context?: any): void;
     public off(event: string, handler?: Function): void;
 
-    public static createContext(options: Drop.IDropContextOptions): Drop;
+    public static createContext(options: Drop.IDropContextOptions): Drop.IDropConstructor;
 }
 
 declare namespace Drop {
@@ -53,6 +53,10 @@ declare namespace Drop {
         hoverOpenDelay?: number;
         hoverCloseDelay?: number;
         tetherOptions?: Tether.ITetherOptions;
+    }
+
+    interface IDropConstructor {
+        new (options: Drop.IDropOptions): Drop;
     }
 }
 
