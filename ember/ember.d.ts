@@ -1015,8 +1015,19 @@ declare namespace Ember {
     **/
     class Descriptor { }
     var EMPTY_META: {}; // TODO: define interface
-    var ENV: {};
-    var EXTEND_PROTOTYPES: boolean;
+    namespace ENV {
+        export var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
+        export var LOG_BINDINGS: boolean;
+        export var LOG_STACKTRACE_ON_DEPRECATION: boolean;
+        export var LOG_VERSION: boolean;
+        export var MODEL_FACTORY_INJECTIONS: boolean;
+        export var RAISE_ON_DEPRECATION: boolean;
+    }
+    namespace EXTEND_PROTOTYPES {
+        export var Array: boolean;
+        export var Function: boolean;
+        export var String: boolean;
+    }
     /**
     This is the object instance returned when you get the @each property on an array. It uses
     the unknownProperty handler to automatically create EachArray instances for property names.
