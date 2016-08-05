@@ -277,6 +277,7 @@ declare namespace __React {
         nativeEvent: Event;
         preventDefault(): void;
         stopPropagation(): void;
+        persist(): void;
         target: EventTarget;
         timeStamp: Date;
         type: string;
