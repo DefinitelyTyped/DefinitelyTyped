@@ -19,8 +19,11 @@ declare module 'react-css-modules' {
     }
 
     module CSSModules {
+        // Extend your component's Prop interface with this one to get access to `this.props.styles`
+        //
+        // interface MyComponentProps extends CSSModules.InjectedCSSModuleProps {}
         interface InjectedCSSModuleProps {
-            styles: StylesObject;
+            styles?: StylesObject;
         }
     }
 
