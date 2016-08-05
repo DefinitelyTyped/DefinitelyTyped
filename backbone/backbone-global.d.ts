@@ -153,7 +153,14 @@ declare namespace Backbone {
         /*private*/ set(attributeName: string, value: any, options?: ModelSetOptions): Model;
         set(obj: any, options?: ModelSetOptions): Model;
 
-        changedAttributes(attributes?: any): any | boolean;
+        /**
+         * Return an object containing all the attributes that have changed, or
+         * false if there are no changed attributes. Useful for determining what
+         * parts of a view need to be updated and/or what attributes need to be
+         * persisted to the server. Unset attributes will be set to undefined.
+         * You can also pass an attributes object to diff against the model,
+         * determining if there *would be* a change. */
+        changedAttributes(attributes?: any): any;
         clear(options?: Silenceable): any;
         clone(): Model;
         destroy(options?: ModelDestroyOptions): any;
