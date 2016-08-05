@@ -1,4 +1,4 @@
-// Type definitions for Ember.js 2.0
+// Type definitions for Ember.js 2.7
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -448,7 +448,6 @@ declare namespace Ember {
         static metaForProperty(key: string): {};
         static isClass: boolean;
         static isMethod: boolean;
-        static initializer(args?: ApplicationInitializerArguments): void;
         /**
         Call advanceReadiness after any asynchronous setup logic has completed.
         Each call to deferReadiness must be matched by a call to advanceReadiness
@@ -697,7 +696,7 @@ declare namespace Ember {
         constructor(toPath: string, fromPath: string);
         connect(obj: any): Binding;
         copy(): Binding;
-        disconnect(obj: any): Binding;
+        disconnect(): Binding;
         from(path: string): Binding;
         to(path: string): Binding;
         to(pathTuple: any[]): Binding;
@@ -790,6 +789,8 @@ declare namespace Ember {
         constructor(parent: Container);
         parent: Container;
         children: any[];
+        owner: any;
+        ownerInjection(): any;
         resolver: Function;
         registry: {};
         cache: {};
@@ -805,7 +806,7 @@ declare namespace Ember {
         describe(fullName: string): string;
         makeToString(factory: any, fullName: string): Function;
         lookup(fullName: string, options?: {}): any;
-        lookupFactory(fullName: string): any;
+        lookupFactory(fullName: string, options?: {}): any;
         destroy(): void;
         reset(): void;
     }
@@ -1014,7 +1015,6 @@ declare namespace Ember {
     You generally won't need to create or subclass this directly.
     **/
     class Descriptor { }
-    var EMPTY_META: {}; // TODO: define interface
     namespace ENV {
         export var EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
         export var LOG_BINDINGS: boolean;
@@ -1148,7 +1148,7 @@ declare namespace Ember {
     var GUID_KEY: string;
     namespace Handlebars {
         function compile(string: string): Function;
-        function precompile(string: string): void;
+        function precompile(string: string, options: any): void;
         class Compiler { }
         class JavaScriptCompiler { }
         function registerPartial(name: string, str: any): void;
@@ -2204,25 +2204,11 @@ declare namespace Ember {
         resource(name: string, options?: {}, callback?: Function): void;
         resource(name: string, callback: Function): void;
         route(name: string, options?: {}): void;
+        explicitIndex: boolean;
+        router: Router;
+        options: any;
     }
-    var SHIM_ES5: boolean;
     var STRINGS: boolean;
-    class SelectOption extends Component {
-        static detect(obj: any): boolean;
-        static detectInstance(obj: any): boolean;
-        /**
-        Iterate over each computed property for the class, passing its name and any
-        associated metadata (see metaForProperty) to the callback.
-        **/
-        static eachComputedProperty(callback: Function, binding: {}): void;
-        /**
-        Returns the original hash that was passed to meta().
-        @param key property name
-        **/
-        static metaForProperty(key: string): {};
-        static isClass: boolean;
-        static isMethod: boolean;
-    }
     class State extends Object implements Evented {
         static detect(obj: any): boolean;
         static detectInstance(obj: any): boolean;
@@ -2401,7 +2387,6 @@ declare namespace Ember {
     **/
     var alias: typeof deprecateFunc;
     function aliasMethod(methodName: string): Descriptor;
-    var anyUnprocessedMixins: boolean;
     function assert(desc: string, test: boolean): void;
     function beginPropertyChanges(): void;
     function bind(obj: any, to: string, from: string): Binding;
@@ -2431,8 +2416,6 @@ declare namespace Ember {
         oneWay(dependentKey: string): ComputedProperty;
         or(...args: string[]): ComputedProperty;
     };
-    // ReSharper disable DuplicatingLocalDeclaration
-    var config: {};
     // ReSharper restore DuplicatingLocalDeclaration
     function controllerFor(container: Container, controllerName: string, lookupOptions?: {}): Controller;
     function copy(obj: any, deep: boolean): any;
@@ -2452,10 +2435,7 @@ declare namespace Ember {
     // ReSharper disable once DuplicatingLocalDeclaration
     var empty: typeof deprecateFunc;
     function endPropertyChanges(): void;
-    // ReSharper disable once DuplicatingLocalDeclaration
-    var exports: {};
     function finishChains(obj: any): void;
-    function flushPendingChains(): void;
     function generateController(container: Container, controllerName: string, context: any): Controller;
     function generateGuid(obj: any, prefix?: string): string;
     function get(obj: any, keyName: string): any;
@@ -2469,7 +2449,6 @@ declare namespace Ember {
     function hasListeners(context: any, name: string): boolean;
     function hasOwnProperty(prop: string): boolean;
     function immediateObserver(func: Function, ...propertyNames: any[]): Function;
-    var imports: {};
     function inspect(obj: any): string;
     function instrument(name: string, payload: any, callback: Function, binding: any): void;
     function isArray(obj: any): boolean;
@@ -2488,13 +2467,12 @@ declare namespace Ember {
     var lookup: {}; // TODO: define interface
     function makeArray(obj: any): any[];
     function merge(original: any, updates: any): any;
-    function meta(obj: any, writable?: boolean): {};
+    function meta(obj: any): {};
     function mixin(obj: any, ...args: any[]): any;
     /**
     Ember.none is deprecated. Please use Ember.isNone instead.
     **/
     var none: typeof deprecateFunc;
-    function normalizeTuple(target: any, path: string): any[];
     function observer(...args: any[]): Function;
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
@@ -2571,6 +2549,13 @@ declare namespace Ember {
     function watchPath(obj: any, keyPath: string): void;
     function watchedEvents(obj: {}): any[];
     function wrap(func: Function, superFunc: Function): Function;
+    var _ContainerProxyMixin : Mixin;
+    var _RegistryProxyMixin: Mixin;
+    function getOwner(object: any): any;
+    function setOwner(object: any, owner: any): void;
+    var testing : boolean;
+    var MODEL_FACTORY_INJECTIONS : boolean;
+    function assign(original: any, ...sources: any[]): any;
 }
 
 declare var Em : typeof Ember;
