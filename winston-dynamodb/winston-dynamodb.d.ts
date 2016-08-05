@@ -6,6 +6,7 @@
 /// <reference path="../winston/winston.d.ts" />
 
 import * as winston from 'winston';
+import { TransportInstance } from 'winston';
 export interface DynamoDBTransportOptions {
     useEnvironment?: boolean;
     accessKeyId?: string;
@@ -15,10 +16,10 @@ export interface DynamoDBTransportOptions {
     level: string;
     dynamoDoc?: boolean;
 }
-export interface DynamoDBTransportInstance extends winston.TransportInstance {
+export interface DynamoDBTransportInstance extends TransportInstance {
     new (options?: DynamoDBTransportOptions): DynamoDBTransportInstance;
 }
-export declare class DynamoDB extends winston.Transport implements winston.TransportInstance {
+export declare class DynamoDB extends winston.Transport implements DynamoDBTransportInstance {
     regions: string[];
     name: string;
     level: string;
@@ -26,7 +27,7 @@ export declare class DynamoDB extends winston.Transport implements winston.Trans
     AWS: any;
     region: string;
     tableName: string;
-    dynamoDoc: any;
+    dynamoDoc: boolean;
     constructor(options?: DynamoDBTransportOptions);
     log(level: any, msg: any, meta: any, callback: any): any;
 }
