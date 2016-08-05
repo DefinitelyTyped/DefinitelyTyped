@@ -15,14 +15,18 @@ declare module 'twit' {
     export namespace Twitter {
       export type ResultType = 'mixed' | 'popular' | 'recent';
 
-      // See https://dev.twitter.com/overview/api/tweets#obj-contributors
+      /**
+       * @see https://dev.twitter.com/overview/api/tweets#obj-contributors
+       */
       export interface Contributors {
         id: number,
         id_str: number,
         screen_name: string,
       }
 
-      // See https://dev.twitter.com/overview/api/entities
+      /**
+       * @see https://dev.twitter.com/overview/api/entities
+       */
       export interface HashtagEntity {
         indices: number[],
         text: string,
@@ -72,7 +76,9 @@ declare module 'twit' {
         user_mentions: UserMentionEntity[],
       }
 
-      // See https://dev.twitter.com/overview/api/users
+      /**
+       * @see https://dev.twitter.com/overview/api/users
+       */
       export interface User {
         contributors_enabled: boolean,
         created_at: string,
@@ -119,7 +125,9 @@ declare module 'twit' {
         withheld_scope: string,
       }
 
-      // See https://dev.twitter.com/overview/api/places
+      /**
+       * @see https://dev.twitter.com/overview/api/places
+       */
       export interface PlaceAttribute {
         street_address: string,
         locality: string,
@@ -145,7 +153,9 @@ declare module 'twit' {
         url: string,
       }
 
-      // See https://dev.twitter.com/overview/api/tweets
+      /**
+       * @see https://dev.twitter.com/overview/api/tweets
+       */
       export interface Status {
         id: number,
         id_str: string,
@@ -252,28 +262,43 @@ declare module 'twit' {
   }
 
   class Twit {
-    // See https://github.com/ttezel/twit#var-t--new-twitconfig
+    /**
+     * @see https://github.com/ttezel/twit#var-t--new-twitconfig
+     */
     constructor(config: Twit.Options);
 
-    // See https://github.com/ttezel/twit#tgetpath-params-callback
+    /**
+     * @see https://github.com/ttezel/twit#tgetpath-params-callback
+     */
     get(path: string, callback: Twit.Callback): void;
     get(path: string, params: Twit.Params, callback: Twit.Callback): void;
     get(path: string, params?: Twit.Params): Promise<Twit.PromiseResponse>;
 
-    // See https://github.com/ttezel/twit#tpostpath-params-callback
+    /**
+     * @see https://github.com/ttezel/twit#tpostpath-params-callback
+     */
     post(path: string, callback: Twit.Callback): void;
     post(path: string, params: Twit.Params, callback: Twit.Callback): void;
     post(path: string, params?: Twit.Params): Promise<Twit.PromiseResponse>;
 
-    // See https://github.com/ttezel/twit#tpostmediachunkedparams-callback
+    /**
+     * @see https://github.com/ttezel/twit#tpostmediachunkedparams-callback
+     */
     postMediaChunked(media: Twit.MediaParam, callback: Twit.Callback): void;
 
-    // See https://github.com/ttezel/twit#tgetauth
+    /**
+     * @see https://github.com/ttezel/twit#tgetauth
+     */
     getAuth(): Twit.Options
-    // See https://github.com/ttezel/twit#tsetauthtokens
+
+    /**
+     * @see https://github.com/ttezel/twit#tsetauthtokens
+     */
     setAuth(tokens: Twit.ConfigKeys): void
 
-    // See https://github.com/ttezel/twit#tstreampath-params
+    /**
+     * @see https://github.com/ttezel/twit#tstreampath-params
+     */
     stream(path: Twit.StreamEndpoint, params?: Twit.Params): NodeJS.ReadableStream;
   }
 
