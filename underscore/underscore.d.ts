@@ -5924,6 +5924,7 @@ interface _ChainSingle<T> {
 }
 interface _ChainOfArrays<T> extends _Chain<T[]> {
 	flatten(shallow?: boolean): _Chain<T>;
+	mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
 }
 
 declare var _: UnderscoreStatic;

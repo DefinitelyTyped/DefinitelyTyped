@@ -505,6 +505,17 @@ function chain_tests() {
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+    interface NumberObject {
+        property: string;
+        value: number;
+    }
+    let numberObjects: NumberObject[] = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let evenNumbers: NumberObject[][] = _.chain(numberObjects)
+        .groupBy('property')
+        .mapObject((objects: any) => _.sortBy(objects, (object: NumberObject) => object.value))
+        .values()
+        .value();
 }
 
 var obj: { [k: string] : number } = {
