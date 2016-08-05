@@ -55,7 +55,7 @@ connect(
 
 @connect(mapStateToProps)
 class CounterContainer extends Component<any, any> {
-
+    private myProperty: string;
 }
 
 // Ensure connect's first two arguments can be replaced by wrapper functions
