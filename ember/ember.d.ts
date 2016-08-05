@@ -2291,23 +2291,28 @@ declare namespace Ember {
     class TargetActionSupport {
         triggerAction(opts: {}): boolean;
     }
-    class Test {
-        click(selector: string): RSVP.Promise;
-        fillin(selector: string, text: string): RSVP.Promise;
-        find(selector: string): JQuery;
-        findWithAssert(selector: string): JQuery;
-        injectTestHelpers(): void;
-        keyEvent(selector: string, type: string, keyCode: number): RSVP.Promise;
-        static oninjectHelpers(callback: Function): void;
-        static promise(resolver: Function): RSVP.Promise;
-        static registerHelper(name: string, helperMethod: Function): void;
-        removeTestHelpers(): void;
-        setupForTesting(): void;
-        static unregisterHelper(name: string): void;
-        visit(url: string): RSVP.Promise;
-        wait(value: any): RSVP.Promise;
-        static adapter: Object;
-        testHelpers: {};
+    namespace Test {
+        class Adapter extends Ember.Object {
+            constructor ();
+        }
+        class Promise extends Ember.RSVP.Promise {
+            constructor ();
+        }
+        function oninjectHelpers(callback: Function): void;
+        function promise(resolver: Function, label: string): Ember.Test.Promise;
+        function unregisterHelper(name: string): void;
+        function registerHelper(name: string, helperMethod: Function): void;
+        function registerAsyncHelper(name: string, helperMethod: Function): void;
+
+        var adapter: Object;
+        var QUnitAdapter: Object;
+
+        function registerWaiter(callback: Function): void;
+        function registerWaiter(context: any, callback: Function): void;
+        function unregisterWaiter(callback: Function): void;
+        function unregisterWaiter(context: any, callback: Function): void;
+
+        function resolve(result: any): Ember.Test.Promise;
     }
     class TextArea extends Component implements TextSupport {
         static detect(obj: any): boolean;
