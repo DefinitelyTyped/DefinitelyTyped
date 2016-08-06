@@ -18,23 +18,6 @@ interface HelloJSLogoutOptions {
     force?: boolean;
 }
 
-interface HelloJSEvent {
-    on(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
-    off(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
-    findEvents(event: string, callback: (name: string, index: number) => void): void;
-    emit(event: string, data: any): HelloJSStatic;
-    emitAfter(): HelloJSStatic;
-    success(callback: (json?: any) => void): HelloJSStatic;
-    error(callback: (json?: any) => void): HelloJSStatic;
-    complete(callback: (json?: any) => void): HelloJSStatic;
-}
-
-
-interface HelloJSEventArgument {
-    network: string;
-    authResponse?: any;
-}
-
 interface HelloJSImmediateSuccessCB<T, TP> {
     (value: T): TP;
 }
@@ -73,11 +56,28 @@ interface HelloJSThenable<T> {
         ): HelloJSThenable<TP>;
 }
 
+interface HelloJSEvent extends HelloJSThenable<void> {
+    on(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
+    off(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
+    findEvents(event: string, callback: (name: string, index: number) => void): void;
+    emit(event: string, data: any): HelloJSStatic;
+    emitAfter(): HelloJSStatic;
+    success(callback: (json?: any) => void): HelloJSStatic;
+    error(callback: (json?: any) => void): HelloJSStatic;
+    complete(callback: (json?: any) => void): HelloJSStatic;
+}
+
+
+interface HelloJSEventArgument {
+    network: string;
+    authResponse?: any;
+}
+
 
 interface HelloJSStatic extends HelloJSEvent {
     init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
-    login(network: string, options?: HelloJSLoginOptions, callback?: () => void): HelloJSThenable<void>;
-    logout(network: string, options?: HelloJSLogoutOptions, callback?: () => void): HelloJSThenable<void>;
+    login(network: string, options?: HelloJSLoginOptions, callback?: () => void): HelloJSStatic;
+    logout(network: string, options?: HelloJSLogoutOptions, callback?: () => void): HelloJSStatic;
     getAuthResponse(network: string): any;
     service(network: string): HelloJSServiceDef;
     settings: HelloJSLoginOptions;
@@ -93,7 +93,7 @@ interface HelloJSStaticNamed {
     login(option?: HelloJSLoginOptions, callback?: () => void):  HelloJSThenable<void>;
     logout(callback?: () => void):  HelloJSThenable<void>;
     getAuthResponse(): any;
-    api(path?: string, method?: string, data?: any, callback?: (json?: any) => void):  HelloJSThenable<void>;
+    api(path?: string, method?: string, data?: any, callback?: (json?: any) => void):  HelloJSStatic;
 }
 
 interface HelloJSOAuthDef {
