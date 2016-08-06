@@ -176,6 +176,7 @@ declare module 'angular' {
       options?: angular.ui.IStateOptions;
     }
   }
+}
 
 declare module "angular-permission" {
   export var permission: string;
