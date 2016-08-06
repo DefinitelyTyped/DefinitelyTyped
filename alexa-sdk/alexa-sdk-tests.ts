@@ -3,7 +3,7 @@
 
 import Alexa = require("alexa-sdk");
 
-exports.handler = function(event: Alexa.RequestBody, context: Alexa.Context, callback) {
+exports.handler = function(event: Alexa.RequestBody, context: Alexa.Context, callback: any) {
     var alexa = Alexa.handler(event, context);
     alexa.registerHandlers(handlers);
     alexa.execute();
