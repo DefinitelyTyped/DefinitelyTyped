@@ -15,5 +15,7 @@ declare namespace angular.ui.select {
         appendToBody: boolean;
         resetSearchInput: boolean;
         theme: string;
+        getPlaceholder: any;
+        placeholder: any;
     }
 }
