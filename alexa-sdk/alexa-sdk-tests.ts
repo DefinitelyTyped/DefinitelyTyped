@@ -1,7 +1,7 @@
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="./alexa-sdk.d.ts" />
 
-import Alexa = require("alexa-sdk");
+import * as Alexa from "alexa-sdk";
 
 exports.handler = function(event: Alexa.RequestBody, context: Alexa.Context, callback: any) {
     var alexa = Alexa.handler(event, context);
