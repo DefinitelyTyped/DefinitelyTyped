@@ -54,7 +54,7 @@ $(function() {
     $("#ex7").slider();
 
     $("#ex7-enabled").click(function() {
-        if(this.checked) {
+        if((this as HTMLInputElement).checked) {
             // With JQuery
             $("#ex7").slider("enable");
         }
