@@ -6053,7 +6053,7 @@ interface HighchartsStatic {
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
      * @since 2.3.4
      */
-    charts: HighchartsChart[];
+    charts: HighchartsChartObject[];
     /**
      * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
      * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the
