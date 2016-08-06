@@ -68,6 +68,7 @@ interface HelloJSEvent extends HelloJSThenable<void> {
 }
 
 
+
 interface HelloJSEventArgument {
     network: string;
     authResponse?: any;
@@ -85,13 +86,9 @@ interface HelloJSStatic extends HelloJSEvent {
     init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
 }
 
-
-
-
-
 interface HelloJSStaticNamed {
-    login(option?: HelloJSLoginOptions, callback?: () => void):  HelloJSThenable<void>;
-    logout(callback?: () => void):  HelloJSThenable<void>;
+    login(option?: HelloJSLoginOptions, callback?: () => void): void;
+    logout(callback?: () => void): void;
     getAuthResponse(): any;
     api(path?: string, method?: string, data?: any, callback?: (json?: any) => void):  HelloJSStatic;
 }
