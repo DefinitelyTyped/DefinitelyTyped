@@ -4,7 +4,7 @@
 
 var App : any;
 
-App = Em.Application.create<Ember.Application>();
+App = Em.Application.create<Em.Application>();
 
 App.president = Em.Object.create({
     name: 'Barack Obama'
@@ -44,7 +44,7 @@ var tom = Person1.create<MyPerson2>({
 tom.helloWorld();
 
 Person1.reopen({ isPerson: true });
-Person1.create<Ember.Object>().get('isPerson');
+Person1.create<Em.Object>().get('isPerson');
 
 Person1.reopenClass({
     createMan: () => {
@@ -55,7 +55,7 @@ Person1.reopenClass({
 declare var Person1: typeof MyPerson;
 Person1.createMan().get('isMan');
 
-var person = Person1.create<Ember.Object>({
+var person = Person1.create<Em.Object>({
     firstName: 'Yehuda',
     lastName: 'Katz'
 });
@@ -140,17 +140,17 @@ var people2 = [
     Person3.create({ name: 'Yehuda', isHappy: true }),
     Person3.create({ name: 'Majd', isHappy: false })
 ];
-people2.every((person: Ember.Object) => {
+people2.every((person: Em.Object) => {
     return !!person.get('isHappy');
 });
-people2.some((person: Ember.Object) => {
+people2.some((person: Em.Object) => {
     return !!person.get('isHappy');
 });
 people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
-// Examples taken from http://emberjs.com/api/classes/Ember.RSVP.Promise.html
-var promise = new Ember.RSVP.Promise(function(resolve: Function, reject: Function) {
+// Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
+var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 
