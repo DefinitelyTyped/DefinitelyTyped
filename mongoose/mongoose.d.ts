@@ -1122,7 +1122,9 @@ declare module "mongoose" {
          * potentially overwritting any changes that happen between when you retrieved the object
          * and when you save it.
          */
-        sort(compareFn?: (a: T, b: T) => number): T[];
+        // some lib.d.ts have return type "this" and others have return type "T[]"
+        // which causes errors. Let the inherited array provide the sort() method.
+        //sort(compareFn?: (a: T, b: T) => number): T[];
 
         /**
          * Wraps Array#splice with proper change tracking and casting.
