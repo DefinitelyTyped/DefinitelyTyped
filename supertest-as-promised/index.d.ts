@@ -17,7 +17,7 @@ declare namespace supertestAsPromised {
     interface Response extends supertest.Response {
     }
 
-    interface Test extends Promise<Response>, supertest.Test, supersgent.Request {
+    interface Test extends supertest.Test, supersgent.Request {
         toPromise(): PromiseBlurbird<Response>;
         timeout(): Promise<Response> & this;
     }

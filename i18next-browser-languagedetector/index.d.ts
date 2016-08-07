@@ -80,8 +80,6 @@ declare namespace i18nextBrowserLanguageDetector {
 }
 
 declare module "i18next-browser-languagedetector" {
-    import * as express from "express";
-    import * as i18next from "i18next";
 
     export default i18nextBrowserLanguageDetector.LngDetector;
 }

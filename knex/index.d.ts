@@ -451,6 +451,7 @@ declare namespace Knex {
         Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        acquireConnectionTimeout?: number;
     }
 
     interface ConnectionConfig {
