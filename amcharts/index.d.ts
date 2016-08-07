@@ -27,6 +27,9 @@ declare namespace AmCharts {
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear(): void;
 
+    /** Create chart by params. */
+    function makeChart(selector: string, params: any, delay?: number): AmChart;
+
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
             var chartData = [{title:"Pie I have eaten",value:70},{title:"Pie I haven\'t eaten",value:30}];

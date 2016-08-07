@@ -79,6 +79,12 @@ declare module Elasticsearch {
         createNodeAgent?: any;
     }
 
+    export interface Explanation {
+        value: number,
+        description: string,
+        details: Explanation[]
+    }
+
     export interface GenericParams {
         requestTimeout?: number;
         maxRetries?: number;
@@ -222,6 +228,7 @@ declare module Elasticsearch {
     export interface SearchResponse<T> {
         took: number,
         timed_out: boolean,
+        _scroll_id?: string,
         _shards: {
             total: number,
             successful: number,
@@ -235,10 +242,15 @@ declare module Elasticsearch {
                 _type: string,
                 _id: string,
                 _score: number,
-                _source: T
+                _source: T,
+                _version: number,
+                _explanation?: Explanation,
+                fields?: any,
+                highlight?: any,
+                inner_hits?: any
             }[]
         },
-        aggregations: any
+        aggregations?: any
     } 
 
     export interface MSearchParams extends GenericParams {
