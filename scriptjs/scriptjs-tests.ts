@@ -2,7 +2,7 @@
 
 import $script = require("scriptjs");
 
-const callback = () => console.log('done');
+const callback = (): void => console.log('done');
 
 function main(): void {
   $script('foo.js', callback);
@@ -23,8 +23,8 @@ function main(): void {
     thunk: ['thunkor.js', 'thunky.js'],
   };
 
-  $script.ready(['foo', 'bar', 'thunk'], callback, (missing: string[]) => {
-    missing.forEach((dep: string) => {
+  $script.ready(['foo', 'bar', 'thunk'], callback, (missing: string[]): void => {
+    missing.forEach((dep: string): void => {
       $script(deps[dep], dep);
     });
   });
