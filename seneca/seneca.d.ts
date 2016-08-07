@@ -189,7 +189,7 @@ declare namespace SNS {
         make(zone: string, base: string, entity_canon: string, properties?: any): Entity;
 
         // @param name reference to plugin provided object
-        export(name: string): void;
+        export(name: string): PluginModule;
 
         pin(pattern: Pattern): void;
     }
