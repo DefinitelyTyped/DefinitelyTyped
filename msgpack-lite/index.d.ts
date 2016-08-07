@@ -1,14 +1,72 @@
-// Type definitions for msgpack-lite 0.1.20
+// Type definitions for msgpack-lite v0.1.26
 // Project: https://github.com/kawanet/msgpack-lite
-// Definitions by: Endel Dreyer <https://github.com/endel/>
+// Definitions by: Endel Dreyer <https://github.com/endel/>, Edmund Fokschaner <https://github.com/efokschaner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-declare module "msgpack-lite" {
-  import { Transform } from "stream";
+declare module 'msgpack-lite' {
+  import * as stream from 'stream';
 
   namespace MsgpackLite {
-    interface BufferOptions { codec: any; }
+    /**
+     * encode from JS Object to MessagePack
+     */
+    function encode(input: any, options?: EncoderOptions): Buffer;
+
+    /**
+     * decode from MessagePack to JS Object
+     */
+    function decode(input: Buffer | Uint8Array | Array<number>, options?: DecoderOptions): any;
+
+    /**
+     * create a stream that encodes from JS Object to MessagePack
+     */
+    function createEncodeStream(options?: EncoderOptions & stream.TransformOptions ): EncodeStream;
+
+    /**
+     * create a stream that decodes from MessagePack (Buffer) to JS Object
+     */
+    function createDecodeStream(options?: DecoderOptions & stream.TransformOptions): DecodeStream;
+
+    /**
+     * Codecs allow for Custom Extension Types
+     * Register a custom extension type number to serialize/deserialize your own class instances.
+     * https://github.com/kawanet/msgpack-lite#custom-extension-types-codecs
+     * If you wish to modify the default built-in codec, you can access it at msgpack.codec.preset
+     */
+    function createCodec(options?: CodecOptions): Codec;
+
+    /**
+     * The default built-in codec
+     */
+    var codec: {
+      /**
+       * The default built-in codec
+       */
+      preset: Codec;
+    };
+
+    interface Codec {
+      /**
+       * Register a custom extension to serialize your own class instances
+       *
+       * @param etype an integer within the range of 0 and 127 (0x0 and 0x7F)
+       * @param Class the constructor of the type you wish to serialize
+       * @param packer a function that converts an instance of T to bytes
+       */
+      addExtPacker<T>(
+        etype: number,
+        Class: new(...args: any[]) => T,
+        packer: (t: T) => Buffer | Uint8Array): void;
+
+      /**
+       * Register a custom extension to deserialize your own class instances
+       *
+       * @param etype an integer within the range of 0 and 127 (0x0 and 0x7F)
+       * @param unpacker a function that converts bytes to an instance of T
+       */
+      addExtUnpacker<T>(etype: number, unpacker: (data: Buffer | Uint8Array) => T): void;
+    }
 
     interface Encoder {
       bufferish: any;
@@ -42,29 +100,59 @@ declare module "msgpack-lite" {
       end: (chunk: any) => void;
     }
 
-    interface EncodeStream extends Transform {
+    interface EncodeStream extends stream.Transform {
       encoder: Encoder;
     }
-    interface DecodeStream extends Transform {
+
+    interface DecodeStream extends stream.Transform {
       decoder: Decoder;
     }
 
-    interface Codec {
-      new (options?: any): Codec;
-      options: any;
-      init (): void;
-      addExtPacker (etype: number, Class: any, packer: (value: any) => any): void;
-      getExtPacker (value: any): (value: any) => any;
-      addExtUnpacker (etype: number, unpacker: (value: any) => any): void;
-      getExtUnpacker (etype: number): (value: any) => any;
+    interface CodecOptions {
+      /**
+       * It includes the preset extensions for JavaScript native objects.
+       * @see https://github.com/kawanet/msgpack-lite#extension-types
+       * @default false
+       */
+      preset?: boolean;
+      /**
+       * It runs a validation of the value before writing it into buffer.
+       * This is the default behavior for some old browsers which do not support ArrayBuffer object.
+       * @default varies
+       */
+      safe?: boolean;
+      /**
+       * It uses raw formats instead of bin and str.
+       * Set true for compatibility with msgpack's old spec.
+       * @see https://github.com/kawanet/msgpack-lite#compatibility-mode
+       * @default false
+       */
+      raw?: boolean;
+      /**
+       * It decodes msgpack's int64/uint64 formats with int64-buffer object.
+       * int64-buffer is a cutom integer type with 64 bits of precision instead
+       * of the built-in IEEE-754 53 bits. See https://github.com/kawanet/int64-buffer
+       * @default false
+       */
+      int64?: boolean;
+      /**
+       * It ties msgpack's bin format with ArrayBuffer object, instead of Buffer object.
+       * @default false
+       */
+      binarraybuffer?: boolean;
+      /**
+       * It returns Uint8Array object when encoding, instead of Buffer object.
+       */
+      uint8array?: boolean;
     }
 
-    export function encode(input: any, options?: BufferOptions): any;
-    export function decode(input: Buffer | Uint8Array | Array<number>, options?: BufferOptions): any;
-    export function createEncodeStream (): EncodeStream;
-    export function createDecodeStream (): DecodeStream;
-    export function createCodec (options?: any): Codec;
-    export function codec (): { preset: Codec };
+    interface EncoderOptions {
+      codec?: Codec
+    }
+
+    interface DecoderOptions {
+      codec?: Codec
+    }
   }
 
   export = MsgpackLite;
