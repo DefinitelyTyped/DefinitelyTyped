@@ -1,6 +1,6 @@
 // Type definitions for d3JS d3-timer module 1.0.1
 // Project: https://github.com/d3/d3-timer/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek<https://github.com/tomwanzek>
+// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
