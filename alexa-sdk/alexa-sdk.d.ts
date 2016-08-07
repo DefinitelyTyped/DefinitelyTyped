@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'alexa-sdk' {
-    export function handler(event: RequestBody, context: Context, callback?: Function): AlexaHandler;
+    export function handler(event: RequestBody, context: Context, callback?: Function): AlexaObject;
     export function CreateStateHandler(state: string, obj: any): any;
     export var StateString: string;
 
-    interface AlexaHandler {
+    interface AlexaObject {
         _event: any;
         _context: any;
         _callback: any;
