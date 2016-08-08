@@ -1,7 +1,7 @@
 // Type definitions for nock v0.54.0
 // Project: https://github.com/pgte/nock
 // Definitions by: bonnici <https://github.com/bonnici>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nock.d.ts
 
@@ -10,7 +10,7 @@ declare module "nock" {
 
 	function nock (host: string, options?: nock.Options): nock.Scope;
 
-	module nock {
+	namespace nock {
 		export function cleanAll(): void;
 
 		export function disableNetConnect(): void;

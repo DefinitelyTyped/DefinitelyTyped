@@ -1,7 +1,7 @@
 // Type definitions for Mithril
 // Project: http://lhorie.github.io/mithril/
 // Definitions by: Leo Horie <https://github.com/lhorie>, Chris Bowdon <https://github.com/cbowdon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //Mithril type definitions for Typescript
 

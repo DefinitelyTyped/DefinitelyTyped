@@ -1,7 +1,7 @@
 // Type definitions for level-sublevel
 // Project: https://github.com/dominictarr/level-sublevel
 // Definitions by: Bas Pennings <https://github.com/basp/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../levelup/levelup.d.ts" />
 

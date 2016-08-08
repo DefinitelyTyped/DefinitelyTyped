@@ -1,12 +1,12 @@
 ﻿// Type definitions for Player Framework (MMPPF)
 // Project: https://playerframework.codeplex.com/
 // Definitions by: Ricardo Sabino <https://github.com/ricardosabino>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path="../winrt/winrt.d.ts"/>
 
-declare module PlayerFramework {
+declare namespace PlayerFramework {
 
 	// Enumerations
 	enum AdvertisingState {
@@ -288,7 +288,7 @@ declare module PlayerFramework {
 		update(mediaSource: MediaSource): void;
 	}
 
-	module Plugins {
+	namespace Plugins {
 
 		class TrackingPluginBase extends PluginBase {
 			trackingEvents: Array<any>;
@@ -419,7 +419,7 @@ declare module PlayerFramework {
 			placement: string;
 		}
 	}
-	
+
 	/**
 	*
 	**/
@@ -1686,7 +1686,7 @@ declare module PlayerFramework {
 		width: string;
 
 		/* Methods */
-		
+
 		/**
 		* Adds the specified CSS class to the host element.
 		* @param name The name of the class to add. Multiple classes can be added using space-delimited names.
@@ -1839,7 +1839,7 @@ declare module PlayerFramework {
 		augmentPayload(payload: any, startTime: number, endTime: number): void;
 	}
 
-	module UI {
+	namespace UI {
 		class Button {
 			element: HTMLElement;
 			type: string;
@@ -1928,7 +1928,7 @@ declare module PlayerFramework {
 	}
 }
 
-declare module PlayerFramework.Advertising {
+declare namespace PlayerFramework.Advertising {
 	interface AdvertisementBase {
 		source: any;
 	}
@@ -1945,7 +1945,7 @@ declare module PlayerFramework.Advertising {
 }
 
 
-declare module Microsoft.VideoAdvertising {
+declare namespace Microsoft.VideoAdvertising {
 	class VastAdPayloadHandler {
 		static adType: string;
 	}
@@ -1955,7 +1955,7 @@ declare module Microsoft.VideoAdvertising {
 	}
 }
 
-declare module Microsoft.PlayerFramework.Js.Advertising {
+declare namespace Microsoft.PlayerFramework.Js.Advertising {
 	/**
 	* Provides an ad source that requires a Url to be downloaded and turned into a stream before passing to the ad handler.
 	**/

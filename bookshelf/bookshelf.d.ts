@@ -1,10 +1,10 @@
 // Type definitions for bookshelfjs v0.8.2
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../knex/knex.d.ts" />
 
 declare module 'bookshelf' {
@@ -18,6 +18,7 @@ declare module 'bookshelf' {
 		Model : typeof Bookshelf.Model;
 		Collection : typeof Bookshelf.Collection;
 
+		plugin(name: string) : Bookshelf;
 		transaction<T>(callback : (transaction : knex.Transaction) => T) : Promise<T>;
 	}
 
@@ -87,7 +88,7 @@ declare module 'bookshelf' {
 			belongsTo<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : R;
 			belongsToMany<R extends Model<any>>(target : {new(...args : any[]) : R}, table? : string, foreignKey? : string, otherKey? : string) : Collection<R>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
-			destroy(options : SyncOptions) : void;
+			destroy(options? : SyncOptions) : Promise<T>;
 			fetch(options? : FetchOptions) : Promise<T>;
 			fetchAll(options? : FetchAllOptions) : Promise<Collection<T>>;
 			hasMany<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : Collection<R>;

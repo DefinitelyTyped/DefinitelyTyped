@@ -10,28 +10,26 @@ import {
 	Menu,
 	MenuItem,
 	powerMonitor,
+	powerSaveBlocker,
 	protocol,
 	Tray,
 	clipboard,
 	crashReporter,
 	nativeImage,
 	screen,
-	shell
+	shell,
+	session,
+	hideInternalModules
 } from 'electron';
 
-require('electron').hideInternalModules();
-
-import path = require('path');
+import * as path from 'path';
 
 // Quick start
 // https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md
 
-// Report crashes to our server.
-require('crash-reporter').start();
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
-var mainWindow: GitHubElectron.BrowserWindow = null;
+var mainWindow: Electron.BrowserWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -72,6 +70,7 @@ app.on('ready', () => {
 	mainWindow.webContents.addWorkSpace('/path/to/workspace');
 	mainWindow.webContents.removeWorkSpace('/path/to/workspace');
 	var opened: boolean = mainWindow.webContents.isDevToolsOpened()
+	var focused = mainWindow.webContents.isDevToolsFocused();
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -79,11 +78,6 @@ app.on('ready', () => {
 		// when you should delete the corresponding element.
 		mainWindow = null;
 	});
-
-	mainWindow.print({silent: true, printBackground: false});
-	mainWindow.webContents.print({silent: true, printBackground: false});
-	mainWindow.print();
-	mainWindow.webContents.print();
 
 	mainWindow.print({silent: true, printBackground: false});
 	mainWindow.webContents.print({silent: true, printBackground: false});
@@ -108,7 +102,52 @@ app.on('ready', () => {
 
 	mainWindow.printToPDF({}, (err, data) => {});
 	mainWindow.webContents.printToPDF({}, (err, data) => {});
+
+	mainWindow.webContents.executeJavaScript('return true;');
+	mainWindow.webContents.executeJavaScript('return true;', true);
+	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
+	mainWindow.webContents.insertText('blah, blah, blah');
+	mainWindow.webContents.findInPage('blah');
+	mainWindow.webContents.findInPage('blah', {
+		forward: true,
+		matchCase: false,
+	});
+	mainWindow.webContents.stopFindInPage('clearSelection');
+	mainWindow.webContents.stopFindInPage('keepSelection');
+	mainWindow.webContents.stopFindInPage('activateSelection');
+
+	mainWindow.loadURL('https://github.com');
+
+	mainWindow.webContents.on('did-finish-load', function() {
+		mainWindow.webContents.savePage('/tmp/test.html', 'HTMLComplete', function(error) {
+		if (!error)
+			console.log("Save page successfully");
+		});
+	});
+
+	try {
+		mainWindow.webContents.debugger.attach("1.1");
+	} catch(err) {
+		console.log("Debugger attach failed : ", err);
+	};
+
+	mainWindow.webContents.debugger.on('detach', function(event, reason) {
+		console.log("Debugger detached due to : ", reason);
+	});
+
+	mainWindow.webContents.debugger.on('message', function(event, method, params) {
+		if (method == "Network.requestWillBeSent") {
+			if (params.request.url == "https://www.github.com") {
+				win.webContents.debugger.detach();
+			}
+		}
+	});
+
+	mainWindow.webContents.debugger.sendCommand("Network.enable");
 });
+
+// Locale
+app.getLocale();
 
 // Desktop environment integration
 // https://github.com/atom/electron/blob/master/docs/tutorial/desktop-environment-integration.md
@@ -116,21 +155,21 @@ app.on('ready', () => {
 app.addRecentDocument('/Users/USERNAME/Desktop/work.type');
 app.clearRecentDocuments();
 var dockMenu = Menu.buildFromTemplate([
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{
 		label: 'New Window',
 		click: () => {
 			console.log('New Window');
 		}
 	},
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{
 		label: 'New Window with Settings',
 		submenu: [
-			<GitHubElectron.MenuItemOptions>{ label: 'Basic' },
-			<GitHubElectron.MenuItemOptions>{ label: 'Pro' }
+			<Electron.MenuItemOptions>{ label: 'Basic' },
+			<Electron.MenuItemOptions>{ label: 'Pro' }
 		]
 	},
-	<GitHubElectron.MenuItemOptions>{ label: 'New Command...' },
-	<GitHubElectron.MenuItemOptions>{
+	<Electron.MenuItemOptions>{ label: 'New Command...' },
+	<Electron.MenuItemOptions>{
 		label: 'Edit',
 		submenu: [
 			{
@@ -165,9 +204,13 @@ var dockMenu = Menu.buildFromTemplate([
 	},
 ]);
 app.dock.setMenu(dockMenu);
+app.dock.setBadge('foo');
+var id = app.dock.bounce('informational');
+app.dock.cancelBounce(id);
+app.dock.setIcon('/path/to/icon.png');
 
 app.setUserTasks([
-	<GitHubElectron.Task>{
+	<Electron.Task>{
 		program: process.execPath,
 		arguments: '--new-window',
 		iconPath: process.execPath,
@@ -186,7 +229,7 @@ window.setDocumentEdited(true);
 // Online/Offline Event Detection
 // https://github.com/atom/electron/blob/master/docs/tutorial/online-offline-events.md
 
-var onlineStatusWindow: GitHubElectron.BrowserWindow;
+var onlineStatusWindow: Electron.BrowserWindow;
 
 app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
@@ -217,10 +260,71 @@ app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
+// app
+// https://github.com/atom/electron/blob/master/docs/api/app.md
+
+var browserOptions = {
+	width: 1000,
+	height: 800,
+	transparent: false,
+	frame: true
+};
+
+// Make the window transparent only if the platform supports it.
+if (process.platform !== 'win32' || app.isAeroGlassEnabled()) {
+	browserOptions.transparent = true;
+	browserOptions.frame = false;
+}
+
+// Create the window.
+var win = new BrowserWindow(browserOptions);
+
+// Navigate.
+if (browserOptions.transparent) {
+	win.loadURL('file://' + __dirname + '/index.html');
+} else {
+  	// No transparency, so we load a fallback that uses basic styles.
+  	win.loadURL('file://' + __dirname + '/fallback.html');
+}
+
+app.on('platform-theme-changed', () => {
+	console.log(app.isDarkMode());
+});
+
+app.on('certificate-error', function(event, webContents, url, error, certificate, callback) {
+	if (url == "https://github.com") {
+		// Verification logic.
+		event.preventDefault();
+		callback(true);
+	} else {
+		callback(false);
+	}
+});
+
+app.on('select-client-certificate', function(event, webContents, url, list, callback) {
+	event.preventDefault();
+	callback(list[0]);
+});
+
+app.on('login', function(event, webContents, request, authInfo, callback) {
+	event.preventDefault();
+	callback('username', 'secret');
+});
+
 // auto-updater
 // https://github.com/atom/electron/blob/master/docs/api/auto-updater.md
 
 autoUpdater.setFeedURL('http://mycompany.com/myapp/latest?version=' + app.getVersion());
+autoUpdater.checkForUpdates();
+autoUpdater.quitAndInstall();
+
+autoUpdater.on('error', (error) => {
+	console.log('error', error);
+});
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDate, updateURL) => {
+	console.log('update-downloaded', releaseNotes, releaseName, releaseDate, updateURL);
+});
 
 // browser-window
 // https://github.com/atom/electron/blob/master/docs/api/browser-window.md
@@ -236,11 +340,15 @@ win.show();
 // content-tracing
 // https://github.com/atom/electron/blob/master/docs/api/content-tracing.md
 
-contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
-	console.log('Tracing started');
+const options = {
+	categoryFilter: '*',
+	traceOptions: 'record-until-full,enable-sampling'
+}
 
-	setTimeout(() => {
-		contentTracing.stopRecording('', path => {
+contentTracing.startRecording(options, function() {
+	console.log('Tracing started');
+	setTimeout(function() {
+		contentTracing.stopRecording('', function(path) {
 			console.log('Tracing data recorded to ' + path);
 		});
 	}, 5000);
@@ -249,9 +357,21 @@ contentTracing.startRecording('*', contentTracing.DEFAULT_OPTIONS, () => {
 // dialog
 // https://github.com/atom/electron/blob/master/docs/api/dialog.md
 
-console.log(dialog.showOpenDialog({
+// variant without browserWindow
+var openDialogResult: string[] = dialog.showOpenDialog({
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
 	properties: ['openFile', 'openDirectory', 'multiSelections']
-}));
+});
+
+// variant with browserWindow
+openDialogResult = dialog.showOpenDialog(win, {
+  title: 'Testing showOpenDialog',
+  defaultPath: '/var/log/syslog',
+  filters: [{name: '', extensions: ['']}],
+	properties: ['openFile', 'openDirectory', 'multiSelections']
+});
 
 // global-shortcut
 // https://github.com/atom/electron/blob/master/docs/api/global-shortcut.md
@@ -275,15 +395,25 @@ globalShortcut.unregisterAll();
 // ipcMain
 // https://github.com/atom/electron/blob/master/docs/api/ipc-main-process.md
 
-ipcMain.on('asynchronous-message', (event: any, arg: any) => {
+ipcMain.on('asynchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.sender.send('asynchronous-reply', 'pong');
 });
 
-ipcMain.on('synchronous-message', (event: any, arg: any) => {
+ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	console.log(arg);  // prints "ping"
 	event.returnValue = 'pong';
 });
+
+// menu-item
+// https://github.com/atom/electron/blob/master/docs/api/menu-item.md
+
+var menuItem = new MenuItem({});
+
+menuItem.label = 'Hello World!';
+menuItem.click = (menuItem, browserWindow) => {
+    console.log('click', menuItem, browserWindow);
+};
 
 // menu
 // https://github.com/atom/electron/blob/master/docs/api/menu.md
@@ -292,22 +422,29 @@ var menu = new Menu();
 menu.append(new MenuItem({ label: 'MenuItem1', click: () => { console.log('item 1 clicked'); } }));
 menu.append(new MenuItem({ type: 'separator' }));
 menu.append(new MenuItem({ label: 'MenuItem2', type: 'checkbox', checked: true }));
+menu.insert(0, menuItem);
+
+console.log(menu.items);
+
+var pos = screen.getCursorScreenPoint();
+menu.popup(null, pos.x, pos.y);
 
 // main.js
-var template = [
+var template = <Electron.MenuItemOptions[]>[
 	{
 		label: 'Electron',
 		submenu: [
 			{
 				label: 'About Electron',
-				selector: 'orderFrontStandardAboutPanel:'
+				role: 'about'
 			},
 			{
 				type: 'separator'
 			},
 			{
 				label: 'Services',
-				submenu: <any[]>[]
+				role: 'services',
+				submenu: []
 			},
 			{
 				type: 'separator'
@@ -315,16 +452,16 @@ var template = [
 			{
 				label: 'Hide Electron',
 				accelerator: 'Command+H',
-				selector: 'hide:'
+				role: 'hide'
 			},
 			{
 				label: 'Hide Others',
 				accelerator: 'Command+Shift+H',
-				selector: 'hideOtherApplications:'
+				role: 'hideothers'
 			},
 			{
 				label: 'Show All',
-				selector: 'unhideAllApplications:'
+				role: 'unhide'
 			},
 			{
 				type: 'separator'
@@ -342,12 +479,12 @@ var template = [
 			{
 				label: 'Undo',
 				accelerator: 'Command+Z',
-				selector: 'undo:'
+				role: 'undo'
 			},
 			{
 				label: 'Redo',
 				accelerator: 'Shift+Command+Z',
-				selector: 'redo:'
+				role: 'redo'
 			},
 			{
 				type: 'separator'
@@ -355,22 +492,22 @@ var template = [
 			{
 				label: 'Cut',
 				accelerator: 'Command+X',
-				selector: 'cut:'
+				role: 'cut'
 			},
 			{
 				label: 'Copy',
 				accelerator: 'Command+C',
-				selector: 'copy:'
+				role: 'copy'
 			},
 			{
 				label: 'Paste',
 				accelerator: 'Command+V',
-				selector: 'paste:'
+				role: 'paste'
 			},
 			{
 				label: 'Select All',
 				accelerator: 'Command+A',
-				selector: 'selectAll:'
+				role: 'selectall'
 			}
 		]
 	},
@@ -380,7 +517,7 @@ var template = [
 			{
 				label: 'Reload',
 				accelerator: 'Command+R',
-				click: () => { BrowserWindow.getFocusedWindow().reloadIgnoringCache(); }
+				click: () => { BrowserWindow.getFocusedWindow().webContents.reloadIgnoringCache(); }
 			},
 			{
 				label: 'Toggle DevTools',
@@ -395,19 +532,19 @@ var template = [
 			{
 				label: 'Minimize',
 				accelerator: 'Command+M',
-				selector: 'performMiniaturize:'
+				role: 'minimize'
 			},
 			{
 				label: 'Close',
 				accelerator: 'Command+W',
-				selector: 'performClose:'
+				role: 'close'
 			},
 			{
 				type: 'separator'
 			},
 			{
 				label: 'Bring All to Front',
-				selector: 'arrangeInFront:'
+				role: 'front'
 			}
 		]
 	},
@@ -445,22 +582,61 @@ app.on('ready', () => {
 	powerMonitor.on('suspend', () => {
 		console.log('The system is going to sleep');
 	});
+	powerMonitor.on('resume', () => {
+		console.log('The system has resumed from sleep');
+	});
+	powerMonitor.on('on-ac', () => {
+		console.log('The system changed to AC power')
+	});
+	powerMonitor.on('on-battery', () => {
+		console.log('The system changed to battery power');
+	});
 });
+
+// power-save-blocker
+// https://github.com/atom/electron/blob/master/docs/api/power-save-blocker.md
+
+var id = powerSaveBlocker.start('prevent-display-sleep');
+console.log(powerSaveBlocker.isStarted(id));
+
+powerSaveBlocker.stop(id);
 
 // protocol
 // https://github.com/atom/electron/blob/master/docs/api/protocol.md
 
 app.on('ready', () => {
-	protocol.registerProtocol('atom', (request: any) => {
-		var url = request.url.substr(7);
-		return new protocol.RequestFileJob(path.normalize(`${__dirname}/${url}`));
+	protocol.registerStandardSchemes(['https']);
+	protocol.registerServiceWorkerSchemes(['https']);
+
+	protocol.registerFileProtocol('atom', (request, callback) => {
+		callback(`${__dirname}/${request.url}`);
+	});
+
+	protocol.registerBufferProtocol('atom', (request, callback) => {
+		callback({mimeType: 'text/html', data: new Buffer('<h5>Response</h5>')});
+	});
+
+	protocol.registerStringProtocol('atom', (request, callback) => {
+		callback('Hello World!');
+	});
+
+	protocol.registerHttpProtocol('atom', (request, callback) => {
+		callback({url: request.url, method: request.method});
+	});
+
+	protocol.unregisterProtocol('atom', (error) => {
+		console.log(error ? error.message : 'ok');
+	});
+
+	protocol.isProtocolHandled('atom', (handled) => {
+		console.log(handled);
 	});
 });
 
 // tray
 // https://github.com/atom/electron/blob/master/docs/api/tray.md
 
-var appIcon: GitHubElectron.Tray = null;
+var appIcon: Electron.Tray = null;
 app.on('ready', () => {
 	appIcon = new Tray('/path/to/my/icon');
 	var contextMenu = Menu.buildFromTemplate([
@@ -472,6 +648,19 @@ app.on('ready', () => {
 	appIcon.setToolTip('This is my application.');
 	appIcon.setContextMenu(contextMenu);
 	appIcon.setImage('/path/to/new/icon');
+    appIcon.popUpContextMenu(contextMenu, {x: 100, y: 100});
+
+	appIcon.on('click', (event, bounds) => {
+		console.log('click', event, bounds);
+	});
+
+	appIcon.on('ballon-show', () => {
+		console.log('ballon-show');
+	});
+
+	appIcon.displayBalloon({
+		title: 'Hello World!'
+	});
 });
 
 // clipboard
@@ -480,6 +669,14 @@ app.on('ready', () => {
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
 console.log(clipboard.readText('selection'));
+console.log(clipboard.availableFormats());
+clipboard.clear();
+
+clipboard.write({
+	html: '<html></html>',
+	text: 'Hello World!',
+	image: clipboard.readImage()
+});
 
 // crash-reporter
 // https://github.com/atom/electron/blob/master/docs/api/crash-reporter.md
@@ -488,8 +685,14 @@ crashReporter.start({
 	productName: 'YourName',
 	companyName: 'YourCompany',
 	submitURL: 'https://your-domain.com/url-to-submit',
-	autoSubmit: true
+	autoSubmit: true,
+	extra: {
+		someKey: "value"
+	}
 });
+
+console.log(crashReporter.getLastCrashReport());
+console.log(crashReporter.getUploadedReports());
 
 // nativeImage
 // https://github.com/atom/electron/blob/master/docs/api/native-image.md
@@ -524,9 +727,95 @@ app.on('ready', () => {
 			y: externalDisplay.bounds.y + 50,
 		});
 	}
+
+	screen.on('display-added', (event, display) => {
+		console.log('display-added', display);
+	});
+
+	screen.on('display-removed', (event, display) => {
+		console.log('display-removed', display);
+	});
+
+	screen.on('display-metrics-changed', (event, display, changes) => {
+		console.log('display-metrics-changed', display, changes);
+	});
 });
 
 // shell
 // https://github.com/atom/electron/blob/master/docs/api/shell.md
 
-shell.openExternal('https://github.com');
+shell.showItemInFolder('/home/user/Desktop/test.txt');
+shell.openItem('/home/user/Desktop/test.txt');
+shell.moveItemToTrash('/home/user/Desktop/test.txt');
+
+shell.openExternal('https://github.com', {
+    activate: false
+});
+
+shell.beep();
+
+// session
+// https://github.com/atom/electron/blob/master/docs/api/session.md
+
+session.defaultSession.on('will-download', (event, item, webContents) => {
+	event.preventDefault();
+	require('request')(item.getURL(), (data: any) => {
+		require('fs').writeFileSync('/somewhere', data);
+	});
+});
+
+// Query all cookies.
+session.defaultSession.cookies.get({}, (error, cookies) => {
+	console.log(cookies);
+});
+
+// Query all cookies associated with a specific url.
+session.defaultSession.cookies.get({ url : "http://www.github.com" }, (error, cookies) => {
+	console.log(cookies);
+});
+
+// Set a cookie with the given cookie data;
+// may overwrite equivalent cookies if they exist.
+var cookie = { url : "http://www.github.com", name : "dummy_name", value : "dummy" };
+session.defaultSession.cookies.set(cookie, (error) => {
+	if (error) {
+    	console.error(error);
+	}
+});
+
+// In the main process.
+session.defaultSession.on('will-download', (event, item, webContents) => {
+	// Set the save path, making Electron not to prompt a save dialog.
+	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getMimeType());
+	console.log(item.getFilename());
+	console.log(item.getTotalBytes());
+
+	item.on('updated', function() {
+		console.log('Received bytes: ' + item.getReceivedBytes());
+	});
+
+	item.on('done', function(e, state) {
+		if (state == "completed") {
+			console.log("Download successfully");
+		} else {
+			console.log("Download is cancelled or interrupted that can't be resumed");
+		}
+	});
+});
+
+// To emulate a GPRS connection with 50kbps throughput and 500 ms latency.
+session.defaultSession.enableNetworkEmulation({
+	latency: 500,
+	downloadThroughput: 6400,
+	uploadThroughput: 6400
+});
+
+// To emulate a network outage.
+session.defaultSession.enableNetworkEmulation({
+	offline: true
+});
+
+session.defaultSession.setCertificateVerifyProc((hostname, cert, callback) => {
+	callback((hostname === 'github.com') ? true : false);
+});

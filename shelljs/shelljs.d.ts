@@ -1,7 +1,7 @@
 ﻿// Type definitions for ShellJS v0.3.0
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 ///<reference path="../node/node.d.ts"/>

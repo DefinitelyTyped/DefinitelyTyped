@@ -51,10 +51,41 @@ fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
 	return false;
 }, errorCallback);
+fs.copy(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: (src: string) => {return false}
+	},
+	errorCallback
+);
+fs.copy(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: /.*/
+	},
+	errorCallback
+);
 fs.copySync(src, dest);
 fs.copySync(src, dest, (src: string) => {
 	return false;
 });
+fs.copySync(src, dest, /.*/);
+fs.copySync(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: (src: string) => {return false}
+	}
+);
+fs.copySync(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: /.*/
+	}
+);
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
@@ -75,10 +106,10 @@ fs.outputJSON(file, data, errorCallback);
 fs.outputJsonSync(file, data);
 fs.outputJSONSync(file, data);
 
-fs.readJson(file, errorCallback);
-fs.readJson(file, openOpts, errorCallback);
-fs.readJSON(file, errorCallback);
-fs.readJSON(file, openOpts, errorCallback);
+fs.readJson(file, (error: Error, jsonObject: any) => {});
+fs.readJson(file, openOpts, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, (error: Error, jsonObject: any) => {});
+fs.readJSON(file, openOpts, (error: Error, jsonObject: any) => {});
 
 fs.readJsonSync(file, openOpts);
 fs.readJSONSync(file, openOpts);

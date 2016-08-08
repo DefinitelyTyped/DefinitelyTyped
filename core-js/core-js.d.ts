@@ -1,7 +1,7 @@
 ﻿// Type definitions for core-js v0.9.7
 // Project: https://github.com/zloirock/core-js/
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -835,7 +835,7 @@ declare var Promise: PromiseConstructor;
 // Modules: es6.reflect
 // #############################################################################################
 
-declare module Reflect {
+declare namespace Reflect {
     function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
     function construct(target: Function, argumentsList: ArrayLike<any>, newTarget?: any): any;
     function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;
@@ -1265,8 +1265,8 @@ interface String {
 
 declare function delay(msec: number): Promise<void>;
 
-declare module core {
-    module Reflect {
+declare namespace core {
+    namespace Reflect {
         function apply(target: Function, thisArgument: any, argumentsList: ArrayLike<any>): any;
         function construct(target: Function, argumentsList: ArrayLike<any>): any;
         function defineProperty(target: any, propertyKey: PropertyKey, attributes: PropertyDescriptor): boolean;

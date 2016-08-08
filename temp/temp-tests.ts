@@ -67,6 +67,8 @@ function testMkdirSync() {
 function testPath() {
     const p = temp.path({ suffix: "justSuffix" }, "defaultPrefix");
     p.length;
+    const p2: string = temp.path("prefix");
+    const p3: string = temp.path({ prefix: "prefix" });
 }
 
 function testTrack() {

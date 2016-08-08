@@ -899,7 +899,7 @@ function populationPyramid() {
 }
 
 //Example from http://bl.ocks.org/MoritzStefaner/1377729
-module forcedBasedLabelPlacemant {
+namespace forcedBasedLabelPlacemant {
     interface Node extends d3.layout.force.Node {
         label: string;
     }
@@ -1034,7 +1034,7 @@ module forcedBasedLabelPlacemant {
 }
 
 //Example from http://bl.ocks.org/mbostock/1125997
-module forceCollapsable {
+namespace forceCollapsable {
     interface Node extends d3.layout.force.Node {
         id: string;
         _children: Node[];
@@ -1504,7 +1504,7 @@ function convexHull() {
 }
 
 // example from http://bl.ocks.org/mbostock/1044242
-module hierarchicalEdgeBundling {
+namespace hierarchicalEdgeBundling {
     interface Result extends d3.layout.cluster.Result {
         parent: Result;
         size: number;
@@ -1721,7 +1721,7 @@ function streamGraph() {
 }
 
 // example from http://mbostock.github.io/d3/talk/20111116/force-collapsible.html
-module forceCollapsable2 {
+namespace forceCollapsable2 {
     interface Node extends d3.layout.force.Node {
         children: Node[];
         _children: Node[];

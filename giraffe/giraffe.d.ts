@@ -1,11 +1,11 @@
 // Type definitions for Giraffe
 // Project: https://github.com/barc/backbone.giraffe
 // Definitions by: Matt McCray <https://github.com/darthapo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module Giraffe {
+declare namespace Giraffe {
 
   interface GiraffeObject {
     app: App;
@@ -141,7 +141,7 @@ declare module Giraffe {
     start( options?:any ): App;
   }
 
-  module Contrib {
+  namespace Contrib {
 
     class Controller extends Backbone.Events implements GiraffeObject {
       app: App;

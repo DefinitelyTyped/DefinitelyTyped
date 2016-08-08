@@ -1,7 +1,7 @@
 // Type definitions for jquery.pnotify 2.x
 // Project: https://github.com/sciactive/pnotify
 // Definitions by: David Sichau <https://github.com/DavidSichau>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

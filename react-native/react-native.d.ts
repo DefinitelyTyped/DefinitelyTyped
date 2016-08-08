@@ -1,7 +1,7 @@
-// Type definitions for react-native 0.14
+// Type definitions for react-native 0.19
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -976,6 +976,31 @@ declare namespace  __React {
      * whether that is a UIView, <div>, android.view, etc.
      */
     export interface ViewStatic extends NativeComponent, React.ComponentClass<ViewProperties> {
+
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/viewpagerandroid.html#props
+     */
+
+
+    export interface ViewPagerAndroidOnPageScrollEventData {
+        position: number;
+        offset: number;
+    }
+
+    export interface ViewPagerAndroidOnPageSelectedEventData {
+        position: number;
+    }
+
+    export interface ViewPagerAndroidProperties extends ViewProperties {
+        initialPage?: number;
+        onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
+        onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
+        keyboardDismissMode?: string; /* enum('none', 'on-drag') */
+    }
+
+    export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
 
     }
 
@@ -2712,7 +2737,7 @@ declare namespace  __React {
          * Fires at most once per frame during scrolling.
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
-        onScroll?: () => void
+        onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
         /**
          * Experimental: When true offscreen child views (whose `overflow` value is
@@ -2743,7 +2768,21 @@ declare namespace  __React {
     }
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
-
+        /**
+         * Scrolls to a given x, y offset, either immediately or with a smooth animation.
+         * Syntax:
+         *
+         * scrollTo(options: {x: number = 0; y: number = 0; animated: boolean = true})
+         *
+         * Note: The weird argument signature is due to the fact that, for historical reasons,
+         * the function also accepts separate arguments as as alternative to the options object.
+         * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
+         */
+        scrollTo(
+            y?: number | { x?: number, y?: number, animated?: boolean },
+            x?: number,
+            animated?: boolean
+        ): void;
     }
 
 
@@ -2853,7 +2892,7 @@ declare namespace  __React {
      *
      * @see https://facebook.github.io/react-native/docs/appstateios.html#content
      */
-    export interface AppStateIOSStatic {
+    export interface AppStateStatic {
         currentState: string
         addEventListener( type: string, listener: ( state: string ) => void ): void
         removeEventListener( type: string, listener: ( state: string ) => void ): void
@@ -3364,6 +3403,9 @@ declare namespace  __React {
     export var View: ViewStatic
     export type View = ViewStatic
 
+    export var ViewPagerAndroid: ViewPagerAndroidStatic
+    export type ViewPagerAndroid = ViewPagerAndroidStatic
+
     export var WebView: WebViewStatic
     export type WebView = WebViewStatic
 
@@ -3378,8 +3420,11 @@ declare namespace  __React {
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
 
-    export var AppStateIOS: AppStateIOSStatic
-    export type AppStateIOS = AppStateIOSStatic
+    export var AppState : AppStateStatic;
+    export type AppState = AppStateStatic;
+
+    export var AppStateIOS: AppStateStatic
+    export type AppStateIOS = AppStateStatic
 
     export var AsyncStorage: AsyncStorageStatic
     export type AsyncStorage = AsyncStorageStatic
@@ -3459,7 +3504,7 @@ declare namespace  __React {
 declare module "react-native" {
 
     import ReactNative = __React
-    export default ReactNative
+    export = ReactNative
 }
 
 declare var global: __React.GlobalStatic
@@ -3469,7 +3514,7 @@ declare function require( name: string ): any
 
 //TODO: BGR: this is a left-over from the initial port. Not sure it makes any sense
 declare module "Dimensions" {
-    import React from 'react-native';
+    import * as React from 'react-native';
 
     interface Dimensions {
         get( what: string ): React.ScaledSize;

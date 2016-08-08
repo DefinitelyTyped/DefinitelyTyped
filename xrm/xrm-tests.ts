@@ -1,6 +1,11 @@
 /// <reference path="xrm.d.ts" />
 /// <reference path="parature.d.ts" />
 
+/// Demonstrate usage in the browser's window object
+
+window.Xrm.Utility.alertDialog( "message", () => {} );
+parent.Xrm.Page.context.getOrgLcid();
+
 /// Demonstrate clientglobalcontext.d.ts 
 
 function _getContext()
@@ -91,7 +96,7 @@ Xrm.Page.data.entity.addOnSave(( context ) =>
 {
     var eventArgs = context.getEventArgs();
 
-    if ( eventArgs.getSaveMode() === Xrm.Page.SaveMode.AutoSave || eventArgs.getSaveMode() === Xrm.Page.SaveMode.SaveAndClose )
+    if ( eventArgs.getSaveMode() === XrmEnum.SaveMode.AutoSave || eventArgs.getSaveMode() === XrmEnum.SaveMode.SaveAndClose )
         eventArgs.preventDefault();
 });
 

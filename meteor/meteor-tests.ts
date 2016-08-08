@@ -43,7 +43,7 @@ Meteor.publish("adminSecretInfo", function () {
   return Rooms.find({admin: this.userId}, {fields: {secretInfo: 1}});
 });
 
-Meteor.publish("roomAndMessages", function (roomId) {
+Meteor.publish("roomAndMessages", function (roomId: string) {
   check(roomId, String);
   return [
     Rooms.find({_id: roomId}, {fields: {secretInfo: 0}}),
@@ -54,20 +54,20 @@ Meteor.publish("roomAndMessages", function (roomId) {
 /**
  * Also from Publish and Subscribe, Meteor.publish section
  */
-Meteor.publish("counts-by-room", function (roomId) {
+Meteor.publish("counts-by-room", function (roomId: string) {
   var self = this;
   check(roomId, String);
   var count = 0;
   var initializing = true;
   var handle = Messages.find({roomId: roomId}).observeChanges({
-    added: function (id) {
+    added: function (id: any) {
       count++;
 //      if (!initializing)
 
 // Todo: Not sure how to define in typescript
 //        self.changed("counts", roomId, {count: count});
     },
-    removed: function (id) {
+    removed: function (id: any) {
       count--;
 // Todo: Not sure how to define in typescript
 //      self.changed("counts", roomId, {count: count});
@@ -112,7 +112,7 @@ Tracker.autorun(function () {
  * From Methods, Meteor.methods section
  */
 Meteor.methods({
-  foo: function (arg1, arg2) {
+  foo: function (arg1: string, arg2: number[]) {
     check(arg1, String);
     check(arg2, [Number]);
 
@@ -131,10 +131,17 @@ Meteor.methods({
 /**
  * From Methods, Meteor.Error section
  */
-throw new Meteor.Error("logged-out",
-    "The user must be logged in to post a comment.");
+function meteorErrorTestFunction1() {
+  throw new Meteor.Error("logged-out",
+      "The user must be logged in to post a comment.");
+}
 
-Meteor.call("methodName", function (error) {
+function meteorErrorTestFunction2() {
+  throw new Meteor.Error(403,
+      "The user must be logged in to post a comment.");
+}
+
+Meteor.call("methodName", function (error: Meteor.Error) {
   if (error.error === "logged-out") {
     Session.set("errorMessage", "Please log in to post a comment.");
   }
@@ -147,7 +154,7 @@ console.log(error.details !== "");
 /**
  * From Methods, Meteor.call section
  */
-Meteor.call('foo', 1, 2, function (error, result) {} );
+Meteor.call('foo', 1, 2, function (error:any, result:any) {} );
 var result = Meteor.call('foo', 1, 2);
 
 /**
@@ -164,7 +171,7 @@ interface MessagesDAO {
 var Chatrooms = new Mongo.Collection<ChatroomsDAO>("chatrooms");
 Messages = new Mongo.Collection<MessagesDAO>("messages");
 
-var myMessages = <MessagesDAO> Messages.find({userId: Session.get('myUserId')}).fetch();
+var myMessages:any[] = Messages.find({userId: Session.get('myUserId')}).fetch();
 
 Messages.insert({text: "Hello, world!"});
 
@@ -186,17 +193,15 @@ Posts.insert({title: "Hello world", body: "First post"});
  assert(Scratchpad.find({number: {$lt: 9}}).count() === 5);
  **/
 
-var Animal = function (doc) {
-//  _.extend(this, doc);
-};
+class Animal {
+    private sound:string;
+    constructor(doc:any) {
 
-// DA: I altered this to remove dependencies on Underscore
-Animal.prototype = {
-  makeNoise: function () {
-    console.log(this.sound);
-  }
-};
-
+    }
+    makeNoise() {
+      console.log(this.sound)
+    }
+}
 
 interface AnimalDAO {
   _id?: string;
@@ -207,7 +212,7 @@ interface AnimalDAO {
 
 // Define a Collection that uses Animal as its document
 var Animals = new Mongo.Collection<AnimalDAO>("Animals", {
-  transform: function (doc) { return new Animal(doc); }
+  transform: function (doc:any): Animal { return new Animal(doc); }
 });
 
 // Create an Animal and call its makeNoise method
@@ -280,15 +285,15 @@ interface iPost {
 Posts = new Mongo.Collection<iPost>("posts");
 
 Posts.allow({
-  insert: function (userId, doc: iPost) {
+  insert: function (userId:string, doc: iPost) {
     // the user must be logged in, and the document must be owned by the user
     return (userId && doc.owner === userId);
   },
-  update: function (userId, doc: iPost, fields, modifier) {
+  update: function (userId:string, doc: iPost, fields:string[], modifier:any) {
     // can only change your own documents
     return doc.owner === userId;
   },
-  remove: function (userId, doc: iPost) {
+  remove: function (userId:string, doc: iPost) {
     // can only remove your own documents
     return doc.owner === userId;
   },
@@ -296,11 +301,11 @@ Posts.allow({
 });
 
 Posts.deny({
-  update: function (userId, doc: iPost, fields, modifier) {
+  update: function (userId:string, doc: iPost, fields:string[], modifier:any) {
     // can't change owners
     return doc.userId !== userId;
   },
-  remove: function (userId, doc: iPost) {
+  remove: function (userId:string, doc: iPost) {
     // can't remove locked documents
     return doc.locked;
   },
@@ -312,7 +317,7 @@ Posts.deny({
  */
 var topPosts = Posts.find({}, {sort: {score: -1}, limit: 5});
 var count = 0;
-topPosts.forEach(function (post) {
+topPosts.forEach(function (post:{title:string}) {
   console.log("Title of post " + count + ": " + post.title);
   count += 1;
 });
@@ -326,7 +331,7 @@ var Users = new Mongo.Collection('users');
 var count1 = 0;
 var query = Users.find({admin: true, onlineNow: true});
 var handle = query.observeChanges({
-  added: function (id, user) {
+  added: function (id:string, user:{name:string}) {
     count1++;
     console.log(user.name + " brings the total to " + count1 + " admins.");
   },
@@ -364,7 +369,7 @@ Session.set("enemy", "Eurasia");
 /**
  * From Sessions, Session.equals section
  */
-var value;
+var value: string;
 Session.get("key") === value;
 Session.equals("key", value);
 
@@ -383,7 +388,7 @@ Meteor.users.deny({update: function () { return true; }});
  */
 Meteor.loginWithGithub({
   requestPermissions: ['user', 'public_repo']
-}, function (err) {
+}, function (err: Meteor.Error) {
   if (err)
     Session.set('errorMessage', err.reason || 'Unknown error');
 });
@@ -405,20 +410,20 @@ Accounts.ui.config({
 /**
  * From Accounts, Accounts.validateNewUser section
  */
-Accounts.validateNewUser(function (user) {
+Accounts.validateNewUser(function (user:{username:string}) {
   if (user.username && user.username.length >= 3)
     return true;
   throw new Meteor.Error("403", "Username must have at least 3 characters");
 });
 // Validate username, without a specific error message.
-Accounts.validateNewUser(function (user) {
+Accounts.validateNewUser(function (user:{username:string}) {
   return user.username !== "root";
 });
 
 /**
  * From Accounts, Accounts.onCreateUser section
  */
-Accounts.onCreateUser(function(options, user) {
+Accounts.onCreateUser(function(options:{profile:any}, user:{profile:any, dexterity:number}) {
   var d6 = function () { return Math.floor(Math.random() * 6) + 1; };
   user.dexterity = d6() + d6() + d6();
   // We still want the default hook's 'profile' behavior.
@@ -432,10 +437,10 @@ Accounts.onCreateUser(function(options, user) {
  */
 Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
-Accounts.emailTemplates.enrollAccount.subject = function (user) {
+Accounts.emailTemplates.enrollAccount.subject = function (user:{ profile:{name: string} }) {
   return "Welcome to Awesome Town, " + user.profile.name;
 };
-Accounts.emailTemplates.enrollAccount.text = function (user, url) {
+Accounts.emailTemplates.enrollAccount.text = function (user:any, url:string) {
   return "You have been selected to participate in building a better future!"
       + " To activate your account, simply click the link below:\n\n"
       + url;
@@ -485,13 +490,13 @@ var body = Template.body;
  */
 var Chats = new Mongo.Collection('chats');
 
-Meteor.publish("chats-in-room", function (roomId) {
+Meteor.publish("chats-in-room", function (roomId:string) {
   // Make sure roomId is a string, not an arbitrary mongo selector object.
   check(roomId, String);
   return Chats.find({room: roomId});
 });
 
-Meteor.methods({addChat: function (roomId, message) {
+Meteor.methods({addChat: function (roomId:string, message:{text:string, timestamp:Date, tags:string}) {
   check(roomId, String);
   check(message, {
     text: String,
@@ -552,7 +557,7 @@ var getWeather = function () {
   return weather;
 };
 
-var setWeather = function (w) {
+var setWeather = function (w:string) {
   weather = w;
   // (could add logic here to only call changed()
   // if the new value is different from the old)
@@ -562,7 +567,7 @@ var setWeather = function (w) {
 /**
  * From HTTP, HTTP.call section
  */
-Meteor.methods({checkTwitter: function (userId) {
+Meteor.methods({checkTwitter: function (userId:string) {
   check(userId, String);
   this.unblock();
   var result = HTTP.call("GET", "http://api.twitter.com/xyz",
@@ -575,7 +580,7 @@ Meteor.methods({checkTwitter: function (userId) {
 
 HTTP.call("POST", "http://api.twitter.com/xyz",
     {data: {some: "json", stuff: 1}},
-    function (error, result) {
+    function (error: Meteor.Error, result:any) {
       if (result.statusCode === 200) {
         Session.set("twizzled", true);
       }
@@ -585,7 +590,7 @@ HTTP.call("POST", "http://api.twitter.com/xyz",
  * From Email, Email.send section
  */
 Meteor.methods({
-  sendEmail: function (to, from, subject, text) {
+  sendEmail: function (to:string, from:string, subject:string, text:string) {
     check([to, from, subject, text], [String]);
 
     // Let other method calls from the same client start running,
@@ -617,7 +622,57 @@ Blaze.toHTMLWithData(testView, {test: 1});
 Blaze.toHTMLWithData(testView, function() {});
 
 var reactiveVar1 = new ReactiveVar<string>('test value');
-var reactiveVar2 = new ReactiveVar<string>('test value', function(oldVal) { return true; });
+var reactiveVar2 = new ReactiveVar<string>('test value', function(oldVal:any) { return true; });
 
 var varValue: string = reactiveVar1.get();
 reactiveVar1.set('new value');
+
+// Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8233
+var isConfigured: boolean = Accounts.loginServicesConfigured();
+Accounts.onPageLoadLogin(function() {
+  // do something
+});
+
+// Covers this PR:  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/8065
+var loginOpts: Meteor.LoginWithExternalServiceOptions = {
+  requestPermissions: ["a", "b"],
+  requestOfflineToken: true,
+  loginUrlParameters: {asdf: 1, qwer: "1234"},
+  loginHint: "Help me",
+  loginStyle: "Bold and powerful",
+  redirectUrl: "popup",
+  profile: "asdfasdf",
+  email: "asdf@ASDf.com"
+};
+Meteor.loginWithMeteorDeveloperAccount(loginOpts, function(error: Meteor.Error) {});
+
+Accounts.emailTemplates.siteName = "AwesomeSite";
+Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
+Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
+
+Accounts.emailTemplates.enrollAccount.subject = function (user) {
+  return "Welcome to Awesome Town, " + user.profile.name;
+};
+Accounts.emailTemplates.enrollAccount.html = function (user, url) {
+  return "<h1>Some html here</h1>";
+};
+Accounts.emailTemplates.enrollAccount.from = function() {
+  return "asdf@asdf.com";
+};
+Accounts.emailTemplates.enrollAccount.text = function (user, url) {
+  return "You have been selected to participate in building a better future!"
+        + " To activate your account, simply click the link below:\n\n"
+        + url;
+};
+
+var handle = Accounts.validateLoginAttempt(function(attemptInfoObject: Accounts.IValidateLoginAttemptCbOpts) {
+  var type: string = attemptInfoObject.type;
+  var allowed: boolean = attemptInfoObject.allowed;
+  var error: Meteor.Error = attemptInfoObject.error;
+  var user: Meteor.User = attemptInfoObject.user;
+  var connection: Meteor.Connection = attemptInfoObject.connection;
+  var methodName: string = attemptInfoObject.methodName;
+  var methodArguments: any[] = attemptInfoObject.methodArguments;
+  return true;
+});
+handle.stop();

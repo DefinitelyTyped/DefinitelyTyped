@@ -1,6 +1,10 @@
 /// <reference path="pg.d.ts" />
-import pg = require("pg");
+import * as pg from "pg";
+
 var conString = "postgres://username:password@localhost/database";
+
+// https://github.com/brianc/node-pg-types
+pg.types.setTypeParser(20, (val) => Number(val));
 
 // Client pooling
 pg.connect(conString, (err, client, done) => {
@@ -8,9 +12,12 @@ pg.connect(conString, (err, client, done) => {
         return console.error("Error fetching client from pool", err);
     }
     client.query("SELECT $1::int AS number", ["1"], (err, result) => {
-        done();
         if (err) {
+            done(err);
             return console.error("Error running query", err);
+        }
+        else {
+            done();
         }
         console.log(result.rows[0]["number"]);
         return null;

@@ -1,7 +1,7 @@
 // Type definitions for hello.js 0.2.3 
 // Project: http://adodson.com/hello.js/
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HelloJSLoginOptions {
     redirect_uri?: string;

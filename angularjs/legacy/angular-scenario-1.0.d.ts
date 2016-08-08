@@ -1,9 +1,9 @@
 // Type definitions for Angular Scenario Testing 1.0 (ngScenario module)
 // Project: http://angularjs.org
 // Definitions by: RomanoLindano <https://github.com/RomanoLindano>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module angularScenario {
+declare namespace angularScenario {
     export interface AngularModel {
         scenario: any;
     }
@@ -46,25 +46,25 @@ declare module angularScenario {
         reload(): void;
         window(): testWindow;
         location(): testLocation;
-    }    
-    
+    }
+
     export interface Matchers {
         toEqual(value: any): void;
-        toBe(value: any): void;    
-        toBeDefined(): void;    
-        toBeTruthy(): void;            
-        toBeFalsy(): void;    
-        toMatch(regularExpression: any): void;    
-        toBeNull(): void;    
+        toBe(value: any): void;
+        toBeDefined(): void;
+        toBeTruthy(): void;
+        toBeFalsy(): void;
+        toMatch(regularExpression: any): void;
+        toBeNull(): void;
         toContain(value: any): void;
-        toBeLessThan(value: any): void;    
-        toBeGreaterThan(value: any): void;    
+        toBeLessThan(value: any): void;
+        toBeGreaterThan(value: any): void;
     }
 
-    export interface CustomMatchers extends Matchers{        
+    export interface CustomMatchers extends Matchers{
     }
 
-    export interface Expect extends CustomMatchers {        
+    export interface Expect extends CustomMatchers {
         not(): angularScenario.CustomMatchers;
     }
 
@@ -92,7 +92,7 @@ declare module angularScenario {
     export interface Select {
         option(value: any): any;
         option(...listOfValues: any[]): any;
-    }    
+    }
 
     export interface Element {
         count(): Future;
@@ -111,7 +111,7 @@ declare module angularScenario {
         scrollLeft(): Future;
         scrollTop(): Future;
         offset(): Future;
-        
+
         val(value: any): void;
         text(value: any): void;
         html(value: any): void;

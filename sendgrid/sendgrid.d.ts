@@ -1,9 +1,9 @@
 ﻿// Type definitions for sendgrid 1.1.0
 // Project: https://github.com/sendgrid/sendgrid-nodejs
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Sendgrid {
+declare namespace Sendgrid {
     //#region Options
 
     export interface UriParts {

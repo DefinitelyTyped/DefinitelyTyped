@@ -1,10 +1,10 @@
 // Type definitions for yeoman-generator
 // Project: https://github.com/yeoman/generator
 // Definitions by: Kentaro Okuno <http://github.com/armorik83>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
-declare module yo {
+declare namespace yo {
     export interface IYeomanGenerator {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
@@ -46,12 +46,12 @@ declare module yo {
         runHooks(callback?: Function): void;
         sourceRoot(rootPath?: string): string;
         templatePath(...path: string[]): string;
-        addListener(event: string, listener: Function): NodeJS.EventEmitter;
-        on(event: string, listener: Function): NodeJS.EventEmitter;
-        once(event: string, listener: Function): NodeJS.EventEmitter;
-        removeListener(event: string, listener: Function): NodeJS.EventEmitter;
-        removeAllListeners(event?: string): NodeJS.EventEmitter;
-        setMaxListeners(n: number): NodeJS.EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
         getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -225,7 +225,7 @@ declare module yo {
     var test: ITestHelper;
 
     // "generators" is deprecated
-    module generators {
+    namespace generators {
 
         export class NamedBase extends YeomanGeneratorBase implements INamedBase {
             constructor(args: string | string[], options: any);

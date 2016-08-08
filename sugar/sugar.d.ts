@@ -1,7 +1,7 @@
 ﻿// Type definitions for Sugar 1.3.9
 // Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
@@ -3405,7 +3405,7 @@ interface Object {
 	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
 	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
 	**/
-	extended(): Object;
+	extended(obj?: any): Object;
 
 	/**
 	* Returns true if <obj> is an object of that type.

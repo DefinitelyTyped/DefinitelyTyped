@@ -1,11 +1,11 @@
 // Type definitions for easy-session
 // Project: https://github.com/DeadAlready/node-easy-session
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     interface ErrorCallback {
         (err?: any): void;
     }

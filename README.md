@@ -22,7 +22,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 ## How to get the definitions
 
-* Directly from the Github repos
+* Directly from the GitHub repos
 * [NuGet packages](http://nuget.org/packages?q=DefinitelyTyped)
 * [TypeScript Definition manager](https://github.com/DefinitelyTyped/tsd)
 
@@ -32,7 +32,7 @@ Please see the [contribution guide](http://definitelytyped.org/guides/contributi
 
 ## Requested definitions
 
-Here is are the [currently requested definitions](https://github.com/borisyankov/DefinitelyTyped/labels/Definition%3ARequest).
+Here is are the [currently requested definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/labels/Definition%3ARequest).
 
 ## License
 

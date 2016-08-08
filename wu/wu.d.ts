@@ -1,9 +1,9 @@
 // Type definitions for wu.js v2.1.0
 // Project: https://fitzgen.github.io/wu.js/
 // Definitions by: phiresky <https://github.com/phiresky/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Wu {
+declare namespace Wu {
 	type Consumer<T> = (t: T) => void;
 	type Filter<T> = (t: T) => boolean;
 
@@ -66,7 +66,7 @@ declare module Wu {
 	export interface WuIterable<T> extends IterableIterator<T> {
 		// generated from section "copied to WuIterable" above via
 		// sed -r 's/(, )?iter: Iterable<\w+>//' |
-		// sed -r 's/^(\s+\w+)<T>/\1/' | 
+		// sed -r 's/^(\s+\w+)<T>/\1/' |
 		// sed -r 's/^(\s+\w+)<T, /\1</'
 		asyncEach<T>(fn: Consumer<T>, maxBlock?: number, timeout?: number): any;
 		drop(n: number): WuIterable<T>;

@@ -1,7 +1,7 @@
 ﻿// Type definitions for Knockout Deferred Updates
 // Project: https://github.com/mbest/knockout-deferred-updates
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 

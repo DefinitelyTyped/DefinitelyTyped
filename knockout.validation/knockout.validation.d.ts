@@ -1,7 +1,7 @@
 // Type definitions for Knockout Validation
 // Project: https://github.com/ericmbarnard/Knockout-Validation
 // Definitions by: Dan Ludwig <https://github.com/danludwig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 

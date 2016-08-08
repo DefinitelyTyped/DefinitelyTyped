@@ -1,89 +1,287 @@
 // Type definitions for pikaday
 // Project: https://github.com/dbushell/Pikaday
 // Definitions by: Rudolph Gottesheim <http://midnight-design.at/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../moment/moment.d.ts" />
 
-interface PikadayI18nConfig {
-    previousMonth: string;
-    nextMonth: string;
-    months: string[];
-    weekdays: string[];
-    weekdaysShort: string[];
-}
-
-interface PikadayOptions {
-    field?: HTMLElement;
-    format?: string;
-    trigger?: HTMLElement;
-    bound?: boolean;
-    position?: string;
-    reposition?: boolean;
-    container?: HTMLElement;
-    defaultDate?: Date;
-    setDefaultDate?: boolean;
-    firstDay?: number;
-    minDate?: Date;
-    maxDate?: Date;
-    disableWeekends?: boolean;
-    disableDayFn?: (date:Date) => boolean;
-    yearRange?: number[];
-    showWeekNumber?: boolean;
-    isRTL?: boolean;
-    i18n?: PikadayI18nConfig;
-    yearSuffix?: string;
-    showMonthAfterYear?: boolean;
-    numberOfMonths?: number;
-    mainCalendar?: string;
-    theme?: string;
-    onSelect?: (date:Date) => void;
-    onOpen?: () => void;
-    onClose?: () => void;
-    onDraw?: () => void;
-}
-
 declare class Pikaday {
-    el:HTMLElement;
+    el: HTMLElement;
 
-    constructor(options:PikadayOptions);
+    constructor(options: Pikaday.PikadayOptions);
 
-    toString():string;
-    toString(format:string):string;
+    /**
+     * Returns the selected date in a string format. If Moment.js exists
+     * (recommended) then Pikaday can return any format that Moment
+     * understands, otherwise you're stuck with JavaScript's default.
+     */
+    toString(format?: string): string;
 
-    getDate():Date|void;
+    /**
+     * Returns a JavaScript Date object for the selected day, or null if
+     * no date is selected.
+     */
+    getDate(): Date;
 
-    setDate(date:string|Date, triggerOnSelect?:boolean):void;
+    /**
+     * Set the current selection. This will be restricted within the bounds
+     * of minDate and maxDate options if they're specified. A boolean (true)
+     * can optionally be passed as the second parameter to prevent triggering
+     * of the onSelect callback, allowing the date to be set silently.
+     */
+    setDate(date: string | Date, triggerOnSelect?: boolean): void;
 
-    getMoment():moment.Moment;
+    /**
+     * Returns a Moment.js object for the selected date (Moment must be
+     * loaded before Pikaday).
+     */
+    getMoment(): moment.Moment;
 
-    setMoment(moment:any):void;
+    /**
+     * Set the current selection with a Moment.js object (see setDate).
+     */
+    setMoment(moment: any): void;
 
-    gotoDate(date:Date):void;
+    /**
+     * Change the current view to see a specific date.
+     */
+    gotoDate(date: Date): void;
 
-    gotoToday():void;
+    /**
+     * Shortcut for picker.gotoDate(new Date())
+     */
+    gotoToday(): void;
 
-    gotoMonth(monthIndex:number):void;
+    /**
+     * Change the current view by month (0: January, 1: Februrary, etc).
+     */
+    gotoMonth(monthIndex: number): void;
 
-    gotoYear(year:number):void;
+    /**
+     * Go to the next month (this will change year if necessary).
+     */
+    nextMonth(): void;
 
-    nextMonth():void;
+    /**
+     * Go to the previous month (this will change year if necessary).
+     */
+    prevMonth(): void;
 
-    prevMonth():void;
+    /**
+     * Change the year being viewed.
+     */
+    gotoYear(year: number): void;
 
-    gogoYear(year:number):void;
+    /**
+     * Update the minimum/earliest date that can be selected.
+     */
+    setMinDate(date: Date): void;
 
-    setMinDate(date:Date):void;
+    /**
+     * Update the maximum/latest date that can be selected.
+     */
+    setMaxDate(date: Date): void;
 
-    setMaxDate(date:Date):void;
+    /**
+     * Update the range start date. For using two Pikaday instances to
+     * select a date range.
+     */
+    setStartRange(date: Date): void;
 
-    isVisible():boolean;
+    /**
+     * Update the range end date. For using two Pikaday instances to select
+     * a date range.
+     */
+    setEndRange(date: Date): void;
 
-    show():void;
+    /**
+     * Returns true if the picker is visible.
+     */
+    isVisible(): boolean;
 
-    hide():void;
+    /**
+     * Make the picker visible.
+     */
+    show(): void;
 
-    adjustPosition():void;
+    /**
+     * Hide the picker making it invisible.
+     */
+    hide(): void;
 
-    destroy():void;
+    /**
+     * Recalculate and change the position of the picker.
+     */
+    adjustPosition(): void;
+
+    /**
+     * Hide the picker and remove all event listeners - no going back!
+     */
+    destroy(): void;
+}
+
+// merge the Pikaday class declaration with a module
+declare namespace Pikaday {
+    interface PikadayI18nConfig {
+        previousMonth: string;
+        nextMonth: string;
+        months: string[];
+        weekdays: string[];
+        weekdaysShort: string[];
+    }
+
+    interface PikadayOptions {
+        /**
+         * Bind the datepicker to a form field.
+         */
+        field?: HTMLElement;
+
+        /**
+         * The default output format for toString() and field value.
+         * Requires Moment.js for custom formatting.
+         */
+        format?: string;
+
+        /**
+         * Use a different element to trigger opening the datepicker.
+         * Default: field element.
+         */
+        trigger?: HTMLElement;
+
+        /**
+         * Automatically show/hide the datepicker on field focus.
+         * Default: true if field is set.
+         */
+        bound?: boolean;
+
+        /**
+         * Preferred position of the datepicker relative to the form field
+         * (e.g. 'top right'). Automatic adjustment may occur to avoid
+         * displaying outside the viewport. Default: 'bottom left'.
+         */
+        position?: string;
+
+        /**
+         * Can be set to false to not reposition the datepicker within the
+         * viewport, forcing it to take the configured position. Default: true.
+         */
+        reposition?: boolean;
+
+        /**
+         * DOM node to render calendar into, see container example.
+         * Default: undefined.
+         */
+        container?: HTMLElement;
+
+        /**
+         * The initial date to view when first opened.
+         */
+        defaultDate?: Date;
+
+        /**
+         * Make the defaultDate the initial selected value.
+         */
+        setDefaultDate?: boolean;
+
+        /**
+         * First day of the week (0: Sunday, 1: Monday, etc).
+         */
+        firstDay?: number;
+
+        /**
+         * The earliest date that can be selected (this should be a native
+         * Date object - e.g. new Date() or moment().toDate()).
+         */
+        minDate?: Date;
+
+        /**
+         * The latest date that can be selected (this should be a native
+         * Date object - e.g. new Date() or moment().toDate()).
+         */
+        maxDate?: Date;
+
+        /**
+         * Disallow selection of Saturdays and Sundays.
+         */
+        disableWeekends?: boolean;
+
+        /**
+         * Callback function that gets passed a Date object for each day
+         * in view. Should return true to disable selection of that day.
+         */
+        disableDayFn?: (date: Date) => boolean;
+
+        /**
+         * Number of years either side (e.g. 10) or array of upper/lower range
+         * (e.g. [1900, 2015]).
+         */
+        yearRange?: number | number[];
+
+        /**
+         * Show the ISO week number at the head of the row. Default: false.
+         */
+        showWeekNumber?: boolean;
+
+        /**
+         * Reverse the calendar for right-to-left languages. Default: false.
+         */
+        isRTL?: boolean;
+
+        /**
+         * Language defaults for month and weekday names.
+         */
+        i18n?: PikadayI18nConfig;
+
+        /**
+         * Additional text to append to the year in the title.
+         */
+        yearSuffix?: string;
+
+        /**
+         * Render the month after the year in the title. Default: false.
+         */
+        showMonthAfterYear?: boolean;
+
+        /**
+         * Number of visible calendars.
+         */
+        numberOfMonths?: number;
+
+        /**
+         * When numberOfMonths is used, this will help you to choose where the
+         * main calendar will be (default left, can be set to right). Only used
+         * for the first display or when a selected date is not already visible.
+         */
+        mainCalendar?: string;
+
+        /**
+         * Define a class name that can be used as a hook for styling different
+         * themes. Default: null.
+         */
+        theme?: string;
+
+        /**
+         * Callback function for when a date is selected.
+         */
+        onSelect?: (date: Date) => void;
+
+        /**
+         * Callback function for when the picker becomes visible.
+         */
+        onOpen?: () => void;
+
+        /**
+         * Callback function for when the picker is hidden.
+         */
+        onClose?: () => void;
+
+        /**
+         * Callback function for when the picker draws a new month.
+         */
+        onDraw?: () => void;
+    }
+}
+
+declare module "pikaday" {
+    export = Pikaday;
 }

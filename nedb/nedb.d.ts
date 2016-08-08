@@ -1,7 +1,7 @@
 // Type definitions for NeDB
 // Project: https://github.com/louischatriot/nedb
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "nedb" {
 
@@ -152,7 +152,7 @@ declare module "nedb" {
     export = NeDBDataStore;
 }
 
-declare module NeDB {
+declare namespace NeDB {
 
     interface Cursor<T> {
         sort(query:any):Cursor<T>;
