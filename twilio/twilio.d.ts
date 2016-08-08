@@ -39,8 +39,6 @@ export namespace twilio {
   // validateRequest
   // validateExpressRequest
 
-
-
   /// ???
   export interface GrantPayload {}
 
@@ -180,7 +178,7 @@ export namespace twilio {
   }
 
   /// MonitorClient.js
-  export class MonitorClient extends Client implements EventResource, AlertResource {
+  export class MonitorClient extends Client {
     events: EventResource;
     alerts: AlertResource;
 
@@ -197,7 +195,9 @@ export namespace twilio {
   }
 
   /// RestClient.js
-  export class RestClient extends Client implements AccountResource {
+  export class RestClient extends Client {
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+
     accounts: AccountResource;
 
     // Imported from AccountResource
@@ -229,19 +229,17 @@ export namespace twilio {
     list: RestMethod;
 
     // Messaging shorthand
-    // TODO Pull in proper method signatures here!
-    sendSms();
-    sendMms();
-    sendMessage();
-    listSms();
-    listMessages();
+    sendSms: RestMethod;
+    sendMms: RestMethod;
+    sendMessage: RestMethod;
+    listSms: RestMethod;
+    listMessages: RestMethod;
     getSms(messageSid: string, callback?: RequestCallback): Q.Promise<any>;
     getMessage(messageSid: string, callback?: RequestCallback): Q.Promise<any>;
 
     // Calls shorthand
-    // TODO Pull in proper method signatures here!
-    makeCall();
-    listCalls();
+    makeCall(): RestMethod;
+    listCalls(): RestMethod;
     getCall(callSid: string, callback?: RequestCallback): Q.Promise<any>;
 
     // Overrides Client.request(...)
@@ -249,19 +247,12 @@ export namespace twilio {
   }
 
   /// TaskRouterCapability.js
-  export interface QueryFilter {
-    // TODO Populate me!
-  }
-
-  export interface PostFilter {
-    // TODO Populate me!
-  }
 
   export interface Policy {
     url: string;
     method: string;
-    query_filter?: QueryFilter;
-    post_filter?: PostFilter;
+    query_filter?: any; // Map<string, FilterRequirement>, where FilterRequirement ::= Map<string, boolean>
+    post_filter?: any; // Map<string, FilterRequirement>, where FilterRequirement ::= Map<string, boolean>
     allow: boolean;
   }
 
@@ -290,14 +281,14 @@ export namespace twilio {
     allowWorkerFetchAttributes(): void;
     allowTaskReservationUpdates(): void;
     
-    addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
-    allow(url: string, method: string, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
-    deny(url: string, method: string, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
+    addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: any, postFilter?: any): void;
+    allow(url: string, method: string, queryFilter?: any, postFilter?: any): void;
+    deny(url: string, method: string, queryFilter?: any, postFilter?: any): void;
     generate(ttl: number): string;
   }
 
   /// TaskRouterClient.js
-  export class TaskRouterClient extends Client implements WorkspaceResource {
+  export class TaskRouterClient extends Client {
     workspaces: WorkspaceResource;
     workspace: WorkspaceResource;
 
@@ -1174,6 +1165,207 @@ export namespace twilio {
   }
 
   /// resources/task_router/Workspaces.js
-  
+  export interface WorkspaceActivityInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceActivityResource {
+    (resourceSid: string): WorkspaceActivityInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface WorkspaceEventInstance {
+    get: RestMethod;
+  }
+
+  export interface WorkspaceEventResource {
+    (resourceSid: string): WorkspaceEventInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface WorkspaceTaskReservationInstance {
+    get: RestMethod;
+    post: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceTaskReservationResource {
+    (resourceSid: string): WorkspaceTaskReservationInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface WorkspaceTaskInstance {
+    reservations: WorkspaceTaskReservationResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceTaskResource {
+    (resourceSid: string): WorkspaceTaskInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface WorkspaceInstanceStatisticResource {
+    get: RestMethod;
+  }
+
+  export interface WorkspaceStatisticResource {
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface WorkspaceTaskQueueInstance {
+    statistics: WorkspaceInstanceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceTaskQueueResource {
+    (resourceSid: string): WorkspaceTaskQueueInstance;
+
+    statistics: WorkspaceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface WorkspaceWorkerReservationInstance {
+    get: RestMethod;
+    post: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceWorkerReservationResource {
+    (resourceSid: string): WorkspaceWorkerReservationInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface WorkspaceWorkerInstance {
+    statistics: WorkspaceInstanceStatisticResource;
+    reservations: WorkspaceWorkerReservationResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceWorkerResource {
+    (resourceSid: string): WorkspaceWorkerInstance;
+
+    statistics: WorkspaceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface WorkspaceWorkflowInstance {
+    statistics: WorkspaceInstanceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceWorkflowResource {
+    (resourceSid: string): WorkspaceWorkflowInstance;
+
+    statistics: WorkspaceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface WorkspaceInstance {
+    activities: WorkspaceActivityResource;
+    events: WorkspaceEventResource;
+    tasks: WorkspaceTaskResource;
+    taskQueues: WorkspaceTaskQueueResource;
+    workers: WorkspaceWorkerResource;
+    workflows: WorkspaceWorkflowResource;
+
+    statistics: WorkspaceInstanceStatisticResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface WorkspaceResource {
+    (resourceSid: string): WorkspaceInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  /// resources/trunking/Trunks.js
+  export interface OriginationURLInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface OriginationURLResource {
+    (resourceSid: string): OriginationURLInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface TrunkInstance {
+    ipAccessControlLists: IPAccessControlListResource;
+    credentialLists: CredentialListResource;
+    phoneNumbers:  PhoneNumberResource;
+    originationUrls: OriginationURLResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface TrunkResource {
+    (resourceSid: string): TrunkInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
 
 }
