@@ -1,6 +1,6 @@
 // Type definitions for scriptjs
 // Project: https://github.com/ded/script.js
-// Definitions by: ssttevee
+// Definitions by: Steve Lam <http://ssttevee.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface $script {
