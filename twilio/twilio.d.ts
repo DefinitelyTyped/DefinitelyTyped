@@ -514,9 +514,9 @@ export namespace twilio {
   }
 
   export interface SIPIntermediary {
-    domains: SIPDomainResource;
-    ipAccessControlLists: SIPIPAccessControlListResource;
-    credentialLists: SIPCredentialListResource;
+    domains: DomainResource;
+    ipAccessControlLists: IPAccessControlListResource;
+    credentialLists: CredentialListResource;
   }
 
   export interface KeyInstance {
@@ -958,5 +958,222 @@ export namespace twilio {
   }
 
   /// resources/monitor/Events.js
+  export interface EventInstance {
+    get: RestMethod;
+  }
+
+  export interface EventResource {
+    (resourceSid: string): EventInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/pricing/Messaging.js
+  export interface CountryInstance {
+    get: RestMethod;
+  }
+
+  export interface CountryResource {
+    (resourceSid: string): CountryInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface MessagingResource {
+    countries: CountryResource;
+  }
+
+  /// resources/pricing/PhoneNumbers.js
+  export interface PhoneNumberResource {
+    countries: CountryResource;
+  }
+
+  /// resources/pricing/Voice.js
+  export interface NumberInstance {
+    get: RestMethod;
+  }
+
+  export interface NumberResource {
+    (resourceSid: string): NumberInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface VoiceResource {
+    countries: CountryResource;
+    numbers: NumberResource;
+  }
+
+  /// resources/sip/CredentialLists.js
+  export interface CredentialListInstance {
+    credentials: CredentialResource;
+    
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface CredentialListResource {
+    (resourceSid: string): CredentialListInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/sip/Domains.js
+  export interface IPAccessControlListMappingInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface IPAccessControlListMappingResource {
+    (resourceSid: string): IPAccessControlListMappingInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface CredentialListMappingInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface CredentialListMappingResource {
+    (resourceSid: string): CredentialListMappingInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface DomainInstance {
+    ipAccessControlListMappings: IPAccessControlListMappingResource;
+    credentialListMappings: CredentialListMappingResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface DomainResource {
+    (resourceSid: string): DomainInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/sip/IpAccessControlLists.js
+  export interface IPAddressInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface IPAddressResource {
+    (resourceSid: string): IPAddressInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    list: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface IPAccessControlListInstance {
+    ipAddresses: IPAddressResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface IPAccessControlListResource {
+    (resourceSid: string): IPAccessControlListInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/task_router/WorkflowBuilder.js
+  export interface WorkflowRuleTargetOptions {
+    queue: string;
+    expression?: string;
+    priority?: number;
+    timeout?: number;
+  }
+
+  export class WorkflowRuleTarget {
+    queue: string;
+    expression: string;
+    priority: number;
+    timeout: number;
+
+    constructor(options?: WorkflowRuleTargetOptions);
+  }
+
+  export interface WorkflowRuleOptions {
+    expression: string;
+    targets: Array<WorkflowRuleTargetOptions>;
+    // Don't ask me why, but all of these are supported options.
+    friendly_name?: string;
+    friendlyName?: string;
+    filter_friendly_name?: string;
+  }
+
+  export class WorkflowRule {
+    friendly_name: string;
+    expression: string;
+    targets: Array<WorkflowRuleTarget>;
+    friendlyName: string; // Defined property mapped to friendly_name.
+
+    constructor(options?: WorkflowRuleOptions);
+  }
+
+  export interface TaskRoutingConfigurationOptions {
+    filters: Array<WorkflowRuleOptions>;
+    default_filter?: WorkflowRuleOptions;
+    defaultFilter?: WorkflowRuleOptions;
+  }
+
+  export class TaskRoutingConfiguration {
+    filters: Array<WorkflowRule>;
+    default_filter: WorkflowRuleOptions;
+    defaultFilter: WorkflowRuleOptions; // Defined property mapped to default_filter.
+
+    constructor(options?: TaskRoutingConfigurationOptions);
+  }
+
+  export interface WorkflowConfigurationOptions {
+    task_routing?: TaskRoutingConfigurationOptions;
+    taskRouting?: TaskRoutingConfigurationOptions;
+  }
+
+  export class WorkflowConfiguration {
+    task_routing: TaskRoutingConfiguration;
+    taskRouting: TaskRoutingConfiguration; // Defined property mapped to task_routing.
+
+    constructor(options?: WorkflowConfigurationOptions);
+
+    static fromJSON(json: string): WorkflowConfiguration;
+    toJSON(): string;
+  }
+
+  /// resources/task_router/Workspaces.js
   
+
 }
