@@ -4,7 +4,7 @@
 // Tests data initialisation
 ///////////////////////////////////////////
 
-var point1 = {
+var point1: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -13,7 +13,7 @@ var point1 = {
   }
 };
 
-var point2 = {
+var point2: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -22,7 +22,7 @@ var point2 = {
     }
 };
 
-var line = {
+var line: GeoJSON.Feature<GeoJSON.LineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -38,7 +38,7 @@ var line = {
   }
 };
 
-var polygons = {
+var polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -71,7 +71,7 @@ var polygons = {
   ]
 };
 
-var polygon1 = {
+var polygon1: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -86,7 +86,7 @@ var polygon1 = {
   }
 };
 
-var polygon2 = {
+var polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
   "properties": {
     "fill": "#00f"
@@ -106,7 +106,7 @@ var polygon2 = {
   }
 }
 
-var features = {
+var features: GeoJSON.FeatureCollection<GeoJSON.Point> = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -197,7 +197,7 @@ var features = {
   ]
 };
 
-var triangle = {
+var triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
   "properties": {
     "a": 11,

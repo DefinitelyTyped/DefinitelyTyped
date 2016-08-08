@@ -398,7 +398,7 @@ declare namespace FixedDataTable {
     /**
      * Component that defines the attributes of a table column group.
      */
-    export interface ColumnGroupProps {
+    export interface ColumnGroupProps extends __React.Props<ColumnGroup> {
         /**
 	     * The horizontal alignment of the table cell content.
          * 'left', 'center', 'right'

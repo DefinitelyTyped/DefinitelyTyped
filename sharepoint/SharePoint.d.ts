@@ -6946,8 +6946,8 @@ declare namespace SP {
             set_label(value: string): void;
             get_termGuid(): SP.Guid;
             set_termGuid(value: SP.Guid): void;
-            get_wssId(): SP.Guid;
-            set_wssId(value: SP.Guid): void;
+            get_wssId(): number;
+            set_wssId(value: number): void;
         }
 
         export class MobileTaxonomyField extends SP.ClientObject {

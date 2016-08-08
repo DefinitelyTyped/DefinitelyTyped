@@ -2,7 +2,7 @@
 /// <reference path="../react/react.d.ts" />
 
 import * as React from 'react';
-import Helmet from 'react-helmet';
+import * as Helmet from 'react-helmet';
 
 <Helmet title="My Title" />
 

@@ -11,7 +11,7 @@ declare module "nconf" {
 	export var sources: any[];
 
 	export function clear(key: string, callback?: ICallbackFunction): any;
-	export function get (key: string, callback?: ICallbackFunction): any;
+	export function get (key?: string, callback?: ICallbackFunction): any;
 	export function merge(key: string, value: any, callback?: ICallbackFunction): any;
 	export function set (key: string, value: any, callback?: ICallbackFunction): any;
 	export function reset(callback?: ICallbackFunction): any;

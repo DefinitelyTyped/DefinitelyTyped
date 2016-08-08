@@ -23,6 +23,12 @@ declare namespace ReactDayPicker {
         getMonths: (locale: string) => string[];
     }
 
+    interface DayModifiers {
+         selected?: boolean;
+         disabled?: boolean;
+         [name: string]: boolean;
+    }
+
     interface Modifiers {
         [name: string]: (date: Date) => boolean;
     }
@@ -33,6 +39,27 @@ declare namespace ReactDayPicker {
         locale?: string;
         onClick?: React.MouseEventHandler;
     }
+    
+    interface NavbarElementProps extends React.Props<any> {
+        className?: string;
+        previousMonth?: Date;
+        nextMonth?: Date;
+        showPreviousButton?: boolean;
+        showNextButton?: boolean;
+        onPreviousClick(): void;
+        onNextClick(): void;
+        dir?: string;
+        localeUtils?: LocaleUtils;
+        locale?: string;
+
+    }
+    
+    interface WeekdayElementProps extends React.Props<any> {
+        weekday?: number;
+        className?: string;
+        localeUtils?: LocaleUtils;
+        locale?: string;
+    }
 
     interface Props extends React.Props<DayPicker>{
         modifiers?: Modifiers;
@@ -41,18 +68,26 @@ declare namespace ReactDayPicker {
         renderDay?: (date: Date) => number | string | JSX.Element;
         enableOutsideDays?: boolean;
         canChangeMonth?: boolean;
+        disabledDays?: (date: Date) => boolean;
+        fixedWeeks?: boolean;
         fromMonth?: Date;
+        reverseMonths?: boolean;
         toMonth?: Date;
         localeUtils?: LocaleUtils;
         locale?: string;
         captionElement?: React.ReactElement<CaptionElementProps>;
-        onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayTouchTap?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
-        onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: string[]) => any;
+        navbarElement?: React.ReactElement<NavbarElementProps>;
+        weekdayElement?: React.ReactElement<WeekdayElementProps>;
+        onDayClick?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayKeyDown?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseEnter?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseLeave?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayTouchEnd?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
+        onDayTouchStart?: (e: React.SyntheticEvent, day: Date, modifiers: DayModifiers) => any;
         onMonthChange?: (month: Date) => any;
         onCaptionClick?: (e: React.SyntheticEvent, month: Date) => any;
         className?: string;
+        selectedDays?: (date: Date) => boolean;
         style?: React.CSSProperties;
         tabIndex?: number;
     }
