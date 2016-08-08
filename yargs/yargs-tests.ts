@@ -321,3 +321,9 @@ function Argv$reset() {
 		ya.showHelp();
 	}
 }
+
+function Argv$commandDir() {
+	var ya = yargs
+		.commandDir('.')
+		.argv
+}
