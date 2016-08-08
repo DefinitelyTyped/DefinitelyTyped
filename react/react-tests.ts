@@ -23,7 +23,7 @@ import TestUtils = require("react-addons-test-utils");
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
-interface Props extends React.Props<MyComponent> {
+interface Props {
     hello: string;
     world?: string;
     foo: number;
@@ -46,7 +46,7 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-var props: Props = {
+var props: Props & React.ClassAttributes<{}> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
@@ -138,30 +138,37 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-interface SCProps extends React.Props<{}> {
+class ModernComponentNoState extends React.Component<Props, void> {}
+
+interface SCProps {
     foo?: number;
 }
 
-var StatelessComponent = (props: SCProps) => {
+function StatelessComponent(props: SCProps) {
     return React.DOM.div(null, props.foo);
 };
+namespace StatelessComponent {
+    export var displayName = "StatelessComponent";
+    export var defaultProps = { foo: 42 };
+}
 
-// Must explicitly type-annotate to add defaultProps/contextTypes
-var StatelessComponent2: React.StatelessComponent<SCProps> =
-    (props: SCProps) => React.DOM.div(null, props.foo);
+var StatelessComponent2: React.SFC<SCProps> =
+    // props is contextually typed
+    props => React.DOM.div(null, props.foo);
+StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
 };
 
 // React.createFactory
-var factory: React.Factory<Props> =
+var factory: React.CFactory<Props, ModernComponent> =
     React.createFactory(ModernComponent);
-var factoryElement: React.ReactElement<Props> =
+var factoryElement: React.CElement<Props, ModernComponent> =
     factory(props);
 
-var statelessFactory: React.Factory<SCProps> =
+var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.ReactElement<SCProps> =
+var statelessElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -169,34 +176,52 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<any> =
+var domFactory: React.DOMFactory<React.DOMAttributes, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<any> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
     domFactory();
 
 // React.createElement
-var element: React.ReactElement<Props> =
+var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
-var statelessElement: React.ReactElement<SCProps> =
+var elementNoState: React.CElement<Props, ModernComponentNoState> =
+    React.createElement(ModernComponentNoState, props);
+var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
-var domElement: React.ReactHTMLElement =
+var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
 
 // React.cloneElement
-var clonedElement: React.ReactElement<Props> =
-    React.cloneElement(element, props);
-var clonedStatelessElement: React.ReactElement<SCProps> =
-    React.cloneElement(statelessElement, props);
+var clonedElement: React.CElement<Props, ModernComponent> =
+    React.cloneElement(element, { foo: 43 });
+var clonedElement2: React.CElement<Props, ModernComponent> =
+    // known problem: cloning with key or ref requires cast
+    React.cloneElement(element, <React.ClassAttributes<ModernComponent>>{
+        ref: c => c.reset()
+    });
+var clonedElement3: React.CElement<Props, ModernComponent> =
+    React.cloneElement(element, <{ foo: number } & React.Attributes>{
+        key: "8eac7",
+        foo: 55
+    });
+var clonedStatelessElement: React.SFCElement<SCProps> =
+    // known problem: cloning with optional props don't work properly
+    // workaround: cast to actual props type
+    React.cloneElement(statelessElement, <SCProps>{ foo: 44 });
 var clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-var clonedDOMElement: React.ReactHTMLElement =
-    React.cloneElement(domElement);
+var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
+    React.cloneElement(domElement, {
+        className: "clonedElement"
+    });
 
 // React.render
-var component: React.Component<Props, any> =
+var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNoState: ModernComponentNoState =
+    ReactDOM.render(elementNoState, container);
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -215,9 +240,12 @@ domNode = ReactDOM.findDOMNode(domNode);
 // React Elements
 // --------------------------------------------------------------------------
 
-var type = element.type;
+var type: React.ComponentClass<Props> = element.type;
 var elementProps: Props = element.props;
-var key = element.key;
+var key: React.Key = element.key;
+
+var t: React.ReactType;
+var name = typeof t === "string" ? t : t.displayName;
 
 //
 // React Components
@@ -245,12 +273,9 @@ myComponent.reset();
 
 //
 // Refs
-// NB: to infer the correct type for callback refs, your component's Props
-// interface must extend React.Props<T> where T is your component type (or
-// an interface that it implements).
 // --------------------------------------------------------------------------
 
-interface RCProps extends React.Props<RefComponent> {
+interface RCProps {
 }
 
 class RefComponent extends React.Component<RCProps, {}> {
@@ -405,7 +430,8 @@ var mappedChildrenArray: number[] =
     React.Children.map<number>(children, (child) => { return 42; });
 React.Children.forEach(children, (child) => {});
 var nChildren: number = React.Children.count(children);
-var onlyChild = React.Children.only([null, [[["Hallo"], true]], false]);
+var onlyChild: React.ReactElement<any> = React.Children.only(React.DOM.div()); // ok
+onlyChild = React.Children.only([null, [[["Hallo"], true]], false]); // error
 var childrenToArray: React.ReactChild[] = React.Children.toArray(children);
 
 //
@@ -521,7 +547,10 @@ React.createClass({
 //
 // TestUtils addon
 // --------------------------------------------------------------------------
-var node: Element;
+
+var inst: ModernComponent = TestUtils.renderIntoDocument<ModernComponent>(element);
+var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
+
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter" });
@@ -531,6 +560,25 @@ var renderer: React.ShallowRenderer =
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
+
+var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
+    inst, ModernComponent);
+var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
+    inst, ModernComponent);
+
+// ReactTestUtils custom type guards
+
+var emptyElement: React.ReactElement<{}>;
+if (TestUtils.isElementOfType(emptyElement, StatelessComponent)) {
+    emptyElement.props.foo;
+}
+
+var anyInstance: Element | React.Component<any, any>;
+if (TestUtils.isDOMComponent(anyInstance)) {
+    anyInstance.getAttribute("className");
+} else if (TestUtils.isCompositeComponent(anyInstance)) {
+    anyInstance.props;
+}
 
 //
 // TransitionGroup addon

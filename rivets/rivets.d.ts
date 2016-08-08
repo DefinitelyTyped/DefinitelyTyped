@@ -1,11 +1,11 @@
 // Type definitions for rivets
 // Project: http://rivetsjs.com/
 // Definitions by: Trevor Baron <https://github.com/TrevorDev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Rivets {
+declare namespace Rivets {
 
     interface View {
         build(): void;

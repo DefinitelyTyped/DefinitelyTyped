@@ -1,9 +1,7 @@
 // Type definitions for Web MIDI API
 // Project: http://www.w3.org/TR/webmidi/
 // Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {
     /**
@@ -13,7 +11,7 @@ interface Navigator {
     requestMIDIAccess (options?: WebMidi.MidiOptions): Promise<WebMidi.MIDIAccess>;
 }
 
-declare module WebMidi{
+declare namespace WebMidi{
     /**
      * optional settings that may be provided to the requestMIDIAccess request.
      */
@@ -128,4 +126,3 @@ declare module WebMidi{
         port: MIDIPort;
     }
 }
-

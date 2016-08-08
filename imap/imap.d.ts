@@ -5,7 +5,7 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module IMAP {
+declare namespace IMAP {
 
     // The property names of these interfaces match the documentation (where type names were given).
 

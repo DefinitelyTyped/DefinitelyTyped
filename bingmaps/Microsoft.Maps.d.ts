@@ -1,9 +1,9 @@
 ﻿// Type definitions for Microsoft.Maps 7.0
 // Project: http://msdn.microsoft.com/en-us/library/gg427611.aspx
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Microsoft.Maps {
+declare namespace Microsoft.Maps {
 
     export enum AltitudeReference {
         ground,
@@ -67,8 +67,8 @@ declare module Microsoft.Maps {
 
     export class Events {
 
-        static addHandler(target: any, eventName: string, handler: () => void): any;
-        static addThrottledHandler(target: any, eventName: string, handler: () => void, throttleInterval: number): any;
+        static addHandler(target: any, eventName: string, handler: (e: any) => void): any;
+        static addThrottledHandler(target: any, eventName: string, handler: (e: any) => void, throttleInterval: number): any;
         static hasHandler(target: any, eventName: string): boolean;
         static invoke(target: any, eventName: string, args: any): void;
         static removeHandler(handlerId: any): void;
@@ -505,10 +505,21 @@ declare module Microsoft.Maps {
     export interface PositionOptionsErrorCallbackResult {
         internalError: PositionError;
         errorCode:number;
-}
+		}
+    
+    export interface PositionOptionsSuccessCallbackResult {
+        center: Location;
+        position: Position;
+    }
+
     export interface PositionOptions {
         enableHighAccuracy?: boolean;
-        errorCallback?:(result:PositionOptionsErrorCallbackResult)=>void;
+        errorCallback?: (result: PositionOptionsErrorCallbackResult) => void;
+        showAccuracyCircle?: boolean;
+        timeout?: number;
+        updateMapView?: boolean;
+        maximumAge?: number;
+        successCallback?: (result: PositionOptionsSuccessCallbackResult) => void;
     }
 
     export interface PositionCircleOptions {

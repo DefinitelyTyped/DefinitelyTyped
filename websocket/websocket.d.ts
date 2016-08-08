@@ -1,7 +1,7 @@
 // Type definitions for websocket
 // Project: https://github.com/Worlize/WebSocket-Node
 // Definitions by: Paul Loyd <https://github.com/loyd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -151,14 +151,14 @@ declare module "websocket" {
         shutDown(): void;
 
         // Events
-        on(event: string, listener: () => void): server;
-        on(event: 'request', cb: (request: request) => void): server;
-        on(event: 'connect', cb: (connection: connection) => void): server;
-        on(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
-        addListener(event: string, listener: () => void): server;
-        addListener(event: 'request', cb: (request: request) => void): server;
-        addListener(event: 'connect', cb: (connection: connection) => void): server;
-        addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): server;
+        on(event: string, listener: () => void): this;
+        on(event: 'request', cb: (request: request) => void): this;
+        on(event: 'connect', cb: (connection: connection) => void): this;
+        on(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
+        addListener(event: string, listener: () => void): this;
+        addListener(event: 'request', cb: (request: request) => void): this;
+        addListener(event: 'connect', cb: (connection: connection) => void): this;
+        addListener(event: 'close', cb: (connection: connection, reason: number, desc: string) => void): this;
     }
 
     export interface ICookie {
@@ -240,12 +240,12 @@ declare module "websocket" {
         reject(httpStatus?: number, reason?: string): void;
 
         // Events
-        on(event: string, listener: () => void): request;
-        on(event: 'requestAccepted', cb: (connection: connection) => void): request;
-        on(event: 'requestRejected', cb: () => void): request;
-        addListener(event: string, listener: () => void): request;
-        addListener(event: 'requestAccepted', cb: (connection: connection) => void): request;
-        addListener(event: 'requestRejected', cb: () => void): request;
+        on(event: string, listener: () => void): this;
+        on(event: 'requestAccepted', cb: (connection: connection) => void): this;
+        on(event: 'requestRejected', cb: () => void): this;
+        addListener(event: string, listener: () => void): this;
+        addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
+        addListener(event: 'requestRejected', cb: () => void): this;
     }
 
     export interface IMessage {
@@ -288,12 +288,12 @@ declare module "websocket" {
         take(encoding?: string): any;
 
         // Events
-        on(event: string, listener: () => void): IBufferList;
-        on(event: 'advance', cb: (n: number) => void): IBufferList;
-        on(event: 'write', cb: (buf: Buffer) => void): IBufferList;
-        addListener(event: string, listener: () => void): IBufferList;
-        addListener(event: 'advance', cb: (n: number) => void): IBufferList;
-        addListener(event: 'write', cb: (buf: Buffer) => void): IBufferList;
+        on(event: string, listener: () => void): this;
+        on(event: 'advance', cb: (n: number) => void): this;
+        on(event: 'write', cb: (buf: Buffer) => void): this;
+        addListener(event: string, listener: () => void): this;
+        addListener(event: 'advance', cb: (n: number) => void): this;
+        addListener(event: 'write', cb: (buf: Buffer) => void): this;
     }
 
     class connection extends events.EventEmitter {
@@ -430,16 +430,16 @@ declare module "websocket" {
         sendFrame(frame: frame, cb?: (msg: string) => void): void;
 
         // Events
-        on(event: string, listener: () => void): connection;
-        on(event: 'message', cb: (data: IMessage) => void): connection;
-        on(event: 'frame', cb: (frame: frame) => void): connection;
-        on(event: 'close', cb: (code: number, desc: string) => void): connection;
-        on(event: 'error', cb: (err: Error) => void): connection;
-        addListener(event: string, listener: () => void): connection;
-        addListener(event: 'message', cb: (data: IMessage) => void): connection;
-        addListener(event: 'frame', cb: (frame: frame) => void): connection;
-        addListener(event: 'close', cb: (code: number, desc: string) => void): connection;
-        addListener(event: 'error', cb: (err: Error) => void): connection;
+        on(event: string, listener: () => void): this;
+        on(event: 'message', cb: (data: IMessage) => void): this;
+        on(event: 'frame', cb: (frame: frame) => void): this;
+        on(event: 'close', cb: (code: number, desc: string) => void): this;
+        on(event: 'error', cb: (err: Error) => void): this;
+        addListener(event: string, listener: () => void): this;
+        addListener(event: 'message', cb: (data: IMessage) => void): this;
+        addListener(event: 'frame', cb: (frame: frame) => void): this;
+        addListener(event: 'close', cb: (code: number, desc: string) => void): this;
+        addListener(event: 'error', cb: (err: Error) => void): this;
     }
 
     class frame {
@@ -559,12 +559,12 @@ declare module "websocket" {
         connect(requestUrl: string,  protocols?: string,   origin?: string, headers?: any[]): void;
 
         // Events
-        on(event: string, listener: () => void): client;
-        on(event: 'connect', cb: (connection: connection) => void): client;
-        on(event: 'connectFailed', cb: (err: Error) => void): client;
-        addListener(event: string, listener: () => void): client;
-        addListener(event: 'connect', cb: (connection: connection) => void): client;
-        addListener(event: 'connectFailed', cb: (err: Error) => void): client;
+        on(event: string, listener: () => void): this;
+        on(event: 'connect', cb: (connection: connection) => void): this;
+        on(event: 'connectFailed', cb: (err: Error) => void): this;
+        addListener(event: string, listener: () => void): this;
+        addListener(event: 'connect', cb: (connection: connection) => void): this;
+        addListener(event: 'connectFailed', cb: (err: Error) => void): this;
     }
 
     class routerRequest extends events.EventEmitter {
@@ -616,12 +616,12 @@ declare module "websocket" {
       reject(httpStatus?: number, reason?: string): void;
 
       // Events
-      on(event: string, listener: () => void): request;
-      on(event: 'requestAccepted', cb: (connection: connection) => void): request;
-      on(event: 'requestRejected', cb: () => void): request;
-      addListener(event: string, listener: () => void): request;
-      addListener(event: 'requestAccepted', cb: (connection: connection) => void): request;
-      addListener(event: 'requestRejected', cb: () => void): request;
+      on(event: string, listener: () => void): this;
+      on(event: 'requestAccepted', cb: (connection: connection) => void): this;
+      on(event: 'requestRejected', cb: () => void): this;
+      addListener(event: string, listener: () => void): this;
+      addListener(event: 'requestAccepted', cb: (connection: connection) => void): this;
+      addListener(event: 'requestRejected', cb: () => void): this;
     }
 
     interface IRouterConfig {

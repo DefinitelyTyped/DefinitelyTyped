@@ -132,9 +132,9 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.sftp( (err: Error, sftp: any) => {
+    conn.sftp( (err: Error, sftp: ssh2.Sftp.Wrapper) => {
         if (err) throw err;
-        sftp.readdir('foo', (err: Error, list: any) => {
+        sftp.readdir('foo', (err: Error, list: ssh2.Sftp.ReadDirItem[]) => {
             if (err) throw err;
             console.dir(list);
             conn.end();

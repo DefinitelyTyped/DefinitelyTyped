@@ -1,7 +1,7 @@
 // Type definitions for AppleTVJS
 // Project: https://developer.apple.com/library/prerelease/tvos/documentation/TVMLJS/Reference/TVJSFrameworkReference/index.html
 // Definitions by: Adam Valverde <https://github.com/brainded>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var App: AppleTVJS.App;
 declare var Device: AppleTVJS.Device;
@@ -10,7 +10,7 @@ declare var Settings: AppleTVJS.Settings;
 
 declare function evaluateScripts(scripts: string[], complete: (success: boolean) => void): void;
 
-declare module AppleTVJS {
+declare namespace AppleTVJS {
 	interface App {
 
 		/**
@@ -98,7 +98,7 @@ declare module AppleTVJS {
 	class Interstitial {
 		/** The starttime of the interstitial. */
 		starttime: number;
-		
+
 		/** The duration of the interstitial. */
 		duration: number;
 	}
@@ -115,29 +115,29 @@ declare module AppleTVJS {
 	}
 
 	class MediaItem {
-		/** 
-		 * Creates a new MediaItem object from the information stored in the URL location. 
+		/**
+		 * Creates a new MediaItem object from the information stored in the URL location.
 		 * @type: Valid values are: audio, video. Defaults to video.
 		 * @url: The URL pointing to the media item information.
 		 * */
 		constructor(type: string, url?: string);
 
-		/** 
-		 * The domain that the rating applies to. 
+		/**
+		 * The domain that the rating applies to.
 		 * There are three valid values for this property: movie, music, and tvshow.
 		 * */
 		contentRatingDomain: string;
 
-		/** 
-		 * The rating for a video item. 
-		 * The rating is a value from 0-1000. This value corresponds to a specific rating 
-		 * used by different countries. For example, a rating value can represent a PG-13 
+		/**
+		 * The rating for a video item.
+		 * The rating is a value from 0-1000. This value corresponds to a specific rating
+		 * used by different countries. For example, a rating value can represent a PG-13
 		 * rating in the United State and a MA15+ in Australia.
 		 * */
 		contentRatingRanking: number;
 
-		/** 
-		 * A value indicating whether the item has explicit lyrics. 
+		/**
+		 * A value indicating whether the item has explicit lyrics.
 		 * This property is ignored if the MediaItem object type is video.
 		 * */
 		isExplicit: boolean;
@@ -154,8 +154,8 @@ declare module AppleTVJS {
 		/** The title of the media item. */
 		title: string;
 
-		/** 
-		 * The type of media item. 
+		/**
+		 * The type of media item.
 		 * The valid values for this attribute are audio and video.
 		 * */
 		type: string;
@@ -169,11 +169,11 @@ declare module AppleTVJS {
 		/** An array of interstitial objects. */
 		interstitials: Interstitial[];
 
-		/** 
-		 * The number, in seconds, that a media item starts playing at. 
-		 * Use this to begin playing a MediaItem object at a time other than 
-		 * at the beginning of the object. If this property contains anything 
-		 * other than 0, the player displays “Resume” instead of 
+		/**
+		 * The number, in seconds, that a media item starts playing at.
+		 * Use this to begin playing a MediaItem object at a time other than
+		 * at the beginning of the object. If this property contains anything
+		 * other than 0, the player displays “Resume” instead of
 		 * “Play from beginning” on playback.
 		 * */
 		resumeTime: number;
@@ -352,16 +352,16 @@ declare module AppleTVJS {
 	class Playlist {
 		/** Returns the MediaItem located in the indicated array index. */
 		item(index: number): MediaItem;
-		
+
 		/** The number of items in the playlist. */
 		length: number;
-		
+
 		/** Removes a media item from the end of a playlist. */
 		pop(): MediaItem;
-		
+
 		/** Adds a media item to the end of a playlist. */
 		push(object: MediaItem): void;
-		
+
 		/** Deletes the indicated array elements and replaces them with the specified elements. */
 		splice(index: number, howManu: number, object: MediaItem): MediaItem[];
 	}

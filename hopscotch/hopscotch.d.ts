@@ -1,7 +1,7 @@
 // Type definitions for Hopscotch v0.2.5
 // Project: http://linkedin.github.io/hopscotch/
 // Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
 

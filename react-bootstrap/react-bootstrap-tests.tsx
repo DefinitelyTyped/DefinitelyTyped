@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------------
 import * as React from 'react';
 import { Component, CSSProperties } from 'react';
-import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput } from 'react-bootstrap';
+import { Button, ButtonToolbar, Modal, Well, ButtonGroup, DropdownButton, MenuItem, Panel, ListGroup, ListGroupItem, Accordion, Tooltip, OverlayTrigger, Popover, ProgressBar, Nav, NavItem, Navbar, NavDropdown, Tabs, Tab, Pager, PageItem, Pagination, Alert, Carousel, CarouselItem, Grid, Row, Col, Thumbnail, Label, Badge, Jumbotron, PageHeader, Glyphicon, Table, Input, ButtonInput, FormControls } from 'react-bootstrap';
 
 
 export class ReactBootstrapTest extends Component<any, any> {
@@ -375,6 +375,9 @@ export class ReactBootstrapTest extends Component<any, any> {
                     <OverlayTrigger trigger='focus' placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Focus</Button>
                     </OverlayTrigger>
+                    <OverlayTrigger trigger={['click', 'hover', 'focus']} placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
+                      <Button bsStyle='default'>Click or hover or focus</Button>
+                    </OverlayTrigger>
                     <OverlayTrigger trigger='click' rootClose placement='bottom' overlay={<Popover title='Popover bottom'><strong>Holy guacamole!</strong> Check this info.</Popover>}>
                       <Button bsStyle='default'>Click + rootClose</Button>
                     </OverlayTrigger>
@@ -453,17 +456,25 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <Navbar brand='React-Bootstrap'>
-                    <Nav>
-                      <NavItem eventKey={1} href='#'>Link</NavItem>
-                      <NavItem eventKey={2} href='#'>Link</NavItem>
-                      <NavDropdown eventKey={3} title='Dropdown' id='basic-nav-dropdown'>
-                        <MenuItem eventKey='1'>Action</MenuItem>
-                        <MenuItem eventKey='2'>Another action</MenuItem>
-                        <MenuItem eventKey='3'>Something else here</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey='4'>Separated link</MenuItem>
-                      </NavDropdown>
-                    </Nav>
+                    <Navbar.Header>
+                      <Navbar.Brand>
+                        <a href="#">React-Bootstrap</a>
+                      </Navbar.Brand>
+                      <Navbar.Toggle />
+                    </Navbar.Header>
+                    <Navbar.Collapse>
+                      <Nav>
+                        <NavItem eventKey={1} href='#'>Link</NavItem>
+                        <NavItem eventKey={2} href='#'>Link</NavItem>
+                        <NavDropdown eventKey={3} title='Dropdown' id='basic-nav-dropdown'>
+                          <MenuItem eventKey='1'>Action</MenuItem>
+                          <MenuItem eventKey='2'>Another action</MenuItem>
+                          <MenuItem eventKey='3'>Something else here</MenuItem>
+                          <MenuItem divider />
+                          <MenuItem eventKey='4'>Separated link</MenuItem>
+                        </NavDropdown>
+                      </Nav>
+                    </Navbar.Collapse>
                   </Navbar>
                 </div>
 
@@ -836,11 +847,19 @@ export class ReactBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                   <form>
-                    <Input type="text" ref="input" onChange={this.callback} />
+                    <Input type="text" name="text" ref="input" onChange={this.callback} />
                       <ButtonInput bsSize="small">Child Text</ButtonInput>
                       <ButtonInput type="reset" bsStyle="primary" onClick={this.callback} />
                       <ButtonInput type="submit" value="Submit Your Input" bsStyle="success" bsSize="large" disabled={false} />
                     </form>
+                </div>
+
+                <div style={style}>
+                  <form>
+                    <FormControls.Static className="col-xs-10 col-xs-offset-2" value="I'm in a form" />
+                    <FormControls.Static label="First Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10" value="Billy" />
+                    <FormControls.Static label="Last Name" labelClassName="col-xs-2" wrapperClassName="col-xs-10">Bob</FormControls.Static>
+                  </form>
                 </div>
 
                 <div style={style}>

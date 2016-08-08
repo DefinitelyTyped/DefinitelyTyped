@@ -1,7 +1,7 @@
 // Type definitions for Async 1.4.2
 // Project: https://github.com/caolan/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Dictionary<T> { [key: string]: T; }
 
@@ -127,8 +127,8 @@ interface Async {
     doDuring(fn: AsyncVoidFunction, test: (testCallback: (error: Error, truth: boolean) => void) => void, callback: (err: any) => void): void;
     forever(next: (errCallback : (err: Error) => void) => void, errBack: (err: Error) => void) : void;
     waterfall(tasks: Function[], callback?: (err: Error, results?: any) => void): void;
-    compose(...fns: Function[]): void;
-    seq(...fns: Function[]): void;
+    compose(...fns: Function[]): Function;
+    seq(...fns: Function[]): Function;
     applyEach(fns: Function[], argsAndCallback: any[]): void;           // applyEach(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
     applyEachSeries(fns: Function[], argsAndCallback: any[]): void;     // applyEachSeries(fns, args..., callback). TS does not support ... for a middle argument. Callback is optional.
     queue<T>(worker: AsyncWorker<T>, concurrency?: number): AsyncQueue<T>;

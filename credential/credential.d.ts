@@ -8,7 +8,7 @@ declare module 'credential' {
 	type HashCallback = (err: Error, hash: string) => void;
 	type VerifyCallback = (err: Error, isValid: boolean) => void;
 
-	module credential {
+	namespace credential {
 		function hash(password: string, callback: HashCallback): void;
 		function verify(hash: string, password: string, callback: VerifyCallback): void;
 	}

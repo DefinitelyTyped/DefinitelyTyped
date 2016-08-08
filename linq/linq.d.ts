@@ -1,11 +1,11 @@
 // Type definitions for linq.js 2.2
 // Project: http://linqjs.codeplex.com/
 // Definitions by: Marcin Najder <https://github.com/marcinnajder>, Sebastiaan Dammann <https://github.com/Sebazzz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // todo: jQuery plugin, RxJS Binding
 
-declare module linq {
+declare namespace linq {
 
     interface EnumerableStatic {
         Choice<T>(...contents: T[]): Enumerable<T>;

@@ -150,6 +150,17 @@ describe("Included matchers:", function () {
         expect(foo).not.toThrow();
         expect(bar).toThrow();
     });
+
+    it("The 'toThrowError' matcher is for testing a specific thrown exception", function() {
+        var foo = function() {
+            throw new TypeError("foo bar baz");
+        };
+
+        expect(foo).toThrowError("foo bar baz");
+        expect(foo).toThrowError(/bar/);
+        expect(foo).toThrowError(TypeError);
+        expect(foo).toThrowError(TypeError, "foo bar baz");
+    });
 });
 
 describe("A spec", function () {
@@ -512,21 +523,21 @@ describe("A spy", function () {
     it("can provide the context and arguments to all calls", function () {
         foo.setBar(123);
 
-        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123] }]);
+        expect(foo.setBar.calls.all()).toEqual([{ object: foo, args: [123], returnValue: undefined }]);
     });
 
     it("has a shortcut to the most recent call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"] });
+        expect(foo.setBar.calls.mostRecent()).toEqual({ object: foo, args: [456, "baz"], returnValue: undefined });
     });
 
     it("has a shortcut to the first call", function () {
         foo.setBar(123);
         foo.setBar(456, "baz");
 
-        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123] });
+        expect(foo.setBar.calls.first()).toEqual({ object: foo, args: [123], returnValue: undefined });
     });
 
     it("can be reset", function () {
@@ -736,31 +747,31 @@ describe("Manually ticking the Jasmine Clock", function () {
 
 describe("Asynchronous specs", function () {
     var value: number;
-    beforeEach(function (done) {
+    beforeEach(function (done: DoneFn) {
         setTimeout(function () {
             value = 0;
             done();
         }, 1);
     });
 
-    it("should support async execution of test preparation and expectations", function (done) {
+    it("should support async execution of test preparation and expectations", function (done: DoneFn) {
         value++;
         expect(value).toBeGreaterThan(0);
         done();
     });
 
     describe("long asynchronous specs", function() {
-        beforeEach(function(done) {
+        beforeEach(function(done: DoneFn) {
           done();
         }, 1000);
 
-        it("takes a long time", function(done) {
+        it("takes a long time", function(done: DoneFn) {
           setTimeout(function() {
             done();
           }, 9000);
         }, 10000);
 
-        afterEach(function(done) {
+        afterEach(function(done: DoneFn) {
           done();
         }, 1000);
     });
@@ -829,7 +840,7 @@ var customMatchers: jasmine.CustomMatcherFactories = {
     }
 };
 // add the custom matchers to interface jasmine.Matchers via TypeScript declaration merging
-declare module jasmine {
+declare namespace jasmine {
     interface Matchers {
         toBeGoofy(expected?: any): boolean;
     }

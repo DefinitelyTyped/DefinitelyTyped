@@ -1,11 +1,11 @@
 // Type definitions for Backbone 1.0.0
 // Project: http://backbonejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Natan Vivo <https://github.com/nvivo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Backbone {
+declare namespace Backbone {
 
     interface AddOptions extends Silenceable {
         at?: number;
@@ -192,8 +192,10 @@ declare module Backbone {
 
         fetch(options?: CollectionFetchOptions): JQueryXHR;
 
-        comparator(element: TModel): number;
-        comparator(compare: TModel, to?: TModel): number;
+        /**
+         * Specify a model attribute name (string) or function that will be used to sort the collection.
+         */
+        comparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number);
 
         add(model: {}|TModel, options?: AddOptions): TModel;
         add(models: ({}|TModel)[], options?: AddOptions): TModel[];
@@ -309,7 +311,7 @@ declare module Backbone {
         start(options?: HistoryOptions): boolean;
 
         getHash(window?: Window): string;
-        getFragment(fragment?: string, forcePushState?: boolean): string;
+        getFragment(fragment?: string): string;
         stop(): void;
         route(route: string, callback: Function): number;
         checkUrl(e?: any): void;

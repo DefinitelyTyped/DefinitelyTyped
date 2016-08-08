@@ -1,10 +1,10 @@
 // Type definitions for Angulartics v0.20.2
 // Project: http://luisfarzati.github.io/angulartics/
 // Definitions by: Steven Fan <https://github.com/stevenfan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
-declare module angulartics {
+declare namespace angulartics {
 
     interface IAngularticsStatic {
         waitForVendorApi(objectName:string, delay:number, containsField?:any, registerFn?:any, onTimeout?:boolean): void;
@@ -33,9 +33,9 @@ declare module angulartics {
         registerSetUsername(callback: (username: string) => any): void
         registerSetUserProperties(callback: (userProperties: any) => any): void
         registerSetSuperProperties(callback: (superProperties: any) => any): void
-        
-        settings: { 
-            pageTracking: { 
+
+        settings: {
+            pageTracking: {
                 autoTrackingVirtualPages: boolean,
                 autoTrackingFirstPage: boolean,
                 basePath: string,

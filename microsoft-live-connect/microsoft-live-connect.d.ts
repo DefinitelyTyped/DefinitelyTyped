@@ -1,12 +1,12 @@
 // Type definitions for Microsoft Live Connect v5.0
 // Project: http://msdn.microsoft.com/en-us/library/live/hh243643.aspx
 // Definitions by: John Vilk <https://github.com/jvilk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../winjs/winjs.d.ts" />
 /// <reference path="../winrt/winrt.d.ts" />
 
-declare module Microsoft.Live {
+declare namespace Microsoft.Live {
     //#region REST Object Information
 
     /**
@@ -204,7 +204,7 @@ declare module Microsoft.Live {
         is_embeddable: boolean;
         /**
          * The URL to use to download the audio from SkyDrive.
-         * Warning  
+         * Warning
          * This value is not persistent. Use it immediately after making the
          * request, and avoid caching.
          */
@@ -472,7 +472,7 @@ declare module Microsoft.Live {
          */
         birth_day: number;
         /**
-         * The month of the contact's birth date, or null if no birth date is 
+         * The month of the contact's birth date, or null if no birth date is
          * specified.
          */
         birth_month: number;
@@ -1452,7 +1452,7 @@ declare module Microsoft.Live {
          */
         updated_time: string;
     }
-    
+
     /**
      * The Video object contains info about a user's videos on SkyDrive. The
      * Live Connect REST API supports creating, reading, updating, and deleting

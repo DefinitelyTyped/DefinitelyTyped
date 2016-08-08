@@ -1,9 +1,9 @@
 // Type definitions for d3JS
 // Project: http://d3js.org/
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module d3 {
+declare namespace d3 {
     /**
      * The current version of D3.js.
      */
@@ -34,7 +34,7 @@ declare module d3 {
      */
     export function selection(): Selection<any>;
 
-    module selection {
+    namespace selection {
         export var prototype: Selection<any>;
 
         /**
@@ -800,7 +800,7 @@ declare module d3 {
     }
 
     export function transition(): Transition<any>;
-    module transition {
+    namespace transition {
         export var prototype: Transition<any>;
     }
 
@@ -916,7 +916,7 @@ declare module d3 {
 
     export function timer(func: () => any, delay?: number, time?: number): void;
 
-    module timer {
+    namespace timer {
         export function flush(): void;
     }
 
@@ -1802,7 +1802,7 @@ declare module d3 {
         export module format {
             export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             export function utc(specifier: string): Format;
-            module utc {
+            namespace utc {
                 export function multi(formats: Array<[string, (d: Date) => boolean|number]>): Format;
             }
 
@@ -1873,7 +1873,7 @@ declare module d3 {
 
         export function zoom<Datum>(): Zoom<Datum>;
 
-        module zoom {
+        namespace zoom {
             interface Scale {
                 domain(): number[];
                 domain(values: number[]): Scale;
@@ -2044,80 +2044,80 @@ declare module d3 {
         export function albers(): ConicProjection;
         export function albersUsa(): ConicProjection;
         export function azimuthalEqualArea(): InvertibleProjection;
-        module azimuthalEqualArea {
+        namespace azimuthalEqualArea {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function azimuthalEquidistant(): InvertibleProjection;
-        module azimuthalEquidistant {
+        namespace azimuthalEquidistant {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function conicConformal(): ConicProjection;
-        module conicConformal {
+        namespace conicConformal {
             export function raw(phi0: number, phi1: number): RawInvertibleProjection;
         }
 
         export function conicEqualArea(): ConicProjection;
-        module conicEqualArea {
+        namespace conicEqualArea {
             export function raw(phi0: number, phi1: number): RawInvertibleProjection;
         }
 
         export function conicEquidistant(): ConicProjection;
-        module conicEquidistant {
+        namespace conicEquidistant {
             export function raw(phi0: number, phi1: number): RawInvertibleProjection;
         }
 
         export function equirectangular(): InvertibleProjection;
-        module equirectangular {
+        namespace equirectangular {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function gnomonic(): InvertibleProjection;
-        module gnomonic {
+        namespace gnomonic {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function mercator(): InvertibleProjection;
-        module mercator {
+        namespace mercator {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function orthographic(): InvertibleProjection;
-        module orthographic {
+        namespace orthographic {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function stereographic(): InvertibleProjection;
-        module stereographic {
+        namespace stereographic {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
 
         export function transverseMercator(): InvertibleProjection;
-        module transverseMercator {
+        namespace transverseMercator {
             export function raw(lambda: number, phi: number): [number, number];
-            module raw {
+            namespace raw {
                 export function invert(x: number, y: number): [number, number];
             }
         }
@@ -2188,7 +2188,7 @@ declare module d3 {
         }
     }
 
-    module svg {
+    namespace svg {
         export function line(): Line<[number, number]>;
         export function line<T>(): Line<T>;
 
@@ -2226,7 +2226,7 @@ declare module d3 {
             defined(defined: (d: T, i: number) => boolean): Line<T>;
         }
 
-        module line {
+        namespace line {
             export function radial(): Radial<[number, number]>;
             export function radial<T>(): Radial<T>;
 
@@ -2314,7 +2314,7 @@ declare module d3 {
             defined(defined: (d: T, i: number) => boolean): Area<T>;
         }
 
-        module area {
+        namespace area {
             export function radial(): Radial<[number, number]>;
             export function radial<T>(): Radial<T>;
 
@@ -2368,7 +2368,7 @@ declare module d3 {
         export function arc(): Arc<arc.Arc>;
         export function arc<T>(): Arc<T>;
 
-        module arc {
+        namespace arc {
             interface Arc {
                 innerRadius: number;
                 outerRadius: number;
@@ -2434,7 +2434,7 @@ declare module d3 {
         export function chord<Node>(): Chord<chord.Link<Node>, Node>;
         export function chord<Link, Node>(): Chord<Link, Node>;
 
-        module chord {
+        namespace chord {
             interface Link<Node> {
                 source: Node;
                 target: Node;
@@ -2475,7 +2475,7 @@ declare module d3 {
         export function diagonal<Node>(): Diagonal<diagonal.Link<Node>, Node>;
         export function diagonal<Link, Node>(): Diagonal<Link, Node>;
 
-        module diagonal {
+        namespace diagonal {
             interface Link<Node> {
                 source: Node;
                 target: Node;
@@ -2488,21 +2488,21 @@ declare module d3 {
         }
 
         interface Diagonal<Link, Node> {
-            (d: Link, i: number): string;
+            (d: Link, i?: number): string;
 
             source(): (d: Link, i: number) => Node;
             source(source: Node): Diagonal<Link, Node>;
-            source(source: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+            source(source: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
 
             target(): (d: Link, i: number) => Node;
             target(target: Node): Diagonal<Link, Node>;
-            target(target: (d: Link, i: number) => Node): Diagonal<Link, Node>;
+            target(target: (d: Link, i: number) => { x: number; y: number; }): Diagonal<Link, Node>;
 
             projection(): (d: Node, i: number) => [number, number];
             projection(projection: (d: Node, i: number) => [number, number]): Diagonal<Link, Node>;
         }
 
-        module diagonal {
+        namespace diagonal {
             export function radial(): Radial<Link<Node>, Node>;
             export function radial<Node>(): Radial<Link<Node>, Node>;
             export function radial<Link, Node>(): Radial<Link, Node>;
@@ -2562,7 +2562,7 @@ declare module d3 {
         export function brush(): Brush<any>;
         export function brush<T>(): Brush<T>;
 
-        module brush {
+        namespace brush {
             interface Scale {
                 domain(): number[];
                 domain(domain: number[]): Scale;
@@ -2745,11 +2745,11 @@ declare module d3 {
         }
     }
 
-    module layout {
+    namespace layout {
         export function bundle(): Bundle<bundle.Node>;
         export function bundle<T extends bundle.Node>(): Bundle<T>
 
-        module bundle {
+        namespace bundle {
             interface Node {
                 parent: Node;
             }
@@ -2766,7 +2766,7 @@ declare module d3 {
 
         export function chord(): Chord;
 
-        module chord {
+        namespace chord {
             interface Link {
                 source: Node;
                 target: Node;
@@ -2811,7 +2811,7 @@ declare module d3 {
         export function cluster(): Cluster<cluster.Result>;
         export function cluster<T extends cluster.Result>(): Cluster<T>;
 
-        module cluster {
+        namespace cluster {
             interface Result {
                 parent?: Result;
                 children?: Result[];
@@ -2856,7 +2856,7 @@ declare module d3 {
         export function force<Node extends force.Node>(): Force<force.Link<Node>, Node>;
         export function force<Link extends force.Link<force.Node>, Node extends force.Node>(): Force<Link, Node>;
 
-        module force {
+        namespace force {
             interface Link<T extends Node> {
                 source: T;
                 target: T;
@@ -2932,7 +2932,7 @@ declare module d3 {
         export function hierarchy(): Hierarchy<hierarchy.Result>;
         export function hierarchy<T extends hierarchy.Result>(): Hierarchy<T>;
 
-        module hierarchy {
+        namespace hierarchy {
             interface Result {
                 parent?: Result;
                 children?: Result[];
@@ -2959,7 +2959,7 @@ declare module d3 {
         export function histogram(): Histogram<number>;
         export function histogram<T>(): Histogram<T>;
 
-        module histogram {
+        namespace histogram {
             interface Bin<T> extends Array<T> {
                 x: number;
                 dx: number;
@@ -2988,7 +2988,7 @@ declare module d3 {
         export function pack(): Pack<pack.Node>;
         export function pack<T extends pack.Node>(): Pack<T>;
 
-        module pack {
+        namespace pack {
             interface Node {
                 parent?: Node;
                 children?: Node[];
@@ -3035,7 +3035,7 @@ declare module d3 {
         export function partition(): Partition<partition.Node>;
         export function partition<T extends partition.Node>(): Partition<T>;
 
-        module partition {
+        namespace partition {
             interface Link<T extends Node> {
                 source: T;
                 target: T;
@@ -3075,7 +3075,7 @@ declare module d3 {
         export function pie(): Pie<number>;
         export function pie<T>(): Pie<T>;
 
-        module pie {
+        namespace pie {
             interface Arc<T> {
                 value: number;
                 startAngle: number;
@@ -3110,7 +3110,7 @@ declare module d3 {
         export function stack(): Stack<stack.Value[], stack.Value>;
         export function stack<Value>(): Stack<Value[], Value>;
         export function stack<Series, Value>(): Stack<Series, Value>;
-        module stack {
+        namespace stack {
             interface Value {
                 x: number;
                 y: number;
@@ -3152,7 +3152,7 @@ declare module d3 {
         export function tree(): Tree<tree.Node>;
         export function tree<T extends tree.Node>(): Tree<T>;
 
-        module tree {
+        namespace tree {
             interface Link<T extends Node> {
                 source: T;
                 target: T;
@@ -3196,7 +3196,7 @@ declare module d3 {
         export function treemap(): Treemap<treemap.Node>;
         export function treemap<T extends treemap.Node>(): Treemap<T>;
 
-        module treemap {
+        namespace treemap {
             interface Node {
                 parent?: Node;
                 children?: Node[];
@@ -3257,11 +3257,11 @@ declare module d3 {
         }
     }
 
-    module geom {
+    namespace geom {
         export function voronoi(): Voronoi<[number, number]>;
         export function voronoi<T>(): Voronoi<T>;
 
-        module voronoi {
+        namespace voronoi {
             interface Link<T> {
                 source: T;
                 target: T;
@@ -3293,7 +3293,7 @@ declare module d3 {
         export function quadtree(): Quadtree<[number, number]>;
         export function quadtree<T>(nodes: T[], x1?: number, y1?: number, x2?: number, y2?: number): quadtree.Quadtree<T>;
 
-        module quadtree {
+        namespace quadtree {
             interface Node<T> {
                 nodes: [Node<T>, Node<T>, Node<T>, Node<T>];
                 leaf: boolean;

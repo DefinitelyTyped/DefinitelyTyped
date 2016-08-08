@@ -443,7 +443,7 @@ function test_entityType() {
     var myEntityType: breeze.EntityType;
     var dataProperty1: breeze.DataProperty, dataProperty2: breeze.DataProperty, navigationProperty1: breeze.DataProperty;
     var em1: breeze.EntityManager;
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     var entityManager = new breeze.EntityType({
         metadataStore: myMetadataStore,
         serviceName: "breeze/NorthwindIBModel",
@@ -761,7 +761,7 @@ function test_validator() {
     orderType = <breeze.EntityType> em1.metadataStore.getEntityType("Order");
     var orderDateProperty = orderType.getProperty("OrderDate");
     orderDateProperty.validators.push(breeze.Validator.date());
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     var v0 = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     v0.validate("adasdfasdf");
     var errMessage = v0.getMessage();
@@ -792,7 +792,7 @@ function test_validator() {
     regionProperty.validators.push(breeze.Validator.string());
     custType = <breeze.EntityType> em1.metadataStore.getEntityType("Customer");
      regionProperty = custType.getProperty("Region");
-    /* NOTE https://github.com/borisyankov/DefinitelyTyped/pull/5590
+    /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
     regionProperty.validators.push(breeze.Validator.stringLength({ minLength: 2, maxLength: 5 }));
     var validator = breeze.Validator.maxLength({ maxLength: 5, displayName: "City" });
     var result = validator.validate("asdf");

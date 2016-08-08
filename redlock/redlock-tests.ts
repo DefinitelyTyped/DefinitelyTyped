@@ -6,7 +6,7 @@ import NodeifyCallback = RedlockTypes.NodeifyCallback;
 import Lock = RedlockTypes.Lock;
 import RedlockOptions = RedlockTypes.RedlockOptions;
 
-module RedlockTest {
+namespace RedlockTest {
 	// constructor
 	{
 		let redlock: Redlock;
@@ -81,7 +81,7 @@ module RedlockTest {
 	}
 }
 
-module LockTest {
+namespace LockTest {
 	// unlock
 	{
 		let lock: Lock;

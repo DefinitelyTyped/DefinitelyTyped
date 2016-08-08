@@ -1,7 +1,7 @@
 // Type definitions for Traceback v0.3.1
 // Project: http://github.com/iriscouch/traceback
 // Definitions by: Michael Zabka <https://github.com/misak113/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Traceback {
 	name: string; // | The function name

@@ -31,8 +31,8 @@ declare module "temp" {
     export function openSync(affixes: string): { path: string, fd: number };
     export function openSync(affixes: AffixOptions): { path: string, fd: number };
 
-    export function path(affixes: string, defaultPrefix: string): string;
-    export function path(affixes: AffixOptions, defaultPrefix: string): string;
+    export function path(affixes: string, defaultPrefix?: string): string;
+    export function path(affixes: AffixOptions, defaultPrefix?: string): string;
 
     export function cleanup(callback?: (result: boolean | {files: number, dirs?: number}) => void): void;
 

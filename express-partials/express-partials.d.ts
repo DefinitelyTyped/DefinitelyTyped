@@ -1,7 +1,7 @@
 // Type definitions for express-partials
 // Project: https://github.com/publicclass/express-partials
 // Definitions by: jt000 <https://github.com/jt000>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

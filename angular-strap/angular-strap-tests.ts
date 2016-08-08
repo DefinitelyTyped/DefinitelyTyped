@@ -1,7 +1,7 @@
 /// <reference path="../angularjs/angular.d.ts"/>
 /// <reference path="./angular-strap.d.ts"/>
 
-module angularStrapTests {
+namespace angularStrapTests {
 
     import ngStrap = mgcrea.ngStrap;
 
@@ -9,7 +9,7 @@ module angularStrapTests {
     // Modal
     ///////////////////////////////////////////////////////////////////////////
 
-    module modalTests {
+    namespace modalTests {
 
         interface IDemoCtrlScope extends ngStrap.modal.IModalScope {
             showModal: () => void;
@@ -54,7 +54,7 @@ module angularStrapTests {
     // Aside
     ///////////////////////////////////////////////////////////////////////////
 
-    module asideTests {
+    namespace asideTests {
 
         angular.module('demoApp')
             .config($asideConfig)
@@ -85,7 +85,7 @@ module angularStrapTests {
             var defaults: ngStrap.aside.IAsideOptions = {};
             defaults.animation = 'am-fadeAndSlideLeft';
             defaults.placement = 'left';
-                
+
             angular.extend($asideProvider.defaults, defaults);
         }
     }
@@ -94,8 +94,8 @@ module angularStrapTests {
     ///////////////////////////////////////////////////////////////////////////
     // Alert
     ///////////////////////////////////////////////////////////////////////////
-    
-    module alertTests {
+
+    namespace alertTests {
 
         angular.module('demoApp')
             .config($alertConfig)
@@ -127,8 +127,8 @@ module angularStrapTests {
     ///////////////////////////////////////////////////////////////////////////
     // Tooltip
     ///////////////////////////////////////////////////////////////////////////
-    
-    module tooltipTests {
+
+    namespace tooltipTests {
 
         angular.module('demoApp')
             .config($tooltipConfig)
@@ -139,7 +139,7 @@ module angularStrapTests {
             drct.restrict = 'EA';
             drct.link = link;
             return drct;
-            
+
             function link(scope: ng.IScope, elem: ng.IAugmentedJQuery, attrs: ng.IAttributes): void {
                 var options: ngStrap.tooltip.ITooltipOptions = {};
                 options.title = 'My Title';
@@ -147,11 +147,11 @@ module angularStrapTests {
             }
         }
 
-        function $tooltipConfig($tooltipProvider: ngStrap.tooltip.ITooltipProvider): void {          
+        function $tooltipConfig($tooltipProvider: ngStrap.tooltip.ITooltipProvider): void {
             var defaults: ngStrap.tooltip.ITooltipOptions = {};
             defaults.animation = 'am-flip-x';
             defaults.trigger = 'hover';
-            
+
             angular.extend($tooltipProvider.defaults, defaults);
         };
     }
@@ -160,8 +160,8 @@ module angularStrapTests {
     ///////////////////////////////////////////////////////////////////////////
     // Popover
     ///////////////////////////////////////////////////////////////////////////
-    
-    module popoverTests {
+
+    namespace popoverTests {
 
         angular.module('demoApp')
             .config($popoverConfig)
@@ -172,11 +172,11 @@ module angularStrapTests {
             drct.restrict = 'EA';
             drct.link = link;
             return drct;
-            
-            function link(scope: ng.IScope, elem: ng.IAugmentedJQuery, attrs: ng.IAttributes): void {       
+
+            function link(scope: ng.IScope, elem: ng.IAugmentedJQuery, attrs: ng.IAttributes): void {
                 var options: ngStrap.tooltip.ITooltipOptions = {};
                 options.title = 'My Title';
-                    
+
                 $popover(elem, options);
             }
         }
@@ -189,189 +189,189 @@ module angularStrapTests {
             angular.extend($popoverProvider.defaults, defaults);
         };
     }
-    
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Typeahead
     ///////////////////////////////////////////////////////////////////////////
-    
-    module typeaheadTests {
-            
+
+    namespace typeaheadTests {
+
         angular.module('myApp')
             .config($typeaheadConfig);
-                
-        function $typeaheadConfig($typeaheadProvider: ngStrap.typeahead.ITypeaheadProvider) {        
+
+        function $typeaheadConfig($typeaheadProvider: ngStrap.typeahead.ITypeaheadProvider) {
           var defaults: ngStrap.typeahead.ITypeaheadOptions = {}
           defaults.animation = 'am-flip-x';
           defaults.minLength = 2;
           defaults.limit = 8;
-          
+
           angular.extend($typeaheadProvider.defaults, defaults);
         }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Datepicker
     ///////////////////////////////////////////////////////////////////////////
-    
-    module datepickerTests {
-        
+
+    namespace datepickerTests {
+
         angular.module('myApp')
             .config($datepickerConfig);
-            
+
         function $datepickerConfig($datepickerProvider: ngStrap.datepicker.IDatepickerProvider): void {
             var defaults: ngStrap.datepicker.IDatepickerOptions = {};
             defaults.dateFormat = 'dd/MM/yyyy';
             defaults.startWeek = 1;
-    
+
             angular.extend($datepickerProvider.defaults, defaults);
         };
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Timepicker
     ///////////////////////////////////////////////////////////////////////////
-    
-    module timepickerTests {
-        
+
+    namespace timepickerTests {
+
         angular.module('myApp')
             .config($timepickerConfig);
-            
+
         function $timepickerConfig($timepickerProvider: ngStrap.timepicker.ITimepickerProvider): void {
             var defaults: ngStrap.timepicker.ITimepickerOptions = {};
             defaults.timeFormat = 'HH:mm';
             defaults.length = 7;
-    
+
             angular.extend($timepickerProvider.defaults, defaults);
         };
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Select
     ///////////////////////////////////////////////////////////////////////////
-    
-    module selectTests {
-        
+
+    namespace selectTests {
+
         angular.module('myApp')
             .config($selectConfig);
-        
+
         function $selectConfig($selectProvider: ngStrap.select.ISelectProvider): void {
             var defaults: ngStrap.select.ISelectOptions = {};
             defaults.animation = 'am-flip-x';
             defaults.sort = false;
-                       
+
             angular.extend($selectProvider.defaults, defaults);
         }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Tabs
     ///////////////////////////////////////////////////////////////////////////
-    
-    module tabTests {
-        
+
+    namespace tabTests {
+
         angular.module('myApp')
             .config($tabConfig);
-            
+
         function $tabConfig($tabProvider: ngStrap.tab.ITabProvider) {
           var defaults: ngStrap.tab.ITabOptions = {};
           defaults.animation = 'am-flip-x';
-          
+
           angular.extend($tabProvider.defaults, defaults);
         }
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Collapse
     ///////////////////////////////////////////////////////////////////////////
-    
-    module collapseTests {
-        
+
+    namespace collapseTests {
+
         angular.module('myApp')
             .config($collapseConfig);
-            
+
         function $collapseConfig($collapseProvider: ngStrap.collapse.ICollapseProvider):void {
               var defaults: ngStrap.collapse.ICollapseOptions = {};
               defaults.animation = 'am-flip-x';
-              
+
               angular.extend($collapseProvider.defaults, defaults);
             }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Dropdown
     ///////////////////////////////////////////////////////////////////////////
-    
-    module dropdownTests {
-        
+
+    namespace dropdownTests {
+
         angular.module('myApp')
             .config($dropdownConfig);
-            
+
         function $dropdownConfig($dropdownProvider: ngStrap.dropdown.IDropdownProvider):void {
           var defaults: ngStrap.dropdown.IDropdownOptions = {};
           defaults.animation = 'am-flip-x';
           defaults.trigger = 'hover';
-          
+
           angular.extend($dropdownProvider.defaults, defaults);
         }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Navbar
     ///////////////////////////////////////////////////////////////////////////
-    
-    module navbarTests {
-        
+
+    namespace navbarTests {
+
         angular.module('myApp')
             .config($navbarConfig);
-            
+
         function $navbarConfig($navbarProvider: ngStrap.navbar.INavbarProvider):void {
           var defaults: ngStrap.navbar.INavbarOptions = {};
           defaults.activeClass = 'in';
-          
+
           angular.extend($navbarProvider.defaults, defaults);
         }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Scrollspy
     ///////////////////////////////////////////////////////////////////////////
-    
-    module scrollspyTests {
-        
+
+    namespace scrollspyTests {
+
         angular.module('myApp')
             .config($scrollspyConfig);
-            
+
         function $scrollspyConfig($scrollspyProvider: ngStrap.scrollspy.IScrollspyProvider):void {
           var defaults: ngStrap.scrollspy.IScrollspyOptions = {};
           defaults.offset = 0;
           defaults.target = 'my-selector';
-          
+
           angular.extend($scrollspyProvider.defaults, defaults);
         }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Affix
     ///////////////////////////////////////////////////////////////////////////
-    
-    module affixTests {
-        
+
+    namespace affixTests {
+
         angular.module('myApp')
             .config($affixConfig);
-            
+
         function $affixConfig($affixProvider: ngStrap.affix.IAffixProvider):void {
           var defaults: ngStrap.affix.IAffixOptions = {};
           defaults.offsetTop = 100;
-          
+
           angular.extend($affixProvider.defaults, defaults);
         }
     }

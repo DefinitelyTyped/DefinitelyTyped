@@ -207,7 +207,7 @@ interface Results {
             var prop = props[i];
             args.push(record[prop]);
         }
-        
+
         execSqlStatements(dbState.transaction, [sqlStatement], callback);
     }
 

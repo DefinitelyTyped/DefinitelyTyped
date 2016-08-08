@@ -1,7 +1,7 @@
 // Type definitions for Postal v0.8.9
 // Project: https://github.com/postaljs/postal.js
 // Definitions by: Lokesh Peta <https://github.com/lokeshpeta/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../underscore/underscore.d.ts" />
 

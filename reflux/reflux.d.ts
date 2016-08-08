@@ -1,7 +1,7 @@
 // Type definitions for RefluxJS
 // Project: https://github.com/reflux/refluxjs
 // Definitions by: Maurice de Beijer <https://github.com/mauricedb>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module  RefluxCore {
 

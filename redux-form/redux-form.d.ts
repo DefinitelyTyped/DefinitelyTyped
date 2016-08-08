@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
 
@@ -326,7 +325,7 @@ declare module 'redux-form' {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values:Object, dispatch:Dispatch, props:Object):
+    asyncValidate?(values:FormData, dispatch:Dispatch, props:Object):
       Promise<any>;
 
     /**
@@ -366,7 +365,7 @@ declare module 'redux-form' {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?: Function;
+    onSubmit?(values:FormData, dispatch?:Dispatch):any;
 
     /**
      * If specified, all the props normally passed into your decorated

@@ -1,11 +1,11 @@
 ﻿// Type definitions for Flux
 // Project: http://facebook.github.io/flux/
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 
-declare module Flux {
+declare namespace Flux {
 
     /**
     * Dispatcher class
@@ -68,14 +68,14 @@ declare module "flux" {
     export = Flux;
 }
 
-declare module FluxUtils {
+declare namespace FluxUtils {
 
     import React = __React;
     export class Container {
         constructor();
         /**
-        * Create is used to transform a react class into a container 
-        * that updates its state when relevant stores change. 
+        * Create is used to transform a react class into a container
+        * that updates its state when relevant stores change.
         * The provided base class must have static methods getStores() and calculateState().
         */
         static create(base: React.ComponentClass<any>, options?: any): React.ComponentClass<any>;
@@ -87,18 +87,18 @@ declare module FluxUtils {
     // TODO: Change <any>  to <Immutable.Map<K, V>>
     export class MapStore<K extends string | number, V> extends ReduceStore<any> {
         /**
-        * Access the value at the given key. 
+        * Access the value at the given key.
         * Throws an error if the key does not exist in the cache.
         */
         at(key: K): V;
-        
+
         /**
         *  Check if the cache has a particular key
         */
         has(key: K): boolean;
 
         /**
-        * Get the value of a particular key. 
+        * Get the value of a particular key.
         * Returns undefined if the key does not exist in the cache.
         */
         get(key: K): V;
@@ -108,33 +108,33 @@ declare module FluxUtils {
         * it allows providing a previous result to update instead of generating a new map.
         * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
         */
-        // TODO: Update with Immutable interface. 
+        // TODO: Update with Immutable interface.
         // getAll(keys: Immutable.IndexedIterable<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
         getAll(keys: any, prev?: any): any;
     }
 
     export class ReduceStore<T> extends Store {
         /**
-        * Getter that exposes the entire state of this store. 
+        * Getter that exposes the entire state of this store.
         * If your state is not immutable you should override this and not expose state directly.
         */
         getState(): T;
 
         /**
-        * Constructs the initial state for this store. 
+        * Constructs the initial state for this store.
         * This is called once during construction of the store.
         */
         getInitialState(): T;
 
         /**
-        * Reduces the current state, and an action to the new state of this store. 
-        * All subclasses must implement this method. 
+        * Reduces the current state, and an action to the new state of this store.
+        * All subclasses must implement this method.
         * This method should be pure and have no side-effects.
         */
         reduce(state: T, action: any): T;
 
         /**
-        * Checks if two versions of state are the same. 
+        * Checks if two versions of state are the same.
         * You do not need to override this if your state is immutable.
         */
         areEqual(one: T, two: T): boolean;
@@ -142,15 +142,15 @@ declare module FluxUtils {
     }
 
     export class Store {
-        
+
         /**
         * Constructs and registers an instance of this store with the given dispatcher.
         */
         constructor(dispatcher: Flux.Dispatcher<any>);
 
         /**
-        * Adds a listener to the store, when the store changes the given callback will be called. 
-        * A token is returned that can be used to remove the listener. 
+        * Adds a listener to the store, when the store changes the given callback will be called.
+        * A token is returned that can be used to remove the listener.
         * Calling the remove() function on the returned token will remove the listener.
         */
         addListener(callback: Function): { remove: Function };
@@ -161,14 +161,14 @@ declare module FluxUtils {
         getDispatcher(): Flux.Dispatcher<any>;
 
         /**
-        * Returns the dispatch token that the dispatcher recognizes this store by. 
+        * Returns the dispatch token that the dispatcher recognizes this store by.
         * Can be used to waitFor() this store.
         */
         getDispatchToken(): string;
 
         /**
-        * Ask if a store has changed during the current dispatch. 
-        * Can only be invoked while dispatching. 
+        * Ask if a store has changed during the current dispatch.
+        * Can only be invoked while dispatching.
         * This can be used for constructing derived stores that depend on data from other stores.
         */
         hasChanged(): boolean;

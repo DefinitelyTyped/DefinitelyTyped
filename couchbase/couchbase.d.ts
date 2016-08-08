@@ -1,7 +1,7 @@
 // Type definitions for Couchbase Node.js SDK 2.1.2
 // Project: https://github.com/couchbase/couchnode
 // Definitions by: Marwan Aouida <https://github.com/maouida>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
@@ -16,130 +16,130 @@ declare module 'couchbase' {
     enum errors {
         /** Operation was successful. **/
         success,
-        
+
         /** Authentication should continue. **/
         authContinue,
-        
+
         /** Error authenticating. **/
         authError,
-        
+
         /** The passed incr/decr delta was invalid. **/
         deltaBadVal,
-        
+
         /** Object is too large to be stored on the cluster. **/
         objectTooBig,
-        
+
         /** Operation was successful. **/
         serverBusy,
-        
+
         /** Server is too busy to handle your request right now. **/
         cLibInternal,
-        
+
         /** An invalid arguement was passed. **/
         cLinInvalidArgument,
-        
+
         /** The server is out of memory. **/
         cLibOutOfMemory,
-        
+
         /** An invalid range was specified. **/
         invalidRange,
-        
+
         /** An unknown error occured within libcouchbase. **/
         cLibGenericError,
-        
+
         /** A temporary error occured. Try again. **/
         temporaryError,
-        
+
         /** The key already exists on the server. **/
         keyAlreadyExists,
-        
+
         /** The key does not exist on the server. **/
         keyNotFound,
-        
+
         /** Failed to open library. **/
         failedToOpenLibrary,
-        
+
         /** Failed to find expected symbol in library. **/
         failedToFindSymbol,
-        
+
         /** A network error occured. **/
         networkError,
-        
+
         /** Operations were performed on the incorrect server. **/
         wrongServer,
-        
+
         /** Operations were performed on the incorrect server. **/
         notMyVBucket,
-        
+
         /** The document was not stored. **/
         notSorted,
-        
+
         /** An unsupported operation was sent to the server. **/
         notSupported,
-        
+
         /** An unknown command was sent to the server. **/
         unknownCommand,
-        
+
         /** An unknown host was specified. **/
         unknownHost,
-        
+
         /** A protocol error occured. **/
         protocolError,
-        
+
         /** The operation timed out. **/
         timedOut,
-        
+
         /** Error connecting to the server. **/
         connectError,
-        
+
         /** The bucket you request was not found. **/
         bukcketNotFound,
-        
+
         /** libcouchbase is out of memory. **/
         clientOutOfMemory,
-        
+
         /** A temporary error occured in libcouchbase. Try again. **/
         clientTemporaryError,
-        
+
         /** A bad handle was passed. **/
         badHandle,
-        
+
         /** A server bug caused the operation to fail. **/
         serverBug,
-        
+
         /** The host format specified is invalid. **/
         invalidHostFormat,
-        
+
         /**  Not enough nodes to meet the operations durability requirements. **/
         notEnoughNodes,
-        
+
         /** Duplicate items. **/
         duplicateItems,
-        
+
         /** Key mapping failed and could not match a server. **/
         noMatchingServerForKey,
-        
+
         /** A bad environment variable was specified. **/
         badEnvironmentVariable,
-        
+
         /** Couchnode is out of memory. **/
         outOfMemory,
-        
+
         /** Invalid arguements were passed. **/
         invalidArguments,
-        
+
         /** An error occured while trying to schedule the operation. **/
         schedulingError,
-        
+
         /** Not all operations completed successfully. **/
         checkResults,
-        
+
         /** A generic error occured in Couchnode. **/
         genericError,
-        
+
         /** The specified durability requirements could not be satisfied. **/
         durabilityFailed,
-        
+
         /** An error occured during a RESTful operation. **/
         restError
     }
@@ -213,30 +213,30 @@ declare module 'couchbase' {
      */
     interface ClusterManager {
         /**
-         * 
-         * @param name 
-         * @param callback 
+         *
+         * @param name
+         * @param callback
          */
         createBucket(name: string, callback: Function): void;
 
         /**
-         * 
-         * @param name 
-         * @param opts 
-         * @param callback 
+         *
+         * @param name
+         * @param opts
+         * @param callback
          */
         createBucket(name: string, opts: any, callback: Function): void;
 
         /**
-         * 
-         * @param callback 
+         *
+         * @param callback
          */
         listBuckets(callback: Function): void;
 
         /**
-         * 
-         * @param name 
-         * @param callback 
+         *
+         * @param name
+         * @param callback
          */
         removeBucket(name: string, callback: Function): void;
     }
@@ -349,7 +349,7 @@ declare module 'couchbase' {
      * A class for performing management operations against a bucket. This class should not be instantiated directly, but instead through the use of the Bucket#manager method instead.
      */
     interface BucketManager {
-        
+
         /**
          * Flushes the cluster, deleting all data stored within this bucket. Note that this method requires the Flush permission to be enabled on the bucket from the management console before it will work.
          * @param callback The callback function.
@@ -358,7 +358,7 @@ declare module 'couchbase' {
 
         /**
          * Retrieves a specific design document from this bucket.
-         * @param name 
+         * @param name
          * @param callback The callback function.
          */
         getDesignDocument(name: string, callback: Function): void;
@@ -371,27 +371,27 @@ declare module 'couchbase' {
 
         /**
          * Registers a design document to this bucket, failing if it already exists.
-         * @param name 
-         * @param data 
+         * @param name
+         * @param data
          * @param callback The callback function.
-         * @returns {} 
+         * @returns {}
          */
         insertDesignDocument(name: string, data: any, callback: Function): void;
 
         /**
          * Unregisters a design document from this bucket.
-         * @param name 
+         * @param name
          * @param callback The callback function.
-         * @returns {} 
+         * @returns {}
          */
         removeDesignDocument(name: string, callback: Function): void;
 
         /**
          * Registers a design document to this bucket, overwriting any existing design document that was previously registered.
-         * @param name 
-         * @param data 
+         * @param name
+         * @param data
          * @param callback The callback function.
-         * @returns {} 
+         * @returns {}
          */
         upsertDesignDocument(name: string, data: any, callback: Function): void;
     }
@@ -508,7 +508,7 @@ declare module 'couchbase' {
         stale(stale: ViewQuery.Update): ViewQuery;
     }
 
-    module ViewQuery {
+    namespace ViewQuery {
         /**
          * Enumeration for specifying on_error behaviour.
          */
@@ -576,7 +576,7 @@ declare module 'couchbase' {
         toString(): string;
     }
 
-    module N1qlQuery {
+    namespace N1qlQuery {
         /**
          * Enumeration for specifying N1QL consistency semantics.
          */
@@ -645,7 +645,7 @@ declare module 'couchbase' {
 
         /**
          * Specifies a bounding box to query the index for. This value must be an array of exactly 4 numbers which represents the left, top, right and bottom edges of the bounding box (in that order).
-         * @param bbox 
+         * @param bbox
          */
         bbox(bbox: number[]): SpatialQuery;
 
@@ -674,7 +674,7 @@ declare module 'couchbase' {
         stale(stale: SpatialQuery.Update): SpatialQuery;
     }
 
-    module SpatialQuery {
+    namespace SpatialQuery {
         /**
          * Enumeration for specifying view update semantics.
          */
@@ -704,7 +704,7 @@ declare module 'couchbase' {
          * Returns the version of the Node.js library as a string.
          */
         clientVersion: string;
-        
+
         /**
          * Gets or sets the config throttling in milliseconds. The config throttling is the time that Bucket will wait before forcing a configuration refresh. If no refresh occurs before this period while a configuration is marked invalid, an update will be triggered.
          */
@@ -759,7 +759,7 @@ declare module 'couchbase' {
         append(key: any | Buffer, fragment: any, callback: Bucket.OpCallback): void;
 
         /**
-         * 
+         *
          * @param key The target document key.
          * @param fragment The document's contents to append.
          * @param options The options object.
@@ -775,9 +775,9 @@ declare module 'couchbase' {
          * @param callback The callback function.
          */
         counter(key: any | Buffer, delta: number, callback: Bucket.OpCallback): void;
-        
+
         /**
-         * 
+         *
          * @param key The target document key.
          * @param delta The amount to add or subtract from the counter value. This value may be any non-zero integer.
          * @param options The options object.
@@ -826,7 +826,7 @@ declare module 'couchbase' {
          * @param key The target document key.
          * @param options The options object.
          * @param callback The callback function.
-         * @returns {} 
+         * @returns {}
          */
         getAndLock(key: any, options: GetAndLockOptions, callback: Bucket.OpCallback): void;
 
@@ -838,7 +838,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          */
         getAndTouch(key: any | Buffer, expiry: number, options: any, callback: Bucket.OpCallback): void;
-        
+
         /**
          * Retrieves a document and updates the expiry of the item at the same time.
          * @param key The target document key.
@@ -876,7 +876,7 @@ declare module 'couchbase' {
          * @param callback The callback function.
          */
         insert(key: any | Buffer, value: any, callback: Bucket.OpCallback): void;
-        
+
         /**
          * Identical to Bucket#upsert but will fail if the document already exists.
          * @param key The target document key.
@@ -1008,8 +1008,8 @@ declare module 'couchbase' {
         upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
     }
 
-    module Bucket {
-    
+    namespace Bucket {
+
         /**
          * his is used as a callback from executed queries. It is a shortcut method that automatically subscribes to the rows and error events of the Bucket.ViewQueryResponse.
          */
@@ -1066,7 +1066,7 @@ declare module 'couchbase' {
          */
         interface DecoderFunction {
             /**
-             * 
+             *
              * @param doc The data from Couchbase to decode.
              */
             (doc: Bucket.TranscoderDoc): any
@@ -1087,7 +1087,7 @@ declare module 'couchbase' {
 
         }
 
-        module N1qlQueryResponse {
+        namespace N1qlQueryResponse {
             /**
              * The meta-information available from a view query response.
              */
@@ -1114,7 +1114,7 @@ declare module 'couchbase' {
 
         }
 
-        module ViewQueryResponse {
+        namespace ViewQueryResponse {
             /**
              * The meta-information available from a view query response.
              */

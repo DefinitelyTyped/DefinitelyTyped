@@ -1,7 +1,7 @@
 // Type definitions for karma v0.13.9
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../bluebird/bluebird.d.ts" />
 /// <reference path="../node/node.d.ts" />
@@ -82,8 +82,8 @@ declare module 'karma' {
         interface ServerCallback {
             (exitCode: number): void;
         }
-        
-        interface Config { 
+
+        interface Config {
             set: (config: ConfigOptions) => void;
             LOG_DISABLE: string;
             LOG_ERROR: string;
@@ -91,7 +91,7 @@ declare module 'karma' {
             LOG_INFO: string;
             LOG_DEBUG: string;
         }
-        
+
         interface ConfigFile {
             configFile: string;
         }

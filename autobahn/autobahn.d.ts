@@ -1,12 +1,11 @@
 // Type definitions for AutobahnJS v0.9.6
 // Project: http://autobahn.ws/js/
 // Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
 
-declare module autobahn {
+declare namespace autobahn {
 
     export class Session {
         id: number;
@@ -194,7 +193,7 @@ declare module autobahn {
         type: string;
     }
 
-    type DeferFactory = () => JQueryPromise<any>;
+    type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 

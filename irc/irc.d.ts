@@ -1,7 +1,7 @@
 // Type definitions for irc v0.3.12
 // Project: https://github.com/martynsmith/node-irc
 // Definitions by: phillips1012 <https://github.com/phillips1012>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node-0.10.d.ts" />
 
@@ -12,7 +12,7 @@ declare module 'irc' {
     import net = require('net');
 
     /** This library provides IRC client functionality. */
-    module NodeIRC {
+    namespace NodeIRC {
         /** A nick connect to an IRC server. */
         export class Client extends events.EventEmitter {
             /**
@@ -405,7 +405,7 @@ declare module 'irc' {
         /**
          * Handler functions for Client.
          */
-        module handlers {
+        namespace handlers {
             /**
              * 'registered': Emitted when the server sends the initial 001 line,
              * indicating you’ve connected to the server. See the raw event for
@@ -855,7 +855,7 @@ declare module 'irc' {
     }
 
     /** Colors */
-    module NodeIRC.colors {
+    namespace NodeIRC.colors {
         /**
          * Takes a color by name, text, and optionally what color to return.
          * @param color - name of color

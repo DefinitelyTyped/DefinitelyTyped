@@ -1,14 +1,15 @@
 // Type definitions for es6-promise
 // Project: https://github.com/jakearchibald/ES6-Promise
 // Definitions by: François de Campredon <https://github.com/fdecampredon/>, vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Thenable<R> {
-    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
+interface Thenable<T> {
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
+    catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
 }
 
-declare class Promise<R> implements Thenable<R> {
+declare class Promise<T> implements Thenable<T> {
 	/**
 	 * If you call resolve in the body of the callback passed to the constructor,
 	 * your promise is fulfilled with result object passed to resolve.
@@ -16,7 +17,7 @@ declare class Promise<R> implements Thenable<R> {
 	 * For consistency and debugging (eg stack traces), obj should be an instanceof Error.
 	 * Any errors thrown in the constructor callback will be implicitly passed to reject().
 	 */
-	constructor(callback: (resolve : (value?: R | Thenable<R>) => void, reject: (error?: any) => void) => void);
+	constructor(callback: (resolve : (value?: T | Thenable<T>) => void, reject: (error?: any) => void) => void);
 
 	/**
 	 * onFulfilled is called when/if "promise" resolves. onRejected is called when/if "promise" rejects.
@@ -28,8 +29,8 @@ declare class Promise<R> implements Thenable<R> {
 	 * @param onFulfilled called when/if "promise" resolves
 	 * @param onRejected called when/if "promise" rejects
 	 */
-    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
-    then<U>(onFulfilled?: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void): Promise<U>;
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
+    then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Promise<U>;
 
 	/**
 	 * Sugar for promise.then(undefined, onRejected)
@@ -39,34 +40,35 @@ declare class Promise<R> implements Thenable<R> {
 	catch<U>(onRejected?: (error: any) => U | Thenable<U>): Promise<U>;
 }
 
-declare module Promise {
+declare namespace Promise {
 	/**
 	 * Make a new promise from the thenable.
 	 * A thenable is promise-like in as far as it has a "then" method.
 	 */
-	function resolve<R>(value?: R | Thenable<R>): Promise<R>;
+	function resolve<T>(value?: T | Thenable<T>): Promise<T>;
 
 	/**
 	 * Make a promise that rejects to obj. For consistency and debugging (eg stack traces), obj should be an instanceof Error
 	 */
 	function reject(error: any): Promise<any>;
+	function reject<T>(error: T): Promise<T>;
 
 	/**
 	 * Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects.
 	 * the array passed to all can be a mixture of promise-like objects and other objects.
 	 * The fulfillment value is an array (in order) of fulfillment values. The rejection value is the first rejection value.
 	 */
-	function all<R>(promises: (R | Thenable<R>)[]): Promise<R[]>;
+	function all<T>(promises: (T | Thenable<T>)[]): Promise<T[]>;
 
 	/**
 	 * Make a Promise that fulfills when any item fulfills, and rejects if any item rejects.
 	 */
-	function race<R>(promises: (R | Thenable<R>)[]): Promise<R>;
+	function race<T>(promises: (T | Thenable<T>)[]): Promise<T>;
 }
 
 declare module 'es6-promise' {
 	var foo: typeof Promise; // Temp variable to reference Promise in local context
-	module rsvp {
+	namespace rsvp {
 		export var Promise: typeof foo;
 	}
 	export = rsvp;

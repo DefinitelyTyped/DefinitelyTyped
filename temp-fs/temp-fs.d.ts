@@ -6,7 +6,7 @@
 /**
  * A temporary file and directory creator.
  */
-declare module tempfs {
+declare namespace tempfs {
 
     /**
      * A tempdir.

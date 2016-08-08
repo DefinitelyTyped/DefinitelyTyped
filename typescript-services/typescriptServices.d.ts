@@ -1,19 +1,19 @@
 // Type definitions for TypeScript API v0.4.0
 // Project: http://www.typescriptlang.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved. 
+Copyright (c) Microsoft Corporation. All rights reserved.
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0  
- 
+License at http://www.apache.org/licenses/LICENSE-2.0
+
 THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE, 
-MERCHANTABLITY OR NON-INFRINGEMENT. 
- 
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
@@ -1629,7 +1629,7 @@ declare namespace ts {
         /** Releases all resources held by this script snapshot */
         dispose?(): void;
     }
-    module ScriptSnapshot {
+    namespace ScriptSnapshot {
         function fromString(text: string): IScriptSnapshot;
     }
     interface PreProcessedFileInfo {
@@ -1752,7 +1752,7 @@ declare namespace ts {
         fileName: string;
         highlightSpans: HighlightSpan[];
     }
-    module HighlightSpanKind {
+    namespace HighlightSpanKind {
         const none: string;
         const definition: string;
         const reference: string;
@@ -2032,7 +2032,7 @@ declare namespace ts {
         releaseDocument(fileName: string, compilationSettings: CompilerOptions): void;
         reportStats(): string;
     }
-    module ScriptElementKind {
+    namespace ScriptElementKind {
         const unknown: string;
         const warning: string;
         const keyword: string;
@@ -2063,7 +2063,7 @@ declare namespace ts {
         const constElement: string;
         const letElement: string;
     }
-    module ScriptElementKindModifier {
+    namespace ScriptElementKindModifier {
         const none: string;
         const publicMemberModifier: string;
         const privateMemberModifier: string;

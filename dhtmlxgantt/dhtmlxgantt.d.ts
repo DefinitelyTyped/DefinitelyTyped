@@ -1,7 +1,7 @@
 // Type definitions for dhtmlxGantt 2.0
 // Project: http://dhtmlx.com/docs/products/dhtmlxGantt
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface GanttTemplates{
