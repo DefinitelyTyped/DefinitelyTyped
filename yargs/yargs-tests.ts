@@ -236,10 +236,10 @@ function completion_async() {
 }
 
 function Argv$help() {
-	var yargs1 = yargs
-		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
-
-    yargs1.help().argv;
+	var argv = yargs
+		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
+		.help()
+		.argv;
 }
 
 function Argv$showHelpOnFail() {
@@ -323,8 +323,23 @@ function Argv$reset() {
 	}
 }
 
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
 function Argv$commandDir() {
 	var ya = yargs
 		.commandDir('.')
+		.argv
+}
+
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDirWithOptions() {
+	var ya = yargs
+		.commandDir('.', {
+			recurse: false,
+			extensions: ['js'],
+			visit: (commandObject: any, pathToFile: string, filename: string) => { },
+			include: /.*\.js$/,
+			exclude: /.*\.spec.js$/,
+		})
 		.argv
 }
