@@ -75,6 +75,9 @@ webFrame.executeJavaScript('JSON.stringify({})', false, (result) => {
     console.log(result);
 });
 
+console.log(webFrame.getResourceUsage());
+webFrame.clearCache();
+
 // clipboard
 // https://github.com/atom/electron/blob/master/docs/api/clipboard.md
 
@@ -171,6 +174,16 @@ var image = clipboard.readImage();
 var appIcon3 = new Tray(image);
 var appIcon4 = new Tray('/Users/somebody/images/icon.png');
 
+// https://github.com/electron/electron/blob/master/docs/api/process.md
+
+// preload.js
+var _setImmediate = setImmediate;
+var _clearImmediate = clearImmediate;
+process.once('loaded', function() {
+	global.setImmediate = _setImmediate;
+	global.clearImmediate = _clearImmediate;
+});
+
 // screen
 // https://github.com/atom/electron/blob/master/docs/api/screen.md
 
@@ -222,7 +235,7 @@ webview.addEventListener('found-in-page', function(e) {
 	}
 });
 
-var rquestId = webview.findInPage("test");
+var requestId = webview.findInPage("test");
 
 webview.addEventListener('new-window', function(e) {
 	require('electron').shell.openExternal(e.url);
@@ -237,6 +250,7 @@ webview.addEventListener('ipc-message', function(event) {
 	console.log(event.channel); // Prints "pong"
 });
 webview.send('ping');
+webview.capturePage((image) => { console.log(image); });
 
 // In guest page.
 ipcRenderer.on('ping', function() {

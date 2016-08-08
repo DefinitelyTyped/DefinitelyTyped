@@ -399,7 +399,7 @@ declare namespace uiGrid {
          * ALL
          * @returns {Function} deregister function - a function that can be called to deregister this callback
          */
-        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types: Array<string>): Function;
+        registerDataChangeCallback(callback: (grid: IGridInstanceOf<TEntity>) => void, types?: Array<string>): Function;
         /**
          * When the build creates rows from gridOptions.data, the rowBuilders will be called to add
          * additional properties to the row.
@@ -861,7 +861,7 @@ declare namespace uiGrid {
          * By default it returns the `$$hashKey` property if it exists. If it doesn't it uses gridUtil.nextUid()
          * to generate one
          */
-        rowIdentity?(): any;
+        rowIdentity?(row: IGridRowOf<TEntity>): any;
     }
     export interface IGridCoreApi<TEntity> {
         // Methods
@@ -926,6 +926,12 @@ declare namespace uiGrid {
          *        us which refreshes to fire.
          */
         notifyDataChange(type: string): void;
+        /**
+         * Refresh the rendered grid on screen.
+         *
+         * @param {boolean} [rowsAltered] Optional flag for refreshing when the number of rows has changed.
+         */
+        refresh(rowsAltered?: boolean): ng.IPromise<any>;
         /**
          * Refresh the rendered rows on screen?  Note: not functional at present
          * @returns {ng.IPromise<any>} promise that is resolved when render completes?
@@ -1511,6 +1517,10 @@ declare namespace uiGrid {
              * Defaults to 150
              */
             expandableRowHeight?: number;
+            /**
+             * reference to the parent grid scope (the parent scope of the sub-grid element)
+             */
+            expandableRowScope?: ng.IScope | Object;
             /**
              * Mandatory. The template for your expanded row
              */
@@ -2821,7 +2831,7 @@ declare namespace uiGrid {
              * Makes it possible to specify a method that evaluates for each row and sets its "enableSelection"
              * property.
              */
-            isRowSelectable?: boolean;
+            isRowSelectable?: (row: IGridRow) => boolean;
             /**
              * Enable multiple row selection only when using the ctrlKey or shiftKey. Requires multiSelect to be true.
              * Defaults to false
@@ -3544,8 +3554,13 @@ declare namespace uiGrid {
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
-        /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively. 
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /** Column width */
         width: number;
         /**
@@ -3774,8 +3789,13 @@ declare namespace uiGrid {
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
         sortDirectionCycle?: Array<IUiGridConstants>;
-        /** Algorithm to use for sorting this column */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively. 
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort

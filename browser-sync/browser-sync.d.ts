@@ -8,10 +8,10 @@
 /// <reference path="../micromatch/micromatch.d.ts" />
 
 declare module "browser-sync" {
-    import chokidar = require("chokidar");
-    import fs = require("fs");
-    import http = require("http");
-    import mm = require("micromatch");
+    import * as chokidar from "chokidar";
+    import * as fs from "fs";
+    import * as http from "http";
+    import * as mm from "micromatch";
 
     namespace browserSync {
         interface Options {
@@ -23,14 +23,14 @@ declare module "browser-sync" {
              * weinre.port - Default: 8080
              * Note: requires at least version 2.0.0
              */
-            ui?: UIOptions;
+            ui?: UIOptions | boolean;
             /**
              * Browsersync can watch your files as you work. Changes you make will either be injected into the page (CSS
              * & images) or will cause all browsers to do a full-page refresh. See anymatch for more information on glob
              * patterns.
              * Default: false
              */
-            files?: string | string[];
+            files?: string | (string | FileCallback)[];
             /**
              * File watching options that get passed along to Chokidar. Check their docs for available options
              * Default: undefined
@@ -245,7 +245,7 @@ declare module "browser-sync" {
              * Note: requires at least version 1.6.2
              */
             socket?: SocketOptions;
-            middleware?: MiddlewareHandler | MiddlewareHandler[];
+            middleware?: MiddlewareHandler | PerRouteMiddleware | (MiddlewareHandler | PerRouteMiddleware)[];
         }
 
         interface Hash<T> {
@@ -261,6 +261,12 @@ declare module "browser-sync" {
             };
         }
 
+        interface FileCallback {
+            match?: string | string[];
+            fn: (event: string, file: string) => any;
+            options?: chokidar.WatchOptions;
+        }
+
         interface ServerOptions {
             /** set base directory */
             baseDir?: string | string[];
@@ -274,7 +280,7 @@ declare module "browser-sync" {
              */
             routes?: Hash<string>;
             /** configure custom middleware */
-            middleware?: MiddlewareHandler[];
+            middleware?: (MiddlewareHandler | PerRouteMiddleware)[];
         }
 
         interface ProxyOptions {
@@ -287,6 +293,11 @@ declare module "browser-sync" {
 
         interface MiddlewareHandler {
             (req: http.ServerRequest, res: http.ServerResponse, next: Function): any;
+        }
+
+        interface PerRouteMiddleware {
+            route: string;
+            handle: MiddlewareHandler;
         }
 
         interface GhostOptions {

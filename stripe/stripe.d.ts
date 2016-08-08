@@ -78,6 +78,8 @@ interface StripeBankTokenParams
     currency: string;
     account_number: number | string;
     routing_number?: number | string;
+    account_holder_name: string;
+    account_holder_type: string;
 }
 
 interface StripeBankTokenResponse

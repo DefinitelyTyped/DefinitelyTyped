@@ -27,7 +27,11 @@ interface IPathRoutes{
 }
 
 interface IPathCore{
-	route(path: string): IPathRoute;
+	route: IPathRouteConstructor;
+}
+
+interface IPathRouteConstructor {
+	new (path: string): IPathRoute;
 }
 
 interface IPath {
@@ -35,7 +39,7 @@ interface IPath {
 	
 	root(path: string): void;
 	
-	rescure(fn: Function): void;
+	rescue(fn: Function): void;
 	
 	history: IPathHistory;
 	
