@@ -1355,9 +1355,19 @@ interface MyModel extends mongoose.Model<MyDocument> {
   staticMethod: () => void;
 }
 interface ModelStruct {
-  doc: MyDocument,
-  model: MyModel
+  doc: MyDocument;
+  model: MyModel;
+  method1: (callback: (model: MyModel, doc: MyDocument) => void) => MyModel;
 }
+var modelStruct1: ModelStruct;
+var myModel1: MyModel;
+var myDocument1: MyDocument;
+modelStruct1.method1(function (myModel1, myDocument1) {
+  myModel1.staticProp;
+  myModel1.staticMethod();
+  myDocument1.prop;
+  myDocument1.method();
+}).staticProp.toLowerCase();
 var mySchema = new mongoose.Schema({});
 export var Final: MyModel = <MyModel>mongoose.connection.model<MyDocument>('Final', mySchema);
 Final.findOne(function (err: any, doc: MyDocument) {
