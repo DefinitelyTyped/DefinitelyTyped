@@ -903,7 +903,7 @@ declare module "https" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;
-        SNICallback?: (servername: string) => any;
+        SNICallback?: (servername: string, cb:(err:Error,ctx:tls.SecureContext)=>any) => any;
     }
 
     export interface RequestOptions extends http.RequestOptions {
@@ -1995,7 +1995,7 @@ declare module "tls" {
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
         NPNProtocols?: any;  //array or Buffer;
-        SNICallback?: (servername: string) => any;
+        SNICallback?: (servername: string, cb:(err:Error,ctx:SecureContext)=>any) => any;
     }
 
     export interface ConnectionOptions {
