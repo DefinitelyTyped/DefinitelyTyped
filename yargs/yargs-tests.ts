@@ -238,7 +238,8 @@ function completion_async() {
 function Argv$help() {
 	var yargs1 = yargs
 		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
-	var s: string = yargs1.help();
+
+    yargs1.help().argv;
 }
 
 function Argv$showHelpOnFail() {
