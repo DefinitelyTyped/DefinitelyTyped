@@ -141,9 +141,9 @@ declare module "yargs" {
 		interface RequireDirectoryOptions {
 			recurse?: boolean;
 			extensions?: string[];
-			visit?: (any) => any;
-			include?: RegExp | ((string)=>boolean);
-			exclude?: RegExp | ((string)=>boolean);
+			visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+			include?: RegExp | ((pathToFile: string)=>boolean);
+			exclude?: RegExp | ((pathToFile: string)=>boolean);
 		}
 
 		interface Options {
