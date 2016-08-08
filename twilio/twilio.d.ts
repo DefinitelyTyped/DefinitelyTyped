@@ -1,11 +1,15 @@
+/// <reference path="../express/express.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../Q/Q.d.ts" />
 
+import * as Http from 'http';
 
 /// index.js
+/*
 export class twilio extends RestClient {
   constructor(sid?: string, tkn?: string, options?: ClientOptions);
 }
+*/
 
 export namespace twilio {
 
@@ -27,187 +31,932 @@ export namespace twilio {
   // TaskRouterWorkerCapability
   // TaskRouterWorkspaceCapability
   // TaskRouterTaskQueueCapability
-  // TwimlResponse
+  // TwimlResponse (TODO main export is generator function)
   // webhook
 
   // Methods:
   //===============================
   // validateRequest
   // validateExpressRequest
-}
 
 
-/// ???
-declare interface GrantPayload {}
 
-declare interface Grant {
-  toPayload(): GrantPayload;
-}
+  /// ???
+  export interface GrantPayload {}
 
-declare interface RequestCallback { (err: any, data: any, response: ): void }
+  export interface Grant {
+    toPayload(): GrantPayload;
+  }
 
-/// AccessToken.js
-declare interface IpMessagingGrantOptions {
-  serviceSid: string;
-  endpointId: string;
-  deploymentRoleSid: string;
-  pushCredentialSid: string;
-}
+  export interface RequestCallback { (err: any, data: any, response: Http.ClientResponse): void; }
+  export interface BaseRequestCallback { (err: any, data: any): void; }
 
-declare interface IpMessagingGrantPayload extends GrantPayload {
-  service_sid: string;
-  endpoint_id: string;
-  deployment_role_sid: string;
-  push_credential_sid: string;
-}
+  export interface RestMethod { (args: any | BaseRequestCallback, callback?: RequestCallback): Q.Promise<any>; }
 
-declare class IpMessagingGrant implements Grant {
-  serviceSid: string;
-  endpointId: string;
-  deploymentRoleSid: string;
-  pushCredentialSid: string;
-  key: string;
+  /// AccessToken.js
+  export interface IpMessagingGrantOptions {
+    serviceSid: string;
+    endpointId: string;
+    deploymentRoleSid: string;
+    pushCredentialSid: string;
+  }
 
-  constructor(options?: IpMessagingGrantOptions);
+  export interface IpMessagingGrantPayload extends GrantPayload {
+    service_sid: string;
+    endpoint_id: string;
+    deployment_role_sid: string;
+    push_credential_sid: string;
+  }
 
-  toPayload(): IpMessagingGrantPayload;
-}
+  export class IpMessagingGrant implements Grant {
+    serviceSid: string;
+    endpointId: string;
+    deploymentRoleSid: string;
+    pushCredentialSid: string;
+    key: string;
 
-declare interface ConversationsGrantOptions {
-  configurationProfileSid: string;
-}
+    constructor(options?: IpMessagingGrantOptions);
 
-declare interface ConversationsGrantPayload extends GrantPayload {
-  configuration_profile_sid: string;
-}
+    toPayload(): IpMessagingGrantPayload;
+  }
 
-declare class ConversationsGrant implements Grant {
-  configurationProfileSid: string;
+  export interface ConversationsGrantOptions {
+    configurationProfileSid: string;
+  }
 
-  constructor(options?: ConversationsGrantOptions);
+  export interface ConversationsGrantPayload extends GrantPayload {
+    configuration_profile_sid: string;
+  }
 
-  toPayload(): ConversationsGrantPayload;
-}
+  export class ConversationsGrant implements Grant {
+    configurationProfileSid: string;
 
-declare interface AccessTokenOptions {
-  ttl: number;
-  identity: string;
-  nbf: number;
-}
+    constructor(options?: ConversationsGrantOptions);
 
-declare class AccessToken {
-  accountSid: string;
-  keySid: string;
-  secret: string;
-  ttl: number;
-  identity: string;
-  nbf: number;
-  grants: Array<Grant>;
+    toPayload(): ConversationsGrantPayload;
+  }
 
-  static IpMessagingGrant: IpMessagingGrant;
-  static ConversationGrant: ConversationsGrant;
-  static DEFAULT_ALGORITHM: string;
-  static ALGORITHMS: Array<string>;
+  export interface AccessTokenOptions {
+    ttl: number;
+    identity: string;
+    nbf: number;
+  }
 
-  constructor(accountSid: string, keySid: string, secret: string, opts?: AccessTokenOptions);
+  export class AccessToken {
+    accountSid: string;
+    keySid: string;
+    secret: string;
+    ttl: number;
+    identity: string;
+    nbf: number;
+    grants: Array<Grant>;
 
-  addGrant(grant: Grant): void;
-  toJwt(algorithm: string): any;  // TODO Find correct typedef
-}
+    static IpMessagingGrant: IpMessagingGrant;
+    static ConversationGrant: ConversationsGrant;
+    static DEFAULT_ALGORITHM: string;
+    static ALGORITHMS: Array<string>;
 
-/// Capability.js
-declare class Capability {
-  accountSid: string;
-  authToken: string;
-  capabilities: Array<string>;
-  clientName: string;
-  outgoingScopeParams: any;
-  scopeParams: any;
+    constructor(accountSid: string, keySid: string, secret: string, opts?: AccessTokenOptions);
+
+    addGrant(grant: Grant): void;
+    toJwt(algorithm: string): any;  // TODO Find correct typedef
+  }
+
+  /// Capability.js
+  export class Capability {
+    accountSid: string;
+    authToken: string;
+    capabilities: Array<string>;
+    clientName: string;
+    outgoingScopeParams: any;
+    scopeParams: any;
+    
+    constructor(sid?: string, tkn?: string);
+
+    allowClientIncoming(clientName: string): Capability;
+    allowClientOutgoing(appSid: string, params?: any): Capability;
+    allowEventStream(filters?: any): Capability;
+    generate(timeout?: number): string;
+  }
+
+  /// Client.js
+  export interface ClientOptions {
+    host?: string;
+    apiVersion?: string;
+    timeout?: number;
+  }
+
+  export interface ClientRequestOptions {
+    url: string;
+    form?: any;
+  }
+
+  export class Client {
+    accountSid: string;
+    authToken: string;
+    host: string;
+    apiVersion: string;
+    timeout: number;
+
+    constructor(sid?: string, tkn?: string, host?: string, api_version?: string, timeout?: number);
+
+    getBaseUrl(): string;
+    request(options: ClientRequestOptions, callback?: RequestCallback): Q.Promise<any>;
+  }
+
+  /// IpMessagingClient.js
+  export class IpMessagingClient extends Client {
+    services: ServiceResource;
+    credentials: CredentialResource;
+
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+  }
+
+  /// LookupsClient.js
+  export class LookupsClient extends Client {
+    phoneNumbers: PhoneNumberResource;
+
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+  }
+
+  /// MonitorClient.js
+  export class MonitorClient extends Client implements EventResource, AlertResource {
+    events: EventResource;
+    alerts: AlertResource;
+
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+  }
+
+  /// PricingClient.js
+  export class PricingClient extends Client {
+    voice: VoiceResource;
+    phoneNumbers: PhoneNumberResource;
+    messaging: MessagingResource;
+
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+  }
+
+  /// RestClient.js
+  export class RestClient extends Client implements AccountResource {
+    accounts: AccountResource;
+
+    // Imported from AccountResource
+    availablePhoneNumbers: AvailablePhoneNumberResource;
+    outgoingCallerIds: OutgoingCallerIdResource;
+    incomingPhoneNumbers: IncomingPhoneNumberResource;
+    messages: MessageResource;
+    sms: SMSIntermediary;
+    applications: ApplicationResource;
+    connectApps: ConnectAppResource;
+    authorizedConnectApps: AuthorizedConnectAppResource;
+    calls: CallResource;
+    conferences: ConferenceResource;
+    queues: QueueResource;
+    recordings: RecordingResource;
+    tokens: TokenResource;
+    transcriptions: TranscriptionResource;
+    notifications: NotificationResource;
+    usage: UsageIntermediary;
+    sip: SIPIntermediary;
+    addresses: AddressResource;
+    keys: KeyResource;
+
+    // Mixed-in Methods
+    put: RestMethod;
+    post: RestMethod;
+    get: RestMethod;
+    update: RestMethod;
+    list: RestMethod;
+
+    // Messaging shorthand
+    // TODO Pull in proper method signatures here!
+    sendSms();
+    sendMms();
+    sendMessage();
+    listSms();
+    listMessages();
+    getSms(messageSid: string, callback?: RequestCallback): Q.Promise<any>;
+    getMessage(messageSid: string, callback?: RequestCallback): Q.Promise<any>;
+
+    // Calls shorthand
+    // TODO Pull in proper method signatures here!
+    makeCall();
+    listCalls();
+    getCall(callSid: string, callback?: RequestCallback): Q.Promise<any>;
+
+    // Overrides Client.request(...)
+    request(options: ClientRequestOptions, callback?: RequestCallback): Q.Promise<any>;
+  }
+
+  /// TaskRouterCapability.js
+  export interface QueryFilter {
+    // TODO Populate me!
+  }
+
+  export interface PostFilter {
+    // TODO Populate me!
+  }
+
+  export interface Policy {
+    url: string;
+    method: string;
+    query_filter?: QueryFilter;
+    post_filter?: PostFilter;
+    allow: boolean;
+  }
+
+  export class TaskRouterCapability {
+    accountSid: string;
+    authToken: string;
+    policies: Array<Policy>;
+    workspaceSid: string;
+    channelId: string;
+
+    private _baseUrl: string;
+    private _resourceUrl: string;
+
+    constructor(accountSid: string, authToken: string, workspaceSid: string, channelId: string);
+
+    protected _setupResource(): void;
+    private _validateJWT(): void;
+    private _generate(ttl: number, extraAttributes: any): string;
+
+    allowFetchSubresources(): void;
+    allowUpdates(): void;
+    allowUpdatesSubresources(): void;
+    allowDelete(): void;
+    allowDeleteSubresources(): void;
+    allowWorkerActivityUpdates(): void;
+    allowWorkerFetchAttributes(): void;
+    allowTaskReservationUpdates(): void;
+    
+    addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
+    allow(url: string, method: string, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
+    deny(url: string, method: string, queryFilter?: QueryFilter, postFilter?: PostFilter): void;
+    generate(ttl: number): string;
+  }
+
+  /// TaskRouterClient.js
+  export class TaskRouterClient extends Client implements WorkspaceResource {
+    workspaces: WorkspaceResource;
+    workspace: WorkspaceResource;
+
+    constructor(sid?: string, tkn?: string, workspaceSid?: string, options?: ClientOptions);
+  }
+
+  /// TaskRouterTaskQueueCapability.js
+  export class TaskRouterTaskQueueCapability extends TaskRouterCapability {
+    constructor(accountSid: string, authToken: string, workspaceSid: string, taskQueueSid: string);
+
+    protected _setupResource(): void;
+  }
+
+  /// TaskRouterWorkerCapability.js
+  export class TaskRouterWorkerCapability extends TaskRouterCapability {
+    reservationsUrl: string;
+    activityUrl: string;
+    workerReservationsUrl: string;
+
+    constructor(accountSid: string, authToken: string, workspaceSid: string, workerSid: string);
+
+    protected _setupResource(): void;
+
+    allowActivityUpdates(): void;
+    allowReservationUpdates(): void;
+  }
+
+  /// TaskRouterWorkspaceCapability.js
+  export class TaskRouterWorkspaceCapability extends TaskRouterCapability {
+    constructor(accountSid: string, authToken: string, workspaceSid: string);
+
+    protected _setupResource(): void;
+  }
+
+  /// TrunkingClient.js
+  export class TrunkingClient extends Client {
+    trunks: TrunkResource;
+
+    constructor(sid?: string, tkn?: string, options?: ClientOptions);
+  }
+
+  /// TwimlResponse.js
+  // ???? - Someone else should look at this thing to make sure it's correct
+  export interface NodeOptions {
+    name: string;
+    attributes?: any;
+    text?: string;
+    topLevel?: boolean;
+    legalNodes: Array<string>;
+  }
+
+  export class Node implements NodeOptions {
+    name: string;
+    attributes: any;
+    text: any;
+    topLevel: boolean;
+    legalNodes: Array<string>;
+
+    constructor(config?: NodeOptions);
+
+    toString(): string;
+  }
+
+  export function TwimlResponse(): Node;
+
+  /// webhook.js
+  export interface webhookOptions {
+    validate?: boolean;
+    includeHelpers?: boolean;
+    host?: string;
+    protocol?: string;
+  }
+
+  export interface WebhookExpressOptions {
+    // The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
+    url?: string;
+    
+    // manually specify the host name used by Twilio in a number's webhook config
+    host?: string;
+
+    // manually specify the protocol used by Twilio in a number's webhook config
+    protocol?: string;
+  }
+
+  // For interop with node middleware chains
+  export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
+
+  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
+
+  export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
+  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+
+  /// resources/Accounts.js
+  export interface OutgoingCallerIdInstance {
+    get: RestMethod;
+    post: RestMethod;
+    put: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface OutgoingCallerIdResource {
+    (resourceSid: string): OutgoingCallerIdInstance;
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface SMSMessageInstance {
+    get: RestMethod;
+  }
+
+  export interface SMSMessageResource {
+    (resourceSid: string): SMSMessageInstance;
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface SMSShortCodeInstance {
+    get: RestMethod;
+    post: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface SMSShortCodeResource {
+    get: RestMethod;
+  }
+
+  export interface SMSIntermediary {
+    messages: SMSMessageResource;
+    shortCodes: SMSShortCodeResource;
+  }
+
+  export interface ApplicationInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface ApplicationResource {
+    (resourceSid: string): ApplicationInstance;
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface ConnectAppInstance {
+    get: RestMethod;
+    post: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface ConnectAppResource {
+    (resourceSid: string): ConnectAppInstance;
+    get: RestMethod;
+  }
+
+  export interface AuthorizedConnectAppInstance {
+    get: RestMethod;
+  }
+
+  export interface AuthorizedConnectAppResource {
+    (resourceSid: string): AuthorizedConnectAppInstance;
+    get: RestMethod;
+  }
+
+  export interface TokenInstance {}
+
+  export interface TokenResource {
+    (resourceSid: string): TokenInstance;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface TranscriptionInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface TranscriptionResource {
+    (resourceSid: string): TranscriptionInstance;
+    get: RestMethod;
+  }
+
+  export interface NotificationInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface NotificationResource {
+    (resourceSid: string): NotificationInstance;
+    get: RestMethod;
+  }
+
+  export interface UsageTriggerInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface UsageTriggerResource {
+    (resourceSid: string): UsageTriggerInstance;
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface UsageIntermediary {
+    records: UsageRecordResource;
+    triggers: UsageTriggerResource;
+  }
+
+  export interface SIPIntermediary {
+    domains: SIPDomainResource;
+    ipAccessControlLists: SIPIPAccessControlListResource;
+    credentialLists: SIPCredentialListResource;
+  }
+
+  export interface KeyInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface KeyResource {
+    (resourceSid: string): KeyInstance;
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface AccountResource {
+    (accountSid: string): AccountResource;
+
+    // Mixed-in resources
+    availablePhoneNumbers: AvailablePhoneNumberResource;
+    outgoingCallerIds: OutgoingCallerIdResource;
+    incomingPhoneNumbers: IncomingPhoneNumberResource;
+    messages: MessageResource;
+    sms: SMSIntermediary;
+    applications: ApplicationResource;
+    connectApps: ConnectAppResource;
+    authorizedConnectApps: AuthorizedConnectAppResource;
+    calls: CallResource;
+    conferences: ConferenceResource;
+    queues: QueueResource;
+    recordings: RecordingResource;
+    tokens: TokenResource;
+    transcriptions: TranscriptionResource;
+    notifications: NotificationResource;
+    usage: UsageIntermediary;
+    sip: SIPIntermediary;
+    addresses: AddressResource;
+    keys: KeyResource;
+
+    // Mixed-in Methods
+    put: RestMethod;
+    post: RestMethod;
+    get: RestMethod;
+    update: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/Addresses.js
+  export interface DependentPhoneNumberResource {
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface AddressInstance {
+    // Mixins
+    dependentPhoneNumbers: DependentPhoneNumberResource;
+
+    // Rest Methods
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface AddressResource {
+    (resourceSid: string): AddressInstance;
+    get: RestMethod;
+    list: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  /// resources/AvailablePhoneNumbers.js
+  export interface AvailablePhoneNumberResourceGroup {
+    get: RestMethod;
+    list: RestMethod;
+    search: RestMethod;
+  }
   
-  constructor(sid?: string, tkn?: string);
+  export interface AvailablePhoneNumberInstance {
+    local: AvailablePhoneNumberResourceGroup;
+    tollFree: AvailablePhoneNumberResourceGroup;
+    mobile: AvailablePhoneNumberResourceGroup;
+  }
 
-  allowClientIncoming(clientName: string): Capability;
-  allowClientOutgoing(appSid: string, params?: any): Capability;
-  allowEventStream(filters?: any): Capability;
-  generate(timeout?: number): string;
-}
+  export interface AvailablePhoneNumberResource {
+    (isoCode: string): AvailablePhoneNumberInstance;
+  }
 
-/// Client.js
-declare interface ClientOptions {
-  host?: string;
-  apiVersion?: string;
-  timeout?: number;
-}
+  /// resources/Calls.js
+  export interface CallRecordingResource {
+    get: RestMethod;
+    list: RestMethod;
+  }
 
-declare interface ClientRequestOptions {
-  url: string;
-  form?: any;
-}
+  export interface CallNotificationResource {
+    get: RestMethod;
+    list: RestMethod;
+  }
 
-declare class Client {
-  accountSid: string;
-  authToken: string;
-  host: string;
-  apiVersion: string;
-  timeout: number;
+  export interface CallFeedbackResource {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    create: RestMethod;
+  }
 
-  constructor(sid?: string, tkn?: string, host?: string, api_version?: string, timeout?: number);
+  export interface CallInstance {
+    recordings: CallRecordingResource;
+    notifications: CallNotificationResource;
+    feedback: CallFeedbackResource;
 
-  getBaseUrl(): string;
-  request(options: ClientRequestOptions, callback: RequestCallback): Q.Promise<any>;
-}
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
 
-/// IpMessagingClient.js
-declare class IpMessagingClient extends Client {
-  services: ServiceResource;
-  credentials: CredentialsResource;
+  export interface CallFeedbackSummaryInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
 
-  constructor(sid?: string, tkn?: string, options?: ClientOptions);
-}
+  export interface CallFeedbackSummaryResource {
+    (resourceSid: string): CallFeedbackSummaryInstance;
+    post: RestMethod;
+    create: RestMethod;
+  }
 
-/// LookupsClient.js
-declare class LookupsClient extends Client {
-  phoneNumbers: PhoneNumbersResource;
+  export interface CallResource {
+    (resourceSid: string): CallInstance;
 
-  constructor(sid?: string, tkn?: string, options?: ClientOptions);
-}
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
 
-/// MonitorClient.js
-declare class MonitorClient extends Client implements EventResource, AlertResource {
-  events: EventResource;
-  alerts: AlertResource;
+    feedbackSummary: CallFeedbackSummaryResource;
+  }
 
-  constructor(sid?: string, tkn?: string, options?: ClientOptions);
-}
+  /// resources/Conferences.js
+  export interface ConferenceParticipantInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+    kick: RestMethod;
+  }
 
-/// PricingClient.js
-declare class PricingClient extends Client {
-  voice: VoiceResource;
-  phoneNumbers: PhoneNumbersResource;
-  messaging: MessagingResource;
+  export interface ConferenceParticipantResource {
+    (resourceSid: string): ConferenceParticipantInstance;
 
-  constructor(sid?: string, tkn?: string, options?: ClientOptions);
-}
+    get: RestMethod;
+    list: RestMethod;
+  }
 
-/// RestClient.js
-declare class RestClient extends Client implements AccountResource {
-  accounts: AccountResource;
+  export interface ConferenceInstance {
+    get: RestMethod;
 
-  // Messaging shorthand
-  // TODO Pull in proper method signatures here!
-  sendSms();
-  sendMms();
-  sendMessage();
-  listSms();
-  listMessages();
-  getSms(messageSid: string, callback: (/* ??? */) => void): void;
-  getMessage(messageSid: string, callback: (/* ??? */) => void): void;
+    participants: ConferenceParticipantResource;
+  }
 
-  // Calls shorthand
-  // TODO Pull in proper method signatures here!
-  makeCall();
-  listCalls();
-  getCall(callSid: string, callback: (/* ??? */) => void): void;
+  export interface ConferenceResource {
+    (resourceSid: string): ConferenceInstance;
 
-  request(options: ClientRequestOptions, callback: RequestCallback): Q.Promise<any>;
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/IncomingPhoneNumbers.js
+  export interface IncomingPhoneNumberResourceGroup {
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  export interface IncomingPhoneNumberInstance {
+    get: RestMethod;
+    post: RestMethod;
+    put: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface IncomingPhoneNumberResource {
+    (resourceSid: string): IncomingPhoneNumberInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+
+    local: IncomingPhoneNumberResourceGroup;
+    tollFree: IncomingPhoneNumberResourceGroup;
+    mobile: IncomingPhoneNumberResourceGroup;
+  }
+
+  /// resources/Messages.js
+  export interface MessageMediaInstance {
+    get: RestMethod;
+    delete: RestMethod;
+  }
+
+  export interface MessageMediaResource {
+    (resourceSid: string): MessageMediaInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface MessageInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+
+    media: MessageMediaResource;
+  }
+
+  export interface MessageResource {
+    (resourceSid: string): MessageInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  /// resources/Queues.js
+  export interface QueueMemberInstance {
+    get: RestMethod;
+    post: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface QueueMemberResource {
+    (resourceSid: string): QueueMemberInstance;
+
+    get: RestMethod;
+
+    front: QueueMemberInstance;
+  }
+
+  export interface QueueInstance {
+    members: QueueMemberResource;
+
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface QueueResource {
+    (resourceSid: string): QueueInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+  }
+
+  /// resources/Recordings.js
+  export interface RecordingTranscriptionResource {
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface RecordingInstance {
+    get: RestMethod;
+    list: RestMethod;
+    delete: RestMethod;
+
+    transcriptions: RecordingTranscriptionResource;
+  }
+
+  export interface RecordingResource {
+    (resourceSid: string): RecordingInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/UsageRecords.js
+  export interface UsageRecordInstance {
+    get: RestMethod;
+  }
+
+  export interface UsageRecordRange {
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface UsageRecordResource {
+    (resourceSid: string): UsageRecordInstance;
+
+    get: RestMethod;
+
+    daily: UsageRecordRange;
+    monthly: UsageRecordRange;
+    yearly: UsageRecordRange;
+    allTime: UsageRecordRange;
+    today: UsageRecordRange;
+    yesterday: UsageRecordRange;
+    thisMonth: UsageRecordRange;
+    lastMonth: UsageRecordRange;
+  }
+
+  /// resources/ip_messaging/Credentials.js
+  export interface CredentialInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface CredentialResource {
+    (resourceSid: string): CredentialInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/ip_messaging/Services.js
+  export interface ServiceUserInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface ServiceUserResource {
+    (resourceSid: string): ServiceUserInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface ServiceRoleInstance {
+    get: RestMethod;
+  }
+
+  export interface ServiceRoleResource {
+    (resourceSid: string): ServiceRoleInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface ServiceChannelMessageInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface ServiceChannelMessageResource {
+    (resourceSid: string): ServiceChannelMessageInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface ServiceChannelMemberInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+  }
+
+  export interface ServiceChannelMemberResource {
+    (resourceSid: string): ServiceChannelMemberInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface ServiceChannelInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+
+    messages: ServiceChannelMessageResource;
+    members: ServiceChannelMemberResource;
+  }
+
+  export interface ServiceChannelResource {
+    (resourceSid: string): ServiceChannelInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  export interface ServiceInstance {
+    get: RestMethod;
+    post: RestMethod;
+    delete: RestMethod;
+    update: RestMethod;
+
+    users: ServiceUserResource;
+    roles: ServiceRoleResource;
+    channels: ServiceChannelResource;
+  }
+
+  export interface ServiceResource {
+    (resourceSid: string): ServiceInstance;
+
+    get: RestMethod;
+    post: RestMethod;
+    create: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/lookups/PhoneNumbers.js
+  export interface PhoneNumberInstance {
+    get: RestMethod;
+  }
+
+  export interface PhoneNumberResource {
+    (resourceSid: string): PhoneNumberInstance;
+  }
+
+  /// resources/monitor/Alerts.js
+  export interface AlertInstance {
+    get: RestMethod;
+  }
+
+  export interface AlertResource {
+    (resourceSid: string): AlertInstance;
+
+    get: RestMethod;
+    list: RestMethod;
+  }
+
+  /// resources/monitor/Events.js
+  
 }
