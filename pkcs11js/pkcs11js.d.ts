@@ -1,4 +1,4 @@
-// Type definitions for pkcs11js v1.0.0
+// Type definitions for pkcs11js v1.0.3
 // Project: https://github.com/PeculiarVentures/pkcs11js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,12 +7,12 @@
 
 /**
  * A Node.js implementation of the PKCS#11 2.3 interface
- * v1.0.0
+ * v1.0.3
  */
 
 declare module "pkcs11js" {
 
-    type Handle = number;
+    type Handle = Buffer;
 
 
     interface Version {
