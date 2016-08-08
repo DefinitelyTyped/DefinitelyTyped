@@ -1,6 +1,6 @@
 /// <reference path="scriptjs.d.ts" />
 
-import $script = require("scriptjs");
+import * as $script from 'scriptjs';
 
 const callback = (): void => console.log('done');
 
