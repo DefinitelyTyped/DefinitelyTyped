@@ -17,17 +17,7 @@ function main(): void {
   $script.ready('foo', callback);
   $script.ready('bundle', callback);
 
-  const deps = {
-    foo: 'foo.js',
-    bar: 'bar.js',
-    thunk: ['thunkor.js', 'thunky.js'],
-  };
-
-  $script.ready(['foo', 'bar', 'thunk'], callback, (missing: string[]): void => {
-    missing.forEach((dep: string): void => {
-      $script(deps[dep], dep);
-    });
-  });
+  $script.ready(['foo', 'bar', 'thunk'], callback, (missing: string[]): void => console.log('missing deps:', missing));
 
   $script.path('/js/modules/');
 
