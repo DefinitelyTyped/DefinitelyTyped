@@ -36,3 +36,11 @@ var e = new Drop({
     content: () => greenBox
 });
 
+var Tooltip = Drop.createContext({
+    classPrefix: 'tooltip'
+});
+
+var t = new Tooltip({
+    target: yellowBox,
+    content: () => greenBox
+});
