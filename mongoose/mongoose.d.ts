@@ -2303,13 +2303,13 @@ declare module "mongoose" {
      * Returns another Model instance.
      * @param name model name
      */
-    model<T extends Document>(name: string): Model<T>;
+    model(name: string): Model<this>;
 
     /**
      * Removes this document from the db.
      * @param fn optional callback
      */
-    remove<T extends Document>(fn?: (err: any, product: T) => void): _MongoosePromise<T>;
+    remove(fn?: (err: any, product: this) => void): _MongoosePromise<this>;
 
     /**
      * Saves this document.
@@ -2318,7 +2318,7 @@ declare module "mongoose" {
      * @param options.validateBeforeSave set to false to save without validating.
      * @param fn optional callback
      */
-    save<T extends Document>(fn?: (err: any, product: T, numAffected: number) => void): _MongoosePromise<T>;
+    save(fn?: (err: any, product: this, numAffected: number) => void): _MongoosePromise<this>;
 
     /** Base Mongoose instance the model uses. */
     base: typeof mongoose;
