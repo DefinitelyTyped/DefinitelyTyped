@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.1
+// Type definitions for Electron v1.3.2
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -490,6 +490,13 @@ declare namespace Electron {
 		 * Note: This API is only available on macOS.
 		 */
 		show(): void;
+		/**
+		 * @returns Whether the dock icon is visible.
+		 * The app.dock.show() call is asynchronous so this method might not return true immediately after that call.
+		 *
+		 * Note: This API is only available on macOS.
+		 */
+		isVisible(): boolean;
 		/**
 		 * Sets the application dock menu.
 		 *
@@ -2050,6 +2057,11 @@ declare namespace Electron {
 		 */
 		setSavePath(path: string): void;
 		/**
+		 * @returns The save path of the download item.
+		 * This will be either the path set via downloadItem.setSavePath(path) or the path selected from the shown save dialog.
+		 */
+		getSavePath(): string;
+		/**
 		 * Pauses the download.
 		 */
 		pause(): void;
@@ -2438,13 +2450,17 @@ declare namespace Electron {
 		 */
 		static createFromDataURL(dataURL: string): NativeImage;
 		/**
-		 * @returns Buffer Contains the image's PNG encoded data.
+		 * @returns Buffer that contains the image's PNG encoded data.
 		 */
 		toPNG(): Buffer;
 		/**
-		 * @returns Buffer Contains the image's JPEG encoded data.
+		 * @returns Buffer that contains the image's JPEG encoded data.
 		 */
 		toJPEG(quality: number): Buffer;
+		/**
+		 * @returns Buffer that contains the image's raw pixel data.
+		 */
+		toBitmap(): Buffer;
 		/**
 		 * @returns string The data URL of the image.
 		 */
@@ -3250,6 +3266,62 @@ declare namespace Electron {
 		 * Play the beep sound.
 		 */
 		beep(): void;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, options: ShortcutLinkOptions): boolean;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, operation: 'create' | 'update' | 'replace', options: ShortcutLinkOptions): boolean;
+		/**
+		 * Resolves the shortcut link at shortcutPath.
+		 * An exception will be thrown when any error happens.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		readShortcutLink(shortcutPath: string): ShortcutLinkOptions;
+	}
+
+	interface ShortcutLinkOptions {
+		/**
+		 * The target to launch from this shortcut.
+		 */
+		target: string;
+		/**
+		 * The working directory.
+		 * Default: empty.
+		 */
+		cwd?: string;
+		/**
+		 * The arguments to be applied to target when launching from this shortcut.
+		 * Default: empty.
+		 */
+		args?: string;
+		/**
+		 * The description of the shortcut.
+		 * Default: empty.
+		 */
+		description?: string;
+		/**
+		 * The path to the icon, can be a DLL or EXE. icon and iconIndex have to be set together.
+		 * Default: empty, which uses the target's icon.
+		 */
+		icon?: string;
+		/**
+		 * The resource ID of icon when icon is a DLL or EXE.
+		 * Default: 0.
+		 */
+		iconIndex?: number;
+		/**
+		 * The Application User Model ID.
+		 * Default: empty.
+		 */
+		appUserModelId?: string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
@@ -3634,9 +3706,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when the cursor’s type changes.
 		 * If the type parameter is custom, the image parameter will hold the custom cursor image
-		 * in a NativeImage, and the scale will hold scaling information for the image.
+		 * in a NativeImage, and scale, size and hotspot will hold additional information about the custom cursor.
 		 */
-		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number, size?: Size, hotspot?: Point) => void): this;
 		/**
 		 * Emitted when there is a new context menu that needs to be handled.
 		 */
@@ -3762,6 +3834,29 @@ declare namespace Electron {
 		 * @returns Whether this page has been muted.
 		 */
 		isAudioMuted(): boolean;
+		/**
+		 * Changes the zoom factor to the specified factor.
+		 * Zoom factor is zoom percent divided by 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * Sends a request to get current zoom factor.
+		 */
+		getZoomFactor(callback: (zoomFactor: number) => void): void;
+		/**
+		 * Changes the zoom level to the specified level.
+		 * The original size is 0 and each increment above or below represents
+		 * zooming 20% larger or smaller to default limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
+		 * Sends a request to get current zoom level.
+		 */
+		getZoomLevel(callback: (zoomLevel: number) => void): void;
+		/**
+		 * Sets the maximum and minimum zoom level.
+		 */
+		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Executes the editing command undo in web page.
 		 */

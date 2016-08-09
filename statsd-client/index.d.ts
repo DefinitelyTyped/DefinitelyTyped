@@ -99,4 +99,5 @@ declare class StatsdClient {
     getChildClient(name: string): StatsdClient;
 }
 
+declare namespace StatsdClient {}
 export = StatsdClient;
