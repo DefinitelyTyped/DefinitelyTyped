@@ -39,5 +39,5 @@ declare module "aws-lambda" {
     }
 
 
-    export function Callback(error?: any, message?: string): void;
+    export type Callback = (error?: Error, message?: string) => void;
 }
