@@ -2059,6 +2059,15 @@ declare module "mongoose" {
      */
     new(doc?: Object): T;
 
+    /** The name of the model. */
+    modelName: string;
+
+    /** Collection the model uses. */
+    collection: Collection;
+
+    /** If this is a discriminator model, `baseModelName` is the name of the base model. */
+    baseModelName: string;
+
     /**
      * Finds a single document by its _id field. findById(id) is almost*
      * equivalent to findOne({ _id: id }). findById() triggers findOne hooks.
