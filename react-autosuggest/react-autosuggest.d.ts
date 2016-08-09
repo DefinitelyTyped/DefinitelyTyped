@@ -31,15 +31,15 @@ declare namespace ReactAutosuggest {
   }
 
   interface Theme {
-    container: string;
-    containerOpen: string;
-    input: string;
-    sectionContainer: string;
-    sectionSuggestionsContainer: string;
-    sectionTitle: string;
-    suggestion: string;
-    suggestionFocused: string;
-    suggestionsContainer: string;
+    container?: string;
+    containerOpen?: string;
+    input?: string;
+    sectionContainer?: string;
+    sectionSuggestionsContainer?: string;
+    sectionTitle?: string;
+    suggestion?: string;
+    suggestionFocused?: string;
+    suggestionsContainer?: string;
   }
 
   interface AutosuggestProps extends React.Props<Autosuggest> {
