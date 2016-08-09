@@ -1,17 +1,15 @@
+// Type definitions for twilio
+// Project: https://github.com/twilio/twilio-node
+// Definitions by: nickiannone <https://github.com/nickiannone>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../Q/Q.d.ts" />
 
 import * as Http from 'http';
 
-/// index.js
-/*
-export class twilio extends RestClient {
-  constructor(sid?: string, tkn?: string, options?: ClientOptions);
-}
-*/
-
-export namespace twilio {
+declare module twilio {
 
   // Composite Classes:
   //==============================
@@ -352,7 +350,7 @@ export namespace twilio {
     toString(): string;
   }
 
-  export function TwimlResponse(): Node;
+   function TwimlResponse(): Node;
 
   /// webhook.js
   export interface webhookOptions {
@@ -376,10 +374,10 @@ export namespace twilio {
   // For interop with node middleware chains
   export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
 
-  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
+   function webhook(options?: string | webhookOptions): MiddlewareFunction;
 
-  export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
-  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+   function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
+   function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
   export interface OutgoingCallerIdInstance {
