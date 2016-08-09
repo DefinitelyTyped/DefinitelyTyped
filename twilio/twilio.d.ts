@@ -9,7 +9,11 @@
 
 import * as Http from 'http';
 
-declare module twilio {
+export interface twilio {
+  (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
+}
+
+export module twilio {
 
   // Composite Classes:
   //==============================
@@ -236,8 +240,8 @@ declare module twilio {
     getMessage(messageSid: string, callback?: RequestCallback): Q.Promise<any>;
 
     // Calls shorthand
-    makeCall(): RestMethod;
-    listCalls(): RestMethod;
+    makeCall: RestMethod;
+    listCalls: RestMethod;
     getCall(callSid: string, callback?: RequestCallback): Q.Promise<any>;
 
     // Overrides Client.request(...)
@@ -338,6 +342,10 @@ declare module twilio {
     legalNodes: Array<string>;
   }
 
+  export interface TwimlMethod { (arg1: any | string | TwimlCallback, arg2?: any | string | TwimlCallback): Node }
+  
+  export interface TwimlCallback { (node?: Node): void; }
+
   export class Node implements NodeOptions {
     name: string;
     attributes: any;
@@ -347,10 +355,37 @@ declare module twilio {
 
     constructor(config?: NodeOptions);
 
+    // TwiML Verbs/Nouns:
+    gather: TwimlMethod;
+    say: TwimlMethod;
+    play: TwimlMethod;
+    pause: TwimlMethod;
+
+    dial: TwimlMethod;
+    number: TwimlMethod;
+    client: TwimlMethod;
+    conference: TwimlMethod;
+    queue: TwimlMethod;
+    sip: TwimlMethod;
+
+    message: TwimlMethod;
+    media: TwimlMethod;
+    body: TwimlMethod;
+
+    enqueue: TwimlMethod;
+    task: TwimlMethod;
+
+    record: TwimlMethod;
+    sms: TwimlMethod;
+    hangup: TwimlMethod;
+    redirect: TwimlMethod;
+    reject: TwimlMethod;
+    leave: TwimlMethod;
+
     toString(): string;
   }
 
-   function TwimlResponse(): Node;
+  export class TwimlResponse extends Node {}
 
   /// webhook.js
   export interface webhookOptions {
