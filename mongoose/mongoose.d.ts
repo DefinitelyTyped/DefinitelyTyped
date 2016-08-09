@@ -1448,8 +1448,8 @@ declare module "mongoose" {
      * you must first call remove() and then execute it by using the exec() method.
      * @param criteria mongodb selector
      */
-    remove(callback?: (err: any) => void): Query<void>;
-    remove(criteria: Object | Query<any>, callback?: (err: any) => void): Query<void>;
+    remove(callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
+    remove(criteria: Object | Query<any>, callback?: (err: any) => void): Query<mongodb.WriteOpResult>;
 
     /** Specifies which document fields to include or exclude (also known as the query "projection") */
     select(arg: string | Object): this;
