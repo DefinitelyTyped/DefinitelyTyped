@@ -1,3 +1,8 @@
+// Type definitions for passport-local-mongoose 4.0.0
+// Project: https://github.com/saintedlama/passport-local-mongoose
+// Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="../mongoose/mongoose.d.ts" />
 /// <reference path="../passport-local/passport-local.d.ts" />
 
