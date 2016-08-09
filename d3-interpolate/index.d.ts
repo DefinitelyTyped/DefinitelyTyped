@@ -3,7 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ColorSpaceObject } from '../d3-color';
+import { ColorSpaceObject } from 'd3-color';
 
 
 // --------------------------------------------------------------------------
