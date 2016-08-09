@@ -276,7 +276,7 @@ export var curveNatural: CurveFactory;
 
 export var curveStep: CurveFactory;
 
-export var stepAfter: CurveFactory;
+export var curveStepAfter: CurveFactory;
 
 export var curveStepBefore: CurveFactory;
 
