@@ -715,8 +715,8 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
-    export function createServer(requestListener?: Function): Server;
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
+    export function createServer(requestListener?: Function): Server;
     export function createClient(port?: number, host?: string): any;
     export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
