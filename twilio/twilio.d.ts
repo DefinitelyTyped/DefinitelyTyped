@@ -7,7 +7,10 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../Q/Q.d.ts" />
 
+import * as express from 'express';
 import * as Http from 'http';
+
+import q = require('q');
 
 export interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
