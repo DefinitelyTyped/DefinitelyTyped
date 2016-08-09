@@ -1,6 +1,6 @@
 // Type definitions for jsonschema
 // Project: https://github.com/tdegrunt/jsonschema
-// Definitions by: Vlado Tešanovic https://github.com/vladotesanovic
+// Definitions by: Vlado Tešanovic <https://github.com/vladotesanovic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 declare module "jsonschema" {
 
