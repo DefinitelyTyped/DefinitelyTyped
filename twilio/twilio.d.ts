@@ -409,10 +409,10 @@ export module twilio {
   // For interop with node middleware chains
   export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
 
-   function webhook(options?: string | webhookOptions): MiddlewareFunction;
+  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
 
-   function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
-   function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+  export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
+  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
   export interface OutgoingCallerIdInstance {
