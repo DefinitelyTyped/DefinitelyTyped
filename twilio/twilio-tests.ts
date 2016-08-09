@@ -1,5 +1,7 @@
 /// <reference path="./twilio.d.ts" />
 
+import twilio = require('twilio');
+
 var str: string;
 
 const client = new twilio.RestClient(str, str);
