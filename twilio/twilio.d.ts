@@ -5,7 +5,7 @@
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../Q/Q.d.ts" />
+/// <reference path="../q/Q.d.ts" />
 
 import * as express from 'express';
 import * as Http from 'http';
@@ -151,6 +151,7 @@ export module twilio {
 
   export interface ClientRequestOptions {
     url: string;
+    method?: string;
     form?: any;
   }
 

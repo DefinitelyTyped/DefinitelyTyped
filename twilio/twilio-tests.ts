@@ -5,13 +5,13 @@ import { twilio } from './twilio';
 var str: string;
 
 // Create a client:
-var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+var client: twilio.RestClient = (require('twilio') as twilio)('ACCOUNT_SID', 'AUTH_TOKEN');
 
 //Get a list of calls made by this account
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls
 // alias for get is "list", if you prefer
-client.calls.get(function(err, response) {
-    response.calls.forEach(function(call) {
+client.calls.get(function(err: any, response: any) {
+    response.calls.forEach(function(call: any) {
         console.log('Received call from: ' + call.from);
         console.log('Call duration (in seconds): ' + call.duration);
     });
@@ -21,8 +21,8 @@ client.calls.get(function(err, response) {
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
 client.calls.get({
     from:'+16513334455'
-}, function(err, response) {
-    response.calls.forEach(function(call) {
+}, function(err: any, response: any) {
+    response.calls.forEach(function(call: any) {
         console.log('Received call from: ' + call.from);
         console.log('This call\'s unique ID is: ' + call.sid);
     });
@@ -30,15 +30,15 @@ client.calls.get({
 
 //Get data for a specific call
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls/abc123...
-client.calls('abc123...').get(function(err, call) {
+client.calls('abc123...').get(function(err: any, call: any) {
     console.log('This call\'s unique ID is: ' + call.sid);
     console.log('This call was created at: ' + call.dateCreated);
 });
 
 //Get data for a specific call, for a specific account
 // GET /2010-04-01/Accounts/AC.../Calls/abc123...
-client.accounts('AC...').calls('abc123...').get(function(err, response) {
-    response.calls.forEach(function(call) {
+client.accounts('AC...').calls('abc123...').get(function(err: any, response: any) {
+    response.calls.forEach(function(call: any) {
         console.log('Received call from: ' + call.from);
         console.log('This call\'s unique ID is: ' + call.sid);
     });
@@ -51,27 +51,26 @@ client.sms.messages.post({
     to:'+16515559999',
     from:'+14503334455',
     body:'word to your mother.'
-}, function(err, text) {
+}, function(err: any, text: any) {
     console.log('You sent: '+ text.body);
     console.log('Current status of this text message is: '+ text.status);
 });
 
 // Delete a TwiML application
 // DELETE /2010-04-01/Accounts/ACCOUNT_SID/Applications/APP...
-client.applications('APP...').delete(function(err, response, nodeResponse) {
+client.applications('APP...').delete(function(err: any, response: any, nodeResponse: any) {
     //DELETE requests do not return data - if there was no error, it worked.
     err ? console.log('There was an error') : console.log('it worked!');
 });
 
-var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN'),
-    SOME_SUBACCOUNT_SID = 'AC...';
+var SOME_SUBACCOUNT_SID = 'AC...';
 
 //Send a text message, associated with the given subaccount
 client.accounts(SOME_SUBACCOUNT_SID).sms.messages.create({
     to:'+16512223333',
     from:'+14505556677',
     body:'word to your subaccount mother.'
-}, function(err, text) {
+}, function(err: any, text: any) {
     console.log('You sent: '+ text.body);
     console.log('Current status of this text message is: '+ text.status);
 });
@@ -81,7 +80,7 @@ client.makeCall({
     to:'+16512223333',
     from:'+14505556677',
     url:'http://example.com/someTwiml.php'
-}, function(err, call) {
+}, function(err: any, call: any) {
     console.log('This call\'s unique ID is: ' + call.sid);
     console.log('This call was created at: ' + call.dateCreated);
 });
@@ -91,7 +90,7 @@ client.accounts(str).calls.create({
     to:'+16512223333',
     from:'+14505556677',
     url:'http://example.com/someTwiml.php'
-}, function(err, call) {
+}, function(err: any, call: any) {
     console.log('This call\'s unique ID is: ' + call.sid);
     console.log('This call was created at: ' + call.dateCreated);
 });
@@ -108,9 +107,9 @@ var promise = restClient.makeCall({
 // You can assign functions to be called, at any time, after the request to
 // Twilio has been completed.  The first function is called when the request
 // succeeds, the second if there was an error.
-promise.then(function(call) {
+promise.then(function(call: any) {
     console.log('Call success! Call SID: '+call.sid);
-}, function(error) {
+}, function(error: any) {
     console.error('Call failed!  Reason: '+error.message);
 });
 
@@ -120,7 +119,7 @@ promise.then(function(call) {
 // First, search for available phone numbers
 restClient.availablePhoneNumbers('US').local.get({
     areaCode:'651'
-}).then(function(searchResults) {
+}).then(function(searchResults: any) {
 
     // handle the case where there are no numbers found
     if (searchResults.availablePhoneNumbers.length < 1) {
@@ -135,12 +134,12 @@ restClient.availablePhoneNumbers('US').local.get({
         smsUrl:'https://demo.twilio.com/welcome/sms/reply'
     });
 
-}).then(function(number) {
+}).then(function(number: any) {
 
     // We bought the number!  Everything worked!
     console.log('Your new number: '+number.phoneNumber);
 
-}).fail(function(error) {
+}).fail(function(error: any) {
 
     // This callback will be invoked on any error returned in the
     // process.
@@ -156,7 +155,7 @@ restClient.availablePhoneNumbers('US').local.get({
 client.request({
     url:'/Accounts',
     method:'GET'
-}, function (error, responseData) {
+}, function (error: any, responseData: any) {
     //work with response data
 });
 
@@ -192,7 +191,7 @@ resp.say('Welcome to Acme Customer Service!')
     .gather({
         action:'http://www.example.com/callFinished.php',
         finishOnKey:'*'
-    }, function(node) { //note the use of the "node" variable in the anonymous function
+    }, function(node: twilio.Node) { //note the use of the "node" variable in the anonymous function
 
         //Now you can use this reference as well, if using "this" wrankles you
         node.say('Press 1 for customer service')
@@ -207,7 +206,7 @@ resp.say('Your conference call is starting.',
     })
     .dial({
             action:'http://example.com/something.php'
-        }, function(node) {
+        }, function(node: twilio.Node) {
             node.conference('waitingRoom', {
             beep:'false'
         });
