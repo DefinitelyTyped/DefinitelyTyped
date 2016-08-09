@@ -2,6 +2,7 @@
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../passport/passport.d.ts" />
 /// <reference path="../passport-local/passport-local.d.ts" />
+/// <reference path="../mongoose/mongoose.d.ts" />
 
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
@@ -54,9 +55,8 @@ options.saltField = 'salt';
 options.saltlen = 32;
 options.attemptsField = 'attempts';
 options.lastLoginField = 'last';
-// TODO:
-// options.selectFields = 'undefined';
-// options.populateFields = 'undefined';
+options.selectFields = 'undefined';
+options.populateFields = 'undefined';
 options.encoding = 'hex';
 options.limitAttempts = false;
 options.maxAttempts = Infinity;

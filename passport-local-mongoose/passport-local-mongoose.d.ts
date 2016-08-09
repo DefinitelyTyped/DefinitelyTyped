@@ -52,6 +52,9 @@ declare module 'mongoose' {
 
     usernameQueryFields: Array<string>;
 
+    selectFields?: string;
+    populateFields?: string;
+
     usernameLowerCase?: boolean;
 
     hashField?: string;
