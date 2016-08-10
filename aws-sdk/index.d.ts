@@ -314,7 +314,8 @@ export declare class ECS {
 export declare class DynamoDB {
     constructor(options?: any);
     endpoint: Endpoint;
-
+    createTable(params: any, next: (err: any, data: any) => void): void;
+    deleteTable(params: any, next: (err: any, data: any) => void): void;
 }
 
 // ==========================================================
@@ -350,10 +351,10 @@ export declare module DynamoDB {
         ConditionalOperator?: "AND" | "OR";
         Expected?: {
             [someKey: string]: {
-                AttributeValueList: any[];
-                ComparisonOperator: _DDBDC_ComparisonOperator;
+          AttributeValueList?: any[];
+          ComparisonOperator?: _DDBDC_ComparisonOperator;
                 Exists: boolean;
-                Value: any;
+          Value?: any;
             }
         }
     }
