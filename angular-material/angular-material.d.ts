@@ -247,6 +247,7 @@ declare namespace angular.material {
         extendPalette(name: string, palette: IPalette): IPalette;
         setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+        setNonce(nonce: string): void;
     }
 
     interface IDateLocaleProvider {
