@@ -49,5 +49,44 @@ function printDiff(diff:jsdiff.IDiffResult[]) {
             console.log(addLineHeader(" ", part.value));
         }
     });
-
 }
+
+function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
+    var verifyPatch = jsdiff.parsePatch(
+        jsdiff.createTwoFilesPatch("oldFile.ts", "newFile.ts", oldStr, newStr,
+            "old", "new", { context: 1 }));
+    if (JSON.stringify(verifyPatch) !== JSON.stringify(uniDiff)) {
+        console.error("Patch did not match uniDiff");
+    }
+}
+
+function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
+    var verifyApply = [
+        jsdiff.applyPatch(oldStr, uniDiff),
+        jsdiff.applyPatch(oldStr, [uniDiff])
+    ];
+    jsdiff.applyPatches([uniDiff], {
+        loadFile: (index: number, callback: (err: Error, data: string) => void) => {
+            callback(undefined, one);
+        },
+        patched: (index: number, content: string) => {
+            verifyApply.push(content);
+        },
+        complete: (err?: Error) => {
+            if (err) {
+                console.error(err);
+            }
+
+            verifyApply.forEach(result => {
+                if (result !== newStr) {
+                    console.error("Result did not match newStr");
+                }
+            });
+        }
+    });
+}
+
+verifyPatchMethods(one, other, uniDiff);
+var uniDiff = jsdiff.structuredPatch("oldFile.ts", "newFile.ts", one, other,
+    "old", "new", { context: 1 });
+verifyApplyMethods(one, other, uniDiff);
