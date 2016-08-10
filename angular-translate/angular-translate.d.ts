@@ -95,6 +95,7 @@ declare namespace angular.translate {
         use(key: string): ITranslateProvider;
         storageKey(): string;
         storageKey(key: string): void; // JeroMiya - the library should probably return ITranslateProvider but it doesn't here
+        uniformLanguageTag(options: string | Object): ITranslateProvider;
         useUrlLoader(url: string): ITranslateProvider;
         useStaticFilesLoader(options: IStaticFilesLoaderOptions | { files: IStaticFilesLoaderOptions[] }): ITranslateProvider;
         useLoader(loaderFactory: string, options?: any): ITranslateProvider;
