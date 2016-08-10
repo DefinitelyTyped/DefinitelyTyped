@@ -455,6 +455,7 @@ declare module "knex" {
       migrations?: MigratorConfig;
       acquireConnectionTimeout?: number;
       useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {
