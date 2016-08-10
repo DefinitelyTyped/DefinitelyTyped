@@ -319,7 +319,8 @@ declare module "aws-sdk" {
   export class DynamoDB {
     constructor(options?: any);
     endpoint: Endpoint;
-
+    createTable(params: any, next: (err: any, data: any) => void): void;
+    deleteTable(params: any, next: (err: any, data: any) => void): void;
   }
 
   // ==========================================================
@@ -355,10 +356,10 @@ declare module "aws-sdk" {
       ConditionalOperator?: "AND" | "OR";
       Expected?: {
         [someKey: string]: {
-          AttributeValueList: any[];
-          ComparisonOperator: _DDBDC_ComparisonOperator;
+          AttributeValueList?: any[];
+          ComparisonOperator?: _DDBDC_ComparisonOperator;
           Exists: boolean;
-          Value: any;
+          Value?: any;
         }
       }
     }
