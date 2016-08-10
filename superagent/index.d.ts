@@ -49,9 +49,9 @@ declare namespace request {
         search(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
 
-        parse(fn: Function): Req;
-        saveCookies(res: Response): void;
-        attachCookies(req: Req): void;
+      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
+      saveCookies(res: Response): void;
+      attachCookies(req: Req): void;
     }
 
     interface Response extends NodeJS.ReadableStream {
@@ -106,6 +106,7 @@ declare namespace request {
         withCredentials(): this;
         write(data: string, encoding?: string): this;
         write(data: Buffer, encoding?: string): this;
+        parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
     }
 
 }

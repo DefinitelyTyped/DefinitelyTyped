@@ -32,7 +32,7 @@ declare class Drop {
     public once(event: string, handler: Function, context?: any): void;
     public off(event: string, handler?: Function): void;
 
-    public static createContext(options: Drop.IDropContextOptions): Drop;
+    public static createContext(options: Drop.IDropContextOptions): typeof Drop;
 }
 
 declare namespace Drop {
@@ -60,4 +60,3 @@ declare namespace Drop {
         tetherOptions?: Tether.ITetherOptions;
     }
 }
-
