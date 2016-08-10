@@ -29,6 +29,10 @@ declare namespace ReCaptchaV2
     getResponse(opt_widget_id?: number): string;
   }
 
+  type Theme = "light" | "dark";
+  type Type = "image" | "audio";
+  type Size = "normal" | "compact";
+
   interface Parameters
   {
     /**
@@ -39,14 +43,23 @@ declare namespace ReCaptchaV2
       * Optional. The color theme of the widget.
       * Accepted values: "light", "dark"
       * @default "light"
+      * @type {Theme}
       **/
-    theme?: string;
+    theme?: Theme;
     /**
       * Optional. The type of CAPTCHA to serve.
-      * Accepted values: "audio ", "image"
+      * Accepted values: "audio", "image"
       * @default "image"
+      * @type {Type}
       **/
-    type?: string;
+    type?: Type;
+    /**
+      * Optional. The size of the widget.
+      * Accepted values: "compact", "normal"
+      * @default "compact"
+      * @type {Size}
+      */
+    size?: Size;
     /**
       * Optional. The tabindex of the widget and challenge.
       * If other elements in your page use tabindex, it should be set to make user navigation easier.

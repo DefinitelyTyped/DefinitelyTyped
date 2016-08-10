@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.1
+// Type definitions for Electron v1.3.2
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,6 +23,23 @@ declare namespace Electron {
 	interface Event {
 		preventDefault: Function;
 		sender: EventEmitter;
+	}
+
+	type Point = {
+		x: number;
+		y: number;
+	}
+
+	type Size = {
+		width: number;
+		height: number;
+	}
+
+	type Rectangle = {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/app.md
@@ -474,6 +491,13 @@ declare namespace Electron {
 		 */
 		show(): void;
 		/**
+		 * @returns Whether the dock icon is visible.
+		 * The app.dock.show() call is asynchronous so this method might not return true immediately after that call.
+		 *
+		 * Note: This API is only available on macOS.
+		 */
+		isVisible(): boolean;
+		/**
 		 * Sets the application dock menu.
 		 *
 		 * Note: This API is only available on macOS.
@@ -844,7 +868,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on macOS.
 		 */
-		setAspectRatio(aspectRatio: number, extraSize?: Dimension): void;
+		setAspectRatio(aspectRatio: number, extraSize?: Size): void;
 		/**
 		 * Resizes and moves the window to width, height, x, y.
 		 */
@@ -1112,7 +1136,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on Windows.
 		 */
-		setThumbnailClip(region: Bounds): void;
+		setThumbnailClip(region: Rectangle): void;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on macOS.
@@ -1360,7 +1384,7 @@ declare namespace Electron {
 		backgroundThrottling?: boolean;
 	}
 
-	interface BrowserWindowOptions extends Rectangle {
+	interface BrowserWindowOptions {
 		/**
 		 * Window’s width in pixels.
 		 * Default: 800.
@@ -1569,13 +1593,6 @@ declare namespace Electron {
 	type BrowserWindowTypeLinux = 'desktop' | 'dock' | 'toolbar' | 'splash' | 'notification';
 	type BrowserWindowTypeMac = 'desktop' | 'textured';
 	type BrowserWindowTypeWindows = 'toolbar';
-
-	interface Rectangle {
-		x?: number;
-		y?: number;
-		width?: number;
-		height?: number;
-	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/clipboard.md
 
@@ -1853,7 +1870,7 @@ declare namespace Electron {
 		 * The suggested size that thumbnail should be scaled.
 		 * Default: {width: 150, height: 150}
 		 */
-		thumbnailSize?: Dimension;
+		thumbnailSize?: Size;
 	}
 
 	interface DesktopCapturerSource {
@@ -2039,6 +2056,11 @@ declare namespace Electron {
 		 * routine to determine the save path (Usually prompts a save dialog).
 		 */
 		setSavePath(path: string): void;
+		/**
+		 * @returns The save path of the download item.
+		 * This will be either the path set via downloadItem.setSavePath(path) or the path selected from the shown save dialog.
+		 */
+		getSavePath(): string;
 		/**
 		 * Pauses the download.
 		 */
@@ -2428,13 +2450,17 @@ declare namespace Electron {
 		 */
 		static createFromDataURL(dataURL: string): NativeImage;
 		/**
-		 * @returns Buffer Contains the image's PNG encoded data.
+		 * @returns Buffer that contains the image's PNG encoded data.
 		 */
 		toPNG(): Buffer;
 		/**
-		 * @returns Buffer Contains the image's JPEG encoded data.
+		 * @returns Buffer that contains the image's JPEG encoded data.
 		 */
 		toJPEG(quality: number): Buffer;
+		/**
+		 * @returns Buffer that contains the image's raw pixel data.
+		 */
+		toBitmap(): Buffer;
 		/**
 		 * @returns string The data URL of the image.
 		 */
@@ -2452,7 +2478,7 @@ declare namespace Electron {
 		/**
 		 * @returns {} The size of the image.
 		 */
-		getSize(): Dimension;
+		getSize(): Size;
 		/**
 		 * Marks the image as template image.
 		 */
@@ -2675,10 +2701,10 @@ declare namespace Electron {
 		 * Unique identifier associated with the display.
 		 */
 		id: number;
-		bounds: Bounds;
-		workArea: Bounds;
-		size: Dimension;
-		workAreaSize: Dimension;
+		bounds: Rectangle;
+		workArea: Rectangle;
+		size: Size;
+		workAreaSize: Size;
 		/**
 		 * Output device’s pixel scale factor.
 		 */
@@ -2688,23 +2714,6 @@ declare namespace Electron {
 		 */
 		rotation: number;
 		touchSupport: 'available' | 'unavailable' | 'unknown';
-	}
-
-	type Bounds = {
-		x: number;
-		y: number;
-		width: number;
-		height: number;
-	}
-
-	type Dimension = {
-		width: number;
-		height: number;
-	}
-
-	type Point = {
-		x: number;
-		y: number;
 	}
 
 	type DisplayMetrics = 'bounds' | 'workArea' | 'scaleFactor' | 'rotation';
@@ -2746,7 +2755,7 @@ declare namespace Electron {
 		/**
 		 * @returns The display that most closely intersects the provided bounds.
 		 */
-		getDisplayMatching(rect: Bounds): Display;
+		getDisplayMatching(rect: Rectangle): Display;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/session.md
@@ -3257,6 +3266,62 @@ declare namespace Electron {
 		 * Play the beep sound.
 		 */
 		beep(): void;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, options: ShortcutLinkOptions): boolean;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, operation: 'create' | 'update' | 'replace', options: ShortcutLinkOptions): boolean;
+		/**
+		 * Resolves the shortcut link at shortcutPath.
+		 * An exception will be thrown when any error happens.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		readShortcutLink(shortcutPath: string): ShortcutLinkOptions;
+	}
+
+	interface ShortcutLinkOptions {
+		/**
+		 * The target to launch from this shortcut.
+		 */
+		target: string;
+		/**
+		 * The working directory.
+		 * Default: empty.
+		 */
+		cwd?: string;
+		/**
+		 * The arguments to be applied to target when launching from this shortcut.
+		 * Default: empty.
+		 */
+		args?: string;
+		/**
+		 * The description of the shortcut.
+		 * Default: empty.
+		 */
+		description?: string;
+		/**
+		 * The path to the icon, can be a DLL or EXE. icon and iconIndex have to be set together.
+		 * Default: empty, which uses the target's icon.
+		 */
+		icon?: string;
+		/**
+		 * The resource ID of icon when icon is a DLL or EXE.
+		 * Default: 0.
+		 */
+		iconIndex?: number;
+		/**
+		 * The Application User Model ID.
+		 * Default: empty.
+		 */
+		appUserModelId?: string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
@@ -3318,17 +3383,17 @@ declare namespace Electron {
 		 * Emitted when the tray icon is clicked.
 		 * Note: The bounds payload is only implemented on macOS and Windows.
 		 */
-		on(event: 'click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray icon is right clicked.
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'right-click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray icon is double clicked.
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Bounds) => void): this;
+		on(event: 'double-click', listener: (modifiers: Modifiers, bounds: Rectangle) => void): this;
 		/**
 		 * Emitted when the tray balloon shows.
 		 * Note: This is only implemented on Windows.
@@ -3428,7 +3493,7 @@ declare namespace Electron {
 		/**
 		 * @returns The bounds of this tray icon.
 		 */
-		getBounds(): Bounds;
+		getBounds(): Rectangle;
 	}
 
 	interface Modifiers {
@@ -3641,9 +3706,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when the cursor’s type changes.
 		 * If the type parameter is custom, the image parameter will hold the custom cursor image
-		 * in a NativeImage, and the scale will hold scaling information for the image.
+		 * in a NativeImage, and scale, size and hotspot will hold additional information about the custom cursor.
 		 */
-		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number, size?: Size, hotspot?: Point) => void): this;
 		/**
 		 * Emitted when there is a new context menu that needs to be handled.
 		 */
@@ -3769,6 +3834,29 @@ declare namespace Electron {
 		 * @returns Whether this page has been muted.
 		 */
 		isAudioMuted(): boolean;
+		/**
+		 * Changes the zoom factor to the specified factor.
+		 * Zoom factor is zoom percent divided by 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * Sends a request to get current zoom factor.
+		 */
+		getZoomFactor(callback: (zoomFactor: number) => void): void;
+		/**
+		 * Changes the zoom level to the specified level.
+		 * The original size is 0 and each increment above or below represents
+		 * zooming 20% larger or smaller to default limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
+		 * Sends a request to get current zoom level.
+		 */
+		getZoomLevel(callback: (zoomLevel: number) => void): void;
+		/**
+		 * Sets the maximum and minimum zoom level.
+		 */
+		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Executes the editing command undo in web page.
 		 */
@@ -3985,7 +4073,7 @@ declare namespace Electron {
 			 * The dirtyRect is an object with x, y, width, height properties that describes which part of the page was repainted.
 			 * If onlyDirty is set to true, frameBuffer will only contain the repainted area. onlyDirty defaults to false.
 			 */
-			dirtyRect?: Bounds
+			dirtyRect?: Rectangle
 		): void
 	}
 
@@ -4189,7 +4277,7 @@ declare namespace Electron {
 		 * Specify page size of the generated PDF.
 		 * Default: A4.
 		 */
-		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Dimension;
+		pageSize?: 'A3' | 'A4' | 'A5' | 'Legal' | 'Letter' | 'Tabloid' | Size;
 		/**
 		 * Whether to print CSS backgrounds.
 		 * Default: false.
@@ -4294,7 +4382,7 @@ declare namespace Electron {
 		/**
 		 * Coordinates of first match region.
 		 */
-		selectionArea?: Bounds;
+		selectionArea?: Rectangle;
 	}
 
 	interface DeviceEmulationParameters {
@@ -4306,7 +4394,7 @@ declare namespace Electron {
 		/**
 		 * Set the emulated screen size (screenPosition == mobile)
 		 */
-		screenSize?: Dimension;
+		screenSize?: Size;
 		/**
 		 * Position the view on the screen (screenPosition == mobile)
 		 * Default: {x: 0, y: 0}
@@ -4320,7 +4408,7 @@ declare namespace Electron {
 		/**
 		 * Set the emulated view size (empty means no override).
 		 */
-		viewSize?: Dimension;
+		viewSize?: Size;
 		/**
 		 * Whether emulated view should be scaled down if necessary to fit into available space
 		 * Default: false
