@@ -78,6 +78,12 @@ var knex = Knex({
   client: 'pg'
 });
 
+// searchPath
+var knex = Knex({
+  client: 'pg',
+  searchPath: 'public',
+});
+
 // useNullAsDefault
 var knex = Knex({
   client: 'sqlite',
