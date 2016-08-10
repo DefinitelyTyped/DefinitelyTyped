@@ -78,6 +78,12 @@ var knex = Knex({
   client: 'pg'
 });
 
+// useNullAsDefault
+var knex = Knex({
+  client: 'sqlite',
+  useNullAsDefault: true,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations
