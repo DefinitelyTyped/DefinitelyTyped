@@ -1,5 +1,7 @@
 ///<reference path="../tether/tether.d.ts" />
-///<reference path="drop.d.ts" />
+///<reference path="tether-drop.d.ts" />
+
+import 'tether-drop';
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");
