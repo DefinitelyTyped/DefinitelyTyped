@@ -44,7 +44,7 @@ export module twilio {
   // validateRequest
   // validateExpressRequest
 
-  /// ???
+  /// Random stuff
   export interface GrantPayload {}
 
   export interface Grant {
@@ -55,6 +55,39 @@ export module twilio {
   export interface BaseRequestCallback { (err: any, data: any): void; }
 
   export interface RestMethod { (args: any | BaseRequestCallback, callback?: RequestCallback): Q.Promise<any>; }
+
+  /// Resource stock interfaces
+  export interface BaseMappedResource<T> {
+    (resourceSid: string): T;
+  }
+
+  export interface Resource {
+    get: RestMethod;
+  }
+
+  export interface DeletableResource extends Resource {
+    delete: RestMethod;
+  }
+
+  export interface ListableResource extends Resource {
+    list: RestMethod;
+  }
+
+  export interface MappedResource<T> extends Resource, BaseMappedResource<T> {}
+
+  export interface PostableResource extends Resource {
+    post: RestMethod;
+  }
+
+  export interface InstanceResource extends PostableResource, DeletableResource {
+    update: RestMethod;
+  }
+
+  export interface CreatableMappedResource<T> extends MappedResource<T>, PostableResource {
+    create: RestMethod;
+  }
+
+  export interface ListMappedResource<T> extends CreatableMappedResource<T>, ListableResource {}
 
   /// AccessToken.js
   export interface IpMessagingGrantOptions {
@@ -193,9 +226,9 @@ export module twilio {
 
   /// PricingClient.js
   export class PricingClient extends Client {
-    voice: VoiceResource;
-    phoneNumbers: PhoneNumberResource;
-    messaging: MessagingResource;
+    voice: PricingVoiceResource;
+    phoneNumbers: PricingPhoneNumberResource;
+    messaging: PricingMessagingResource;
 
     constructor(sid?: string, tkn?: string, options?: ClientOptions);
   }
@@ -419,122 +452,49 @@ export module twilio {
   export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
-  export interface OutgoingCallerIdInstance {
-    get: RestMethod;
-    post: RestMethod;
+  export interface OutgoingCallerIdInstance extends InstanceResource {
     put: RestMethod;
-    delete: RestMethod;
+  }
+  export type OutgoingCallerIdResource = CreatableMappedResource<OutgoingCallerIdInstance>;
+
+  export type SMSMessageInstance = Resource;
+  export type SMSMessageResource = CreatableMappedResource<SMSMessageInstance>;
+
+  export interface SMSShortCodeInstance extends PostableResource {
     update: RestMethod;
   }
-
-  export interface OutgoingCallerIdResource {
-    (resourceSid: string): OutgoingCallerIdInstance;
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface SMSMessageInstance {
-    get: RestMethod;
-  }
-
-  export interface SMSMessageResource {
-    (resourceSid: string): SMSMessageInstance;
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface SMSShortCodeInstance {
-    get: RestMethod;
-    post: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface SMSShortCodeResource {
-    get: RestMethod;
-  }
+  export type SMSShortCodeResource = MappedResource<SMSShortCodeInstance>;
 
   export interface SMSIntermediary {
     messages: SMSMessageResource;
     shortCodes: SMSShortCodeResource;
   }
 
-  export interface ApplicationInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
+  export type ApplicationInstance = InstanceResource;
+  export type ApplicationResource = CreatableMappedResource<ApplicationInstance>;
+
+  export interface ConnectAppInstance extends PostableResource {
     update: RestMethod;
   }
+  export type ConnectAppResource = MappedResource<ConnectAppInstance>;
 
-  export interface ApplicationResource {
-    (resourceSid: string): ApplicationInstance;
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface ConnectAppInstance {
-    get: RestMethod;
-    post: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface ConnectAppResource {
-    (resourceSid: string): ConnectAppInstance;
-    get: RestMethod;
-  }
-
-  export interface AuthorizedConnectAppInstance {
-    get: RestMethod;
-  }
-
-  export interface AuthorizedConnectAppResource {
-    (resourceSid: string): AuthorizedConnectAppInstance;
-    get: RestMethod;
-  }
+  export type AuthorizedConnectAppInstance = Resource;
+  export type AuthorizedConnectAppResource = MappedResource<AuthorizedConnectAppInstance>;
 
   export interface TokenInstance {}
-
-  export interface TokenResource {
-    (resourceSid: string): TokenInstance;
+  export interface TokenResource extends BaseMappedResource<TokenInstance> {
     post: RestMethod;
     create: RestMethod;
   }
 
-  export interface TranscriptionInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
+  export type TranscriptionInstance = DeletableResource;
+  export type TranscriptionResource = MappedResource<TranscriptionInstance>;
 
-  export interface TranscriptionResource {
-    (resourceSid: string): TranscriptionInstance;
-    get: RestMethod;
-  }
+  export type NotificationInstance = DeletableResource;
+  export type NotificationResource = MappedResource<NotificationInstance>;
 
-  export interface NotificationInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
-
-  export interface NotificationResource {
-    (resourceSid: string): NotificationInstance;
-    get: RestMethod;
-  }
-
-  export interface UsageTriggerInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface UsageTriggerResource {
-    (resourceSid: string): UsageTriggerInstance;
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
+  export type UsageTriggerInstance = InstanceResource;
+  export type UsageTriggerResource = CreatableMappedResource<UsageTriggerInstance>;
 
   export interface UsageIntermediary {
     records: UsageRecordResource;
@@ -547,22 +507,12 @@ export module twilio {
     credentialLists: CredentialListResource;
   }
 
-  export interface KeyInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
+  export type KeyInstance = InstanceResource;
+  export type KeyResource = CreatableMappedResource<KeyInstance>;
+
+  export interface AccountInstance extends PostableResource {
     update: RestMethod;
-  }
-
-  export interface KeyResource {
-    (resourceSid: string): KeyInstance;
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface AccountResource {
-    (accountSid: string): AccountResource;
+    put: RestMethod;
 
     // Mixed-in resources
     availablePhoneNumbers: AvailablePhoneNumberResource;
@@ -584,260 +534,108 @@ export module twilio {
     sip: SIPIntermediary;
     addresses: AddressResource;
     keys: KeyResource;
-
-    // Mixed-in Methods
-    put: RestMethod;
-    post: RestMethod;
-    get: RestMethod;
-    update: RestMethod;
-    list: RestMethod;
   }
+
+  export interface AccountResource extends AccountInstance, ListMappedResource<AccountInstance> {}
 
   /// resources/Addresses.js
-  export interface DependentPhoneNumberResource {
-    get: RestMethod;
-    list: RestMethod;
-  }
+  export type DependentPhoneNumberResource = ListableResource;
 
-  export interface AddressInstance {
+  export interface AddressInstance extends PostableResource, DeletableResource {
     // Mixins
     dependentPhoneNumbers: DependentPhoneNumberResource;
-
-    // Rest Methods
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
   }
-
-  export interface AddressResource {
-    (resourceSid: string): AddressInstance;
-    get: RestMethod;
-    list: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
+  export type AddressResource = ListMappedResource<AddressInstance>;
 
   /// resources/AvailablePhoneNumbers.js
-  export interface AvailablePhoneNumberResourceGroup {
-    get: RestMethod;
-    list: RestMethod;
+  export interface AvailablePhoneNumberResourceGroup extends ListableResource {
     search: RestMethod;
   }
-  
   export interface AvailablePhoneNumberInstance {
     local: AvailablePhoneNumberResourceGroup;
     tollFree: AvailablePhoneNumberResourceGroup;
     mobile: AvailablePhoneNumberResourceGroup;
   }
-
-  export interface AvailablePhoneNumberResource {
-    (isoCode: string): AvailablePhoneNumberInstance;
-  }
+  export type AvailablePhoneNumberResource = BaseMappedResource<AvailablePhoneNumberInstance>;
 
   /// resources/Calls.js
-  export interface CallRecordingResource {
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface CallNotificationResource {
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface CallFeedbackResource {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
+  export type CallRecordingResource = ListableResource;
+  export type CallNotificationResource = ListableResource;
+  export interface CallFeedbackResource extends PostableResource, DeletableResource {
     create: RestMethod;
   }
 
-  export interface CallInstance {
+  export interface CallInstance extends InstanceResource {
     recordings: CallRecordingResource;
     notifications: CallNotificationResource;
     feedback: CallFeedbackResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
 
-  export interface CallFeedbackSummaryInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
-
-  export interface CallFeedbackSummaryResource {
-    (resourceSid: string): CallFeedbackSummaryInstance;
+  export type CallFeedbackSummaryInstance = DeletableResource;
+  export interface CallFeedbackSummaryResource extends BaseMappedResource<CallFeedbackSummaryInstance> {
     post: RestMethod;
     create: RestMethod;
   }
-
-  export interface CallResource {
-    (resourceSid: string): CallInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-
+  export interface CallResource extends CreatableMappedResource<CallInstance> {
     feedbackSummary: CallFeedbackSummaryResource;
   }
 
   /// resources/Conferences.js
-  export interface ConferenceParticipantInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
+  export interface ConferenceParticipantInstance extends InstanceResource {
     kick: RestMethod;
   }
-
-  export interface ConferenceParticipantResource {
-    (resourceSid: string): ConferenceParticipantInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface ConferenceInstance {
-    get: RestMethod;
-
+  export interface ConferenceParticipantResource extends MappedResource<ConferenceParticipantInstance>, ListableResource {}
+  export interface ConferenceInstance extends Resource {
     participants: ConferenceParticipantResource;
   }
-
-  export interface ConferenceResource {
-    (resourceSid: string): ConferenceInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
+  export interface ConferenceResource extends MappedResource<ConferenceInstance>, ListableResource {}
 
   /// resources/IncomingPhoneNumbers.js
-  export interface IncomingPhoneNumberResourceGroup {
-    get: RestMethod;
-    post: RestMethod;
+  export interface IncomingPhoneNumberResourceGroup extends PostableResource {
     create: RestMethod;
   }
-
-  export interface IncomingPhoneNumberInstance {
-    get: RestMethod;
-    post: RestMethod;
+  export interface IncomingPhoneNumberInstance extends InstanceResource {
     put: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface IncomingPhoneNumberResource {
-    (resourceSid: string): IncomingPhoneNumberInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-
+  export interface IncomingPhoneNumberResource extends CreatableMappedResource<IncomingPhoneNumberInstance> {
     local: IncomingPhoneNumberResourceGroup;
     tollFree: IncomingPhoneNumberResourceGroup;
     mobile: IncomingPhoneNumberResourceGroup;
   }
 
   /// resources/Messages.js
-  export interface MessageMediaInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
-
-  export interface MessageMediaResource {
-    (resourceSid: string): MessageMediaInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface MessageInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-
+  export type MessageMediaInstance = DeletableResource;
+  export interface MessageMediaResource extends MappedResource<MessageMediaInstance>, ListableResource {}
+  export interface MessageInstance extends PostableResource, DeletableResource {
     media: MessageMediaResource;
   }
-
-  export interface MessageResource {
-    (resourceSid: string): MessageInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
+  export type MessageResource = ListMappedResource<MessageInstance>;
 
   /// resources/Queues.js
-  export interface QueueMemberInstance {
-    get: RestMethod;
-    post: RestMethod;
+  export interface QueueMemberInstance extends PostableResource {
     update: RestMethod;
   }
-
-  export interface QueueMemberResource {
-    (resourceSid: string): QueueMemberInstance;
-
-    get: RestMethod;
-
+  export interface QueueMemberResource extends MappedResource<QueueMemberInstance> {
     front: QueueMemberInstance;
   }
 
-  export interface QueueInstance {
+  export interface QueueInstance extends InstanceResource {
     members: QueueMemberResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface QueueResource {
-    (resourceSid: string): QueueInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
+  export type QueueResource = CreatableMappedResource<QueueInstance>;
 
   /// resources/Recordings.js
-  export interface RecordingTranscriptionResource {
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface RecordingInstance {
-    get: RestMethod;
-    list: RestMethod;
-    delete: RestMethod;
-
+  export type RecordingTranscriptionResource = ListableResource;
+  export interface RecordingInstance extends ListableResource, DeletableResource {
     transcriptions: RecordingTranscriptionResource;
   }
-
-  export interface RecordingResource {
-    (resourceSid: string): RecordingInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
+  export interface RecordingResource extends MappedResource<RecordingInstance>, ListableResource {}
 
   /// resources/UsageRecords.js
-  export interface UsageRecordInstance {
-    get: RestMethod;
-  }
+  export type UsageRecordInstance = Resource;
+  export type UsageRecordRange = ListableResource;
 
-  export interface UsageRecordRange {
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface UsageRecordResource {
-    (resourceSid: string): UsageRecordInstance;
-
-    get: RestMethod;
-
+  export interface UsageRecordResource extends MappedResource<UsageRecordInstance> {
     daily: UsageRecordRange;
     monthly: UsageRecordRange;
     yearly: UsageRecordRange;
@@ -849,293 +647,95 @@ export module twilio {
   }
 
   /// resources/ip_messaging/Credentials.js
-  export interface CredentialInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface CredentialResource {
-    (resourceSid: string): CredentialInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type CredentialInstance = InstanceResource;
+  export type CredentialResource = ListMappedResource<CredentialInstance>;
 
   /// resources/ip_messaging/Services.js
-  export interface ServiceUserInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
+  export type ServiceUserInstance = InstanceResource;
+  export type ServiceUserResource = ListMappedResource<ServiceUserInstance>;
+  export type ServiceRoleInstance = Resource;
+  export interface ServiceRoleResource extends MappedResource<ServiceRoleInstance>, ListableResource {}
 
-  export interface ServiceUserResource {
-    (resourceSid: string): ServiceUserInstance;
+  export type ServiceChannelMessageInstance = InstanceResource;
+  export type ServiceChannelMessageResource = ListMappedResource<ServiceChannelMessageInstance>;
 
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type ServiceChannelMemberInstance = InstanceResource;
+  export type ServiceChannelMemberResource = ListMappedResource<ServiceChannelMemberInstance>;
 
-  export interface ServiceRoleInstance {
-    get: RestMethod;
-  }
-
-  export interface ServiceRoleResource {
-    (resourceSid: string): ServiceRoleInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface ServiceChannelMessageInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface ServiceChannelMessageResource {
-    (resourceSid: string): ServiceChannelMessageInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface ServiceChannelMemberInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface ServiceChannelMemberResource {
-    (resourceSid: string): ServiceChannelMemberInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface ServiceChannelInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-
+  export interface ServiceChannelInstance extends InstanceResource {
     messages: ServiceChannelMessageResource;
     members: ServiceChannelMemberResource;
   }
+  export type ServiceChannelResource = ListMappedResource<ServiceChannelInstance>;
 
-  export interface ServiceChannelResource {
-    (resourceSid: string): ServiceChannelInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface ServiceInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-
+  export interface ServiceInstance extends InstanceResource {
     users: ServiceUserResource;
     roles: ServiceRoleResource;
     channels: ServiceChannelResource;
   }
-
-  export interface ServiceResource {
-    (resourceSid: string): ServiceInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type ServiceResource = ListMappedResource<ServiceInstance>;
 
   /// resources/lookups/PhoneNumbers.js
-  export interface PhoneNumberInstance {
-    get: RestMethod;
-  }
-
-  export interface PhoneNumberResource {
-    (resourceSid: string): PhoneNumberInstance;
-  }
+  export type PhoneNumberInstance = Resource;
+  export type PhoneNumberResource = BaseMappedResource<PhoneNumberInstance>;
 
   /// resources/monitor/Alerts.js
-  export interface AlertInstance {
-    get: RestMethod;
-  }
-
-  export interface AlertResource {
-    (resourceSid: string): AlertInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
+  export type AlertInstance = Resource;
+  export interface AlertResource extends MappedResource<AlertInstance>, ListableResource {}
 
   /// resources/monitor/Events.js
-  export interface EventInstance {
-    get: RestMethod;
-  }
-
-  export interface EventResource {
-    (resourceSid: string): EventInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
+  export type EventInstance = Resource;
+  export interface EventResource extends MappedResource<EventInstance>, ListableResource {}
 
   /// resources/pricing/Messaging.js
-  export interface CountryInstance {
-    get: RestMethod;
-  }
+  export type CountryInstance = Resource;
+  export interface CountryResource extends MappedResource<CountryInstance>, ListableResource {}
 
-  export interface CountryResource {
-    (resourceSid: string): CountryInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface MessagingResource {
+  export interface PricingMessagingResource {
     countries: CountryResource;
   }
 
   /// resources/pricing/PhoneNumbers.js
-  export interface PhoneNumberResource {
+  export interface PricingPhoneNumberResource {
     countries: CountryResource;
   }
 
   /// resources/pricing/Voice.js
-  export interface NumberInstance {
-    get: RestMethod;
-  }
+  export type NumberInstance = Resource;
+  export interface NumberResource extends MappedResource<NumberInstance>, ListableResource {}
 
-  export interface NumberResource {
-    (resourceSid: string): NumberInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface VoiceResource {
+  export interface PricingVoiceResource {
     countries: CountryResource;
     numbers: NumberResource;
   }
 
   /// resources/sip/CredentialLists.js
-  export interface CredentialListInstance {
+  export interface CredentialListInstance extends InstanceResource {
     credentials: CredentialResource;
-    
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface CredentialListResource {
-    (resourceSid: string): CredentialListInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type CredentialListResource = ListMappedResource<CredentialListInstance>;
 
   /// resources/sip/Domains.js
-  export interface IPAccessControlListMappingInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
+  export type IPAccessControlListMappingInstance = DeletableResource;
+  export type IPAccessControlListMappingResource = ListMappedResource<IPAccessControlListMappingInstance>;
 
-  export interface IPAccessControlListMappingResource {
-    (resourceSid: string): IPAccessControlListMappingInstance;
+  export type CredentialListMappingInstance = DeletableResource;
+  export type CredentialListMappingResource = ListMappedResource<CredentialListMappingInstance>;
 
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface CredentialListMappingInstance {
-    get: RestMethod;
-    delete: RestMethod;
-  }
-
-  export interface CredentialListMappingResource {
-    (resourceSid: string): CredentialListMappingInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface DomainInstance {
+  export interface DomainInstance extends InstanceResource {
     ipAccessControlListMappings: IPAccessControlListMappingResource;
     credentialListMappings: CredentialListMappingResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface DomainResource {
-    (resourceSid: string): DomainInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type DomainResource = ListMappedResource<DomainInstance>;
 
   /// resources/sip/IpAccessControlLists.js
-  export interface IPAddressInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
+  export type IPAddressInstance = InstanceResource;
+  export type IPAddressResource = ListMappedResource<IPAddressInstance>;
 
-  export interface IPAddressResource {
-    (resourceSid: string): IPAddressInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface IPAccessControlListInstance {
+  export interface IPAccessControlListInstance extends InstanceResource {
     ipAddresses: IPAddressResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface IPAccessControlListResource {
-    (resourceSid: string): IPAccessControlListInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type IPAccessControlListResource = ListMappedResource<IPAccessControlListInstance>;
 
   /// resources/task_router/WorkflowBuilder.js
   export interface WorkflowRuleTargetOptions {
@@ -1202,148 +802,53 @@ export module twilio {
   }
 
   /// resources/task_router/Workspaces.js
-  export interface WorkspaceActivityInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
+  export type WorkspaceActivityInstance = InstanceResource;
+  export type WorkspaceActivityResource = ListMappedResource<WorkspaceActivityInstance>;
+
+  export type WorkspaceEventInstance = Resource;
+  export interface WorkspaceEventResource extends MappedResource<WorkspaceEventInstance>, ListableResource {}
+
+  export interface WorkspaceTaskReservationInstance extends PostableResource {
     update: RestMethod;
   }
+  export interface WorkspaceTaskReservationResource extends MappedResource<WorkspaceTaskReservationInstance>, ListableResource {}
 
-  export interface WorkspaceActivityResource {
-    (resourceSid: string): WorkspaceActivityInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface WorkspaceEventInstance {
-    get: RestMethod;
-  }
-
-  export interface WorkspaceEventResource {
-    (resourceSid: string): WorkspaceEventInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface WorkspaceTaskReservationInstance {
-    get: RestMethod;
-    post: RestMethod;
-    update: RestMethod;
-  }
-
-  export interface WorkspaceTaskReservationResource {
-    (resourceSid: string): WorkspaceTaskReservationInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface WorkspaceTaskInstance {
+  export interface WorkspaceTaskInstance extends InstanceResource {
     reservations: WorkspaceTaskReservationResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
+  export type WorkspaceTaskResource = ListMappedResource<WorkspaceTaskInstance>;
 
-  export interface WorkspaceTaskResource {
-    (resourceSid: string): WorkspaceTaskInstance;
+  export type WorkspaceInstanceStatisticResource = Resource;
+  export type WorkspaceStatisticResource = ListableResource;
 
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
-  }
-
-  export interface WorkspaceInstanceStatisticResource {
-    get: RestMethod;
-  }
-
-  export interface WorkspaceStatisticResource {
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface WorkspaceTaskQueueInstance {
+  export interface WorkspaceTaskQueueInstance extends InstanceResource {
     statistics: WorkspaceInstanceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface WorkspaceTaskQueueResource {
-    (resourceSid: string): WorkspaceTaskQueueInstance;
-
+  export interface WorkspaceTaskQueueResource extends ListMappedResource<WorkspaceTaskQueueInstance> {
     statistics: WorkspaceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
   }
 
-  export interface WorkspaceWorkerReservationInstance {
-    get: RestMethod;
-    post: RestMethod;
+  export interface WorkspaceWorkerReservationInstance extends PostableResource {
     update: RestMethod;
   }
+  export interface WorkspaceWorkerReservationResource extends MappedResource<WorkspaceWorkerReservationInstance>, ListableResource {}
 
-  export interface WorkspaceWorkerReservationResource {
-    (resourceSid: string): WorkspaceWorkerReservationInstance;
-
-    get: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface WorkspaceWorkerInstance {
+  export interface WorkspaceWorkerInstance extends InstanceResource {
     statistics: WorkspaceInstanceStatisticResource;
     reservations: WorkspaceWorkerReservationResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface WorkspaceWorkerResource {
-    (resourceSid: string): WorkspaceWorkerInstance;
-
+  export interface WorkspaceWorkerResource extends ListMappedResource<WorkspaceWorkerInstance> {
     statistics: WorkspaceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
   }
 
-  export interface WorkspaceWorkflowInstance {
+  export interface WorkspaceWorkflowInstance extends InstanceResource {
     statistics: WorkspaceInstanceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface WorkspaceWorkflowResource {
-    (resourceSid: string): WorkspaceWorkflowInstance;
-
+  export interface WorkspaceWorkflowResource extends ListMappedResource<WorkspaceWorkflowInstance> {
     statistics: WorkspaceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    list: RestMethod;
-    create: RestMethod;
   }
 
-  export interface WorkspaceInstance {
+  export interface WorkspaceInstance extends InstanceResource {
     activities: WorkspaceActivityResource;
     events: WorkspaceEventResource;
     tasks: WorkspaceTaskResource;
@@ -1352,57 +857,19 @@ export module twilio {
     workflows: WorkspaceWorkflowResource;
 
     statistics: WorkspaceInstanceStatisticResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface WorkspaceResource {
-    (resourceSid: string): WorkspaceInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-  }
+  export type WorkspaceResource = CreatableMappedResource<WorkspaceInstance>;
 
   /// resources/trunking/Trunks.js
-  export interface OriginationURLInstance {
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
-  }
+  export type OriginationURLInstance = InstanceResource;
+  export type OriginationURLResource = ListMappedResource<OriginationURLInstance>;
 
-  export interface OriginationURLResource {
-    (resourceSid: string): OriginationURLInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
-
-  export interface TrunkInstance {
+  export interface TrunkInstance extends InstanceResource {
     ipAccessControlLists: IPAccessControlListResource;
     credentialLists: CredentialListResource;
     phoneNumbers:  PhoneNumberResource;
     originationUrls: OriginationURLResource;
-
-    get: RestMethod;
-    post: RestMethod;
-    delete: RestMethod;
-    update: RestMethod;
   }
-
-  export interface TrunkResource {
-    (resourceSid: string): TrunkInstance;
-
-    get: RestMethod;
-    post: RestMethod;
-    create: RestMethod;
-    list: RestMethod;
-  }
+  export type TrunkResource = ListMappedResource<TrunkInstance>;
 
 }
