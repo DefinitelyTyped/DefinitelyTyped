@@ -108,6 +108,18 @@ declare namespace ReactBootstrap {
     var ButtonGroup: React.ClassicComponentClass<ButtonGroupProps>;
 
 
+    // <SafeAnchor />
+    interface SafeAnchorProps extends React.HTMLProps<SafeAnchor> {
+        href?: string;
+        onClick?: React.MouseEventHandler<{}>;
+        disabled?: boolean;
+        role?: string;
+        componentClass?: React.ReactType;
+    }
+    type SafeAnchor = React.ClassicComponent<SafeAnchorProps, {}>;
+    const SafeAnchor: React.ClassicComponentClass<SafeAnchorProps>;
+
+
     // <Checkbox />
     interface CheckboxProps extends React.HTMLProps<Checkbox> {
         bsClass?: string;

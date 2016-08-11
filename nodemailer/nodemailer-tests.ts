@@ -42,3 +42,20 @@ transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInf
 transporter
   .sendMail(mailOptions)
   .then(info => info.messageId)
+// create template based sender function
+var sendPwdReset = transporter.templateSender({
+    subject: 'Password reset for {{username}}!',
+    text: 'Hello, {{username}}, Please go here to reset your password: {{ reset }}',
+    html: '<b>Hello, <strong>{{username}}</strong>, Please <a href="{{ reset }}">go here to reset your password</a>: {{ reset }}</p>'
+}, {
+    from: 'sender@example.com',
+});
+
+// use template based sender to send a message
+sendPwdReset({
+    to: 'receiver@example.com'
+}, {
+    username: 'Node Mailer',
+    reset: 'https://www.example.com/reset?token=<unique-single-use-token>'
+})
+.then(info => info.messageId);
