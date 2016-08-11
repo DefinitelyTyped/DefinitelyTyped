@@ -793,7 +793,6 @@ declare module "types/graphene-pk11" {
      * @extends {HandleObject}
      */
     interface Session extends HandleObject {
-        constructor(handle: Handle, slot: Slot, lib: pkcs11.PKCS11);
         /**
          * Slot
          *
