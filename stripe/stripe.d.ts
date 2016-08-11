@@ -17,8 +17,9 @@ interface StripeStatic {
 
 interface StripeTokenData {
     number: string;
-    exp_month: number;
-    exp_year: number;
+    exp_month?: number;
+    exp_year?: number;
+    exp?: string;
     cvc?: string;
     name?: string;
     address_line1?: string;
