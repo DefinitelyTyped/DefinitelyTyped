@@ -113,7 +113,7 @@ declare namespace ReactBootstrap {
     // <SafeAnchor />
     interface SafeAnchorProps extends React.HTMLProps<SafeAnchor> {
         href?: string;
-        onClick?: React.MouseEventHandler;
+        onClick?: React.MouseEventHandler<{}>;
         disabled?: boolean;
         role?: string;
         componentClass?: React.ReactType;
