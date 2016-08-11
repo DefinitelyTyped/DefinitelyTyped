@@ -95,6 +95,9 @@ var knex = Knex({
 });
 
 // Knex Query Builder
+knex.select('title').from<{ title: string }>('books')
+    .then(x => x.title);
+
 knex.select('title', 'author', 'year').from('books');
 knex.select().table('books');
 
