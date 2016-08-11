@@ -455,31 +455,31 @@ export module twilio {
   export interface OutgoingCallerIdInstance extends InstanceResource {
     put: RestMethod;
   }
-  export type OutgoingCallerIdResource = CreatableMappedResource<OutgoingCallerIdInstance>;
+  export interface OutgoingCallerIdResource extends CreatableMappedResource<OutgoingCallerIdInstance> {}
 
-  export type SMSMessageInstance = Resource;
-  export type SMSMessageResource = CreatableMappedResource<SMSMessageInstance>;
+  export interface SMSMessageInstance extends Resource {}
+  export interface SMSMessageResource extends CreatableMappedResource<SMSMessageInstance> {}
 
   export interface SMSShortCodeInstance extends PostableResource {
     update: RestMethod;
   }
-  export type SMSShortCodeResource = MappedResource<SMSShortCodeInstance>;
+  export interface SMSShortCodeResource extends MappedResource<SMSShortCodeInstance> {}
 
   export interface SMSIntermediary {
     messages: SMSMessageResource;
     shortCodes: SMSShortCodeResource;
   }
 
-  export type ApplicationInstance = InstanceResource;
-  export type ApplicationResource = CreatableMappedResource<ApplicationInstance>;
+  export interface ApplicationInstance extends InstanceResource {}
+  export interface ApplicationResource extends CreatableMappedResource<ApplicationInstance> {}
 
   export interface ConnectAppInstance extends PostableResource {
     update: RestMethod;
   }
-  export type ConnectAppResource = MappedResource<ConnectAppInstance>;
+  export interface ConnectAppResource extends MappedResource<ConnectAppInstance> {}
 
-  export type AuthorizedConnectAppInstance = Resource;
-  export type AuthorizedConnectAppResource = MappedResource<AuthorizedConnectAppInstance>;
+  export interface AuthorizedConnectAppInstance extends Resource {}
+  export interface AuthorizedConnectAppResource extends MappedResource<AuthorizedConnectAppInstance> {}
 
   export interface TokenInstance {}
   export interface TokenResource extends BaseMappedResource<TokenInstance> {
@@ -487,14 +487,14 @@ export module twilio {
     create: RestMethod;
   }
 
-  export type TranscriptionInstance = DeletableResource;
-  export type TranscriptionResource = MappedResource<TranscriptionInstance>;
+  export interface TranscriptionInstance extends DeletableResource {}
+  export interface TranscriptionResource extends MappedResource<TranscriptionInstance> {}
 
-  export type NotificationInstance = DeletableResource;
-  export type NotificationResource = MappedResource<NotificationInstance>;
+  export interface NotificationInstance extends DeletableResource {}
+  export interface NotificationResource extends MappedResource<NotificationInstance> {}
 
-  export type UsageTriggerInstance = InstanceResource;
-  export type UsageTriggerResource = CreatableMappedResource<UsageTriggerInstance>;
+  export interface UsageTriggerInstance extends InstanceResource {}
+  export interface UsageTriggerResource extends CreatableMappedResource<UsageTriggerInstance> {}
 
   export interface UsageIntermediary {
     records: UsageRecordResource;
@@ -507,8 +507,8 @@ export module twilio {
     credentialLists: CredentialListResource;
   }
 
-  export type KeyInstance = InstanceResource;
-  export type KeyResource = CreatableMappedResource<KeyInstance>;
+  export interface KeyInstance extends InstanceResource {}
+  export interface KeyResource extends CreatableMappedResource<KeyInstance> {}
 
   export interface AccountInstance extends PostableResource {
     update: RestMethod;
@@ -539,13 +539,13 @@ export module twilio {
   export interface AccountResource extends AccountInstance, ListMappedResource<AccountInstance> {}
 
   /// resources/Addresses.js
-  export type DependentPhoneNumberResource = ListableResource;
+  export interface DependentPhoneNumberResource extends ListableResource {}
 
   export interface AddressInstance extends PostableResource, DeletableResource {
     // Mixins
     dependentPhoneNumbers: DependentPhoneNumberResource;
   }
-  export type AddressResource = ListMappedResource<AddressInstance>;
+  export interface AddressResource extends ListMappedResource<AddressInstance> {}
 
   /// resources/AvailablePhoneNumbers.js
   export interface AvailablePhoneNumberResourceGroup extends ListableResource {
@@ -556,11 +556,11 @@ export module twilio {
     tollFree: AvailablePhoneNumberResourceGroup;
     mobile: AvailablePhoneNumberResourceGroup;
   }
-  export type AvailablePhoneNumberResource = BaseMappedResource<AvailablePhoneNumberInstance>;
+  export interface AvailablePhoneNumberResource extends BaseMappedResource<AvailablePhoneNumberInstance> {}
 
   /// resources/Calls.js
-  export type CallRecordingResource = ListableResource;
-  export type CallNotificationResource = ListableResource;
+  export interface CallRecordingResource extends ListableResource {}
+  export interface CallNotificationResource extends ListableResource {}
   export interface CallFeedbackResource extends PostableResource, DeletableResource {
     create: RestMethod;
   }
@@ -571,7 +571,7 @@ export module twilio {
     feedback: CallFeedbackResource;
   }
 
-  export type CallFeedbackSummaryInstance = DeletableResource;
+  export interface CallFeedbackSummaryInstance extends DeletableResource {}
   export interface CallFeedbackSummaryResource extends BaseMappedResource<CallFeedbackSummaryInstance> {
     post: RestMethod;
     create: RestMethod;
@@ -604,12 +604,12 @@ export module twilio {
   }
 
   /// resources/Messages.js
-  export type MessageMediaInstance = DeletableResource;
+  export interface MessageMediaInstance extends DeletableResource {}
   export interface MessageMediaResource extends MappedResource<MessageMediaInstance>, ListableResource {}
   export interface MessageInstance extends PostableResource, DeletableResource {
     media: MessageMediaResource;
   }
-  export type MessageResource = ListMappedResource<MessageInstance>;
+  export interface MessageResource extends ListMappedResource<MessageInstance> {}
 
   /// resources/Queues.js
   export interface QueueMemberInstance extends PostableResource {
@@ -622,18 +622,18 @@ export module twilio {
   export interface QueueInstance extends InstanceResource {
     members: QueueMemberResource;
   }
-  export type QueueResource = CreatableMappedResource<QueueInstance>;
+  export interface QueueResource extends CreatableMappedResource<QueueInstance> {}
 
   /// resources/Recordings.js
-  export type RecordingTranscriptionResource = ListableResource;
+  export interface RecordingTranscriptionResource extends ListableResource {}
   export interface RecordingInstance extends ListableResource, DeletableResource {
     transcriptions: RecordingTranscriptionResource;
   }
   export interface RecordingResource extends MappedResource<RecordingInstance>, ListableResource {}
 
   /// resources/UsageRecords.js
-  export type UsageRecordInstance = Resource;
-  export type UsageRecordRange = ListableResource;
+  export interface UsageRecordInstance extends Resource {}
+  export interface UsageRecordRange extends ListableResource {}
 
   export interface UsageRecordResource extends MappedResource<UsageRecordInstance> {
     daily: UsageRecordRange;
@@ -647,48 +647,48 @@ export module twilio {
   }
 
   /// resources/ip_messaging/Credentials.js
-  export type CredentialInstance = InstanceResource;
-  export type CredentialResource = ListMappedResource<CredentialInstance>;
+  export interface CredentialInstance extends InstanceResource {}
+  export interface CredentialResource extends ListMappedResource<CredentialInstance> {}
 
   /// resources/ip_messaging/Services.js
-  export type ServiceUserInstance = InstanceResource;
-  export type ServiceUserResource = ListMappedResource<ServiceUserInstance>;
-  export type ServiceRoleInstance = Resource;
+  export interface ServiceUserInstance extends InstanceResource {}
+  export interface ServiceUserResource extends ListMappedResource<ServiceUserInstance> {}
+  export interface ServiceRoleInstance extends Resource {}
   export interface ServiceRoleResource extends MappedResource<ServiceRoleInstance>, ListableResource {}
 
-  export type ServiceChannelMessageInstance = InstanceResource;
-  export type ServiceChannelMessageResource = ListMappedResource<ServiceChannelMessageInstance>;
+  export interface ServiceChannelMessageInstance extends InstanceResource {}
+  export interface ServiceChannelMessageResource extends ListMappedResource<ServiceChannelMessageInstance> {}
 
-  export type ServiceChannelMemberInstance = InstanceResource;
-  export type ServiceChannelMemberResource = ListMappedResource<ServiceChannelMemberInstance>;
+  export interface ServiceChannelMemberInstance extends InstanceResource {}
+  export interface ServiceChannelMemberResource extends ListMappedResource<ServiceChannelMemberInstance> {}
 
   export interface ServiceChannelInstance extends InstanceResource {
     messages: ServiceChannelMessageResource;
     members: ServiceChannelMemberResource;
   }
-  export type ServiceChannelResource = ListMappedResource<ServiceChannelInstance>;
+  export interface ServiceChannelResource extends ListMappedResource<ServiceChannelInstance> {}
 
   export interface ServiceInstance extends InstanceResource {
     users: ServiceUserResource;
     roles: ServiceRoleResource;
     channels: ServiceChannelResource;
   }
-  export type ServiceResource = ListMappedResource<ServiceInstance>;
+  export interface ServiceResource extends ListMappedResource<ServiceInstance> {}
 
   /// resources/lookups/PhoneNumbers.js
-  export type PhoneNumberInstance = Resource;
-  export type PhoneNumberResource = BaseMappedResource<PhoneNumberInstance>;
+  export interface PhoneNumberInstance extends Resource {}
+  export interface PhoneNumberResource extends BaseMappedResource<PhoneNumberInstance> {}
 
   /// resources/monitor/Alerts.js
-  export type AlertInstance = Resource;
+  export interface AlertInstance extends Resource {}
   export interface AlertResource extends MappedResource<AlertInstance>, ListableResource {}
 
   /// resources/monitor/Events.js
-  export type EventInstance = Resource;
+  export interface EventInstance extends Resource {}
   export interface EventResource extends MappedResource<EventInstance>, ListableResource {}
 
   /// resources/pricing/Messaging.js
-  export type CountryInstance = Resource;
+  export interface CountryInstance extends Resource {}
   export interface CountryResource extends MappedResource<CountryInstance>, ListableResource {}
 
   export interface PricingMessagingResource {
@@ -701,7 +701,7 @@ export module twilio {
   }
 
   /// resources/pricing/Voice.js
-  export type NumberInstance = Resource;
+  export interface NumberInstance extends Resource {}
   export interface NumberResource extends MappedResource<NumberInstance>, ListableResource {}
 
   export interface PricingVoiceResource {
@@ -713,29 +713,29 @@ export module twilio {
   export interface CredentialListInstance extends InstanceResource {
     credentials: CredentialResource;
   }
-  export type CredentialListResource = ListMappedResource<CredentialListInstance>;
+  export interface CredentialListResource extends ListMappedResource<CredentialListInstance> {}
 
   /// resources/sip/Domains.js
-  export type IPAccessControlListMappingInstance = DeletableResource;
-  export type IPAccessControlListMappingResource = ListMappedResource<IPAccessControlListMappingInstance>;
+  export interface IPAccessControlListMappingInstance extends DeletableResource {}
+  export interface IPAccessControlListMappingResource extends ListMappedResource<IPAccessControlListMappingInstance> {}
 
-  export type CredentialListMappingInstance = DeletableResource;
-  export type CredentialListMappingResource = ListMappedResource<CredentialListMappingInstance>;
+  export interface CredentialListMappingInstance extends DeletableResource {}
+  export interface CredentialListMappingResource extends ListMappedResource<CredentialListMappingInstance> {}
 
   export interface DomainInstance extends InstanceResource {
     ipAccessControlListMappings: IPAccessControlListMappingResource;
     credentialListMappings: CredentialListMappingResource;
   }
-  export type DomainResource = ListMappedResource<DomainInstance>;
+  export interface DomainResource extends ListMappedResource<DomainInstance> {}
 
   /// resources/sip/IpAccessControlLists.js
-  export type IPAddressInstance = InstanceResource;
-  export type IPAddressResource = ListMappedResource<IPAddressInstance>;
+  export interface IPAddressInstance extends InstanceResource {}
+  export interface IPAddressResource extends ListMappedResource<IPAddressInstance> {}
 
   export interface IPAccessControlListInstance extends InstanceResource {
     ipAddresses: IPAddressResource;
   }
-  export type IPAccessControlListResource = ListMappedResource<IPAccessControlListInstance>;
+  export interface IPAccessControlListResource extends ListMappedResource<IPAccessControlListInstance> {}
 
   /// resources/task_router/WorkflowBuilder.js
   export interface WorkflowRuleTargetOptions {
@@ -802,10 +802,10 @@ export module twilio {
   }
 
   /// resources/task_router/Workspaces.js
-  export type WorkspaceActivityInstance = InstanceResource;
-  export type WorkspaceActivityResource = ListMappedResource<WorkspaceActivityInstance>;
+  export interface WorkspaceActivityInstance extends InstanceResource {}
+  export interface WorkspaceActivityResource extends ListMappedResource<WorkspaceActivityInstance> {}
 
-  export type WorkspaceEventInstance = Resource;
+  export interface WorkspaceEventInstance extends Resource {}
   export interface WorkspaceEventResource extends MappedResource<WorkspaceEventInstance>, ListableResource {}
 
   export interface WorkspaceTaskReservationInstance extends PostableResource {
@@ -816,10 +816,10 @@ export module twilio {
   export interface WorkspaceTaskInstance extends InstanceResource {
     reservations: WorkspaceTaskReservationResource;
   }
-  export type WorkspaceTaskResource = ListMappedResource<WorkspaceTaskInstance>;
+  export interface WorkspaceTaskResource extends ListMappedResource<WorkspaceTaskInstance> {}
 
-  export type WorkspaceInstanceStatisticResource = Resource;
-  export type WorkspaceStatisticResource = ListableResource;
+  export interface WorkspaceInstanceStatisticResource extends Resource {}
+  export interface WorkspaceStatisticResource extends ListableResource {}
 
   export interface WorkspaceTaskQueueInstance extends InstanceResource {
     statistics: WorkspaceInstanceStatisticResource;
@@ -858,11 +858,11 @@ export module twilio {
 
     statistics: WorkspaceInstanceStatisticResource;
   }
-  export type WorkspaceResource = CreatableMappedResource<WorkspaceInstance>;
+  export interface WorkspaceResource extends CreatableMappedResource<WorkspaceInstance> {}
 
   /// resources/trunking/Trunks.js
-  export type OriginationURLInstance = InstanceResource;
-  export type OriginationURLResource = ListMappedResource<OriginationURLInstance>;
+  export interface OriginationURLInstance extends InstanceResource {}
+  export interface OriginationURLResource extends ListMappedResource<OriginationURLInstance> {}
 
   export interface TrunkInstance extends InstanceResource {
     ipAccessControlLists: IPAccessControlListResource;
@@ -870,6 +870,6 @@ export module twilio {
     phoneNumbers:  PhoneNumberResource;
     originationUrls: OriginationURLResource;
   }
-  export type TrunkResource = ListMappedResource<TrunkInstance>;
+  export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
 
 }
