@@ -85,7 +85,7 @@ declare module "superagent" {
       accept(type: string): this;
       attach(field: string, file: string, filename?: string): this;
       auth(user: string, name: string): this;
-      buffer(val: boolean): this;
+      buffer(val?: boolean): this;
       clearTimeout(): this;
       end(callback?: CallbackHandler): this;
       field(name: string, val: string): this;
