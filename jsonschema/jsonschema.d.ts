@@ -98,17 +98,6 @@ declare module "jsonschema" {
          * @param urn
          */
         getSchema(urn: string): {};
-
-        /**
-         * Validates an instance against the schema (the actual work horse)
-         * @param instance
-         * @param schema
-         * @param options
-         * @param ctx
-         * @private
-         * @return {IJSONSchemaResult}
-         */
-        validateSchema(instance: any, schema: {}, options?: {}, ctx?: {}): IJSONSchemaResult
     }
 }
 
