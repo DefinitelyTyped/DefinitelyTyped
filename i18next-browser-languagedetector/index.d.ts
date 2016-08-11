@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="i18next"/>
+/// <reference types="express" />
 
 declare namespace I18next {
     interface I18nextStatic extends i18nextBrowserLanguageDetector.I18nextStatic { }
