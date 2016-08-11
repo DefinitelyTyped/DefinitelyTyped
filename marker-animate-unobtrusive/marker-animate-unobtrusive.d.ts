@@ -49,16 +49,16 @@ interface SlidingMarkerOptions extends google.maps.MarkerOptions {
 declare class SlidingMarker extends google.maps.Marker {
     static initializeGlobally(): void;
     constructor(opts?: SlidingMarkerOptions);
-    setDuration(duration: number);
+    setDuration(duration: number): void;
     getDuration(): number;
-    setEasing(easing: jQuery.easing.IEasingType);
+    setEasing(easing: jQuery.easing.IEasingType): void;
     getEasing(): jQuery.easing.IEasingType;
     getAnimationPosition(): google.maps.LatLng;
     setPositionNotAnimated(position: google.maps.LatLng | google.maps.LatLngLiteral): void;
 }
 
 declare class MarkerWithGhost extends SlidingMarker {
-    setGhostPosition(ghostPosition: google.maps.LatLng | google.maps.LatLngLiteral);
+    setGhostPosition(ghostPosition: google.maps.LatLng | google.maps.LatLngLiteral): void;
     getGhostPosition(): google.maps.LatLng;
     getGhostAnimationPosition(): google.maps.LatLng;
 }
