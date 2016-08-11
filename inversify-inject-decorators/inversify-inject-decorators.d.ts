@@ -23,10 +23,10 @@ declare namespace inversifyInjectDecorators {
 
   }
 
-  export default function getDecorators(kernel: inversify.interfaces.Kernel): InjectDecorators;
+  export function getDecorators(kernel: inversify.interfaces.Kernel): InjectDecorators;
 
 }
 
 declare module "inversify-inject-decorators" {
-  export = inversifyInjectDecorators;
+  export default inversifyInjectDecorators.getDecorators;
 }
