@@ -48,6 +48,9 @@ interface VideoJSPlayer {
 	on(eventName: string, callback: () => void ): void;
 	off(eventName: string, callback: () => void ): void;
 	dispose(): void;
+	addRemoteTextTrack(options : {}) : HTMLTrackElement;
+	removeRemoteTextTrack(track : HTMLTrackElement) : void;
+	poster(val?: string) : string|VideoJSPlayer;
 }
 
 interface VideoJSStatic {
