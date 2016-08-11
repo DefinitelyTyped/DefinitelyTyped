@@ -8,7 +8,8 @@
         {
             "libraryName": "Moment",
             "typingsPackageName": "moment",
-            "sourceRepoURL": "https://github.com/moment/moment"
+            "sourceRepoURL": "https://github.com/moment/moment",
+            "asOfVersion": "2.13.0"
         }
     ]
 }
