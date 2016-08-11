@@ -6,7 +6,7 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path='../lodash/lodash.d.ts' />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
