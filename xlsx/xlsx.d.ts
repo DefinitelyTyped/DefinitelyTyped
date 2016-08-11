@@ -128,7 +128,11 @@ declare module 'xlsx' {
     }
 
     export interface IUtils {
-        sheet_to_json<T>(worksheet:IWorkSheet):T[];
+        sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
+            raw?: boolean;
+            range?: any;
+            header?: "A"|number|string[];
+        }):T[];
         sheet_to_csv(worksheet:IWorkSheet):any;
         sheet_to_formulae(worksheet:IWorkSheet):any;
     }
