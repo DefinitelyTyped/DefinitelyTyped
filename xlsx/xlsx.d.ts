@@ -7,6 +7,7 @@ declare module 'xlsx' {
 
     export function readFile(filename:string, opts?:IParsingOptions):IWorkBook;
     export function read(data:any, opts?:IParsingOptions):IWorkBook;
+    export function write(data:any, opts?:IParsingOptions): any;
     export var utils:IUtils;
 
     export interface IProperties {
@@ -41,6 +42,7 @@ declare module 'xlsx' {
         bookSheets?:boolean;
         bookVBA?:boolean;
         password?:string;
+        bookType?:string;
 
         /**
          * Possible options: 'binary', 'base64', 'buffer', 'file'
@@ -127,14 +129,21 @@ declare module 'xlsx' {
         s?: string;
     }
 
+    export interface ICell {
+        c: number;
+        r: number;
+    }
+
     export interface IUtils {
         sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
             raw?: boolean;
             range?: any;
             header?: "A"|number|string[];
         }):T[];
-        sheet_to_csv(worksheet:IWorkSheet):any;
-        sheet_to_formulae(worksheet:IWorkSheet):any;
+        sheet_to_csv(worksheet: IWorkSheet):any;
+        sheet_to_formulae(worksheet: IWorkSheet):any;
+        encode_cell(cell: ICell): any;
+        encode_range(s: ICell, e: ICell): any;
     }
 
 }
