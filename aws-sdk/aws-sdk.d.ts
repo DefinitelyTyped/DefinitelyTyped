@@ -329,7 +329,7 @@ declare module "aws-sdk" {
 
     interface _DDBDC_Generic {
       TableName: string;
-      ExpressionAttributeNames?: string[];
+      ExpressionAttributeNames?: { [someKey: string]: string };
       ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
     }
 
