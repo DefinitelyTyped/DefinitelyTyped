@@ -10,6 +10,7 @@
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
+
     namespace sequelize {
 
         //
