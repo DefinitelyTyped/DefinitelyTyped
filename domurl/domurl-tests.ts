@@ -20,9 +20,9 @@ var u2 = new Url<U2Model>("http://example.com/some/path?a=b&c=d#someAnchor");
 var u3 = new Url<U3Model>("/my/site/doc/path?foo=bar#baz");
 
 // get the value of some query string parameter
-alert(u2.query.a);
+console.log(u2.query.a);
 // or
-alert(u3.query["foo"]);
+console.log(u3.query["foo"]);
 
 // Manipulating query string parameters
 u.query.a = [1, 2, 3]; // adds/replaces in query string params a=1&a=2&a=3
@@ -44,10 +44,12 @@ delete u.query.a;
 delete u.query["a"];
 
 // If you need to remove all query string params:
-alert(u.clearQuery());
+console.log(u.clearQuery());
+console.log(u.queryLength());
+console.log(u.isEmptyQuery());
 
 // Lookup URL parts:
-alert(
+console.log(
     'protocol = ' + u.protocol + '\n' +
     'user = ' + u.user + '\n' +
     'pass = ' + u.pass + '\n' +
