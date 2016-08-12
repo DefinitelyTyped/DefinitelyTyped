@@ -330,6 +330,7 @@ declare module "knex" {
     interface Transaction extends QueryBuilder {
       commit: any;
       rollback: any;
+      raw: Knex.RawBuilder;
     }
 
     //
