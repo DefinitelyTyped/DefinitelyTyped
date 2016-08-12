@@ -21,7 +21,7 @@ declare module 'angular-es' {
          ngName?: string,
          ngArguments?: Array<any>,
          ngType?: string,
-         injectAsProperty?: Array<string>);
+         injectAsProperty?: Array<string>): void;
     }
 
     /**
