@@ -454,6 +454,8 @@ declare module "knex" {
       pool?: PoolConfig;
       migrations?: MigratorConfig;
       acquireConnectionTimeout?: number;
+      useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {
