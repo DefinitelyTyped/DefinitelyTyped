@@ -169,7 +169,7 @@ declare module 'angular-es' {
         Factory,
         Filter,
         Inject,
-        InjectAsProperty
+        InjectAsProperty,
         Module,
         Provider,
         Run,
