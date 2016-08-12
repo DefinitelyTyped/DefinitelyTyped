@@ -1,9 +1,7 @@
-/// <reference path="../lodash/lodash.d.ts" />
 /// <reference path="../react/react.d.ts" />
 /// <reference path="../react/react-dom.d.ts" />
 /// <reference path="./react-select.d.ts" />
 
-import * as _ from "lodash";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -65,19 +63,15 @@ const CustomValue = React.createClass({
 
 const filterOptions = (options: Array<Option>, filter: string, values: Array<Option>) => {
     // Filter already selected values
-    let filteredOptions = options.filter(option => {
-        return !(_.includes(values, option));
-    });
+    let filteredOptions = options.filter(option => values.indexOf(option) < 0);
 
     // Filter by label
-    if (filter !== undefined && filter != null && filter.length > 0) {
-        filteredOptions = filteredOptions.filter(option => {
-            return RegExp(filter, 'ig').test(option.label);
-        });
+    if (filter != null && filter.length > 0) {
+        filteredOptions = filteredOptions.filter(option => RegExp(filter, 'ig').test(option.label));
     }
 
     // Append Addition option
-    if (filteredOptions.length == 0) {
+    if (filteredOptions.length === 0) {
         filteredOptions.push({
             label:  `Create: ${filter}`,
             value:  filter
@@ -138,6 +132,26 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
             onChange: onChange,
             value: options,
             valueComponent: CustomValue,
+            valueRenderer: optionRenderer
+        };
+
+        return <div>
+            <Select {...selectProps} />
+        </div>;
+    }
+}
+
+class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
+
+    render() {
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const selectProps: ReactSelectProps = {
+            name: "test-select-with-string-value",
+            value: "bar",
+            options: options,
+            onChange: onChange
         };
 
         return <div>

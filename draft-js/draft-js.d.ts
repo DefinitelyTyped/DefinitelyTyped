@@ -180,17 +180,17 @@ declare namespace Draft {
         namespace Utils {
             import DraftEditorCommand = Draft.Model.Constants.DraftEditorCommand;
 
-            interface KeyBindingUtil {
+            class KeyBindingUtil {
                 /**
                  * Check whether the ctrlKey modifier is *not* being used in conjunction with
                  * the altKey modifier. If they are combined, the result is an `altGraph`
                  * key modifier, which should not be handled by this set of key bindings.
                  */
-                isCtrlKeyCommand(e: SyntheticKeyboardEvent): boolean;
+                static isCtrlKeyCommand(e: SyntheticKeyboardEvent): boolean;
 
-                isOptionKeyCommand(e: SyntheticKeyboardEvent): boolean;
+                static isOptionKeyCommand(e: SyntheticKeyboardEvent): boolean;
 
-                hasCommandModifier(e: SyntheticKeyboardEvent): boolean;
+                static hasCommandModifier(e: SyntheticKeyboardEvent): boolean;
             }
 
             /**
@@ -797,8 +797,8 @@ declare namespace Draft {
 
             type URI = any;
 
-            interface AtomicBlockUtils {
-                insertAtomicBlock(editorState: EditorState, entityKey: string, character: string): EditorState;
+            class AtomicBlockUtils {
+                static insertAtomicBlock(editorState: EditorState, entityKey: string, character: string): EditorState;
             }
 
             /**

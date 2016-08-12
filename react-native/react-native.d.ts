@@ -8,9 +8,9 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
-// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
-// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+// CONTRIBUTING: please open pull requests
 //
 // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
@@ -23,102 +23,6 @@ import React = __React;
 
 //react-native "extends" react
 declare namespace  __React {
-
-    /**
-     * Represents the completion of an asynchronous operation
-     * @see lib.es6.d.ts
-     */
-    export interface Promise<T> {
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult>( onfulfilled?: ( value: T ) => TResult | Promise<TResult>, onrejected?: ( reason: any ) => TResult | Promise<TResult> ): Promise<TResult>;
-
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch( onrejected?: ( reason: any ) => T | Promise<T> ): Promise<T>;
-
-
-        // not in lib.es6.d.ts but called by react-native
-        done( callback?: ( value: T ) => void ): void;
-    }
-
-    export interface PromiseConstructor {
-        /**
-         * A reference to the prototype.
-         */
-        prototype: Promise<any>;
-
-        /**
-         * Creates a new Promise.
-         * @param init A callback used to initialize the promise. This callback is passed two arguments:
-         * a resolve callback used resolve the promise with a value or the result of another promise,
-         * and a reject callback used to reject the promise with a provided reason or error.
-         */
-        new <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        all<T>( values: (T | Promise<T>)[] ): Promise<T[]>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of values.
-         * @returns A new Promise.
-         */
-        all( values: Promise<void>[] ): Promise<void>;
-
-        /**
-         * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-         * or rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        race<T>( values: (T | Promise<T>)[] ): Promise<T>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject( reason: any ): Promise<void>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject<T>( reason: any ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise for the provided value.
-         * @param value A promise.
-         * @returns A promise whose internal state matches the provided promise.
-         */
-        resolve<T>( value: T | Promise<T> ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise .
-         * @returns A resolved promise.
-         */
-        resolve(): Promise<void>;
-    }
-
-    // @see lib.es6.d.ts
-    export var Promise: PromiseConstructor;
 
     module NativeMethodsMixin {
       type MeasureOnSuccessCallback = (
@@ -436,11 +340,15 @@ declare namespace  __React {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: "row" | "column"
+        flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
         flexWrap?: "wrap" | "nowrap"
         height?: number
         justifyContent?: FlexJustifyType
         left?: number
+        minWidth?: number
+        maxWidth?: number
+        minHeight?: number
+        maxHeight?: number
         margin?: number
         marginBottom?: number
         marginHorizontal?: number
@@ -459,6 +367,11 @@ declare namespace  __React {
         right?: number
         top?: number
         width?: number
+
+        /**
+         * @platform ios
+         */
+        zIndex?: number
     }
 
     /**
@@ -604,6 +517,12 @@ declare namespace  __React {
          * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
          */
         allowFontScaling?: boolean
+
+        /**
+         * Line Break mode. Works only with numberOfLines.
+         * clip is working only for iOS
+         */
+        lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
 
         /**
          * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
@@ -918,7 +837,7 @@ declare namespace  __React {
         showWithText?: boolean
     }
 
-    export interface ToolbarAndroidProperties extends React.Props<ToolbarAndroidStatic> {
+    export interface ToolbarAndroidProperties extends ViewProperties, React.Props<ToolbarAndroidStatic> {
         actions?: ToolbarAndroidAction[]
 
         /**
@@ -1000,6 +919,8 @@ declare namespace  __React {
          * Sets the toolbar title color.
          */
         titleColor?: string
+
+        ref?: Ref<ToolbarAndroidStatic>
     }
 
     export interface ToolbarAndroidStatic extends React.ComponentClass<ToolbarAndroidProperties> {
@@ -1373,6 +1294,23 @@ declare namespace  __React {
       setPageWithoutAnimation: (selectedPage: number) => void
     }
 
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
+    }
+
     /**
      * //FIXME: No documentation extracted from code comment on WebView.ios.js
      */
@@ -1399,6 +1337,17 @@ declare namespace  __React {
          * or not android
          */
         domStorageEnabled?: boolean
+    }
+
+    export interface WebViewIOSLoadRequestEvent {
+        target: number
+        canGoBack: boolean
+        lockIdentifier: number
+        loading: boolean
+        title: string
+        canGoForward: boolean
+        navigationType: 'other' | 'click'
+        url: string
     }
 
     export interface WebViewPropertiesIOS {
@@ -1430,7 +1379,7 @@ declare namespace  __React {
          * Return true or false from this method to continue loading the
          * request.
          */
-        onShouldStartLoadWithRequest?: () => boolean
+        onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
 
         scrollEnabled?: boolean
     }
@@ -1479,7 +1428,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/webview.html#props
      */
-    export interface WebViewProperties extends WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
+    export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
 
         automaticallyAdjustContentInsets?: boolean
 
@@ -1525,12 +1474,12 @@ declare namespace  __React {
         /**
          * view to show if there's an error
          */
-        renderError?: () => ViewStatic
+        renderError?: () => React.ReactElement<ViewProperties>
 
         /**
          * loading indicator to show
          */
-        renderLoading?: () => ViewStatic
+        renderLoading?: () => React.ReactElement<ViewProperties>
 
         scrollEnabled?: boolean
 
@@ -1553,6 +1502,8 @@ declare namespace  __React {
          * sets whether the webpage scales to fit the view and the user can change the scale
          */
         scalesPageToFit?: boolean
+
+        ref?: Ref<WebViewStatic & ViewStatic>
     }
 
 
@@ -1590,7 +1541,7 @@ declare namespace  __React {
          target: number
      }
 
-     export interface SegmentedControlIOSProperties extends React.Props<SegmentedControlIOSStatic> {
+     export interface SegmentedControlIOSProperties extends ViewProperties, React.Props<SegmentedControlIOSStatic> {
 
          /**
           * If false the user won't be able to interact with the control. Default value is true.
@@ -1630,6 +1581,8 @@ declare namespace  __React {
           * The labels for the control's segment buttons, in order.
           */
          values?: string[]
+
+         ref?: Ref<SegmentedControlIOSStatic>
      }
 
     export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
@@ -1744,7 +1697,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
      */
-    export interface ActivityIndicatorProperties extends React.Props<ActivityIndicatorStatic> {
+    export interface ActivityIndicatorProperties extends ViewProperties, React.Props<ActivityIndicatorStatic> {
 
         /**
          * Whether to show the indicator (true, the default) or hide it (false).
@@ -1770,6 +1723,8 @@ declare namespace  __React {
         size?: 'small' | 'large'
 
         style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorStatic>
     }
 
     export interface ActivityIndicatorStatic extends React.ComponentClass<ActivityIndicatorProperties> {
@@ -1779,7 +1734,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
-    export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
+    export interface ActivityIndicatorIOSProperties extends ViewProperties, React.Props<ActivityIndicatorIOSStatic> {
 
         /**
          * Whether to show the indicator (true, the default) or hide it (false).
@@ -1810,16 +1765,18 @@ declare namespace  __React {
         size?: 'small' | 'large'
 
         style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorIOSStatic>
     }
 
     /**
      * @Deprecated since version 0.28.0
-     */ 
+     */
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
 
-    export interface DatePickerIOSProperties extends React.Props<DatePickerIOSStatic> {
+    export interface DatePickerIOSProperties extends ViewProperties, React.Props<DatePickerIOSStatic> {
 
         /**
          * The currently selected date.
@@ -1865,6 +1822,7 @@ declare namespace  __React {
          */
         timeZoneOffsetInMinutes?: number
 
+        ref?: Ref<DatePickerIOSStatic>
     }
 
     export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
@@ -1876,7 +1834,7 @@ declare namespace  __React {
     /**
      * @see DrawerLayoutAndroid.android.js
      */
-    export interface DrawerLayoutAndroidProperties extends React.Props<DrawerLayoutAndroidStatic> {
+    export interface DrawerLayoutAndroidProperties extends ViewProperties, React.Props<DrawerLayoutAndroidStatic> {
 
         /**
          * Specifies the background color of the drawer. The default value
@@ -1967,6 +1925,7 @@ declare namespace  __React {
          */
         statusBarBackgroundColor?: any
 
+        ref?: Ref<DrawerLayoutAndroidStatic & ViewStatic>
     }
 
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
@@ -2010,18 +1969,22 @@ declare namespace  __React {
     export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
     }
 
-    export interface PickerPropertiesIOS extends React.Props<PickerStatic> {
+    export interface PickerPropertiesIOS extends ViewProperties, React.Props<PickerStatic> {
 
         itemStyle?: ViewStyle
+
+        ref?: Ref<PickerStatic & ViewStatic>
     }
 
-    export interface PickerPropertiesAndroid extends React.Props<PickerStatic> {
+    export interface PickerPropertiesAndroid extends ViewProperties, React.Props<PickerStatic> {
 
         enabled?: boolean
 
         mode?: "dialog" | "dropdown"
 
         prompt?: string
+
+        ref?: Ref<PickerStatic & ViewStatic>
     }
 
     /**
@@ -2052,6 +2015,8 @@ declare namespace  __React {
          * Used to locate this view in end-to-end tests.
          */
         testId?: string
+
+        ref?: Ref<PickerStatic>
     }
 
     /**
@@ -2086,7 +2051,7 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
      * @see ProgressBarAndroid.android.js
      */
-    export interface ProgressBarAndroidProperties extends React.Props<ProgressBarAndroidStatic> {
+    export interface ProgressBarAndroidProperties extends ViewProperties, React.Props<ProgressBarAndroidStatic> {
 
         style?: ViewStyle
 
@@ -2122,6 +2087,8 @@ declare namespace  __React {
          * Used to locate this view in end-to-end tests.
          */
         testID?: string
+
+        ref?: Ref<ProgressBarAndroidStatic>
     }
     export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
     }
@@ -2130,7 +2097,7 @@ declare namespace  __React {
      * @see https://facebook.github.io/react-native/docs/progressviewios.html
      * @see ProgressViewIOS.ios.js
      */
-    export interface ProgressViewIOSProperties extends React.Props<ProgressViewIOSStatic> {
+    export interface ProgressViewIOSProperties extends ViewProperties, React.Props<ProgressViewIOSStatic> {
 
         style?: ViewStyle
 
@@ -2163,11 +2130,13 @@ declare namespace  __React {
          * A stretchable image to display behind the progress bar.
          */
         trackImage?: any
+
+        ref?: Ref<ProgressViewIOSStatic>
     }
     export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
     }
 
-    export interface RefreshControlPropertiesIOS extends React.Props<RefreshControlStatic> {
+    export interface RefreshControlPropertiesIOS extends ViewProperties, React.Props<RefreshControlStatic> {
 
         /**
          * The color of the refresh indicator.
@@ -2183,9 +2152,11 @@ declare namespace  __React {
          * Title color.
          */
         titleColor?: string
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
     }
 
-    export interface RefreshControlPropertiesAndroid extends React.Props<RefreshControlStatic> {
+    export interface RefreshControlPropertiesAndroid extends ViewProperties, React.Props<RefreshControlStatic> {
 
         /**
          * The colors (at least one) that will be used to draw the refresh indicator.
@@ -2206,12 +2177,14 @@ declare namespace  __React {
          * Size of the refresh indicator, see RefreshControl.SIZE.
          */
         size?: number
-        
+
         /**
          * Progress view top offset
          * @platform android
          */
         progressViewOffset?: number
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
     }
 
     export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
@@ -2225,13 +2198,15 @@ declare namespace  __React {
          * Whether the view should be indicating an active refresh.
          */
         refreshing?: boolean
+
+        ref?: Ref<RefreshControlStatic>
     }
 
     export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
         SIZE: Object // Undocumented
     }
 
-    export interface SliderPropertiesIOS extends React.Props<SliderStatic> {
+    export interface SliderPropertiesIOS extends ViewProperties, React.Props<SliderStatic> {
 
         /**
          * Assigns a maximum track image. Only static images are supported.
@@ -2268,6 +2243,8 @@ declare namespace  __React {
          * to fill the track.
          */
         trackImage?: any
+
+        ref?: Ref<SliderStatic>
     }
 
     export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
@@ -2333,7 +2310,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
-    export interface SliderIOSProperties extends React.Props<SliderIOSStatic> {
+    export interface SliderIOSProperties extends ViewProperties, React.Props<SliderIOSStatic> {
 
         /**
          * If true the user won't be able to move the slider. Default value is false.
@@ -2393,6 +2370,8 @@ declare namespace  __React {
          * This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
          */
         value?: number
+
+        ref?: Ref<SliderIOSStatic>
     }
 
     export interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
@@ -2721,6 +2700,8 @@ declare namespace  __React {
          * pixels.
          */
         scrollRenderAheadDistance?: number
+
+        ref?: Ref<ListViewStatic & ScrollViewStatic & ViewStatic>
     }
 
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
@@ -2815,7 +2796,7 @@ declare namespace  __React {
         active?: boolean
     }
 
-    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, React.Props<MapViewStatic> {
+    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, ViewProperties, React.Props<MapViewStatic> {
 
 
 
@@ -2884,6 +2865,8 @@ declare namespace  __React {
          * Default value is true.
          */
         zoomEnabled?: boolean
+
+        ref?: Ref<MapViewStatic & ViewStatic>
     }
 
     /**
@@ -3341,6 +3324,16 @@ declare namespace  __React {
          */
         popToTop(): void;
 
+        /**
+         *  Replace the previous scene and pop to it.
+         */
+        replacePreviousAndPop( route: Route ): void;
+
+        /**
+         * Navigate to a new scene and reset route stack.
+         */
+        resetTo( route: Route ): void;
+
     }
 
     namespace NavigatorStatic {
@@ -3414,7 +3407,99 @@ declare namespace  __React {
     }
 
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
+
+        /**
+         * Creates a StyleSheet style reference from the given object.
+         */
         create<T>( styles: T ): T;
+
+        /**
+         * Flattens an array of style objects, into one aggregated style object.
+         * Alternatively, this method can be used to lookup IDs, returned by
+         * StyleSheet.register.
+         *
+         * > **NOTE**: Exercise caution as abusing this can tax you in terms of
+         * > optimizations.
+         * >
+         * > IDs enable optimizations through the bridge and memory in general. Refering
+         * > to style objects directly will deprive you of these optimizations.
+         *
+         * Example:
+         * ```
+         * var styles = StyleSheet.create({
+         *   listItem: {
+         *     flex: 1,
+         *     fontSize: 16,
+         *     color: 'white'
+         *   },
+         *   selectedListItem: {
+         *     color: 'green'
+         *   }
+         * });
+         *
+         * StyleSheet.flatten([styles.listItem, styles.selectedListItem])
+         * // returns { flex: 1, fontSize: 16, color: 'green' }
+         * ```
+         * Alternative use:
+         * ```
+         * StyleSheet.flatten(styles.listItem);
+         * // return { flex: 1, fontSize: 16, color: 'white' }
+         * // Simply styles.listItem would return its ID (number)
+         * ```
+         * This method internally uses `StyleSheetRegistry.getStyleByID(style)`
+         * to resolve style objects represented by IDs. Thus, an array of style
+         * objects (instances of StyleSheet.create), are individually resolved to,
+         * their respective objects, merged as one and then returned. This also explains
+         * the alternative use.
+         */
+        flatten(style: Object): Object
+
+        /**
+         * This is defined as the width of a thin line on the platform. It can be
+         * used as the thickness of a border or division between two elements.
+         * Example:
+         * ```
+         *   {
+         *     borderBottomColor: '#bbb',
+         *     borderBottomWidth: StyleSheet.hairlineWidth
+         *   }
+         * ```
+         *
+         * This constant will always be a round number of pixels (so a line defined
+         * by it look crisp) and will try to match the standard width of a thin line
+         * on the underlying platform. However, you should not rely on it being a
+         * constant size, because on different platforms and screen densities its
+         * value may be calculated differently.
+         */
+        hairlineWidth: number
+
+        /**
+         * A very common pattern is to create overlays with position absolute and zero positioning,
+         * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+         * styles.
+         */
+        absoluteFill: number
+
+
+        /**
+         * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
+         * used to create a customized entry in a `StyleSheet`, e.g.:
+         *
+         *   const styles = StyleSheet.create({
+         *     wrapper: {
+         *       ...StyleSheet.absoluteFillObject,
+         *       top: 10,
+         *       backgroundColor: 'transparent',
+         *     },
+         *   });
+         */
+        absoluteFillObject: {
+            position: string
+            left: number
+            right: number
+            top: number
+            bottom: number
+        }
     }
 
     /**
@@ -3502,7 +3587,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
      */
-    export interface TabBarItemProperties extends React.Props<TabBarItemStatic> {
+    export interface TabBarItemProperties extends ViewProperties, React.Props<TabBarItemStatic> {
 
         /**
          * Little red bubble that sits at the top right of the icon.
@@ -3549,6 +3634,7 @@ declare namespace  __React {
          */
         title?: string
 
+        ref?: Ref<TabBarItemStatic & ViewStatic>
     }
 
     export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {
@@ -3557,7 +3643,7 @@ declare namespace  __React {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
      */
-    export interface TabBarIOSProperties extends React.Props<TabBarIOSStatic> {
+    export interface TabBarIOSProperties extends ViewProperties, React.Props<TabBarIOSStatic> {
 
         /**
          * Background color of the tab bar
@@ -3575,6 +3661,13 @@ declare namespace  __React {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
+
+        /**
+         * Color of text on unselected tabs
+         */
+        unselectedTintColor?: string
+
+        ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -3648,8 +3741,10 @@ declare namespace  __React {
     export interface PlatformStatic {
         OS: PlatformOSType,
 
-        // only documented in PlatformSpecificInformation.md
-        select({PlatformOSType: any}): any
+        /**
+         * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+         */
+        select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -3658,6 +3753,21 @@ declare namespace  __React {
 
     export interface DeviceEventEmitterStatic {
         addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
+
+        /**
+         * Removes the given listener for event of specific type.
+         *
+         * @param {string} eventType - Name of the event to emit
+         * @param {function} listener - Function to invoke when the specified event is
+         *   emitted
+         *
+         * @example
+         *   emitter.removeListener('someEvent', function(message) {
+         *     console.log(message);
+         *   }); // removes the listener if already registered
+         *
+         */
+        removeListener( eventType: String, listener: Function): void
     }
 
     // Used by Dimensions below
@@ -3718,9 +3828,11 @@ declare namespace  __React {
 
         /**
          * Schedule a function to run after all interactions have completed.
+         * Returns a cancellable
          * @param fn
          */
-        runAfterInteractions( fn: () => void | PromiseTask): Promise<any>
+        runAfterInteractions( fn: () => void | PromiseTask):
+          {then: Function, done: Function, cancel: Function}
 
         /**
          * Notify manager that an interaction has started.
@@ -3954,7 +4066,7 @@ declare namespace  __React {
 
     }
 
-    export interface ScrollViewProperties extends ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable {
+    export interface ScrollViewProperties extends ViewProperties, ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable, React.Props<ScrollViewStatic> {
 
         /**
          * These styles will be applied to the scroll view content container which
@@ -4002,7 +4114,7 @@ declare namespace  __React {
          * The frequency of the events can be contolled using the scrollEventThrottle prop.
          */
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
-        
+
         /**
          * When true the scroll view stops on multiples of the scroll view's size
          * when scrolling. This can be used for horizontal pagination. The default
@@ -4037,11 +4149,13 @@ declare namespace  __React {
          * A RefreshControl component, used to provide pull-to-refresh
          * functionality for the ScrollView.
          */
-        refreshControl?: RefreshControl
+        refreshControl?: React.ReactElement<RefreshControlProperties>
+
+        ref?: Ref<ScrollViewStatic & ViewStatic>
     }
 
     export interface ScrollViewProps extends ScrollViewProperties, React.Props<ScrollViewStatic> {
-
+        ref?: Ref<ScrollViewStatic>
     }
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
@@ -4105,7 +4219,7 @@ declare namespace  __React {
         layoutMeasurement: NativeScrollSize;
         zoomScale: number;
     }
-    
+
     // Deduced from
     // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
 
@@ -4125,18 +4239,18 @@ declare namespace  __React {
         getOpenRowID(): string
         setOpenRowID(rowID: string): ListViewDataSource
     }
-    
+
     export interface SwipeableListViewProps extends React.Props<SwipeableListViewStatic> {
         dataSource: SwipeableListViewDataSource
         maxSwipeDistance?: number
-        
+
         // Callback method to render the swipeable view
         renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
-        
+
         // Callback method to render the view that will be unveiled on swipe
         renderQuickActions(rowData: Object, sectionID: string, rowID: string): React.ReactElement<any>
     }
-    
+
     export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
         getNewDataSource(): SwipeableListViewDataSource
     }
@@ -4449,8 +4563,26 @@ declare namespace  __React {
          *      assets-library tag
          *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
          *
+         * @deprecated use saveToCameraRoll instead
+         *
          */
         saveImageWithTag( tag: string ): Promise<string>
+
+        /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
@@ -4908,7 +5040,7 @@ declare namespace  __React {
          * Requests all notification permissions from iOS, prompting the user's
          * dialog box.
          */
-        requestPermissions( permissions?: PushNotificationPermissions[] ): void
+        requestPermissions( permissions?: PushNotificationPermissions[] ): Promise<PushNotificationPermissions>
 
         /**
          * Unregister for all remote notifications received via Apple Push
@@ -5020,17 +5152,10 @@ declare namespace  __React {
 
 
     /**
-     * //FIXME: No documentation is available (although this is self explanatory)
-     *
-     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     * StatusBarIOS is being deprecated.
+     * @see https://github.com/facebook/react-native/commit/4de616b4c1a9d3556632a93504828f0539fa4fa5
      */
     export interface StatusBarIOSStatic {
-
-        setStyle(style: StatusBarStyle, animated?: boolean): void
-
-        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
-
-        setNetworkActivityIndicatorVisible(visible: boolean): void
     }
 
     type TimePickerAndroidOpenOptions = {
@@ -5079,7 +5204,7 @@ declare namespace  __React {
         LONG: number
     }
 
-    export interface SwitchPropertiesIOS extends React.Props<SwitchStatic> {
+    export interface SwitchPropertiesIOS extends ViewProperties, React.Props<SwitchStatic> {
 
         /**
          * Background color when the switch is turned on.
@@ -5095,9 +5220,11 @@ declare namespace  __React {
          * Background color when the switch is turned off.
          */
         tintColor?: string
+
+        ref?: Ref<SwitchStatic>
     }
 
-    export interface SwitchProperties extends React.Props<SwitchStatic> {
+    export interface SwitchProperties extends ViewProperties, React.Props<SwitchStatic> {
 
         /**
          * If true the user won't be able to toggle the switch.
@@ -5120,8 +5247,10 @@ declare namespace  __React {
          * Default value is false.
          */
         value?: boolean
-	
-	style?: ViewStyle
+
+	    style?: ViewStyle
+
+        ref?: Ref<SwitchStatic>
     }
 
     export interface SwitchStatic extends React.ComponentClass<SwitchProperties> {
@@ -5540,26 +5669,25 @@ declare namespace  __React {
         type: string;
     }
 
-    export interface NavigationState {
+    export interface NavigationRoute {
       key: string;
     }
 
-    export interface NavigationParentState extends NavigationState {
+    export interface NavigationState extends NavigationRoute {
         index: number;
-        children: NavigationState[];
+        routes: NavigationRoute[];
     }
 
     export type NavigationRenderer = (
-        navigationState: NavigationParentState,
+        route: NavigationState,
         onNavigate: (action: NavigationAction) => boolean
     ) => JSX.Element;
 
     // Definitions for NavigationExperimental feature are deduced
     // from code examples
     export interface NavigationAnimatedViewStaticProps {
-        navigationState?: any
+        route?: any
         style?: ViewStyle
-        onNavigate?(action: Object): boolean
         renderOverlay?(props: Object): JSX.Element
         applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
         renderScene?(props: Object): JSX.Element
@@ -5567,24 +5695,25 @@ declare namespace  __React {
 
     export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
     }
-    
+
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        onNavigateBack(): void
     }
-    
+
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
         Title: JSX.Element
         HEIGHT: number
     }
-    
+
     export interface NavigationCardStackProps {
         direction?: 'horizontal' | 'vertical'
         style?: ViewStyle
-        navigationState?: any
-        onNavigate(action: Object): boolean
+        route?: any
         renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
+        onNavigateBack(): void
     }
-    
+
     export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
     }
 
@@ -5594,7 +5723,7 @@ declare namespace  __React {
         Header: NavigationHeaderStatic;
         Reducer: NavigationReducerStatic;
     }
-    
+
     export interface NavigationContainerProps {
         tabs: NavigationTab[];
         index: number;
@@ -5614,6 +5743,27 @@ declare namespace  __React {
         getBackAction(): NavigationAction;
         handleNavigation( action: NavigationAction ): boolean;
     }
+
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -5685,7 +5835,7 @@ declare namespace  __React {
 
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
-    
+
     export var SwipeableListView: SwipeableListViewStatic
     export type SwipeableListView = SwipeableListViewStatic
 
@@ -5766,6 +5916,9 @@ declare namespace  __React {
     export var IntentAndroid: IntentAndroidStatic
     export type IntentAndroid = IntentAndroidStatic
 
+    export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
+    export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
+
     export var Linking: LinkingStatic
     export type Linking = LinkingStatic
 
@@ -5813,6 +5966,16 @@ declare namespace  __React {
 
     export type Easing = EasingStatic;
     export var Easing: EasingStatic;
+
+    //Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
+    //See https://facebook.github.io/react-native/docs/native-modules-ios.html
+
+    /**
+     * Use:
+     * <code>const MyModule = NativeModules.ModuleName</code>
+     */
+    export var NativeModules: any
+    export var NativeAppEventEmitter: NativeAppEventEmitterStatic
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
@@ -5877,3 +6040,12 @@ declare module "react-native" {
 declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
+
+/**
+ * This variable is set to true when react-native is running in Dev mode
+ * Typical usage:
+ * <code> if (__DEV__) console.log('Running in dev mode')</code>
+ */
+declare var __DEV__: boolean
+
+
