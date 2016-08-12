@@ -13,16 +13,16 @@ declare module "knex" {
   type Callback = Function;
   type Client = Function;
   type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
-  type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
-  type TableName = string|Knex.Raw|Knex.QueryBuilder;
+  type ColumnName<T> = string|Knex.Raw<T>|Knex.QueryBuilder<T>;
+  type TableName<T> = string|Knex.Raw<T>|Knex.QueryBuilder<T>;
 
   interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
+	<T>(tableName?: string): Knex.QueryBuilder<T>;
     VERSION: string;
     __knex__: string;
 
     raw: Knex.RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
+    transaction: <T>(transactionScope: ((trx: Knex.Transaction<T>) => void)) => Promise<any>;
     destroy(callback: Function): void;
     destroy(): Promise<void>;
 
@@ -32,7 +32,7 @@ declare module "knex" {
     migrate: Knex.Migrator;
     seed: any;
     fn: any;
-    on(eventName: string, callback: Function): Knex.QueryBuilder;
+    on<T>(eventName: string, callback: Function): Knex.QueryBuilder<T>;
   }
 
   function Knex(config: Knex.Config) : Knex;
@@ -105,7 +105,7 @@ declare module "knex" {
 
       // Union
       union: Union;
-      unionAll(callback: Function): QueryBuilder;
+      unionAll<T>(callback: Function): QueryBuilder<T>;
 
       // Having
       having: Having;
@@ -115,196 +115,197 @@ declare module "knex" {
       orHavingRaw: RawQueryBuilder;
 
       // Paging
-      offset(offset: number): QueryBuilder;
-      limit(limit: number): QueryBuilder;
+      offset<T>(offset: number): QueryBuilder<T>;
+      limit<T>(limit: number): QueryBuilder<T>;
 
       // Aggregation
-      count(columnName?: string): QueryBuilder;
-      min(columnName: string): QueryBuilder;
-      max(columnName: string): QueryBuilder;
-      sum(columnName: string): QueryBuilder;
-      avg(columnName: string): QueryBuilder;
-      increment(columnName: string, amount?: number): QueryBuilder;
-      decrement(columnName: string, amount?: number): QueryBuilder;
+      count<T>(columnName?: string): QueryBuilder<T>;
+      min<T>(columnName: string): QueryBuilder<T>;
+      max<T>(columnName: string): QueryBuilder<T>;
+      sum<T>(columnName: string): QueryBuilder<T>;
+      avg<T>(columnName: string): QueryBuilder<T>;
+      increment<T>(columnName: string, amount?: number): QueryBuilder<T>;
+      decrement<T>(columnName: string, amount?: number): QueryBuilder<T>;
 
       // Others
-      first(...columns: string[]): QueryBuilder;
+      first<T>(...columns: string[]): QueryBuilder<T>;
 
-      debug(enabled?: boolean): QueryBuilder;
-      pluck(column: string): QueryBuilder;
+      debug<T>(enabled?: boolean): QueryBuilder<T>;
+      pluck<T>(column: string): QueryBuilder<T>;
 
-      insert(data: any, returning?: string | string[]): QueryBuilder;
-      update(data: any, returning?: string | string[]): QueryBuilder;
-      update(columnName: string, value: Value, returning?: string | string[]): QueryBuilder;
-      returning(column: string | string[]): QueryBuilder;
+      insert<T>(data: any, returning?: string | string[]): QueryBuilder<T>;
+      update<T>(data: any, returning?: string | string[]): QueryBuilder<T>;
+      update<T>(columnName: string, value: Value, returning?: string | string[]): QueryBuilder<T>;
+      returning<T>(column: string | string[]): QueryBuilder<T>;
 
-      del(returning?: string | string[]): QueryBuilder;
-      delete(returning?: string | string[]): QueryBuilder;
-      truncate(): QueryBuilder;
+      del<T>(returning?: string | string[]): QueryBuilder<T>;
+      delete<T>(returning?: string | string[]): QueryBuilder<T>;
+      truncate<T>(): QueryBuilder<T>;
 
-      transacting(trx: Transaction): QueryBuilder;
-      connection(connection: any): QueryBuilder;
+      transacting<T>(trx: Transaction<T>): QueryBuilder<T>;
+      connection<T>(connection: any): QueryBuilder<T>;
 
-      clone(): QueryBuilder;
+      clone<T>(): QueryBuilder<T>;
     }
 
     interface As {
-      (columnName: string): QueryBuilder;
+      <T>(columnName: string): QueryBuilder<T>;
     }
 
     interface Select extends ColumnNameQueryBuilder {
     }
 
     interface Table {
-      (tableName: string): QueryBuilder;
-      (callback: Function): QueryBuilder;
+      <T>(tableName: string): QueryBuilder<T>;
+      <T>(callback: Function): QueryBuilder<T>;
     }
 
     interface Distinct extends ColumnNameQueryBuilder {
     }
 
     interface Join {
-      (raw: Raw): QueryBuilder;
-      (tableName: TableName, callback: (joinClause: JoinClause) => any): QueryBuilder;
-      (tableName: TableName, columns: {[key: string]: string|Raw}): QueryBuilder;
-      (tableName: TableName, raw: Raw): QueryBuilder;
-      (tableName: TableName, column1: string, column2: string): QueryBuilder;
-      (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
-      (tableName: TableName, column1: string, operator: string, column2: string): QueryBuilder;
+      <T>(raw: Raw<T>): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, callback: (joinClause: JoinClause) => any): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, columns: {[key: string]: string|Raw<T>}): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, raw: Raw<T>): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, column1: string, column2: string): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, column1: string, raw: Raw<T>): QueryBuilder<T>;
+      <T>(tableName: TableName<T>, column1: string, operator: string, column2: string): QueryBuilder<T>;
     }
 
     interface JoinClause {
-      on(raw: Raw): JoinClause;
+      on<T>(raw: Raw<T>): JoinClause;
       on(callback: Function): JoinClause;
-      on(columns: {[key: string]: string|Raw}): JoinClause;
+      on<T>(columns: {[key: string]: string|Raw<T>}): JoinClause;
       on(column1: string, column2: string): JoinClause;
-      on(column1: string, raw: Raw): JoinClause;
+      on<T>(column1: string, raw: Raw<T>): JoinClause;
       on(column1: string, operator: string, column2: string): JoinClause;
-      andOn(raw: Raw): JoinClause;
+      andOn<T>(raw: Raw<T>): JoinClause;
       andOn(callback: Function): JoinClause;
-      andOn(columns: {[key: string]: string|Raw}): JoinClause;
+      andOn<T>(columns: {[key: string]: string|Raw<T>}): JoinClause;
       andOn(column1: string, column2: string): JoinClause;
-      andOn(column1: string, raw: Raw): JoinClause;
+      andOn<T>(column1: string, raw: Raw<T>): JoinClause;
       andOn(column1: string, operator: string, column2: string): JoinClause;
-      orOn(raw: Raw): JoinClause;
+      orOn<T>(raw: Raw<T>): JoinClause;
       orOn(callback: Function): JoinClause;
-      orOn(columns: {[key: string]: string|Raw}): JoinClause;
+      orOn<T>(columns: {[key: string]: string|Raw<T>}): JoinClause;
       orOn(column1: string, column2: string): JoinClause;
-      orOn(column1: string, raw: Raw): JoinClause;
+      orOn<T>(column1: string, raw: Raw<T>): JoinClause;
       orOn(column1: string, operator: string, column2: string): JoinClause;
-      using(column: string|string[]|Raw|{[key: string]: string|Raw}): JoinClause;
+      using<T>(column: string|string[]|Raw<T>|{[key: string]: string|Raw<T>}): JoinClause;
       type(type: string): JoinClause;
     }
 
     interface JoinRaw {
-      (tableName: string, binding?: Value): QueryBuilder;
+      <T>(tableName: string, binding?: Value): QueryBuilder<T>;
     }
 
     interface Where extends WhereRaw, WhereWrapped, WhereNull {
-      (raw: Raw): QueryBuilder;
-      (callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
-      (object: Object): QueryBuilder;
-      (columnName: string, value: Value): QueryBuilder;
-      (columnName: string, operator: string, value: Value): QueryBuilder;
-      (columnName: string, operator: string, query: QueryBuilder): QueryBuilder;
+      <T>(raw: Raw<T>): QueryBuilder<T>;
+      <T>(callback: (queryBuilder: QueryBuilder<T>) => any): QueryBuilder<T>;
+      <T>(object: Object): QueryBuilder<T>;
+      <T>(columnName: string, value: Value): QueryBuilder<T>;
+      <T>(columnName: string, operator: string, value: Value): QueryBuilder<T>;
+      <T>(columnName: string, operator: string, query: QueryBuilder<T>): QueryBuilder<T>;
     }
 
     interface WhereRaw extends RawQueryBuilder {
-      (condition: boolean): QueryBuilder;
+      <T>(condition: boolean): QueryBuilder<T>;
     }
 
     interface WhereWrapped {
-      (callback: Function): QueryBuilder;
+      <T>(callback: Function): QueryBuilder<T>;
     }
 
     interface WhereNull {
-      (columnName: string): QueryBuilder;
+      <T>(columnName: string): QueryBuilder<T>;
     }
 
     interface WhereIn {
-      (columnName: string, values: Value[]): QueryBuilder;
-      (columnName: string, callback: Function): QueryBuilder;
-      (columnName: string, query: QueryBuilder): QueryBuilder;
+      <T>(columnName: string, values: Value[]): QueryBuilder<T>;
+      <T>(columnName: string, callback: Function): QueryBuilder<T>;
+      <T>(columnName: string, query: QueryBuilder<T>): QueryBuilder<T>;
     }
 
     interface WhereBetween {
-      (columnName: string, range: [Value, Value]): QueryBuilder;
+      <T>(columnName: string, range: [Value, Value]): QueryBuilder<T>;
     }
 
     interface WhereExists {
-      (callback: Function): QueryBuilder;
-      (query: QueryBuilder): QueryBuilder;
+      <T>(callback: Function): QueryBuilder<T>;
+      <T>(query: QueryBuilder<T>): QueryBuilder<T>;
     }
 
     interface WhereNull {
-      (columnName: string): QueryBuilder;
+      <T>(columnName: string): QueryBuilder<T>;
     }
 
     interface WhereIn {
-      (columnName: string, values: Value[]): QueryBuilder;
+      <T>(columnName: string, values: Value[]): QueryBuilder<T>;
     }
 
     interface GroupBy extends RawQueryBuilder, ColumnNameQueryBuilder {
     }
 
     interface OrderBy {
-      (columnName: string, direction?: string): QueryBuilder;
+      <T>(columnName: string, direction?: string): QueryBuilder<T>;
     }
 
     interface Union {
-      (callback: Function, wrap?: boolean): QueryBuilder;
-      (callbacks: Function[], wrap?: boolean): QueryBuilder;
-      (...callbacks: Function[]): QueryBuilder;
+      <T>(callback: Function, wrap?: boolean): QueryBuilder<T>;
+      <T>(callbacks: Function[], wrap?: boolean): QueryBuilder<T>;
+      <T>(...callbacks: Function[]): QueryBuilder<T>;
       // (...callbacks: Function[], wrap?: boolean): QueryInterface;
     }
 
     interface Having extends RawQueryBuilder, WhereWrapped {
-      (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+      <T>(tableName: string, column1: string, operator: string, column2: string): QueryBuilder<T>;
     }
 
     // commons
 
     interface ColumnNameQueryBuilder {
-      (...columnNames: ColumnName[]): QueryBuilder;
-      (columnNames: ColumnName[]): QueryBuilder;
+      <T>(...columnNames: ColumnName<T>[]): QueryBuilder<T>;
+      <T>(columnNames: ColumnName<T>[]): QueryBuilder<T>;
     }
 
     interface RawQueryBuilder {
-      (sql: string, ...bindings: Value[]): QueryBuilder;
-      (sql: string, bindings: Value[]): QueryBuilder;
-      (raw: Raw): QueryBuilder;
+      <T>(sql: string, ...bindings: Value[]): QueryBuilder<T>;
+      <T>(sql: string, bindings: Value[]): QueryBuilder<T>;
+      <T>(raw: Raw<T>): QueryBuilder<T>;
     }
 
     // Raw
 
-    interface Raw extends events.EventEmitter, ChainableInterface {
-      wrap(before: string, after: string): Raw;
+	type RawResult<T> = { rows: T };
+    interface Raw<T> extends events.EventEmitter, ChainableInterface<RawResult<T>> {
+      wrap(before: string, after: string): Raw<T>;
     }
 
     interface RawBuilder {
-      (value: Value): Raw;
-      (sql: string, ...bindings: Value[]): Raw;
-      (sql: string, bindings: Value[]): Raw;
-      (sql: string, bindings: Object): Raw;
+      <T>(value: Value): Raw<T>;
+      <T>(sql: string, ...bindings: Value[]): Raw<T>;
+      <T>(sql: string, bindings: Value[]): Raw<T>;
+      <T>(sql: string, bindings: Object): Raw<T>;
     }
 
     //
     // QueryBuilder
     //
 
-    interface QueryBuilder extends QueryInterface, ChainableInterface {
-      or: QueryBuilder;
-      and: QueryBuilder;
+    interface QueryBuilder<T> extends QueryInterface, ChainableInterface<T> {
+      or: QueryBuilder<T>;
+      and: QueryBuilder<T>;
 
       //TODO: Promise?
       columnInfo(column?: string): Promise<ColumnInfo>;
 
-      forUpdate(): QueryBuilder;
-      forShare(): QueryBuilder;
+      forUpdate(): QueryBuilder<T>;
+      forShare(): QueryBuilder<T>;
 
       toSQL(): Sql;
 
-      on(event: string, callback: Function): QueryBuilder;
+      on(event: string, callback: Function): QueryBuilder<T>;
     }
 
     interface Sql {
@@ -318,16 +319,16 @@ declare module "knex" {
     // Chainable interface
     //
 
-    interface ChainableInterface extends Promise<any> {
+    interface ChainableInterface<T> extends Promise<T> {
       toQuery(): string;
-      options(options: any): QueryBuilder;
-      stream(options?: any, callback?: (builder: QueryBuilder) => any): QueryBuilder;
-      stream(callback?: (builder: QueryBuilder) => any): QueryBuilder;
-      pipe(writable: any): QueryBuilder;
-      exec(callback: Function): QueryBuilder;
+      options(options: any): QueryBuilder<T>;
+      stream(options?: any, callback?: (builder: QueryBuilder<T>) => any): QueryBuilder<T>;
+      stream(callback?: (builder: QueryBuilder<T>) => any): QueryBuilder<T>;
+      pipe(writable: any): QueryBuilder<T>;
+      exec(callback: Function): QueryBuilder<T>;
     }
 
-    interface Transaction extends QueryBuilder {
+    interface Transaction<T> extends QueryBuilder<T> {
       commit: any;
       rollback: any;
     }

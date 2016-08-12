@@ -107,6 +107,9 @@ var knex = Knex({
 });
 
 // Knex Query Builder
+knex.select('title').from<{ title: string }>('books')
+    .then(x => x.title);
+
 knex.select('title', 'author', 'year').from('books');
 knex.select().table('books');
 
@@ -288,7 +291,7 @@ knex('accounts').where('activated', false).delete(['id', 'title']);
 var someExternalMethod: Function;
 
 knex.transaction(function(trx) {
-  knex('books').transacting(trx).insert({name: 'Old Books'})
+  knex('books').transacting(trx).insert<any[]>({name: 'Old Books'})
     .then(function(resp) {
       var id = resp[0];
       return someExternalMethod(id, trx);
@@ -360,7 +363,7 @@ knex.transaction(function(trx) {
 
   return trx
     .insert({name: 'Old Books'}, 'id')
-    .into('catalogues')
+    .into<any[]>('catalogues')
     .then(function(ids) {
       return Promise.all(books.map(function (book: any) {
         book.catalogue_id = ids[0];
@@ -379,7 +382,7 @@ knex.transaction(function(trx) {
 });
 
 // Using trx as a transaction object:
-knex.transaction(function(trx) {
+knex.transaction<any[]>(function(trx) {
 
   var info: any;
   var books: any[] = [
@@ -390,7 +393,7 @@ knex.transaction(function(trx) {
 
   knex.insert({name: 'Old Books'}, 'id')
     .into('catalogues')
-    .transacting(trx)
+    .transacting<any[]>(trx)
     .then(function(ids) {
       return Promise.all(books.map(function(book: any) {
         book.catalogue_id = ids[0];
@@ -502,7 +505,7 @@ knex.select('name').from('users')
     console.error(error)
   });
 
-knex.select('*').from('users').where({name: 'Tim'})
+knex.select('*').from('users').where<{ id: any }[]>({name: 'Tim'})
   .then(function(rows) {
     return knex.insert({user_id: rows[0].id, name: 'Test'}, 'id').into('accounts');
   }).then(function(id) {
@@ -515,7 +518,7 @@ knex.insert({id: 1, name: 'Test'}, 'id').into('accounts')
   .catch(function(error) {
     console.error(error);
   }).then(function() {
-    return knex.select('*').from('accounts').where('id', 1);
+    return knex.select('*').from('accounts').where<{}[]>('id', 1);
   }).then(function(rows) {
     console.log(rows[0]);
   }).catch(function(error) {
