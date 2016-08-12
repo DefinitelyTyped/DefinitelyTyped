@@ -17,7 +17,7 @@ class MyComponentController {
 //
 import { Config } from 'angular-es';
 
-@Config
+@Config()
 class MyConfig {
 
 }
@@ -87,13 +87,13 @@ class MyFilter {
 import { Inject } from 'angular-es';
 
 @Inject('fooBar')
-class MyService {
+class MyFooService {
 
     @Inject('bazBar')
-    myMethod(bazBar) {
+    myMethod(bazBar: Object) {
     }
 
-    constructor(fooBar) {
+    constructor(fooBar: Object) {
     }
 }
 
@@ -103,8 +103,8 @@ class MyService {
 import { InjectAsProperty } from 'angular-es';
 
 @InjectAsProperty('fooBar')
-class MyService {
-    fooBar;
+class MyFooBarService {
+    fooBar: Object;
 
     myMethod() {
         this.fooBar !== undefined;
@@ -114,11 +114,11 @@ class MyService {
 //
 // @Module
 //
-import { Module, Service } from 'angular-es';
+import { Module } from 'angular-es';
 
 @Module('my.module')
-@Service('MyService')
-class MyService {
+@Service('MyModuleService')
+class MyModuleService {
 }
 
 //
@@ -135,7 +135,7 @@ class MyProvider {
 //
 import { Run } from 'angular-es';
 
-@Run
+@Run()
 class MyRunBlock {
 }
 
