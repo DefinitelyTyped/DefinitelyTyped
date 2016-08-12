@@ -370,6 +370,7 @@ declare module "knex" {
       enum(columnName: string, values: Value[]): ColumnBuilder;
       enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
+      jsonb(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;
       specificType(columnName: string, type: string): ColumnBuilder;
