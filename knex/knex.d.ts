@@ -453,6 +453,9 @@ declare module "knex" {
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigratorConfig;
+      acquireConnectionTimeout?: number;
+      useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {

@@ -49,15 +49,15 @@ declare module "express-brute" {
      * @interface
      */
     interface ExpressBruteOptions {
-        freeRetries: number;
-        proxyDepth: number;
-        attachResetToRequest: boolean;
-        refreshTimeoutOnRequest: boolean;
-        minWait: number;
-        maxWait: number;
-        lifetime: number;
-        failCallback: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
-        handleStoreError: any;
+        freeRetries?: number;
+        proxyDepth?: number;
+        attachResetToRequest?: boolean;
+        refreshTimeoutOnRequest?: boolean;
+        minWait?: number;
+        maxWait?: number;
+        lifetime?: number;
+        failCallback?: (req: express.Request, res: express.Response, next: Function, nextValidRequestDate: any) => void;
+        handleStoreError?: any;
 }
 
 /**
@@ -70,7 +70,7 @@ class ExpressBrute {
      * @constructor
      * @param {any} store The store.
      */
-    constructor(store: any);
+    constructor(store: any, options?: ExpressBruteOptions);
 
     /**
      * @summary Generates middleware that will bounce requests with the same key and IP address that happen faster than the current wait time by calling failCallback.

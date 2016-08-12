@@ -141,6 +141,25 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
     }
 }
 
+class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
+
+    render() {
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const selectProps: ReactSelectProps = {
+            name: "test-select-with-string-value",
+            value: "bar",
+            options: options,
+            onChange: onChange
+        };
+
+        return <div>
+            <Select {...selectProps} />
+        </div>;
+    }
+}
+
 class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
     render() {
