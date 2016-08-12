@@ -5,7 +5,7 @@
 
 declare class QueryString {
     constructor(qs?: string);
-    toString(): string;
+    toString: () => string;
 }
 
 declare class Url<T> {
@@ -19,12 +19,12 @@ declare class Url<T> {
     path: string;
     hash: string;
     href: string;
-    toString(): string;
-    encode(s: string): string;
-    decode(s: string): string;
-    isAbsolute(): boolean;
-    paths(paths?: [string]): [string];
-    isEmptyQuery(): boolean;
-    queryLength(): number;
-    clearQuery(): Url;
+    toString: () => string;
+    encode: (s: string) => string;
+    decode: (s: string) => string;
+    isAbsolute: () => boolean;
+    paths: (paths?: [string]) => [string];
+    isEmptyQuery: () => boolean;
+    queryLength: () => number;
+    clearQuery: () => Url<T>;
 }
