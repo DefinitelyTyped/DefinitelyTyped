@@ -31,10 +31,10 @@ declare module "react-scroll" {
     }
 
     interface animateScroll {
-        scrollToTop(options: any) : void,
-        scrollToBottom(options: any) : void,
-        scrollTo(toY: number, options: any) : void,
-        scrollMore(toY: number, options: any) : void,
+        scrollToTop(options?: any) : void,
+        scrollToBottom(options?: any) : void,
+        scrollTo(toY: number, options?: any) : void,
+        scrollMore(toY: number, options?: any) : void,
     }
 
     interface directScroller {
@@ -50,10 +50,8 @@ declare module "react-scroll" {
     const Element: Element;
     const Events: Events;
     const scroller: scroller;
-
     const DirectLink: DirectLink;
     const Button: Button;
-
     const scrollSpy: scrollSpy;
     const directScroller: directScroller;
     const Helpers: Helpers;
