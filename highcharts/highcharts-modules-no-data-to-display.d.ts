@@ -1,3 +1,7 @@
+// Type definitions for Highcharts No Data to Display
+// Project: http://www.highcharts.com/
+// Definitions by: Andrey Zolotin <http://github.com/nitoloz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // <reference path="highcharts.d.ts" />
 interface HighchartsChartObject {
     /**
