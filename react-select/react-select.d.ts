@@ -303,7 +303,7 @@ declare namespace ReactSelect {
         /**
          * initial field value
          */
-        value?: Option | Option[];
+        value?: Option | Option[] | string | string[] | number | number[];
         /**
          * the option property to use for the value
          * @default "value"
@@ -313,7 +313,7 @@ declare namespace ReactSelect {
          * function which returns a custom way to render the value selected
          * @default false
          */
-        valueRenderer?: () => void;
+        valueRenderer?: (option: Option) => JSX.Element;
         /**
          *  optional style to apply to the control
          */
