@@ -5755,17 +5755,6 @@ interface HighchartsChartObject {
      */
     hideLoading(): void;
     /**
-     * Returns true if there are data points within the plot area now
-     * @return {boolean} If chart has any data.
-     * @since 3.0.8
-     */
-    hasData(): boolean;
-    /**
-     * Hide the 'No data to display' message added by the no-data-to-display plugin.
-     * @since 3.0.8
-     */
-    hideNoData(): void;
-    /**
      * The options structure for the chart.
      * @since 1.2.0
      */
@@ -5813,12 +5802,6 @@ interface HighchartsChartObject {
      * @since 2.1.0
      */
     setTitle(title: HighchartsTitleOptions, subtitle?: HighchartsSubtitleOptions, redraw?: boolean): void;
-    /**
-     * Display a no-data message.
-     * @param {String} message An optional message to show in place of the default one
-     * @since 3.0.8
-     */
-    showNoData(message?: string): void;
     /**
      * Dim the chart's plot area and show a loading label text. Options for the loading screen are defined at
      * options.loading. A custom text can be given as a parameter for loading.
