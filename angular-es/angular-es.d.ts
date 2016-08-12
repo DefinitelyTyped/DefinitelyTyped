@@ -5,15 +5,23 @@
 
 declare module 'angular-es' {
 
+    interface ClassDecorator {
+        <TFunction extends Function>(target: TFunction): TFunction|void;
+    }
+
+    interface MethodDecorator {
+        <T>(target: Object, propertyKey: string|symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T>|void;
+    }
+
     /**
      * Decorated target
      */
-    interface ngESDecorator {
-        target: Object|Function,
-        ngName?: string,
-        ngArguments?: Array<any>,
-        ngType?: string,
-        injectAsProperty?: Array<string>;
+    interface ngESDecorator extends ClassDecorator, MethodDecorator {
+        (target: Object|Function,
+         ngName?: string,
+         ngArguments?: Array<any>,
+         ngType?: string,
+         injectAsProperty?: Array<string>);
     }
 
     /**
