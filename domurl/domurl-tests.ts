@@ -44,8 +44,7 @@ delete u.query.a;
 delete u.query["a"];
 
 // If you need to remove all query string params:
-u.query.clear();
-alert(u);
+alert(u.clearQuaery());
 
 // Lookup URL parts:
 alert(

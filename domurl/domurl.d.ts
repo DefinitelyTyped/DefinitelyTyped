@@ -1,10 +1,10 @@
 ﻿// Type definitions for domurl
 // Project: https://github.com/Mikhus/domurl
-// Definitions by: Mykhailo Stadnyk <mikhus@gmail.com>
+// Definitions by: Mikhus <ttps://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
 
-interface QueryString {
-    (qs?: string);
+declare class QueryString {
+    constructor(qs?: string);
     toString(): string;
 }
 
