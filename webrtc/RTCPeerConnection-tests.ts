@@ -26,7 +26,7 @@ var config: RTCConfiguration = {
     iceCandidatePoolSize: 5
 };
 var constraints: RTCMediaConstraints =
-    { mandatory: { offerToReceiveAudio: true, offerToReceiveVideo: true } };
+    { mandatory: { OfferToReceiveAudio: true, OfferToReceiveVideo: true } };
 
 var peerConnection: RTCPeerConnection =
     new RTCPeerConnection(config, constraints);
