@@ -1,4 +1,4 @@
-/// <reference path="highcharts.d.ts" />
+// <reference path="highcharts.d.ts" />
 interface HighchartsChartObject {
     /**
      * Returns true if there are data points within the plot area now
