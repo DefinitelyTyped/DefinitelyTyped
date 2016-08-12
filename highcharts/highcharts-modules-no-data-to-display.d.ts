@@ -2,7 +2,7 @@
 // Project: http://www.highcharts.com/
 // Definitions by: Andrey Zolotin <http://github.com/nitoloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// <reference path="highcharts.d.ts" />
+// <reference path="highcharts-modules-no-data-to-display.d.ts" />
 interface HighchartsChartObject {
     /**
      * Returns true if there are data points within the plot area now
