@@ -10,6 +10,7 @@
 /// <reference types="validator" />
 
 
+import * as _ from "lodash";
 
 declare namespace sequelize {
 

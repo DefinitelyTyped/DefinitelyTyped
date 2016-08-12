@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "bootstrap.datepicker-tests.ts"
+        "tether-drop-tests.ts"
     ]
 }

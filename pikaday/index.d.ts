@@ -107,6 +107,11 @@ declare class Pikaday {
     setEndRange(date: Date): void;
 
     /**
+     * Update the HTML.
+     */
+    draw(force: boolean): void;
+
+    /**
      * Returns true if the picker is visible.
      */
     isVisible(): boolean;
