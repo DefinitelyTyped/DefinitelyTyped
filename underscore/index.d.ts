@@ -5928,5 +5928,6 @@ declare module _ {
     }
     interface _ChainOfArrays<T> extends _Chain<T[]> {
         flatten(shallow?: boolean): _Chain<T>;
+	mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
     }
 }
