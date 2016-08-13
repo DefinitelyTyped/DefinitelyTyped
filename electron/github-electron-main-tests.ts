@@ -985,3 +985,15 @@ app.on('ready', function () {
 
 console.log(webContents.getAllWebContents());
 console.log(webContents.getFocusedWebContents());
+
+var win = new BrowserWindow({
+	webPreferences: {
+		offscreen: true
+	}
+});
+
+win.webContents.on('paint', (event, dirty, image) => {
+	console.log(dirty, image.getBitmap());
+});
+
+win.loadURL('http://github.com');

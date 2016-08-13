@@ -75,6 +75,18 @@ var knex = Knex({
   client: 'pg'
 });
 
+// searchPath
+var knex = Knex({
+  client: 'pg',
+  searchPath: 'public',
+});
+
+// useNullAsDefault
+var knex = Knex({
+  client: 'sqlite',
+  useNullAsDefault: true,
+});
+
 knex('books').insert({title: 'Test'}).returning('*').toString();
 
 // Migrations
@@ -365,6 +377,8 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
+
+  trx.raw('')
 
   var info: any;
   var books: any[] = [

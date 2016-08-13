@@ -324,7 +324,7 @@ export declare module DynamoDB {
 
     interface _DDBDC_Generic {
         TableName: string;
-        ExpressionAttributeNames?: string[];
+      ExpressionAttributeNames?: { [someKey: string]: string };
         ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
     }
 
