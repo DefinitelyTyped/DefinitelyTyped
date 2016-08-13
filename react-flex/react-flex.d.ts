@@ -10,6 +10,11 @@ declare namespace __ReactFlex {
 
     interface CommonFlexProps {
         /**
+         * For custom style
+         */
+        style?: Object;
+
+        /**
          * For `display: inline-flex`.
          */
         inline?: boolean;
