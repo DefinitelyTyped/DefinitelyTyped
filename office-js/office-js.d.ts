@@ -53,7 +53,7 @@ declare namespace Office {
         displayLanguage: string;
         license: string;
         touchEnabled: boolean;
-		ui: UI;
+        ui: UI;
         requirements: {
             /**
              * Check if the specified requirement set is supported by the host Office application.
@@ -67,51 +67,54 @@ declare namespace Office {
         message: string;
         name: string;
     }
-	export interface UI {
-		 /**
-		 * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
-		 * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
-		 * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
-		 * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
-		 */
-		displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;		
-		/**
-		 * When called from an active add-in dialog, asynchronously closes the dialog.
-		 */
-		close(): void;		
-		/**
-		 * Synchronously delivers a message from the dialog to its parent add-in.
-		 * @param messageObject Accepts a message from the dialog to deliver to the add-in.
-		 */
-		messageParent(messageObject: any): void;
+    export interface UI {
+        /**
+        * Displays a dialog to show or collect information from the user or to facilitate Web navigation.
+        * @param startAddress Accepts the initial HTTPS Url that opens in the dialog.
+        * @param options Optional. Accepts a DialogOptions object to define dialog behaviors.
+        * @param callback Optional. Accepts a callback method to handle the dialog creation attempt.
+        */
+        displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
+        /**
+         * When called from an active add-in dialog, asynchronously closes the dialog.
+         */
+        close(): void;
+        /**
+         * Synchronously delivers a message from the dialog to its parent add-in.
+         * @param messageObject Accepts a message from the dialog to deliver to the add-in.
+         */
+        messageParent(messageObject: any): void;
     }
     export interface DialogOptions {
         /**
          * Optional. Defines the width of the dialog as a percentage of the current display. Defaults to 99%. 250px minimum.
          */
-        height?: number,        
+        height?: number,
         /**
          * Optional. Defines the height of the dialog as a percentage of the current display. Defaults to 99%. 150px minimum.
          */
-        width?: number,        
+        width?: number,
         /**
          * Optional. Specifies whether the dialog can only display pages that have HTTPS URLs.
          */
-        requireHTTPS?: boolean,        
+        requireHTTPS?: boolean,
         /**
          * Optional. Determines whether the dialog is safe to display within a Web frame.
          */
         xFrameDenySafe?: boolean,
     }
 }
-declare namespace OfficeExtension {
+
+declare module OfficeExtension {
     /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
     class ClientObject {
         /** The request context associated with the object */
         context: ClientRequestContext;
+        /** Returns a boolean value for whether the corresponding object is null. You must call "context.sync()" before reading the isNull property. [Api set: ExcelApi 1.3 (Preview), WordApi 1.3] */
+        isNull: boolean;
     }
 }
-declare namespace OfficeExtension {
+declare module OfficeExtension {
     interface LoadOption {
         select?: string | string[];
         expand?: string | string[];
@@ -127,18 +130,18 @@ declare namespace OfficeExtension {
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
         /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
         trace(message: string): void;
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code.�This method returns a promise, which is resolved when the synchronization is complete. */
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
         sync<T>(passThroughValue?: T): IPromise<T>;
     }
 }
-declare namespace OfficeExtension {
+declare module OfficeExtension {
     /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
     class ClientResult<T> {
         /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
         value: T;
     }
 }
-declare namespace OfficeExtension {
+declare module OfficeExtension {
     /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
     class Error {
         /** Error name: "OfficeExtension.Error".*/
@@ -158,68 +161,186 @@ declare namespace OfficeExtension {
         };
     }
 }
-declare namespace OfficeExtension {
+declare module OfficeExtension {
     class ErrorCodes {
         static accessDenied: string;
         static generalException: string;
         static activityLimitReached: string;
+        static invalidObjectPath: string;
+        static propertyNotLoaded: string;
+        static valueNotLoaded: string;
+        static invalidRequestContext: string;
+        static invalidArgument: string;
+        static runMustReturnPromise: string;
+        static cannotRegisterEvent: string;
     }
 }
-declare namespace OfficeExtension {
-    /** A Promise object that represents a deferred interaction with the host Office application. Promises can be chained via ".then", and errors can be caught via ".catch".  Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. */
+declare module OfficeExtension {
+    /** An IPromise object that represents a deferred interaction with the host Office application. */
     interface IPromise<R> {
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
         /**
          * This method will be called once the previous promise has been resolved.
          * Both the onFulfilled on onRejected callbacks are optional.
          * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
          * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
          */
         then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
         /**
          * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
          * @param onRejected function to be called if or when the promise rejects.
          */
         catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
         /**
          * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
          * @param onRejected function to be called if or when the promise rejects.
          */
         catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+    }
+
+    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+    export class Promise<R> implements IPromise<R>
+    {
+        /**
+         * Creates a new promise based on a function that accepts resolve and reject handlers.
+         */
+        constructor(func: (resolve, reject) => void);
+
+        /**
+         * Creates a promise that resolves when all of the child promises resolve.
+         */
+        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
+
+        /**
+         * Creates a promise that is resolved.
+         */
+        static resolve<U>(value: U): IPromise<U>;
+
+        /**
+         * Creates a promise that is rejected.
+         */
+        static reject<U>(error: any): IPromise<U>;
+
+        /* This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+        /**
+         * This method will be called once the previous promise has been resolved.
+         * Both the onFulfilled on onRejected callbacks are optional.
+         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+         */
+        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+        /**
+         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+         * @param onRejected function to be called if or when the promise rejects.
+         */
+        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
         /**
          * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
          * @param onRejected function to be called if or when the promise rejects.
@@ -227,7 +348,8 @@ declare namespace OfficeExtension {
         catch<U>(onRejected?: (error: any) => void): IPromise<U>;
     }
 }
-declare namespace OfficeExtension {
+
+declare module OfficeExtension {
     /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
     class TrackedObjects {
         /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
@@ -238,6 +360,26 @@ declare namespace OfficeExtension {
         remove(object: ClientObject): void;
         /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
         remove(objects: ClientObject[]): void;
+    }
+}
+
+declare module OfficeExtension {
+    export class EventHandlers<T> {
+        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
+        remove(handler: (args: T) => IPromise<any>): void;
+        removeAll(): void;
+    }
+
+    export class EventHandlerResult<T> {
+        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
+        remove(): void;
+    }
+
+    export interface EventInfo<T> {
+        registerFunc: (callback: (args: any) => void) => IPromise<any>;
+        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
+        eventArgsTransformFunc: (args: any) => IPromise<T>;
     }
 }
 
@@ -467,7 +609,7 @@ declare namespace Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        setDataAsync(data: TableData|any, options?: any, callback?: (result: AsyncResult) => void): void;
+        setDataAsync(data: TableData | any, options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface Bindings {
         document: Document;
@@ -743,7 +885,7 @@ declare namespace Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        goToByIdAsync(id: string|number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
+        goToByIdAsync(id: string | number, goToType: GoToType, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Removes an event handler for the specified event type.
          * @param eventType The event type. For document can be 'DocumentSelectionChanged'
@@ -761,7 +903,7 @@ declare namespace Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        setSelectedDataAsync(data: string|TableData|any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+        setSelectedDataAsync(data: string | TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
     }
     export interface File {
         size: number;
@@ -853,7 +995,7 @@ declare namespace Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        addColumnsAsync(tableData: TableData|any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+        addColumnsAsync(tableData: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Adds the specified rows to the table
          * @param rows  A 2D array with the rows to add
@@ -861,7 +1003,7 @@ declare namespace Office {
          *       asyncContext: Object keeping state for the callback
          * @param callback The optional callback method
          */
-        addRowsAsync(rows: TableData|any[][], options?: any, callback?: (result: AsyncResult) => void): void;
+        addRowsAsync(rows: TableData | any[][], options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Clears the table
          * @param options Syntax example: {asyncContext:context}
@@ -1503,9 +1645,238 @@ declare namespace Office {
         getWSSUrlAsync(options?: any, callback?: (result: AsyncResult) => void): void;
     }
 }
-
-
-declare namespace Excel {
+declare module Excel {
+    interface ThreeArrowsSet {
+        [index: number]: Icon;
+        redDownArrow: Icon;
+        yellowSideArrow: Icon;
+        greenUpArrow: Icon;
+    }
+    interface ThreeArrowsGraySet {
+        [index: number]: Icon;
+        grayDownArrow: Icon;
+        graySideArrow: Icon;
+        grayUpArrow: Icon;
+    }
+    interface ThreeFlagsSet {
+        [index: number]: Icon;
+        redFlag: Icon;
+        yellowFlag: Icon;
+        greenFlag: Icon;
+    }
+    interface ThreeTrafficLights1Set {
+        [index: number]: Icon;
+        redCircleWithBorder: Icon;
+        yellowCircle: Icon;
+        greenCircle: Icon;
+    }
+    interface ThreeTrafficLights2Set {
+        [index: number]: Icon;
+        redTrafficLight: Icon;
+        yellowTrafficLight: Icon;
+        greenTrafficLight: Icon;
+    }
+    interface ThreeSignsSet {
+        [index: number]: Icon;
+        redDiamond: Icon;
+        yellowTriangle: Icon;
+        greenCircle: Icon;
+    }
+    interface ThreeSymbolsSet {
+        [index: number]: Icon;
+        redCrossSymbol: Icon;
+        yellowExclamationSymbol: Icon;
+        greenCheckSymbol: Icon;
+    }
+    interface ThreeSymbols2Set {
+        [index: number]: Icon;
+        redCross: Icon;
+        yellowExclamation: Icon;
+        greenCheck: Icon;
+    }
+    interface FourArrowsSet {
+        [index: number]: Icon;
+        redDownArrow: Icon;
+        yellowDownInclineArrow: Icon;
+        yellowUpInclineArrow: Icon;
+        greenUpArrow: Icon;
+    }
+    interface FourArrowsGraySet {
+        [index: number]: Icon;
+        grayDownArrow: Icon;
+        grayDownInclineArrow: Icon;
+        grayUpInclineArrow: Icon;
+        grayUpArrow: Icon;
+    }
+    interface FourRedToBlackSet {
+        [index: number]: Icon;
+        blackCircle: Icon;
+        grayCircle: Icon;
+        pinkCircle: Icon;
+        redCircle: Icon;
+    }
+    interface FourRatingSet {
+        [index: number]: Icon;
+        oneBar: Icon;
+        twoBars: Icon;
+        threeBars: Icon;
+        fourBars: Icon;
+    }
+    interface FourTrafficLightsSet {
+        [index: number]: Icon;
+        blackCircleWithBorder: Icon;
+        redCircleWithBorder: Icon;
+        yellowCircle: Icon;
+        greenCircle: Icon;
+    }
+    interface FiveArrowsSet {
+        [index: number]: Icon;
+        redDownArrow: Icon;
+        yellowDownInclineArrow: Icon;
+        yellowSideArrow: Icon;
+        yellowUpInclineArrow: Icon;
+        greenUpArrow: Icon;
+    }
+    interface FiveArrowsGraySet {
+        [index: number]: Icon;
+        grayDownArrow: Icon;
+        grayDownInclineArrow: Icon;
+        graySideArrow: Icon;
+        grayUpInclineArrow: Icon;
+        grayUpArrow: Icon;
+    }
+    interface FiveRatingSet {
+        [index: number]: Icon;
+        noBars: Icon;
+        oneBar: Icon;
+        twoBars: Icon;
+        threeBars: Icon;
+        fourBars: Icon;
+    }
+    interface FiveQuartersSet {
+        [index: number]: Icon;
+        whiteCircleAllWhiteQuarters: Icon;
+        circleWithThreeWhiteQuarters: Icon;
+        circleWithTwoWhiteQuarters: Icon;
+        circleWithOneWhiteQuarter: Icon;
+        blackCircle: Icon;
+    }
+    interface ThreeStarsSet {
+        [index: number]: Icon;
+        silverStar: Icon;
+        halfGoldStar: Icon;
+        goldStar: Icon;
+    }
+    interface ThreeTrianglesSet {
+        [index: number]: Icon;
+        redDownTriangle: Icon;
+        yellowDash: Icon;
+        greenUpTriangle: Icon;
+    }
+    interface FiveBoxesSet {
+        [index: number]: Icon;
+        noFilledBoxes: Icon;
+        oneFilledBox: Icon;
+        twoFilledBoxes: Icon;
+        threeFilledBoxes: Icon;
+        fourFilledBoxes: Icon;
+    }
+    interface IconCollections {
+        threeArrows: ThreeArrowsSet;
+        threeArrowsGray: ThreeArrowsGraySet;
+        threeFlags: ThreeFlagsSet;
+        threeTrafficLights1: ThreeTrafficLights1Set;
+        threeTrafficLights2: ThreeTrafficLights2Set;
+        threeSigns: ThreeSignsSet;
+        threeSymbols: ThreeSymbolsSet;
+        threeSymbols2: ThreeSymbols2Set;
+        fourArrows: FourArrowsSet;
+        fourArrowsGray: FourArrowsGraySet;
+        fourRedToBlack: FourRedToBlackSet;
+        fourRating: FourRatingSet;
+        fourTrafficLights: FourTrafficLightsSet;
+        fiveArrows: FiveArrowsSet;
+        fiveArrowsGray: FiveArrowsGraySet;
+        fiveRating: FiveRatingSet;
+        fiveQuarters: FiveQuartersSet;
+        threeStars: ThreeStarsSet;
+        threeTriangles: ThreeTrianglesSet;
+        fiveBoxes: FiveBoxesSet;
+    }
+    var icons: IconCollections;
+    /**
+     *
+     * Provides information about the binding that raised the SelectionChanged event.
+     *
+     * [Api set: ExcelApi 1.2]
+     */
+    interface BindingSelectionChangedEventArgs {
+        /**
+         *
+         * Gets the Binding object that represents the binding that raised the SelectionChanged event.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        binding: Excel.Binding;
+        /**
+         *
+         * Gets the number of columns selected.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        columnCount: number;
+        /**
+         *
+         * Gets the number of rows selected.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        rowCount: number;
+        /**
+         *
+         * Gets the index of the first column of the selection (zero-based).
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        startColumn: number;
+        /**
+         *
+         * Gets the index of the first row of the selection (zero-based).
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        startRow: number;
+    }
+    /**
+     *
+     * Provides information about the binding that raised the DataChanged event.
+     *
+     * [Api set: ExcelApi 1.2]
+     */
+    interface BindingDataChangedEventArgs {
+        /**
+         *
+         * Gets the Binding object that represents the binding that raised the DataChanged event.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        binding: Excel.Binding;
+    }
+    /**
+     *
+     * Provides information about the document that raised the SelectionChanged event.
+     *
+     * [Api set: ExcelApi 1.2]
+     */
+    interface SelectionChangedEventArgs {
+        /**
+         *
+         * Gets the workbook object that raised the SelectionChanged event.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        workbook: Excel.Workbook;
+    }
     /**
      *
      * Represents the Excel application that manages the workbook.
@@ -1546,8 +1917,10 @@ declare namespace Excel {
         private m_bindings;
         private m_functions;
         private m_names;
+        private m_pivotTables;
         private m_tables;
         private m_worksheets;
+        private m_selectionChanged;
         /**
          *
          * Represents Excel application instance that contains this workbook. Read-only.
@@ -1578,6 +1951,13 @@ declare namespace Excel {
         names: Excel.NamedItemCollection;
         /**
          *
+         * Represents a collection of PivotTables associated with the workbook. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        pivotTables: Excel.PivotTableCollection;
+        /**
+         *
          * Represents a collection of tables associated with the workbook. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -1601,6 +1981,13 @@ declare namespace Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Workbook;
+        /**
+         *
+         * Occurs when the selection in the document is changed.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
     }
     /**
      *
@@ -1612,6 +1999,7 @@ declare namespace Excel {
         private m_charts;
         private m_id;
         private m_name;
+        private m_pivotTables;
         private m_position;
         private m_protection;
         private m_tables;
@@ -1623,6 +2011,13 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         charts: Excel.ChartCollection;
+        /**
+         *
+         * Collection of PivotTables that are part of the worksheet. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        pivotTables: Excel.PivotTableCollection;
         /**
          *
          * Returns sheet protection object for a worksheet.
@@ -1702,7 +2097,7 @@ declare namespace Excel {
          *
          * The used range is the smallest range that encompasses any cells that have a value or formatting assigned to them. If the worksheet is blank, this function will return the top left cell.
          *
-         * @param valuesOnly Considers only cells with values as used cells (ignores formatting). [Parameter available: ExcelApi 1.2]
+         * @param valuesOnly Considers only cells with values as used cells (ignores formatting). [Api set: ExcelApi 1.2]
          *
          * [Api set: ExcelApi 1.1]
          */
@@ -1748,6 +2143,15 @@ declare namespace Excel {
          */
         getItem(key: string): Excel.Worksheet;
         /**
+         *
+         * Gets a worksheet object using its Name or ID. If the worksheet does not exist, the returned object's isNull property will be true.
+         *
+         * @param key The Name or ID of the worksheet.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(key: string): Excel.Worksheet;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.WorksheetCollection;
@@ -1777,7 +2181,7 @@ declare namespace Excel {
         protected: boolean;
         /**
          *
-         * Protect a worksheet. It throws if the worksheet has been protected.
+         * Protects a worksheet. Fails if the worksheet has been protected.
          *
          * @param options sheet protection options.
          *
@@ -1786,7 +2190,7 @@ declare namespace Excel {
         protect(options?: Excel.WorksheetProtectionOptions): void;
         /**
          *
-         * Unprotect a worksheet
+         * Unprotects a worksheet.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -1868,7 +2272,7 @@ declare namespace Excel {
         allowInsertRows?: boolean;
         /**
          *
-         * Represents the worksheet protection option of allowing using pivot table feature.
+         * Represents the worksheet protection option of allowing using PivotTable feature.
          *
          * [Api set: ExcelApi 1.2]
          */
@@ -1909,6 +2313,8 @@ declare namespace Excel {
         private m_values;
         private m_worksheet;
         private m__ReferenceId;
+        private _ensureInteger(num, methodName);
+        private _getAdjacentRange(functionName, count, referenceRange, rowDirection, columnDirection);
         /**
          *
          * Returns a format object, encapsulating the range's font, fill, borders, alignment, and other properties. Read-only.
@@ -1916,6 +2322,12 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         format: Excel.RangeFormat;
+        /**
+         *
+         * Represents the range sort of the current range.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
         sort: Excel.RangeSort;
         /**
          *
@@ -2091,6 +2503,24 @@ declare namespace Excel {
         getColumn(column: number): Excel.Range;
         /**
          *
+         * Gets a certain number of columns to the right of the current Range object.
+         *
+         * @param count The number of columns to include in the resulting range. In general, use a positive number to create a range outside the current range. You can also use a negative number to create a range within the current range. The default value is 1.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        getColumnsAfter(count?: number): Excel.Range;
+        /**
+         *
+         * Gets a certain number of columns to the left of the current Range object.
+         *
+         * @param count The number of columns to include in the resulting range. In general, use a positive number to create a range outside the current range. You can also use a negative number to create a range within the current range. The default value is 1.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        getColumnsBefore(count?: number): Excel.Range;
+        /**
+         *
          * Gets an object that represents the entire column of the range.
          *
          * [Api set: ExcelApi 1.1]
@@ -2112,6 +2542,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getIntersection(anotherRange: Excel.Range | string): Excel.Range;
+        /**
+         *
+         * Gets the range object that represents the rectangular intersection of the given ranges. If no intersection is found, will return a null object.
+         *
+         * @param anotherRange The range object or range address that will be used to determine the intersection of ranges.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getIntersectionOrNull(anotherRange: Excel.Range | string): Excel.Range;
         /**
          *
          * Gets the last cell within the range. For example, the last cell of "B2:D5" is "D5".
@@ -2145,6 +2584,16 @@ declare namespace Excel {
         getOffsetRange(rowOffset: number, columnOffset: number): Excel.Range;
         /**
          *
+         * Gets a Range object similar to the current Range object, but with its bottom-right corner expanded (or contracted) by some number of rows and columns.
+         *
+         * @param deltaRows The number of rows by which to expand the bottom-right corner, relative to the current range. Use a positive number to expand the range, or a negative number to decrease it.
+         * @param deltaColumns The number of columnsby which to expand the bottom-right corner, relative to the current range. Use a positive number to expand the range, or a negative number to decrease it.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        getResizedRange(deltaRows: number, deltaColumns: number): Excel.Range;
+        /**
+         *
          * Gets a row contained in the range.
          *
          * @param row Row number of the range to be retrieved. Zero-indexed.
@@ -2154,13 +2603,38 @@ declare namespace Excel {
         getRow(row: number): Excel.Range;
         /**
          *
+         * Gets a certain number of rows above the current Range object.
+         *
+         * @param count The number of rows to include in the resulting range. In general, use a positive number to create a range outside the current range. You can also use a negative number to create a range within the current range. The default value is 1.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        getRowsAbove(count?: number): Excel.Range;
+        /**
+         *
+         * Gets a certain number of rows below the current Range object.
+         *
+         * @param count The number of rows to include in the resulting range. In general, use a positive number to create a range outside the current range. You can also use a negative number to create a range within the current range. The default value is 1.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        getRowsBelow(count?: number): Excel.Range;
+        /**
+         *
          * Returns the used range of the given range object.
          *
-         * @param valuesOnly Considers only cells with values as used cells. [Parameter available: ExcelApi 1.2]
+         * @param valuesOnly Considers only cells with values as used cells. [Api set: ExcelApi 1.2]
          *
          * [Api set: ExcelApi 1.1]
          */
         getUsedRange(valuesOnly?: boolean): Excel.Range;
+        /**
+         *
+         * Represents the visible rows of the current range.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getVisibleView(): Excel.RangeView;
         /**
          *
          * Inserts a cell or a range of cells into the worksheet in place of this range, and shifts the other cells to make space. Returns a new Range object at the now blank space.
@@ -2209,6 +2683,129 @@ declare namespace Excel {
     }
     /**
      *
+     * RangeView represents a set of visible cells of the parent range.
+     *
+     * [Api set: ExcelApi 1.3 (Preview)]
+     */
+    class RangeView extends OfficeExtension.ClientObject {
+        private m_columnCount;
+        private m_formulas;
+        private m_formulasLocal;
+        private m_formulasR1C1;
+        private m_numberFormat;
+        private m_rowCount;
+        private m_rows;
+        private m_text;
+        private m_valueTypes;
+        private m_values;
+        /**
+         *
+         * Represents a collection of range views associated with the range. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        rows: Excel.RangeViewCollection;
+        /**
+         *
+         * Returns the number of visible columns. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        columnCount: number;
+        /**
+         *
+         * Represents the formula in A1-style notation.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        formulas: Array<Array<any>>;
+        /**
+         *
+         * Represents the formula in A1-style notation, in the user's language and number-formatting locale.  For example, the English "=SUM(A1, 1.5)" formula would become "=SUMME(A1; 1,5)" in German.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        formulasLocal: Array<Array<any>>;
+        /**
+         *
+         * Represents the formula in R1C1-style notation.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        formulasR1C1: Array<Array<any>>;
+        /**
+         *
+         * Represents Excel's number format code for the given cell. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        numberFormat: Array<Array<any>>;
+        /**
+         *
+         * Returns the number of visible rows. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        rowCount: number;
+        /**
+         *
+         * Text values of the specified range. The Text value will not depend on the cell width. The # sign substitution that happens in Excel UI will not affect the text value returned by the API. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        text: Array<Array<any>>;
+        /**
+         *
+         * Represents the type of data of each cell. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        valueTypes: Array<Array<string>>;
+        /**
+         *
+         * Represents the raw values of the specified range view. The data returned could be of type string, number, or a boolean. Cell that contain an error will return the error string.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        values: Array<Array<any>>;
+        /**
+         *
+         * Gets the parent range associated with the current RangeView.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getRange(): Excel.Range;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeView;
+    }
+    /**
+     *
+     * Represents a collection of worksheet objects that are part of the workbook.
+     *
+     * [Api set: ExcelApi 1.3 (Preview)]
+     */
+    class RangeViewCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        /** Gets the loaded child items in this collection. */
+        items: Array<Excel.RangeView>;
+        /**
+         *
+         * Gets a RangeView Row via it's index. Zero-Indexed.
+         *
+         * @param index Index of the visible row.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItem(index: number): Excel.RangeView;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.RangeViewCollection;
+    }
+    /**
+     *
      * A collection of all the nameditem objects that are part of the workbook.
      *
      * [Api set: ExcelApi 1.1]
@@ -2226,6 +2823,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getItem(name: string): Excel.NamedItem;
+        /**
+         *
+         * Gets a nameditem object using its name. If the nameditem object does not exist, the returned object's isNull property will be true.
+         *
+         * @param name nameditem name.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(name: string): Excel.NamedItem;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -2292,6 +2898,8 @@ declare namespace Excel {
     class Binding extends OfficeExtension.ClientObject {
         private m_id;
         private m_type;
+        private m_dataChanged;
+        private m_selectionChanged;
         /**
          *
          * Represents binding identifier. Read-only.
@@ -2331,6 +2939,20 @@ declare namespace Excel {
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.Binding;
+        /**
+         *
+         * Occurs when data within the binding is changed.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        onDataChanged: OfficeExtension.EventHandlers<Excel.BindingDataChangedEventArgs>;
+        /**
+         *
+         * Occurs when the selection is changed within the binding.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        onSelectionChanged: OfficeExtension.EventHandlers<Excel.BindingSelectionChangedEventArgs>;
     }
     /**
      *
@@ -2352,6 +2974,38 @@ declare namespace Excel {
         count: number;
         /**
          *
+         * Add a new binding to a particular Range.
+         *
+         * @param range Range to bind the binding to. May be an Excel Range object, or a string. If string, must contain the full address, including the sheet name
+         * @param bindingType Type of binding. See Excel.BindingType.
+         * @param id Name of binding.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        add(range: Excel.Range | string, bindingType: string, id: string): Excel.Binding;
+        /**
+         *
+         * Add a new binding based on a named item in the workbook.
+         *
+         * @param name Name from which to create binding.
+         * @param bindingType Type of binding. See Excel.BindingType.
+         * @param id Name of binding.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        addFromNamedItem(name: string, bindingType: string, id: string): Excel.Binding;
+        /**
+         *
+         * Add a new binding based on the current selection.
+         *
+         * @param bindingType Type of binding. See Excel.BindingType.
+         * @param id Name of binding.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        addFromSelection(bindingType: string, id: string): Excel.Binding;
+        /**
+         *
          * Gets a binding object by ID.
          *
          * @param id Id of the binding object to be retrieved.
@@ -2368,6 +3022,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getItemAt(index: number): Excel.Binding;
+        /**
+         *
+         * Gets a binding object by ID. If the binding object does not exist, the return object's isNull property will be true.
+         *
+         * @param id Id of the binding object to be retrieved.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(id: string): Excel.Binding;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -2420,6 +3083,15 @@ declare namespace Excel {
          */
         getItemAt(index: number): Excel.Table;
         /**
+         *
+         * Gets a table by Name or ID. If the table does not exist, the return object's isNull property will be true.
+         *
+         * @param key Name or ID of the table to be retrieved.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(key: number | string): Excel.Table;
+        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Excel.TableCollection;
@@ -2432,9 +3104,14 @@ declare namespace Excel {
      */
     class Table extends OfficeExtension.ClientObject {
         private m_columns;
+        private m_highlightFirstColumn;
+        private m_highlightLastColumn;
         private m_id;
         private m_name;
         private m_rows;
+        private m_showBandedColumns;
+        private m_showBandedRows;
+        private m_showFilterButton;
         private m_showHeaders;
         private m_showTotals;
         private m_sort;
@@ -2470,6 +3147,20 @@ declare namespace Excel {
         worksheet: Excel.Worksheet;
         /**
          *
+         * Indicates whether the first column contains special formatting.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        highlightFirstColumn: boolean;
+        /**
+         *
+         * Indicates whether the last column contains special formatting.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        highlightLastColumn: boolean;
+        /**
+         *
          * Returns a value that uniquely identifies the table in a given workbook. The value of the identifier remains the same even when the table is renamed. Read-only.
          *
          * [Api set: ExcelApi 1.1]
@@ -2482,6 +3173,27 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         name: string;
+        /**
+         *
+         * Indicates whether the columns show banded formatting in which odd columns are highlighted differently from even ones to make reading the table easier.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        showBandedColumns: boolean;
+        /**
+         *
+         * Indicates whether the rows show banded formatting in which odd rows are highlighted differently from even ones to make reading the table easier.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        showBandedRows: boolean;
+        /**
+         *
+         * Indicates whether the filter buttons are visible at the top of each column header. Setting this is only allowed if the table contains a header row.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        showFilterButton: boolean;
         /**
          *
          * Indicates whether the header row is visible or not. This value can be set to show or remove the header row.
@@ -2610,6 +3322,15 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getItemAt(index: number): Excel.TableColumn;
+        /**
+         *
+         * Gets a column object by Name or ID. If the column does not exist, the returned object's isNull property will be true.
+         *
+         * @param key Column Name or ID.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(key: number | string): Excel.TableColumn;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -3131,6 +3852,16 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         getItemAt(index: number): Excel.Chart;
+        /**
+         *
+         * Gets a chart using its name. If there are multiple charts with the same name, the first one will be returned.
+            If the chart does not exist, the returned object's isNull property will be true.
+         *
+         * @param name Name of the chart to be retrieved.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(name: string): Excel.Chart;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -4380,7 +5111,7 @@ declare namespace Excel {
          *
          * The first criterion used to filter data. Used as an operator in the case of "custom" filtering.
              For example ">50" for number greater than 50 or "=*s" for values ending in "s".
-
+            
              Used as a number in the case of top/bottom items/percents. E.g. "5" for the top 5 items if filterOn is set to "topItems"
          *
          * [Api set: ExcelApi 1.2]
@@ -4474,9 +5205,84 @@ declare namespace Excel {
         set: string;
     }
     /**
+     *
+     * Represents a collection of all the PivotTables that are part of the workbook or worksheet.
+     *
+     * [Api set: ExcelApi 1.3 (Preview)]
+     */
+    class PivotTableCollection extends OfficeExtension.ClientObject {
+        private m__items;
+        /** Gets the loaded child items in this collection. */
+        items: Array<Excel.PivotTable>;
+        /**
+         *
+         * Gets a PivotTable by name.
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItem(name: string): Excel.PivotTable;
+        /**
+         *
+         * Gets a PivotTable by name. If the PivotTable does not exist, the return object's isNull property will be true.
+         *
+         * @param name Name of the PivotTable to be retrieved.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        getItemOrNull(name: string): Excel.PivotTable;
+        /**
+         *
+         * Refreshes all the PivotTables in the collection.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        refreshAll(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTableCollection;
+    }
+    /**
+     *
+     * Represents an Excel PivotTable.
+     *
+     * [Api set: ExcelApi 1.3 (Preview)]
+     */
+    class PivotTable extends OfficeExtension.ClientObject {
+        private m_name;
+        private m_worksheet;
+        /**
+         *
+         * The worksheet containing the current PivotTable. Read-only.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        worksheet: Excel.Worksheet;
+        /**
+         *
+         * Name of the PivotTable.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        name: string;
+        /**
+         *
+         * Refreshes the PivotTable.
+         *
+         * [Api set: ExcelApi 1.3 (Preview)]
+         */
+        refresh(): void;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): Excel.PivotTable;
+    }
+    /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace BindingType {
+    module BindingType {
         var range: string;
         var table: string;
         var text: string;
@@ -4484,7 +5290,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace BorderIndex {
+    module BorderIndex {
         var edgeTop: string;
         var edgeBottom: string;
         var edgeLeft: string;
@@ -4497,7 +5303,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace BorderLineStyle {
+    module BorderLineStyle {
         var none: string;
         var continuous: string;
         var dash: string;
@@ -4510,7 +5316,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace BorderWeight {
+    module BorderWeight {
         var hairline: string;
         var thin: string;
         var medium: string;
@@ -4519,7 +5325,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace CalculationMode {
+    module CalculationMode {
         var automatic: string;
         var automaticExceptTables: string;
         var manual: string;
@@ -4527,7 +5333,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace CalculationType {
+    module CalculationType {
         var recalculate: string;
         var full: string;
         var fullRebuild: string;
@@ -4535,7 +5341,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace ClearApplyTo {
+    module ClearApplyTo {
         var all: string;
         var formats: string;
         var contents: string;
@@ -4543,7 +5349,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace ChartDataLabelPosition {
+    module ChartDataLabelPosition {
         var invalid: string;
         var none: string;
         var center: string;
@@ -4560,7 +5366,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace ChartLegendPosition {
+    module ChartLegendPosition {
         var invalid: string;
         var top: string;
         var bottom: string;
@@ -4570,9 +5376,17 @@ declare namespace Excel {
         var custom: string;
     }
     /**
+     *
+     * Specifies whether the series are by rows or by columns. On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; on Excel Online, "auto" will simply default to "columns".
+     *
      * [Api set: ExcelApi 1.1]
      */
-    namespace ChartSeriesBy {
+    module ChartSeriesBy {
+        /**
+         *
+         * On Desktop, the "auto" option will inspect the source data shape to automatically guess whether the data is by rows or columns; on Excel Online, "auto" will simply default to "columns".
+         *
+         */
         var auto: string;
         var columns: string;
         var rows: string;
@@ -4580,7 +5394,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace ChartType {
+    module ChartType {
         var invalid: string;
         var columnClustered: string;
         var columnStacked: string;
@@ -4659,21 +5473,21 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace ChartUnderlineStyle {
+    module ChartUnderlineStyle {
         var none: string;
         var single: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace DeleteShiftDirection {
+    module DeleteShiftDirection {
         var up: string;
         var left: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace DynamicFilterCriteria {
+    module DynamicFilterCriteria {
         var unknown: string;
         var aboveAverage: string;
         var allDatesInPeriodApril: string;
@@ -4713,7 +5527,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace FilterDatetimeSpecificity {
+    module FilterDatetimeSpecificity {
         var year: string;
         var month: string;
         var day: string;
@@ -4724,7 +5538,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace FilterOn {
+    module FilterOn {
         var bottomItems: string;
         var bottomPercent: string;
         var cellColor: string;
@@ -4739,14 +5553,14 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace FilterOperator {
+    module FilterOperator {
         var and: string;
         var or: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace HorizontalAlignment {
+    module HorizontalAlignment {
         var general: string;
         var left: string;
         var center: string;
@@ -4759,7 +5573,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace IconSet {
+    module IconSet {
         var invalid: string;
         var threeArrows: string;
         var threeArrowsGray: string;
@@ -4785,7 +5599,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace ImageFittingMode {
+    module ImageFittingMode {
         var fit: string;
         var fitAndCenter: string;
         var fill: string;
@@ -4793,14 +5607,14 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace InsertShiftDirection {
+    module InsertShiftDirection {
         var down: string;
         var right: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace NamedItemType {
+    module NamedItemType {
         var string: string;
         var integer: string;
         var double: string;
@@ -4810,7 +5624,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace RangeUnderlineStyle {
+    module RangeUnderlineStyle {
         var none: string;
         var single: string;
         var double: string;
@@ -4820,7 +5634,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace SheetVisibility {
+    module SheetVisibility {
         var visible: string;
         var hidden: string;
         var veryHidden: string;
@@ -4828,7 +5642,7 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace RangeValueType {
+    module RangeValueType {
         var unknown: string;
         var empty: string;
         var string: string;
@@ -4840,14 +5654,14 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace SortOrientation {
+    module SortOrientation {
         var rows: string;
         var columns: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace SortOn {
+    module SortOn {
         var value: string;
         var cellColor: string;
         var fontColor: string;
@@ -4856,21 +5670,21 @@ declare namespace Excel {
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace SortDataOption {
+    module SortDataOption {
         var normal: string;
         var textAsNumber: string;
     }
     /**
      * [Api set: ExcelApi 1.2]
      */
-    namespace SortMethod {
+    module SortMethod {
         var pinYin: string;
         var strokeCount: string;
     }
     /**
      * [Api set: ExcelApi 1.1]
      */
-    namespace VerticalAlignment {
+    module VerticalAlignment {
         var top: string;
         var center: string;
         var bottom: string;
@@ -8231,6 +9045,57 @@ declare namespace Excel {
         tbillYield(settlement: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, maturity: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, pr: number | string | boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
          *
+         * Returns the left-tailed Student's t-distribution.
+         *
+         * @param x Is the numeric value at which to evaluate the distribution.
+         * @param degFreedom Is an integer indicating the number of degrees of freedom that characterize the distribution.
+         * @param cumulative Is a logical value: for the cumulative distribution function, use TRUE; for the probability density function, use FALSE.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        t_Dist(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, cumulative: boolean | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        /**
+         *
+         * Returns the two-tailed Student's t-distribution.
+         *
+         * @param x Is the numeric value at which to evaluate the distribution.
+         * @param degFreedom Is an integer indicating the number of degrees of freedom that characterize the distribution.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        t_Dist_2T(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        /**
+         *
+         * Returns the right-tailed Student's t-distribution.
+         *
+         * @param x Is the numeric value at which to evaluate the distribution.
+         * @param degFreedom Is an integer indicating the number of degrees of freedom that characterize the distribution.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        t_Dist_RT(x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        /**
+         *
+         * Returns the left-tailed inverse of the Student's t-distribution.
+         *
+         * @param probability Is the probability associated with the two-tailed Student's t-distribution, a number between 0 and 1 inclusive.
+         * @param degFreedom Is a positive integer indicating the number of degrees of freedom to characterize the distribution.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        t_Inv(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        /**
+         *
+         * Returns the two-tailed inverse of the Student's t-distribution.
+         *
+         * @param probability Is the probability associated with the two-tailed Student's t-distribution, a number between 0 and 1 inclusive.
+         * @param degFreedom Is a positive integer indicating the number of degrees of freedom to characterize the distribution.
+         *
+         * [Api set: ExcelApi 1.2]
+         */
+        t_Inv_2T(probability: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, degFreedom: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        /**
+         *
          * Returns the tangent of an angle.
          *
          * @param number Is the angle in radians for which you want the tangent. Degrees * PI()/180 = radians.
@@ -8598,7 +9463,7 @@ declare namespace Excel {
          */
         z_Test(array: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, x: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>, sigma?: number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
     }
-    namespace ErrorCodes {
+    module ErrorCodes {
         var accessDenied: string;
         var generalException: string;
         var insertDeleteConflict: string;
@@ -8613,7 +9478,7 @@ declare namespace Excel {
         var unsupportedOperation: string;
     }
 }
-declare namespace Excel {
+declare module Excel {
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
@@ -8646,10 +9511,6 @@ declare namespace Word {
          * [Api set: WordApiDesktop 1.3 Beta]
          */
         createDocument(base64File?: string): Word.Document;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Create a new instance of Word.Application object
          */
@@ -8751,13 +9612,6 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         type: string;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
         /**
          *
          * Clears the contents of the body object. The user can perform the undo operation on the cleared content.
@@ -8905,16 +9759,10 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         select(selectionMode?: string): void;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Body;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9102,13 +9950,6 @@ declare namespace Word {
         type: string;
         /**
          *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Clears the contents of the content control. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
@@ -9278,16 +10119,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ContentControl;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9308,13 +10143,6 @@ declare namespace Word {
         first: Word.ContentControl;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.ContentControl>;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
         /**
          *
          * Gets a content control by its identifier.
@@ -9360,16 +10188,10 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         getItem(index: number): Word.ContentControl;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ContentControlCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9413,13 +10235,6 @@ declare namespace Word {
         saved: boolean;
         /**
          *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Gets the current selection of the document. Multiple selections are not supported.
          *
          * [Api set: WordApi 1.1]
@@ -9439,20 +10254,10 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         save(): void;
-        _GetObjectByReferenceId(referenceId: string): OfficeExtension.ClientResult<any>;
-        _GetObjectTypeNameByReferenceId(referenceId: string): OfficeExtension.ClientResult<string>;
-        _KeepReference(): void;
-        _RemoveAllReferences(): void;
-        _RemoveReference(referenceId: string): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Document;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9551,22 +10356,9 @@ declare namespace Word {
          */
         underline: string;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Font;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9673,20 +10465,6 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         width: number;
-        /**
-         *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
         /**
          *
          * Deletes the inline picture from the document.
@@ -9796,16 +10574,10 @@ declare namespace Word {
          * [Api set: WordApi 1.2]
          */
         select(selectionMode?: string): void;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.InlinePicture;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9827,31 +10599,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.InlinePicture>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets an inline picture object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of an inline picture object.
-         *
-         * [Api set: WordApi 1.1]
-         */
-        _GetItem(index: number): Word.InlinePicture;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.InlinePictureCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9877,7 +10627,6 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         id: number;
-        _ReferenceId: string;
         /**
          *
          * Gets the paragraphs in the list.
@@ -9897,16 +10646,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         insertParagraph(paragraphText: string, insertLocation: string): Word.Paragraph;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.List;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9927,7 +10670,6 @@ declare namespace Word {
         first: Word.List;
         /** Gets the loaded child items in this collection. */
         items: Array<Word.List>;
-        _ReferenceId: string;
         /**
          *
          * Gets a list by its identifier.
@@ -9938,24 +10680,9 @@ declare namespace Word {
          */
         getById(id: number): Word.List;
         /**
-         *
-         * Gets a list object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a list object.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        _GetItem(index: number): Word.List;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -9973,17 +10700,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         levelTypes: Array<string>;
-        _ReferenceId: string;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListFormat;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10009,7 +10729,6 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         siblingIndex: number;
-        _ReferenceId: string;
         /**
          *
          * Gets the list item parent, or the closest ancestor if the parent does not exist.
@@ -10028,16 +10747,10 @@ declare namespace Word {
          * [Api set: WordApiDesktop 1.3 Beta]
          */
         getDescendants(directChildrenOnly?: boolean): Word.ParagraphCollection;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ListItem;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10250,20 +10963,6 @@ declare namespace Word {
         text: string;
         /**
          *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Clears the contents of the paragraph object. The user can perform the undo operation on the cleared content.
          *
          * [Api set: WordApi 1.1]
@@ -10444,16 +11143,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         startNewList(): Word.List;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Paragraph;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10483,31 +11176,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Paragraph>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a paragraph object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a paragraph object.
-         *
-         * [Api set: WordApi 1.1]
-         */
-        _GetItem(index: number): Word.Paragraph;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.ParagraphCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10630,20 +11301,6 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         text: string;
-        /**
-         *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
         /**
          *
          * Clears the contents of the range object. The user can perform the undo operation on the cleared content.
@@ -10864,16 +11521,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         split(delimiters: Array<string>, multiParagraphs?: boolean, trimDelimiters?: boolean, trimSpacing?: boolean): Word.RangeCollection;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Range;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10895,31 +11546,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Range>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a range object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a range object.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        _GetItem(index: number): Word.Range;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.RangeCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -10993,10 +11622,6 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         matchWildcards: boolean;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
@@ -11026,31 +11651,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Range>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a range object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a range object.
-         *
-         * [Api set: WordApi 1.1]
-         */
-        _GetItem(index: number): Word.Range;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.SearchResultCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11079,20 +11682,6 @@ declare namespace Word {
         next: Word.Section;
         /**
          *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Gets one of the section's footers.
          *
          * @param type Required. The type of footer to return. This value can be: 'primary', 'firstPage' or 'evenPages'.
@@ -11109,16 +11698,10 @@ declare namespace Word {
          * [Api set: WordApi 1.1]
          */
         getHeader(type: string): Word.Body;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Section;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11140,31 +11723,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Section>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a section object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a section object.
-         *
-         * [Api set: WordApi 1.1]
-         */
-        _GetItem(index: number): Word.Section;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.SectionCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11401,20 +11962,6 @@ declare namespace Word {
         width: number;
         /**
          *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Adds columns to the start or end of the table, using the first or last existing column as a template. This is applicable to uniform tables. The string values, if specified, are set in the newly inserted rows.
          *
          * @param insertLocation Required. It can be 'Start' or 'End', corresponding to the appropriate side of the table.
@@ -11594,16 +12141,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         select(selectionMode?: string): void;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.Table;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11625,31 +12166,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.Table>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a table object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a table object.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        _GetItem(index: number): Word.Table;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11782,20 +12301,6 @@ declare namespace Word {
         verticalAlignment: string;
         /**
          *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Clears the contents of the row.
          *
          * [Api set: WordApi 1.3 Beta]
@@ -11863,16 +12368,10 @@ declare namespace Word {
          * [Api set: WordApi 1.3 Beta]
          */
         select(selectionMode?: string): void;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableRow;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -11894,31 +12393,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.TableRow>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a table row object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a table row object.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        _GetItem(index: number): Word.TableRow;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableRowCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -12051,20 +12528,6 @@ declare namespace Word {
         width: number;
         /**
          *
-         * ID
-         *
-         * [Api set: WordApi]
-         */
-        _Id: number;
-        /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
          * Deletes the column containing this cell. This is applicable to uniform tables.
          *
          * [Api set: WordApi 1.3 Beta]
@@ -12118,16 +12581,10 @@ declare namespace Word {
          * [Api set: WordApiDesktop 1.3 Beta]
          */
         split(rowCount: number, columnCount: number): void;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCell;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -12149,31 +12606,9 @@ declare namespace Word {
         /** Gets the loaded child items in this collection. */
         items: Array<Word.TableCell>;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        /**
-         *
-         * Gets a table cell object by its index in the collection.
-         *
-         * @param index A number that identifies the index location of a table cell object.
-         *
-         * [Api set: WordApi 1.3 Beta]
-         */
-        _GetItem(index: number): Word.TableCell;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableCellCollection;
-        _initReferenceId(value: string): void;
     }
     /**
      *
@@ -12208,22 +12643,9 @@ declare namespace Word {
          */
         width: number;
         /**
-         *
-         * ReferenceId
-         *
-         * [Api set: WordApi]
-         */
-        _ReferenceId: string;
-        _KeepReference(): void;
-        /** Handle results returned from the document
-         * @private
-         */
-        _handleResult(value: any): void;
-        /**
          * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
          */
         load(option?: string | string[] | OfficeExtension.LoadOption): Word.TableBorderStyle;
-        _initReferenceId(value: string): void;
     }
     /**
      *
