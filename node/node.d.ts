@@ -1284,8 +1284,8 @@ declare module "net" {
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        pause(): void;
-        resume(): void;
+        pause(): Socket;
+        resume(): Socket;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
