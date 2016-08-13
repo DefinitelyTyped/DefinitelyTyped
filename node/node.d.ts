@@ -257,8 +257,8 @@ declare namespace NodeJS {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        pause(): ReadableStream;
+        resume(): ReadableStream;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
@@ -276,7 +276,10 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream { }
+    export interface ReadWriteStream extends ReadableStream, WritableStream {
+      pause(): ReadWriteStream;
+      resume(): ReadWriteStream;
+    }
 
     export interface Events extends EventEmitter { }
 
