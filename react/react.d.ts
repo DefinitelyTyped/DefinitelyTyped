@@ -278,6 +278,8 @@ declare namespace __React {
         preventDefault(): void;
         stopPropagation(): void;
         persist(): void;
+        isDefaultPrevented(): boolean;
+        isPropagationStopped(): boolean;
         target: EventTarget;
         timeStamp: Date;
         type: string;
