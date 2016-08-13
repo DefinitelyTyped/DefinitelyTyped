@@ -2345,7 +2345,7 @@ declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element;
+            render(): JSX.Element|null;
         }
         interface ElementAttributesProperty { props: {}; }
 
