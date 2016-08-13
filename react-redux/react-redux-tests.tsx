@@ -85,13 +85,20 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     { pure: true }
 )(Counter);
 
-@connect<ICounterStateProps, ICounterDispatchProps, any>(mapStateToProps, mapDispatchToProps)
-class AnotherCounter extends React.Component<any, any> {
+interface AnotherCounterProps {
+    mustHaveValue: number;
+}
+
+@connect<ICounterStateProps, ICounterDispatchProps, AnotherCounterProps>(mapStateToProps, mapDispatchToProps)
+class AnotherCounter extends React.Component<ICounterStateProps & ICounterDispatchProps, any> {
     doSomething(): void {
     }
 }
 
-let doSomethingCounterContainer: React.ComponentClass<any> = connect<ICounterStateProps, ICounterDispatchProps, any>(mapStateToProps, mapDispatchToProps)(AnotherCounter);
+let AnotherCounterContainer: React.ComponentClass<AnotherCounterProps> = connect<ICounterStateProps, ICounterDispatchProps, AnotherCounterProps>(mapStateToProps, mapDispatchToProps)(AnotherCounter);
+let anotherCounterContainerInstance = new AnotherCounterContainer();
+anotherCounterContainerInstance.props.mustHaveValue = 1;
+anotherCounterContainerInstance.render();
 
 class App extends Component<any, any> {
     render(): JSX.Element {
