@@ -15,7 +15,7 @@ declare namespace ReactRedux {
   type ActionCreator<A> = Redux.ActionCreator<A>;
 
   interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps> | any;
+    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps> & void;
   }
 
   /**
@@ -24,7 +24,7 @@ declare namespace ReactRedux {
    * Can't use the above decorator because it would default the type to {}
    */
   export interface InferableComponentDecorator {
-    <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct | any;
+    <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
   }
 
   /**
