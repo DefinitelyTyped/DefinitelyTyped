@@ -2187,8 +2187,8 @@ declare module "stream" {
         _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        pause(): Readable;
+        resume(): Readable;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
         unshift(chunk: any): void;
