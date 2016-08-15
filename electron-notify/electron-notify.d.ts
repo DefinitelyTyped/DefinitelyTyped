@@ -44,16 +44,16 @@ declare namespace ElectronNotify {
 declare module 'electron-notify' {
 
   /** Change some config options. Can be run multiple times, also between notify()-calls to change electron-notifys behaviour. */
-  export function setConfig(customConfig: ElectronNotify.IConfiguration);
+  export function setConfig(customConfig: ElectronNotify.IConfiguration): void;
 
   /** Displays new notification. */
-  export function notify(notification: ElectronNotify.INotification);
+  export function notify(notification: ElectronNotify.INotification): void;
 
   /** Clears the animation queue and closes all windows opened by electron-notify. Call this to clean up before quiting your app. */
-  export function closeAll();
+  export function closeAll(): void;
 
   export function getTemplatePath(): string;
 
-  export function setTemplatePath(path: string);
+  export function setTemplatePath(path: string): void;
 
 }
