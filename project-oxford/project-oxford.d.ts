@@ -3,8 +3,8 @@
 // Definitions by: Scott Southwood <https://github.com/scsouthw/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="..\bluebird\bluebird.d.ts" />
-/// <reference path="..\node\node.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 declare module "project-oxford" {
     import Promise = require("bluebird");

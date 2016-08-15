@@ -1,5 +1,7 @@
 ///<reference path="../tether/tether.d.ts" />
-///<reference path="drop.d.ts" />
+///<reference path="tether-drop.d.ts" />
+
+import 'tether-drop';
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");
@@ -36,3 +38,11 @@ var e = new Drop({
     content: () => greenBox
 });
 
+var Tooltip = Drop.createContext({
+    classPrefix: 'tooltip'
+});
+
+var t = new Tooltip({
+    target: yellowBox,
+    content: () => greenBox
+});

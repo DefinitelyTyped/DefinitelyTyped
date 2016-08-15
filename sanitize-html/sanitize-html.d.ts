@@ -1,4 +1,4 @@
-﻿// Type definitions for sanitize-html 1.12.0
+﻿// Type definitions for sanitize-html 1.13.0
 // Project: https://github.com/punkave/sanitize-html
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>, Afshin Darian <https://github.com/afshin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,10 +11,10 @@ declare namespace sanitize {
   type Attributes = { [attr: string]: string };
 
 
-  type Tag = { tagName: string; attributes: Attributes; };
+  type Tag = { tagName: string; attribs: Attributes; text?: string; };
 
 
-  type Transformer = (tagName: string, attributes: Attributes) => Tag;
+  type Transformer = (tagName: string, attribs: Attributes) => Tag;
 
 
   interface IDefaults {
@@ -28,7 +28,7 @@ declare namespace sanitize {
 
   interface IFrame {
     tag: string;
-    attributes: { [index: string]: string };
+    attribs: { [index: string]: string };
     text: string;
     tagPosition: number;
   }
@@ -40,6 +40,7 @@ declare namespace sanitize {
     allowedSchemes?: string[];
     allowedTags?: string[];
     exclusiveFilter?: (frame: IFrame) => boolean;
+    nonTextTags?: string[];
     selfClosing?: string[];
     transformTags?: { [tagName: string]: string | Transformer };
   }
@@ -48,7 +49,7 @@ declare namespace sanitize {
   var defaults: IDefaults;
 
 
-  function simpleTransform(tagName: string, attributes: Attributes, merge?: boolean): Transformer;
+  function simpleTransform(tagName: string, attribs: Attributes, merge?: boolean): Transformer;
 }
 
 
