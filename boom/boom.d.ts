@@ -44,14 +44,17 @@ declare namespace Boom {
     export function rangeNotSatisfiable(message?: string, data?: any): BoomError;
     export function expectationFailed(message?: string, data?: any): BoomError;
     export function badData(message?: string, data?: any): BoomError;
+    export function locked(message?: string, data?: any): BoomError;
+    export function preconditionRequired(message?: string, data?: any): BoomError;
     export function tooManyRequests(message?: string, data?: any): BoomError;
+    export function illegal(message?: string, data?: any): BoomError;
 
     // 5xx
+    export function badImplementation(message?: string, data?: any): BoomError;
     export function notImplemented(message?: string, data?: any): BoomError;
     export function badGateway(message?: string, data?: any): BoomError;
-    export function serverTimeout(message?: string, data?: any): BoomError;
+    export function serverUnavailable(message?: string, data?: any): BoomError;
     export function gatewayTimeout(message?: string, data?: any): BoomError;
-    export function badImplementation(message?: string, data?: any): BoomError;
 }
 
 declare module "boom" {

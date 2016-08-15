@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.19
+// Type definitions for react-native 0.29
 // Project: https://github.com/facebook/react-native
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,9 +8,9 @@
 // USING: these definitions are meant to be used with the TSC compiler target set to ES6
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
+// Warning: the project currently uses and older version of react-native
 //
-// CONTRIBUTING: please open pull requests and make sure that the changes do not break RNTSExplorer (they should not)
-// Do not hesitate to open a pull request against RNTSExplorer to provide an example for a case not covered by the current App
+// CONTRIBUTING: please open pull requests
 //
 // CREDITS: This work is based on an original work made by Bernd Paradies: https://github.com/bparadie
 //
@@ -22,104 +22,7 @@
 import React = __React;
 
 //react-native "extends" react
-declare module "react-native" {
-
-
-    /**
-     * Represents the completion of an asynchronous operation
-     * @see lib.es6.d.ts
-     */
-    export interface Promise<T> {
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult>( onfulfilled?: ( value: T ) => TResult | Promise<TResult>, onrejected?: ( reason: any ) => TResult | Promise<TResult> ): Promise<TResult>;
-
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch( onrejected?: ( reason: any ) => T | Promise<T> ): Promise<T>;
-
-
-        // not in lib.es6.d.ts but called by react-native
-        done( callback?: ( value: T ) => void ): void;
-    }
-
-    export interface PromiseConstructor {
-        /**
-         * A reference to the prototype.
-         */
-        prototype: Promise<any>;
-
-        /**
-         * Creates a new Promise.
-         * @param init A callback used to initialize the promise. This callback is passed two arguments:
-         * a resolve callback used resolve the promise with a value or the result of another promise,
-         * and a reject callback used to reject the promise with a provided reason or error.
-         */
-        new <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        all<T>( values: (T | Promise<T>)[] ): Promise<T[]>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of values.
-         * @returns A new Promise.
-         */
-        all( values: Promise<void>[] ): Promise<void>;
-
-        /**
-         * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-         * or rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        race<T>( values: (T | Promise<T>)[] ): Promise<T>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject( reason: any ): Promise<void>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject<T>( reason: any ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise for the provided value.
-         * @param value A promise.
-         * @returns A promise whose internal state matches the provided promise.
-         */
-        resolve<T>( value: T | Promise<T> ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise .
-         * @returns A resolved promise.
-         */
-        resolve(): Promise<void>;
-    }
-
-    // @see lib.es6.d.ts
-    export var Promise: PromiseConstructor;
+declare namespace  __React {
 
     module NativeMethodsMixin {
       type MeasureOnSuccessCallback = (
@@ -149,7 +52,9 @@ declare module "react-native" {
     /**
      * @see https://github.com/facebook/react-native/blob/master/Libraries/ReactIOS/NativeMethodsMixin.js
      */
-    export class Component<P, S> extends React.Component<P, S> {
+    // export class Component<P, S> extends React.Component<P, S> {
+    export interface NativeComponent {
+
       /**
        * Determines the location on screen, width, and height of the given view and
        * returns the values via an async callback. If successful, the callback will
@@ -321,9 +226,10 @@ declare module "react-native" {
     /**
      * //FIXME: need to find documentation on which compoenent is a native (i.e. non composite component)
      */
+    /*
     export interface NativeComponent {
     }
-
+    */
     /**
      * //FIXME: need to find documentation on which component is a TTouchable and can implement that interface
      * @see React.DOMAtributes
@@ -343,12 +249,31 @@ declare module "react-native" {
     }
 
     // https://github.com/facebook/react-native/blob/master/Libraries/AppRegistry/AppRegistry.js
+    /**
+     * `AppRegistry` is the JS entry point to running all React Native apps.  App
+     * root components should register themselves with
+     * `AppRegistry.registerComponent`, then the native system can load the bundle
+     * for the app and then actually run the app when it's ready by invoking
+     * `AppRegistry.runApplication`.
+     *
+     * To "stop" an application when a view should be destroyed, call
+     * `AppRegistry.unmountApplicationComponentAtRootTag` with the tag that was
+     * pass into `runApplication`. These should always be used as a pair.
+     *
+     * `AppRegistry` should be `require`d early in the `require` sequence to make
+     * sure the JS execution environment is setup before other modules are
+     * `require`d.
+     */
     export class AppRegistry {
         static registerConfig( config: AppConfig[] ): void;
 
         static registerComponent( appKey: string, getComponentFunc: () => React.ComponentClass<any> ): string;
 
         static registerRunnable( appKey: string, func: Runnable ): string;
+
+        static getAppKeys(): string[];
+
+        static unmountApplicationComponentAtRootTag(rootTag: number): void;
 
         static runApplication( appKey: string, appParameters: any ): void;
     }
@@ -396,6 +321,8 @@ declare module "react-native" {
         }
     }
 
+    export type FlexAlignType = "flex-start" | "flex-end" | "center" | "stretch";
+    export type FlexJustifyType = "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
 
     /**
      * Flex Prop Types
@@ -404,8 +331,8 @@ declare module "react-native" {
      */
     export interface FlexStyle {
 
-        alignItems?: string;  //enum('flex-start', 'flex-end', 'center', 'stretch')
-        alignSelf?: string// enum('auto', 'flex-start', 'flex-end', 'center', 'stretch')
+        alignItems?: FlexAlignType;
+        alignSelf?: "auto" | FlexAlignType;
         borderBottomWidth?: number
         borderLeftWidth?: number
         borderRightWidth?: number
@@ -413,11 +340,15 @@ declare module "react-native" {
         borderWidth?: number
         bottom?: number
         flex?: number
-        flexDirection?: string // enum('row', 'column')
-        flexWrap?: string // enum('wrap', 'nowrap')
+        flexDirection?: "row" | "column" | "row-reverse" | "column-reverse"
+        flexWrap?: "wrap" | "nowrap"
         height?: number
-        justifyContent?: string // enum('flex-start', 'flex-end', 'center', 'space-between', 'space-around')
+        justifyContent?: FlexJustifyType
         left?: number
+        minWidth?: number
+        maxWidth?: number
+        minHeight?: number
+        maxHeight?: number
         margin?: number
         marginBottom?: number
         marginHorizontal?: number
@@ -432,10 +363,65 @@ declare module "react-native" {
         paddingRight?: number
         paddingTop?: number
         paddingVertical?: number
-        position?: string // enum('absolute', 'relative')
+        position?: "absolute" | "relative"
         right?: number
         top?: number
         width?: number
+
+        /**
+         * @platform ios
+         */
+        zIndex?: number
+    }
+
+    /**
+     * @see ShadowPropTypesIOS.js
+     */
+    export interface ShadowPropTypesIOSStatic {
+        /**
+         * Sets the drop shadow color
+         * @platform ios
+         */
+        shadowColor: string
+
+        /**
+         * Sets the drop shadow offset
+         * @platform ios
+         */
+        shadowOffset: {width: number, height: number}
+
+        /**
+         * Sets the drop shadow opacity (multiplied by the color's alpha component)
+         * @platform ios
+         */
+        shadowOpacity: number
+
+        /**
+         * Sets the drop shadow blur radius
+         * @platform ios
+         */
+        shadowRadius: number
+    }
+
+    type GetCurrentPositionOptions = {
+        timeout: number
+        maximumAge: number
+        enableHighAccuracy: boolean
+        distanceFilter: number
+    }
+
+    type WatchPositionOptions = {
+        timeout: number
+        maximumAge: number
+        enableHighAccuracy: boolean
+        distanceFilter: number
+    }
+
+    type GeolocationReturnType = {
+        coords: {
+            latitude: number
+            longitude: number
+        }
     }
 
 
@@ -452,7 +438,8 @@ declare module "react-native" {
 
 
     export interface StyleSheetProperties {
-        // TODO:
+        hairlineWidth: number
+        flatten<T extends string>(style: T): T
     }
 
     export interface LayoutRectangle {
@@ -469,24 +456,52 @@ declare module "react-native" {
         }
     }
 
+    export interface TextStyleIOS extends ViewStyle {
+      letterSpacing?: number
+      textDecorationColor?: string
+      textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
+      writingDirection?: "auto" | "ltr" | "rtl"
+    }
+
+    export interface TextStyleAndroid extends ViewStyle {
+      textAlignVertical?: "auto" | "top" | "bottom" | "center"
+    }
+
     // @see https://facebook.github.io/react-native/docs/text.html#style
-    export interface TextStyle extends ViewStyle {
+    export interface TextStyle extends TextStyleIOS, TextStyleAndroid, ViewStyle {
         color?: string
         fontFamily?: string
         fontSize?: number
-        fontStyle?: string // 'normal' | 'italic';
-        fontWeight?: string // enum("normal", 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900')
+        fontStyle?: "normal" | "italic"
+        /**
+         * Specifies font weight. The values 'normal' and 'bold' are supported
+         * for most fonts. Not all fonts have a variant for each of the numeric
+         * values, in that case the closest one is chosen.
+         */
+        fontWeight?: "normal" | "bold" | "100" | "200" | "300" | "400" | "500" | "600" | "700" | "800" | "900"
         letterSpacing?: number
         lineHeight?: number
-        textAlign?: string // enum("auto", 'left', 'right', 'center')
-        textDecorationLine?: string // enum("none", 'underline', 'line-through', 'underline line-through')
-        textDecorationStyle?: string // enum("solid", 'double', 'dotted', 'dashed')
+        /**
+         * Specifies text alignment.
+         * The value 'justify' is only supported on iOS.
+         */
+        textAlign?: "auto" | "left" | "right" | "center"
+        textDecorationLine?: "none" | "underline" | "line-through" | "underline line-through"
+        textDecorationStyle?: "solid" | "double" | "dotted" | "dashed"
         textDecorationColor?: string
-        writingDirection?: string; //enum("auto", 'ltr', 'rtl')
-        //containerBackgroundColor?: string
+        textShadowColor?: string
+        textShadowOffset?: {width: number, height: number}
+        textShadowRadius?: number
+        testID?: string
     }
 
     export interface TextPropertiesIOS {
+
+        /**
+         * Specifies should fonts scale to respect Text Size accessibility
+         * setting on iOS.
+         */
+        allowFontScaling: boolean
 
         /**
          * When true, no visual change is made when text is pressed down.
@@ -502,6 +517,12 @@ declare module "react-native" {
          * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
          */
         allowFontScaling?: boolean
+
+        /**
+         * Line Break mode. Works only with numberOfLines.
+         * clip is working only for iOS
+         */
+        lineBreakMode?: 'head' | 'middle' | 'tail' | 'clip'
 
         /**
          * Used to truncate the text with an elipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number.
@@ -547,12 +568,6 @@ declare module "react-native" {
     export interface TextInputIOSProperties {
 
         /**
-         * If true, the text field will blur when submitted.
-         * The default value is true.
-         */
-        blurOnSubmit?: boolean
-
-        /**
          * enum('never', 'while-editing', 'unless-editing', 'always')
          * When the clear button should appear on the right side of the text view
          */
@@ -577,17 +592,6 @@ declare module "react-native" {
         onKeyPress?: () => void
 
         /**
-         * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
-         * Determines how the return key should look.
-         */
-        returnKeyType?: string
-
-        /**
-         * If true, all text will automatically be selected on focus
-         */
-        selectTextOnFocus?: boolean
-
-        /**
          * //FIXME: requires typing
          * See DocumentSelectionState.js, some state that is responsible for maintaining selection information for a document
          */
@@ -607,6 +611,12 @@ declare module "react-native" {
          * Use it with multiline set to true to be able to fill the lines.
          */
         numberOfLines?: number
+
+        /**
+         * Sets the return key to the label. Use it instead of `returnKeyType`.
+         * @platform android
+         */
+        returnKeyLabel?: string
 
         /**
          * enum('start', 'center', 'end')
@@ -641,7 +651,7 @@ declare module "react-native" {
          *
          * https://facebook.github.io/react-native/docs/textinput.html#autocapitalize
          */
-        autoCapitalize?: string
+        autoCapitalize?: "none" | "sentences" | "words" | "characters"
 
         /**
          * If false, disables auto-correct.
@@ -654,6 +664,12 @@ declare module "react-native" {
          * The default value is false.
          */
         autoFocus?: boolean
+
+        /**
+         * If true, the text field will blur when submitted.
+         * The default value is true.
+         */
+        blurOnSubmit?: boolean
 
         /**
          * Provides an initial value that will change when the user starts typing.
@@ -672,7 +688,7 @@ declare module "react-native" {
          * Determines which keyboard to open, e.g.numeric.
          * The following values work across platforms: - default - numeric - email-address
          */
-        keyboardType?: string
+        keyboardType?: "default" | "email-address" | "numeric" | "phone-pad" | "ascii-capable" | "numbers-and-punctuation" | "url" | "number-pad" | "name-phone-pad" | "decimal-pad" | "twitter" | "web-search"
 
         /**
          * Limits the maximum number of characters that can be entered.
@@ -716,6 +732,8 @@ declare module "react-native" {
          */
         onLayout?: ( event: {nativeEvent: {x: number, y: number, width: number, height: number}} ) => void
 
+        onSelectionChange?: () => void
+
         /**
          * Callback that is called when the text input's submit button is pressed.
          */
@@ -737,10 +755,26 @@ declare module "react-native" {
         placeholderTextColor?: string
 
         /**
+         * enum('default', 'go', 'google', 'join', 'next', 'route', 'search', 'send', 'yahoo', 'done', 'emergency-call')
+         * Determines how the return key should look.
+         */
+        returnKeyType?: "default" | "go" | "google" | "join" | "next" | "route" | "search" | "send" | "yahoo" | "done" | "emergency-call"
+
+        /**
          * If true, the text input obscures the text entered so that sensitive text like passwords stay secure.
          * The default value is false.
          */
         secureTextEntry?: boolean
+
+        /**
+         * If true, all text will automatically be selected on focus
+         */
+        selectTextOnFocus?: boolean
+
+        /**
+         * The highlight (and cursor on ios) color of the text input
+         */
+        selectionColor?: string
 
         /**
          * Styles
@@ -762,9 +796,135 @@ declare module "react-native" {
         value?: string
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/textinput.html#methods
+     */
     export interface TextInputStatic extends NativeComponent, React.ComponentClass<TextInputProperties> {
+        /**
+         * Returns if the input is currently focused.
+         */
+        isFocused: () => boolean
+
+        /**
+         * Removes all text from the input.
+         */
+        clear: () => void
+
+        // The following methods are found only in implementation
         blur: () => void
         focus: () => void
+    }
+
+    export type ToolbarAndroidAction = {
+        /**
+         *  title: required, the title of this action
+         */
+        title: string
+
+        /**
+         * icon: the icon for this action, e.g. require('./some_icon.png')
+         */
+        icon?: any
+
+        /**
+         * show: when to show this action as an icon or hide it in the overflow menu: always, ifRoom or never
+         */
+        show?: "always" | "ifRoom" | "never"
+
+        /**
+         * showWithText: boolean, whether to show text alongside the icon or not
+         */
+        showWithText?: boolean
+    }
+
+    export interface ToolbarAndroidProperties extends ViewProperties, React.Props<ToolbarAndroidStatic> {
+        actions?: ToolbarAndroidAction[]
+
+        /**
+         * Sets the content inset for the toolbar ending edge.
+         * The content inset affects the valid area for Toolbar content other
+         * than the navigation button and menu. Insets define the minimum
+         * margin for these components and can be used to effectively align
+         * Toolbar content along well-known gridlines.
+         */
+        contentInsetEnd?: number
+
+        /**
+         * Sets the content inset for the toolbar starting edge.
+         * The content inset affects the valid area for Toolbar content
+         * other than the navigation button and menu. Insets define the
+         * minimum margin for these components and can be used to effectively
+         * align Toolbar content along well-known gridlines.
+         */
+        contentInsetStart?: number
+
+        /**
+         * Sets the toolbar logo.
+         */
+        logo?: any
+
+        /**
+         * Sets the navigation icon.
+         */
+        navIcon?: any
+
+        /**
+         * Callback that is called when an action is selected. The only
+         * argument that is passed to the callback is the position of the
+         * action in the actions array.
+         */
+        onActionSelected?: (position: number) => void
+
+        /**
+         * Callback called when the icon is selected.
+         */
+        onIconClicked?: () => void
+
+        /**
+         * Sets the overflow icon.
+         */
+        overflowIcon?: any
+
+        /**
+         * Used to set the toolbar direction to RTL.
+         * In addition to this property you need to add
+         * android:supportsRtl="true"
+         * to your application AndroidManifest.xml and then call
+         * setLayoutDirection(LayoutDirection.RTL) in your MainActivity
+         * onCreate method.
+         */
+        rtl?: boolean
+
+        /**
+         * Sets the toolbar subtitle.
+         */
+        subtitle?: string
+
+        /**
+         * Sets the toolbar subtitle color.
+         */
+        subtitleColor?: string
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
+        testID?: string
+
+        /**
+         * Sets the toolbar title.
+         */
+        title?: string
+
+        /**
+         * Sets the toolbar title color.
+         */
+        titleColor?: string
+
+        ref?: Ref<ToolbarAndroidStatic>
+    }
+
+    export interface ToolbarAndroidStatic extends React.ComponentClass<ToolbarAndroidProperties> {
+
     }
 
 
@@ -886,23 +1046,30 @@ declare module "react-native" {
 
     // @see https://facebook.github.io/react-native/docs/view.html#style
     export interface ViewStyle extends FlexStyle, TransformsStyle {
+        backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string;
         borderBottomColor?: string;
         borderBottomLeftRadius?: number;
         borderBottomRightRadius?: number;
+        borderBottomWidth?: number;
         borderColor?: string;
         borderLeftColor?: string;
         borderRadius?: number;
         borderRightColor?: string;
+        borderRightWidth?: number;
+        borderStyle?: "solid" | "dotted" | "dashed"
         borderTopColor?: string;
         borderTopLeftRadius?: number;
         borderTopRightRadius?: number;
+        borderTopWidth?: number
         opacity?: number;
-        overflow?: string; // enum('visible', 'hidden')
+        overflow?: "visible" | "hidden"
         shadowColor?: string;
         shadowOffset?: {width: number, height: number};
         shadowOpacity?: number;
         shadowRadius?: number;
+        elevation?: number;
+        testID?: string;
     }
 
 
@@ -1014,6 +1181,19 @@ declare module "react-native" {
         accessible?: boolean;
 
         /**
+        * This defines how far a touch event can start away from the view.
+        * Typical interface guidelines recommend touch targets that are at least
+        * 30 - 40 points/density-independent pixels. If a Touchable view has
+        * a height of 20 the touchable height can be extended to 40 with
+        * hitSlop={{top: 10, bottom: 10, left: 0, right: 0}}
+        * NOTE The touch area never extends past the parent view bounds and
+        * the Z-index of sibling views always takes precedence if a touch
+        * hits two overlapping views.
+        */
+
+        hitSlop?: {top: number, left: number, bottom: number, right: number}
+
+        /**
          * When `accessible` is true, the system will try to invoke this function when the user performs accessibility tap gesture.
          */
         onAcccessibilityTap?: () => void;
@@ -1053,7 +1233,7 @@ declare module "react-native" {
          * But since pointerEvents does not affect layout/appearance, and we are already deviating from the spec by adding additional modes,
          * we opt to not include pointerEvents on style. On some platforms, we would need to implement it as a className anyways. Using style or not is an implementation detail of the platform.
          */
-        pointerEvents?: string;
+        pointerEvents?: "box-none" | "none" | "box-only" | "autoViewStyle"
 
         /**
          *
@@ -1097,13 +1277,38 @@ declare module "react-native" {
 
     export interface ViewPagerAndroidProperties extends ViewProperties {
         initialPage?: number;
+        /**
+         * When false, the content does not scroll.
+         * The default value is true.
+         */
+        scrollEnabled?: boolean;
         onPageScroll?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageScrollEventData> ) => void;
         onPageSelected?: ( event: NativeSyntheticEvent<ViewPagerAndroidOnPageSelectedEventData> ) => void;
-        keyboardDismissMode?: string; /* enum('none', 'on-drag') */
+        onPageScrollStateChanged?: (state: "Idle" | "Dragging" | "Settling") => void
+        keyboardDismissMode?: "none" | "on-drag"
+        pageMargin?: number
     }
 
     export interface ViewPagerAndroidStatic extends NativeComponent, React.ComponentClass<ViewPagerAndroidProperties> {
+      setPage: (selectedPage: number) => void
+      setPageWithoutAnimation: (selectedPage: number) => void
+    }
 
+    export interface KeyboardAvoidingViewStatic extends React.ComponentClass<KeyboardAvoidingViewProps> {
+
+    }
+
+    export interface KeyboardAvoidingViewProps extends ViewProperties, React.Props<KeyboardAvoidingViewStatic> {
+
+        behavior?: 'height' | 'position' | 'padding'
+
+        /**
+         * This is the distance between the top of the user screen and the react native view,
+         * may be non-zero in some use cases.
+         */
+        keyboardVerticalOffset: number
+
+        ref?: Ref<KeyboardAvoidingViewStatic & ViewStatic>
     }
 
     /**
@@ -1125,21 +1330,105 @@ declare module "react-native" {
         /**
          * Used for android only, JS is enabled by default for WebView on iOS
          */
-        javaScriptEnabledAndroid?: boolean
+        javaScriptEnabled?: boolean
+
+        /**
+         * Used on Android only, controls whether DOM Storage is enabled
+         * or not android
+         */
+        domStorageEnabled?: boolean
+    }
+
+    export interface WebViewIOSLoadRequestEvent {
+        target: number
+        canGoBack: boolean
+        lockIdentifier: number
+        loading: boolean
+        title: string
+        canGoForward: boolean
+        navigationType: 'other' | 'click'
+        url: string
     }
 
     export interface WebViewPropertiesIOS {
 
         /**
-         * Used for iOS only, sets whether the webpage scales to fit the view and the user can change the scale
+         * Determines whether HTML5 videos play inline or use the native
+         * full-screen controller. default value false
+         * NOTE : "In order * for video to play inline, not only does
+         * this property need to be set to true, but the video element
+         * in the HTML document must also include the webkit-playsinline
+         * attribute."
          */
-        scalesPageToFit?: boolean
+        allowsInlineMediaPlayback?: boolean
+
+        bounces?: boolean
+
+        /**
+         * A floating-point number that determines how quickly the scroll
+         * view decelerates after the user lifts their finger. You may also
+         * use string shortcuts "normal" and "fast" which match the
+         * underlying iOS settings for UIScrollViewDecelerationRateNormal
+         * and UIScrollViewDecelerationRateFast respectively.
+         * - normal: 0.998 - fast: 0.99 (the default for iOS WebView)
+         */
+        decelerationRate?: "normal" | "fast" | number
+
+        /**
+         * Allows custom handling of any webview requests by a JS handler.
+         * Return true or false from this method to continue loading the
+         * request.
+         */
+        onShouldStartLoadWithRequest?: (event: WebViewIOSLoadRequestEvent) => boolean
+
+        scrollEnabled?: boolean
+    }
+
+    export interface WebViewUriSource {
+
+        /*
+         * The URI to load in the WebView. Can be a local or remote file.
+         */
+        uri?: string;
+
+        /*
+         * The HTTP Method to use. Defaults to GET if not specified.
+         * NOTE: On Android, only GET and POST are supported.
+         */
+        method?: string;
+
+        /*
+         * Additional HTTP headers to send with the request.
+         * NOTE: On Android, this can only be used with GET requests.
+         */
+        headers?: any;
+
+        /*
+         * The HTTP body to send with the request. This must be a valid
+         * UTF-8 string, and will be sent exactly as specified, with no
+         * additional encoding (e.g. URL-escaping or base64) applied.
+         * NOTE: On Android, this can only be used with POST requests.
+         */
+        body?: string;
+    }
+
+    export interface WebViewHtmlSource {
+
+        /*
+         * A static HTML page to display in the WebView.
+         */
+        html: string;
+
+        /*
+         * The base URL to be used for any relative links in the HTML.
+         */
+        baseUrl?: string;
     }
 
     /**
      * @see https://facebook.github.io/react-native/docs/webview.html#props
      */
-    export interface WebViewProperties extends WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
+    export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndroid, WebViewPropertiesIOS, React.Props<WebViewStatic> {
 
         automaticallyAdjustContentInsets?: boolean
 
@@ -1154,6 +1443,26 @@ declare module "react-native" {
          */
         injectedJavaScript?: string
 
+        /**
+         * Invoked when load fails
+         */
+        onError?:  ( event: NavState ) => void
+
+        /**
+         * Invoked when load finish
+         */
+        onLoad?:  ( event: NavState ) => void
+
+        /**
+         * Invoked when load either succeeds or fails
+         */
+        onLoadEnd?:  ( event: NavState ) => void
+
+        /**
+         * Invoked on load start
+         */
+        onLoadStart?:  ( event: NavState ) => void
+
         onNavigationStateChange?: ( event: NavState ) => void
 
         /**
@@ -1165,12 +1474,12 @@ declare module "react-native" {
         /**
          * view to show if there's an error
          */
-        renderError?: () => ViewStatic
+        renderError?: () => React.ReactElement<ViewProperties>
 
         /**
          * loading indicator to show
          */
-        renderLoading?: () => ViewStatic
+        renderLoading?: () => React.ReactElement<ViewProperties>
 
         scrollEnabled?: boolean
 
@@ -1178,23 +1487,106 @@ declare module "react-native" {
 
         style?: ViewStyle
 
-        url: string
+        // Deprecated: Use the `source` prop instead.
+        url?: string
+
+        source?: WebViewUriSource | WebViewHtmlSource | number
+
+        /**
+         * Determines whether HTML5 audio & videos require the user to tap
+         * before they can start playing. The default value is false.
+         */
+         mediaPlaybackRequiresUserAction?: boolean
+
+        /**
+         * sets whether the webpage scales to fit the view and the user can change the scale
+         */
+        scalesPageToFit?: boolean
+
+        ref?: Ref<WebViewStatic & ViewStatic>
     }
 
 
     export interface WebViewStatic extends React.ComponentClass<WebViewProperties> {
 
+        /**
+         * Go back one page in the webview's history.
+         */
         goBack: () => void
+
+        /**
+         * Go forward one page in the webview's history.
+         */
         goForward: () => void
+
+        /**
+         * Reloads the current page.
+         */
         reload: () => void
+
+        /**
+         * Returns the native webview node.
+         */
+        getWebViewHandle: () => any
     }
 
 
     /**
-     * @see
+     * @see https://facebook.github.io/react-native/docs/segmentedcontrolios.html
+     * @see SegmentedControlIOS.ios.js
      */
-    export interface SegmentedControlIOSProperties {
-        /// TODO
+     export interface NativeSegmentedControlIOSChangeEvent {
+         value: string
+         selectedSegmentIndex: number
+         target: number
+     }
+
+     export interface SegmentedControlIOSProperties extends ViewProperties, React.Props<SegmentedControlIOSStatic> {
+
+         /**
+          * If false the user won't be able to interact with the control. Default value is true.
+          */
+         enabled?: boolean
+
+         /**
+          * If true, then selecting a segment won't persist visually.
+          * The onValueChange callback will still work as expected.
+          */
+         momentary?: boolean
+
+         /**
+          * Callback that is called when the user taps a segment;
+          * passes the event as an argument
+          * @param event
+          */
+         onChange?: (event: NativeSyntheticEvent<NativeSegmentedControlIOSChangeEvent>) => void
+
+         /**
+          * Callback that is called when the user taps a segment; passes the segment's value as an argument
+          * @param value
+          */
+         onValueChange?: (value: string) => void
+
+         /**
+          * The index in props.values of the segment to be (pre)selected.
+          */
+         selectedIndex?: number
+
+         /**
+          * Accent color of the control.
+          */
+         tintColor?: string
+
+         /**
+          * The labels for the control's segment buttons, in order.
+          */
+         values?: string[]
+
+         ref?: Ref<SegmentedControlIOSStatic>
+     }
+
+    export interface SegmentedControlIOSStatic extends React.ComponentClass<SegmentedControlIOSProperties> {
+
     }
 
 
@@ -1303,9 +1695,46 @@ declare module "react-native" {
 
 
     /**
+     * @see https://facebook.github.io/react-native/docs/activityindicator.html#props
+     */
+    export interface ActivityIndicatorProperties extends ViewProperties, React.Props<ActivityIndicatorStatic> {
+
+        /**
+         * Whether to show the indicator (true, the default) or hide it (false).
+         */
+        animating?: boolean
+
+        /**
+         * The foreground color of the spinner (default is gray).
+         */
+        color?: string
+
+        /**
+         * Whether the indicator should hide when not animating (true by default).
+         */
+        hidesWhenStopped?: boolean
+
+        /**
+         * Size of the indicator.
+         * Small has a height of 20, large has a height of 36.
+         *
+         * enum('small', 'large')
+         */
+        size?: 'small' | 'large'
+
+        style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorStatic>
+    }
+
+    export interface ActivityIndicatorStatic extends React.ComponentClass<ActivityIndicatorProperties> {
+    }
+
+
+    /**
      * @see https://facebook.github.io/react-native/docs/activityindicatorios.html#props
      */
-    export interface ActivityIndicatorIOSProperties extends React.Props<ActivityIndicatorIOSStatic> {
+    export interface ActivityIndicatorIOSProperties extends ViewProperties, React.Props<ActivityIndicatorIOSStatic> {
 
         /**
          * Whether to show the indicator (true, the default) or hide it (false).
@@ -1333,16 +1762,21 @@ declare module "react-native" {
          *
          * enum('small', 'large')
          */
-        size?: string
+        size?: 'small' | 'large'
 
         style?: ViewStyle
+
+        ref?: Ref<ActivityIndicatorIOSStatic>
     }
 
+    /**
+     * @Deprecated since version 0.28.0
+     */
     export interface ActivityIndicatorIOSStatic extends React.ComponentClass<ActivityIndicatorIOSProperties> {
     }
 
 
-    export interface DatePickerIOSProperties extends React.Props<DatePickerIOSStatic> {
+    export interface DatePickerIOSProperties extends ViewProperties, React.Props<DatePickerIOSStatic> {
 
         /**
          * The currently selected date.
@@ -1372,7 +1806,7 @@ declare module "react-native" {
          *  enum('date', 'time', 'datetime')
          *  The date picker mode.
          */
-        mode?: string
+        mode?: "date" | "time" | "datetime"
 
         /**
          * Date change handler.
@@ -1388,9 +1822,123 @@ declare module "react-native" {
          */
         timeZoneOffsetInMinutes?: number
 
+        ref?: Ref<DatePickerIOSStatic>
     }
 
     export interface DatePickerIOSStatic extends React.ComponentClass<DatePickerIOSProperties> {
+    }
+
+    export interface DrawerSlideEvent extends NativeSyntheticEvent<NativeTouchEvent> {
+    }
+
+    /**
+     * @see DrawerLayoutAndroid.android.js
+     */
+    export interface DrawerLayoutAndroidProperties extends ViewProperties, React.Props<DrawerLayoutAndroidStatic> {
+
+        /**
+         * Specifies the background color of the drawer. The default value
+         * is white. If you want to set the opacity of the drawer, use rgba.
+         * Example:
+         * return (
+         *   <DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)">
+         *   </DrawerLayoutAndroid>
+         *);
+         */
+        drawerBackgroundColor?: string;
+
+        /**
+         * Specifies the lock mode of the drawer. The drawer can be locked
+         * in 3 states:
+         *
+         * - unlocked (default), meaning that the drawer will respond
+         *   (open/close) to touch gestures.
+         *
+         * - locked-closed, meaning that the drawer will stay closed and not
+         *   respond to gestures.
+         *
+         * - locked-open, meaning that the drawer will stay opened and
+         *   not respond to gestures. The drawer may still be opened and
+         *   closed programmatically (openDrawer/closeDrawer).
+         */
+        drawerLockMode?: "unlocked" | "locked-closed" | "locked-open";
+
+        /**
+         * Specifies the side of the screen from which the drawer will slide in.
+         * enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right)
+         */
+        drawerPosition?: any;
+
+        /**
+         * Specifies the width of the drawer, more precisely the width of the
+         * view that be pulled in from the edge of the window.
+         */
+        drawerWidth?: number;
+
+        /**
+         * Determines whether the keyboard gets dismissed in response to a drag.
+         * - 'none' (the default), drags do not dismiss the keyboard.
+         * - 'on-drag', the keyboard is dismissed when a drag begins.
+         */
+        keyboardDismissMode?: "none" | "on-drag"
+
+        /**
+         * Function called whenever the navigation view has been closed.
+         */
+        onDrawerClose?: () => void
+
+        /**
+         * Function called whenever the navigation view has been opened.
+         */
+        onDrawerOpen?: () => void
+
+        /**
+         * Function called whenever there is an interaction with the navigation view.
+         * @param event
+         */
+        onDrawerSlide?: (event: DrawerSlideEvent) => void
+
+        /**
+         * Function called when the drawer state has changed.
+         * The drawer can be in 3 states:
+         * - idle, meaning there is no interaction with the navigation
+         *   view happening at the time
+         * - dragging, meaning there is currently an interaction with the
+         *   navigation view
+         * - settling, meaning that there was an interaction with the
+         *   navigation view, and the navigation view is now finishing
+         *   it's closing or opening animation
+         * @param event
+         */
+        onDrawerStateChanged?: (event:  "Idle" | "Dragging" | "Settling") => void
+
+        /**
+         * The navigation view that will be rendered to the side of the
+         * screen and can be pulled in.
+         */
+        renderNavigationView?: () => View
+
+        /**
+         * Make the drawer take the entire screen and draw the background of
+         * the status bar to allow it to open over the status bar. It will
+         * only have an effect on API 21+.
+         */
+        statusBarBackgroundColor?: any
+
+        ref?: Ref<DrawerLayoutAndroidStatic & ViewStatic>
+    }
+
+    export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
+
+        /**
+         * Opens the drawer.
+         */
+        openDrawer(): void
+
+        /**
+         * Closes the drawer.
+         */
+        closeDrawer(): void
     }
 
 
@@ -1408,6 +1956,77 @@ declare module "react-native" {
     export interface PickerIOSItemStatic extends React.ComponentClass<PickerIOSItemProperties> {
     }
 
+    /**
+     * @see Picker.js
+     */
+    export interface PickerItemProperties extends React.Props<PickerItemStatic> {
+        label: string
+        value?: any
+        color?: string /* See ColorPropType.js for details */
+        testID?: string
+    }
+
+    export interface PickerItemStatic extends React.ComponentClass<PickerItemProperties> {
+    }
+
+    export interface PickerPropertiesIOS extends ViewProperties, React.Props<PickerStatic> {
+
+        itemStyle?: ViewStyle
+
+        ref?: Ref<PickerStatic & ViewStatic>
+    }
+
+    export interface PickerPropertiesAndroid extends ViewProperties, React.Props<PickerStatic> {
+
+        enabled?: boolean
+
+        mode?: "dialog" | "dropdown"
+
+        prompt?: string
+
+        ref?: Ref<PickerStatic & ViewStatic>
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/picker.html
+     * @see Picker.js
+     */
+    export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesAndroid, React.Props<PickerStatic> {
+
+        /**
+         * Callback for when an item is selected. This is called with the
+         * following parameters:
+         * - itemValue: the value prop of the item that was selected
+         * - itemPosition: the index of the selected item in this picker
+         * @param itemValue
+         * @param itemPosition
+         */
+        onValueChange?: ( itemValue: any, itemPosition: number ) => void
+
+        /**
+         * Value matching value of one of the items.
+         * Can be a string or an integer.
+         */
+        selectedValue?: any
+
+        style?: ViewStyle
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
+        testId?: string
+
+        ref?: Ref<PickerStatic>
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/picker.html
+     * @see Picker.js
+     */
+    export interface PickerStatic extends React.ComponentClass<PickerProperties> {
+
+        Item: PickerItemStatic
+    }
 
     /**
      * @see https://facebook.github.io/react-native/docs/pickerios.html
@@ -1415,11 +2034,8 @@ declare module "react-native" {
      */
     export interface PickerIOSProperties extends React.Props<PickerIOSStatic> {
 
-        onValueChange?: ( value: string | number ) => void
+        itemStyle?: ViewStyle
 
-        selectedValue?: string | number
-
-        style?: ViewStyle
     }
 
     /**
@@ -1431,11 +2047,270 @@ declare module "react-native" {
         Item: PickerIOSItemStatic
     }
 
+    /**
+     * @see https://facebook.github.io/react-native/docs/progressbarandroid.html
+     * @see ProgressBarAndroid.android.js
+     */
+    export interface ProgressBarAndroidProperties extends ViewProperties, React.Props<ProgressBarAndroidStatic> {
+
+        style?: ViewStyle
+
+        /**
+         * Style of the ProgressBar. One of:
+             Horizontal
+             Normal (default)
+             Small
+             Large
+             Inverse
+             SmallInverse
+             LargeInverse
+         */
+        styleAttr?: "Horizontal" | "Normal" | "Small" | "Large" | "Inverse" | "SmallInverse" | "LargeInverse"
+
+        /**
+         * If the progress bar will show indeterminate progress.
+         * Note that this can only be false if styleAttr is Horizontal.
+         */
+        indeterminate?: boolean
+
+        /**
+         * The progress value (between 0 and 1).
+         */
+        progress?: number
+
+        /**
+         * Color of the progress bar.
+         */
+        color?: string
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
+        testID?: string
+
+        ref?: Ref<ProgressBarAndroidStatic>
+    }
+    export interface ProgressBarAndroidStatic extends React.ComponentClass<ProgressBarAndroidProperties> {
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/progressviewios.html
+     * @see ProgressViewIOS.ios.js
+     */
+    export interface ProgressViewIOSProperties extends ViewProperties, React.Props<ProgressViewIOSStatic> {
+
+        style?: ViewStyle
+
+        /**
+         * The progress bar style.
+         */
+        progressViewStyle?: "default" | "bar"
+
+        /**
+         * The progress value (between 0 and 1).
+         */
+        progress?: number
+
+        /**
+         * The tint color of the progress bar itself.
+         */
+        progressTintColor?: string
+
+        /**
+         * The tint color of the progress bar track.
+         */
+        trackTintColor?: string
+
+        /**
+         * A stretchable image to display as the progress bar.
+         */
+        progressImage?: any
+
+        /**
+         * A stretchable image to display behind the progress bar.
+         */
+        trackImage?: any
+
+        ref?: Ref<ProgressViewIOSStatic>
+    }
+    export interface ProgressViewIOSStatic extends React.ComponentClass<ProgressViewIOSProperties> {
+    }
+
+    export interface RefreshControlPropertiesIOS extends ViewProperties, React.Props<RefreshControlStatic> {
+
+        /**
+         * The color of the refresh indicator.
+         */
+        tintColor?: string
+
+        /**
+         * The title displayed under the refresh indicator.
+         */
+        title?: string
+
+        /**
+         * Title color.
+         */
+        titleColor?: string
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
+    }
+
+    export interface RefreshControlPropertiesAndroid extends ViewProperties, React.Props<RefreshControlStatic> {
+
+        /**
+         * The colors (at least one) that will be used to draw the refresh indicator.
+         */
+        colors?: string[]
+
+        /**
+         * Whether the pull to refresh functionality is enabled.
+         */
+        enabled?: boolean
+
+        /**
+         * The background color of the refresh indicator.
+         */
+        progressBackgroundColor?: string
+
+        /**
+         * Size of the refresh indicator, see RefreshControl.SIZE.
+         */
+        size?: number
+
+        /**
+         * Progress view top offset
+         * @platform android
+         */
+        progressViewOffset?: number
+
+        ref?: Ref<RefreshControlStatic & ViewStatic>
+    }
+
+    export interface RefreshControlProperties extends RefreshControlPropertiesIOS, RefreshControlPropertiesAndroid, React.Props<RefreshControl> {
+
+        /**
+         * Called when the view starts refreshing.
+         */
+        onRefresh?: () => void
+
+        /**
+         * Whether the view should be indicating an active refresh.
+         */
+        refreshing?: boolean
+
+        ref?: Ref<RefreshControlStatic>
+    }
+
+    export interface RefreshControlStatic extends React.ComponentClass<RefreshControlProperties> {
+        SIZE: Object // Undocumented
+    }
+
+    export interface SliderPropertiesIOS extends ViewProperties, React.Props<SliderStatic> {
+
+        /**
+         * Assigns a maximum track image. Only static images are supported.
+         * The leftmost pixel of the image will be stretched to fill the track.
+         */
+        maximumTrackImage?: any
+
+        /**
+         * The color used for the track to the right of the button.
+         * Overrides the default blue gradient image.
+         */
+        maximumTrackTintColor?: string
+
+        /**
+         * Assigns a minimum track image. Only static images are supported.
+         * The rightmost pixel of the image will be stretched to fill the track.
+         */
+        minimumTrackImage?: string
+
+        /**
+         * The color used for the track to the left of the button.
+         * Overrides the default blue gradient image.
+         */
+        minimumTrackTintColor?: string
+
+        /**
+         * Sets an image for the thumb. Only static images are supported.
+         */
+        thumbImage?: any
+
+        /**
+         * Assigns a single image for the track. Only static images
+         * are supported. The center pixel of the image will be stretched
+         * to fill the track.
+         */
+        trackImage?: any
+
+        ref?: Ref<SliderStatic>
+    }
+
+    export interface SliderProperties extends SliderPropertiesIOS, React.Props<SliderStatic> {
+
+        /**
+         * If true the user won't be able to move the slider.
+         * Default value is false.
+         */
+        disabled?: boolean
+
+        /**
+         * Initial maximum value of the slider. Default value is 1.
+         */
+        maximumValue?: number
+
+        /**
+         * Initial minimum value of the slider. Default value is 0.
+         */
+        minimumValue?: number
+
+        /**
+         * Callback called when the user finishes changing the value (e.g. when the slider is released).
+         * @param value
+         */
+        onSlidingComplete?: (value: number) => void
+
+        /**
+         * Callback continuously called while the user is dragging the slider.
+         * @param value
+         */
+        onValueChange?: (value: number) => void
+
+        /**
+         * Step value of the slider. The value should be between 0 and (maximumValue - minimumValue). Default value is 0.
+         */
+        step?: number
+
+        /**
+         * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
+         */
+        style?: ViewStyle
+
+        /**
+         * Used to locate this view in UI automation tests.
+         */
+        testID?: string
+
+        /**
+         * Initial value of the slider. The value should be between minimumValue
+         * and maximumValue, which default to 0 and 1 respectively.
+         * Default value is 0.
+         * This is not a controlled component, you don't need to update
+         * the value during dragging.
+         */
+        value?: number
+    }
+
+    export interface SliderStatic extends React.ComponentClass<SliderProperties> {
+
+    }
+
 
     /**
      * @see https://facebook.github.io/react-native/docs/sliderios.html
      */
-    export interface SliderIOSProperties extends React.Props<SliderIOSStatic> {
+    export interface SliderIOSProperties extends ViewProperties, React.Props<SliderIOSStatic> {
 
         /**
          * If true the user won't be able to move the slider. Default value is false.
@@ -1456,6 +2331,8 @@ declare module "react-native" {
          * Initial minimum value of the slider. Default value is 0.
          */
         minimumValue?: number
+
+        minimumTrackImage?: any
 
         /**
          * The color used for the track to the left of the button. Overrides the default blue gradient image.
@@ -1493,6 +2370,8 @@ declare module "react-native" {
          * This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
          */
         value?: number
+
+        ref?: Ref<SliderIOSStatic>
     }
 
     export interface SliderIOSStatic extends React.ComponentClass<SliderIOSProperties> {
@@ -1589,11 +2468,17 @@ declare module "react-native" {
      */
     export interface ImageStyle extends FlexStyle, TransformsStyle {
         resizeMode?: string //Object.keys(ImageResizeMode)
+        backfaceVisibility?: "visible" | "hidden"
+        borderBottomLeftRadius?: number
+        borderBottomRightRadius?: number
         backgroundColor?: string
         borderColor?: string
         borderWidth?: number
         borderRadius?: number
-        overflow?: string // enum('visible', 'hidden')
+        borderTopLeftRadius?: number
+        borderTopRightRadius?: number
+        overflow?: "visible" | "hidden"
+        overlayColor?: string
         tintColor?: string
         opacity?: number
     }
@@ -1620,27 +2505,12 @@ declare module "react-native" {
         /**
          * A static image to display while downloading the final image off the network.
          */
-        defaultSource?: {uri: string}
+        defaultSource?: {uri: string} | number
 
         /**
          * Invoked on load error with {nativeEvent: {error}}
          */
         onError?: ( error: {nativeEvent: any} ) => void
-
-        /**
-         * Invoked when load completes successfully
-         */
-        onLoad?: () => void
-
-        /**
-         * Invoked when load either succeeds or fails
-         */
-        onLoadEnd?: () => void
-
-        /**
-         * Invoked on load start
-         */
-        onLoadStart?: () => void
 
         /**
          * Invoked on download progress with {nativeEvent: {loaded, total}}
@@ -1661,13 +2531,28 @@ declare module "react-native" {
          */
         onLayout?: ( event: LayoutChangeEvent ) => void;
 
+        /**
+         * Invoked when load completes successfully
+         */
+        onLoad?: () => void
+
+        /**
+         * Invoked when load either succeeds or fails
+         */
+        onLoadEnd?: () => void
+
+        /**
+         * Invoked on load start
+         */
+        onLoadStart?: () => void
+
 
         /**
          * Determines how to resize the image when the frame doesn't match the raw image dimensions.
          *
          * enum('cover', 'contain', 'stretch')
          */
-        resizeMode?: string;
+        resizeMode?: "cover" | "contain" | "stretch"
 
         /**
          * uri is a string representing the resource identifier for the image,
@@ -1692,8 +2577,9 @@ declare module "react-native" {
     export interface ImageStatic extends React.ComponentClass<ImageProperties> {
         uri: string;
         resizeMode: ImageResizeModeStatic
+        getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any
+        prefetch(url: string): any
     }
-
 
     /**
      * @see https://facebook.github.io/react-native/docs/listview.html#props
@@ -1701,6 +2587,15 @@ declare module "react-native" {
     export interface ListViewProperties extends ScrollViewProperties, React.Props<ListViewStatic> {
 
         dataSource?: ListViewDataSource
+
+        /**
+         * Flag indicating whether empty section headers should be rendered.
+         * In the future release empty section headers will be rendered by
+         * default, and the flag will be deprecated. If empty sections are not
+         * desired to be rendered their indices should be excluded from
+         * sectionID object.
+         */
+        enableEmptySections?: boolean
 
         /**
          * How many rows to render on initial component mount.  Use this to make
@@ -1805,6 +2700,8 @@ declare module "react-native" {
          * pixels.
          */
         scrollRenderAheadDistance?: number
+
+        ref?: Ref<ListViewStatic & ScrollViewStatic & ViewStatic>
     }
 
     export interface ListViewStatic extends React.ComponentClass<ListViewProperties> {
@@ -1828,8 +2725,16 @@ declare module "react-native" {
     export interface MapViewRegion {
         latitude: number
         longitude: number
-        latitudeDelta: number
-        longitudeDelta: number
+        latitudeDelta?: number
+        longitudeDelta?: number
+    }
+
+    export interface MapViewOverlay {
+        coordinates: ({latitude: number, longitude: number})[]
+        lineWidth?: number
+        strokeColor?: Object
+        fillColor?: Object
+        id?: string
     }
 
     export interface MapViewPropertiesIOS {
@@ -1839,14 +2744,16 @@ declare module "react-native" {
          * Default value is true.
          */
         showsPointsOfInterest?: boolean
-    }
-
-    export interface MapViewProperties extends MapViewPropertiesIOS, Touchable, React.Props<MapViewStatic> {
 
         /**
          * Map annotations with title/subtitle.
          */
         annotations?: MapViewAnnotation[]
+
+        /**
+         * If true the map will follow the user's location whenever it changes. Note that this has no effect unless showsUserLocation is enabled. Default value is true.
+         */
+        followUserLocation?: boolean
 
         /**
          * Insets for the map's legal label, originally at bottom left of the map. See EdgeInsetsPropType.js for more information.
@@ -1872,6 +2779,26 @@ declare module "react-native" {
          * Minimum size of area that can be displayed.
          */
         minDelta?: number
+
+        /**
+         * Map overlays
+         */
+        overlays: MapViewOverlay[]
+
+        /**
+         * If false compass won't be displayed on the map.
+         * Default value is true.
+         */
+        showsCompass?: boolean
+    }
+
+    export interface MapViewPropertiesAndroid {
+        active?: boolean
+    }
+
+    export interface MapViewProperties extends MapViewPropertiesIOS, MapViewPropertiesAndroid, Touchable, ViewProperties, React.Props<MapViewStatic> {
+
+
 
         /**
          * Callback that is called once, when the user taps an annotation.
@@ -1938,6 +2865,8 @@ declare module "react-native" {
          * Default value is true.
          */
         zoomEnabled?: boolean
+
+        ref?: Ref<MapViewStatic & ViewStatic>
     }
 
     /**
@@ -1946,6 +2875,22 @@ declare module "react-native" {
     export interface MapViewStatic extends React.ComponentClass<MapViewProperties> {
     }
 
+    export interface ModalProperties extends React.Props<ModalStatic> {
+
+        // Only `animated` is documented. The JS code says `animated` is
+        // deprecated and `animationType` is preferred.
+        animated?: boolean
+        animationType?: "none" | "slide" | "fade"
+        transparent?: boolean
+        visible?: boolean
+        onRequestClose?: () => void
+        onShow?: (event: NativeSyntheticEvent<any>) => void
+
+    }
+
+    export interface ModalStatic extends React.ComponentClass<ModalProperties> {
+
+    }
 
     export interface TouchableWithoutFeedbackAndroidProperties {
 
@@ -1997,6 +2942,20 @@ declare module "react-native" {
         delayPressOut?: number;
 
         /**
+         * If true, disable all interactions for this component.
+         */
+        disabled?: boolean
+
+        /**
+         * This defines how far your touch can start away from the button.
+         * This is added to pressRetentionOffset when moving off of the button.
+         * NOTE The touch area never extends past the parent view bounds and
+         * the Z-index of sibling views always takes precedence if a touch hits
+         * two overlapping views.
+         */
+        hitSlop?: {top: number, left: number, bottom: number, right: number}
+
+        /**
          * Invoked on mount and layout changes with
          * {nativeEvent: {layout: {x, y, width, height}}}
          */
@@ -2015,9 +2974,19 @@ declare module "react-native" {
         onPressOut?: () => void;
 
         /**
-         * //FIXME: not in doc but available in exmaples
+         * //FIXME: not in doc but available in examples
          */
         style?: ViewStyle
+
+        /**
+         * When the scroll view is disabled, this defines how far your
+         * touch may move off of the button, before deactivating the button.
+         * Once deactivated, try moving it back and you'll see that the button
+         * is once again reactivated! Move it back and forth several times
+         * while the scroll view is disabled. Ensure you pass in a constant
+         * to reduce memory allocations.
+         */
+        pressRetentionOffset?: {top: number, left: number, bottom: number, right: number}
     }
 
 
@@ -2107,6 +3076,10 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/touchableopacity.html
      */
     export interface TouchableOpacityStatic extends React.ComponentClass<TouchableOpacityProperties> {
+        /**
+         * Determines what the opacity of the wrapped view should be when touch is active.
+         */
+        setOpacityTo: (value: number) => void
     }
 
 
@@ -2174,11 +3147,16 @@ declare module "react-native" {
 
     // see /NavigatorSceneConfigs.js
     export interface SceneConfigs {
-        FloatFromBottom: SceneConfig;
-        FloatFromRight: SceneConfig;
         PushFromRight: SceneConfig;
+        FloatFromRight: SceneConfig;
         FloatFromLeft: SceneConfig;
+        FloatFromBottom: SceneConfig;
+        FloatFromBottomAndroid: SceneConfig;
+        FadeAndroid: SceneConfig;
         HorizontalSwipeJump: SceneConfig;
+        HorizontalSwipeJumpFromRight: SceneConfig;
+        VerticalUpSwipeJump: SceneConfig;
+        VerticalDownSwipeJump: SceneConfig;
     }
 
     export interface Route {
@@ -2208,10 +3186,14 @@ declare module "react-native" {
     export interface NavigatorProperties extends React.Props<Navigator> {
         /**
          * Optional function that allows configuration about scene animations and gestures.
-         * Will be invoked with the route and should return a scene configuration object
+         * Will be invoked with `route` and `routeStack` parameters, where `route`
+         * corresponds to the current scene being rendered by the `Navigator` and
+         * `routeStack` is the set of currently mounted routes that the navigator
+         *  could transition to. The function should return a scene configuration object.
          * @param route
+         * @param routeStack
          */
-        configureScene?: ( route: Route ) => SceneConfig
+        configureScene?: ( route: Route, routeStack: Route[] ) => SceneConfig
         /**
          * Specify a route to start on.
          * A route is an object that the navigator will use to identify each scene to render.
@@ -2342,6 +3324,16 @@ declare module "react-native" {
          */
         popToTop(): void;
 
+        /**
+         *  Replace the previous scene and pop to it.
+         */
+        replacePreviousAndPop( route: Route ): void;
+
+        /**
+         * Navigate to a new scene and reset route stack.
+         */
+        resetTo( route: Route ): void;
+
     }
 
     namespace NavigatorStatic {
@@ -2414,9 +3406,100 @@ declare module "react-native" {
 
     }
 
-
     export interface StyleSheetStatic extends React.ComponentClass<StyleSheetProperties> {
+
+        /**
+         * Creates a StyleSheet style reference from the given object.
+         */
         create<T>( styles: T ): T;
+
+        /**
+         * Flattens an array of style objects, into one aggregated style object.
+         * Alternatively, this method can be used to lookup IDs, returned by
+         * StyleSheet.register.
+         *
+         * > **NOTE**: Exercise caution as abusing this can tax you in terms of
+         * > optimizations.
+         * >
+         * > IDs enable optimizations through the bridge and memory in general. Refering
+         * > to style objects directly will deprive you of these optimizations.
+         *
+         * Example:
+         * ```
+         * var styles = StyleSheet.create({
+         *   listItem: {
+         *     flex: 1,
+         *     fontSize: 16,
+         *     color: 'white'
+         *   },
+         *   selectedListItem: {
+         *     color: 'green'
+         *   }
+         * });
+         *
+         * StyleSheet.flatten([styles.listItem, styles.selectedListItem])
+         * // returns { flex: 1, fontSize: 16, color: 'green' }
+         * ```
+         * Alternative use:
+         * ```
+         * StyleSheet.flatten(styles.listItem);
+         * // return { flex: 1, fontSize: 16, color: 'white' }
+         * // Simply styles.listItem would return its ID (number)
+         * ```
+         * This method internally uses `StyleSheetRegistry.getStyleByID(style)`
+         * to resolve style objects represented by IDs. Thus, an array of style
+         * objects (instances of StyleSheet.create), are individually resolved to,
+         * their respective objects, merged as one and then returned. This also explains
+         * the alternative use.
+         */
+        flatten(style: Object): Object
+
+        /**
+         * This is defined as the width of a thin line on the platform. It can be
+         * used as the thickness of a border or division between two elements.
+         * Example:
+         * ```
+         *   {
+         *     borderBottomColor: '#bbb',
+         *     borderBottomWidth: StyleSheet.hairlineWidth
+         *   }
+         * ```
+         *
+         * This constant will always be a round number of pixels (so a line defined
+         * by it look crisp) and will try to match the standard width of a thin line
+         * on the underlying platform. However, you should not rely on it being a
+         * constant size, because on different platforms and screen densities its
+         * value may be calculated differently.
+         */
+        hairlineWidth: number
+
+        /**
+         * A very common pattern is to create overlays with position absolute and zero positioning,
+         * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+         * styles.
+         */
+        absoluteFill: number
+
+
+        /**
+         * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
+         * used to create a customized entry in a `StyleSheet`, e.g.:
+         *
+         *   const styles = StyleSheet.create({
+         *     wrapper: {
+         *       ...StyleSheet.absoluteFillObject,
+         *       top: 10,
+         *       backgroundColor: 'transparent',
+         *     },
+         *   });
+         */
+        absoluteFillObject: {
+            position: string
+            left: number
+            right: number
+            top: number
+            bottom: number
+        }
     }
 
     /**
@@ -2504,7 +3587,7 @@ declare module "react-native" {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios-item.html#props
      */
-    export interface TabBarItemProperties extends React.Props<TabBarItemStatic> {
+    export interface TabBarItemProperties extends ViewProperties, React.Props<TabBarItemStatic> {
 
         /**
          * Little red bubble that sits at the top right of the icon.
@@ -2544,13 +3627,14 @@ declare module "react-native" {
          *
          *  enum('bookmarks', 'contacts', 'downloads', 'favorites', 'featured', 'history', 'more', 'most-recent', 'most-viewed', 'recents', 'search', 'top-rated')
          */
-        systemIcon: string
+        systemIcon: "bookmarks" | "contacts" | "downloads" | "favorites" | "featured" | "history" | "more" | "most-recent" | "most-viewed" | "recents" | "search" | "top-rated"
 
         /**
          * Text that appears under the icon. It is ignored when a system icon is defined.
          */
         title?: string
 
+        ref?: Ref<TabBarItemStatic & ViewStatic>
     }
 
     export interface TabBarItemStatic extends React.ComponentClass<TabBarItemProperties> {
@@ -2559,7 +3643,7 @@ declare module "react-native" {
     /**
      * @see https://facebook.github.io/react-native/docs/tabbarios.html#props
      */
-    export interface TabBarIOSProperties extends React.Props<TabBarIOSStatic> {
+    export interface TabBarIOSProperties extends ViewProperties, React.Props<TabBarIOSStatic> {
 
         /**
          * Background color of the tab bar
@@ -2577,6 +3661,13 @@ declare module "react-native" {
          * A Boolean value that indicates whether the tab bar is translucent
          */
         translucent?: boolean
+
+        /**
+         * Color of text on unselected tabs
+         */
+        unselectedTintColor?: string
+
+        ref?: Ref<TabBarIOSStatic & ViewStatic>
     }
 
     export interface TabBarIOSStatic extends React.ComponentClass<TabBarIOSProperties> {
@@ -2585,7 +3676,75 @@ declare module "react-native" {
 
 
     export interface PixelRatioStatic {
+
+        /*
+          Returns the device pixel density. Some examples:
+             PixelRatio.get() === 1
+             mdpi Android devices (160 dpi)
+             PixelRatio.get() === 1.5
+             hdpi Android devices (240 dpi)
+             PixelRatio.get() === 2
+             iPhone 4, 4S
+             iPhone 5, 5c, 5s
+             iPhone 6
+             xhdpi Android devices (320 dpi)
+             PixelRatio.get() === 3
+             iPhone 6 plus
+             xxhdpi Android devices (480 dpi)
+             PixelRatio.get() === 3.5
+             Nexus 6
+        */
         get(): number;
+
+        /*
+         Returns the scaling factor for font sizes. This is the ratio that is
+          used to calculate the absolute font size, so any elements that
+           heavily depend on that should use this to do calculations.
+
+         If a font scale is not set, this returns the device pixel ratio.
+
+         Currently this is only implemented on Android and reflects the user
+          preference set in Settings > Display > Font size,
+           on iOS it will always return the default pixel ratio.
+         */
+        getFontScale(): number
+
+        /**
+         * Converts a layout size (dp) to pixel size (px).
+         * Guaranteed to return an integer number.
+         * @param layoutSize
+         */
+        getPixelSizeForLayoutSize(layoutSize: number): number
+
+        /**
+         * Rounds a layout size (dp) to the nearest layout size that
+         * corresponds to an integer number of pixels. For example,
+         * on a device with a PixelRatio of 3,
+         * PixelRatio.roundToNearestPixel(8.4) = 8.33,
+         * which corresponds to exactly (8.33 * 3) = 25 pixels.
+         * @param layoutSize
+         */
+        roundToNearestPixel(layoutSize: number): number
+
+        /**
+         * No-op for iOS, but used on the web. Should not be documented. [sic]
+         */
+        startDetecting(): void
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+     */
+
+    export type PlatformOSType = 'ios' | 'android'
+
+    export interface PlatformStatic {
+        OS: PlatformOSType,
+
+        /**
+         * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
+         */
+        select<T>( specifics: { ios?: T, android?: T} ): T;
     }
 
     export interface DeviceEventSubscriptionStatic {
@@ -2594,6 +3753,21 @@ declare module "react-native" {
 
     export interface DeviceEventEmitterStatic {
         addListener<T>( type: string, onReceived: ( data: T ) => void ): DeviceEventSubscription;
+
+        /**
+         * Removes the given listener for event of specific type.
+         *
+         * @param {string} eventType - Name of the event to emit
+         * @param {function} listener - Function to invoke when the specified event is
+         *   emitted
+         *
+         * @example
+         *   emitter.removeListener('someEvent', function(message) {
+         *     console.log(message);
+         *   }); // removes the listener if already registered
+         *
+         */
+        removeListener( eventType: String, listener: Function): void
     }
 
     // Used by Dimensions below
@@ -2621,17 +3795,67 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/dimensions.html#content
      */
     export interface Dimensions {
-      get( what: "window" | "screen" ): React.ScaledSize;
+        /**
+         * Initial dimensions are set before runApplication is called so they
+         * should be available before any other require's are run, but may be
+         * updated later.
+         * Note: Although dimensions are available immediately, they may
+         * change (e.g due to device rotation) so any rendering logic or
+         * styles that depend on these constants should try to call this
+         * function on every render, rather than caching the value (for
+         * example, using inline styles rather than setting a value in a
+         * StyleSheet).
+         * Example: var {height, width} = Dimensions.get('window');
+         @param {string} dim Name of dimension as defined when calling set.
+         @returns {Object?} Value for the dimension.
+         */
+        get( dim: "window" | "screen" ): ScaledSize;
+
+        /**
+         * This should only be called from native code by sending the didUpdateDimensions event.
+         * @param {object} dims Simple string-keyed object of dimensions to set
+         */
+        set( dims: {[key: string]: any}[] ): void
     }
 
+    export type PromiseTask = {
+        gen: () => Promise<any>
+    }
+
+    export type Handle = number
+
     export interface InteractionManagerStatic {
-        runAfterInteractions( fn: () => void ): void;
+
+        /**
+         * Schedule a function to run after all interactions have completed.
+         * Returns a cancellable
+         * @param fn
+         */
+        runAfterInteractions( fn: () => void | PromiseTask):
+          {then: Function, done: Function, cancel: Function}
+
+        /**
+         * Notify manager that an interaction has started.
+         */
+        createInteractionHandle(): Handle
+
+        /**
+         * Notify manager that an interaction has completed.
+         */
+        clearInteractionHandle(handle: Handle): void
+
+        /**
+         * A positive number will use setTimeout to schedule any tasks after
+         * the eventLoopRunningTime hits the deadline value, otherwise all
+         * tasks will be executed in one setImmediate batch (default).
+         */
+        setDeadline(deadline: number): void
     }
 
 
     export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
 
-        backfaceVisibility?:string //enum('visible', 'hidden')
+        backfaceVisibility?: "visible" | "hidden"
         backgroundColor?: string
         borderColor?: string
         borderTopColor?: string
@@ -2643,22 +3867,23 @@ declare module "react-native" {
         borderTopRightRadius?: number
         borderBottomLeftRadius?: number
         borderBottomRightRadius?: number
-        borderStyle?: string //enum('solid', 'dotted', 'dashed')
+        borderStyle?: "solid" | "dotted" | "dashed"
         borderWidth?: number
         borderTopWidth?: number
         borderRightWidth?: number
         borderBottomWidth?: number
         borderLeftWidth?: number
         opacity?: number
-        overflow?: string //enum('visible', 'hidden')
+        overflow?: "visible" | "hidden"
         shadowColor?: string
         shadowOffset?: {width: number; height: number}
         shadowOpacity?: number
         shadowRadius?: number
+        elevation?: number
     }
 
 
-    export interface ScrollViewIOSProperties {
+    export interface ScrollViewPropertiesIOS {
 
         /**
          * When true the scroll view bounces horizontally when it reaches the end
@@ -2707,7 +3932,6 @@ declare module "react-native" {
          */
         centerContent?: boolean
 
-
         /**
          * The amount by which the scroll view content is inset from the edges of the scroll view.
          * Defaults to {0, 0, 0, 0}.
@@ -2726,13 +3950,23 @@ declare module "react-native" {
          *   - Normal: 0.998 (the default)
          *   - Fast: 0.9
          */
-        decelerationRate?: number
+        decelerationRate?: "fast" | "normal" | number
 
         /**
          * When true the ScrollView will try to lock to only vertical or horizontal
          * scrolling while dragging.  The default value is false.
          */
         directionalLockEnabled?: boolean
+
+        /**
+         * The style of the scroll indicators.
+         * - default (the default), same as black.
+         * - black, scroll indicator is black. This style is good against
+         *   a white content background.
+         * - white, scroll indicator is white. This style is good against
+         *   a black content background.
+         */
+        indicatorStyle?: "default" | "black" | "white"
 
         /**
          * The maximum allowed zoom scale. The default value is 1.0.
@@ -2745,16 +3979,14 @@ declare module "react-native" {
         minimumZoomScale?: number
 
         /**
+         * Deprecated. Use the refreshControl prop instead.
+         */
+        onRefreshStart?: () => void
+
+        /**
          * Called when a scrolling animation ends.
          */
         onScrollAnimationEnd?: () => void
-
-        /**
-         * When true the scroll view stops on multiples of the scroll view's size
-         * when scrolling. This can be used for horizontal pagination. The default
-         * value is false.
-         */
-        pagingEnabled?: boolean
 
         /**
          * When false, the content does not scroll. The default value is true
@@ -2812,7 +4044,29 @@ declare module "react-native" {
         zoomScale?: number
     }
 
-    export interface ScrollViewProperties extends ScrollViewIOSProperties, Touchable {
+    export interface ScrollViewPropertiesAndroid {
+
+        /**
+         * Sometimes a scrollview takes up more space than its content fills.
+         * When this is the case, this prop will fill the rest of the
+         * scrollview with a color to avoid setting a background and creating
+         * unnecessary overdraw. This is an advanced optimization that is not
+         * needed in the general case.
+         */
+        endFillColor?: string
+
+        /**
+         * Tag used to log scroll performance on this scroll view. Will force
+         * momentum events to be turned on (see sendMomentumEvents). This doesn't do
+         * anything out of the box and you need to implement a custom native
+         * FpsListener for it to be useful.
+         * @platform android
+         */
+        scrollPerfTag?: string
+
+    }
+
+    export interface ScrollViewProperties extends ViewProperties, ScrollViewPropertiesIOS, ScrollViewPropertiesAndroid, Touchable, React.Props<ScrollViewStatic> {
 
         /**
          * These styles will be applied to the scroll view content container which
@@ -2862,6 +4116,13 @@ declare module "react-native" {
         onScroll?: (event?: { nativeEvent: NativeScrollEvent }) => void
 
         /**
+         * When true the scroll view stops on multiples of the scroll view's size
+         * when scrolling. This can be used for horizontal pagination. The default
+         * value is false.
+         */
+        pagingEnabled?: boolean
+
+        /**
          * Experimental: When true offscreen child views (whose `overflow` value is
          * `hidden`) are removed from their native backing superview when offscreen.
          * This canimprove scrolling performance on long lists. The default value is
@@ -2883,13 +4144,25 @@ declare module "react-native" {
          * Style
          */
         style?: ScrollViewStyle
+
+        /**
+         * A RefreshControl component, used to provide pull-to-refresh
+         * functionality for the ScrollView.
+         */
+        refreshControl?: React.ReactElement<RefreshControlProperties>
+
+        ref?: Ref<ScrollViewStatic & ViewStatic>
     }
 
     export interface ScrollViewProps extends ScrollViewProperties, React.Props<ScrollViewStatic> {
-
+        ref?: Ref<ScrollViewStatic>
     }
 
     interface ScrollViewStatic extends React.ComponentClass<ScrollViewProps> {
+
+        // Deprecated. Use RefreshControl instead.
+        endRefreshing?: () => void
+
         /**
          * Scrolls to a given x, y offset, either immediately or with a smooth animation.
          * Syntax:
@@ -2905,6 +4178,20 @@ declare module "react-native" {
             x?: number,
             animated?: boolean
         ): void;
+
+        /**
+         * Returns a reference to the underlying scroll responder, which supports
+         * operations like `scrollTo`. All ScrollView-like components should
+         * implement this method so that they can be composed while providing access
+         * to the underlying scroll responder's methods.
+         */
+        getScrollResponder(): JSX.Element;
+
+        // Undocumented
+        getInnerViewNode(): any;
+
+        // Deprecated, do not use.
+        scrollWithoutAnimationTo?: (y: number, x: number) => void
     }
 
 
@@ -2933,6 +4220,41 @@ declare module "react-native" {
         zoomScale: number;
     }
 
+    // Deduced from
+    // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
+
+    /**
+     * Data source wrapper around ListViewDataSource to allow for tracking of
+     * which row is swiped open and close opened row(s) when another row is swiped
+     * open.
+     *
+     * See https://github.com/facebook/react-native/pull/5602 for why
+     * ListViewDataSource is not subclassed.
+     */
+    export interface SwipeableListViewDataSource {
+        cloneWithRowsAndSections(dataBlob: any,
+                                 sectionIdentities: Array<string>,
+                                 rowIdentities: Array<Array<string>>): SwipeableListViewDataSource
+        getDataSource(): ListViewDataSource
+        getOpenRowID(): string
+        setOpenRowID(rowID: string): ListViewDataSource
+    }
+
+    export interface SwipeableListViewProps extends React.Props<SwipeableListViewStatic> {
+        dataSource: SwipeableListViewDataSource
+        maxSwipeDistance?: number
+
+        // Callback method to render the swipeable view
+        renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
+
+        // Callback method to render the view that will be unveiled on swipe
+        renderQuickActions(rowData: Object, sectionID: string, rowID: string): React.ReactElement<any>
+    }
+
+    export interface SwipeableListViewStatic extends React.ComponentClass<SwipeableListViewProps> {
+        getNewDataSource(): SwipeableListViewDataSource
+    }
+
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -2941,18 +4263,16 @@ declare module "react-native" {
     //////////////////////////////////////////////////////////////////////////
 
     /**
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
+     * @see: http://facebook.github.io/react-native/docs/actionsheetios.html#content
      */
     export interface ActionSheetIOSOptions {
         title?: string
         options?: string[]
         cancelButtonIndex?: number
         destructiveButtonIndex?: number
+        message?: string
     }
 
-    /**
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
-     */
     export interface ShareActionSheetIOSOptions {
         message?: string
         url?: string
@@ -2960,11 +4280,42 @@ declare module "react-native" {
 
     /**
      * @see https://facebook.github.io/react-native/docs/actionsheetios.html#content
-     * //FIXME: no documentation - inferred from RCTACtionSheetManager.m
      */
     export interface ActionSheetIOSStatic {
+        /**
+         * Display an iOS action sheet. The options object must contain one
+         * or more of:
+         * options (array of strings) - a list of button titles (required)
+         * cancelButtonIndex (int) - index of cancel button in options
+         * destructiveButtonIndex (int) - index of destructive button in options
+         * title (string) - a title to show above the action sheet
+         * message (string) - a message to show below the title
+         */
         showActionSheetWithOptions: ( options: ActionSheetIOSOptions, callback: ( buttonIndex: number ) => void ) => void
+
+        /**
+         * Display the iOS share sheet. The options object should contain one
+         * or both of:
+         * message (string) - a message to share
+         * url (string) - a URL to share
+         * NOTE: if url points to a local file, or is a base64-encoded uri,
+         * the file it points to will be loaded and shared directly. In this
+         * way, you can share images, videos, PDF files, etc.
+         */
         showShareActionSheetWithOptions: ( options: ShareActionSheetIOSOptions, failureCallback: ( error: Error ) => void, successCallback: ( success: boolean, method: string ) => void ) => void
+    }
+
+    /**
+     * @see https://facebook.github.io/react-native/docs/alert.html#content
+     */
+    export interface AlertButton {
+      text?: string
+      onPress?: () => void
+      style?: "default" | "cancel" | "destructive"
+    }
+
+    export interface AlertStatic {
+       alert: (title: string, message?: string, buttons?: AlertButton[], type?: string) => void
     }
 
 
@@ -2979,6 +4330,7 @@ declare module "react-native" {
     interface AlertIOSButton {
         text: string
         onPress?: () => void
+        style?: "default" | "cancel" | "destructive"
     }
 
     /**
@@ -2993,10 +4345,35 @@ declare module "react-native" {
      * @see https://facebook.github.io/react-native/docs/alertios.html#content
      */
     export interface AlertIOSStatic {
-        alert: ( title: string, message?: string, buttons?: Array<AlertIOSButton>, type?: string ) => void
-        prompt: ( title: string, value?: string, buttons?: Array<AlertIOSButton>, callback?: ( value?: string ) => void ) => void
-    }
 
+        /*
+         Creates a popup to alert the user.
+
+         title: string -- The dialog's title.
+         message: string -- An optional message that appears above the text input.
+         callbackOrButtons -- This optional argument should be either a single-argument function or an array of buttons. If passed a function, it will be called when the user taps 'OK'.
+
+         If passed an array of button configurations, each button should include a text key, as well as optional onPress and style keys. style should be one of 'default', 'cancel' or 'destructive'.
+
+         type -- deprecated, do not use
+         */
+        alert: ( title: string, message?: string, callbackOrButtons?: (value: string) => void| Array<AlertIOSButton>, type?: string ) => void
+
+        /*
+         Prompt the user to enter some text.
+
+         title: string -- The dialog's title.
+         message: string -- An optional message that appears above the text input.
+         callbackOrButtons -- This optional argument should be either a single-argument function or an array of buttons. If passed a function, it will be called with the prompt's value when the user taps 'OK'.
+
+         If passed an array of button configurations, each button should include a text key, as well as optional onPress and style keys (see example). style should be one of 'default', 'cancel' or 'destructive'.
+
+         type: string -- This configures the text input. One of 'plain-text', 'secure-text' or 'login-password'.
+         defaultValue: string -- the default value for the text field.
+         */
+
+        prompt: ( title: string, value?: string, callbackOrButtons?: (value: string) => void | Array<AlertIOSButton>, type?: string, defaultValue?: string ) => void
+    }
 
     /**
      * AppStateIOS can tell you if the app is in the foreground or background,
@@ -3014,10 +4391,23 @@ declare module "react-native" {
      *
      * @see https://facebook.github.io/react-native/docs/appstateios.html#content
      */
+    export type AppStateEvent = "change" | "memoryWarning"
+    export type AppStateStatus = "active" | "background" | "inactive"
+
     export interface AppStateStatic {
+
         currentState: string
-        addEventListener( type: string, listener: ( state: string ) => void ): void
-        removeEventListener( type: string, listener: ( state: string ) => void ): void
+
+        /**
+         * Add a handler to AppState changes by listening to the change event
+         * type and providing the handler
+         */
+        addEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
+
+        /**
+         * Remove a handler by passing the change event type and the handler
+         */
+        removeEventListener( type: AppStateEvent, listener: ( state: AppStateStatus ) => void ): void
     }
 
     /**
@@ -3086,6 +4476,17 @@ declare module "react-native" {
         multiMerge( keyValuePairs: string[][], callback?: ( errors?: Error[] ) => void ): Promise<string>
     }
 
+    /**
+     * Detect hardware back button presses, and programmatically invoke the
+     * default back button functionality to exit the app if there are no
+     * listeners or if none of the listeners return true.
+     * Methods don't have more detailed documentation as of 0.25.
+     */
+    export interface BackAndroidStatic {
+        exitApp(): void;
+        addEventListener(eventName: string, handler: () => void): void;
+        removeEventListener(eventName: string, handler: () => void): void;
+    }
 
     export interface CameraRollFetchParams {
         first: number;
@@ -3114,6 +4515,36 @@ declare module "react-native" {
         };
     }
 
+    export interface GetPhotosParamType {
+        first: number
+        after: string
+        groupTypes: "Album" | "All" | "Event" | "Faces" | "Library" | "PhotoStream" | "SavedPhotos"
+        groupName: string
+        assetType: "All" | "Videos" | "Photos"
+        mimeTypes: string[]
+    }
+
+    export interface GetPhotosReturnType {
+        edges: {
+            node: {
+              type: string
+              group_name: string
+              image: {
+                  uri: string
+                  height: number
+                  width: number
+                  isStored?: boolean
+              }
+            }
+        }[]
+
+        page_info: {
+            has_next_page: boolean
+            start_cursor?: string
+            end_cursor?: string
+        }
+    }
+
     /**
      * CameraRoll provides access to the local camera roll / gallery.
      */
@@ -3132,21 +4563,74 @@ declare module "react-native" {
          *      assets-library tag
          *      a tag not maching any of the above, which means the image data will be stored in memory (and consume memory as long as the process is alive)
          *
-         * @param successCallback Invoked with the value of tag on success.
-         * @param errorCallback Invoked with error message on error.
+         * @deprecated use saveToCameraRoll instead
+         *
          */
-        saveImageWithTag( tag: string, successCallback: ( tag?: string ) => void, errorCallback: ( error: Error ) => void ): void
+        saveImageWithTag( tag: string ): Promise<string>
+
+        /**
+         * Saves the photo or video to the camera roll / gallery.
+         *
+         * On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
+         *
+         * On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs)
+         * or a local video file URI (remote or data URIs are not supported for saving video at this time).
+         *
+         * If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise
+         * it will be treated as a photo. To override the automatic choice, you can pass an optional
+         * `type` parameter that must be one of 'photo' or 'video'.
+         *
+         * Returns a Promise which will resolve with the new URI.
+         */
+        saveToCameraRoll(tag: string, type?: 'photo' | 'video'): Promise<string>
 
         /**
          * Invokes callback with photo identifier objects from the local camera roll of the device matching shape defined by getPhotosReturnChecker.
          *
          * @param {object} params See getPhotosParamChecker.
-         * @param {function} callback Invoked with arg of shape defined by getPhotosReturnChecker on success.
-         * @param {function} errorCallback Invoked with error message on error.
          */
-        getPhotos( fetch: CameraRollFetchParams,
-                   callback: ( assetInfo: CameraRollAssetInfo ) => void,
-                   errorCallback: ( error: Error )=> void ): void;
+        getPhotos(params: GetPhotosParamType): Promise<GetPhotosReturnType>;
+    }
+
+    export interface ClipboardStatic {
+        getString(): Promise<string>;
+        setString(content: string): void;
+    }
+
+    export interface DatePickerAndroidOpenOption {
+        date?: Date | number
+        minDate?: Date | number
+        maxDate?: Date | number
+    }
+
+    export interface DatePickerAndroidOpenReturn {
+        action: string // Deduced from DatePickerAndroid.android.js
+        year?: number
+        month?: number
+        day?: number
+    }
+
+    export interface DatePickerAndroidStatic {
+        /*
+         Opens the standard Android date picker dialog.
+
+         The available keys for the options object are: date (Date object or timestamp in milliseconds) - date to show by default minDate (Date or timestamp in milliseconds) - minimum date that can be selected * maxDate (Date object or timestamp in milliseconds) - minimum date that can be selected
+
+         Returns a Promise which will be invoked an object containing action, year, month (0-11), day if the user picked a date. If the user dismissed the dialog, the Promise will still be resolved with action being DatePickerAndroid.dismissedAction and all the other keys being undefined. Always check whether the action before reading the values.
+
+         Note the native date picker dialog has some UI glitches on Android 4 and lower when using the minDate and maxDate options.
+         */
+        open(options?: DatePickerAndroidOpenOption): Promise<DatePickerAndroidOpenReturn>
+
+        /**
+         * A date has been selected.
+         */
+        dateSetAction: string
+
+        /**
+         * The dialog has been dismissed.
+         */
+        dismissedAction: string
     }
 
     export interface FetchableListenable<T> {
@@ -3165,6 +4649,115 @@ declare module "react-native" {
         removeEventListener: ( eventName: string, listener: ( result: T ) => void ) => void
     }
 
+    export interface IntentAndroidStatic {
+        /**
+         * Starts a corresponding external activity for the given URL.
+
+         For example, if the URL is "https://www.facebook.com", the system browser will be opened, or the "choose application" dialog will be shown.
+
+         You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
+
+         NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
+
+         NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+
+         @deprecated
+         */
+        openURL(url: string): void
+
+        /**
+         * Determine whether or not an installed app can handle a given URL.
+
+         You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with {@code Intent.ACTION_VIEW}.
+
+         NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+
+         @param URL the URL to open
+
+         @deprecated
+         */
+        canOpenURL(url: string, callback: (supported: boolean) => void): void
+
+        /**
+         * If the app launch was triggered by an app link with {@code Intent.ACTION_VIEW}, it will give the link url, otherwise it will give null
+
+         Refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
+
+         @deprecated
+         */
+        getInitialURL(callback: (url: string) => void):void
+    }
+
+    export interface LinkingStatic {
+        /**
+         * Add a handler to Linking changes by listening to the url event type and providing the handler
+         * @platform ios
+         */
+        addEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Remove a handler by passing the url event type and the handler
+         * @platform ios
+         */
+        removeEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Try to open the given url with any of the installed apps.
+         * You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386"), a contact, or any other URL that can be opened with the installed apps.
+         * NOTE: This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
+         * NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+         */
+        openURL(url: string): Promise<boolean>
+
+        /**
+         * Determine whether or not an installed app can handle a given URL.
+         * NOTE: For web URLs, the protocol ("http://", "https://") must be set accordingly!
+         * NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
+         * @param URL the URL to open
+         */
+        canOpenURL(url: string): Promise<boolean>
+
+        /**
+         * If the app launch was triggered by an app link with, it will give the link url, otherwise it will give null
+         * NOTE: To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
+         */
+        getInitialURL(): Promise<string>
+    }
+
+    export interface LinkingIOSStatic {
+        /**
+         * Add a handler to LinkingIOS changes by listening to the url event type and providing the handler
+         @deprecated
+         */
+        addEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Remove a handler by passing the url event type and the handler
+         @deprecated
+         */
+        removeEventListener(type: string, handler: (event: {url: string}) => void): void
+
+        /**
+         * Try to open the given url with any of the installed apps.
+         @deprecated
+         */
+        openURL(url: string): void
+
+        /**
+         * Determine whether or not an installed app can handle a given URL. The callback function will be called with bool supported as the only argument
+         NOTE: As of iOS 9, your app needs to provide the LSApplicationQueriesSchemes key inside Info.plist.
+         @deprecated
+         */
+        canOpenURL(url: string, callback: (supported: boolean) => void): void
+
+        /**
+         * If the app launch was triggered by an app link, it will pop the link url, otherwise it will return null
+         @deprecated
+         */
+        popInitialURL(): string;
+    }
+
+
     /**
      * NetInfo exposes info about online/offline status
      *
@@ -3174,10 +4767,17 @@ declare module "react-native" {
      * - `wifi` - device is online and connected via wifi, or is the iOS simulator
      * - `cell` - device is connected via Edge, 3G, WiMax, or LTE
      * - `unknown` - error case and the network status is unknown
-
      * @see https://facebook.github.io/react-native/docs/netinfo.html#content
      */
-    export interface NetInfoStatic extends FetchableListenable<string> {
+
+    // This is from code, a few items more than documentation@0.25
+    export type NetInfoReturnType = "none" | "wifi" | "cell" | "unknown" |
+   "NONE" | "MOBILE" | "WIFI" | "MOBILE_MMS" | "MOBILE_SUPL" | "MOBILE_DUN" |
+   "MOBILE_HIPRI" | "WIMAX" | "BLUETOOTH" | "DUMMY" | "ETHERNET" | "MOBILE_FOTA" |
+   "MOBILE_IMS" | "MOBILE_CBS" | "WIFI_P2P" | "MOBILE_IA" | "MOBILE_EMERGENCY" |
+   "PROXY" | "VPN" | "UNKNOWN"
+
+    export interface NetInfoStatic extends FetchableListenable<NetInfoReturnType> {
 
         /**
          *
@@ -3186,8 +4786,13 @@ declare module "react-native" {
          */
         isConnected: FetchableListenable<boolean>
 
-        //FIXME: Documentation missing
-        isConnectionMetered: any
+        /**
+         * Available on Android. Detect if the current active connection is
+         * metered or not. A network is classified as metered when the user is
+         * sensitive to heavy data usage on that connection due to monetary
+         * costs, data limitations or battery/performance issues.
+         */
+        isConnectionExpensive: FetchableListenable<boolean>
     }
 
 
@@ -3239,7 +4844,7 @@ declare module "react-native" {
         vy: number
 
         /**
-         * Number of touches currently on screeen
+         * Number of touches currently on screen
          */
         numberActiveTouches: number
 
@@ -3352,6 +4957,23 @@ declare module "react-native" {
     }
 
 
+    type PresentLocalNotificationDetails = {
+        alertBody: string
+        alertAction: string
+        soundName?: string
+        category?: string
+        userInfo?: Object
+    }
+
+    type ScheduleLocalNotificationDetails = {
+        fireDate: Date
+        alertBody: string
+        alertAction: string
+        soundName?: string
+        category?: string
+        userInfo?: Object
+    }
+
     /**
      * Handle push notifications for your app, including permission handling and icon badge number.
      * @see https://facebook.github.io/react-native/docs/pushnotificationios.html#content
@@ -3359,6 +4981,40 @@ declare module "react-native" {
      * //FIXME: BGR: The documentation seems completely off compared to the actual js implementation. I could never get the example to run
      */
     export interface PushNotificationIOSStatic {
+
+        /**
+         * Schedules the localNotification for immediate presentation.
+         * details is an object containing:
+         * alertBody : The message displayed in the notification alert.
+         * alertAction : The "action" displayed beneath an actionable notification. Defaults to "view";
+         * soundName : The sound played when the notification is fired (optional).
+         * category : The category of this notification, required for actionable notifications (optional).
+         * userInfo : An optional object containing additional notification data.
+         */
+        presentLocalNotification(details: PresentLocalNotificationDetails): void
+
+        /**
+         * Schedules the localNotification for future presentation.
+         * details is an object containing:
+         * fireDate : The date and time when the system should deliver the notification.
+         * alertBody : The message displayed in the notification alert.
+         * alertAction : The "action" displayed beneath an actionable notification. Defaults to "view";
+         * soundName : The sound played when the notification is fired (optional).
+         * category : The category of this notification, required for actionable notifications (optional).
+         * userInfo : An optional object containing additional notification data.
+         */
+        scheduleLocalNotification(details: ScheduleLocalNotificationDetails): void
+
+        /**
+         * Cancels all scheduled localNotifications
+         */
+        cancelAllLocalNotifications(): void
+
+        /**
+         * Cancel local notifications.
+         * Optionally restricts the set of canceled notifications to those notifications whose userInfo fields match the corresponding fields in the userInfo argument.
+         */
+        cancelLocalNotifications(userInfo: Object): void
 
         /**
          * Sets the badge number for the app icon on the home screen
@@ -3384,7 +5040,19 @@ declare module "react-native" {
          * Requests all notification permissions from iOS, prompting the user's
          * dialog box.
          */
-        requestPermissions(): void
+        requestPermissions( permissions?: PushNotificationPermissions[] ): Promise<PushNotificationPermissions>
+
+        /**
+         * Unregister for all remote notifications received via Apple Push
+         * Notification service.
+         * You should call this method in rare circumstances only, such as when
+         * a new version of the app removes support for all types of remote
+         * notifications. Users can temporarily prevent apps from receiving
+         * remote notifications through the Notifications section of the
+         * Settings app. Apps unregistered through this method can always
+         * re-register.
+         */
+        abandonPermissions(): void
 
         /**
          * See what push permissions are currently enabled. `callback` will be
@@ -3416,26 +5084,177 @@ declare module "react-native" {
     /**
      * @enum('default', 'light-content')
      */
-    export type StatusBarStyle = string
+    export type StatusBarStyle =  "default" | "light-content"
 
     /**
      * @enum('none','fade', 'slide')
      */
-    type StatusBarAnimation = string
+    type StatusBarAnimation = "none" | "fade" | "slide"
+
+    export interface StatusBarPropertiesIOS extends React.Props<StatusBarStatic> {
+        /**
+         * Sets the color of the status bar text.
+         */
+        barStyle?: StatusBarStyle
+
+        /**
+         * If the network activity indicator should be visible.
+         */
+        networkActivityIndicatorVisible?: boolean
+
+        /**
+         * The transition effect when showing and hiding the status bar using
+         * the hidden prop. Defaults to 'fade'.
+         */
+        showHideTransition?: "fade" | "slide"
+    }
+
+    export interface StatusBarPropertiesAndroid extends React.Props<StatusBarStatic> {
+        /**
+         * The background color of the status bar.
+         */
+        backgroundColor?: any
+
+        /**
+         * If the status bar is translucent. When translucent is set to true,
+         * the app will draw under the status bar. This is useful when using a
+         * semi transparent status bar color.
+         */
+        translucent?: boolean
+    }
+
+    export interface StatusBarProperties extends StatusBarPropertiesIOS, StatusBarPropertiesAndroid, React.Props<StatusBarStatic> {
+
+        /**
+         * If the transition between status bar property changes should be
+         * animated. Supported for backgroundColor, barStyle and hidden.
+         */
+        animated?: boolean
+
+        /**
+         * If the status bar is hidden.
+         */
+        hidden?: boolean
+    }
+
+    export interface StatusBarStatic extends React.ComponentClass<StatusBarProperties> {
+
+        setHidden: (hidden: boolean, animation: StatusBarAnimation) => void
+
+        setBarStyle: (style: StatusBarStyle, animated: boolean) => void
+
+        setNetworkActivityIndicatorVisible: (visible: boolean) => void
+
+        setBackgroundColor: (color: string, animated: boolean) => void
+
+        setTranslucent: (translucent: boolean) => void
+    }
 
 
     /**
-     * //FIXME: No documentation is available (although this is self explanatory)
-     *
-     * @see https://facebook.github.io/react-native/docs/statusbarios.html#content
+     * StatusBarIOS is being deprecated.
+     * @see https://github.com/facebook/react-native/commit/4de616b4c1a9d3556632a93504828f0539fa4fa5
      */
     export interface StatusBarIOSStatic {
+    }
 
-        setStyle(style: StatusBarStyle, animated?: boolean): void
+    type TimePickerAndroidOpenOptions = {
+        hour?: number
+        minute?: number
+        is24Hour?: boolean
+    }
 
-        setHidden(hidden: boolean, animation?: StatusBarAnimation): void
+    export interface TimePickerAndroidStatic {
 
-        setNetworkActivityIndicatorVisible(visible: boolean): void
+        /**
+         * The available keys for the options object are:
+         * hour (0-23) - the hour to show, defaults to the current time
+         * minute (0-59) - the minute to show, defaults to the current time
+         * is24Hour (boolean) - If true, the picker uses the 24-hour format.
+         * If false, the picker shows an AM/PM chooser. If undefined,
+         * the default for the current locale is used.
+
+         * Returns a Promise which will be invoked an object containing action,
+         * hour (0-23), minute (0-59) if the user picked a time. If the user
+         * dismissed the dialog, the Promise will still be resolved with action
+         * being TimePickerAndroid.dismissedAction and all the other keys being
+         * undefined. Always check whether the action before reading the values.
+         */
+        open(options: TimePickerAndroidOpenOptions): Promise<{action: string, hour: number, minute: number}>
+
+        /**
+         * A time has been selected.
+         */
+        timeSetAction: string
+
+        /**
+         * The dialog has been dismissed.
+         */
+        dismissedAction: string
+    }
+
+    export interface ToastAndroidStatic {
+        /**
+         * String message: A string with the text to toast
+         * int duration: The duration of the toast.
+         * May be ToastAndroid.SHORT or ToastAndroid.LONG
+         */
+        show(message: string, duration: number): void
+        SHORT: number
+        LONG: number
+    }
+
+    export interface SwitchPropertiesIOS extends ViewProperties, React.Props<SwitchStatic> {
+
+        /**
+         * Background color when the switch is turned on.
+         */
+        onTintColor?: string
+
+        /**
+         * Color of the foreground switch grip.
+         */
+        thumbTintColor?: string
+
+        /**
+         * Background color when the switch is turned off.
+         */
+        tintColor?: string
+
+        ref?: Ref<SwitchStatic>
+    }
+
+    export interface SwitchProperties extends ViewProperties, React.Props<SwitchStatic> {
+
+        /**
+         * If true the user won't be able to toggle the switch.
+         * Default value is false.
+         */
+        disabled?: boolean
+
+        /**
+         * Invoked with the new value when the value changes.
+         */
+        onValueChange?: (value: boolean) => void
+
+        /**
+         * Used to locate this view in end-to-end tests.
+         */
+        testID?: string
+
+        /**
+         * The value of the switch. If true the switch will be turned on.
+         * Default value is false.
+         */
+        value?: boolean
+
+	    style?: ViewStyle
+
+        ref?: Ref<SwitchStatic>
+    }
+
+    export interface SwitchStatic extends React.ComponentClass<SwitchProperties> {
+
     }
 
     /**
@@ -3451,6 +5270,46 @@ declare module "react-native" {
      */
     export interface VibrationIOSStatic {
         vibrate(): void
+    }
+
+    export interface VibrationStatic {
+        // Vibration patterns are currently unsupported.
+        vibrate(pattern: number | number[], repeat: boolean): void
+
+        /**
+         * Stop vibration
+         * @platform android
+         */
+        cancel(): void
+    }
+
+    /**
+     * This class implements common easing functions. The math is pretty obscure,
+     * but this cool website has nice visual illustrations of what they represent:
+     * http://xaedes.de/dev/transitions/
+     */
+    export type EasingFunction = (value: number) => number;
+    export interface EasingStatic {
+        step0: EasingFunction;
+        step1: EasingFunction;
+        linear: EasingFunction;
+        ease: EasingFunction;
+        quad: EasingFunction;
+        cubic: EasingFunction;
+        poly: EasingFunction;
+        sin: EasingFunction;
+        circle: EasingFunction;
+        exp: EasingFunction;
+        elastic: EasingFunction;
+        back(s: number): EasingFunction;
+        bounce: EasingFunction;
+        bezier( x1: number,
+                y1: number,
+                x2: number,
+                y2: number): EasingFunction;
+        in(easing: EasingFunction): EasingFunction;
+        out(easing: EasingFunction): EasingFunction;
+        inOut(easing: EasingFunction): EasingFunction;
     }
 
     export module Animated {
@@ -3751,6 +5610,161 @@ declare module "react-native" {
       export var Text: any;
     }
 
+    export interface GeolocationStatic {
+        /*
+         * Invokes the success callback once with the latest location info.  Supported
+         * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
+         * On Android, this can return almost immediately if the location is cached or
+         * request an update, which might take a while.
+         */
+        getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+
+        /*
+         * Invokes the success callback whenever the location changes.  Supported
+         * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
+         */
+        watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+
+        clearWatch(watchID: number): void
+
+        stopObserving(): void
+    }
+
+    // Network Polyfill
+    // TODO: Add proper support for fetch
+    export type fetch = (url: string, options?: Object) => Promise<any>
+
+    // Timers polyfill
+    export type timedScheduler = (fn: string | Function, time: number) => number
+    export type untimedScheduler = (fn: string | Function) => number
+    export type setTimeout = timedScheduler
+    export type setInterval = timedScheduler
+    export type setImmediate = untimedScheduler
+    export type requestAnimationFrame = untimedScheduler
+
+    export type schedulerCanceller = (id: number) => void
+    export type clearTimeout = schedulerCanceller
+    export type clearInterval = schedulerCanceller
+    export type clearImmediate = schedulerCanceller
+    export type cancelAnimationFrame = schedulerCanceller
+
+
+    export interface TabsReducerStatic {
+        JumpToAction(index: number): any;
+    }
+
+    export type TabsReducerFunction = (params:any) => any;
+
+    export interface NavigationReducerStatic {
+        TabsReducer: any; // (TabsReducerFunction | TabsReducerStatic);
+    }
+
+    export interface NavigationTab
+    {
+        key: string;
+    }
+
+    export interface NavigationAction
+    {
+        type: string;
+    }
+
+    export interface NavigationRoute {
+      key: string;
+    }
+
+    export interface NavigationState extends NavigationRoute {
+        index: number;
+        routes: NavigationRoute[];
+    }
+
+    export type NavigationRenderer = (
+        route: NavigationState,
+        onNavigate: (action: NavigationAction) => boolean
+    ) => JSX.Element;
+
+    // Definitions for NavigationExperimental feature are deduced
+    // from code examples
+    export interface NavigationAnimatedViewStaticProps {
+        route?: any
+        style?: ViewStyle
+        renderOverlay?(props: Object): JSX.Element
+        applyAnimation(pos: any, navState: Object): void // TODO: what's pos?
+        renderScene?(props: Object): JSX.Element
+    }
+
+    export interface NavigationAnimatedViewStatic extends React.ComponentClass<NavigationAnimatedViewStaticProps> {
+    }
+
+    export interface NavigationHeaderProps {
+        renderTitleComponent?(props: Object): JSX.Element
+        onNavigateBack(): void
+    }
+
+    export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
+        Title: JSX.Element
+        HEIGHT: number
+    }
+
+    export interface NavigationCardStackProps {
+        direction?: 'horizontal' | 'vertical'
+        style?: ViewStyle
+        route?: any
+        renderScene?(props: any /* undocumented on 0.27 */): JSX.Element
+        onNavigateBack(): void
+    }
+
+    export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
+    }
+
+    export interface NavigationExperimentalStatic {
+        AnimatedView: NavigationAnimatedViewStatic;
+        CardStack: NavigationCardStackStatic;
+        Header: NavigationHeaderStatic;
+        Reducer: NavigationReducerStatic;
+    }
+
+    export interface NavigationContainerProps {
+        tabs: NavigationTab[];
+        index: number;
+    }
+
+    export interface NavigationContainerStatic extends React.ComponentClass<NavigationContainerProps> {
+        create(inClass: any): any;
+    }
+
+    export interface NavigationRootContainerProps extends React.Props<NavigationRootContainerStatic> {
+        renderNavigation: NavigationRenderer;
+        reducer: NavigationReducerStatic;
+        persistenceKey?: string;
+    }
+
+    export interface NavigationRootContainerStatic extends React.ComponentClass<NavigationRootContainerProps> {
+        getBackAction(): NavigationAction;
+        handleNavigation( action: NavigationAction ): boolean;
+    }
+
+    //
+    // Interfacing with Native Modules
+    // https://facebook.github.io/react-native/docs/native-modules-ios.html
+    //
+
+    export interface NativeEventSubscription {
+        /**
+         * Call this method to un-subscribe from a native-event
+         */
+        remove(): void;
+    }
+
+    /**
+     * Receive events from native-code
+     * @see https://facebook.github.io/react-native/docs/native-modules-ios.html#sending-events-to-javascript
+     */
+    export interface NativeAppEventEmitterStatic {
+        addListener(event: string, handler: (data: any) => void): NativeEventSubscription;
+    }
+
+
     //////////////////////////////////////////////////////////////////////////
     //
     //  R E - E X P O R T S
@@ -3759,12 +5773,17 @@ declare module "react-native" {
 
     // export var AppRegistry: AppRegistryStatic;
 
+    export var ActivityIndicator: ActivityIndicatorStatic
+    export type ActivityIndicator = ActivityIndicatorStatic
 
     export var ActivityIndicatorIOS: ActivityIndicatorIOSStatic
     export type ActivityIndicatorIOS = ActivityIndicatorIOSStatic
 
     export var DatePickerIOS: DatePickerIOSStatic
     export type DatePickerIOS = DatePickerIOSStatic
+
+    export var DrawerLayoutAndroid: DrawerLayoutAndroidStatic
+    export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 
     export var Image: ImageStatic
     export type Image = ImageStatic
@@ -3778,23 +5797,50 @@ declare module "react-native" {
     export var MapView: MapViewStatic
     export type MapView = MapViewStatic
 
+    export var Modal: ModalStatic
+    export type Modal = ModalStatic
+
     export var Navigator: NavigatorStatic
     export type Navigator = NavigatorStatic
 
     export var NavigatorIOS: NavigatorIOSStatic
     export type NavigatorIOS = NavigatorIOSStatic
 
+    export var Picker: PickerStatic
+    export type Picker = PickerStatic
+
     export var PickerIOS: PickerIOSStatic
     export type PickerIOS = PickerIOSStatic
 
+    export var ProgressBarAndroid: ProgressBarAndroidStatic
+    export type ProgressBarAndroid = ProgressBarAndroidStatic
+
+    export var ProgressViewIOS: ProgressViewIOSStatic
+    export type ProgressViewIOS = ProgressViewIOSStatic
+
+    export var RefreshControl: RefreshControlStatic
+    export type RefreshControl = RefreshControlStatic
+
+    export var Slider: SliderIOS
+    export type Slider = SliderIOS
+
     export var SliderIOS: SliderIOSStatic
     export type SliderIOS = SliderIOSStatic
+
+    export var StatusBar: StatusBarStatic
+    export type StatusBar = StatusBarStatic
 
     export var ScrollView: ScrollViewStatic
     export type ScrollView = ScrollViewStatic
 
     export var StyleSheet: StyleSheetStatic
     export type StyleSheet = StyleSheetStatic
+
+    export var SwipeableListView: SwipeableListViewStatic
+    export type SwipeableListView = SwipeableListViewStatic
+
+    export var Switch: SwitchStatic
+    export type Switch = SwitchStatic
 
     export var SwitchIOS: SwitchIOSStatic
     export type SwitchIOS = SwitchIOSStatic
@@ -3807,6 +5853,9 @@ declare module "react-native" {
 
     export var TextInput: TextInputStatic
     export type TextInput = TextInputStatic
+
+    export var ToolbarAndroid: ToolbarAndroidStatic
+    export type ToolbarAndroid = ToolbarAndroidStatic
 
     export var TouchableHighlight: TouchableHighlightStatic
     export type TouchableHighlight = TouchableHighlightStatic
@@ -3837,6 +5886,9 @@ declare module "react-native" {
     export var AdSupportIOS: AdSupportIOSStatic
     export type AdSupportIOS = AdSupportIOSStatic
 
+    export var Alert: AlertStatic
+    export type Alert = AlertStatic
+
     export var AlertIOS: AlertIOSStatic
     export type AlertIOS = AlertIOSStatic
 
@@ -3849,8 +5901,29 @@ declare module "react-native" {
     export var AsyncStorage: AsyncStorageStatic
     export type AsyncStorage = AsyncStorageStatic
 
+    export var BackAndroid: BackAndroidStatic
+    export type BackAndroid = BackAndroidStatic
+
     export var CameraRoll: CameraRollStatic
     export type CameraRoll = CameraRollStatic
+
+    export var Clipboard: ClipboardStatic
+    export type Clipboard = ClipboardStatic
+
+    export var DatePickerAndroid: DatePickerAndroidStatic
+    export type DatePickerAndroid = DatePickerAndroidStatic
+
+    export var IntentAndroid: IntentAndroidStatic
+    export type IntentAndroid = IntentAndroidStatic
+
+    export var KeyboardAvoidingView: KeyboardAvoidingViewStatic
+    export type KeyboardAvoidingView = KeyboardAvoidingViewStatic
+
+    export var Linking: LinkingStatic
+    export type Linking = LinkingStatic
+
+    export var LinkingIOS: LinkingIOSStatic
+    export type LinkingIOS = LinkingIOSStatic
 
     export var NetInfo: NetInfoStatic
     export type NetInfo = NetInfoStatic
@@ -3864,22 +5937,62 @@ declare module "react-native" {
     export var StatusBarIOS: StatusBarIOSStatic
     export type StatusBarIOS = StatusBarIOSStatic
 
+    export var TimePickerAndroid: TimePickerAndroidStatic
+    export type TimePickerAndroid = TimePickerAndroidStatic
+
+    export var ToastAndroid: ToastAndroidStatic
+    export type ToastAndroid = ToastAndroidStatic
+
     export var VibrationIOS: VibrationIOSStatic
     export type VibrationIOS = VibrationIOSStatic
 
+    export var Vibration: VibrationStatic
+    export type Vibration = VibrationStatic
+
     export var Dimensions: Dimensions;
+    export var ShadowPropTypesIOS: ShadowPropTypesIOSStatic;
+
+    export type NavigationExperimental = NavigationExperimentalStatic;
+    export var NavigationExperimental: NavigationExperimentalStatic;
+
+    export type NavigationContainer = NavigationContainerStatic;
+    export var NavigationContainer: NavigationContainerStatic;
+
+    export type NavigationRootContainer = NavigationRootContainerStatic;
+    export var NavigationRootContainer: NavigationRootContainerStatic;
+
+    export type NavigationReducer = NavigationReducerStatic;
+    export var NavigationReducer: NavigationReducerStatic;
+
+    export type Easing = EasingStatic;
+    export var Easing: EasingStatic;
+
+    //Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
+    //See https://facebook.github.io/react-native/docs/native-modules-ios.html
+
+    /**
+     * Use:
+     * <code>const MyModule = NativeModules.ModuleName</code>
+     */
+    export var NativeModules: any
+    export var NativeAppEventEmitter: NativeAppEventEmitterStatic
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //
 
-    export var SegmentedControlIOS: React.ComponentClass<SegmentedControlIOSProperties>
+    export var SegmentedControlIOS: SegmentedControlIOSStatic
+    export type SegmentedControlIOS = SegmentedControlIOSStatic
 
     export var PixelRatio: PixelRatioStatic
+    export var Platform: PlatformStatic
     export var DeviceEventEmitter: DeviceEventEmitterStatic
     export var DeviceEventSubscription: DeviceEventSubscriptionStatic
     export type DeviceEventSubscription = DeviceEventSubscriptionStatic
     export var InteractionManager: InteractionManagerStatic
+
+    export var Geolocation: GeolocationStatic
+    export type Geolocation = GeolocationStatic
 
     //////////////////////////////////////////////////////////////////////////
     //
@@ -3888,6 +6001,18 @@ declare module "react-native" {
     //////////////////////////////////////////////////////////////////////////
 
     export function __spread( target: any, ...sources: any[] ): any;
+
+    export interface GlobalStatic {
+
+        /**
+         * Accepts a function as its only argument and calls that function before the next repaint.
+         * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
+         * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
+         * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
+         */
+        requestAnimationFrame( fn: () => void ) : void;
+
+    }
 
     //
     // Add-Ons
@@ -3907,17 +6032,20 @@ declare module "react-native" {
     }
 }
 
-declare interface ReactNativeGlobalStatic {
-  /**
-   * Accepts a function as its only argument and calls that function before the next repaint.
-   * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-   * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-   * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-   */
-  requestAnimationFrame( fn: () => void ) : void;
+declare module "react-native" {
+    import ReactNative = __React
+    export = ReactNative
 }
 
-
-declare var global: ReactNativeGlobalStatic;
+declare var global: __React.GlobalStatic
 
 declare function require( name: string ): any
+
+/**
+ * This variable is set to true when react-native is running in Dev mode
+ * Typical usage:
+ * <code> if (__DEV__) console.log('Running in dev mode')</code>
+ */
+declare var __DEV__: boolean
+
+

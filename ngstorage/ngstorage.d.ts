@@ -11,9 +11,8 @@ declare namespace angular.storage {
         $default(items: {}): IStorageService;
         $reset(items?: {}): IStorageService;
         $apply(): void;
-
-        get<T>(key: string): T;
-        set<T>(key: string, value: T): T;
+        $sync(): void;
+        [key: string]: any;
     }
 
     export interface IStorageProvider extends angular.IServiceProvider {
