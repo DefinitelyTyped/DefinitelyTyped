@@ -93,6 +93,7 @@ declare namespace CryptoJS {
 			Base64: Encoder;
 		};
 		mode: {
+			CBC: Mode;
 			CFB: Mode;
 			CTR: Mode;
 			CTRGladman: Mode;

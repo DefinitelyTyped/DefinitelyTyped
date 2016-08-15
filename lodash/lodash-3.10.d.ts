@@ -1,4 +1,4 @@
-// Type definitions for Lo-Dash
+// Type definitions for Lo-Dash 3.10
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7732,6 +7732,53 @@ declare module _ {
             thisArg?: any): TResult;
     }
 
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        inject<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        foldl<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
@@ -12018,8 +12065,8 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum<T>(
-            collection: List<number>|Dictionary<number>,
+        sum(
+            collection: List<{}>|Dictionary<{}>,
             iteratee: string
         ): number;
 

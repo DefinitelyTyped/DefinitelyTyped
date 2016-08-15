@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -18,6 +19,9 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+import * as stream from "stream";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -54,6 +58,8 @@ namespace events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -83,6 +89,12 @@ namespace events_tests {
         result = emitter.emit(event, any);
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
+    }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
     }
 }
 
@@ -136,6 +148,22 @@ fs.mkdtemp('/tmp/foo-', (err, folder) => {
 
 var tempDir: string;
 tempDir = fs.mkdtempSync('/tmp/foo-');
+
+fs.watch('/tmp/foo-', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', {
+  recursive: true,
+  persistent: true,
+  encoding: 'utf8'
+}, (event, filename) => {
+  console.log(event, filename);
+});
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -263,6 +291,70 @@ function stream_readable_pipe_test() {
     r.close();
 }
 
+// Simplified constructors
+function simplified_stream_ctor_test() {
+    new stream.Readable({
+        read: function (size) {
+            size.toFixed();
+        }
+    });
+
+    new stream.Writable({
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    });
+
+    new stream.Duplex({
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        },
+        readableObjectMode: true,
+        writableObjectMode: true
+    });
+
+    new stream.Transform({
+        transform: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb();
+        },
+        flush: function (cb) {
+            cb()
+        },
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    })
+}
+
 ////////////////////////////////////////////////////
 /// Crypto tests : http://nodejs.org/api/crypto.html
 ////////////////////////////////////////////////////
@@ -365,6 +457,31 @@ namespace http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -673,6 +790,21 @@ namespace readline_tests {
     }
 }
 
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder1 = new StringDecoder();
+    const decoder2 = new StringDecoder('utf8');
+    const part1: string = decoder1.write(new Buffer('test'));
+    const end1: string = decoder1.end();
+    const part2: string = decoder2.write(new Buffer('test'));
+    const end2: string = decoder1.end(new Buffer('test'));
+}
+
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
@@ -784,5 +916,19 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
     }
 }

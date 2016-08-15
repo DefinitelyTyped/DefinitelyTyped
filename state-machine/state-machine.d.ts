@@ -1,8 +1,6 @@
-// Compiled using typings@0.6.8
-// Source: https://raw.githubusercontent.com/jppellerin/DefinitelyTyped/277a037422ec84c0c9d6f3967fe6c48e6c74c012/state-machine/state-machine.d.ts
-// Type definitions for Finite State Machine 2.2
+// Type definitions for Finite State Machine 2.3.5
 // Project: https://github.com/jakesgordon/javascript-state-machine
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Maarten Docter <https://github.com/mdocter>, William Sears <https://github.com/MrBigDog2U>, samael <https://github.com/samael65535>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StateMachineErrorCallback {
@@ -29,9 +27,13 @@ interface StateMachineConfig {
     error?: StateMachineErrorCallback;
 }
 
+interface StateMachineIsFinished {
+    (state: string): boolean;
+}
+
 interface StateMachineStatic {
 
-    VERSION: string; 		        // = "2.2.0"
+    VERSION: string; 		        // = "2.3.5"
     WILDCARD: string;		        // = '*'
     ASYNC: string;			        // = 'async'
 
@@ -39,7 +41,7 @@ interface StateMachineStatic {
         SUCCEEDED: number;	        // = 1, the event transitioned successfully from one state to another
         NOTRANSITION: number;	    // = 2, the event was successfull but no state transition was necessary
         CANCELLED: number;	        // = 3, the event was cancelled by the caller in a beforeEvent callback
-        ASYNC: number;		        // = 4, the event is asynchronous and the caller is in control of when the transition occurs
+        PENDING: number;		        // = 4, the event is asynchronous and the caller is in control of when the transition occurs
     };
 
     Error: {
@@ -74,11 +76,6 @@ interface StateMachine {
     can: StateMachineCan;
     cannot: StateMachineCan;
     error: StateMachineErrorCallback;
-
-    /*  transition - only available when performing async state transitions; otherwise null. Can be a:
-        [1] fsm.transition(); // called from async callback
-        [2] fsm.transition.cancel();
-    */
     transition: StateMachineTransition;
     transitions: IStateMachineTransitions;
 }
