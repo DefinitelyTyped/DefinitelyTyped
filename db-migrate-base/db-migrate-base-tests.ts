@@ -1,10 +1,10 @@
-// Test file for db.js Definition file
-/// <reference path="db-migrate.d.ts" />
+// Test file for db-migrate-base Definition file
+/// <reference path="db-migrate-base.d.ts" />
 
-import * as DbMigrate from "DbMigrate";
+import * as DbMigrateBase from "DbMigrateBase";
 
 // Throw together a dummy driver
-let db = <DbMigrate.Base>{};
+let db = <DbMigrateBase.Base>{};
 
 let callback = (err: any, response: any) => {
   // Do nothing.

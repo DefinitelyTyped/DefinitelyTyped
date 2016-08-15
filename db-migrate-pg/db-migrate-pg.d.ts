@@ -3,13 +3,13 @@
 // Definitions by: nickiannone <http://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
 
-/// <reference path="../db-migrate/db-migrate.d.ts"/>
+/// <reference path="../db-migrate-base/db-migrate-base.d.ts"/>
 /// <reference path="../pg/pg.d.ts" />
 
 declare module "DbMigratePg" {
 
   import * as pg from "pg";
-  import * as DbMigrate from "DbMigrate";
+  import * as DbMigrateBase from "DbMigrateBase";
 
   // Yes, this is a dummy interface for now; the current implementation of the pg driver doesn't need any options.
   export interface CreateDatabaseOptions {}
@@ -33,7 +33,7 @@ declare module "DbMigratePg" {
   }
 
   export interface ColumnConstraint {
-    foreignKey: (callback: DbMigrate.CallbackFunction) => void;
+    foreignKey: (callback: DbMigrateBase.CallbackFunction) => void;
     constraints: string;
   }
   
@@ -41,14 +41,14 @@ declare module "DbMigratePg" {
     emitPrimaryKey?: boolean;
   }
 
-  export class PgDriver extends DbMigrate.Base {
-    constructor(connection: pg.Client, schema: string, intern: DbMigrate.InternalOptions);
-    createDatabase(dbName: string, optionsOrCb: CreateDatabaseOptions | DbMigrate.CallbackFunction, callback?: DbMigrate.CallbackFunction): void;
-    dropDatabase(dbName: string, optionsOrCb: DropDatabaseOptions | DbMigrate.CallbackFunction, callback?: DbMigrate.CallbackFunction): void;
-    createSequence(sqName: string, optionsOrCb: CreateSequenceOptions | DbMigrate.CallbackFunction, callback?: DbMigrate.CallbackFunction): void;
-    switchDatabase(options: string | SwitchDatabaseOptions, callback: DbMigrate.CallbackFunction): void;
-    dropSequence(dbName: string, optionsOrCb: DropSequenceOptions | DbMigrate.CallbackFunction, callback?: DbMigrate.CallbackFunction): void;
-    createColumnConstraint(spec: DbMigrate.ColumnSpec, options: ColumnConstraintOptions, tableName: string, columnName: string): ColumnConstraint;
+  export class PgDriver extends DbMigrateBase.Base {
+    constructor(connection: pg.Client, schema: string, intern: DbMigrateBase.InternalOptions);
+    createDatabase(dbName: string, optionsOrCb: CreateDatabaseOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;
+    dropDatabase(dbName: string, optionsOrCb: DropDatabaseOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;
+    createSequence(sqName: string, optionsOrCb: CreateSequenceOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;
+    switchDatabase(options: string | SwitchDatabaseOptions, callback: DbMigrateBase.CallbackFunction): void;
+    dropSequence(dbName: string, optionsOrCb: DropSequenceOptions | DbMigrateBase.CallbackFunction, callback?: DbMigrateBase.CallbackFunction): void;
+    createColumnConstraint(spec: DbMigrateBase.ColumnSpec, options: ColumnConstraintOptions, tableName: string, columnName: string): ColumnConstraint;
 
     createDatabaseAsync(dbName: string, options?: CreateDatabaseOptions): Promise<any>;
     dropDatabaseAsync(dbName: string, options?: DropDatabaseOptions): Promise<any>;
