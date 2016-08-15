@@ -1,8 +1,7 @@
 /// <reference path="gl-matrix-typed.d.ts" />
 
 // common
-import {vec2, mat2, mat3, mat4, vec3, vec4, glMatrix, mat2d, quat} from "./gl-matrix-typed";
-var result: number = glMatrix.toRadian(180);
+import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "./gl-matrix-typed";
 
 var outVal: number;
 var outBool: boolean;
