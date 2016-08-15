@@ -16,10 +16,11 @@ interface HeadroomOptions {
 	};
 	scroller?: Element;
 	onPin?: () => void;
-	onUnPin?: () => void;
+	onUnpin?: () => void;
 	onTop?: () => void;
 	onNotTop?: () => void;
-
+	onNotBottom?:()=>void;
+	onBottom?:()=>void;
 }
 
 declare class Headroom {
