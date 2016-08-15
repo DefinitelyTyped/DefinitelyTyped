@@ -12,7 +12,7 @@ declare namespace __ReactFlex {
         /**
          * For custom style
          */
-        style?: Object;
+        style?: any;
 
         /**
          * For `display: inline-flex`.
