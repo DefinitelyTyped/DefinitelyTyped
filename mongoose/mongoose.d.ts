@@ -2040,7 +2040,7 @@ declare module "mongoose" {
    * section model.js
    * http://mongoosejs.com/docs/api.html#model-js
    */
-  interface Model<T extends Document> extends NodeJS.EventEmitter {
+  interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
     /**
      * Model constructor
      * Provides the interface to MongoDB collections as well as creates document instances.
@@ -2059,14 +2059,26 @@ declare module "mongoose" {
      */
     new(doc?: Object): T;
 
-    /** The name of the model. */
-    modelName: string;
+    /** Base Mongoose instance the model uses. */
+    base: typeof mongoose;
+
+    /** If this is a discriminator model, `baseModelName` is the name of the base model. */
+    baseModelName: string;
 
     /** Collection the model uses. */
     collection: Collection;
 
-    /** If this is a discriminator model, `baseModelName` is the name of the base model. */
-    baseModelName: string;
+    /** Connection the model uses. */
+    db: Connection;
+
+    /** Registered discriminators for this model. */
+    discriminators: any;
+
+    /** The name of the model. */
+    modelName: string;
+
+    /** Schema the model uses. */
+    schema: Schema;
 
     /**
      * Finds a single document by its _id field. findById(id) is almost*
@@ -2304,7 +2316,7 @@ declare module "mongoose" {
     where(path: string, val?: Object): Query<any>;
   }
 
-  interface Document extends MongooseDocument, NodeJS.EventEmitter {
+  interface Document extends MongooseDocument, NodeJS.EventEmitter, ModelProperties {
     /** Signal that we desire an increment of this documents version. */
     increment(): this;
 
@@ -2328,22 +2340,30 @@ declare module "mongoose" {
      * @param fn optional callback
      */
     save(fn?: (err: any, product: this, numAffected: number) => void): _MongoosePromise<this>;
+  }
 
+  interface ModelProperties {
     /** Base Mongoose instance the model uses. */
     base: typeof mongoose;
+
     /**
      * If this is a discriminator model, baseModelName is the
      * name of the base model.
      */
     baseModelName: String;
+
     /** Collection the model uses. */
     collection: Collection;
+
     /** Connection the model uses. */
     db: Connection;
+
     /** Registered discriminators for this model. */
     discriminators: any;
+
     /** The name of the model */
     modelName: string;
+
     /** Schema the model uses. */
     schema: Schema;
   }

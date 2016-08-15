@@ -1249,6 +1249,10 @@ mongoModel.discriminators;
 mongoModel.modelName.toLowerCase();
 MongoModel = mongoModel.base.model('new', mongoModel.schema);
 /* inherited properties */
+MongoModel.modelName;
+mongoModel.modelName;
+MongoModel.collection;
+mongoModel.collection;
 mongoModel._id;
 mongoModel.execPopulate();
 mongoModel.on('data', cb);
