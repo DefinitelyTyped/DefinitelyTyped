@@ -5,7 +5,7 @@
 
 // vec2
 export class vec2 extends Float32Array {
-    private typeVec2:number;
+    private typeVec2: number;
 
     /**
      * Creates a new, empty vec2
@@ -20,7 +20,7 @@ export class vec2 extends Float32Array {
      * @param a a vector to clone
      * @returns a new 2D vector
      */
-    public static clone(a: vec2): vec2;
+    public static clone(a: vec2 | number[]): vec2;
 
     /**
      * Creates a new vec2 initialized with the given values
@@ -38,7 +38,7 @@ export class vec2 extends Float32Array {
      * @param a the source vector
      * @returns out
      */
-    public static copy(out: vec2, a: vec2): vec2;
+    public static copy(out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Set the components of a vec2 to the given values
@@ -58,7 +58,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static add(out: vec2, a: vec2, b: vec2): vec2;
+    public static add(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Subtracts vector b from vector a
@@ -68,7 +68,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static subtract(out: vec2, a: vec2, b: vec2): vec2;
+    public static subtract(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Subtracts vector b from vector a
@@ -78,7 +78,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static sub(out: vec2, a: vec2, b: vec2): vec2;
+    public static sub(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Multiplies two vec2's
@@ -88,7 +88,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static multiply(out: vec2, a: vec2, b: vec2): vec2;
+    public static multiply(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Multiplies two vec2's
@@ -98,7 +98,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static mul(out: vec2, a: vec2, b: vec2): vec2;
+    public static mul(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Divides two vec2's
@@ -108,7 +108,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static divide(out: vec2, a: vec2, b: vec2): vec2;
+    public static divide(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Divides two vec2's
@@ -118,7 +118,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static div(out: vec2, a: vec2, b: vec2): vec2;
+    public static div(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Math.ceil the components of a vec2
@@ -127,7 +127,7 @@ export class vec2 extends Float32Array {
      * @param {vec2} a vector to ceil
      * @returns {vec2} out
      */
-    public static ceil(out: vec2, a: vec2): vec2;
+    public static ceil(out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Math.floor the components of a vec2
@@ -136,7 +136,7 @@ export class vec2 extends Float32Array {
      * @param {vec2} a vector to floor
      * @returns {vec2} out
      */
-    public static floor (out: vec2, a: vec2): vec2;
+    public static floor (out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Returns the minimum of two vec2's
@@ -146,7 +146,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static min(out: vec2, a: vec2, b: vec2): vec2;
+    public static min(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Returns the maximum of two vec2's
@@ -156,7 +156,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static max(out: vec2, a: vec2, b: vec2): vec2;
+    public static max(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Math.round the components of a vec2
@@ -165,7 +165,7 @@ export class vec2 extends Float32Array {
      * @param {vec2} a vector to round
      * @returns {vec2} out
      */
-    public static round(out: vec2, a: vec2): vec2;
+    public static round(out: vec2, a: vec2 | number[]): vec2;
 
 
     /**
@@ -176,7 +176,7 @@ export class vec2 extends Float32Array {
      * @param b amount to scale the vector by
      * @returns out
      */
-    public static scale(out: vec2, a: vec2, b: number): vec2;
+    public static scale(out: vec2, a: vec2 | number[], b: number): vec2;
 
     /**
      * Adds two vec2's after scaling the second operand by a scalar value
@@ -187,7 +187,7 @@ export class vec2 extends Float32Array {
      * @param scale the amount to scale b by before adding
      * @returns out
      */
-    public static scaleAndAdd(out: vec2, a: vec2, b: vec2, scale: number): vec2;
+    public static scaleAndAdd(out: vec2, a: vec2 | number[], b: vec2 | number[], scale: number): vec2;
 
     /**
      * Calculates the euclidian distance between two vec2's
@@ -196,7 +196,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static distance(a: vec2, b: vec2): number;
+    public static distance(a: vec2 | number[], b: vec2 | number[]): number;
 
     /**
      * Calculates the euclidian distance between two vec2's
@@ -205,7 +205,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static dist(a: vec2, b: vec2): number;
+    public static dist(a: vec2 | number[], b: vec2 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec2's
@@ -214,7 +214,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static squaredDistance(a: vec2, b: vec2): number;
+    public static squaredDistance(a: vec2 | number[], b: vec2 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec2's
@@ -223,7 +223,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static sqrDist(a: vec2, b: vec2): number;
+    public static sqrDist(a: vec2 | number[], b: vec2 | number[]): number;
 
     /**
      * Calculates the length of a vec2
@@ -231,7 +231,7 @@ export class vec2 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static length(a: vec2): number;
+    public static length(a: vec2 | number[]): number;
 
     /**
      * Calculates the length of a vec2
@@ -239,7 +239,7 @@ export class vec2 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static len(a: vec2): number;
+    public static len(a: vec2 | number[]): number;
 
     /**
      * Calculates the squared length of a vec2
@@ -247,7 +247,7 @@ export class vec2 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static squaredLength(a: vec2): number;
+    public static squaredLength(a: vec2 | number[]): number;
 
     /**
      * Calculates the squared length of a vec2
@@ -255,7 +255,7 @@ export class vec2 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static sqrLen(a: vec2): number;
+    public static sqrLen(a: vec2 | number[]): number;
 
     /**
      * Negates the components of a vec2
@@ -264,7 +264,7 @@ export class vec2 extends Float32Array {
      * @param a vector to negate
      * @returns out
      */
-    public static negate(out: vec2, a: vec2): vec2;
+    public static negate(out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Returns the inverse of the components of a vec2
@@ -273,7 +273,7 @@ export class vec2 extends Float32Array {
      * @param a vector to invert
      * @returns out
      */
-    public static inverse(out: vec2, a: vec2): vec2;
+    public static inverse(out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Normalize a vec2
@@ -282,7 +282,7 @@ export class vec2 extends Float32Array {
      * @param a vector to normalize
      * @returns out
      */
-    public static normalize(out: vec2, a: vec2): vec2;
+    public static normalize(out: vec2, a: vec2 | number[]): vec2;
 
     /**
      * Calculates the dot product of two vec2's
@@ -291,7 +291,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns dot product of a and b
      */
-    public static dot(a: vec2, b: vec2): number;
+    public static dot(a: vec2 | number[], b: vec2 | number[]): number;
 
     /**
      * Computes the cross product of two vec2's
@@ -302,7 +302,7 @@ export class vec2 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static cross(out: vec2, a: vec2, b: vec2): vec2;
+    public static cross(out: vec2, a: vec2 | number[], b: vec2 | number[]): vec2;
 
     /**
      * Performs a linear interpolation between two vec2's
@@ -313,7 +313,7 @@ export class vec2 extends Float32Array {
      * @param t interpolation amount between the two inputs
      * @returns out
      */
-    public static lerp(out: vec2, a: vec2, b: vec2, t: number): vec2;
+    public static lerp(out: vec2, a: vec2 | number[], b: vec2 | number[], t: number): vec2;
 
     /**
      * Generates a random unit vector
@@ -340,7 +340,7 @@ export class vec2 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat2(out: vec2, a: vec2, m: mat2): vec2;
+    public static transformMat2(out: vec2, a: vec2 | number[], m: mat2): vec2;
 
     /**
      * Transforms the vec2 with a mat2d
@@ -350,7 +350,7 @@ export class vec2 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat2d(out: vec2, a: vec2, m: mat2d): vec2;
+    public static transformMat2d(out: vec2, a: vec2 | number[], m: mat2d): vec2;
 
     /**
      * Transforms the vec2 with a mat3
@@ -361,7 +361,7 @@ export class vec2 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat3(out: vec2, a: vec2, m: mat3): vec2;
+    public static transformMat3(out: vec2, a: vec2 | number[], m: mat3): vec2;
 
     /**
      * Transforms the vec2 with a mat4
@@ -373,7 +373,7 @@ export class vec2 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat4(out: vec2, a: vec2, m: mat4): vec2;
+    public static transformMat4(out: vec2, a: vec2 | number[], m: mat4): vec2;
 
     /**
      * Perform some operation over an array of vec2s.
@@ -387,7 +387,7 @@ export class vec2 extends Float32Array {
      * @returns a
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec2, b: vec2, arg: any) => void, arg: any): Float32Array;
+                          fn: (a: vec2 | number[], b: vec2 | number[], arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec2s.
@@ -400,7 +400,7 @@ export class vec2 extends Float32Array {
      * @returns a
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec2, b: vec2) => void): Float32Array;
+                          fn: (a: vec2 | number[], b: vec2 | number[]) => void): Float32Array;
 
     /**
      * Returns a string representation of a vector
@@ -408,7 +408,7 @@ export class vec2 extends Float32Array {
      * @param a vector to represent as a string
      * @returns string representation of the vector
      */
-    public static str(a: vec2): string;
+    public static str(a: vec2 | number[]): string;
 
     /**
      * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
@@ -417,7 +417,7 @@ export class vec2 extends Float32Array {
      * @param {vec2} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static exactEquals (a: vec2, b: vec2): boolean;
+    public static exactEquals (a: vec2 | number[], b: vec2 | number[]): boolean;
 
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -426,12 +426,12 @@ export class vec2 extends Float32Array {
      * @param {vec2} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static equals (a: vec2, b: vec2) : boolean;
+    public static equals (a: vec2 | number[], b: vec2 | number[]): boolean;
 }
 
 // vec3
 export class vec3 extends Float32Array {
-    private typeVec3:number;
+    private typeVec3: number;
 
     /**
      * Creates a new, empty vec3
@@ -446,7 +446,7 @@ export class vec3 extends Float32Array {
      * @param a vector to clone
      * @returns a new 3D vector
      */
-    public static clone(a: vec3): vec3;
+    public static clone(a: vec3 | number[]): vec3;
 
     /**
      * Creates a new vec3 initialized with the given values
@@ -465,7 +465,7 @@ export class vec3 extends Float32Array {
      * @param a the source vector
      * @returns out
      */
-    public static copy(out: vec3, a: vec3): vec3;
+    public static copy(out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Set the components of a vec3 to the given values
@@ -486,7 +486,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static add(out: vec3, a: vec3, b: vec3): vec3;
+    public static add(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Subtracts vector b from vector a
@@ -496,7 +496,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static subtract(out: vec3, a: vec3, b: vec3): vec3;
+    public static subtract(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Subtracts vector b from vector a
@@ -506,7 +506,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static sub(out: vec3, a: vec3, b: vec3): vec3
+    public static sub(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3
 
     /**
      * Multiplies two vec3's
@@ -516,7 +516,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static multiply(out: vec3, a: vec3, b: vec3): vec3;
+    public static multiply(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Multiplies two vec3's
@@ -526,7 +526,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static mul(out: vec3, a: vec3, b: vec3): vec3;
+    public static mul(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Divides two vec3's
@@ -536,7 +536,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static divide(out: vec3, a: vec3, b: vec3): vec3;
+    public static divide(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Divides two vec3's
@@ -546,7 +546,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static div(out: vec3, a: vec3, b: vec3): vec3;
+    public static div(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Math.ceil the components of a vec3
@@ -555,7 +555,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} a vector to ceil
      * @returns {vec3} out
      */
-    public static ceil (out: vec3, a: vec3) : vec3;
+    public static ceil (out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Math.floor the components of a vec3
@@ -564,7 +564,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} a vector to floor
      * @returns {vec3} out
      */
-    public static floor (out: vec3, a: vec3) : vec3;
+    public static floor (out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Returns the minimum of two vec3's
@@ -574,7 +574,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static min(out: vec3, a: vec3, b: vec3): vec3;
+    public static min(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Returns the maximum of two vec3's
@@ -584,7 +584,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static max(out: vec3, a: vec3, b: vec3): vec3;
+    public static max(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Math.round the components of a vec3
@@ -593,7 +593,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} a vector to round
      * @returns {vec3} out
      */
-    public static round (out: vec3, a: vec3) : vec3
+    public static round (out: vec3, a: vec3 | number[]): vec3
 
     /**
      * Scales a vec3 by a scalar number
@@ -603,7 +603,7 @@ export class vec3 extends Float32Array {
      * @param b amount to scale the vector by
      * @returns out
      */
-    public static scale(out: vec3, a: vec3, b: number): vec3;
+    public static scale(out: vec3, a: vec3 | number[], b: number): vec3;
 
     /**
      * Adds two vec3's after scaling the second operand by a scalar value
@@ -614,7 +614,7 @@ export class vec3 extends Float32Array {
      * @param scale the amount to scale b by before adding
      * @returns out
      */
-    public static scaleAndAdd(out: vec3, a: vec3, b: vec3, scale: number): vec3;
+    public static scaleAndAdd(out: vec3, a: vec3 | number[], b: vec3 | number[], scale: number): vec3;
 
     /**
      * Calculates the euclidian distance between two vec3's
@@ -623,7 +623,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static distance(a: vec3, b: vec3): number;
+    public static distance(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Calculates the euclidian distance between two vec3's
@@ -632,7 +632,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static dist(a: vec3, b: vec3): number;
+    public static dist(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec3's
@@ -641,7 +641,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static squaredDistance(a: vec3, b: vec3): number;
+    public static squaredDistance(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec3's
@@ -650,7 +650,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static sqrDist(a: vec3, b: vec3): number;
+    public static sqrDist(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Calculates the length of a vec3
@@ -658,7 +658,7 @@ export class vec3 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static length(a: vec3): number;
+    public static length(a: vec3 | number[]): number;
 
     /**
      * Calculates the length of a vec3
@@ -666,7 +666,7 @@ export class vec3 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static len(a: vec3): number;
+    public static len(a: vec3 | number[]): number;
 
     /**
      * Calculates the squared length of a vec3
@@ -674,7 +674,7 @@ export class vec3 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static squaredLength(a: vec3): number;
+    public static squaredLength(a: vec3 | number[]): number;
 
     /**
      * Calculates the squared length of a vec3
@@ -682,7 +682,7 @@ export class vec3 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static sqrLen(a: vec3): number;
+    public static sqrLen(a: vec3 | number[]): number;
 
     /**
      * Negates the components of a vec3
@@ -691,7 +691,7 @@ export class vec3 extends Float32Array {
      * @param a vector to negate
      * @returns out
      */
-    public static negate(out: vec3, a: vec3): vec3;
+    public static negate(out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Returns the inverse of the components of a vec3
@@ -700,7 +700,7 @@ export class vec3 extends Float32Array {
      * @param a vector to invert
      * @returns out
      */
-    public static inverse(out: vec3, a: vec3): vec3;
+    public static inverse(out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Normalize a vec3
@@ -709,7 +709,7 @@ export class vec3 extends Float32Array {
      * @param a vector to normalize
      * @returns out
      */
-    public static normalize(out: vec3, a: vec3): vec3;
+    public static normalize(out: vec3, a: vec3 | number[]): vec3;
 
     /**
      * Calculates the dot product of two vec3's
@@ -718,7 +718,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns dot product of a and b
      */
-    public static dot(a: vec3, b: vec3): number;
+    public static dot(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Computes the cross product of two vec3's
@@ -728,7 +728,7 @@ export class vec3 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static cross(out: vec3, a: vec3, b: vec3): vec3;
+    public static cross(out: vec3, a: vec3 | number[], b: vec3 | number[]): vec3;
 
     /**
      * Performs a linear interpolation between two vec3's
@@ -739,7 +739,7 @@ export class vec3 extends Float32Array {
      * @param t interpolation amount between the two inputs
      * @returns out
      */
-    public static lerp(out: vec3, a: vec3, b: vec3, t: number): vec3;
+    public static lerp(out: vec3, a: vec3 | number[], b: vec3 | number[], t: number): vec3;
 
     /**
      * Performs a hermite interpolation with two control points
@@ -752,7 +752,7 @@ export class vec3 extends Float32Array {
      * @param {number} t interpolation amount between the two inputs
      * @returns {vec3} out
      */
-    public static hermite (out: vec3, a: vec3, b: vec3, c: vec3, d: vec3, t:number) : vec3;
+    public static hermite (out: vec3, a: vec3 | number[], b: vec3 | number[], c: vec3 | number[], d: vec3 | number[], t: number): vec3;
 
     /**
      * Performs a bezier interpolation with two control points
@@ -765,7 +765,7 @@ export class vec3 extends Float32Array {
      * @param {number} t interpolation amount between the two inputs
      * @returns {vec3} out
      */
-    public static bezier (out: vec3, a: vec3, b: vec3, c: vec3, d: vec3, t:number) : vec3;
+    public static bezier (out: vec3, a: vec3 | number[], b: vec3 | number[], c: vec3 | number[], d: vec3 | number[], t: number): vec3;
 
     /**
      * Generates a random unit vector
@@ -792,7 +792,7 @@ export class vec3 extends Float32Array {
      * @param m the 3x3 matrix to transform with
      * @returns out
      */
-    public static transformMat3(out: vec3, a: vec3, m: mat3): vec3;
+    public static transformMat3(out: vec3, a: vec3 | number[], m: mat3): vec3;
 
     /**
      * Transforms the vec3 with a mat4.
@@ -803,7 +803,7 @@ export class vec3 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat4(out: vec3, a: vec3, m: mat4): vec3;
+    public static transformMat4(out: vec3, a: vec3 | number[], m: mat4): vec3;
 
      /**
      * Transforms the vec3 with a quat
@@ -813,7 +813,7 @@ export class vec3 extends Float32Array {
      * @param q quaternion to transform with
      * @returns out
      */
-    public static transformQuat(out: vec3, a: vec3, q: quat): vec3;
+    public static transformQuat(out: vec3, a: vec3 | number[], q: quat): vec3;
 
 
     /**
@@ -824,7 +824,7 @@ export class vec3 extends Float32Array {
      * @param c The angle of rotation
      * @returns out
      */
-    public static rotateX(out: vec3, a: vec3, b: vec3, c: number): vec3;
+    public static rotateX(out: vec3, a: vec3 | number[], b: vec3 | number[], c: number): vec3;
 
     /**
      * Rotate a 3D vector around the y-axis
@@ -834,7 +834,7 @@ export class vec3 extends Float32Array {
      * @param c The angle of rotation
      * @returns out
      */
-    public static rotateY(out: vec3, a: vec3, b: vec3, c: number): vec3;
+    public static rotateY(out: vec3, a: vec3 | number[], b: vec3 | number[], c: number): vec3;
 
     /**
      * Rotate a 3D vector around the z-axis
@@ -844,7 +844,7 @@ export class vec3 extends Float32Array {
      * @param c The angle of rotation
      * @returns out
      */
-    public static rotateZ(out: vec3, a: vec3, b: vec3, c: number): vec3;
+    public static rotateZ(out: vec3, a: vec3 | number[], b: vec3 | number[], c: number): vec3;
 
     /**
      * Perform some operation over an array of vec3s.
@@ -859,7 +859,7 @@ export class vec3 extends Float32Array {
      * @function
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec3, b: vec3, arg: any) => void, arg: any): Float32Array;
+                          fn: (a: vec3 | number[], b: vec3 | number[], arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec3s.
@@ -873,7 +873,7 @@ export class vec3 extends Float32Array {
      * @function
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec3, b: vec3) => void): Float32Array;
+                          fn: (a: vec3 | number[], b: vec3 | number[]) => void): Float32Array;
 
     /**
      * Get the angle between two 3D vectors
@@ -881,7 +881,7 @@ export class vec3 extends Float32Array {
      * @param b The second operand
      * @returns The angle in radians
      */
-    public static angle(a: vec3, b: vec3): number;
+    public static angle(a: vec3 | number[], b: vec3 | number[]): number;
 
     /**
      * Returns a string representation of a vector
@@ -889,7 +889,7 @@ export class vec3 extends Float32Array {
      * @param a vector to represent as a string
      * @returns string representation of the vector
      */
-    public static str(a: vec3): string;
+    public static str(a: vec3 | number[]): string;
 
     /**
      * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
@@ -898,7 +898,7 @@ export class vec3 extends Float32Array {
      * @param {vec3} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static exactEquals (a: vec3, b: vec3): boolean
+    public static exactEquals (a: vec3 | number[], b: vec3 | number[]): boolean
 
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -907,12 +907,12 @@ export class vec3 extends Float32Array {
      * @param {vec3} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static equals (a: vec3, b: vec3) : boolean
+    public static equals (a: vec3 | number[], b: vec3 | number[]): boolean
 }
 
 // vec4
 export class vec4 extends Float32Array {
-    private typeVec3:number;
+    private typeVec3: number;
 
     /**
      * Creates a new, empty vec4
@@ -927,7 +927,7 @@ export class vec4 extends Float32Array {
      * @param a vector to clone
      * @returns a new 4D vector
      */
-    public static clone(a: vec4): vec4;
+    public static clone(a: vec4 | number[]): vec4;
 
     /**
      * Creates a new vec4 initialized with the given values
@@ -947,7 +947,7 @@ export class vec4 extends Float32Array {
      * @param a the source vector
      * @returns out
      */
-    public static copy(out: vec4, a: vec4): vec4;
+    public static copy(out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Set the components of a vec4 to the given values
@@ -969,7 +969,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static add(out: vec4, a: vec4, b: vec4): vec4;
+    public static add(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Subtracts vector b from vector a
@@ -979,7 +979,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static subtract(out: vec4, a: vec4, b: vec4): vec4;
+    public static subtract(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Subtracts vector b from vector a
@@ -989,7 +989,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static sub(out: vec4, a: vec4, b: vec4): vec4;
+    public static sub(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Multiplies two vec4's
@@ -999,7 +999,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static multiply(out: vec4, a: vec4, b: vec4): vec4;
+    public static multiply(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Multiplies two vec4's
@@ -1009,7 +1009,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static mul(out: vec4, a: vec4, b: vec4): vec4;
+    public static mul(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Divides two vec4's
@@ -1019,7 +1019,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static divide(out: vec4, a: vec4, b: vec4): vec4;
+    public static divide(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Divides two vec4's
@@ -1029,7 +1029,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static div(out: vec4, a: vec4, b: vec4): vec4;
+    public static div(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Math.ceil the components of a vec4
@@ -1038,7 +1038,7 @@ export class vec4 extends Float32Array {
      * @param {vec4} a vector to ceil
      * @returns {vec4} out
      */
-    public static ceil (out: vec4, a: vec4) : vec4;
+    public static ceil (out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Math.floor the components of a vec4
@@ -1047,7 +1047,7 @@ export class vec4 extends Float32Array {
      * @param {vec4} a vector to floor
      * @returns {vec4} out
      */
-    public static floor (out: vec4, a: vec4) : vec4;
+    public static floor (out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Returns the minimum of two vec4's
@@ -1057,7 +1057,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static min(out: vec4, a: vec4, b: vec4): vec4;
+    public static min(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Returns the maximum of two vec4's
@@ -1067,7 +1067,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns out
      */
-    public static max(out: vec4, a: vec4, b: vec4): vec4;
+    public static max(out: vec4, a: vec4 | number[], b: vec4 | number[]): vec4;
 
     /**
      * Math.round the components of a vec4
@@ -1076,7 +1076,7 @@ export class vec4 extends Float32Array {
      * @param {vec4} a vector to round
      * @returns {vec4} out
      */
-    public static round (out: vec4, a: vec4): vec4;
+    public static round (out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Scales a vec4 by a scalar number
@@ -1086,7 +1086,7 @@ export class vec4 extends Float32Array {
      * @param b amount to scale the vector by
      * @returns out
      */
-    public static scale(out: vec4, a: vec4, b: number): vec4;
+    public static scale(out: vec4, a: vec4 | number[], b: number): vec4;
 
     /**
      * Adds two vec4's after scaling the second operand by a scalar value
@@ -1097,7 +1097,7 @@ export class vec4 extends Float32Array {
      * @param scale the amount to scale b by before adding
      * @returns out
      */
-    public static scaleAndAdd(out: vec4, a: vec4, b: vec4, scale: number): vec4;
+    public static scaleAndAdd(out: vec4, a: vec4 | number[], b: vec4 | number[], scale: number): vec4;
 
     /**
      * Calculates the euclidian distance between two vec4's
@@ -1106,7 +1106,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static distance(a: vec4, b: vec4): number;
+    public static distance(a: vec4 | number[], b: vec4 | number[]): number;
 
     /**
      * Calculates the euclidian distance between two vec4's
@@ -1115,7 +1115,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns distance between a and b
      */
-    public static dist(a: vec4, b: vec4): number;
+    public static dist(a: vec4 | number[], b: vec4 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec4's
@@ -1124,7 +1124,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static squaredDistance(a: vec4, b: vec4): number;
+    public static squaredDistance(a: vec4 | number[], b: vec4 | number[]): number;
 
     /**
      * Calculates the squared euclidian distance between two vec4's
@@ -1133,7 +1133,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns squared distance between a and b
      */
-    public static sqrDist(a: vec4, b: vec4): number;
+    public static sqrDist(a: vec4 | number[], b: vec4 | number[]): number;
 
     /**
      * Calculates the length of a vec4
@@ -1141,7 +1141,7 @@ export class vec4 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static length(a: vec4): number;
+    public static length(a: vec4 | number[]): number;
 
     /**
      * Calculates the length of a vec4
@@ -1149,7 +1149,7 @@ export class vec4 extends Float32Array {
      * @param a vector to calculate length of
      * @returns length of a
      */
-    public static len(a: vec4): number;
+    public static len(a: vec4 | number[]): number;
 
     /**
      * Calculates the squared length of a vec4
@@ -1157,7 +1157,7 @@ export class vec4 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static squaredLength(a: vec4): number;
+    public static squaredLength(a: vec4 | number[]): number;
 
     /**
      * Calculates the squared length of a vec4
@@ -1165,7 +1165,7 @@ export class vec4 extends Float32Array {
      * @param a vector to calculate squared length of
      * @returns squared length of a
      */
-    public static sqrLen(a: vec4): number;
+    public static sqrLen(a: vec4 | number[]): number;
 
     /**
      * Negates the components of a vec4
@@ -1174,7 +1174,7 @@ export class vec4 extends Float32Array {
      * @param a vector to negate
      * @returns out
      */
-    public static negate(out: vec4, a: vec4): vec4;
+    public static negate(out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Returns the inverse of the components of a vec4
@@ -1183,7 +1183,7 @@ export class vec4 extends Float32Array {
      * @param a vector to invert
      * @returns out
      */
-    public static inverse(out: vec4, a: vec4): vec4;
+    public static inverse(out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Normalize a vec4
@@ -1192,7 +1192,7 @@ export class vec4 extends Float32Array {
      * @param a vector to normalize
      * @returns out
      */
-    public static normalize(out: vec4, a: vec4): vec4;
+    public static normalize(out: vec4, a: vec4 | number[]): vec4;
 
     /**
      * Calculates the dot product of two vec4's
@@ -1201,7 +1201,7 @@ export class vec4 extends Float32Array {
      * @param b the second operand
      * @returns dot product of a and b
      */
-    public static dot(a: vec4, b: vec4): number;
+    public static dot(a: vec4 | number[], b: vec4 | number[]): number;
 
     /**
      * Performs a linear interpolation between two vec4's
@@ -1212,7 +1212,7 @@ export class vec4 extends Float32Array {
      * @param t interpolation amount between the two inputs
      * @returns out
      */
-    public static lerp(out: vec4, a: vec4, b: vec4, t: number): vec4;
+    public static lerp(out: vec4, a: vec4 | number[], b: vec4 | number[], t: number): vec4;
 
     /**
      * Generates a random unit vector
@@ -1239,7 +1239,7 @@ export class vec4 extends Float32Array {
      * @param m matrix to transform with
      * @returns out
      */
-    public static transformMat4(out: vec4, a: vec4, m: mat4): vec4;
+    public static transformMat4(out: vec4, a: vec4 | number[], m: mat4): vec4;
 
     /**
      * Transforms the vec4 with a quat
@@ -1250,7 +1250,7 @@ export class vec4 extends Float32Array {
      * @returns out
      */
 
-    public static transformQuat(out: vec4, a: vec4, q: quat): vec4;
+    public static transformQuat(out: vec4, a: vec4 | number[], q: quat): vec4;
 
     /**
      * Perform some operation over an array of vec4s.
@@ -1265,7 +1265,7 @@ export class vec4 extends Float32Array {
      * @function
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec4, b: vec4, arg: any) => void, arg: any): Float32Array;
+                          fn: (a: vec4 | number[], b: vec4 | number[], arg: any) => void, arg: any): Float32Array;
 
     /**
      * Perform some operation over an array of vec4s.
@@ -1279,7 +1279,7 @@ export class vec4 extends Float32Array {
      * @function
      */
     public static forEach(a: Float32Array, stride: number, offset: number, count: number,
-                          fn: (a: vec4, b: vec4) => void): Float32Array;
+                          fn: (a: vec4 | number[], b: vec4 | number[]) => void): Float32Array;
 
     /**
      * Returns a string representation of a vector
@@ -1287,7 +1287,7 @@ export class vec4 extends Float32Array {
      * @param a vector to represent as a string
      * @returns string representation of the vector
      */
-    public static str(a: vec4): string;
+    public static str(a: vec4 | number[]): string;
 
     /**
      * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
@@ -1296,7 +1296,7 @@ export class vec4 extends Float32Array {
      * @param {vec4} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static exactEquals (a: vec4, b: vec4) : boolean;
+    public static exactEquals (a: vec4 | number[], b: vec4 | number[]): boolean;
 
     /**
      * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -1305,12 +1305,12 @@ export class vec4 extends Float32Array {
      * @param {vec4} b The second vector.
      * @returns {boolean} True if the vectors are equal, false otherwise.
      */
-    public static equals (a: vec4, b: vec4) : boolean;
+    public static equals (a: vec4 | number[], b: vec4 | number[]): boolean;
 }
 
 // mat2
 export class mat2 extends Float32Array {
-    private typeMat2:number;
+    private typeMat2: number;
 
     /**
      * Creates a new identity mat2
@@ -1353,7 +1353,7 @@ export class mat2 extends Float32Array {
      * @param {number} m11 Component in column 1, row 1 position (index 3)
      * @returns {mat2} out A new 2x2 matrix
      */
-    public static fromValues(m00:number, m01:number, m10:number, m11:number): mat2;
+    public static fromValues(m00: number, m01: number, m10: number, m11: number): mat2;
 
     /**
      * Set the components of a mat2 to the given values
@@ -1365,7 +1365,7 @@ export class mat2 extends Float32Array {
      * @param {number} m11 Component in column 1, row 1 position (index 3)
      * @returns {mat2} out
      */
-    public static set(out: mat2, m00:number, m01:number, m10:number, m11:number): mat2;
+    public static set(out: mat2, m00: number, m01: number, m10: number, m11: number): mat2;
 
     /**
      * Transpose the values of a mat2
@@ -1400,7 +1400,7 @@ export class mat2 extends Float32Array {
      * @param a the source matrix
      * @returns determinant of a
      */
-    public static determinant(a: mat2):number;
+    public static determinant(a: mat2): number;
 
     /**
      * Multiplies two mat2's
@@ -1430,7 +1430,7 @@ export class mat2 extends Float32Array {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-    public static rotate(out: mat2, a: mat2, rad:number): mat2;
+    public static rotate(out: mat2, a: mat2, rad: number): mat2;
 
     /**
      * Scales the mat2 by the dimensions in the given vec2
@@ -1440,7 +1440,7 @@ export class mat2 extends Float32Array {
      * @param v the vec2 to scale the matrix by
      * @returns out
      **/
-    public static scale(out: mat2, a: mat2, v: vec2): mat2;
+    public static scale(out: mat2, a: mat2, v: vec2 | number[]): mat2;
 
     /**
      * Creates a matrix from a given angle
@@ -1453,7 +1453,7 @@ export class mat2 extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat2} out
      */
-    public static fromRotation(out: mat2, rad:number): mat2;
+    public static fromRotation(out: mat2, rad: number): mat2;
 
     /**
      * Creates a matrix from a vector scaling
@@ -1466,7 +1466,7 @@ export class mat2 extends Float32Array {
      * @param {vec2} v Scaling vector
      * @returns {mat2} out
      */
-    public static fromScaling(out: mat2, v: vec2): mat2;
+    public static fromScaling(out: mat2, v: vec2 | number[]): mat2;
 
     /**
      * Returns a string representation of a mat2
@@ -1474,7 +1474,7 @@ export class mat2 extends Float32Array {
      * @param a matrix to represent as a string
      * @returns string representation of the matrix
      */
-    public static str(a: mat2):string;
+    public static str(a: mat2): string;
 
     /**
      * Returns Frobenius norm of a mat2
@@ -1482,7 +1482,7 @@ export class mat2 extends Float32Array {
      * @param a the matrix to calculate Frobenius norm of
      * @returns Frobenius norm
      */
-    public static frob(a: mat2):number;
+    public static frob(a: mat2): number;
 
     /**
      * Returns L, D and U matrices (Lower triangular, Diagonal and Upper triangular) by factorizing the input matrix
@@ -1530,7 +1530,7 @@ export class mat2 extends Float32Array {
      * @param {mat2} b The second matrix.
      * @returns {boolean} True if the matrices are equal, false otherwise.
      */
-    public static exactEquals (a: mat2, b: mat2):boolean;
+    public static exactEquals (a: mat2, b: mat2): boolean;
 
     /**
      * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -1539,7 +1539,7 @@ export class mat2 extends Float32Array {
      * @param {mat2} b The second matrix.
      * @returns {boolean} True if the matrices are equal, false otherwise.
      */
-    public static equals (a: mat2, b: mat2) :boolean;
+    public static equals (a: mat2, b: mat2): boolean;
 
     /**
      * Multiply each element of the matrix by a scalar.
@@ -1549,7 +1549,7 @@ export class mat2 extends Float32Array {
      * @param {number} b amount to scale the matrix's elements by
      * @returns {mat2} out
      */
-    public static multiplyScalar (out: mat2, a: mat2, b:number) : mat2
+    public static multiplyScalar (out: mat2, a: mat2, b: number): mat2
 
     /**
      * Adds two mat2's after multiplying each element of the second operand by a scalar value.
@@ -1560,7 +1560,7 @@ export class mat2 extends Float32Array {
      * @param {number} scale the amount to scale b's elements by before adding
      * @returns {mat2} out
      */
-    public static multiplyScalarAndAdd (out: mat2, a: mat2, b: mat2, scale:number): mat2
+    public static multiplyScalarAndAdd (out: mat2, a: mat2, b: mat2, scale: number): mat2
 
 
 
@@ -1568,7 +1568,7 @@ export class mat2 extends Float32Array {
 
 // mat2d
 export class mat2d extends Float32Array {
-    private typeMat2d:number;
+    private typeMat2d: number;
 
     /**
      * Creates a new identity mat2d
@@ -1613,7 +1613,7 @@ export class mat2d extends Float32Array {
      * @param {number} ty Component TY (index 5)
      * @returns {mat2d} A new mat2d
      */
-    public static fromValues (a:number, b:number, c:number, d:number, tx:number, ty:number) : mat2d
+    public static fromValues (a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d
 
 
     /**
@@ -1628,7 +1628,7 @@ export class mat2d extends Float32Array {
      * @param {number} ty Component TY (index 5)
      * @returns {mat2d} out
      */
-    public static set (out: mat2d, a:number, b:number, c:number, d:number, tx:number, ty:number) : mat2d
+    public static set (out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d
 
     /**
      * Inverts a mat2d
@@ -1685,7 +1685,7 @@ export class mat2d extends Float32Array {
      * @param v the vec2 to scale the matrix by
      * @returns out
      **/
-    public static scale(out: mat2d, a: mat2d, v: vec2): mat2d;
+    public static scale(out: mat2d, a: mat2d, v: vec2 | number[]): mat2d;
 
     /**
      * Translates the mat2d by the dimensions in the given vec2
@@ -1695,7 +1695,7 @@ export class mat2d extends Float32Array {
      * @param v the vec2 to translate the matrix by
      * @returns out
      **/
-    public static translate(out: mat2d, a: mat2d, v: vec2): mat2d;
+    public static translate(out: mat2d, a: mat2d, v: vec2 | number[]): mat2d;
 
     /**
      * Creates a matrix from a given angle
@@ -1708,7 +1708,7 @@ export class mat2d extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat2d} out
      */
-    public static fromRotation (out: mat2d, rad:number): mat2d;
+    public static fromRotation (out: mat2d, rad: number): mat2d;
 
     /**
      * Creates a matrix from a vector scaling
@@ -1721,7 +1721,7 @@ export class mat2d extends Float32Array {
      * @param {vec2} v Scaling vector
      * @returns {mat2d} out
      */
-    public static fromScaling (out: mat2d, v: vec2): mat2d;
+    public static fromScaling (out: mat2d, v: vec2 | number[]): mat2d;
 
     /**
      * Creates a matrix from a vector translation
@@ -1734,7 +1734,7 @@ export class mat2d extends Float32Array {
      * @param {vec2} v Translation vector
      * @returns {mat2d} out
      */
-    public static fromTranslation (out: mat2d, v: vec2): mat2d
+    public static fromTranslation (out: mat2d, v: vec2 | number[]): mat2d
 
     /**
      * Returns a string representation of a mat2d
@@ -1801,7 +1801,7 @@ export class mat2d extends Float32Array {
      * @param {number} scale the amount to scale b's elements by before adding
      * @returns {mat2d} out
      */
-    public static multiplyScalarAndAdd (out: mat2d, a: mat2d, b: mat2d, scale:number) : mat2d
+    public static multiplyScalarAndAdd (out: mat2d, a: mat2d, b: mat2d, scale: number): mat2d
 
     /**
      * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -1824,7 +1824,7 @@ export class mat2d extends Float32Array {
 
 // mat3
 export class mat3 extends Float32Array {
-    private typeMat3:number;
+    private typeMat3: number;
 
     /**
      * Creates a new identity mat3
@@ -1873,7 +1873,7 @@ export class mat3 extends Float32Array {
      * @param {number} m22 Component in column 2, row 2 position (index 8)
      * @returns {mat3} A new mat3
      */
-    public static fromValues(m00:number, m01:number, m02:number, m10:number, m11:number, m12:number, m20:number, m21:number, m22:number): mat3;
+    public static fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3;
 
 
     /**
@@ -1891,7 +1891,7 @@ export class mat3 extends Float32Array {
      * @param {number} m22 Component in column 2, row 2 position (index 8)
      * @returns {mat3} out
      */
-    public static set(out: mat3, m00:number, m01:number, m02:number, m10:number, m11:number, m12:number, m20:number, m21:number, m22:number): mat3
+    public static set(out: mat3, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3
 
     /**
      * Set a mat3 to the identity matrix
@@ -1934,7 +1934,7 @@ export class mat3 extends Float32Array {
      * @param a the source matrix
      * @returns determinant of a
      */
-    public static determinant(a: mat3):number;
+    public static determinant(a: mat3): number;
 
     /**
      * Multiplies two mat3's
@@ -1965,7 +1965,7 @@ export class mat3 extends Float32Array {
      * @param v vector to translate by
      * @returns out
      */
-    public static translate(out: mat3, a: mat3, v: vec3): mat3;
+    public static translate(out: mat3, a: mat3, v: vec3 | number[]): mat3;
 
     /**
      * Rotates a mat3 by the given angle
@@ -1975,7 +1975,7 @@ export class mat3 extends Float32Array {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-    public static rotate(out: mat3, a: mat3, rad:number): mat3;
+    public static rotate(out: mat3, a: mat3, rad: number): mat3;
 
     /**
      * Scales the mat3 by the dimensions in the given vec2
@@ -1985,7 +1985,7 @@ export class mat3 extends Float32Array {
      * @param v the vec2 to scale the matrix by
      * @returns out
      **/
-    public static scale(out: mat3, a: mat3, v: vec2): mat3;
+    public static scale(out: mat3, a: mat3, v: vec2 | number[]): mat3;
 
     /**
      * Creates a matrix from a vector translation
@@ -1998,7 +1998,7 @@ export class mat3 extends Float32Array {
      * @param {vec2} v Translation vector
      * @returns {mat3} out
      */
-    public static fromTranslation(out: mat3, v: vec2): mat3
+    public static fromTranslation(out: mat3, v: vec2 | number[]): mat3
 
     /**
      * Creates a matrix from a given angle
@@ -2011,7 +2011,7 @@ export class mat3 extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat3} out
      */
-    public static fromRotation(out: mat3, rad:number): mat3
+    public static fromRotation(out: mat3, rad: number): mat3
 
     /**
      * Creates a matrix from a vector scaling
@@ -2024,7 +2024,7 @@ export class mat3 extends Float32Array {
      * @param {vec2} v Scaling vector
      * @returns {mat3} out
      */
-    public static fromScaling(out: mat3, v: vec2): mat3
+    public static fromScaling(out: mat3, v: vec2 | number[]): mat3
 
     /**
      * Copies the values from a mat2d into a mat3
@@ -2061,7 +2061,7 @@ export class mat3 extends Float32Array {
      * @param mat matrix to represent as a string
      * @returns string representation of the matrix
      */
-    public static str(mat: mat3):string;
+    public static str(mat: mat3): string;
 
     /**
      * Returns Frobenius norm of a mat3
@@ -2069,7 +2069,7 @@ export class mat3 extends Float32Array {
      * @param a the matrix to calculate Frobenius norm of
      * @returns Frobenius norm
      */
-    public static frob(a: mat3):number;
+    public static frob(a: mat3): number;
 
     /**
      * Adds two mat3's
@@ -2109,7 +2109,7 @@ export class mat3 extends Float32Array {
      * @param {number} b amount to scale the matrix's elements by
      * @returns {mat3} out
      */
-    public static multiplyScalar(out: mat3, a: mat3, b:number): mat3
+    public static multiplyScalar(out: mat3, a: mat3, b: number): mat3
 
     /**
      * Adds two mat3's after multiplying each element of the second operand by a scalar value.
@@ -2120,7 +2120,7 @@ export class mat3 extends Float32Array {
      * @param {number} scale the amount to scale b's elements by before adding
      * @returns {mat3} out
      */
-    public static multiplyScalarAndAdd(out: mat3, a: mat3, b: mat3, scale:number): mat3
+    public static multiplyScalarAndAdd(out: mat3, a: mat3, b: mat3, scale: number): mat3
 
     /**
      * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -2129,7 +2129,7 @@ export class mat3 extends Float32Array {
      * @param {mat3} b The second matrix.
      * @returns {boolean} True if the matrices are equal, false otherwise.
      */
-    public static exactEquals(a: mat3, b: mat3):boolean;
+    public static exactEquals(a: mat3, b: mat3): boolean;
 
     /**
      * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2138,12 +2138,12 @@ export class mat3 extends Float32Array {
      * @param {mat3} b The second matrix.
      * @returns {boolean} True if the matrices are equal, false otherwise.
      */
-    public static equals(a: mat3, b: mat3):boolean
+    public static equals(a: mat3, b: mat3): boolean
 }
 
 // mat4
 export class mat4 extends Float32Array {
-    private typeMat4:number;
+    private typeMat4: number;
 
     /**
      * Creates a new identity mat4
@@ -2191,7 +2191,7 @@ export class mat4 extends Float32Array {
      * @param {number} m33 Component in column 3, row 3 position (index 15)
      * @returns {mat4} A new mat4
      */
-    public static fromValues(m00:number, m01:number, m02:number, m03:number, m10:number, m11:number, m12:number, m13:number, m20:number, m21:number, m22:number, m23:number, m30:number, m31:number, m32:number, m33:number): mat4;
+    public static fromValues(m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4;
 
     /**
      * Set the components of a mat4 to the given values
@@ -2215,7 +2215,7 @@ export class mat4 extends Float32Array {
      * @param {number} m33 Component in column 3, row 3 position (index 15)
      * @returns {mat4} out
      */
-    public static set(out: mat4, m00:number, m01:number, m02:number, m03:number, m10:number, m11:number, m12:number, m13:number, m20:number, m21:number, m22:number, m23:number, m30:number, m31:number, m32:number, m33:number): mat4;
+    public static set(out: mat4, m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4;
 
     /**
      * Set a mat4 to the identity matrix
@@ -2258,7 +2258,7 @@ export class mat4 extends Float32Array {
      * @param a the source matrix
      * @returns determinant of a
      */
-    public static determinant(a: mat4):number;
+    public static determinant(a: mat4): number;
 
     /**
      * Multiplies two mat4's
@@ -2288,7 +2288,7 @@ export class mat4 extends Float32Array {
      * @param v vector to translate by
      * @returns out
      */
-    public static translate(out: mat4, a: mat4, v: vec3): mat4;
+    public static translate(out: mat4, a: mat4, v: vec3 | number[]): mat4;
 
     /**
      * Scales the mat4 by the dimensions in the given vec3
@@ -2298,7 +2298,7 @@ export class mat4 extends Float32Array {
      * @param v the vec3 to scale the matrix by
      * @returns out
      **/
-    public static scale(out: mat4, a: mat4, v: vec3): mat4;
+    public static scale(out: mat4, a: mat4, v: vec3 | number[]): mat4;
 
     /**
      * Rotates a mat4 by the given angle
@@ -2309,7 +2309,7 @@ export class mat4 extends Float32Array {
      * @param axis the axis to rotate around
      * @returns out
      */
-    public static rotate(out: mat4, a: mat4, rad:number, axis: vec3): mat4;
+    public static rotate(out: mat4, a: mat4, rad: number, axis: vec3 | number[]): mat4;
 
     /**
      * Rotates a matrix by the given angle around the X axis
@@ -2319,7 +2319,7 @@ export class mat4 extends Float32Array {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-    public static rotateX(out: mat4, a: mat4, rad:number): mat4;
+    public static rotateX(out: mat4, a: mat4, rad: number): mat4;
 
     /**
      * Rotates a matrix by the given angle around the Y axis
@@ -2329,7 +2329,7 @@ export class mat4 extends Float32Array {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-    public static rotateY(out: mat4, a: mat4, rad:number): mat4;
+    public static rotateY(out: mat4, a: mat4, rad: number): mat4;
 
     /**
      * Rotates a matrix by the given angle around the Z axis
@@ -2339,7 +2339,7 @@ export class mat4 extends Float32Array {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-    public static rotateZ(out: mat4, a: mat4, rad:number): mat4;
+    public static rotateZ(out: mat4, a: mat4, rad: number): mat4;
 
     /**
      * Creates a matrix from a vector translation
@@ -2352,7 +2352,7 @@ export class mat4 extends Float32Array {
      * @param {vec3} v Translation vector
      * @returns {mat4} out
      */
-    public static fromTranslation(out: mat4, v: vec3): mat4
+    public static fromTranslation(out: mat4, v: vec3 | number[]): mat4
 
     /**
      * Creates a matrix from a vector scaling
@@ -2365,7 +2365,7 @@ export class mat4 extends Float32Array {
      * @param {vec3} v Scaling vector
      * @returns {mat4} out
      */
-    public static fromScaling(out: mat4, v: vec3): mat4
+    public static fromScaling(out: mat4, v: vec3 | number[]): mat4
 
     /**
      * Creates a matrix from a given angle around a given axis
@@ -2379,7 +2379,7 @@ export class mat4 extends Float32Array {
      * @param {vec3} axis the axis to rotate around
      * @returns {mat4} out
      */
-    public static fromRotation(out: mat4, rad:number, axis: vec3): mat4
+    public static fromRotation(out: mat4, rad: number, axis: vec3 | number[]): mat4
 
     /**
      * Creates a matrix from the given angle around the X axis
@@ -2392,7 +2392,7 @@ export class mat4 extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
-    public static fromXRotation(out: mat4, rad:number): mat4
+    public static fromXRotation(out: mat4, rad: number): mat4
 
     /**
      * Creates a matrix from the given angle around the Y axis
@@ -2405,7 +2405,7 @@ export class mat4 extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
-    public static fromYRotation(out: mat4, rad:number): mat4
+    public static fromYRotation(out: mat4, rad: number): mat4
 
 
     /**
@@ -2419,7 +2419,7 @@ export class mat4 extends Float32Array {
      * @param {number} rad the angle to rotate the matrix by
      * @returns {mat4} out
      */
-    public static fromZRotation(out: mat4, rad:number): mat4
+    public static fromZRotation(out: mat4, rad: number): mat4
 
     /**
      * Creates a matrix from a quaternion rotation and vector translation
@@ -2436,7 +2436,7 @@ export class mat4 extends Float32Array {
      * @param v Translation vector
      * @returns out
      */
-    public static fromRotationTranslation(out: mat4, q: quat, v: vec3): mat4;
+    public static fromRotationTranslation(out: mat4, q: quat, v: vec3 | number[]): mat4;
 
     /**
      * Returns the translation vector component of a transformation
@@ -2477,7 +2477,7 @@ export class mat4 extends Float32Array {
      * @param s Scaling vector
      * @returns out
      */
-    public static fromRotationTranslationScale(out: mat4, q: quat, v: vec3, s: vec3): mat4;
+    public static fromRotationTranslationScale(out: mat4, q: quat, v: vec3 | number[], s: vec3 | number[]): mat4;
 
     /**
      * Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin
@@ -2499,7 +2499,7 @@ export class mat4 extends Float32Array {
      * @param {vec3} o The origin vector around which to scale and rotate
      * @returns {mat4} out
      */
-    public static fromRotationTranslationScaleOrigin(out: mat4, q: quat, v: vec3, s: vec3, o: vec3): mat4
+    public static fromRotationTranslationScaleOrigin(out: mat4, q: quat, v: vec3 | number[], s: vec3 | number[], o: vec3 | number[]): mat4
 
     /**
      * Calculates a 4x4 matrix from the given quaternion
@@ -2523,8 +2523,8 @@ export class mat4 extends Float32Array {
      * @param far Far bound of the frustum
      * @returns out
      */
-    public static frustum(out: mat4, left:number, right:number,
-                          bottom:number, top:number, near:number, far:number): mat4;
+    public static frustum(out: mat4, left: number, right: number,
+                          bottom: number, top: number, near: number, far: number): mat4;
 
     /**
      * Generates a perspective projection matrix with the given bounds
@@ -2536,8 +2536,8 @@ export class mat4 extends Float32Array {
      * @param far Far bound of the frustum
      * @returns out
      */
-    public static perspective(out: mat4, fovy:number, aspect:number,
-                              near:number, far:number): mat4;
+    public static perspective(out: mat4, fovy: number, aspect: number,
+                              near: number, far: number): mat4;
 
     /**
      * Generates a perspective projection matrix with the given field of view.
@@ -2551,8 +2551,8 @@ export class mat4 extends Float32Array {
      * @returns {mat4} out
      */
     public static perspectiveFromFieldOfView(out: mat4,
-                                             fov:{upDegrees:number, downDegrees:number, leftDegrees:number, rightDegrees:number},
-                                             near:number, far:number): mat4
+                                             fov:{upDegrees: number, downDegrees: number, leftDegrees: number, rightDegrees: number},
+                                             near: number, far: number): mat4
 
     /**
      * Generates a orthogonal projection matrix with the given bounds
@@ -2566,8 +2566,8 @@ export class mat4 extends Float32Array {
      * @param far Far bound of the frustum
      * @returns out
      */
-    public static ortho(out: mat4, left:number, right:number,
-                        bottom:number, top:number, near:number, far:number): mat4;
+    public static ortho(out: mat4, left: number, right: number,
+                        bottom: number, top: number, near: number, far: number): mat4;
 
     /**
      * Generates a look-at matrix with the given eye position, focal point, and up axis
@@ -2578,7 +2578,7 @@ export class mat4 extends Float32Array {
      * @param up vec3 pointing up
      * @returns out
      */
-    public static lookAt(out: mat4, eye: vec3, center: vec3, up: vec3): mat4;
+    public static lookAt(out: mat4, eye: vec3 | number[], center: vec3 | number[], up: vec3 | number[]): mat4;
 
     /**
      * Returns a string representation of a mat4
@@ -2586,7 +2586,7 @@ export class mat4 extends Float32Array {
      * @param mat matrix to represent as a string
      * @returns string representation of the matrix
      */
-    public static str(mat: mat4):string;
+    public static str(mat: mat4): string;
 
     /**
      * Returns Frobenius norm of a mat4
@@ -2594,7 +2594,7 @@ export class mat4 extends Float32Array {
      * @param a the matrix to calculate Frobenius norm of
      * @returns Frobenius norm
      */
-    public static frob(a: mat4):number;
+    public static frob(a: mat4): number;
 
     /**
      * Adds two mat4's
@@ -2634,7 +2634,7 @@ export class mat4 extends Float32Array {
      * @param {number} b amount to scale the matrix's elements by
      * @returns {mat4} out
      */
-    public static multiplyScalar(out: mat4, a: mat4, b:number): mat4
+    public static multiplyScalar(out: mat4, a: mat4, b: number): mat4
 
     /**
      * Adds two mat4's after multiplying each element of the second operand by a scalar value.
@@ -2645,7 +2645,7 @@ export class mat4 extends Float32Array {
      * @param {number} scale the amount to scale b's elements by before adding
      * @returns {mat4} out
      */
-    public static multiplyScalarAndAdd (out: mat4, a: mat4, b: mat4, scale:number): mat4
+    public static multiplyScalarAndAdd (out: mat4, a: mat4, b: mat4, scale: number): mat4
 
     /**
      * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -2654,7 +2654,7 @@ export class mat4 extends Float32Array {
      * @param {mat4} b The second matrix.
      * @returns {boolean} True if the matrices are equal, false otherwise.
      */
-    public static exactEquals (a: mat4, b: mat4) :boolean
+    public static exactEquals (a: mat4, b: mat4): boolean
 
     /**
      * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2669,7 +2669,7 @@ export class mat4 extends Float32Array {
 
 // quat
 export class quat extends Float32Array {
-    private typeQuat:number;
+    private typeQuat: number;
 
     /**
      * Creates a new identity quat
@@ -2731,18 +2731,6 @@ export class quat extends Float32Array {
     public static identity(out: quat): quat;
 
     /**
-     * Sets the specified quaternion with values corresponding to the given
-     * axes. Each axis is a vec3 and is expected to be unit length and
-     * perpendicular to all other specified axes.
-     *
-     * @param {vec3} view  the vector representing the viewing direction
-     * @param {vec3} right the vector representing the local "right" direction
-     * @param {vec3} up    the vector representing the local "up" direction
-     * @returns {quat} out
-     */
-    public static setAxes (out: quat, view: vec3, right: vec3, up: vec3): quat
-
-    /**
      * Sets a quaternion to represent the shortest rotation from one
      * vector to another.
      *
@@ -2753,7 +2741,19 @@ export class quat extends Float32Array {
      * @param {vec3} b the destination vector
      * @returns {quat} out
      */
-    public static rotationTo (out: quat, a: vec3, b: vec3): quat;
+    public static rotationTo (out: quat, a: vec3 | number[], b: vec3 | number[]): quat;
+
+    /**
+     * Sets the specified quaternion with values corresponding to the given
+     * axes. Each axis is a vec3 and is expected to be unit length and
+     * perpendicular to all other specified axes.
+     *
+     * @param {vec3} view  the vector representing the viewing direction
+     * @param {vec3} right the vector representing the local "right" direction
+     * @param {vec3} up    the vector representing the local "up" direction
+     * @returns {quat} out
+     */
+    public static setAxes (out: quat, view: vec3 | number[], right: vec3 | number[], up: vec3 | number[]): quat
 
 
 
@@ -2766,7 +2766,7 @@ export class quat extends Float32Array {
      * @param rad the angle in radians
      * @returns out
      **/
-    public static setAxisAngle(out: quat, axis: vec3, rad: number): quat;
+    public static setAxisAngle(out: quat, axis: vec3 | number[], rad: number): quat;
 
     /**
      * Gets the rotation axis and angle for a given
@@ -2781,7 +2781,7 @@ export class quat extends Float32Array {
      * @param  {quat} q     Quaternion to be decomposed
      * @return {number}     Angle, in radians, of the rotation
      */
-    public static getAxisAngle (out_axis: vec3, q: quat) :number
+    public static getAxisAngle (out_axis: vec3 | number[], q: quat): number
 
     /**
      * Adds two quat's
@@ -2902,7 +2902,7 @@ export class quat extends Float32Array {
      * @param t interpolation amount between the two inputs
      * @returns out
      */
-    public static slerp(out: quat, a: quat, b: quat, t:number): quat;
+    public static slerp(out: quat, a: quat, b: quat, t: number): quat;
 
     /**
      * Performs a spherical linear interpolation with two control points
@@ -2998,7 +2998,7 @@ export class quat extends Float32Array {
      * @param up    the vector representing the local "up" direction
      * @returns out
      */
-    public static setAxes(out: quat, view: vec3, right: vec3, up: vec3): quat;
+    public static setAxes(out: quat, view: vec3 | number[], right: vec3 | number[], up: vec3 | number[]): quat;
 
     /**
      * Sets a quaternion to represent the shortest rotation from one
@@ -3011,7 +3011,7 @@ export class quat extends Float32Array {
      * @param b the destination vector
      * @returns out
      */
-    public static rotationTo(out: quat, a: vec3, b: vec3): quat;
+    public static rotationTo(out: quat, a: vec3 | number[], b: vec3 | number[]): quat;
 
     /**
      * Calculates the W component of a quat from the X, Y, and Z components.
@@ -3031,7 +3031,7 @@ export class quat extends Float32Array {
      * @param {quat} b The second vector.
      * @returns {boolean} True if the quaternions are equal, false otherwise.
      */
-    public static exactEquals (a: quat, b: quat) : boolean;
+    public static exactEquals (a: quat, b: quat): boolean;
 
     /**
      * Returns whether or not the quaternions have approximately the same elements in the same position.
@@ -3040,5 +3040,5 @@ export class quat extends Float32Array {
      * @param {quat} b The second vector.
      * @returns {boolean} True if the quaternions are equal, false otherwise.
      */
-    public static equals (a: quat, b: quat) : boolean;
+    public static equals (a: quat, b: quat): boolean;
 }

@@ -79,6 +79,7 @@ vecArray = vec2.forEach(vecArray, 0, 0, 0, vec2.normalize);
 outStr = vec2.str(vec2A);
 outBool = vec2.exactEquals(vec2A, vec2B);
 outBool = vec2.equals(vec2A, vec2B);
+outVec2 = vec2.add(outVec2, [0, 1], [2, 3]); // test one method with number array input
 
 // vec3
 outVec3 = vec3.create();
@@ -129,6 +130,7 @@ outVal = vec3.angle(vec3A, vec3B);
 outStr = vec3.str(vec3A);
 outBool = vec3.exactEquals(vec3A, vec3B);
 outBool = vec3.equals(vec3A, vec3B);
+outVec3 = vec3.add(outVec3, [0, 1, 2], [3, 4, 5]); // test one method with number array input
 
 // vec4
 outVec4 = vec4.create();
@@ -170,6 +172,7 @@ vecArray = vec4.forEach(vecArray, 0, 0, 0, vec4.normalize);
 outStr = vec4.str(vec4A);
 outBool = vec4.exactEquals(vec4A, vec4B);
 outBool = vec4.equals(vec4A, vec4B);
+outVec4 = vec4.add(outVec4, [0, 1, 2, 3], [4, 5, 6, 7]); // test one method with number array input
 
 // mat2
 outMat2 = mat2.create();
@@ -228,7 +231,6 @@ outMat2d = mat2d.multiplyScalar (outMat2d, mat2dA, 2);
 outMat2d = mat2d.multiplyScalarAndAdd (outMat2d, mat2dA, mat2dB, 2);
 outBool = mat2d.exactEquals(mat2dA, mat2dB);
 outBool = mat2d.equals(mat2dA, mat2dB);
-
 
 // mat3
 outMat3 = mat3.create();
