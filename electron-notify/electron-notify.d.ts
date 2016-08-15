@@ -9,7 +9,7 @@ declare namespace ElectronNotify {
 }
 
 /** Nice and simple notifications for electron apps */
-declare module 'electron-notifications' {
+declare module 'electron-notify' {
 
   /** Change some config options. Can be run multiple times, also between notify()-calls to change electron-notifys behaviour. */
   export function setConfig(configObj);
