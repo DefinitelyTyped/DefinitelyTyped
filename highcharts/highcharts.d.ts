@@ -469,6 +469,10 @@ interface HighchartsAxisOptions {
      */
     ceiling?: number;
     /**
+     * Configure a crosshair that follows either the mouse pointer or the hovered point.
+     */
+    crosshair?: HighchartsCrosshairObject;
+    /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
      */
@@ -4830,17 +4834,6 @@ interface HighchartsIndividualSeriesOptions {
 	 *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
 	 *     value is pulled from the options.colors array.
  	 */
- 	color?: string;
- 	/**
- 	 * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
-	 *     that the points and lines can be clicked.
- 	 */
- 	cursor?: string;
-    /**
-     * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
-     *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
-     *     value is pulled from the options.colors array.
-     */
     color?: string;
     /**
      * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
@@ -4901,11 +4894,6 @@ interface HighchartsIndividualSeriesOptions {
  	 * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
 	 * the pointPadding and groupPadding.
  	 */
- 	pointWidth?: number;
-    /**
-     * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
-     * the pointPadding and groupPadding.
-     */
     pointWidth?: number;
     /**
      * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
