@@ -2,29 +2,28 @@
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Tat <https://github.com/tatchx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-declare namespace GLM {
-    interface IArray
-    {
-        /**
-         * Must be indexable like an array
-         */
-        [index: number]: number;
+declare module "gl-matrix" {
+  export module GLM {
+    interface IArray {
+      /**
+       * Must be indexable like an array
+       */
+      [index: number]: number;
     }
-}
+  }
 
-// Common
-declare namespace glMatrix {
+  // Common
+  export module glMatrix {
     /**
     * Convert Degree To Radian
     *
     * @param a Angle in Degrees
     */
     export function toRadian(a: number): number;
-}
+  }
 
-// vec2
-declare namespace vec2 {
+  // vec2
+  export module vec2 {
     /**
      * Creates a new, empty vec2
      *
@@ -377,7 +376,7 @@ declare namespace vec2 {
      * @returns a
      */
     export function forEach(a: GLM.IArray, stride: number, offset: number, count: number,
-        fn: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
+      fn: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
 
     /**
      * Perform some operation over an array of vec2s.
@@ -390,7 +389,7 @@ declare namespace vec2 {
      * @returns a
      */
     export function forEach(a: GLM.IArray, stride: number, offset: number, count: number,
-        fn: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
+      fn: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
 
     /**
      * Returns a string representation of a vector
@@ -399,10 +398,10 @@ declare namespace vec2 {
      * @returns string representation of the vector
      */
     export function str(a: GLM.IArray): string;
-}
+  }
 
-// vec3
-declare namespace vec3 {
+  // vec3
+  export module vec3 {
 
     /**
      * Creates a new, empty vec3
@@ -777,7 +776,7 @@ declare namespace vec3 {
      * @function
      */
     export function forEach(out: GLM.IArray, string: number, offset: number, count: number,
-        fn: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
+      fn: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
 
     /**
      * Perform some operation over an array of vec3s.
@@ -791,7 +790,7 @@ declare namespace vec3 {
      * @function
      */
     export function forEach(out: GLM.IArray, string: number, offset: number, count: number,
-        fn: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
+      fn: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
 
     /**
      * Get the angle between two 3D vectors
@@ -808,10 +807,10 @@ declare namespace vec3 {
      * @returns string representation of the vector
      */
     export function str(a: GLM.IArray): string;
-}
+  }
 
-// vec4
-declare namespace vec4 {
+  // vec4
+  export module vec4 {
 
     /**
      * Creates a new, empty vec4
@@ -1136,7 +1135,7 @@ declare namespace vec4 {
      * @function
      */
     export function forEach(out: GLM.IArray, string: number, offset: number, count: number,
-        callback: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
+      callback: (a: GLM.IArray, b: GLM.IArray, arg: any) => void, arg: any): GLM.IArray;
 
     /**
      * Perform some operation over an array of vec4s.
@@ -1150,7 +1149,7 @@ declare namespace vec4 {
      * @function
      */
     export function forEach(out: GLM.IArray, string: number, offset: number, count: number,
-        callback: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
+      callback: (a: GLM.IArray, b: GLM.IArray) => void): GLM.IArray;
 
     /**
      * Returns a string representation of a vector
@@ -1159,10 +1158,10 @@ declare namespace vec4 {
      * @returns string representation of the vector
      */
     export function str(a: GLM.IArray): string;
-}
+  }
 
-// mat2
-declare namespace mat2 {
+  // mat2
+  export module mat2 {
 
     /**
      * Creates a new identity mat2
@@ -1295,10 +1294,10 @@ declare namespace mat2 {
      * @param a the input matrix to factorize
      */
     export function LDU(L: GLM.IArray, D: GLM.IArray, U: GLM.IArray, a: GLM.IArray): GLM.IArray;
-}
+  }
 
-// mat2d
-declare namespace mat2d {
+  // mat2d
+  export module mat2d {
 
     /**
      * Creates a new identity mat2d
@@ -1414,10 +1413,10 @@ declare namespace mat2d {
      * @returns Frobenius norm
      */
     export function frob(a: GLM.IArray): number;
-}
+  }
 
-// mat3
-declare namespace mat3 {
+  // mat3
+  export module mat3 {
 
     /**
      * Creates a new identity mat3
@@ -1578,7 +1577,7 @@ declare namespace mat3 {
      * @param v vector to translate by
      * @returns out
      */
-     export function translate(out: GLM.IArray, a: GLM.IArray, v: GLM.IArray): GLM.IArray;
+    export function translate(out: GLM.IArray, a: GLM.IArray, v: GLM.IArray): GLM.IArray;
 
     /**
      * Rotates a mat3 by the given angle
@@ -1588,11 +1587,11 @@ declare namespace mat3 {
      * @param rad the angle to rotate the matrix by
      * @returns out
      */
-     export function rotate(out: GLM.IArray, a: GLM.IArray, rad: number): GLM.IArray;
-}
+    export function rotate(out: GLM.IArray, a: GLM.IArray, rad: number): GLM.IArray;
+  }
 
-// mat4
-declare namespace mat4 {
+  // mat4
+  export module mat4 {
 
     /**
      * Creates a new identity mat4
@@ -1755,7 +1754,7 @@ declare namespace mat4 {
      * @returns out
      */
     export function frustum(out: GLM.IArray, left: number, right: number,
-        bottom: number, top: number, near: number, far: number): GLM.IArray;
+      bottom: number, top: number, near: number, far: number): GLM.IArray;
 
     /**
      * Generates a perspective projection matrix with the given bounds
@@ -1768,7 +1767,7 @@ declare namespace mat4 {
      * @returns out
      */
     export function perspective(out: GLM.IArray, fovy: number, aspect: number,
-        near: number, far: number): GLM.IArray;
+      near: number, far: number): GLM.IArray;
 
     /**
      * Generates a orthogonal projection matrix with the given bounds
@@ -1783,7 +1782,7 @@ declare namespace mat4 {
      * @returns out
      */
     export function ortho(out: GLM.IArray, left: number, right: number,
-        bottom: number, top: number, near: number, far: number): GLM.IArray;
+      bottom: number, top: number, near: number, far: number): GLM.IArray;
 
     /**
      * Generates a look-at matrix with the given eye position, focal point, and up axis
@@ -1795,7 +1794,7 @@ declare namespace mat4 {
      * @returns out
      */
     export function lookAt(out: GLM.IArray, eye: GLM.IArray,
-        center: GLM.IArray, up: GLM.IArray): GLM.IArray;
+      center: GLM.IArray, up: GLM.IArray): GLM.IArray;
 
     /**
      * Returns a string representation of a mat4
@@ -1830,24 +1829,24 @@ declare namespace mat4 {
      */
     export function fromRotationTranslation(out: GLM.IArray, q: GLM.IArray, v: GLM.IArray): GLM.IArray;
 
-     /**
-     * Creates a matrix from a quaternion rotation, vector translation and vector scale.
-     * 
-     * This is equivalent to (but much faster than):
-     * 
-     *     mat4.identity(dest); 
-     *     mat4.translate(dest, vec); 
-     *     var quatMat = mat4.create(); 
-     *     quat4.toMat4(quat, quatMat); 
-     *     mat4.multiply(dest, quatMat); 
-     *     mat4.scale(dest, scale)
-     * 
-     * @param out mat4 receiving operation result
-     * @param q Rotation quaternion
-     * @param v Translation vector
-     * @param s Scale vector
-     * @returns out
-     */
+    /**
+    * Creates a matrix from a quaternion rotation, vector translation and vector scale.
+    *
+    * This is equivalent to (but much faster than):
+    *
+    *     mat4.identity(dest);
+    *     mat4.translate(dest, vec);
+    *     var quatMat = mat4.create();
+    *     quat4.toMat4(quat, quatMat);
+    *     mat4.multiply(dest, quatMat);
+    *     mat4.scale(dest, scale)
+    *
+    * @param out mat4 receiving operation result
+    * @param q Rotation quaternion
+    * @param v Translation vector
+    * @param s Scale vector
+    * @returns out
+    */
     export function fromRotationTranslationScale(out: GLM.IArray, q: GLM.IArray, v: GLM.IArray, s: GLM.IArray): GLM.IArray
 
     /**
@@ -1858,10 +1857,10 @@ declare namespace mat4 {
      * @returns out
      */
     export function fromQuat(out: GLM.IArray, q: GLM.IArray): GLM.IArray;
-}
+  }
 
-// quat
-declare namespace quat {
+  // quat
+  export module quat {
 
     /**
      * Creates a new identity quat
@@ -2135,7 +2134,7 @@ declare namespace quat {
      * @returns out
      */
     export function setAxes(out: GLM.IArray, view: GLM.IArray, right: GLM.IArray,
-        up: GLM.IArray): GLM.IArray;
+      up: GLM.IArray): GLM.IArray;
 
     /**
      * Sets a quaternion to represent the shortest rotation from one
@@ -2160,4 +2159,5 @@ declare namespace quat {
      * @returns out
      */
     export function calculateW(out: GLM.IArray, a: GLM.IArray): GLM.IArray;
+  }
 }
