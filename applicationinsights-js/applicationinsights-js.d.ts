@@ -790,7 +790,7 @@ declare module Microsoft.ApplicationInsights {
 }
 
 declare module 'applicationinsights-js' {
-    export = appInsights;
+    export let AppInsights: Microsoft.ApplicationInsights.IAppInsights;
 }
 
 declare var appInsights: Microsoft.ApplicationInsights.IAppInsights;

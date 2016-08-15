@@ -6,17 +6,12 @@
 
 declare module "seneca" {
 
-    type UnknownType = any;
+    function SNS(options?: SNS.Options): SNS.Instance;
 
+    namespace SNS {
 
-    // function s(options?: Options): Seneca;
+        type UnknownType = any;
 
-
-    // what does seneca do about logging?
-    function log(): void;
-
-
-    // module s {
 
         interface Options {
             [plugin_name: string]: any;
@@ -125,8 +120,8 @@ declare module "seneca" {
         }
 
         interface Optioner {
-          set: (input: string | Options) => Options;
-          get: () => Options;
+        set: (input: string | Options) => Options;
+        get: () => Options;
         }
 
         type ExecutorWorker = (callback: any) => void;
@@ -171,10 +166,11 @@ declare module "seneca" {
         type EntityListCallback = (error: Error, result: any[]) => void;
 
 
-        interface Seneca {
+
+
+        interface Instance {
             version: string;
 
-            (options?: Options): Seneca;
             options(options: Options): void;
 
             error(handler: GlobalErrorHandler): void;
@@ -196,7 +192,7 @@ declare module "seneca" {
             make(zone: string, base: string, entity_canon: string, properties?: any): Entity;
 
             // @param name reference to plugin provided object
-            export(name: string): void;
+            export(name: string): PluginModule;
 
             pin(pattern: Pattern): void;
         }
@@ -222,10 +218,9 @@ declare module "seneca" {
             remove$(id: DatabaseID | EntityDataWithQuery, callback: EntityRemoveCallback): void;
             list$(query: EntityDataWithQuery, callback: EntityListCallback): void;
         }
+        
+    }
 
-    // }
-
-    var sen: Seneca
-    export = sen;
-
+    export = SNS;
 }
+

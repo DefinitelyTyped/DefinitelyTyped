@@ -163,6 +163,7 @@ declare namespace autobahn {
     }
 
     interface IPublishOptions {
+        acknowledge?: boolean;
         exclude?: number[];
         eligible?: number[];
         disclose_me?: Boolean;

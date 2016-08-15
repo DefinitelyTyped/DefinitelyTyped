@@ -34,6 +34,17 @@ declare module "redis" {
         versions: number[];
     }
 
+    export interface RetryStrategyOptions {
+        error: Error;
+        total_retry_time: number;
+        times_connected: number;
+        attempt: number;
+    }
+
+    export interface RetryStrategy {
+        (options: RetryStrategyOptions): number | Error;
+    }
+
     export interface ClientOpts {
         parser?: string;
         return_buffers?: boolean;
@@ -50,6 +61,7 @@ declare module "redis" {
         family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
+        retry_strategy?: RetryStrategy;
     }
 
     export interface RedisClient extends NodeJS.EventEmitter {
