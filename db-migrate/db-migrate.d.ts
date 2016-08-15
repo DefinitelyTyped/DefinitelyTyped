@@ -1,10 +1,10 @@
-///<reference path="../bluebird/bluebird.d.ts"/>
-///<reference path="../node/node.d.ts"/>
-
-// Type definitions for db-migrate/db-migrate-base
+// Type definitions for db-migrate-base
 // Project: https://github.com/db-migrate/db-migrate-base
-// Definitions by: nickiannone https://github.com/nickiannone
+// Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
+
+/// <reference path="../bluebird/bluebird.d.ts"/>
+/// <reference path="../node/node.d.ts"/>
 
 declare module "DbMigrate" {
 

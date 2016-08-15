@@ -1,6 +1,6 @@
 // Type definitions for db-migrate-pg
 // Project: https://github.com/db-migrate/pg
-// Definitions by: nickiannone https://github.com/nickiannone
+// Definitions by: nickiannone <http://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
 
 /// <reference path="../db-migrate/db-migrate.d.ts"/>
