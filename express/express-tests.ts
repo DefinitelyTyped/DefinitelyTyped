@@ -50,6 +50,26 @@ router.delete(pathRE);
 router.use((req, res, next) => { next(); })
 router.route('/users')
     .get((req, res, next) => {
+        let types: string[] = req.accepts();
+        let type: string | boolean = req.accepts('json');
+        type = req.accepts(['json', 'text']);
+        type = req.accepts('json', 'text');
+
+        let charsets: string[] = req.acceptsCharsets();
+        let charset: string | boolean = req.acceptsCharsets('utf-8');
+        charset = req.acceptsCharsets(['utf-8', 'utf-16']);
+        charset = req.acceptsCharsets('utf-8', 'utf-16');
+
+        let encodings: string[] = req.acceptsEncodings();
+        let encoding: string | boolean = req.acceptsEncodings('gzip');
+        encoding = req.acceptsEncodings(['gzip', 'deflate']);
+        encoding = req.acceptsEncodings('gzip', 'deflate');
+
+        let languages: string[] = req.acceptsLanguages();
+        let language: string | boolean = req.acceptsLanguages('en');
+        language = req.acceptsLanguages(['en', 'ja']);
+        language = req.acceptsLanguages('en', 'ja');
+
         res.send(req.query['token']);
     });
 

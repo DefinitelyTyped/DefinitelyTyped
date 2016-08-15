@@ -330,6 +330,7 @@ declare module "knex" {
     interface Transaction extends QueryBuilder {
       commit: any;
       rollback: any;
+      raw: Knex.RawBuilder;
     }
 
     //
@@ -370,6 +371,7 @@ declare module "knex" {
       enum(columnName: string, values: Value[]): ColumnBuilder;
       enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
+      jsonb(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;
       specificType(columnName: string, type: string): ColumnBuilder;
@@ -453,6 +455,9 @@ declare module "knex" {
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigratorConfig;
+      acquireConnectionTimeout?: number;
+      useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {
