@@ -155,7 +155,7 @@ declare module "graphene-pk11" {
         AesGCM,
         RsaOAEP,
         RsaPSS,
-        EcDH
+        EcDH,
     }
 
     // AES
@@ -242,7 +242,7 @@ declare module "graphene-pk11" {
         SHA224,
         SHA256,
         SHA384,
-        SHA512
+        SHA512,
     }
 
     class EcdhParams implements IParams, pkcs11.ECDH1 {
@@ -277,7 +277,7 @@ declare module "graphene-pk11" {
         MGF1_SHA224,
         MGF1_SHA256,
         MGF1_SHA384,
-        MGF1_SHA512
+        MGF1_SHA512,
     }
 
     class RsaOaepParams implements IParams {
@@ -326,7 +326,7 @@ declare module "graphene-pk11" {
         HW_FEATURE,
         DOMAIN_PARAMETERS,
         MECHANISM,
-        OTP_KEY
+        OTP_KEY,
     }
 
     class SessionObject extends HandleObject {
@@ -485,7 +485,7 @@ declare module "graphene-pk11" {
         HOTP,
         ACTI,
         CAMELLIA,
-        ARIA
+        ARIA,
     }
     enum KeyGenMechanism {
         AES,
@@ -867,14 +867,14 @@ declare module "graphene-pk11" {
     enum CertificateType {
         X_509,
         X_509_ATTR_CERT,
-        WTLS
+        WTLS,
     }
 
     enum CertificateCategory {
         Unspecified,
         TokenUser,
         Authority,
-        OtherEntity
+        OtherEntity,
     }
 
     /**
@@ -993,7 +993,7 @@ declare module "graphene-pk11" {
         Unspecified,
         Manufacturer,
         Operator,
-        ThirdParty
+        ThirdParty,
     }
 
     /**
@@ -1434,7 +1434,7 @@ declare module "graphene-pk11" {
         DSA_PARAMETER_GEN,
         DH_PKCS_PARAMETER_GEN,
         X9_42_DH_PARAMETER_GEN,
-        VENDOR_DEFINED
+        VENDOR_DEFINED,
     }
 
     enum SessionFlag {
@@ -1445,7 +1445,7 @@ declare module "graphene-pk11" {
         /**
          * This flag is provided for backward compatibility, and should always be set to `true`
          */
-        SERIAL_SESSION
+        SERIAL_SESSION,
     }
 
     enum UserType {
@@ -1460,7 +1460,7 @@ declare module "graphene-pk11" {
         /**
          * Context specific
          */
-        CONTEXT_SPECIFIC
+        CONTEXT_SPECIFIC,
     }
 
     interface IKeyPair {
@@ -2130,7 +2130,7 @@ declare module "graphene-pk11" {
         SO_PIN_COUNT_LOW,
         SO_PIN_FINAL_TRY,
         SO_PIN_LOCKED,
-        SO_PIN_TO_BE_CHANGED
+        SO_PIN_TO_BE_CHANGED,
     }
 
     class Token extends HandleObject {
