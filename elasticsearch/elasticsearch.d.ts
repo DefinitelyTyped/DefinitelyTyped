@@ -9,6 +9,8 @@ declare module Elasticsearch {
         indices: Indices;
         bulk(params: BulkIndexDocumentsParams): PromiseLike<any>;
         bulk(params: BulkIndexDocumentsParams, callback: (error: any, response: any) => void): void;
+        create(params: ClientCreateParams): PromiseLike<any>;
+        create(params: ClientCreateParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
         get(params: GetParams, callback: (error: any, response: any) => void): void;
@@ -100,6 +102,21 @@ declare module Elasticsearch {
         type?: string;
         fields?: string | string[] | boolean;
         index?: string;
+    }
+
+    export interface ClientCreateParams extends GenericParams {
+        consistency?: "one" | "quorum" | "all";
+        parent?: string;
+        refressh?: boolean;
+        routing?: string;
+        timeout?: number | Date;
+        timestamp?: number | Date;
+        ttl?: number;
+        version?: number;
+        versionType?: "internal" | "external" | "external_gte" | "force";
+        id: string;
+        index: string;
+        type: string;
     }
 
     export interface IndicesGetParams extends GenericParams {
