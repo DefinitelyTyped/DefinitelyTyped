@@ -17,7 +17,10 @@ eNotify.notify({
   image: 'path/to/image.png',
   url: 'http://google.de',
   sound: 'notification.wav',
-  onClickFunc: function () { console.log('onClick') },
-  onShowFunc: function () { console.log('onShow') },
-  onCloseFunc: function () { console.log('onClose') }
+  onClickFunc: (event) => {
+    console.log('onClick ' + event.id);
+    event.closeNotification('onClick');
+  },
+  onShowFunc: (event) => { console.log('onShow ' + event.id) },
+  onCloseFunc: (event) => { console.log('onClose ' + event.id) }
 });

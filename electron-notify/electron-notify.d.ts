@@ -7,15 +7,24 @@
 
 declare namespace ElectronNotify {
 
+  interface ICloseNotificationEvent {
+    event: 'close' | 'show' | 'click',
+    id: number
+  }
+
+  interface INotificationEvent extends ICloseNotificationEvent {
+    closeNotification: (reason: any) => void,
+  }
+
   interface INotification {
     title: string,
     text?: string,
     image?: string,
     url?: string,
     sound?: string,
-    onClickFunc?: (event: string, id: number, closeNotification: any) => void,
-    onShowFunc?: (event: string, id: number, closeNotification: any) => void,
-    onCloseFunc?: (event: string, id: number) => void
+    onClickFunc?: (event: INotificationEvent) => void,
+    onShowFunc?: (event: INotificationEvent) => void,
+    onCloseFunc?: (event: ICloseNotificationEvent) => void
   }
 
   interface IConfiguration {
