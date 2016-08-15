@@ -13,8 +13,8 @@ declare namespace ElectronNotify {
     image?: string,
     url?: string,
     sound?: string,
-    onClickFunc?: (event: string, id: number, closeNotification) => void,
-    onShowFunc?: (event: string, id: number, closeNotification) => void,
+    onClickFunc?: (event: string, id: number, closeNotification: any) => void,
+    onShowFunc?: (event: string, id: number, closeNotification: any) => void,
     onCloseFunc?: (event: string, id: number) => void
   }
 
