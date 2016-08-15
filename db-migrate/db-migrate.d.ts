@@ -1,5 +1,5 @@
-// Type definitions for db-migrate-base
-// Project: https://github.com/db-migrate/db-migrate-base
+// Type definitions for db-migrate
+// Project: https://github.com/db-migrate/db-migrate
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/nickiannone/DefinitelyTyped
 
