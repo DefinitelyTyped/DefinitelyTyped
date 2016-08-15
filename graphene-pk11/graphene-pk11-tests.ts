@@ -1,6 +1,6 @@
 /// <reference path="./graphene-pk11.d.ts" />
 
-let graphene = require("graphene-pk11");
+import * as graphene from "graphene-pk11";
 let Module = graphene.Module;
 
 let lib = "/usr/local/lib/softhsm/libsofthsm2.so";
