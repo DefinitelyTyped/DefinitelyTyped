@@ -721,7 +721,7 @@ declare module _ {
             iterator: _.ListIterator<T, boolean>,
             context?: any): T[][];
 
-		/*********
+		/* *******
 		* Arrays *
 		**********/
 
@@ -1059,7 +1059,7 @@ declare module _ {
 		**/
         range(stop: number): number[];
 
-		/*************
+		/* ***********
 		 * Functions *
 		 *************/
 
@@ -3517,7 +3517,7 @@ declare module _ {
 		**/
         compose(...functions: Function[]): Function;
 
-		/**********
+		/* ********
 		* Objects *
 		***********/
 
@@ -4315,7 +4315,7 @@ declare module _ {
 		**/
         size(): number;
 
-		/*********
+		/* *******
 		* Arrays *
 		**********/
 
@@ -4610,7 +4610,7 @@ declare module _ {
 		**/
         compose(...functions: Function[]): Function;
 
-		/********* *
+		/* ******* *
 		 * Objects *
 		********** */
 
@@ -4827,7 +4827,7 @@ declare module _ {
 		**/
         isUndefined(): boolean;
 
-		/********* *
+		/* ******* *
 		 * Utility *
 		********** */
 
@@ -4908,7 +4908,7 @@ declare module _ {
 		**/
         template(settings?: _.TemplateSettings): (...data: any[]) => string;
 
-		/********** *
+		/* ******** *
 		 * Chaining *
 		*********** */
 
@@ -5233,7 +5233,7 @@ declare module _ {
 		**/
         size(): _ChainSingle<number>;
 
-		/*********
+		/* *******
 		* Arrays *
 		**********/
 
@@ -5528,7 +5528,7 @@ declare module _ {
 		**/
         compose(...functions: Function[]): _Chain<T>;
 
-		/********* *
+		/* ******* *
 		 * Objects *
 		********** */
 
@@ -5745,7 +5745,7 @@ declare module _ {
 		**/
         isUndefined(): _Chain<T>;
 
-		/********* *
+		/* ******* *
 		 * Utility *
 		********** */
 
@@ -5826,7 +5826,7 @@ declare module _ {
 		**/
         template(settings?: _.TemplateSettings): (...data: any[]) => _Chain<T>;
 
-		/************* *
+		/* *********** *
 		* Array proxy *
 		************** */
 
@@ -5907,7 +5907,7 @@ declare module _ {
 		**/
         unshift(...items: Array<T>): _Chain<T>;
 
-		/********** *
+		/* ******** *
 		 * Chaining *
 		*********** */
 
