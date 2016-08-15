@@ -29,6 +29,7 @@ import {
     AppStateIOS,
     ViewPagerAndroid,
     Dimensions,
+    BackAndroid,
 } from 'react-native';
 
 function testDimensions() {
@@ -47,8 +48,16 @@ function testDimensions() {
   } = Dimensions.get("screen");
 }
 
+BackAndroid.addEventListener("hardwareBackPress", () => {
+});
 
-var styles = StyleSheet.create(
+interface LocalStyles {
+    container: React.ViewStyle;
+    welcome: React.TextStyle;
+    instructions: React.TextStyle;
+}
+
+var styles = StyleSheet.create<LocalStyles>(
     {
         container:    {
             flex:            1,
@@ -69,15 +78,42 @@ var styles = StyleSheet.create(
     }
 )
 
+//alternative declaration of styles (inline typings)
+const stylesAlt = StyleSheet.create(
+    {
+        container:    {
+            flex:            1,
+            justifyContent:  'center',
+            alignItems:      'center',
+            backgroundColor: '#F5FCFF',
+        } as React.ViewStyle,
+        welcome:   {
+            fontSize:  20,
+            textAlign: 'center',
+            margin:    10,
+        } as React.TextStyle,
+        instructions: {
+            textAlign:    'center',
+            color:        '#333333',
+            marginBottom: 5,
+        } as React.TextStyle
+    }
+)
+
 
 class Welcome extends React.Component<any,any> {
 
+    refs: {
+      [key: string]: any
+      rootView: View
+    }
+
     testNativeMethods() {
-      this.setNativeProps({});
+      // this.setNativeProps({});
 
       const { rootView } = this.refs;
 
-      rootView.measure((x, y, width, height) => {
+      rootView.measure((x: number, y: number, width: number, height: number) => {
       });
     }
 

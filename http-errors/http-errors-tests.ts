@@ -6,11 +6,18 @@ import * as express from 'express';
 
 var app = express();
 
+declare global {
+    namespace Express {
+        export interface Request {
+            user?: any
+        }
+    }
+}
+
 app.use(function (req, res, next) {
     if (!req.user) return next(createError(401, 'Please login to view this page.'));
     next();
 });
-
 
 /* Examples taken from https://github.com/jshttp/http-errors/blob/1.3.1/test/test.js */
 

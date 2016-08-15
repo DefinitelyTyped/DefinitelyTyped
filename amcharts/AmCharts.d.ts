@@ -26,6 +26,19 @@ declare namespace AmCharts {
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
+    
+    /** Create chart by params. */
+    function makeChart(selector: string, params: any, delay?: number): AmChart;
+    
+    /** Set a method to be called before initializing the chart.
+     * When the method is called, the chart instance is passed as an attribute.
+     * You can use this feature to preprocess chart data or do some other things you need
+     * before initializing the chart.
+     * @param {Function} handler - The method to be called.
+     * @param {string[]} types - Which chart types should call this method. Defaults to all
+     * if none is passed.
+     */
+    function addInitHandler(handler: Function, types: string[]);
 
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
@@ -36,7 +49,7 @@ declare namespace AmCharts {
             chart.dataProvider = chartData;
             chart.write("chartdiv");
     */
-    class AmPieChart {
+    class AmPieChart extends AmChart {
         /** Name of the field in chart's dataProvider which holds slice's alpha. */
         alphaField: string;
         /** Pie lean angle (for 3D effect). Valid range is 0 - 90. */
@@ -187,19 +200,6 @@ declare namespace AmCharts {
         rollOverSlice(index: number);
         /** Shows slice. index - the number of a slice or Slice object. */
         showSlice(index: number);
-
-        /** Adds event listener of the type "clickSlice" or "pullInSlice" or "pullOutSlice" to the object.
-            @param type Always "clickSlice" or "pullInSlice" or "pullOutSlice".
-            @param handler
-                If the type is "clickSlice", dispatched when user clicks on a slice.
-                If the type is "pullInSlice", dispatched when user clicks on a slice and the slice is pulled-in.
-                If the type is "pullOutSlice", dispatched when user clicks on a slice and the slice is pulled-out.
-                If the type is "rollOutSlice", dispatched when user rolls-out of the slice.
-                If the type is "rollOverSlice", dispatched when user rolls-over the slice.
-        */
-        addListener(type: string, handler: (e: {/** Always "rollOverSlice". */
-            type: string; dataItem: Slice;
-        }) => void );
     }
 
     /** AmRadarChart is the class you have to use for radar and polar chart types.
@@ -1016,7 +1016,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number, y: number, text: string, align: string, size: number, color: string, rotation: number, alpha: number, bold: boolean, url: string);
+        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)

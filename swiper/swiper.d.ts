@@ -53,6 +53,8 @@ interface SwiperOptions {
     // Navigation
     keyboardControl?: boolean;
     mousewheelControl?: boolean;
+    nextButton?: string | HTMLElement;
+    prevButton?: string | HTMLElement;
 
     // Pagination
     pagination?: any;

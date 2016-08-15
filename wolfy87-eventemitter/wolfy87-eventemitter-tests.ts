@@ -1,6 +1,6 @@
-///<reference path="wolfy87-eventemitter.d.ts"/>
+/// <reference path="./wolfy87-eventemitter.d.ts" />
 
-import EventEmitter = require("wolfy87-eventemitter");
+import * as EventEmitter from 'wolfy87-eventemitter';
 
 var emitter = new EventEmitter();
 
@@ -108,4 +108,3 @@ function testNoConflict() {
     var NoConflictEventEmitter = EventEmitter.noConflict();
     var e: Wolfy87EventEmitter.EventEmitter = new NoConflictEventEmitter();
 }
-
