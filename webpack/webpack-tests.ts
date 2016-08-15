@@ -333,6 +333,7 @@ plugin = new webpack.optimize.DedupePlugin();
 plugin = new webpack.optimize.LimitChunkCountPlugin(options);
 plugin = new webpack.optimize.MinChunkSizePlugin(options);
 plugin = new webpack.optimize.OccurenceOrderPlugin(preferEntry);
+plugin = new webpack.optimize.OccurrenceOrderPlugin(preferEntry);
 plugin = new webpack.optimize.UglifyJsPlugin(options);
 plugin = new webpack.optimize.UglifyJsPlugin();
 plugin = new webpack.optimize.UglifyJsPlugin({

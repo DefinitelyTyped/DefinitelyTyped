@@ -650,7 +650,7 @@ declare namespace c3 {
             /**
              * Set mouseover event handler to the legend item.
              */
-            onmoouseover?: (id: any) => void;
+            onmouseover?: (id: any) => void;
             /**
              * Set mouseout event handler to the legend item.
              */
@@ -747,7 +747,7 @@ declare namespace c3 {
         /**
          * The radius size of each point.
          */
-        r?: number;
+        r?: number | ((d: any) => number);
 
         focus?: {
             expand: {

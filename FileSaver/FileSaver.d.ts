@@ -15,7 +15,7 @@ interface FileSaver {
          * @type {Blob}
          */
         data: Blob,
-        
+
         /**
          * @summary File name.
          * @type {DOMString}
@@ -31,3 +31,8 @@ interface FileSaver {
 }
 
 declare var saveAs: FileSaver;
+
+declare module "file-saver" {
+    var fileSaver: { saveAs: typeof saveAs };
+    export = fileSaver
+}

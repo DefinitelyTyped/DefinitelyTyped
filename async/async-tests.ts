@@ -378,6 +378,7 @@ async.auto({
 
 async.retry(3, function (callback, results) { }, function (err, result) { });
 async.retry({ times: 3, interval: 200 }, function (callback, results) { }, function (err, result) { });
+async.retry({ times: 3, interval: (retryCount) => { return 200 * retryCount; } }, function (callback, results) { }, function (err, result) { });
 
 
 async.parallel([
@@ -390,13 +391,6 @@ function (results) {
         function email_link(callback) { }
     ]);
 });
-
-var sys;
-var iterator = async.iterator([
-    function () { sys.p('one'); },
-    function () { sys.p('two'); },
-    function () { sys.p('three'); }
-]);
 
 async.parallel([
     async.apply(fs.writeFile, 'testfile1', 'test1'),

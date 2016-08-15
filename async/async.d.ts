@@ -1,4 +1,4 @@
-// Type definitions for Async 1.4.2
+// Type definitions for Async 2.0.1
 // Project: https://github.com/caolan/async
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Arseniy Maximov <https://github.com/kern0>, Joe Herman <https://github.com/Penryn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,10 +12,10 @@ interface AsyncResultObjectCallback<T> { (err: Error, results: Dictionary<T>): v
 
 interface AsyncFunction<T> { (callback: (err?: Error, result?: T) => void): void; }
 interface AsyncIterator<T> { (item: T, callback: ErrorCallback): void; }
-interface AsyncForEachOfIterator<T> { (item: T, key: number, callback: ErrorCallback): void; }
+interface AsyncForEachOfIterator<T> { (item: T, key: number|string, callback: ErrorCallback): void; }
 interface AsyncResultIterator<T, R> { (item: T, callback: AsyncResultCallback<R>): void; }
 interface AsyncMemoIterator<T, R> { (memo: R, item: T, callback: AsyncResultCallback<R>): void; }
-interface AsyncBooleanIterator<T> { (item: T, callback: (truthValue: boolean) => void): void; }
+interface AsyncBooleanIterator<T> { (item: T, callback: (err: string, truthValue: boolean) => void): void; }
 
 interface AsyncWorker<T> { (task: T, callback: ErrorCallback): void; }
 interface AsyncVoidFunction { (callback: ErrorCallback): void; }
@@ -37,6 +37,13 @@ interface AsyncQueue<T> {
     pause(): void
     resume(): void;
     kill(): void;
+    workersList(): {
+        data: T,
+        callback: Function
+    }[];
+    error(error: Error, data: any): void;
+    unsaturated(): void;
+    buffer: number;
 }
 
 interface AsyncPriorityQueue<T> {
@@ -54,6 +61,14 @@ interface AsyncPriorityQueue<T> {
     pause(): void;
     resume(): void;
     kill(): void;
+    workersList(): {
+        data: T,
+        priority: number,
+        callback: Function
+    }[];
+    error(error: Error, data: any): void;
+    unsaturated(): void;
+    buffer: number;
 }
 
 interface AsyncCargo {
@@ -85,26 +100,35 @@ interface Async {
     map<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
     mapLimit<T, R>(arr: T[], limit: number, iterator: AsyncResultIterator<T, R>, callback?: AsyncResultArrayCallback<R>): any;
-    filter<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    select<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    filterSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    selectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    filterLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    selectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    reject<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    rejectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
-    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (results: T[]) => any): any;
+    mapValuesLimit<T, R>(obj: {[name: string]: T}, limit: number, iteratee: (value: string, key: T, callback: AsyncResultCallback<R>) => void, callback: AsyncResultCallback<R[]>): void;
+    mapValues<T, R>(obj: {[name: string]: T}, iteratee: (value: string, key: T, callback: AsyncResultCallback<R>) => void, callback: AsyncResultCallback<R[]>): void;
+    mapValuesSeries: typeof async.mapValues;
+    filter<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    select<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    filterSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    selectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    filterLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    selectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    reject<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    rejectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
+    rejectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultArrayCallback<T>): any;
     reduce<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     inject<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     foldl<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback?: AsyncResultCallback<R>): any;
     reduceRight<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncResultCallback<R>): any;
     foldr<T, R>(arr: T[], memo: R, iterator: AsyncMemoIterator<T, R>, callback: AsyncResultCallback<R>): any;
-    detect<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
-    detectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
-    detectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: T) => void): any;
+    detect<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
+    find: typeof async.detect;
+    detectSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
+    findSeries: typeof async.detectSeries;
+    detectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
+    findLimit: typeof async.detectLimit;
     sortBy<T, V>(arr: T[], iterator: AsyncResultIterator<T, V>, callback?: AsyncResultArrayCallback<T>): any;
     some<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
     someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
+    anyLimit: typeof async.someLimit;
+    someSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
+    anySeries: typeof async.someSeries;
     any<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
     every<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => any): any;
     everyLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => any): any;
@@ -134,17 +158,34 @@ interface Async {
     queue<T>(worker: AsyncWorker<T>, concurrency?: number): AsyncQueue<T>;
     priorityQueue<T>(worker: AsyncWorker<T>, concurrency: number): AsyncPriorityQueue<T>;
     cargo(worker : (tasks: any[], callback : ErrorCallback) => void, payload? : number) : AsyncCargo;
-    auto(tasks: any, callback?: (error: Error, results: any) => void): void;
+    auto(tasks: any, concurrency?: number, callback?: (error: Error, results: any) => void): void;
+    autoInject(tasks: any, callback?: (error: Error, results: any) => void): void;
     retry<T>(opts: number, task: (callback : AsyncResultCallback<T>, results: any) => void, callback: (error: Error, results: any) => void): void;
-    retry<T>(opts: { times: number, interval: number }, task: (callback: AsyncResultCallback<T>, results : any) => void, callback: (error: Error, results: any) => void): void;
-    iterator(tasks: Function[]): Function;
+    retry<T>(opts: { times: number, interval: number|((retryCount: number) => number) }, task: (callback: AsyncResultCallback<T>, results : any) => void, callback: (error: Error, results: any) => void): void;
+    retryable<T>(opts: number | {times: number, interval: number}, task: AsyncFunction<T>): AsyncFunction<T>;
     apply(fn: Function, ...arguments: any[]): AsyncFunction<any>;
-    nextTick(callback: Function): void;
-    setImmediate(callback: Function): void;
+    nextTick(callback: Function, ...args: any[]): void;
+    setImmediate: typeof async.nextTick;
+
+    allLimit<T>(arr: T[], limit: number, iteratee: AsyncBooleanIterator<T>, cb?: (result: boolean) => any) : any;
+    everySeries<T>(arr: T[], iteratee: AsyncBooleanIterator<T>, cb?: (result: boolean) => any) : any
+    allSeries: typeof async.everySeries;
+
+    reflect<T>(fn: AsyncFunction<T>) : (callback: (err: void, result: {error?: Error, value?: T}) => void) => void;
+    reflectAll<T>(tasks: AsyncFunction<T>[]): ((callback: (err: void, result: {error?: Error, value?: T}) => void) => void)[];
+
+    timeout<T>(fn: AsyncFunction<T>, milliseconds: number, info: any): AsyncFunction<T>;
 
     times<T> (n: number, iterator: AsyncResultIterator<number, T>, callback: AsyncResultArrayCallback<T>): void;
     timesSeries<T>(n: number, iterator: AsyncResultIterator<number, T>, callback: AsyncResultArrayCallback<T>): void;
     timesLimit<T>(n: number, limit: number, iterator: AsyncResultIterator<number, T>, callback: AsyncResultArrayCallback<T>): void;
+
+    transform<T, R>(arr: T[], iteratee: (acc: R[], item: T, key: string, callback: (error?: Error) => void) => void): void;
+    transform<T, R>(arr: T[], acc: R[], iteratee: (acc: R[], item: T, key: string, callback: (error?: Error) => void) => void): void;
+    transform<T, R>(arr: {[key: string] : T}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: Error) => void) => void): void;
+    transform<T, R>(arr: {[key: string] : T}, acc: {[key: string] : R}, iteratee: (acc: {[key: string] : R}, item: T, key: string, callback: (error?: Error) => void) => void): void;
+
+    race<T>(tasks: (AsyncFunction<T>)[], callback: AsyncResultCallback<T>) : void;
 
     // Utils
     memoize(fn: Function, hasher?: Function): Function;
@@ -155,7 +196,6 @@ interface Async {
     wrapSync(fn: Function): Function;
     log(fn: Function, ...arguments: any[]): void;
     dir(fn: Function, ...arguments: any[]): void;
-    noConflict(): Async;
 }
 
 declare var async: Async;

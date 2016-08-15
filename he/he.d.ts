@@ -6,6 +6,9 @@
 // he - "HTML Entities" - A high quality pair of HTML encode and decode functions.
 
 declare module "he" {
+  export = he;
+}
+declare module he {
   
     var version: string;
     
