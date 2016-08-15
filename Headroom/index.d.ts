@@ -12,6 +12,8 @@ interface HeadroomOptions {
 		unpinned?: string;
 		top?: string;
 		notTop?: string;
+		bottom?:string;
+		notBottom?:string;
 	};
 	scroller?: Element;
 	onPin?: () => void;
