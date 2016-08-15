@@ -1,4 +1,4 @@
-// Type definitions for Hammer.js 2.0.4
+// Type definitions for Hammer.js 2.0.8
 // Project: http://hammerjs.github.io/
 // Definitions by: Philip Bulley <https://github.com/milkisevil/>, Han Lin Yap <https://github.com/codler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ declare module "hammerjs" {
 
 interface HammerStatic
 {
-  new( element:HTMLElement | SVGElement, options?:any ): HammerManager;
+  new( element:HTMLElement | SVGElement, options?:HammerOptions ): HammerManager;
 
   defaults:HammerDefaults;
 
@@ -39,7 +39,7 @@ interface HammerStatic
   DIRECTION_VERTICAL:   number;
   DIRECTION_ALL:        number;
 
-  Manager:     HammerManager;
+  Manager:     HammerManagerConstructor;
   Input:       HammerInput;
   TouchAction: TouchAction;
 
@@ -68,16 +68,22 @@ interface HammerStatic
   prefixed( obj:any, property:string ):string;
 }
 
-interface HammerDefaults
+type RecognizerTuple =
+  [RecognizerStatic]
+  | [RecognizerStatic, RecognizerOptions]
+  | [RecognizerStatic, RecognizerOptions, string | string[]]
+  | [RecognizerStatic, RecognizerOptions, string | string[], (string | Recognizer) | (string | Recognizer)[]];
+
+interface HammerDefaults extends HammerOptions
 {
   domEvents:boolean;
   enable:boolean;
-  preset:any[];
+  preset:RecognizerTuple[];
   touchAction:string;
   cssProps:CssProps;
 
-  inputClass():void;
-  inputTarget():void;
+  inputClass:() => void;
+  inputTarget:EventTarget;
 }
 
 interface CssProps
@@ -90,15 +96,29 @@ interface CssProps
   userSelect:string;
 }
 
-interface HammerOptions extends HammerDefaults
+interface HammerOptions
 {
+  cssProps?:CssProps;
+  domEvents?:boolean;
+  enable?:boolean | ((manager: HammerManager) => boolean);
+  preset?:RecognizerTuple[];
+  touchAction?:string;
+  recognizers?:RecognizerTuple[];
 
+  inputClass?:() => void;
+  inputTarget?:EventTarget;
+}
+
+interface HammerManagerConstructor {
+  new( element:EventTarget, options?:HammerOptions ):HammerManager;
+}
+
+interface HammerListener {
+  (event:HammerInput): void
 }
 
 interface HammerManager
 {
-  new( element:HTMLElement, options?:any ):HammerManager;
-
   add( recogniser:Recognizer ):Recognizer;
   add( recogniser:Recognizer ):HammerManager;
   add( recogniser:Recognizer[] ):Recognizer;
@@ -107,8 +127,8 @@ interface HammerManager
   emit( event:string, data:any ):void;
   get( recogniser:Recognizer ):Recognizer;
   get( recogniser:string ):Recognizer;
-  off( events:string, handler?:( event:HammerInput ) => void ):void;
-  on( events:string, handler:( event:HammerInput ) => void ):void;
+  off( events:string, handler?:HammerListener ):void;
+  on( events:string, handler:HammerListener ):void;
   recognize( inputData:any ):void;
   remove( recogniser:Recognizer ):HammerManager;
   remove( recogniser:string ):HammerManager;
@@ -155,7 +175,7 @@ declare class HammerInput
   direction:number;
 
   /** Direction moved from it's starting point. Matches the DIRECTION constants. */
-  offsetDirection:string;
+  offsetDirection:number;
 
   /** Scaling that has been done when multi-touch. 1 on a single touch. */
   scale:number;
@@ -176,7 +196,7 @@ declare class HammerInput
   pointerType:string;
 
   /** Event type, matches the INPUT constants. */
-  eventType:string;
+  eventType:number;
 
   /** true when the first input. */
   isFirst:boolean;
@@ -219,9 +239,22 @@ declare class TouchMouseInput extends HammerInput
   constructor( manager:HammerManager, callback:Function );
 }
 
+interface RecognizerOptions {
+  direction?: number;
+  enable?: boolean | ((recognizer: Recognizer, inputData: HammerInput) => boolean);
+  event?: string;
+  interval?: number;
+  pointers?: number;
+  posThreshold?: number;
+  taps?: number
+  threshold?: number;
+  time?: number;
+  velocity?: number;
+}
+
 interface RecognizerStatic
 {
-  new( options?:any ):Recognizer;
+  new( options?:RecognizerOptions ):Recognizer;
 }
 
 interface Recognizer
@@ -244,7 +277,7 @@ interface Recognizer
   requireFailure( otherRecognizer:Recognizer ):Recognizer;
   requireFailure( otherRecognizer:string ):Recognizer;
   reset():void;
-  set( options?:any ):Recognizer;
+  set( options?:RecognizerOptions ):Recognizer;
   tryEmit( input:HammerInput ):void;
 }
 
@@ -256,12 +289,12 @@ interface AttrRecognizerStatic
 
 interface AttrRecognizer extends Recognizer
 {
-  new( options?:any ):AttrRecognizer;
+  new( options?:RecognizerOptions ):AttrRecognizer;
 }
 
 interface PanRecognizerStatic
 {
-  new( options?:any ):PanRecognizer;
+  new( options?:RecognizerOptions ):PanRecognizer;
 }
 
 interface PanRecognizer extends AttrRecognizer
@@ -270,7 +303,7 @@ interface PanRecognizer extends AttrRecognizer
 
 interface PinchRecognizerStatic
 {
-  new( options?:any ):PinchRecognizer;
+  new( options?:RecognizerOptions ):PinchRecognizer;
 }
 
 interface PinchRecognizer extends AttrRecognizer
@@ -279,7 +312,7 @@ interface PinchRecognizer extends AttrRecognizer
 
 interface PressRecognizerStatic
 {
-  new( options?:any ):PressRecognizer;
+  new( options?:RecognizerOptions ):PressRecognizer;
 }
 
 interface PressRecognizer extends AttrRecognizer
@@ -288,7 +321,7 @@ interface PressRecognizer extends AttrRecognizer
 
 interface RotateRecognizerStatic
 {
-  new( options?:any ):RotateRecognizer;
+  new( options?:RecognizerOptions ):RotateRecognizer;
 }
 
 interface RotateRecognizer extends AttrRecognizer
@@ -297,7 +330,7 @@ interface RotateRecognizer extends AttrRecognizer
 
 interface SwipeRecognizerStatic
 {
-  new( options?:any ):SwipeRecognizer;
+  new( options?:RecognizerOptions ):SwipeRecognizer;
 }
 
 interface SwipeRecognizer extends AttrRecognizer
@@ -306,7 +339,7 @@ interface SwipeRecognizer extends AttrRecognizer
 
 interface TapRecognizerStatic
 {
-  new( options?:any ):TapRecognizer;
+  new( options?:RecognizerOptions ):TapRecognizer;
 }
 
 interface TapRecognizer extends AttrRecognizer

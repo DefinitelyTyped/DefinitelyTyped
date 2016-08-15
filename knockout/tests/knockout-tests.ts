@@ -570,8 +570,8 @@ function test_misc() {
         $(element).datepicker("destroy");
     });
 	
-	this.observableFactory = function(): KnockoutObservable<number>{
-	    if (true) {
+	this.observableFactory = function(flag = true): KnockoutObservable<number>{
+	    if (flag) {
 			return ko.computed({
 				read:function(){ 
 					return 3; 
@@ -654,4 +654,29 @@ function testUnwrapUnion() {
     var possibleObs: KnockoutObservable<number> | number;
     var num = ko.unwrap(possibleObs);
 
+}
+
+function test_tasks() {
+    // Schedule an empty task
+    ko.tasks.schedule(function() {
+    });
+    
+    // Schedule a task with arguments and return type
+    let logSomethingTask = (message: string) => {
+        console.log("Log message");
+        return true;
+    };
+    
+    let taskHandle = ko.tasks.schedule(logSomethingTask);
+    
+    // Cancel a task
+    ko.tasks.cancel(taskHandle);
+    
+    // Process the current microtask queue on demand
+    ko.tasks.runEarly();
+    
+    // Redefine or augment how Knockout schedules the event to process and flush the queue
+    ko.tasks.scheduler = function (callback) {
+        setTimeout(callback, 0);
+    };
 }

@@ -1,4 +1,4 @@
-// Type definitions for Handlebars v3.0.3
+// Type definitions for Handlebars v4.0.5
 // Project: http://handlebarsjs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,13 +15,24 @@ declare namespace Handlebars {
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
     export function parse(input: string): hbs.AST.Program;
-    export function compile(input: any, options?: any): HandlebarsTemplateDelegate;
+    export function compile(input: any, options?: CompileOptions): HandlebarsTemplateDelegate;
+    export function precompile(input: any, options?: PrecompileOptions): TemplateSpecification;
+    export function template(precompilation: TemplateSpecification): HandlebarsTemplateDelegate;
+
+    export function create(): typeof Handlebars;
 
     export var SafeString: typeof hbs.SafeString;
+    export var escapeExpression: typeof hbs.Utils.escapeExpression;
     export var Utils: typeof hbs.Utils;
     export var logger: Logger;
     export var templates: HandlebarsTemplates;
     export var helpers: any;
+
+    export function registerDecorator(name: string, fn: Function): void;
+    export function registerDecorator(obj: {[name: string] : Function}): void;
+    export function unregisterDecorator(name: string): void;
+
+    export function noConflict(): typeof Handlebars;
 
     export module AST {
         export var helpers: hbs.AST.helpers;
@@ -32,6 +43,9 @@ declare namespace Handlebars {
         Program(program: hbs.AST.Program): void;
         BlockStatement(block: hbs.AST.BlockStatement): void;
         PartialStatement(partial: hbs.AST.PartialStatement): void;
+        PartialBlockStatement(partial: hbs.AST.PartialBlockStatement): void;
+        DecoratorBlock(decorator: hbs.AST.DecoratorBlock): void;
+        Decorator(decorator: hbs.AST.Decorator): void;
         MustacheStatement(mustache: hbs.AST.MustacheStatement): void;
         ContentStatement(content: hbs.AST.ContentStatement): void;
         CommentStatement(comment?: hbs.AST.CommentStatement): void;
@@ -52,6 +66,9 @@ declare namespace Handlebars {
         Program(program: hbs.AST.Program): void;
         BlockStatement(block: hbs.AST.BlockStatement): void;
         PartialStatement(partial: hbs.AST.PartialStatement): void;
+        PartialBlockStatement(partial: hbs.AST.PartialBlockStatement): void;
+        DecoratorBlock(decorator: hbs.AST.DecoratorBlock): void;
+        Decorator(decorator: hbs.AST.Decorator): void;
         MustacheStatement(mustache: hbs.AST.MustacheStatement): void;
         ContentStatement(content: hbs.AST.ContentStatement): void;
         CommentStatement(comment?: hbs.AST.CommentStatement): void;
@@ -81,6 +98,37 @@ interface HandlebarsTemplates {
     [index: string]: HandlebarsTemplateDelegate;
 }
 
+interface TemplateSpecification {
+
+}
+
+interface CompileOptions {
+    data?: boolean;
+    compat?: boolean;
+    knownHelpers?: {
+        helperMissing?: boolean;
+        blockHelperMissing?: boolean;
+        each?: boolean;
+        if?: boolean;
+        unless?: boolean;
+        with?: boolean;
+        log?: boolean;
+        lookup?: boolean;
+    }
+    knownHelpersOnly?: boolean;
+    noEscape?: boolean;
+    strict?: boolean;
+    assumeObjects?: boolean;
+    preventIndent?: boolean;
+    ignoreStandalone?: boolean;
+    explicitPartialContext?: boolean;
+}
+
+interface PrecompileOptions extends CompileOptions {
+    srcName?: string;
+    destName?: string;
+}
+
 declare namespace hbs {
     class SafeString {
         constructor(str: string);
@@ -89,6 +137,12 @@ declare namespace hbs {
 
     namespace Utils {
         function escapeExpression(str: string): string;
+        function createFrame(obj: Object): Object;
+        function isEmpty(obj: any) : boolean;
+        function extend(obj: any, ...source: any[]): any;
+        function toString(obj: any): string;
+        function isArray(obj: any): boolean;
+        function isFunction(obj: any): boolean;
     }
 }
 
@@ -137,6 +191,8 @@ declare namespace hbs {
             strip: StripFlags;
         }
 
+        interface Decorator extends MustacheStatement { }
+
         interface BlockStatement extends Statement {
             path: PathExpression;
             params: Expression[];
@@ -148,12 +204,23 @@ declare namespace hbs {
             closeStrip: StripFlags;
         }
 
+        interface DecoratorBlock extends BlockStatement { }
+
         interface PartialStatement extends Statement {
             name: PathExpression | SubExpression;
             params: Expression[];
             hash: Hash;
             indent: string;
             strip: StripFlags;
+        }
+
+        interface PartialBlockStatement extends Statement {
+            name: PathExpression | SubExpression;
+            params: Expression[],
+            hash: Hash,
+            program: Program,
+            openStrip: StripFlags,
+            closeStrip: StripFlags
         }
 
         interface ContentStatement extends Statement {

@@ -30,7 +30,7 @@ declare module "koa-router" {
 
         export interface IRouterOptions {
             /**
-             * Router prefixes 
+             * Router prefixes
              */
             prefix?: string;
             /**
@@ -50,6 +50,10 @@ declare module "koa-router" {
 
         export interface IMiddleware {
             (ctx: Router.IRouterContext, next?: () => any): any;
+        }
+
+        export interface IParamMiddleware {
+            (param: string, ctx: Router.IRouterContext, next?: () => any): any;
         }
 
         export interface IRouterAllowedMethodsOptions {
@@ -141,13 +145,13 @@ declare module "koa-router" {
          */
         get(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         get(path: string, ...middleware: Array<Router.IMiddleware>): Router;
-        
+
         /**
          * HTTP post method
          */
         post(name: string, path: string, ...middleware: Array<Router.IMiddleware>): Router;
         post(path: string, ...middleware: Array<Router.IMiddleware>): Router;
-        
+
         /**
          * HTTP put method
          */
@@ -214,7 +218,7 @@ declare module "koa-router" {
 
         /**
          * Redirect `source` to `destination` URL with optional 30x status `code`.
-         * 
+         *
          * Both `source` and `destination` can be route names.
          */
         redirect(source: string, destination: string, code?: number): Router;
@@ -245,7 +249,7 @@ declare module "koa-router" {
         /**
          * Run middleware for named route parameters. Useful for auto-loading or validation.
          */
-        param(param: string, middleware: Router.IMiddleware): Router;
+        param(param: string, middleware: Router.IParamMiddleware): Router;
 
         /**
          * Generate URL from url pattern and given `params`.

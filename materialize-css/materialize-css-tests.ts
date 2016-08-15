@@ -238,3 +238,5 @@ var tabsHtml = '<div class="row">' +
 
 // Transitions
 Materialize.showStaggeredList('#staggered-test');
+
+Materialize.updateTextFields();

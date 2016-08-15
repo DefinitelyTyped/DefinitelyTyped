@@ -6,6 +6,8 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="nedb.d.ts" />
 
+import * as es6styleimport from 'nedb';
+
 import Q = require('q');
 import nedb = require('nedb');
 
@@ -135,7 +137,16 @@ class BaseCollection<T> {
 
         var deferred = Q.defer<T>();
 
-        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, upsert:boolean) {
+        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, upsert: boolean) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                //deferred.resolve(newDoc);
+            }
+        });
+
+        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, affectedDocs:any, upsert: boolean) {
             if (err) {
                 deferred.reject(err);
             }

@@ -15,6 +15,7 @@ interface JasmineAjaxResponse {
 interface JasmineAjaxRequest extends XMLHttpRequest {
 	url: string;
 	method: string;
+	params: any;
 	username: string;
 	password: string;
 	requestHeaders: { [key: string]: string };
@@ -72,6 +73,9 @@ declare class MockAjax {
 
 	stubRequest(url: RegExp, data?: string, method?: string): JasmineAjaxRequestStub;
 	stubRequest(url: string, data?: string, method?: string): JasmineAjaxRequestStub;
+    
+	stubRequest(url: RegExp, data?: RegExp, method?: string): JasmineAjaxRequestStub;
+	stubRequest(url: string, data?: RegExp, method?: string): JasmineAjaxRequestStub;
 
 	requests: JasmineAjaxRequestTracker;
 	stubs: JasmineAjaxStubTracker;
