@@ -4829,11 +4829,11 @@ interface HighchartsPlotOptions {
  */
 interface HighchartsIndividualSeriesOptions {
     type?: string;
- 	/**
- 	 * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
-	 *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
-	 *     value is pulled from the options.colors array.
- 	 */
+    /**
+     * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
+     *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
+     *     value is pulled from the options.colors array.
+     */
     color?: string;
     /**
      * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
@@ -4890,10 +4890,10 @@ interface HighchartsIndividualSeriesOptions {
      * The name of the series as shown in the legend, tooltip etc.
      */
     name?: string;
- 	/**
- 	 * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
-	 * the pointPadding and groupPadding.
- 	 */
+    /**
+     * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
+     * the pointPadding and groupPadding.
+     */
     pointWidth?: number;
     /**
      * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
