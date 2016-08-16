@@ -7,6 +7,6 @@
 
 declare var HighchartsExporting: (H: HighchartsStatic) => HighchartsStatic;
 
-declare module "highcharts/highcharts-modules-exporting" {
+declare module "highcharts/modules/exporting" {
     export = HighchartsExporting;
 }
