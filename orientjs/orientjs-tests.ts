@@ -1,6 +1,3 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="orientjs.d.ts" />
-
 import * as orientjs from 'orientjs';
 
 let dbserver = orientjs({
