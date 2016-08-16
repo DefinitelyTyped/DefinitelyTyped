@@ -274,8 +274,8 @@ declare namespace NodeJS {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        pause(): ReadableStream;
+        resume(): ReadableStream;
         pipe<T extends WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends WritableStream>(destination?: T): void;
         unshift(chunk: string): void;
@@ -293,7 +293,10 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream { }
+    export interface ReadWriteStream extends ReadableStream, WritableStream {
+      pause(): ReadWriteStream;
+      resume(): ReadWriteStream;
+    }
 
     export interface Events extends EventEmitter { }
 
@@ -1302,8 +1305,8 @@ declare module "net" {
         setEncoding(encoding?: string): void;
         write(data: any, encoding?: string, callback?: Function): void;
         destroy(): void;
-        pause(): void;
-        resume(): void;
+        pause(): Socket;
+        resume(): Socket;
         setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setKeepAlive(enable?: boolean, initialDelay?: number): void;
@@ -1439,6 +1442,7 @@ declare module "fs" {
     export interface WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
+        path: string | Buffer;
     }
 
     /**
@@ -2205,8 +2209,8 @@ declare module "stream" {
         _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        pause(): Readable;
+        resume(): Readable;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
         unshift(chunk: any): void;
@@ -2241,6 +2245,10 @@ declare module "stream" {
 
     // Note: Duplex extends both Readable and Writable.
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
+        // Readable
+        pause(): Duplex;
+        resume(): Duplex;
+        // Writeable
         writable: boolean;
         constructor(opts?: DuplexOptions);
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -2265,8 +2273,8 @@ declare module "stream" {
         _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
-        pause(): void;
-        resume(): void;
+        pause(): Transform;
+        resume(): Transform;
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
         unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
         unshift(chunk: any): void;
