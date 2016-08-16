@@ -4,8 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 // Developed with love in www.nowcando.com
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference types="node" />
 
 /* =================== USAGE ===================
 
