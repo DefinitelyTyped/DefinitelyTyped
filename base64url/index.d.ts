@@ -3,7 +3,7 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /**
  * For encoding and decoding base64url!
@@ -68,7 +68,5 @@ interface IBase64Url {
     toBuffer(base64url: string): Buffer;
 }
 
-declare module "base64url" {
-    const base64url: IBase64Url;
-    export = base64url;
-}
+declare const base64url: IBase64Url;
+export = base64url;

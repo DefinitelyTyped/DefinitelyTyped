@@ -1,5 +1,3 @@
-/// <reference path="./base64url.d.ts" />
-
 import * as base64url from "base64url";
 
 // default
