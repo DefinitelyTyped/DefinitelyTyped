@@ -32,9 +32,6 @@ declare module "node-forge" {
 
       export function generateKeyPair(bits?: number, e?: number, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
       export function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
-
     }
-
   }
-
 }
