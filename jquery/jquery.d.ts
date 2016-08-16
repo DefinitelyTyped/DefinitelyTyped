@@ -2636,7 +2636,7 @@ interface JQuery {
      * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert after each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert after each element in the set of matched elements.
      */
-    after(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    after(content1: JQuery|any[]|Node|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      * 
@@ -2650,20 +2650,20 @@ interface JQuery {
      * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the end of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the end of each element in the set of matched elements.
      */
-    append(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    append(content1: JQuery|any[]|Node|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      * 
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the end of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      */
-    append(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    append(func: (index: number, html: string) => string|Node|JQuery): JQuery;
 
     /**
      * Insert every element in the set of matched elements to the end of the target.
      * 
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the end of the element(s) specified by this parameter.
      */
-    appendTo(target: JQuery|any[]|Element|string): JQuery;
+    appendTo(target: JQuery|any[]|Node|string): JQuery;
 
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
@@ -2671,7 +2671,7 @@ interface JQuery {
      * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert before each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert before each element in the set of matched elements.
      */
-    before(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    before(content1: JQuery|any[]|Node|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      * 
@@ -2719,20 +2719,20 @@ interface JQuery {
      * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the beginning of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the beginning of each element in the set of matched elements.
      */
-    prepend(content1: JQuery|any[]|Element|DocumentFragment|Text|string, ...content2: any[]): JQuery;
+    prepend(content1: JQuery|any[]|Node|Text|string, ...content2: any[]): JQuery;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      * 
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the beginning of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      */
-    prepend(func: (index: number, html: string) => string|Element|JQuery): JQuery;
+    prepend(func: (index: number, html: string) => string|Node|JQuery): JQuery;
 
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      * 
      * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements will be inserted at the beginning of the element(s) specified by this parameter.
      */
-    prependTo(target: JQuery|any[]|Element|string): JQuery;
+    prependTo(target: JQuery|any[]|Node|string): JQuery;
 
     /**
      * Remove the set of matched elements from the DOM.
@@ -2746,14 +2746,14 @@ interface JQuery {
      * 
      * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
      */
-    replaceAll(target: JQuery|any[]|Element|string): JQuery;
+    replaceAll(target: JQuery|any[]|Node|string): JQuery;
 
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      * 
      * param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
      */
-    replaceWith(newContent: JQuery|any[]|Element|Text|string): JQuery;
+    replaceWith(newContent: JQuery|any[]|Node|Text|string): JQuery;
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
      * 
