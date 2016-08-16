@@ -1,4 +1,4 @@
-/// <reference path="../auth0/auth0.d.ts" />
+/// <reference path="auth0-js.d.ts" />
 
 var auth0 = new Auth0({
     domain: 'mine.auth0.com',
