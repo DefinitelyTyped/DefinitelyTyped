@@ -2725,7 +2725,7 @@ interface JQuery {
      * 
      * param func A function that returns an HTML string, DOM element(s), or jQuery object to insert at the beginning of each element in the set of matched elements. Receives the index position of the element in the set and the old HTML value of the element as arguments. Within the function, this refers to the current element in the set.
      */
-    prepend(func: (index: number, html: string) => string|Node|JQuery): JQuery;
+    prepend(func: (index: number, html: string) => string|Element|JQuery): JQuery;
 
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
