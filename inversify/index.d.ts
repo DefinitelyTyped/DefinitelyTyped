@@ -11,7 +11,7 @@ interface Symbol {
 }
 
 interface SymbolConstructor {
-    (description?: string|number): Symbol;
+    (description?: string | number): Symbol;
 }
 
 declare var Symbol: SymbolConstructor;
@@ -21,18 +21,18 @@ declare namespace inversify {
     namespace interfaces {
 
         export interface KernelConstructor {
-            new(): Kernel;
+            new (): Kernel;
         }
 
         export interface KernelModuleConstructor {
-            new(registry: (bind: Bind) => void): KernelModule;
+            new (registry: (bind: Bind) => void): KernelModule;
         }
 
         export interface Newable<T> {
-            new(...args: any[]): T;
+            new (...args: any[]): T;
         }
 
-        export type ServiceIdentifier<T> = (string|Symbol|Newable<T>);
+        export type ServiceIdentifier<T> = (string | Symbol | Newable<T>);
 
         export interface Binding<T> extends Clonable<Binding<T>> {
             guid: string;
@@ -51,7 +51,7 @@ declare namespace inversify {
         }
 
         export interface Factory<T> extends Function {
-            (...args: any[]): (((...args: any[]) => T)|T);
+            (...args: any[]): (((...args: any[]) => T) | T);
         }
 
         export interface FactoryCreator<T> extends Function {
@@ -127,7 +127,7 @@ declare namespace inversify {
             bindings: Binding<any>[];
             addChildRequest(
                 serviceIdentifier: ServiceIdentifier<any>,
-                bindings: (Binding<any>|Binding<any>[]),
+                bindings: (Binding<any> | Binding<any>[]),
                 target: Target
             ): Request;
         }
@@ -139,7 +139,7 @@ declare namespace inversify {
             metadata: Array<Metadata>;
             hasTag(key: string): boolean;
             isArray(): boolean;
-            matchesArray(name: string|Symbol|Newable<any>): boolean;
+            matchesArray(name: string | Symbol | Newable<any>): boolean;
             isNamed(): boolean;
             isTagged(): boolean;
             matchesNamedTag(name: string): boolean;
@@ -203,14 +203,14 @@ declare namespace inversify {
             inSingletonScope(): BindingWhenOnSyntax<T>;
         }
 
-        export interface BindingInWhenOnSyntax<T> extends BindingInSyntax<T>, BindingWhenOnSyntax<T> {}
+        export interface BindingInWhenOnSyntax<T> extends BindingInSyntax<T>, BindingWhenOnSyntax<T> { }
 
         export interface BindingOnSyntax<T> {
             onActivation(fn: (context: Context, injectable: T) => T): BindingWhenSyntax<T>;
         }
 
         export interface BindingToSyntax<T> {
-            to(constructor: { new(...args: any[]): T; }): BindingInWhenOnSyntax<T>;
+            to(constructor: { new (...args: any[]): T; }): BindingInWhenOnSyntax<T>;
             toConstantValue(value: T): BindingWhenOnSyntax<T>;
             toDynamicValue(func: () => T): BindingWhenOnSyntax<T>;
             toConstructor<T2>(constructor: Newable<T2>): BindingWhenOnSyntax<T>;
@@ -220,17 +220,17 @@ declare namespace inversify {
             toProvider<T2>(provider: ProviderCreator<T2>): BindingWhenOnSyntax<T>;
         }
 
-        export interface BindingWhenOnSyntax<T> extends BindingWhenSyntax<T>, BindingOnSyntax<T> {}
+        export interface BindingWhenOnSyntax<T> extends BindingWhenSyntax<T>, BindingOnSyntax<T> { }
 
         export interface BindingWhenSyntax<T> {
             when(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
             whenTargetNamed(name: string): BindingOnSyntax<T>;
             whenTargetTagged(tag: string, value: any): BindingOnSyntax<T>;
-            whenInjectedInto(parent: (Function|string)): BindingOnSyntax<T>;
+            whenInjectedInto(parent: (Function | string)): BindingOnSyntax<T>;
             whenParentNamed(name: string): BindingOnSyntax<T>;
             whenParentTagged(tag: string, value: any): BindingOnSyntax<T>;
-            whenAnyAncestorIs(ancestor: (Function|string)): BindingOnSyntax<T>;
-            whenNoAncestorIs(ancestor: (Function|string)): BindingOnSyntax<T>;
+            whenAnyAncestorIs(ancestor: (Function | string)): BindingOnSyntax<T>;
+            whenNoAncestorIs(ancestor: (Function | string)): BindingOnSyntax<T>;
             whenAnyAncestorNamed(name: string): BindingOnSyntax<T>;
             whenAnyAncestorTagged(tag: string, value: any): BindingOnSyntax<T>;
             whenNoAncestorNamed(name: string): BindingOnSyntax<T>;
@@ -238,12 +238,11 @@ declare namespace inversify {
             whenAnyAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
             whenNoAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
         }
-
     }
 
     export var Kernel: interfaces.KernelConstructor;
     export var KernelModule: interfaces.KernelModuleConstructor;
-    export var decorate: (decorator: (ClassDecorator|ParameterDecorator), target: any, parameterIndex?: number) => void;
+    export var decorate: (decorator: (ClassDecorator | ParameterDecorator), target: any, parameterIndex?: number) => void;
     export function injectable(): (typeConstructor: any) => void;
     export function tagged(metadataKey: string, metadataValue: any): (target: any, targetKey: string, index?: number) => any;
     export function named(name: string): (target: any, targetKey: string, index?: number) => any;
@@ -255,23 +254,22 @@ declare namespace inversify {
     ): (target: any, targetKey: string, index?: number) => any;
 
     export function makePropertyInjectDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|interfaces.Newable<any>)) => (proto: any, key: string) => void;
+        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>)) => (proto: any, key: string) => void;
 
     export function makePropertyInjectNamedDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|interfaces.Newable<any>), named: string) => (proto: any, key: string) => void;
+        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>), named: string) => (proto: any, key: string) => void;
 
     export function makePropertyInjectTaggedDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|interfaces.Newable<any>), key: string, value: any) => (proto: any, propertyName: string) => void;
+        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>), key: string, value: any) => (proto: any, propertyName: string) => void;
 
     export function makePropertyMultiInjectDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|interfaces.Newable<any>)) => (proto: any, key: string) => void;
+        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>)) => (proto: any, key: string) => void;
 
     // constraint helpers
     export var traverseAncerstors: (request: interfaces.Request, constraint: (request: interfaces.Request) => boolean) => boolean;
     export var taggedConstraint: (tag: string) => (value: any) => (request: interfaces.Request) => boolean;
     export var namedConstraint: (value: any) => (request: interfaces.Request) => boolean;
-    export var typeConstraint: (type: (Function|string)) => (request: interfaces.Request) => boolean;
-
+    export var typeConstraint: (type: (Function | string)) => (request: interfaces.Request) => boolean;
 }
 
 export = inversify;
