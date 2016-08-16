@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, Link, RouterOnContext} from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute,InjectedRouter, Link, RouterOnContext} from "react-router"
 
 interface MasterContext {
 	router: RouterOnContext;
