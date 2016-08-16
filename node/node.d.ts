@@ -485,6 +485,9 @@ interface NodeBuffer extends Uint8Array {
     readFloatBE(offset: number, noAssert?: boolean): number;
     readDoubleLE(offset: number, noAssert?: boolean): number;
     readDoubleBE(offset: number, noAssert?: boolean): number;
+    swap16(): Buffer;
+    swap32(): Buffer;
+    swap64(): Buffer;
     writeUInt8(value: number, offset: number, noAssert?: boolean): number;
     writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
     writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
