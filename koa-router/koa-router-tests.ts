@@ -8,6 +8,9 @@ const router = new Router({
 });
 
 router
+  .param('id', function(id, ctx, next) {
+    next();
+  })
   .get('/', function (ctx, next) {
     ctx.body = 'Hello World!';
   })

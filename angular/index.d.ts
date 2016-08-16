@@ -1827,7 +1827,7 @@ declare namespace angular {
         bindToController?: boolean | Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         multiElement?: boolean;
-        name?: string;
+        directiveName?: string;
         priority?: number;
         /**
          * @deprecated
