@@ -236,15 +236,15 @@ declare namespace ReactRouter {
     // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
 
     interface InjectedRouter {
-      push: (pathOrLoc: H.LocationDescriptor) => void
-      replace: (pathOrLoc: H.LocationDescriptor) => void
-      go: (n: number) => void
-      goBack: () => void
-      goForward: () => void
-      setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
-      createPath(path: H.Path, query?: H.Query): H.Path
-      createHref(path: H.Path, query?: H.Query): H.Href
-      isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
+        push: (pathOrLoc: H.LocationDescriptor) => void
+        replace: (pathOrLoc: H.LocationDescriptor) => void
+        go: (n: number) => void
+        goBack: () => void
+        goForward: () => void
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
+        createPath(path: H.Path, query?: H.Query): H.Path
+        createHref(path: H.Path, query?: H.Query): H.Href
+        isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
     function withRouter<C extends React.ComponentClass<any>>(component: C): C
@@ -359,7 +359,7 @@ declare module "react-router/lib/useRoutes" {
 
 declare module "react-router/lib/PatternUtils" {
 
-	export function formatPattern(pattern: string, params: {}): string;
+    export function formatPattern(pattern: string, params: {}): string;
 
 }
 
@@ -419,16 +419,16 @@ declare module "react-router/lib/PropTypes" {
 }
 
 declare module "react-router/lib/browserHistory" {
-  export default ReactRouter.browserHistory;
+    export default ReactRouter.browserHistory;
 }
 
 declare module "react-router/lib/hashHistory" {
-  export default ReactRouter.hashHistory;
+    export default ReactRouter.hashHistory;
 }
 
 declare module "react-router/lib/match" {
 
-    export default ReactRouter.match
+    export default ReactRouter.match;
 
 }
 
@@ -441,11 +441,11 @@ declare module "react-router/lib/useRouterHistory" {
 }
 
 declare module "react-router/lib/createMemoryHistory" {
-  export default ReactRouter.createMemoryHistory;
+    export default ReactRouter.createMemoryHistory;
 }
 
 declare module "react-router/lib/withRouter" {
-  export default ReactRouter.withRouter;
+    export default ReactRouter.withRouter;
 }
 
 declare module "react-router" {
@@ -504,7 +504,7 @@ declare module "react-router" {
     export type LeaveHook = ReactRouter.LeaveHook
     export type ParseQueryString = ReactRouter.ParseQueryString
     export type RedirectFunction = ReactRouter.RedirectFunction
-    export type RouteComponentProps<P,R> = ReactRouter.RouteComponentProps<P,R>;
+    export type RouteComponentProps<P, R> = ReactRouter.RouteComponentProps<P, R>;
     export type RouteHook = ReactRouter.RouteHook
     export type StringifyQuery = ReactRouter.StringifyQuery
     export type RouterListener = ReactRouter.RouterListener
