@@ -59,5 +59,3 @@ declare module amplitude {
 
 	export var options: Config;
 }
-
-//declare var amplitude: AmplitudeStatic;
