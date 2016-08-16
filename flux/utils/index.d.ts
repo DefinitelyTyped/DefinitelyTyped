@@ -3,6 +3,11 @@
 // Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="react" />
+/// <reference types="flux" />
+/// <reference types="fbemitter" />
+/// <reference types="immutable" />
+
 import * as React from 'react';
 import * as Flux from 'flux';
 import * as fbEmitter from 'fbemitter';
@@ -13,24 +18,24 @@ export = FluxUtils;
 declare namespace FluxUtils {
     /**
      * Default options to create a Container with
-     * 
+     *
      * @interface RealOptions
      */
     interface RealOptions {
         /**
          * Default value: true
-         * 
+         *
          * @type {boolean}
          */
         pure?: boolean;
         /**
          * Default value: false
-         * 
+         *
          * @type {boolean}
          */
         withProps?: boolean;
     }
-    
+
     export class Container {
         constructor();
         /**
