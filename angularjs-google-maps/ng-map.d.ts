@@ -47,9 +47,9 @@ declare module ngMap {
             /**
              * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
              * Only the first character of the string will be displayed.
-             * @type {(string|MarkerLabel)}
+             * @type {string}
              */
-            label?: string|google.maps.MarkerLabel;
+            label?: string;
             /**
              * Map on which to display Marker.
              * @type {(Map|StreetViewPanorama)}
