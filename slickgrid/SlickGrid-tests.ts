@@ -209,7 +209,7 @@ grid.onSort.subscribe((e, args) => {
     var sortCol:string = args.sortCols[0].sortCol.field;
 });
 
-grid.onMouseEnter.subscribe((e: DOMEvent, args) => {
+grid.onMouseEnter.subscribe((e: DOMEvent, args: Slick.OnMouseEnterEventArgs<MyData>) => {
 	let cell: Slick.Cell = args.grid.getCellFromEvent(e);
 	if (!cell) { return; }
 });
