@@ -2166,6 +2166,9 @@ declare module "crypto" {
     }
     export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
     export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
+    export function getCiphers(): string[];
+    export function getCurves(): string[];
+    export function getHashes(): string[];
 }
 
 declare module "stream" {
