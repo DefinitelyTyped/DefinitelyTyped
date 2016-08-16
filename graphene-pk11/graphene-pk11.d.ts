@@ -1,258 +1,423 @@
-// Type definitions for graphene-pk11 v2.0.2
+// Type definitions for graphene-pk11 v2.0.3
 // Project: https://github.com/PeculiarVentures/graphene
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
 /// <reference path="../pkcs11js/pkcs11js.d.ts" />
 
 /**
  * A simple layer for interacting with PKCS #11 / PKCS11 / CryptoKI for Node
- * v2.0.2
+ * v2.0.3
  */
 
+declare module "graphene-pk11" {
 
-declare module "types/graphene-pk11" {
-    import * as graphene from "graphene-pk11";
-    import * as pkcs11 from "pkcs11js";
+    import * as pkcs11 from "pkcs11js"
 
-    // ========== Core ==========
-
-    /**
-     * Handle
-     */
     type Handle = Buffer;
-    /**
-     * BaseObject 
-     * 
-     * @interface BaseObject
-     */
-    interface BaseObject {
+    type CryptoData = string | Buffer;
+
+    class Pkcs11Error extends Error {
+        code: number;
+        func: string;
+        constructor(code: number, func: string);
     }
-    /**
-     * HandleObject 
-     * 
-     * @interface HandleObject
-     * @extends {BaseObject}
-     */
-    interface HandleObject extends BaseObject {
+
+    class BaseObject {
+        protected lib: pkcs11.PKCS11;
+        constructor(lib?: pkcs11.PKCS11);
+    }
+
+    class HandleObject extends BaseObject {
         /**
          * handle to pkcs11 object
          */
         handle: Handle;
+
+        constructor(handle: Handle, lib: pkcs11.PKCS11);
+
+        protected getInfo(): void;
     }
 
-    /**
-     * Collection 
-     * 
-     * @interface Collection
-     * @extends {BaseObject}
-     * @template T
-     */
-    interface Collection<T extends BaseObject> extends BaseObject {
+    class Collection<T extends BaseObject> extends BaseObject {
+
+        protected items_: Array<any>;
+        protected classType: any;
 
         /**
          * returns length of collection
          */
         length: number;
 
+        constructor(items: Array<any>, lib: pkcs11.PKCS11, classType: any);
+
         /**
          * returns item from collection by index
          * @param {number} index of element in collection `[0..n]`
          */
         items(index: number): T;
-
-    }
-    type SessionObjectCollection = Collection<SessionObject>
-    type MechanismCollection = Collection<Mechanism>;
-    type SlotCollection = Collection<Slot>;
-
-    // ========== PKCS11 Objects ==========
-
-    /**
-     * Certificate objects (object class CKO_CERTIFICATE) hold public-key or attribute certificates
-     */
-    interface Certificate extends Storage {
-        /**
-         * Type of certificate
-         */
-        type: graphene.CertificateType;
-        /**
-         * The certificate can be trusted for the application that it was created.
-         */
-        trusted: boolean;
-        /**
-         * Categorization of the certificate
-         */
-        category: graphene.CertificateCategory;
-        /**
-         * Checksum
-         */
-        checkValue: Buffer;
-        /**
-         * Start date for the certificate (default empty)
-         */
-        startDate: Date;
-        /**
-         * End date for the certificate (default empty)
-         */
-        endDate: Date;
     }
 
-    /**
-     * X.509 certificate objects (certificate type `CKC_X_509`) hold X.509 public key certificates
-     */
-    interface X509Certificate extends Certificate {
+    function isString(v: any): boolean;
+    function isNumber(v: any): boolean;
+    function isBoolean(v: any): boolean;
+    function isUndefined(v: any): boolean;
+    function isNull(v: any): boolean;
+    function isEmpty(v: any): boolean;
+    function isFunction(v: any): boolean;
+    function isObject(v: any): boolean;
+    function isArray(v: any): boolean;
+    function isFlag(v: any, fv: number): boolean;
+    function dateFromString(text: string): Date;
+
+    // ========== Crypto ==========
+
+    class Cipher extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): Buffer;
+        final(): Buffer;
+        once(data: CryptoData, enc: Buffer): Buffer;
+        once(data: CryptoData, enc: Buffer, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Decipher extends BaseObject {
+
+        protected session: Session;
+        protected blockSize: number;
+
+        constructor(session: Session, alg: MechanismType, key: Key, blockSize: number, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: Buffer): Buffer;
+        final(): Buffer;
+        once(data: Buffer, dec: Buffer): Buffer;
+        once(data: Buffer, dec: Buffer, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Digest extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType): void;
+
+        update(data: CryptoData): void;
+        final(): Buffer;
+        once(data: CryptoData): Buffer;
+        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Sign extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): void;
+        final(): Buffer;
+        once(data: CryptoData): Buffer;
+        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
+    }
+
+    class Verify extends BaseObject {
+
+        session: Session;
+
+        constructor(session: Session, alg: MechanismType, key: Key, lib: pkcs11.PKCS11);
+
+        protected init(alg: MechanismType, key: Key): void;
+
+        update(data: CryptoData): void;
+        final(signature: Buffer): boolean;
+        once(data: CryptoData, signature: Buffer): boolean;
+        once(data: CryptoData, signature: Buffer, cb: (error: Error, valid: boolean) => void): void;
+    }
+
+    // ========== Keys ==========
+
+    interface IParams {
+        toCKI(): any;
+    }
+
+    enum MechParams {
+        AesCBC,
+        AesCCM,
+        AesGCM,
+        RsaOAEP,
+        RsaPSS,
+        EcDH,
+    }
+
+    // AES
+
+    class AesCbcParams implements IParams, pkcs11.AesCBC {
         /**
-         * DER-encoding of the certificate subject name
-         * - Must be specified when the object is created.
-         * - Must be non-empty if `CKA_URL` is empty.
+         * initialization vector
+         * - must have a fixed size of 16 bytes
          */
-        subject: Buffer;
+        iv: Buffer;
         /**
-         * Key identifier for public/private key pair (default empty)
+         * the data
          */
-        id: Buffer;
+        data: Buffer;
+        type: MechParams;
+        constructor(iv: Buffer, data?: Buffer);
+        toCKI(): Buffer;
+    }
+
+    class AesCcmParams implements IParams {
         /**
-         * DER-encoding of the certificate issuer name (default empty)
+         * length of the data where 0 <= dataLength < 2^8L
          */
-        issuer: Buffer;
+        dataLength: number;
         /**
-         * HEX-encoding of the certificate serial number (default empty)
+         * the nonce
          */
-        serialNumber: string;
+        nonce: Buffer;
         /**
-         * BER-encoding of the certificate
-         * - Must be specified when the object is created.
-         * - Must be non-empty if `CKA_URL` is empty.
+         * the additional authentication data
+         * - This data is authenticated but not encrypted
          */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * - Can be any value between 0 and 128
+         */
+        macLength: number;
+        type: MechParams;
+        constructor(dataLength: number, nonce: Buffer, aad?: Buffer, macLength?: number);
+        toCKI(): pkcs11.AesCCM;
+    }
+
+    class AesGcmParams implements IParams {
+        /**
+         * initialization vector
+         * - The length of the initialization vector can be any number between 1 and 256.
+         * 96-bit (12 byte) IV values can be processed more efficiently,
+         * so that length is recommended for situations in which efficiency is critical.
+         */
+        iv: Buffer;
+        /**
+         * pointer to additional authentication data.
+         * This data is authenticated but not encrypted.
+         */
+        aad: Buffer;
+        /**
+         * length of authentication tag (output following cipher text) in bits.
+         * Can be any value between 0 and 128. Default 128
+         */
+        tagBits: number;
+        type: MechParams;
+        constructor(iv: Buffer, aad?: Buffer, tagBits?: number);
+        toCKI(): pkcs11.AesGCM;
+    }
+
+    // EC
+
+    interface INamedCurve {
+        name: string;
+        oid: string;
         value: Buffer;
-        /**
-         * If not empty this attribute gives the URL where the complete certificate
-         * can be obtained (default empty)
-         * - Must be non-empty if `CKA_VALUE` is empty
-         */
-        url: string;
-        /**
-         * SHA-1 hash of the subject public key (default empty)
-         * - Can only be empty if `CKA_URL` is empty.
-         */
-        subjetcKeyIdentifier: Buffer;
-        /**
-         * SHA-1 hash of the issuer public key (default empty)
-         * - Can only be empty if `CKA_URL` is empty.
-         */
-        authorityKeyIdentifier: Buffer;
-        /**
-         * Java MIDP security domain
-         */
-        java: graphene.JavaMIDP;
+        size: number;
     }
 
-    /**
-     * WTLS certificate objects (certificate type `CKC_WTLS`) hold WTLS public key certificates
-     */
-    interface WtlsCertificate extends Certificate {
-        /**
-         * WTLS-encoding (Identifier type) of the certificate subject
-         * - Must be specified when the object is created.
-         * - Can only be empty if `CKA_VALUE` is empty.
-         */
-        subject: Buffer;
-        /**
-         * WTLS-encoding (Identifier type) of the certificate issuer (default empty)
-         */
-        issuer: Buffer;
-        /**
-         * Key identifier for public/private key pair (default empty)
-         */
-        id: Buffer;
-        /**
-         * WTLS-encoding of the certificate
-         * - Must be specified when the object is created.
-         * - Must be non-empty if `CKA_URL` is empty.
-         */
-        value: Buffer;
-        /**
-         * If not empty this attribute gives the URL where the complete certificate
-         * can be obtained (default empty)
-         * - Must be non-empty if `CKA_VALUE` is empty
-         */
-        url: string;
-        /**
-         * DER-encoding of the certificate serial number (default empty)
-         */
-        serialNumber: Buffer;
-        /**
-         * SHA-1 hash of the subject public key (default empty)
-         * - Can only be empty if `CKA_URL` is empty.
-         */
-        subjetcKeyIdentifier: Buffer;
-        /**
-         * SHA-1 hash of the issuer public key (default empty)
-         * - Can only be empty if `CKA_URL` is empty.
-         */
-        authorityKeyIdentifier: Buffer;
+    class NamedCurve {
+        static getByName(name: string): INamedCurve;
+        static getByOid(oid: string): INamedCurve;
     }
 
-    /**
-     * X.509 attribute certificate objects (certificate type `CKC_X_509_ATTR_CERT`) hold X.509 attribute certificates
-     */
-    interface AttributeCertificate extends Certificate {
-        /**
-         * DER-encoding of the attribute certificate's subject field.
-         * This is distinct from the `CKA_SUBJECT` attribute contained in `CKC_X_509` certificates
-         * because the `ASN.1` syntax and encoding are different.
-         * - Must be specified when the object is created
-         */
-        owner: Buffer;
-        /**
-         * DER-encoding of the attribute certificate's issuer field.
-         * This is distinct from the `CKA_ISSUER` attribute contained in `CKC_X_509` certificates
-         * because the ASN.1 syntax and encoding are different. (default empty)
-         */
-        issuer: Buffer;
-        /**
-         * DER-encoding of the certificate serial number (default empty)
-         */
-        serialNumber: Buffer;
-        /**
-         * BER-encoding of a sequence of object identifier values corresponding
-         * to the attribute types contained in the certificate.
-         * When present, this field offers an opportunity for applications
-         * to search for a particular attribute certificate without fetching
-         * and parsing the certificate itself. (default empty)
-         */
-        types: Buffer;
-        /**
-         * BER-encoding of the certificate
-         * - Must be specified when the object is created.
-         */
-        value: Buffer;
+    enum EcKdf {
+        NULL,
+        SHA1,
+        SHA224,
+        SHA256,
+        SHA384,
+        SHA512,
     }
 
-    interface DomainParameters extends Storage {
+    class EcdhParams implements IParams, pkcs11.ECDH1 {
         /**
-         * Type of key the domain parameters can be used to generate.
+         * key derivation function used on the shared secret value
          */
-        keyType: graphene.KeyType;
+        kdf: EcKdf;
         /**
-         * `CK_TRUE` only if domain parameters were either * generated locally (i.e., on the token)
-         * with a `C_GenerateKey` * created with a `C_CopyObject` call as a copy of domain parameters
-         * which had its `CKA_LOCAL` attribute set to `CK_TRUE`
+         * some data shared between the two parties
          */
-        local: boolean;
+        sharedData: Buffer;
+        /**
+         * other party's EC public key value
+         */
+        publicData: Buffer;
+        type: MechParams;
+        /**
+         * Creates an instance of EcdhParams.
+         *
+         * @param {EcKdf} kdf key derivation function used on the shared secret value
+         * @param {Buffer} [sharedData=null] some data shared between the two parties
+         * @param {Buffer} [publicData=null] other party's EC public key value
+         */
+        constructor(kdf: EcKdf, sharedData?: Buffer, publicData?: Buffer);
+        toCKI(): pkcs11.ECDH1;
+    }
+
+    // Rsa
+
+    enum RsaMgf {
+        MGF1_SHA1,
+        MGF1_SHA224,
+        MGF1_SHA256,
+        MGF1_SHA384,
+        MGF1_SHA512,
+    }
+
+    class RsaOaepParams implements IParams {
+        hashAlgorithm: MechanismEnum;
+        mgf: RsaMgf;
+        source: number;
+        sourceData: Buffer;
+        type: MechParams;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, sourceData?: Buffer);
+        toCKI(): pkcs11.RsaOAEP;
+    }
+
+    class RsaPssParams implements IParams {
+        /**
+         * hash algorithm used in the PSS encoding;
+         * - if the signature mechanism does not include message hashing,
+         * then this value must be the mechanism used by the application to generate
+         * the message hash;
+         * - if the signature mechanism includes hashing,
+         * then this value must match the hash algorithm indicated
+         * by the signature mechanism
+         */
+        hashAlgorithm: MechanismEnum;
+        /**
+         * mask generation function to use on the encoded block
+         */
+        mgf: RsaMgf;
+        /**
+         * length, in bytes, of the salt value used in the PSS encoding;
+         * - typical values are the length of the message hash and zero
+         */
+        saltLength: number;
+        type: MechParams;
+        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, saltLen?: number);
+        toCKI(): pkcs11.RsaPSS;
+    }
+
+    // ========== Objects ==========
+
+    enum ObjectClass {
+        DATA,
+        CERTIFICATE,
+        PUBLIC_KEY,
+        PRIVATE_KEY,
+        SECRET_KEY,
+        HW_FEATURE,
+        DOMAIN_PARAMETERS,
+        MECHANISM,
+        OTP_KEY,
+    }
+
+    class SessionObject extends HandleObject {
+        /**
+         * Session
+         */
+        session: Session;
+        /**
+         * gets the size of an object in bytes
+         *
+         * @readonly
+         * @type {number}
+         */
+        size: number;
+        class: ObjectClass;
+
+        /**
+         * Creates an instance of SessionObject.
+         *
+         * @param {SessionObject} object
+         */
+        constructor(object: SessionObject);
+        /**
+         * Creates an instance of SessionObject.
+         *
+         * @param {Handle} handle
+         * @param {Session} session
+         * @param {pkcs11.PKCS11} lib
+         */
+        constructor(handle: Handle, session: Session, lib: pkcs11.PKCS11);
+        constructor(handle: SessionObject);
+
+        /**
+         * copies an object, creating a new object for the copy
+         *
+         * @param {ITemplate} template template for the new object
+         * @returns {SessionObject}
+         */
+        copy(template: ITemplate): SessionObject;
+        /**
+         * destroys an object
+         */
+        destroy(): void;
+        getAttribute(attr: string): ITemplate;
+        getAttribute(attrs: ITemplate): ITemplate;
+        setAttribute(attrs: string, value: any): void;
+        setAttribute(attrs: ITemplate): void;
+        get(name: string): any;
+        set(name: string, value: any): void;
+        toType<T extends SessionObject>(): T;
+    }
+
+    class SessionObjectCollection extends Collection<SessionObject> {
+        session: Session;
+
+        constructor(items: Array<Handle>, session: Session, lib: pkcs11.PKCS11, classType?: any);
+
+        items(index: number): SessionObject;
+    }
+
+    class Storage extends SessionObject {
+        /**
+         * `true` if object is a token object;
+         * `false` if object is a session object. Default is `false`.
+         */
+        token: boolean;
+        /**
+         * `true` if object is a private object;
+         * `false` if object is a public object.
+         * Default value is token-specific, and may depend on the values of other attributes of the object.
+         */
+        private: boolean;
+        /**
+         * `true` if object can be modified. Default is `false`
+         */
+        modifiable: boolean;
+        /**
+         * Description of the object (default empty)
+         */
+        label: string;
     }
 
     /**
      * Data objects (object class `CKO_DATA`) hold information defined by an application.
      * Other than providing access to it, Cryptoki does not attach any special meaning to a data object
      *
-     * @
+     * @export
      * @class Data
      * @extends {Storage}
      */
-    interface Data extends Storage {
+    class Data extends Storage {
         /**
          * Description of the application that manages the object (default empty)
          *
@@ -273,18 +438,101 @@ declare module "types/graphene-pk11" {
         value: Buffer;
     }
 
+    class DomainParameters extends Storage {
+        /**
+         * Type of key the domain parameters can be used to generate.
+         */
+        keyType: KeyType;
+        /**
+         * `CK_TRUE` only if domain parameters were either * generated locally (i.e., on the token)
+         * with a `C_GenerateKey` * created with a `C_CopyObject` call as a copy of domain parameters
+         * which had its `CKA_LOCAL` attribute set to `CK_TRUE`
+         */
+        local: boolean;
+    }
+
+    enum KeyType {
+        RSA,
+        DSA,
+        DH,
+        ECDSA,
+        EC,
+        X9_42_DH,
+        KEA,
+        GENERIC_SECRET,
+        RC2,
+        RC4,
+        DES,
+        DES2,
+        DES3,
+        CAST,
+        CAST3,
+        CAST5,
+        CAST128,
+        RC5,
+        IDEA,
+        SKIPJACK,
+        BATON,
+        JUNIPER,
+        CDMF,
+        AES,
+        GOSTR3410,
+        GOSTR3411,
+        GOST28147,
+        BLOWFISH,
+        TWOFISH,
+        SECURID,
+        HOTP,
+        ACTI,
+        CAMELLIA,
+        ARIA,
+    }
+    enum KeyGenMechanism {
+        AES,
+        RSA,
+        RSA_X9_31,
+        DSA,
+        DH_PKCS,
+        DH_X9_42,
+        GOSTR3410,
+        GOST28147,
+        RC2,
+        RC4,
+        DES,
+        DES2,
+        SECURID,
+        ACTI,
+        CAST,
+        CAST3,
+        CAST5,
+        CAST128,
+        RC5,
+        IDEA,
+        GENERIC_SECRET,
+        SSL3_PRE_MASTER,
+        CAMELLIA,
+        ARIA,
+        SKIPJACK,
+        KEA,
+        BATON,
+        ECDSA,
+        EC,
+        JUNIPER,
+        TWOFISH,
+    }
+
     /**
      * Definition for the base key object class
      * - defines the object class `CKO_PUBLIC_KEY`, `CKO_PRIVATE_KEY` and `CKO_SECRET_KEY` for type `CK_OBJECT_CLASS`
      * as used in the `CKA_CLASS` attribute of objects
      */
-    interface Key extends Storage {
+    class Key extends Storage {
         /**
          * Type of key
          * - Must be specified when object is created with `C_CreateObject`
          * - Must be specified when object is unwrapped with `C_UnwrapKey`
          */
-        type: graphene.KeyType;
+        type: KeyType;
         /**
          * Key identifier for key (default empty)
          * - May be modified after object is created with a `C_SetAttributeValue` call,
@@ -334,14 +582,14 @@ declare module "types/graphene-pk11" {
          * - Must not be specified when object is generated with `C_GenerateKey` or `C_GenerateKeyPair`.
          * - Must not be specified when object is unwrapped with `C_UnwrapKey`.
          */
-        mechanism: graphene.KeyGenMechanism;
+        mechanism: KeyGenMechanism;
         allowedMechanisms: void;
     }
 
     /**
-    * Private key objects (object class `CKO_PRIVATE_KEY`) hold private keys
-    */
-    interface PrivateKey extends Key {
+     * Private key objects (object class `CKO_PRIVATE_KEY`) hold private keys
+     */
+    class PrivateKey extends Key {
         /**
          * DER-encoding of the key subject name (default empty)
          * - May be modified after object is created with a `C_SetAttributeValue` call,
@@ -438,7 +686,7 @@ declare module "types/graphene-pk11" {
     /**
      * Public key objects (object class CKO_PUBLIC_KEY) hold public keys
      */
-    interface PublicKey extends Key {
+    class PublicKey extends Key {
         /**
          * DER-encoding of the key subject name (default empty)
          * - May be modified after object is created with a `C_SetAttributeValue` call,
@@ -499,7 +747,7 @@ declare module "types/graphene-pk11" {
     /**
      * Secret key objects (object class `CKO_SECRET_KEY`) hold secret keys.
      */
-    interface SecretKey extends Key {
+    class SecretKey extends Key {
         /**
          * `CK_TRUE` if key is sensitive
          * - May be modified after object is created with a `C_SetAttributeValue` call,
@@ -616,136 +864,186 @@ declare module "types/graphene-pk11" {
         unwrapTemplate: void;
     }
 
-    interface Storage extends SessionObject {
-        /**
-         * `true` if object is a token object;
-         * `false` if object is a session object. Default is `false`.
-         */
-        token: boolean;
-        /**
-         * `true` if object is a private object;
-         * `false` if object is a public object.
-         * Default value is token-specific, and may depend on the values of other attributes of the object.
-         */
-        private: boolean;
-        /**
-         * `true` if object can be modified. Default is `false`
-         */
-        modifiable: boolean;
-        /**
-         * Description of the object (default empty)
-         */
-        label: string;
+    enum CertificateType {
+        X_509,
+        X_509_ATTR_CERT,
+        WTLS,
     }
 
-    interface SessionObject extends HandleObject {
-        /**
-         * Session
-         */
-        session: Session;
-        /**
-         * gets the size of an object in bytes
-         *
-         * @readonly
-         * @type {number}
-         */
-        size: number;
-        /**
-         * copies an object, creating a new object for the copy
-         *
-         * @param {ITemplate} template template for the new object
-         * @returns {SessionObject}
-         */
-        copy(template: ITemplate): SessionObject;
-        /**
-         * destroys an object
-         */
-        destroy(): void;
-        getAttribute(attr: string): ITemplate;
-        getAttribute(attrs: ITemplate): ITemplate;
-        setAttribute(attrs: string, value: any): void;
-        setAttribute(attrs: ITemplate): void;
-        class: graphene.ObjectClass;
-        toType<T extends SessionObject>(): T;
+    enum CertificateCategory {
+        Unspecified,
+        TokenUser,
+        Authority,
+        OtherEntity,
     }
-
-    // ========== Crypto ==========
 
     /**
-     * Type CryptoData
+     * Certificate objects (object class CKO_CERTIFICATE) hold public-key or attribute certificates
      */
-    type CryptoData = string | Buffer;
+    class Certificate extends Storage {
+        /**
+         * Type of certificate
+         */
+        type: CertificateType;
+        /**
+         * The certificate can be trusted for the application that it was created.
+         */
+        trusted: boolean;
+        /**
+         * Categorization of the certificate
+         */
+        category: CertificateCategory;
+        /**
+         * Checksum
+         */
+        checkValue: Buffer;
+        /**
+         * Start date for the certificate (default empty)
+         */
+        startDate: Date;
+        /**
+         * End date for the certificate (default empty)
+         */
+        endDate: Date;
+    }
 
-    interface INamedCurve {
-        name: string;
-        oid: string;
+    /**
+     * X.509 attribute certificate objects (certificate type `CKC_X_509_ATTR_CERT`) hold X.509 attribute certificates
+     */
+    class AttributeCertificate extends Certificate {
+        /**
+         * DER-encoding of the attribute certificate's subject field.
+         * This is distinct from the `CKA_SUBJECT` attribute contained in `CKC_X_509` certificates
+         * because the `ASN.1` syntax and encoding are different.
+         * - Must be specified when the object is created
+         */
+        owner: Buffer;
+        /**
+         * DER-encoding of the attribute certificate's issuer field.
+         * This is distinct from the `CKA_ISSUER` attribute contained in `CKC_X_509` certificates
+         * because the ASN.1 syntax and encoding are different. (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * DER-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: Buffer;
+        /**
+         * BER-encoding of a sequence of object identifier values corresponding
+         * to the attribute types contained in the certificate.
+         * When present, this field offers an opportunity for applications
+         * to search for a particular attribute certificate without fetching
+         * and parsing the certificate itself. (default empty)
+         */
+        types: Buffer;
+        /**
+         * BER-encoding of the certificate
+         * - Must be specified when the object is created.
+         */
         value: Buffer;
-        size: number;
     }
 
     /**
-     * Cipher 
-     * 
-     * @interface Cipher
-     * @extends {BaseObject}
+     * WTLS certificate objects (certificate type `CKC_WTLS`) hold WTLS public key certificates
      */
-    interface Cipher extends BaseObject {
-        update(data: CryptoData): Buffer;
-        final(): Buffer;
-        once(data: CryptoData, enc: Buffer): Buffer;
-        once(data: CryptoData, enc: Buffer, cb: (error: Error, data: Buffer) => void): void;
+    class WtlsCertificate extends Certificate {
+        /**
+         * WTLS-encoding (Identifier type) of the certificate subject
+         * - Must be specified when the object is created.
+         * - Can only be empty if `CKA_VALUE` is empty.
+         */
+        subject: Buffer;
+        /**
+         * WTLS-encoding (Identifier type) of the certificate issuer (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * Key identifier for public/private key pair (default empty)
+         */
+        id: Buffer;
+        /**
+         * WTLS-encoding of the certificate
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        value: Buffer;
+        /**
+         * If not empty this attribute gives the URL where the complete certificate
+         * can be obtained (default empty)
+         * - Must be non-empty if `CKA_VALUE` is empty
+         */
+        url: string;
+        /**
+         * DER-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: Buffer;
+        /**
+         * SHA-1 hash of the subject public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        subjetcKeyIdentifier: Buffer;
+        /**
+         * SHA-1 hash of the issuer public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        authorityKeyIdentifier: Buffer;
+    }
+
+    enum JavaMIDP {
+        Unspecified,
+        Manufacturer,
+        Operator,
+        ThirdParty,
     }
 
     /**
-     * Decipher 
-     * 
-     * @interface Decipher
-     * @extends {BaseObject}
+     * X.509 certificate objects (certificate type `CKC_X_509`) hold X.509 public key certificates
      */
-    interface Decipher extends BaseObject {
-        update(data: Buffer): Buffer;
-        final(): Buffer;
-        once(data: Buffer, dec: Buffer): Buffer;
-        once(data: Buffer, dec: Buffer, cb: (error: Error, data: Buffer) => void): void;
-    }
-
-    /**
-     * Digest
-     * 
-     * @interface Digest
-     * @extends {BaseObject}
-     */
-    interface Digest extends BaseObject {
-        update(data: CryptoData): void;
-        final(): Buffer;
-        once(data: CryptoData): Buffer;
-        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
-    }
-
-    /**
-     * Sign 
-     * 
-     * @interface Sign
-     * @extends {BaseObject}
-     */
-    interface Sign extends BaseObject {
-        update(data: CryptoData): void;
-        final(): Buffer;
-        once(data: CryptoData): Buffer;
-        once(data: CryptoData, cb: (error: Error, data: Buffer) => void): void;
-    }
-
-    /**
-     * Verify
-     * 
-     * @interface Verify
-     * @extends {BaseObject}
-     */
-    interface Verify extends BaseObject {
-        update(data: CryptoData): void;
-        final(signature: Buffer): boolean;
-        once(data: CryptoData, signature: Buffer): boolean;
-        once(data: CryptoData, signature: Buffer, cb: (error: Error, valid: boolean) => void): void;
+    class X509Certificate extends Certificate {
+        /**
+         * DER-encoding of the certificate subject name
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        subject: Buffer;
+        /**
+         * Key identifier for public/private key pair (default empty)
+         */
+        id: Buffer;
+        /**
+         * DER-encoding of the certificate issuer name (default empty)
+         */
+        issuer: Buffer;
+        /**
+         * HEX-encoding of the certificate serial number (default empty)
+         */
+        serialNumber: string;
+        /**
+         * BER-encoding of the certificate
+         * - Must be specified when the object is created.
+         * - Must be non-empty if `CKA_URL` is empty.
+         */
+        value: Buffer;
+        /**
+         * If not empty this attribute gives the URL where the complete certificate
+         * can be obtained (default empty)
+         * - Must be non-empty if `CKA_VALUE` is empty
+         */
+        url: string;
+        /**
+         * SHA-1 hash of the subject public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        subjetcKeyIdentifier: Buffer;
+        /**
+         * SHA-1 hash of the issuer public key (default empty)
+         * - Can only be empty if `CKA_URL` is empty.
+         */
+        authorityKeyIdentifier: Buffer;
+        /**
+         * Java MIDP security domain
+         */
+        java: JavaMIDP;
     }
 
     interface IAlgorithm {
@@ -753,9 +1051,68 @@ declare module "types/graphene-pk11" {
         params: Buffer | IParams;
     }
 
-    type MechanismType = graphene.MechanismEnum | graphene.KeyGenMechanism | IAlgorithm | string;
+    type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
 
-    interface Mechanism extends BaseObject {
+    enum MechanismFlag {
+        /**
+         * `True` if the mechanism is performed by the device; `false` if the mechanism is performed in software
+         */
+        HW,
+        /**
+         * `True` if the mechanism can be used with encrypt function
+         */
+        ENCRYPT,
+        /**
+         * `True` if the mechanism can be used with decrypt function
+         */
+        DECRYPT,
+        /**
+         * `True` if the mechanism can be used with digest function
+         */
+        DIGEST,
+        /**
+         * `True` if the mechanism can be used with sign function
+         */
+        SIGN,
+        /**
+         * `True` if the mechanism can be used with sign recover function
+         */
+        SIGN_RECOVER,
+        /**
+         * `True` if the mechanism can be used with verify function
+         */
+        VERIFY,
+        /**
+         * `True` if the mechanism can be used with verify recover function
+         */
+        VERIFY_RECOVER,
+        /**
+         * `True` if the mechanism can be used with geberate function
+         */
+        GENERATE,
+        /**
+         * `True` if the mechanism can be used with generate key pair function
+         */
+        GENERATE_KEY_PAIR,
+        /**
+         * `True` if the mechanism can be used with wrap function
+         */
+        WRAP,
+        /**
+         * `True` if the mechanism can be used with unwrap function
+         */
+        UNWRAP,
+        /**
+         * `True` if the mechanism can be used with derive function
+         */
+        DERIVE,
+    }
+
+    class Mechanism extends BaseObject {
+
+        protected handle: number;
+        protected slotHandle: Handle;
+
         /**
          * the minimum size of the key for the mechanism
          * _whether this is measured in bits or in bytes is mechanism-dependent_
@@ -774,10 +1131,336 @@ declare module "types/graphene-pk11" {
          * returns string name from MechanismEnum
          */
         name: string;
+
+        constructor(handle: number, slotHandle: Handle, lib: pkcs11.PKCS11);
+
+        protected getInfo(): void;
+
+        static create(alg: MechanismType): pkcs11.Mechanism;
+        static vendor(jsonFile: string): void;
+        static vendor(name: string, value: number): void;
     }
 
-    interface IParams {
-        toCKI(): any;
+    class MechanismCollection extends Collection<Mechanism> {
+
+        protected slotHandle: Handle;
+
+        constructor(items: Array<number>, slotHandle: Handle, lib: pkcs11.PKCS11, classType?: typeof Mechanism);
+        /**
+         * returns item from collection by index
+         * @param {number} index of element in collection `[0..n]`
+         */
+        items(index: number): Mechanism;
+    }
+
+    enum MechanismEnum {
+        RSA_PKCS_KEY_PAIR_GEN,
+        RSA_PKCS,
+        RSA_9796,
+        RSA_X_509,
+        MD2_RSA_PKCS,
+        MD5_RSA_PKCS,
+        SHA1_RSA_PKCS,
+        RIPEMD128_RSA_PKCS,
+        RIPEMD160_RSA_PKCS,
+        RSA_PKCS_OAEP,
+        RSA_X9_31_KEY_PAIR_GEN,
+        RSA_X9_31,
+        SHA1_RSA_X9_31,
+        RSA_PKCS_PSS,
+        SHA1_RSA_PKCS_PSS,
+        DSA_KEY_PAIR_GEN,
+        DSA,
+        DSA_SHA1,
+        DSA_SHA224,
+        DSA_SHA256,
+        DSA_SHA384,
+        DSA_SHA512,
+        DH_PKCS_KEY_PAIR_GEN,
+        DH_PKCS_DERIVE,
+        X9_42_DH_KEY_PAIR_GEN,
+        X9_42_DH_DERIVE,
+        X9_42_DH_HYBRID_DERIVE,
+        X9_42_MQV_DERIVE,
+        SHA256_RSA_PKCS,
+        SHA384_RSA_PKCS,
+        SHA512_RSA_PKCS,
+        SHA256_RSA_PKCS_PSS,
+        SHA384_RSA_PKCS_PSS,
+        SHA512_RSA_PKCS_PSS,
+        SHA224_RSA_PKCS,
+        SHA224_RSA_PKCS_PSS,
+        RC2_KEY_GEN,
+        RC2_ECB,
+        RC2_CBC,
+        RC2_MAC,
+        RC2_MAC_GENERAL,
+        RC2_CBC_PAD,
+        RC4_KEY_GEN,
+        RC4,
+        DES_KEY_GEN,
+        DES_ECB,
+        DES_CBC,
+        DES_MAC,
+        DES_MAC_GENERAL,
+        DES_CBC_PAD,
+        DES2_KEY_GEN,
+        DES3_KEY_GEN,
+        DES3_ECB,
+        DES3_CBC,
+        DES3_MAC,
+        DES3_MAC_GENERAL,
+        DES3_CBC_PAD,
+        CDMF_KEY_GEN,
+        CDMF_ECB,
+        CDMF_CBC,
+        CDMF_MAC,
+        CDMF_MAC_GENERAL,
+        CDMF_CBC_PAD,
+        DES_OFB64,
+        DES_OFB8,
+        DES_CFB64,
+        DES_CFB8,
+        MD2,
+        MD2_HMAC,
+        MD2_HMAC_GENERAL,
+        MD5,
+        MD5_HMAC,
+        MD5_HMAC_GENERAL,
+        SHA1,
+        SHA,
+        SHA_1,
+        SHA_1_HMAC,
+        SHA_1_HMAC_GENERAL,
+        RIPEMD128,
+        RIPEMD128_HMAC,
+        RIPEMD128_HMAC_GENERAL,
+        RIPEMD160,
+        RIPEMD160_HMAC,
+        RIPEMD160_HMAC_GENERAL,
+        SHA256,
+        SHA256_HMAC,
+        SHA256_HMAC_GENERAL,
+        SHA224,
+        SHA224_HMAC,
+        SHA224_HMAC_GENERAL,
+        SHA384,
+        SHA384_HMAC,
+        SHA384_HMAC_GENERAL,
+        SHA512,
+        SHA512_HMAC,
+        SHA512_HMAC_GENERAL,
+        SECURID_KEY_GEN,
+        SECURID,
+        HOTP_KEY_GEN,
+        HOTP,
+        ACTI,
+        ACTI_KEY_GEN,
+        CAST_KEY_GEN,
+        CAST_ECB,
+        CAST_CBC,
+        CAST_MAC,
+        CAST_MAC_GENERAL,
+        CAST_CBC_PAD,
+        CAST3_KEY_GEN,
+        CAST3_ECB,
+        CAST3_CBC,
+        CAST3_MAC,
+        CAST3_MAC_GENERAL,
+        CAST3_CBC_PAD,
+        CAST5_KEY_GEN,
+        CAST128_KEY_GEN,
+        CAST5_ECB,
+        CAST128_ECB,
+        CAST5_CBC,
+        CAST128_CBC,
+        CAST5_MAC,
+        CAST128_MAC,
+        CAST5_MAC_GENERAL,
+        CAST128_MAC_GENERAL,
+        CAST5_CBC_PAD,
+        CAST128_CBC_PAD,
+        RC5_KEY_GEN,
+        RC5_ECB,
+        RC5_CBC,
+        RC5_MAC,
+        RC5_MAC_GENERAL,
+        RC5_CBC_PAD,
+        IDEA_KEY_GEN,
+        IDEA_ECB,
+        IDEA_CBC,
+        IDEA_MAC,
+        IDEA_MAC_GENERAL,
+        IDEA_CBC_PAD,
+        GENERIC_SECRET_KEY_GEN,
+        CONCATENATE_BASE_AND_KEY,
+        CONCATENATE_BASE_AND_DATA,
+        CONCATENATE_DATA_AND_BASE,
+        XOR_BASE_AND_DATA,
+        EXTRACT_KEY_FROM_KEY,
+        SSL3_PRE_MASTER_KEY_GEN,
+        SSL3_MASTER_KEY_DERIVE,
+        SSL3_KEY_AND_MAC_DERIVE,
+        SSL3_MASTER_KEY_DERIVE_DH,
+        TLS_PRE_MASTER_KEY_GEN,
+        TLS_MASTER_KEY_DERIVE,
+        TLS_KEY_AND_MAC_DERIVE,
+        TLS_MASTER_KEY_DERIVE_DH,
+        TLS_PRF,
+        SSL3_MD5_MAC,
+        SSL3_SHA1_MAC,
+        MD5_KEY_DERIVATION,
+        MD2_KEY_DERIVATION,
+        SHA1_KEY_DERIVATION,
+        SHA256_KEY_DERIVATION,
+        SHA384_KEY_DERIVATION,
+        SHA512_KEY_DERIVATION,
+        SHA224_KEY_DERIVATION,
+        PBE_MD2_DES_CBC,
+        PBE_MD5_DES_CBC,
+        PBE_MD5_CAST_CBC,
+        PBE_MD5_CAST3_CBC,
+        PBE_MD5_CAST5_CBC,
+        PBE_MD5_CAST128_CBC,
+        PBE_SHA1_CAST5_CBC,
+        PBE_SHA1_CAST128_CBC,
+        PBE_SHA1_RC4_128,
+        PBE_SHA1_RC4_40,
+        PBE_SHA1_DES3_EDE_CBC,
+        PBE_SHA1_DES2_EDE_CBC,
+        PBE_SHA1_RC2_128_CBC,
+        PBE_SHA1_RC2_40_CBC,
+        PKCS5_PBKD2,
+        PBA_SHA1_WITH_SHA1_HMAC,
+        WTLS_PRE_MASTER_KEY_GEN,
+        WTLS_MASTER_KEY_DERIVE,
+        WTLS_MASTER_KEY_DERIVE_DH_ECC,
+        WTLS_PRF,
+        WTLS_SERVER_KEY_AND_MAC_DERIVE,
+        WTLS_CLIENT_KEY_AND_MAC_DERIVE,
+        KEY_WRAP_LYNKS,
+        KEY_WRAP_SET_OAEP,
+        CAMELLIA_KEY_GEN,
+        CAMELLIA_ECB,
+        CAMELLIA_CBC,
+        CAMELLIA_MAC,
+        CAMELLIA_MAC_GENERAL,
+        CAMELLIA_CBC_PAD,
+        CAMELLIA_ECB_ENCRYPT_DATA,
+        CAMELLIA_CBC_ENCRYPT_DATA,
+        CAMELLIA_CTR,
+        ARIA_KEY_GEN,
+        ARIA_ECB,
+        ARIA_CBC,
+        ARIA_MAC,
+        ARIA_MAC_GENERAL,
+        ARIA_CBC_PAD,
+        ARIA_ECB_ENCRYPT_DATA,
+        ARIA_CBC_ENCRYPT_DATA,
+        SKIPJACK_KEY_GEN,
+        SKIPJACK_ECB64,
+        SKIPJACK_CBC64,
+        SKIPJACK_OFB64,
+        SKIPJACK_CFB64,
+        SKIPJACK_CFB32,
+        SKIPJACK_CFB16,
+        SKIPJACK_CFB8,
+        SKIPJACK_WRAP,
+        SKIPJACK_PRIVATE_WRAP,
+        SKIPJACK_RELAYX,
+        KEA_KEY_PAIR_GEN,
+        KEA_KEY_DERIVE,
+        FORTEZZA_TIMESTAMP,
+        BATON_KEY_GEN,
+        BATON_ECB128,
+        BATON_ECB96,
+        BATON_CBC128,
+        BATON_COUNTER,
+        BATON_SHUFFLE,
+        BATON_WRAP,
+        ECDSA_KEY_PAIR_GEN,
+        EC_KEY_PAIR_GEN,
+        ECDSA,
+        ECDSA_SHA1,
+        ECDSA_SHA224,
+        ECDSA_SHA256,
+        ECDSA_SHA384,
+        ECDSA_SHA512,
+        ECDH1_DERIVE,
+        ECDH1_COFACTOR_DERIVE,
+        ECMQV_DERIVE,
+        JUNIPER_KEY_GEN,
+        JUNIPER_ECB128,
+        JUNIPER_CBC128,
+        JUNIPER_COUNTER,
+        JUNIPER_SHUFFLE,
+        JUNIPER_WRAP,
+        FASTHASH,
+        AES_KEY_GEN,
+        AES_ECB,
+        AES_CBC,
+        AES_MAC,
+        AES_MAC_GENERAL,
+        AES_CBC_PAD,
+        AES_CTR,
+        AES_CMAC,
+        AES_CMAC_GENERAL,
+        BLOWFISH_KEY_GEN,
+        BLOWFISH_CBC,
+        TWOFISH_KEY_GEN,
+        TWOFISH_CBC,
+        AES_GCM,
+        AES_CCM,
+        AES_KEY_WRAP,
+        AES_KEY_WRAP_PAD,
+        DES_ECB_ENCRYPT_DATA,
+        DES_CBC_ENCRYPT_DATA,
+        DES3_ECB_ENCRYPT_DATA,
+        DES3_CBC_ENCRYPT_DATA,
+        AES_ECB_ENCRYPT_DATA,
+        AES_CBC_ENCRYPT_DATA,
+        GOSTR3410_KEY_PAIR_GEN,
+        GOSTR3410,
+        GOSTR3410_WITH_GOSTR3411,
+        GOSTR3410_KEY_WRAP,
+        GOSTR3410_DERIVE,
+        GOSTR3411,
+        GOSTR3411_HMAC,
+        GOST28147_KEY_GEN,
+        GOST28147_ECB,
+        GOST28147,
+        GOST28147_MAC,
+        GOST28147_KEY_WRAP,
+        DSA_PARAMETER_GEN,
+        DH_PKCS_PARAMETER_GEN,
+        X9_42_DH_PARAMETER_GEN,
+        VENDOR_DEFINED,
+    }
+
+    enum SessionFlag {
+        /**
+         * `True` if the session is read/write; `false` if the session is read-only
+         */
+        RW_SESSION,
+        /**
+         * This flag is provided for backward compatibility, and should always be set to `true`
+         */
+        SERIAL_SESSION,
+    }
+
+    enum UserType {
+        /**
+         * Security Officer
+         */
+        SO,
+        /**
+         * User
+         */
+        USER,
+        /**
+         * Context specific
+         */
+        CONTEXT_SPECIFIC,
     }
 
     interface IKeyPair {
@@ -788,11 +1471,13 @@ declare module "types/graphene-pk11" {
     /**
      * provides information about a session
      *
-     * @
+     * @export
      * @class Session
-     * @extends {HandleObject}
+     * @extends {core.HandleObject}
      */
-    interface Session extends HandleObject {
+    class Session extends HandleObject {
+
+        constructor(handle: Handle, slot: Slot, lib: pkcs11.PKCS11);
         /**
          * Slot
          *
@@ -817,6 +1502,9 @@ declare module "types/graphene-pk11" {
          * @type {number}
          */
         deviceError: number;
+
+        protected getInfo(): void;
+
         /**
          * closes a session between an application and a token
          */
@@ -858,7 +1546,7 @@ declare module "types/graphene-pk11" {
          * but the token may impose subset restrictions
          * @param {} userType the user type. Default is `USER`
          */
-        login(pin: string, userType?: graphene.UserType): void;
+        login(pin: string, userType?: UserType): void;
         /**
          * logs a user out from a token
          */
@@ -940,130 +1628,6 @@ declare module "types/graphene-pk11" {
          * @param {number} size \# of bytes to generate
          */
         generateRandom(size: number): Buffer;
-    }
-
-    interface Slot extends HandleObject {
-        slotDescription: string;
-        manufacturerID: string;
-        flags: number;
-        hardwareVersion: pkcs11.Version;
-        firmwareVersion: pkcs11.Version;
-        module: graphene.Module;
-        /**
-         * Returns information about token
-         *
-         * @returns {Token}
-         */
-        getToken(): Token;
-        /**
-         * returns list of `MechanismInfo`
-         *
-         * @returns {MechanismCollection}
-         */
-        getMechanisms(): MechanismCollection;
-        /**
-         * initializes a token
-         *
-         * @param {string} pin the SO's initial PIN
-         * @returns {string}
-         */
-        initToken(pin: string): string;
-        /**
-         * opens a session between an application and a token in a particular slot
-         *
-         * @param {SessionFlag} [flags=session.SessionFlag.SERIAL_SESSION] indicates the type of session
-         * @returns {Session}
-         */
-        open(flags?: graphene.SessionFlag): Session;
-        /**
-         * closes all sessions an application has with a token
-         */
-        closeAll(): void;
-    }
-
-    interface Token extends HandleObject {
-        /**
-         * application-defined label, assigned during token initialization.
-         * - Must be padded with the blank character (' ').
-         * - Should __not__ be null-terminated.
-         */
-        label: string;
-        /**
-         * ID of the device manufacturer.
-         * - Must be padded with the blank character (' ').
-         * - Should __not__ be null-terminated.
-         */
-        manufacturerID: string;
-        /**
-         * model of the device.
-         * - Must be padded with the blank character (' ').
-         * - Should __not__ be null-terminated.
-         */
-        model: string;
-        /**
-         * character-string serial number of the device.
-         * - Must be padded with the blank character (' ').
-         * - Should __not__ be null-terminated.
-         */
-        serialNumber: string;
-        /**
-         * bit flags indicating capabilities and status of the device
-         */
-        flags: number;
-        /**
-         * maximum number of sessions that can be opened with the token at one time by a single application
-         */
-        maxSessionCount: number;
-        /**
-         * number of sessions that this application currently has open with the token
-         */
-        sessionCount: number;
-        /**
-         * maximum number of read/write sessions that can be opened
-         * with the token at one time by a single application
-         */
-        maxRwSessionCount: number;
-        /**
-         * number of read/write sessions that this application currently has open with the token
-         */
-        rwSessionCount: number;
-        /**
-         * maximum length in bytes of the PIN
-         */
-        maxPinLen: number;
-        /**
-         * minimum length in bytes of the PIN
-         */
-        minPinLen: number;
-        /**
-         * the total amount of memory on the token in bytes in which public objects may be stored
-         */
-        totalPublicMemory: number;
-        /**
-         * the amount of free (unused) memory on the token in bytes for public objects
-         */
-        freePublicMemory: number;
-        /**
-         * the total amount of memory on the token in bytes in which private objects may be stored
-         */
-        totalPrivateMemory: number;
-        /**
-         * the amount of free (unused) memory on the token in bytes for private objects
-         */
-        freePrivateMemory: number;
-        /**
-         * version number of hardware
-         */
-        hardwareVersion: pkcs11.Version;
-        /**
-         * version number of firmware
-         */
-        firmwareVersion: pkcs11.Version;
-        /**
-         * current time as a character-string of length 16,
-         * represented in the format YYYYMMDDhhmmssxx
-         */
-        utcTime: Date;
     }
 
     interface ITemplate {
@@ -1466,683 +2030,9 @@ declare module "types/graphene-pk11" {
         allowedMechanisms?: any;
     }
 
-}
-
-declare module "graphene-pk11" {
-    import * as graphene from "types/graphene-pk11";
-    import * as pkcs11 from "pkcs11js";
- 
-    // ========== Parameters ========== 
-
-    // ========== AES ========== 
-
-    /**
-     * Parameter AES CBC
-     * 
-     * @class AesCbcParams
-     * @implements {graphene.IParams}
-     * @implements {pkcs11.AesCBC}
-     */
-    class AesCbcParams implements graphene.IParams, pkcs11.AesCBC {
-        /**
-         * initialization vector
-         * - must have a fixed size of 16 bytes
-         */
-        iv: Buffer;
-        /**
-         * the data
-         */
-        data: Buffer;
-        type: MechParams;
-        constructor(iv: Buffer, data?: Buffer);
-        toCKI(): Buffer;
-    }
-
-    /**
-     * Parameter AES CCM
-     * 
-     * @class AesCcmParams
-     * @implements {graphene.IParams}
-     */
-    class AesCcmParams implements graphene.IParams {
-        /**
-         * length of the data where 0 <= dataLength < 2^8L
-         */
-        dataLength: number;
-        /**
-         * the nonce
-         */
-        nonce: Buffer;
-        /**
-         * the additional authentication data
-         * - This data is authenticated but not encrypted
-         */
-        aad: Buffer;
-        /**
-         * length of authentication tag (output following cipher text) in bits.
-         * - Can be any value between 0 and 128
-         */
-        macLength: number;
-        type: MechParams;
-        constructor(dataLength: number, nonce: Buffer, aad?: Buffer, macLength?: number);
-        toCKI(): pkcs11.AesCCM;
-    }
-
-    /**
-     * Parameter AES GCM 
-     * 
-     * @class AesGcmParams
-     * @implements {graphene.IParams}
-     */
-    class AesGcmParams implements graphene.IParams {
-        /**
-         * initialization vector
-         * - The length of the initialization vector can be any number between 1 and 256.
-         * 96-bit (12 byte) IV values can be processed more efficiently,
-         * so that length is recommended for situations in which efficiency is critical.
-         */
-        iv: Buffer;
-        /**
-         * pointer to additional authentication data.
-         * This data is authenticated but not encrypted.
-         */
-        aad: Buffer;
-        /**
-         * length of authentication tag (output following cipher text) in bits.
-         * Can be any value between 0 and 128. Default 128
-         */
-        tagBits: number;
-        type: MechParams;
-        constructor(iv: Buffer, aad?: Buffer, tagBits?: number);
-        toCKI(): pkcs11.AesGCM;
-    }
- 
-    // ========== EC ========== 
-
-    /**
-     * Parameter EC DH 
-     * 
-     * @class EcdhParams
-     * @implements {graphene.IParams}
-     * @implements {pkcs11.ECDH1}
-     */
-    class EcdhParams implements graphene.IParams, pkcs11.ECDH1 {
-        /**
-         * key derivation function used on the shared secret value
-         */
-        kdf: EcKdf;
-        /**
-         * some data shared between the two parties
-         */
-        sharedData: Buffer;
-        /**
-         * other party's EC public key value
-         */
-        publicData: Buffer;
-        type: MechParams;
-        /**
-         * Creates an instance of EcdhParams.
-         *
-         * @param {EcKdf} kdf key derivation function used on the shared secret value
-         * @param {Buffer} [sharedData=null] some data shared between the two parties
-         * @param {Buffer} [publicData=null] other party's EC public key value
-         */
-        constructor(kdf: EcKdf, sharedData?: Buffer, publicData?: Buffer);
-        toCKI(): pkcs11.ECDH1;
-    }
-
-    class NamedCurve {
-        static getByName(name: string): graphene.INamedCurve;
-        static getByOid(oid: string): graphene.INamedCurve;
-    }
-
-    /**
-     * EcKdf is used to indicate the Key Derivation Function (KDF)
-     * applied to derive keying data from a shared secret.
-     * The key derivation function will be used by the EC key agreement schemes.
-     */
-    enum EcKdf {
-        NULL,
-        SHA1,
-        SHA224,
-        SHA256,
-        SHA384,
-        SHA512,
-    }
- 
-    // ========== RSA ========== 
-
-    /**
-     * Parameter RSA OAEP 
-     * 
-     * @class RsaOaepParams
-     * @implements {graphene.IParams}
-     */
-    class RsaOaepParams implements graphene.IParams {
-        hashAlgorithm: MechanismEnum;
-        mgf: RsaMgf;
-        source: number;
-        sourceData: Buffer;
-        type: MechParams;
-        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, sourceData?: Buffer);
-        toCKI(): pkcs11.RsaOAEP;
-    }
-
-    /**
-     * Parameter RSA PSS
-     * 
-     * @class RsaPssParams
-     * @implements {graphene.IParams}
-     */
-    class RsaPssParams implements graphene.IParams {
-        /**
-         * hash algorithm used in the PSS encoding;
-         * - if the signature mechanism does not include message hashing,
-         * then this value must be the mechanism used by the application to generate
-         * the message hash;
-         * - if the signature mechanism includes hashing,
-         * then this value must match the hash algorithm indicated
-         * by the signature mechanism
-         */
-        hashAlgorithm: MechanismEnum;
-        /**
-         * mask generation function to use on the encoded block
-         */
-        mgf: RsaMgf;
-        /**
-         * length, in bytes, of the salt value used in the PSS encoding;
-         * - typical values are the length of the message hash and zero
-         */
-        saltLength: number;
-        type: MechParams;
-        constructor(hashAlg?: MechanismEnum, mgf?: RsaMgf, saltLen?: number);
-        toCKI(): pkcs11.RsaPSS;
-    }
-
-    enum RsaMgf {
-        MGF1_SHA1,
-        MGF1_SHA224,
-        MGF1_SHA256,
-        MGF1_SHA384,
-        MGF1_SHA512,
-    }
-
-    
-    // ========== Enums ========== 
-
-    enum ObjectClass {
-        DATA,
-        CERTIFICATE,
-        PUBLIC_KEY,
-        PRIVATE_KEY,
-        SECRET_KEY,
-        HW_FEATURE,
-        DOMAIN_PARAMETERS,
-        MECHANISM,
-        OTP_KEY,
-    }
-
-    class Mechanism {
-        static vendor(jsonFile: string): void;
-        static vendor(name: string, value: number): void;
-    }
-
-    enum CertificateType {
-        X_509,
-        X_509_ATTR_CERT,
-        WTLS,
-    }
-
-    enum CertificateCategory {
-        Unspecified = 0,
-        TokenUser = 1,
-        Authority = 2,
-        OtherEntity = 3,
-    }
-
-    enum KeyType {
-        RSA,
-        DSA,
-        DH,
-        ECDSA,
-        EC,
-        X9_42_DH,
-        KEA,
-        GENERIC_SECRET,
-        RC2,
-        RC4,
-        DES,
-        DES2,
-        DES3,
-        CAST,
-        CAST3,
-        CAST5,
-        CAST128,
-        RC5,
-        IDEA,
-        SKIPJACK,
-        BATON,
-        JUNIPER,
-        CDMF,
-        AES,
-        GOSTR3410,
-        GOSTR3411,
-        GOST28147,
-        BLOWFISH,
-        TWOFISH,
-        SECURID,
-        HOTP,
-        ACTI,
-        CAMELLIA,
-        ARIA,
-    }
-
-    enum KeyGenMechanism {
-        AES,
-        RSA,
-        RSA_X9_31,
-        DSA,
-        DH_PKCS,
-        DH_X9_42,
-        GOSTR3410,
-        GOST28147,
-        RC2,
-        RC4,
-        DES,
-        DES2,
-        SECURID,
-        ACTI,
-        CAST,
-        CAST3,
-        CAST5,
-        CAST128,
-        RC5,
-        IDEA,
-        GENERIC_SECRET,
-        SSL3_PRE_MASTER,
-        CAMELLIA,
-        ARIA,
-        SKIPJACK,
-        KEA,
-        BATON,
-        ECDSA,
-        EC,
-        JUNIPER,
-        TWOFISH,
-    }
-
-    enum MechanismFlag {
-        /**
-         * `True` if the mechanism is performed by the device; `false` if the mechanism is performed in software
-         */
-        HW,
-        /**
-         * `True` if the mechanism can be used with encrypt function
-         */
-        ENCRYPT,
-        /**
-         * `True` if the mechanism can be used with decrypt function
-         */
-        DECRYPT,
-        /**
-         * `True` if the mechanism can be used with digest function
-         */
-        DIGEST,
-        /**
-         * `True` if the mechanism can be used with sign function
-         */
-        SIGN,
-        /**
-         * `True` if the mechanism can be used with sign recover function
-         */
-        SIGN_RECOVER,
-        /**
-         * `True` if the mechanism can be used with verify function
-         */
-        VERIFY,
-        /**
-         * `True` if the mechanism can be used with verify recover function
-         */
-        VERIFY_RECOVER,
-        /**
-         * `True` if the mechanism can be used with geberate function
-         */
-        GENERATE,
-        /**
-         * `True` if the mechanism can be used with generate key pair function
-         */
-        GENERATE_KEY_PAIR,
-        /**
-         * `True` if the mechanism can be used with wrap function
-         */
-        WRAP,
-        /**
-         * `True` if the mechanism can be used with unwrap function
-         */
-        UNWRAP,
-        /**
-         * `True` if the mechanism can be used with derive function
-         */
-        DERIVE,
-    }
-
-    enum MechanismEnum {
-        RSA_PKCS_KEY_PAIR_GEN,
-        RSA_PKCS,
-        RSA_9796,
-        RSA_X_509,
-        MD2_RSA_PKCS,
-        MD5_RSA_PKCS,
-        SHA1_RSA_PKCS,
-        RIPEMD128_RSA_PKCS,
-        RIPEMD160_RSA_PKCS,
-        RSA_PKCS_OAEP,
-        RSA_X9_31_KEY_PAIR_GEN,
-        RSA_X9_31,
-        SHA1_RSA_X9_31,
-        RSA_PKCS_PSS,
-        SHA1_RSA_PKCS_PSS,
-        DSA_KEY_PAIR_GEN,
-        DSA,
-        DSA_SHA1,
-        DSA_SHA224,
-        DSA_SHA256,
-        DSA_SHA384,
-        DSA_SHA512,
-        DH_PKCS_KEY_PAIR_GEN,
-        DH_PKCS_DERIVE,
-        X9_42_DH_KEY_PAIR_GEN,
-        X9_42_DH_DERIVE,
-        X9_42_DH_HYBRID_DERIVE,
-        X9_42_MQV_DERIVE,
-        SHA256_RSA_PKCS,
-        SHA384_RSA_PKCS,
-        SHA512_RSA_PKCS,
-        SHA256_RSA_PKCS_PSS,
-        SHA384_RSA_PKCS_PSS,
-        SHA512_RSA_PKCS_PSS,
-        SHA224_RSA_PKCS,
-        SHA224_RSA_PKCS_PSS,
-        RC2_KEY_GEN,
-        RC2_ECB,
-        RC2_CBC,
-        RC2_MAC,
-        RC2_MAC_GENERAL,
-        RC2_CBC_PAD,
-        RC4_KEY_GEN,
-        RC4,
-        DES_KEY_GEN,
-        DES_ECB,
-        DES_CBC,
-        DES_MAC,
-        DES_MAC_GENERAL,
-        DES_CBC_PAD,
-        DES2_KEY_GEN,
-        DES3_KEY_GEN,
-        DES3_ECB,
-        DES3_CBC,
-        DES3_MAC,
-        DES3_MAC_GENERAL,
-        DES3_CBC_PAD,
-        CDMF_KEY_GEN,
-        CDMF_ECB,
-        CDMF_CBC,
-        CDMF_MAC,
-        CDMF_MAC_GENERAL,
-        CDMF_CBC_PAD,
-        DES_OFB64,
-        DES_OFB8,
-        DES_CFB64,
-        DES_CFB8,
-        MD2,
-        MD2_HMAC,
-        MD2_HMAC_GENERAL,
-        MD5,
-        MD5_HMAC,
-        MD5_HMAC_GENERAL,
-        SHA1,
-        SHA,
-        SHA_1,
-        SHA_1_HMAC,
-        SHA_1_HMAC_GENERAL,
-        RIPEMD128,
-        RIPEMD128_HMAC,
-        RIPEMD128_HMAC_GENERAL,
-        RIPEMD160,
-        RIPEMD160_HMAC,
-        RIPEMD160_HMAC_GENERAL,
-        SHA256,
-        SHA256_HMAC,
-        SHA256_HMAC_GENERAL,
-        SHA224,
-        SHA224_HMAC,
-        SHA224_HMAC_GENERAL,
-        SHA384,
-        SHA384_HMAC,
-        SHA384_HMAC_GENERAL,
-        SHA512,
-        SHA512_HMAC,
-        SHA512_HMAC_GENERAL,
-        SECURID_KEY_GEN,
-        SECURID,
-        HOTP_KEY_GEN,
-        HOTP,
-        ACTI,
-        ACTI_KEY_GEN,
-        CAST_KEY_GEN,
-        CAST_ECB,
-        CAST_CBC,
-        CAST_MAC,
-        CAST_MAC_GENERAL,
-        CAST_CBC_PAD,
-        CAST3_KEY_GEN,
-        CAST3_ECB,
-        CAST3_CBC,
-        CAST3_MAC,
-        CAST3_MAC_GENERAL,
-        CAST3_CBC_PAD,
-        CAST5_KEY_GEN,
-        CAST128_KEY_GEN,
-        CAST5_ECB,
-        CAST128_ECB,
-        CAST5_CBC,
-        CAST128_CBC,
-        CAST5_MAC,
-        CAST128_MAC,
-        CAST5_MAC_GENERAL,
-        CAST128_MAC_GENERAL,
-        CAST5_CBC_PAD,
-        CAST128_CBC_PAD,
-        RC5_KEY_GEN,
-        RC5_ECB,
-        RC5_CBC,
-        RC5_MAC,
-        RC5_MAC_GENERAL,
-        RC5_CBC_PAD,
-        IDEA_KEY_GEN,
-        IDEA_ECB,
-        IDEA_CBC,
-        IDEA_MAC,
-        IDEA_MAC_GENERAL,
-        IDEA_CBC_PAD,
-        GENERIC_SECRET_KEY_GEN,
-        CONCATENATE_BASE_AND_KEY,
-        CONCATENATE_BASE_AND_DATA,
-        CONCATENATE_DATA_AND_BASE,
-        XOR_BASE_AND_DATA,
-        EXTRACT_KEY_FROM_KEY,
-        SSL3_PRE_MASTER_KEY_GEN,
-        SSL3_MASTER_KEY_DERIVE,
-        SSL3_KEY_AND_MAC_DERIVE,
-        SSL3_MASTER_KEY_DERIVE_DH,
-        TLS_PRE_MASTER_KEY_GEN,
-        TLS_MASTER_KEY_DERIVE,
-        TLS_KEY_AND_MAC_DERIVE,
-        TLS_MASTER_KEY_DERIVE_DH,
-        TLS_PRF,
-        SSL3_MD5_MAC,
-        SSL3_SHA1_MAC,
-        MD5_KEY_DERIVATION,
-        MD2_KEY_DERIVATION,
-        SHA1_KEY_DERIVATION,
-        SHA256_KEY_DERIVATION,
-        SHA384_KEY_DERIVATION,
-        SHA512_KEY_DERIVATION,
-        SHA224_KEY_DERIVATION,
-        PBE_MD2_DES_CBC,
-        PBE_MD5_DES_CBC,
-        PBE_MD5_CAST_CBC,
-        PBE_MD5_CAST3_CBC,
-        PBE_MD5_CAST5_CBC,
-        PBE_MD5_CAST128_CBC,
-        PBE_SHA1_CAST5_CBC,
-        PBE_SHA1_CAST128_CBC,
-        PBE_SHA1_RC4_128,
-        PBE_SHA1_RC4_40,
-        PBE_SHA1_DES3_EDE_CBC,
-        PBE_SHA1_DES2_EDE_CBC,
-        PBE_SHA1_RC2_128_CBC,
-        PBE_SHA1_RC2_40_CBC,
-        PKCS5_PBKD2,
-        PBA_SHA1_WITH_SHA1_HMAC,
-        WTLS_PRE_MASTER_KEY_GEN,
-        WTLS_MASTER_KEY_DERIVE,
-        WTLS_MASTER_KEY_DERIVE_DH_ECC,
-        WTLS_PRF,
-        WTLS_SERVER_KEY_AND_MAC_DERIVE,
-        WTLS_CLIENT_KEY_AND_MAC_DERIVE,
-        KEY_WRAP_LYNKS,
-        KEY_WRAP_SET_OAEP,
-        CAMELLIA_KEY_GEN,
-        CAMELLIA_ECB,
-        CAMELLIA_CBC,
-        CAMELLIA_MAC,
-        CAMELLIA_MAC_GENERAL,
-        CAMELLIA_CBC_PAD,
-        CAMELLIA_ECB_ENCRYPT_DATA,
-        CAMELLIA_CBC_ENCRYPT_DATA,
-        CAMELLIA_CTR,
-        ARIA_KEY_GEN,
-        ARIA_ECB,
-        ARIA_CBC,
-        ARIA_MAC,
-        ARIA_MAC_GENERAL,
-        ARIA_CBC_PAD,
-        ARIA_ECB_ENCRYPT_DATA,
-        ARIA_CBC_ENCRYPT_DATA,
-        SKIPJACK_KEY_GEN,
-        SKIPJACK_ECB64,
-        SKIPJACK_CBC64,
-        SKIPJACK_OFB64,
-        SKIPJACK_CFB64,
-        SKIPJACK_CFB32,
-        SKIPJACK_CFB16,
-        SKIPJACK_CFB8,
-        SKIPJACK_WRAP,
-        SKIPJACK_PRIVATE_WRAP,
-        SKIPJACK_RELAYX,
-        KEA_KEY_PAIR_GEN,
-        KEA_KEY_DERIVE,
-        FORTEZZA_TIMESTAMP,
-        BATON_KEY_GEN,
-        BATON_ECB128,
-        BATON_ECB96,
-        BATON_CBC128,
-        BATON_COUNTER,
-        BATON_SHUFFLE,
-        BATON_WRAP,
-        ECDSA_KEY_PAIR_GEN,
-        EC_KEY_PAIR_GEN,
-        ECDSA,
-        ECDSA_SHA1,
-        ECDSA_SHA224,
-        ECDSA_SHA256,
-        ECDSA_SHA384,
-        ECDSA_SHA512,
-        ECDH1_DERIVE,
-        ECDH1_COFACTOR_DERIVE,
-        ECMQV_DERIVE,
-        JUNIPER_KEY_GEN,
-        JUNIPER_ECB128,
-        JUNIPER_CBC128,
-        JUNIPER_COUNTER,
-        JUNIPER_SHUFFLE,
-        JUNIPER_WRAP,
-        FASTHASH,
-        AES_KEY_GEN,
-        AES_ECB,
-        AES_CBC,
-        AES_MAC,
-        AES_MAC_GENERAL,
-        AES_CBC_PAD,
-        AES_CTR,
-        AES_CMAC,
-        AES_CMAC_GENERAL,
-        BLOWFISH_KEY_GEN,
-        BLOWFISH_CBC,
-        TWOFISH_KEY_GEN,
-        TWOFISH_CBC,
-        AES_GCM,
-        AES_CCM,
-        AES_KEY_WRAP,
-        AES_KEY_WRAP_PAD,
-        DES_ECB_ENCRYPT_DATA,
-        DES_CBC_ENCRYPT_DATA,
-        DES3_ECB_ENCRYPT_DATA,
-        DES3_CBC_ENCRYPT_DATA,
-        AES_ECB_ENCRYPT_DATA,
-        AES_CBC_ENCRYPT_DATA,
-        GOSTR3410_KEY_PAIR_GEN,
-        GOSTR3410,
-        GOSTR3410_WITH_GOSTR3411,
-        GOSTR3410_KEY_WRAP,
-        GOSTR3410_DERIVE,
-        GOSTR3411,
-        GOSTR3411_HMAC,
-        GOST28147_KEY_GEN,
-        GOST28147_ECB,
-        GOST28147,
-        GOST28147_MAC,
-        GOST28147_KEY_WRAP,
-        DSA_PARAMETER_GEN,
-        DH_PKCS_PARAMETER_GEN,
-        X9_42_DH_PARAMETER_GEN,
-        VENDOR_DEFINED,
-    }
-
-    enum MechParams {
-        AesCBC = 1,
-        AesCCM = 2,
-        AesGCM = 3,
-        RsaOAEP = 4,
-        RsaPSS = 5,
-        EcDH = 6,
-    }
-
-    enum SessionFlag {
-        /**
-         * `True` if the session is read/write; `false` if the session is read-only
-         */
-        RW_SESSION,
-        /**
-         * This flag is provided for backward compatibility, and should always be set to `true`
-         */
-        SERIAL_SESSION
-    }
-
-    enum UserType {
-        /**
-         * Security Officer
-         */
-        SO,
-        /**
-         * User
-         */
-        USER,
-        /**
-         * Context specific
-         */
-        CONTEXT_SPECIFIC
+    class Template {
+        static toPkcs11(tmpl: ITemplate): pkcs11.Attribute[];
+        static fromPkcs11(tmpl: pkcs11.Template): ITemplate;
     }
 
     enum SlotFlag {
@@ -2157,7 +2047,69 @@ declare module "graphene-pk11" {
         /**
          * True if the slot is a hardware slot, as opposed to a software slot implementing a "soft token"
          */
-        HW_SLOT
+        HW_SLOT,
+    }
+    class Slot extends HandleObject {
+
+        slotDescription: string;
+        manufacturerID: string;
+        flags: number;
+        hardwareVersion: pkcs11.Version;
+        firmwareVersion: pkcs11.Version;
+        module: Module;
+
+        constructor(handle: Handle, module: Module, lib: pkcs11.PKCS11);
+
+        /**
+         * Recieve information about Slot
+         *
+         * @protected
+         */
+        protected getInfo(): void;
+
+        /**
+         * Returns information about token
+         *
+         * @returns {Token}
+         */
+        getToken(): Token;
+        /**
+         * returns list of `MechanismInfo`
+         *
+         * @returns {MechanismCollection}
+         */
+        getMechanisms(): MechanismCollection;
+        /**
+         * initializes a token
+         *
+         * @param {string} pin the SO's initial PIN
+         * @returns {string}
+         */
+        initToken(pin: string): string;
+        /**
+         * opens a session between an application and a token in a particular slot
+         *
+         * @param {SessionFlag} [flags=session.SessionFlag.SERIAL_SESSION] indicates the type of session
+         * @returns {Session}
+         */
+        open(flags?: SessionFlag): Session;
+        /**
+         * closes all sessions an application has with a token
+         */
+        closeAll(): void;
+    }
+
+    /**
+     * Collection of slots
+     *
+     * @export
+     * @class SlotCollection
+     * @extends {core.Collection<Slot>}
+     */
+    class SlotCollection extends Collection<Slot> {
+        module: Module;
+        items(index: number): Slot;
+        constructor(items: Array<Buffer>, module: Module, lib: pkcs11.PKCS11, classType?: any);
     }
 
     enum TokenFlag {
@@ -2178,19 +2130,99 @@ declare module "graphene-pk11" {
         SO_PIN_COUNT_LOW,
         SO_PIN_FINAL_TRY,
         SO_PIN_LOCKED,
-        SO_PIN_TO_BE_CHANGED
+        SO_PIN_TO_BE_CHANGED,
     }
 
-    enum JavaMIDP {
-        Unspecified,
-        Manufacturer,
-        Operator,
-        ThirdParty
+    class Token extends HandleObject {
+        /**
+         * application-defined label, assigned during token initialization.
+         * - Must be padded with the blank character (' ').
+         * - Should __not__ be null-terminated.
+         */
+        label: string;
+        /**
+         * ID of the device manufacturer.
+         * - Must be padded with the blank character (' ').
+         * - Should __not__ be null-terminated.
+         */
+        manufacturerID: string;
+        /**
+         * model of the device.
+         * - Must be padded with the blank character (' ').
+         * - Should __not__ be null-terminated.
+         */
+        model: string;
+        /**
+         * character-string serial number of the device.
+         * - Must be padded with the blank character (' ').
+         * - Should __not__ be null-terminated.
+         */
+        serialNumber: string;
+        /**
+         * bit flags indicating capabilities and status of the device
+         */
+        flags: number;
+        /**
+         * maximum number of sessions that can be opened with the token at one time by a single application
+         */
+        maxSessionCount: number;
+        /**
+         * number of sessions that this application currently has open with the token
+         */
+        sessionCount: number;
+        /**
+         * maximum number of read/write sessions that can be opened
+         * with the token at one time by a single application
+         */
+        maxRwSessionCount: number;
+        /**
+         * number of read/write sessions that this application currently has open with the token
+         */
+        rwSessionCount: number;
+        /**
+         * maximum length in bytes of the PIN
+         */
+        maxPinLen: number;
+        /**
+         * minimum length in bytes of the PIN
+         */
+        minPinLen: number;
+        /**
+         * the total amount of memory on the token in bytes in which public objects may be stored
+         */
+        totalPublicMemory: number;
+        /**
+         * the amount of free (unused) memory on the token in bytes for public objects
+         */
+        freePublicMemory: number;
+        /**
+         * the total amount of memory on the token in bytes in which private objects may be stored
+         */
+        totalPrivateMemory: number;
+        /**
+         * the amount of free (unused) memory on the token in bytes for private objects
+         */
+        freePrivateMemory: number;
+        /**
+         * version number of hardware
+         */
+        hardwareVersion: pkcs11.Version;
+        /**
+         * version number of firmware
+         */
+        firmwareVersion: pkcs11.Version;
+        /**
+         * current time as a character-string of length 16,
+         * represented in the format YYYYMMDDhhmmssxx
+         */
+        utcTime: Date;
+
+        constructor(handle: Handle, lib: pkcs11.PKCS11);
+
+        protected getInfo(): void;
     }
 
-    // ========== Module ==========
-
-    class Module implements graphene.BaseObject {
+    class Module extends BaseObject {
         libFile: string;
         libName: string;
         /**
@@ -2213,9 +2245,8 @@ declare module "graphene-pk11" {
          * version of library
          */
         libraryVersion: pkcs11.Version;
-
         constructor(lib: pkcs11.PKCS11);
-
+        protected getInfo(): void;
         /**
          * initializes the Cryptoki library
          */
@@ -2229,11 +2260,11 @@ declare module "graphene-pk11" {
          * @param {number} index index of an element in collection
          * @param {number} tokenPresent only slots with tokens. Default `True`
          */
-        getSlots(index: number, tokenPresent?: boolean): graphene.Slot;
+        getSlots(index: number, tokenPresent?: boolean): Slot;
         /**
          * @param {number} tokenPresent only slots with tokens. Default `True`
          */
-        getSlots(tokenPresent?: boolean): graphene.SlotCollection;
+        getSlots(tokenPresent?: boolean): SlotCollection;
         /**
          * loads pkcs11 lib
          * @param libFile path to PKCS11 library
@@ -2242,4 +2273,5 @@ declare module "graphene-pk11" {
         static load(libFile: string, libName?: string): Module;
     }
 
-}
+
+} 
