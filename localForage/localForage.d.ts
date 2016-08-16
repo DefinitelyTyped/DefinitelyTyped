@@ -2,7 +2,7 @@
 // Project: https://github.com/mozilla/localforage
 // Definitions by: yuichi david pichsenmeister <https://github.com/3x14159265>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export module "localforage" {
+declare module "localforage" {
     export interface LocalForageOptions {
         driver?: string | LocalForageDriver | LocalForageDriver[];
     
