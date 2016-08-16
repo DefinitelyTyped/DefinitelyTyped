@@ -3,8 +3,5 @@
 // Definitions by: Peter Safranek <https://github.com/pe8ter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'base64-js' {
-
-    export function toByteArray(encoded: string): Uint8Array;
-    export function fromByteArray(bytes: Uint8Array): string;
-}
+export function toByteArray(encoded: string): Uint8Array;
+export function fromByteArray(bytes: Uint8Array): string;
