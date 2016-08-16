@@ -5,29 +5,10 @@
 
 /// <reference path="../github-electron/github-electron.d.ts" />
 
-declare namespace ElectronNotify {
+/** Nice and simple notifications for electron apps */
+declare module 'electron-notify' {
 
-  interface ICloseNotificationEvent {
-    event: 'close' | 'show' | 'click',
-    id: number
-  }
-
-  interface INotificationEvent extends ICloseNotificationEvent {
-    closeNotification: (reason: any) => void,
-  }
-
-  interface INotification {
-    title: string,
-    text?: string,
-    image?: string,
-    url?: string,
-    sound?: string,
-    onClickFunc?: (event: INotificationEvent) => void,
-    onShowFunc?: (event: INotificationEvent) => void,
-    onCloseFunc?: (event: ICloseNotificationEvent) => void
-  }
-
-  interface IConfiguration {
+  export interface ICustomConfig {
     width?: number,
     height?: number,
     padding?: number,
@@ -47,16 +28,31 @@ declare namespace ElectronNotify {
     defaultStyleText?: any
   }
 
-}
+  export interface ICloseNotificationEvent {
+    event: 'close' | 'show' | 'click',
+    id: number
+  }
 
-/** Nice and simple notifications for electron apps */
-declare module 'electron-notify' {
+  export interface INotificationEvent extends ICloseNotificationEvent {
+    closeNotification: (reason: any) => void,
+  }
+
+  export interface INotification {
+    title: string,
+    text?: string,
+    image?: string,
+    url?: string,
+    sound?: string,
+    onClickFunc?: (event: INotificationEvent) => void,
+    onShowFunc?: (event: INotificationEvent) => void,
+    onCloseFunc?: (event: ICloseNotificationEvent) => void
+  }
 
   /** Change some config options. Can be run multiple times, also between notify()-calls to change electron-notifys behaviour. */
-  export function setConfig(customConfig: ElectronNotify.IConfiguration): void;
+  export function setConfig(customConfig: ICustomConfig): void;
 
   /** Displays new notification. */
-  export function notify(notification: ElectronNotify.INotification): void;
+  export function notify(notification: INotification): void;
 
   /** Clears the animation queue and closes all windows opened by electron-notify. Call this to clean up before quiting your app. */
   export function closeAll(): void;
