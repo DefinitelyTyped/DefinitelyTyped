@@ -4,13 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 /// <reference path="./history.d.ts"/>
 
 
 declare namespace ReactRouter {
-
-    import React = __React
 
     import H = HistoryModule
 
@@ -104,7 +102,7 @@ declare namespace ReactRouter {
     const Router: Router
 
 
-    interface LinkProps extends React.HTMLAttributes, React.Props<Link> {
+    interface LinkProps extends React.HTMLAttributes<Link>, React.Props<Link> {
         activeStyle?: React.CSSProperties
         activeClassName?: string
         onlyActiveOnIndex?: boolean
@@ -344,7 +342,7 @@ declare module "react-router/lib/PatternUtils" {
 
 declare module "react-router/lib/RouteUtils" {
 
-    type E = __React.ReactElement<any>
+    type E = React.ReactElement<any>
 
     export function isReactChildren(object: E | E[]): boolean
 
@@ -365,8 +363,6 @@ declare module "react-router/lib/RouterContext" {
 
 
 declare module "react-router/lib/PropTypes" {
-
-    import React = __React
 
     export function falsy(props: any, propName: string, componentName: string): Error;
 
