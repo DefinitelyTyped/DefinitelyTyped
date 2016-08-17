@@ -452,22 +452,26 @@ nodeLinkSimulation
 
 let f: d3Force.Force<SimNode, SimLink>;
 
+// getter with generic force returned
+
 f = nodeLinkSimulation.force('charge');
 f = nodeLinkSimulation.force('link');
 
+
+// getter with force type cast to improve return type specificity
+
 let fLink: d3Force.ForceLink<SimNode, SimLink>;
 
-// fLink = nodeLinkSimulation.force('link'); // fails, as ForceLink specific properties are missing from 'generic' force
-
 // Need explicit, careful type casting to a specific force type
-fLink = <d3Force.ForceLink<SimNode, SimLink>>nodeLinkSimulation.force('link');
+fLink = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link');
 
 // This is mainly an issue for ForceLinks, if once wants to get the links from an initialized force
 // or re-set new links for an initialized force, e.g.:
 
-simLinks = (<d3Force.ForceLink<SimNode, SimLink>>nodeLinkSimulation.force('link')).links();
+simLinks = nodeLinkSimulation.force<d3Force.ForceLink<SimNode, SimLink>>('link').links();
 
-// The same could be followed for custom  forces.
+// fLink = nodeLinkSimulation.force('link'); // fails, as ForceLink specific properties are missing from 'generic' force
+
 
 // on() --------------------------------------------------------------------------------
 
@@ -511,11 +515,11 @@ nodeSimulation = nodeSimulation.on('tick', null);
 
 // restart() --------------------------------------------------------------------------
 
-nodeLinkSimulation.restart();
+nodeLinkSimulation = nodeLinkSimulation.restart();
 
 // stop() -----------------------------------------------------------------------------
 
-nodeLinkSimulation.stop();
+nodeLinkSimulation = nodeLinkSimulation.stop();
 
 // tick() -----------------------------------------------------------------------------
 
