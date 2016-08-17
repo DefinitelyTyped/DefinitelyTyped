@@ -276,10 +276,10 @@ declare namespace __React {
         isTrusted: boolean;
         nativeEvent: Event;
         preventDefault(): void;
-        stopPropagation(): void;
-        persist(): void;
         isDefaultPrevented(): boolean;
+        stopPropagation(): void;
         isPropagationStopped(): boolean;
+        persist(): void;
         target: EventTarget;
         timeStamp: Date;
         type: string;
