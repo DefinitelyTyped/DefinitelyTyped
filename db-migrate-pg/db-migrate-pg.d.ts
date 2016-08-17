@@ -6,10 +6,10 @@
 /// <reference path="../db-migrate-base/db-migrate-base.d.ts"/>
 /// <reference path="../pg/pg.d.ts" />
 
-declare module "DbMigratePg" {
+declare module "db-migrate-pg" {
 
   import * as pg from "pg";
-  import * as DbMigrateBase from "DbMigrateBase";
+  import * as DbMigrateBase from "db-migrate-base";
 
   // Yes, this is a dummy interface for now; the current implementation of the pg driver doesn't need any options.
   export interface CreateDatabaseOptions {}

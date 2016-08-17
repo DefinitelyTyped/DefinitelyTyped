@@ -1,7 +1,7 @@
 // Test file for db-migrate-pg Definition file
 /// <reference path="db-migrate-pg.d.ts" />
 
-import * as DbMigratePg from "DbMigratePg";
+import * as DbMigratePg from "db-migrate-pg";
 
 // Throw together a dummy driver
 let db = <DbMigratePg.PgDriver>{};
