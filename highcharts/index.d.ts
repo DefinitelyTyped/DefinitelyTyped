@@ -471,6 +471,10 @@ interface HighchartsAxisOptions {
      */
     ceiling?: number;
     /**
+     * Configure a crosshair that follows either the mouse pointer or the hovered point.
+     */
+    crosshair?: HighchartsCrosshairObject;
+    /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
      */

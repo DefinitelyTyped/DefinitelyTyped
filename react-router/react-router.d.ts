@@ -1,6 +1,6 @@
 // Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -225,6 +225,27 @@ declare namespace ReactRouter {
 
     const RouteContext: React.Mixin<any, any>
 
+    /* Higher Order Component */
+
+    // Wrap a component using withRouter(Component) to provide a router object
+    // to the Component's props, allowing the Component to programmatically call
+    // push and other functions.
+    //
+    // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
+
+    interface InjectedRouter {
+      push: (pathOrLoc: H.LocationDescriptor) => void
+      replace: (pathOrLoc: H.LocationDescriptor) => void
+      go: (n: number) => void
+      goBack: () => void
+      goForward: () => void
+      setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
+      createPath(path: H.Path, query?: H.Query): H.Path
+      createHref(path: H.Path, query?: H.Query): H.Href
+      isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
+    }
+
+    function withRouter<C extends React.ComponentClass<any>>(component: C): C
 
     /* utils */
 
@@ -419,6 +440,10 @@ declare module "react-router/lib/createMemoryHistory" {
   export default ReactRouter.createMemoryHistory;
 }
 
+declare module "react-router/lib/withRouter" {
+  export default ReactRouter.withRouter;
+}
+
 declare module "react-router" {
 
     import Router from "react-router/lib/Router"
@@ -461,6 +486,8 @@ declare module "react-router" {
 
     import createMemoryHistory from "react-router/lib/createMemoryHistory";
 
+    import withRouter from "react-router/lib/withRouter";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -502,7 +529,8 @@ declare module "react-router" {
         PropTypes,
         match,
         useRouterHistory,
-        createMemoryHistory
+        createMemoryHistory,
+        withRouter
     }
 
     export default Router
