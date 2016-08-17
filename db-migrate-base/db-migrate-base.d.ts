@@ -6,7 +6,7 @@
 /// <reference path="../bluebird/bluebird.d.ts"/>
 /// <reference path="../node/node.d.ts"/>
 
-declare module "DbMigrateBase" {
+declare module "db-migrate-base" {
 
   export interface CallbackFunction { (err: any, response: any): void; }
 
