@@ -1921,7 +1921,7 @@ declare namespace google.earth {
     /**
      * The direction that icons are set to point, clockwise, and in degrees.
      */
-    setHeading(): number;
+    setHeading(heading: number): void;
 
     /**
      * A custom Icon. In KmlIconStyle, the only child element of KmlIcon is href and href is an HTTP address or a local file specification used to load an icon.
