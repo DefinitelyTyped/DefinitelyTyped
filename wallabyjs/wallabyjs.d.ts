@@ -1,6 +1,6 @@
 // Type definitions for WallabyJS
 // Project: http://wallabyjs.com
-// Definitions by: Andrew Connell <http://www.andrewconnell.com>
+// Definitions by: Andrew Connell <https://github.com/andrewconnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'wallabyjs' {
@@ -24,7 +24,7 @@ declare module 'wallabyjs' {
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
    */
   export interface IWallabyConfig {
-    comilers?: IWallabyCompiler;
+    comilers?: IWallabyCompilers;
     debug?: boolean;
     env?: IWallabyEnvironment;
     files: string[] | IWallabyFilePattern[];
@@ -36,16 +36,60 @@ declare module 'wallabyjs' {
   }
 
   /**
-   * Wallaby compiler configuration.
+   * Wallaby compilers.
    *
+   * @export
    * @interface IWallabyCompiler
    *
    * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
    */
-  export interface IWallabyCompiler {
+  export interface IWallabyCompilers {
     [pattern: string]: any
   }
 
+  /**
+   * Wallaby built in compiler options. These are name-value pairs passed into each compiler.
+   *
+   * @export
+   * @interface IWallabyCompilerOptions
+   *
+   * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
+   */
+  export interface IWallabyBuiltInCompilerOptions {
+    [option: string]: string;
+  }
+
+  /**
+   * Wallaby build in compilers.
+   *
+   * @export
+   * @interface IWallabyBuiltInCompilers
+   *
+   * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
+   */
+  export interface IWallabyBuiltInCompilers {
+    babel(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
+    coffeeScript(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
+    typeScript(compilerOptions?: IWallabyBuiltInCompilerOptions): IWallabyCompilerResult;
+  }
+
+  /**
+   * Wallaby compiler result entity.
+   *
+   * @export
+   * @interface IWallabyCompilerResult
+   *
+   * @property  {string}  map - Source map.
+   * @property  {string}  code - Code transformed to JavaScript.
+   * @property  {any}  ranges - All converable ranges of the original file.
+   *
+   * @see {@link https://wallabyjs.com/docs/config/compilers.html} for details.
+   */
+  export interface IWallabyCompilerResult {
+    map: string;
+    code: string;
+    ranges: any;
+  }
 
   /**
    * Wallaby processor used in pre & post processors.
@@ -149,7 +193,7 @@ declare module 'wallabyjs' {
    *
    * @property  {string=} localProjectDir - String property which returns the project local folder.
    * @property  {string=} projectCacheDir - String property which returns the project cache folder.
-   * @property  {IWallabyCompiler=} compilers - Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
+   * @property  {IWallabyBuiltInCompilers=} compilers - Property which allows you to access the built-in TypeScript, CoffeeScript and Babel compilers.
    * @property  {object=} defaults - Property which allows you to set the default values for file object properties.
    *
    * @see {@link https://wallabyjs.com/docs/config/overview.html} for details.
@@ -157,7 +201,7 @@ declare module 'wallabyjs' {
   export interface IWallaby {
     localProjectDir?: string;
     projectCacheDir?: string;
-    compilers?: IWallabyCompiler;
+    compilers?: IWallabyBuiltInCompilers;
     defaults?: any;
   }
 }
