@@ -2795,6 +2795,11 @@ declare namespace google.earth {
     setLatLng(latitude: number, longitude: number): void;
 
     /**
+     * Sets the latitude, longitude, and altitide.
+     */
+    setLatLngAlt(latitude: number, longitude: number, altitude: number): void;
+
+    /**
      * The point's latitude, in degrees.
      */
     getLatitude(): number;
