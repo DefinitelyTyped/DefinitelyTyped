@@ -1131,7 +1131,6 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );

@@ -10,10 +10,10 @@ java.asyncOptions = {
   promiseSuffix: 'P',
   promisify: BluePromise.promisify
 };
-
-java.registerClientP((): Promise<void> => {
+// todo: figure out why promise doesn't work here 
+/* java.registerClientP((): Promise<void> => {
   return BluePromise.resolve();
-});
+}); */
 
 interface ProxyFunctions {
   [index: string]: Function;

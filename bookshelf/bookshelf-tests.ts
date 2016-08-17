@@ -8,11 +8,9 @@ import * as Bookshelf from 'bookshelf';
 import * as assert from 'assert';
 import * as express from 'express';
 
-
 /**
  * The examples/tests below follow Bookshelf documentation chapter after chapter: http://bookshelfjs.org/
  */
-
 
 /* Installation, see http://bookshelfjs.org/#installation */
 
@@ -231,24 +229,26 @@ class Library extends bookshelf.Model<Library> {
 	}
 }
 
-bookshelf.transaction(t => {
-	return new Library({name: 'Old Books'})
-		.save(null, {transacting: t})
-		.tap(model => {
-			return Promise.map([
-				{title: 'Canterbury Tales'},
-				{title: 'Moby Dick'},
-				{title: 'Hamlet'}
-			], info => {
-				// Some validation could take place here.
-				return new Book(info).save({'shelf_id': model.id}, {transacting: t});
-			});
-		});
-}).then(library => {
-	console.log(library.done(lib => lib.relatedBooks().pluck('title')));
-}).catch(err => {
-	console.error(err);
-});
+
+// todo: update to make sure this works with BlueBird 3.0
+// bookshelf.transaction(t => {
+// 	return new Library({name: 'Old Books'})
+// 		.save(null, {transacting: t})
+// 		.tap(model => {
+// 			return Promise.map([
+// 				{title: 'Canterbury Tales'},
+// 				{title: 'Moby Dick'},
+// 				{title: 'Hamlet'}
+// 			], info => {
+// 				// Some validation could take place here.
+// 				return new Book(info).save({'shelf_id': model.id}, {transacting: t});
+// 			});
+// 		});
+// }).then(library => {
+// 	console.log(library.done(lib => lib.relatedBooks().pluck('title')));
+// }).catch(err => {
+// 	console.error(err);
+// });
 
 /* Type definitions */
 
@@ -301,7 +301,9 @@ class Account extends bookshelf.Model<Account> {
 }
 {
 	var checkit  = require('checkit');
-	var bcrypt   = Promise.promisifyAll(require('bcrypt'));
+	
+	//todo: make sure this works with BlueBird 3.0
+	var bcrypt:any; //   = Promise.promisifyAll(require('bcrypt'));
 
 	class Customer extends bookshelf.Model<Customer> {
 		get tableName() { return 'customers'; }
@@ -319,27 +321,28 @@ class Account extends bookshelf.Model<Account> {
 			return this.belongsTo(Account);
 		}
 
-		static login(email: string, password: string): Promise<Customer> {
-			if (!email || !password) throw new Error('Email and password are both required');
-			return new this({email: email.toLowerCase().trim()}).fetch({require: true}).tap(customer => {
-				return bcrypt.compareAsync(password, customer.get('password'))
-					.then((res: boolean) => {
-						if (!res) throw new Error('Invalid password');
-					});
-			});
-		}
+        //todo: make sure this works with BlueBird 3.0
+		// static login(email: string, password: string): Promise<Customer> {
+		// 	if (!email || !password) throw new Error('Email and password are both required');
+		// 	return new this({email: email.toLowerCase().trim()}).fetch({require: true}).tap(customer => {
+		// 		return bcrypt.compareAsync(password, customer.get('password'))
+		// 			.then((res: boolean) => {
+		// 				if (!res) throw new Error('Invalid password');
+		// 			});
+		// 	});
+		// }
 	}
 
-	const email = 'email';
-	const password = 'password';
-	Customer.login(email, password)
-		.then(customer => {
-			console.log(customer.omit('password'));
-		}).catch(Customer.NotFoundError, () => {
-			console.log({error: email + ' not found'});
-		}).catch(err => {
-			console.error(err);
-		});
+	// const email = 'email';
+	// const password = 'password';
+	// Customer.login(email, password)
+	// 	.then(customer => {
+	// 		console.log(customer.omit('password'));
+	// 	}).catch(Customer.NotFoundError, () => {
+	// 		console.log({error: email + ' not found'});
+	// 	}).catch(err => {
+	// 		console.error(err);
+	// 	});
 }
 
 /* Model.fetchAll(), see http://bookshelfjs.org/#Model-static-fetchAll */
@@ -806,9 +809,9 @@ customer.set("telephone", "555-555-1212");
 			return super.toJSON();
 		}
 
-		fetchAll(): Promise<Users> {
-			return super.fetchAll();
-		}
+		// fetchAll(): Promise<Users> {
+		// 	return super.fetchAll();
+		// }
 	}
 
 	class Users extends bookshelf.Collection<User> {
@@ -1031,13 +1034,14 @@ function get(req: express.Request, res: express.Response) {
 	//const { courses, ...attributes } = req.body;
 	const { courses, attributes } = req.body;
 
-	Student.forge<Student>(attributes).save().tap(student =>
-		Promise.map(courses, course => (<Bookshelf.Collection<Student>> student.related('courses')).create(course))
-	).then(student =>
-		res.status(200).send(student)
-	).catch(error =>
-		res.status(500).send(error.message)
-	);
+	//todo: make sure this works with BlueBird 3.0
+	// Student.forge<Student>(attributes).save().tap(student =>
+	// 	Promise.map(courses, course => (<Bookshelf.Collection<Student>> student.related('courses')).create(course))
+	// ).then(student =>
+	// 	res.status(200).send(student)
+	// ).catch(error =>
+	// 	res.status(500).send(error.message)
+	// );
 }
 
 /* collection.detach(), see http://bookshelfjs.org/#Collection-instance-detach */
