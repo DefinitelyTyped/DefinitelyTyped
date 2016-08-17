@@ -90,7 +90,7 @@ declare module "multer" {
             /** Accept a single file with the name fieldname. The single file will be stored in req.file. */
             single(fieldame: string): express.RequestHandler;
             /** Accept an array of files, all with the name fieldname. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
-            array(fieldame: string, maxCount?: number): express.RequestHandler;
+            array(fieldame?: string, maxCount?: number): express.RequestHandler;
             /** Accept a mix of files, specified by fields. An object with arrays of files will be stored in req.files. */
             fields(fields: Field[]): express.RequestHandler;
             /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
