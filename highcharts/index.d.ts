@@ -3,6 +3,8 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./highstock.d.ts" />
+
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
