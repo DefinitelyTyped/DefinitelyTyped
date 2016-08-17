@@ -1,6 +1,6 @@
 // Type definitions for D3JS d3-voronoi module 1.0.1
 // Project: https://github.com/d3/d3-voronoi/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // --------------------------------------------------------------------------
@@ -53,13 +53,13 @@ export interface VoronoiLink<T> {
 export interface VoronoiLayout<T> {
     (data: Array<T>): VoronoiDiagram<T>;
     x(): (d: T) => number;
-    x(x: (d: T) => number): VoronoiLayout<T>;
+    x(x: (d: T) => number): this;
     y(): (d: T) => number;
-    y(y: (d: T) => number): VoronoiLayout<T>;
+    y(y: (d: T) => number): this;
     extent(): [[number, number], [number, number]] | null;
-    extent(extent: [[number, number], [number, number]]): VoronoiLayout<T>;
+    extent(extent: [[number, number], [number, number]]): this;
     size(): [number, number] | null;
-    size(size: [number, number]): VoronoiLayout<T>;
+    size(size: [number, number]): this;
     polygons(data: Array<T>): Array<VoronoiPolygon<T>>;
     triangles(data: Array<T>): Array<VoronoiTriangle<T>>;
     links(data: Array<T>): Array<VoronoiLink<T>>;
