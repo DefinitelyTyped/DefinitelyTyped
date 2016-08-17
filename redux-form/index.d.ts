@@ -27,6 +27,14 @@ export function reduxForm<FormData extends DataShape, P, S>(
   config: Config<FormData, P, S>
 ): FormDecorator<FormData, P, S>;
 
+export function reduxForm<FormData extends DataShape, P>(
+  config: Config<FormData, P, any>
+): FormDecorator<FormData, P, any>;
+
+export function reduxForm(
+  config: Config<any, any, any>
+): FormDecorator<any, any, any>;
+
 interface FormDecorator<FormData extends DataShape, P, S> {
   <T extends (typeof Component)>(component: T): T & Form<FormData, P, S>;
 }
