@@ -172,6 +172,7 @@ Other changes
 - [x] Ensured _.range preserves the sign of start of -0
 - [x] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
 - [x] Fixed rounding issue with the precision param of _.floor
+- [x] Added flush method to debounced & throttled functions
 
 ** LATER **
 Misc:
@@ -185,7 +186,6 @@ Misc:
 - [ ] _.extend as an alias of _.assignIn
 - [ ] _.extendWith as an alias of _.assignInWith
 - [ ] Added clear method to _.memoize.Cache
-- [ ] Added flush method to debounced & throttled functions
 - [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
 - [ ] Enabled _.flow & _.flowRight to accept an array of functions
 - [ ] Ensured “Collection” methods treat functions as objects
@@ -10132,9 +10132,9 @@ declare module _ {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
          * the last time the debounced function was invoked. The debounced function comes with a cancel method to
-         * cancel delayed invocations. Provide an options object to indicate that func should be invoked on the
-         * leading and/or trailing edge of the wait timeout. Subsequent calls to the debounced function return the
-         * result of the last func invocation.
+         * cancel delayed invocations and a flush method to immediately invoke them. Provide an options object to
+         * indicate that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent
+         * calls to the debounced function return the result of the last func invocation.
          *
          * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
          * if the the debounced function is invoked more than once during the wait timeout.
@@ -10755,9 +10755,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
-         * function comes with a cancel method to cancel delayed invocations. Provide an options object to indicate
-         * that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls to
-         * the throttled function return the result of the last func call.
+         * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke
+         * them. Provide an options object to indicate that func should be invoked on the leading and/or trailing edge
+         * of the wait timeout. Subsequent calls to the throttled function return the result of the last func call.
          *
          * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if
          * the the throttled function is invoked more than once during the wait timeout.
@@ -19159,6 +19159,7 @@ declare module _ {
 
     interface Cancelable {
         cancel(): void;
+        flush(): void;
     }
 }
 
