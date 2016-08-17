@@ -156,9 +156,9 @@ interface PDFPageViewport {
 	transforms: number[];
 
 	clone(options: PDFPageViewportOptions): PDFPageViewport;
-	convertToViewportPoint(): number[]; // [x, y]
-	convertToViewportRectangle(): number[]; // [x1, y1, x2, y2]
-	convertToPdfPoint(): number[]; // [x, y]
+	convertToViewportPoint(x: number, y: number): number[]; // [x, y]
+	convertToViewportRectangle(rect: number[]): number[]; // [x1, y1, x2, y2]
+	convertToPdfPoint(x: number, y: number): number[]; // [x, y]
 }
 
 interface PDFAnnotationData {
@@ -300,6 +300,92 @@ interface PDFObjects {
 	clear(): void;
 }
 
+interface PDFJSUtilStatic {
+	/**
+	 * create a css color string rgb(r,g,b)
+	 **/
+	makeCssRgb(r: number, g: number, b: number): string;
+
+	/**
+	 * Concatenates two transformation matrices together and returns the result.
+	 **/
+	transform(m1: number[], m2: number[]): number[];
+
+	/**
+	 * apply transform matrix m to a point p[x,y]
+	 **/
+	applyTransform(p: number[], m: number[]): number[];
+
+	/**
+	 * apply inverse transform matrix m to a point p[x,y]
+	 **/
+	applyInverseTransform(p: number[], m: number[]): number[]; // [xt, yt]
+
+	/**
+	 * Applies the transform to the rectangle and finds the minimum axially
+	 * aligned bounding box.
+	 **/
+	getAxialAlignedBoundingBox(r: number[], m: number[])
+
+	/**
+	 * inverse transform
+	 **/
+	inverseTransform(m: number[]): number[];
+
+	/**
+	 * apply transform matrix m to a vector v[x,y,z]
+	 **/
+	apply3dTransform(m: number[], v: number[]): number[]; // [xt, yt, zt]
+
+	/**
+	 * This calculation uses Singular Value Decomposition.
+	 * The SVD can be represented with formula A = USV. We are interested in the
+	 * matrix S here because it represents the scale values.
+	 **/
+	singularValueDecompose2dScale(m: number[]): number[];
+
+	/**
+	 * Normalize rectangle rect=[x1, y1, x2, y2] so that (x1,y1) < (x2,y2)
+	 * For coordinate systems whose origin lies in the bottom-left, this
+	 * means normalization to (BL,TR) ordering. For systems with origin in the
+	 * top-left, this means (TL,BR) ordering.
+	 **/
+	normalizeRect(rect: number[]): number[];
+
+	/**
+	 * Returns a rectangle [x1, y1, x2, y2] corresponding to the
+	 * intersection of rect1 and rect2. If no intersection, returns 'false'
+	 * The rectangle coordinates of rect1, rect2 should be [x1, y1, x2, y2]
+	 **/
+	intersect(rect1: number[], rect2: number[])
+
+	/**
+	 * get signedness of number
+	 */
+	sign(): number;
+
+	/**
+	 * Converts positive integers to (upper case) Roman numerals.
+	 * @param {integer} number - The number that should be converted.
+	 * @param {boolean} lowerCase - Indicates if the result should be converted
+	 *   to lower case letters. The default is false.
+	 * @return {string} The resulting Roman number.
+	 **/
+	toRoman(number: number, lowerCase: boolean): string;
+
+	appendToArray(arr1: any[], arr2: any[]): any[];
+
+	prependToArray(arr1: any[], arr2: any[]): any[];
+
+	extendObj(obj1: any, obj2: any): any;
+
+	getInheritableProperty(dict: any, name: string): any;
+
+	inherit(sub: any, base: any, prototype: any);
+
+	loadScript(src: string, callback: any);
+}
+
 interface PDFJSStatic {
 
 	/**
@@ -337,7 +423,7 @@ interface PDFJSStatic {
 	disableWorker: boolean;
 
 	/**
-	 * Path and filename of the worker file. Required when the worker is enabled in
+	 * Path and filename of the worker file. Required when the worker is enabled inn
 	 * development mode. If unspecified in the production build, the worker will be
 	 * loaded based on the location of the pdf.js file.
 	 */
@@ -422,7 +508,9 @@ interface PDFJSStatic {
 	 * Determines if we can eval strings as JS. Primarily used to improve
 	 * performance for font rendering.
 	 */
-	isEvalSupported: boolean;
+    isEvalSupported: boolean;
+
+    Util: PDFJSUtilStatic;
 
 	/**
 	 * This is the main entry point for loading a PDF and interacting with it.
