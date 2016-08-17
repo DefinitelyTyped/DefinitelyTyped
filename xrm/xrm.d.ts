@@ -786,7 +786,7 @@ declare namespace Xrm
              *
              * @return  The event source.
              */
-            getEventSource(): Attribute | Entity;
+            getEventSource(): Attribute | Control | Entity;
 
             /**
              * Gets the shared variable with the specified key.
@@ -1726,7 +1726,7 @@ declare namespace Xrm
              *
              * @param   {Function}  handler The handler.
              */
-            addPreSearch( handler: () => void ): void;
+            addPreSearch( handler: ContextSensitiveHandler ): void;
 
             /**
              * Adds an additional custom filter to the lookup, with the "AND" filter operator.
