@@ -14,6 +14,8 @@
     },
     "files": [
         "index.d.ts",
-        "highcharts-tests.ts"
+        "highstock.d.ts",
+        "highcharts-tests.ts",
+        "highstock-tests.ts"
     ]
 }
