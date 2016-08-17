@@ -89,11 +89,17 @@ declare module "multer" {
         interface Instance {
             /** Accept a single file with the name fieldname. The single file will be stored in req.file. */
             single(fieldame: string): express.RequestHandler;
+            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+            single(): express.RequestHandler;
             /** Accept an array of files, all with the name fieldname. Optionally error out if more than maxCount files are uploaded. The array of files will be stored in req.files. */
-            array(fieldame?: string, maxCount?: number): express.RequestHandler;
+            array(fieldame: string, maxCount?: number): express.RequestHandler;
+            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
+            array(): express.RequestHandler;
             /** Accept a mix of files, specified by fields. An object with arrays of files will be stored in req.files. */
             fields(fields: Field[]): express.RequestHandler;
             /** Accepts all files that comes over the wire. An array of files will be stored in req.files. */
+            any(): express.RequestHandler;
+            /** In case you need to handle a text-only multipart form, you can use any of the multer methods (.single(), .array(), fields()), req.body contains the text fields */
             any(): express.RequestHandler;
         }
     }
