@@ -1,4 +1,4 @@
-/// <reference path="../auth0/auth0.d.ts" />
+/// <reference path="../auth0-js/auth0-js.d.ts" />
 /// <reference path="auth0.lock.d.ts" />
 
 const CLIENT_ID = "YOUR_AUTH0_APP_CLIENTID";
