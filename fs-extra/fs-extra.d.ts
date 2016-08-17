@@ -31,6 +31,10 @@ declare module "fs-extra" {
 	export function mkdirsSync(dir: string, options?: MkdirOptions): void;
 	export function mkdirpSync(dir: string, options?: MkdirOptions): void;
 
+	export function move(src: string, dest: string, callback?: (err: Error) => void): void;
+	export function move(src: string, dest: string, filter: CopyFilter, callback?: (err: Error) => void): void;
+	export function move(src: string, dest: string, options: CopyOptions, callback?: (err: Error) => void): void;
+
 	export function outputFile(file: string, data: any, callback?: (err: Error) => void): void;
 	export function outputFileSync(file: string, data: any): void;
 
