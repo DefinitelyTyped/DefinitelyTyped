@@ -325,7 +325,7 @@ interface PDFJSUtilStatic {
 	 * Applies the transform to the rectangle and finds the minimum axially
 	 * aligned bounding box.
 	 **/
-	getAxialAlignedBoundingBox(r: number[], m: number[])
+	getAxialAlignedBoundingBox(r: number[], m: number[]): number[];
 
 	/**
 	 * inverse transform
@@ -357,7 +357,7 @@ interface PDFJSUtilStatic {
 	 * intersection of rect1 and rect2. If no intersection, returns 'false'
 	 * The rectangle coordinates of rect1, rect2 should be [x1, y1, x2, y2]
 	 **/
-	intersect(rect1: number[], rect2: number[])
+	intersect(rect1: number[], rect2: number[]): number[];
 
 	/**
 	 * get signedness of number
@@ -377,13 +377,13 @@ interface PDFJSUtilStatic {
 
 	prependToArray(arr1: any[], arr2: any[]): any[];
 
-	extendObj(obj1: any, obj2: any): any;
+	extendObj(obj1: any, obj2: any): void;
 
 	getInheritableProperty(dict: any, name: string): any;
 
-	inherit(sub: any, base: any, prototype: any);
+	inherit(sub: any, base: any, prototype: any): void;
 
-	loadScript(src: string, callback: any);
+	loadScript(src: string, callback: any): void;
 }
 
 interface PDFJSStatic {
