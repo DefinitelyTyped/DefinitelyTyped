@@ -1,6 +1,6 @@
 // Type definitions for D3JS d3-interpolate module 1.1.0
 // Project: https://github.com/d3/d3-interpolate/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { ColorSpaceObject } from 'd3-color';
@@ -20,7 +20,7 @@ export interface ZoomInterpolator extends Function {
 }
 
 export interface ColorGammaInterpolationFactory extends Function {
-    (a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
+    (a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
     gamma(g: number): ColorGammaInterpolationFactory;
 }
 
@@ -39,7 +39,7 @@ export type ZoomView = [number, number, number];
 
 export function interpolate(a: any, b: null): ((t: number) => null);
 export function interpolate(a: number | { valueOf(): number }, b: number): ((t: number) => number);
-export function interpolate(a: any, b: ColorSpaceObject): ((t: number) => string);
+export function interpolate(a: any, b: ColorCommonInstance): ((t: number) => string);
 export function interpolate(a: Date, b: Date): ((t: number) => Date);
 export function interpolate(a: string | { toString(): string }, b: string): ((t: number) => string);
 export function interpolate<U extends Array<any>>(a: Array<any>, b: U): ((t: number) => U);
@@ -78,14 +78,14 @@ export function quantize<T>(interpolator: ((t: number) => T), n: number): Array<
 
 export var interpolateRgb: ColorGammaInterpolationFactory;
 
-export function interpolateRgbBasis(colors: Array<string | ColorSpaceObject>): ((t: number) => string);
-export function interpolateRgbBasisClosed(colors: Array<string | ColorSpaceObject>): ((t: number) => string);
+export function interpolateRgbBasis(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
+export function interpolateRgbBasisClosed(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
 
-export function interpolateHsl(a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
-export function interpolateHslLong(a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
-export function interpolateLab(a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
-export function interpolateHcl(a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
-export function interpolateHclLong(a: string | ColorSpaceObject, b: string | ColorSpaceObject): ((t: number) => string);
+export function interpolateHsl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHslLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateLab(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHcl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
+export function interpolateHclLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
 export var interpolateCubehelix: ColorGammaInterpolationFactory;
 export var interpolateCubehelixLong: ColorGammaInterpolationFactory;
 

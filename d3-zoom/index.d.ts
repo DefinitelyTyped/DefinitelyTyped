@@ -1,9 +1,9 @@
 // Type definitions for d3JS d3-zoom module 1.0.2
 // Project: https://github.com/d3/d3-zoom/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ArrayLike, Selection, TransitionLike } from 'd3-selection';
+import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 
 
 // --------------------------------------------------------------------------
@@ -24,9 +24,9 @@ type ZoomedElementBaseType = Element;
  */
 export interface ZoomScale {
     domain(): Array<number>;
-    domain(domain: Array<number>): ZoomScale;
+    domain(domain: Array<number>): this;
     range(): Array<number>;
-    range(range: Array<number>): ZoomScale;
+    range(range: Array<number>): this;
     copy(): ZoomScale;
     invert(value: number): number;
 }
@@ -39,60 +39,48 @@ export interface ZoomScale {
 export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datum> extends Function {
     (selection: Selection<ZoomRefElement, Datum, any, any>, ...args: any[]): void;
     transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: ZoomTransform): void;
-    transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => ZoomTransform): void;
+    transform(selection: Selection<ZoomRefElement, Datum, any, any>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
     transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: ZoomTransform): void;
-    transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => ZoomTransform): void;
+    transform(transition: TransitionLike<ZoomRefElement, Datum>, transform: ValueFn<ZoomRefElement, Datum, ZoomTransform>): void;
 
     translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: number): void;
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>,
-        x: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number,
-        y: number): void;
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>,
-        x: number,
-        y: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
-    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>,
-        x: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number,
-        y: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement>) => number): void;
+    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(selection: Selection<ZoomRefElement, Datum, any, any>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
     translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: number): void;
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>,
-        x: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number,
-        y: number): void;
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>,
-        x: number,
-        y: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
-    translateBy(transition: TransitionLike<ZoomRefElement, Datum>,
-        x: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number,
-        y: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
+    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: number): void;
+    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: number, y: ValueFn<ZoomRefElement, Datum, number>): void;
+    translateBy(transition: TransitionLike<ZoomRefElement, Datum>, x: ValueFn<ZoomRefElement, Datum, number>, y: ValueFn<ZoomRefElement, Datum, number>): void;
 
     scaleBy(selection: Selection<ZoomRefElement, Datum, any, any>, k: number): void;
-    scaleBy(selection: Selection<ZoomRefElement, Datum, any, any>, k: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
+    scaleBy(selection: Selection<ZoomRefElement, Datum, any, any>, k: ValueFn<ZoomRefElement, Datum, number>): void;
     scaleBy(transition: TransitionLike<ZoomRefElement, Datum>, k: number): void;
-    scaleBy(transition: TransitionLike<ZoomRefElement, Datum>, k: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
+    scaleBy(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
 
     scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: number): void;
-    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
+    scaleTo(selection: Selection<ZoomRefElement, Datum, any, any>, k: ValueFn<ZoomRefElement, Datum, number>): void;
     scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: number): void;
-    scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: (this: ZoomRefElement, d?: Datum, i?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => number): void;
+    scaleTo(transition: TransitionLike<ZoomRefElement, Datum>, k: ValueFn<ZoomRefElement, Datum, number>): void;
 
-    filter(): (this: ZoomRefElement, datum: Datum, index: number, group: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => boolean;
-    filter(filterFn: (this: ZoomRefElement, d?: Datum, index?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => boolean): ZoomBehavior<ZoomRefElement, Datum>;
+    filter(): ValueFn<ZoomRefElement, Datum, boolean>;
+    filter(filterFn: ValueFn<ZoomRefElement, Datum, boolean>): this;
 
-    extent(): (this: ZoomRefElement, d: Datum, index: number, group: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => [[number, number], [number, number]];
-    extent(extent: [[number, number], [number, number]]): ZoomBehavior<ZoomRefElement, Datum>;
-    extent(extent: (this: ZoomRefElement, d?: Datum, index?: number, group?: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => [[number, number], [number, number]]): ZoomBehavior<ZoomRefElement, Datum>;
+    extent(): ValueFn<ZoomRefElement, Datum, [[number, number], [number, number]]>;
+    extent(extent: [[number, number], [number, number]]): this;
+    extent(extent: ValueFn<ZoomRefElement, Datum, [[number, number], [number, number]]>): this;
 
     scaleExtent(): [number, number];
-    scaleExtent(extent: [number, number]): ZoomBehavior<ZoomRefElement, Datum>;
+    scaleExtent(extent: [number, number]): this;
 
     translateExtent(): [[number, number], [number, number]];
-    translateExtent(extent: [[number, number], [number, number]]): ZoomBehavior<ZoomRefElement, Datum>;
+    translateExtent(extent: [[number, number], [number, number]]): this;
 
     duration(): number;
-    duration(duration: number): ZoomBehavior<ZoomRefElement, Datum>;
+    duration(duration: number): this;
 
-    on(typenames: string): (this: ZoomRefElement, datum: Datum, index: number, group: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => void;
-    on(typenames: string, callback: null): ZoomBehavior<ZoomRefElement, Datum>;
-    on(typenames: string, callback: (this: ZoomRefElement, datum: Datum, index: number, group: Array<ZoomRefElement> | ArrayLike<ZoomRefElement>) => void): ZoomBehavior<ZoomRefElement, Datum>;
+    on(typenames: string): ValueFn<ZoomRefElement, Datum, void>;
+    on(typenames: string, callback: null): this;
+    on(typenames: string, callback: ValueFn<ZoomRefElement, Datum, void>): this;
 }
 
 
