@@ -1,6 +1,6 @@
 // Type definitions for WallabyJS
 // Project: http://wallabyjs.com
-// Definitions by: Andrew Connell <http://www.andrewconnell.com>
+// Definitions by: Andrew Connell <https://github.com/andrewconnell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'wallabyjs' {
