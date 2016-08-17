@@ -38,7 +38,7 @@ declare module __ReactDnd {
         spec: DragSourceSpec<P>,
         collect: DragSourceCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
 
     export function DropTarget<P>(
         types: Identifier | Identifier[] | ((props: P) => Identifier | Identifier[]),
