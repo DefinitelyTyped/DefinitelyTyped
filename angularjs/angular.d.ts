@@ -1258,7 +1258,7 @@ declare namespace angular {
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
