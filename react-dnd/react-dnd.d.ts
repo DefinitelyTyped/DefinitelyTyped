@@ -47,16 +47,16 @@ declare module __ReactDnd {
         spec: DropTargetSpec<P>,
         collect: DropTargetCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
 
     export function DragDropContext<P>(
         backend: Backend
-    ): (componentClass: React.ComponentClass<P>) => ContextComponentClass<P>;
+    ): <P>(componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => ContextComponentClass<P>;
 
     export function DragLayer<P>(
         collect: DragLayerCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P>) => DndComponentClass<P>;
+    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
 
     type DragSourceCollector = (connect: DragSourceConnector, monitor: DragSourceMonitor) => Object;
     type DropTargetCollector = (connect: DropTargetConnector, monitor: DropTargetMonitor) => Object;
