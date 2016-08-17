@@ -52,20 +52,46 @@ fs.copySync(src, dest,
 		filter: /.*/
 	}
 );
+
 fs.createFile(file, errorCallback);
 fs.createFileSync(file);
 
 fs.mkdirs(dir, errorCallback);
 fs.mkdirs(dir, {}, errorCallback);
+
 fs.mkdirsSync(dir);
 fs.mkdirsSync(dir, {});
+
 fs.mkdirp(dir, errorCallback);
 fs.mkdirp(dir, {}, errorCallback);
+
 fs.mkdirpSync(dir);
 fs.mkdirpSync(dir, {});
 
+fs.move(src, dest, errorCallback);
+fs.move(src, dest, (src: string) => {
+	return false;
+}, errorCallback);
+fs.move(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: (src: string) => {return false}
+	},
+	errorCallback
+);
+fs.move(src, dest,
+	{
+		clobber: true,
+		preserveTimestamps: true,
+		filter: /.*/
+	},
+	errorCallback
+);
+
 fs.outputFile(file, data, errorCallback);
 fs.outputFileSync(file, data);
+
 fs.outputJson(file, data, errorCallback);
 fs.outputJSON(file, data, errorCallback);
 
