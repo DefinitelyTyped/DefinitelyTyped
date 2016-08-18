@@ -1,5 +1,5 @@
 /// <reference path="object-assign.d.ts" />
-import * as objectAssign from 'object-assign';
+import objectAssign from 'object-assign';
 
 function assign1() {
   var result = objectAssign({hello: "world"});
