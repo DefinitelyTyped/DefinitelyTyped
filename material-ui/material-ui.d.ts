@@ -1712,7 +1712,7 @@ declare namespace __MaterialUI {
         focus(): void;
         select(): void;
         getValue(): string;
-        getInputNode(): Element;
+        getInputNode(): HTMLInputElement;
     }
 
     interface TimePickerProps extends React.Props<TimePicker> {
