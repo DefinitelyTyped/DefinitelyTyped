@@ -5,7 +5,6 @@
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-
 declare namespace kendo {
     function culture(): {
         name: string;
@@ -511,7 +510,7 @@ declare namespace kendo.data {
         render(value: Object): string;
     }
 
-    module binders { }
+    namespace binders { }
 
     interface Bindings {
         [key: string]: Binding;
