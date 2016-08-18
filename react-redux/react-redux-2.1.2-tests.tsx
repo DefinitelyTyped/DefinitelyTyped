@@ -12,7 +12,7 @@ import * as Router from 'react-router';
 import { Route, RouterState } from 'react-router';
 import { Store, Dispatch, bindActionCreators } from 'redux';
 import { connect, Provider } from 'react-redux';
-import * as objectAssign from 'object-assign';
+import objectAssign from 'object-assign';
 
 //
 // Quick Start
