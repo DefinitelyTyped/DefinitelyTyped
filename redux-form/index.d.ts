@@ -568,9 +568,9 @@ interface Parser {
 }
 
 /**
- * The Field Instance API.
+ * Declare Field as this interface to specify the generic.
  */
-export class Field<FieldCustomProps> extends Component<BaseFieldProps & FieldCustomProps, {}> {
+export interface GenericField<FieldCustomProps> extends Component<BaseFieldProps & FieldCustomProps, {}> {
   /**
    * true if the current value is different from the initialized value,
    * false otherwise.
@@ -599,6 +599,40 @@ export class Field<FieldCustomProps> extends Component<BaseFieldProps & FieldCus
    * component.
    */
   getRenderedComponent(): Component<WrappedFieldProps & FieldCustomProps, any>;
+}
+
+/**
+ * The Field Instance API.
+ */
+export class Field extends Component<any, {}> implements GenericField<any> {
+  /**
+   * true if the current value is different from the initialized value,
+   * false otherwise.
+   */
+  dirty: boolean;
+
+  /**
+   * The name prop that you passed in.
+   */
+  name: string;
+
+  /**
+   * true if the current value is the same as the initialized value,
+   * false otherwise.
+   */
+  pristine: boolean;
+
+  /**
+   * The current value of the field.
+   */
+  value: FieldValue;
+
+  /**
+   * Returns the instance of the rendered component. For this to work, you must
+   * provide a withRef prop, and your component must not be a stateless function
+   * component.
+   */
+  getRenderedComponent(): Component<any, any>;
 }
 
 /**
@@ -764,9 +798,9 @@ interface BaseFieldArrayProps {
 }
 
 /**
- * The FieldArray Instance API.
+ * Declare FieldArray as this interface to specify the generics.
  */
-export class FieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps, {}> {
+export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps, {}> {
 
   /**
    * The name prop that you passed in.
@@ -784,6 +818,29 @@ export class FieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayPro
    * component.
    */
   getRenderedComponent(): Component<WrappedFieldArrayProps<T> & FieldCustomProps, any>;
+}
+
+/**
+ * The FieldArray Instance API.
+ */
+export class FieldArray extends Component<any, {}> implements GenericFieldArray<any, any> {
+
+  /**
+   * The name prop that you passed in.
+   */
+  name: string;
+
+  /**
+   * true if this field passes validation, false otherwise.
+   */
+  valid: boolean;
+
+  /**
+   * Returns the instance of the rendered component. For this to work, you must
+   * provide a withRef prop, and your component must not be a stateless function
+   * component.
+   */
+  getRenderedComponent(): Component<any, any>;
 }
 
 /**
