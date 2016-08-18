@@ -1605,6 +1605,9 @@ declare module "hapi" {
 		addEventListener: any;
 		info: IServerConnectionInfo;
 	}
+	
+	type RequestExtPoints = "onRequest" | "onPreResponse" | "onPreAuth" | "onPostAuth" | "onPreHandler" | "onPostHandler" | "onPreResponse";
+	type ServerExtPoints = "onPreStart" | "onPostStart" | "onPreStop" | "onPostStop";
 
 	/** Server http://hapijs.com/api#server
 	 rver object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080).
@@ -2039,8 +2042,9 @@ declare module "hapi" {
 		 server.route({ method: 'GET', path: '/test', handler: handler });
 		 server.start();
 		 // All requests will get routed to '/test'*/
-		ext(event: string, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-		ext<T>(event: string, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+		ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+		ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+		ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void): void;
 
 		/** server.handler(name, method)
 		 Registers a new handler type to be used in routes where:
