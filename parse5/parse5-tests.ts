@@ -1,4 +1,4 @@
-// Type definitions for parse5 2.1.5
+// Type definitions for parse5 2.2.0
 // Project: https://github.com/inikulin/parse5
 // Definitions by: Nico Jansen <https://github.com/nicojs>, Meirion Hughes <https://github.com/MeirionHughes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
