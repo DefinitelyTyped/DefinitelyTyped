@@ -7,8 +7,8 @@
  * are not intended as functional tests.
  */
 
-import {Selection} from 'd3-selection';
-import {Transition} from 'd3-transition';
+import { Selection, ArrayLike } from 'd3-selection';
+import { Transition } from 'd3-transition';
 
 import * as d3SelectionMulti from 'd3-selection-multi';
 
@@ -149,3 +149,50 @@ transition = transition.styles(function (d) {
 transition = transition.styles(function (d) {
     return this.id ? { color: 'red' } : { color: d };
 }, 'important');
+
+// Test ValueMap interface ----------------------------------------------
+
+interface SampleDatum {
+    name: string;
+    r: number;
+    filled: boolean;
+}
+
+let valueMap: d3SelectionMulti.ValueMap<SVGCircleElement, SampleDatum>;
+
+valueMap = {
+    foo1: 'test',
+    foo2: 2,
+    foo3: true,
+    foo4: null,
+    bar1: function (d) {
+        let that: SVGCircleElement = this;
+        let datum: SampleDatum = d;
+        return d.name;
+    },
+    bar2: function (d, i) {
+        let that: SVGCircleElement = this;
+        let datum: SampleDatum = d;
+        let index: number =  i;
+        return d.r;
+    },
+    bar3: function (d, i, g) {
+        let that: SVGCircleElement = this;
+        let datum: SampleDatum = d;
+        let index: number = i;
+        let group: Array<SVGCircleElement> | ArrayLike<SVGCircleElement> = g;
+        return d.filled;
+    }
+};
+
+// valueMap = { // fails, as an array is not a permissible value type
+//     foo1: [1, 2]
+// };
+
+// valueMap = { // fails, as a ValueFunction returning an array is not a permissible value type
+//     foo1: function (d) {
+//         let that: SVGCircleElement = this;
+//         let datum: SampleDatum = d;
+//         return [1, 2];
+//     }
+// };

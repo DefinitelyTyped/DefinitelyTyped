@@ -12,7 +12,7 @@
  * without 'd3-selection' trying to use properties internally which would otherwise not
  * be supported.
  */
-export type BaseType = Element | EnterElement;
+export type BaseType = Element | EnterElement | Window;
 // export type BaseType = any; // Alternative, very permissive BaseType specification for edge cases
 
 export interface ArrayLike<T> {
