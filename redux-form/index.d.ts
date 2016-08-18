@@ -88,6 +88,15 @@ interface Config<FormData extends DataShape, P, S> {
   getFormState?(state: S): any;
 
   /**
+   * If true, implements `shouldComponentUpdate` and shallowly compares _only_
+   * the Redux-connected props that are needed to manage the form state. This
+   * prevents unnecessary updates, but assumes the component is a "pure"
+   * component and does not rely on any input or state other than its props and
+   * the selected Redux store's state. Defaults to true.
+   */
+  pure?: boolean;
+
+  /**
    * The values with which to initialize your form in componentWillMount().
    * Particularly useful when Editing Multiple Records, but can also be used
    * with single-record forms. The values should be in the form
