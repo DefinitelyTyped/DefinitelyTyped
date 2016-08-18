@@ -1,9 +1,4 @@
 {
-    "files": [
-        "index.d.ts",
-        "react-tests.ts",
-        "react-tsx-tests.tsx"
-    ],
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
@@ -15,7 +10,10 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "preserve"
-    }
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "auth0-js-tests.ts"
+    ]
 }
