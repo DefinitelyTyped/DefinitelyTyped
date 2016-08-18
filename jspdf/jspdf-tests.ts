@@ -2,6 +2,8 @@
 
 // From: https://mrrio.github.io/jsPDF/examples/basic.html
 
+import * as jsPDF from 'jspdf';
+
 function test_simple_two_page_document() {
     var doc = new jsPDF();
     doc.text(20, 20, 'Hello world!');

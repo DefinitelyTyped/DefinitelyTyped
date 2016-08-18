@@ -8,7 +8,6 @@
 /// <reference types="bluebird" />
 /// <reference types="node" />
 
-
 declare module "mz/fs" {
     import * as stream from "stream";
     import * as events from "events";

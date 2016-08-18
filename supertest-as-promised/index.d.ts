@@ -3,42 +3,28 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as supertest from "supertest";
+import * as superagent from "superagent";
+import { SuperTest, Response } from "supertest";
+import * as PromiseBluebird from "bluebird";
 
-/// <reference types="bluebird" />
+declare function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
-
-// Mostly copy-pasted from supertest.d.ts
-
-import * as superagent from 'superagent';
-import * as PromiseBluebird from 'bluebird';
-
-declare function supertest(app: any): supertest.SuperTest;
-
-declare namespace supertest {
-    function agent(app?: any): supertest.SuperTest;
-
-    interface SuperTest extends superagent.SuperAgent<Test> {
+declare namespace supertestAsPromised {
+    interface Request extends supertest.Request {
     }
 
-    interface Promise<T> extends PromiseBluebird<T> {
-        toPromise(): PromiseBluebird<T>;
+    interface Response extends supertest.Response {
     }
 
-    interface Test extends superagent.Request<Test> {
-        url: string;
-        serverAddress(app: any, path: string): string;
-        expect(status: number): Promise<supertest.Response>;
-        expect(status: number, body: string): Promise<supertest.Response>;
-        expect(body: string): Promise<supertest.Response>;
-        expect(body: RegExp): Promise<supertest.Response>;
-        expect(body: Object): Promise<supertest.Response>;
-        expect(field: string, val: string): Promise<supertest.Response>;
-        expect(field: string, val: RegExp): Promise<supertest.Response>;
-        expect(checker: (res: Response) => any): Promise<supertest.Response>;
+    interface Test extends supertest.Test, superagent.Request {
+        toPromise(): PromiseBluebird<Response>;
+        timeout(): Promise<Response> & this;
     }
 
-    interface Response extends superagent.Response {
+    function agent(app?: any): SuperTest<Test>;
+
+    interface SuperTest<T extends Request> extends supertest.SuperTest<T> {
     }
 }
-
-export = supertest;
+export = supertestAsPromised;

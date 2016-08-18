@@ -3,8 +3,6 @@
 // Definitions by: Michel Salib <https://github.com/michelsalib>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="moment" />
-
 import * as moment from 'moment';
 
 export as namespace MomentTimezone;
@@ -22,16 +20,19 @@ declare namespace MomentTimezone {
         parse(timestamp: number): number
     }
 
+    type MomentFormatSpecification =
+        string | (() => void) | (string | (() => void))[];
+
     interface MomentTimezone {
         (): moment.Moment;
         (timezone: string): moment.Moment;
         (date: number, timezone: string): moment.Moment;
         (date: number[], timezone: string): moment.Moment;
         (date: string, timezone: string): moment.Moment;
-        (date: string, format: moment.MomentFormatSpecification, timezone: string): moment.Moment;
-        (date: string, format: moment.MomentFormatSpecification, strict: boolean, timezone: string): moment.Moment;
-        (date: string, format: moment.MomentFormatSpecification, language: string, timezone: string): moment.Moment;
-        (date: string, format: moment.MomentFormatSpecification, language: string, strict: boolean, timezone: string): moment.Moment;
+        (date: string, format: MomentFormatSpecification, timezone: string): moment.Moment;
+        (date: string, format: MomentFormatSpecification, strict: boolean, timezone: string): moment.Moment;
+        (date: string, format: MomentFormatSpecification, language: string, timezone: string): moment.Moment;
+        (date: string, format: MomentFormatSpecification, language: string, strict: boolean, timezone: string): moment.Moment;
         (date: Date, timezone: string): moment.Moment;
         (date: moment.Moment, timezone: string): moment.Moment;
         (date: Object, timezone: string): moment.Moment;
@@ -66,7 +67,5 @@ declare module "moment" {
         zoneName() :Moment;
     }
 
-    interface MomentStatic {
-        tz: MomentTimezone.MomentTimezone;
-    }
+    const tz: MomentTimezone.MomentTimezone;
 }

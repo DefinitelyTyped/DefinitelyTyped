@@ -106,4 +106,3 @@ function testNoConflict() {
     var NoConflictEventEmitter = EventEmitter.noConflict();
     var e = new NoConflictEventEmitter();
 }
-

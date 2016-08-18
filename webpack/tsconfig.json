@@ -14,6 +14,7 @@
     },
     "files": [
         "index.d.ts",
+        "webpack-env.d.ts",
         "webpack-tests.ts"
     ]
 }

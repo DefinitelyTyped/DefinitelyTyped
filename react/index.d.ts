@@ -153,6 +153,7 @@ declare namespace React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
+    var version: string;
 
     //
     // Component API
@@ -166,7 +167,7 @@ declare namespace React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element;
+        render(): JSX.Element | null;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -180,6 +181,8 @@ declare namespace React {
             [key: string]: ReactInstance
         };
     }
+
+    class PureComponent<P, S> extends Component<P, S> {}
 
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -278,6 +281,7 @@ declare namespace React {
         preventDefault(): void;
         stopPropagation(): void;
         target: EventTarget & T;
+        persist(): void;
         timeStamp: Date;
         type: string;
     }
@@ -290,7 +294,7 @@ declare namespace React {
         data: string;
     }
 
-    interface DragEvent<T> extends SyntheticEvent<T> {
+    interface DragEvent<T> extends MouseEvent<T> {
         dataTransfer: DataTransfer;
     }
 
@@ -349,11 +353,23 @@ declare namespace React {
         view: AbstractView;
     }
 
-    interface WheelEvent<T> extends SyntheticEvent<T> {
+    interface WheelEvent<T> extends MouseEvent<T> {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent<{}> {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+    
+    interface TransitionEvent extends SyntheticEvent<{}> {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -376,6 +392,8 @@ declare namespace React {
     type TouchEventHandler<T> = EventHandler<TouchEvent<T>>;
     type UIEventHandler<T> = EventHandler<UIEvent<T>>;
     type WheelEventHandler<T> = EventHandler<WheelEvent<T>>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -499,6 +517,14 @@ declare namespace React {
 
         // Wheel Events
         onWheel?: WheelEventHandler<T>;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -2009,7 +2035,7 @@ declare namespace React {
         title?: string;
         type?: string;
         useMap?: string;
-        value?: string | string[];
+        value?: string | string[] | number;
         width?: number | string;
         wmode?: string;
         wrap?: string;
@@ -2037,9 +2063,6 @@ declare namespace React {
         results?: number;
         security?: string;
         unselectable?: boolean;
-
-        // Allows aria- and data- Attributes
-        [key: string]: any;
     }
 
     interface SVGAttributes<T> extends HTMLAttributes<T> {
@@ -2322,7 +2345,7 @@ declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element;
+            render(): JSX.Element|null;
         }
         interface ElementAttributesProperty { props: {}; }
 
@@ -2451,12 +2474,41 @@ declare global {
             circle: React.SVGProps;
             clipPath: React.SVGProps;
             defs: React.SVGProps;
+        desc: React.SVGProps;
             ellipse: React.SVGProps;
+        feBlend: React.SVGProps;
+        feColorMatrix: React.SVGProps;
+        feComponentTransfer: React.SVGProps;
+        feComposite: React.SVGProps;
+        feConvolveMatrix: React.SVGProps;
+        feDiffuseLighting: React.SVGProps;
+        feDisplacementMap: React.SVGProps;
+        feDistantLight: React.SVGProps;
+        feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
+        feFuncB: React.SVGProps;
+        feFuncG: React.SVGProps;
+        feFuncR: React.SVGProps;
+        feGaussianBlur: React.SVGProps;
+        feImage: React.SVGProps;
+        feMerge: React.SVGProps;
+        feMergeNode: React.SVGProps;
+        feMorphology: React.SVGProps;
+        feOffset: React.SVGProps;
+        fePointLight: React.SVGProps;
+        feSpecularLighting: React.SVGProps;
+        feSpotLight: React.SVGProps;
+        feTile: React.SVGProps;
+        feTurbulence: React.SVGProps;
+        filter: React.SVGProps;
+        foreignObject: React.SVGProps;
             g: React.SVGProps;
             image: React.SVGProps;
             line: React.SVGProps;
             linearGradient: React.SVGProps;
+        marker: React.SVGProps;
             mask: React.SVGProps;
+        metadata: React.SVGProps;
             path: React.SVGProps;
             pattern: React.SVGProps;
             polygon: React.SVGProps;
@@ -2464,10 +2516,13 @@ declare global {
             radialGradient: React.SVGProps;
             rect: React.SVGProps;
             stop: React.SVGProps;
+        switch: React.SVGProps;
             symbol: React.SVGProps;
             text: React.SVGProps;
+        textPath: React.SVGProps;
             tspan: React.SVGProps;
             use: React.SVGProps;
+        view: React.SVGProps;
         }
     }
 }

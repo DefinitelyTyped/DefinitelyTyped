@@ -480,7 +480,7 @@ $(document).ready(function () {
     var cell_invalidate = cell.invalidate();
     var cell_invalidate = cell.invalidate("data");
     $('#example tbody').on('click', 'td', function () {
-        this.innerHTML = parseInt(this.innerHTML) + 1;
+        this.innerHTML = (parseInt(this.innerHTML) + 1).toString();
         dt.cell(this).invalidate().draw();
     });
 
@@ -676,7 +676,7 @@ $(document).ready(function () {
     $('#column3_search').on('keyup', function () {
         dt
             .columns(3)
-            .search(this.value)
+            .search((this as HTMLInputElement).value)
             .draw();
     });
 
