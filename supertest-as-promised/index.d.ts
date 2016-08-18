@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as supertest from "supertest";
-import * as supersgent from "superagent";
+import * as superagent from "superagent";
 import { SuperTest, Response } from "supertest";
-import * as PromiseBlurbird from "bluebird";
+import * as PromiseBluebird from "bluebird";
 
 declare function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
 
@@ -17,8 +17,8 @@ declare namespace supertestAsPromised {
     interface Response extends supertest.Response {
     }
 
-    interface Test extends Promise<Response>, supertest.Test, supersgent.Request {
-        toPromise(): PromiseBlurbird<Response>;
+    interface Test extends supertest.Test, superagent.Request {
+        toPromise(): PromiseBluebird<Response>;
         timeout(): Promise<Response> & this;
     }
 

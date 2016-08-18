@@ -24,8 +24,8 @@ declare namespace vuejs {
         statusText: string;
         headers: Function;
         text():string;
-        json():string;
-        blob():string;
+        json():any;
+        blob():Blob;
     }
 
     interface HttpOptions {

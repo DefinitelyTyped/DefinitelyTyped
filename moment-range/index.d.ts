@@ -45,12 +45,9 @@ declare module 'moment' {
         within (x: moment.Range): boolean;
     }
 
-    interface MomentStatic {
-        range(range: string): moment.Range;
-        range(range: Date[]): moment.Range;
-        range(range: Moment[]): moment.Range;
-        range(start: Date, end: Date): moment.Range;
-        range(start: Moment, end: Moment): moment.Range;
-    }
-
+    function range(range: string): moment.Range;
+    function range(range: Date[]): moment.Range;
+    function range(range: Moment[]): moment.Range;
+    function range(start: Date, end: Date): moment.Range;
+    function range(start: Moment, end: Moment): moment.Range;
 }

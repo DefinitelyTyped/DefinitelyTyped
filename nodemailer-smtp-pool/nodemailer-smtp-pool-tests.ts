@@ -1,5 +1,6 @@
 
 import smtpPool = require('nodemailer-smtp-pool');
+import nodemailer = require('nodemailer');
 
 var opts: smtpPool.SmtpPoolOptions = {
 	maxConnections: 5,

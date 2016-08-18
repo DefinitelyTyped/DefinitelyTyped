@@ -35,6 +35,7 @@ declare namespace Nunjucks {
 
     function configure(options: ConfigureOptions): Environment;
     function configure(path: string, options?: ConfigureOptions): Environment;
+    function configure(path: string[], options?: ConfigureOptions): Environment;
 
     interface ConfigureOptions {
         autoescape?: boolean;
