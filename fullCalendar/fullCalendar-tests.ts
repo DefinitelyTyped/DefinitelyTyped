@@ -781,16 +781,16 @@ $(document).ready(function () {
     /* initialize the external events
     -----------------------------------------------------------------*/
     $('#external-events div.external-event').each(function () {
-        
+
         // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
         // it doesn't need to have a start or end
         var eventObject = {
             title: $.trim($(this).text()) // use the element's text as the event title
         };
-        
+
         // store the Event Object in the DOM element so we can get to it later
         $(this).data('eventObject', eventObject);
-        
+
         // make the event draggable using jQuery UI
         $(this).draggable({
             zIndex: 999,
@@ -811,21 +811,21 @@ $(document).ready(function () {
         editable: true,
         droppable: true, // this allows things to be dropped onto the calendar !!!
         drop: function (date, allDay) { // this function is called when something is dropped
-            
+
             // retrieve the dropped element's stored Event Object
             var originalEventObject = $(this).data('eventObject');
-            
+
             // we need to copy it, so that multiple events don't have a reference to the same object
             var copiedEventObject: any = $.extend({}, originalEventObject);
-            
+
             // assign it the date that was reported
             copiedEventObject.start = date;
             copiedEventObject.allDay = allDay;
-            
+
             // render the event on the calendar
             // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
             $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-            
+
             // is the "remove after drop" checkbox checked?
             if ($('#drop-remove').is(':checked')) {
                 // if so, remove the element from the "Draggable Events" list
@@ -833,6 +833,77 @@ $(document).ready(function () {
             }
         }
     });
+});
+
+$(document).ready(() => {
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+
+    $('#calendar').fullCalendar({
+        theme: true,
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        events: [{
+            id: 'test1',
+            title: 'event full of features',
+            start: new Date(y, m, 1),
+            startEditable: true,
+            allDay: false,
+            url: 'http://www.google.com',
+            className: 'gcal-event',
+            editable: false,
+            durationEditable: false,
+            rendering: 'background',
+            overlap: false,
+            constraint: {
+                start: '10:00',
+                end: '18:00',
+                dow: [ 1, 2 ],
+                // days of week. an array of zero-based day of week integers (0=Sunday)
+                // (Monday-Tuesday in this example)
+            },
+            color: 'white',
+            backgroundColor: 'black',
+            borderColor: 'grey',
+            textColor: 'white',
+        }],
+    });
+
+    $('#calendar').fullCalendar({
+        theme: true,
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        editable: true,
+        events: [{
+            id: 'test2',
+            title: 'just an event',
+            start: new Date(y, m, 1),
+        }],
+        eventConstraint: 'businessHours',
+        eventLimit: true,
+        businessHours: [{
+            start: '10:00',
+            end: '18:00',
+            dow: [ 1, 2 ],
+            // days of week. an array of zero-based day of week integers (0=Sunday)
+            // (Monday-Tuesday in this example)
+        }, {
+            start: '09:00',
+            end: '19:00',
+            dow: [ 3, 4 ],
+        }],
+    });
+
+    $('#calendar').fullCalendar('refetchEventSources', 'http://www.google.com/your_feed_url1/');
 });
 
 $('#calendar').fullCalendar('refetchEvents');

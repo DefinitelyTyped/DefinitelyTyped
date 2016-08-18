@@ -39,14 +39,14 @@ export interface Calendar {
 }
 
 export interface BusinessHours {
-    start: moment.Duration;
-    end: moment.Duration;
+    start: moment.Duration | string | Date;
+    end: moment.Duration | string | Date;
     dow: Array<number>;
 }
 
 export interface Timespan {
-    start: moment.Moment;
-    end: moment.Moment;
+    start: moment.Moment | string | Date;
+    end?: moment.Moment | string | Date;
 }
 
 export interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
@@ -57,12 +57,12 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
         left: string;
         center: string;
         right: string;
-    }
-    theme?: boolean
+    };
+    theme?: boolean;
     buttonIcons?: {
         prev: string;
         next: string;
-    }
+    };
     firstDay?: number;
     isRTL?: boolean;
     weekends?: boolean;
@@ -70,7 +70,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     weekMode?: string;
     weekNumbers?: boolean;
     weekNumberCalculation?: any; // String/Function
-    businessHours?: boolean | BusinessHours;
+    businessHours?: boolean | BusinessHours | Array<BusinessHours>;
     height?: number;
     contentHeight?: number;
     aspectRatio?: number;
@@ -82,7 +82,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 
     // Timezone
     timezone?: string | boolean;
-    now?: moment.Moment | Date | string | (() => moment.Moment)
+    now?: moment.Moment | Date | string | (() => moment.Moment);
 
     // Views - http://arshaw.com/fullcalendar/docs/views/
 
@@ -139,10 +139,11 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     allDayDefault?: boolean;
     ignoreTimezone?: boolean;
     startParam?: string;
-    endParam?: string
+    endParam?: string;
     lazyFetching?: boolean;
     eventDataTransform?: (eventData: any) => EventObject;
     loading?: (isLoading: boolean, view: ViewObject) => void;
+    eventLimit?: boolean;
 
     // Event Rendering - http://arshaw.com/fullcalendar/docs/event_rendering/
 
@@ -198,7 +199,7 @@ export interface EventDraggingResizingOptions {
     dragOpacity?: number; // float
     dragScroll?: boolean;
     eventOverlap?: boolean | ((stillEvent: EventObject, movingEvent: EventObject) => boolean);
-    eventConstraint?: BusinessHours | Timespan;
+    eventConstraint?: "businessHours" | BusinessHours | Timespan;
     eventDragStart?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
     eventDragStop?: (event: EventObject, jsEvent: MouseEvent, ui: any, view: ViewObject) => void;
     eventDrop?: (event: EventObject, delta: moment.Duration, revertFunc: Function, jsEvent: Event, ui: any, view: ViewObject) => void;
@@ -224,7 +225,7 @@ export interface DroppingExternalElementsOptions {
     droppable?: boolean;
     dropAccept?: string | ((draggable: any) => boolean);
     drop?: (date: moment.Moment, jsEvent: MouseEvent, ui: any) => void;
-    eventReceive?: (event: EventObject) => void
+    eventReceive?: (event: EventObject) => void;
 }
 
 export interface ButtonTextObject {
@@ -238,19 +239,24 @@ export interface ButtonTextObject {
     day?: string;
 }
 
+/* Refer to http://fullcalendar.io/docs/event_data/Event_Object/ */
 export interface EventObject extends Timespan {
-    id?: any // String/number
+    id?: any; // String/number
     title: string;
     allDay?: boolean;
     url?: string;
-    className?: any; // string/Array<string>
+    className?: string | Array<string>;
     editable?: boolean;
+    startEditable?: boolean;
+    durationEditable?: boolean;
+    rendering?: string;
+    overlap?: boolean;
+    constraint?: Timespan | BusinessHours;
     source?: EventSource;
     color?: string;
     backgroundColor?: string;
     borderColor?: string;
     textColor?: string;
-    rendering?: string;
 }
 
 export interface ViewObject extends Timespan {
@@ -281,7 +287,7 @@ export interface EventSource extends JQueryAjaxSettings {
     ignoreTimezone?: boolean;
     eventTransform?: any;
     startParam?: string;
-    endParam?: string
+    endParam?: string;
 }
 
 declare global {
@@ -416,6 +422,11 @@ declare global {
          * Rerenders all events on the calendar.
          */
         fullCalendar(method: 'rerenderEvents'): void;
+
+        /**
+         * Refetches one or more specific event sources.
+         */
+        fullCalendar(method: 'refetchEventSources', source: any): void;
 
         /**
          * Create calendar object
