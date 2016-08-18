@@ -2044,7 +2044,7 @@ declare module "hapi" {
 		 // All requests will get routed to '/test'*/
 		ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
 		ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-		ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void): void;
+		ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
 
 		/** server.handler(name, method)
 		 Registers a new handler type to be used in routes where:
