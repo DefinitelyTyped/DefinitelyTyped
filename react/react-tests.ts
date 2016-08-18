@@ -120,7 +120,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target.value)
+                onChange: event => console.log(event.target)
             }));
     }
 
