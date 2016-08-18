@@ -6,7 +6,7 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/fs-extra.d.ts via TSD fs-extra definition
 
 ///<reference path="../node/node.d.ts"/>
-///<reference path="../bluebird/bluebird.d.ts"/>
+///<reference path="../bluebird/bluebird-2.0.d.ts"/>
 
 declare module "fs-extra-promise" {
 	import stream = require("stream");
@@ -166,7 +166,8 @@ declare module "fs-extra-promise" {
 	export function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
 	export function exists(path: string, callback?: (exists: boolean) => void): void;
 	export function existsSync(path: string): boolean;
-    export function ensureDir(path: string, cb: (err: Error) => void): void;
+    	export function ensureDir(path: string, cb: (err: Error) => void): void;
+    	export function ensureDirSync(path: string): void;
 
 	export interface OpenOptions {
 		encoding?: string;

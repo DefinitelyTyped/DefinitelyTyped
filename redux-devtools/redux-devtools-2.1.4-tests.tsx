@@ -11,7 +11,7 @@ import { Component } from 'react';
 declare var m1: Middleware;
 declare var m2: Middleware;
 declare var m3: Middleware;
-declare var reducer: Reducer;
+declare var reducer: Reducer<any>;
 class CounterApp extends Component<any, any> { };
 class Provider extends Component<{ store: any }, any> { };
 

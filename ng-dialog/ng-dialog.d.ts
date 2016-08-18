@@ -5,6 +5,18 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
+declare module "ng-dialog" {
+	export type IDialogService = angular.dialog.IDialogService;
+	export type IDialogOpenResult = angular.dialog.IDialogOpenResult;
+	export type IDialogClosePromise = angular.dialog.IDialogClosePromise;
+	export type IDialogProvider = angular.dialog.IDialogProvider;
+	export type IDialogScope = angular.dialog.IDialogScope;
+	export type IDialogConfirmScope = angular.dialog.IDialogConfirmScope;
+	export type IDialogOptions = angular.dialog.IDialogOptions;
+	export type IDialogOpenOptions = angular.dialog.IDialogOpenOptions;
+	export type IDialogOpenConfirmOptions = angular.dialog.IDialogOpenConfirmOptions;
+}
+
 declare namespace angular.dialog {
 
 	interface IDialogService {
@@ -210,6 +222,11 @@ declare namespace angular.dialog {
 		 * If specified, the first matching element is used.
 		 */
 		ariaDescribedBySelector?: string;
+
+		/**
+		 * Specifies the width of the dialog content element. Default value is null (unspecified)
+		 */
+		width?: string|number;
 	}
 
 	/**

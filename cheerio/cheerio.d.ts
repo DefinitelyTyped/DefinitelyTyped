@@ -106,6 +106,7 @@ interface Cheerio {
 
     eq(index: number): Cheerio;
 
+    get(): string[];
     get(): CheerioElement[];
     get(index: number): CheerioElement;
 
@@ -160,6 +161,7 @@ interface Cheerio {
     replaceWith(content: CheerioElement): Cheerio;
     replaceWith(content: CheerioElement[]): Cheerio;
     replaceWith(content: Cheerio): Cheerio;
+    replaceWith(content: () => Cheerio): Cheerio;
 
     empty(): Cheerio;
 

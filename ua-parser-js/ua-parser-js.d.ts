@@ -3,78 +3,84 @@
 // Definitions by: Viktor Miroshnikov <https://github.com/superduper>, Lucas Woo <https://github.com/legendecas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace UAParser {
+declare namespace IUAParser {
 
     export interface IBrowser {
         /**
-        * Possible values :
-        * Amaya, Android Browser, Arora, Avant, Baidu, Blazer, Bolt, Camino, Chimera, Chrome,
-        * Chromium, Comodo Dragon, Conkeror, Dillo, Dolphin, Doris, Edge, Epiphany, Fennec,
-        * Firebird, Firefox, Flock, GoBrowser, iCab, ICE Browser, IceApe, IceCat, IceDragon,
-        * Iceweasel, IE [Mobile], Iron, Jasmine, K-Meleon, Konqueror, Kindle, Links,
-        * Lunascape, Lynx, Maemo, Maxthon, Midori, Minimo, MIUI Browser, [Mobile] Safari,
-        * Mosaic, Mozilla, Netfront, Netscape, NetSurf, Nokia, OmniWeb, Opera [Mini/Mobi/Tablet],
-        * Phoenix, Polaris, QQBrowser, RockMelt, Silk, Skyfire, SeaMonkey, SlimBrowser, Swiftfox,
-        * Tizen, UCBrowser, Vivaldi, w3m, Yandex
-        *
-        */
+         * Possible values :
+         * Amaya, Android Browser, Arora, Avant, Baidu, Blazer, Bolt, Camino, Chimera, Chrome,
+         * Chromium, Comodo Dragon, Conkeror, Dillo, Dolphin, Doris, Edge, Epiphany, Fennec,
+         * Firebird, Firefox, Flock, GoBrowser, iCab, ICE Browser, IceApe, IceCat, IceDragon,
+         * Iceweasel, IE [Mobile], Iron, Jasmine, K-Meleon, Konqueror, Kindle, Links,
+         * Lunascape, Lynx, Maemo, Maxthon, Midori, Minimo, MIUI Browser, [Mobile] Safari,
+         * Mosaic, Mozilla, Netfront, Netscape, NetSurf, Nokia, OmniWeb, Opera [Mini/Mobi/Tablet],
+         * Phoenix, Polaris, QQBrowser, RockMelt, Silk, Skyfire, SeaMonkey, SlimBrowser, Swiftfox,
+         * Tizen, UCBrowser, Vivaldi, w3m, Yandex
+         *
+         */
         name: string;
 
         /**
-        * Determined dynamically
-        */
+         * Determined dynamically
+         */
         version: string;
+
+        /**
+         * Determined dynamically
+         * @deprecated
+         */
+        major: string;
     }
 
     export interface IDevice {
         /**
-        * Determined dynamically
-        */
+         * Determined dynamically
+         */
         model: string;
 
         /**
-        * Possible type:
-        * console, mobile, tablet, smarttv, wearable, embedded
-        */
+         * Possible type:
+         * console, mobile, tablet, smarttv, wearable, embedded
+         */
         type: string;
 
         /**
-        * Possible vendor:
-        * Acer, Alcatel, Amazon, Apple, Archos, Asus, BenQ, BlackBerry, Dell, GeeksPhone,
-        * Google, HP, HTC, Huawei, Jolla, Lenovo, LG, Meizu, Microsoft, Motorola, Nexian,
-        * Nintendo, Nokia, Nvidia, Ouya, Palm, Panasonic, Polytron, RIM, Samsung, Sharp,
-        * Siemens, Sony-Ericsson, Sprint, Xbox, ZTE
-        */
+         * Possible vendor:
+         * Acer, Alcatel, Amazon, Apple, Archos, Asus, BenQ, BlackBerry, Dell, GeeksPhone,
+         * Google, HP, HTC, Huawei, Jolla, Lenovo, LG, Meizu, Microsoft, Motorola, Nexian,
+         * Nintendo, Nokia, Nvidia, Ouya, Palm, Panasonic, Polytron, RIM, Samsung, Sharp,
+         * Siemens, Sony-Ericsson, Sprint, Xbox, ZTE
+         */
         vendor: string;
     }
 
     export interface IEngine {
         /**
-        * Possible name:
-        * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
-        * Tasman, Trident, w3m, WebKit
-        */
+         * Possible name:
+         * Amaya, EdgeHTML, Gecko, iCab, KHTML, Links, Lynx, NetFront, NetSurf, Presto,
+         * Tasman, Trident, w3m, WebKit
+         */
         name: string;
         /**
-        * Determined dynamically
-        */
+         * Determined dynamically
+         */
         version: string;
     }
 
     export interface IOS {
         /**
-        * Possible 'os.name'
-        * AIX, Amiga OS, Android, Arch, Bada, BeOS, BlackBerry, CentOS, Chromium OS, Contiki,
-        * Fedora, Firefox OS, FreeBSD, Debian, DragonFly, Gentoo, GNU, Haiku, Hurd, iOS,
-        * Joli, Linpus, Linux, Mac OS, Mageia, Mandriva, MeeGo, Minix, Mint, Morph OS, NetBSD,
-        * Nintendo, OpenBSD, OpenVMS, OS/2, Palm, PCLinuxOS, Plan9, Playstation, QNX, RedHat,
-        * RIM Tablet OS, RISC OS, Sailfish, Series40, Slackware, Solaris, SUSE, Symbian, Tizen,
-        * Ubuntu, UNIX, VectorLinux, WebOS, Windows [Phone/Mobile], Zenwalk
-        */
+         * Possible 'os.name'
+         * AIX, Amiga OS, Android, Arch, Bada, BeOS, BlackBerry, CentOS, Chromium OS, Contiki,
+         * Fedora, Firefox OS, FreeBSD, Debian, DragonFly, Gentoo, GNU, Haiku, Hurd, iOS,
+         * Joli, Linpus, Linux, Mac OS, Mageia, Mandriva, MeeGo, Minix, Mint, Morph OS, NetBSD,
+         * Nintendo, OpenBSD, OpenVMS, OS/2, Palm, PCLinuxOS, Plan9, Playstation, QNX, RedHat,
+         * RIM Tablet OS, RISC OS, Sailfish, Series40, Slackware, Solaris, SUSE, Symbian, Tizen,
+         * Ubuntu, UNIX, VectorLinux, WebOS, Windows [Phone/Mobile], Zenwalk
+         */
         name: string;
         /**
-        * Determined dynamically
-        */
+         * Determined dynamically
+         */
         version: string;
     }
 
@@ -97,94 +103,94 @@ declare namespace UAParser {
     }
 
     export interface BROWSER {
-        NAME: string,
-
-        // Deprecated
-        MAJOR: string,
-        VERSION: string
+        NAME: string;
+        /**
+         * @deprecated
+         */
+        MAJOR: string;
+        VERSION: string;
     }
 
     export interface CPU {
-        ARCHITECTURE: string
+        ARCHITECTURE: string;
     }
 
     export interface DEVICE {
-        MODEL: string,
-        VENDOR: string,
-        TYPE: string,
-        CONSOLE: string,
-        MOBILE: string,
-        SMARTTV: string,
-        TABLET: string,
-        WEARABLE: string,
-        EMBEDDED: string
+        MODEL: string;
+        VENDOR: string;
+        TYPE: string;
+        CONSOLE: string;
+        MOBILE: string;
+        SMARTTV: string;
+        TABLET: string;
+        WEARABLE: string;
+        EMBEDDED: string;
     }
 
     export interface ENGINE {
-        NAME: string,
-        VERSION: string
+        NAME: string;
+        VERSION: string;
     }
 
     export interface OS {
-        NAME: string,
-        VERSION: string
+        NAME: string;
+        VERSION: string;
     }
-
 }
 
 declare module "ua-parser-js" {
-
     export class UAParser {
         static VERSION: string;
-        static BROWSER: UAParser.BROWSER;
-        static CPU: UAParser.CPU;
-        static DEVICE: UAParser.DEVICE;
-        static ENGINE: UAParser.ENGINE;
-        static OS: UAParser.OS;
-
-        /**
-        *  Returns browser information
-        */
-        getBrowser(): UAParser.IBrowser;
-        /**
-        *  Returns OS information
-        */
-        getOS(): UAParser.IOS;
-
-        /**
-        *  Returns browsers engine information
-        */
-        getEngine(): UAParser.IEngine;
-
-        /**
-        *  Returns device information
-        */
-        getDevice(): UAParser.IDevice;
-
-        /**
-        *  Returns parsed CPU information
-        */
-        getCPU(): UAParser.ICPU;
-
-        /**
-        *  Returns UA string of current instance
-        */
-        getUA(): string;
-
-        /**
-        *  Set & parse UA string
-        */
-        setUA(uastring: string): UAParser;
-
-        /**
-        *  Returns parse result
-        */
-        getResult(): UAParser.IResult;
+        static BROWSER: IUAParser.BROWSER;
+        static CPU: IUAParser.CPU;
+        static DEVICE: IUAParser.DEVICE;
+        static ENGINE: IUAParser.ENGINE;
+        static OS: IUAParser.OS;
 
         /**
          * Create a new parser with UA prepopulated and extensions extended
          */
         constructor(uastring?: string, extensions?: any);
-    }
 
+        /**
+         *  Returns browser information
+         */
+        getBrowser(): IUAParser.IBrowser;
+
+        /**
+         *  Returns OS information
+         */
+        getOS(): IUAParser.IOS;
+
+        /**
+         *  Returns browsers engine information
+         */
+        getEngine(): IUAParser.IEngine;
+
+        /**
+         *  Returns device information
+         */
+        getDevice(): IUAParser.IDevice;
+
+        /**
+         *  Returns parsed CPU information
+         */
+        getCPU(): IUAParser.ICPU;
+
+        /**
+         *  Returns UA string of current instance
+         */
+        getUA(): string;
+
+        /**
+         *  Set & parse UA string
+         */
+        setUA(uastring: string): UAParser;
+
+        /**
+         *  Returns parse result
+         */
+        getResult(): IUAParser.IResult;
+    }
 }
+

@@ -5,7 +5,7 @@
 
 /// <reference path="../geojson/geojson.d.ts" />
 
-declare namespace turf {
+declare module turf {
     //////////////////////////////////////////////////////
     // Aggregation
     //////////////////////////////////////////////////////
@@ -573,4 +573,8 @@ declare namespace turf {
     * @returns A FeatureCollection with identical geometries to input but with outField populated.
     */
     function reclass(input: GeoJSON.FeatureCollection<any>, inField: string, outField: string, translations: Array<any>): GeoJSON.FeatureCollection<any>;
+}
+
+declare module 'turf' {
+  export= turf;
 }

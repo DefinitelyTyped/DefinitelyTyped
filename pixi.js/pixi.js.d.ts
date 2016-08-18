@@ -87,10 +87,10 @@ declare namespace PIXI {
         emit(event: string, ...args: any[]): boolean;
         on(event: string, fn: Function, context?: any): EventEmitter;
         once(event: string, fn: Function, context?: any): EventEmitter;
-        removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
-        removeAllListeners(event: string): EventEmitter;
+        removeListener(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
 
-        off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
+        off(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
         addListener(event: string, fn: Function, context?: any): EventEmitter;
 
     }
@@ -217,7 +217,7 @@ declare namespace PIXI {
         width: number;
         height: number;
 
-        addChild(child: DisplayObject): DisplayObject;
+        addChild(...child: DisplayObject[]): DisplayObject;
         addChildAt(child: DisplayObject, index: number): DisplayObject;
         swapChildren(child: DisplayObject, child2: DisplayObject): void;
         getChildIndex(child: DisplayObject): number;
@@ -504,6 +504,7 @@ declare namespace PIXI {
         view?: HTMLCanvasElement;
         transparent?: boolean;
         antialias?: boolean;
+        autoResize?: boolean;
         resolution?: number;
         clearBeforeRendering?: boolean;
         preserveDrawingBuffer?: boolean;

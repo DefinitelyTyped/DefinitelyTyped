@@ -149,6 +149,11 @@ declare module "gulp" {
              * Note that an explicit dot in a portion of the pattern will always match dot files.
              */
             dot?: boolean;
+            
+            /**
+             * Set to match only fles, not directories. Set this flag to prevent copying empty directories
+             */
+            nodir?: boolean;
 
             /**
              * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid

@@ -93,8 +93,13 @@ declare module 'documentdb' {
 
     /** Represents the result returned from a query. */
     interface QueryIterator<TResultRow> {
-
-        toArray(callback: (error: QueryError, result: TResultRow[]) => void): void;
+        current(): TResultRow;
+        executeNext(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void;
+        forEach(iteratorFunction : (error: QueryError, element: TResultRow, responseHeaders? : any) => void): void;
+        hasMoreResults(): boolean;
+        nextItem(callback: (error : QueryError, item : TResultRow, responseHeaders? : any) => void): void;
+        reset() : void;
+        toArray(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void;
     }
 
     /** Reprents an object with a unique identifier. */

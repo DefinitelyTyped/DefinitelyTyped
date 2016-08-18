@@ -6,7 +6,16 @@
 /// <reference path="../express/express.d.ts" />
 
 declare namespace Express {
-    interface ExpressUserAgent {
+   
+    interface Request {
+        useragent?: ExpressUseragent.UserAgent;
+    }
+}
+
+declare namespace ExpressUseragent {
+    import express = Express;
+    
+    interface UserAgent {
         isMobile: boolean;
         isTablet: boolean;
         isiPad: boolean;
@@ -55,14 +64,10 @@ declare namespace Express {
         source: string;
     }
 
-    interface Request {
-        useragent?: ExpressUserAgent;
-    }
+    function parse(source: string): UserAgent;
+    function express(): (req: express.Request, res: express.Response, next?: Function) => void;
 }
 
 declare module "express-useragent" {
-    import express = require("express");
-
-    export function parse(source: string): Express.ExpressUserAgent;
-    export function express(): (req: express.Request, res: express.Response, next?: Function) => void;
+    export = ExpressUseragent;
 }

@@ -3,6 +3,8 @@
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../redux/redux.d.ts" />
+
 declare module "redux-immutable" {
-    export function combineReducers(reducers : Object): Object;
+    export function combineReducers(reducers: Object): Redux.Reducer<any>;
 }
