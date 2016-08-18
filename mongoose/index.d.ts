@@ -78,6 +78,7 @@ declare module "mongoose" {
   import events = require('events');
   import mongodb = require('mongodb');
   import stream = require('stream');
+  import mongoose = require('mongoose');
 
   /*
    * Some mongoose classes have the same name as the native JS classes
@@ -90,53 +91,26 @@ declare module "mongoose" {
   /*
    * Public API
    */
-  export = mongoose;
 
   /*
    * section index.js
    * http://mongoosejs.com/docs/api.html#index-js
-   *
-   * require('mongoose') is not actually a class with static
-   *   methods. It is an instance of the Mongoose class.
-   *
-   * Reasons we use a class with static properties below:
-   * 1. MongooseThenable extends mongoose, so we need a
-   *    scope to wrap everything. We can't use a namespace
-   *    since namespaces can't be inherited from.
-   * 2. We can't use an interface to wrap everything, since
-   *    some properties of mongoose are class constructors.
-   *    Exporting an interface won't, for example, let us
-   *    call new mongoose.Schema({})
-   * 3. We can't use a normal class since require('mongoose')
-   *    is an instance object. All of its properties are
-   *    immediately accessible: require('mongoose').model('')
-   *    If we export a normal class and import * as mongoose
-   *    we'll have to call new mongoose() before we can use
-   *    any of its methods, which would be inaccurate.
-   *
-   * NOTE: the static properties below cannot be used for
-   *   type-checking. If you want to use the names for
-   *   type-checking you must add a corresponding interface
-   *   inside namespace mongoose {} defined below.
    */
-  /**
-   * Contains all the public properties and methods that can
-   *   be accessed by mongoose = require('mongoose')
-   */
-  class mongoose {
+
     /* Class constructors */
-    static Aggregate: typeof _mongoose.Aggregate;
-    static CastError: typeof _mongoose.CastError;
-    static Collection: _mongoose.Collection;
-    static Connection: typeof _mongoose.Connection;
-    static Document: typeof _mongoose.Document;
-    static DocumentProvider: any;
-    static Error: typeof _mongoose.Error;
-    static Model: _mongoose.ModelConstructor<{}>;
-    static Mongoose: {
+  export var Aggregate: typeof _mongoose.Aggregate;
+  export var CastError: typeof _mongoose.CastError;
+  export var Collection: _mongoose.Collection;
+  export var Connection: typeof _mongoose.Connection;
+  export var Document: typeof _mongoose.Document;
+  export var DocumentProvider: any;
+  export var Error: typeof _mongoose.Error;
+  export var Model: _mongoose.ModelConstructor<{}>;
+  export var Mongoose: {
       // recursive constructor
       new(...args: any[]): typeof mongoose;
     }
+
     /**
      * To assign your own promise library:
      *
@@ -146,13 +120,14 @@ declare module "mongoose" {
      * 2. Include this somewhere in your main .d.ts file:
      *    type MongoosePromise<T> = YOUR_PROMISE<T>;
      */
-    static Promise: any;
-    static PromiseProvider: any;
-    static Query: typeof _mongoose.ModelQuery;
-    static Schema: typeof _mongoose.Schema;
-    static SchemaType: typeof _mongoose.SchemaType;
-    static SchemaTypes: typeof _mongoose.Schema.Types;
-    static Types: {
+
+  export var Promise: any;
+  export var PromiseProvider: any;
+  export var Query: typeof _mongoose.ModelQuery;
+  export var Schema: typeof _mongoose.Schema;
+  export var SchemaType: typeof _mongoose.SchemaType;
+  export var SchemaTypes: typeof _mongoose.Schema.Types;
+  export var Types: {
       Subdocument: typeof _mongoose.Types.Subdocument;
       Array: typeof _mongoose.Types.Array;
       DocumentArray: typeof _mongoose.Types.DocumentArray;
@@ -160,22 +135,21 @@ declare module "mongoose" {
       ObjectId: typeof _mongoose.Types.ObjectId;
       Embedded: typeof _mongoose.Types.Embedded;
     }
-    static VirtualType: typeof _mongoose.VirtualType;
+  export var VirtualType: typeof _mongoose.VirtualType;
 
-    /* Properties */
     /** Expose connection states for user-land */
-    static STATES: Object
+  export var STATES: Object
     /** The default connection of the mongoose module. */
-    static connection: _mongoose.Connection;
+  export var connection: _mongoose.Connection;
     /** The node-mongodb-native driver Mongoose uses. */
-    static mongo: typeof mongodb;
+  export var mongo: typeof mongodb;
     /**
      * The mquery query builder Mongoose uses.
      * Currently there is no mquery type definition.
      */
-    static mquery: any;
+  export var mquery: any;
     /** The Mongoose version */
-    static version: string;
+  export var version: string;
 
     /* Methods */
     /**
@@ -183,11 +157,11 @@ declare module "mongoose" {
      * Options passed take precedence over options included in connection strings.
      * @returns pseudo-promise wrapper around this
      */
-    static connect(uris: string,
+  export function connect(uris: string,
       options?: _mongoose.MongooseConnectOptions,
-      callback?: (err: mongodb.MongoError) => void): typeof _mongoose.MongooseThenable;
-    static connect(uris: string,
-      callback?: (err: mongodb.MongoError) => void): typeof _mongoose.MongooseThenable;
+    callback?: (err: mongodb.MongoError) => void): _mongoose.MongooseThenable;
+  export function connect(uris: string,
+    callback?: (err: mongodb.MongoError) => void): _mongoose.MongooseThenable;
 
     /**
      * Creates a Connection instance.
@@ -197,11 +171,11 @@ declare module "mongoose" {
      * @param options options to pass to the driver
      * @returns the created Connection object
      */
-    static createConnection(): _mongoose.Connection;
-    static createConnection(uri: string,
+  export function createConnection(): _mongoose.Connection;
+  export function createConnection(uri: string,
       options?: _mongoose.MongooseConnectOptions
     ): _mongoose.Connection;
-    static createConnection(host: string, database_name: string, port?: number,
+  export function createConnection(host: string, database_name: string, port?: number,
       options?: _mongoose.MongooseConnectOptions
     ): _mongoose.Connection;
 
@@ -210,10 +184,10 @@ declare module "mongoose" {
      * @param fn called after all connection close.
      * @returns pseudo-promise wrapper around this
      */
-    static disconnect(fn?: (error: any) => void): typeof _mongoose.MongooseThenable;
+  export function disconnect(fn?: (error: any) => void): _mongoose.MongooseThenable;
 
     /** Gets mongoose options */
-    static get(key: string): any;
+  export function get(key: string): any;
 
     /**
      * Defines a model or retrieves it.
@@ -223,16 +197,16 @@ declare module "mongoose" {
      * @param collection (optional, induced from model name)
      * @param skipInit whether to skip initialization (defaults to false)
      */
-    static model<T>(name: string, schema?: _mongoose.Schema, collection?: string,
+  export function model<T>(name: string, schema?: _mongoose.Schema, collection?: string,
       skipInit?: boolean): _mongoose.ModelConstructor<T>;
-    static model<T, Statics>(name: string, schema?: _mongoose.Schema, collection?: string,
+  export function model<T, Statics>(name: string, schema?: _mongoose.Schema, collection?: string,
       skipInit?: boolean): Statics & _mongoose.ModelConstructor<T>;
 
     /**
      * Returns an array of model names created on this instance of Mongoose.
      * Does not include names of models created using connection.model().
      */
-    static modelNames(): string[];
+  export function modelNames(): string[];
 
     /**
      * Declares a global plugin executed on all Schemas.
@@ -240,84 +214,84 @@ declare module "mongoose" {
      * @param fn plugin callback
      * @param opts optional options
      */
-    static plugin(fn: Function, opts?: Object): typeof mongoose;
+  export function plugin(fn: Function, opts?: Object): typeof mongoose;
 
     /** Sets mongoose options */
-    static set(key: string, value: any): void;
-  }
+  export function set(key: string, value: any): void;
 
-  /** All the types that are exposed for type checking. */
-  namespace mongoose {
-    type Aggregate<T> = _mongoose.Aggregate<T>;
-    type CastError = _mongoose.CastError;
-    type Collection = _mongoose.Collection;
-    type Connection = _mongoose.Connection;
-    type Document = _mongoose.Document;
-    type Error = _mongoose.Error;
-    type ValidationError = _mongoose.ValidationError;
-
-    /** Document created from model constructors. */
-    type model<T> = _mongoose.Model<T>;
-    /** Model Constructor. */
-    type Model<T> = _mongoose.ModelConstructor<T>;
-
-    type Mongoose = typeof mongoose;
-    type Promise<T> = _mongoose._MongoosePromise<T>;
-    type Query<T> = _mongoose.Query<T>;
-    type QueryCursor<T> = _mongoose.QueryCursor<T>;
-    type QueryStream = _mongoose.QueryStream;
-    type Schema = _mongoose.Schema;
-    namespace Schema {
-      namespace Types {
-        type Array = _mongoose.Schema._Types.Array;
-        type String = _mongoose.Schema._Types.String;
-        type DocumentArray = _mongoose.Schema._Types.DocumentArray;
-        type Number = _mongoose.Schema._Types.Number;
-        type Date = _mongoose.Schema._Types.Date;
-        type Buffer = _mongoose.Schema._Types.Buffer;
-        type Boolean = _mongoose.Schema._Types.Boolean;
-        type Bool = _mongoose.Schema._Types.Boolean;
-        type ObjectId = _mongoose.Schema._Types.ObjectId;
-        type Oid = _mongoose.Schema._Types.ObjectId;
-        type Mixed = _mongoose.Schema._Types.Mixed;
-        type Object = _mongoose.Schema._Types.Mixed;
-        type Embedded = _mongoose.Schema._Types.Embedded;
-      }
-    }
-    type SchemaType = _mongoose.SchemaType;
-    namespace Types {
-      type Subdocument = _mongoose.Types.Subdocument;
-      type Array<T> = _mongoose.Types.Array<T>;
-      type DocumentArray<T extends _mongoose.Document> = _mongoose.Types.DocumentArray<T>;
-      type Buffer = _mongoose.Types.Buffer;
-      type ObjectId = _mongoose.Types.ObjectId;
-      type Embedded = _mongoose.Types.Embedded;
-    }
-    type VirtualType = _mongoose.VirtualType;
-    type ConnectionOptions = _mongoose.MongooseConnectOptions;
-  }
 
   /*
-   * Public API Details.
+   * All the types that are exposed for type checking.
    */
+  export type Aggregate<T> = _mongoose.Aggregate<T>;
+  export type CastError = _mongoose.CastError;
+  export type Collection = _mongoose.Collection;
+  export type Connection = _mongoose.Connection;
+  export type Document = _mongoose.Document;
+  export type Error = _mongoose.Error;
+  export type ValidationError = _mongoose.ValidationError;
+
+    /** Document created from model constructors. */
+  export type model<T> = _mongoose.Model<T>;
+    /** Model Constructor. */
+  export type Model<T> = _mongoose.ModelConstructor<T>;
+
+  export type Mongoose = typeof mongoose;
+  export type Promise<T> = _mongoose._MongoosePromise<T>;
+  export type Query<T> = _mongoose.Query<T>;
+  export type QueryCursor<T> = _mongoose.QueryCursor<T>;
+  export type QueryStream = _mongoose.QueryStream;
+  export type Schema = _mongoose.Schema;
+    namespace Schema {
+      namespace Types {
+      export type Array = _mongoose.Schema._Types.Array;
+      export type String = _mongoose.Schema._Types.String;
+      export type DocumentArray = _mongoose.Schema._Types.DocumentArray;
+      export type Number = _mongoose.Schema._Types.Number;
+      export type Date = _mongoose.Schema._Types.Date;
+      export type Buffer = _mongoose.Schema._Types.Buffer;
+      export type Boolean = _mongoose.Schema._Types.Boolean;
+      export type Bool = _mongoose.Schema._Types.Boolean;
+      export type ObjectId = _mongoose.Schema._Types.ObjectId;
+      export type Oid = _mongoose.Schema._Types.ObjectId;
+      export type Mixed = _mongoose.Schema._Types.Mixed;
+      export type Object = _mongoose.Schema._Types.Mixed;
+      export type Embedded = _mongoose.Schema._Types.Embedded;
+      }
+    }
+  export type SchemaType = _mongoose.SchemaType;
+    namespace Types {
+    export type Subdocument = _mongoose.Types.Subdocument;
+    export type Array<T> = _mongoose.Types.Array<T>;
+    export type DocumentArray<T extends _mongoose.Document> = _mongoose.Types.DocumentArray<T>;
+    export type Buffer = _mongoose.Types.Buffer;
+    export type ObjectId = _mongoose.Types.ObjectId;
+    export type Embedded = _mongoose.Types.Embedded;
+  }
+  export type VirtualType = _mongoose.VirtualType;
+  export type ConnectionOptions = _mongoose.MongooseConnectOptions;
+
+
+  /** Private */
   namespace _mongoose {
     /*
      * section index.js
      * http://mongoosejs.com/docs/api.html#index-js
      */
-    class MongooseThenable extends mongoose {
+    type MongooseThenable = typeof mongoose & _MongooseThenable;
+    interface _MongooseThenable {
       /**
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
+      then<TRes>(onFulfill?: () => void | TRes | PromiseLike<TRes>,
         onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
 
       /**
        * Ability to use mongoose object as a pseudo-promise so .connect().then()
        * and .disconnect().then() are viable.
        */
-      static catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
+      catch<TRes>(onRejected?: (err: mongodb.MongoError) => void | TRes | PromiseLike<TRes>): _MongoosePromise<TRes>;
     }
 
     class CastError extends _mongoose.Error {
@@ -1148,7 +1122,9 @@ declare module "mongoose" {
          * potentially overwritting any changes that happen between when you retrieved the object
          * and when you save it.
          */
-        sort(compareFn?: (a: T, b: T) => number): this;
+        // some lib.d.ts have return type "this" and others have return type "T[]"
+        // which causes errors. Let the inherited array provide the sort() method.
+        //sort(compareFn?: (a: T, b: T) => number): T[];
 
         /**
          * Wraps Array#splice with proper change tracking and casting.

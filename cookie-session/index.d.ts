@@ -3,7 +3,7 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference types="express" />
 
 declare namespace Express {
     interface Request extends CookieSessionInterfaces.CookieSessionRequest {}

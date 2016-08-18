@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 
-import { browserHistory, hashHistory, createMemoryHistory, routerShape, Router, Route, IndexRoute, Link, RouterOnContext } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute,InjectedRouter, Link, RouterOnContext} from "react-router"
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -34,8 +34,21 @@ class Master extends React.Component<React.Props<{}>, {}> {
 
 }
 
+interface DashboardProps {
+	router: InjectedRouter
+};
 
-class Dashboard extends React.Component<{}, {}> {
+class Dashboard extends React.Component<DashboardProps, {}> {
+
+	navigate() {
+		var router = this.props.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>
@@ -44,6 +57,8 @@ class Dashboard extends React.Component<{}, {}> {
 	}
 
 }
+
+const DashboardWithRouter = withRouter(Dashboard)
 
 class NotFound extends React.Component<{}, {}> {
 
@@ -70,7 +85,7 @@ class Users extends React.Component<{}, {}> {
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
-			<IndexRoute component={Dashboard} />
+			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users}/>
 			<Route path="*" component={NotFound}/>
 		</Route>

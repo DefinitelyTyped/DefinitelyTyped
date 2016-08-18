@@ -28,7 +28,7 @@ declare namespace __ReactMDL {
     interface MDLHTMLAttributes {
         // React-specific Attributes
         defaultChecked?: boolean;
-        defaultValue?: string | string[];
+        defaultValue?: number | string | string[];
 
         // Standard HTML Attributes
         accept?: string;

@@ -855,7 +855,7 @@ curveFactory = d3Shape.curveNatural;
 
 curveFactory = d3Shape.curveStep;
 
-curveFactory = d3Shape.stepAfter;
+curveFactory = d3Shape.curveStepAfter;
 
 curveFactory = d3Shape.curveStepBefore;
 
