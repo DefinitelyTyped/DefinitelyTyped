@@ -13,14 +13,14 @@ const multiplyAction: (...args: number[]) => ReduxActions.Action<number> = Redux
 
 const action: ReduxActions.Action<number> = incrementAction();
 
-const actionHandler = ReduxActions.handleAction<number>(
+const actionHandler = ReduxActions.handleAction<number, number>(
     'INCREMENT',
     (state: number, action: ReduxActions.Action<number>) => state + action.payload
 );
 
 state = actionHandler(0, incrementAction());
 
-const actionHandlerWithReduceMap = ReduxActions.handleAction<number>(
+const actionHandlerWithReduceMap = ReduxActions.handleAction<number, number>(
     'MULTIPLY', {
         next(state: number, action: ReduxActions.Action<number>) {
             return state * action.payload;
@@ -31,14 +31,14 @@ const actionHandlerWithReduceMap = ReduxActions.handleAction<number>(
 
 state = actionHandlerWithReduceMap(0, multiplyAction(10));
 
-const actionsHandler = ReduxActions.handleActions<number>({
+const actionsHandler = ReduxActions.handleActions<number, number>({
     'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
 });
 
 state = actionsHandler(0, { type: 'INCREMENT' });
 
-const actionsHandlerWithInitialState = ReduxActions.handleActions<number>({
+const actionsHandlerWithInitialState = ReduxActions.handleActions<number, number>({
     'INCREMENT': (state: number, action: ReduxActions.Action<number>) => state + action.payload,
     'MULTIPLY': (state: number, action: ReduxActions.Action<number>) => state * action.payload
 }, 0);
@@ -50,6 +50,10 @@ state = actionsHandlerWithInitialState(0, { type: 'INCREMENT' });
 type TypedState = {
     value: number;
 };
+
+type TypedPayload = {
+    increase: number;
+}
 
 type MetaType = {
     remote: boolean
@@ -68,28 +72,29 @@ const richerAction: ReduxActions.ActionMeta<TypedState, MetaType> = {
     }
 };
 
-const typedIncrementAction: () => ReduxActions.Action<TypedState> = ReduxActions.createAction<TypedState>(
+const typedIncrementAction: () => ReduxActions.Action<TypedPayload> = ReduxActions.createAction<TypedPayload>(
     'INCREMENT',
-    () => ({ value: 1 })
+    () => ({ increase: 1 })
 );
 
-const typedActionHandler = ReduxActions.handleAction<TypedState>(
+const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
     'INCREMENT',
-    (state: TypedState, action: ReduxActions.Action<TypedState>) => ({ value: state.value + 1 })
+    (state: TypedState, action: ReduxActions.Action<TypedPayload>) => ({ value: state.value + 1 })
 );
 
 typedState = typedActionHandler({ value: 0 }, typedIncrementAction());
 
-const typedIncrementByActionWithMeta: (value: number) => ReduxActions.ActionMeta<TypedState, MetaType> = ReduxActions.createAction<number, TypedState, MetaType>(
-    'INCREMENT_BY',
-    amount => ({ value: amount }),
-    amount => ({ remote: true })
-);
+const typedIncrementByActionWithMeta: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
+    ReduxActions.createAction<number, TypedPayload, MetaType>(
+        'INCREMENT_BY',
+        amount => ({ increase: amount }),
+        amount => ({ remote: true })
+    );
 
-const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState>(
+const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, TypedPayload>(
     'INCREMENT_BY', {
-        next(state: TypedState, action: ReduxActions.Action<TypedState>) {
-            return { value: state.value + action.payload.value };
+        next(state: TypedState, action: ReduxActions.Action<TypedPayload>) {
+            return { value: state.value + action.payload.increase };
         },
         throw(state: TypedState) { return state }
     }

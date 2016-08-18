@@ -90,3 +90,9 @@ declare namespace Backbone {
         }
     }
 }
+
+declare module 'backbone.radio' {
+    import Backbone = require('backbone');
+
+    export = Backbone.Radio;
+}

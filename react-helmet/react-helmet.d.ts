@@ -7,25 +7,28 @@
 
 declare namespace ReactHelmet {
     import React = __React;
-    
+
     interface HelmetProps {
-        title?: string;
-        titleTemplate?: string;
         base?: any;
+        defaultTitle?: string;
+        htmlAttributes?: any;
         link?: Array<any>;
         meta?: Array<any>;
         script?: Array<any>;
+        title?: string;
+        titleTemplate?: string;
         onChangeClientState?: (newState: any) => void;
     }
 
     interface HelmetData {
-        title: HelmetDatum;
         base: HelmetDatum;
+        htmlAttributes: HelmetDatum;
         link: HelmetDatum;
         meta: HelmetDatum;
         script: HelmetDatum;
+        title: HelmetDatum;
     }
-    
+
     interface HelmetDatum {
         toString(): string;
         toComponent(): React.Component<any, any>;
@@ -39,6 +42,6 @@ declare module "react-helmet" {
         (): ReactHelmet.HelmetComponent
         rewind(): ReactHelmet.HelmetData
     }
-    
+
     export = Helmet;
 }

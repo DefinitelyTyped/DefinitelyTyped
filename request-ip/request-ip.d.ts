@@ -28,5 +28,11 @@ declare module "request-ip" {
         };
     }
 
+    interface Options {
+        attributeName: string;
+    }
+
     export function getClientIp(req:Request):string;
+
+    export function mw(options?: Options): (req: Request, res: any, next: any) => any;
 }

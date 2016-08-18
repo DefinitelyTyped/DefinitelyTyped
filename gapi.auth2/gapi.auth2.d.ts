@@ -64,7 +64,7 @@ declare namespace gapi.auth2 {
       fetch_basic_profile?: boolean;
       prompt?: boolean;
       scope?: string;
-    }, onsuccess: () => any, onfailure: (reason: string) => any): any;
+    }, onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
 
   export interface IsSignedIn{

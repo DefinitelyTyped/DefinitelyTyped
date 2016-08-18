@@ -71,6 +71,7 @@ declare namespace esprima {
         LabeledStatement: string,
         LogicalExpression: string,
         MemberExpression: string,
+        MetaProperty: string,
         MethodDefinition: string,
         NewExpression: string,
         ObjectExpression: string,

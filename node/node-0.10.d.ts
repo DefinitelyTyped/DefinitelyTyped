@@ -972,7 +972,7 @@ declare module "fs" {
     export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
     export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
     export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
@@ -1032,10 +1032,10 @@ declare module "path" {
 declare module "string_decoder" {
     export interface NodeStringDecoder {
         write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        end(): string;
     }
     export var StringDecoder: {
-        new (encoding: string): NodeStringDecoder;
+        new (encoding?: string): NodeStringDecoder;
     };
 }
 

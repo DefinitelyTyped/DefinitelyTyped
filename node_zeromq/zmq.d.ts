@@ -184,6 +184,19 @@ declare module 'zmq' {
          */
         on(eventName: string, callback: (...buffer: Buffer[]) => void): void;
 
+        /**
+         * Set socket to pause mode
+         * no data will be emit until resume() is called
+         * all send() calls will be queued
+             */
+        pause(): void;
+
+        /**
+         * Set a socket back to normal work mode
+         * triggers a _flushReads and _flushWrites
+         */
+        resume(): void;
+
         // Socket Options
         _fd: any;
         _ioevents: any;

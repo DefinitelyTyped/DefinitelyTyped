@@ -240,6 +240,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);
@@ -501,6 +505,12 @@ function chain_tests() {
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let evenAndOddGroupedNumbers = _.chain(numberObjects)
+        .groupBy('property')
+        .mapObject((objects: any) => _.pluck(objects, 'value'))
+        .value(); // { odd: [1], even: [0, 2] }
 }
 
 var obj: { [k: string] : number } = {

@@ -206,6 +206,26 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
+    export function all<A, B, C, D, E, F>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>, IPromise<F>]): Promise<[A, B, C, D, E, F]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C, D, E>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>]): Promise<[A, B, C, D, E]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C, D>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>]): Promise<[A, B, C, D]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B, C>(promises: [IPromise<A>, IPromise<B>, IPromise<C>]): Promise<[A, B, C]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
+    export function all<A, B>(promises: [IPromise<A>, IPromise<B>]): Promise<[A, B]>;
+    /**
+     * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
+     */
     export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
 
     /**

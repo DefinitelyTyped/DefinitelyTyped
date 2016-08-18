@@ -1,10 +1,11 @@
 /// <reference path="./angular-permission.d.ts" />
 
-import permission = angular.permission;
+import permissionNamespace = angular.permission;
+import { permission, ngPermission, uiPermission } from "angular-permission";
 
 angular
-  .module('fooModule', ['permission', 'user'])
-  .run(function (PermissionStore: permission.PermissionStore, User: any) {
+  .module('fooModule', [permission, ngPermission, uiPermission, 'user'])
+  .run(function (PermissionStore: permissionNamespace.PermissionStore, User: any) {
     // Define anonymous permission
     PermissionStore
       .definePermission('anonymous', function (stateParams) {
@@ -22,8 +23,8 @@ angular
     hasPermissionDefinition(permission: string) : angular.IPromise<any>;
   }
 
-  angular.module('barModule', ['permission', 'user'])
-  .run(function (PermissionStore: permission.PermissionStore, User: BackendUserService, $q: angular.IQService) {
+  angular.module('barModule', [permission, 'user'])
+  .run(function (PermissionStore: permissionNamespace.PermissionStore, User: BackendUserService, $q: angular.IQService) {
     PermissionStore
       // Define user permission calling back-end
       .definePermission('user', function (stateParams) {
@@ -64,14 +65,14 @@ angular
 
     PermissionStore.removePermissionDefinition('user');
 
-    let permissions: Array<permission.Permission> = PermissionStore.getStore();
+    let permissions: Array<permissionNamespace.Permission> = PermissionStore.getStore();
 
 
   });
 
 angular
-  .module('fooModule', ['permission', 'user'])
-  .run(function (RoleStore: permission.RoleStore, User: any) {
+  .module('fooModule', [permission, 'user'])
+  .run(function (RoleStore: permissionNamespace.RoleStore, User: any) {
     RoleStore
       // Permission array validated role
       // Library will internally validate if 'user' and 'editor' permissions are valid when checking if role is valid
@@ -88,5 +89,5 @@ angular
 
     RoleStore.removeRoleDefinition('user');
 
-    let roles: Array<permission.Role> = RoleStore.getStore();
+    let roles: Array<permissionNamespace.Role> = RoleStore.getStore();
   });

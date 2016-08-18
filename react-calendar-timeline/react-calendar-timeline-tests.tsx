@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import * as moment from 'moment';
-import * as Timeline from 'react-calendar-timeline';
+import ReactCalendarTimeline from 'react-calendar-timeline';
 
 const groups = [
   {id: 1, title: 'group 1'},
@@ -17,12 +17,12 @@ const items = [
   {id: 3, group: 1, title: 'item 3', start_time: moment().add(2, 'hour'), end_time: moment().add(3, 'hour')}
 ]
 
-class ReactCalendarTimeline extends React.Component<{}, {}> {
+class ExampleOfUsingReactCalendarTimeline extends React.Component<{}, {}> {
      render(){
          return(
              <div>
                 Rendered by react!
-                <Timeline groups={groups}
+                <ReactCalendarTimeline groups={groups}
                           items={items}
                           defaultTimeStart={moment().add(-12, 'hour')}
                           defaultTimeEnd={moment().add(12, 'hour')}

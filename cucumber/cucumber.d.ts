@@ -29,8 +29,20 @@ declare namespace cucumber {
 	}
 
 	interface HookScenario{
-		attach(text: string, mimeType?: string, callback?: (err?:any) => void): void;
-		isFailed() : boolean;
+		getKeyword():string;
+		getName():string;
+		getDescription():string;
+		getUri():string;
+		getLine():number;
+		getTags():string[];
+		getException():Error;
+		getAttachments():any[];
+		attach(data:any, mimeType?:string, callback?:(err?:any) => void):void;
+		isSuccessful():boolean;
+		isFailed():boolean;
+		isPending():boolean;
+		isUndefined():boolean;
+		isSkipped():boolean;
 	}
 
 	interface HookCode {

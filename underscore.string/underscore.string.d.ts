@@ -66,6 +66,13 @@ interface UnderscoreStringStaticExports {
      * @param str
      */
     capitalize(str: string): string;
+    
+    /**
+     * Converts first letter of the string to lowercase.
+     * ('Foo Bar') => 'foo Bar'
+     * @param str
+     */
+    decapitalize(str: string): string;    
 
     /**
      * Chop a string into pieces.

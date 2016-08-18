@@ -3,7 +3,7 @@
 // Definitions by: kmxz <https://github.com/kmxz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'fbemitter' {
+declare namespace FBEmitter {
     
     export class EventSubscription {
         
@@ -64,4 +64,8 @@ declare module 'fbemitter' {
          
     }
     
+}
+
+declare module 'fbemitter' {
+    export = FBEmitter;
 }

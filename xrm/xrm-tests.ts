@@ -105,3 +105,33 @@ Xrm.Page.data.entity.addOnSave(( context ) =>
 alert( `The current form type is: ${Xrm.Page.ui.getFormType() }` );
 
 alert( `The current entity type is: ${Xrm.Page.data.entity.getEntityName() }` );
+
+/// Demonstrate Optionset Value as int in Turbo Forms
+
+var optionSetAttribute = Xrm.Page.getAttribute<Xrm.Page.OptionSetAttribute>( "statuscode" );
+const optionValue: number = optionSetAttribute.getOptions()[0].value;
+
+/// Demonstrate Control.setFocus();
+
+optionSetAttribute.controls.get(0).setFocus();
+
+/// Demonstrate setFormNotification
+
+var level: Xrm.Page.ui.FormNotificationLevel;
+level = "ERROR";
+Xrm.Page.ui.setFormNotification("Test", level, "uniqueId"); 
+
+/// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
+
+let requirementLevel: Xrm.Page.RequirementLevel = "none";
+let requirementLevelString = "none";
+let submitMode: Xrm.Page.SubmitMode = "always";
+let submitModeString = "always";
+
+let attribute = Xrm.Page.getAttribute<Xrm.Page.LookupAttribute>("customerid");
+attribute.setSubmitMode(submitMode);
+attribute.setSubmitMode(submitMode);
+attribute.setRequiredLevel(requirementLevel);
+attribute.setRequiredLevel(requirementLevelString);
+
+

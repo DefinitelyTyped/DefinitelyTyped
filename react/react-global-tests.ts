@@ -404,7 +404,13 @@ var measurements = React.addons.Perf.getLastMeasurements();
 React.addons.Perf.printInclusive(measurements);
 React.addons.Perf.printExclusive(measurements);
 React.addons.Perf.printWasted(measurements);
+React.addons.Perf.printOperations(measurements);
 React.addons.Perf.printDOM(measurements);
+React.addons.Perf.printInclusive();
+React.addons.Perf.printExclusive();
+React.addons.Perf.printWasted();
+React.addons.Perf.printOperations();
+React.addons.Perf.printDOM();
 
 //
 // PureRenderMixin addon
