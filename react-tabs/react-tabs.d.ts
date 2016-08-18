@@ -21,6 +21,8 @@ declare namespace ReactTabs {
 
     interface TabListProps {
         className?: string;
+        activeTabClassName?: string;
+        disabledTabClassName?: string;
     }
 
     interface TabList extends __React.ComponentClass<TabListProps> {}
