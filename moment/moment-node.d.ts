@@ -346,6 +346,8 @@ declare namespace moment {
         min(date: Moment | string | number | Date | any[]): Moment;
         min(date: string, format: string): Moment;
 
+        parsingFlags(): any;
+        
         get(unit: string): number;
         set(unit: string, value: number): Moment;
         set(objectLiteral: MomentInput): Moment;
