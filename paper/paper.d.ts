@@ -1,6 +1,6 @@
 // Type definitions for Paper.js v0.9.22
 // Project: http://paperjs.org/
-// Definitions by: Clark Stevenson  <http://github.com/clark-stevenson>
+// Definitions by: Clark Stevenson <http://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'paper' {
