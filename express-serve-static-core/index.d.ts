@@ -22,7 +22,7 @@ declare module "express-serve-static-core" {
     }
 
     interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
+        (req: Request, res: Response, next?: NextFunction): any;
     }
 
     interface ErrorRequestHandler {
