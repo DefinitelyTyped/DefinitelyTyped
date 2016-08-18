@@ -4,5 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "simple-assign" {
-  export defualt function(target: any, ...sources: any[]): any;
+  export default function(target: any, ...sources: any[]): any;
 }
