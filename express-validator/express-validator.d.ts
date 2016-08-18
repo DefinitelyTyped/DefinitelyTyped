@@ -122,7 +122,6 @@ declare namespace ExpressValidator {
 		/**
 		 * Check if length is 0
 		 */
-		//notNull(): Validator; // I don't see this in the documentation or code anywhere.
 		isNull(): Validator;
 		/**
 		 * Not just whitespace (input.trim().length !== 0)
@@ -130,14 +129,13 @@ declare namespace ExpressValidator {
 		notEmpty(): Validator;
 		equals(equals:any): Validator;
 		contains(str:string): Validator;
-		//notContains(str:string): Validator; // I don't see this in the documentation or code anywhere.
+
+		/**
+		 * Usage: matches(/[a-z]/i) or matches('[a-z]','i')
+		 */
 		matches(pattern:string, modifiers?:string): Validator;
 		matches(pattern: RegExp): Validator;
-		/**
-		 * Usage: regex(/[a-z]/i) or regex('[a-z]','i')
-		 */
-		//regex(pattern:string, modifiers:string): Validator; // I don't see this in the documentation or code anywhere.
-		//notRegex(pattern:string, modifiers:string): Validator; // I don't see this in the documentation or code anywhere.
+		
 		/**
 		 * max is optional
 		 */
@@ -200,7 +198,6 @@ declare namespace ExpressValidator {
 		ltrim(...chars:string[]): Sanitizer;
 		rtrim(...chars:string[]): Sanitizer;
 		stripLow(keep_new_lines?: boolean): Sanitizer;
-		//ifNull(replace:any): Sanitizer; // I don't see this in the documentation or code anywhere.
 		toFloat(): Sanitizer;
 		toInt(radix?: number): Sanitizer;
 		/**
