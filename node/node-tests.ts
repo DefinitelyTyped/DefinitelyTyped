@@ -183,6 +183,14 @@ function bufferTests() {
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
+    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
+    {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+        buf.swap16();
+        buf.swap32();
+        buf.swap64();
+    }
+
     // Class Method: Buffer.from(array)
     {
         const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
@@ -507,9 +515,12 @@ namespace tty_tests {
 
 var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
 });
+ds.bind();
+ds.bind(41234);
 var ai: dgram.AddressInfo = ds.address();
 ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
 });
+ds.send(new Buffer("hello"), 5000, "127.0.0.1");
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html

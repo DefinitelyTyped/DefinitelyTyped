@@ -5,7 +5,6 @@
 
 //Note/Disclaimer: This .d.ts was created against hapi v8.x but has been incrementally upgraded to 13.x.  Some newer features/changes may be missing.  YMMV.
 
-
 /// <reference types="node" />
 
 import http = require("http");
@@ -1605,6 +1604,9 @@ export class ServerConnection extends Events.EventEmitter {
     info: IServerConnectionInfo;
 }
 
+export type RequestExtPoints = "onRequest" | "onPreResponse" | "onPreAuth" | "onPostAuth" | "onPreHandler" | "onPostHandler" | "onPreResponse";
+export type ServerExtPoints = "onPreStart" | "onPostStart" | "onPreStop" | "onPostStop";
+
 /** Server http://hapijs.com/api#server
  rver object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080).
  Server events
@@ -2038,9 +2040,10 @@ export class Server extends Events.EventEmitter {
 	 server.route({ method: 'GET', path: '/test', handler: handler });
 	 server.start();
 	 // All requests will get routed to '/test'*/
-    ext(event: string, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-    ext<T>(event: string, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-
+     ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+     ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+     ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+ 
 	/** server.handler(name, method)
 	 Registers a new handler type to be used in routes where:
 	 name - string name for the handler being registered. Cannot override the built-in handler types (directory, file, proxy, and view) or any previously registered type.
