@@ -166,7 +166,7 @@ function Argv$array() {
 function Argv$nargs() {
 	var argv = yargs
 		.nargs('foo', 12)
-		.nargs({'bing': 3, 'bang': 2, 'buzz': 4})
+		.nargs({ 'bing': 3, 'bang': 2, 'buzz': 4 })
 }
 
 function Argv$choices() {
@@ -191,6 +191,17 @@ function command() {
 			.help('help')
 			.argv;
 		})
+		.command("build", "arghh, build it mate", {
+			tag: {
+				default: true,
+				demand: true,
+				description: "Tag the build, mate!"
+			},
+			publish: {
+				default: false,
+				description:"Should i publish?"
+			}
+		})
 		.help('help')
 		.argv;
 }
@@ -212,7 +223,7 @@ function completion_sync() {
 function completion_async() {
 	var argv = yargs
 		.completion('completion', (current, argv, done) => {
-			setTimeout(function() {
+			setTimeout(function () {
 				done([
 					'apple',
 					'banana'
@@ -223,9 +234,10 @@ function completion_async() {
 }
 
 function Argv$help() {
-	var yargs1 = yargs
-		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
-	var s: string = yargs1.help();
+	var argv = yargs
+		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
+		.help()
+		.argv;
 }
 
 function Argv$showHelpOnFail() {
@@ -255,7 +267,7 @@ function Argv$version() {
 		.version('1.0.0', '--version', 'description');
 
 	var argv4 = yargs
-		.version( function() { return '1.0.0'; }, '--version', 'description');
+		.version(function () { return '1.0.0'; }, '--version', 'description');
 }
 
 function Argv$locale() {
@@ -296,7 +308,7 @@ function Argv$reset() {
 			.argv
 
 		console.log('hello!');
-	} else if (command === 'world'){
+	} else if (command === 'world') {
 		ya.reset()
 			.usage('$0 world')
 			.help('h')
@@ -307,4 +319,25 @@ function Argv$reset() {
 	} else {
 		ya.showHelp();
 	}
+}
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDir() {
+	var ya = yargs
+		.commandDir('.')
+		.argv
+}
+
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDirWithOptions() {
+	var ya = yargs
+		.commandDir('.', {
+			recurse: false,
+			extensions: ['js'],
+			visit: (commandObject: any, pathToFile: string, filename: string) => { },
+			include: /.*\.js$/,
+			exclude: /.*\.spec.js$/,
+		})
+		.argv
 }

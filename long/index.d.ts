@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Denis Cappellin <http://github.com/cappellin>
 
+export = Long;
+export as namespace Long;
+
+declare namespace Long {}
 declare class Long
 {
     /**
@@ -346,8 +350,3 @@ declare class Long
      */
     xor( other: Long | number | string ): Long;
 }
-
-declare namespace Long {}
-export = Long;
-export as namespace Long;
- 

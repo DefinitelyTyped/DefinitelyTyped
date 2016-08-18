@@ -101,7 +101,7 @@ declare namespace webpack {
         /** Include comments with information about the modules. */
         pathinfo?: boolean;
         /** If set, export the bundle as library. output.library is the name. */
-        library?: boolean;
+        library?: string;
         /**
          * Which format to export the library:
          * <ul>
@@ -326,7 +326,9 @@ declare namespace webpack {
          * Assign the module and chunk ids by occurrence count. Ids that are used often get lower (shorter) ids.
          * This make ids predictable, reduces to total file size and is recommended.
          */
+        // TODO: This is a typo, and will be removed in Webpack 2.
         OccurenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
+        OccurrenceOrderPlugin: optimize.OccurenceOrderPluginStatic;
         /**
          * Minimize all JavaScript output of chunks. Loaders are switched into minimizing mode.
          * You can pass an object containing UglifyJs options.

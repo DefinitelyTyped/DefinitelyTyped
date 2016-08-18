@@ -3,6 +3,7 @@
 // Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="express" />
 
 
 // Add RequestValidation Interface on to Express's Request Interface.
@@ -179,12 +180,12 @@ declare namespace ExpressValidator {
 		/**
 		 * Decode HTML entities
 		 */
-		
+
 		/**
      		* Convert the input string to a date, or null if the input is not a date.
      		*/
     		toDate(): Sanitizer;
-    
+
 		entityDecode(): Sanitizer;
 		entityEncode(): Sanitizer;
 		/**

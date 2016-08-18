@@ -582,6 +582,7 @@ interface Set<T> {
     entries(): IterableIteratorShim<[T, T]>;
     keys(): IterableIteratorShim<T>;
     values(): IterableIteratorShim<T>;
+    '_es6-shim iterator_'(): IterableIteratorShim<T>;
 }
 
 interface SetConstructor {

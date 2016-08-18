@@ -35,6 +35,7 @@ declare namespace Nunjucks {
 
     function configure(options: ConfigureOptions): Environment;
     function configure(path: string, options?: ConfigureOptions): Environment;
+    function configure(path: string[], options?: ConfigureOptions): Environment;
 
     interface ConfigureOptions {
         autoescape?: boolean;
@@ -63,6 +64,7 @@ declare namespace Nunjucks {
             autoescape: boolean;
         };
 
+        constructor();
         constructor(loader: ILoader, opts?: ConfigureOptions);
         constructor(loaders: ILoader[], opts?: ConfigureOptions);
 
@@ -130,6 +132,11 @@ declare namespace Nunjucks {
         init(searchPaths: string[], opts: any): void;
         getSource(name: string): LoaderSource;
         constructor(searchPaths?: string | string[], opts?: FileSystemLoaderOptions);
+    }
+
+    export class WebLoader implements ILoader {
+        constructor(baseUrl: string, opts?: any);
+        getSource(name: string): LoaderSource;
     }
 
     class PrecompiledLoader extends Loader implements ILoader {

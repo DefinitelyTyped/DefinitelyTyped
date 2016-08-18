@@ -500,3 +500,5 @@ s = s.unescapeHTML();
 // #############################################################################################
 
 promiseOfVoid = delay(i);
+
+console.log('core-js version number:', core.version);

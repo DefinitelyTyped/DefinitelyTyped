@@ -5,6 +5,7 @@
 
 /// <reference types="esprima" />
 
+import * as ESTree from 'estree';
 
 /**
 * Evaluates the given ESTree.Expression, with the given named variables in place.

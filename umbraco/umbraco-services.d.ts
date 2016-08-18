@@ -494,6 +494,10 @@ declare namespace umbraco.services {
         width?: number;
         /*strips the modal from any animation and wrappers, used when you want to inject a dialog into an existing container*/
         inline?: boolean;
+        /** 
+         * It will set this value as a property on the dialog controller's scope as $scope.dialogData
+         */
+	dialogData?: any;
     }
 
     /**

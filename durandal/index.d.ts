@@ -693,6 +693,7 @@ declare module 'plugins/dialog' {
     }
 
     interface Dialog {
+        host: HTMLElement;
         owner: any;
         context: DialogContext;
         activator: DurandalActivator<any>;

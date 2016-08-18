@@ -33,6 +33,17 @@ export interface ServerInfo {
     versions: number[];
 }
 
+export interface RetryStrategyOptions {
+    error: Error;
+    total_retry_time: number;
+    times_connected: number;
+    attempt: number;
+}
+
+export interface RetryStrategy {
+    (options: RetryStrategyOptions): number | Error;
+}
+
 export interface ClientOpts {
     parser?: string;
     return_buffers?: boolean;
@@ -49,6 +60,7 @@ export interface ClientOpts {
     family?: string;
     command_queue_high_water?: number;
     command_queue_low_water?: number;
+    retry_strategy?: RetryStrategy;
 }
 
 export interface RedisClient extends NodeJS.EventEmitter {
@@ -363,6 +375,8 @@ export interface RedisClient extends NodeJS.EventEmitter {
     script(key: string, callback?: ResCallbackT<any>): boolean;
     quit(args: any[], callback?: ResCallbackT<any>): boolean;
     quit(...args: any[]): boolean;
+    sscan(...args: any[]): boolean;
+    sscan(args: any[], callback?: ResCallbackT<any>): boolean;
     scan(...args: any[]): boolean;
     scan(args: any[], callback?: ResCallbackT<any>): boolean;
     hscan(...args: any[]): boolean;

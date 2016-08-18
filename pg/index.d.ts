@@ -40,13 +40,13 @@ export interface QueryConfig {
 }
 
 export interface QueryResult {
+        command: string;
+        rowCount: number;
+        oid: number;
     rows: any[];
 }
 
 export interface ResultBuilder extends QueryResult {
-    command: string;
-    rowCount: number;
-    oid: number;
     addRow(row: any): void;
 }
 
