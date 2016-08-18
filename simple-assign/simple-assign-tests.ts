@@ -1,6 +1,6 @@
 
 /// <reference path="simple-assign.d.ts" />
-import * as assign from "simple-assign";
+import assign from "simple-assign";
 
 function assign1() {
   return assign({hello: "world"});
