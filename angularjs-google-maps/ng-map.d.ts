@@ -1,7 +1,7 @@
 ﻿// Type definitions for angularjs-google-maps v1.17.3
 // Project: https://github.com/allenhwkim/angularjs-google-maps
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../googlemaps/google.maps.d.ts" />
