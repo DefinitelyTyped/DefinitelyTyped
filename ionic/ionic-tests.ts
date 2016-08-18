@@ -9,6 +9,8 @@ testIonic.config(['$ionicConfigProvider', ($ionicConfigProvider: ionic.utility.I
     $ionicConfigProvider.views.maxCache(10);
     var forwardCache: boolean = $ionicConfigProvider.views.forwardCache();
     $ionicConfigProvider.views.forwardCache(true);
+    var swipeBackEnabled: boolean = $ionicConfigProvider.views.swipeBackEnabled();
+    $ionicConfigProvider.views.swipeBackEnabled(true);
 
     var jsScrolling: boolean = $ionicConfigProvider.scrolling.jsScrolling();
     $ionicConfigProvider.scrolling.jsScrolling(true);
@@ -387,6 +389,7 @@ class IonicTestController {
         ready = ionic.Platform.ready(callbackWithReturn);
         var setGrade: void = ionic.Platform.setGrade('iOS');
         var deviceInformation: string = ionic.Platform.device();
+        var isBrowser: boolean = ionic.Platform.is('browser');
         var isWebView: boolean = ionic.Platform.isWebView();
         var isIPad: boolean = ionic.Platform.isIPad();
         var isIOS: boolean = ionic.Platform.isIOS();

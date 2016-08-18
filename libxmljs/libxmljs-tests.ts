@@ -1,4 +1,4 @@
-/// <reference path="..\node\node.d.ts" />
+/// <reference path="../node/node.d.ts" />
 /// <reference path="libxmljs.d.ts" />
 
 var libxmljs = require("libxmljs");

@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -15,8 +16,12 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+import * as stream from "stream";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -53,6 +58,8 @@ namespace events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -82,6 +89,12 @@ namespace events_tests {
         result = emitter.emit(event, any);
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
+    }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
     }
 }
 
@@ -128,6 +141,29 @@ fs.readFile('testfile', (err, data) => {
     }
 });
 
+fs.mkdtemp('/tmp/foo-', (err, folder) => {
+    console.log(folder);
+    // Prints: /tmp/foo-itXde2
+});
+
+var tempDir: string;
+tempDir = fs.mkdtempSync('/tmp/foo-');
+
+fs.watch('/tmp/foo-', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', {
+  recursive: true,
+  persistent: true,
+  encoding: 'utf8'
+}, (event, filename) => {
+  console.log(event, filename);
+});
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -138,6 +174,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
@@ -145,6 +182,43 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
+    {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+        buf.swap16();
+        buf.swap32();
+        buf.swap64();
+    }
+
+    // Class Method: Buffer.from(array)
+    {
+        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+    }
+
+    // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
+    {
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+
+        let buf: Buffer;
+        buf = Buffer.from(arr.buffer);
+        buf = Buffer.from(arr.buffer, 1);
+        buf = Buffer.from(arr.buffer, 0, 1);
+    }
+
+    // Class Method: Buffer.from(buffer)
+    {
+        const buf1: Buffer = Buffer.from('buffer');
+        const buf2: Buffer = Buffer.from(buf1);
+    }
+
+    // Class Method: Buffer.from(str[, encoding])
+    {
+        const buf1: Buffer = Buffer.from('this is a tést');
+        const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
@@ -180,6 +254,12 @@ function bufferTests() {
         b.writeUInt8(0, 6);
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
+    }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -217,6 +297,70 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();
+}
+
+// Simplified constructors
+function simplified_stream_ctor_test() {
+    new stream.Readable({
+        read: function (size) {
+            size.toFixed();
+        }
+    });
+
+    new stream.Writable({
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    });
+
+    new stream.Duplex({
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        },
+        readableObjectMode: true,
+        writableObjectMode: true
+    });
+
+    new stream.Transform({
+        transform: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb();
+        },
+        flush: function (cb) {
+            cb()
+        },
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    })
 }
 
 ////////////////////////////////////////////////////
@@ -321,6 +465,31 @@ namespace http_tests {
 	http.request({
 		agent: undefined
 	});
+}
+
+////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
 }
 
 ////////////////////////////////////////////////////
@@ -629,12 +798,39 @@ namespace readline_tests {
     }
 }
 
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder1 = new StringDecoder();
+    const decoder2 = new StringDecoder('utf8');
+    const part1: string = decoder1.write(new Buffer('test'));
+    const end1: string = decoder1.end();
+    const part2: string = decoder2.write(new Buffer('test'));
+    const end2: string = decoder1.end(new Buffer('test'));
+}
+
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+cluster.fork();
+Object.keys(cluster.workers).forEach(key => {
+    const worker = cluster.workers[key];
+    if (worker.isDead()) {
+        console.log('worker %d is dead', worker.process.pid);
+    }
+});
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
@@ -728,5 +924,19 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
     }
 }

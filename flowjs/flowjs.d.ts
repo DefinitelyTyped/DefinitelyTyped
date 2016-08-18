@@ -76,10 +76,10 @@ declare namespace flowjs {
         retry(): void;
         bootstrap(): void;
         isUploading(): boolean;
-        isComplete: boolean;
-        sizeUploaded: number;
-        timeRemaining: number;
-        getExtension: string;
-        getType: string;
+        isComplete(): boolean;
+        sizeUploaded(): number;
+        timeRemaining(): number;
+        getExtension(): string;
+        getType(): string;
     }
 }

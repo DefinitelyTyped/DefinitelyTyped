@@ -10,7 +10,7 @@ interface HighChartsNGConfig {
     //The below properties are watched separately for changes.
 
     //Series object (optional) - a list of series using normal highcharts series options.
-    series?: number[]|[number, number][]| HighchartsDataPoint[] | {data:number[];}[];
+    series?: HighchartsIndividualSeriesOptions[];
     //Title configuration (optional)
     title?: {
         text?: string;

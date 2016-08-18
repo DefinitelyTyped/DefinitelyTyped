@@ -6,7 +6,22 @@
 /// <reference path="react.d.ts" />
 
 declare namespace __React {
-    interface SyntheticEventData {
+    interface OptionalEventProperties {
+        bubbles?: boolean;
+        cancelable?: boolean;
+        currentTarget?: EventTarget;
+        defaultPrevented?: boolean;
+        eventPhase?: number;
+        isTrusted?: boolean;
+        nativeEvent?: Event;
+        preventDefault?(): void;
+        stopPropagation?(): void;
+        target?: EventTarget;
+        timeStamp?: Date;
+        type?: string;
+    }
+
+    interface SyntheticEventData extends OptionalEventProperties {
         altKey?: boolean;
         button?: number;
         buttons?: number;
@@ -41,8 +56,7 @@ declare namespace __React {
     }
 
     interface EventSimulator {
-        (element: Element, eventData?: SyntheticEventData): void;
-        (component: Component<any, any>, eventData?: SyntheticEventData): void;
+        (element: Element | Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
     interface MockedComponentClass {
@@ -62,6 +76,7 @@ declare namespace __React {
                 export var blur: EventSimulator;
                 export var change: EventSimulator;
                 export var click: EventSimulator;
+                export var copy: EventSimulator;
                 export var cut: EventSimulator;
                 export var doubleClick: EventSimulator;
                 export var drag: EventSimulator;
