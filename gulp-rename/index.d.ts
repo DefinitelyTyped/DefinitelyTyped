@@ -5,6 +5,12 @@
 
 /// <reference types="node"/>
 
+declare namespace rename {
+    interface ParsedPath {
+        dirname?: string;
+        basename?: string;
+        extname?: string;
+    }
 
 interface ParsedPath {
     dirname?: string;
