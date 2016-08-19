@@ -63,23 +63,23 @@ declare namespace google.earth {
     /**
      * Specifies what to sample when performing a hit test.
      */
-    type GEHitTestModeEnum = number;
+    type GEHitTestModeEnum = any;
 
     /**
      * Specifies the size of the navigation control.
      */
-    type GENavigationControlEnum  = number;
+    type GENavigationControlEnum = any;
 
     /**
      * Specifies the state of viewer options, including sunlight,
      * Street View, and historical imagery.
      */
-    type GEViewerOptionsValueEnum = number;
+    type GEViewerOptionsValueEnum = any;
 
     /*
      * Specifies the viewer option types.
      */
-    type GEViewerOptionsTypeEnum  = number;
+    type GEViewerOptionsTypeEnum = any;
 
   /**
    * Whether or not the Google Earth Browser Plug-in and API are supported on the current browser and operating system.
