@@ -1,6 +1,6 @@
 // Type definitions for scriptjs
 // Project: https://github.com/ded/script.js
-// Definitions by: Steve Lam <http://ssttevee.com>
+// Definitions by: Steve Lam <https://github.com/ssttevee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface $script {
@@ -12,6 +12,7 @@ interface $script {
   ready(deps:string | string[], ready:() => void, req?:(missing:string[]) => void): $script;
 }
 
-declare var $script: $script;
-
-export = $script;
+declare module 'scriptjs'{ 
+    var $script: $script; 
+    export = $script; 
+}
