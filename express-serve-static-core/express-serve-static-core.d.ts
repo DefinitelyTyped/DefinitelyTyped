@@ -117,7 +117,7 @@ declare module "express-serve-static-core" {
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
