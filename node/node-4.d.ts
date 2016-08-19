@@ -632,6 +632,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
