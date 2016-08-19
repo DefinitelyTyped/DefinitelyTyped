@@ -1,6 +1,3 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./aphrodite.d.ts" />
-
 import * as React from "react";
 import { StyleSheet, css, StyleSheetServer, StyleSheetTestUtils } from "aphrodite";
 
