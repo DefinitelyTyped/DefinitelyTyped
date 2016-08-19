@@ -1,9 +1,9 @@
 // Type definitions for D3JS d3-transition module 1.0.0
 // Project: https://github.com/d3/d3-transition/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ArrayLike, BaseType, Selection } from 'd3-selection';
+import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
 
 /**
  * Extend interface 'Selection' by declaration merging with 'd3-selection'
@@ -26,56 +26,56 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     // Sub-selection -------------------------
 
     select<DescElement extends BaseType>(selector: string): Transition<DescElement, Datum, PElement, PDatum>;
-    select<DescElement extends BaseType>(selector: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => DescElement): Transition<DescElement, Datum, PElement, PDatum>;
+    select<DescElement extends BaseType>(selector: ValueFn<GElement, Datum, DescElement>): Transition<DescElement, Datum, PElement, PDatum>;
 
     // NB: while the empty selections (null or undefined selector) are defined on the underlying object, they should not be exposed in the type definition API
     // as they are meaningless on transitions.)
     // selectAll(): Transition<undefined, undefined, GElement, Datum>; // _groups are set to empty array, first generic type is set to undefined by convention
     // selectAll(selector: null): Transition<undefined, undefined, GElement, Datum>; // _groups are set to empty array, first generic type is set to undefined by convention
     selectAll<DescElement extends BaseType, OldDatum>(selector: string): Transition<DescElement, OldDatum, GElement, Datum>;
-    selectAll<DescElement extends BaseType, OldDatum>(selector: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => (Array<DescElement> | ArrayLike<DescElement>)): Transition<DescElement, OldDatum, GElement, Datum>;
+    selectAll<DescElement extends BaseType, OldDatum>(selector: ValueFn<GElement, Datum, Array<DescElement> | ArrayLike<DescElement>>): Transition<DescElement, OldDatum, GElement, Datum>;
 
     selection(): Selection<GElement, Datum, PElement, PDatum>;
     transition(): Transition<GElement, Datum, PElement, PDatum>;
 
     // Modifying -------------------------------
 
-    attr(name: string, value: null): Transition<GElement, Datum, PElement, PDatum>;
-    attr(name: string, value: string | number | boolean): Transition<GElement, Datum, PElement, PDatum>;
-    attr(name: string, value: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => (string | number | boolean)): Transition<GElement, Datum, PElement, PDatum>;
-    attrTween(name: string, tweenFn: (this: GElement, datum?: Datum, i?: number, group?: GElement[] | ArrayLike<GElement>) => ((t: number) => (string | number | boolean))): Transition<GElement, Datum, PElement, PDatum>;
+    attr(name: string, value: null): this;
+    attr(name: string, value: string | number | boolean): this;
+    attr(name: string, value: ValueFn<GElement, Datum, string | number | boolean>): this;
+    attrTween(name: string, tweenFn: ValueFn<GElement, Datum, (t: number) => (string | number | boolean)>): this;
 
-    style(name: string, value: null): Transition<GElement, Datum, PElement, PDatum>;
-    style(name: string, value: string | number | boolean, priority?: null | 'important'): Transition<GElement, Datum, PElement, PDatum>;
-    style(name: string, value: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => (string | number | boolean), priority?: null | 'important'): Transition<GElement, Datum, PElement, PDatum>;
-    styleTween(name: string, tweenFn: (this: GElement, datum?: Datum, i?: number, group?: GElement[] | ArrayLike<GElement>) => ((t: number) => (string | number | boolean)), priority?: null | 'important'): Transition<GElement, Datum, PElement, PDatum>;
+    style(name: string, value: null): this;
+    style(name: string, value: string | number | boolean, priority?: null | 'important'): this;
+    style(name: string, value: ValueFn<GElement, Datum, string | number | boolean>, priority?: null | 'important'): this;
+    styleTween(name: string, tweenFn: ValueFn<GElement, Datum, (t: number) => (string | number | boolean)>, priority?: null | 'important'): this;
 
-    text(value: null): Transition<GElement, Datum, PElement, PDatum>;
-    text(value: string | number | boolean): Transition<GElement, Datum, PElement, PDatum>;
-    text(value: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => (string | number | boolean)): Transition<GElement, Datum, PElement, PDatum>;
+    text(value: null): this;
+    text(value: string | number | boolean): this;
+    text(value: ValueFn<GElement, Datum, string | number | boolean>): this;
 
-    tween(name: string): (this: GElement, datum?: Datum, i?: number, group?: GElement[] | ArrayLike<GElement>) => ((t: number) => void);
-    tween(name: string, tweenFn: null): Transition<GElement, Datum, PElement, PDatum>;
-    tween(name: string, tweenFn: (this: GElement, datum?: Datum, i?: number, group?: GElement[] | ArrayLike<GElement>) => ((t: number) => void)): Transition<GElement, Datum, PElement, PDatum>;
+    tween(name: string): ValueFn<GElement, Datum, (t: number) => void>;
+    tween(name: string, tweenFn: null): this;
+    tween(name: string, tweenFn: ValueFn<GElement, Datum, (t: number) => void>): this;
 
-    remove(): Transition<GElement, Datum, PElement, PDatum>;
+    remove(): this;
 
     merge(other: Transition<GElement, Datum, PElement, PDatum>): Transition<GElement, Datum, PElement, PDatum>;
 
-    filter(filter: string): Transition<GElement, Datum, PElement, PDatum>;
-    filter(filter: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => boolean): Transition<GElement, Datum, PElement, PDatum>;
+    filter(filter: string): this;
+    filter(filter: ValueFn<GElement, Datum, boolean>): this;
 
     // Event Handling -------------------
 
-    on(type: string): (this: GElement, datum: Datum, index: number, group: Array<GElement> | ArrayLike<GElement>) => any;
-    on(type: string, listener: null): Transition<GElement, Datum, PElement, PDatum>;
-    on(type: string, listener: (this: GElement, datum: Datum, index: number, group: Array<GElement> | ArrayLike<GElement>) => any): Transition<GElement, Datum, PElement, PDatum>;
+    on(type: string): ValueFn<GElement, Datum, void>;
+    on(type: string, listener: null): this;
+    on(type: string, listener: ValueFn<GElement, Datum, void>): this;
 
     // Control Flow ----------------------
 
-    each(valueFn: (this: GElement, datum?: Datum, index?: number, group?: Array<GElement> | ArrayLike<GElement>) => void): Transition<GElement, Datum, PElement, PDatum>;
+    each(valueFn: ValueFn<GElement, Datum, void>): this;
 
-    call(func: (transition: Transition<GElement, Datum, PElement, PDatum>, ...args: any[]) => any, ...args: any[]): Transition<GElement, Datum, PElement, PDatum>;
+    call(func: (transition: Transition<GElement, Datum, PElement, PDatum>, ...args: any[]) => any, ...args: any[]): this;
 
     empty(): boolean;
 
@@ -87,13 +87,13 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
     // Transition Configuration ----------------------
 
     delay(): number;
-    delay(milliseconds: number): Transition<GElement, Datum, PElement, PDatum>;
+    delay(milliseconds: number): this;
 
     duration(): number;
-    duration(milliseconds: number): Transition<GElement, Datum, PElement, PDatum>;
+    duration(milliseconds: number): this;
 
     ease(): (normalizedTime: number) => number;
-    ease(easingFn: (normalizedTime: number) => number): Transition<GElement, Datum, PElement, PDatum>;
+    ease(easingFn: (normalizedTime: number) => number): this;
 }
 
 
