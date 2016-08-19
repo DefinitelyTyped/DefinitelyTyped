@@ -346,7 +346,7 @@ declare namespace moment {
         min(date: Moment | string | number | Date | any[]): Moment;
         min(date: string, format: string): Moment;
 
-        parsingFlags(): any;
+        parsingFlags(): MomentParsingFlagsObject;
         
         get(unit: string): number;
         set(unit: string, value: number): Moment;
@@ -555,6 +555,17 @@ declare namespace moment {
         llll?: string;
         lt?: string;
         lts?: string;
+    }
+
+    interface MomentParsingFlagsObject {
+        overflow: number;
+        invalidMonth: string;
+        empty: boolean;
+        nullInput: boolean;
+        invalidFormat: boolean;
+        userInvalidated: boolean;
+        meridiem: string;
+        parsedDateParts: number[];
     }
 
     interface MomentRelativeTime {
