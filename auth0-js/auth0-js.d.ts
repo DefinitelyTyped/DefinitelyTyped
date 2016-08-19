@@ -127,6 +127,6 @@ interface Auth0DelegationToken {
 
 declare var Auth0: Auth0Static;
 
-declare module "auth0" {
+declare module "auth0-js" {
     export = Auth0
 }
