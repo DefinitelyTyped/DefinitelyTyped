@@ -1,5 +1,5 @@
 
-import json = require('JSONStream');
+import json = require('jsonstream');
 
 var read: NodeJS.ReadableStream;
 var write: NodeJS.WritableStream;
