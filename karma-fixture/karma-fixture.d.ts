@@ -7,12 +7,12 @@ declare module fixture {
   var el: HTMLElement;
   var json: any[];
 
-  function load(...files: string[]): HTMLElement[]|Object|any[];
-  function load(file1: string, append?: boolean): HTMLElement[]|Object|any[];
-  function load(file1: string, file2: string, append?: boolean): HTMLElement[]|Object|any[];
-  function load(file1: string, file2: string, file3: string, append?: boolean): HTMLElement[]|Object|any[];
-  function load(file1: string, file2: string, file3: string, file4: string, append?: boolean): HTMLElement[]|Object|any[];
-  function load(file1: string, file2: string, file3: string, file4: string, file5: string, append?: boolean): HTMLElement[]|Object|any[];
+  function load(...files: string[]): any;
+  function load(file1: string, append?: boolean): any;
+  function load(file1: string, file2: string, append?: boolean): any;
+  function load(file1: string, file2: string, file3: string, append?: boolean): any;
+  function load(file1: string, file2: string, file3: string, file4: string, append?: boolean): any;
+  function load(file1: string, file2: string, file3: string, file4: string, file5: string, append?: boolean): any
 
   function set(...htmlStrs: string[]): HTMLElement|HTMLElement[];
   function set(htmlStr1: string, append?: boolean): HTMLElement|HTMLElement[];
