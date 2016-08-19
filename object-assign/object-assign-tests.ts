@@ -38,7 +38,7 @@ interface Result4 extends Result4, Source3 {
 }
 
 interface Source5 {
-  source2: string;
+  source5: string;
 }
 
 interface Result5 extends Result4, Source5 {
