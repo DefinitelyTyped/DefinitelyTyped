@@ -11,7 +11,7 @@ declare module "ngMap" {
     export = _;
 }
 
-declare module ngMap {
+declare namespace angular.map {
     interface IGetMapOptions {
         id?: string;
         timeout?: number;
