@@ -33,7 +33,7 @@ interface Source4 {
   source4: string;
 }
 
-interface Result4 extends Result4, Source3 {
+interface Result4 extends Result3, Source4 {
   
 }
 
