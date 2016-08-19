@@ -348,6 +348,5 @@ declare class Long
 }
 
 declare module 'long' {
-    namespace Long {}
     export = Long;
 }

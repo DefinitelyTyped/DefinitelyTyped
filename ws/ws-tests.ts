@@ -1,6 +1,8 @@
 /// <reference path="ws.d.ts" />
 
-import WebSocket = require('ws');
+import * as WebSocket from 'ws';
+import * as http from'http';
+
 var WebSocketServer = WebSocket.Server;
 
 {
@@ -29,7 +31,7 @@ var WebSocketServer = WebSocket.Server;
 {
     var wss = new WebSocketServer({port: 8080});
 
-    function broadcast(data: any) {
+    const broadcast = function(data: any) {
         for(var i in wss.clients)
             wss.clients[i].send(data);
     };
@@ -50,4 +52,25 @@ var WebSocketServer = WebSocket.Server;
             wsc.send(Date.now().toString(), {mask: true});
         }, 500);
     });
+}
+
+{
+    const verifyClient = function(
+      info: {
+        origin: string
+        secure: boolean
+        req: http.ServerRequest
+      }
+      , callback: (res: boolean) => void
+    ): void {
+        callback(true)
+    }
+    
+    var wsv = new WebSocketServer({
+        verifyClient
+    })
+    
+    wsv.on('connection', function connection(ws) {
+        console.log(ws.protocol)
+    })
 }

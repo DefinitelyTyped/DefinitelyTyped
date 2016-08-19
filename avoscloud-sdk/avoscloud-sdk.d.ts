@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "avoscloud-sdk" {
-  namespace AV{
+  namespace AV {
 
     var applicationId: string;
     var applicationKey: string;
@@ -301,6 +301,7 @@ declare module "avoscloud-sdk" {
         fetch<T>(options?: Object.FetchOptions): Promise<T>;
         get(attr: string): any;
         getACL(): ACL;
+        getObjectId(): string;
         has(attr: string): boolean;
         hasChanged(attr: string): boolean;
         increment(attr: string, amount?: number): any;
@@ -529,6 +530,7 @@ declare module "avoscloud-sdk" {
 
         constructor(objectClass: any);
 
+        static and(...var_args: Query[]): Query;
         static or(...var_args: Query[]): Query;
 
         addAscending(key: string): Query;
@@ -628,7 +630,7 @@ declare module "avoscloud-sdk" {
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
         fetch<T>(options?: SuccessFailureOptions): Promise<T>;
-        save<T>(arg1: any, arg2: any, arg3: any): Promise<T>;
+        save<T>(arg1?: any, arg2?: any, arg3?: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
@@ -796,4 +798,9 @@ declare module "avoscloud-sdk" {
   }
 
   export = AV;
+}
+
+declare module 'leanengine' {
+    import alias = require('avoscloud-sdk');
+    export = alias;
 }

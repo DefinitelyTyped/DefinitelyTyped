@@ -188,7 +188,7 @@ declare namespace lf {
       local: string
       ref: string
       action: lf.ConstraintAction
-      timing: lf.ConstraintAction
+      timing: lf.ConstraintTiming
     }
 
     export interface TableBuilder {

@@ -4,15 +4,33 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'credential' {
+    interface defaultOptions {
+        keyLength: number;
+        work: number;
+        hashMethod: string;
+    }
 
-	type HashCallback = (err: Error, hash: string) => void;
-	type VerifyCallback = (err: Error, isValid: boolean) => void;
+    interface hashObject {
+        hash: string;
+        salt: string;
+        keyLength: number;
+        hashMethod: string;
+        iterations: number;
+    }
 
-	namespace credential {
-		function hash(password: string, callback: HashCallback): void;
-		function verify(hash: string, password: string, callback: VerifyCallback): void;
-	}
+    type HashCallback = (err: Error, hash: hashObject) => void;
+    type VerifyCallback = (err: Error, isValid: boolean) => void;
 
-	export = credential;
+    function credential(defaultOptions?: defaultOptions): {
+        hash(password: string, callback: HashCallback): void;
+        hash(password: string): Promise<hashObject>;
+        // iterations(work: number, base): number;
+        verify(hash: hashObject | string, password: string, callback: VerifyCallback): void;
+        verify(hash: hashObject | string, password: string): Promise<boolean>;
+        expired(hash: string, days: number): boolean;
+    }
 
+    namespace credential { }
+
+    export = credential;
 }

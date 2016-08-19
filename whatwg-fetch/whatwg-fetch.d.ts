@@ -41,7 +41,12 @@ type RequestCache =
 	"default" | "no-store" | "reload" | "no-cache" |
 	"force-cache" | "only-if-cached";
 
+declare interface HeadersMap {
+	[index: string]: string;
+}
+
 declare class Headers {
+	constructor(headers?:Headers|HeadersMap)
 	append(name: string, value: string): void;
 	delete(name: string):void;
 	get(name: string): string;
@@ -60,6 +65,7 @@ declare class Body {
 	json<T>(): Promise<T>;
 	text(): Promise<string>;
 }
+
 declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
 	static error(): Response;

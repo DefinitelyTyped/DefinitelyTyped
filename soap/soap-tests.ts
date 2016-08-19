@@ -11,7 +11,10 @@ const wsdlOptions = { name: 'value' };
 soap.createClient(url, wsdlOptions, function(err: any, client: soap.Client) {
     let securityOptions = { 'hasTimeStamp': false };
     client.setSecurity(new soap.WSSecurity('user', 'password', securityOptions));
+    let defaults = {'rejectUnauthorized': false};
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca',defaults));
     client.addSoapHeader({});
+    client.setEndpoint('http://localhost');
     client['create']({ name: 'value' }, function(err, result) {
         // result is an object
     });

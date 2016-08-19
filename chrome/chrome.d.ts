@@ -7219,7 +7219,7 @@ declare namespace chrome.webRequest {
 		 * Optional.
 		 * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
 		 */
-		formData?: Object;
+		formData?: { [key: string]: string[] };
 		/**
 		 * Optional.
 		 * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
@@ -7233,6 +7233,7 @@ declare namespace chrome.webRequest {
 	}
 
 	interface ResourceRequest {
+		url: string;
 		/** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
         requestId: string;
 		/** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
@@ -7251,7 +7252,6 @@ declare namespace chrome.webRequest {
     }
 
 	interface WebRequestDetails extends ResourceRequest {
-		url: string;
 		/** Standard HTTP method. */
 		method: string;
     }
@@ -7304,7 +7304,7 @@ declare namespace chrome.webRequest {
 
 	interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
 		/** The authentication scheme, e.g. Basic or Digest. */
-		schema: string;
+		scheme: string;
 		/** The authentication realm provided by the server, if there is one. */
 		realm?: string;
 		/** The server requesting authentication. */
@@ -7336,7 +7336,9 @@ declare namespace chrome.webRequest {
 
 	interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
 
-	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {}
+	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {
+		addListener(callback: (details: WebAuthenticationChallengeDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
 
 	interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 

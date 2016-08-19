@@ -28,9 +28,17 @@ declare module 'passport-google-oauth' {
         sessionKey?: string;
     }
 
+    interface VerifyOptions {
+        message: string;
+    }
+
+    interface VerifyFunction {
+        (error: any, user?: any, msg?: VerifyOptions): void;
+    }
+
     class OAuthStrategy implements passport.Strategy {
         constructor(options: IOAuthStrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: VerifyFunction) => void);
         name: string;
         authenticate: (req: express.Request, options?: Object) => void;
     }

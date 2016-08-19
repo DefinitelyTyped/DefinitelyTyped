@@ -1,11 +1,14 @@
-// Type definitions for Leaflet.js 0.7.3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Vladimir Zotov <https://github.com/rgripper>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path='../geojson/geojson.d.ts' />
+
 declare namespace L {
     type LatLngExpression = LatLng | number[] | ({ lat: number; lng: number })
     type LatLngBoundsExpression = LatLngBounds | LatLngExpression[];
+    type PositionString = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 }
 
 declare namespace L {
@@ -16,7 +19,7 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * The HTML text shown before the attributions. Pass false to disable.
@@ -219,7 +222,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the circle (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
     }
 }
@@ -254,11 +257,6 @@ declare namespace L {
           * Sets the radius of a circle marker. Units are in pixels.
           */
         setRadius(radius: number): CircleMarker;
-
-        /**
-          * Returns a GeoJSON representation of the circle marker (GeoJSON Point Feature).
-          */
-        toGeoJSON(): any;
     }
 }
 
@@ -343,12 +341,12 @@ declare namespace L {
         /**
           * Sets the position of the control. See control positions.
           */
-        setPosition(position: string): Control;
+        setPosition(position: PositionString): Control;
 
         /**
           * Returns the current position of the control.
           */
-        getPosition(): string;
+        getPosition(): PositionString;
 
         /**
           * Adds the control to the map.
@@ -400,7 +398,7 @@ declare namespace L {
               *
               * Default value: 'topright'.
               */
-            position?: string; // 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
+            position?: PositionString;
 
             /**
              * The text set on the zoom in button.
@@ -550,7 +548,7 @@ declare namespace L {
           * positions.
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
     }
 }
@@ -613,7 +611,7 @@ declare namespace L {
         /**
           * Size of the icon in pixels. Can be also set through CSS.
           */
-        iconSize?: Point;
+        iconSize?: Point|[number, number];
 
         /**
           * The coordinates of the "tip" of the icon (relative to its top left corner).
@@ -621,7 +619,7 @@ declare namespace L {
           * location. Centered by default if size is specified, also can be set in CSS
           * with negative margins.
           */
-        iconAnchor?: Point;
+        iconAnchor?: Point|[number, number];
 
         /**
           * A custom class name to assign to the icon.
@@ -636,6 +634,12 @@ declare namespace L {
           * Default value: ''.
           */
         html?: string;
+
+        /**
+          * The coordinates of the point from which popups will "open", relative to the
+          * icon anchor.
+          */
+        popupAnchor?: Point|[number, number];
 
     }
 }
@@ -1504,7 +1508,7 @@ declare namespace L {
           * Returns a new LatLng object with the longitude wrapped around left and right
           * boundaries (-180 to 180 by default).
           */
-        wrap(left: number, right: number): LatLng;
+        wrap(left?: number, right?: number): LatLng;
 
         /**
           * Latitude in degrees.
@@ -1709,8 +1713,9 @@ declare namespace L {
 
         /**
           * Returns a GeoJSON representation of the layer group (GeoJSON FeatureCollection).
+          * Note: Descendent classes MultiPolygon & MultiPolyLine return `Feature`s, not `FeatureCollection`s
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.FeatureCollection<GeoJSON.GeometryObject>|GeoJSON.Feature<GeoJSON.MultiLineString|GeoJSON.MultiPolygon>;
 
         ////////////
         ////////////
@@ -1739,7 +1744,7 @@ declare namespace L {
           *
           * Default value: 'topright'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * If true, the control will be collapsed into an icon and expanded on mouse hover
@@ -2000,7 +2005,7 @@ declare namespace L {
         export function closestPointOnSegment(p: Point, p1: Point, p2: Point): Point;
 
         /**
-          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show 
+          * Clips the segment a to b by rectangular bounds. Used by Leaflet to only show
           * polyline points that are on the screen or near, increasing performance. Returns
           * either false or a length-2 array of clipped points.
           */
@@ -2734,6 +2739,22 @@ declare namespace L.Map {
          * If true, it will delay moveend event so that it doesn't happen many times in a row.
          */
         debounceMoveend?: boolean;
+
+        /**
+         * Duration of animated panning, in seconds.
+         */
+        duration?: number;
+
+        /**
+         * The curvature factor of panning animation easing (third parameter of the Cubic Bezier curve).
+         * 1.0 means linear animation, the less the more bowed the curve.
+         */
+        easeLinearity?: number;
+
+        /**
+         * If true, panning won't fire movestart event on start (used internally for panning inertia).
+         */
+        noMoveStart?: boolean;
     }
 
     export interface FitBoundsOptions extends ZoomPanOptions {
@@ -2921,7 +2942,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the marker (GeoJSON Point Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.Point>;
 
         /**
           * Marker dragging handler (by both mouse and touch).
@@ -3081,7 +3102,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolygon (GeoJSON MultiPolygon Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiPolygon>;
     }
 }
 
@@ -3122,7 +3143,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the multipolyline (GeoJSON MultiLineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.MultiLineString>;
     }
 }
 
@@ -3384,7 +3405,7 @@ declare namespace L {
         className?: string;
 
 	/**
-	 * Sets the radius of a circle marker. 
+	 * Sets the radius of a circle marker.
 	 */
 	radius?: number;
 
@@ -3543,7 +3564,7 @@ declare namespace L {
         /**
           * Returns a GeoJSON representation of the polyline (GeoJSON LineString Feature).
           */
-        toGeoJSON(): any;
+        toGeoJSON(): GeoJSON.Feature<GeoJSON.LineString>;
     }
 }
 
@@ -3858,7 +3879,7 @@ declare namespace L {
           * The position of the control (one of the map corners). See control positions.
           * Default value: 'bottomleft'.
           */
-        position?: string;
+        position?: PositionString;
 
         /**
           * Maximum width of the control in pixels. The width is set dynamically to show
@@ -4076,7 +4097,7 @@ declare namespace L {
           *
           * Default value: 'abc'.
           */
-        subdomains?: string[];
+        subdomains?: string|string[];
 
         /**
           * URL to the tile image to show in place of the tile that failed to load.

@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 4.1.9
+// Type definitions for Highcharts 4.2.5
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -468,6 +468,10 @@ interface HighchartsAxisOptions {
      * @since 4.0
      */
     ceiling?: number;
+    /**
+     * Configure a crosshair that follows either the mouse pointer or the hovered point.
+     */
+    crosshair?: HighchartsCrosshairObject;
     /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
@@ -3183,6 +3187,14 @@ interface HighchartsPointEvents {
      * @since 1.2.0
      */
     update?: (event: Event) => boolean|void;
+    /**
+     * Fires when the legend item belonging to the pie point (slice) is clicked.
+     * The this keyword refers to the point itself. One parameter, event, is passed to the function.
+     * This contains common event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
+     * The default action is to toggle the visibility of the point. This can be prevented by calling event.preventDefault().
+     */
+    legendItemClick?: (event: Event) => boolean | void;
+
 }
 
 interface HighchartsHalo {
@@ -4818,6 +4830,17 @@ interface HighchartsPlotOptions {
 interface HighchartsIndividualSeriesOptions {
     type?: string;
     /**
+     * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
+     *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
+     *     value is pulled from the options.colors array.
+     */
+    color?: string;
+    /**
+     * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
+     *     that the points and lines can be clicked.
+     */
+    cursor?: string;
+    /**
      * An array of data points for the series. For the area series type, points can be given in the following ways:
      *
      * 1. An array of numerical values. In this case, the numerical values will be interpreted as y options. The x
@@ -4867,6 +4890,11 @@ interface HighchartsIndividualSeriesOptions {
      * The name of the series as shown in the legend, tooltip etc.
      */
     name?: string;
+    /**
+     * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
+     * the pointPadding and groupPadding.
+     */
+    pointWidth?: number;
     /**
      * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
      * else, as long as the grouped series' stack options match each other.
@@ -4954,7 +4982,7 @@ interface HighchartsDataPoint {
      * The inner radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    innerRadius?: number;
+    innerRadius?: number|string;
     /**
      * When this property is true, the points acts as a summary column for the values added or substracted since the
      * last intermediate sum, or since the start of the series. The y value is ignored.
@@ -5005,7 +5033,7 @@ interface HighchartsDataPoint {
      * The outer radius of an individual point in a solid gauge. Can be given as a number (pixels) or percentage string.
      * @since 4.1.6
      */
-    radius?: number;
+    radius?: number|string;
     /**
      * Whether the data point is selected initially.
      * @default false
@@ -5472,12 +5500,12 @@ interface HighchartsOptions {
      * The X axis or category axis. Normally this is the horizontal axis, though if the chart is inverted this is the
      * vertical axis. In case of multiple axes, the xAxis node is an array of configuration objects.
      */
-    xAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
+    xAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
     /**
      * The Y axis or value axis. Normally this is the vertical axis, though if the chart is inverted this is the
      * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
      */
-    yAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
+    yAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
@@ -6037,7 +6065,7 @@ interface HighchartsStatic {
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
      * @since 2.3.4
      */
-    charts: HighchartsChart[];
+    charts: HighchartsChartObject[];
     /**
      * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
      * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the
@@ -6098,6 +6126,7 @@ interface HighchartsPointObject {
      */
     category: string | number;
     name: string;
+    index: number;
     /**
      * The percentage for points in a stacked series or pies.
      * @since 1.2.0

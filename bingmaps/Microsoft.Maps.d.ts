@@ -174,6 +174,7 @@ declare namespace Microsoft.Maps {
         fixedMapPosition?: boolean;
         height?: number;
         inertiaIntensity?: number;
+        navigationBarMode?: number;
         showBreadcrumb?: boolean;
         showCopyright?: boolean;
         showDashboard?: boolean;
@@ -214,6 +215,12 @@ declare namespace Microsoft.Maps {
 
         getX(): number;
         getY(): number;
+    }
+
+    export enum NavigationBarMode {
+        default,
+        compact,
+        minified
     }
 
     export enum PixelReference {
@@ -301,12 +308,13 @@ declare namespace Microsoft.Maps {
         getShowPointer(): boolean;
         getTitle(): string;
         getTitleAction(): any;
-        getTitleClickHandler(): () => void;
+        getTitleClickHandler(): (mouseEvent?: MouseEvent) => void;
         getVisible(): boolean;
         getWidth(): number;
         getZIndex(): number;
         setHtmlContent(content: string): void;
         setLocation(location: Location): void;
+        setMap(map: Map): void;
         setOptions(options: InfoboxOptions): void;
         toString(): string;
     }
@@ -329,8 +337,8 @@ declare namespace Microsoft.Maps {
         showPointer?: boolean;
         pushpin?: Pushpin;
         title?: string;
-        titleAction?: { label?: string; eventHandler: () => void; };
-        titleClickHandler?: () => void;
+        titleAction?: { label?: string; eventHandler: (mouseEvent?: MouseEvent) => void; };
+        titleClickHandler?: (mouseEvent?: MouseEvent) => void;
         typeName?: InfoboxType;
         visible?: boolean;
         width?: number;

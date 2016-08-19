@@ -476,6 +476,8 @@ function test_angular_forEach() {
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
+isolateScope = element.find('div.foo').isolateScope();
+isolateScope = element.children().isolateScope();
 
 
 // $timeout signature tests
@@ -867,7 +869,7 @@ angular.module('docsTabsExample', [])
 
 angular.module('componentExample', [])
     .component('counter', {
-        require: ['^ctrl'],
+        require: {'ctrl': '^ctrl'},
         bindings: {
             count: '='
         },
@@ -1096,6 +1098,12 @@ function parseTyping() {
     }
 }
 
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
+}
+
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
     if (mode === 'debug') {
         return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
@@ -1103,11 +1111,11 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
                 $delegate['debug'] = true;
             });
         }, 'debug-helpers'], {
-            debugInfoEnabled: true
+            strictDi: true
         });
     }
     return angular.bootstrap(element, ['main'], {
-        debugInfoEnabled: false
+        strictDi: false
     });
 }
 

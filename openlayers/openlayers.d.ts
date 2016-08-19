@@ -4,6 +4,49 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace olx {
+    interface StaticImageOptions {
+
+        /** Attributions */
+        attributions?: Array<ol.Attribution>
+
+        /*** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string
+
+        /*** Extent of the image in map coordinates. This is the [left, bottom, right, top] map coordinates of your image.*/
+        imageExtent: ol.Extent;
+
+        /*** Size of the image in pixels.*/
+        imageSize?: ol.Size;
+
+        /*** experimental Optional function to load an image given a URL.*/
+        imageLoadFunction?: ol.TileLoadFunctionType;
+
+        /*** Optional logo.*/
+        logo?: olx.LogoOptions;
+
+        /*** experimental Projection.*/
+        projection: ol.proj.Projection;
+
+        /*** Image URL.*/
+        url: string;
+    }
+
+    interface ZoomToExtentOptions {
+        /*** Class name. Default is ol-zoom-extent.*/
+        className?: string;
+
+        /*** Target.*/
+        target?: Element;
+
+        /*** Text label to use for the button. Default is E. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+
+        /*** Text label to use for the button tip. Default is Zoom to extent.*/
+        tipLabel?: string;
+
+        /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
+        extent: ol.Extent;
+    }
 
     interface AttributionOptions {
 
@@ -552,12 +595,12 @@ declare namespace olx {
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer>;
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
-            features?: ol.Collection<ol.Feature>
+            features?: ol.Collection<ol.Feature>;
             filter?: ol.interaction.SelectFilterFunction;
             wrapX?: boolean;
         }
@@ -1036,6 +1079,25 @@ declare namespace olx {
             rightHanded?: boolean;
         }
     }
+
+    namespace control {
+        interface ControlOptions {
+            /**
+             * The element is the control's container element. This only needs to be specified if you're developing a custom control.
+             */
+            element?: Element;
+
+            /**
+             * Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.
+             */
+            render?: any;
+
+            /**
+             * Specify a target if you want the control to be rendered outside of the map's viewport.
+             */
+            target?: Element | string;
+        }
+    }
 }
 
 /**
@@ -1158,7 +1220,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.Collection instances are instances of this type.
      */
-    class CollectionEvent<T> {
+    class CollectionEvent<T> extends ol.events.Event {
 
         /**
          * The element that is added to or removed from the collection.
@@ -1217,7 +1279,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
-    class DragBoxEvent {
+    class DragBoxEvent extends ol.events.Event {
 
         /**
          * The coordinate of the drag event.
@@ -1873,7 +1935,7 @@ declare namespace ol {
     /**
      * Events emitted as map events are instances of this type. See ol.Map for which events trigger a map event.
      */
-    class MapEvent {
+    class MapEvent extends ol.events.Event {
 
         /**
          * The frame state at the time of the event.
@@ -1943,7 +2005,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.Object instances are instances of this type.
      */
-    class ObjectEvent {
+    class ObjectEvent extends ol.events.Event {
 
         /**
          * The name of the property whose value is changing.
@@ -1983,7 +2045,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen for a certain type of event.
@@ -1992,7 +2054,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2001,7 +2063,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2010,7 +2072,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Unlisten for a certain type of event.
@@ -2019,7 +2081,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        un(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        un(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Removes an event listener using the key returned by on() or once(). Note that using the ol.Observable.unByKey static function is to be preferred.
@@ -2103,7 +2165,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
-    class SelectEvent {
+    class SelectEvent extends ol.events.Event {
 
         /**
          * Deselected features array.
@@ -2352,6 +2414,7 @@ declare namespace ol {
         }
 
         class Control {
+            constructor(options: olx.control.ControlOptions);
         }
 
         class FullScreen {
@@ -2376,6 +2439,7 @@ declare namespace ol {
         }
 
         class ZoomToExtent {
+        	constructor(options?: olx.ZoomToExtentOptions);
         }
     }
 
@@ -2487,6 +2551,12 @@ declare namespace ol {
             function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
         interface ConditionType { (mapBrowseEvent: ol.MapBrowserEvent): boolean; }
+        class Event {
+          target: any;
+          type: string;
+          preventDefault(): void;
+          stopPropagation(): void;
+        }
     }
 
     namespace extent {
@@ -3537,7 +3607,7 @@ declare namespace ol {
         class DragAndDrop {
         }
 
-        class DragAndDropEvent {
+        class DragAndDropEvent extends ol.events.Event {
         }
 
         class DragBox {
@@ -3559,7 +3629,7 @@ declare namespace ol {
             constructor(opt_options?: olx.interaction.DrawOptions)
         }
 
-        class DrawEvent {
+        class DrawEvent extends ol.events.Event {
         }
 
         class Interaction extends ol.Object {
@@ -4065,7 +4135,7 @@ declare namespace ol {
 
     namespace render {
 
-        class Event {
+        class Event extends ol.events.Event {
         }
 
         class VectorContext {
@@ -4085,76 +4155,118 @@ declare namespace ol {
 
     namespace source {
 
-        class BingMaps {
+        class BingMaps extends TileImage {
         }
 
-        class Cluster {
+        class CartoDB extends XYZ {
         }
 
-        class Image {
+        class Cluster extends Vector {
         }
 
-        class ImageCanvas {
+        class Image extends Source {
         }
 
-        class ImageEvent {
+        class ImageArcGISRest extends Image {
         }
 
-        class ImageMapGuide {
+        class ImageCanvas extends Image {
         }
 
-        class ImageStatic {
+        class ImageEvent extends ol.events.Event {
         }
 
-        class ImageVector {
+        class ImageMapGuide extends Image {
         }
 
-        class ImageWMS {
+        class ImageStatic extends ol.source.Image {
+        	constructor(options?: olx.StaticImageOptions);
+        }
+
+        class ImageVector extends ImageCanvas {
+        }
+
+        class ImageWMS extends Image {
             constructor(options: olx.ImageWMSOptions);
         }
 
-        class MapQuest {
+        class MapQuest extends XYZ {
             constructor(options: any);
         }
 
-        class OSM {
+        class OSM extends XYZ {
         }
 
-        class Source {
+        class Source extends ol.Object {
+            /**
+             * Get the projection of the source.
+             * @return Projection.
+             */
+            getProjection(): ol.proj.Projection;
+
+            /**
+             * Refreshes the source and finally dispatches a 'change' event.
+             */
+            refresh(): void;
         }
 
-        class Stamen {
+        class Stamen extends XYZ {
         }
 
-        class Tile {
+        class Tile extends Source {
         }
 
-        class TileArcGISRest {
+        class TileArcGISRest extends TileImage {
         }
 
-        class TileDebug {
+        class TileDebug extends Tile {
         }
 
-        class TileEvent {
+        class TileEvent extends ol.events.Event {
         }
 
-        class TileImage {
+        class TileImage extends UrlTile {
         }
 
-        class TileJSON {
+        class TileJSON extends TileImage {
         }
 
-        class TileUTFGrid {
+        class TileUTFGrid extends Tile {
         }
 
-        class TileVector {
-        }
-
-        class TileWMS {
+        class TileWMS extends TileImage {
             constructor(options: olx.TileWMSOptions);
+
+            /**
+             * Update the user-provided (WMS request) parameters.
+             */
+            updateParams(params: any): void;
+
+            /**
+             * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
+             */
+            getParams(): any;
+
+            /**
+             * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+             * projection. Return `undefined` if the GetFeatureInfo URL cannot be
+             * constructed.
+             * @param coordinate Coordinate.
+             * @param resolution Resolution.
+             * @param rojection Projection.
+             * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
+             *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
+             *     in the `LAYERS` parameter will be used. `VERSION` should not be
+             *     specified here.
+             * @return GetFeatureInfo URL.
+             */
+            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.proj.ProjectionLike, params: {}): string;
         }
 
-        class Vector {
+        class UrlTile extends Tile {
+        }
+
+        class Vector extends Source {
             constructor(opts?: olx.source.VectorOptions)
             /**
              * Add a single feature to the source. If you want to add a batch of features at once,
@@ -4195,17 +4307,20 @@ declare namespace ol {
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
-        class VectorEvent {
+        class VectorEvent extends ol.events.Event {
         }
 
-        class WMTS {
+        class VectorTile extends UrlTile {
+        }
+
+        class WMTS extends TileImage {
             constructor(options: olx.source.WMTSOptions);
         }
 
-        class XYZ {
+        class XYZ extends TileImage {
         }
 
-        class Zoomify {
+        class Zoomify extends TileImage {
         }
 
         // Namespaces
