@@ -89,10 +89,9 @@ let body4: d3Selection.Selection<HTMLBodyElement, BodyDatum, null, undefined> = 
 // d3Selection.select<HTMLBodyElement, BodyDatum>(baseTypeEl.node()); // fails as baseTypeEl.node() is not of type HTMLBodyElement
 
 
-// TODO: The below are related to github issue #2 (BaseType choice)
 
 d3Selection.select(xDoc);
-// d3Selection.select(xWindow); // Window cannot does not match type BaseType = Element | EnterElement
+d3Selection.select(xWindow);
 
 
 // test top-level selectAll() -------------------------------------------------------------

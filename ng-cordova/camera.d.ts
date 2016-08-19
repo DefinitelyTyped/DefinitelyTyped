@@ -3,8 +3,7 @@
 // Definitions by: Jacques Kang <https://www.linkedin.com/in/jacqueskang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="cordova" />
-/// <reference types="angular" />
+/// <reference types="cordova-plugin-camera" />
 
 declare namespace ngCordova {
     export interface ICameraService {
