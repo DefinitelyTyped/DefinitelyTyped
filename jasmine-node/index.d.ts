@@ -5,7 +5,7 @@
 
 ///<reference types="jasmine"/>
 
-declare function it(expectation:string, assertion:(done:(err?:any) => void) => void, timeout?:number):void;
+declare function it(expectation: string, assertion: (done: (err?: any) => void) => void, timeout?: number): void;
 
 declare namespace jasmine {
 	interface Env {
@@ -32,11 +32,13 @@ declare module "jasmine-node" {
         growl?: boolean
     }
 
-interface JasmineNode {
-    executeSpecsInFolder(options:ExecuteSpecsOptions): void;
-    loadHelpersInFolder(path:string, pattern:RegExp): void;
+    interface JasmineNode {
+        executeSpecsInFolder(options: ExecuteSpecsOptions): void;
+        loadHelpersInFolder(path: string, pattern: RegExp): void;
+    }
 }
 
-declare var jasmine:JasmineNode;
-
-export = jasmine;
+declare module "jasmine-node" {
+    const jasmine: jasmine.JasmineNode;
+    export = jasmine;
+}
