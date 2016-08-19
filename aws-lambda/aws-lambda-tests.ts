@@ -9,6 +9,8 @@ var kinesis: lambda.Kinesis;
 var recordsList: lambda.Record[];
 var anyObj: any;
 var num: number;
+var identity: lambda.Identity;
+var error: Error;
 
 /* Records */
 var records: lambda.Records;
@@ -47,3 +49,18 @@ context.succeed(anyObj);
 context.succeed(str, anyObj);
 str = context.awsRequestId;
 num = context.getRemainingTimeInMillis();
+identity = context.identity;
+
+/* Identity */
+var identity: lambda.Identity;
+
+str = identity.cognitoIdentityId;
+str = identity.cognitoIdentityPoolId;
+
+/* Callback */
+function callback(cb: lambda.Callback) {
+    cb();
+    cb(null);
+    cb(error);
+    cb(null, anyObj);
+}
