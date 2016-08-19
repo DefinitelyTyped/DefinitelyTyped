@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /// <reference types="jqueryui"/>
 
-import * as FullCalendar from 'fullCalendar';
+import * as FullCalendar from 'fullcalendar';
 import * as moment from 'moment';
 
 // All examples from http://arshaw.com/fullcalendar/docs/
