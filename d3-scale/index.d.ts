@@ -1,6 +1,6 @@
 // Type definitions for D3JS d3-scale module 1.0.1
 // Project: https://github.com/d3/d3-scale/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { CountableTimeInterval, TimeInterval } from 'd3-time';
@@ -28,22 +28,22 @@ export interface ScaleLinear<Range, Output> {
      */
     invert(value: number | { valueOf(): number }): number;
     domain(): Array<number>;
-    domain(domain: Array<number | { valueOf(): number }>): ScaleLinear<Range, Output>;
+    domain(domain: Array<number | { valueOf(): number }>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleLinear<Range, Output>;
+    range(range: Array<Range>): this;
     /**
      * Important: While value should come out of range R, this is method is only applicable to
      * values that can be coerced to numeric.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): ScaleLinear<Range, Output>;
+    rangeRound(range: Array<number | { valueOf(): number }>): this;
     clamp(): boolean;
     clamp(clamp: boolean): ScaleLinear<Range, Output>;
     interpolate(): InterpolatorFactory<any, any>;
-    interpolate(interpolate: InterpolatorFactory<Range, Output>): ScaleLinear<Range, Output>;
+    interpolate(interpolate: InterpolatorFactory<Range, Output>): this;
     interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScaleLinear<Range, NewOutput>;
     ticks(count?: number): Array<number>;
     tickFormat(count?: number, specifier?: string): ((d: number | { valueOf(): number }) => string);
-    nice(count?: number): ScaleLinear<Range, Output>;
+    nice(count?: number): this;
     copy(): ScaleLinear<Range, Output>;
 }
 
@@ -64,26 +64,26 @@ export interface ScalePower<Range, Output> {
      */
     invert(value: number | { valueOf(): number }): number;
     domain(): Array<number>;
-    domain(domain: Array<number | { valueOf(): number }>): ScalePower<Range, Output>;
+    domain(domain: Array<number | { valueOf(): number }>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScalePower<Range, Output>;
+    range(range: Array<Range>): this;
     /**
      * Important: While value should come out of range R, this is method is only applicable to
      * values that can be coerced to numeric.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): ScalePower<Range, Output>;
+    rangeRound(range: Array<number | { valueOf(): number }>): this;
     clamp(): boolean;
-    clamp(clamp: boolean): ScalePower<Range, Output>;
+    clamp(clamp: boolean): this;
     interpolate(): InterpolatorFactory<any, any>;
-    interpolate(interpolate: InterpolatorFactory<Range, Output>): ScalePower<Range, Output>;
+    interpolate(interpolate: InterpolatorFactory<Range, Output>): this;
     interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScalePower<Range, NewOutput>;
     ticks(count?: number): Array<number>;
     tickFormat(count?: number, specifier?: string): ((d: number | { valueOf(): number }) => string);
-    nice(count?: number): ScalePower<Range, Output>;
+    nice(count?: number): this;
     copy(): ScalePower<Range, Output>;
 
     exponent(): number;
-    exponent(exponent: number): ScalePower<Range, Output>;
+    exponent(exponent: number): this;
 }
 
 export function scalePow(): ScalePower<number, number>;
@@ -107,26 +107,26 @@ export interface ScaleLogarithmic<Range, Output> {
      */
     invert(value: number | { valueOf(): number }): number;
     domain(): Array<number>;
-    domain(domain: Array<number | { valueOf(): number }>): ScaleLogarithmic<Range, Output>;
+    domain(domain: Array<number | { valueOf(): number }>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleLogarithmic<Range, Output>;
+    range(range: Array<Range>): this;
     /**
      * Important: While value should come out of range R, this is method is only applicable to
      * values that can be coerced to numeric.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): ScaleLogarithmic<Range, Output>;
+    rangeRound(range: Array<number | { valueOf(): number }>): this;
     clamp(): boolean;
-    clamp(clamp: boolean): ScaleLogarithmic<Range, Output>;
+    clamp(clamp: boolean): this;
     interpolate(): InterpolatorFactory<any, any>;
-    interpolate(interpolate: InterpolatorFactory<Range, Output>): ScaleLogarithmic<Range, Output>;
+    interpolate(interpolate: InterpolatorFactory<Range, Output>): this;
     interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScaleLogarithmic<Range, NewOutput>;
     ticks(count?: number): Array<number>;
     tickFormat(count?: number, specifier?: string): ((d: number | { valueOf(): number }) => string);
-    nice(count?: number): ScaleLogarithmic<Range, Output>;
+    nice(count?: number): this;
     copy(): ScaleLogarithmic<Range, Output>;
 
     base(): number;
-    base(base: number): ScaleLogarithmic<Range, Output>;
+    base(base: number): this;
 }
 
 export function scaleLog(): ScaleLogarithmic<number, number>;
@@ -146,12 +146,12 @@ export interface ScaleIdentity {
      */
     invert(value: number | { valueOf(): number }): number;
     domain(): Array<number>;
-    domain(domain: Array<number | { valueOf(): number }>): ScaleIdentity;
+    domain(domain: Array<number | { valueOf(): number }>): this;
     range(): Array<number>;
-    range(range: Array<Range | { valueOf(): number }>): ScaleIdentity;
+    range(range: Array<Range | { valueOf(): number }>): this;
     ticks(count?: number): Array<number>;
     tickFormat(count?: number, specifier?: string): ((d: number | { valueOf(): number }) => string);
-    nice(count?: number): ScaleIdentity;
+    nice(count?: number): this;
     copy(): ScaleIdentity;
 }
 
@@ -170,18 +170,18 @@ export interface ScaleTime<Range, Output> {
      */
     invert(value: number | { valueOf(): number }): Date;
     domain(): Array<Date>;
-    domain(domain: Array<Date>): ScaleTime<Range, Output>;
+    domain(domain: Array<Date>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleTime<Range, Output>;
+    range(range: Array<Range>): this;
     /**
      * Important: While value should come out of range R, this is method is only applicable to
      * values that can be coerced to numeric.
      */
-    rangeRound(range: Array<number | { valueOf(): number }>): ScaleTime<Range, Output>;
+    rangeRound(range: Array<number | { valueOf(): number }>): this;
     clamp(): boolean;
-    clamp(clamp: boolean): ScaleTime<Range, Output>;
+    clamp(clamp: boolean): this;
     interpolate(): InterpolatorFactory<any, any>;
-    interpolate(interpolate: InterpolatorFactory<Range, Output>): ScaleTime<Range, Output>;
+    interpolate(interpolate: InterpolatorFactory<Range, Output>): this;
     interpolate<NewOutput>(interpolate: InterpolatorFactory<Range, NewOutput>): ScaleTime<Range, NewOutput>;
     ticks(): Array<Date>;
     ticks(count: number): Array<Date>;
@@ -189,9 +189,9 @@ export interface ScaleTime<Range, Output> {
     tickFormat(): ((d: Date) => string);
     tickFormat(count: number, specifier?: string): ((d: Date) => string);
     tickFormat(interval: TimeInterval, specifier?: string): ((d: Date) => string);
-    nice(): ScaleTime<Range, Output>;
-    nice(count: number): ScaleTime<Range, Output>;
-    nice(interval: CountableTimeInterval, step?: number): ScaleTime<Range, Output>;
+    nice(): this;
+    nice(count: number): this;
+    nice(interval: CountableTimeInterval, step?: number): this;
     copy(): ScaleTime<Range, Output>;
 }
 
@@ -209,13 +209,13 @@ export function scaleUtc<Range, Output>(): ScaleTime<Range, Output>;
 
 
 export interface ScaleSequential<Output> {
-    (value: number): Output;
+    (value: number | { valueOf(): number }): Output;
     domain(): [number, number];
-    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): ScaleSequential<Output>;
+    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
     clamp(): boolean;
-    clamp(clamp: boolean): ScaleSequential<Output>;
+    clamp(clamp: boolean): this;
     interpolator(): ((t: number) => Output);
-    interpolator(interpolator: ((t: number) => Output)): ScaleSequential<Output>;
+    interpolator(interpolator: ((t: number) => Output)): this;
     interpolator<NewOutput>(interpolator: ((t: number) => NewOutput)): ScaleSequential<NewOutput>;
     copy(): ScaleSequential<Output>;
 }
@@ -255,12 +255,12 @@ export interface ScaleQuantize<Range> {
      */
     invertExtent(value: Range): [number, number];
     domain(): [number, number];
-    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): ScaleQuantize<Range>;
+    domain(domain: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleQuantize<Range>;
+    range(range: Array<Range>): this;
     ticks(count?: number): Array<number>;
     tickFormat(count?: number, specifier?: string): ((d: number | { valueOf(): number }) => string);
-    nice(count?: number): ScaleQuantize<Range>;
+    nice(count?: number): this;
     copy(): ScaleQuantize<Range>;
 }
 
@@ -275,9 +275,9 @@ export interface ScaleQuantile<Range> {
     (value: number | { valueOf(): number }): Range;
     invertExtent(value: Range): [number, number];
     domain(): Array<number>;
-    domain(domain: Array<number | { valueOf(): number }>): ScaleQuantile<Range>;
+    domain(domain: Array<number | { valueOf(): number }>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleQuantile<Range>;
+    range(range: Array<Range>): this;
     quantiles(): Array<number>;
     copy(): ScaleQuantile<Range>;
 }
@@ -298,9 +298,9 @@ export interface ScaleThreshold<Domain extends number | string | Date, Range> {
      */
     invertExtent(value: Range): [Domain, Domain] | [undefined, Domain] | [Domain, undefined] | [undefined, undefined];
     domain(): Array<Domain>;
-    domain(domain: Array<Domain>): ScaleThreshold<Domain, Range>;
+    domain(domain: Array<Domain>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleThreshold<Domain, Range>;
+    range(range: Array<Range>): this;
     copy(): ScaleThreshold<Domain, Range>;
 }
 
@@ -315,11 +315,11 @@ export function scaleThreshold<Domain extends number | string | Date, Range>(): 
 export interface ScaleOrdinal<Domain extends { toString(): string }, Range> {
     (x: Domain): Range;
     domain(): Array<Domain>;
-    domain(domain: Array<Domain>): ScaleOrdinal<Domain, Range>;
+    domain(domain: Array<Domain>): this;
     range(): Array<Range>;
-    range(range: Array<Range>): ScaleOrdinal<Domain, Range>;
+    range(range: Array<Range>): this;
     unknown(): Range | { name: 'implicit' };
-    unknown(value: Range | { name: 'implicit' }): ScaleOrdinal<Domain, Range>;
+    unknown(value: Range | { name: 'implicit' }): this;
     copy(): ScaleOrdinal<Domain, Range>;
 }
 
@@ -336,16 +336,16 @@ export const scaleImplicit: { name: 'implicit' };
 export interface ScaleBand<Domain extends { toString(): string }> {
     (x: Domain): number | undefined;
     domain(): Array<Domain>;
-    domain(domain: Array<Domain>): ScaleBand<Domain>;
+    domain(domain: Array<Domain>): this;
     range(): [number, number];
-    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): ScaleBand<Domain>;
-    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): ScaleBand<Domain>;
+    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
     round(): boolean;
-    round(round: boolean): ScaleBand<Domain>;
+    round(round: boolean): this;
     paddingInner(): number;
-    paddingInner(padding: number): ScaleBand<Domain>;
+    paddingInner(padding: number): this;
     paddingOuter(): number;
-    paddingOuter(padding: number): ScaleBand<Domain>;
+    paddingOuter(padding: number): this;
     /**
      * Returns the inner padding.
      */
@@ -353,9 +353,9 @@ export interface ScaleBand<Domain extends { toString(): string }> {
     /**
      * A convenience method for setting the inner and outer padding to the same padding value.
      */
-    padding(padding: number): ScaleBand<Domain>;
+    padding(padding: number): this;
     align(): number;
-    align(align: number): ScaleBand<Domain>;
+    align(align: number): this;
     bandwidth(): number;
     step(): number;
     copy(): ScaleBand<Domain>;
@@ -371,12 +371,12 @@ export function scaleBand<Domain extends { toString(): string }>(): ScaleBand<Do
 export interface ScalePoint<Domain extends { toString(): string }> {
     (x: Domain): number | undefined;
     domain(): Array<Domain>;
-    domain(domain: Array<Domain>): ScalePoint<Domain>;
+    domain(domain: Array<Domain>): this;
     range(): [number, number];
-    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): ScalePoint<Domain>;
-    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): ScalePoint<Domain>;
+    range(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
+    rangeRound(range: [number | { valueOf(): number }, number | { valueOf(): number }]): this;
     round(): boolean;
-    round(round: boolean): ScalePoint<Domain>;
+    round(round: boolean): this;
     /**
      * Returns the current outer padding which defaults to 0.
      * The outer padding determines the ratio of the range that is reserved for blank space
@@ -388,9 +388,9 @@ export interface ScalePoint<Domain extends { toString(): string }> {
      * The outer padding determines the ratio of the range that is reserved for blank space
      * before the first point and after the last point.
      */
-    padding(padding: number): ScalePoint<Domain>;
+    padding(padding: number): this;
     align(): number;
-    align(align: number): ScalePoint<Domain>;
+    align(align: number): this;
     bandwidth(): number;
     step(): number;
     copy(): ScalePoint<Domain>;
