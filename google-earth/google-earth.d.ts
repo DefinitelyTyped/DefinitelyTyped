@@ -14,6 +14,73 @@ declare namespace google {
 
 declare namespace google.earth {
 
+    /**
+     * Specifies the current stage of the flow of events.
+     */
+    export type GEEventPhaseEnum = any;
+
+    /**
+     * Specifies how a feature should be displayed in a list view.
+     */
+    export type KmlListItemTypeEnum = any;
+
+    /**
+     * Specifies which color mode effect to apply to the base color.
+     */
+    export type KmlColorModeEnum = any;
+
+    /*
+     * Specifies how the altitude property is interpreted.
+     */
+    export type KmlAltitudeModeEnum = any;
+
+    /**
+     * Specifies how the link is refreshed.
+     */
+    export type KmlRefreshModeEnum = any;
+
+    /**
+     * Specifies how the link is refreshed when the viewport changes.
+     */
+    export type KmlViewRefreshModeEnum = any;
+
+    /**
+     * Specifies which units a value is specified in.
+     */
+    type KmlUnitsEnum = any;
+
+    /**
+     * Specifies if the map type is Earth or sky mode.
+     */
+    type GEMapTypeEnum = any;
+
+    /**
+     * Specifies if a control is always visible, always hidden,
+     * or visible only when the user intends to use the control.
+     */
+    type GEVisibilityEnum = any;
+
+    /**
+     * Specifies what to sample when performing a hit test.
+     */
+    type GEHitTestModeEnum = number;
+
+    /**
+     * Specifies the size of the navigation control.
+     */
+    type GENavigationControlEnum  = number;
+
+    /**
+     * Specifies the state of viewer options, including sunlight,
+     * Street View, and historical imagery.
+     */
+    type GEViewerOptionsValueEnum = number;
+
+    /*
+     * Specifies the viewer option types.
+     */
+    type GEViewerOptionsTypeEnum  = number;
+
   /**
    * Whether or not the Google Earth Browser Plug-in and API are supported on the current browser and operating system.
    */
@@ -3907,19 +3974,5 @@ declare namespace google.earth {
      */
     getStreamingPercent(): number;
   }
-
-  export enum GEEventPhaseEnum {}
-  export enum KmlListItemTypeEnum {}
-  export enum KmlColorModeEnum {}
-  export enum KmlAltitudeModeEnum {}
-  export enum KmlRefreshModeEnum {}
-  export enum KmlViewRefreshModeEnum {}
-  export enum KmlUnitsEnum {}
-  export enum GEMapTypeEnum {}
-  export enum GEVisibilityEnum {}
-  export enum GEHitTestModeEnum {}
-  export enum GEViewerOptionsValueEnum {}
-  export enum GENavigationControlEnum {}
-  export enum GEViewerOptionsTypeEnum {}
 
 }
