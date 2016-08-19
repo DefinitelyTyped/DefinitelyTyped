@@ -39,7 +39,7 @@ type JSONEditorOptions<TValue> = {
     /**
      * The icon library to use for the editor.
      */
-    iconlib?: boolean;
+    iconlib?: string;
     /**
      * If true, objects can only contain properties defined with the properties keyword.
      */
