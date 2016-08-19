@@ -11,9 +11,12 @@ namespace DagreD3Tests {
 
     predecessors["a"] = graph.predecessors("a");
     successors["a"] = graph.successors("a");
+    graph.transition = (selection: d3.Selection<any>) => {
+        return d3.transition();
+    };
 
     const render = new dagreD3.render();
     const svg = d3.select("svg");
-    render.arrows()["arrowType"] = (parent: JQuery, id: string, edge: Dagre.Edge, type: string) => {};
+    render.arrows()["arrowType"] = (parent: d3.Selection<any>, id: string, edge: Dagre.Edge, type: string) => {};
     render(svg, graph);
 }

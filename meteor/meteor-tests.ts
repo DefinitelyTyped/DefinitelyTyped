@@ -650,16 +650,16 @@ Accounts.emailTemplates.siteName = "AwesomeSite";
 Accounts.emailTemplates.from = "AwesomeSite Admin <accounts@example.com>";
 Accounts.emailTemplates.headers = { asdf: 'asdf', qwer: 'qwer' };
 
-Accounts.emailTemplates.enrollAccount.subject = function (user) {
+Accounts.emailTemplates.enrollAccount.subject = function (user: Meteor.User) {
   return "Welcome to Awesome Town, " + user.profile.name;
 };
-Accounts.emailTemplates.enrollAccount.html = function (user, url) {
+Accounts.emailTemplates.enrollAccount.html = function (user: Meteor.User, url: string) {
   return "<h1>Some html here</h1>";
 };
 Accounts.emailTemplates.enrollAccount.from = function() {
   return "asdf@asdf.com";
 };
-Accounts.emailTemplates.enrollAccount.text = function (user, url) {
+Accounts.emailTemplates.enrollAccount.text = function (user: Meteor.User, url: string) {
   return "You have been selected to participate in building a better future!"
         + " To activate your account, simply click the link below:\n\n"
         + url;

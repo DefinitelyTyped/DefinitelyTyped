@@ -1,4 +1,4 @@
-// Type definitions for wampy.js v2.0.1
+// Type definitions for wampy.js v3.0.x
 // Project: https://github.com/KSDaemon/wampy.js
 // Definitions by: Konstantin Burkalev <https://github.com/KSDaemon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,10 +12,13 @@ declare module "wampy" {
         transportEncoding?: string;
         realm?: string;
         helloCustomDetails?: any;
+        onChallenge?: (auth_method: string, challenge_details: string) => string;
+        authid?: string;
         onConnect?: () => void;
         onClose?: () => void;
         onError?: () => void;
         onReconnect?: () => void;
+        onReconnectSuccess?: () => void;
         ws?: any;
         msgpackCoder?: any;
     }
@@ -36,7 +39,7 @@ declare module "wampy" {
     }
 
     interface RegisterCallbacksHash extends SuccessErrorCallbacksHash {
-        rpc: (data: any) => any;
+        rpc: (data: any, options: any) => any[];
     }
 
     interface CallSuccessErrorCallbacksHash {
@@ -51,8 +54,17 @@ declare module "wampy" {
         disclose_me?: boolean;
     }
 
-    interface CallAdvancedOptions extends AdvancedOptions {
+    interface PublishAdvancedOptions extends AdvancedOptions {
+        exclude_authid?: string | string[];
+        exclude_authrole?: string | string[];
+        eligible_authid?: string | string[];
+        eligible_authrole?: string | string[];
+    }
+
+    interface CallAdvancedOptions {
+        disclose_me?: boolean;
         receive_progress?: boolean;
+        timeout?: number;
     }
 
     interface CancelAdvancedOptions {
@@ -71,7 +83,7 @@ declare module "wampy" {
         publish(topicURI: string,
                 payload?: any,
                 callbacks?: SuccessErrorCallbacksHash,
-                advancedOptions?: AdvancedOptions): Wampy;
+                advancedOptions?: PublishAdvancedOptions): Wampy;
         call(topicURI: string,
              payload?: any,
              callbacks?: (((data: any) => void) | CallSuccessErrorCallbacksHash),
@@ -79,7 +91,7 @@ declare module "wampy" {
         cancel(reqId: number,
                callbacks?: ((() => void) | SuccessErrorCallbacksHash),
                advancedOptions?: CancelAdvancedOptions): Wampy;
-        register(topicURI: string, callbacks: (((data: any) => any) | RegisterCallbacksHash)): Wampy;
+        register(topicURI: string, callbacks: (((data: any, options: any) => any[]) | RegisterCallbacksHash)): Wampy;
         unregister(topicURI: string, callbacks?: ((() => void) | SuccessErrorCallbacksHash)): Wampy;
     }
 

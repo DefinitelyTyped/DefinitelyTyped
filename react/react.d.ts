@@ -150,6 +150,7 @@ declare namespace __React {
     var DOM: ReactDOM;
     var PropTypes: ReactPropTypes;
     var Children: ReactChildren;
+    var version: string;
 
     //
     // Component API
@@ -162,7 +163,7 @@ declare namespace __React {
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
-        forceUpdate(callBack?: () => any): void;
+        forceUpdate(callback?: () => any): void;
         render(): JSX.Element;
 
         // React.Props<T> is now deprecated, which means that the `children`
@@ -177,6 +178,8 @@ declare namespace __React {
             [key: string]: ReactInstance
         };
     }
+    
+    class PureComponent<P, S> extends Component<P, S> {}
 
     interface ClassicComponent<P, S> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
@@ -194,7 +197,7 @@ declare namespace __React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props?: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -273,7 +276,10 @@ declare namespace __React {
         isTrusted: boolean;
         nativeEvent: Event;
         preventDefault(): void;
+        isDefaultPrevented(): boolean;
         stopPropagation(): void;
+        isPropagationStopped(): boolean;
+        persist(): void;
         target: EventTarget;
         timeStamp: Date;
         type: string;
@@ -287,7 +293,7 @@ declare namespace __React {
         data: string;
     }
 
-    interface DragEvent extends SyntheticEvent {
+    interface DragEvent extends MouseEvent {
         dataTransfer: DataTransfer;
     }
 
@@ -346,11 +352,23 @@ declare namespace __React {
         view: AbstractView;
     }
 
-    interface WheelEvent extends SyntheticEvent {
+    interface WheelEvent extends MouseEvent {
         deltaMode: number;
         deltaX: number;
         deltaY: number;
         deltaZ: number;
+    }
+
+    interface AnimationEvent extends SyntheticEvent {
+        animationName: string;
+        pseudoElement: string;
+        elapsedTime: number;
+    }
+
+    interface TransitionEvent extends SyntheticEvent {
+        propertyName: string;
+        pseudoElement: string;
+        elapsedTime: number;
     }
 
     //
@@ -373,6 +391,8 @@ declare namespace __React {
     type TouchEventHandler = EventHandler<TouchEvent>;
     type UIEventHandler = EventHandler<UIEvent>;
     type WheelEventHandler = EventHandler<WheelEvent>;
+    type AnimationEventHandler = EventHandler<AnimationEvent>;
+    type TransitionEventHandler = EventHandler<TransitionEvent>;
 
     //
     // Props / DOM Attributes
@@ -496,6 +516,14 @@ declare namespace __React {
 
         // Wheel Events
         onWheel?: WheelEventHandler;
+
+        // Animation Events
+        onAnimationStart?: AnimationEventHandler;
+        onAnimationEnd?: AnimationEventHandler;
+        onAnimationIteration?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEnd?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
@@ -2453,12 +2481,41 @@ declare namespace JSX {
         circle: React.SVGProps;
         clipPath: React.SVGProps;
         defs: React.SVGProps;
+        desc: React.SVGProps;
         ellipse: React.SVGProps;
+        feBlend: React.SVGProps;
+        feColorMatrix: React.SVGProps;
+        feComponentTransfer: React.SVGProps;
+        feComposite: React.SVGProps;
+        feConvolveMatrix: React.SVGProps;
+        feDiffuseLighting: React.SVGProps;
+        feDisplacementMap: React.SVGProps;
+        feDistantLight: React.SVGProps;
+        feFlood: React.SVGProps;
+        feFuncA: React.SVGProps;
+        feFuncB: React.SVGProps;
+        feFuncG: React.SVGProps;
+        feFuncR: React.SVGProps;
+        feGaussianBlur: React.SVGProps;
+        feImage: React.SVGProps;
+        feMerge: React.SVGProps;
+        feMergeNode: React.SVGProps;
+        feMorphology: React.SVGProps;
+        feOffset: React.SVGProps;
+        fePointLight: React.SVGProps;
+        feSpecularLighting: React.SVGProps;
+        feSpotLight: React.SVGProps;
+        feTile: React.SVGProps;
+        feTurbulence: React.SVGProps;
+        filter: React.SVGProps;
+        foreignObject: React.SVGProps;
         g: React.SVGProps;
         image: React.SVGProps;
         line: React.SVGProps;
         linearGradient: React.SVGProps;
+        marker: React.SVGProps;
         mask: React.SVGProps;
+        metadata: React.SVGProps;
         path: React.SVGProps;
         pattern: React.SVGProps;
         polygon: React.SVGProps;
@@ -2466,9 +2523,12 @@ declare namespace JSX {
         radialGradient: React.SVGProps;
         rect: React.SVGProps;
         stop: React.SVGProps;
+        switch: React.SVGProps;
         symbol: React.SVGProps;
         text: React.SVGProps;
+        textPath: React.SVGProps;
         tspan: React.SVGProps;
         use: React.SVGProps;
+        view: React.SVGProps;
     }
 }

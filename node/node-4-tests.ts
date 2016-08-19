@@ -19,6 +19,8 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -697,6 +699,18 @@ namespace readline_tests {
 
         readline.clearScreenDown(stream);
     }
+}
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder = new StringDecoder('utf8');
+    const part: string = decoder.write(new Buffer('test'));
+    const end: string = decoder.end();
 }
 
 //////////////////////////////////////////////////////////////////////

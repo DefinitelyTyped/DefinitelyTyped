@@ -19,6 +19,9 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+import * as stream from "stream";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -55,6 +58,8 @@ namespace events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -84,6 +89,12 @@ namespace events_tests {
         result = emitter.emit(event, any);
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
+    }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
     }
 }
 
@@ -138,6 +149,22 @@ fs.mkdtemp('/tmp/foo-', (err, folder) => {
 var tempDir: string;
 tempDir = fs.mkdtempSync('/tmp/foo-');
 
+fs.watch('/tmp/foo-', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+  console.log(event, filename);
+});
+
+fs.watch('/tmp/foo-', {
+  recursive: true,
+  persistent: true,
+  encoding: 'utf8'
+}, (event, filename) => {
+  console.log(event, filename);
+});
+
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
@@ -155,6 +182,14 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
+    {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+        buf.swap16();
+        buf.swap32();
+        buf.swap64();
+    }
 
     // Class Method: Buffer.from(array)
     {
@@ -262,6 +297,70 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();
+}
+
+// Simplified constructors
+function simplified_stream_ctor_test() {
+    new stream.Readable({
+        read: function (size) {
+            size.toFixed();
+        }
+    });
+
+    new stream.Writable({
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    });
+
+    new stream.Duplex({
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        },
+        readableObjectMode: true,
+        writableObjectMode: true
+    });
+
+    new stream.Transform({
+        transform: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb();
+        },
+        flush: function (cb) {
+            cb()
+        },
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    })
 }
 
 ////////////////////////////////////////////////////
@@ -416,9 +515,12 @@ namespace tty_tests {
 
 var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
 });
+ds.bind();
+ds.bind(41234);
 var ai: dgram.AddressInfo = ds.address();
 ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
 });
+ds.send(new Buffer("hello"), 5000, "127.0.0.1");
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html
@@ -699,6 +801,21 @@ namespace readline_tests {
     }
 }
 
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder1 = new StringDecoder();
+    const decoder2 = new StringDecoder('utf8');
+    const part1: string = decoder1.write(new Buffer('test'));
+    const end1: string = decoder1.end();
+    const part2: string = decoder2.write(new Buffer('test'));
+    const end2: string = decoder1.end(new Buffer('test'));
+}
+
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
@@ -810,5 +927,19 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
     }
 }

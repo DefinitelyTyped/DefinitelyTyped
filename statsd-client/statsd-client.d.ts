@@ -99,5 +99,6 @@ declare module "statsd-client" {
 		getChildClient(name: string): StatsdClient;
 	}
 
+	namespace StatsdClient {}
 	export = StatsdClient;
 }

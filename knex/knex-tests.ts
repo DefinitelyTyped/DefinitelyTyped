@@ -57,12 +57,37 @@ var knex = Knex({
   }
 });
 
+// acquireConnectionTimeout
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    socketPath     : '/path/to/socket.sock',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    database : 'myapp_test'
+  },
+  acquireConnectionTimeout: 60000,
+});
+
 // Pure Query Builder without a connection
 var knex = Knex({});
 
 // Pure Query Builder without a connection, using a specific flavour of SQL
 var knex = Knex({
   client: 'pg'
+});
+
+// searchPath
+var knex = Knex({
+  client: 'pg',
+  searchPath: 'public',
+});
+
+// useNullAsDefault
+var knex = Knex({
+  client: 'sqlite',
+  useNullAsDefault: true,
 });
 
 knex('books').insert({title: 'Test'}).returning('*').toString();
@@ -156,11 +181,17 @@ knex('users')
   .join('contacts', 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
+knex('users')
+  .join(knex('contacts').select('user_id', 'phone').as('contacts'), 'users.id', 'contacts.user_id')
+  .select('users.id', 'contacts.phone');
+
 knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
+
+knex.raw('select * from users where id = :user_id', { user_id: 1 });
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
@@ -349,6 +380,8 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
+  
+  trx.raw('')
 
   var info: any;
   var books: any[] = [

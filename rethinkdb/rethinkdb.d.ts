@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Reference: http://www.rethinkdb.com/api/#js
 // TODO: Document manipulation and below
-///<reference path="../bluebird/bluebird.d.ts"/>
+///<reference path="../bluebird/bluebird-2.0.d.ts"/>
 
 declare module "rethinkdb" {
 

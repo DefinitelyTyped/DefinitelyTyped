@@ -1,4 +1,4 @@
-// Type definitions for Kii Cloud SDK v2.4.4
+// Type definitions for Kii Cloud SDK v2.4.6
 // Project: http://en.kii.com/
 // Definitions by: Kii Consortium <http://jp.kii.com/consortium/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,8 @@ declare namespace KiiCloud {
         JP,
         CN,
         SG,
-        CN3
+        CN3,
+        EU
     }
 
     export enum KiiAnalyticsSite {
@@ -25,7 +26,8 @@ declare namespace KiiCloud {
         JP,
         CN,
         SG,
-        CN3
+        CN3,
+        EU
     }
 
     enum KiiSocialNetworkName {
@@ -512,6 +514,104 @@ declare namespace KiiCloud {
          *     );
          */
         static listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+
+        /**
+         * Authenticate as Thing.
+         * <br><br>
+         * <b>This api is intended to be used in a Thing device, where the user
+         * credentials or app admin context is not configured. This Thing must be
+         * already registered in Kii Cloud.
+         * </b>
+         *
+         * @param vendorThingID vendorThingID of a registered Thing.
+         * @param password password for the registered Thing.
+         * @param callbacks The callback methods called when authentication succeeded/failed.
+         *
+         * @return return promise object.
+         *     <ul>
+         *       <li>fulfill callback function: function(thingAuthContext). thingAuthContext is a KiiThingContext instance.</li>
+         *       <li>reject callback function: function(error). error is an Error instance.
+         *         <ul>
+         *           <li>error.message</li>
+         *         </ul>
+         *       </li>
+         *     </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     Kii.authenticateAsThing("vendor thing id", "password of this thing", {
+         *         success: function(thingAuthContext) {
+         *             // thingAuthContext : KiiThingContext instance
+         *             // Operate entities with thingAuthContext.
+         *         },
+         *         failure: function(error) {
+         *             // Authentication failed.
+         *         }
+         *     );
+         *
+         *     // example to use Promise
+         *     Kii.authenticateAsThing("vendor thing id", "password of this thing").then(
+         *         function(thingAuthContext) {　// fulfill callback function
+         *             // thingAuthContext : KiiThingContext instance
+         *             // Operate entities with thingAuthContext.
+         *
+         *         },
+         *         function(error) { // reject callback function
+         *             // Authentication failed.
+         *             var errorString = error.message;
+         *         }
+         *     );
+         */
+        static authenticateAsThing(vendorThingID: string, password: string, callbacks?: { success(thingAuthContext: KiiThingContext): any; failure(error: Error): any; }): Promise<KiiThingContext>;
+
+        /**
+         * Create a KiiThingContext reference
+         * <br><br>
+         * <b>This api is intended to be used in a Thing device, where the user
+         * credentials or app admin context is not configured. This Thing must be
+         * already registered in Kii Cloud.
+         * </b>
+         *
+         * @param thingID thingID of a registered Thing.
+         * @param token token for the registered Thing.
+         * @param callbacks The callback methods called when creation succeeded/failed.
+         *
+         * @return return promise object.
+         *     <ul>
+         *       <li>fulfill callback function: function(thingContext). thingContext is a KiiThingContext instance.</li>
+         *       <li>reject callback function: function(error). error is an Error instance.
+         *         <ul>
+         *           <li>error.message</li>
+         *         </ul>
+         *       </li>
+         *     </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     Kii.authenticateAsThingWithToken("thing_id", "thing_token", {
+         *         success: function(thingContext) {
+         *             // thingContext : KiiThingContext instance
+         *             // Operate entities with thingContext.
+         *         },
+         *         failure: function(error) {
+         *             // Creation failed.
+         *         }
+         *     );
+         *
+         *     // example to use Promise
+         *     Kii.authenticateAsThingWithToken("thing_id", "thing_token").then(
+         *         function(thingContext) {　// fulfill callback function
+         *             // thingContext : KiiThingContext instance
+         *             // Operate entities with thingContext.
+         *
+         *         },
+         *         function(error) { // reject callback function
+         *             // Creation failed.
+         *             var errorString = error.message;
+         *         }
+         *     );
+         */
+        static authenticateAsThingWithToken(thingID: string, token: string, callbacks?: { success(thingContext: KiiThingContext): any; failure(error: Error): any; }): Promise<KiiThingContext>;
     }
 
     /**
@@ -3744,7 +3844,7 @@ declare namespace KiiCloud {
          *         <li>response.username is username to use for connecting to the MQTT broker.</li>
          *         <li>response.password is assword to use for connecting to the MQTT broker.</li>
          *         <li>response.mqttTopic is topic to subscribe in the MQTT broker.</li>
-         *         <li>response.host is URL of the MQTT broker host to connect.</li>
+         *         <li>response.host is hostname of the MQTT broker.</li>
          *         <li>response.X-MQTT-TTL is the amount of time in seconds that specifies how long the mqttTopic will be valid, after that the client needs to request new MQTT endpoint info.</li>
          *         <li>response.portTCP is port to connect using plain TCP.</li>
          *         <li>response.portSSL is port to connect using SSL/TLS.</li>
@@ -4987,6 +5087,20 @@ declare namespace KiiCloud {
         getDisabled(): boolean;
 
         /**
+         * Get online status of the thing.
+         *
+         * @return true if the thing is online, false otherwise. The return value will be null initially until the thing is connected for the first time.
+         */
+        isOnline(): boolean;
+
+        /**
+         * Get online status modified date of the thing.
+         *
+         * @return online status modified time of this thing. The date will be null initially until the thing is connected for the first time.
+         */
+        getOnlineStatusModifiedAt(): Date;
+
+        /**
          * Register thing in KiiCloud.<br>
          * This API doesnt require users login Anonymous user can register thing.
          * <br>
@@ -5795,6 +5909,156 @@ declare namespace KiiCloud {
     }
 
     /**
+     * represents a KiiThingContext object
+     */
+    export class KiiThingContext {
+        /**
+         * Creates a reference to a bucket in App scope operated by thing.
+         *
+         * @param bucketName The name of the bucket the app should create/access
+         *
+         * @return A working KiiBucket object
+         *
+         * @example
+         *         Kii.authenticateAsThing("vendorThingID", "password", {
+         *             success: function(thingAuthContext) {
+         *                 var bucket = thingAuthContext.bucketWithName("myAppBucket");
+         *             },
+         *             failure: function(errorString, errorCode) {
+         *                 // auth failed.
+         *             }
+         *         });
+         */
+        bucketWithName(bucketName: string): KiiBucket;
+
+        /**
+         * Creates a reference to a encrypted bucket in App scope operated by thing.
+         *     <br><br>The bucket will be created/accessed within this app's scope
+         *
+         * @param bucketName The name of the bucket the app should create/access
+         *
+         * @return A working KiiBucket object
+         *
+         * @example
+         *         Kii.authenticateAsThing("vendorThingID", "password", {
+         *             success: function(thingAuthContext) {
+         *                 var bucket = thingAuthContext.encryptedBucketWithName("myAppBucket");
+         *             },
+         *             failure: function(errorString, errorCode) {
+         *                 // auth failed.
+         *             }
+         *         });
+         */
+        encryptedBucketWithName(bucketName: string): KiiBucket;
+
+        /**
+         * Creates a reference to an object operated by thing using object`s URI.
+         *
+         * @param object URI.
+         *
+         * @return A working KiiObject instance
+         *
+         * @throws If the URI is null, empty or does not have correct format.
+         */
+        objectWithURI(object: string): KiiObject;
+
+        /**
+         * Creates a reference to a topic in App scope operated by thing.
+         * <br><br>The Topic will be created/accessed within this app's scope
+         *
+         * @param topicName name of the topic. Must be a not empty string.
+         *
+         * @return topic instance.
+         */
+        topicWithName(topicName: string): KiiTopic;
+
+        /**
+         * Gets a list of topics in app scope
+         *
+         * @param callbacks An object with callback methods defined
+         * @param paginationKey You can specify the pagination key with the nextPaginationKey passed by callbacks.success. If empty string or no string object is provided, this API regards no paginationKey specified.
+         *
+         * @return return promise object.
+         *     <ul>
+         *       <li>fulfill callback function: function(params). params is Array instance.
+         *         <ul>
+         *           <li>params[0] is array of KiiTopic instances.</li>
+         *           <li>params[1] is string of nextPaginationKey.</li>
+         *         </ul>
+         *       </li>
+         *       <li>reject callback function: function(error). error is an Error instance.
+         *         <ul>
+         *           <li>error.target is a KiiAppAdminContext instance which this method was called on.</li>
+         *           <li>error.message</li>
+         *         </ul>
+         *       </li>
+         *     </ul>
+         *
+         * @example
+         *     // example to use callbacks directly
+         *     // Assume you already have thingAuthContext instance.
+         *     thingAuthContext.listTopics({
+         *         success: function(topicList, nextPaginationKey) {
+         *             // do something with the result
+         *             for(var i=0; i&lt;topicList.length; i++){
+         *                 var topic = topicList[i];
+         *             }
+         *             if (nextPaginationKey != null) {
+         *                 thingAuthContext.listTopics({
+         *                     success: function(topicList, nextPaginationKey) {...},
+         *                     failure: function(anErrorString) {...}
+         *                 }, nextPaginationKey);
+         *             }
+         *         },
+         *         failure: function(anErrorString) {
+         *             // do something with the error response
+         *         }
+         *     });
+         *
+         *     // example to use Promise
+         *     // Assume you already have thingAuthContext instance.
+         *     thingAuthContext.listTopics().then(
+         *         function(params) {
+         *             var topicList = params[0];
+         *             var nextPaginationKey = params[1];
+         *             // do something with the result
+         *             for(var i=0; i&lt;topicList.length; i++){
+         *                 var topic = topicList[i];
+         *             }
+         *             if (nextPaginationKey != null) {
+         *                 thingAuthContext.listTopics(null, nextPaginationKey).then(
+         *                     function(params) {...},
+         *                     function(error) {...}
+         *                 );
+         *             }
+         *         },
+         *         function(error) {
+         *             // do something with the error response
+         *         }
+         *     );
+         */
+        listTopics(callbacks?: { success(topicList: KiiTopic[], nextPaginationKey: string): any; failure(anErrorString: string): any; }, paginationKey?: string): Promise<[KiiTopic[], string]>;
+
+        /**
+         * Gets authenticated KiiThing instance.
+         * <br>Returned thing instance only have thingID, vendorThingID and accessToken.
+         * (vendorThingID is not included when you used
+         * {@link Kii.authenticateAsThingWithToken()} to obtain KiiThingContext.)
+         * <br>Please execute {@link KiiThing#refresh()} to obtain other properties.
+         *
+         * @return return authenticated KiiThing instance.
+         */
+        getAuthenticatedThing(): KiiThing;
+
+        /**
+         * Instantiate push installation for this thing.
+         *
+         * @return push installation object.
+         */
+        pushInstallation(): KiiPushInstallation;
+    }
+
+    /**
      * Represents a Topic object.
      */
     export class KiiTopic {
@@ -6107,6 +6371,25 @@ declare namespace KiiCloud {
         setCountry(value: string): void;
 
         /**
+         * Get the locale associated with this user
+         *
+         * @return
+         */
+        getLocale(): string;
+
+        /**
+         * Set the locale associated with this user
+         * The locale argument must be BCP 47 language tag.
+         * Examples:
+         * "en": English
+         * "de-AT": German as used in Austria.
+         * "zh-Hans-CN": Chinese written in simplified characters as used in China.
+         *
+         * @param value The locale to set.
+         */
+        setLocale(value: string): void;
+
+        /**
          * Get the server's creation date of this user
          *
          * @return
@@ -6196,7 +6479,7 @@ declare namespace KiiCloud {
         /**
          * Sets a key/value pair to a KiiUser
          *
-         * <br><br>If the key already exists, its value will be written over. If the object is of invalid type, it will return false and a KiiError will be thrown (quietly). Accepted types are any JSON-encodable objects.
+         * <br><br>If the key already exists, its value will be written over. If key is empty or starting with '_', it will do nothing. Accepted types are any JSON-encodable objects.
          *
          * @param key The key to set. The key must not be a system key (created, metadata, modified, type, uuid) or begin with an underscore (_)
          * @param value The value to be set. Object must be of a JSON-encodable type (Ex: dictionary, array, string, number, etc)
@@ -7826,6 +8109,7 @@ import KiiServerCodeEntry = KiiCloud.KiiServerCodeEntry;
 import KiiServerCodeExecResult = KiiCloud.KiiServerCodeExecResult;
 import KiiSocialConnect = KiiCloud.KiiSocialConnect;
 import KiiThing = KiiCloud.KiiThing;
+import KiiThingContext = KiiCloud.KiiThingContext;
 import KiiTopic = KiiCloud.KiiTopic;
 import KiiUser = KiiCloud.KiiUser;
 import KiiUserBuilder = KiiCloud.KiiUserBuilder;

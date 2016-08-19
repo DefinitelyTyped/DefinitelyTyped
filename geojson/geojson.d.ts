@@ -18,10 +18,7 @@ declare namespace GeoJSON {
     /***
     * http://geojson.org/geojson-spec.html#positions
     */
-    export interface Position
-    {
-        [index: number]: number;
-    }
+    export type Position = number[]
 
     /***
     * http://geojson.org/geojson-spec.html#geometry-objects

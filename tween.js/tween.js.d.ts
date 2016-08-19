@@ -98,3 +98,7 @@ interface TweenInterpolation {
     Factorial(n:number): number;
   };
 }
+
+declare module 'tween.js' {
+  export = TWEEN;
+}

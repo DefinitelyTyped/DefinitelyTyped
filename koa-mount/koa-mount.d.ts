@@ -19,5 +19,7 @@ declare module "koa-mount" {
 
     function mount(prefix: string, app: Koa): Function;
 
+    namespace mount {}
+
     export = mount;
 }

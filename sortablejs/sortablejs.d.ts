@@ -202,7 +202,7 @@ declare namespace Sortablejs {
 
 import Sortable = Sortablejs.Sortable;
 
-declare module 'Sortable' {
+declare module 'sortablejs' {
     import Sortable = Sortablejs.Sortable;
     export = Sortable;
 }
