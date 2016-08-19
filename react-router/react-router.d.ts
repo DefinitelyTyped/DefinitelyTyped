@@ -88,6 +88,13 @@ declare namespace ReactRouter {
 
     function createMemoryHistory(options?: H.HistoryOptions): H.History
 
+    interface Middleware {
+        renderRouterContext: (previous: React.Props<{}>[], props: React.Props<{}>) => React.Props<{}>[]
+        renderRouteComponent: (previous: React.Props<{}>[], props: React.Props<{}>) => React.Props<{}>[]
+    }
+
+    function applyRouterMiddleware(...middlewares: Middleware[]): (renderProps: React.Props<{}>) => React.Props<{}>[]
+
     /* components */
 
     interface RouterProps extends React.Props<Router> {
@@ -97,6 +104,7 @@ declare namespace ReactRouter {
         onError?: (error: any) => any
         onUpdate?: () => any
         parseQueryString?: ParseQueryString
+        render?: (renderProps: React.Props<{}>) => React.Props<{}>[]
         stringifyQuery?: StringifyQuery
     }
     interface Router extends React.ComponentClass<RouterProps> {}
@@ -448,6 +456,10 @@ declare module "react-router/lib/withRouter" {
     export default ReactRouter.withRouter;
 }
 
+declare module "react-router/lib/applyRouterMiddleware" {
+    export default ReactRouter.applyRouterMiddleware;
+}
+
 declare module "react-router" {
 
     import Router from "react-router/lib/Router"
@@ -492,6 +504,8 @@ declare module "react-router" {
 
     import withRouter from "react-router/lib/withRouter";
 
+    import applyRouterMiddleware from "react-router/lib/applyRouterMiddleware";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -534,7 +548,8 @@ declare module "react-router" {
         match,
         useRouterHistory,
         createMemoryHistory,
-        withRouter
+        withRouter,
+        applyRouterMiddleware
     }
 
     export default Router
