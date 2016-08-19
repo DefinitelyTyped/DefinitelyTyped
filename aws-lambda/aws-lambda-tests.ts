@@ -1,5 +1,3 @@
-/// <reference path="aws-lambda.d.ts" />
-
 import lambda = require('aws-lambda');
 
 var str: string = "any string";
