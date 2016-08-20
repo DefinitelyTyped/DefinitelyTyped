@@ -3,7 +3,7 @@
 // Definitions by: Vaggelis Mparmpas <https://github.com/vag1830>, Daniel Massa <https://github.com/danielmassa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module CacheFactory {
+declare namespace CacheFactory {
 	export interface IStoreImplementation {
 		getItem(key: string): string;
 
@@ -436,8 +436,6 @@ declare module CacheFactory {
 	}
 }
 
-declare var CacheFactory: CacheFactory.ICacheFactory;
-
-declare module "cachefactory" {
-	export = CacheFactory;
-}
+declare const CacheFactory: CacheFactory.ICacheFactory;
+export = CacheFactory;
+export as namespace CacheFactory;
