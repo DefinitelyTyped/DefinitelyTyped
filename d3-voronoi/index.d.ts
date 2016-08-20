@@ -9,18 +9,24 @@
 
 
 /**
- * The Point type is defined as a cue that the array is strictly of type [number, number] with two elements
+ * The VoronoiPoint interface is defined as a cue that the array is strictly of type [number, number] with two elements
  * for x and y coordinates. However, it is used as a base for interface definitions, and [number, number]
  * cannot be extended.
  */
-export type VoronoiPoint = Array<number>;
+export interface VoronoiPoint extends Array<number> {
+    0: number;
+    1: number;
+}
 
 /**
- * The PointPair type is defined as a cue that the array is strictly of type [[number, number], [number, number]] with two elements, one
+ * The VoronoiPointPair interface is defined as a cue that the array is strictly of type [[number, number], [number, number]] with two elements, one
  * for each point containing the respective x and y coordinates. However, it is used as a base for interface definitions, and
- * [[number, number], [number, number]]cannot be extended.
+ * [[number, number], [number, number]] cannot be extended.
  */
-export type VoronoiPointPair = Array<[number, number]> // [Point, Point];
+export interface VoronoiPointPair extends Array<[number, number]> {
+    0: [number, number];
+    1: [number, number];
+}
 
 export interface VoronoiPolygon<T> extends Array<[number, number]> {
     data: T;
