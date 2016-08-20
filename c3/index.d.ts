@@ -747,7 +747,7 @@ declare namespace c3 {
         /**
          * The radius size of each point.
          */
-        r?: number;
+        r?: number | ((d: any) => number);
 
         focus?: {
             expand: {

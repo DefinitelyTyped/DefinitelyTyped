@@ -8,7 +8,7 @@ declare namespace olx {
 
         /** Attributions */
         attributions?: Array<ol.Attribution>
-        
+
         /*** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
         crossOrigin?: string
 
@@ -47,7 +47,7 @@ declare namespace olx {
         /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
         extent: ol.Extent;
     }
-    
+
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -1220,7 +1220,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.Collection instances are instances of this type.
      */
-    class CollectionEvent<T> {
+    class CollectionEvent<T> extends ol.events.Event {
 
         /**
          * The element that is added to or removed from the collection.
@@ -1279,7 +1279,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
-    class DragBoxEvent {
+    class DragBoxEvent extends ol.events.Event {
 
         /**
          * The coordinate of the drag event.
@@ -1935,7 +1935,7 @@ declare namespace ol {
     /**
      * Events emitted as map events are instances of this type. See ol.Map for which events trigger a map event.
      */
-    class MapEvent {
+    class MapEvent extends ol.events.Event {
 
         /**
          * The frame state at the time of the event.
@@ -2005,7 +2005,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.Object instances are instances of this type.
      */
-    class ObjectEvent {
+    class ObjectEvent extends ol.events.Event {
 
         /**
          * The name of the property whose value is changing.
@@ -2045,7 +2045,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen for a certain type of event.
@@ -2054,7 +2054,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2063,7 +2063,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2072,7 +2072,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Unlisten for a certain type of event.
@@ -2081,7 +2081,7 @@ declare namespace ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        un(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        un(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Removes an event listener using the key returned by on() or once(). Note that using the ol.Observable.unByKey static function is to be preferred.
@@ -2165,7 +2165,7 @@ declare namespace ol {
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
-    class SelectEvent {
+    class SelectEvent extends ol.events.Event {
 
         /**
          * Deselected features array.
@@ -2551,6 +2551,12 @@ declare namespace ol {
             function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
         interface ConditionType { (mapBrowseEvent: ol.MapBrowserEvent): boolean; }
+        class Event {
+          target: any;
+          type: string;
+          preventDefault(): void;
+          stopPropagation(): void;
+        }
     }
 
     namespace extent {
@@ -3601,7 +3607,7 @@ declare namespace ol {
         class DragAndDrop {
         }
 
-        class DragAndDropEvent {
+        class DragAndDropEvent extends ol.events.Event {
         }
 
         class DragBox {
@@ -3623,7 +3629,7 @@ declare namespace ol {
             constructor(opt_options?: olx.interaction.DrawOptions)
         }
 
-        class DrawEvent {
+        class DrawEvent extends ol.events.Event {
         }
 
         class Interaction extends ol.Object {
@@ -4129,7 +4135,7 @@ declare namespace ol {
 
     namespace render {
 
-        class Event {
+        class Event extends ol.events.Event {
         }
 
         class VectorContext {
@@ -4167,7 +4173,7 @@ declare namespace ol {
         class ImageCanvas extends Image {
         }
 
-        class ImageEvent {
+        class ImageEvent extends ol.events.Event {
         }
 
         class ImageMapGuide extends Image {
@@ -4216,7 +4222,7 @@ declare namespace ol {
         class TileDebug extends Tile {
         }
 
-        class TileEvent {
+        class TileEvent extends ol.events.Event {
         }
 
         class TileImage extends UrlTile {
@@ -4301,7 +4307,7 @@ declare namespace ol {
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
-        class VectorEvent {
+        class VectorEvent extends ol.events.Event {
         }
 
         class VectorTile extends UrlTile {

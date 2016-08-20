@@ -1,5 +1,3 @@
-/// <reference path="./bezier-js.d.ts" />
-
 function test() {
 
     var bezierjs: typeof BezierJs;

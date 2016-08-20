@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
-/// <reference types="bootstrap.datepicker" />
+/// <reference types="bootstrap-datepicker" />
 
 declare namespace ReactBootstrapDaterangepicker {
     export interface EventHandler { (event?: any, picker?: any): any; }

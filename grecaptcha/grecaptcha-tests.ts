@@ -2,8 +2,9 @@
 
 var params: ReCaptchaV2.Parameters = {
   "sitekey": "mySuperSecretKey",
-  "theme": "black", // no type-checking here. 
+  "theme": "light",
   "type": "image",
+  "size": "normal",
   "tabindex": 5,
   "callback": (response: string) => { },
   "expired-callback": () => { },

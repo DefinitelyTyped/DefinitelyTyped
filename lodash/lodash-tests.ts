@@ -6840,7 +6840,9 @@ namespace TestIsError {
     }
 
     {
-        class CustomError extends Error {}
+        class CustomError extends Error {
+            custom: string
+        }
 
         let value: number|CustomError;
 

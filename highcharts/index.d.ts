@@ -3,6 +3,8 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./highstock.d.ts" />
+
 interface HighchartsPosition {
     align?: string;
     verticalAlign?: string;
@@ -468,6 +470,10 @@ interface HighchartsAxisOptions {
      * @since 4.0
      */
     ceiling?: number;
+    /**
+     * Configure a crosshair that follows either the mouse pointer or the hovered point.
+     */
+    crosshair?: HighchartsCrosshairObject;
     /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
@@ -3183,6 +3189,14 @@ interface HighchartsPointEvents {
      * @since 1.2.0
      */
     update?: (event: Event) => boolean|void;
+    /**
+     * Fires when the legend item belonging to the pie point (slice) is clicked.
+     * The this keyword refers to the point itself. One parameter, event, is passed to the function.
+     * This contains common event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
+     * The default action is to toggle the visibility of the point. This can be prevented by calling event.preventDefault().
+     */
+    legendItemClick?: (event: Event) => boolean | void;
+
 }
 
 interface HighchartsHalo {
@@ -6053,7 +6067,7 @@ interface HighchartsStatic {
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
      * @since 2.3.4
      */
-    charts: HighchartsChart[];
+    charts: HighchartsChartObject[];
     /**
      * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
      * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the

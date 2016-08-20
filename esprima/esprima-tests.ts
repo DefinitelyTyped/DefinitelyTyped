@@ -2,6 +2,7 @@
 
 
 import esprima = require('esprima');
+import * as ESTree from 'estree';
 
 var token: esprima.Token;
 var comment: esprima.Comment;

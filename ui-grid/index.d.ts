@@ -839,6 +839,11 @@ declare namespace uiGrid {
          */
         useExternalFiltering?: boolean;
         /**
+         * Disables client side sorting. When true, handle the sortChanged event and do the sorting there
+         * @default false
+         */
+        useExternalSorting?: boolean;
+        /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
          */
@@ -3564,7 +3569,7 @@ declare namespace uiGrid {
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
-         * respectively. 
+         * respectively.
          */
         sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /** Column width */
@@ -3799,7 +3804,7 @@ declare namespace uiGrid {
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
-         * respectively. 
+         * respectively.
          */
         sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /**
@@ -3878,6 +3883,10 @@ declare namespace uiGrid {
         /** String that will be set to the <input>.placeholder attribute */
         placeholder?: string;
         /**
+         * String that will be set to the <input>.ariaLabel attribute. This is what is read as a label to screen reader users.
+         */
+        ariaLabel?: string;
+        /**
          * set this to true if you have defined a custom function in condition,
          * and your custom function doesn't require a term
          * (so it can run even when the term is null)
@@ -3901,7 +3910,7 @@ declare namespace uiGrid {
          * If set to true then the 'x' button that cancels/clears the filter will not be shown.
          * @default false
          */
-        disableCancelButton?: boolean;
+        disableCancelFilterButton?: boolean;
     }
     export interface ISelectOption {
         value: number | string;

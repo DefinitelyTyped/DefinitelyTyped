@@ -245,6 +245,7 @@ declare module 'angular' {
             extendPalette(name: string, palette: IPalette): IPalette;
             setDefaultTheme(theme: string): void;
             alwaysWatchTheme(alwaysWatch: boolean): void;
+            setNonce(nonce: string): void;
         }
 
         interface IDateLocaleProvider {
@@ -290,12 +291,13 @@ declare module 'angular' {
         interface IPanelConfig {
             template?: string;
             templateUrl?: string;
-            controller?: string | Function;
+            controller?: string|Function;
             controllerAs?: string;
             bindToController?: boolean; // default: true
-            locals?: { [index: string]: any };
-            resolve?: { [index: string]: angular.IPromise<any> }
-            attachTo?: string | JQuery | Element;
+            locals?: {[index: string]: any};
+            resolve?: {[index: string]: angular.IPromise<any>}
+            attachTo?: string|JQuery|Element;
+            propagateContainerEvents?: boolean;
             panelClass?: string;
             zIndex?: number; // default: 80
             position?: IPanelPosition;
@@ -311,7 +313,7 @@ declare module 'angular' {
             onOpenComplete?: Function;
             onRemoving?: Function;
             onDomRemoved?: Function;
-            origin?: string | JQuery | Element;
+            origin?: string|JQuery|Element;
         }
 
         interface IPanelRef {
@@ -328,16 +330,18 @@ declare module 'angular' {
             addClass(newClass: string): void;
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
-            focusOnOpen(): void;
+            updatePosition(position: IPanelPosition): void;
         }
 
         interface IPanelPosition {
             absolute(): IPanelPosition;
-            relativeTo(someElement: string | JQuery | Element): IPanelPosition;
-            top(opt_top: string): IPanelPosition; // default: '0'
-            bottom(opt_bottom: string): IPanelPosition; // default: '0'
-            left(opt_left: string): IPanelPosition; // default: '0'
-            right(opt_right: string): IPanelPosition; // default: '0'
+            relativeTo(someElement: string|JQuery|Element): IPanelPosition;
+            top(top?: string): IPanelPosition; // default: '0'
+            bottom(bottom?: string): IPanelPosition; // default: '0'
+            start(start?: string): IPanelPosition; // default: '0'
+            end(end?: string): IPanelPosition; // default: '0'
+            left(left?: string): IPanelPosition; // default: '0'
+            right(right?: string): IPanelPosition; // default: '0'
             centerHorizontally(): IPanelPosition;
             centerVertically(): IPanelPosition;
             center(): IPanelPosition;
@@ -357,6 +361,25 @@ declare module 'angular' {
             open(opt_config: IPanelConfig): angular.IPromise<IPanelRef>;
             newPanelPosition(): IPanelPosition;
             newPanelAnimation(): IPanelAnimation;
+            xPosition: {
+                CENTER: string,
+                ALIGN_START: string,
+                ALIGN_END: string,
+                OFFSET_START: string,
+                OFFSET_END: string,
+            };
+            yPosition: {
+                CENTER: string,
+                ALIGN_TOPS: string,
+                ALIGN_BOTTOMS: string,
+                ABOVE: string,
+                BELOW: string,
+            };
+            animation: {
+                SLIDE: string,
+                SCALE: string,
+                FADE: string,
+            };
         }
     }
 }

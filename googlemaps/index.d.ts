@@ -1783,21 +1783,22 @@ declare namespace google.maps {
     }
 
     export type LatLngLiteral = { lat: number; lng: number }
+    export type LatLngBoundsLiteral = { east: number; north: number; south: number; west: number }
 
     export class LatLngBounds {
-        constructor(sw?: LatLng, ne?: LatLng);
+        constructor(sw?: LatLng|LatLngLiteral, ne?: LatLng|LatLngLiteral);
         contains(latLng: LatLng): boolean;
-        equals(other: LatLngBounds): boolean;
+        equals(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         extend(point: LatLng): LatLngBounds;
         getCenter(): LatLng;
         getNorthEast(): LatLng;
         getSouthWest(): LatLng;
-        intersects(other: LatLngBounds): boolean;
+        intersects(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         isEmpty(): boolean;
         toSpan(): LatLng;
         toString(): string;
         toUrlValue(precision?: number): string;
-        union(other: LatLngBounds): LatLngBounds;
+        union(other: LatLngBounds|LatLngBoundsLiteral): LatLngBounds;
     }
 
     export class Point {
