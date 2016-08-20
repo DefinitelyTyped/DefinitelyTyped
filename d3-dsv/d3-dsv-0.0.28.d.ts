@@ -1,4 +1,4 @@
-﻿// Type definitions for d3-dsv
+﻿// Type definitions for d3-dsv v0.0.28
 // Project: https://www.npmjs.com/package/d3-dsv
 // Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -18,10 +18,10 @@ declare module _d3dsv {
 	/** A parser and formatter for DSV (CSV and TSV) files.
 Extracted from D3. */
 	export class D3Dsv {
-		/** Parses the specified string, which is the contents of a CSV file, returning an array of objects representing the parsed rows. 
-		The string is assumed to be RFC4180-compliant. 
-		Unlike the parseRows method, this method requires that the first line of the CSV file contains a comma-separated list of column names; 
-		these column names become the attributes on the returned objects. 
+		/** Parses the specified string, which is the contents of a CSV file, returning an array of objects representing the parsed rows.
+		The string is assumed to be RFC4180-compliant.
+		Unlike the parseRows method, this method requires that the first line of the CSV file contains a comma-separated list of column names;
+		these column names become the attributes on the returned objects.
 		For example, consider the following CSV file:
 
 Year,Make,Model,Length
@@ -34,7 +34,7 @@ The resulting JavaScript array is:
   {"Year": "2000", "Make": "Mercury", "Model": "Cougar", "Length": "2.38"} ]
 		 */
 		public parse<TRow>(
-			table: string, 
+			table: string,
 			/** coerce cells (strings) into different types or modify them. return null to strip this row from the output results. */
 			accessor?: (row: any) => TRow
 			): TRow[];
