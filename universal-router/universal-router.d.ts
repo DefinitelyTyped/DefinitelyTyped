@@ -39,9 +39,9 @@ declare module "universal-router" {
    *  returns a Promise, R can be the type the Promise resolves to.
    */
   export interface Route<C, R> {
-    path: string,
-    action: (ctx: ActionContext & C, params: Params) => R | Promise<R> | undefined,
-    children?: Routes<C, R>
+    path: string;
+    action: (ctx: ActionContext & C, params: Params) => R | Promise<R> | void;
+    children?: Routes<C, R>;
   }
 
   /**
