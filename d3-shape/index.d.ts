@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-shape module 1.0.0
+// Type definitions for D3JS d3-shape module v1.0.3
 // Project: https://github.com/d3/d3-shape/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
