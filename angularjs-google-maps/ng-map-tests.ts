@@ -1,6 +1,6 @@
 /// <reference path="ng-map.d.ts" />
 class NgMapTestController {
-    constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public NgMap: ngMap.INgMap) {
+    constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public NgMap: angular.map.INgMap) {
         this.showMap();
     }
 
@@ -13,7 +13,7 @@ class NgMapTestController {
 
 var app = angular.module('angularLocalStorageTests', ['ngMap']);
 
-app.config(function(NgMapProvider: ngMap.INgMapProvider) {
+app.config(function(NgMapProvider: angular.map.INgMapProvider) {
    NgMapProvider.setDefaultOptions({
      	marker: {
        		optimized: false
@@ -22,4 +22,4 @@ app.config(function(NgMapProvider: ngMap.INgMapProvider) {
  });
 
 app.controller('testCtrl', ['$scope', '$window', 'ngMap',  
-	($scope: ng.IScope, $window: ng.IWindowService, NgMap: ngMap.INgMap) => new NgMapTestController($scope, $window, NgMap)]);
+	($scope: ng.IScope, $window: ng.IWindowService, NgMap: angular.map.INgMap) => new NgMapTestController($scope, $window, NgMap)]);
