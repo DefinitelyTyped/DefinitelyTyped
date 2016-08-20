@@ -96,4 +96,4 @@ interface BazingaTranslator {
     reset(): void;
 }
 
-declare var Translator: BazingaTranslator;
+declare const Translator: BazingaTranslator;
