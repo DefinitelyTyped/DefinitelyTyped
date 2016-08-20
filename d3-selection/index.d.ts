@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-selection module 1.0.0
+// Type definitions for D3JS d3-selection module v1.0.2
 // Project: https://github.com/d3/d3-selection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -129,9 +129,29 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     style(name: string, value: ValueFn<GElement, Datum, string | number | boolean>, priority?: null | 'important'): this;
 
     property(name: string): any;
+    /**
+     * Look up a local variable on the first node of this selection. Note that this is not equivalent to `local.get(selection.node())` in that it will not look up locals set on the parent node(s).
+     *
+     * @param name The `d3.local` variable to look up.
+     */
+    property<T>(name: Local<T>): T | undefined;
     property(name: string, value: ValueFn<GElement, Datum, any>): this;
     property(name: string, value: null): this;
     property(name: string, value: any): this;
+    /**
+     * Store a value in a `d3.local` variable. This is equivalent to `selection.each(function (d, i, g) { name.set(this, value.call(this, d, i, g)); })` but more concise.
+     *
+     * @param name A `d3.local` variable
+     * @param value A callback that returns the value to store
+     */
+    property<T>(name: Local<T>, value: ValueFn<GElement, Datum, T>): this;
+    /**
+     * Store a value in a `d3.local` variable for each node in the selection. This is equivalent to `selection.each(function () { name.set(this, value); })` but more concise.
+     *
+     * @param name A `d3.local` variable
+     * @param value A callback that returns the value to store
+     */
+    property<T>(name: Local<T>, value: T): this;
 
     text(): string;
     text(value: string | number | boolean): this;
@@ -262,10 +282,19 @@ export function touches(container: ContainerElement, touches?: TouchList): Array
 // ---------------------------------------------------------------------------
 
 
-export interface Local {
-    get(node: Element): any;
+export interface Local<T> {
+    /**
+     * Retrieves a local variable stored on the node (or one of its parents).
+     */
+    get(node: Element): T | undefined;
+    /**
+     *
+     */
     remove(node: Element): boolean;
-    set(node: Element, value: any): Element;
+    /**
+     * Store a value for this local variable. Calling `.get()` on children of this node will also retrieve the variable's value.
+     */
+    set(node: Element, value: T): Element;
     /**
      * Obtain a string with the internally assigned property name for the local
      * which is used to store the value on a node
@@ -276,7 +305,7 @@ export interface Local {
 /**
  * Obtain a new local variable
  */
-export function local(): Local;
+export function local<T>(): Local<T>;
 
 // ---------------------------------------------------------------------------
 // namespace.js related
