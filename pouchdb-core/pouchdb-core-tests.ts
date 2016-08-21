@@ -75,4 +75,31 @@ namespace PouchDBCoreTests {
         db.info({ ajax: { cache: true }}, (error, result) => {
         });
     }
+
+    function testRemove() {
+      type MyModel = { rev: 'rev', property: 'someProperty '};
+      let model: PouchDB.Core.Document<MyModel>;
+      const id = 'model';
+      const rev = 'rev';
+
+      const db = new PouchDB<MyModel>();
+
+      // Promise version with doc
+      db.remove(model).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with doc and options
+      db.remove(model, {}).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with docId and rev
+      db.remove(id, rev).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with docId and rev and options
+      db.remove(id, rev, {}).then( (res: PouchDB.Core.Response) => {});
+
+      // Callback version with doc
+      db.remove(model, {}, (res: PouchDB.Core.Response) => {});
+
+      // Callback version with docId and rev
+      db.remove(id, rev, {}, (res: PouchDB.Core.Response) => {});
+    }
 }
