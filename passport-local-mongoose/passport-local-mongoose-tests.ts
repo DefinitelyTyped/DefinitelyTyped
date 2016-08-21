@@ -77,10 +77,9 @@ options.errorMessages = errorMessages;
 
 UserSchema.plugin(passportLocalMongoose, options);
 
-type UserModel<T extends PassportLocalDocument> = _UserModel<T> & PassportLocalModel<T>;
-interface _UserModel<T extends PassportLocalDocument> {}
+interface UserModel<T extends PassportLocalDocument> extends PassportLocalModel<T> {}
 
-let UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
+let UserModel: UserModel<User> = model<User>('User', UserSchema);
 //#endregion
 
 
@@ -96,7 +95,7 @@ passport.use('login', new LocalStrategy({
         process.nextTick(() => {
             UserModel
             .findOne({ 'username': username })
-            .exec((err: any, user: model<User>) => {
+            .exec((err: any, user: User) => {
                 if (err) {
                     console.log(err);
                     return done(err, null);
