@@ -38,6 +38,16 @@ namespace PouchDBCoreTests {
         });
     }
 
+    function testCompact() {
+      const db = new PouchDB<{}>();
+      // Promise version
+      db.compact().then( (res: PouchDB.Core.Response) => {});
+      // Promise version with optional options
+      db.compact({interval: 300}).then( (res: PouchDB.Core.Response) => {});
+      // Options with a callback
+      db.compact({interval: 300},  (res: PouchDB.Core.Response) => {});
+    }
+
     function testDestroy() {
         const db = new PouchDB<{}>();
 

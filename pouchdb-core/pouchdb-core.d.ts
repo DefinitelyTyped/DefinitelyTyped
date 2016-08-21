@@ -164,6 +164,10 @@ declare namespace PouchDB {
         interface PostOptions extends PutOptions {
         }
 
+        interface CompactOptions extends Core.Options {
+          interval?: number;
+        }
+
         interface InfoOptions extends Options {
         }
     }
@@ -263,6 +267,11 @@ declare namespace PouchDB {
         /** Fetch all documents. */
         allDocs(options?: Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content>>;
+
+        /** Compact the database */
+        compact(options?: Core.CompactOptions): Promise<Core.Response>;
+        compact(options: Core.CompactOptions,
+                callback: Core.Callback<Core.Error, Core.Response>): void;
 
         /** Destroy the database */
         destroy(options: Core.DestroyOptions | void,
