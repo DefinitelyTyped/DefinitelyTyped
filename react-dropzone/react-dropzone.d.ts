@@ -25,6 +25,8 @@ declare namespace ReactDropzone {
         /**
         * To accept only a single file, set this to false.
         */
+        maxSize?: number;
+        minSize?: number;
         multiple?: boolean;
         /**
         * Filters the file types that are valid. It should have a valid MIME type according to input element, for example:
