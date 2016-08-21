@@ -250,6 +250,10 @@ declare namespace PouchDB {
             options?: Configuration.DatabaseConfiguration): Database<Content>;
     }
 
+    interface CompactOptions extends Core.Options {
+      interval?: number;
+    }
+
     interface Database<Content extends Core.Encodable>  {
         /** Fetch all documents matching the given key. */
         allDocs(options: Core.AllDocsWithKeyOptions):
@@ -263,6 +267,11 @@ declare namespace PouchDB {
         /** Fetch all documents. */
         allDocs(options?: Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content>>;
+
+        /** Compact the database */
+        compact(options?: CompactOptions): Promise<Core.Response>;
+        compact(options: CompactOptions,
+                callback: Core.Callback<Core.Error, Core.Response>): void;
 
         /** Destroy the database */
         destroy(options: Core.DestroyOptions | void,
