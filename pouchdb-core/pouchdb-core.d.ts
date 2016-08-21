@@ -250,6 +250,10 @@ declare namespace PouchDB {
             options?: Configuration.DatabaseConfiguration): Database<Content>;
     }
 
+    interface CompactOptions extends Core.Options {
+      interval?: number;
+    }
+
     interface Database<Content extends Core.Encodable>  {
         /** Fetch all documents matching the given key. */
         allDocs(options: Core.AllDocsWithKeyOptions):
@@ -263,6 +267,11 @@ declare namespace PouchDB {
         /** Fetch all documents. */
         allDocs(options?: Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content>>;
+
+        /** Compact the database */
+        compact(options?: CompactOptions): Promise<Core.Response>;
+        compact(options: CompactOptions,
+                callback: Core.Callback<Core.Error, Core.Response>): void;
 
         /** Destroy the database */
         destroy(options: Core.DestroyOptions | void,
@@ -318,6 +327,20 @@ declare namespace PouchDB {
             id?: Core.DocumentId,
             revision?: Core.RevisionId,
             options?: Core.PutOptions): Promise<Core.Response>;
+
+        /** Remove a doc from the database */
+        remove(doc: Core.Document<Content>,
+               options: Core.Options,
+               callback: Core.Callback<Core.Error, Core.Response>): void;
+        remove(docId: Core.DocumentId,
+               revision: Core.RevisionId,
+               options: Core.Options,
+               callback: Core.Callback<Core.Error, Core.Response>): void;
+        remove(doc: Core.Document<Content>,
+               options?: Core.Options): Promise<Core.Response>;
+        remove(docId: Core.DocumentId,
+               revision: Core.RevisionId,
+               options?: Core.Options): Promise<Core.Response>;
 
         /** Get database information */
         info(options: Core.InfoOptions | void,
