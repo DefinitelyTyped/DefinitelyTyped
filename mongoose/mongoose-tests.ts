@@ -27,7 +27,7 @@ mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true
-}).then(cb).fulfill();
+}).then(cb);
 mongoose.connect(connectUri, function (error) {
   error.stack;
 });
@@ -45,7 +45,7 @@ mongoose.createConnection('localhost', 'database', 3000, {
     autoIndex: false
   }
 }).open('');
-mongoose.disconnect(cb).then(cb).fulfill;
+mongoose.disconnect(cb).then(cb);
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
@@ -540,7 +540,7 @@ query.where('loc').within().box(lowerLeft, upperRight)
 query.box({ ll : lowerLeft, ur : upperRight }).box({});
 var queryModel = mongoose.model('QModel')
 query.cast(new queryModel(), {}).hasOwnProperty('');
-query.catch(function (err) {}).catch();
+query.catch(cb).catch(cb);
 query.center({}).center({});
 query.centerSphere({ center: [50, 50], radius: 10 }).centerSphere('path', {});
 query.circle({ center: [50, 50], radius: 10 }).circle('path');
@@ -695,7 +695,7 @@ query.stream().on('data', function (doc: any) {
 });
 query.tailable().tailable(false);
 query.then(cb).catch(cb);
-(new (query.toConstructor())()).toConstructor();
+(new (query.toConstructor())(1, 2, 3)).toConstructor();
 query.update({}, doc, {
 
 }, cb);
@@ -1060,12 +1060,13 @@ mongoose.model('').aggregate()
   });
 
 /* pluggable promise */
-mongoose.Promise = Promise;
+(<any>mongoose).Promise = Promise;
+require('mongoose').Promise = Promise;
 mongoose.Promise.race;
 mongoose.Promise.all;
 
 mongoose.model('').findOne()
-  .exec().addErrback(cb);
+  .exec().then(cb);
 
 /*
  * section model.js
@@ -1377,5 +1378,5 @@ export var Final: MyModel = <MyModel>mongoose.connection.model<MyDocument>('Fina
 Final.findOne(function (err: any, doc: MyDocument) {
   doc.save();
   doc.remove();
-  doc.model<null>(null, null);
+  doc.model('');
 });
