@@ -328,20 +328,6 @@ declare namespace PouchDB {
             revision?: Core.RevisionId,
             options?: Core.PutOptions): Promise<Core.Response>;
 
-        /** Remove a doc from the database */
-        remove(doc: Core.Document<Content>,
-               options: Core.Options,
-               callback: Core.Callback<Core.Error, Core.Response>): void;
-        remove(docId: Core.DocumentId,
-               revision: Core.RevisionId,
-               options: Core.Options,
-               callback: Core.Callback<Core.Error, Core.Response>): void;
-        remove(doc: Core.Document<Content>,
-               options?: Core.Options): Promise<Core.Response>;
-        remove(docId: Core.DocumentId,
-               revision: Core.RevisionId,
-               options?: Core.Options): Promise<Core.Response>;
-
         /** Get database information */
         info(options: Core.InfoOptions | void,
             callback: Core.Callback<any, Core.DatabaseInfo>): void;
