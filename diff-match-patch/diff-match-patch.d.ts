@@ -39,7 +39,7 @@ declare module "diff-match-patch" {
         diff_toDelta(diffs: Diff[]): string;
         diff_fromDelta(text1: string, delta: string): Diff[];
 
-        patch_make(text1, text2: string): Patch[];
+        patch_make(text1: string, text2: string): Patch[];
         patch_deepCopy(patches: Patch[]): Patch[];
         patch_apply(patches: Patch[], text: string): [string, boolean[]];
         patch_fromText(text: string): Patch[];
