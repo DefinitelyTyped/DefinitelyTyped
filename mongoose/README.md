@@ -2,6 +2,15 @@
 Below are some examples of how to use these Definitions.<br>
 Scenarios where the Typescript code is identical to plain Javascript code are omitted.
 
+### Table of Contents
+* [Mongoose Methods, Properties, Constructors](#mongoose-methods-properties-constructors)
+* [Creating and Saving Documents](#creating-and-saving-documents)
+* [Instance Methods, Virtual Properties](#instance-methods-and-virtual-properties)
+* [Static Methods](#static-methods)
+* [Plugins](#plugins)
+* [Promises](#promises)
+* [FAQ](#faq)
+
 #### Mongoose Methods, Properties, Constructors
 You can call methods from the mongoose instance using:
 ```
