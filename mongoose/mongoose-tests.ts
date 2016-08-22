@@ -1380,3 +1380,9 @@ Final.findOne(function (err: any, doc: MyDocument) {
   doc.remove();
   doc.model('');
 });
+export var Final2: MyModel = mongoose.model<MyDocument, MyModel>('Final2', mySchema);
+Final2.staticMethod();
+Final2.staticProp;
+var final2 = new Final2();
+final2.prop;
+final2.method;

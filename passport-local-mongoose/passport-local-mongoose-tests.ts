@@ -34,7 +34,7 @@ interface User extends PassportLocalDocument {
     last: Date;
 }
 
-const UserSchema: PassportLocalSchema = <PassportLocalSchema>new Schema({
+const UserSchema: PassportLocalSchema = new Schema({
     username: String,
     hash: String,
     salt: String,
