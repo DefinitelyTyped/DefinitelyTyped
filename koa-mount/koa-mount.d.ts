@@ -13,11 +13,11 @@ declare module "koa-mount" {
 
     function mount(app: Function): Function;
 
-    function mount(app: Koa): Function;
+    function mount(app: Koa.Application): Function;
 
     function mount(prefix: string, app: Function): Function;
 
-    function mount(prefix: string, app: Koa): Function;
+    function mount(prefix: string, app: Koa.Application): Function;
 
     namespace mount {}
 
