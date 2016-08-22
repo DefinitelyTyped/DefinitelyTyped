@@ -149,7 +149,7 @@ interface IUserModel<T extends PassportLocalDocument> extends PassportLocalModel
 
 var UserModel: IUserModel<IUser> = model<IUser>('User', UserSchema);
 ```
-Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/passport-local-mongoose/passport-local-mongoose.d.ts)
+Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/passport-local-mongoose/passport-local-mongoose.d.ts)<br>
 [top](#mongoosejs-typescript-docs)
 
 #### Promises
@@ -184,6 +184,7 @@ Typescript does not allow assigning properties of imported modules):
 * `(<any>mongoose).Promise = YOUR_PROMISE;`
 * `require('mongoose').Promise = YOUR_PROMISE;`
 * `import mongoose = require('mongoose'); ... mongoose.Promise = YOUR_PROMISE;`
+
 [top](#mongoosejs-typescript-docs)
 
 #### FAQ
@@ -203,4 +204,5 @@ interface IUser extends mongoose.model {
 For backwards compatibility Document is an interface for [mongoose.model](https://github.com/Automattic/mongoose/blob/master/lib/model.js#L3162)<br>
 And MongooseDocument is an interface for [mongoose.Document](https://github.com/Automattic/mongoose/blob/master/lib/model.js#L3162)<br>
 At some point in the future this may get fixed, which would require fixing your code.
+<br>
 [top](#mongoosejs-typescript-docs)
