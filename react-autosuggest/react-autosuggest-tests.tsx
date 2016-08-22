@@ -65,7 +65,12 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
+                            onSuggestionSelected={this.onSuggestionsSelected}
                             inputProps={inputProps}/>;
+    }
+
+    protected onSuggestionsSelected(event: React.FormEvent, data: ReactAutosuggest.SuggestionSelectedEventData<Language>) {
+        alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
     protected renderSuggestion(suggestion: Language): JSX.Element {
