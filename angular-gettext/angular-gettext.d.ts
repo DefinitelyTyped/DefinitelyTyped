@@ -56,7 +56,7 @@ declare namespace angular.gettext {
      * // var hello will be "Hallo Ruben!" in Dutch.
      * The scope parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.
      */
-    getString(string: string, scope?: any, scope?: string): string;
+    getString(string: string, scope?: any, context?: string): string;
 
     /** Translate a plural string with the given context. */
     getPlural(n: number, string: string, stringPlural: string, context?: any): string;
