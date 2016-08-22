@@ -1,4 +1,4 @@
-/// <reference path="angular-websocket.d.ts" />
+/// <reference types="angular-websocket" />
 
 let dummySocket: ng.websocket.IWebSocket;
 let dummyPromise: ng.IPromise<void>;
