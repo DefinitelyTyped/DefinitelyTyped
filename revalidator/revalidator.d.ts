@@ -35,11 +35,11 @@ declare module Revalidator {
     }
 
     interface JSONSchema {
-        properties: ISchemas;
+        properties?: ISchemas;
     }
 
     interface ISchemas {
-        [index: string]: ISchema;
+        [index: string]: ISchema|JSONSchema;
     }
 
     interface ISchema {

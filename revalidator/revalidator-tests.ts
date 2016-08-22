@@ -20,6 +20,14 @@ revalidator.validate(someObject, {
       description: 'what to store at the url',
       type: 'any',
       default: null
+    },
+    obj: {
+      type: 'object',
+      properties: {
+        body: {
+          type: 'any'
+        }
+      }
     }
   }
 }, {
