@@ -19,10 +19,11 @@ declare module Revalidator {
     }
 
     interface RevalidatorStatic {
-        validate(object: any, schema: JSONSchema, options?: IOptions): IReturnMessage;
+        validate<T>(object: T, schema: JSONSchema<T>, options?: IOptions): IReturnMessage;
     }
 
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
+    type Formats = 'url' | 'email' | 'ip-address' | 'ipv6' | 'date-time' | 'date' | 'time' | 'color' | 'host-name' | 'utc-millisec' | 'regex';
 
     interface IErrrorProperty {
         property: string;
@@ -34,36 +35,58 @@ declare module Revalidator {
         errors: IErrrorProperty[];
     }
 
-    interface JSONSchema {
-        properties?: ISchemas;
+    interface JSONSchema<T> {
+        properties?: ISchemas<T>;
     }
 
-    interface ISchemas {
-        [index: string]: ISchema|JSONSchema;
+    interface ISchemas<T> {
+        [index: string]: ISchema<T>|JSONSchema<T>;
     }
 
-    interface ISchema {
+    interface ISchema<T> {
+        /**The type of value should be equal to the expected value */
         type: Types|Types[];
+        /**If true, the value should not be undefined */
         required?: boolean;
-        pattern?: any;
+        /**The expected value regex needs to be satisfied by the value */
+        pattern?: RegExp|string;
+        /**The length of value must be greater than or equal to expected value */
         maxLength?: number;
+        /**Description for this object */
         description?: string;
+        /**The length of value must be lesser than or equal to expected value */
         minLength?: number;
+        /**Value must be greater than or equal to the expected value */
         minimum?: number;
+        /**Value must be lesser than or equal to the expected value */
         maximum?: number;
+        /**If false, the value must not be an empty string */
         allowEmpty?: boolean;
+        /**Value must be greater than expected value */
         exclusiveMinimum?: number;
+        /**Value must be lesser than expected value */
         exclusiveMaximum?: number;
+        /**Value must be divisible by expected value */
         divisibleBy?: number;
+        /**Value must contain more than expected number of items */
         minItems?: number;
+        /**Value must contain fewer than expected number of items */
         maxItems?: number;
+        /**Value must hold a unique set of values */
         uniqueItems?: boolean;
-        enum?: any;
+        /**Value must be present in the array of expected values */
+        enum?: any[];
+        /**Custom messages for different constraints */
         message?: string;
+        /**Custom messages for different constraints */
         messages?: {[index: string]: string};
+        /**Default value */
         default?: any;
-        format?: string;
-        conform?: (data:any) => boolean;
+        /**Value must be a valid format */
+        format?: Formats;
+        /**Value must conform to constraint denoted by expected value */
+        conform?: (value: any, data?: T) => boolean;
+        /**Value is valid only if the dependent value is valid */
         dependencies?: string;
     }
 }

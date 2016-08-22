@@ -1,7 +1,14 @@
 /// <reference path="./revalidator.d.ts" />
 import revalidator = require('revalidator');
 
-let someObject: any = {};
+let someObject = {
+  hello: true,
+  there: 'string'
+};
+
+let schema: Revalidator.JSONSchema<typeof someObject> = {
+
+};
 
 revalidator.validate(someObject, {
   properties: {
@@ -24,17 +31,65 @@ revalidator.validate(someObject, {
     obj: {
       type: 'object',
       properties: {
-        body: {
-          type: 'any'
+        items: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+              maxLength: 140,
+              conditions: {
+                optional: function () {
+                  return !this.published;
+                }
+              }
+            },
+            date: { type: 'string', format: 'date', messages: { format: "must be a valid %{expected} and nothing else" } },
+            body: { type: 'string' },
+            tags: {
+              type: 'array',
+              uniqueItems: true,
+              minItems: 2,
+              items: {
+                type: 'string',
+                pattern: /[a-z ]+/
+              }
+            },
+            tuple: {
+              type: 'array',
+              minItems: 2,
+              maxItems: 2,
+              items: {
+                type: ['string', 'number']
+              }
+            },
+            author: { type: 'string', pattern: /^[\w ]+$/i, required: true, messages: { required: "is essential for survival" } },
+            published: { type: 'boolean', 'default': false },
+            category: { type: 'string' },
+            palindrome: {
+              type: 'string', conform: function (val) {
+                return val == val.split("").reverse().join("");
+              }
+            },
+            name: {
+              type: 'string', default: '', conform: function (val, data) {
+                return (val === data.hello);
+              }
+            }
+          },
+          patternProperties: {
+            '^_': {
+              type: 'boolean', default: false
+            }
+          }
         }
       }
     }
   }
 }, {
-  validateFormats: true,
-  validateFormatsStrict: false,
-  validateFormatExtensions: true,
-  additionalProperties: false,
-  cast: false
-}).valid === true;
+    validateFormats: true,
+    validateFormatsStrict: false,
+    validateFormatExtensions: true,
+    additionalProperties: false,
+    cast: false
+  }).valid === true;
 
