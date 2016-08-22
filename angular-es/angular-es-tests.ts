@@ -1,4 +1,4 @@
-/// <reference path="./angular-es.d.ts" />
+/// <reference types="angular-es" />
 
 //
 //  @Component
