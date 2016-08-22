@@ -152,6 +152,12 @@ declare module "mongoose" {
    */
   export function model<T extends Document>(name: string, schema?: Schema, collection?: string,
     skipInit?: boolean): Model<T>;
+  export function model<T extends Document, U extends Model<T>>(
+    name: string,
+    schema?: Schema,
+    collection?: string,
+    skipInit?: boolean
+  ): U;
 
   /**
    * Returns an array of model names created on this instance of Mongoose.
@@ -311,6 +317,11 @@ declare module "mongoose" {
      * @returns The compiled model
      */
     model<T extends Document>(name: string, schema?: Schema, collection?: string): Model<T>;
+    model<T extends Document, U extends Model<T>>(
+      name: string,
+      schema?: Schema,
+      collection?: string
+    ): U;
 
     /** Returns an array of model names created on this connection. */
     modelNames(): string[];
@@ -704,7 +715,7 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument {
+  interface MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
@@ -2074,7 +2085,7 @@ declare module "mongoose" {
     findById(id: Object | string | number, projection: Object, options: Object,
       callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
 
-    model<T extends Document>(name: string): Model<T>;
+    model(name: string): Model<T>;
 
     /**
      * Creates a Query and specifies a $where condition.
