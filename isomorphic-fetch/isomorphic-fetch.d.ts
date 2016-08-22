@@ -27,9 +27,13 @@ interface RequestInit {
     method?: string;
     headers?: HeaderInit | { [index: string]: string };
     body?: BodyInit;
+    referrer?: string;
+    referrerPolicy?: "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
     mode?: string | RequestMode;
     credentials?: string | RequestCredentials;
     cache?: string | RequestCache;
+    redirect?: "follow" | "error" | "manual";
+    integrity?: string;
 }
 
 interface IHeaders {
@@ -40,7 +44,7 @@ interface IHeaders {
 
 declare class Headers implements IHeaders {
     append(name: string, value: string): void;
-    delete(name: string):void;
+    delete(name: string): void;
     get(name: string): string;
     getAll(name: string): Array<string>;
     has(name: string): boolean;
