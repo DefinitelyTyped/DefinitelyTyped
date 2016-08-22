@@ -244,8 +244,19 @@ function bufferTests() {
         let index: number;
         index = buffer.indexOf("23");
         index = buffer.indexOf("23", 1);
+        index = buffer.indexOf("23", 1, "utf8");
         index = buffer.indexOf(23);
         index = buffer.indexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.lastIndexOf("23");
+        index = buffer.lastIndexOf("23", 1);
+        index = buffer.lastIndexOf("23", 1, "utf8");
+        index = buffer.lastIndexOf(23);
+        index = buffer.lastIndexOf(buffer);
     }
 
     // Imported Buffer from buffer module works properly
