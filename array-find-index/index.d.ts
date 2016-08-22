@@ -3,11 +3,11 @@
 // Definitions by: Sam Verschueren <https://github.com/samverschueren>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "array-find-index" {
+declare namespace arrayFindIndex {
 	type Predicate = (element: any, index: number, array: any[]) => boolean;
-
-	function arrayFindIndex(arr: any[], predicate: Predicate): number;
-	function arrayFindIndex(arr: any[], predicate: Predicate, ctx: any): number;
-	namespace arrayFindIndex {}
-	export = arrayFindIndex;
 }
+declare function arrayFindIndex(arr: any[], predicate: arrayFindIndex.Predicate): number;
+declare function arrayFindIndex(arr: any[], predicate: arrayFindIndex.Predicate, ctx: any): number;
+
+export = arrayFindIndex;
+
