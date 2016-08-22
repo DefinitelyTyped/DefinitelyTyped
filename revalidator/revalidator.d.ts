@@ -5,7 +5,7 @@
 
 declare module Revalidator {
 
-    interface Options {
+    interface IOptions {
         /** Enforce format constraints (default true) */
         validateFormats?: boolean;
         /** When validateFormats is true treat unrecognized formats as validation errors (default false) */
@@ -19,7 +19,7 @@ declare module Revalidator {
     }
 
     interface RevalidatorStatic {
-        validate(object: any, schema: JSONSchema, options?: Options): IReturnMessage;
+        validate(object: any, schema: JSONSchema, options?: IOptions): IReturnMessage;
     }
 
     type Types = 'string' | 'number' | 'integer' | 'array' | 'boolean' | 'object' | 'null' | 'any';
@@ -35,9 +35,11 @@ declare module Revalidator {
     }
 
     interface JSONSchema {
-        properties: {
-            [index: string]: ISchema;
-        }
+        properties: ISchemas;
+    }
+
+    interface ISchemas {
+        [index: string]: ISchema;
     }
 
     interface ISchema {
