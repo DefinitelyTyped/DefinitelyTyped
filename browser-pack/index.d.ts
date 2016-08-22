@@ -3,11 +3,11 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /** pack node-style source files from a json stream into a browser bundle
  */
-declare module BrowserPack {
+declare namespace browserPack {
 
     export interface Options {
         /** Whether the bundle should include require= (or the opts.externalRequireName) so that
@@ -50,12 +50,10 @@ declare module BrowserPack {
          */
         sourceMapPrefix?: string;
     }
-
 }
 
-declare module "browser-pack" {
-    /** pack node-style source files from a json stream into a browser bundle
-     */
-    function browserPack(opts?: BrowserPack.Options): NodeJS.ReadWriteStream;
-    export = browserPack;
-}
+/** pack node-style source files from a json stream into a browser bundle
+ */
+declare function browserPack(opts?: browserPack.Options): NodeJS.ReadWriteStream;
+export = browserPack;
+export as namespace browserPack;

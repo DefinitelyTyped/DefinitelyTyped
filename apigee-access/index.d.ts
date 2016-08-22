@@ -3,7 +3,7 @@
 // Definitions by: Casper Skydt <https://github.com/CasperSkydt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module ApigeeAccess {
+declare namespace ApigeeAccess {
 
     function getVariable(request: any, name: string): string | number | boolean;
     function setVariable(request: any, name: string, value: string | number | boolean ): void;
@@ -53,6 +53,4 @@ declare module ApigeeAccess {
     }
 }
 
-declare module "apigee-access"{
-    export default ApigeeAccess;
-}
+export default ApigeeAccess;
