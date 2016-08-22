@@ -25,7 +25,7 @@ import {model, Schema} from 'mongoose';
 var MyModel = model(...);
 var MySchema: Schema = new Schema(...):
 ```
-
+[top](#mongoosejs-typescript-docs)
 
 #### Creating and Saving Documents
 ```
@@ -60,6 +60,7 @@ UserModel.findOne({}, (err: any, user: IUser) => {
   user.save();     // mongoose Document methods are available
 });
 ```
+[top](#mongoosejs-typescript-docs)
 
 #### Instance Methods and Virtual Properties
 ```
@@ -94,6 +95,7 @@ UserModel.findOne({}, (err: any, user: IUser) => {
   user.nameInCaps;  // virtual properties can be used
 });
 ```
+[top](#mongoosejs-typescript-docs)
 
 #### Static Methods
 ```
@@ -110,6 +112,7 @@ interface IUserModel extends Model<IUserDocument> {
 var UserModel: IUserModel = model<IUser, IUserModel>('User', UserSchema);
 UserModel.static1();    // static methods are available
 ```
+[top](#mongoosejs-typescript-docs)
 
 #### Plugins
 To write definitions for plugins, extend the mongoose module and create a simple plugin module:
@@ -147,6 +150,7 @@ interface IUserModel<T extends PassportLocalDocument> extends PassportLocalModel
 var UserModel: IUserModel<IUser> = model<IUser>('User', UserSchema);
 ```
 Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/passport-local-mongoose/passport-local-mongoose.d.ts)
+[top](#mongoosejs-typescript-docs)
 
 #### Promises
 These definitions use global.Promise by default. If you would like to use mongoose's own mpromise
@@ -180,6 +184,7 @@ Typescript does not allow assigning properties of imported modules):
 * `(<any>mongoose).Promise = YOUR_PROMISE;`
 * `require('mongoose').Promise = YOUR_PROMISE;`
 * `import mongoose = require('mongoose'); ... mongoose.Promise = YOUR_PROMISE;`
+[top](#mongoosejs-typescript-docs)
 
 #### FAQ
 Q: Why are there 2 interfaces for Documents called Document and MongooseDocument?<br>
@@ -198,3 +203,4 @@ interface IUser extends mongoose.model {
 For backwards compatibility Document is an interface for [mongoose.model](https://github.com/Automattic/mongoose/blob/master/lib/model.js#L3162)<br>
 And MongooseDocument is an interface for [mongoose.Document](https://github.com/Automattic/mongoose/blob/master/lib/model.js#L3162)<br>
 At some point in the future this may get fixed, which would require fixing your code.
+[top](#mongoosejs-typescript-docs)
