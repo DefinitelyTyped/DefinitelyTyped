@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../mongodb/mongodb.d.ts" />
-///<reference path="../mpromise/mpromise.d.ts" />
 ///<reference path="../node/node.d.ts" />
 
 /*
@@ -715,7 +714,7 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  interface MongooseDocument {
+  class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
