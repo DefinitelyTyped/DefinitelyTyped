@@ -1,6 +1,6 @@
 // Type definitions for CashJs
 // Project: https://github.com/kenwheeler/cash
-// Definitions by: Ashok Vishwakarma <http://ashokvishwakarma.in> <https://github.com/akvlko>
+// Definitions by: Ashok Vishwakarma <https://github.com/akvlko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
