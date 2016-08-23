@@ -3,7 +3,7 @@
 // Definitions by: Brian Caruso <https://github.com/carusology>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="auth0" />
+/// <reference types="auth0-js" />
 
 interface Auth0LockAdditionalSignUpFieldOption {
   value: string;

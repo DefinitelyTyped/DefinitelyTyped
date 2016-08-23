@@ -1,5 +1,3 @@
-/// <reference path="cache-manager.d.ts" />
-
 import * as cacheManager from 'cache-manager'
 
 const memoryCache = cacheManager.caching({ store: 'memory', max: 100, ttl: 10/*seconds*/ });
