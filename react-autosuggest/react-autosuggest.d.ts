@@ -30,6 +30,9 @@ declare namespace ReactAutosuggest {
     suggestionValue: string;
   }
 
+  interface ImplicitSuggestionSelectedEventData extends SuggestionSelectedEventData<any> {
+  }
+
   interface Theme {
     container: string;
     containerOpen: string;
@@ -52,7 +55,7 @@ declare namespace ReactAutosuggest {
     multiSection?: boolean;
     renderSectionTitle?: (section: any, inputValues: InputValues) => JSX.Element;
     getSectionSuggestions?: (section: any) => any[];
-    onSuggestionSelected?: (event: React.FormEvent, data: SuggestionSelectedEventData<any>) => void;
+    onSuggestionSelected?: (event: React.FormEvent, data: ImplicitSuggestionSelectedEventData | SuggestionSelectedEventData<any>) => void;
     focusInputOnSuggestionClick?: boolean;
     theme?: Theme;
     id?: string;
