@@ -93,6 +93,7 @@ declare module "mongoose" {
   export var DocumentProvider: any;
   // recursive constructor
   export var Mongoose: new(...args: any[]) => typeof mongoose;
+  type Mongoose = typeof mongoose;
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
@@ -110,7 +111,7 @@ declare module "mongoose" {
    * @returns pseudo-promise wrapper around this
    */
   export function connect(uris: string,
-    options?: ConnectOptions,
+    options?: ConnectionOptions,
     callback?: (err: mongodb.MongoError) => void): MongooseThenable;
   export function connect(uris: string,
     callback?: (err: mongodb.MongoError) => void): MongooseThenable;
@@ -125,10 +126,10 @@ declare module "mongoose" {
    */
   export function createConnection(): Connection;
   export function createConnection(uri: string,
-    options?: ConnectOptions
+    options?: ConnectionOptions
   ): Connection;
   export function createConnection(host: string, database_name: string, port?: number,
-    options?: ConnectOptions
+    options?: ConnectionOptions
   ): Connection;
 
   /**
@@ -381,7 +382,7 @@ declare module "mongoose" {
     mongos?: boolean;
   }
 
-  interface ConnectOptions extends
+  interface ConnectionOptions extends
     ConnectionOpenOptions,
     ConnectionOpenSetOptions {}
 

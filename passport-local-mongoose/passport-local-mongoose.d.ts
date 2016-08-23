@@ -16,7 +16,7 @@ declare module 'mongoose' {
   }
 
   // statics
-  interface PassportLocalModel<T extends PassportLocalDocument> extends Model<T> {
+  interface PassportLocalModel<T extends Document> extends Model<T> {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any) => void) => void;
