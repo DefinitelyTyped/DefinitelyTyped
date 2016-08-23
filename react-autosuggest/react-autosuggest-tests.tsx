@@ -69,7 +69,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             inputProps={inputProps}/>;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent, data: ReactAutosuggest.SuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: React.FormEvent, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -194,7 +194,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected onSuggestionSelected(event: React.FormEvent, data: ReactAutosuggest.ImplicitSuggestionSelectedEventData): void {
+    protected onSuggestionSelected(event: React.FormEvent, data: ReactAutosuggest.SuggestionSelectedEventData): void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
