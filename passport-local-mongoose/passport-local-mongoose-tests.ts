@@ -11,6 +11,7 @@
 import {
     Schema,
     model,
+    Document,
     PassportLocalDocument,
     PassportLocalSchema,
     PassportLocalModel,
@@ -77,7 +78,7 @@ options.errorMessages = errorMessages;
 
 UserSchema.plugin(passportLocalMongoose, options);
 
-interface UserModel<T extends PassportLocalDocument> extends PassportLocalModel<T> {}
+interface UserModel<T extends Document> extends PassportLocalModel<T> {}
 
 let UserModel: UserModel<User> = model<User>('User', UserSchema);
 //#endregion

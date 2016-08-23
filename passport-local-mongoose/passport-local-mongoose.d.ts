@@ -76,13 +76,13 @@ declare module 'mongoose' {
     ): this;
   }
 
-  export function model<T extends PassportLocalDocument>(
+  export function model<T extends Document>(
     name: string,
     schema?: PassportLocalSchema,
     collection?: string,
     skipInit?: boolean): PassportLocalModel<T>;
 
-  export function model<T extends PassportLocalDocument, U extends PassportLocalModel<T>>(
+  export function model<T extends Document, U extends PassportLocalModel<T>>(
     name: string,
     schema?: PassportLocalSchema,
     collection?: string,
