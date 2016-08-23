@@ -1,4 +1,5 @@
 /// <reference path="../aws-sdk/aws-sdk.d.ts" />
+/// <reference path="../express/express.d.ts" />
 /// <reference path="../multer/multer.d.ts" />
 /// <reference path="./multer-s3.d.ts" />
 
@@ -9,7 +10,7 @@ let secretAccessKey: string
 let region: string
 let bucket: string
 
-import AWS = require('aws-sdk')
+import AWS = require("aws-sdk")
 
 let s3 = new AWS.S3({
     accessKeyId: accessKeyId,
@@ -17,8 +18,9 @@ let s3 = new AWS.S3({
     region: region,
 })
 
-import multer = require('multer')
-import s3Storage = require('multer-s3')
+import multer = require("multer")
+import express = require("express")
+import s3Storage = require("multer-s3")
 
 let s3Upload = multer({
     storage: s3Storage({
