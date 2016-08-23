@@ -49,11 +49,11 @@ declare module "koa-router" {
         }
 
         export interface IMiddleware {
-            (ctx: Router.IRouterContext, next?: () => any): any;
+            (ctx: Router.IRouterContext, next: () => Promise<any>): any;
         }
 
         export interface IParamMiddleware {
-            (param: string, ctx: Router.IRouterContext, next?: () => any): any;
+            (param: string, ctx: Router.IRouterContext, next: () => Promise<any>): any;
         }
 
         export interface IRouterAllowedMethodsOptions {
