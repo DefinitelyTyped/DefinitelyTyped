@@ -35,6 +35,12 @@ declare module 'mongoose' {
     schema?: Schema,
     collection?: string,
     skipInit?: boolean): PaginateModel<T>;
+
+  export function model<T extends Document, U extends PaginateModel<T>>(
+    name: string,
+    schema?: Schema,
+    collection?: string,
+    skipInit?: boolean): U;
 }
 
 declare module 'mongoose-paginate' {

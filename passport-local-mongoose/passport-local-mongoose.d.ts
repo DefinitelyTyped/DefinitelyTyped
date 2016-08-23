@@ -81,6 +81,12 @@ declare module 'mongoose' {
     schema?: PassportLocalSchema,
     collection?: string,
     skipInit?: boolean): PassportLocalModel<T>;
+
+  export function model<T extends PassportLocalDocument, U extends PassportLocalModel<T>>(
+    name: string,
+    schema?: PassportLocalSchema,
+    collection?: string,
+    skipInit?: boolean): U;
 }
 
 declare module 'passport-local-mongoose' {
