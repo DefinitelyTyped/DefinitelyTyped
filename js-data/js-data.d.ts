@@ -57,7 +57,7 @@ declare namespace JSData {
         scopes?:Object;
         strategy?: string;
         upsert?: boolean;
-        useClass?: boolean;
+        useClass?: boolean | any;
         useFilter?: boolean;
         watchChanges?:boolean;
     }
