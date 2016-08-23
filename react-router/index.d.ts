@@ -32,6 +32,7 @@ import PropTypes from "./lib/PropTypes";
 import match from "./lib/match";
 import useRouterHistory from "./lib/useRouterHistory";
 import createMemoryHistory from "./lib/createMemoryHistory";
+import withRouter from "./lib/withRouter";
 
 // PlainRoute is defined in the API documented at:
 // https://github.com/rackt/react-router/blob/master/docs/API.md
@@ -50,6 +51,8 @@ export type RouteHook = Router.RouteHook;
 export type StringifyQuery = Router.StringifyQuery;
 export type RouterListener = Router.RouterListener;
 export type RouterState = Router.RouterState;
+export type InjectedRouter = Router.InjectedRouter;
+
 export type HistoryBase = History.HistoryBase;
 export type RouterOnContext = Router.RouterOnContext;
 export type LinkProps = Link.LinkProps;
@@ -74,7 +77,8 @@ export {
     PropTypes,
     match,
     useRouterHistory,
-    createMemoryHistory
+    createMemoryHistory,
+    withRouter
 };
 
 export default Router;

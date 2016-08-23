@@ -49,6 +49,10 @@ declare module Router {
         (ctx: Router.IRouterContext, next?: () => any): any;
     }
 
+    export interface IParamMiddleware {
+        (param: string, ctx: Router.IRouterContext, next?: () => any): any;
+    }
+
     export interface IRouterAllowedMethodsOptions {
         /**
          * throw error instead of setting status and header
@@ -242,7 +246,7 @@ declare class Router {
     /**
      * Run middleware for named route parameters. Useful for auto-loading or validation.
      */
-    param(param: string, middleware: Router.IMiddleware): Router;
+    param(param: string, middleware: Router.IParamMiddleware): Router;
 
     /**
      * Generate URL from url pattern and given `params`.
