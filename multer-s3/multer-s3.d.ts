@@ -3,11 +3,14 @@
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
+/// <reference path="../aws-sdk/aws-sdk.d.ts" />
+/// <reference path="../multer/multer.d.ts" />
+
 declare module "multer-s3" {
-    import * as awssdk from "aws-sdk"
+    import * as AWS from "aws-sdk"
 
     interface Options {
-        s3: awssdk.S3,
+        s3: AWS.S3,
         bucket: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, bucket?: string) => void) => void) | string
         key?: (req: Express.Request, file: Express.Multer.File, callback: (error: any, key?: string) => void) => void
         acl?: ((req: Express.Request, file: Express.Multer.File, callback: (error: any, acl?: string) => void) => void) | string
@@ -18,14 +21,14 @@ declare module "multer-s3" {
 
     import * as multer from "multer"
 
-    interface S3 {
+    interface S3Storage {
         (options?: Options): multer.StorageEngine
 
         AUTO_CONTENT_TYPE: (req: Express.Request, file: Express.Multer.File, callback: (error: any, mime?: string, stream?: NodeJS.ReadableStream) => void) => void
         DEFAULT_CONTENT_TYPE: (req: Express.Request, file: Express.Multer.File, callback: (error: any, mime?: string) => void) => void
     }
 
-    let s3: S3
+    let s3Storage: S3Storage
 
-    export = s3
+    export = s3Storage
 }

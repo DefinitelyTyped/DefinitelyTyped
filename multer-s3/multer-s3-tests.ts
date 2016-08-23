@@ -1,6 +1,3 @@
-/// <reference path="../aws-sdk/aws-sdk.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../multer/multer.d.ts" />
 /// <reference path="./multer-s3.d.ts" />
 
 "use strict";
@@ -19,7 +16,6 @@ let s3 = new AWS.S3({
 })
 
 import multer = require("multer")
-import express = require("express")
 import s3Storage = require("multer-s3")
 
 let s3Upload = multer({
