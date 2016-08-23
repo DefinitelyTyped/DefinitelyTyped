@@ -26,14 +26,19 @@ declare namespace angular.uiNotification {
         finally(finallyCallback: () => any): IPromise<T>;
     }
 
+    type XPosition = 'right'|'left'|'center';
+    type YPosition = 'top'|'bottom';
+
+    type MessageType = 'primary'|'info'|'success'|'warning'|'error';
+
     interface IGlobalMessageOptions {
         delay?: number;
         startTop?: number;
         startRight?: number;
         verticalSpacing?: number;
         horizontalSpacing?: number;
-        positionX?: 'right'|'left'|'center';
-        positionY?: 'top'|'bottom';
+        positionX?: XPosition;
+        positionY?: YPosition;
         replaceMessage?: boolean;
         templateUrl?: string;
         onClose?: (element: any) => any;
@@ -46,9 +51,9 @@ declare namespace angular.uiNotification {
         message?: string;
         templateUrl?: string;
         delay?: number;
-        type?: 'primary'|'info'|'success'|'warning'|'error';
-        positionX?: 'right'|'left'|'center';
-        positionY?: 'top'|'bottom';
+        type?: MessageType;
+        positionX?: XPosition;
+        positionY?: YPosition;
         replaceMessage?: boolean;
         closeOnClick?: boolean;
     }
@@ -72,6 +77,6 @@ declare namespace angular.uiNotification {
 
         clearAll(): void;
 
-        (message: Message, type?: string): IPromise<INotificationScope>;
+        (message: Message, type?: MessageType): IPromise<INotificationScope>;
     }
 }
