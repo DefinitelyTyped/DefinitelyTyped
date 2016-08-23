@@ -42,7 +42,7 @@ mongopromise.then(function (arg) {
 });
 mongopromise.complete();
 /* static properties */
-mongoose.Promise.ES6(function (complete, error) {
+mongoose.Promise.ES6(function (complete: any, error: any) {
   complete.apply(this);
   error.apply(this);
 });
