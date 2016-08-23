@@ -12,7 +12,7 @@ declare module 'd3-selection' {
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         interrupt(name?: string): Transition<GElement, Datum, PElement, PDatum>;
         transition(name?: string): Transition<GElement, Datum, PElement, PDatum>;
-        transition(transition: Transition<GElement, Datum, PElement, PDatum>): Transition<GElement, Datum, PElement, PDatum>;
+        transition(transition: Transition<BaseType, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
     }
 }
 
