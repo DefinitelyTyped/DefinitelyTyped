@@ -258,7 +258,7 @@ declare module OfficeExtension {
         /**
          * Creates a new promise based on a function that accepts resolve and reject handlers.
          */
-        constructor(func: (resolve, reject) => void);
+        constructor(func: (resolve : (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
 
         /**
          * Creates a promise that resolves when all of the child promises resolve.
