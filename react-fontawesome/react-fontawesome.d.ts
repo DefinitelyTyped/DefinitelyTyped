@@ -1,6 +1,6 @@
 // Type definitions for react-fontawesome v.1.1.0
 // Project: https://github.com/danawoodman/react-fontawesome
-// Definitions by: Timur Rustamov https://github.com/timurrustamov
+// Definitions by: Timur Rustamov <https://github.com/timurrustamov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
