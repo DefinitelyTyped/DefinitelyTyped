@@ -13,6 +13,10 @@ interface Error {
     stack?: string;
 }
 
+interface ErrorConstructor {
+    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    stackTraceLimit: number;
+}
 
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
