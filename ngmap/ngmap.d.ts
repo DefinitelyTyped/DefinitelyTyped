@@ -6,7 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../googlemaps/google.maps.d.ts" />
 
-declare module "ngMap" {
+declare module "ngmap" {
     let _: string;
     export = _;
 }
