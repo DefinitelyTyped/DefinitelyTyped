@@ -66,7 +66,7 @@ interface StateMachineCan {
 	(evt: string): boolean;
 }
 
-interface IStateMachineTransitions {
+interface StateMachineTransitions {
     (): Array<string>;
 }
 
@@ -82,7 +82,7 @@ interface StateMachine {
         [2] fsm.transition.cancel();
     */
     transition: StateMachineTransition;
-    transitions: IStateMachineTransitions;
+    transitions: StateMachineTransitions;
 }
 
 declare var StateMachine: StateMachineStatic;
