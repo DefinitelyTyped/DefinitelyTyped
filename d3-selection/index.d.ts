@@ -288,7 +288,9 @@ export interface Local<T> {
      */
     get(node: Element): T | undefined;
     /**
+     * Deletes the value associated with the given node. Values stored on ancestors are not affected, meaning that child nodes will still see inherited values.
      *
+     * This function returns true if there was a value stored directly on the node, and false otherwise.
      */
     remove(node: Element): boolean;
     /**
