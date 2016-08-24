@@ -1,4 +1,4 @@
-import phone from 'phone';
+import phone = require('phone');
 
 phone('+852 6569-8900'); // return ['+85265698900', 'HKG']
 phone('(817) 569-8900'); // return ['+18175698900, 'USA']
