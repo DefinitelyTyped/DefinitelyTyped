@@ -458,6 +458,10 @@ interface UnderscoreStatic {
 		object: _.Dictionary<T>,
 		iterator?: _.ObjectIterator<T, boolean>,
 		context?: any): boolean;
+		
+	any<T>(
+		list: _.List<T>,
+		value: T): boolean;		
 
 	/**
 	* Returns true if the value is present in the list. Uses indexOf internally,
@@ -5920,6 +5924,7 @@ interface _ChainSingle<T> {
 }
 interface _ChainOfArrays<T> extends _Chain<T[]> {
 	flatten(shallow?: boolean): _Chain<T>;
+	mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
 }
 
 declare var _: UnderscoreStatic;

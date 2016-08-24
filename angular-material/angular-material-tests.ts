@@ -30,7 +30,11 @@ myApp.config((
 myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
-            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
+            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
+            clickOutsideToClose: true,
+            disableBackdrop: true,
+            disableParentScroll: false,
+            parent: () => {}
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
@@ -115,6 +119,14 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
     $scope['close'] = () => $mdSidenav(componentId).close();
     $scope['isOpen'] = $mdSidenav(componentId).isOpen();
     $scope['isLockedOpen'] = $mdSidenav(componentId).isLockedOpen();
+
+    $scope['asyncLookup'] = $mdSidenav(componentId, true).then((instance) => {
+        instance.toggle();
+        instance.open();
+        instance.close();
+        instance.isOpen();
+        instance.isLockedOpen();
+    });
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {

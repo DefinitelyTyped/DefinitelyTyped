@@ -23,8 +23,8 @@ declare module Elasticsearch {
         ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
         scroll(params: ScrollParams): PromiseLike<any>;
         scroll(params: ScrollParams, callback: (error: any, response: any) => void): void;
-        search(params: SearchParams): PromiseLike<any>;
-        search(params: SearchParams, callback: (error: any, response: any) => void): void;
+        search<T>(params: SearchParams): PromiseLike<SearchResponse<T>>;
+        search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
         suggest(params: SuggestParams): PromiseLike<any>;
         suggest(params: SuggestParams, callback: (error: any, response: any) => void): void;
         update(params: UpdateDocumentParams): PromiseLike<any>;
@@ -38,6 +38,8 @@ declare module Elasticsearch {
         create(params: IndicesCreateParams): PromiseLike<any>;
         exists(params: IndicesIndexExitsParams, callback: (error: any, response: any, status: any) => void): void;
         exists(params: IndicesIndexExitsParams): PromiseLike<any>;
+        existsType(params: IndicesIndexExitsParams & {type: string}, callback: (error: any, response: any, status: any) => void): void;
+        existsType(params: IndicesIndexExitsParams & {type: string}): PromiseLike<any>;
         get(params: IndicesGetParams, callback: (error: any, response: any, status: any) => void): void;
         get(params: IndicesGetParams): PromiseLike<any>;
         getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
@@ -46,6 +48,8 @@ declare module Elasticsearch {
         putAlias(params: IndicesPutAliasParams): PromiseLike<any>;
         putTemplate(params: IndicesPutTemplateParams, callback: (error: any, response: any) => void): void;
         putTemplate(params: IndicesPutTemplateParams): PromiseLike<any>;
+        putMapping(params: IndicesPutMappingParams, callback: (error: any, response: any) => void): void;
+        putMapping(params: IndicesPutMappingParams): PromiseLike<any>;
         refresh(params: IndicesRefreshParams, callback: (error: any, response: any) => void): void;
         refresh(params: IndicesRefreshParams): PromiseLike<any>;
     }
@@ -73,6 +77,12 @@ declare module Elasticsearch {
         defer?: () => void;
         nodesToHostCallback?: any;
         createNodeAgent?: any;
+    }
+
+    export interface Explanation {
+        value: number,
+        description: string,
+        details: Explanation[]
     }
 
     export interface GenericParams {
@@ -125,10 +135,21 @@ declare module Elasticsearch {
         body: string | any;
     }
 
+    export interface IndicesPutMappingParams extends GenericParams {
+        timeout?: Date | number;
+        masterTimeout?: Date | number;
+        ignoreUnavailable?: boolean;
+        allowNoIndices?: boolean;
+        expandWildcards?: "open" | "closed" | "none" | "all";
+        updateAllTypes?: boolean;
+        index: string | string[] | boolean;
+        type: string;
+    }
+
     export interface IndicesGetAliasParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         local?: boolean;
         index?: string | string[] | boolean;
         name: string | string[] | boolean;
@@ -204,6 +225,34 @@ declare module Elasticsearch {
         timeout?: Date | number;
     }
 
+    export interface SearchResponse<T> {
+        took: number,
+        timed_out: boolean,
+        _scroll_id?: string,
+        _shards: {
+            total: number,
+            successful: number,
+            failed: number
+        },
+        hits: {
+            total: number,
+            max_score: number,
+            hits: {
+                _index: string,
+                _type: string,
+                _id: string,
+                _score: number,
+                _source: T,
+                _version: number,
+                _explanation?: Explanation,
+                fields?: any,
+                highlight?: any,
+                inner_hits?: any
+            }[]
+        },
+        aggregations?: any
+    } 
+
     export interface MSearchParams extends GenericParams {
         index?: string | string[] | Boolean;
         type?: string | string[] | Boolean;
@@ -260,7 +309,7 @@ declare module Elasticsearch {
     export interface SuggestParams extends GenericParams {
         ignoreUnavailable?: boolean;
         allowNoIndices?: boolean;
-        expandWildcards?: string;
+        expandWildcards?: "open" | "closed" | "none" | "all";
         preference?: string;
         routing?: string;
         source?: string;

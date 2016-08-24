@@ -10,7 +10,7 @@ declare namespace THREE {
         constructor(object: Camera, domElement?: HTMLElement);
 
         object: Camera;
-        domElement: HTMLElement;
+        domElement: HTMLElement | HTMLDocument;
 
         // API
         enabled: boolean;
@@ -49,6 +49,7 @@ declare namespace THREE {
         dollyOut(dollyScale: number): void;
         update(): void;
         reset(): void;
+        dispose(): void;
         getPolarAngle(): number;
         getAzimuthalAngle(): number;
 

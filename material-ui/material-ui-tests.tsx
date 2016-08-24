@@ -680,7 +680,7 @@ const FlatButtonExampleComplex = () => (
     </FlatButton>
 
     <FlatButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       style={styles.button}
@@ -741,7 +741,7 @@ const RaisedButtonExampleComplex = () => (
       <input type="file" style={styles.exampleImageInput} />
     </RaisedButton>
     <RaisedButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       icon={<ActionAndroid />}

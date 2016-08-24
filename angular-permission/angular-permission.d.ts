@@ -173,3 +173,9 @@ declare namespace angular.permission {
     options?: angular.ui.IStateOptions;
   }
 }
+
+declare module "angular-permission" {
+  export var permission: string;
+  export var ngPermission: string;
+  export var uiPermission: string;
+}

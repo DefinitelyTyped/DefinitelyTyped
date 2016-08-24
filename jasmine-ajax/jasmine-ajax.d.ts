@@ -73,6 +73,9 @@ declare class MockAjax {
 
 	stubRequest(url: RegExp, data?: string, method?: string): JasmineAjaxRequestStub;
 	stubRequest(url: string, data?: string, method?: string): JasmineAjaxRequestStub;
+    
+	stubRequest(url: RegExp, data?: RegExp, method?: string): JasmineAjaxRequestStub;
+	stubRequest(url: string, data?: RegExp, method?: string): JasmineAjaxRequestStub;
 
 	requests: JasmineAjaxRequestTracker;
 	stubs: JasmineAjaxStubTracker;

@@ -9,8 +9,8 @@ let result = bootstrap({
     initialState: {},
     middlewares: [],
     reducers: {
-        reposReducer: (previousState: any, action: any) => { return null; },
-        usersReducer: (previousState: any, action: any) => { return null; }
+        reposReducer: (previousState: any, action: any): any => { return null; },
+        usersReducer: (previousState: any, action: any): any => { return null; }
     },
     routes: routes
 });

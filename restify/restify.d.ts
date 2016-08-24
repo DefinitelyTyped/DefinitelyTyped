@@ -374,7 +374,7 @@ declare module "restify" {
      * @param    {Object} options an options object
      * @returns  {String}         returns the route name if creation is successful.
      */
-    mount: (options: Object) => string;
+    mount: (options: Object) => string | boolean;
 
     /**
      * unmounts a route.
@@ -390,40 +390,40 @@ declare module "restify" {
     use(handler: RequestHandler, ...handlers: RequestHandler[][]): Server;
     use(handler: RequestHandler[], ...handlers: RequestHandler[][]): Server;
 
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    post(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    post(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    patch(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    patch(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    put(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    put(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    del(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    del(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    get(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    get(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    head(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    head(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): Route;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): Route;
-    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): Route;
-    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): Route;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[]): string;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[]): string;
+    opts(route: any, routeCallBack: RequestHandler, ...routeCallBacks: RequestHandler[][]): string;
+    opts(route: any, routeCallBack: RequestHandler[], ...routeCallBacks: RequestHandler[][]): string;
 
     name: string;
     version: string;
@@ -473,6 +473,7 @@ declare module "restify" {
     head: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
     post: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
     put: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    patch: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
     del: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
     basicAuth: (username: string, password: string) => any;
   }
@@ -482,6 +483,7 @@ declare module "restify" {
     head: (path?:any, callback?: Function) => any;
     post: (opts?: any, callback?: Function) => any;
     put: (opts?: any, callback?: Function) => any;
+    patch: (opts?: any, callback?: Function) => any;
     del: (opts?: any, callback?: Function) => any;
   }
 
@@ -498,7 +500,7 @@ declare module "restify" {
 
   interface Next {
     (err?: any): any;
-    ifError: (err?: any) => any;
+    ifError?: (err?: any) => any;
   }
 
   interface RequestHandler {

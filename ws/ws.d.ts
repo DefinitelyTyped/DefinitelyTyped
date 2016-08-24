@@ -22,6 +22,7 @@ declare module "ws" {
         url: string;
         supports: any;
         upgradeReq: http.ServerRequest;
+        protocol: string;
 
         CONNECTING: number;
         OPEN: number;
@@ -87,15 +88,16 @@ declare module "ws" {
     }
 
     namespace WebSocket {
+                
+        type VerifyClientCallbackSync = (info: {origin: string; secure: boolean; req: http.ServerRequest}) => boolean;
+        type VerifyClientCallbackAsync = (info: {origin: string; secure: boolean; req: http.ServerRequest}
+                                            , callback: (res: boolean) => void) => void;
+
         export interface IServerOptions {
             host?: string;
             port?: number;
             server?: http.Server;
-            verifyClient?: {
-                (info: {origin: string; secure: boolean; req: http.ServerRequest}): boolean;
-                (info: {origin: string; secure: boolean; req: http.ServerRequest},
-                                                 callback: (res: boolean) => void): void;
-            };
+            verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
             handleProtocols?: any;
             path?: string;
             noServer?: boolean;

@@ -632,6 +632,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -885,6 +886,14 @@ declare module "https" {
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
+        pfx?: any;
+        key?: any;
+        passphrase?: string;
+        cert?: any;
+        ca?: any;
+        ciphers?: string;
+        rejectUnauthorized?: boolean;
+        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
@@ -1532,7 +1541,7 @@ declare module "fs" {
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     /*
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1779,10 +1788,10 @@ declare module "path" {
 declare module "string_decoder" {
     export interface NodeStringDecoder {
         write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        end(): string;
     }
     export var StringDecoder: {
-        new (encoding: string): NodeStringDecoder;
+        new (encoding?: string): NodeStringDecoder;
     };
 }
 

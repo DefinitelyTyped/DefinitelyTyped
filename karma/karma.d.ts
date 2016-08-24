@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../log4js/log4js.d.ts" />
 
@@ -27,6 +27,7 @@ declare module 'karma' {
             server: DeprecatedServer;
             Server: Server;
             runner: Runner;
+            stopper: Stopper;
             launcher: Launcher;
             VERSION: string;
         }
@@ -56,6 +57,15 @@ declare module 'karma' {
             run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
         }
 
+
+        interface Stopper {
+            /**
+              * This function will signal a running server to stop. The equivalent of karma stop.
+              */
+            stop(options?: ConfigOptions, callback?: ServerCallback): void;
+        }
+
+
         interface TestResults {
             disconnected: boolean;
             error: boolean;
@@ -81,7 +91,7 @@ declare module 'karma' {
             refreshFiles(): Promise<any>;
 
             on(event: string, listener: Function): this;
-            
+
             /**
              * Listen to the 'run_complete' event.
              */

@@ -38,8 +38,20 @@ declare namespace vuejs {
         deep?: boolean;
         twoWay?: boolean;
         acceptStatement?: boolean;
+        terminal?: boolean;
         priority?: number;
         [key: string]: any;
+    }
+
+    interface Directive {
+        el: HTMLElement;
+        vm: Vue;
+        expression: string;
+        arg?: string;
+        name: string;
+        modifiers: { [key: string]: boolean };
+        descriptor: any;
+        params?: { [key: string]: any };
     }
 
     interface FilterOption {

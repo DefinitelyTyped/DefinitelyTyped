@@ -28,6 +28,7 @@ interface JQueryContextMenuOptions {
     items: any;
     reposition?: boolean;
     className?: string;
+    itemClickEvent?: string;
 }
 
 interface JQueryStatic {

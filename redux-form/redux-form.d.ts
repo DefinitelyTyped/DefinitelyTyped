@@ -39,7 +39,7 @@ declare module 'redux-form' {
      * The error for this field if its value is not passing validation. Both
      * synchronous and asynchronous validation errors will be reported here.
      */
-    error?: string;
+    error?: string[];
 
     /**
      * The value for this field as supplied in initialValues to the form.
@@ -163,7 +163,7 @@ declare module 'redux-form' {
      * result from the synchronous validation function, the asynchronous
      * validation, or the rejected promise from onSubmit.
      */
-    error?: string;
+    error?: string[];
 
     /**
      * The form data, in the form { field1: <Object>, field2: <Object> }. The
@@ -192,7 +192,7 @@ declare module 'redux-form' {
      */
     handleSubmit?(event:SyntheticEvent):void;
 
-    handleSubmit?(submit:(data:FormData, dispatch?:Dispatch)
+    handleSubmit?(submit:(data:FormData, dispatch?:Dispatch<any>)
       => Promise<any>|void):FormEventHandler;
 
     /**
@@ -285,11 +285,11 @@ declare module 'redux-form' {
   }
 
   interface MapDispatchToPropsFunction {
-    (dispatch:Dispatch, ownProps?:any): any;
+    (dispatch:Dispatch<any>, ownProps?:any): any;
   }
 
   interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator;
+    [name: string]: ActionCreator<any>;
   }
 
   export function reduxForm(config:ReduxFormConfig,
@@ -337,7 +337,7 @@ declare module 'redux-form' {
      *
      * See Asynchronous Blur Validation Example for more details.
      */
-    asyncValidate?(values:FormData, dispatch:Dispatch, props:Object):
+    asyncValidate?(values:FormData, dispatch:Dispatch<any>, props:Object):
       Promise<any>;
 
     /**
@@ -377,7 +377,7 @@ declare module 'redux-form' {
      * you must pass it as a parameter to handleSubmit() inside your form
      * component.
      */
-    onSubmit?(values:FormData, dispatch?:Dispatch): any;
+    onSubmit?(values:FormData, dispatch?:Dispatch<any>): any;
 
     /**
      * If true, the form values will be overwritten whenever the initialValues
@@ -466,7 +466,7 @@ declare module 'redux-form' {
       [formName:string]: {
         [fieldName:string]: Normalizer
       }
-    }):Reducer;
+    }):Reducer<any>;
 
     /**
      * Returns a form reducer that will also pass each action through
@@ -475,6 +475,6 @@ declare module 'redux-form' {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers:{[formName:string]: Reducer}):Reducer;
+    plugin(reducers:{[formName:string]: Reducer<any>}):Reducer<any>;
   }
 }

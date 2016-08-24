@@ -250,6 +250,7 @@ webview.addEventListener('ipc-message', function(event) {
 	console.log(event.channel); // Prints "pong"
 });
 webview.send('ping');
+webview.capturePage((image) => { console.log(image); });
 
 // In guest page.
 ipcRenderer.on('ping', function() {
