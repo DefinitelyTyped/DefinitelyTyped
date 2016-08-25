@@ -72,11 +72,11 @@ interface RequestConstructor {
 }
 declare var Request: RequestConstructor;
 
-type RequestMode = "same-origin" | "no-cors" | "cors";
+type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestCredentials = "omit" | "same-origin" | "include";
-type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
 type RequestRedirect = "follow" | "error" | "manual";
-type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "origin" | "origin-when-cross-origin" | "unsafe-url";
+type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
 interface Response extends Body {
     type: "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
