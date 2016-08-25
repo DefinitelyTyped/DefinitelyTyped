@@ -60,12 +60,14 @@ declare module "expect" {
 
     function expect(actual:any):Expectation;
 
-    export function createSpy(fn?:Function, restore?:Function):Spy;
-    export function spyOn(object:Object, methodName:string):Spy;
-    export function isSpy(object:any):Boolean;
-    export function restoreSpies():void;
-    export function assert(condition:any, messageFormat:string, ...extraArgs:Array<any>):void;
-    export function extend(extension:Extension):void;
+    namespace expect {
+        export function createSpy(fn?:Function, restore?:Function):Spy;
+        export function spyOn(object:Object, methodName:string):Spy;
+        export function isSpy(object:any):Boolean;
+        export function restoreSpies():void;
+        export function assert(condition:any, messageFormat:string, ...extraArgs:Array<any>):void;
+        export function extend(extension:Extension):void;
+    }
 
     export default expect;
 }
