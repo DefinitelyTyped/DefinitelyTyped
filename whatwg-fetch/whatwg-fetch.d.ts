@@ -14,7 +14,7 @@ declare class Headers {
 
     append(name: string, value: string): void;
     delete(name: string): void;
-    get(name: string): string | null;
+    get(name: string): string; // | null; (TS 2.0 strict null check)
     has(name: string): boolean;
     set(name: string, value: string): void;
 
