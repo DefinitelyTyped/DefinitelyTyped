@@ -113,7 +113,7 @@ declare namespace Navigation {
          * @param data The current NavigationData
          * @param asyncData The data passed asynchronously while navigating
          */
-        navigated: (data: any, asyncData?: any) => void;
+        navigated: (data: any, asyncData: any) => void;
         /**
          * Called on the new State before navigating to it
          * @param data The new NavigationData
@@ -454,12 +454,12 @@ declare namespace Navigation {
          * Registers a navigate event listener
          * @param handler The navigate event listener
          */
-        onNavigate(handler: (oldState: State, state: State, data: any) => void): void;
+        onNavigate(handler: (oldState: State, state: State, data: any, asyncData: any) => void): void;
         /**
          * Unregisters a navigate event listener
          * @param handler The navigate event listener
          */
-        offNavigate(handler: (oldState: State, state: State, data: any) => void): void;
+        offNavigate(handler: (oldState: State, state: State, data: any, asyncData: any) => void): void;
         /**
          * Navigates to a State
          * @param stateKey The key of a State

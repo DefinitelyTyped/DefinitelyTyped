@@ -1,4 +1,4 @@
-﻿/// <reference path="bootstrap.datepicker.d.ts"/>
+﻿/// <reference path="bootstrap-datepicker.d.ts"/>
 
 function tests_simple() {
     $('#datepicker').datepicker();
