@@ -1,9 +1,9 @@
-// Type definitions for electron-prebuilt 0.30.1
-// Project: https://github.com/mafintosh/electron-prebuilt
+// Type definitions for electron 1.3.3
+// Project: https://github.com/electron-userland/electron-prebuilt
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'electron-prebuilt' {
+declare module 'electron' {
 	var electron: string;
 	export = electron;
 }

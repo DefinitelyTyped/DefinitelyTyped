@@ -11,6 +11,9 @@ const router = new Router({
 });
 
 router
+  .param('id', function(id, ctx, next) {
+    next();
+  })
   .get('/', function (ctx, next) {
     ctx.body = 'Hello World!';
   })
@@ -23,7 +26,7 @@ router
   .del('/users/:id', function (ctx, next) {
     // ...
   });
-  
+
 router.get('user', '/users/:id', function (ctx, next) {
     ctx.body = "sdsd";
 });
