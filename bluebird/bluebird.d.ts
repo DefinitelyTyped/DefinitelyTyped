@@ -620,6 +620,8 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
     /** Enable monitoring */
     monitoring?: boolean;
   }): void;
+
+  [Symbol.toStringTag]: "Promise";
 }
 
 namespace Bluebird {
