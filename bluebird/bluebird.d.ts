@@ -38,6 +38,8 @@ declare module 'bluebird' {
 // Project: http://bluebirdjs.com
 
 class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
+  [Symbol.toStringTag]: "Promise";
+
   /**
    * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
    * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
@@ -620,8 +622,6 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
     /** Enable monitoring */
     monitoring?: boolean;
   }): void;
-
-  [Symbol.toStringTag]: "Promise";
 }
 
 namespace Bluebird {
