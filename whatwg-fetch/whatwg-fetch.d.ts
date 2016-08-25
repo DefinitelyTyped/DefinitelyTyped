@@ -93,7 +93,7 @@ interface Response extends Body {
 }
 interface ResponseInit {
     status?: number;
-    statusText?: number;
+    statusText?: string;
     headers?: HeadersInit;
 }
 interface ResponseConstructor {
