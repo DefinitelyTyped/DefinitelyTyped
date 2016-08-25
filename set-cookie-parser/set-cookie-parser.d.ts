@@ -6,22 +6,24 @@
 /// <reference path="../node/node.d.ts" />
 
 declare module "set-cookie-parser" {
-	import http = require("http");
+    import http = require("http");
 
-	function SetCookieParser(input: string | string[] | http.IncomingMessage): SetCookieParser.Cookie[];
+    function SetCookieParser(input: string | string[] | http.IncomingMessage): SetCookieParser.Cookie[];
 
-	namespace SetCookieParser {
-		interface Cookie {
-			name: string;
-			value: string;
-			path?: string;
-			expires?: Date;
-			maxAge?: number;
-			domain?: string;
-			secure?: boolean;
-			httpOnly?: boolean;
-		}
-	}
+    namespace SetCookieParser {
+        function parse(input: string | string[] | http.IncomingMessage): Cookie[];
 
-	export = SetCookieParser;
+        interface Cookie {
+            name: string;
+            value: string;
+            path?: string;
+            expires?: Date;
+            maxAge?: number;
+            domain?: string;
+            secure?: boolean;
+            httpOnly?: boolean;
+        }
+    }
+
+    export = SetCookieParser;
 }
