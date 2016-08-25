@@ -3,8 +3,8 @@
 // Definitions by: Justin Reidy <https://github.com/jmreidy/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "expect" {
-    export class Expectation {
+declare namespace expect {
+    class Expectation {
         constructor(actual:any);
         toExist(message?:string):Expectation;
         toBeTruthy(message?:string):Expectation;
@@ -37,16 +37,16 @@ declare module "expect" {
         withArgs(...args:Array<any>):Expectation;
     }
 
-    export interface Extension {
+    interface Extension {
         [name:string]:(args?:Array<any>) => void;
     }
 
-    export interface Call {
+    interface Call {
         context: Spy;
         arguments: Array<any>;
     }
 
-    export interface Spy {
+    interface Spy {
         __isSpy:Boolean;
         calls:Array<Call>;
         andCall(fn:Function):Spy;
@@ -58,16 +58,31 @@ declare module "expect" {
         destroy():void;
     }
 
-    function expect(actual:any):Expectation;
+}
 
-    namespace expect {
-        export function createSpy(fn?:Function, restore?:Function):Spy;
-        export function spyOn(object:Object, methodName:string):Spy;
+declare module "expect" {
+    function e(actual:any):expect.Expectation;
+
+    namespace e {
+        export function createSpy(fn?:Function, restore?:Function):expect.Spy;
+        export function spyOn(object:Object, methodName:string):expect.Spy;
         export function isSpy(object:any):Boolean;
         export function restoreSpies():void;
         export function assert(condition:any, messageFormat:string, ...extraArgs:Array<any>):void;
-        export function extend(extension:Extension):void;
+        export function extend(extension:expect.Extension):void;
     }
 
-    export default expect;
+    export = e;
+}
+
+declare module "expect/lib/Expectation" {
+    export default expect.Expectation;
+}
+
+declare module "expect/lib/Extension" {
+    export default expect.Extension;
+}
+
+declare module "expect/lib/Spy" {
+    export default expect.Spy;
 }

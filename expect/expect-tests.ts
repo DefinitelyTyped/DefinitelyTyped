@@ -1,9 +1,12 @@
 /// <reference path="./expect.d.ts" />
 /// <reference path="../mocha/mocha.d.ts"" />
 
-import expect,
-      {Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies}
-      from 'expect';
+import * as expect from 'expect';
+import Expectation from 'expect/lib/Expectation';
+import Extension from 'expect/lib/Extension';
+import Spy from 'expect/lib/Spy';
+
+const {createSpy, isSpy, assert, spyOn, extend, restoreSpies} = expect;
 
 describe('chaining assertions', function () {
   it('should allow chaining for array-like applications', function () {
