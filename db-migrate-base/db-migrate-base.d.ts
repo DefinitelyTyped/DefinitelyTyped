@@ -8,6 +8,8 @@
 
 declare module "db-migrate-base" {
 
+  import * as Promise from "bluebird";
+
   export interface CallbackFunction { (err: any, response: any): void; }
 
   export interface InternalModule {
