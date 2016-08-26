@@ -1,4 +1,4 @@
-// Type definitions for Solution Center Communicator 2.3.0
+// Type definitions for Solution Center Communicator 2.2.0
 // Project: https://github.com/zalando-incubator/solution-center-communicator
 // Definitions by: Damián García <https://github.com/dami-gg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -111,7 +111,7 @@ declare namespace ScCommunicator {
      * @param {string|Object} env - Environment name or custom environment object
      * @returns {Object} Named or custom environment
      */
-    setCurrentEnvironment(environment: Environment): Environment;
+    setCurrentEnvironment(env: any): Environment;
 
     /**
      * Access to the public methods of the service
