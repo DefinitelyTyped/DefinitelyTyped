@@ -1,4 +1,4 @@
-/// <reference path="ng-map.d.ts" />
+/// <reference path="ngmap.d.ts" />
 class NgMapTestController {
     constructor(public $scope: ng.IScope, public $window: ng.IWindowService, public NgMap: angular.map.INgMap) {
         this.showMap();
