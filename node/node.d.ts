@@ -2627,6 +2627,5 @@ declare module "constants" {
 }
 
 declare module "process" {
-    var p: NodeJS.Process;
-    export default p;
+    export = process;
 }
