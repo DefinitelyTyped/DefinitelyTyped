@@ -3,7 +3,8 @@
 // Definitions by: Timoteo Ponce <https://github.com/timoteoponce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module JWT{
+
+declare module "jwt-client"{
 
   interface JWTHeader{
     typ: string;
@@ -28,14 +29,14 @@ declare module JWT{
    */ 
   function write(value:JWTObject):string;
 
-  function keep(value:JWTObject, key?:any, storate?: any);
+  function keep(value:JWTObject, key?:any, storate?: any):void;
 
-  function remember();
+  function remember():void;
 
-  function forget();
+  function forget():void;
 
   function get():string;
 
-  function validate(value:JWTObject, issuer?:any, audience?: any);
+  function validate(value:JWTObject, issuer?:any, audience?: any):boolean;
 }
 
