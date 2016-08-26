@@ -42,8 +42,8 @@ interface Request extends Body {
     url: string;
     headers: Headers;
 
-    type: "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
-    destination: "" | "document" | "embed" | "font" | "image" | "manifest" | "media" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "worker" | "xslt";
+    type: RequestType
+    destination: RequestDestination;
     referrer: string;
     referrerPolicy: ReferrerPolicy;
     mode: RequestMode;
@@ -72,6 +72,8 @@ interface RequestConstructor {
 }
 declare var Request: RequestConstructor;
 
+type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
+type RequestDestination = "" | "document" | "embed" | "font" | "image" | "manifest" | "media" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "worker" | "xslt";
 type RequestMode = "navigate" | "same-origin" | "no-cors" | "cors";
 type RequestCredentials = "omit" | "same-origin" | "include";
 type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cache" | "only-if-cached";
@@ -79,7 +81,7 @@ type RequestRedirect = "follow" | "error" | "manual";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
 interface Response extends Body {
-    type: "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
+    type: ResponseType;
     url: string;
     redirected: boolean;
     status: number;
@@ -103,3 +105,5 @@ interface ResponseConstructor {
     redirect(url: string, status?: number): Response;
 }
 declare var Response: ResponseConstructor;
+
+type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
