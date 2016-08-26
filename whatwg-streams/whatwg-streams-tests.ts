@@ -101,7 +101,7 @@ function makeWritableWebSocketStream(url: string, protocols: string[]) {
     return new WritableStream({
         start(controller) {
             ws.onerror = () => controller.error(new Error("The WebSocket errored!"));
-            return new Promise(resolve => ws.onopen = resolve);
+            return new Promise<void>(resolve => ws.onopen = () => resolve());
         },
 
         write(chunk) {
@@ -111,8 +111,8 @@ function makeWritableWebSocketStream(url: string, protocols: string[]) {
         },
 
         close() {
-            return new Promise((resolve, reject) => {
-                ws.onclose = resolve;
+            return new Promise<void>((resolve, reject) => {
+                ws.onclose = () => resolve();
                 ws.close();
             });
         }
@@ -161,8 +161,8 @@ class WebSocketSink implements WritableStreamSink {
         this._ws.addEventListener("error", () => {
             controller.error(new Error("The WebSocket errored!"));
         });
-
-        return new Promise(resolve => this._ws.onopen = resolve);
+        
+        return new Promise<void>(resolve => this._ws.onopen = () => resolve());
     }
 
     write(chunk: any) {
@@ -170,8 +170,8 @@ class WebSocketSink implements WritableStreamSink {
     }
 
     close() {
-        return new Promise((resolve, reject) => {
-            this._ws.onclose = resolve;
+        return new Promise<void>((resolve, reject) => {
+            this._ws.onclose = () => resolve();
             this._ws.close();
         });
     }
