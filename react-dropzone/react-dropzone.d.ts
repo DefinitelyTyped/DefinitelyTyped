@@ -23,6 +23,14 @@ declare namespace ReactDropzone {
         */
         disableClick?: boolean;
         /**
+         * Min file size accepted
+         */
+        minSize?: number;
+        /** 
+        * Max file size accepted
+        */
+        maxSize?: number;
+        /**
         * To accept only a single file, set this to false.
         */
         multiple?: boolean;
