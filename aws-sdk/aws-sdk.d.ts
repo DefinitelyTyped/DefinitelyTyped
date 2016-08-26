@@ -726,320 +726,320 @@ declare module "aws-sdk" {
         }
 
         export interface AttachInstancesParams {
-            autoScalingGroupName: string;
-            instanceIds: string[];
+            AutoScalingGroupName: string;
+            InstanceIds: string[];
         }
 
         export interface AttachLoadBalancersParams {
-            autoScalingGroupName: string;
-            loadBalancerNames: string[];
+            AutoScalingGroupName: string;
+            LoadBalancerNames: string[];
         }
 
         export interface AttachLoadBalancerTargetGroupsParams {
-            autoScalingGroupName: string;
-            targetGroupARNs: string[];
+            AutoScalingGroupName: string;
+            TargetGroupARNs: string[];
         }
 
         export interface CompleteLifecycleActionParams {
-            autoScalingGroupName: string;
-            lifecycleActionResult: string;
-            lifecycleHookName: string;
+            AutoScalingGroupName: string;
+            LifecycleActionResult: string;
+            LifecycleHookName: string;
             lifecycleActionToken?: string;
-            instanceId?: string;
+            InstanceId?: string;
         }
 
         export interface CreateAutoScalingGroupParams {
-            autoScalingGroupName: string;
-            minSize: number;
-            maxSize: number;
-            launchConfigurationName?: string;
-            instanceId?: string;
-            desiredCapacity?: number;
-            defaultCooldown?: number;
-            availabilityZones?: string[];
-            loadBalancerNames?: string[];
-            targetGroupARNs?: string[];
-            healthCheckType?: string;
-            healthCheckGracePeriod?: number;
-            placementGroup?: string;
-            vPCZoneIdentifier?: string;
-            terminationPolicies?: string;
-            newInstancesProtectedFromScaleIn?: boolean;
-            tags?: Tags;
+            AutoScalingGroupName: string;
+            MinSize: number;
+            MaxSize: number;
+            LaunchConfigurationName?: string;
+            InstanceId?: string;
+            DesiredCapacity?: number;
+            DefaultCooldown?: number;
+            AvailabilityZones?: string[];
+            LoadBalancerNames?: string[];
+            TargetGroupARNs?: string[];
+            HealthCheckType?: string;
+            HealthCheckGracePeriod?: number;
+            PlacementGroup?: string;
+            VPCZoneIdentifier?: string;
+            TerminationPolicies?: string;
+            NewInstancesProtectedFromScaleIn?: boolean;
+            Tags?: Tags;
         }
 
         export interface CreateLaunchConfigurationParams {
-            launchConfigurationName: string;
-            associatePublicIpAddress?: boolean;
-            imageId?: string;
-            keyName?: string;
-            securityGroups?: string[];
-            classicLinkVPCId?: string;
-            classicLinkVPCSecurityGroups?: string[];
-            userData?: string;
-            instanceId?: string;
-            instanceType?: string;
-            kernelId?: string;
-            ramdiskId?: string;
-            blockDeviceMappings?: BlockDeviceMapping[];
-            instanceMonitoring?: InstanceMonitoring;
-            spotPrice?: string;
-            iamInstanceProfile?: string;
-            ebsOptimized?: boolean;
-            placementTenancy?: string;
+            LaunchConfigurationName: string;
+            AssociatePublicIpAddress?: boolean;
+            ImageId?: string;
+            KeyName?: string;
+            SecurityGroups?: string[];
+            ClassicLinkVPCId?: string;
+            ClassicLinkVPCSecurityGroups?: string[];
+            UserData?: string;
+            InstanceId?: string;
+            InstanceType?: string;
+            KernelId?: string;
+            RamdiskId?: string;
+            BlockDeviceMappings?: BlockDeviceMapping[];
+            InstanceMonitoring?: InstanceMonitoring;
+            SpotPrice?: string;
+            IamInstanceProfile?: string;
+            EbsOptimized?: boolean;
+            PlacementTenancy?: string;
         }
 
         export interface CreateOrUpdateTagsParams {
-            tags: Tags[];
+            Tags: Tags[];
         }
 
         export interface DeleteAutoScalingGroupParams {
-            autoScalingGroupName: string;
-            forceDelete?: boolean;
+            AutoScalingGroupName: string;
+            ForceDelete?: boolean;
         }
 
         export interface DeleteLaunchConfigurationParams {
-            launchConfigurationName: string;
+            LaunchConfigurationName: string;
         }
 
         export interface DeleteLifecycleHookParams {
-            autoScalingGroupName: string;
-            lifecycleHookName: string;
+            AutoScalingGroupName: string;
+            LifecycleHookName: string;
         }
 
         export interface DeleteNotificationConfigurationParams {
-            autoScalingGroupName: string;
-            topicARN: string;
+            AutoScalingGroupName: string;
+            TopicARN: string;
         }
 
         export interface DeletePolicyParams {
-            policyName: string;
-            autoScalingGroupName?: string;
+            PolicyName: string;
+            AutoScalingGroupName?: string;
         }
 
         export interface DeleteScheduledActionParams {
-            autoScalingGroupName: string;
-            scheduledActionName: string;
+            AutoScalingGroupName: string;
+            ScheduledActionName: string;
         }
 
         export interface DeleteTagsParams {
-            tags: Tags[];
+            Tags: Tags[];
         }
 
         export interface DescribeAutoScalingGroupsParams {
-            autoScalingGroupName?: string;
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName?: string;
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeAutoScalingInstancesParams {
-            instanceIds?: string[];
-            nextToken?: string;
-            maxRecords?: number;
+            InstanceIds?: string[];
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeLaunchConfigurationsParams {
-            launchConfigurationNames?: string[];
-            nextToken?: string;
-            maxRecords?: number;
+            LaunchConfigurationNames?: string[];
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeLifecycleHooksParams {
-            autoScalingGroupName: string;
-            lifecycleHookNames?: string[];
+            AutoScalingGroupName: string;
+            LifecycleHookNames?: string[];
         }
 
         export interface DescribeLoadBalancersParams {
-            autoScalingGroupName: string;
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName: string;
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeLoadBalancerTargetGroupsParams {
-            autoScalingGroupName: string;
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName: string;
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeNotificationConfigurationsParams {
-            autoScalingGroupName?: string;
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName?: string;
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribePoliciesParams {
-            autoScalingGroupName?: string;
-            policyNames?: string[];
-            policyTypes?: string[];
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName?: string;
+            PolicyNames?: string[];
+            PolicyTypes?: string[];
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeScalingActivitiesParams {
-            autoScalingGroupName?: string;
-            activityIds?: string[];
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName?: string;
+            ActivityIds?: string[];
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeScheduledActionsParams {
-            autoScalingGroupName?: string;
-            scheduledActionNames?: string[];
-            startTime?: Date;
-            endTime?: Date;
-            nextToken?: string;
-            maxRecords?: number;
+            AutoScalingGroupName?: string;
+            ScheduledActionNames?: string[];
+            StartTime?: Date;
+            EndTime?: Date;
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DescribeTagsParams {
-            filters?: Filter[];
-            nextToken?: string;
-            maxRecords?: number;
+            Filters?: Filter[];
+            NextToken?: string;
+            MaxRecords?: number;
         }
 
         export interface DetachInstancesParams {
-            autoScalingGroupName: string;
-            shouldDecrementDesiredCapacity: boolean;
-            instanceIds?: string[];
+            AutoScalingGroupName: string;
+            ShouldDecrementDesiredCapacity: boolean;
+            InstanceIds?: string[];
         }
 
         export interface DetachLoadBalancersParams {
-            autoScalingGroupName: string;
-            loadBalancerNames: string;
+            AutoScalingGroupName: string;
+            LoadBalancerNames: string;
         }
 
         export interface DetachLoadBalancerTargetGroupsParams {
-            autoScalingGroupName: string;
+            AutoScalingGroupName: string;
             TargetGroupARNs: string[];
         }
 
         export interface DisableMetricsCollectionParams {
-            autoScalingGroupName: string;
-            metrics?: string[];
+            AutoScalingGroupName: string;
+            Metrics?: string[];
         }
 
         export interface EnableMetricsCollectionParams {
-            autoScalingGroupName: string;
-            granularity: string;
-            metrics?: string[];
+            AutoScalingGroupName: string;
+            Granularity: string;
+            Metrics?: string[];
         }
 
         export interface EnterStandbyParams {
-            autoScalingGroupName: string;
-            shouldDecrementDesiredCapacity: boolean;
-            instanceIds?: string[];
+            AutoScalingGroupName: string;
+            ShouldDecrementDesiredCapacity: boolean;
+            InstanceIds?: string[];
         }
 
         export interface ExecutePolicyParams {
-            policyName: string;
-            autoScalingGroupName?: string;
-            honorCooldown?: boolean;
-            metricValue?: number;
-            breachThreshold?: number;
+            PolicyName: string;
+            AutoScalingGroupName?: string;
+            HonorCooldown?: boolean;
+            MetricValue?: number;
+            BreachThreshold?: number;
         }
 
         export interface ExitStandbyParams {
-            autoScalingGroupName: string;
-            instanceIds?: string[];
+            AutoScalingGroupName: string;
+            InstanceIds?: string[];
         }
 
         export interface PutLifecycleHookParams {
-            autoScalingGroupName: string;
-            lifecycleHookName: string;
-            lifecycleTransition?: string;
-            roleARN?: string;
-            notificationTargetARN?: string;
-            notificationMetadata?: string;
-            heartbeatTimeout?: number;
-            defaultResult?: string;
+            AutoScalingGroupName: string;
+            LifecycleHookName: string;
+            LifecycleTransition?: string;
+            RoleARN?: string;
+            NotificationTargetARN?: string;
+            NotificationMetadata?: string;
+            HeartbeatTimeout?: number;
+            DefaultResult?: string;
         }
 
         export interface PutNotificationConfigurationParams {
-            autoScalingGroupName: string;
-            notificationTypes: string[];
-            topicARN: string;
+            AutoScalingGroupName: string;
+            NotificationTypes: string[];
+            TopicARN: string;
         }
 
         export interface PutScalingPolicyParams {
-            autoScalingGroupName: string;
-            adjustmentType: string;
-            policyName: string;
-            policyType?: string;
-            minAdjustmentStep?: number;
-            minAdjustmentMagnitude?: number;
-            scalingAdjustment?: number;
-            cooldown?: number;
-            metricAggregationType?: string;
-            stepAdjustments?: StepAdjustment[];
-            estimatedInstanceWarmup: number;
+            AutoScalingGroupName: string;
+            AdjustmentType: string;
+            PolicyName: string;
+            PolicyType?: string;
+            MinAdjustmentStep?: number;
+            MinAdjustmentMagnitude?: number;
+            ScalingAdjustment?: number;
+            Cooldown?: number;
+            MetricAggregationType?: string;
+            StepAdjustments?: StepAdjustment[];
+            EstimatedInstanceWarmup: number;
         }
 
         export interface PutScheduledUpdateGroupActionParams {
-            autoScalingGroupName: string;
-            scheduledActionName: string;
-            time?: Date;
-            startTime?: Date;
-            endTime?: Date;
-            recurrence?: string;
-            minSize?: number;
-            maxSize?: number;
-            desiredCapacity?: number;
+            AutoScalingGroupName: string;
+            ScheduledActionName: string;
+            Time?: Date;
+            StartTime?: Date;
+            EndTime?: Date;
+            Recurrence?: string;
+            MinSize?: number;
+            MaxSize?: number;
+            DesiredCapacity?: number;
         }
 
         export interface RecordLifecycleActionHeartbeatParams {
-            autoScalingGroupName: string;
-            lifecycleHookName: string;
+            AutoScalingGroupName: string;
+            LifecycleHookName: string;
             LifecycleActionToken?: string;
             InstanceId?: string;
         }
 
         export interface ResumeProcessesParams {
-            autoScalingGroupName: string;
+            AutoScalingGroupName: string;
             ScalingProcesses?: string[];
         }
 
         export interface SetDesiredCapacityParams {
-            autoScalingGroupName: string;
-            desiredCapacity: number;
-            honorCooldown?: boolean;
+            AutoScalingGroupName: string;
+            DesiredCapacity: number;
+            HonorCooldown?: boolean;
         }
 
         export interface SetInstanceHealthParams {
-            healthStatus: string;
-            instanceId: string;
-            shouldRespectGracePeriod?: boolean;
+            HealthStatus: string;
+            InstanceId: string;
+            ShouldRespectGracePeriod?: boolean;
         }
 
         export interface SetInstanceProtectionParams {
-            autoScalingGroupName: string;
-            instanceIds: string[];
-            protectedFromScaleIn: boolean;
+            AutoScalingGroupName: string;
+            InstanceIds: string[];
+            ProtectedFromScaleIn: boolean;
         }
 
         export interface SuspendProcessesParams {
-            autoScalingGroupName: string;
-            scalingProcesses?: string[];
+            AutoScalingGroupName: string;
+            ScalingProcesses?: string[];
         }
 
         export interface TerminateInstanceInAutoScalingGroupParams {
-            instanceId: string;
-            shouldDecrementDesiredCapacity: boolean;
+            InstanceId: string;
+            ShouldDecrementDesiredCapacity: boolean;
         }
 
         export interface UpdateAutoScalingGroupParams {
-            autoScalingGroupName: string;
-            launchConfigurationName: string;
-            minSize: number;
-            maxSize: number;
-            desiredCapacity: number;
-            defaultCooldown: number;
-            availabilityZones: string[];
-            healthCheckType: string;
-            healthCheckGracePeriod: number;
-            placementGroup: string;
-            vPCZoneIdentifier: string;
-            terminationPolicies: string[];
-            newInstancesProtectedFromScaleIn?: boolean;
+            AutoScalingGroupName: string;
+            LaunchConfigurationName: string;
+            MinSize: number;
+            MaxSize: number;
+            DesiredCapacity: number;
+            DefaultCooldown: number;
+            AvailabilityZones: string[];
+            HealthCheckType: string;
+            HealthCheckGracePeriod: number;
+            PlacementGroup: string;
+            VPCZoneIdentifier: string;
+            TerminationPolicies: string[];
+            NewInstancesProtectedFromScaleIn?: boolean;
         }
     }
 
