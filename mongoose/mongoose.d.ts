@@ -2332,6 +2332,12 @@ declare module "mongoose" {
      * @param fn optional callback
      */
     save(fn?: (err: any, product: this, numAffected: number) => void): Promise<this>;
+
+    /**
+     * Version using default version key. See http://mongoosejs.com/docs/guide.html#versionKey
+     * If you're using another key, you will have to access it using []: doc[_myVersionKey]
+     */
+    __v?: number;
   }
 
   interface ModelProperties {
