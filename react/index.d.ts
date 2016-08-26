@@ -2076,6 +2076,7 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        fillRule?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
