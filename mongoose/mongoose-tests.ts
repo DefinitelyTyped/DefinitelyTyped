@@ -1081,6 +1081,7 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
 }), 'myCollection', true);
 MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
+  docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
   doc.increment();
