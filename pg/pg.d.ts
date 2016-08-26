@@ -1,13 +1,16 @@
-// Type definitions for pg
+// Type definitions for pg 6.1.0
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../pg-pool/pg-pool.d.ts" />
 
 declare module "pg" {
     import events = require("events");
     import stream = require("stream");
+
+    export {Pool, PoolConfig} from "pg-pool";
 
     export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
     export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
@@ -56,6 +59,10 @@ declare module "pg" {
 
         connect(callback?: (err:Error) => void): void;
         end(): void;
+        release(): void;
+
+        query(queryText: string): Promise<QueryResult>;
+        query(queryText: string, values: any[]): Promise<QueryResult>;
 
         query(queryText: string, callback?: (err: Error, result: QueryResult) => void): Query;
         query(config: QueryConfig, callback?: (err: Error, result: QueryResult) => void): Query;
@@ -86,7 +93,7 @@ declare module "pg" {
         public on(event: string, listener: Function): this;
     }
 
-    namespace types {
+    export namespace types {
         function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
     }
 }
