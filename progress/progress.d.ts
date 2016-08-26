@@ -114,6 +114,11 @@ declare module "progress"
          * Terminates a progress bar.
          */
         terminate():void;
+        
+        /**
+         * Progress status if completed (Boolean)
+         */
+        complete:string;
     }
     namespace ProgressBar { }
 
