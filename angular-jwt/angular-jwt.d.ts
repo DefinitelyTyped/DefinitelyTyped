@@ -27,4 +27,11 @@ declare namespace angular.jwt {
     interface IJwtInterceptor {
         tokenGetter(...params : any[]): string;
     }
+
+    interface IAuthManagerServiceProvider {
+        authenticate();
+        unauthenticate();
+        checkAuthOnRefresh();
+        redirectWhenUnauthenticated();
+    }
 }
