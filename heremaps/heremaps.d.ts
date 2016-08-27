@@ -3079,7 +3079,7 @@ declare namespace H {
                  */
                 constructor(x: number, y: number, z: number, data?: any);  key: string;
 
-                data?: any;
+                data: any;
                 valid: boolean;
                 x: number;
                 y: number;
