@@ -1135,7 +1135,7 @@ declare namespace H {
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
                 icon?: H.map.Icon | H.map.DomIcon;
-                data:any;
+                data?: any;
             }
         }
 
@@ -1238,7 +1238,7 @@ declare namespace H {
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
                 icon?: H.map.DomIcon;
-                data: any;
+                data?: any;
             }
         }
 
@@ -1322,7 +1322,7 @@ declare namespace H {
                 visibility?: boolean;
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
-                data: any;
+                data?: any;
                 objects?: Array<H.map.Object>;
             }
         }
@@ -1618,7 +1618,7 @@ declare namespace H {
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
                 icon?: H.map.Icon;
-                data: any;
+                data?: any;
             }
         }
 
@@ -1759,7 +1759,7 @@ declare namespace H {
                 visibility?: boolean;
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
-                data: any;
+                data?: any;
             }
 
             /**
@@ -1851,7 +1851,7 @@ declare namespace H {
                 visibility?: boolean;
                 zIndex?: number;
                 provider?: H.map.provider.Provider;
-                data: any;
+                data?: any;
             }
         }
 
@@ -1939,7 +1939,7 @@ declare namespace H {
                 min?: number;
                 max?: number;
                 provider?: H.map.provider.Provider;
-                data: any;
+                data?: any;
             }
         }
 
@@ -3077,9 +3077,9 @@ declare namespace H {
                  * @param z {number} - tile zoom level
                  * @param data {*} - generic data object which cooresponds to the given coordinates
                  */
-                constructor(x: number, y: number, z: number, data: any);  key: string;
+                constructor(x: number, y: number, z: number, data?: any);  key: string;
 
-                data: any;
+                data?: any;
                 valid: boolean;
                 x: number;
                 y: number;
@@ -4671,7 +4671,7 @@ declare namespace H {
                  * @param data {*} - The meta data of this space
                  * @param opt_isFloorSpace {boolean=} - Indicates whether this space represents a floor itself, defaults to false
                  */
-                constructor(provider: H.map.provider.ObjectProvider, uid: string, data: any, opt_isFloorSpace?: boolean);
+                constructor(provider: H.map.provider.ObjectProvider, uid: string, data?: any, opt_isFloorSpace?: boolean);
 
                 /**
                  * The method indicates whether the spatial object represents the whole floor space or a space within a floor boundaries, that belongs to the floor.
