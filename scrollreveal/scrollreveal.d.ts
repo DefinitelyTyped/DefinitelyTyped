@@ -32,14 +32,14 @@ declare namespace scrollReveal {
         useDelay ? : string;
         viewFactor ? : number;
         viewOffset ? : IScrollRevealPositionObject;
-        beforeReveal ? (domEl: HTMLElement);
-        afterReveal ? (domEl: HTMLElement);
-        beforeReset ? (domEl: HTMLElement);
-        afterReset ? (domEl: HTMLElement);
-        beforeReveal ? (domEl: NodeListOf<Element>);
-        afterReveal ? (domEl: NodeListOf<Element>);
-        beforeReset ? (domEl: NodeListOf<Element>);
-        afterReset ? (domEl: NodeListOf<Element>);
+        beforeReveal ? (domEl: HTMLElement): void;
+        afterReveal ? (domEl: HTMLElement): void;
+        beforeReset ? (domEl: HTMLElement): void;
+        afterReset ? (domEl: HTMLElement): void;
+        beforeReveal ? (domEl: NodeListOf<Element>): void;
+        afterReveal ? (domEl: NodeListOf<Element>): void;
+        beforeReset ? (domEl: NodeListOf<Element>): void;
+        afterReset ? (domEl: NodeListOf<Element>): void;
     }
 
 
@@ -61,7 +61,7 @@ declare namespace scrollReveal {
         reveal(selector: NodeListOf<Element>, options: IScrollRevealOptions): IScrollReveal;
         reveal(selector: NodeListOf<Element>, options: IScrollRevealOptions, interval: number): IScrollReveal;
 
-        sync();
+        sync(): void;
     }
 }
 

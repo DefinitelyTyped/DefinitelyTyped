@@ -45,13 +45,12 @@ sr.reveal('.foo', { container: fooContainer });
 sr.reveal('.bar', { container: '#barContainer' });
 
 //3.5
-var content, xmlhttp;
 
 fooContainer = document.getElementById('fooContainer');
 
 sr = ScrollReveal();
 sr.reveal('.foo', { container: fooContainer });
-xmlhttp = new XMLHttpRequest();
+var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
   if (xmlhttp.readyState == XMLHttpRequest.DONE) {
     if (xmlhttp.status == 200) {
