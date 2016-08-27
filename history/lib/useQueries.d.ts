@@ -1,2 +1,3 @@
-import { CreateHistory, HistoryQueries } from '../index';
-export default function useQueries<T>(createHistory: CreateHistory<T>): CreateHistory<T & HistoryQueries>;
+import { CreateHistory, UseQueriesHistoryOptionsMixin } from '../index';
+
+export default function useQueries<THistory, THistoryOptions>(createHistory: CreateHistory<THistory, THistoryOptions>): CreateHistory<THistory, THistoryOptions & UseQueriesHistoryOptionsMixin>;

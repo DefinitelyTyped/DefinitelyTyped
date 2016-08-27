@@ -1,132 +1,174 @@
-
-
-import { createHistory, createLocation, useBeforeUnload, useQueries, useBasename } from 'history'
-import { getUserConfirmation } from 'history/lib/DOMUtils'
+import { createHistory, createHashHistory, useBeforeUnload, useQueries, useBasename } from 'history'
 
 interface Promise<T> {
-    then<TResult>(onfulfilled?: (value: T) => TResult): Promise<TResult>;
+  then<TResult>(onfulfilled?: (value: T) => TResult): Promise<TResult>;
 }
 
 let doSomethingAsync: () => Promise<Function>;
 let input = { value: "" };
 
 {
-    let history = createHistory()
+  const history = createHistory()
 
-    // Listen for changes to the current location. The
-    // listener is called once immediately.
-    let unlisten = history.listen(function(location) {
-        console.log(location.pathname)
-    })
+  // Get the current location
+  const location = history.getCurrentLocation()
 
-    // When you're finished, stop the listener.
-    unlisten()
+  // Listen for changes to the current location
+  const unlisten = history.listen(location => {
+    console.log(location.pathname)
+  })
 
-    // Push a new entry onto the history stack.
-    history.push('/home')
+  // Push a new entry onto the history stack
+  history.push({
+    pathname: '/the/path',
+    search: '?a=query',
 
-    // Replace the current entry on the history stack.
-    history.replace('/profile')
+    // Extra location-specific state may be kept in session
+    // storage instead of in the URL query string!
+    state: { the: 'state' }
+  })
 
-    // Push a new entry with state onto the history stack.
-    history.push({
-        pathname: '/about',
-        search: '?the=search',
-        state: { some: 'state' }
-    });
-
-    // Change just the search on an existing location.
-    //history.push({ ...location, search: '?the=other+search' })
-
-    // Go back to the previous history entry. The following
-    // two lines are synonymous.
-    history.go(-1)
-    history.goBack()
-
-    let href = history.createHref('/the/path')
+  // When you're finished, stop the listener
+  unlisten()
 }
 
 {
-    let history = createHistory()
+  const history = createHistory()
 
-    // Pushing a path string.
-    history.push('/the/path')
+  // Get the current location.
+  const location = history.getCurrentLocation()
 
-    // Omitting location state when pushing a location descriptor.
-    history.push({ pathname: '/the/path', search: '?the=search' })
+  // Listen for changes to the current location.
+  const unlisten = history.listen(location => {
+    console.log(location.pathname)
+  })
 
-    // Extending an existing location object.
-    //history.push({ ...location, search: '?other=search' })
+  // Push a new entry onto the history stack.
+  history.push('/home')
 
-    let location = createLocation('/a/path?a=query', { the: 'state' })
+  // Replace the current entry on the history stack.
+  history.replace('/profile')
 
-    location = history.createLocation('/a/path?a=query', { the: 'state' })
+  // Push a new entry with state onto the history stack.
+  // state must be a JSON-serializable object (no Function
+  // or Date values).
+  history.push({
+    pathname: '/about',
+    search: '?the=search',
+    state: { some: 'state' }
+  })
+
+  // Push a new entry onto the history stack that changes
+  // only the search on an existing location.
+  // history.push({ ...location, search: '?the=other+search' })
+
+  // Go back to the previous history entry. The following
+  // two lines are synonymous.
+  history.go(-1)
+  history.goBack()
+
+  // When you're finished, stop the listener.
+  unlisten()
+
+  const href = history.createHref('/the/path')
 }
 
 {
-    let history = createHistory()
-    history.listenBefore(function(location) {
-        if (input.value !== '')
-            return 'Are you sure you want to leave this page?'
-    })
+  const history = createHistory()
 
-    history.listenBefore(function(location, callback) {
-        doSomethingAsync().then(callback)
-    })
+  // Pushing a path string.
+  history.push('/the/path')
+
+  // Omitting location state when pushing a location descriptor.
+  history.push({ pathname: '/the/path', search: '?the=search' })
+
+  // Extending an existing location object.
+  // history.push({ ...location, search: '?other=search' })
+
+  const location = history.createLocation({
+    pathname: '/a/path',
+    state: { the: 'state' }
+  })
 }
 
 {
-    let history = createHistory({
-        getUserConfirmation(message, callback) {
-            callback(window.confirm(message)) // The default behavior
-        }
-    })
+  const history = createHistory()
+
+  history.listenBefore(location => {
+    if (input.value !== '')
+      return 'Are you sure you want to leave this page?'
+  })
+
+  history.listenBefore((location, callback) => {
+    doSomethingAsync().then(callback)
+  })
 }
 
 {
-    let history = useBeforeUnload(createHistory)()
-
-    history.listenBeforeUnload(function() {
-        return 'Are you sure you want to leave this page?'
-    })
+  const history = createHistory({
+    getUserConfirmation(message, callback) {
+      callback(window.confirm(message)) // The default behavior
+    }
+  })
 }
 
 {
-    let history = useQueries(createHistory)()
+  const history = useBeforeUnload(createHistory)()
 
-    history.listen(function(location) {
-        console.log(location.query)
-    })
+  history.listenBeforeUnload(() => {
+    return 'Are you sure you want to leave this page?'
+  })
 }
 
 {
-    let history = useQueries(createHistory)({
-        parseQueryString: function(queryString) {
-            // TODO: return a parsed version of queryString
-            return {};
-        },
-        stringifyQuery: function(query) {
-            // TODO: return a query string created from query
-            return "";
-        }
-    })
+  const history = useQueries(createHistory)()
 
-    history.createPath({ pathname: '/the/path', query: { the: 'query' } })
-    history.push({ pathname: '/the/path', query: { the: 'query' } })
+  history.listen(function (location) {
+    console.log(location.query)
+  })
 }
 
 {
-    // Run our app under the /base URL.
-    let history = useBasename(createHistory)({
-        basename: '/base'
-    })
+  const history = useQueries(createHistory)({
+    parseQueryString: function (queryString) {
+      // TODO: return a parsed version of queryString
+      return {}
+    },
+    stringifyQuery: function (query) {
+      // TODO: return a query string created from query
+      return ''
+    }
+  })
 
-    // At the /base/hello/world URL:
-    history.listen(function(location) {
-        console.log(location.pathname) // /hello/world
-        console.log(location.basename) // /base
-    })
+  history.createPath({ pathname: '/the/path', query: { the: 'query' } })
+  history.push({ pathname: '/the/path', query: { the: 'query' } })
+}
 
-    history.createPath('/the/path') // /base/the/path
-    history.push('/the/path') // push /base/the/path
+{
+  // Run our app under the /base URL.
+  const history = useBasename(createHistory)({
+    basename: '/base'
+  })
+
+  // At the /base/hello/world URL:
+  history.listen(location => {
+    console.log(location.pathname) // /hello/world
+    console.log(location.basename) // /base
+  })
+
+  history.createPath('/the/path') // /base/the/path
+  history.push('/the/path') // push /base/the/path
+}
+
+{
+  // Use _key instead of _k.
+  const history = createHashHistory({
+    queryKey: '_key'
+  })
+}
+
+{
+  const history = createHashHistory({
+    hashType: 'hashbang'
+  })
 }
