@@ -29,9 +29,9 @@ declare namespace angular.jwt {
     }
 
     interface IAuthManagerServiceProvider {
-        authenticate();
-        unauthenticate();
-        checkAuthOnRefresh();
-        redirectWhenUnauthenticated();
+        authenticate(): void;
+        unauthenticate(): void;
+        checkAuthOnRefresh(): void;
+        redirectWhenUnauthenticated(): void;
     }
 }
