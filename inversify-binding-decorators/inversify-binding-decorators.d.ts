@@ -47,10 +47,10 @@ declare namespace inversifyBindingDecorators {
     export function autoProvide(kernel: inversify.interfaces.Kernel, ...modules: any[]): void;
 
     export function makeProvideDecorator(kernel: inversify.interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) => (target: any) => any;
+        (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) => (target: any) => any;
 
     export function makeFluentProvideDecorator(kernel: inversify.interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) => interfaces.ProvideInWhenOnSyntax<any>;
+        (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) => interfaces.ProvideInWhenOnSyntax<any>;
 
 }
 
