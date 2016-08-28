@@ -485,6 +485,9 @@ interface NodeBuffer extends Uint8Array {
     readFloatBE(offset: number, noAssert?: boolean): number;
     readDoubleLE(offset: number, noAssert?: boolean): number;
     readDoubleBE(offset: number, noAssert?: boolean): number;
+    swap16(): Buffer;
+    swap32(): Buffer;
+    swap64(): Buffer;
     writeUInt8(value: number, offset: number, noAssert?: boolean): number;
     writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
     writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
@@ -500,8 +503,8 @@ interface NodeBuffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): this;
-    // TODO: encoding param
-    indexOf(value: string | number | Buffer, byteOffset?: number): number;
+    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     // TODO: entries
     // TODO: includes
     // TODO: keys
@@ -670,6 +673,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -1370,8 +1374,9 @@ declare module "dgram" {
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
+        send(buf: Buffer, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        bind(port: number, address?: string, callback?: () => void): void;
+        bind(port?: number, address?: string, callback?: () => void): void;
         close(): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
@@ -2166,6 +2171,9 @@ declare module "crypto" {
     }
     export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
     export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
+    export function getCiphers(): string[];
+    export function getCurves(): string[];
+    export function getHashes(): string[];
 }
 
 declare module "stream" {
@@ -2616,4 +2624,8 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+}
+
+declare module "process" {
+    export = process;
 }

@@ -19,6 +19,8 @@ class Test extends React.Component<any, any> {
         style={{ borderStyle: "dashed" }}
         activeStyle={{ borderStyle: "dotted" }}
         className="regular"
+        minSize={2000}
+        maxSize={Infinity}
         activeClassName="active"
         rejectClassName="reject"
         disableClick={true}

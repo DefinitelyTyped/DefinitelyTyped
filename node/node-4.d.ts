@@ -13,6 +13,10 @@ interface Error {
     stack?: string;
 }
 
+interface ErrorConstructor {
+    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    stackTraceLimit: number;
+}
 
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
@@ -632,6 +636,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -2396,4 +2401,8 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+}
+
+declare module "process" {
+    export = process;
 }
