@@ -7,7 +7,7 @@
 
 declare namespace inversifyInjectDecorators {
 
-  interface InjectDecorators {
+  export interface InjectDecorators {
 
     lazyInject: (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) =>
                 (proto: any, key: string) => void;
@@ -23,11 +23,9 @@ declare namespace inversifyInjectDecorators {
 
   }
 
-  export function getDecorators(kernel: inversify.interfaces.Kernel): InjectDecorators;
-
 }
 
 declare module "inversify-inject-decorators" {
-  let getDecorators: inversifyInjectDecorators.getDecorators;
+  let getDecorators: (kernel: inversify.interfaces.Kernel): => inversifyInjectDecorators.InjectDecorators;
   export default getDecorators;
 }
