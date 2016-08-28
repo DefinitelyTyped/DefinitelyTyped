@@ -26,6 +26,6 @@ declare namespace inversifyInjectDecorators {
 }
 
 declare module "inversify-inject-decorators" {
-  let getDecorators: (kernel: inversify.interfaces.Kernel): => inversifyInjectDecorators.InjectDecorators;
+  let getDecorators: (kernel: inversify.interfaces.Kernel) => inversifyInjectDecorators.InjectDecorators;
   export default getDecorators;
 }
