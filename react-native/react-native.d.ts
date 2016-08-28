@@ -5979,16 +5979,17 @@ declare namespace  __React {
 
 
     //////////// Plugins //////////////
-    export type ComponentInterface = ReactClass<any, any, any> | {
+    export interface ComponentInterface<P> {
         name?: string;
         displayName?: string;
-        propTypes: Object
-    };
+        propTypes: P
+    }
 
-    export function requireNativeComponent(
+    export function requireNativeComponent<P>(
         viewName: string,
-        componentInterface?: ComponentInterface,
-        extraConfig?: {nativeOnly: Object}): React.ComponentClass<any>;
+        componentInterface?: ComponentInterface<P>,
+        extraConfig?: {nativeOnly: Object}
+    ): React.ComponentClass<P>;
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
