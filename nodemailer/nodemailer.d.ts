@@ -3,7 +3,7 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../nodemailer-direct-transport/nodemailer-direct-transport.d.ts" />
 /// <reference path="../nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts" />
@@ -45,7 +45,7 @@ declare module "nodemailer" {
 		 * Send mail using a template.
 		 */
 		templateSender(template?: any, defaults?: any): (mailData: any, context: any) => Promise<SentMessageInfo>;
-		
+
 		/**
 		 * Send mail using a template with a callback.
 		 */
@@ -59,7 +59,7 @@ declare module "nodemailer" {
 		 * @param pluginFunc is a function that takes two arguments: the mail object and a callback function
 		 */
 		use(step: string, plugin: Plugin): void;
-		
+
 		/**
 		 * Verifies connection with server
 		 */

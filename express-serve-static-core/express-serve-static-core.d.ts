@@ -22,7 +22,7 @@ declare module "express-serve-static-core" {
     }
 
     interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
+        (req: Request, res: Response, next?: NextFunction): any;
     }
 
     interface ErrorRequestHandler {
@@ -117,7 +117,7 @@ declare module "express-serve-static-core" {
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
