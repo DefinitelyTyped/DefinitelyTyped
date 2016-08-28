@@ -263,3 +263,7 @@ declare namespace Chroma {
 }
 
 declare var chroma: Chroma.ChromaStatic;
+
+declare module "chroma-js" {
+    export = chroma;
+}

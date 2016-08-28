@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
@@ -12,7 +12,7 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
