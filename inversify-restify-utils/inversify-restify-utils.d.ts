@@ -1,6 +1,7 @@
 // Type definitions for inversify-restify-utils 1.0.0
 // Project: https://github.com/inversify/inversify-restify-utils
 // Definitions by: inversify <https://github.com/inversify/>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../inversify/inversify.d.ts" />
 /// <reference path="restify/restify.d.ts" />
