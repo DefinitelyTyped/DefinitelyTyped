@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../inversify/inversify.d.ts" />
-/// <reference path="restify/restify.d.ts" />
+/// <reference path="../restify/restify.d.ts" />
 
 declare module "inversify-restify-utils" {
 
