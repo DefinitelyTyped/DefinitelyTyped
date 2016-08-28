@@ -503,8 +503,8 @@ interface NodeBuffer extends Uint8Array {
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
     fill(value: any, offset?: number, end?: number): this;
-    // TODO: encoding param
-    indexOf(value: string | number | Buffer, byteOffset?: number): number;
+    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     // TODO: entries
     // TODO: includes
     // TODO: keys
@@ -2624,4 +2624,8 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+}
+
+declare module "process" {
+    export = process;
 }

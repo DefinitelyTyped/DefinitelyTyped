@@ -23,7 +23,7 @@ declare module "pusher-js" {
             config: Config; //TODO: add GlobalConfig typings
             channels: any; //TODO: Type this
             global_emitter: EventsDispatcher;
-            sessionId: number;
+            sessionID: number;
             timeline: any; //TODO: Type this
             connection: ConnectionManager;
         }
