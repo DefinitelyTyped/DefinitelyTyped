@@ -59,6 +59,7 @@ declare module "slate-irc" {
       nick: string;
       target: string;
       mode: string;
+      client: string;
     }
 
     interface AwayEvent {
