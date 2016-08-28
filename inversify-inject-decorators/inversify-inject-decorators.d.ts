@@ -28,5 +28,5 @@ declare namespace inversifyInjectDecorators {
 }
 
 declare module "inversify-inject-decorators" {
-  export = inversifyInjectDecorators;
+  export default inversifyInjectDecorators;
 }
