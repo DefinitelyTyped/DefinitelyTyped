@@ -36,8 +36,20 @@ declare module "aws-lambda" {
         succeed(message: string, object: any): void;
         awsRequestId: string;
         getRemainingTimeInMillis(): number;
+        /** Information about the Amazon Cognito identity provider when invoked through the AWS Mobile SDK. It can be null. */
+        identity?: Identity;
     }
 
+    interface Identity {
+        cognitoIdentityId: string;
+        cognitoIdentityPoolId: string;
+    }
 
-    export type Callback = (error?: Error, message?: string) => void;
+    /**
+     * Optional callback parameter.
+     *
+     *  @param error – an optional parameter that you can use to provide results of the failed Lambda function execution.
+     *  @param result – an optional parameter that you can use to provide the result of a successful function execution. The result provided must be JSON.stringify compatible.
+     */
+    export type Callback = (error?: Error, result?: any) => void;
 }

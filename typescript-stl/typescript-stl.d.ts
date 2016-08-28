@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.0.0
+// Type definitions for TypeScript-STL v1.0.1
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7098,6 +7098,14 @@ declare namespace std {
          */
         sort(compare: (left: T, right: T) => boolean): void;
         /**
+         * @hidden
+         */
+        private qsort(first, last, compare);
+        /**
+         * @hidden
+         */
+        private partition(first, last, compare);
+        /**
          * @inheritdoc
          */
         swap(obj: base.IContainer<T>): void;
@@ -9217,7 +9225,7 @@ declare namespace std {
          */
         erase(first: VectorReverseIterator<T>, last: VectorReverseIterator<T>): VectorReverseIterator<T>;
         /**
-         * @hiddde
+         * @hidden
          */
         protected erase_by_range(first: VectorIterator<T>, last: VectorIterator<T>): VectorIterator<T>;
         /**
