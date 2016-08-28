@@ -3,6 +3,7 @@
 // Definitions by: inversify <https://github.com/inversify/>
 
 /// <reference path="../inversify/inversify.d.ts" />
+/// <reference path="restify/restify.d.ts" />
 
 declare module "inversify-restify-utils" {
 
