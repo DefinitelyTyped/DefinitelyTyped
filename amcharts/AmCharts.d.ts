@@ -1039,7 +1039,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         /** Allows changing language easily.
          * Note, you should include language js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de";
          * Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
-        language(lang: string);
+        language(language: string);
         /** Clears the chart area, intervals, etc. */
         clear();
         /** Removes all labels added to the chart. */
