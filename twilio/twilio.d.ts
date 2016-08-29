@@ -874,4 +874,4 @@ declare module twilio {
 
 }
 
-export default twilio;
+export = twilio;
