@@ -45,7 +45,7 @@ declare namespace inversify {
             constraint: (request: Request) => boolean;
             onActivation: (context: Context, injectable: T) => T;
             cache: T;
-            dynamicValue: () => T;
+            dynamicValue: (context: Context) => T;
             scope: number; // BindingScope
             type: number; // BindingType
         }
@@ -219,7 +219,7 @@ declare namespace inversify {
             to(constructor: { new(...args: any[]): T; }): BindingInWhenOnSyntax<T>;
             toSelf(): BindingInWhenOnSyntax<T>;
             toConstantValue(value: T): BindingWhenOnSyntax<T>;
-            toDynamicValue(func: () => T): BindingWhenOnSyntax<T>;
+            toDynamicValue(func: (context: Context) => T): BindingWhenOnSyntax<T>;
             toConstructor<T2>(constructor: Newable<T2>): BindingWhenOnSyntax<T>;
             toFactory<T2>(factory: FactoryCreator<T2>): BindingWhenOnSyntax<T>;
             toFunction(func: T): BindingWhenOnSyntax<T>;
