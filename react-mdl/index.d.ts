@@ -1,4 +1,4 @@
-﻿// Type definitions for react-mdl 1.5.4
+﻿// Type definitions for react-mdl 1.7.0
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -275,6 +275,16 @@ declare namespace __ReactMDL {
         overlap ?: boolean;
     }
     class Badge extends __MDLComponent<BadgeProps> {}
+
+
+    interface ChipProps extends __MDLOtherProps {
+        onClick ?: React.MouseEventHandler<Chip>;
+        onClose ?: React.MouseEventHandler<Chip>;
+    }
+
+    class Chip extends __MDLComponent<ChipProps> {}
+
+    class ChipContact extends __MDLComponent<__MDLOtherProps> {}
 
 
     interface ButtonProps extends __MDLOtherProps, RippleComponent, CustomRenderedComponent {

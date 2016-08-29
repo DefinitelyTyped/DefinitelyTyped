@@ -2,7 +2,8 @@
 
 
 import * as React from 'react';
-import {Badge,
+import {Chip, ChipContact,
+    Badge,
     FABButton, Button, IconButton,
     Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
     Checkbox,
@@ -45,6 +46,35 @@ React.createClass({
 
                 {/* Icon badge without background on text */}
                 <Badge text="♥" noBackground>Mood</Badge>
+            </div>
+        );
+    }
+});
+
+
+// Chip tests
+React.createClass({
+    render: function() {
+        return (
+            <div>
+                <Chip>Basic chip</Chip>
+
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>Deletable Chip</Chip>
+
+                <Chip onClick={e => { alert('Clicked!'); }}>Button Chip</Chip>
+                {/* Contact Chip */}
+                <Chip>
+                    <ChipContact className="mdl-color--teal mdl-color-text--white">A</ChipContact>
+                    Contact chip
+                </Chip>
+
+                {/* User Contact Chip */}
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>
+                    <ChipContact
+                        style={{ background: 'url("https://placekitten.com/150/150") 0 0 / cover' }}
+                    />
+                    Deletable user contact chip
+                </Chip>
             </div>
         );
     }
