@@ -251,6 +251,11 @@ declare namespace NodeJS {
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
+        // Added in Node 6...
+        prependListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: Function): this;
+        eventNames(): string[];
+
     }
 
     export interface ReadableStream extends EventEmitter {
