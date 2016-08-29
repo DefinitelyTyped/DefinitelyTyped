@@ -22,6 +22,7 @@ import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
@@ -952,5 +953,12 @@ namespace errors_tests {
     {
         const myObject = {};
         Error.captureStackTrace(myObject);
+    }
+}
+
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+         eventEmitter = process;                // Test that process implements EventEmitter...
     }
 }
