@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.3
+// Type definitions for Electron v1.3.4
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -296,22 +296,37 @@ declare namespace Electron {
 		 * Once registered, all links with your-protocol:// will be opened with the current executable.
 		 * The whole link, including protocol, will be passed to your application as a parameter.
 		 *
+		 * On Windows you can provide optional parameters path, the path to your executable,
+		 * and args, an array of arguments to be passed to your executable when it launches.
+		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 *       On macOS, you can only register protocols that have been added to your app's info.plist.
 		 */
-		setAsDefaultProtocolClient(protocol: string): boolean;
+		setAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		removeAsDefaultProtocolClient(protocol: string): boolean;
+		removeAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
 		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		isDefaultProtocolClient(protocol: string): boolean;
+		isDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
@@ -630,7 +645,7 @@ declare namespace Electron {
 		 * Emitted when the document changed its title,
 		 * calling event.preventDefault() would prevent the native window’s title to change.
 		 */
-		on(event: 'page-title-updated', listener: (event: Event) => void): this;
+		on(event: 'page-title-updated', listener: (event: Event, title: string) => void): this;
 		/**
 		 * Emitted when the window is going to be closed. It’s emitted before the beforeunload
 		 * and unload event of the DOM. Calling event.preventDefault() will cancel the close.
@@ -2947,18 +2962,22 @@ declare namespace Electron {
 	interface NetworkEmulationOptions {
 		/**
 		 * Whether to emulate network outage.
+		 * Default: false.
 		 */
 		offline?: boolean;
 		/**
 		 * RTT in ms.
+		 * Default: 0, which will disable latency throttling.
 		 */
 		latency?: number;
 		/**
 		 * Download rate in Bps.
+		 * Default: 0, which will disable download throttling.
 		 */
 		downloadThroughput?: number;
 		/**
 		 * Upload rate in Bps.
+		 * Default: 0, which will disable upload throttling.
 		 */
 		uploadThroughput?: number;
 	}
@@ -3687,7 +3706,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		on(event: 'did-navigate-in-page', listener: (event: Event, url: string) => void): this;
+		on(event: 'did-navigate-in-page', listener: (event: Event, url: string, isMainFrame: boolean) => void): this;
 		/**
 		 * Emitted when the renderer process has crashed.
 		 */
@@ -4382,7 +4401,7 @@ declare namespace Electron {
 		/**
 		 * PEM encoded data.
 		 */
-		data: Buffer;
+		data: string;
 		/**
 		 * Issuer's Common Name.
 		 */
@@ -5047,14 +5066,14 @@ declare namespace Electron {
 		 *
 		 * Calling event.preventDefault() does NOT have any effect.
 		 */
-		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.WillNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a navigation is done.
 		 *
 		 * This event is not emitted for in-page navigations, such as clicking anchor links
 		 * or updating the window.location.hash. Use did-navigate-in-page event for this purpose.
 		 */
-		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.DidNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when an in-page navigation happened.
 		 *
@@ -5062,7 +5081,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.DidNavigateInPageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page attempts to close itself.
 		 */
@@ -5186,8 +5205,17 @@ declare namespace Electron {
 			options: BrowserWindowOptions;
 		}
 
-		interface NavigateEvent extends Event {
+		interface WillNavigateEvent extends Event {
 			url: string;
+		}
+
+		interface DidNavigateEvent extends Event {
+			url: string;
+		}
+
+		interface DidNavigateInPageEvent extends Event {
+			url: string;
+			isMainFrame: boolean;
 		}
 
 		interface IpcMessageEvent extends Event {
