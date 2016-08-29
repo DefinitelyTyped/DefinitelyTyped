@@ -5,7 +5,7 @@
 
 // Apache Cordova core
 //----------------------------------------------------------------------
-
+f
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
 
 console.log(typeof window.cordova);
@@ -127,7 +127,14 @@ function fsaccessor(fs: FileSystem) {
 }
 
 window.requestFileSystem(
-    window.TEMPORARY,
+    LocalFileSystem.PERSISTENT,
+    1024 * 1024 * 5,
+    fsaccessor,
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+
+window.requestFileSystem(
+    LocalFileSystem.TEMPORARY,
     1024 * 1024 * 5,
     fsaccessor,
     (err: FileError) => { alert('Error: ' + err.code); }
