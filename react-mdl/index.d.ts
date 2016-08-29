@@ -1,4 +1,4 @@
-﻿// Type definitions for react-mdl 1.5.3
+﻿// Type definitions for react-mdl 1.5.4
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -401,9 +401,11 @@ declare namespace __ReactMDL {
         transparent ?: boolean;
         waterfall ?: boolean;
         hideTop ?: boolean;
+        hideSpacer ?: boolean;
     }
     interface HeaderRowProps extends __MDLOtherProps {
         title ?: string;
+        hideSpacer ?: boolean;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {
         activeTab ?: number;
