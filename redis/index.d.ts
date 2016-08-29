@@ -108,7 +108,7 @@ export interface RedisClient extends NodeJS.EventEmitter {
      "lset", "lrange", "ltrim", "lrem", "rpoplpush", "sadd", "srem", "smove", "sismember", "scard", "spop", "srandmember", "sinter", "sinterstore",
      "sunion", "sunionstore", "sdiff", "sdiffstore", "smembers", "zadd", "zincrby", "zrem", "zremrangebyscore", "zremrangebyrank", "zunionstore",
      "zinterstore", "zrange", "zrangebyscore", "zrevrangebyscore", "zcount", "zrevrange", "zcard", "zscore", "zrank", "zrevrank", "hset", "hsetnx",
-     "hget", "hmset", "hmget", "hincrby", "hdel", "hlen", "hkeys", "hvals", "hgetall", "hexists", "incrby", "decrby", "getset", "mset", "msetnx",
+     "hget", "hmset", "hmget", "hincrby", "hincrbyfloat", "hdel", "hlen", "hkeys", "hvals", "hgetall", "hexists", "incrby", "decrby", "getset", "mset", "msetnx",
      "randomkey", "select", "move", "rename", "renamenx", "expire", "expireat", "keys", "dbsize", "auth", "ping", "echo", "save", "bgsave",
      "bgrewriteaof", "shutdown", "lastsave", "type", "multi", "exec", "discard", "sync", "flushdb", "flushall", "sort", "info", "monitor", "ttl",
      "persist", "slaveof", "debug", "config", "subscribe", "unsubscribe", "psubscribe", "punsubscribe", "publish", "watch", "unwatch", "cluster",
@@ -253,6 +253,8 @@ export interface RedisClient extends NodeJS.EventEmitter {
     hmget(...args: any[]): boolean;
     hincrby(args: any[], callback?: ResCallbackT<any>): boolean;
     hincrby(...args: any[]): boolean;
+    hincrbyfloat(args:any[], callback?:ResCallbackT<any>): boolean;
+    hincrbyfloat(...args:any[]): boolean;
     hdel(args: any[], callback?: ResCallbackT<any>): boolean;
     hdel(...args: any[]): boolean;
     hlen(args: any[], callback?: ResCallbackT<any>): boolean;
