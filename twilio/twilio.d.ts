@@ -12,11 +12,11 @@ import * as Http from 'http';
 
 import q = require('q');
 
-export interface twilio {
+declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-export module twilio {
+declare module twilio {
 
   // Composite Classes:
   //==============================
@@ -873,3 +873,5 @@ export module twilio {
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
 
 }
+
+export default twilio;
