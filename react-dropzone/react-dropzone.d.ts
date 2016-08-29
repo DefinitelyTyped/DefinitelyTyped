@@ -3,6 +3,8 @@
 // Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
 
+///<reference path='../react/react.d.ts' />
+
 declare namespace ReactDropzone {
     import React = __React;
     interface IDropzoneProps {
