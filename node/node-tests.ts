@@ -22,7 +22,6 @@ import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 
-
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
