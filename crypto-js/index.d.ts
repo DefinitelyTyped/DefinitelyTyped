@@ -3,6 +3,10 @@
 // Definitions by: Michael Zabka <https://github.com/misak113/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+import hashes = CryptoJS.hashes;
+export = hashes;
+export as namespace CryptoJS;
+
 declare module CryptoJS {
 	interface Crypt {
 		encrypt(message: string, key?: string, ...options: any[]): string;
@@ -65,9 +69,4 @@ declare module CryptoJS {
 	}
 
 	export var hashes: Hashes;
-}
-
-declare module 'crypto-js' {
-	import hashes = CryptoJS.hashes;
-	export = hashes;
 }
