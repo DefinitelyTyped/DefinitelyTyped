@@ -111,7 +111,7 @@ module external_module_test {
     // binding types
     kernel.bind<Weapon>("Weapon").to(Katana);
     kernel.bind<Weapon>("Weapon").toConstantValue(new Katana());
-    kernel.bind<Weapon>("Weapon").toDynamicValue(() => { return new Katana(); });
+    kernel.bind<Weapon>("Weapon").toDynamicValue((context: inversify.interfaces.Context) => { return new Katana(); });
 
     kernel.bind<inversify.interfaces.Newable<Weapon>>("Weapon").toConstructor<Weapon>(Katana);
 
