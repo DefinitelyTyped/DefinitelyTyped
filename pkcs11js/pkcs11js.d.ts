@@ -1,4 +1,4 @@
-// Type definitions for pkcs11js v1.0.0
+// Type definitions for pkcs11js v1.0.3
 // Project: https://github.com/PeculiarVentures/pkcs11js
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,12 +7,12 @@
 
 /**
  * A Node.js implementation of the PKCS#11 2.3 interface
- * v1.0.0
+ * v1.0.3
  */
 
 declare module "pkcs11js" {
 
-    type Handle = number;
+    type Handle = Buffer;
 
 
     interface Version {
@@ -210,7 +210,7 @@ declare module "pkcs11js" {
          * @param {Handle} slot ID of token's slot
          * @returns {Handle[]} Gets mech. array
          */
-        C_GetMechanismList(slot: Handle): Handle[];
+        C_GetMechanismList(slot: Handle): number[];
         /**
          * Obtains information about a particular mechanism possibly supported by a token 
          * 
@@ -218,7 +218,7 @@ declare module "pkcs11js" {
          * @param {Handle} mech Type of mechanism
          * @returns {MechanismInfo} Receives mechanism info
          */
-        C_GetMechanismInfo(slot: Handle, mech: Handle): MechanismInfo;
+        C_GetMechanismInfo(slot: Handle, mech: number): MechanismInfo;
 
         /* Session management */
 

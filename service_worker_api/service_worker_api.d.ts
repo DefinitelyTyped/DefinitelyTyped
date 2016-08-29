@@ -3,7 +3,8 @@
 // Definitions by: Tristan Caron <https://github.com/tristancaron>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+// <reference path="../es6-promise/es6-promise.d.ts" /> // REMOVED third "/" so this doesn't fire. Problem with duplicate Promises
+// between es6 and typescript - https://github.com/DefinitelyTyped/DefinitelyTyped/issues/5015
 
 /**
  * Provides methods relating to the body of the response/request, allowing you
@@ -279,16 +280,16 @@ interface Cache {
      * @param request The Request you are attempting to find in the Cache.
      * @param {CacheOptions} options
      */
-    match(request: Request | string, options?: CacheOptions): Promise<Request>;
+    match(request: Request | string, options?: CacheOptions): Promise<Response>;
 
     /**
-     * Returns a Promise that resolves to an array of all matching requests in
+     * Returns a Promise that resolves to an array of all matching responses in
      * the Cache object.
      *
      * @param request The Request you are attempting to find in the Cache.
      * @param {CacheOptions} options
      */
-    matchAll(request: Request | string, options?: CacheOptions): Promise<Array<Request>>;
+    matchAll(request: Request | string, options?: CacheOptions): Promise<Array<Response>>;
 
     /**
      * Returns a Promise that resolves to a new Cache entry whose key

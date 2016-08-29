@@ -50,7 +50,7 @@ declare module "superagent" {
       search(url: string, callback?: CallbackHandler): Req;
       connect(url: string, callback?: CallbackHandler): Req;
 
-      parse(fn: Function): Req;
+      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
       saveCookies(res: Response): void;
       attachCookies(req: Req): void;
     }
@@ -85,7 +85,7 @@ declare module "superagent" {
       accept(type: string): this;
       attach(field: string, file: string, filename?: string): this;
       auth(user: string, name: string): this;
-      buffer(val: boolean): this;
+      buffer(val?: boolean): this;
       clearTimeout(): this;
       end(callback?: CallbackHandler): this;
       field(name: string, val: string): this;
@@ -107,6 +107,7 @@ declare module "superagent" {
       withCredentials(): this;
       write(data: string, encoding?: string): this;
       write(data: Buffer, encoding?: string): this;
+      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
     }
 
   }

@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.1
+// Type definitions for Electron v1.3.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -299,13 +299,13 @@ declare namespace Electron {
 		 * Note: This is only implemented on macOS and Windows.
 		 *       On macOS, you can only register protocols that have been added to your app's info.plist.
 		 */
-		setAsDefaultProtocolClient(protocol: string): void;
+		setAsDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		removeAsDefaultProtocolClient(protocol: string): void;
+		removeAsDefaultProtocolClient(protocol: string): boolean;
 		/**
 		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
 		 *
@@ -317,7 +317,7 @@ declare namespace Electron {
 		 *
 		 * Note: This API is only available on Windows.
 		 */
-		setUserTasks(tasks: Task[]): void;
+		setUserTasks(tasks: Task[]): boolean;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
@@ -349,6 +349,8 @@ declare namespace Electron {
 		getCurrentActivityType(): string;
 		/**
 		 * Changes the Application User Model ID to id.
+		 *
+		 * Note: This is only implemented on Windows.
 		 */
 		setAppUserModelId(id: string): void;
 		/**
@@ -490,6 +492,13 @@ declare namespace Electron {
 		 * Note: This API is only available on macOS.
 		 */
 		show(): void;
+		/**
+		 * @returns Whether the dock icon is visible.
+		 * The app.dock.show() call is asynchronous so this method might not return true immediately after that call.
+		 *
+		 * Note: This API is only available on macOS.
+		 */
+		isVisible(): boolean;
 		/**
 		 * Sets the application dock menu.
 		 *
@@ -801,6 +810,10 @@ declare namespace Electron {
 		 */
 		isFocused(): boolean;
 		/**
+		 * @returns Whether the window is destroyed.
+		 */
+		isDestroyed(): boolean;
+		/**
 		 * Shows and gives focus to the window.
 		 */
 		show(): void;
@@ -870,6 +883,14 @@ declare namespace Electron {
 		 * @returns The window's width, height, x and y values.
 		 */
 		getBounds(): Rectangle;
+		/**
+		 * Resizes and moves the window's client area (e.g. the web page) to width, height, x, y.
+		 */
+		setContentBounds(options: Rectangle, animate?: boolean): void;
+		/**
+		 * @returns The window's client area (e.g. the web page) width, height, x and y values.
+		 */
+		getContentBounds(): Rectangle;
 		/**
 		 * Resizes the window to width and height.
 		 */
@@ -1094,7 +1115,13 @@ declare namespace Electron {
 		 * @param progress Valid range is [0, 1.0]. If < 0, the progress bar is removed.
 		 * If greater than 0, it becomes indeterminate.
 		 */
-		setProgressBar(progress: number): void;
+		setProgressBar(progress: number, options?: {
+			/**
+			 * Mode for the progress bar.
+			 * Note: This is only implemented on Windows.
+			 */
+			mode: 'none' | 'normal' | 'indeterminate' | 'error' | 'paused'
+		}): void;
 		/**
 		 * Sets a 16px overlay onto the current Taskbar icon, usually used to convey
 		 * some sort of application status or to passively notify the user.
@@ -1129,7 +1156,12 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on Windows.
 		 */
-		setThumbnailClip(region: Rectangle): void;
+		setThumbnailClip(region: Rectangle): boolean;
+		/**
+		 * Sets the toolTip that is displayed when hovering over the window thumbnail in the taskbar.
+		 * Note: This API is available only on Windows.
+		 */
+		setThumbnailToolTip(toolTip: string): boolean;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on macOS.
@@ -1372,9 +1404,14 @@ declare namespace Electron {
 		defaultEncoding?: string;
 		/**
 		 * Whether to throttle animations and timers when the page becomes background.
-		 * Default: true
+		 * Default: true.
 		 */
 		backgroundThrottling?: boolean;
+		/**
+		 * Whether to enable offscreen rendering for the browser window.
+		 * Default: false.
+		 */
+		offscreen?: boolean;
 	}
 
 	interface BrowserWindowOptions {
@@ -2050,6 +2087,11 @@ declare namespace Electron {
 		 */
 		setSavePath(path: string): void;
 		/**
+		 * @returns The save path of the download item.
+		 * This will be either the path set via downloadItem.setSavePath(path) or the path selected from the shown save dialog.
+		 */
+		getSavePath(): string;
+		/**
 		 * Pauses the download.
 		 */
 		pause(): void;
@@ -2254,8 +2296,8 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen';
-	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
 		/**
@@ -2438,13 +2480,25 @@ declare namespace Electron {
 		 */
 		static createFromDataURL(dataURL: string): NativeImage;
 		/**
-		 * @returns Buffer Contains the image's PNG encoded data.
+		 * @returns Buffer that contains the image's PNG encoded data.
 		 */
 		toPNG(): Buffer;
 		/**
-		 * @returns Buffer Contains the image's JPEG encoded data.
+		 * @returns Buffer that contains the image's JPEG encoded data.
 		 */
 		toJPEG(quality: number): Buffer;
+		/**
+		 * @returns Buffer that contains a copy of the image's raw bitmap pixel data.
+		 */
+		toBitmap(): Buffer;
+		/**
+		 * @returns Buffer that contains the image's raw bitmap pixel data.
+		 *
+		 * The difference between getBitmap() and toBitmap() is, getBitmap() does not copy the bitmap data,
+		 * so you have to use the returned Buffer immediately in current event loop tick,
+		 * otherwise the data might be changed or destroyed.
+		 */
+		getBitmap(): Buffer;
 		/**
 		 * @returns string The data URL of the image.
 		 */
@@ -3250,6 +3304,62 @@ declare namespace Electron {
 		 * Play the beep sound.
 		 */
 		beep(): void;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, options: ShortcutLinkOptions): boolean;
+		/**
+		 * Creates or updates a shortcut link at shortcutPath.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		writeShortcutLink(shortcutPath: string, operation: 'create' | 'update' | 'replace', options: ShortcutLinkOptions): boolean;
+		/**
+		 * Resolves the shortcut link at shortcutPath.
+		 * An exception will be thrown when any error happens.
+		 *
+		 * Note: This API is available only on Windows.
+		 */
+		readShortcutLink(shortcutPath: string): ShortcutLinkOptions;
+	}
+
+	interface ShortcutLinkOptions {
+		/**
+		 * The target to launch from this shortcut.
+		 */
+		target: string;
+		/**
+		 * The working directory.
+		 * Default: empty.
+		 */
+		cwd?: string;
+		/**
+		 * The arguments to be applied to target when launching from this shortcut.
+		 * Default: empty.
+		 */
+		args?: string;
+		/**
+		 * The description of the shortcut.
+		 * Default: empty.
+		 */
+		description?: string;
+		/**
+		 * The path to the icon, can be a DLL or EXE. icon and iconIndex have to be set together.
+		 * Default: empty, which uses the target's icon.
+		 */
+		icon?: string;
+		/**
+		 * The resource ID of icon when icon is a DLL or EXE.
+		 * Default: 0.
+		 */
+		iconIndex?: number;
+		/**
+		 * The Application User Model ID.
+		 * Default: empty.
+		 */
+		appUserModelId?: string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/system-preferences.md
@@ -3264,6 +3374,26 @@ declare namespace Electron {
 		 * Note: This is only implemented on macOS.
 		 */
 		isDarkMode(): boolean;
+		/**
+		 * @returns If the Swipe between pages setting is on.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		isSwipeTrackingFromScrollEventsEnabled(): boolean;
+		/**
+		 * Posts event as native notifications of macOS.
+		 * The userInfo contains the user information dictionary sent along with the notification.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		postNotification(event: string, userInfo: Object): void;
+		/**
+		 * Posts event as native notifications of macOS.
+		 * The userInfo contains the user information dictionary sent along with the notification.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		postLocalNotification(event: string, userInfo: Object): void;
 		/**
 		 * Subscribes to native notifications of macOS, callback will be called when the corresponding event happens.
 		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
@@ -3634,9 +3764,9 @@ declare namespace Electron {
 		/**
 		 * Emitted when the cursor’s type changes.
 		 * If the type parameter is custom, the image parameter will hold the custom cursor image
-		 * in a NativeImage, and the scale will hold scaling information for the image.
+		 * in a NativeImage, and scale, size and hotspot will hold additional information about the custom cursor.
 		 */
-		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number) => void): this;
+		on(event: 'cursor-changed', listener: (event: Event, type: CursorType, image?: NativeImage, scale?: number, size?: Size, hotspot?: Point) => void): this;
 		/**
 		 * Emitted when there is a new context menu that needs to be handled.
 		 */
@@ -3650,9 +3780,9 @@ declare namespace Electron {
 		 */
 		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
 		/**
-		 * Emitted when a page's view is repainted.
+		 * Emitted when a new frame is generated. Only the dirty area is passed in the buffer.
 		 */
-		on(event: 'view-painted', listener: Function): this;
+		on(event: 'paint', listener: (event: Event, dirtyRect: Rectangle, image: NativeImage) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -3762,6 +3892,29 @@ declare namespace Electron {
 		 * @returns Whether this page has been muted.
 		 */
 		isAudioMuted(): boolean;
+		/**
+		 * Changes the zoom factor to the specified factor.
+		 * Zoom factor is zoom percent divided by 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * Sends a request to get current zoom factor.
+		 */
+		getZoomFactor(callback: (zoomFactor: number) => void): void;
+		/**
+		 * Changes the zoom level to the specified level.
+		 * The original size is 0 and each increment above or below represents
+		 * zooming 20% larger or smaller to default limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
+		 * Sends a request to get current zoom level.
+		 */
+		getZoomLevel(callback: (zoomLevel: number) => void): void;
+		/**
+		 * Sets the maximum and minimum zoom level.
+		 */
+		setZoomLevelLimits(minimumLevel: number, maximumLevel: number): void;
 		/**
 		 * Executes the editing command undo in web page.
 		 */
@@ -3928,6 +4081,31 @@ declare namespace Electron {
 		 * Note: This API is available only on macOS.
 		 */
 		showDefinitionForSelection(): void;
+		/**
+		 * @returns Whether offscreen rendering is enabled.
+		 */
+		isOffscreen(): boolean;
+		/**
+		 * If offscreen rendering is enabled and not painting, start painting.
+		 */
+		startPainting(): void;
+		/**
+		 * If offscreen rendering is enabled and painting, stop painting.
+		 */
+		stopPainting(): void;
+		/**
+		 * If offscreen rendering is enabled returns whether it is currently painting.
+		 */
+		isPainting(): boolean;
+		/**
+		 * If offscreen rendering is enabled sets the frame rate to the specified number.
+		 * Only values between 1 and 60 are accepted.
+		 */
+		setFrameRate(fps: number): void;
+		/**
+		 * If offscreen rendering is enabled returns the current frame rate.
+		 */
+		getFrameRate(): number;
 		/**
 		 * Sets the item as dragging item for current drag-drop operation.
 		 */
@@ -4584,6 +4762,10 @@ declare namespace Electron {
 		 * @returns The title of guest page.
 		 */
 		getTitle(): string;
+		/**
+		 * @returns Whether the web page is destroyed.
+		 */
+		isDestroyed(): boolean;
 		/**
 		 * @returns Whether guest page is still loading resources.
 		 */
