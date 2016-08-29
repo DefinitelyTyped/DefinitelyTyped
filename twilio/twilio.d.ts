@@ -871,7 +871,6 @@ declare module twilio {
     originationUrls: OriginationURLResource;
   }
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
-
 }
 
 export = twilio;
