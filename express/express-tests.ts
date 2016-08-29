@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import * as express from './';
 var app = express();
 
@@ -89,3 +90,10 @@ app.listen(3000);
 
 const next: express.NextFunction = () => {};
 const nextWithArgument: express.NextFunction = (err: any) => {};
+
+/**
+ * The express.Application is compatible with http.createServer
+ */
+
+import * as http from 'http';
+http.createServer(app);

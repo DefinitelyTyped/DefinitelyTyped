@@ -5,19 +5,20 @@
 
 /// <reference types="node"/>
 
+declare namespace rename {
+    interface ParsedPath {
+        dirname?: string;
+        basename?: string;
+        extname?: string;
+    }
 
-interface ParsedPath {
-    dirname?: string;
-    basename?: string;
-    extname?: string;
-}
-
-interface Options extends ParsedPath {
-    prefix?: string;
-    suffix?: string;
+    interface Options extends ParsedPath {
+        prefix?: string;
+        suffix?: string;
+    }
 }
 
 declare function rename(name: string): NodeJS.ReadWriteStream;
-declare function rename(callback: (path: ParsedPath) => any): NodeJS.ReadWriteStream;
-declare function rename(opts: Options): NodeJS.ReadWriteStream;
+declare function rename(callback: (path: rename.ParsedPath) => any): NodeJS.ReadWriteStream;
+declare function rename(opts: rename.Options): NodeJS.ReadWriteStream;
 export = rename;

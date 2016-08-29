@@ -11,7 +11,7 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     'src/**/*.spec.ts'
   ];
 
-  public compilers: wallabyjs.IWallabyCompiler = <wallabyjs.IWallabyCompiler>{
+  public compilers: wallabyjs.IWallabyCompilers = <wallabyjs.IWallabyCompilers>{
     'src/**/*.js': this.wallaby.compilers.babel({}),
     'src/**/*.ts': this.wallaby.compilers.typeScript({})
   };
@@ -34,5 +34,5 @@ export class WallabyConfig implements wallabyjs.IWallabyConfig {
     }
   };
 
-  constructor(private wallaby: any) { }
+  constructor(private wallaby: wallabyjs.IWallaby) { }
 }

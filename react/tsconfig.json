@@ -1,7 +1,8 @@
 {
     "files": [
         "index.d.ts",
-        "react-tests.ts"
+        "react-tests.ts",
+        "react-tsx-tests.tsx"
     ],
     "compilerOptions": {
         "module": "commonjs",
@@ -14,6 +15,7 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
     }
 }
