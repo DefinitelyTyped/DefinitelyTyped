@@ -1,3 +1,6 @@
+/// <reference path='html-pdf.d.ts' />
+/// <reference path='../node/node.d.ts' />
+
 import * as fs from 'fs';
 import * as pdf from 'html-pdf';
 
