@@ -48,32 +48,32 @@ declare namespace NotifyJS {
         (element?: any, notificationdata?: any, options?: NotificationOptions): JQueryStatic;
 
         /**
-         * notify user
+         * Add style
          * @param styleName style name
          * @param styleDefinition style definition object
          */
         addStyle(styleName: string, styleDefinition: any);
 
         /**
-         * notify user
+         * Remove style
          * @param styleName style name
          */
         removeStyle(styleName: string);
 
         /**
-         * notify user
+         * Get style
          * @param styleName style name
          */
         getStyle(styleName: string);
 
         /**
-         * notify user
+         * Insert css
          * @param cssText css text to insert
          */
         insertCSS(cssText: string);
 
         /**
-         * notify user
+         * Set defaults for notifications
          * @param options notification iptions
          */
         defaults(options: NotificationOptions)
@@ -93,32 +93,32 @@ declare namespace NotifyJS {
         (element?: any, notificationdata?: any, options?: NotificationOptions): JQuery;
 
         /**
-         * notify user
+         * Add style
          * @param styleName style name
          * @param styleDefinition style definition object
          */
         addStyle(styleName: string, styleDefinition: any);
 
         /**
-         * notify user
+         * Remove style
          * @param styleName style name
          */
         removeStyle(styleName: string);
 
         /**
-         * notify user
+         * Get style
          * @param styleName style name
          */
         getStyle(styleName: string);
 
         /**
-         * notify user
+         * Insert css
          * @param cssText css text to insert
          */
         insertCSS(cssText: string);
 
         /**
-         * notify user
+         * Set defaults for notifications
          * @param options notification iptions
          */
         defaults(options: NotificationOptions)
