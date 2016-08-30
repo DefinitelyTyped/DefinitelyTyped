@@ -961,6 +961,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @Default 150
         */
         hideBalloonTime: number;
+        /** Allows changing language easily.
+         * Note, you should include the language.js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de";
+         * Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
+        language: string;
         /** Legend of a chart. */
         legend: AmLegend;
         /** Reference to the div of the legend. */
@@ -1036,10 +1040,6 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
 
         /**   Adds title to the top of the chart. Pie, Radar positions are updated so that they won't overlap. Plot area of Serial/XY chart is also updated unless autoMargins property is set to false. You can add any number of titles - each of them will be placed in a new line. To remove titles, simply clear titles array: chart.titles = []; and call chart.validateNow() method. text - text of a title size - font size color - title color alpha - title opacity bold - boolean value indicating if title should be bold. */
         addTitle(text: string, size: number, color: string, alpha: number, bold: boolean);
-        /** Allows changing language easily.
-         * Note, you should include language js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de";
-         * Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
-        language(language: string);
         /** Clears the chart area, intervals, etc. */
         clear();
         /** Removes all labels added to the chart. */
