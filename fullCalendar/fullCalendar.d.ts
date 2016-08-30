@@ -318,7 +318,7 @@ interface JQuery {
     /**
      * Moves the calendar to an arbitrary date.
      */
-    fullCalendar(method: 'gotoDate', date: Date | string): void;
+    fullCalendar(method: 'gotoDate', date: moment.Moment | Date | string): void;
 
     /**
      * Moves the calendar forward/backward an arbitrary amount of time.
