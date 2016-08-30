@@ -34,7 +34,7 @@ declare module "rethinkdb" {
 
 
   export class Cursor {
-    hasNext():boolean;
+    hasNext(): boolean;
     each(cb:(err:Error, row:any)=>void, done?:()=>void);
     each(cb:(err:Error, row:any)=>boolean, done?:()=>void); // returning false stops iteration
     eachAsync(rowProcess: Function, rowFinal: Function);
