@@ -2898,7 +2898,7 @@ declare namespace Matter {
     * @class World
     * @extends Composite
     */
-    export class World {
+    export class World extends Composite {
         /**
          * Add objects or arrays of objects of types: Body, Constraint, Composite
          * @param world
