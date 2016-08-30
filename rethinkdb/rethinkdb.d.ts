@@ -37,9 +37,14 @@ declare module "rethinkdb" {
     hasNext():boolean;
     each(cb:(err:Error, row:any)=>void, done?:()=>void);
     each(cb:(err:Error, row:any)=>boolean, done?:()=>void); // returning false stops iteration
+    eachAsync(rowProcess: Function, rowFinal: Function);
+    eachAsync(rowProcess: Function, rowFinal?: Function): Promise;
     next(cb:(err:Error, row:any) => void);
+    next: Promise<any>;
     toArray(cb:(err:Error, rows:any[]) => void);
+    toArray(): Promise<any[]>;
     close();
+    close(): Promise;
   }
 
   interface ConnectionOptions {
