@@ -1901,14 +1901,14 @@ declare namespace Matter {
          * Therefore the value is always `1` (no correction) when `delta` constant (or when no correction is desired, which is the default).
          * See the paper on <a href="http://lonesock.net/article/verlet.html">Time Corrected Verlet</a> for more information.
          *
-        * Triggers `beforeUpdate` and `afterUpdate` events.
-        * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
-        * @method update
-        * @param {engine} engine
-        * @param {number} delta
-        * @param {number} [correction]
-        */
-        static update(engine: Engine, delta: number, correction?: number): Engine;
+         * Triggers `beforeUpdate` and `afterUpdate` events.
+         * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
+         * @method update
+         * @param {engine} engine
+         * @param {number} [delta=16.666]
+         * @param {number} [correction=1]
+         */
+        static update(engine: Engine, delta?: number, correction?: number): Engine;
 
         /**
          * An alias for `Runner.run`, see `Matter.Runner` for more information.
