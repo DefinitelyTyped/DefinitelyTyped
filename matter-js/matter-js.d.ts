@@ -31,6 +31,17 @@ declare namespace Matter {
         static rotate(axes: Array<Vector>, angle: number): void;
     }
 
+    interface IChamfer {
+        radius?: number | Array<number>;
+        quality?: number;
+        qualityMin?: number;
+        qualityMax?: number;
+    }
+
+    interface IChamferableBodyDefinition extends IBodyDefinition {
+        chamfer?: IChamfer;
+    }
+
     /**
     * The `Matter.Bodies` module contains factory methods for creating rigid body models
     * with commonly used body configurations (such as rectangles, circles and other polygons).
@@ -66,7 +77,7 @@ declare namespace Matter {
          * @param {object} [options]
          * @return {body} A new regular polygon body
          */
-        static polygon(x: number, y: number, sides: number, radius: number, options?: IBodyDefinition): Body;
+        static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
 
         /**
          * Creates a new rigid body model with a rectangle hull.
@@ -80,7 +91,7 @@ declare namespace Matter {
          * @param {object} [options]
          * @return {body} A new rectangle body
          */
-        static rectangle(x: number, y: number, width: number, height: number, options?: IBodyDefinition): Body;
+        static rectangle(x: number, y: number, width: number, height: number, options?: IChamferableBodyDefinition): Body;
 
         /**
          * Creates a new rigid body model with a trapezoid hull.
@@ -95,7 +106,7 @@ declare namespace Matter {
          * @param {object} [options]
          * @return {body} A new trapezoid body
          */
-        static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IBodyDefinition): Body;
+        static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IChamferableBodyDefinition): Body;
         /**
         * Creates a body using the supplied vertices (or an array containing multiple sets of vertices).
         * If the vertices are convex, they will pass through as supplied.
@@ -2811,7 +2822,7 @@ declare namespace Matter {
          * @param {number} qualityMin
          * @param {number} qualityMax
          */
-        static chamfer(vertices: Array<Vector>, radius: Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
+        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
 
 
         /**
