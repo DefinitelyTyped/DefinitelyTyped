@@ -4,10 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
-/// <reference path="../react-dom/react-dom.d.ts" />
 
 declare module 'react-sortable-hoc' {
-    import * as React from 'react';
+    const React = require('react');
 
     export type Axis = 'x' | 'y';
 
