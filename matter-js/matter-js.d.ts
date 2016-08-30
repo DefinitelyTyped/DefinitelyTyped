@@ -251,6 +251,14 @@ declare namespace Matter {
         */
         inverseMass?: number;
         /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+         * @property isSensor
+         * @type boolean
+         * @default false
+         */
+        isSensor: boolean;
+        /**
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
          *
