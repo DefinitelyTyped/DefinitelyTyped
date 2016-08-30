@@ -6,7 +6,7 @@
 /// <reference path="../react/react.d.ts" />
 
 declare module 'react-sortable-hoc' {
-    const React = require('react');
+    import React = require('react');
 
     export type Axis = 'x' | 'y';
 
