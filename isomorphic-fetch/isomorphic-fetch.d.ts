@@ -129,9 +129,6 @@ declare class Request extends Body implements IRequest {
 }
 
 interface IResponse extends IBody {
-    redirect(url: string, status?: number): IResponse;
-    error(): IResponse;
-
     type: ResponseType;
 
     url: string;
@@ -159,8 +156,8 @@ interface ResponseInit {
 declare class Response extends Body implements IResponse {
     constructor(body?: ResponseBodyInit, init?: ResponseInit);
 
-    redirect(url: string, status?: number): IResponse;
-    error(): IResponse;
+    static redirect(url: string, status?: number): IResponse;
+    static error(): IResponse;
 
     type: ResponseType
 
