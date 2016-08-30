@@ -1051,13 +1051,56 @@ declare namespace Matter {
     }
 
     /**
-    * Internal Class, not generally used outside of the engine's internals.
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
-
+        /**
+         * Creates a new axis-aligned bounding box (AABB) for the given vertices.
+         * @method create
+         * @param {vertices} vertices
+         * @return {bounds} A new bounds object
+         */
+        static create (vertices: Vertices): Bounds;
+        /**
+         * Updates bounds using the given vertices and extends the bounds given a velocity.
+         * @method update
+         * @param {bounds} bounds
+         * @param {vertices} vertices
+         * @param {vector} velocity
+         */
+        static update(bounds: Bounds, vertices: Vertices, velocity: Vector): void;
+        /**
+         * Returns true if the bounds contains the given point.
+         * @method contains
+         * @param {bounds} bounds
+         * @param {vector} point
+         * @return {boolean} True if the bounds contain the point, otherwise false
+         */
+        static contains(bounds: Bounds, point: Vector): boolean;
+        /**
+         * Returns true if the two bounds intersect.
+         * @method overlaps
+         * @param {bounds} boundsA
+         * @param {bounds} boundsB
+         * @return {boolean} True if the bounds overlap, otherwise false
+         */
+        static overlaps(boundsA: Bounds, boundsB: Bounds): boolean;
+        /**
+        * Translates the bounds by the given vector.
+        * @method translate
+        * @param {bounds} bounds
+        * @param {vector} vector
+        */
+        static translate(bounds: Bounds, vector: Vector): void;
+        /**
+         * Shifts the bounds to the given position.
+         * @method shift
+         * @param {bounds} bounds
+         * @param {vector} position
+         */
+        static shift(bounds: Bounds, position: Vector): void;
     }
 
     export interface ICompositeDefinition {
