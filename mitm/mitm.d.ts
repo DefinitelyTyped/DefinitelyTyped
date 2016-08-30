@@ -9,7 +9,7 @@ declare module 'mitm' {
 	import * as http from 'http';
 	import * as net from 'net';
 
-	export interface SocketOptions {
+	interface SocketOptions {
 		port: number;
 		host?: string; 
 		localAddress?: string;
@@ -18,7 +18,7 @@ declare module 'mitm' {
 		allowHalfOpen?: boolean;
 	}
 
-	export interface BypassableSocket extends net.Socket {
+	interface BypassableSocket extends net.Socket {
 		bypass(): void
 	}
 
@@ -32,7 +32,7 @@ declare module 'mitm' {
 
 	type Callback = SocketConnectCallback | SocketConnectionCallback | HttpCallback;
 
-	export interface Mitm {
+	interface Mitm {
 		disable(): void;
 		on(event: Event, callback: Callback): void;
 		on(event: 'connect', callback: SocketConnectCallback): void;
@@ -40,5 +40,6 @@ declare module 'mitm' {
 		on(event: 'request', callback: HttpCallback): void;
 	}
 
-	export default function (): Mitm;
+	function _(): Mitm;
+	export = _;
 }
