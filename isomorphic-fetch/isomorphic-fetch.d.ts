@@ -3,13 +3,6 @@
 // Definitions by: Todd Lucas <https://github.com/toddlucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type RequestContext = // Deprecated
-    "audio" | "beacon" | "cspreport" | "download" | "embed" | "eventsource" |
-    "favicon" | "fetch" | "font" | "form" | "frame" | "hyperlink" | "iframe" |
-    "image" | "imageset" | "import" | "internal" | "location" | "manifest" |
-    "object" | "ping" | "plugin" | "prefetch" | "script" | "serviceworker" |
-    "sharedworker" | "subresource" | "style" | "track" | "video" | "worker" |
-    "xmlhttprequest" | "xslt";
 type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | 
     "track" | "video";
 type RequestDestination = "" | "document" | "embed" | "font" | "image" | 
@@ -25,27 +18,9 @@ type RequestRedirect = "follow" | "error" | "manual";
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | 
     "opaqueredirect";
 
-type HeadersInit = Headers | Array<string> | { [index: string]: string };
-type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;
-type ResponseBodyInit = BodyInit;
-
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | 
     "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | 
     "strict-origin-when-cross-origin" | "unsafe-url";
-
-interface RequestInit {
-    method?: string;
-    headers?: HeadersInit;
-    body?: BodyInit;
-    referrer?: string;
-    referrerPolicy?: ReferrerPolicy;    
-    mode?: RequestMode;
-    credentials?: RequestCredentials;
-    cache?: RequestCache;
-    redirect?: RequestRedirect;
-    integrity?: string;
-    window?: any; // can only be set to null
-}
 
 interface IHeaders {
     append(name: string, value: string): void;
@@ -62,6 +37,8 @@ interface IHeaders {
     // keys(): IterableIterator<string>;
     // values(): IterableIterator<string>;    
 }
+
+type HeadersInit = Headers | Array<string> | { [index: string]: string };
 
 declare class Headers implements IHeaders {
     constructor(init?: HeadersInit);
@@ -99,8 +76,8 @@ interface IRequest extends IBody {
     method: string;
     url: string;
     headers: IHeaders;
+
     type: RequestType;
-    context: RequestContext; // Deprecated
     destination: RequestDestination;
     referrer?: string;
     referrerPolicy?: ReferrerPolicy;    
@@ -109,18 +86,36 @@ interface IRequest extends IBody {
     cache: RequestCache;
     redirect?: RequestRedirect;
     integrity?: string;
+    
     clone(): IRequest;
+}
+
+type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;
+
+interface RequestInit {
+    method?: string;
+    headers?: HeadersInit;
+    body?: BodyInit;
+    referrer?: string;
+    referrerPolicy?: ReferrerPolicy;    
+    mode?: RequestMode;
+    credentials?: RequestCredentials;
+    cache?: RequestCache;
+    redirect?: RequestRedirect;
+    integrity?: string;
+    window?: any; // can only be set to null
 }
 
 type RequestInfo = IRequest | string;
 
 declare class Request extends Body implements IRequest {
     constructor(input: RequestInfo, init?: RequestInit);
+    
     method: string;
     url: string;
     headers: IHeaders;
+
     type: RequestType
-    context: RequestContext;
     destination: RequestDestination;
     referrer: string;
     referrerPolicy: ReferrerPolicy;    
@@ -129,17 +124,16 @@ declare class Request extends Body implements IRequest {
     cache: RequestCache;
     redirect: RequestRedirect;
     integrity: string;
+
     clone(): IRequest;
 }
 
-interface ResponseInit {
-    status?: number;
-    statusText?: string;
-    headers?: HeadersInit;
-}
-
 interface IResponse extends IBody {
+    redirect(url: string, status?: number): IResponse;
+    error(): IResponse;
+
     type: ResponseType;
+
     url: string;
     redirected: boolean;
     status: number;
@@ -150,14 +144,26 @@ interface IResponse extends IBody {
     // timeout: number;
     body: any;
     trailer: Promise<IHeaders>;
-    redirect(url: string, status?: number): IResponse;
-    error(): IResponse;
+
     clone(): IResponse;
+}
+
+type ResponseBodyInit = BodyInit;
+
+interface ResponseInit {
+    status?: number;
+    statusText?: string;
+    headers?: HeadersInit;
 }
 
 declare class Response extends Body implements IResponse {
     constructor(body?: ResponseBodyInit, init?: ResponseInit);
+
+    redirect(url: string, status?: number): IResponse;
+    error(): IResponse;
+
     type: ResponseType
+
     url: string;
     redirected: boolean;
     status: number;
@@ -166,8 +172,7 @@ declare class Response extends Body implements IResponse {
     headers: IHeaders;
     body: any;
     trailer: Promise<IHeaders>;
-    redirect(url: string, status?: number): IResponse;
-    error(): IResponse;
+
     clone(): IResponse;
 }
 
