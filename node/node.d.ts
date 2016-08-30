@@ -749,7 +749,7 @@ declare module "cluster" {
         id: string;
         process: child.ChildProcess;
         suicide: boolean;
-        send(message: any, sendHandle?: any): void;
+        send(message: any, sendHandle?: any): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -1071,7 +1071,7 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): void;
+        send(message: any, sendHandle?: any): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
