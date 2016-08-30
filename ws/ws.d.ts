@@ -34,7 +34,7 @@ declare module "ws" {
         onclose: (event: {wasClean: boolean; code: number; reason: string; target: WebSocket}) => void;
         onmessage: (event: {data: any; type: string; target: WebSocket}) => void;
 
-        constructor(address: string, options?: {
+        constructor(address: string, protocols?: string | string[], options?: {
             protocol?: string;
             agent?: http.Agent;
             headers?: {[key: string]: string};
