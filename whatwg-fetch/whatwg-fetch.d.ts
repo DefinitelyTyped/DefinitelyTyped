@@ -3,6 +3,8 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>, Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../whatwg-streams/whatwg-streams.d.ts" />
+
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
 }
@@ -88,7 +90,7 @@ interface Response extends Body {
     ok: boolean;
     statusText: string;
     headers: Headers;
-    body: any /*ReadableStream | null*/;
+    body: ReadableStream; // | null;
     trailer: Promise<Headers>;
 
     clone(): Response;
