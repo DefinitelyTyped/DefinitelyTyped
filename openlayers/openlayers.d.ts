@@ -791,6 +791,24 @@ declare namespace olx {
              */
             wrapX?: boolean;
         }
+        
+        interface ClusterOptions extends VectorOptions{
+            
+            /**
+             * Minimum distance in pixels between clusters. Default is 20.
+             */
+            distance?: number;
+            
+            extent?: ol.Extent;
+            
+            geometryFunction?: any;
+            
+            projection?: ol.proj.ProjectionLike;
+            
+            source: ol.source.Vector;
+            
+        }
+        
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -4008,6 +4026,11 @@ declare namespace ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
+            
+            /**
+             * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
+             */
+            setZIndex(zIndex: number): void;
         }
     }
 
@@ -4162,6 +4185,7 @@ declare namespace ol {
         }
 
         class Cluster extends Vector {
+            constructor(options: olx.source.ClusterOptions);
         }
 
         class Image extends Source {
@@ -4198,6 +4222,9 @@ declare namespace ol {
         }
 
         class Source extends ol.Object {
+            
+            constructor(options: any);
+            
             /**
              * Get the projection of the source.
              * @return Projection.
