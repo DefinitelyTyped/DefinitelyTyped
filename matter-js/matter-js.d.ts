@@ -1,4 +1,4 @@
-// Type definitions for Matter.js - 0.9.1
+// Type definitions for Matter.js - 0.10.0
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771/>
@@ -1826,8 +1826,20 @@ declare namespace Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
+         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
+
+        /**
+         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
+         * All properties have default values, and many are pre-calculated automatically based on other properties.
+         * See the properties section below for detailed information on what you can pass via the `options` object.
+         * @method create
+         * @param {object} [options]
+         * @return {engine} engine
+         * @deprecated
+         */
+        static create(options?: IEngineDefinition): Engine;
 
         /**
          * Merges two engines by keeping the configuration of `engineA` but replacing the world with the one from `engineB`.
@@ -2165,11 +2177,19 @@ declare namespace Matter {
         */
         controller?: any;
         /**
+        * A reference to the `Matter.Engine` instance to be used.
+        *
+        * @property engine
+        * @type engine
+        */
+        engine: Engine;
+        /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
         *
         * @property element
         * @type HTMLElement
         * @default null
+        * @deprecated
         */
         element?: HTMLElement;
         /**
@@ -2253,13 +2273,9 @@ declare namespace Matter {
     }
 
     /**
-    * The `Matter.Render` module is the default `render.controller` used by a `Matter.Engine`.
-    * This renderer is HTML5 canvas based and supports a number of drawing options including sprites and viewports.
-    *
-    * It is possible develop a custom renderer module based on `Matter.Render` and pass an instance of it to `Engine.create` via `options.render`.
-    * A minimal custom renderer object must define at least three functions: `create`, `clear` and `world` (see `Matter.Render`).
-    *
-    * See also `Matter.RenderPixi` for an alternate WebGL, scene-graph based renderer.
+    * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+    * It is intended for development and debugging purposes, but may also be suitable for simple games.
+    * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
     *
     * @class Render
     */
@@ -2274,6 +2290,18 @@ declare namespace Matter {
          */
         static create(options: IRenderDefinition): Render;
         /**
+         * Continuously updates the render canvas on the `requestAnimationFrame` event.
+         * @method run
+         * @param {render} render
+         */
+        static run(render: Render): void;
+        /**
+         * Ends execution of `Render.run` on the given `render`, by canceling the animation frame request event loop.
+         * @method stop
+         * @param {render} render
+         */
+        static stop(render: Render): void;
+        /**
          * Sets the pixel ratio of the renderer and updates the canvas.
          * To automatically detect the correct ratio, pass the string `'auto'` for `pixelRatio`.
          * @method setPixelRatio
@@ -2287,7 +2315,7 @@ declare namespace Matter {
          * @method world
          * @param {engine} engine
          */
-        static world(engine: Engine): void;
+        static world(render: Render): void;
 
         /**
         * A back-reference to the `Matter.Render` module.
