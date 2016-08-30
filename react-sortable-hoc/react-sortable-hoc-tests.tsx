@@ -1,9 +1,9 @@
 /// <reference path="../react-dom/react-dom.d.ts" />
 /// <reference path="./react-sortable-hoc.d.ts" />
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const { SortableElement, SortableContainer, SortEndHandler, SortEnd, SortEvent, arrayMove } = require('react-sortable-hoc');
+import React = require('react');
+import ReactDOM = require('react-dom');
+import { SortableElement, SortableContainer, SortEndHandler, SortEnd, SortEvent, arrayMove } = require('react-sortable-hoc');
 
 interface SortableItemProps {
     value: string;
