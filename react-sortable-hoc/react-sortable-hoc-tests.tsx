@@ -3,7 +3,7 @@
 
 import React = require('react');
 import ReactDOM = require('react-dom');
-import { SortableElement, SortableContainer, SortEndHandler, SortEnd, SortEvent, arrayMove } = require('react-sortable-hoc');
+import ReactSortableHOC = require('react-sortable-hoc');
 
 interface SortableItemProps {
     value: string;
@@ -25,9 +25,9 @@ class Item extends React.Component<SortableItemProps, void> {
     }
 }
 
-const SortableItem = SortableElement(Item);
+const SortableItem = ReactSortableHOC.SortableElement(Item);
 
-const SortableList = SortableContainer((props: SortableListProps): JSX.Element => {
+const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProps): JSX.Element => {
     const items: Array<JSX.Element> = props.items.map((value: string, index: number): JSX.Element => {
         return <SortableItem key={`item-${index}`} index={index} value={value} />;
     });
@@ -35,10 +35,10 @@ const SortableList = SortableContainer((props: SortableListProps): JSX.Element =
 });
 
 class SortableComponent extends React.Component<void, SortableComponentState> {
-    private _onSortEnd: SortEndHandler;
+    private _onSortEnd: ReactSortableHOC.SortEndHandler;
 
-    private _handleSotEnd(sort: SortEnd, event: SortEvent): void {
-        this.setState({items: arrayMove(this.state.items, sort.oldIndex, sort.newIndex)});
+    private _handleSotEnd(sort: ReactSortableHOC.SortEnd, event: ReactSortableHOC.SortEvent): void {
+        this.setState({items: ReactSortableHOC.arrayMove(this.state.items, sort.oldIndex, sort.newIndex)});
     }
 
     public constructor() {
