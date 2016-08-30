@@ -7,7 +7,7 @@
 
 declare namespace ReactDropzone {
     import React = __React;
-    interface IDropzoneProps {
+    interface DropzoneProps {
         // Drop behavior
         onDrop?: Function,
         onDropAccepted?: Function,
@@ -36,7 +36,7 @@ declare namespace ReactDropzone {
         minSize?: number
     }
 
-    export class Dropzone extends React.Component<IDropzoneProps, {}> {
+    export class Dropzone extends React.Component<DropzoneProps, {}> {
     }
 
 }
