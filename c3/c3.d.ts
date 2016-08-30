@@ -691,7 +691,7 @@ declare namespace c3 {
          * Set custom HTML for the tooltip.
          * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
          */
-        contents?: (data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any) => string;
+        contents?: (data: any, defaultTitleFormat: string | () => string, defaultValueFormat: string | () => string, color: any) => string;
     }
 
     interface SubchartOptions {
