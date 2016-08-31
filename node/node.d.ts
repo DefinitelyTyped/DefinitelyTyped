@@ -2629,3 +2629,9 @@ declare module "constants" {
 declare module "process" {
     export = process;
 }
+
+declare module "v8" {
+    export function getHeapStatistics() : {total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number};
+    export function getHeapSpaceStatistics(): {space_name: string, space_size: number, space_used_size: number, space_available_size: number, physical_space_size: number};
+    export function setFlagsFromString(flags: string): void;
+}
