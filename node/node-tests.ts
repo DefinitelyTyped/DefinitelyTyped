@@ -995,3 +995,14 @@ namespace errors_tests {
         Error.captureStackTrace(myObject);
     }
 }
+
+/////////////////////////////////////////////////////////
+/// Process Tests : https://nodejs.org/api/process.html ///
+/////////////////////////////////////////////////////////
+
+import * as p from "process";
+namespace process_tests {
+    {
+        (p === process) === true;
+    }
+}
