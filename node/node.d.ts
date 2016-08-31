@@ -541,8 +541,8 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter implements NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
+    class EventEmitter implements NodeJS.EventEmitter {
+        static EventEmitter: typeof EventEmitter;
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
 
@@ -560,10 +560,13 @@ declare module "events" {
         eventNames(): string[];
         listenerCount(type: string): number;
     }
+
+    export = EventEmitter;
+
 }
 
 declare module "http" {
-    import * as events from "events";
+    import events = require("events");
     import * as net from "net";
     import * as stream from "stream";
 
@@ -582,7 +585,7 @@ declare module "http" {
         agent?: Agent | boolean;
     }
 
-    export interface Server extends events.EventEmitter, net.Server {
+    export interface Server extends events, net.Server {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
@@ -593,7 +596,7 @@ declare module "http" {
     export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
-    export interface ServerResponse extends events.EventEmitter, stream.Writable {
+    export interface ServerResponse extends events, stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -623,7 +626,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends events.EventEmitter, stream.Writable {
+    export interface ClientRequest extends events, stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -649,7 +652,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface IncomingMessage extends events.EventEmitter, stream.Readable {
+    export interface IncomingMessage extends events, stream.Readable {
         httpVersion: string;
         headers: any;
         rawHeaders: string[];
@@ -731,7 +734,7 @@ declare module "http" {
 
 declare module "cluster" {
     import * as child from "child_process";
-    import * as events from "events";
+    import events = require("events");
 
     export interface ClusterSettings {
         exec?: string;
@@ -745,7 +748,7 @@ declare module "cluster" {
         addressType: string;
     }
 
-    export class Worker extends events.EventEmitter {
+    export class Worker extends events {
         id: string;
         process: child.ChildProcess;
         suicide: boolean;
@@ -895,7 +898,7 @@ declare module "os" {
 
 declare module "https" {
     import * as tls from "tls";
-    import * as events from "events";
+    import events = require("events");
     import * as http from "http";
 
     export interface ServerOptions {
@@ -963,7 +966,7 @@ declare module "punycode" {
 
 declare module "repl" {
     import * as stream from "stream";
-    import * as events from "events";
+    import events = require("events");
 
     export interface ReplOptions {
         prompt?: string;
@@ -976,11 +979,11 @@ declare module "repl" {
         ignoreUndefined?: boolean;
         writer?: Function;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+    export function start(options: ReplOptions): events;
 }
 
 declare module "readline" {
-    import * as events from "events";
+    import events = require("events");
     import * as stream from "stream";
 
     export interface Key {
@@ -991,7 +994,7 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    export interface ReadLine extends events.EventEmitter {
+    export interface ReadLine extends events {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
@@ -1061,10 +1064,10 @@ declare module "vm" {
 }
 
 declare module "child_process" {
-    import * as events from "events";
+    import events = require("events");
     import * as stream from "stream";
 
-    export interface ChildProcess extends events.EventEmitter {
+    export interface ChildProcess extends events {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
@@ -1357,7 +1360,7 @@ declare module "net" {
 }
 
 declare module "dgram" {
-    import * as events from "events";
+    import events = require("events");
 
     interface RemoteInfo {
         address: string;
@@ -1373,7 +1376,7 @@ declare module "dgram" {
 
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    interface Socket extends events.EventEmitter {
+    interface Socket extends events {
         send(buf: Buffer, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
@@ -1389,7 +1392,7 @@ declare module "dgram" {
 
 declare module "fs" {
     import * as stream from "stream";
-    import * as events from "events";
+    import events = require("events");
 
     interface Stats {
         isFile(): boolean;
@@ -1415,7 +1418,7 @@ declare module "fs" {
         birthtime: Date;
     }
 
-    interface FSWatcher extends events.EventEmitter {
+    interface FSWatcher extends events {
         close(): void;
     }
 
@@ -2177,9 +2180,9 @@ declare module "crypto" {
 }
 
 declare module "stream" {
-    import * as events from "events";
+    import events = require("events");
 
-    export class Stream extends events.EventEmitter {
+    export class Stream extends events {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 
@@ -2190,7 +2193,7 @@ declare module "stream" {
         read?: (size?: number) => any;
     }
 
-    export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
+    export class Readable extends events implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
         _read(size: number): void;
@@ -2213,7 +2216,7 @@ declare module "stream" {
         writev?: (chunks: {chunk: string|Buffer, encoding: string}[], callback: Function) => any;
     }
 
-    export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
+    export class Writable extends events implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
         _write(chunk: any, encoding: string, callback: Function): void;
@@ -2252,7 +2255,7 @@ declare module "stream" {
     }
 
     // Note: Transform lacks the _read and _write methods of Readable/Writable.
-    export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
+    export class Transform extends events implements NodeJS.ReadWriteStream {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
@@ -2365,12 +2368,12 @@ declare module "tty" {
 }
 
 declare module "domain" {
-    import * as events from "events";
+    import events = require("events");
 
-    export class Domain extends events.EventEmitter implements NodeJS.Domain {
+    export class Domain extends events implements NodeJS.Domain {
         run(fn: Function): void;
-        add(emitter: events.EventEmitter): void;
-        remove(emitter: events.EventEmitter): void;
+        add(emitter: events): void;
+        remove(emitter: events): void;
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
