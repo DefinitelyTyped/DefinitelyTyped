@@ -995,3 +995,10 @@ namespace errors_tests {
         Error.captureStackTrace(myObject);
     }
 }
+
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+         eventEmitter = process;                // Test that process implements EventEmitter...
+    }
+}

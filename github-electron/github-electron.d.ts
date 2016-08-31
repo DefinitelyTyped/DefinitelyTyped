@@ -7,7 +7,7 @@
 
 declare namespace Electron {
 
-	class EventEmitter implements NodeJS.EventEmitter {
+	class EventEmitter extends NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): this;
 		on(event: string, listener: Function): this;
 		once(event: string, listener: Function): this;
