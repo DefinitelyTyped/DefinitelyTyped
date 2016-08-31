@@ -240,7 +240,7 @@ declare namespace NodeJS {
         stack?: string;
     }
 
-    export interface EventEmitter {
+    export class EventEmitter {
         addListener(event: string, listener: Function): this;
         on(event: string, listener: Function): this;
         once(event: string, listener: Function): this;
@@ -255,7 +255,6 @@ declare namespace NodeJS {
         prependListener(event: string, listener: Function): this;
         prependOnceListener(event: string, listener: Function): this;
         eventNames(): string[];
-
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -546,7 +545,7 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter implements NodeJS.EventEmitter {
+    export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
