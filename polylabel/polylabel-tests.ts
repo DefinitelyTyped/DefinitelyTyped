@@ -1,6 +1,6 @@
 /// <reference path="./polylabel.d.ts" />
-
-import polylabel from 'polylabel';
+/// <reference path="../node/node.d.ts" />
+import polylabel = require('polylabel');
 
 const polygon = [[[3116,3071],[3118,3068],[3108,3102],[3751,927]]]
 let p: number[]
