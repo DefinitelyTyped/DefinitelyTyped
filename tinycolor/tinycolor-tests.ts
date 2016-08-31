@@ -75,7 +75,7 @@ var rgbString: string = tester.toString();
 var percentageRGBA: ColorFormats.RGBA = tester.toPercentageRgb();
 var percentageRGBString: string = tester.toPercentageRgbString();
 
-var name: string = tester.toName();
+var name_: string = tester.toName();
 var filter: string = tester.toFilter();
 var sString: string = tester.toString();
 sString = tester.toString("rgb");
