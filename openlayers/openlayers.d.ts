@@ -791,6 +791,24 @@ declare namespace olx {
              */
             wrapX?: boolean;
         }
+        
+        interface ClusterOptions extends VectorOptions{
+            
+            /**
+             * Minimum distance in pixels between clusters. Default is 20.
+             */
+            distance?: number;
+            
+            extent?: ol.Extent;
+            
+            geometryFunction?: any;
+            
+            projection?: ol.proj.ProjectionLike;
+            
+            source: ol.source.Vector;
+            
+        }
+        
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -2404,41 +2422,76 @@ declare namespace ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-
-        /**
-         * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
-         */
-        interface ScaleLineUnits extends String { }
-
-        class Attribution {
+        
+        namespace ScaleLine {
+            
+            /**
+             * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
+             */
+            type Units = 'degrees' | 'imperial' | 'nautical' | 'metric' | 'us';
         }
 
-        class Control {
+        class Control extends ol.Object{
             constructor(options: olx.control.ControlOptions);
+            
+            /**
+             * Get the map associated with this control.
+             */
+            getMap():ol.Map;
+            
+            /**
+             * Remove the control from its current map and attach it to the new map. 
+             * Subclasses may set up event handlers to get notified about changes to the map here.
+             */
+            setMap(map: ol.Map):void;
+            
+            /**
+             * This function is used to set a target element for the control. 
+             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control). 
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
+             * added to the map's overlay container.
+             */
+            setTarget(target: Element | string):void;
+            
+            
+        }
+        
+        class Attribution extends Control {
         }
 
-        class FullScreen {
+        class FullScreen extends Control {
         }
 
-        class MousePosition {
+        class MousePosition extends Control {
         }
 
-        class OverviewMap {
+        class OverviewMap extends Control {
         }
 
-        class Rotate {
+        class Rotate extends Control {
         }
 
-        class ScaleLine {
+        class ScaleLine extends Control {
+            
+            /**
+             * Return the units to use in the scale line.
+             */
+            getUnits(): ScaleLine.Units;
+            
+            /**
+             * Set the units to use in the scale line.
+             */
+            setUnits(units: ScaleLine.Units): void;
+            
         }
 
-        class Zoom {
+        class Zoom extends Control{
         }
 
-        class ZoomSlider {
+        class ZoomSlider extends Control{
         }
 
-        class ZoomToExtent {
+        class ZoomToExtent extends Control{
         	constructor(options?: olx.ZoomToExtentOptions);
         }
     }
@@ -3667,7 +3720,7 @@ declare namespace ol {
         }
 
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
-        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate[], geom?: ol.geom.Geometry): ol.geom.Geometry; }
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
     }
 
@@ -4008,6 +4061,11 @@ declare namespace ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
+            
+            /**
+             * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
+             */
+            setZIndex(zIndex: number): void;
         }
     }
 
@@ -4162,6 +4220,7 @@ declare namespace ol {
         }
 
         class Cluster extends Vector {
+            constructor(options: olx.source.ClusterOptions);
         }
 
         class Image extends Source {
@@ -4198,6 +4257,9 @@ declare namespace ol {
         }
 
         class Source extends ol.Object {
+            
+            constructor(options: any);
+            
             /**
              * Get the projection of the source.
              * @return Projection.
