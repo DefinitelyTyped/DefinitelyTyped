@@ -21,6 +21,7 @@ declare namespace ReactDateRangePicker {
         dateStates?: DateState[];
         defaultState?: string;
         disableNavigation?: boolean;
+        // Use Number Literal Types after TypeScript 2.0 GA released.
         firstOfWeek?: number; // React.PropTypes.oneOf([0, 1, 2, 3, 4, 5, 6])
         helpMessage?: string;
         initialFromValue?: boolean;
