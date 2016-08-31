@@ -12,8 +12,6 @@ declare module 'react-daterange-picker' {
     export = DateRangePicker;
 }
 
-declare var DateRangePicker: typeof ReactDateRangePicker;
-
 declare namespace ReactDateRangePicker {
     import React = __React;
 
