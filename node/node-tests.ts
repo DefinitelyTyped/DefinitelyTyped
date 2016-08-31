@@ -259,6 +259,47 @@ function bufferTests() {
         index = buffer.lastIndexOf(buffer);
     }
 
+    {
+        let buffer = new Buffer('123');
+        let val: [number, number];
+
+        for (let entry of buffer.entries()) {
+            val = entry;
+        }
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let includes: boolean;
+        includes = buffer.includes("23");
+        includes = buffer.includes("23", 1);
+        includes = buffer.includes("23", 1, "utf8");
+        includes = buffer.includes(23);
+        includes = buffer.includes(23, 1);
+        includes = buffer.includes(23, 1, "utf8");
+        includes = buffer.includes(buffer);
+        includes = buffer.includes(buffer, 1);
+        includes = buffer.includes(buffer, 1, "utf8");
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        for (let key of buffer.keys()) {
+            val = key;
+        }
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        for (let value of buffer.values()) {
+            val = value;
+        }
+    }
+
     // Imported Buffer from buffer module works properly
     {
         let b = new ImportedBuffer('123');

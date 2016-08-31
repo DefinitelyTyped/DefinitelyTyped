@@ -10,14 +10,13 @@ declare module 'mongoose' {
   import passportLocal = require('passport-local');
 
   // methods
-  export interface PassportLocalDocument {
+  export interface PassportLocalDocument extends Document {
     setPassword(password: string, cb: (err: any, res: any) => void): void;
     authenticate(password: string, cb: (err: any, res: any, error: any) => void): void;
   }
 
   // statics
-  export type PassportLocalModel<T extends PassportLocalDocument> = _PassportLocalModel<T> & Model<T>;
-  interface _PassportLocalModel<T extends PassportLocalDocument> {
+  interface PassportLocalModel<T extends Document> extends Model<T> {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any) => void) => void;
@@ -77,11 +76,17 @@ declare module 'mongoose' {
     ): this;
   }
 
-  export function model<T extends PassportLocalDocument, Statics>(
+  export function model<T extends Document>(
     name: string,
     schema?: PassportLocalSchema,
     collection?: string,
-    skipInit?: boolean): Statics & PassportLocalModel<T>;
+    skipInit?: boolean): PassportLocalModel<T>;
+
+  export function model<T extends Document, U extends PassportLocalModel<T>>(
+    name: string,
+    schema?: PassportLocalSchema,
+    collection?: string,
+    skipInit?: boolean): U;
 }
 
 declare module 'passport-local-mongoose' {
