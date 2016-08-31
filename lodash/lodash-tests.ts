@@ -4679,32 +4679,38 @@ result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 
 //         result = _(dictionary).chain().map<TResult>(['d', 0, 'b']);
 //     }
 // }
+namespace TestReduce {
+    interface ABC {
+        [index: string]: number;
+        a: number;
+        b: number;
+        c: number;
+    }
 
-interface ABC {
-    [index: string]: number;
-    a: number;
-    b: number;
-    c: number;
+    result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+        return sum + num;
+    });
+
+    // chained
+    result = _.chain([1, 2 ,3]).reduce(function (sum: number, num: number) {
+        return sum + num;
+    }).value();
+
+    result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, {});
+
+    result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
+        return sum + num;
+    });
+    result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, <ABC> {});
+
+    result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 }
-
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, {});
-
-result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, <ABC> {});
-
-result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
-
 // _.reject
 namespace TestReject {
     let array: TResult[];
