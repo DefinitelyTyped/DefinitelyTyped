@@ -538,6 +538,7 @@ declare module "querystring" {
     export function parse<T extends {}>(str: string, sep?: string, eq?: string, options?: ParseOptions): T;
     export function escape(str: string): string;
     export function unescape(str: string): string;
+    export function unescapeBuffer(s: Buffer, decodeSpaces: boolean): void;
 }
 
 declare module "events" {
