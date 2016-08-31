@@ -29,5 +29,5 @@ declare module 'polylabel' {
      * var p = polylabel(polygon, 1.0);
      */
     function polylabel (polygon: number[][][], precision?: number, debug?: boolean): number[];
-    export default polylabel;
+    export = polylabel;
 }
