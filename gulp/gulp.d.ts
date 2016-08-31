@@ -5,7 +5,7 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../orchestrator/orchestrator.d.ts" />
-/// <reference path="../vinyl/vinyl.d.ts" />
+/// <reference path="../vinyl/vinyl-0.4.3.d.ts" />
 
 declare module "gulp" {
     import Orchestrator = require("orchestrator");
