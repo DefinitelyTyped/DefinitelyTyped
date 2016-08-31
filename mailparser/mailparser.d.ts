@@ -60,7 +60,7 @@ declare module 'mailparser' {
     
 
 
-    class MailParser implements WritableStream {
+    class MailParser extends StreamModule.Writable {
         constructor(options?: Options);
         on(event: string, callback: (any: any) => void): this;
 
