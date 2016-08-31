@@ -290,6 +290,7 @@ declare namespace NodeJS {
         cwd(): string;
         env: any;
         exit(code?: number): void;
+        exitCode: number;
         getgid(): number;
         setgid(id: number): void;
         setgid(id: string): void;
