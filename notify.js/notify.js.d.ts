@@ -52,31 +52,31 @@ declare namespace NotifyJS {
          * @param styleName style name
          * @param styleDefinition style definition object
          */
-        addStyle(styleName: string, styleDefinition: any);
+        addStyle(styleName: string, styleDefinition: any): any;
 
         /**
          * Remove style
          * @param styleName style name
          */
-        removeStyle(styleName: string);
+        removeStyle(styleName: string): any;
 
         /**
          * Get style
          * @param styleName style name
          */
-        getStyle(styleName: string);
+        getStyle(styleName: string): any;
 
         /**
          * Insert css
          * @param cssText css text to insert
          */
-        insertCSS(cssText: string);
+        insertCSS(cssText: string): any;
 
         /**
          * Set defaults for notifications
          * @param options notification iptions
          */
-        defaults(options: NotificationOptions)
+        defaults(options: NotificationOptions): any;
     }
 
     interface JQueryStatic {
@@ -97,31 +97,31 @@ declare namespace NotifyJS {
          * @param styleName style name
          * @param styleDefinition style definition object
          */
-        addStyle(styleName: string, styleDefinition: any);
+        addStyle(styleName: string, styleDefinition: any): any;
 
         /**
          * Remove style
          * @param styleName style name
          */
-        removeStyle(styleName: string);
+        removeStyle(styleName: string): any;
 
         /**
          * Get style
          * @param styleName style name
          */
-        getStyle(styleName: string);
+        getStyle(styleName: string): any;
 
         /**
          * Insert css
          * @param cssText css text to insert
          */
-        insertCSS(cssText: string);
+        insertCSS(cssText: string): any;
 
         /**
          * Set defaults for notifications
          * @param options notification iptions
          */
-        defaults(options: NotificationOptions)
+        defaults(options: NotificationOptions): any;
 
     }
 
