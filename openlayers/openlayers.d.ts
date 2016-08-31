@@ -2451,7 +2451,7 @@ declare namespace ol {
              * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
              * added to the map's overlay container.
              */
-            setTarget(target: Element | string)
+            setTarget(target: Element | string):void;
             
             
         }
