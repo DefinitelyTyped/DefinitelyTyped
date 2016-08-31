@@ -1,6 +1,6 @@
 ﻿// Type definitions for morris.js 0.5.1
 // Project: http://morrisjs.github.io/morris.js/
-// Definitions by: Matthieu Mourisson <https://github.com/mareek> 
+// Definitions by: Matthieu Mourisson <https://github.com/mareek>, Matanel Sindilevich <https://github.com/sindilevich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace morris {
@@ -141,6 +141,10 @@ declare namespace morris {
         /** Create a Donut chart. */
         Donut: (options: IDonutOptions) => DonutChart;
     }
+}
+
+declare module "morris" {
+    export = Morris;
 }
 
 declare var Morris: morris.MorrisStatic;
