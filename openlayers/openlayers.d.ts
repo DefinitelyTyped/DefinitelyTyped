@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.1
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -573,12 +573,21 @@ declare namespace olx {
             zoomDelta?: number;
             zoomDuration?: number;
         }
+        interface InteractionOptions {
+            handleEvent (e: ol.MapBrowserEvent): boolean
+        }
         interface ModifyOptions {
+            condition?: ol.events.ConditionType;
             deleteCondition?: ol.events.ConditionType;
             pixelTolerance?: number;
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             features: ol.Collection<ol.Feature>;
             wrapX?: boolean;
+        }
+        interface DragBoxOptions {
+            className?: string;
+            condition?: ol.events.ConditionType;
+            boxEndCondition?: ol.interaction.DragBoxEndConditionType;
         }
         interface DrawOptions {
             clickTolerance?: number;
@@ -591,6 +600,68 @@ declare namespace olx {
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             geometryFunction?: ol.interaction.DrawGeometryFunctionType;
             wrapX?: boolean;
+        }
+        interface DoubleClickZoomOptions {
+            duration?: number;
+            delta?: number;
+        }
+        interface DragAndDropOptions {
+            formatConstructors?: Array<ol.format.Feature>;
+            projection: ol.proj.ProjectionLike;
+            target?: Element;
+        }
+        interface DragPanOptions {
+            condition?: ol.events.ConditionType;
+            kinetic?: ol.Kinetic;
+        }
+        interface DragRotateOptions {
+            condition?: ol.events.ConditionType;
+            duration?: number;
+        }
+        interface DragRotateAndZoomOptions {
+            condition?: ol.events.ConditionType;
+            duration?: number;
+        }
+        interface DragZoomOptions {
+            className?: string;
+            condition?: ol.events.ConditionType;
+            duration?: number;
+            out?: boolean;
+        }
+        interface KeyboardPanOptions {
+            condition?: ol.events.ConditionType;
+            duration?: number;
+            pixelDelta?: number;
+        }
+        interface KeyboardZoomOptions {
+            duration?: number;
+            condition?: ol.events.ConditionType;
+            delta?: number;
+        }
+        interface MouseWheenZoomOptions {
+            duration?: number;
+            useAnchor?: boolean;
+        }
+        interface PinchRotateOptions {
+            duration?: number;
+            threshold?: number;
+        }
+        interface PinchZoomOptions {
+            duration?: number;
+        }
+        interface PointerOptions {
+            handleDownEvent?: Function;
+            handleDragEvent?: Function;
+            handleEvent?: Function;
+            handleMoveEvent?: Function;
+            handleUpEvent?: Function;
+        }
+        interface SnapOptions {
+            features?: ol.Collection<ol.Feature>;
+            edge?: boolean;
+            vertex?: boolean;
+            pixelTolerance?: number;
+            source?: ol.source.Vector;
         }
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
@@ -3601,60 +3672,82 @@ declare namespace ol {
 
     namespace interaction {
 
-        class DoubleClickZoom {
+        class DoubleClickZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.DoubleClickZoomOptions);
         }
 
-        class DragAndDrop {
+        class DragAndDrop extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.DragAndDropOptions);
         }
 
         class DragAndDropEvent extends ol.events.Event {
         }
 
-        class DragBox {
+        class DragBox extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragBoxOptions);
+            getGeometry(): boolean;
         }
 
-        class DragPan {
+        class DragPan extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragPanOptions);
         }
 
-        class DragRotate {
+        class DragRotate extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragRotateOptions);
         }
 
-        class DragRotateAndZoom {
+        class DragRotateAndZoom extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragRotateAndZoomOptions);
         }
 
-        class DragZoom {
+        class DragZoom extends ol.interaction.DragBox {
+            constructor(opt_options?: olx.interaction.DragZoomOptions);
         }
 
         class Draw extends ol.interaction.Pointer {
-            constructor(opt_options?: olx.interaction.DrawOptions)
+            constructor(opt_options?: olx.interaction.DrawOptions);
         }
 
         class DrawEvent extends ol.events.Event {
+            feature: ol.Feature;
+            target: ol.Object;
+            type: string;
         }
 
         class Interaction extends ol.Object {
+            constructor (options: olx.interaction.InteractionOptions)
+            handleEvent (e: ol.MapBrowserEvent): boolean
+            getActive (): boolean;
+            getMap (): ol.Map;
+            setActive (active: boolean): void;
         }
 
-        class KeyboardPan {
+        class KeyboardPan extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.KeyboardPanOptions);
         }
 
-        class KeyboardZoom {
+        class KeyboardZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.KeyboardZoomOptions);
         }
 
         class Modify extends ol.interaction.Pointer {
-            constructor(opt_options?: olx.interaction.ModifyOptions)
+            constructor(opt_options?: olx.interaction.ModifyOptions);
         }
 
-        class MouseWheelZoom {
+        class MouseWheelZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.MouseWheenZoomOptions);
         }
 
-        class PinchRotate {
+        class PinchRotate extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.PinchRotateOptions);
         }
 
-        class PinchZoom {
+        class PinchZoom extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.PinchZoomOptions);
         }
 
         class Pointer extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.PointerOptions);
         }
 
         class Select extends ol.interaction.Interaction {
@@ -3663,12 +3756,17 @@ declare namespace ol {
             getFeatures(): ol.Collection<ol.Feature>;
         }
 
-        class Snap {
+        class Snap extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.SnapOptions);
         }
 
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
         interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
+
+        interface DragBoxEndConditionType {
+            (evt: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel): boolean
+        }
     }
 
     namespace layer {
