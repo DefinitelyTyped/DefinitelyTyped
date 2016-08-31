@@ -489,7 +489,7 @@ interface Cash {
   width(): number;
 }
 
-declare module "Cash" {
+declare module "cash" {
     export = CashStatic;
 }
-declare var Cash: CashStatic;
+declare var cash: CashStatic;
