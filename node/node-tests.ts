@@ -1003,6 +1003,6 @@ namespace errors_tests {
 import * as p from "process";
 namespace process_tests {
     {
-        p === process;
+        (p === process) === true;
     }
 }
