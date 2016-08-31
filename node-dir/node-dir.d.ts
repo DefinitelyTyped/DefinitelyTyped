@@ -37,11 +37,11 @@ declare module "node-dir" {
     }
 
     export interface FileCallback {
-        (error: any, content: any, next: () => void): void;
+        (error: any, content: string, next: () => void): void;
     }
 
     export interface FileNamedCallback {
-        (error: any, content: any, filename: string, next: () => void): void;
+        (error: any, content: string, filename: string, next: () => void): void;
     }
 
     export interface StreamCallback {
@@ -49,7 +49,11 @@ declare module "node-dir" {
     }
 
     export interface FinishedCallback {
-        (error: any, files: any): void;
+        (error: any, files: string[]): void;
+    }
+    export interface PathsResult {
+    	files: string[];
+    	dirs: string[];
     }
 
     export function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
@@ -58,8 +62,9 @@ declare module "node-dir" {
     export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
     export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback,
         finishedCallback?: FinishedCallback): void;
-    export function files(dir: string, callback: (error: any, files: any) => void): void;
-    export function subdirs(dir: string, callback: (error: any, subdirs: any) => void): void;
-    export function paths(dir: string, callback: (error: any, paths: any) => void): void;
-    export function paths(dir: string, combine: boolean, callback: (error: any, paths: any) => void): void;
+    export function files(dir: string, callback: (error: any, files: string[]) => void): void;
+    export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
+    export function paths(dir: string, callback: (error: any, paths: PathsResult) => void): void;
+    export function paths(dir: string, combine: true, callback: (error: any, paths: string[]) => void): void;
+    export function paths(dir: string, combine: false, callback: (error: any, paths: PathsResult) => void): void;
 }
