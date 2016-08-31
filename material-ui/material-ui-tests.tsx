@@ -2,6 +2,7 @@
 ///<reference path='../react/react-dom.d.ts' />
 ///<reference path='../react-tap-event-plugin/react-tap-event-plugin.d.ts' />
 ///<reference path='material-ui.d.ts' />
+///<reference path='svg-icons.d.ts' />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
