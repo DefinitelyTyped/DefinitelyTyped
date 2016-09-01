@@ -12,6 +12,10 @@ class TestEmitter extends EventEmitter {
     constructor() {
         super();
     }
+
+    test() {
+        return this;
+    }
 }
 
 const ee: TestEmitter = new TestEmitter();
@@ -64,8 +68,8 @@ ee.addListener(eventName, fn, this);
 ee.on(eventSymbol, fn);
 ee.addListener(eventSymbol, fn);
 // should support fluent interface
-ee.on(eventSymbol, fn).on(eventName, fn);
-ee.addListener(eventSymbol, fn).addListener(eventName, fn);
+ee.on(eventSymbol, fn).test();
+ee.addListener(eventSymbol, fn).test();
 
 // EventEmitter.once()
 // should accept event name and function
@@ -76,7 +80,7 @@ ee.once(eventName, fn, {});
 // should accept symbol as event name
 ee.once(eventSymbol, fn);
 // should support fluent interface
-ee.once(eventSymbol, fn).once(eventName, fn);
+ee.once(eventSymbol, fn).test();
 
 // EventEmitter.removeListener() and EventEmitter.off()
 // should accept event name
@@ -95,8 +99,8 @@ ee.off(eventName, fn, null, true);
 ee.removeListener(eventSymbol);
 ee.off(eventSymbol);
 // should support fluent interface
-ee.removeListener(eventName).removeListener(eventSymbol);
-ee.off(eventName).off(eventSymbol);
+ee.removeListener(eventName).test();
+ee.off(eventName).test();
 
 // EventEmitter.removeAllListeners()
 // should not require any arguments
@@ -106,8 +110,8 @@ ee.removeAllListeners(eventName);
 // should accept symbol as event name
 ee.removeAllListeners(eventSymbol);
 // should support fluent interface
-ee.removeAllListeners(eventName).removeAllListeners(eventSymbol);
+ee.removeAllListeners(eventName).test();
 
 // EventEmitter.setMaxListeners()
 // should support fluent interface
-ee.setMaxListeners().setMaxListeners();
+ee.setMaxListeners().test();

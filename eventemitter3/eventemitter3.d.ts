@@ -53,7 +53,7 @@ declare namespace EventEmitter3 {
          * @param {*} [context=this] The context to invoke the listener with.
          * @returns {EventEmitter} `this`.
          */
-        on(event: string|symbol, fn: Function, context?: any): EventEmitter;
+        on(event: string|symbol, fn: Function, context?: any): this;
 
         /**
          * Add a one-time listener for a given event.
@@ -63,7 +63,7 @@ declare namespace EventEmitter3 {
          * @param {*} [context=this] The context to invoke the listener with.
          * @returns {EventEmitter} `this`.
          */
-        once(event: string|symbol, fn: Function, context?: any): EventEmitter;
+        once(event: string|symbol, fn: Function, context?: any): this;
 
         /**
          * Remove the listeners of a given event.
@@ -74,7 +74,7 @@ declare namespace EventEmitter3 {
          * @param {boolean} once Only remove one-time listeners.
          * @returns {EventEmitter} `this`.
          */
-        removeListener(event: string|symbol, fn?: Function, context?: any, once?: boolean): EventEmitter;
+        removeListener(event: string|symbol, fn?: Function, context?: any, once?: boolean): this;
 
         /**
          * Remove all listeners, or those of the specified event.
@@ -82,23 +82,23 @@ declare namespace EventEmitter3 {
          * @param {(string|symbol)} event The event name.
          * @returns {EventEmitter} `this`.
          */
-        removeAllListeners(event?: string|symbol): EventEmitter;
+        removeAllListeners(event?: string|symbol): this;
 
         /**
          * Alias method for `removeListener`
          */
-        off(event: string|symbol, fn?: Function, context?: any, once?: boolean): EventEmitter;
+        off(event: string|symbol, fn?: Function, context?: any, once?: boolean): this;
 
         /**
          * Alias method for `on`
          */
-        addListener(event: string|symbol, fn: Function, context?: any): EventEmitter;
+        addListener(event: string|symbol, fn: Function, context?: any): this;
 
         /**
          * This function doesn't apply anymore.
          * @deprecated
          */
-        setMaxListeners(): EventEmitter;
+        setMaxListeners(): this;
 
         static prefixed: string|boolean;
     }
