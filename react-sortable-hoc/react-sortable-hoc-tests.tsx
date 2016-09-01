@@ -1,29 +1,23 @@
 /// <reference path="../react/react-dom.d.ts" />
 /// <reference path="./react-sortable-hoc.d.ts" />
 
-import React = require('react');
-import ReactDOM = require('react-dom');
-import ReactSortableHOC = require('react-sortable-hoc');
-
-interface SortableItemOwnProps {
+interface SortableItemProps {
     value: string;
 }
 
-interface SortableListOwnProps {
+interface SortableListProps {
     items: Array<string>;
 }
 
-type SortableComponentState = SortableListOwnProps;
+type SortableComponentState = SortableListProps;
 
-type SortableListDecoratedProps = ReactSortableHOC.SortableContainerProps<SortableListOwnProps>;
-
-const SortableItem = ReactSortableHOC.SortableElement((props: SortableItemOwnProps): JSX.Element => {
+const SortableItem = ReactSortableHOC.SortableElement((props: SortableItemProps): JSX.Element => {
     return <li>{props.value}</li>;
 });
 
-const SortableListFunCall = ReactSortableHOC.SortableContainer<SortableListOwnProps>(
-    class extends React.Component<SortableListOwnProps, void> {
-        public constructor(props: SortableListOwnProps) {
+const SortableListFunCall = ReactSortableHOC.SortableContainer<SortableListProps>(
+    class extends React.Component<SortableListProps, void> {
+        public constructor(props: SortableListProps) {
             super(props);
         }
 
@@ -36,9 +30,13 @@ const SortableListFunCall = ReactSortableHOC.SortableContainer<SortableListOwnPr
     }
 );
 
+// Generic decorators can't be used in TSX:
+// [ts] Cannot find name ''. [ts] JSX element '' has no corresponding closing tag.
+// ReactSortableHOC.SortableContainerProps<Props> is required in order to avoid compilation errors:
+// [ts] Property '{prop}' dose not exist on type ...
 @ReactSortableHOC.SortableContainer
-class SortableListDecorated extends React.Component<SortableListDecoratedProps, void> {
-    public constructor(props: SortableListDecoratedProps) {
+class SortableListDecorated extends React.Component<ReactSortableHOC.SortableContainerProps<SortableListProps>, void> {
+    public constructor(props: SortableListProps) {
         super(props);
     }
 
@@ -49,7 +47,6 @@ class SortableListDecorated extends React.Component<SortableListDecoratedProps, 
         return <ul>{items}</ul>;
     }
 }
-
 
 class SortableComponent extends React.Component<void, SortableComponentState> {
     private _onSortEnd: ReactSortableHOC.SortEndHandler;
