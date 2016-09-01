@@ -2377,7 +2377,6 @@ declare module "domain" {
         members: any[];
         enter(): void;
         exit(): void;
-
     }
 
     export function create(): Domain;
