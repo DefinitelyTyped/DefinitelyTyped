@@ -68,6 +68,11 @@ declare module 'react-sortable-hoc' {
     export type SortableContainerProps<P> = P & SortableContainerHOCProps;
 
     export type SortableElementProps<P> = P & SortableElementHOCProps;
+    
+    // Generic decorators can't be used in TSX:
+    // [ts] Cannot find name ''. [ts] JSX element '' has no corresponding closing tag.
+    // Sortable{Wrapper}Props<Props> is required in order to avoid compilation errors:
+    // [ts] Property '{prop}' dose not exist on type ...
 
     export function SortableContainer<P>(wrappedComponent: WrappedComponent<P>, config?: Config): React.ComponentClass<SortableContainerProps<P>>;
 
