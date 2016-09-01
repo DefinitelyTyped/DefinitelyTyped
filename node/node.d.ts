@@ -2374,6 +2374,10 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
+        members: any[];
+        enter(): void;
+        exit(): void;
+
     }
 
     export function create(): Domain;
