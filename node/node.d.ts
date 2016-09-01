@@ -963,7 +963,7 @@ declare module "punycode" {
 
 declare module "repl" {
     import * as stream from "stream";
-    import * as events from "events";
+    import * as readline from "readline";
 
     export interface ReplOptions {
         prompt?: string;
@@ -975,8 +975,17 @@ declare module "repl" {
         useGlobal?: boolean;
         ignoreUndefined?: boolean;
         writer?: Function;
+        completer?: Function;
+        replMode?: any;
+        breakEvalOnSigint?: any;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+
+    export interface REPLServer extends readline.ReadLine {
+        defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
+        displayPrompt(preserveCursor?: boolean): void
+    }
+
+    export function start(options: ReplOptions): REPLServer;
 }
 
 declare module "readline" {
