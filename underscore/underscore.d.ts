@@ -5074,7 +5074,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.all
 	**/
-	all(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* @see _.all
