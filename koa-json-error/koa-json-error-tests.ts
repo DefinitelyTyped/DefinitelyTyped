@@ -9,5 +9,5 @@ import { assign } from "lodash";
 const app = new Koa();
 
 app.use(error({
-    preFormat: err => _.assign({}, err)
+    preFormat: err => assign({}, err)
 }));
