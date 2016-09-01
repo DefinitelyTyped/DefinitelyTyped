@@ -247,7 +247,7 @@ declare namespace ReactRouter {
       isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
-    function withRouter<C extends React.ComponentClass<any>>(component: C): C
+    function withRouter<C extends React.ComponentClass<any> | React.StatelessComponent<any> | React.PureComponent<any>>(component: C): C
 
     /* utils */
 
