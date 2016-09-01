@@ -651,6 +651,9 @@ declare module "http" {
     }
     export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
+        httpVersionMajor: string;
+        httpVersionMinor: string;
+        connection: any;
         headers: any;
         rawHeaders: string[];
         trailers: any;
