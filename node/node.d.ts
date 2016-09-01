@@ -452,7 +452,7 @@ declare namespace NodeJS {
     }
 }
 
-interface IterableIterator<T> {}
+interface IterableIterator<T> extends Array<T> {}
 
 /**
  * @deprecated
