@@ -64,6 +64,5 @@ declare module "node-dir" {
     export function files(dir: string, callback: (error: any, files: string[]) => void): void;
     export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
     export function paths(dir: string, callback: (error: any, paths: PathsResult) => void): void;
-    export function paths(dir: string, combine: true, callback: (error: any, paths: string[]) => void): void;
-    export function paths(dir: string, combine: false, callback: (error: any, paths: PathsResult) => void): void;
+    export function paths(dir: string, combine: boolean, callback: (error: any, paths: string[] | PathsResult) => void): void;
 }
