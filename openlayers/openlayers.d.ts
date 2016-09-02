@@ -3949,7 +3949,7 @@ declare namespace ol {
             /**
              * Returns geometry of last drawn box.
              */
-            getGeometry(): boolean;
+            getGeometry(): ol.geom.Polygon;
         }
         /**
          * Allows the user to pan the map by dragging the map.
