@@ -839,6 +839,10 @@ User.schema( 'special' ).create( { age : 3 }, { logging : function(  ) {} } );
 
 User.getTableName();
 
+User.addScope('lowAccess', { where : { parent_id : 2 } });
+User.addScope('lowAccess', function() { } );
+User.addScope('lowAccess', { where : { parent_id : 2 } }, { override: true });
+
 User.scope( 'lowAccess' ).count();
 User.scope( { where : { parent_id : 2 } } );
 
@@ -880,6 +884,14 @@ User.findAll( { order : [['id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [[User, 'id', ';DELETE YOLO INJECTIONS']] } );
 User.findAll( { include : [User], order : [['id', 'ASC NULLS LAST'], [User, 'id', 'DESC NULLS FIRST']] } );
 User.findAll( { include : [{ model : User, where : { title : 'DoDat' }, include : [{ model : User }] }] } );
+User.findAll( { attributes: ['username', 'data']});
+User.findAll( { attributes: {include: ['username', 'data']} });
+User.findAll( { attributes: [['username', 'user_name'], ['email', 'user_email']] });
+User.findAll( { attributes: [s.fn('count', Sequelize.col('*'))] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
+User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
+User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
+User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 
 User.findById( 'a string' );
 
@@ -1118,7 +1130,6 @@ s.model( 'pp' );
 s.query( '', { raw : true } );
 s.query( '' );
 s.query( '' ).then( function( res ) {} );
-s.query( '' ).spread( function(  ) {}, function( b ) {} );
 s.query( { query : 'select ? as foo, ? as bar', values : [1, 2] }, { raw : true, replacements : [1, 2] } );
 s.query( '', { raw : true, nest : false } );
 s.query( 'select ? as foo, ? as bar', { type : this.sequelize.QueryTypes.SELECT, replacements : [1, 2] } );

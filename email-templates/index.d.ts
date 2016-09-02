@@ -19,6 +19,12 @@ interface EmailTemplateResults {
      * @type {string}
      */
     text: string;
+
+    /**
+     * @summary Subject result.
+     * @type {string}
+     */
+    subject: string;
 }
 
 /**
@@ -32,6 +38,15 @@ interface EmailTemplateCallback {
     (err: Object, results: EmailTemplateResults): void;
 }
 
+/**
+ * @summary Interface for email-template options
+ * @interface
+ */
+interface EmailTemplateOptions {
+    sassOptions?: any;
+    juiceOptions?: any;
+}
+
 declare module "email-templates" {
     /**
      * @summary Email template class.
@@ -42,7 +57,7 @@ declare module "email-templates" {
          * @summary Constructor.
          * @param {string} templateDir The template directory.
          */
-        constructor(templateDir: string);
+        constructor(templateDir: string, options?: EmailTemplateOptions);
 
         /**
          * @summary Render a single template.

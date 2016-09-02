@@ -67,11 +67,28 @@ interface PayDialogParams {
     test_currency?: string;
 }
 
+interface FeedDialogParams {
+	method: string;  // "feed"
+	app_id: string;
+	redirect_uri?: string;
+	display?: string;
+	from?: string;
+	to?: string;
+	link?: string;
+	picture?: string;
+	source?: string;
+	name: string;
+	caption?: string;
+	description?: string;
+	ref?: any;
+}
+
 declare type FBUIParams = ShareDialogParams
                         | PageTabDialogParams
                         | RequestsDialogParams
                         | SendDialogParams
-                        | PayDialogParams;
+                        | PayDialogParams
+                        | FeedDialogParams;
 
 interface FBLoginOptions{
     auth_type?: string;
@@ -150,6 +167,7 @@ interface FBSDKCanvas{
 }
 
 interface FBResponseObject {
+    data: any;
     error: any;
 }
 

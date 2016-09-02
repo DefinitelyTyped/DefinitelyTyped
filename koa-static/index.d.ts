@@ -43,5 +43,5 @@ declare function serve(root: string, opts?: {
      */
     gzip?: boolean;
 }): { (ctx: Koa.Context, next?: () => any): any };
-
+declare namespace serve{}
 export = serve;

@@ -1,6 +1,6 @@
-﻿// Type definitions for Knockout v3.2.0
+﻿// Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -387,6 +387,17 @@ interface KnockoutTemplateEngine extends KnockoutNativeTemplateEngine {
     rewriteTemplate(template: any, rewriterCallback: Function, templateDocument: Document): void;
 }
 
+//////////////////////////////////
+// tasks.js
+//////////////////////////////////
+
+interface KnockoutTasks {
+    scheduler: (callback: Function) => any;
+    schedule(task: Function): number;
+    cancel(handle: number): void;
+    runEarly(): void;
+}
+
 /////////////////////////////////
 
 interface KnockoutStatic {
@@ -512,8 +523,26 @@ interface KnockoutStatic {
     renderTemplateForEach(template: any, arrayOrObservableArray: KnockoutObservable<any>, options: Object, targetNode: Node, parentBindingContext: KnockoutBindingContext): any;
 
     expressionRewriting: {
-        bindingRewriteValidators: any;
-        parseObjectLiteral: { (objectLiteralString: string): any[] }
+        bindingRewriteValidators: any[];
+        twoWayBindings: any;
+        parseObjectLiteral: (objectLiteralString: string) => any[];
+        
+        /**
+        Internal, private KO utility for updating model properties from within bindings
+        property:            If the property being updated is (or might be) an observable, pass it here
+                             If it turns out to be a writable observable, it will be written to directly
+        allBindings:         An object with a get method to retrieve bindings in the current execution context.
+                             This will be searched for a '_ko_property_writers' property in case you're writing to a non-observable
+                             (See note below)
+        key:                 The key identifying the property to be written. Example: for { hasFocus: myValue }, write to 'myValue' by specifying the key 'hasFocus'
+        value:               The value to be written
+        checkIfDifferent:    If true, and if the property being written is a writable observable, the value will only be written if
+                             it is !== existing value on that writable observable
+                             
+        Note that if you need to write to the viewModel without an observable property,
+        you need to set ko.expressionRewriting.twoWayBindings[key] = true; *before* the binding evaluation.
+        */
+        writeValueToProperty: (property: KnockoutObservable<any> | any, allBindings: KnockoutAllBindingsAccessor, key: string, value: any, checkIfDifferent?: boolean) => void;
     };
 
     /////////////////////////////////
@@ -544,7 +573,13 @@ interface KnockoutStatic {
         deferUpdates: boolean,
         
         useOnlyNativeEvents: boolean
-    }
+    };
+    
+    /////////////////////////////////
+    // tasks.js
+    /////////////////////////////////
+    
+    tasks: KnockoutTasks;
 }
 
 interface KnockoutBindingProvider {

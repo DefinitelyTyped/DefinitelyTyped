@@ -5,14 +5,8 @@
 
 import * as angular from 'angular';
 
-// Support for AMD require and CommonJS
-// Since angular-ui-router adds providers for a bunch of
-// injectable dependencies, it doesn't really return any
-// actual data except the plain string 'ui.router'.
-//
-// As such, I don't think anybody will ever use the actual
-// default value of the module.  So I've only included the
-// the types. (@xogeny)
+export default "ui.router";
+
 export type IState = angular.ui.IState;
 export type IStateProvider = angular.ui.IStateProvider;
 export type IUrlMatcher = angular.ui.IUrlMatcher;
@@ -33,24 +27,28 @@ declare module 'angular' {
             /**
              * String HTML content, or function that returns an HTML string
              */
-            template?: string | {(): string};
+            template?: string | { (params: IStateParamsService): string };
             /**
              * String URL path to template file OR Function, returns URL path string
              */
-            templateUrl?: string | {(params: IStateParamsService): string};
+            templateUrl?: string | { (params: IStateParamsService): string };
             /**
              * Function, returns HTML content string
              */
-            templateProvider?: Function | Array<string|Function>;
+            templateProvider?: Function | Array<string | Function>;
+            /**
+             * String, component name
+             */
+            component?: string;
             /**
              * A controller paired to the state. Function, annotated array or name as String
              */
-            controller?: Function|string|Array<string|Function>;
+            controller?: Function | string | Array<string | Function>;
             controllerAs?: string;
             /**
              * Function (injectable), returns the actual controller function or string.
              */
-            controllerProvider?: Function|Array<string|Function>;
+            controllerProvider?: Function | Array<string | Function>;
 
             /**
              * Specifies the parent state of this state
@@ -58,7 +56,7 @@ declare module 'angular' {
             parent?: string | IState;
 
 
-            resolve?: { [name:string]: any };
+            resolve?: { [name: string]: any };
             /**
              * A url with optional parameters. When a state is navigated or transitioned to, the $stateParams service will be populated with any parameters that were passed.
              */
@@ -70,18 +68,18 @@ declare module 'angular' {
             /**
              * Use the views property to set up multiple views. If you don't need multiple views within a single state this property is not needed. Tip: remember that often nested views are more useful and powerful than multiple sibling views.
              */
-            views?: { [name:string]: IState };
+            views?: { [name: string]: IState };
             abstract?: boolean;
             /**
              * Callback function for when a state is entered. Good way to trigger an action or dispatch an event, such as opening a dialog.
              * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
              */
-            onEnter?: Function|Array<string|Function>;
+            onEnter?: Function | Array<string | Function>;
             /**
              * Callback functions for when a state is entered and exited. Good way to trigger an action or dispatch an event, such as opening a dialog.
              * If minifying your scripts, make sure to explicitly annotate this function, because it won't be automatically annotated by your build tools.
              */
-            onExit?: Function|Array<string|Function>;
+            onExit?: Function | Array<string | Function>;
             /**
              * Arbitrary data object, useful for custom configuration.
              */
@@ -103,10 +101,10 @@ declare module 'angular' {
             toParams: {},
             options: IStateOptions
         }
-        
+
         interface IStateProvider extends angular.IServiceProvider {
-            state(name:string, config:IState): IStateProvider;
-            state(config:IState): IStateProvider;
+            state(name: string, config: IState): IStateProvider;
+            state(config: IState): IStateProvider;
             decorator(name?: string, decorator?: (state: IState, parent: Function) => any): any;
         }
 
@@ -159,7 +157,7 @@ declare module 'angular' {
              *
              * @returns {IUrlMatcherFactory} Returns $urlMatcherFactoryProvider.
              */
-            type(name: string, definition: IType, definitionFn?: (...args:any[]) => IType): IUrlMatcherFactory;
+            type(name: string, definition: IType, definitionFn?: (...args: any[]) => IType): IUrlMatcherFactory;
             /**
              * Defines whether URL matching should be case sensitive (the default behavior), or not.
              *
@@ -227,9 +225,9 @@ declare module 'angular' {
              */
             notify?: boolean;
             /**
-             * {boolean=false}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
+         * {boolean=false|string|IState}, If true will force transition even if the state or params have not changed, aka a reload of the same state. It differs from reloadOnSearch because you'd use this when you want to force a reload when everything is the same, including search params.
              */
-            reload?: boolean;
+            reload?: boolean | string | IState;
         }
 
         interface IHrefOptions {
@@ -261,8 +259,8 @@ declare module 'angular' {
             transitionTo(state: string, params?: {}, options?: IStateOptions): angular.IPromise<any>;
             transitionTo(state: IState, params?: {}, options?: IStateOptions): angular.IPromise<any>;
             includes(state: string, params?: {}): boolean;
-            includes(state: string, params?: {}, options?:any): boolean;
-            is(state:string, params?: {}): boolean;
+            includes(state: string, params?: {}, options?: any): boolean;
+            is(state: string, params?: {}): boolean;
             is(state: IState, params?: {}): boolean;
             href(state: IState, params?: {}, options?: IHrefOptions): string;
             href(state: string, params?: {}, options?: IHrefOptions): string;
@@ -349,7 +347,7 @@ declare module 'angular' {
              *
              * @returns {boolean} Returns true if the values are equivalent/equal, otherwise false.
              */
-            equals? (a: any, b: any): boolean;
+            equals?(a: any, b: any): boolean;
             /**
              * Detects whether a value is of a particular type. Accepts a native (decoded) value and determines whether it matches the current Type object.
              *
@@ -367,4 +365,3 @@ declare module 'angular' {
     }
 
 }
-

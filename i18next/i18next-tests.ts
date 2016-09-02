@@ -60,3 +60,5 @@ i18n.t('helloWorld', <i18n.TranslationOptions> {
     defaultValue: 'default',
     count: 10
 });
+const currentLanguage:string = i18n.language;
+const userLanguageCodes:string[] = i18n.languages;

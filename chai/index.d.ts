@@ -378,7 +378,20 @@ declare namespace Chai {
     }
 
     export interface Config {
+        /**
+         * Default: false
+         */
         includeStack: boolean;
+
+        /**
+         * Default: true
+         */
+        showDiff: boolean;
+
+        /**
+         * Default: 40
+         */
+        truncateThreshold: number;
     }
 
     export class AssertionError {

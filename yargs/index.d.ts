@@ -62,7 +62,13 @@ declare namespace yargs {
         usage(options?: { [key: string]: Options }): Argv;
 
         command(command: string, description: string): Argv;
-        command(command: string, description: string, fn: (args: Argv) => void): Argv;
+        command(command: string, description: string, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Options): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+
+        commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
         completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
@@ -89,7 +95,7 @@ declare namespace yargs {
 
         strict(): Argv;
 
-        help(): string;
+        help(): Argv;
         help(option: string, description?: string): Argv;
 
         env(prefix?: string): Argv;
@@ -128,6 +134,14 @@ declare namespace yargs {
         count(keys: string[]): Argv;
 
         fail(func: (msg: string) => any): void;
+    }
+
+    interface RequireDirectoryOptions {
+        recurse?: boolean;
+        extensions?: string[];
+        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+        include?: RegExp | ((pathToFile: string)=>boolean);
+        exclude?: RegExp | ((pathToFile: string)=>boolean);
     }
 
     interface Options {

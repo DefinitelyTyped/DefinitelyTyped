@@ -7,7 +7,7 @@ interface ParentNode {
     /**
      * Returns the child elements.
      */
-    children: HTMLCollection;
+    readonly children: HTMLCollection;
 
     /**
      * Returns the first element that is a descendant of node that matches relativeSelectors.

@@ -43,6 +43,7 @@ Reflux.createAction({
     children: ["progressed", "completed", "failed"]
 });
 
+var action = Reflux.createAction();
 
 var actions = Reflux.createActions(["fireBall", "magicMissile"]);
 
@@ -57,3 +58,7 @@ var Store = Reflux.createStore({
         // bzzzzapp!
     }
 });
+
+var ReactComponent = {
+    mixins: [Reflux.ListenerMixin]
+};

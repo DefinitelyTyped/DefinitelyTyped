@@ -12,7 +12,9 @@ let loggerSimpleOpts = createLogger({
   predicate: (getState, action) => true,
   stateTransformer: (state) => state,
   actionTransformer: (action) => action,
-  errorTransformer: (error) => error
+  errorTransformer: (error) => error,
+  diff: true,
+  diffPredicate: (getState, action) => true,
 });
 
 let loggerCollapsedBool = createLogger({

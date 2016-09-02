@@ -193,6 +193,24 @@ request('/search')
     var charset: string = res.charset;
   });
 
+// Custom parsers
+request
+  .post('/search')
+  .parse((res, callback) => {
+    res.setEncoding("binary");
+    let data = "";
+    res.on("data", (chunk: string) => {
+      data += chunk;
+    });
+
+    res.on("end", () => {
+      callback(null, new Buffer(data, "base64"));
+    });
+  })
+  .end((res: request.Response) => {
+    res.body.toString("hex");
+  });
+
 var req = request.get('/hoge');
 // Aborting requests
 req.abort();
@@ -279,3 +297,9 @@ request
   .attach('image', 'path/to/tobi.png')
   .on('error', (err: any) => {})
   .end(callback);
+
+//Promise
+request
+  .get('/search')
+  .then((response) => {})
+  .catch((error) => {}); 

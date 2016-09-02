@@ -43,7 +43,7 @@ declare namespace createjs {
 
 
     export class Bitmap extends DisplayObject {
-        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | Object | string);
 
         // properties
         image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;

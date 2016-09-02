@@ -79,6 +79,7 @@ server.route({
 	method: 'GET',
 	path: '/hello',
 	handler: function (request: Hapi.Request, reply: Function) {
+		request.log('info', { route: '/hello' }, Date.now());
 		reply('hello world');
 	}
 });
@@ -88,6 +89,26 @@ server.route([{
 	path: '/hello2',
 	handler: function (request: Hapi.Request, reply: Function) {
 		reply('hello world2');
+	}
+}]);
+
+server.route([{
+	method: 'GET',
+	path: '/hello3',
+	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+		reply('hello world2');
+	}
+}]);
+
+interface IHello {
+	msg: string
+}
+
+server.route([{
+	method: 'GET',
+	path: '/hello4',
+	handler: function (request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
+		reply({ msg: 'hello world' })
 	}
 }]);
 

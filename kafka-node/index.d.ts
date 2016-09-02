@@ -28,7 +28,7 @@ export declare class HighLevelProducer {
 }
 
 export declare class Consumer {
-    constructor(client: Client, fetchRequests: Array<Topic>, options: ConsumerOptions);
+    constructor(client: Client, fetchRequests: Array<OffsetFetchRequest>, options: ConsumerOptions);
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;

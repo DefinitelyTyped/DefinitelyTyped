@@ -1,4 +1,4 @@
-// Type definitions for vue-resoure 0.7.0
+// Type definitions for vue-resoure 0.9.3
 // Project: https://github.com/vuejs/vue-resource
 // Definitions by: kaorun343 <https://github.com/kaorun343>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,7 +15,7 @@ declare namespace vuejs {
         common?: { [key: string]: string };
         custom?: { [key: string]: string };
         [key: string]: any;
-    }
+    } 
 
     interface HttpResponse {
         data: Object;
@@ -23,21 +23,22 @@ declare namespace vuejs {
         status: number;
         statusText: string;
         headers: Function;
+        text():string;
+        json():any;
+        blob():Blob;
     }
 
     interface HttpOptions {
         url?: string;
         method?: string;
-        data?: any;
+        body?: any;
         params?: any;
         headers?: any;
-        beforeSend?(request: any): any;
+        before?(request: any): any;
+        progress?(event: any): any;
+        credentials?:boolean;
         emulateHTTP?: boolean;
         emulateJSON?: boolean;
-        xhr?: any;
-        upload?: any;
-        jsonp?: string;
-        timeout?: string;
     }
 
     interface $http {

@@ -17,10 +17,14 @@ declare namespace ReactTabs {
         onSelect?: (index: number, last: number) => void;
     }
 
-    interface Tabs extends React.ComponentClass<TabsProps> {}
+    interface Tabs extends React.ComponentClass<TabsProps> {
+        setUseDefaultStyles: (use: boolean) => void;
+    }
 
     interface TabListProps {
         className?: string;
+        activeTabClassName?: string;
+        disabledTabClassName?: string;
     }
 
     interface TabList extends React.ComponentClass<TabListProps> {}

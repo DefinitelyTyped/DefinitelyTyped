@@ -13,7 +13,7 @@ declare namespace Wolfy87EventEmitter {
      * Hash Object for manipulating multiple events.
      */
     interface MultipleEvents {
-        [event:string]: any //Function | Function[]
+        [event: string]: any //Function | Function[]
     }
 
     /**
@@ -507,6 +507,3 @@ declare namespace Wolfy87EventEmitter {
         setOnceReturnValue(value: any): EventEmitter;
     }
 }
-
-//declare var EventEmitter: typeof Wolfy87EventEmitter.EventEmitter;
-

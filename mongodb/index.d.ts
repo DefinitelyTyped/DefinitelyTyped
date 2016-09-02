@@ -217,7 +217,7 @@ export class Db extends EventEmitter {
     indexInformation(name: string, options?: { full?: boolean, readPreference?: ReadPreference | string }): Promise<any>;
     indexInformation(name: string, options: { full?: boolean, readPreference?: ReadPreference | string }, callback: MongoCallback<any>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#listCollections
-    listCollections(filter: { name?: string }, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
+    listCollections(filter: Object, options?: { batchSize?: number, readPreference?: ReadPreference | string }): CommandCursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html#logout
     logout(callback: MongoCallback<any>): void;
     logout(options?: { dbName?: string }): Promise<any>;
@@ -695,6 +695,13 @@ export interface Collection {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#reIndex
     reIndex(): Promise<any>;
     reIndex(callback: MongoCallback<any>): void;
+    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#remove
+    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
+    remove(selector: Object, callback: MongoCallback<WriteOpResult>): void;
+    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
+    remove(selector: Object, options?: CollectionOptions & { single?: boolean }): Promise<WriteOpResult>;
+    /** @deprecated Use use deleteOne, deleteMany or bulkWrite */
+    remove(selector: Object, options?: CollectionOptions & { single?: boolean }, callback?: MongoCallback<WriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#rename
     rename(newName: string, callback: MongoCallback<Collection>): void;
     rename(newName: string, options?: { dropTarget?: boolean }): Promise<Collection>;
@@ -706,7 +713,9 @@ export interface Collection {
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#save
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: Object, callback: MongoCallback<WriteOpResult>): void;
+    /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: Object, options?: CollectionOptions): Promise<WriteOpResult>;
+    /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
     save(doc: Object, options: CollectionOptions, callback: MongoCallback<WriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#stats
     stats(callback: MongoCallback<CollStats>): void;

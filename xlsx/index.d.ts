@@ -3,10 +3,9 @@
 // Definitions by: themauveavenger <https://github.com/themauveavenger/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 export declare function readFile(filename: string, opts?: IParsingOptions): IWorkBook;
 export declare function read(data: any, opts?: IParsingOptions): IWorkBook;
+export declare function write(data: any, opts?: IParsingOptions): any;
 export declare var utils: IUtils;
 
 export interface IProperties {
@@ -41,6 +40,7 @@ export interface IParsingOptions {
     bookSheets?: boolean;
     bookVBA?: boolean;
     password?: string;
+    bookType?: string;
 
     /**
      * Possible options: 'binary', 'base64', 'buffer', 'file'
@@ -127,8 +127,19 @@ export interface IWorkSheetCell {
     s?: string;
 }
 
+export interface ICell {
+    c: number;
+    r: number;
+}
+
 export interface IUtils {
-    sheet_to_json<T>(worksheet: IWorkSheet): T[];
+    sheet_to_json<T>(worksheet: IWorkSheet, opts?: {
+        raw?: boolean;
+        range?: any;
+        header?: "A"|number|string[];
+    }): T[];
     sheet_to_csv(worksheet: IWorkSheet): any;
     sheet_to_formulae(worksheet: IWorkSheet): any;
+    encode_cell(cell: ICell): any;
+    encode_range(s: ICell, e: ICell): any;
 }

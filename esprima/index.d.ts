@@ -7,6 +7,7 @@
 
 export = esprima;
 export as namespace esprima;
+import * as ESTree from 'estree';
 
 declare namespace esprima {
 
@@ -20,7 +21,7 @@ declare namespace esprima {
         value: string;
     }
 
-    interface Comment extends ESTree.Node {
+    interface Comment extends ESTree.BaseNode {
         value: string;
     }
 
@@ -74,6 +75,7 @@ declare namespace esprima {
         LabeledStatement: string,
         LogicalExpression: string,
         MemberExpression: string,
+        MetaProperty: string,
         MethodDefinition: string,
         NewExpression: string,
         ObjectExpression: string,

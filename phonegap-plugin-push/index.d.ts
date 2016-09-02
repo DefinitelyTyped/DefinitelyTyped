@@ -52,8 +52,9 @@ declare namespace PhonegapPluginPush {
 		 * so you will need to re-register them if you want them to function again without an application reload.
 		 * @param successHandler
 		 * @param errorHandler
+		 * @param topics
 		 */
-		unregister(successHandler: () => any, errorHandler?: () => any): void
+		unregister(successHandler: () => any, errorHandler?: () => any, topics?: string[]): void
 
 		/*TODO according to js source code, "errorHandler" is optional, but is "count" also optional? I can't read objetive-C code (can anyone at all? I wonder...)*/
 		/**
@@ -81,8 +82,9 @@ declare namespace PhonegapPluginPush {
 		 * successHandler gets called when background push processing is successfully completed.
 		 * @param successHandler
 		 * @param errorHandler
+		 * @param id
 		 */
-		finish(successHandler: () => any, errorHandler: () => any): void
+		finish(successHandler?: () => any, errorHandler?: () => any, id?: string): void
 	}
 
 	/**
@@ -122,6 +124,10 @@ declare namespace PhonegapPluginPush {
 			 * If true will always show a notification, even when the app is on the foreground. Default is false.
 			 */
 			forceShow?: boolean
+			/**
+			 * If the array contains one or more strings each string will be used to subscribe to a GcmPubSub topic.
+			 */
+			topics?: string[]
 		}
 
 		/**
@@ -156,6 +162,23 @@ declare namespace PhonegapPluginPush {
 			 * If true|"true" the badge will be cleared on app startup. Default is false|"false".
 			 */
 			clearBadge?: boolean | string
+			/**
+			 * The data required in order to enable Action Buttons for iOS.
+			 * Action Buttons on iOS - https://github.com/phonegap/phonegap-plugin-push/blob/master/docs/PAYLOAD.md#action-buttons-1
+			 */
+			categories?: CategoryArray
+			/**
+			 * Maps to the project number in the Google Developer Console. Setting this uses GCM for notifications instead of native
+			 */
+			senderID?: string
+			/**
+			 * Whether to use prod or sandbox GCM setting. Defaults to false.
+			 */
+			gcmSandbox?: boolean
+			/**
+			 * If the array contains one or more strings each string will be used to subscribe to a GcmPubSub topic. Note: only usable in conjunction with senderID
+			 */
+			topics?: string[]
 		}
 
 		/**
@@ -164,6 +187,23 @@ declare namespace PhonegapPluginPush {
 		windows?: {
 
 		}
+	}
+
+	interface CategoryArray {
+		[name: string]: CategoryAction
+	}
+
+	interface CategoryAction {
+		yes?: CategoryActionData
+		no?: CategoryActionData
+		maybe?: CategoryActionData
+	}
+
+	interface CategoryActionData {
+		callback: string
+		title: string
+		foreground: boolean
+		destructive: boolean
 	}
 
 	interface RegistrationEventResponse {
@@ -216,6 +256,10 @@ declare namespace PhonegapPluginPush {
 		 * Whether the notification was received while the app was in the foreground
 		 */
 		foreground?: boolean
+		/**
+		 * Will be true if the application is started by clicking on the push notification, false if the app is already started. (Android/iOS only)
+		 */
+		coldstart?: boolean
 		collapse_key?: string
 		from?: string
 		notId?: string

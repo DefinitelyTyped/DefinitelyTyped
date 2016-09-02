@@ -308,6 +308,11 @@ q = [0, 0, 0, 1];
 out = mat4.fromRotationTranslation(out, q, [1, 2, 3]);
 out = mat4.fromQuat(out, q);
 
+q = [0, 0, 0, 1];
+out = mat4.fromRotationTranslationScale(out, q, [1, 2, 3], [1, 2, 3]);
+out = mat4.fromQuat(out, q);
+
+
 // quat
 var quatA = [1, 2, 3, 4];
 var quatB = [5, 6, 7, 8];

@@ -7,8 +7,6 @@
 
 /// <reference types="node" />
 
-
-
 export declare var config: ClientConfig;
 
 export declare function Config(json: any): void;
@@ -16,6 +14,10 @@ export declare function Config(json: any): void;
 export declare class Credentials {
     constructor(accessKeyId: string, secretAccessKey: string, sessionToken?: string);
     accessKeyId: string;
+}
+
+export class EnvironmentCredentials extends Credentials {
+    constructor(profile: string);
 }
 
 export interface Logger {
@@ -39,6 +41,10 @@ export declare class Endpoint {
     href: string;
     port: number;
     protocol: string;
+}
+
+interface AwsError extends Error {
+    stack: string;
 }
 
 export interface Services {
@@ -108,67 +114,474 @@ export interface ClientConfig extends ClientConfigPartial {
     region: string;
 }
 
+export declare class Lambda {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    addPermission(params: Lambda.AddPermissionParams, callback: (err: AwsError, data: any) => void): void;
+    createAlias(params: Lambda.CreateAliasParams, callback: (err: AwsError, data: any) => void): void;
+    createEventSourceMapping(params: Lambda.CreateEventSourceMappingParams, callback: (err: AwsError, data: any) => void): void;
+    createFunction(params: Lambda.CreateFunctionParams, callback: (err: AwsError, data: any) => void): void;
+    deleteAlias(params: Lambda.DeleteAliasParams, callback: (err: AwsError, data: any) => void): void;
+    deleteEventSourceMapping(params: Lambda.DeleteEventSourceMappingParams, callback: (err: AwsError, data: any) => void): void;
+    deleteFunction(params: Lambda.DeleteFunctionParams, callback: (err: AwsError, data: any) => void): void;
+    getAlias(params: Lambda.GetAliasParams, callback: (err: AwsError, data: any) => void): void;
+    getEventSourceMapping(params: Lambda.GetEventSourceMappingParams, callback: (err: AwsError, data: any) => void): void;
+    getFunction(params: Lambda.GetFunctionParams, callback: (err: AwsError, data: any) => void): void;
+    getFunctionConfiguration(params: Lambda.GetFunctionConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+    getPolicy(params: Lambda.GetPolicyParams, callback: (err: AwsError, data: any) => void): void;
+    invoke(params: Lambda.InvokeParams, callback: (err: AwsError, data: any) => void): void;
+    listAliases(params: Lambda.ListAliasesParams, callback: (err: AwsError, data: any) => void): void;
+    listEventSourceMappings(params: Lambda.ListEventSourceMappingsParams, callback: (err: AwsError, data: any) => void): void;
+    listFunctions(params: Lambda.ListFunctionsParams, callback: (err: AwsError, data: any) => void): void;
+    listVersionsByFunction(params: Lambda.ListVersionsByFunctionParams, callback: (err: AwsError, data: any) => void): void;
+    publishVersion(params: Lambda.PublishVersionParams, callback: (err: AwsError, data: any) => void): void;
+    removePermission(params: Lambda.RemovePermissionParams, callback: (err: AwsError, data: any) => void): void;
+    updateAlias(params: Lambda.UpdateAliasParams, callback: (err: AwsError, data: any) => void): void;
+    updateEventSourceMapping(params: Lambda.UpdateEventSourceMappingParams, callback: (err: AwsError, data: any) => void): void;
+    updateFunctionCode(params: Lambda.UpdateFunctionCodeParams, callback: (err: AwsError, data: any) => void): void;
+    updateFunctionConfiguration(params: Lambda.UpdateFunctionConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+}
+
 export declare class SQS {
     constructor(options?: any);
     endpoint: Endpoint;
 
-    addPermission(params: SQS.AddPermissionParams, callback: (err: Error, data: any) => void): void;
-    changeMessageVisibility(params: SQS.ChangeMessageVisibilityParams, callback: (err: Error, data: any) => void): void;
-    changeMessageVisibilityBatch(params: SQS.ChangeMessageVisibilityBatchParams, callback: (err: Error, data: SQS.ChangeMessageVisibilityBatchResponse) => void): void;
-    createQueue(params: SQS.CreateQueueParams, callback: (err: Error, data: SQS.CreateQueueResult) => void): void;
-    deleteMessage(params: SQS.DeleteMessageParams, callback: (err: Error, data: any) => void): void;
-    deleteMessageBatch(params: SQS.DeleteMessageBatchParams, callback: (err: Error, data: SQS.DeleteMessageBatchResult) => void): void;
-    deleteQueue(params: { QueueUrl: string; }, callback: (err: Error, data: any) => void): void;
-    getQueueAttributes(params: SQS.GetQueueAttributesParams, callback: (err: Error, data: SQS.GetQueueAttributesResult) => void): void;
-    getQueueUrl(params: SQS.GetQueueUrlParams, callback: (err: Error, data: { QueueUrl: string; }) => void): void;
-    listDeadLetterSourceQueues(params: { QueueUrl: string }, callback: (err: Error, data: { queueUrls: string[] }) => void): void;
-    listQueues(params: { QueueNamePrefix?: string }, callback: (err: Error, data: { QueueUrls: string[] }) => void): void;
-    purgeQueue(params: { QueueUrl: string }, callback: (err: Error, data: any) => void): void;
-    receiveMessage(params: SQS.ReceiveMessageParams, callback: (err: Error, data: SQS.ReceiveMessageResult) => void): void;
-    removePermission(params: { QueueUrl: string, Label: string }, callback: (err: Error, data: any) => void): void;
-    sendMessage(params: SQS.SendMessageParams, callback: (err: Error, data: SQS.SendMessageResult) => void): void;
-    sendMessageBatch(params: SQS.SendMessageBatchParams, callback: (err: Error, data: SQS.SendMessageBatchResult) => void): void;
-    setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: Error, data: any) => void): void;
+    addPermission(params: SQS.AddPermissionParams, callback: (err: AwsError, data: any) => void): void;
+    changeMessageVisibility(params: SQS.ChangeMessageVisibilityParams, callback: (err: AwsError, data: any) => void): void;
+    changeMessageVisibilityBatch(params: SQS.ChangeMessageVisibilityBatchParams, callback: (err: AwsError, data: SQS.ChangeMessageVisibilityBatchResponse) => void): void;
+    createQueue(params: SQS.CreateQueueParams, callback: (err: AwsError, data: SQS.CreateQueueResult) => void): void;
+    deleteMessage(params: SQS.DeleteMessageParams, callback: (err: AwsError, data: any) => void): void;
+    deleteMessageBatch(params: SQS.DeleteMessageBatchParams, callback: (err: AwsError, data: SQS.DeleteMessageBatchResult) => void): void;
+    deleteQueue(params: { QueueUrl: string; }, callback: (err: AwsError, data: any) => void): void;
+    getQueueAttributes(params: SQS.GetQueueAttributesParams, callback: (err: AwsError, data: SQS.GetQueueAttributesResult) => void): void;
+    getQueueUrl(params: SQS.GetQueueUrlParams, callback: (err: AwsError, data: { QueueUrl: string; }) => void): void;
+    listDeadLetterSourceQueues(params: { QueueUrl: string }, callback: (err: AwsError, data: { queueUrls: string[] }) => void): void;
+    listQueues(params: { QueueNamePrefix?: string }, callback: (err: AwsError, data: { QueueUrls: string[] }) => void): void;
+    purgeQueue(params: { QueueUrl: string }, callback: (err: AwsError, data: any) => void): void;
+    receiveMessage(params: SQS.ReceiveMessageParams, callback: (err: AwsError, data: SQS.ReceiveMessageResult) => void): void;
+    removePermission(params: { QueueUrl: string, Label: string }, callback: (err: AwsError, data: any) => void): void;
+    sendMessage(params: SQS.SendMessageParams, callback: (err: AwsError, data: SQS.SendMessageResult) => void): void;
+    sendMessageBatch(params: SQS.SendMessageBatchParams, callback: (err: AwsError, data: SQS.SendMessageBatchResult) => void): void;
+    setQueueAttributes(params: SQS.SetQueueAttributesParams, callback: (err: AwsError, data: any) => void): void;
 }
 
 export declare class SES {
     constructor(options?: any);
-    public client: Ses.Client;
+    endpoint: Endpoint;
+
+    sendEmail(params: any, callback: (err: any, data: SES.SendEmailResult) => void): void;
 }
 
 export declare class SNS {
     constructor(options?: any);
-    public client: Sns.Client;
+    endpoint: Endpoint;
+
+    publish(request: Sns.PublishRequest, callback: (err: any, data: any) => void): void;
 }
 
-export declare class SimpleWorkflow {
+export declare class SWF {
     constructor(options?: any);
-    public client: Swf.Client;
+    endpoint: Endpoint;
+
+    countClosedWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
+    countOpenWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
+    countPendingActivityTasks(params: any, callback: (err: any, data: any) => void): void;
+    countPendingDecisionTasks(params: any, callback: (err: any, data: any) => void): void;
+    deprecateActivityType(params: any, callback: (err: any, data: any) => void): void;
+    deprecateDomain(params: any, callback: (err: any, data: any) => void): void;
+    deprecateWorkflowType(params: any, callback: (err: any, data: any) => void): void;
+    describeActivityType(params: any, callback: (err: any, data: any) => void): void;
+    describeDomain(params: any, callback: (err: any, data: any) => void): void;
+    describeWorkflowExecution(params: any, callback: (err: any, data: any) => void): void;
+    describeWorkflowType(params: any, callback: (err: any, data: any) => void): void;
+    getWorkflowExecutionHistory(params: any, callback: (err: any, data: any) => void): void;
+    listActivityTypes(params: any, callback: (err: any, data: any) => void): void;
+    listClosedWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
+    listDomains(params: any, callback: (err: any, data: any) => void): void;
+    listOpenWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
+    listWorkflowTypes(params: any, callback: (err: any, data: any) => void): void;
+    pollForActivityTask(params: any, callback: (err: any, data: Swf.ActivityTask) => void): void;
+    pollForDecisionTask(params: any, callback: (err: any, data: Swf.DecisionTask) => void): void;
+    recordActivityTaskHeartbeat(params: any, callback: (err: any, data: any) => void): void;
+    registerActivityType(params: any, callback: (err: any, data: any) => void): void;
+    registerDomain(params: any, callback: (err: any, data: any) => void): void;
+    registerWorkflowType(params: any, callback: (err: any, data: any) => void): void;
+    requestCancelWorkflowExecution(params: any, callback: (err: any, data: any) => void): void;
+    respondActivityTaskCanceled(params: Swf.RespondActivityTaskCanceledRequest, callback: (err: any, data: any) => void): void;
+    respondActivityTaskCompleted(params: Swf.RespondActivityTaskCompletedRequest, callback: (err: any, data: any) => void): void;
+    respondActivityTaskFailed(params: Swf.RespondActivityTaskFailedRequest, callback: (err: any, data: any) => void): void;
+    respondDecisionTaskCompleted(params: Swf.RespondDecisionTaskCompletedRequest, callback: (err: any, data: any) => void): void;
+    signalWorkflowExecution(params: any, callback: (err: any, data: any) => void): void;
+    startWorkflowExecution(params: any, callback: (err: any, data: Swf.StartWorkflowExecutionResult) => void): void;
+    terminateWorkflowExecution(params: any, callback: (err: any, data: any) => void): void;
+
 }
 
 export declare class S3 {
     constructor(options?: any);
-    putObject(params: s3.PutObjectRequest, callback: (err: any, data: any) => void): void;
-    getObject(params: s3.GetObjectRequest, callback: (err: any, data: any) => void): void;
+    endpoint: Endpoint;
+
+    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
+    headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+    getSignedUrl(operation: string, params: any): string;
+    getSignedUrl(operation: string, params: any, callback: (err: Error, url: string) => void): void;
+    upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
+    listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
+    listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
+}
+
+
+export class STS {
+    constructor(options?: any);
+    endpoint: Endpoint;
+    /**
+     * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) that you can use to access AWS resources that you might not normally have access to.
+     */
+    assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
+     */
+    assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary security credentials for users who have been authenticated in a mobile or web application with a web identity provider, such as Amazon Cognito, Login with Amazon, Facebook, Google, or any OpenID Connect-compatible identity provider.
+     */
+    assumeRoleWithWebIdentity(params: sts.AssumeRoleWithWebIdentityParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Creates a credentials object from STS response data containing credentials information.
+     */
+    credentialsFrom(params: sts.CredentialsFromParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Decodes additional information about the authorization status of a request from an encoded message returned in response to an AWS request.
+     */
+    decodeAuthorizationMessage(params: sts.DecodeAuthorizationMessageParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns details about the IAM identity whose credentials are used to call the API.
+     */
+    getCallerIdentity(params: {}, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user.
+     */
+    getFederationToken(params: sts.GetFederationTokenParams, callback: (err: any, data: any) => void): void;
+
+    /**
+     * Returns a set of temporary credentials for an AWS account or IAM user.
+     */
+    getSessionToken(params: sts.GetSessionTokenParams, callback: (err: any, data: any) => void): void;
+
 }
 
 export declare class ECS {
     constructor(options?: any);
-
+    endpoint: Endpoint;
+    /**
+    * Runs and maintains a desired number of tasks from a specified task definition. If the number of tasks running in a service drops below desiredCount, Amazon ECS spawns another instantiation of the task in the specified cluster. To update an existing service, see UpdateService.
+    */
     createService(params: ecs.CreateServicesParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes one or more of your clusters.
+     */
+    describeClusters(params: ecs.DescribeClustersParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes the specified services running in your cluster.
+     */
     describeServices(params: ecs.DescribeServicesParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes a specified task or tasks.
+     */
+    describeTasks(params: ecs.DescribeTasksParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Describes a task definition. You can specify a family and revision to find information about a specific task definition, or you can simply specify the family to find the latest ACTIVE revision in that family.
+     */
     describeTaskDefinition(params: ecs.DescribeTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Registers a new task definition from the supplied family and containerDefinitions. Optionally, you can add data volumes to your containers with the volumes parameter. For more information about task definition parameters and defaults, see Amazon ECS Task Definitions in the Amazon EC2 Container Service Developer Guide.
+     */
     registerTaskDefinition(params: ecs.RegisterTaskDefinitionParams, callback: (err: any, data: any) => void): void;
+    /**
+     * Modifies the desired count, deployment configuration, or task definition used in a service.
+     */
     updateService(params: ecs.UpdateServiceParams, callback: (err: any, data: any) => void): void;
 }
 
 export declare class DynamoDB {
     constructor(options?: any);
+    endpoint: Endpoint;
+    createTable(params: any, next: (err: any, data: any) => void): void;
+    deleteTable(params: any, next: (err: any, data: any) => void): void;
 }
 
+// ==========================================================
+
 export declare module DynamoDB {
+
+    interface _DDBDC_Generic {
+        TableName: string;
+      ExpressionAttributeNames?: { [someKey: string]: string };
+        ReturnConsumedCapacity?: "INDEXES" | "TOTAL" | "NONE";
+    }
+
+    type _DDBDC_ComparisonOperator = "EQ" | "NE" | "IN" | "LE" | "LT" | "GE" | "GT" | "BETWEEN" | "NOT_NULL" | "NULL" | "CONTAINS" | "NOT_CONTAINS" | "BEGINS_WITH"
+    type _DDBDC_Keys = { [someKey: string]: any };
+    type _DDBDC_KeyComparison = {
+        [someKey: string]: {
+            AttributeValueList: any[];
+            ComparisonOperator: _DDBDC_ComparisonOperator;
+        }
+    };
+
+    interface _DDBDC_Reader extends _DDBDC_Generic {
+        ConsistentRead?: boolean;
+        ProjectionExpression?: string;
+        AttributesToGet?: string[];
+    }
+
+    interface _DDBDC_Writer extends _DDBDC_Generic {
+        ExpressionAttributeValues?: _DDBDC_Keys;
+        ReturnItemCollectionMetrics?: "SIZE" | "NONE";
+        ReturnValues?: "NONE" | "ALL_OLD" | "UPDATED_OLD" | "ALL_NEW" | "UPDATED_NEW";
+        ConditionExpression?: string;
+        ConditionalOperator?: "AND" | "OR";
+        Expected?: {
+            [someKey: string]: {
+          AttributeValueList?: any[];
+          ComparisonOperator?: _DDBDC_ComparisonOperator;
+                Exists: boolean;
+          Value?: any;
+            }
+        }
+    }
+
+    interface UpdateParam extends _DDBDC_Writer {
+        Key: _DDBDC_Keys;
+        AttributeUpdates: {
+            [someKey: string]: {
+                Action: "PUT" | "ADD" | "DELETE";
+                Value: any
+            }
+        }
+    }
+
+    interface QueryParam extends _DDBDC_Reader {
+        ConditionalOperator?: "AND" | "OR";
+        ExclusiveStartKey?: _DDBDC_Keys;
+        ExpressionAttributeValues?: _DDBDC_Keys;
+        FilterExpression?: string;
+        IndexName?: string;
+        KeyConditionExpression?: string;
+        KeyConditions?: _DDBDC_KeyComparison;
+        Limit?: number;
+        QueryFilter?: _DDBDC_KeyComparison;
+        ScanIndexForward?: boolean;
+        Select?: "ALL_ATTRIBUTES" | "ALL_PROJECTED_ATTRIBUTES" | "SPECIFIC_ATTRIBUTES" | "COUNT";
+    }
+
+    interface ScanParam extends QueryParam {
+        Segment?: number;
+        ScanFilter?: _DDBDC_KeyComparison;
+        TotalSegments?: number;
+    }
+
+    interface GetParam extends _DDBDC_Reader {
+        Key: _DDBDC_Keys;
+    }
+
+    interface PutParam extends _DDBDC_Writer {
+        Item: _DDBDC_Keys;
+    }
+
+    interface DeleteParam extends _DDBDC_Writer {
+        Key: _DDBDC_Keys;
+    }
+
     export class DocumentClient {
         constructor(options?: any);
+        get(params: GetParam, next: (err: any, data: any) => void): void;
+        put(params: PutParam, next: (err: any, data: any) => void): void;
+        delete(params: DeleteParam, next: (err: any, data: any) => void): void;
+        query(params: QueryParam, next: (err: any, data: any) => void): void;
+        scan(params: ScanParam, next: (err: any, data: any) => void): void;
+        update(params: UpdateParam, next: (err: any, data: any) => void): void;
+        createSet(list: any[], options?: { validate?: boolean }): { values: any[], type: string };
+        batchGet(params: any, next: (err: any, data: any) => void): void;
+        batchWrite(params: any, next: (err: any, data: any) => void): void;
+    }
+
+}
+
+// ===========================================================
+
+export declare module Lambda {
+    export interface AddPermissionParams {
+        Action: string;
+        FunctionName: string;
+        Principal: string;
+        StatementId: string;
+        Qualifier?: string;
+        SourceAccount?: string;
+        SourceArn?: string;
+    }
+
+    export interface CreateAliasParams {
+        FunctionName: string;
+        FunctionVersion: string;
+        Name: string;
+        Description?: string;
+    }
+    export interface CreateEventSourceMappingParams {
+        EventSourceArn: string;
+        FunctionName: string;
+        StartingPosition: string; /* TRIM_HORIZON | LATEST */
+        BatchSize?: number;
+        Enabled?: boolean
+    }
+
+    export interface CreateFunctionParams {
+        Code: {
+            S3Bucket?: string;
+            S3Key?: string;
+            S3ObjectVersion?: string;
+            ZipFile?: any; // new Buffer('...') || string;
+        },
+        FunctionName: string;
+        Handler: string;
+        Role: string;
+        Runtime: string; /* 'nodejs | java8 | python2.7', */
+        Description?: string;
+        MemorySize?: number;
+        Publish?: boolean;
+        Timeout?: number;
+        VpcConfig?: {
+            SecurityGroupIds?: string[];
+            SubnetIds?: string[];
+        }
+    }
+
+    export interface DeleteAliasParams {
+        FunctionName: string;
+        Name: string;
+    }
+
+    export interface DeleteEventSourceMappingParams {
+        UUID: string;
+    }
+
+    export interface DeleteFunctionParams {
+        FunctionName: string;
+        Qualifier?: string;
+    }
+    export interface GetAliasParams {
+        FunctionName: string;
+        Name: string;
+    }
+
+    export interface GetEventSourceMappingParams {
+        UUID: string;
+    }
+
+    export interface GetFunctionParams {
+        FunctionName: string;
+        Qualifier?: string;
+    }
+
+    export interface GetFunctionConfigurationParams {
+        FunctionName: string;
+        Qualifier?: string;
+    }
+
+    export interface GetPolicyParams {
+        FunctionName: string;
+        Qualifier?: string;
+    }
+
+    export interface InvokeParams {
+        FunctionName: string;
+        ClientContext?: string;
+        InvocationType?: string;/* 'Event | RequestResponse | DryRun' */
+        LogType?: string; /* 'None | Tail' */
+        Payload?: any; /* new Buffer('...') || string */
+        Qualifier?: string;
+    }
+
+    export interface ListAliasesParams {
+        FunctionName: string;
+        FunctionVersion?: string;
+        Marker?: string;
+        MaxItems?: number
+    }
+
+    export interface ListEventSourceMappingsParams {
+        EventSourceArn?: string;
+        FunctionName?: string;
+        Marker?: string;
+        MaxItems?: number
+    }
+
+    export interface ListFunctionsParams {
+        Marker?: string;
+        MaxItems?: number
+    }
+
+    export interface ListVersionsByFunctionParams {
+        FunctionName: string;
+        Marker?: string;
+        MaxItems?: number
+    }
+
+    export interface PublishVersionParams {
+        FunctionName: string;
+        CodeSha256?: string;
+        Description?: string;
+    }
+
+    export interface RemovePermissionParams {
+        FunctionName: string;
+        StatementId: string;
+        Qualifier?: string;
+    }
+
+    export interface UpdateAliasParams {
+        FunctionName: string;
+        Name: string;
+        Description?: string;
+        FunctionVersion?: string;
+    }
+
+    export interface UpdateEventSourceMappingParams {
+        UUID: string;
+        BatchSize?: number;
+        Enabled?: boolean;
+        FunctionName?: string;
+    }
+
+    export interface UpdateFunctionCodeParams {
+        FunctionName: string;
+        Publish?: boolean;
+        S3Bucket?: string;
+        S3Key?: string;
+        S3ObjectVersion?: string;
+        ZipFile?: any; /* new Buffer('...') || string; */
+
+    }
+
+    export interface UpdateFunctionConfigurationParams {
+        FunctionName: string;
+        Description?: string;
+        Handler?: string;
+        MemorySize?: number;
+        Role?: string;
+        Timeout?: number;
+        VpcConfig?: {
+            SecurityGroupIds?: string[];
+            SubnetIds?: string[];
+        }
     }
 }
 
@@ -225,7 +638,7 @@ export declare module SQS {
     }
 
     export interface SendMessageParams {
-        QueueUrl: string;
+        QueueUrl?: string;
         MessageBody: string;
         DelaySeconds?: number;
         MessageAttributes?: { [name: string]: MessageAttribute; }
@@ -319,7 +732,7 @@ export declare module SQS {
 
     export interface MessageAttribute {
         StringValue?: string;
-        BinaryValue?: any; //(Buffer, Typed Array, Blob, String) 
+        BinaryValue?: any; //(Buffer, Typed Array, Blob, String)
         StringListValues?: string[];
         BinaryListValues?: any[];
         DataType: string;
@@ -364,7 +777,7 @@ export declare module SQS {
 
 }
 
-export declare module Ses {
+export declare module SES {
 
     export interface Client {
         config: ClientConfig;
@@ -409,9 +822,9 @@ export declare module Ses {
 
 export declare module Swf {
 
-    export class Client {
+    export interface Client {
         //constructor(options?: any);
-        public config: ClientConfig;
+        config: ClientConfig;
 
         countClosedWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
         countOpenWorkflowExecutions(params: any, callback: (err: any, data: any) => void): void;
@@ -1023,16 +1436,24 @@ export declare module Sns {
     export interface Client {
         config: ClientConfig;
 
-        publicTopic(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
+        publish(params: PublishRequest, callback: (err: any, data: PublishResult) => void): void;
         createTopic(params: CreateTopicRequest, callback: (err: any, data: CreateTopicResult) => void): void;
         deleteTopic(params: DeleteTopicRequest, callback: (err: any, data: any) => void): void;
     }
 
     export interface PublishRequest {
         TopicArn?: string;
+        TargetArn?: string;
+        MessageAttributes?: { [name: string]: MessageAttribute; };
         Message?: string;
         MessageStructure?: string;
         Subject?: string;
+    }
+
+    export interface MessageAttribute {
+        DataType: string;
+        StringValue?: string;
+        BinaryValue: any; // (Buffer, Typed Array, Blob, String)
     }
 
     export interface PublishResult {
@@ -1054,6 +1475,44 @@ export declare module Sns {
 }
 
 export declare module s3 {
+    interface Owner {
+        DisplayName: string;
+        ID: string;
+    }
+
+    interface ObjectKeyPrefix {
+        Prefix: string;
+    }
+
+    export interface ListObjectContent {
+        Key: string;
+        LastModified: Date;
+        ETag: string;
+        Size: number;
+        StorageClass: "STANDARD" | "REDUCED_REDUNDANCY" | "GLACIER";
+        Owner?: Owner
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Request and is exposed via V1 and V2 subclasses
+    interface ListObjectRequestBase {
+        Bucket: string;
+        Delimiter?: string;
+        EncodingType?: 'url';
+        MaxKeys?: number;
+        Prefix?: string;
+    }
+
+    // This private interface contains the common parts between v1 and v2 of the API Response and is exposed via V1 and V2 subclasses
+    interface ListObjectResponseBase {
+        IsTruncated: boolean;
+        Contents: ListObjectContent[];
+        Name: string;
+        Prefix?: string;
+        Delimiter?: string;
+        MaxKeys: number;
+        CommonPrefixes?: ObjectKeyPrefix[];
+        EncodingType?: "url";
+    }
 
     export interface PutObjectRequest {
         ACL?: string;
@@ -1072,7 +1531,7 @@ export declare module s3 {
         GrantReadACP?: string;
         GrantWriteACP?: string;
         Key: string;
-        Metadata?: string[];
+        Metadata?: { [key: string]: string; };
         ServerSideEncryption?: string;
         StorageClass?: string;
         WebsiteRedirectLocation?: string;
@@ -1095,6 +1554,55 @@ export declare module s3 {
         VersionId?: string;
     }
 
+    export interface DeleteObjectRequest {
+        Bucket: string;
+        Key: string;
+        MFA?: string;
+        RequestPayer?: string;
+        VersionId?: string;
+    }
+
+    export interface HeadObjectRequest {
+        Bucket: string;
+        Key: string;
+        IfMatch?: string;
+        IfModifiedSince?: Date;
+        IfNoneMatch?: string;
+        IfUnmodifiedSince?: Date;
+        Range?: string;
+        RequestPayer?: string;
+        SSECustomerAlgorithm?: string;
+        SSECustomerKey?: Buffer | string;
+        SSECustomerKeyMD5?: string;
+        VersionId?: string;
+    }
+
+    export interface UploadOptions {
+        partSize?: number;
+        queueSize?: number;
+    }
+
+    export interface ListObjectRequest extends ListObjectRequestBase {
+        Marker?: string;
+    }
+
+    export interface ListObjectV2Request extends ListObjectRequestBase {
+        ContinuationToken?: string;
+        FetchOwner?: boolean;
+        StartAfter?: string;
+    }
+
+    export interface ListObjectResponse extends ListObjectResponseBase {
+        Marker?: string;
+        NextMarker?: string;
+    }
+
+    export interface ListObjectV2Response extends ListObjectResponseBase {
+        KeyCount: number;
+        ContinuationToken?: string;
+        NextContinuationToken?: string;
+        StartAfter?: string;
+    }
 }
 
 export declare module ecs {
@@ -1117,11 +1625,38 @@ export declare module ecs {
     }
 
     export interface DescribeServicesParams {
+        /**
+         * A list of services to describe.
+         */
         services: string[];
-        cluster: string;
+        /**
+         * The name of the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed.
+         */
+        cluster?: string;
+    }
+
+    export interface DescribeClustersParams {
+        /**
+         * A space-separated list of cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+         */
+        clusters?: string[];
+    }
+
+    export interface DescribeTasksParams {
+        /**
+         * A space-separated list of task IDs or full Amazon Resource Name (ARN) entries.
+         */
+        tasks: string[];
+        /**
+         * The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to describe. If you do not specify a cluster, the default cluster is assumed.
+         */
+        cluster?: string;
     }
 
     export interface DescribeTaskDefinitionParams {
+        /**
+         * The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
+         */
         taskDefinition: string;
     }
 
@@ -1192,5 +1727,79 @@ export declare module ecs {
         };
         desiredCount?: number;
         taskDefinition: string;
+    }
+}
+
+export module sts {
+    export interface AssumeRoleParams {
+        RoleArn: string;
+        RoleSessionName: string;
+        DurationSeconds?: number;
+        ExternalId?: string;
+        Policy?: string;
+        SerialNumber?: string;
+        TokenCode?: string;
+    }
+
+    export interface AssumeRoleCallbackData {
+        Credentials: TemporaryCredentials;
+        AssumedRoleUser: AssumedRoleUser;
+        PackedPolicySize: number;
+    }
+
+    export interface TemporaryCredentials {
+        AccessKeyId: string;
+        SecretAccessKey: string;
+        SessionToken: string;
+        Expiration: Date;
+    }
+
+    export interface AssumedRoleUser {
+        AssumedRoleId: string;
+        Arn: string;
+    }
+
+    export interface AssumeRoleWithSAMLParams {
+        PrincipalArn: string;
+        RoleArn: string;
+        SAMLAssertion: string;
+        DurationSeconds?: number;
+        Policy?: string;
+    }
+
+    export interface AssumeRoleWithWebIdentityParams {
+        RoleArn: string;
+        RoleSessionName: string;
+        WebIdentityToken: string;
+        DurationSeconds?: number;
+        Policy?: string;
+        ProviderId?: string;
+    }
+
+    export interface CredentialsFromParams {
+        /**
+         * Data retrieved from a call to AWS.STS.getFederatedToken, getSessionToken(), assumeRole(), or assumeRoleWithWebIdentity().
+         */
+        Data: any;
+        /**
+         * An optional credentials object to fill instead of creating a new object. Useful when modifying an existing credentials object from a refresh call.
+         */
+        Credentials?: Credentials
+    }
+
+    export interface DecodeAuthorizationMessageParams {
+        EncodedMessage: string;
+    }
+
+    export interface GetFederationTokenParams {
+        Name: string;
+        DurationSeconds?: number,
+        Policy?: string
+    }
+
+    export interface GetSessionTokenParams {
+        DurationSeconds: number,
+        SerialNumber: string;
+        TokenCode: string;
     }
 }

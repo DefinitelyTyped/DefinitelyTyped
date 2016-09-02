@@ -257,14 +257,6 @@ interface ErrorConstructor {
     //#endregion
 }
 
-interface Error {
-    /**
-    * Updates the fileName and lineNumber properties of an Error instance to indicate where the error was thrown instead of where the error was created. Use this function if you are creating custom error types.
-    */
-    popStackFrame(): void;
-}
-
-
 
 interface String {
 

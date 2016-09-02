@@ -6,7 +6,7 @@
 declare namespace ValidatorJS {
   interface ValidatorStatic {
 
-    /**************
+    /* ************
      * Validators *
      **************/
 
