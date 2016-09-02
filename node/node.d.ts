@@ -2299,6 +2299,18 @@ declare module "util" {
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
     export function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    export function isBoolean(object: any): boolean;
+    export function isBuffer(object: any): boolean;
+    export function isFunction(object: any): boolean;
+    export function isNull(object: any): boolean;
+    export function isNullOrUndefined(object: any): boolean;
+    export function isNumber(object: any): boolean;
+    export function isObject(object: any): boolean;
+    export function isPrimitive(object: any): boolean;
+    export function isString(object: any): boolean;
+    export function isSymbol(object: any): boolean;
+    export function isUndefined(object: any): boolean;
+    export function deprecate(fn: Function, message: string): Function;
 }
 
 declare module "assert" {
