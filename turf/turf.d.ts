@@ -7,99 +7,6 @@
 
 declare module turf {
     //////////////////////////////////////////////////////
-    // Aggregation
-    //////////////////////////////////////////////////////
-
-    /**
-    * Calculates a series of aggregations for a set of points within a set of polygons.
-    * Sum, average, count, min, max, and deviation are supported.
-    * @param polygons Polygons with values on which to aggregate
-    * @param points Points to be aggregated
-    * @param aggregations An array of aggregation objects
-    * @returns Polygons with properties listed based on outField values in aggregations
-    */
-    function aggregate(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, aggregations: Array<{aggregation: string, inField: string, outField: string}>): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the average value of a field for a set of points within a set of polygons.
-    * @param polygons Polygons with values on which to average
-    * @param points Points from which to calculate the average
-    * @param field The field in the points features from which to pull values to average
-    * @param outField The field in polygons to put results of the averages
-    * @returns Polygons with the value of outField set to the calculated averages
-    */
-    function average(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, field: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Takes a set of points and a set of polygons and calculates the number of points that fall within the set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param countField A field to append to the attributes of the Polygon features representing Point counts
-    * @returns Polygons with countField appended
-    */
-    function count(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, countField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the standard deviation value of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in points from which to aggregate
-    * @param outField The field to append to polygons representing deviation
-    * @returns Polygons with appended field representing deviation
-    */
-    function deviation(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the maximum value of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in input data to analyze
-    * @param outField The field in which to store results
-    * @returns Polygons with properties listed as outField values
-    */
-    function max(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the median value of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in input data to analyze
-    * @param outField The field in which to store results
-    * @returns Polygons with properties listed as outField values
-    */
-    function median(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the minimum value of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in input data to analyze
-    * @param outField The field in which to store results
-    * @returns Polygons with properties listed as outField values
-    */
-    function min(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the sum of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in input data to analyze
-    * @param outField The field in which to store results
-    * @returns Polygons with properties listed as outField
-    */
-    function sum(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Calculates the variance value of a field for a set of points within a set of polygons.
-    * @param polygons Input polygons
-    * @param points Input points
-    * @param inField The field in input data to analyze
-    * @param outField The field in which to store results
-    * @returns Polygons with properties listed as outField
-    */
-    function variance(polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, points: GeoJSON.FeatureCollection<GeoJSON.Point>, inField: string, outField: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    //////////////////////////////////////////////////////
     // Measurement
     //////////////////////////////////////////////////////
 
@@ -178,13 +85,6 @@ declare module turf {
     function envelope(fc: GeoJSON.FeatureCollection<any>): GeoJSON.Feature<GeoJSON.Polygon>;
 
     /**
-    * Takes a set of features, calculates the extent of all input features, and returns a bounding box.
-    * @param input Input features
-    * @returns The bounding box of input given as an array in WSEN order (west, south, east, north)
-    */
-    function extent(input: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<number>;
-
-    /**
     * Takes a line and measures its length in the specified units.
     * @param line Line to measure
     * @param units 'miles', 'kilometers', 'radians', or 'degrees'
@@ -207,14 +107,6 @@ declare module turf {
     * @returns A point on the surface of input
     */
     function pointOnSurface(input: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): GeoJSON.Feature<any>;
-
-    /**
-    * Takes a bounding box and returns a new bounding box with a size expanded or contracted by a factor of X.
-    * @param bbox A bounding box
-    * @param factor The ratio of the new bbox to the input bbox
-    * @returns The resized bbox
-    */
-    function size(bbox: Array<number>, factor: number): Array<number>;
 
     /**
     * Takes a bounding box and calculates the minimum square bounding box that would contain the input.
@@ -280,14 +172,6 @@ declare module turf {
     * if poly1 and poly2 share a border, a MultiLineString of the locations where their borders are shared
     */
     function intersect(poly1: GeoJSON.Feature<GeoJSON.Polygon>, poly2: GeoJSON.Feature<GeoJSON.Polygon>): GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString> | typeof undefined;
-
-    /**
-    * Takes a set of polygons and returns a single merged polygon feature.
-    * If the input polygon features are not contiguous, this function returns a MultiPolygon feature.
-    * @param fc Input polygons
-    * @returns Merged polygon or multipolygon
-    */
-    function merge(fc: GeoJSON.FeatureCollection<GeoJSON.Polygon>): GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiPolygon>;
 
     /**
     * Takes a LineString or Polygon and returns a simplified version.
@@ -397,15 +281,6 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a FeatureCollection and filters it by a given property and value.
-    * @param features Input features
-    * @param key The property on which to filter
-    * @param value The value of that property on which to filter
-    * @returns A filtered collection with only features that match input key and value
-    */
-    function filter(features: GeoJSON.FeatureCollection<any>, key: string, value: string): GeoJSON.FeatureCollection<any>;
-
-    /**
     * Generates random GeoJSON data, including Points and Polygons, for testing and experimentation.
     * @param [type='point'] Type of features desired: 'points' or 'polygons'
     * @param [count=1] How many geometries should be generated.
@@ -416,15 +291,6 @@ declare module turf {
     * @returns Generated random features
     */
     function random(type?: string, count?: number, options?: {bbox?: Array<number>; num_vertices?: number; max_radial_length?: number;}): GeoJSON.FeatureCollection<any>;
-
-    /**
-    * Takes a FeatureCollection of any type, a property, and a value and returns a FeatureCollection with features matching that property-value pair removed.
-    * @param features Set of input features
-    * @param property The property to remove
-    * @param value The value to remove
-    * @returns The resulting FeatureCollection without features that match the property-value pair
-    */
-    function remove(features: GeoJSON.FeatureCollection<any>, property: string, value: string): GeoJSON.FeatureCollection<any>;
 
     /**
     * Takes a FeatureCollection and returns a FeatureCollection with given number of features at random.
@@ -539,40 +405,12 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a set of features and returns an array of the Jenks Natural breaks for a given property.
-    * @param input Input features
-    * @param field The property in input on which to calculate Jenks natural breaks
-    * @param numberOfBreaks Number of classes in which to group the data
-    * @returns The break number for each class plus the minimum and maximum values
-    */
-    function jenks(input: GeoJSON.FeatureCollection<any>, field: string, numberOfBreaks: number): Array<number>;
-
-    /**
     * Takes a reference point and a set of points and returns the point from the set closest to the reference.
     * @param point The reference point
     * @param against Input point set
     * @returns The closest point in the set to the reference point
     */
     function nearest(point: GeoJSON.Feature<GeoJSON.Point>, against: GeoJSON.FeatureCollection<GeoJSON.Point>): GeoJSON.Feature<GeoJSON.Point>;
-
-    /**
-    * Takes a FeatureCollection, a property name, and a set of percentiles and returns a quantile array.
-    * @param input Set of features
-    * @param field The property in input from which to retrieve quantile values
-    * @param percentiles An Array of percentiles on which to calculate quantile values
-    * @returns An array of the break values
-    */
-    function quantile(input: GeoJSON.FeatureCollection<any>, field: string, percentiles: Array<number>): Array<number>;
-
-    /**
-    * Takes a FeatureCollection, an input field, an output field, and an array of translations and outputs an identical FeatureCollection with the output field property populated.
-    * @param input Set of input features
-    * @param inField The field to translate
-    * @param outField The field in which to store translated results
-    * @param translations An array of translations
-    * @returns A FeatureCollection with identical geometries to input but with outField populated.
-    */
-    function reclass(input: GeoJSON.FeatureCollection<any>, inField: string, outField: string, translations: Array<any>): GeoJSON.FeatureCollection<any>;
 }
 
 declare module 'turf' {

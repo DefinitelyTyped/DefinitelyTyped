@@ -1,4 +1,5 @@
 /// <reference path="turf.d.ts"/>
+import * as turf from 'turf';
 
 ///////////////////////////////////////////
 // Tests data initialisation
@@ -215,80 +216,6 @@ var triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
   }
 };
 
-var aggregations = [
-  {
-    aggregation: 'sum',
-    inField: 'population',
-    outField: 'pop_sum'
-  },
-  {
-    aggregation: 'average',
-    inField: 'population',
-    outField: 'pop_avg'
-  },
-  {
-    aggregation: 'median',
-    inField: 'population',
-    outField: 'pop_median'
-  },
-  {
-    aggregation: 'min',
-    inField: 'population',
-    outField: 'pop_min'
-  },
-  {
-    aggregation: 'max',
-    inField: 'population',
-    outField: 'pop_max'
-  },
-  {
-    aggregation: 'deviation',
-    inField: 'population',
-    outField: 'pop_deviation'
-  },
-  {
-    aggregation: 'variance',
-    inField: 'population',
-    outField: 'pop_variance'
-  },
-  {
-    aggregation: 'count',
-    inField: '',
-    outField: 'point_count'
-  }
-];
-
-///////////////////////////////////////////
-// Tests Aggregation
-///////////////////////////////////////////
-
-// -- Test aggregate --
-var aggregated = turf.aggregate(polygons, points, aggregations);
-
-// -- Test average --
-var averaged = turf.average(polygons, points, 'population', 'pop_avg');
-
-// -- Test count --
-var counted = turf.count(polygons, points, 'pt_count');
-
-// -- Test deviation --
-var deviated = turf.deviation(polygons, points, 'population', 'pop_deviation');
-
-// -- Test max --
-var aggregated = turf.max(polygons, points, 'population', 'max');
-
-// -- Test median --
-var medians = turf.median(polygons, points, 'population', 'median');
-
-// -- Test min --
-var minimums = turf.min(polygons, points, 'population', 'min');
-
-// -- Test sum --
-var summed = turf.sum(polygons, points, 'population', 'sum');
-
-// -- Test variance --
-var varianced = turf.variance(polygons, points, 'population', 'variance');
-
 ///////////////////////////////////////////
 // Tests Measurement
 ///////////////////////////////////////////
@@ -325,9 +252,6 @@ var distance = turf.distance(point1, point2, units);
 // -- Test envelope --
 var enveloped = turf.envelope(polygons);
 
-// -- Test extent --
-var bbox = turf.extent(polygons);
-
 // -- Test lineDistance
 var length = turf.lineDistance(line, 'miles');
 
@@ -336,9 +260,6 @@ var midpointed = turf.midpoint(point1, point2);
 
 // -- Test pointOnSurface --
 var pointOnPolygon = turf.pointOnSurface(polygon1);
-
-// -- Test size --
-var resized = turf.size(bbox, 2);
 
 // -- Test square --
 var squared = turf.square(bbox);
@@ -364,9 +285,6 @@ var differenced = turf.difference(polygon1, polygon2);
 
 // -- Test intersect --
 var intersection = turf.intersect(polygon1, polygon2);
-
-// -- Test merge --
-var merged = turf.merge(polygons);
 
 // -- Test simplify --
 var tolerance = 0.01;
@@ -435,11 +353,6 @@ var polygon = turf.polygon([[
 // Tests Data
 ///////////////////////////////////////////
 
-// -- Test filter --
-var key = "species";
-var value = "oak";
-var filtered = turf.filter(features, key, value);
-
 // -- Test random --
 var randomPoints = turf.random('points', 100, {
   bbox: [-70, 40, -60, 60]
@@ -450,9 +363,6 @@ var randomPoints = turf.random('points', 100, {
   num_vertices: 2,
   max_radial_length: 10
 });
-
-// -- Test remove --
-var filtered = turf.remove(points, 'marker-color', '#00f');
 
 // -- Test sample --
 var randomPoints = turf.random('points', 1000);
@@ -504,19 +414,5 @@ var ptsWithin = turf.within(points, polygons);
 // Tests Classification
 ///////////////////////////////////////////
 
-// -- Test jenks --
-var breaks = turf.jenks(points, 'population', 3);
-
 // -- Test nearest --
 var nearest = turf.nearest(point1, points);
-
-// -- Test quantile --
-var breaks = turf.quantile(points, 'population', [25, 50, 75, 99]);
-
-// -- Test reclass --
-var translations = [
-  [0, 200, "small"],
-  [200, 400, "medium"],
-  [400, 600, "large"]
-];
-var reclassed = turf.reclass(points, 'population', 'size', translations);
