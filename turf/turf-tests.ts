@@ -411,7 +411,7 @@ var linestring1 = turf.lineString([
 	[-21.93901, 64.135924],
 	[-21.927337, 64.136673]
 ]);
-var linestring2 = turf.linestring([
+var linestring2 = turf.lineString([
 	[-21.929054, 64.127985],
 	[-21.912918, 64.134726],
 	[-21.916007, 64.141016],
