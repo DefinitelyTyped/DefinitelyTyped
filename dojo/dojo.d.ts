@@ -5686,6 +5686,7 @@ declare namespace dojo {
              * @param dest The object to which to copy/add all properties contained in source. If dest is falsy, thena new object is manufactured before copying/adding properties begins.
              * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".
              */
+            mixin<T>(dest: T): T;
             mixin<T, U>(
                 dest: T,
                 source: U
@@ -5701,7 +5702,7 @@ declare namespace dojo {
                 source2: V,
                 source3: W
             ): T & U & V & W;
-            mixin<T>(dest: Object, source: Object, sources?: Object[]): T;
+            mixin<T>(dest: Object, ...sources: Object[]): T;
             /**
              * similar to hitch() except that the scope object is left to be
              * whatever the execution context eventually becomes.
