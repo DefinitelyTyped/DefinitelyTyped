@@ -1,4 +1,4 @@
-// Type definitions for Turf 2.0
+// Type definitions for Turf 3.0.14
 // Project: http://turfjs.org/
 // Definitions by: Guillaume Croteau <https://github.com/gcroteau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
