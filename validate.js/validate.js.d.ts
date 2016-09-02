@@ -1,3 +1,8 @@
+// Type definitions for Validate.js
+// Project: https://github.com/ansman/validate.js
+// Definitions by: Travis Hill <https://github.com/HillTravis>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace ValidateJS {
 
   export interface Validator {
