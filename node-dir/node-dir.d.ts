@@ -59,8 +59,10 @@ declare module "node-dir" {
         dirs: string[];
     }
 
-    export function readFiles(dir: string, fileCallback: FileCallback | FileNamedCallback, finishedCallback?: FinishedCallback): void;
-    export function readFiles(dir: string, options: Options, fileCallback: FileCallback | FileNamedCallback, finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
     export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
     export function files(dir: string, callback: (error: any, files: string[]) => void): void;
     export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
