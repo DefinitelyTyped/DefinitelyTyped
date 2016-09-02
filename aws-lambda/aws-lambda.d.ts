@@ -21,6 +21,13 @@ declare module "aws-lambda" {
         
         // Functions
         getRemainingTimeInMillis(): number;
+
+        // Functions for compatibility with earlier Node.js Runtime v0.10.42
+        log(message: string, object: any): void;
+        fail(message: string): void;
+        succeed(message: string): void;
+        succeed(object: any): void;
+        succeed(message: string, object: any): void; 
     }
     
     interface CognitoIdentity {
