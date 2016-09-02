@@ -4105,6 +4105,39 @@ declare namespace ol {
             getFeatures(): ol.Collection<ol.Feature>;
         }
         /**
+         * Events emitted by ol.interaction.Select instances are instances of this type.
+         */
+        class SelectEvent extends ol.events.Event {
+            /**
+             * Deselectd features array.
+             */
+            deselected: Array<ol.Feature>;
+            /**
+             * Associated ol.MapBrowserEvent.
+             */
+            mapBrowserEvent: ol.MapBrowserEvent;
+            /**
+             * Selected features array.
+             */
+            selected: Array<ol.Feature>;
+            /**
+             * The event target.
+             */
+            target: ol.Object;
+            /**
+             * The event type.
+             */
+            type: string;
+            /**
+             * Stop event propagation.
+             */
+            preventDefault(): void;
+            /**
+             * Stop event propagation.
+             */
+            stopPropagation(): void;
+        }
+        /**
          * Handles snapping of vector features while modifying or drawing them. The features can come from a ol.source.Vector or
          * ol.Collection Any interaction object that allows the user to interact with the features using the mouse can benefit
          * from the snapping, as long as it is added before.
