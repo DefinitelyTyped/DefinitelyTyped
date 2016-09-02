@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-dir" {
+    import { ReadStream } from "fs";
+    
     export interface Options {
         // file encoding (defaults to 'utf8')
         encoding?: string;
@@ -37,31 +39,28 @@ declare module "node-dir" {
     }
 
     export interface FileCallback {
-        (error: any, content: string, next: () => void): void;
+        (error: any, content: string | Buffer, next: () => void): void;
     }
 
     export interface FileNamedCallback {
-        (error: any, content: string, filename: string, next: () => void): void;
+        (error: any, content: string | Buffer, filename: string, next: () => void): void;
     }
 
     export interface StreamCallback {
-        (error: any, stream: any, next: () => void): void;
+        (error: any, stream: ReadStream, next: () => void): void;
     }
 
     export interface FinishedCallback {
         (error: any, files: string[]): void;
     }
     export interface PathsResult {
-    	files: string[];
-    	dirs: string[];
+        files: string[];
+        dirs: string[];
     }
 
-    export function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
-	export function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
-    export function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
-    export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
-    export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback,
-        finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, fileCallback: FileCallback | FileNamedCallback, finishedCallback?: FinishedCallback): void;
+    export function readFiles(dir: string, options: Options, fileCallback: FileCallback | FileNamedCallback, finishedCallback?: FinishedCallback): void;
+    export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
     export function files(dir: string, callback: (error: any, files: string[]) => void): void;
     export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
     export function paths(dir: string, callback: (error: any, paths: PathsResult) => void): void;
