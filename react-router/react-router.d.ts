@@ -247,7 +247,7 @@ declare namespace ReactRouter {
       isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
-    function withRouter<C extends React.ComponentClass<any>>(component: C): C
+    function withRouter<C extends React.ComponentClass<any>>(component: C): C & InjectedRouter
 
     /* utils */
 
@@ -514,6 +514,7 @@ declare module "react-router" {
     export type HistoryBase = ReactRouter.HistoryBase
     export type RouterOnContext = ReactRouter.RouterOnContext
     export type RouteProps = ReactRouter.RouteProps
+    export type InjectedRouter = ReactRouter.InjectedRouter
 
     export {
         Router,
