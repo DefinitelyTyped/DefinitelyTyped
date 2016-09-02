@@ -366,7 +366,7 @@ declare module turf {
     * @param features Input features
     * @returns A FeatureCollection of input features
     */
-    function featurecollection(features: Array<GeoJSON.Feature<any>>): GeoJSON.FeatureCollection<any>;
+    function featureCollection(features: Array<GeoJSON.Feature<any>>): GeoJSON.FeatureCollection<any>;
 
     /**
     * Creates a LineString based on a coordinate array. Properties can be added optionally.
@@ -374,7 +374,7 @@ declare module turf {
     * @param [properties] An Object of key-value pairs to add as properties
     * @returns A LineString feature
     */
-    function linestring(coordinates: Array<Array<number>>, properties?: any): GeoJSON.Feature<GeoJSON.LineString>;
+    function lineString(coordinates: Array<Array<number>>, properties?: any): GeoJSON.Feature<GeoJSON.LineString>;
 
     /**
     * Takes coordinates and properties (optional) and returns a new Point feature.

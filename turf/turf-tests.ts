@@ -402,10 +402,10 @@ var snapped = turf.pointOnLine(line, point1);
 ///////////////////////////////////////////
 
 // -- Test featurecollection --
-var fc = turf.featurecollection([point1, point2]);
+var fc = turf.featureCollection([point1, point2]);
 
 // -- Test linestring --
-var linestring1 = turf.linestring([
+var linestring1 = turf.lineString([
 	[-21.964416, 64.148203],
 	[-21.956176, 64.141316],
 	[-21.93901, 64.135924],
