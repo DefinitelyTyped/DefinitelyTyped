@@ -56,7 +56,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance | null>;
     }
 
     /**
@@ -170,7 +170,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance | null>;
     }
 
     /**
@@ -3718,15 +3718,15 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance>;
-        find(options?: FindOptions): Promise<TInstance>;
+        findOne(options?: FindOptions): Promise<TInstance | null>;
+        find(options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Run an aggregation method on the specified field
