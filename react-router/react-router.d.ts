@@ -247,7 +247,7 @@ declare namespace ReactRouter {
       isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
-    function withRouter<C extends React.ComponentClass<any>>(component: C): C & InjectedRouter
+    function withRouter<C extends React.ComponentClass<TProps>, TProps extends { router?: InjectedRouter }>(component: C): C
 
     /* utils */
 
