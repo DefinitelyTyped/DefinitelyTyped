@@ -1,7 +1,7 @@
 // Type definitions for memory-cache
 // Project: http://github.com/ptarjan/node-cache
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
 
@@ -17,4 +17,5 @@ declare module "memory-cache" {
 	export function debug(bool: boolean): void;
 	export function hits(): number;
 	export function misses(): number;
+	export function keys() : any;
 }

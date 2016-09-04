@@ -3,7 +3,7 @@
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>,
 //                 Anti Veeranna <https://github.com/antiveeranna>,
 //                 Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -832,8 +832,8 @@ declare module "azure" {
         whereKeys(partitionKey: string, rowKey: string): TableQuery;
         whereNextKeys(partitionKey: string, rowKey: string): TableQuery;
         where(condition: string, ...values: string[]): TableQuery;
-        and(condition: string, ...arguments: string[]): TableQuery;
-        or(condition: string, ...arguments: string[]): TableQuery;
+        and(condition: string, ...args: string[]): TableQuery;
+        or(condition: string, ...args: string[]): TableQuery;
         top(integer: number): TableQuery;
         toQueryObject(): any;
         toPath(): string;
@@ -1627,6 +1627,7 @@ declare module "azure" {
         RowKey: string;
         Timestamp?: Date;
         etag?: string;
+        [property: string]: string | number | boolean | Date;
     }
     //#endregion
     //#region BlobService Interfaces

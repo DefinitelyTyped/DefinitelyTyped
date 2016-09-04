@@ -2,9 +2,9 @@
 // Project: http://dockspawn.com
 //          https://github.com/coderespawn/dock-spawn
 // Definitions by: Drew Noakes <https://drewnoakes.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/dock-spawn
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/dock-spawn
 
-declare module dockspawn
+declare namespace dockspawn
 {
     /**
      * Dock manager manages all the dock panels in a hierarchy, similar to Visual Studio.

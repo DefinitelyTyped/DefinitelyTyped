@@ -1,7 +1,7 @@
 // Type definitions for JSDeferred
 // Project: https://github.com/cho45/jsdeferred
 // Definitions by: Daisuke Mino <https://github.com/minodisk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -24,8 +24,8 @@ interface RetryOption {
 
 interface DeferredizedFunction { (...arg: any[]): Deferred; }
 interface DeferredizedFunctionWithNumber { (n: number): Deferred; }
-interface FunctionWithNumber { (i: number, o?: any);  }
-interface ErrorCallback { (d: Deferred, ...args: any[]); }
+interface FunctionWithNumber { (i: number, o?: any): any;  }
+interface ErrorCallback { (d: Deferred, ...args: any[]): any; }
 
 declare class Deferred {
 

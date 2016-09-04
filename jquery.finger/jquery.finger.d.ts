@@ -1,11 +1,11 @@
 ﻿// Type definitions for jquery.finger.js
 // Project: http://ngryman.sh/jquery.finger/
 // Definitions by: Max Ackley <https://github.com/maxackley/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JQueryFinger {
+declare namespace JQueryFinger {
     export interface JQueryFingerOptions {
         /**
           * The time the user must hold in order to fire a press event. If this
@@ -23,8 +23,8 @@ declare module JQueryFinger {
 
         /**
           * The maximum time the user will have to swipe in order to fire a flick
-          * event. If this time is reached, only drag events will continue to be 
-          * fired. 
+          * event. If this time is reached, only drag events will continue to be
+          * fired.
           *     Default: 150(ms).
           */
         flickDuration: number;
@@ -50,38 +50,38 @@ interface JQueryFingerEventObject extends JQueryEventObject {
       * The x page coordinate.
       */
     x: number;
-    
+
     /**
       * The y page coordinate.
       */
     y: number;
-    
+
     /**
       * The x delta since the last event.
       */
     dx: number;
-    
+
     /**
       * The y delta since the last event.
       */
     dy: number;
-    
+
     /**
       * The absolute x delta since the last event.
       */
     adx: number;
-    
+
     /**
       * The absolute y delta since the last event.
       */
     ady: number;
-    
+
     /**
       * The orientation of the motion. Adjusted by $.Finger.motionThreshhold.
       * Value is 'horizontal' or 'vertical'.
       */
     orientation: string;
-    
+
     /**
       * The direction of the motion. Value is 1 if the motion is 'positive'
       * (left-to-right or top-to-bottom) or -1 if 'negative'(right-to-left or

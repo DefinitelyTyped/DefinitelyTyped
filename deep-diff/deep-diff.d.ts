@@ -1,9 +1,9 @@
 // Type definitions for deep-diff
 // Project: https://github.com/flitbit/diff/
 // Definitions by: ZauberNerd <https://github.com/ZauberNerd/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module deepDiff {
+declare namespace deepDiff {
     interface IDiff {
         kind: string;
         path: string[];
@@ -34,7 +34,7 @@ declare module deepDiff {
     }
 }
 
-declare var diff: deepDiff.IDeepDiff;
+declare var DeepDiff: deepDiff.IDeepDiff;
 
 declare module "deep-diff" {
     var diff: deepDiff.IDeepDiff;

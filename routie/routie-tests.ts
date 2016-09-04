@@ -55,3 +55,23 @@ routie("*", function () {
 });
 
 routie("anything");
+
+// STATIC
+
+// Lookup
+var existing = routie.lookup("users/bob", () => {
+});
+
+// Remove
+routie.remove("users/bob", () => {
+});
+
+// RemoveAll
+routie.removeAll();
+
+// Navigate
+routie.navigate("users/bob");
+routie.navigate("users/bob", { silent: true });
+
+// NoConflict
+var myRoutie = routie.noConflict();

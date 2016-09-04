@@ -1,7 +1,7 @@
 // Type definitions for node imap
 // Project: https://github.com/mscdex/node-imap
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

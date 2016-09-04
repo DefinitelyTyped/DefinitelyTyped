@@ -1,7 +1,7 @@
 // Type definitions for BigInteger.js
 // Project: https://github.com/peterolson/BigInteger.js
-// Definitions by: Ingo Bürk <https://github.com/Airblader>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Ingo Bürk <https://github.com/Airblader>, Roel van Uden <https://github.com/Deathspike>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface BigInteger {
     /** Returns the absolute value of a bigInt. */
@@ -134,24 +134,24 @@ interface BigInteger {
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: number ): BigInteger;
+    compare( number: number ): number;
     /**
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: BigInteger ): BigInteger;
+    compare( number: BigInteger ): number;
     /**
      * Performs a comparison between two numbers. If the numbers are equal, it returns 0.
      * If the first number is greater, it returns 1. If the first number is lesser, it returns -1.
      */
-    compare( number: string ): BigInteger;
+    compare( number: string ): number;
 
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: number ): BigInteger;
+    compareAbs( number: number ): number;
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: BigInteger ): BigInteger;
+    compareAbs( number: BigInteger ): number;
     /** Performs a comparison between the absolute value of two numbers. */
-    compareAbs( number: string ): BigInteger;
+    compareAbs( number: string ): number;
 
     /** Checks if two numbers are equal. */
     equals( number: number ): boolean;
@@ -166,6 +166,30 @@ interface BigInteger {
     notEquals( number: BigInteger ): boolean;
     /** Checks if two numbers are not equal. */
     notEquals( number: string ): boolean;
+
+    /** Performs the bitwise AND operation. */
+    and( number: number ): BigInteger;
+    /** Performs the bitwise AND operation. */
+    and( number: BigInteger ): BigInteger;
+    /** Performs the bitwise AND operation. */
+    and( number: string ): BigInteger;
+
+    /** Performs the bitwise NOT operation. */
+    not(): BigInteger;
+
+    /** Performs the bitwise OR operation. */
+    or( number: number ): BigInteger;
+    /** Performs the bitwise OR operation. */
+    or( number: BigInteger ): BigInteger;
+    /** Performs the bitwise OR operation. */
+    or( number: string ): BigInteger;
+
+    /** Performs the bitwise XOR operation. */
+    xor( number: number ): BigInteger;
+    /** Performs the bitwise XOR operation. */
+    xor( number: BigInteger ): BigInteger;
+    /** Performs the bitwise XOR operation. */
+    xor( number: string ): BigInteger;
 
     /** Converts a bigInt into a native Javascript number. Loses precision for numbers outside the range. */
     toJSNumber(): number;
@@ -190,7 +214,7 @@ interface BigIntegerStatic {
     /** Parse a Javascript number into a bigInt */
     ( number: number ): BigInteger;
     /** Parse a string into a bigInt */
-    ( string: string ): BigInteger;
+    ( string: string,  base?: string | number | BigInteger): BigInteger;
     /** no-op */
     ( bigInt: BigInteger ): BigInteger;
 }

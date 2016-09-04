@@ -1,10 +1,10 @@
 ﻿// Type definitions for i18n-node 0.5.0
 // Project: https://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
-declare module i18n {
+declare namespace i18n {
     export interface ConfigurationOptions {
         /** Setup some locales - other locales default to en silently */
         locales?: string[];
@@ -22,29 +22,39 @@ declare module i18n {
          */
         directory?: string;
 
-        /** 
+        /**
          * whether to write new locale information to disk
          * @default true
          */
         updateFiles?: boolean;
 
-        /** 
+        /**
          * What to use as the indentation unit
          * @default "\t"
          */
         indent?: string;
 
-        /** 
+        /**
          * Setting extension of json files (you might want to set this to '.js' according to webtranslateit)
          * @default ".json"
          */
         extension?: string;
 
-        /** 
+        /**
          * Enable object notation
          * @default false
          */
         objectNotation?: boolean;
+
+        /**
+         * json files prefix
+         */
+        prefix?: string;
+        
+        /**
+         * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
+         */
+        register?: any;
     }
     export interface TranslateOptions {
         phrase: string;
@@ -326,7 +336,7 @@ declare module "i18n" {
     export = i18n;
 }
 
-declare module Express {
+declare namespace Express {
     export interface Request extends i18nAPI {
         languages: string[];
         regions: string[];

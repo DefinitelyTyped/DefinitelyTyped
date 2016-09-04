@@ -17,6 +17,7 @@ $('#myModal').modal('toggle');
 $('.dropdown-toggle').dropdown();
 
 $('#navbar').scrollspy();
+$('body').scrollspy({ target: '#navbar-example' });
 
 $('#element').tooltip('show');
 
@@ -43,3 +44,8 @@ $('.typeahead').typeahead({
 });
 
 $('#navbar').affix();
+
+$('.item').emulateTransitionEnd(2000);
+
+$.support.transition = false;
+console.log(($.support.transition as TransitionEventNames).end === "transitionend");

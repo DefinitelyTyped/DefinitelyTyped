@@ -19,24 +19,22 @@
 };
 
 (()=>{
-    window.addEventListener('GamepadConnected', (e: GamepadEvent)=>{
+    var gamepadconnected = (e: Gamepad.GamepadEvent) => {
         console.log('Gamepad ' + e.gamepad.index + ' connected!');
-    }, false);
-    window.addEventListener('GamepadDisconnected', (e: GamepadEvent)=>{
+        if(e.gamepad.mapping == 'standard'){
+            console.log("The Gamepad's controls have been mapped to the Standard Gamepad layout.");
+        }
+    };
+    var gamepaddisconnected = (e: Gamepad.GamepadEvent) => {
         console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
-    }, false);
-    window.addEventListener('webkitGamepadConnected', (e: GamepadEvent)=>{
-        console.log('Gamepad ' + e.gamepad.index + ' connected!');
-    }, false);
-    window.addEventListener('webkitGamepadDisconnected', (e: GamepadEvent)=>{
-        console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
-    }, false);    
-    window.addEventListener('mozGamepadConnected', (e: GamepadEvent)=>{
-        console.log('Gamepad ' + e.gamepad.index + ' connected!');
-    }, false);
-    window.addEventListener('mozGamepadDisconnected', (e: GamepadEvent)=>{
-        console.log('Gamepad ' + e.gamepad.index + ' disconnected!');
-    }, false);
+    };
+
+    window.addEventListener('GamepadConnected', gamepadconnected, false);
+    window.addEventListener('GamepadDisconnected', gamepaddisconnected, false);
+    window.addEventListener('webkitGamepadConnected', gamepadconnected, false);
+    window.addEventListener('webkitGamepadDisconnected', gamepaddisconnected, false);
+    window.addEventListener('mozGamepadConnected', gamepadconnected, false);
+    window.addEventListener('mozGamepadDisconnected', gamepaddisconnected, false);
 
     var requestAnimationFrame = window.requestAnimationFrame || (<any>window).mozRequestAnimationFrame;
     var getGamepads = navigator.getGamepads || navigator.webkitGetGamepads;
@@ -45,15 +43,15 @@
         {
             requestAnimationFrame.call(window, runAnimation);
 
-            var gamepads: GamepadList = getGamepads.call(navigator);
+            var gamepads: Gamepad.Gamepad[] = getGamepads.call(navigator);
             for(var i = 0; i < gamepads.length; i++){
-                var pad: Gamepad = gamepads[i];
-                if(pad){
+                var pad: Gamepad.Gamepad = gamepads[i];
+                if(pad && pad.connected){
                     for (var k = 0; k < pad.buttons.length; k++)
                     {   
-                        var button = pad.buttons[k]; 
-                        if(button !== 0){
-                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" button[' + k + '] = ' + button);
+                        var button: Gamepad.GamepadButton = pad.buttons[k];
+                        if(button.pressed){
+                            console.log('pad[' + pad.index + ']: ' + 'time=' + pad.timestamp + ' id="' + pad.id + '" button[' + k + '] = ' + button.value);
                         }
                     }
                     for (var k = 0; k < pad.axes.length; k++)

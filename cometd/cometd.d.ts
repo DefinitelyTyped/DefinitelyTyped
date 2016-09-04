@@ -1,18 +1,9 @@
 // Type definitions for CometD 2.5.1
 // Project: http://cometd.org
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module CometD {
-
-    var onListenerException: (exception: any, subscriptionHandle: any, isListener: boolean, message: string) => void;
-
-    function init(options: ConfigurationOptions): void;
-
-    function addListener(channel: string, listener: (message: any) => void): void;
-    function removeListener(listener: (message: any) => void): void;
-
-    function publish(channel: string, message: any): void;
+declare namespace CometD {
 
     interface ConfigurationOptions {
         url: string;
@@ -26,4 +17,35 @@ declare module CometD {
         appendMessageTypeToURL?: boolean;
         autoBatch?: boolean;
     }
+
+}
+
+interface CometD {
+
+    onListenerException: (exception: any, subscriptionHandle: any, isListener: boolean, message: string) => void;
+
+    init(options: CometD.ConfigurationOptions): void;
+
+    configure(config: CometD.ConfigurationOptions): void;
+
+    addListener(channel: string, listener: (message: any) => void): void;
+    removeListener(listener: (message: any) => void): void;
+
+    clearListeners(): void;
+
+    clearSubscriptions(): void;
+
+    handshake(handshake_params: any): void;
+
+    publish(channel: string, message: any): void;
+
+
+    disconnect(): void;
+
+}
+
+
+
+interface JQueryStatic {
+    cometd: CometD;
 }

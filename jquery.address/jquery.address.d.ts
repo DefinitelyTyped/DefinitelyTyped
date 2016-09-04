@@ -1,12 +1,12 @@
 // Type definitions for jQuery.Address 1.5
 // Project: https://github.com/asual/jquery-address
 // Definitions by: Martin Duparc <https://github.com/martinduparc>, Tim Klingeleers <https://github.com/mardaneus86>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface JQueryAddressStatic {
-    ();
+    (): any;
     /**
      * Binds any supported event type to a function with support for an optional map of data.
      */

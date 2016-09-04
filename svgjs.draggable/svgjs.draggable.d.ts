@@ -1,10 +1,10 @@
 // Type definitions for svgjs.draggable
 // Project: http://www.svgjs.com/
 // Definitions by: Luigi Trabacchin <https://github.com/LiFeleSs>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module svgjs {
+declare namespace svgjs {
 	export module draggable {
 		export interface DragDelta {
 			x: number
@@ -14,9 +14,9 @@ declare module svgjs {
 	}
 
 	export interface Element {
-		draggable(): Element
-		draggable(obj: Object):Element
-		fixed(): Element
+		draggable(): this
+		draggable(obj: Object): this
+		fixed(): this
 		beforedrag: (event: MouseEvent) => any
 		dragstart: (delta: draggable.DragDelta, event: MouseEvent) => any
 		dragmove: (delta: draggable.DragDelta, event: MouseEvent) => any

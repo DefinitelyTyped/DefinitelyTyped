@@ -47,7 +47,9 @@ function test_fromdemo() {
 		toastr.options = {
 			debug: $('#debugInfo').prop('checked'),
 			tapToDismiss: $('#tapToDismiss').prop('checked'),
-			positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right'
+			positionClass: $('#positionGroup input:radio:checked').val() || 'toast-top-right',
+			preventDuplicates: true,
+            progressBar: true
 		}
         if ($fadeIn.val().length) {
 			toastr.options.showDuration = +$fadeIn.val()

@@ -1,12 +1,12 @@
 // Type definitions for gridfs-stream 0.5.0
 // Project: https://github.com/aheckmann/gridfs-stream
 // Definitions by: Lior Mualem <https://github.com/liorm/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../mongodb/mongodb.d.ts" />
 
-declare module GridFSStream {
+declare namespace GridFSStream {
     export interface Range {
         startPos: number;
         endPos: number;
@@ -46,12 +46,13 @@ declare module "gridfs-stream" {
     // Merged declaration, g is both a callable function and a namespace
     function g(db: any, mongo: any): g.Grid;
 
-    module g {
+    namespace g {
 
         export class Grid {
 
             files: mongo.Collection;
             collection(name?: string): mongo.Collection;
+            curCol: string;
 
             createWriteStream(options?: GridFSStream.Options): GridFSStream.WriteStream;
             createReadStream(options?: GridFSStream.Options): GridFSStream.ReadStream;
@@ -60,6 +61,7 @@ declare module "gridfs-stream" {
 
             remove(options: GridFSStream.Options, callback: (err: Error) => void): void;
             exist(options: GridFSStream.Options, callback: (err: Error, found: boolean) => void): void;
+            findOne(options: GridFSStream.Options, callback: (err: Error, record: any)=>void):void;
         }
     }
 

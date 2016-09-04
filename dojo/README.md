@@ -17,6 +17,7 @@ A normal dojo module might look something like this:
  define(['dojo/request', 'dojo/request/xhr'],
      function (request, xhr) {
          ...
+
      }
  );
 ```
@@ -24,275 +25,201 @@ A normal dojo module might look something like this:
 When using the TypeScript, you can write the following: 
 
 ```ts
- define(['dojo/request', 'dojo/request/xhr'],
-     function (request: dojo.request,
-         xhr: dojo.request.xhr) {
-         ...
-     }
- );
+import request = require("dojo/request");
+import xhr = require("dojo/request/xhr");
+
+...
+
  ```
  
  Inside of the define variable, both `request` and `xhr` will work as the functions that come from Dojo, only they are strongly typed.
  
 ## Advanced Usage
- Dojo and TypeScript both use different and conflicting class semantics. This causes some issues when trying to create custom class modules that are strongly typed in other modules. The following technique is presented as **A** solution to the problem, but not necessarily the best one. Other ideas a welcomed!
- 
- Using pure JavaScript, a class that has a base class and mixins can be defined in Dojo as follows:
- 
- ```js
- define(['dojo/_base/declare', 'dijit/_WidgetBase', 'dijit/_TemplatedMixin', 'dojo/request'], 
-    function(dojoDeclare, _WidgetBase, _TemplatedMixin, request) {
-        var Foo = dojoDeclare([_WidgetBase, _TemplatedMixin], {
-            templateString: '<div>Hello TypeScript</div',
+ Dojo and TypeScript both use different and conflicting class semantics. In order to satisfy both systems, some unconventional work is needed. 
 
-            message: '',
-
-            sayMessage: function() {
-                alert(this.message);
-            },
-
-            getServerInfo: function() {
-                request.get('http://dojoAndTypeScriptTogetherAtLast.html', function(data) {
-                    console.log(data);
-                });
-            }
-        });
-
-        return Foo;
-    }
- );
- ```
- 
- The goal is to be able to describe the `Foo` class in a way that TypeScript can recognize, but also works with Dojo. This requires some hacks that will be introduced and explained as the problems are discovered.
- 
- The first challenge that we run into is how to define the class. We will define that using standard TypeScript semantics as follows:
- 
- ```ts
-  module App {
-    export class Foo extends dijit._WidgetBase implements dijit._TemplatedMixin {
-        constructor(public templateString= "<div>Hello TypeScript</div>",
-            public message= "") {
-            super();
-        }
-
-        sayMessage() {
-            alert(this.message);
-        }
-
-        getServerInfo() {
-            request.get("http://dojoAndTypeScriptTogetherAtLast.html", (data: string) => {
-                console.log(data);
-            });
-        }
-        
-    }
- }
-```
- 
-This class is identical to the standard Dojo method, except that it is declared inside of a TypeScript module and it is declared using TypeScript instead of Dojo's `declare` method. Two problems arise however:
-1. `Foo` has an error because it doesn't honor the interface declared by dijit._TemplatedMixin
-2. `request` is undefined
-
-The first problem can be solved by adding the missing properties and methods, but this will only serve to clutter the code base over time. Instead, we are creating another base class that hides this requirement like so:
-
-```ts
- module App {
-    export class Foo extends WidgetBaseWithTemplatedMixin {
-        constructor(public templateString= "<div>Hello TypeScript</div>",
-            public message= "") {
-            super();
-        }
-
-        sayMessage() {
-            alert(this.message);
-        }
-
-        getServerInfo() {
-            request.get("http://dojoAndTypeScriptTogetherAtLast.html", (data: string) => {
-                console.log(data);
-            });
-        }
-        
-    }
-
-    export class WidgetBaseWithTemplatedMixin extends dijit._WidgetBase implements dijit._TemplatedMixin {
-        "attachScope": Object;
-        "searchContainerNode": boolean;
-        "templatePath": string;
-        "templateString": string;
-        buildRendering(): {}
-        destroyRendering(): {}
-        getCachedTemplate(templateString: String, alwaysUseString: boolean, doc: HTMLDocument): {}
-
-    }
- }
-```
-
-Now the base class meets TypeScript's requirements so it is happy. This class could easily be moved out to a general add-in file so that it can be created and forgotten since it is only here to make TypeScript happy.
-
-The second problem that we had as that `request` is undefined. This is going to take a bit more trickery as shown below:
-
-```ts
- module App {
-    export class Foo extends WidgetBaseWithTemplatedMixin {
-        constructor(public templateString= "<div>Hello TypeScript</div>",
-            public message= "") {
-            super();
-        }
-
-        public request: dojo.request;
-
-        sayMessage() {
-            alert(this.message);
-        }
-
-        getServerInfo() {
-            this.request.get("http://dojoAndTypeScriptTogetherAtLast.html").then((data: string) => {
-                console.log(data);
-            });
-        }
-
-    }
-
-    export class WidgetBaseWithTemplatedMixin extends dijit._WidgetBase implements dijit._TemplatedMixin {
-        public static getPrototype(deps: Object) {
-            if (deps) {
-                for (var i in deps) {
-                    this.prototype[i] = deps[i];
-                }
-
-                return this.prototype;
-            }
-        }
-
-        "attachScope": Object;
-        "searchContainerNode": boolean;
-        "templatePath": string;
-        "templateString": string;
-        buildRendering(): {}
-        destroyRendering(): {}
-        getCachedTemplate(templateString: String, alwaysUseString: boolean, doc: HTMLDocument): {}
-
-    }
- }
-
-
- define(['dojo/_base/declare', 'dijit/_WidgetBase', 'dijit/_TemplatedMixin', 'dojo/request'],
-    function (dojoDeclare, _WidgetBase, _TemplatedMixin, request) {
-        var deps = {
-            request: request
-        };
-
-        var Foo = dojoDeclare([_WidgetBase, _TemplatedMixin], App.Foo.getPrototype(deps));
-
-        return Foo;
-    }
- );
-```
-
-Yes, I know - pretty crazy right. But, we're getting close...
-
-In the Dojo module, we are building an object that contains references to each of the dependencies. We are then passing that object into the static method `getPrototype` that we have added to the base class. This method takes an object literal and mixes it into the class's prototype. In this way, the module dependencies are made available to the TypeScript class via its prototype. The last thing we need to do is change the `getServerInfo()`'s call to `request` to be a `this.request` call since it is calling through its prototype instead of the ambient object that is used in Dojo.
-
-Okay, great. TypeScript is happy. Everything should be working right? Wrong.
-
-We have two more problems that are not apparent until the code is actually executed. They are both related to our usage of the `extends` keyword that we used to show that our `Foo` class extends from `dijit._WidgetBase`.
-
-The first problem is that, as stated previously, TypeScript has its own implementation of a class system in JavaScript. When one class extends another, TypeScript injects the following snippet into the module:
+For the example, let's take this example custom Dojo widget:
 
 ```js
- var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
- };
-```
+    define(["dojo/_base/declare", "dijit/_WidgetBase", "dijit/_TemplatedMixin", "dijit/_WidgetsInTemplateMixin",
+        "dojo/text!./templates/Foo.html", "dojo/i18n!app/common/nls/resources",
+        "dijit/form/TextBox"], 
+    function(declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
+        template, res) {
 
-This method is called in a closure that wraps the class definition and mixes the parent's prototype and owned properties into the child class. However, this won't work in our case, because our base class is `dijit._WidgetBase` which doesn't actually exist in the global namespace (where TypeScript expects it). This is because we are still using Dojo's class system (via `declare`). This is an important, and confusing, point. Our class is actually being constructed by Dojo using declare. However, we are working with the class as if it was created in the way the TypeScript expects. In short, this means that we don't actually need the `__extends` function to work, but something needs to be there so that the constructor function doesn't die. The solve is actually relatively easy: In the main HTML page, add this function before the tag that includes `dojo.js`:
+        templateString: template,
+        res: res,
+        myArray: null,
 
-```js
-var __extends = function (d, b) {
-    if (d && b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() {
-            this.constructor = d;
+        constructor: function() {
+            this.myArray = [];
+        },
+
+        sayHello: function() {
+            alert(res.message.helloTypeScript);
         }
-
-        __.prototype = b.prototype;
-        d.prototype = new __();
-    }
-};
+    });
 ```
 
-All this does is check to see if `d` and `b` are defined before running. Since TypeScript won't override __extends, it will allow us to override the default implementation.
-
-Okay, only one more thing to deal with: the call to super. This issue is also related to TypeScript's method for handling inheritance. After calling `__extends`, the generated constructor function will call the parent's constructor function. Once again, we are hit by the fact that our base class (`dijit._WidgetBase`) doesn't actually exist where TypeScript is expecting it. The only way around this is to give TypeScript something to call. This simplest thing to do is to add a no-op function for TypeScript to call. In short add this:
-
-```js
- var dijit = dijit || {};
- dijit._WidgetBase = function() {}
-```
-
-Into the page after Dojo bootstraps, but before our module loads. The simplest way to do this is to create a little module that does this and added it to the array of modules loaded in the `define()` call of the module.
-
-Okay, so things look pretty messy right now. There are several hacks and tricks that we have to play in order to allow TypeScript and Dojo to work together. The nice thing about most of this is that it can all be shoved into a single helper module and never thought of again. Here is an example of what that module would look like:
+the equivalent TypeScript version is next, explanation of each section below:
 
 ```ts
- "use strict";
+/// <amd-dependency path="dojo/text!./_templates/Foo.html" />
+/// <amd-dependency path="dojo/i18n!app/common/nls/resources" />
 
- define([], function () { });
+/// <amd-dependency path="dijit/form/TextBox" />
 
- var __extends = function (d, b) {
-    if (d && b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() {
-            this.constructor = d;
+/// <reference path="../typings/dojo.d.ts" />
+/// <reference path="../typings/dijit.d.ts" />
+
+declare var require: (moduleId: string) => any;
+
+import dojoDeclare = require("dojo/_base/declare");
+import _WidgetBase = require("dijit/_WidgetBase");
+import _TemplatedMixin = require("dijit/_TemplatedMixin");
+import _WidgetsInTemplateMixin = require("dijit/_WidgetsInTemplateMixin");
+
+
+// make sure to set the 'dynamic' fields of the dojo/text and dojo/i18n modules to 'false' in
+// order to ensure that Dojo loads the tempalte and resources from its cache instead of trying to 
+// pull from the server
+var template:string = require("dojo/text!./templates/Foo.html");
+var res = require("dojo/i18n!app/common/nls/resources");
+
+class Foo extends dijit._WidgetBase {
+    constructor(args?: Object, elem?: HTMLElement) {
+        return new Foo_(args, elem);
+        super();
+    }
+
+    res: any;
+
+    myArray: string[];
+
+    sayHello(): void {
+        alert(res.message.helloTypeScript);
+    }
+}
+
+var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], (function (Source: any) {
+    var result: any = {};
+	result.templateString = template;
+	result.res = res;
+    result.constructor = function () {
+        this.myArray = [];
+    }
+    for (var i in Source.prototype) {
+        if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
+            result[i] = Source.prototype[i];
         }
-
-        __.prototype = b.prototype;
-        d.prototype = new __();
     }
- };
+    return result;
+} (Foo)));
 
- window['dojo'] = {};
- window['dijit'] = {
-    _WidgetBase: function () {
-
-    }
- };
-
- module Base {
-    function getPrototype(type: Function, deps: Object): Object {
-        if (deps) {
-            for (var i in deps) {
-                type.prototype[i] = deps[i];
-            }
-
-            return this.prototype;
-        }
-    }
-    export class WidgetBaseWithTemplatedMixin extends dijit._WidgetBase implements dijit._TemplatedMixin {
-        public static getPrototype(deps: Object): Object {
-            return getPrototype(this, deps);
-        }
-
-        "attachScope": Object;
-        "searchContainerNode": boolean;
-        "templatePath": string;
-        "templateString": string;
-        buildRendering() { }
-        destroyRendering() { }
-        getCachedTemplate(templateString: String, alwaysUseString: boolean, doc: HTMLDocument) { }
-
-    }
- }  
+export =Foo;
 ```
 
-This module can then be added to whenever we have another base class / mix-in combination (e.g. dijit/_WidgetBase, dijit/_TemplatedMixin, and dijit/_WidgetsInTemplateMixin). When done this way, the only regularly visible changes that we have to do is to compose the hash of dependencies and call the `getPrototype` as the last argument to `declare`.
- 
-## Appendix
+Well, no one ever said that it would be easy... but it isn't too bad. Let's go through this one step at a time.
 
-Examples:
-* https://github.com/craigstjean/typescript-dojo-sample
- 
+The first two lines are required due to TypeScript's inability to work with plugin-type modules. Since we need to use plugins, we use this technique. Basically, the 'amd-dependency' comments are directives to the TypeScript compiler that asks it to add the value in the "path" attribute as a dependency in the module's "define" statement. This directive, however, does not allow a variable to be assigned into the module. To obtain that, we need to add these two lines:
+
+```ts
+var template:string = require("dojo/text!./templates/Foo.html");
+var res = require("dojo/i18n!app/common/nls/resources");
+```
+
+These statements will trigger context-sensitive require calls to be made to pull the requested values from the Dojo loader's cache. Unfortunately, this usage of "require" is not recognized. In order to make this work a new function prototype must be declared, thus this line:
+
+```ts
+declare var require: (moduleId: string) => any;
+```
+
+There is one more thing that we have to do in order to get the plugins to work properly. The AMD spec (that Dojo's loader adheres to) states that plugins should be loaded dynamically from the server (i.e. the loader shouldn't cache the response). This, I presume, is to allow content to be dynamically generated by the server. This, however, means that the context-sensitive require fails (since it isn't allowed to use the cache). In order correct this, the dojo/text and dojo/i18n modules must be loaded in advance and their 'dynamic' fields set to false. If your app has a single entry point, then you can create something like this (JavaScript shown):
+
+```js
+define(["require", "dojo/dom", "dojo/text", "dojo/i18n"],
+    function (require, dom, text, i18n) {
+    
+    //set dojo/text and dojo/i18n to static resources to allow to be loaded via
+    //require() call inside of module and load cached version
+    text.dynamic = false;
+    i18n.dynamic = false;
+    require(["./views/ShellView"], function (ShellView) {
+        var shell = new ShellView(null, dom.byId("root"));
+    });
+});
+```
+
+The main module above loads the basic modules, including dojo/text and dojo/i18n. Their dynamic fields are set to false, and then call is made to require to load pull in the application loader. By doing this in a two-step process, we can be sure that the dojo/text and dojo/i18n modules are properly configured before the application tries to make use of it.
+
+The rest isn't so complicated, I promise...
+
+The third line:
+```ts
+/// <amd-dependency path="dijit/form/TextBox" />
+```
+
+is another amd-dependency call that will load a dijit/form/CheckBox. Presumeably, this control is used in the templated widget and, therefore, needs to be preloaded. Since we don't need access to it in the module, we load it this way. If we tried to use an "import" statement, the TypeScript compiler would recognize that we don't use the dependency in the module and would optimize it away.
+
+The next four lines:
+```ts
+import dojoDeclare = require("dojo/_base/declare");
+import _WidgetBase = require("dijit/_WidgetBase");
+import _TemplatedMixin = require("dijit/_TemplatedMixin");
+import _WidgetsInTemplateMixin = require("dijit/_WidgetsInTemplateMixin");
+```
+are simple requests for the AMD loader to pull in the Dojo modules that we need for the widget. All of Dojo's conventions (including relative module paths) can be used here. Notice that the dojo/_base/declare module is called "dojoDeclare"; this was done to prevent a conflict with TypeScript's "declare" keyword.
+
+The following is the class definition:
+```ts
+class Foo extends dijit._WidgetBase {
+    constructor(args?: Object, elem?: HTMLElement) {
+        return new Foo_(args, elem);
+        super();
+    }
+
+    res: any;
+
+    myArray: string[];
+
+    sayHello(): void {
+        alert(res.message.helloTypeScript);
+    }
+}
+```
+
+There are only three odd things going on here. 
+
+The first is the constructor function which has a "return" statement. This means that the returned value will be used instead of a new "Foo" object. This allows us to defer to the Dojo class declaration and return that object. Also notice that we pass the arguments through to the Dojo class so that it has all of the information that it needs to properly construct the widget.
+
+The second odd thing is the call to super() after the return statement in the constuctor. This is just there to make the TypeScript compiler happy since it requires this whenever a class inherits from a base class (dijit._WidgetBase in this case). Since it occurs after the return statement, it is never called, but I won't tell if you don't :).
+
+The third odd thing is more subtle: the myArray field is declared, but never initialized. Normally, the constructor should initialize this. However, we are defering to the Dojo classes constructor. It will take the responsibility of inititializing the array.
+
+The final part of the module is this:
+
+```ts
+var Foo_ = dojoDeclare("", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], (function (Source: any) {
+    var result: any = {};
+	result.templateString = template;
+	result.res = res;
+    result.constructor = function () {
+        this.myArray = [];
+    }
+    for (var i in Source.prototype) {
+        if (i !== "constructor" && Source.prototype.hasOwnProperty(i)) {
+            result[i] = Source.prototype[i];
+        }
+    }
+    return result;
+} (Foo)));
+```
+
+You'll notice that the third argument to dojoDeclare is not an object literal, like you might expect. Rather, a self-executing function is used to dynamically generate the object literal. The templateString and res fields are manually set to equal the resources that were required above. Additionally, a constructor function is added to initialize the myArray array. Finally, the Foo class's prototype is inspected and all of its "ownProperties" are added. This allows the Foo class to evolved and its methods will automatically be mapped to the Dojo class. 
+
+Mind blown? Let's try to look at it this way:
+
+Dojo expects things to work in a certain way and that way, in general, is fine. What we want TypeScript for is the strong typing. In order to get both, we are using a Dojo class, but implementing it in the context of a TypeScript one.
+
+The fact that the TypeScript class defers to the Dojo one means that we get a Dojo class instead of a TypeScript one. This means that everything that we do in the TypeScript class itself is really meaningless since it will be the Dojo class that we are working with. Here is the trick: we define the methods in the TypeScript class which provides the strong typing that we are looking for. We then point the Dojo class's methods to those implementations. In short, we are still using Dojo classes all the way down, but we implement the methods in a TypeScript class so that we get compiler and IDE support.
+
+Please submit any improvements to this technique. It isn't the prettiest thing ever, but it does accomplish the goal of integrating TypeScript and Dojo together. 

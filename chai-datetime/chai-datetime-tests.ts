@@ -1,13 +1,16 @@
-/// <reference path="../chai/chai.d.ts" />
 /// <reference path="chai-datetime.d.ts" />
 
+import chai = require('chai');
+import chaiDateTime = require('chai-datetime');
+
+chai.use(chaiDateTime);
 var expect = chai.expect;
 var assert = chai.assert;
 
 function test_equalTime(){
     var date: Date = new Date(2014, 1, 1);
-    expect(date).to.be.equalTime(date);
-    date.should.be.equalTime(date);
+    expect(date).to.equalTime(date);
+    date.should.equalTime(date);
     assert.equalTime(date, date);
 }
 
@@ -34,14 +37,14 @@ function test_equalDate(){
 
 function test_beforeDate(){
     var date: Date = new Date(2014, 1, 1);
-    expect(date).to.beforeDate(date);
-    date.should.beforeDate(date);
+    expect(date).to.be.beforeDate(date);
+    date.should.be.beforeDate(date);
     assert.beforeDate(date, date);
 }
 
 function test_afterDate(){
     var date: Date = new Date(2014, 1, 1);
-    expect(date).to.afterDate(date);
-    date.should.afterDate(date);
+    expect(date).to.be.afterDate(date);
+    date.should.be.afterDate(date);
     assert.afterDate(date, date);
 }

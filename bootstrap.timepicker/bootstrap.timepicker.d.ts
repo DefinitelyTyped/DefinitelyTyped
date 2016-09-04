@@ -1,7 +1,7 @@
 // Type definitions for bootstrap.timepicker
 // Project: https://github.com/jdewit/bootstrap-timepicker
 // Definitions by: derikwhittaker <https://github.com/derikwhittaker/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

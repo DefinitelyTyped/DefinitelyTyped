@@ -124,6 +124,17 @@ moment().isoWeek();
 moment().isoWeek(45);
 moment().isoWeeks();
 moment().isoWeeks(45);
+moment().dayOfYear();
+moment().dayOfYear(45);
+
+moment().set('year', 2013);
+moment().set('month', 3);  // April
+moment().set('date', 1);
+moment().set('hour', 13);
+moment().set('minute', 20);
+moment().set('second', 30);
+moment().set('millisecond', 123);
+moment().set({'year': 2013, 'month': 3});
 
 var getMilliseconds: number = moment().milliseconds();
 var getSeconds: number = moment().seconds();
@@ -186,12 +197,24 @@ moment(1318874398806).valueOf();
 moment(1318874398806).unix();
 moment([2000]).isLeapYear();
 moment().zone();
+moment().utcOffset();
 moment("2012-2", "YYYY-MM").daysInMonth();
 moment([2011, 2, 12]).isDST();
 
 moment.isMoment();
 moment.isMoment(new Date());
 moment.isMoment(moment());
+
+moment.isDate(new Date());
+moment.isDate(/regexp/);
+
+moment.isDuration();
+moment.isDuration(new Date());
+moment.isDuration(moment.duration());
+
+moment().isBetween(moment(), moment());
+moment().isBetween(new Date(), new Date());
+moment().isBetween([1,1,2000], [1,1,2001], "year");
 
 moment.localeData('fr');
 moment(1316116057189).fromNow();
@@ -221,6 +244,8 @@ moment.duration(500).seconds();
 moment.duration(500).asSeconds();
 moment.duration().minutes();
 moment.duration().asMinutes();
+moment.duration().toISOString();
+moment.duration().toJSON();
 
 var adur = moment.duration(3, 'd');
 var bdur = moment.duration(2, 'd');
@@ -241,6 +266,7 @@ moment.locale('en', {
     weekdaysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     weekdaysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
     longDateFormat: {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM D YYYY",
@@ -289,6 +315,10 @@ moment.locale('en', {
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+    },
+    week: {
+        dow: 1,
+        doy: 4
     }
 });
 
@@ -300,7 +330,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    months : function (momentToFormat: Moment, format: string) {
+    months : function (momentToFormat: moment.Moment, format: string) {
         // momentToFormat is the moment currently being formatted
         // format is the formatting string
         if (/^MMMM/.test(format)) { // if the format starts with 'MMMM'
@@ -319,7 +349,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    monthsShort : function (momentToFormat: Moment, format: string) {
+    monthsShort : function (momentToFormat: moment.Moment, format: string) {
         if (/^MMMM/.test(format)) {
             return this.nominative[momentToFormat.month()];
         } else {
@@ -335,7 +365,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdays : function (momentToFormat: Moment) {
+    weekdays : function (momentToFormat: moment.Moment) {
         return this.weekdays[momentToFormat.day()];
     }
 });
@@ -345,7 +375,7 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysShort : function (momentToFormat: Moment) {
+    weekdaysShort : function (momentToFormat: moment.Moment) {
         return this.weekdaysShort[momentToFormat.day()];
     }
 });
@@ -355,13 +385,14 @@ moment.locale('en', {
 });
 
 moment.locale('en', {
-    weekdaysMin : function (momentToFormat: Moment) {
+    weekdaysMin : function (momentToFormat: moment.Moment) {
         return this.weekdaysMin[momentToFormat.day()];
     }
 });
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm:ss A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         l: "M/D/YYYY",
@@ -376,6 +407,7 @@ moment.locale('en', {
 
 moment.locale('en', {
     longDateFormat : {
+        LTS: "h:mm A",
         LT: "h:mm A",
         L: "MM/DD/YYYY",
         LL: "MMMM Do YYYY",
@@ -443,3 +475,5 @@ moment.locale('en', {
 });
 
 console.log(moment.version);
+
+moment.defaultFormat = 'YYYY-MM-DD HH:mm';

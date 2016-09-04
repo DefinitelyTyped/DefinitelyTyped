@@ -1,90 +1,116 @@
-// Type definitions for SuperAgent 0.15.4
+// Type definitions for SuperAgent v2.0.0
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
 
 declare module "superagent" {
-    import stream = require('stream');
-  export interface Response {
-    text: string;
-    body: any;
-    files: any;
-    header: any;
-    type: string;
-    charset: string;
-    status: number;
-    statusType: number;
-    info: boolean;
-    ok: boolean;
-    redirect: boolean;
-    clientError: boolean;
-    serverError: boolean;
-    error: any;
-    accepted: boolean;
-    noContent: boolean;
-    badRequest: boolean;
-    unauthorized: boolean;
-    notAcceptable: boolean;
-    notFound: boolean;
-    forbidden: boolean;
-    get(header: string): string;
+  import stream = require('stream');
+
+  type CallbackHandler = (err: any, res: request.Response) => void;
+
+  var request: request.SuperAgentStatic;
+
+  namespace request {
+    interface SuperAgentRequest extends Request {}
+    interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
+      (url: string): SuperAgentRequest;
+      (method: string, url: string): SuperAgentRequest;
+
+      agent(): SuperAgent<SuperAgentRequest>;
+    }
+
+    interface SuperAgent<Req> extends stream.Stream {
+      get(url: string, callback?: CallbackHandler): Req;
+      post(url: string, callback?: CallbackHandler): Req;
+      put(url: string, callback?: CallbackHandler): Req;
+      head(url: string, callback?: CallbackHandler): Req;
+      del(url: string, callback?: CallbackHandler): Req;
+      delete(url: string, callback?: CallbackHandler): Req;
+      options(url: string, callback?: CallbackHandler): Req;
+      trace(url: string, callback?: CallbackHandler): Req;
+      copy(url: string, callback?: CallbackHandler): Req;
+      lock(url: string, callback?: CallbackHandler): Req;
+      mkcol(url: string, callback?: CallbackHandler): Req;
+      move(url: string, callback?: CallbackHandler): Req;
+      purge(url: string, callback?: CallbackHandler): Req;
+      propfind(url: string, callback?: CallbackHandler): Req;
+      proppatch(url: string, callback?: CallbackHandler): Req;
+      unlock(url: string, callback?: CallbackHandler): Req;
+      report(url: string, callback?: CallbackHandler): Req;
+      mkactivity(url: string, callback?: CallbackHandler): Req;
+      checkout(url: string, callback?: CallbackHandler): Req;
+      merge(url: string, callback?: CallbackHandler): Req;
+      // m-search(url: string, callback?: CallbackHandler): Req;
+      notify(url: string, callback?: CallbackHandler): Req;
+      subscribe(url: string, callback?: CallbackHandler): Req;
+      unsubscribe(url: string, callback?: CallbackHandler): Req;
+      patch(url: string, callback?: CallbackHandler): Req;
+      search(url: string, callback?: CallbackHandler): Req;
+      connect(url: string, callback?: CallbackHandler): Req;
+
+      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
+      saveCookies(res: Response): void;
+      attachCookies(req: Req): void;
+    }
+
+    interface Response extends NodeJS.ReadableStream {
+      text: string;
+      body: any;
+      files: any;
+      header: any;
+      type: string;
+      charset: string;
+      status: number;
+      statusType: number;
+      info: boolean;
+      ok: boolean;
+      redirect: boolean;
+      clientError: boolean;
+      serverError: boolean;
+      error: Error;
+      accepted: boolean;
+      noContent: boolean;
+      badRequest: boolean;
+      unauthorized: boolean;
+      notAcceptable: boolean;
+      notFound: boolean;
+      forbidden: boolean;
+      get(header: string): string;
+    }
+
+    interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
+      abort(): void;
+      accept(type: string): this;
+      attach(field: string, file: string, filename?: string): this;
+      auth(user: string, name: string): this;
+      buffer(val?: boolean): this;
+      clearTimeout(): this;
+      end(callback?: CallbackHandler): this;
+      field(name: string, val: string): this;
+      get(field: string): string;
+      on(name: string, handler: Function): this;
+      on(name: 'error', handler: (err: any) => void): this;
+      part(): this;
+      pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
+      query(val: Object): this;
+      redirects(n: number): this;
+      send(data: string): this;
+      send(data: Object): this;
+      send(): this;
+      set(field: string, val: string): this;
+      set(field: Object): this;
+      timeout(ms: number): this;
+      type(val: string): this;
+      use(fn: Function): this;
+      withCredentials(): this;
+      write(data: string, encoding?: string): this;
+      write(data: Buffer, encoding?: string): this;
+      parse(fn: (res: Response, callback: (err: Error, body: any) => void) => void): this;
+    }
+
   }
 
-  export interface Request {
-    attach(field: string, file: string, filename: string): Request;
-    redirects(n: number): Request;
-    part(): Request;
-    set(field: string, val: string): Request;
-    set(field: Object): Request;
-    get(field: string): string;
-    type(val: string): Request;
-    query(val: Object): Request;
-    send(data: string): Request;
-    send(data: Object): Request;
-    write(data: string, encoding: string): boolean;
-    write(data: Buffer, encoding: string): boolean;
-    pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
-    buffer(val: boolean): Request;
-    timeout(ms: number): Request;
-    clearTimeout(): Request;
-    abort(): void;
-    auth(user: string, name: string): Request;
-    field(name: string, val: string): Request;
-    end(callback?: (err: Error, res: Response) => void): Request;
-  }
-
-  export interface Agent {
-    get(url: string, callback?: (err: Error, res: Response) => void): Request;
-    post(url: string, callback?: (err: Error, res: Response) => void): Request;
-    put(url: string, callback?: (err: Error, res: Response) => void): Request;
-    head(url: string, callback?: (err: Error, res: Response) => void): Request;
-    del(url: string, callback?: (err: Error, res: Response) => void): Request;
-    options(url: string, callback?: (err: Error, res: Response) => void): Request;
-    trace(url: string, callback?: (err: Error, res: Response) => void): Request;
-    copy(url: string, callback?: (err: Error, res: Response) => void): Request;
-    lock(url: string, callback?: (err: Error, res: Response) => void): Request;
-    mkcol(url: string, callback?: (err: Error, res: Response) => void): Request;
-    move(url: string, callback?: (err: Error, res: Response) => void): Request;
-    propfind(url: string, callback?: (err: Error, res: Response) => void): Request;
-    proppatch(url: string, callback?: (err: Error, res: Response) => void): Request;
-    unlock(url: string, callback?: (err: Error, res: Response) => void): Request;
-    report(url: string, callback?: (err: Error, res: Response) => void): Request;
-    mkactivity(url: string, callback?: (err: Error, res: Response) => void): Request;
-    checkout(url: string, callback?: (err: Error, res: Response) => void): Request;
-    merge(url: string, callback?: (err: Error, res: Response) => void): Request;
-    //m-search(url: string, callback?: (err: Error, res: Response) => void): Request;
-    notify(url: string, callback?: (err: Error, res: Response) => void): Request;
-    subscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
-    unsubscribe(url: string, callback?: (err: Error, res: Response) => void): Request;
-    patch(url: string, callback?: (err: Error, res: Response) => void): Request;
-    search(url: string, callback?: (err: Error, res: Response) => void): Request;
-    connect(url: string, callback?: (err: Error, res: Response) => void): Request;
-    parse(fn: Function): Request;
-    saveCookies(res: Response): void;
-    attachCookies(req: Request): void;
-  }
-
-  export function agent(): Agent;
+  export = request;
 }

@@ -6,7 +6,7 @@
 () => {
     // ------- variable definitions that does not exist in the original code. These are for typescript.
     var hilbert3D: any;
-    var stats: any;
+    var stats: Stats;
     // -------
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
@@ -36,6 +36,7 @@
         scene = new THREE.Scene();
 
         renderer = new THREE.WebGLRenderer({ antialias: false });
+        renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.autoClear = false;
 
@@ -94,8 +95,6 @@
         //
 
         stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.top = '0px';
         //container.appendChild( stats.domElement );
 
         //

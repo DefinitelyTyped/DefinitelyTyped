@@ -19,7 +19,7 @@ interface String {
     blue: string;
 }
 
-declare module node {
+declare namespace node {
 
     /**
      * {@link http://npmjs.org/doc/json.html}
@@ -36,7 +36,7 @@ declare module node {
 /**
  * {@link http://github.com/isaacs/minimatch}
  */
-declare module minimatch {
+declare namespace minimatch {
 
     /**
      * A minimal matching utility options.
@@ -114,17 +114,16 @@ declare module minimatch {
 /* GRUNT CONFIGURATION
  *********************/
 
-declare module grunt {
+declare namespace grunt {
 
-    module config {
-       
+    namespace config {
+
         /**
          * {@link http://gruntjs.com/sample-gruntfile}
          */
         interface IProjectConfig{
-            [plugin: string]: any
-            pkg: any; // unfortunate. It is actually a string
-        }                
+            [plugin: string]: any;
+        }
 
         /**
          * {@link http://gruntjs.com/api/grunt.config}
@@ -193,10 +192,16 @@ declare module grunt {
              */
             requires(prop: string, ...andProps: string[]): void
             requires(prop: string[], ...andProps: string[][]): void
+
+            /**
+             * Recursively merges properties of the specified configObject into the current project configuration.
+             * You can use this method to append configuration options, targets, etc., to already defined tasks.
+             */
+            merge<T>(configObject: T): void;
         }
     }
 
-    module event {
+    namespace event {
         /**
          * {@link http://github.com/hij1nx/EventEmitter2}
          */
@@ -271,7 +276,7 @@ declare module grunt {
         }
     }
 
-    module fail {
+    namespace fail {
 
         enum ErrorCode {
             NoError = 0,
@@ -300,7 +305,7 @@ declare module grunt {
         }
     }
 
-    module file {
+    namespace file {
 
         /**
          * {@link http://gruntjs.com/api/grunt.file#grunt.file.defaultencoding}
@@ -605,7 +610,7 @@ declare module grunt {
             /**
              * All {@link IExpandedFilesConfig.src} matches are relative to (but don't include) this path.
              */
-            cwd?: boolean
+            cwd?: string
 
             /**
              * Replace any existing extension with this value in generated {@link IExpandedFilesConfig.dest} paths.
@@ -641,7 +646,7 @@ declare module grunt {
         }
     }
 
-    module log {
+    namespace log {
 
         /**
          * Grunt output should look consistent, and maybe even pretty.
@@ -722,7 +727,7 @@ declare module grunt {
         }
     }
 
-    module option {
+    namespace option {
 
         /**
          * {@link http://gruntjs.com/api/grunt.option}
@@ -755,7 +760,7 @@ declare module grunt {
 
     }
 
-    module task {
+    namespace task {
 
         /**
          * {@link http://gruntjs.com/api/grunt.task}
@@ -768,6 +773,7 @@ declare module grunt {
              * The taskList argument must be an array of tasks.
              */
             registerTask(taskName: string, taskList: string[]): void
+            registerTask(taskName: string, description: string, taskList: string[]): void
 
             /**
              * If a description and taskFunction are passed, the specified function will be executed
@@ -779,6 +785,7 @@ declare module grunt {
              *
              * @note taskFunction.apply(scope: grunt.task.ITask, args: any[])
              */
+            registerTask(taskName: string, taskFunction: Function): void
             registerTask(taskName: string, description: string, taskFunction: Function): void
 
             /**
@@ -791,6 +798,22 @@ declare module grunt {
              */
             registerMultiTask(taskName: string, taskFunction: Function): void
             registerMultiTask(taskName: string, taskDescription: string, taskFunction: Function): void
+
+            /**
+             * Check with the name, if a task exists in the registered tasks.
+             * @param name The task name to check.
+             * @since 0.4.5
+             */
+            exists(name: string): boolean;
+
+            /**
+             * Rename a task. This might be useful if you want to override the default behavior of a task, while retaining the old name.
+             * Note that if a task has been renamed, the this.name and this.nameArgs properties will change accordingly.
+             * @see ITask
+             * @param oldname The previous name of the task.
+             * @param newname The new name for the task.
+             */
+            renameTask(oldname: string, newname: string): void
         }
 
         /**
@@ -991,7 +1014,7 @@ declare module grunt {
         interface ITaskCompactOptions extends grunt.task.ITaskOptions, grunt.file.IFilesConfig {}
     }
 
-    module template {
+    namespace template {
 
         interface TemplateModule {
 
@@ -1048,7 +1071,7 @@ declare module grunt {
         }
     }
 
-    module util {
+    namespace util {
 
         /**
          * {@link http://gruntjs.com/api/grunt.util}
@@ -1151,7 +1174,7 @@ declare module grunt {
             /**
              * The command to execute. It should be in the system path.
              */
-            cmd: string
+            cmd?: string
 
             /**
              * If specified, the same grunt bin that is currently running will be

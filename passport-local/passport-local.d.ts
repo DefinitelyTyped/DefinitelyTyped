@@ -1,7 +1,7 @@
 ﻿// Type definitions for passport-local 1.0.0
 // Project: https://github.com/jaredhanson/passport-local
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
 
@@ -13,10 +13,21 @@ declare module 'passport-local' {
     interface IStrategyOptions {
         usernameField?: string;
         passwordField?: string;
+        passReqToCallback?: boolean;
+    }
+
+    interface IStrategyOptionsWithRequest {
+        usernameField?: string;
+        passwordField?: string;
+        passReqToCallback: boolean;
     }
 
     interface IVerifyOptions {
         message: string;
+    }
+
+    interface VerifyFunctionWithRequest {
+        (req: express.Request, username: string, password: string, done: (error: any, user?: any, options?: IVerifyOptions) => void): void;
     }
 
     interface VerifyFunction {
@@ -24,6 +35,7 @@ declare module 'passport-local' {
     }
 
     class Strategy implements passport.Strategy {
+        constructor(options: IStrategyOptionsWithRequest, verify: VerifyFunctionWithRequest);
         constructor(options: IStrategyOptions, verify: VerifyFunction);
         constructor(verify: VerifyFunction);
 

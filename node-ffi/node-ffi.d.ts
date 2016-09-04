@@ -1,7 +1,7 @@
 // Type definitions for node-ffi
 // Project: https://github.com/rbranson/node-ffi
 // Definitions by: Paul Loyd <https://github.com/loyd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="node-ffi-buffer.d.ts" />

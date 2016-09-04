@@ -1,7 +1,7 @@
-// Type definitions for TweenJS 0.5.1
+// Type definitions for TweenJS 0.6.0
 // Project: http://www.createjs.com/#!/TweenJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -14,7 +14,7 @@
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
-declare module createjs {
+declare namespace createjs {
     export class CSSPlugin {
         constructor();
 
@@ -67,7 +67,7 @@ declare module createjs {
         static sineInOut: (amount: number) => number;
         static sineOut: (amount: number) => number;
     }
-    
+
     export class MotionGuidePlugin {
         constructor();
 
@@ -109,13 +109,10 @@ declare module createjs {
         addTween(...tween: Tween[]): void;
         getCurrentLabel(): string;
         getLabels(): Object[];
-        gotoAndPlay(positionOrLabel: string): void;
-        gotoAndPlay(positionOrLabel: number): void;
-        gotoAndStop(positionOrLabel: string): void;
-        gotoAndStop(positionOrLabel: number): void;
+        gotoAndPlay(positionOrLabel: string | number): void;
+        gotoAndStop(positionOrLabel: string | number): void;
         removeTween(...tween: Tween[]): void;
-        resolve(positionOrLabel: string): number;
-        resolve(positionOrLabel: number): number;
+        resolve(positionOrLabel: string | number): number;
         setLabels(o: Object): void;
         setPaused(value: boolean): void;
         setPosition(value: number, actionsMode?: number): boolean;
@@ -155,7 +152,6 @@ declare module createjs {
         setPaused(value: boolean): Tween;
         setPosition(value: number, actionsMode: number): boolean;
         static tick(delta: number, paused: boolean): void;
-        tick(delta: number, paused: boolean): void;
         tick(delta: number): void;
         to(props: Object, duration?: number, ease?: (t: number) => number): Tween;
         wait(duration: number, passive?: boolean): Tween;

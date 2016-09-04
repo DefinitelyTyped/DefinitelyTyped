@@ -1,106 +1,190 @@
-/// <reference path="./validator.d.ts" />
+/// <reference path='./validator.d.ts' />
 
-import validator = require("validator");
+import * as validator from 'validator';
 
+let any: any;
 
-validator.extend("isTest", function(str) {
-  return !str;
-});
+/**************
+ * Validators *
+ **************/
 
-validator.equals("abc", "Abc");
+{
+  let result: boolean;
 
-validator.contains("foo", "foobar");
+  result = validator.contains('sample', 'sample');
 
-validator.matches("foobar", "foo/i");
+  result = validator.equals('sample', 'sample');
 
-validator.isEmail("sample");
+  result = validator.isAfter('sample');
+  result = validator.isAfter('sample', new Date());
 
-validator.isURL("sample");
+  result = validator.isAlpha('sample');
 
-validator.isFQDN("sample");
+  result = validator.isAlphanumeric('sample');
 
-validator.isIP("sample");
+  result = validator.isAscii('sample');
 
-validator.isAlpha("sample");
+  result = validator.isBase64('sample');
 
-validator.isNumeric("sample");
+  result = validator.isBefore('sample');
+  result = validator.isBefore('sample', new Date());
 
-validator.isAlphanumeric("sample");
+  result = validator.isBoolean('sample');
 
-validator.isBase64("sample");
+  let isByteLengthOptions: ValidatorJS.IsByteLengthOptions;
+  result = validator.isByteLength('sample', isByteLengthOptions);
+  result = validator.isByteLength('sample', 0);
+  result = validator.isByteLength('sample', 0, 42);
 
-validator.isHexadecimal("sample");
+  result = validator.isCreditCard('sample');
 
-validator.isHexColor("sample");
+  let isCurrencyOptions: ValidatorJS.IsCurrencyOptions;
+  result = validator.isCurrency('sample');
+  result = validator.isCurrency('sample', isCurrencyOptions);
 
-validator.isLowercase("sample");
+  result = validator.isDate('sample');
 
-validator.isUppercase("sample");
+  result = validator.isDecimal('sample');
 
-validator.isInt("sample");
+  result = validator.isDivisibleBy('sample', 2);
 
-validator.isFloat("sample");
+  let isEmailOptions: ValidatorJS.IsEmailOptions;
+  result = validator.isEmail('sample');
+  result = validator.isEmail('sample', isEmailOptions);
 
-validator.isDivisibleBy("sample", 2);
+  let isFQDNOptions: ValidatorJS.IsFQDNOptions;
+  result = validator.isFQDN('sample');
+  result = validator.isFQDN('sample', isFQDNOptions);
 
-validator.isNull("sample");
+  let isFloatOptions: ValidatorJS.IsFloatOptions;
+  result = validator.isFloat('sample');
+  result = validator.isFloat('sample', isFloatOptions);
 
-validator.isLength("sample", 3, 5);
+  result = validator.isFullWidth('sample');
 
-validator.isByteLength("sample", 3);
+  result = validator.isHalfWidth('sample');
 
-validator.isUUID("sample");
+  result = validator.isHexColor('sample');
 
-validator.isDate("sample");
+  result = validator.isHexadecimal('sample');
 
-validator.isAfter("sample");
+  result = validator.isIP('sample');
+  result = validator.isIP('sample', 6);
 
-validator.isBefore("sample");
+  result = validator.isISBN('sample');
+  result = validator.isISBN('sample', 13);
 
-validator.isIn("sample", []);
+  result = validator.isISIN('sample');
 
-validator.isCreditCard("sample");
+  result = validator.isISO8601('sample');
 
-validator.isISBN("sample");
+  result = validator.isIn('sample', []);
 
-validator.isJSON("sample");
+  let isIntOptions: ValidatorJS.IsIntOptions;
+  result = validator.isInt('sample');
+  result = validator.isInt('sample', isIntOptions);
 
-validator.isMultibyte("sample");
+  result = validator.isJSON('sample');
 
-validator.isAscii("sample");
+  let isLengthOptions: ValidatorJS.IsLengthOptions;
+  result = validator.isLength('sample', isLengthOptions);
+  result = validator.isLength('sample', 3);
+  result = validator.isLength('sample', 3, 5);
 
-validator.isFullWidth("sample");
+  result = validator.isLowercase('sample');
 
-validator.isHalfWidth("sample");
+  result = validator.isMACAddress('sample');
 
-validator.isVariableWidth("sample");
+  result = validator.isMobilePhone('sample', 'en-US');
 
-validator.isSurrogatePair("sample");
+  result = validator.isMongoId('sample');
 
-validator.isMongoId("sample");
+  result = validator.isMultibyte('sample');
 
-validator.toString(123);
+  result = validator.isNull('sample');
 
-validator.toDate(1225);
+  result = validator.isNumeric('sample');
 
-validator.toFloat('011');
+  result = validator.isSurrogatePair('sample');
 
-validator.toInt('aa');
+  let isURLOptions: ValidatorJS.IsURLOptions;
+  result = validator.isURL('sample');
+  result = validator.isURL('sample', isURLOptions);
 
-validator.toBoolean('yes!');
+  result = validator.isUUID('sample');
+  result = validator.isUUID('sample', 5);
 
-validator.trim('  triming  ');
+  result = validator.isUppercase('sample');
 
-validator.ltrim('  triming  ');
+  result = validator.isVariableWidth('sample');
 
-validator.rtrim('  triming  ');
+  result = validator.isWhitelisted('sample', 'abc');
+  result = validator.isWhitelisted('sample', ['a', 'b', 'c']);
 
-validator.escape('<script>');
+  result = validator.matches('foobar', 'foo/i');
+  result = validator.matches('foobar', 'foo', 'i');
+}
 
-validator.stripLow('\x7Ffoo\x02');
+/**************
+ * Sanitizers *
+ **************/
 
-validator.whitelist('ab', 'abcdef');
+{
+  let result: string;
 
-validator.blacklist('abc', 'abcdef');
+  result = validator.blacklist('sample', 'abc');
 
-validator.normalizeEmail('!');
+  result = validator.escape('sample');
+
+  result = validator.ltrim('sample');
+  result = validator.ltrim('sample', ' ');
+
+  let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions;
+  result = validator.normalizeEmail('sample');
+  result = validator.normalizeEmail('sample', normalizeEmailOptions);
+
+  result = validator.rtrim('sample');
+  result = validator.rtrim('sample', ' ');
+
+  result = validator.stripLow('sample');
+  result = validator.stripLow('sample', true);
+}
+
+{
+  let result: boolean;
+
+  result = validator.toBoolean(any);
+  result = validator.toBoolean(any, true);
+}
+
+{
+  let result: Date;
+
+  result = validator.toDate(any);
+}
+
+{
+  let result: number;
+
+  result = validator.toFloat(any);
+
+  result = validator.toInt(any);
+  result = validator.toInt(any, 10);
+}
+
+{
+  let result: string;
+
+  result = validator.toString(any);
+
+  result = validator.trim('sample');
+  result = validator.trim('sample', ' ');
+
+  result = validator.whitelist('sample', 'abc');
+}
+
+/**************
+ * Extensions *
+ **************/
+
+validator.extend<(str: string, options: {}) => boolean>('isTest', (str: any, options: {}) => !str);

@@ -5,7 +5,7 @@
 
 ///<reference path="rx-lite.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
 	export interface Observable<T> {
 		/**
 		* Pauses the underlying observable sequence based upon the observable sequence which yields true/false.

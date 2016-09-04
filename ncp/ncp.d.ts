@@ -1,7 +1,7 @@
 // Type definitions for ncp v0.5.1
 // Project: https://github.com/AvianFlu/ncp
 // Definitions by: Bart van der Schoor <https://github.com/bartvds/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

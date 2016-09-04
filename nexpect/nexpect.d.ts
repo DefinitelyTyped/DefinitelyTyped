@@ -1,7 +1,7 @@
 // Type definitions for nexpect 0.4.2
 // Project: https://github.com/nodejitsu/nexpect
 // Definitions by: vvakame <http://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -21,7 +21,7 @@ declare module "nexpect" {
         wait(expectation:RegExp):IChain;
         sendline(line:string):IChain;
         sendEof():IChain;
-        run(callback:(err:Error, output:string[], exit:any /* string | number */)=>void):child_process.ChildProcess;
+        run(callback:(err:Error, output:string[], exit: string | number)=>void):child_process.ChildProcess;
     }
 
     interface ISpawnOptions {

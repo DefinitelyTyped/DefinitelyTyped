@@ -1,12 +1,12 @@
 // Type definitions for fancyBox 2.1
 // Project: https://github.com/fancyapps/fancyBox
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-interface FancyboxOptions {
+interface FancyboxOptions extends FancyboxCallback {
     padding?: any; // number or []
     margin?: any; // number or []
     width?: any; // number or []
@@ -73,6 +73,8 @@ interface FancyboxOptions {
     prevMethod?: string;
 
     helpers?: any;
+    live?: boolean;
+    parent?: string;
 }
 
 interface FancyboxMethods {
@@ -96,16 +98,16 @@ interface FancyboxMethods {
 }
 
 interface FancyboxCallback {
-    onCancel;
-    beforeLoad;
-    afterLoad;
-    beforeShow;
-    afterShow;
-    beforeClose;
-    afterClose;
-    onUpdate;
-    onPlayStart;
-    onPlayEnd;
+    onCancel?: Function;
+    beforeLoad?: Function;
+    afterLoad?: Function;
+    beforeShow?: Function;
+    afterShow?: Function;
+    beforeClose?: Function;
+    afterClose?: Function;
+    onUpdate?: Function;
+    onPlayStart?: Function;
+    onPlayEnd?: Function;
 }
 
 interface FancyboxThumbnailHelperOptions {

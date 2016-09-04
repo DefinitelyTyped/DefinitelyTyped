@@ -1,6 +1,6 @@
 /// <reference path="ExtJS.d.ts" />
 
-module MyApp.view {
+namespace MyApp.view {
     export interface CompanyGridPanel extends Ext.grid.IPanel {
     }
 }
@@ -19,7 +19,7 @@ Ext.define("MyApp.view.CompanyGridPanel", <Ext.grid.IPanel>{
             title: "Company Listing",
             store: this.companyStore,
             columnLines: true,
-            
+
             columns: [
               <Ext.grid.column.IColumn>{
                   xtype: "gridcolumn",

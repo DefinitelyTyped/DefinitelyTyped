@@ -1,7 +1,7 @@
 // Type definitions for jQuery.noty v2.0
 // Project: http://needim.github.io/noty/
 // Definitions by: Aaron King <https://github.com/kingdango/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Nedim Carter <http://needim.github.io>
 
 /// <reference path='../jquery/jquery.d.ts'/>
@@ -47,7 +47,6 @@ interface NotyCallbackOptions {
 }
 
 interface NotyStatic {
-
 	(notyOptions: NotyOptions);
 	defaults: NotyOptions;
 
@@ -57,23 +56,27 @@ interface NotyStatic {
 	closeAll();
 	setText(id: any, text: string);
 	setType(id: any, type: string);
+}
 
+interface Noty {
+    (notyOptions: NotyOptions);
+
+    show();
+    close();
+    setText(text: string);
+    setType(type: string);
+    setTimeout(timeout: number);
+
+    closed: boolean;
+    shown: boolean;
 }
 
 interface JQueryStatic {
 	noty: NotyStatic;
 }
 
-declare var noty: {
-
-	(notyOptions: NotyOptions);
-
-	show();
-	close();
-	setText(text: string);
-	setType(type: string);
-	setTimeout(timeout: number);
-
-	closed: boolean;
-	shown: boolean;
+interface JQuery {
+    noty: Noty;
 }
+
+declare var noty: Noty;

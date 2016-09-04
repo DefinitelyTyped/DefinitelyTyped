@@ -1,12 +1,12 @@
 // Type definitions for pathwatcher
 // Project: https://github.com/atom/node-pathwatcher
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-declare module PathWatcher {
+declare namespace PathWatcher {
 	interface IFileStatic {
 		new (path:string, symlink?:boolean):IFile;
 	}
@@ -26,7 +26,8 @@ declare module PathWatcher {
 		write(text:string):void;
 		readSync(flushCache:boolean):string;
 		read(flushCache?:boolean):Q.Promise<string>;
-		exists():boolean;
+		// exists():boolean;
+		existsSync():boolean;
 		setDigest(contents:string):void;
 		getDigest():string;
 		writeFileWithPrivilegeEscalationSync (filePath:string, text:string):void;

@@ -1,7 +1,7 @@
 // Type definitions for knockout-amd-helpers
 // Project: https://github.com/rniemeyer/knockout-amd-helpers
 // Definitions by: David Sichau <https://github.com/DavidSichau>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
