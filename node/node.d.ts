@@ -372,7 +372,7 @@ declare namespace NodeJS {
         arch: string;
         platform: string;
         memoryUsage(): MemoryUsage;
-        nextTick(callback: Function): void;
+        nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: number[]): number[];
@@ -464,7 +464,7 @@ interface NodeBuffer extends Uint8Array {
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): any;
     equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer): number;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
