@@ -1993,18 +1993,26 @@ declare module "tls" {
     export interface TlsOptions {
         host?: string;
         port?: number;
-        pfx?: any;   //string or buffer
-        key?: any;   //string or buffer
+        pfx?: string | Buffer[];
+        key?: string | string[] | Buffer | Object[];
         passphrase?: string;
-        cert?: any;
-        ca?: any;    //string or buffer
-        crl?: any;   //string or string array
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | string[] | Buffer | Buffer[];    //string or buffer
+        crl?: string | string[];   //string or string array
         ciphers?: string;
-        honorCipherOrder?: any;
+        honorCipherOrder?: boolean;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: any;  //array or Buffer;
+        NPNProtocols?: string[] | Buffer;  //array or Buffer;
         SNICallback?: (servername: string, cb:(err:Error,ctx:SecureContext)=>any) => any;
+        ecdhCurve?: string;
+        dhparam?: string | Buffer;
+        handshakeTimeout?: number;
+        ALPNProtocols?: string[] | Buffer;
+        sessionTimeout?: number;
+        ticketKeys?: any;
+        sessionIdContext?: string;
+        secureProtocol?: string;
     }
 
     export interface ConnectionOptions {
