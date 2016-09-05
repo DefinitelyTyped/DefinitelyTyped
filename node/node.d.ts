@@ -1997,13 +1997,13 @@ declare module "tls" {
         key?: string | string[] | Buffer | Object[];
         passphrase?: string;
         cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | string[] | Buffer | Buffer[];    //string or buffer
-        crl?: string | string[];   //string or string array
+        ca?: string | string[] | Buffer | Buffer[];
+        crl?: string | string[];
         ciphers?: string;
         honorCipherOrder?: boolean;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: string[] | Buffer;  //array or Buffer;
+        NPNProtocols?: string[] | Buffer;
         SNICallback?: (servername: string, cb:(err:Error,ctx:SecureContext)=>any) => any;
         ecdhCurve?: string;
         dhparam?: string | Buffer;
@@ -2020,13 +2020,20 @@ declare module "tls" {
         port?: number;
         socket?: net.Socket;
         pfx?: string | Buffer
-        key?: string | Buffer
+        key?: string |string[] | Buffer | Buffer[];
         passphrase?: string;
-        cert?: string | Buffer
-        ca?: (string | Buffer)[];
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | Buffer | (string | Buffer)[];
         rejectUnauthorized?: boolean;
         NPNProtocols?: (string | Buffer)[];
         servername?: string;
+        path?: string;
+        ALPNProtocols?: (string | Buffer)[];
+        checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
+        secureProtocol: string;
+        secureContext: Object;
+        session: Buffer;
+        minDHSize: number;
     }
 
     export interface Server extends net.Server {
@@ -2079,7 +2086,7 @@ declare module "tls" {
     }
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: TlsOptions, secureConnectionListener?: () => void): ClearTextStream;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
