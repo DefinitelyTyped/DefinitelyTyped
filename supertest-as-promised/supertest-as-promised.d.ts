@@ -10,7 +10,7 @@
 declare module "supertest-as-promised" {
   import * as supertest from "supertest";
   import * as superagent from "superagent";
-  import * as PromiseBlurbird from "bluebird";
+  import * as PromiseBluebird from "bluebird";
 
   function supertestAsPromised(app: supertest.App): supertest.SuperTest<supertestAsPromised.Test>;
   function supertestAsPromised(promiseConstructor: { resolve: Function, reject: Function }): (app: supertest.App) => supertest.SuperTest<supertestAsPromised.Test>;
@@ -23,7 +23,7 @@ declare module "supertest-as-promised" {
     }
 
     interface Test extends supertest.Test, superagent.Request {
-      toPromise(): PromiseBlurbird<Response>;
+      toPromise(): PromiseBluebird<Response>;
     }
 
     function agent(app?: any): supertest.SuperTest<Test>;
