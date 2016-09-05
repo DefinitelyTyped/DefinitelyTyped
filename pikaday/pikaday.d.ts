@@ -103,6 +103,11 @@ declare class Pikaday {
     setEndRange(date: Date): void;
 
     /**
+     * Update the HTML.
+     */
+    draw(force: boolean): void;
+
+    /**
      * Returns true if the picker is visible.
      */
     isVisible(): boolean;
@@ -249,7 +254,7 @@ declare namespace Pikaday {
          * Render the month after the year in the title. Default: false.
          */
         showMonthAfterYear?: boolean;
-		
+
         /**
          * Render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell. Default: false.
          */

@@ -238,6 +238,7 @@ declare namespace angular {
          * @param directiveFactory An injectable directive factory function.
          */
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
+        directive(name: string, injectionFunction: Function): IModule;
         directive(object: Object): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
@@ -1745,12 +1746,12 @@ declare namespace angular {
          */
         $onInit?(): void;
         /**
-         * Called whenever one-way bindings are updated. The changesObj is a hash whose keys are the names of the bound
-         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
+         * properties that have changed, and the values are an {@link IChangesObject} object of the form
          * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
          * cloning the bound value to prevent accidental mutation of the outer value.
          */
-        $onChanges?(changesObj: {[property:string]: IChangesObject}): void;
+        $onChanges?(onChangesObj: IOnChangesObject): void;
         /**
          * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
          * watches and event handlers.
@@ -1765,6 +1766,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+    }
+    
+    interface IOnChangesObject {
+        [property: string]: IChangesObject;
     }
 
     interface IChangesObject {
@@ -1825,7 +1830,7 @@ declare namespace angular {
         bindToController?: boolean | Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         multiElement?: boolean;
-        name?: string;
+        directiveName?: string;
         priority?: number;
         /**
          * @deprecated

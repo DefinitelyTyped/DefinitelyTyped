@@ -13,6 +13,10 @@ interface Error {
     stack?: string;
 }
 
+interface ErrorConstructor {
+    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    stackTraceLimit: number;
+}
 
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
@@ -286,6 +290,7 @@ declare namespace NodeJS {
         cwd(): string;
         env: any;
         exit(code?: number): void;
+        exitCode: number;
         getgid(): number;
         setgid(id: number): void;
         setgid(id: string): void;
@@ -632,6 +637,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -2396,4 +2402,8 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+}
+
+declare module "process" {
+    export = process;
 }

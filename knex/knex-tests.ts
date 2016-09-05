@@ -380,6 +380,8 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
+  
+  trx.raw('')
 
   var info: any;
   var books: any[] = [
