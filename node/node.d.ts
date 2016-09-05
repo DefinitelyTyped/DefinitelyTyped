@@ -2624,6 +2624,33 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var SIGQUIT: number;
+    export var SIGTRAP: number;
+    export var SIGIOT: number;
+    export var SIGBUS: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGPIPE: number;
+    export var SIGALRM: number;
+    export var SIGCHLD: number;
+    export var SIGSTKFLT: number;
+    export var SIGCONT: number;
+    export var SIGSTOP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGURG: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var SIGVTALRM: number;
+    export var SIGPROF: number;
+    export var SIGIO: number;
+    export var SIGPOLL: number;
+    export var SIGPWR: number;
+    export var SIGSYS: number;
+    export var SIGUNUSED: number;
+    export var defaultCoreCipherList: string;
+    export var defaultCipherList: string;
 }
 
 declare module "process" {
