@@ -2174,6 +2174,15 @@ declare module "crypto" {
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
+    export interface ECDH {
+        computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string | Buffer;
+        generateKeys(encoding?: string, format?: string): string | Buffer;
+        getPrivateKey(encoding?: string): string | Buffer;
+        getPublicKey(encodind?: string): string | Buffer;
+        setPrivateKey(private_key: string | Buffer, encoding?: string): void;
+        setPublicKey(publick_key: string | Buffer, encoding?: string): void; 
+    }
+    export function createECDH(curve_name: string): ECDH;
 }
 
 declare module "stream" {
