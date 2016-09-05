@@ -254,11 +254,44 @@ function testOptionsPage() {
   });
 }
 
-chrome.storage.sync.get("myKey", function (loadedData) {
-  var myValue: { x: number } = loadedData["myKey"];
-});
+// https://developer.chrome.com/extensions/storage#type-StorageArea
+function testStorage() {
+    function getCallback(loadedData: { [key: string]: any; }) {
+        var myValue: { x: number } = loadedData["myKey"];
+    }
 
-chrome.storage.onChanged.addListener(function (changes) {
-  var myNewValue: { x: number } = changes["myKey"].newValue;
-  var myOldValue: { x: number } = changes["myKey"].oldValue;
-});
+    chrome.storage.sync.get(getCallback);
+    chrome.storage.sync.get("myKey", getCallback);
+    chrome.storage.sync.get(["myKey", "myKey2"], getCallback);
+    chrome.storage.sync.get({ foo: 1, bar: 2 }, getCallback);
+    chrome.storage.sync.get(null, getCallback);
+
+    function getBytesInUseCallback(bytesInUse: number) {
+        console.log(bytesInUse);
+    }
+
+    chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse(["myKey", "myKey2"], getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse(null, getBytesInUseCallback);
+
+    function doneCallback() {
+        console.log("done");
+    }
+
+    chrome.storage.sync.set({ foo: 1, bar: 2});
+    chrome.storage.sync.set({ foo: 1, bar: 2}, doneCallback);
+
+    chrome.storage.sync.remove("myKey");
+    chrome.storage.sync.remove("myKey", doneCallback);
+    chrome.storage.sync.remove(["myKey", "myKey2"]);
+    chrome.storage.sync.remove(["myKey", "myKey2"], doneCallback);
+
+    chrome.storage.sync.clear();
+    chrome.storage.sync.clear(doneCallback);
+
+    chrome.storage.onChanged.addListener(function (changes) {
+        var myNewValue: { x: number } = changes["myKey"].newValue;
+        var myOldValue: { x: number } = changes["myKey"].oldValue;
+    });
+}
