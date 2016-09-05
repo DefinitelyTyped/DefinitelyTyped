@@ -66,7 +66,7 @@ request(app)
 
 // Constructor with custom promises
 let customPromiseRequest = request(Promise);
-customPromiseRequest('')
+customPromiseRequest(app)
   .get("/kittens")
   .expect(201)
   .then(function (res) { /* ... */ })
