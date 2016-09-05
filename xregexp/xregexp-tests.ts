@@ -1,8 +1,7 @@
 /// <reference path="xregexp.d.ts" />
 
-import X = require('xregexp');
-import XRegExp = X.XRegExp;
-import TokenOpts = X.TokenOpts;
+import XRegExp = xregexp.OuterXRegExp;
+import TokenOpts = XRegExp.TokenOpts;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
@@ -44,11 +43,11 @@ str =  XRegExp.version;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-regex = X(str);
-regex = X(str, flags);
-regex = X(regex);
+regex = XRegExp(str);
+regex = XRegExp(str, flags);
+regex = XRegExp(regex);
 
-str =  X.version;
+str =  XRegExp.version;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
