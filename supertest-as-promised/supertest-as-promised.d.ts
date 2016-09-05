@@ -9,11 +9,11 @@
 
 declare module "supertest-as-promised" {
   import * as supertest from "supertest";
-  import * as supersgent from "superagent";
-  import { SuperTest, Response } from "supertest";
-  import * as PromiseBlurbird from "bluebird";
+  import * as superagent from "superagent";
+  import * as PromiseBluebird from "bluebird";
 
-  function supertestAsPromised(app: any): SuperTest<supertestAsPromised.Test>;
+  function supertestAsPromised(app: supertest.App): supertest.SuperTest<supertestAsPromised.Test>;
+  function supertestAsPromised(promiseConstructor: { resolve: Function, reject: Function }): (app: supertest.App) => supertest.SuperTest<supertestAsPromised.Test>;
 
   namespace supertestAsPromised {
     interface Request extends supertest.Request {
@@ -22,15 +22,14 @@ declare module "supertest-as-promised" {
     interface Response extends supertest.Response {
     }
 
-    interface Test extends supertest.Test, supersgent.Request {
-      toPromise(): PromiseBlurbird<Response>;
+    interface Test extends supertest.Test, superagent.Request {
+      toPromise(): PromiseBluebird<Response>;
     }
 
-    function agent(app?: any): SuperTest<Test>;
+    function agent(app?: any): supertest.SuperTest<Test>;
 
     interface SuperTest<T> extends supertest.SuperTest<T> {
     }
   }
-  export = supertestAsPromised
-
+  export = supertestAsPromised;
 }
