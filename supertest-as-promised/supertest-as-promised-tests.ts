@@ -4,6 +4,7 @@
 
 import * as request from 'supertest-as-promised';
 import * as express from 'express';
+import * as http from 'http';
 
 var app = express();
 
@@ -62,3 +63,30 @@ request(app)
   // I'm a real promise now!
   .delay(10)
   .then(function (res) { /* ... */ })
+
+// Constructor with custom promises
+let customPromiseRequest = request(Promise);
+customPromiseRequest('')
+  .get("/kittens")
+  .expect(201)
+  .then(function (res) { /* ... */ })
+  // I'm a real promise now!
+  .catch(function (err) { /* ... */ })
+
+
+// Constructor overload
+// String constructor
+request('localhost')
+    .get('/')
+    .expect(200)
+    .then(function (res) {
+      // ...
+    });
+// RequestListener constructor
+let requestListener = (request: http.IncomingMessage, response: http.ServerResponse): void => {};
+request(requestListener)
+    .get('/')
+    .expect(200)
+    .then(function (res) {
+      // ...
+    });

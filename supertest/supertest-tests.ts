@@ -3,6 +3,7 @@
 
 import * as supertest from 'supertest';
 import * as express from 'express';
+import * as http from 'http';
 
 var app = express();
 
@@ -56,3 +57,12 @@ function hasPreviousAndNextKeys(res: supertest.Response) {
   if (!('next' in res.body)) return "missing next key";
   if (!('prev' in res.body)) throw new Error("missing prev key");
 }
+
+// constructor overload
+// String constructor
+supertest('localhost')
+  .get('/');
+// RequestListener constructor
+let requestListener = (request: http.IncomingMessage, response: http.ServerResponse): void => {};
+supertest(requestListener)
+  .get('/');
