@@ -1,5 +1,7 @@
-// <reference path="../react/react.d.ts" />
-// <reference path="./dva.d.ts" />
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./dva.d.ts" />
+
+import React = __React;
 
 import dva from 'dva';
 import { connect } from 'dva';
@@ -13,10 +15,10 @@ app.model({
     namespace: 'count',
     state: 0,
     reducers: {
-        add  (count) {
+        add(count: number) {
             return count + 1
         },
-        minus(count) {
+        minus(count: number) {
             return count - 1
         },
     },
@@ -25,12 +27,12 @@ app.model({
 // 3. View
 const App = connect(({ count }) => ({
     count
-}))(function (props) {
+}))(function ({ count, dispatch }) {
     return (
         <div>
-            <h2>{ props.count }</h2>
-            <button key="add" onClick={() => { props.dispatch({type: 'count/add'})}}>+</button>
-            <button key="minus" onClick={() => { props.dispatch({type: 'count/minus'})}}>-</button>
+            <h2>{ count }</h2>
+            <button key="add" onClick={() => { dispatch({type: 'count/add'})}}>+</button>
+            <button key="minus" onClick={() => { dispatch({type: 'count/minus'})}}>-</button>
         </div>
     );
 });
