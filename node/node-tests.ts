@@ -183,6 +183,14 @@ function bufferTests() {
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
 
+    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
+    {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+        buf.swap16();
+        buf.swap32();
+        buf.swap64();
+    }
+
     // Class Method: Buffer.from(array)
     {
         const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
@@ -236,8 +244,60 @@ function bufferTests() {
         let index: number;
         index = buffer.indexOf("23");
         index = buffer.indexOf("23", 1);
+        index = buffer.indexOf("23", 1, "utf8");
         index = buffer.indexOf(23);
         index = buffer.indexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.lastIndexOf("23");
+        index = buffer.lastIndexOf("23", 1);
+        index = buffer.lastIndexOf("23", 1, "utf8");
+        index = buffer.lastIndexOf(23);
+        index = buffer.lastIndexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: [number, number];
+
+        for (let entry of buffer.entries()) {
+            val = entry;
+        }
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let includes: boolean;
+        includes = buffer.includes("23");
+        includes = buffer.includes("23", 1);
+        includes = buffer.includes("23", 1, "utf8");
+        includes = buffer.includes(23);
+        includes = buffer.includes(23, 1);
+        includes = buffer.includes(23, 1, "utf8");
+        includes = buffer.includes(buffer);
+        includes = buffer.includes(buffer, 1);
+        includes = buffer.includes(buffer, 1, "utf8");
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        for (let key of buffer.keys()) {
+            val = key;
+        }
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        for (let value of buffer.values()) {
+            val = value;
+        }
     }
 
     // Imported Buffer from buffer module works properly
@@ -507,9 +567,12 @@ namespace tty_tests {
 
 var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
 });
+ds.bind();
+ds.bind(41234);
 var ai: dgram.AddressInfo = ds.address();
 ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
 });
+ds.send(new Buffer("hello"), 5000, "127.0.0.1");
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html
@@ -930,5 +993,12 @@ namespace errors_tests {
     {
         const myObject = {};
         Error.captureStackTrace(myObject);
+    }
+}
+
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+         eventEmitter = process;                // Test that process implements EventEmitter...
     }
 }

@@ -43,8 +43,7 @@ namespace NavigationTests {
     }
 	
 	// Navigation Event
-	var navigationListener = 
-	(oldState: Navigation.State, state: Navigation.State, data: any) => {
+	var navigationListener = (oldState: Navigation.State, state: Navigation.State, data: any, asyncData: any) => {
 		stateNavigator.offNavigate(navigationListener);
 	};
 	stateNavigator.onNavigate(navigationListener);

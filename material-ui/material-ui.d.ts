@@ -1712,7 +1712,7 @@ declare namespace __MaterialUI {
         focus(): void;
         select(): void;
         getValue(): string;
-        getInputNode(): Element;
+        getInputNode(): HTMLInputElement;
     }
 
     interface TimePickerProps extends React.Props<TimePicker> {
@@ -7228,7 +7228,7 @@ declare module 'material-ui/utils/withWidth' {
       mediumWidth?: number;
       resizeInterval?: number;
   }
-  export default function withWidth(options?: Options): __React.ComponentClass<any>
+  export default function withWidth<C extends Function>(options?: Options): (component: C) => C;
 }
 
 declare namespace __MaterialUI.Styles {
