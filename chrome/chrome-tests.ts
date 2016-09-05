@@ -26,6 +26,7 @@ function bookmarksExample() {
         return list;
     }
     function dumpNode(bookmarkNode, query) {
+        var span = $('<span>');
         if (bookmarkNode.title) {
             if (query && !bookmarkNode.children) {
                 if (String(bookmarkNode.title).indexOf(query) == -1) {
@@ -42,7 +43,6 @@ function bookmarksExample() {
             anchor.click(function () {
                 chrome.tabs.create({ url: bookmarkNode.url });
             });
-            var span = $('<span>');
             var options = bookmarkNode.children ?
                 $('<span>[<a href="#" id="addlink">Add</a>]</span>') :
                 $('<span>[<a id="editlink" href="#">Edit</a> <a id="deletelink" ' +
@@ -146,7 +146,7 @@ function pageRedder() {
 function printPage() {
     chrome.browserAction.onClicked.addListener(function (tab) {
         var action_url = "javascript:window.print();";
-        chrome.tabs.update(tab.id, { url: action_url });
+        chrome.tabs.update(tab.id!, { url: action_url });
     });
 }
 
@@ -173,10 +173,10 @@ function catBlock () {
 
 // contrived settings example
 function proxySettings() {
-    chrome.proxy.settings.get({ incognito: false }, (details) => {
+    chrome.proxy.settings.get({ incognito: true }, (details) => {
         var val = details.value;
         var level: string = details.levelOfControl;
-        var incognito: boolean = details.incognitoSpecific;
+        var incognito: boolean = details.incognitoSpecific!;
     });
 
     // bare minimum set call
