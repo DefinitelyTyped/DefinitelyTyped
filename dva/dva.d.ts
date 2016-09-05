@@ -1,10 +1,12 @@
 // Type definitions for dva v1.0.0
 // Project: https://github.com/dvajs/dva
+// Definitions by: nikogu <https://github.com/nikogu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts" />
 declare module 'dva' {
     /** connecting Container Components */
-    export function connect(maps):Function;
+    export function connect(maps:Object):Function;
 
     export default function dva(opts?:Object):{
 
@@ -18,7 +20,7 @@ declare module 'dva' {
         model: (model:Object)=>void,
 
         /** dva setting router */
-        router: (router)=>void,
+        router: (router:Object)=>void,
     };
 }
 
@@ -26,8 +28,23 @@ declare module 'dva' {
  * https://github.com/reactjs/react-router
  */
 declare module 'dva/router' {
-    export class Router {}
-    export class Route {}
+    import React = __React;
+
+    interface RouterProps {
+        history?: Object
+    }
+    export class Router extends React.Component<RouterProps, {}> {
+        render(): JSX.Element
+    }
+
+
+    interface RouteProps {
+        path?: string,
+        component?: React.ReactNode
+    }
+    export class Route extends React.Component<RouteProps, {}> {
+        render(): JSX.Element
+    }
 }
 
 /**
