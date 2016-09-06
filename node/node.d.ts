@@ -2136,12 +2136,14 @@ declare module "crypto" {
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
-        sign(private_key: string, output_format: string): string;
+        sign(private_key: string): Buffer;
+        sign(private_key: string, output_format:  'latin1' | 'hex' | 'base64'): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
-        verify(object: string, signature: string, signature_format?: string): boolean;
+        verify(object: string, signature: Buffer): boolean;
+        verify(object: string, signature: string, signature_format: 'latin1' | 'hex' | 'base64'): boolean;
     }
     export function createDiffieHellman(prime_length: number): DiffieHellman;
     export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
