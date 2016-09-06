@@ -456,6 +456,8 @@ declare namespace NodeJS {
     }
 }
 
+interface IterableIterator<T> {}
+
 /**
  * @deprecated
  */
