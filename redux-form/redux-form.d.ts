@@ -11,6 +11,8 @@ declare module 'redux-form' {
   import { Component, SyntheticEvent, FormEventHandler } from 'react';
   import { Dispatch, ActionCreator, Reducer } from 'redux';
 
+  export const actionTypes: {[actionName:string]: string};
+
   export type FieldValue = any;
 
   export type FormData = {[fieldName:string]: FieldValue};

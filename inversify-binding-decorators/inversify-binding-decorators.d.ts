@@ -1,4 +1,4 @@
-// Type definitions for inversify 1.0.0-beta.5
+// Type definitions for inversify-binding-decorators 1.0.0
 // Project: https://github.com/inversify/inversify-binding-decorators
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,46 +7,50 @@
 
 declare namespace inversifyBindingDecorators {
 
-    interface IProvideInSyntax<T> extends IProvideDoneSyntax<T> {
-        inSingletonScope(): IProvideWhenOnSyntax<T>;
-    }
+    namespace interfaces {
 
-    interface IProvideDoneSyntax<T> {
-        done(): (target: any) => any;
-    }
+        export interface ProvideInSyntax<T> extends ProvideDoneSyntax<T> {
+            inSingletonScope(): ProvideWhenOnSyntax<T>;
+        }
 
-    interface IProvideOnSyntax<T> extends IProvideDoneSyntax<T> {
-        onActivation(fn: (context: inversify.interfaces.Context, injectable: T) => T): IProvideWhenSyntax<T>;
-    }
+        export interface ProvideDoneSyntax<T> {
+            done(): (target: any) => any;
+        }
 
-    interface IProvideInWhenOnSyntax<T> extends IProvideInSyntax<T>, IProvideWhenSyntax<T>, IProvideOnSyntax<T> {}
+        export interface ProvideOnSyntax<T> extends ProvideDoneSyntax<T> {
+            onActivation(fn: (context: inversify.interfaces.Context, injectable: T) => T): ProvideWhenSyntax<T>;
+        }
 
-    interface IProvideWhenOnSyntax<T> extends IProvideWhenSyntax<T>, IProvideOnSyntax<T> {}
+        export interface ProvideInWhenOnSyntax<T> extends ProvideInSyntax<T>, ProvideWhenSyntax<T>, ProvideOnSyntax<T> {}
 
-    interface IProvideWhenSyntax<T> extends IProvideDoneSyntax<T> {
-        when(constraint: (request: inversify.interfaces.Request) => boolean): IProvideOnSyntax<T>;
-        whenTargetNamed(name: string): IProvideOnSyntax<T>;
-        whenTargetTagged(tag: string, value: any): IProvideOnSyntax<T>;
-        whenInjectedInto(parent: (Function|string)): IProvideOnSyntax<T>;
-        whenParentNamed(name: string): IProvideOnSyntax<T>;
-        whenParentTagged(tag: string, value: any): IProvideOnSyntax<T>;
-        whenAnyAncestorIs(ancestor: (Function|string)): IProvideOnSyntax<T>;
-        whenNoAncestorIs(ancestor: (Function|string)): IProvideOnSyntax<T>;
-        whenAnyAncestorNamed(name: string): IProvideOnSyntax<T>;
-        whenAnyAncestorTagged(tag: string, value: any): IProvideOnSyntax<T>;
-        whenNoAncestorNamed(name: string): IProvideOnSyntax<T>;
-        whenNoAncestorTagged(tag: string, value: any): IProvideOnSyntax<T>;
-        whenAnyAncestorMatches(constraint: (request: inversify.interfaces.Request) => boolean): IProvideOnSyntax<T>;
-        whenNoAncestorMatches(constraint: (request: inversify.interfaces.Request) => boolean): IProvideOnSyntax<T>;
+        export interface ProvideWhenOnSyntax<T> extends ProvideWhenSyntax<T>, ProvideOnSyntax<T> {}
+
+        export interface ProvideWhenSyntax<T> extends ProvideDoneSyntax<T> {
+            when(constraint: (request: inversify.interfaces.Request) => boolean): ProvideOnSyntax<T>;
+            whenTargetNamed(name: string): ProvideOnSyntax<T>;
+            whenTargetTagged(tag: string, value: any): ProvideOnSyntax<T>;
+            whenInjectedInto(parent: (Function|string)): ProvideOnSyntax<T>;
+            whenParentNamed(name: string): ProvideOnSyntax<T>;
+            whenParentTagged(tag: string, value: any): ProvideOnSyntax<T>;
+            whenAnyAncestorIs(ancestor: (Function|string)): ProvideOnSyntax<T>;
+            whenNoAncestorIs(ancestor: (Function|string)): ProvideOnSyntax<T>;
+            whenAnyAncestorNamed(name: string): ProvideOnSyntax<T>;
+            whenAnyAncestorTagged(tag: string, value: any): ProvideOnSyntax<T>;
+            whenNoAncestorNamed(name: string): ProvideOnSyntax<T>;
+            whenNoAncestorTagged(tag: string, value: any): ProvideOnSyntax<T>;
+            whenAnyAncestorMatches(constraint: (request: inversify.interfaces.Request) => boolean): ProvideOnSyntax<T>;
+            whenNoAncestorMatches(constraint: (request: inversify.interfaces.Request) => boolean): ProvideOnSyntax<T>;
+        }
+
     }
 
     export function autoProvide(kernel: inversify.interfaces.Kernel, ...modules: any[]): void;
 
     export function makeProvideDecorator(kernel: inversify.interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) => (target: any) => any;
+        (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) => (target: any) => any;
 
     export function makeFluentProvideDecorator(kernel: inversify.interfaces.Kernel):
-        (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) => IProvideInWhenOnSyntax<any>;
+        (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) => interfaces.ProvideInWhenOnSyntax<any>;
 
 }
 

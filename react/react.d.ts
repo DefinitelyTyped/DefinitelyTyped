@@ -1968,7 +1968,6 @@ declare namespace __React {
         hrefLang?: string;
         htmlFor?: string;
         httpEquiv?: string;
-        icon?: string;
         id?: string;
         inputMode?: string;
         integrity?: string;
