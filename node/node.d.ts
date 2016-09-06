@@ -899,6 +899,7 @@ declare module "os" {
     export function freemem(): number;
     export function cpus(): CpuInfo[];
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
+    export function userInfo(options?: {encoding: string}): { username: string, uid: number, gid: number, shell: any, homedir: string }
     export var EOL: string;
 }
 
