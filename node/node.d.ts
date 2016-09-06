@@ -2718,3 +2718,7 @@ declare module "timers" {
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
     export function clearImmediate(immediateId: any): void;
 }
+
+declare module "console" {
+    export = console;
+}
