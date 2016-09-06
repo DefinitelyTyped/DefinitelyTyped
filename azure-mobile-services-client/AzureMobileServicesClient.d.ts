@@ -17,7 +17,7 @@ declare namespace Microsoft.WindowsAzure {
         login(provider: string, token: string): asyncPromise;
         login(provider: string, callback: (error: any, user: User) => void ): void;
         login(provider: string): asyncPromise;
-        logout(): void;
+        logout(): asyncPromise;
         getTable(tableName: string): MobileServiceTable;
         withFilter(serviceFilter: (request: any, next: (request: any, callback: (error: any, response: any) => void) => void, callback: (error: any, response: any) => void) => void): MobileServiceClient;
         /**
