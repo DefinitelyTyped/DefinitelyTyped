@@ -171,10 +171,10 @@ class Tests {
 
             let settings: MockJaxSettings = {
                 url: '/async-response-callback',
-                response: (settings, callback) => {
+                response: (settings, completed) => {
                     setTimeout(() => {
                         settings.responseText = settings.data.response + ' 3';
-                        callback();
+                        completed();
                     }, 10);
                 }
             };
