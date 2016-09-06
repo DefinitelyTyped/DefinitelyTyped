@@ -6,7 +6,8 @@
 declare function rc(
 	name: string,
 	defaults?: any,
-	argv?: string[] | null,
-	parse?: ((content: string) => any) | null): any;
+	argv?: {} | null,
+	parse?: ((content: string) => any) | null
+): any;
 
 export = rc;
