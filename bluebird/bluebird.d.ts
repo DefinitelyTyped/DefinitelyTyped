@@ -383,12 +383,12 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    *
    * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
    */
-  static promisify<T>(func: Bluebird.nodeFunction0<T>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction0<T>;
-  static promisify<T, A1>(func: Bluebird.nodeFunction1<T, A1>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction1<T, A1>;
-  static promisify<T, A1, A2>(func: Bluebird.nodeFunction2<T, A1, A2>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction2<T, A1, A2>;
-  static promisify<T, A1, A2, A3>(func: Bluebird.nodeFunction3<T, A1, A2, A3>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction3<T, A1, A2, A3>;
-  static promisify<T, A1, A2, A3, A4>(func: Bluebird.nodeFunction4<T, A1, A2, A3, A4>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction4<T, A1, A2, A3, A4>;
-  static promisify<T, A1, A2, A3, A4, A5>(func: Bluebird.nodeFunction5<T, A1, A2, A3, A4, A5>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction5<T, A1, A2, A3, A4, A5>;
+  static promisify<T>(func: Bluebird.NodeFunction0<T>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction0<T>;
+  static promisify<T, A1>(func: Bluebird.NodeFunction1<T, A1>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction1<T, A1>;
+  static promisify<T, A1, A2>(func: Bluebird.NodeFunction2<T, A1, A2>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction2<T, A1, A2>;
+  static promisify<T, A1, A2, A3>(func: Bluebird.NodeFunction3<T, A1, A2, A3>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction3<T, A1, A2, A3>;
+  static promisify<T, A1, A2, A3, A4>(func: Bluebird.NodeFunction4<T, A1, A2, A3, A4>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction4<T, A1, A2, A3, A4>;
+  static promisify<T, A1, A2, A3, A4, A5>(func: Bluebird.NodeFunction5<T, A1, A2, A3, A4, A5>, options?: Bluebird.PromisifyOptions): Bluebird.AsyncFunction5<T, A1, A2, A3, A4, A5>;
   static promisify(nodeFunction: Function, options?: Bluebird.PromisifyOptions): Function;
 
   /**
