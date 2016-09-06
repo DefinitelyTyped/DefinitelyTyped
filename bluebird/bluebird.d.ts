@@ -383,12 +383,12 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    *
    * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
    */
-  static promisify<T>(func: (callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
-  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
-  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
-  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
+  static promisify<T>(func: Bluebird.nodeFunction0<T>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction0<T>;
+  static promisify<T, A1>(func: Bluebird.nodeFunction1<T, A1>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction1<T, A1>;
+  static promisify<T, A1, A2>(func: Bluebird.nodeFunction2<T, A1, A2>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction2<T, A1, A2>;
+  static promisify<T, A1, A2, A3>(func: Bluebird.nodeFunction3<T, A1, A2, A3>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction3<T, A1, A2, A3>;
+  static promisify<T, A1, A2, A3, A4>(func: Bluebird.nodeFunction4<T, A1, A2, A3, A4>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction4<T, A1, A2, A3, A4>;
+  static promisify<T, A1, A2, A3, A4, A5>(func: Bluebird.nodeFunction5<T, A1, A2, A3, A4, A5>, options?: Bluebird.PromisifyOptions): Bluebird.asyncFunction5<T, A1, A2, A3, A4, A5>;
   static promisify(nodeFunction: Function, options?: Bluebird.PromisifyOptions): Function;
 
   /**
@@ -642,6 +642,25 @@ namespace Bluebird {
     // The promisifier gets a reference to the original method and should return a function which returns a promise
     promisifier?: (originalMethod: Function) => () => Thenable<any>;
   }
+
+  /**
+   * Simply type expression of `promisify`. It's able to enhance readability and maintainability.
+   *  ex: (origin) static promisify<T>(func: (callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
+   *      (new)    static promisify<T>(func: nodeFunction0, options?: Bluebird.PromisifyOptions): asyncFunction0;
+   */
+  export type CallBack<T> = (err: any, result: T) => void;
+  export type NodeFunction0<T> = (callback: CallBack<T>) => void;
+  export type NodeFunction1<T, A1> = (arg1: A1, callback: CallBack<T>) => void;
+  export type NodeFunction2<T, A1, A2> = (arg1: A1, arg2: A2, callback: CallBack<T>) => void;
+  export type NodeFunction3<T, A1, A2, A3> = (arg1: A1, arg2: A2, arg3: A3, callback: CallBack<T>) => void;
+  export type NodeFunction4<T, A1, A2, A3, A4> = (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: CallBack<T>) => void;
+  export type NodeFunction5<T, A1, A2, A3, A4, A5> = (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: CallBack<T>) => void;
+  export type AsyncFunction0<T> = () => Bluebird<T>;
+  export type AsyncFunction1<T, A1> = (arg1: A1) => Bluebird<T>;
+  export type AsyncFunction2<T, A1, A2> = (arg1: A1, arg2: A2) => Bluebird<T>;
+  export type AsyncFunction3<T, A1, A2, A3> = (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
+  export type AsyncFunction4<T, A1, A2, A3, A4> = (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
+  export type AsyncFunction5<T, A1, A2, A3, A4, A5> = (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
 
   /**
    * Represents an error is an explicit promise rejection as opposed to a thrown error.
