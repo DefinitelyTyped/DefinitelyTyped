@@ -165,6 +165,22 @@ fs.watch('/tmp/foo-', {
   console.log(event, filename);
 });
 
+fs.access('/path/to/folder', (err) => {});
+
+fs.access(Buffer.from(''), (err) => {});
+
+fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+
+fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+
+fs.accessSync('/path/to/folder');
+
+fs.accessSync(Buffer.from(''));
+
+fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
+
+fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
