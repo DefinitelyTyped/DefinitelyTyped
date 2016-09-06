@@ -134,7 +134,7 @@ class Networker extends events.EventEmitter {
     }
 }
 
-var errno: number;
+var errno: string;
 fs.readFile('testfile', (err, data) => {
     if (err && err.errno) {
         errno = err.errno;
@@ -263,9 +263,11 @@ function bufferTests() {
         let buffer = new Buffer('123');
         let val: [number, number];
 
+        /* comment out for --target es5
         for (let entry of buffer.entries()) {
             val = entry;
         }
+         */
     }
 
     {
@@ -286,18 +288,22 @@ function bufferTests() {
         let buffer = new Buffer('123');
         let val: number;
 
+        /* comment out for --target es5
         for (let key of buffer.keys()) {
             val = key;
         }
+         */
     }
 
     {
         let buffer = new Buffer('123');
         let val: number;
 
+        /* comment out for --target es5
         for (let value of buffer.values()) {
             val = value;
         }
+         */
     }
 
     // Imported Buffer from buffer module works properly
@@ -993,5 +999,12 @@ namespace errors_tests {
     {
         const myObject = {};
         Error.captureStackTrace(myObject);
+    }
+}
+
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+         eventEmitter = process;                // Test that process implements EventEmitter...
     }
 }

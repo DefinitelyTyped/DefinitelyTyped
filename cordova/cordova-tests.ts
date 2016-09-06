@@ -126,12 +126,27 @@ function fsaccessor(fs: FileSystem) {
         (err: FileError)=> { alert('Error: ' + err.code); });
 }
 
+
+
+//----------------------------------------------------------------------
+// FileSystem plugin
+//
+//cordova states that the enums for requestFileSystem live on LocalFileSystem
+//
 window.requestFileSystem(
-    window.TEMPORARY,
+    LocalFileSystem.TEMPORARY,
     1024 * 1024 * 5,
     fsaccessor,
     (err: FileError) => { alert('Error: ' + err.code); }
 );
+window.requestFileSystem(
+    LocalFileSystem.PERSISTENT,
+    1024 * 1024 * 5,
+    fsaccessor,
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+// FileSystem plugin
+//----------------------------------------------------------------------
 
 window.resolveLocalFileSystemURI(cordova.file.applicationDirectory,
     (entry: Entry)=> {
