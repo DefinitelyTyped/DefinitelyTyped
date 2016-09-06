@@ -1389,19 +1389,35 @@ declare module "dgram" {
         port: number;
     }
 
+    interface BindOptions {
+        port: number;
+        address?: string;
+        exclusive?: boolean;
+    }
+
+    interface SocketOptions {
+        type: string;
+        reuseAddr?: boolean;
+    }
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
-        send(buf: Buffer, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
-        close(): void;
+        bind(options: BindOptions, callback?: Function): void;
+        close(callback?: any): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
+        setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
+        ref(): void;
+        unref(): void;
     }
 }
 
