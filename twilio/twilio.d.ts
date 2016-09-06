@@ -5,12 +5,12 @@
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../q/Q.d.ts" />
+/// <reference path="../q/index.d.ts" />
 
 import * as Express from 'express';
 import * as Http from 'http';
 
-import q = require('q');
+import Q = require('q');
 
 declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
