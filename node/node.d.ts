@@ -1719,6 +1719,8 @@ declare module "fs" {
         fd?: number;
         mode?: number;
     }): WriteStream;
+    export function fdatasync(fd: number, callback: Function): void;
+    export function fdatasyncSync(fd: number): void;
 }
 
 declare module "path" {
