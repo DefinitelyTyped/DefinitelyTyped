@@ -134,7 +134,7 @@ class Networker extends events.EventEmitter {
     }
 }
 
-var errno: number;
+var errno: string;
 fs.readFile('testfile', (err, data) => {
     if (err && err.errno) {
         errno = err.errno;

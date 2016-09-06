@@ -233,7 +233,7 @@ declare var Buffer: {
 ************************************************/
 declare namespace NodeJS {
     export interface ErrnoException extends Error {
-        errno?: number;
+        errno?: string;
         code?: string;
         path?: string;
         syscall?: string;
