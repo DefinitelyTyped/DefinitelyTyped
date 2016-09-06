@@ -2,7 +2,7 @@
 // Project: https://github.com/wheresrhys/fetch-mock
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Tamir Duberstein <https://github.com/tamird>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../whatwg-fetch/index.d.ts" />
+/// <reference types="whatwg-fetch" />
 
 type MockRequest = Request | RequestInit;
 
