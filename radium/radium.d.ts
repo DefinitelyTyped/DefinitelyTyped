@@ -1,6 +1,6 @@
-// Type definitions for radium 0.17.1
+// Type definitions for radium 0.18.1
 // Project: https://github.com/formidablelabs/radium
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>, Mikael Hermansson <https://github.com/mihe/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
@@ -19,10 +19,10 @@ declare module 'radium' {
          */
         export interface StyleProps {
             /**
-             * An object of CSS rules to render. Each key of the rules object is a CSS selector and the value is an object
-             * of styles. If rules is empty, the component will render nothing.
+             * An object of styles, or an object of CSS rules to render. Each key of the rules object is a CSS
+             * selector and the value is an object of styles. If rules is empty, the component will render nothing.
              */
-            rules: StyleRules;
+            rules: React.CSSProperties | StyleRules;
             /**
              * A string that any included selectors in rules will be appended to.
              * Use to scope styles in the component to a particular element. A good use case might be to generate a unique

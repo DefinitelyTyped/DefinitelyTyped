@@ -1664,3 +1664,7 @@ declare namespace jsts {
         }
     }
 }
+
+declare module "jsts" {
+    export = jsts;
+}

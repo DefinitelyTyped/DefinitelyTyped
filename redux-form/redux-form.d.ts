@@ -41,7 +41,7 @@ declare module 'redux-form' {
      * The error for this field if its value is not passing validation. Both
      * synchronous and asynchronous validation errors will be reported here.
      */
-    error?: string[];
+    error?: any;
 
     /**
      * The value for this field as supplied in initialValues to the form.
@@ -165,7 +165,7 @@ declare module 'redux-form' {
      * result from the synchronous validation function, the asynchronous
      * validation, or the rejected promise from onSubmit.
      */
-    error?: string[];
+    error?: any;
 
     /**
      * The form data, in the form { field1: <Object>, field2: <Object> }. The

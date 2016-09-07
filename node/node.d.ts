@@ -372,7 +372,7 @@ declare namespace NodeJS {
         arch: string;
         platform: string;
         memoryUsage(): MemoryUsage;
-        nextTick(callback: Function): void;
+        nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: number[]): number[];
@@ -466,7 +466,7 @@ interface NodeBuffer extends Uint8Array {
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): any;
     equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer): number;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -2239,6 +2239,15 @@ declare module "crypto" {
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
+    export interface ECDH {
+        computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string | Buffer;
+        generateKeys(encoding?: string, format?: string): string | Buffer;
+        getPrivateKey(encoding?: string): string | Buffer;
+        getPublicKey(encodind?: string): string | Buffer;
+        setPrivateKey(private_key: string | Buffer, encoding?: string): void;
+        setPublicKey(publick_key: string | Buffer, encoding?: string): void; 
+    }
+    export function createECDH(curve_name: string): ECDH;
 }
 
 declare module "stream" {
@@ -2704,6 +2713,33 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var SIGQUIT: number;
+    export var SIGTRAP: number;
+    export var SIGIOT: number;
+    export var SIGBUS: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGPIPE: number;
+    export var SIGALRM: number;
+    export var SIGCHLD: number;
+    export var SIGSTKFLT: number;
+    export var SIGCONT: number;
+    export var SIGSTOP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGURG: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var SIGVTALRM: number;
+    export var SIGPROF: number;
+    export var SIGIO: number;
+    export var SIGPOLL: number;
+    export var SIGPWR: number;
+    export var SIGSYS: number;
+    export var SIGUNUSED: number;
+    export var defaultCoreCipherList: string;
+    export var defaultCipherList: string;
 }
 
 declare module "process" {
@@ -2717,4 +2753,8 @@ declare module "timers" {
     export function clearInterval(intervalId: NodeJS.Timer): void;
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
     export function clearImmediate(immediateId: any): void;
+}
+
+declare module "console" {
+    export = console;
 }
