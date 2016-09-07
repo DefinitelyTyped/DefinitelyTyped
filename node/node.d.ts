@@ -2249,7 +2249,7 @@ declare module "stream" {
     }
     namespace internal {
 
-        export var Stream: internal;
+        export class Stream extends internal {}
 
         export interface ReadableOptions {
             highWaterMark?: number;
