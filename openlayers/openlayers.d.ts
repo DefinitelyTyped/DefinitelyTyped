@@ -48,6 +48,25 @@ declare namespace olx {
         extent: ol.Extent;
     }
 
+    interface RotateOptions {
+        /*** CSS class name. Default is ol-rotate.*/
+        className?: string;
+        /*** Text label to use for the rotate button. Default is ⇧. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** Text label to use for the rotate tip. Default is Reset rotation.*/
+        tipLabel?: string;
+        /*** Animation duration in milliseconds. Default is 250.*/
+        duration?: number;
+        /*** Hide the control when rotation is 0. Default is true.*/
+        autoHide?: boolean;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Function called when the control is clicked. This will override the default resetNorth.*/
+        resetNorth?: Function;
+        /*** Target.*/
+        target?: Element;
+    }
+
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -2474,7 +2493,7 @@ declare namespace ol {
             /**
              * This function is used to set a target element for the control.
              * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control).
-             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is
              * added to the map's overlay container.
              */
             setTarget(target: Element | string):void;
@@ -2495,6 +2514,7 @@ declare namespace ol {
         }
 
         class Rotate extends Control {
+            constructor(opt_options?: olx.RotateOptions);
         }
 
         class ScaleLine extends Control {
