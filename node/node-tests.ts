@@ -431,11 +431,11 @@ var ctx: tls.SecureContext = tls.createSecureContext({
 });
 var blah = ctx.context;
 
-var tlsOpts: tls.TlsOptions = {
+var connOpts: tls.ConnectionOptions = {
 	host: "127.0.0.1",
 	port: 55
 };
-var tlsSocket = tls.connect(tlsOpts);
+var tlsSocket = tls.connect(connOpts);
 
 
 ////////////////////////////////////////////////////

@@ -1994,7 +1994,7 @@ declare module "tls" {
         host?: string;
         port?: number;
         pfx?: string | Buffer[];
-        key?: string | string[] | Buffer | Object[];
+        key?: string | string[] | Buffer | any[];
         passphrase?: string;
         cert?: string | string[] | Buffer | Buffer[];
         ca?: string | string[] | Buffer | Buffer[];
@@ -2030,10 +2030,10 @@ declare module "tls" {
         path?: string;
         ALPNProtocols?: (string | Buffer)[];
         checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
-        secureProtocol: string;
-        secureContext: Object;
-        session: Buffer;
-        minDHSize: number;
+        secureProtocol?: string;
+        secureContext?: Object;
+        session?: Buffer;
+        minDHSize?: number;
     }
 
     export interface Server extends net.Server {
@@ -2086,7 +2086,7 @@ declare module "tls" {
     }
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: TlsOptions, secureConnectionListener?: () => void): ClearTextStream;
+    export function connect(options: ConnectOptions, secureConnectionListener?: () => void): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
