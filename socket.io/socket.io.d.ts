@@ -752,7 +752,7 @@ declare namespace SocketIO {
 		 * A dictionary of all the rooms that we have in this namespace
 		 * The rooms are made of a `sockets` key which is the dictionary of sockets per ID
 		 */
-		rooms: {[room: string]: {sockets: {[id: string]: boolean }}};
+		rooms: {[room: string]: {sockets: {[id: string]: boolean }, length: number }};
 
 		/**
 		 * A dictionary of all the socket ids that we're dealing with, and all
