@@ -5,102 +5,211 @@
 
 
 interface SwiperOptions {
-    speed?: number;
-    autoplay?: number;
-    mode?: string;
-    loop?: boolean;
-    loopAdditionalSlides?: number;
-    slidesPerView?: any;
-    slidesPerGroup?: number;
-    calculateHeight?: boolean;
-    updateOnImagesReady?: boolean;
-    releaseFormElements?: boolean;
-    watchActiveIndex?: boolean;
-    visibilityFullFit?: boolean;
-    autoResize?: boolean;
-    resizeReInit?: boolean;
-    DOMAnimation?: boolean;
-    resistance?: any;
-    noSwiping?: boolean;
-    preventLinks?: boolean;
     initialSlide?: number;
-    useCSS3Transforms?: boolean;
+    direction?: string;
+    speed?: number;
+    setWrapperSize?: boolean;
+    virtualTranslate?: boolean;
+    width?: number;
+    height?: number;
+    autoHeight?: boolean;
+    roundLengths?: boolean;
+    nested?: boolean;
 
-    // Free Mode and Scroll Container
+    // Autoplay
+    autoplay?: number;
+    autoplayStopOnLast?: boolean;
+    autoplayDisableOnInteraction?: boolean;
+
+    // Progress
+    watchSlidesProgress?: boolean;
+    watchSlidesVisibility?: boolean;
+
+    // Freemode
     freeMode?: boolean;
-    freeModeFluid?: boolean;
-    scrollContainer?: boolean;
-    momentumRatio?: number;
-    momentumBounce?: boolean;
-    momentumBounceRatio?: number;
+    freeModeMomentum?: boolean;
+    freeModeMomentumRatio?: number;
+    freeModeMomentumBounce?: boolean;
+    freeModeMomentumBounceRatio?: number;
+    freeModeMinimumVelocity?: number;
+    freeModeSticky?: boolean;
 
-    // Slides offset
+    // Effects
+    effect?: string;
+    fade?: Object;
+    cube?: Object;
+    coverflow?: Object;
+    flip?: Object;
+
+    // Parallax
+    parallax?: boolean;
+
+    // Slides grid
+    spaceBetween?: number;
+    slidesPerView?: number|string;
+    slidesPerColumn?: number;
+    slidesPerColumnFill?: string;
+    slidesPerGroup?: number;
     centeredSlides?: boolean;
-    offsetPxBefore?: number;
-    offsetPxAfter?: number;
-    offsetSlidesBefore?: number;
-    offsetSlidesAfter?: number;
+    slidesOffsetBefore?: number;
+    slidesOffsetAfter?: number;
 
-    // Touch/mouse interactions
-    touchRatio?: number;
-    simulateTouch?: boolean;
-    onlyExternal?: boolean;
-    followFinger?: boolean;
+    // Grab Cursor
     grabCursor?: boolean;
-    shortSwipes?: boolean;
-    moveStartThreshold?: number;
 
-    // Navigation
-    keyboardControl?: boolean;
-    mousewheelControl?: boolean;
-    nextButton?: string | HTMLElement;
-    prevButton?: string | HTMLElement;
+    // Touches
+    touchEventsTarget?: string;
+    touchRatio?: number;
+    touchAngle?: number;
+    simulateTouch?: boolean;
+    shortSwipes?: boolean;
+    longSwipes?: boolean;
+    longSwipesRatio?: number;
+    longSwipesMs?: number;
+    followFinger?: boolean;
+    onlyExternal?: boolean;
+    threshold?: number;
+    touchMoveStopPropagation?: boolean;
+    iOSEdgeSwipeDetection?: boolean;
+    iOSEdgeSwipeThreshold?: number;
+
+    // Touch Resistance
+    resistance?: boolean;
+    resistanceRatio?: number;
+
+    // Clicks
+    preventClicks?: boolean;
+    preventClicksPropagation?: boolean;
+    slideToClickedSlide?: boolean;
+
+    // Swiping / No swiping
+    allowSwipeToPrev?: boolean;
+    allowSwipeToNext?: boolean;
+    noSwiping?: boolean;
+    noSwipingClass?: string;
+    swipeHandler?: string|Element;
+
+    // Navigation Controls
+    uniqueNavElements?: boolean;
 
     // Pagination
-    pagination?: any;
+    pagination?: string|Element;
+    paginationType?: string;
+    paginationHide?: boolean;
     paginationClickable?: boolean;
-    paginationAsRange?: boolean;
-    createPagination?: boolean;
+    paginationElement?: string;
+    paginationBulletRender?: (index: number, className: string) => void;
+    paginationFractionRender?: (swiper: Swiper, currentClassName: string, totalClassName: string) => void;
+    paginationProgressRender?: (swiper: Swiper, progressbarClass: string) => void;
+    paginationCustomRender?: (swiper: Swiper, current: number, total: number) => void;
+
+    // Navigation Buttons
+    nextButton?: string|Element;
+    prevButton?: string|Element;
+
+    // Scollbar
+    scrollbar?: string|Element|SwiperScrollbarOptions;
+    scrollbarHide?: boolean;
+    scrollbarDraggable?: boolean;
+    scrollbarSnapOnRelease?: boolean;
+
+
+    // Accessibility
+    a11y?: boolean;
+    prevSlideMessage?: string;
+    nextSlideMessage?: string;
+    firstSlideMessage?: string;
+    lastSlideMessage?: string;
+    paginationBulletMessage?: string;
+
+
+
+    // Keyboard / Mousewheel
+    keyboardControl?: boolean;
+    mousewheelControl?: boolean;
+    mousewheelForceToAxis?: boolean;
+    mousewheelReleaseOnEdges?: boolean;
+    mousewheelInvert?: boolean;
+    mousewheelSensitivity?: number;
+
+    // Hash Navigation
+    hashnav?: boolean;
+
+
+    // Images
+    preloadImages?: boolean;
+    updateOnImagesReady?: boolean;
+    lazyLoading?: boolean;
+    lazyLoadingInPrevNext?: boolean;
+    lazyLoadingInPrevNextAmount?: number;
+    lazyLoadingOnTransitionStart?: boolean;
+
+    // Loop
+    loop?: boolean;
+    loopAdditionalSlides?: number;
+    loopedSlides?: number;
+
+    // Controller
+    control?: Swiper;
+    controlInverse?: boolean;
+    controlBy?: string;
+
+    // Observer
+    observer?: boolean;
+    observeParents?: boolean;
+
+    // Breakpoints
+    breakpoints?: Object;
+
+    // Callbacks
+    runCallbacksOnInit?: boolean;
+    onInit?: (swiper: Swiper) => void;
+    onSlideChangeStart?: (swiper: Swiper) => void;
+    onSlideChangeEnd?: (swiper: Swiper) => void;
+    onSlideNextStart?: (swiper: Swiper) => void;
+    onSlideNextEnd?: (swiper: Swiper) => void;
+    onSlidePrevStart?: (swiper: Swiper) => void;
+    onSlidePrevEnd?: (swiper: Swiper) => void;
+    onTransitionStart?: (swiper: Swiper) => void;
+    onTransitionEnd?: (swiper: Swiper) => void;
+    onTouchStart?: (swiper: Swiper, event: Event) => void;
+    onTouchMove?: (swiper: Swiper, event: Event) => void;
+    onTouchMoveOpposite?: (swiper: Swiper, event: Event) => void;
+    onSliderMove?: (swiper: Swiper, event: Event) => void;
+    onTouchEnd?: (swiper: Swiper, event: Event) => void;
+    onClick?: (swiper: Swiper, event: Event) => void;
+    onTap?: (swiper: Swiper, event: Event) => void;
+    onDoubleTap?: (swiper: Swiper, event: Event) => void;
+    onImagesReady?: (swiper: Swiper) => void;
+    onProgress?: (swiper: Swiper, progress: number) => void;
+    onReachBeginning?: (swiper: Swiper) => void;
+    onReachEnd?: (swiper: Swiper) => void;
+    onDestroy?: (swiper: Swiper) => void;
+    onSetTranslate?: (swiper: Swiper, translate: any) => void;
+    onSetTransition?: (swiper: Swiper, transition: any) => void;
+    onAutoplay?: (swiper: Swiper) => void;
+    onAutoplayStart?: (swiper: Swiper) => void;
+    onAutoplayStop?: (swiper: Swiper) => void;
+    onLazyImageLoad?: (swiper: Swiper, slide, image) => void;
+    onLazyImageReady?: (swiper: Swiper, slide, image) => void;
+    onPaginationRendered?: (swiper: Swiper, paginationContainer) => void;
 
     // Namespace
-    wrapperClass?: string;
     slideClass?: string;
     slideActiveClass?: string;
     slideVisibleClass?: string;
-    slideElement?: string;
-    noSwipingClass?: string;
-    paginationElement?: string;
-    paginationElementClass?: string;
-    paginationActiveClass?: string;
-    paginationVisibleClass?: string;
+    slideDuplicateClass?: string;
+    slideNextClass?: string;
+    slidePrevClass?: string;
+    wrapperClass?: string;
+    bulletClass?: string;
+    bulletActiveClass?: string;
+    paginationHiddenClass?: string;
+    paginationCurrentClass?: string;
+    paginationTotalClass?: string;
+    paginationProgressbarClass?: string;
+    buttonDisabledClass?: string;
 
-    // Callbacks
-    queueStartCallbacks?: boolean;
-    queueEndCallbacks?: boolean;
-    onTouchStart?: (swiper: Swiper) => void;
-    onTouchMove?: (swiper: Swiper) => void;
-    onTouchEnd?: (swiper: Swiper) => void;
-    onSlideReset?: (swiper: Swiper) => void;
-    onSlideChangeStart?: (swiper: Swiper) => void;
-    onSlideChangeEnd?: (swiper: Swiper) => void;
-    onSlideClick?: (swiper: Swiper) => void;
-    onSlideTouch?: (swiper: Swiper) => void;
-    onImagesReady?: (swiper: Swiper) => void;
-    onMomentumBounce?: (swiper: Swiper) => void;
-    onResistanceBefore?: (swiper: Swiper, distance) => void;
-    onResistanceAfter?: (swiper: Swiper, distance) => void;
-
-    // Slides Loader
-    loader?: {
-        slides?: any[];
-        slidesHTMLType?: string;
-        surroundGroups?: number;
-        logic?: string;
-        loadAllSlides?: boolean;
-    };
-
-    // Plugins
-    scrollbar?: SwiperScrollbarOptions;
 }
 
 interface SwiperScrollbarOptions {
