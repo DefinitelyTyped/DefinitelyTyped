@@ -48,6 +48,25 @@ declare namespace olx {
         extent: ol.Extent;
     }
 
+    interface RotateOptions {
+        /*** CSS class name. Default is ol-rotate.*/
+        className?: string;
+        /*** Text label to use for the rotate button. Default is ⇧. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** Text label to use for the rotate tip. Default is Reset rotation.*/
+        tipLabel?: string;
+        /*** Animation duration in milliseconds. Default is 250.*/
+        duration?: number;
+        /*** Hide the control when rotation is 0. Default is true.*/
+        autoHide?: boolean;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Function called when the control is clicked. This will override the default resetNorth.*/
+        resetNorth?: Function;
+        /*** Target.*/
+        target?: Element;
+    }
+
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -791,24 +810,24 @@ declare namespace olx {
              */
             wrapX?: boolean;
         }
-        
+
         interface ClusterOptions extends VectorOptions{
-            
+
             /**
              * Minimum distance in pixels between clusters. Default is 20.
              */
             distance?: number;
-            
+
             extent?: ol.Extent;
-            
+
             geometryFunction?: any;
-            
+
             projection?: ol.proj.ProjectionLike;
-            
+
             source: ol.source.Vector;
-            
+
         }
-        
+
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -2422,9 +2441,9 @@ declare namespace ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-        
+
         namespace ScaleLine {
-            
+
             /**
              * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
              */
@@ -2433,29 +2452,29 @@ declare namespace ol {
 
         class Control extends ol.Object{
             constructor(options: olx.control.ControlOptions);
-            
+
             /**
              * Get the map associated with this control.
              */
             getMap():ol.Map;
-            
+
             /**
-             * Remove the control from its current map and attach it to the new map. 
+             * Remove the control from its current map and attach it to the new map.
              * Subclasses may set up event handlers to get notified about changes to the map here.
              */
             setMap(map: ol.Map):void;
-            
+
             /**
-             * This function is used to set a target element for the control. 
-             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control). 
-             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
+             * This function is used to set a target element for the control.
+             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control).
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is
              * added to the map's overlay container.
              */
             setTarget(target: Element | string):void;
-            
-            
+
+
         }
-        
+
         class Attribution extends Control {
         }
 
@@ -2469,20 +2488,21 @@ declare namespace ol {
         }
 
         class Rotate extends Control {
+            constructor(opt_options?: olx.RotateOptions);
         }
 
         class ScaleLine extends Control {
-            
+
             /**
              * Return the units to use in the scale line.
              */
             getUnits(): ScaleLine.Units;
-            
+
             /**
              * Set the units to use in the scale line.
              */
             setUnits(units: ScaleLine.Units): void;
-            
+
         }
 
         class Zoom extends Control{
@@ -4061,7 +4081,7 @@ declare namespace ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
-            
+
             /**
              * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
              */
@@ -4257,9 +4277,9 @@ declare namespace ol {
         }
 
         class Source extends ol.Object {
-            
+
             constructor(options: any);
-            
+
             /**
              * Get the projection of the source.
              * @return Projection.
