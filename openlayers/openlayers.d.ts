@@ -48,6 +48,27 @@ declare namespace olx {
         extent: ol.Extent;
     }
 
+    interface OverviewMapOptions {
+        /*** Whether the control should start collapsed or not (expanded). Default to true.*/
+        collapsed?: boolean;
+        /*** Text label to use for the expanded overviewmap button. Default is «. Instead of text, also a Node (e.g. a span element) can be used.*/
+        collapseLabel? :string | Node;
+        /*** Whether the control can be collapsed or not. Default to true.*/
+        collapsible?: boolean;
+        /*** Text label to use for the collapsed overviewmap button. Default is ». Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+        /*** Layers for the overview map. If not set, then all main map layers are used instead.*/
+        layers?: ol.layer.Layer[] | ol.Collection<ol.layer.Layer>;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Specify a target if you want the control to be rendered outside of the map's viewport.*/
+        target?: Element;
+        /*** Text label to use for the button tip. Default is Overview map*/
+        tipLabel?: string;
+        /*** Custom view for the overview map. If not provided, a default view with an EPSG:3857 projection will be used.*/
+        view?: ol.View;
+    }
+
     interface RotateOptions {
         /*** CSS class name. Default is ol-rotate.*/
         className?: string;
@@ -2485,6 +2506,40 @@ declare namespace ol {
         }
 
         class OverviewMap extends Control {
+            contructor(options?: olx.OverviewMapOptions);
+
+            /**
+             * Update the overview map element.
+             * @param mapEvent
+             */
+            render(mapEvent: ol.MapEvent): void;
+
+            /**
+             * Determine if the overview map is collapsed.
+             */
+            getCollapsed(): boolean;
+
+            /**
+             * Return true if the overview map is collapsible, false otherwise.
+             */
+            getCollapsible(): boolean;
+
+            /**
+             * Return the overview map.
+             */
+            getOverviewMap(): ol.Map;
+
+            /**
+             * Collapse or expand the overview map according to the passed parameter. Will not do anything if the overview map isn't collapsible or if the current collapsed state is already the one requested.
+             * @param collapsed
+             */
+            setCollapsed(collapsed: boolean): void;
+
+            /**
+             * Set whether the overview map should be collapsible.
+             * @param collapsible
+             */
+            setCollapsible(collapsible: boolean): void;
         }
 
         class Rotate extends Control {
