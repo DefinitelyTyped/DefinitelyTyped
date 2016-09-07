@@ -842,6 +842,22 @@ namespace errors_tests {
 }
 
 ///////////////////////////////////////////////////////////
+/// Process Tests : https://nodejs.org/api/process.html ///
+///////////////////////////////////////////////////////////
+
+import * as p from "process";
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+        eventEmitter = process;                // Test that process implements EventEmitter...
+        
+        var _p: NodeJS.Process = process;
+        _p = p;
+        assert(p === process);
+    }
+}
+
+///////////////////////////////////////////////////////////
 /// Console Tests : https://nodejs.org/api/console.html ///
 ///////////////////////////////////////////////////////////
 
@@ -851,4 +867,3 @@ namespace console_tests{
         assert(c === console);
     }
 }
-
