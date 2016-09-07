@@ -213,6 +213,7 @@ declare namespace ionic {
             currentStateName(): string;
 
             goBack(backCount?: number): void;
+            removeBackView(): void;
             clearHistory(): void;
             clearCache(): angular.IPromise<any>;
             nextViewOptions(options: IonicHistoryNextViewOptions): void;
