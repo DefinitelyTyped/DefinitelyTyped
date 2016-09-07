@@ -47,7 +47,7 @@ interface SocketIOStatic {
 declare namespace SocketIO {
 
 	interface Server {
-		engine: { ws: WebSocketServer };
+		engine: { ws: any };
 		
 		/**
 		 * A dictionary of all the namespaces currently on this Server
