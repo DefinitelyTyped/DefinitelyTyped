@@ -21,6 +21,7 @@ import * as os from "os";
 import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
+import * as timers from "timers";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -985,6 +986,31 @@ namespace vm_tests {
     {
         const Debug = vm.runInDebugContext('Debug');
         Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////
+/// Timers tests : https://nodejs.org/api/timers.html
+/////////////////////////////////////////////////////
+
+namespace timers_tests {
+    {
+        let immediateId = timers.setImmediate(function(){ console.log("immediate"); });
+        timers.clearImmediate(immediateId);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setInterval(function(){ console.log("interval"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearInterval(timeout);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setTimeout(function(){ console.log("timeout"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearTimeout(timeout);
     }
 }
 
