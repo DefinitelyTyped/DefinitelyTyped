@@ -73,7 +73,7 @@ declare namespace QuillJS {
         setSelection(range: RangeStatic, source?: "api"|"user"|"silent"): void;
 
         on(eventName: string, callback: (<T>(delta: T, oldContents: T, source: string) => void) |
-                                            ((name: string, ...args) => void )): QuillStatic;
+                                            ((name: string, ...args:any[]) => void )): QuillStatic;
         once(eventName: string, callback: (delta: DeltaStatic, source: string) => void): QuillStatic;
         off(eventName: string, callback: (delta: DeltaStatic, source: string) => void): QuillStatic;
 
