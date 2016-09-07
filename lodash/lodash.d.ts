@@ -8584,6 +8584,21 @@ declare module _ {
             callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**LoDashExplicitWrapper
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**

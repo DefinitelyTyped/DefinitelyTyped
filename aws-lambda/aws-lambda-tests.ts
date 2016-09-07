@@ -4,55 +4,29 @@ import lambda = require('aws-lambda');
 
 var str: string;
 var date: Date;
-var sns: lambda.SNS;
-var kinesis: lambda.Kinesis;
-var recordsList: lambda.Record[];
 var anyObj: any;
 var num: number;
-var identity: lambda.Identity;
+var identity: lambda.CognitoIdentity;
 var error: Error;
-
-/* Records */
-var records: lambda.Records;
-
-recordsList = records.Records;
-
-/* Record */
-var record: lambda.Record;
-
-str = record.EventVersion;
-str = record.EventSubscriptionArn;
-str = record.EnventSource;
-sns = record.Sns;
-kinesis = record.kinesis;
-
-/* SNS */
-str = sns.Type;
-str = sns.MessageId;
-str = sns.TopicArn;
-str = sns.Subject;
-str = sns.Message;
-date = sns.Timestamp;
-
-/* Kinesis */
-var kinesis: lambda.Kinesis;
-
-str = kinesis.data;
+var b: boolean;
+var clientCtx: lambda.ClientContext;
 
 /* Context */
 var context: lambda.Context;
 
-context.log(str, anyObj);
-context.fail(str);
-context.succeed(str);
-context.succeed(anyObj);
-context.succeed(str, anyObj);
+b = context.callbackWaitsForEmptyEventLoop;
+str = context.functionName;
+str = context.functionVersion;
+str = context.invokedFunctionArn;
+num = context.memoryLimitInMB;
 str = context.awsRequestId;
-num = context.getRemainingTimeInMillis();
+str = context.logGroupName;
+str = context.logStreamName;
 identity = context.identity;
+clientCtx = context.clientContext;
 
-/* Identity */
-var identity: lambda.Identity;
+/* CognitoIdentity */
+var identity: lambda.CognitoIdentity;
 
 str = identity.cognitoIdentityId;
 str = identity.cognitoIdentityPoolId;

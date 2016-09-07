@@ -21,6 +21,7 @@ import * as os from "os";
 import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
+import * as timers from "timers";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -134,7 +135,7 @@ class Networker extends events.EventEmitter {
     }
 }
 
-var errno: number;
+var errno: string;
 fs.readFile('testfile', (err, data) => {
     if (err && err.errno) {
         errno = err.errno;
@@ -257,6 +258,53 @@ function bufferTests() {
         index = buffer.lastIndexOf("23", 1, "utf8");
         index = buffer.lastIndexOf(23);
         index = buffer.lastIndexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: [number, number];
+
+        /* comment out for --target es5
+        for (let entry of buffer.entries()) {
+            val = entry;
+        }
+         */
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let includes: boolean;
+        includes = buffer.includes("23");
+        includes = buffer.includes("23", 1);
+        includes = buffer.includes("23", 1, "utf8");
+        includes = buffer.includes(23);
+        includes = buffer.includes(23, 1);
+        includes = buffer.includes(23, 1, "utf8");
+        includes = buffer.includes(buffer);
+        includes = buffer.includes(buffer, 1);
+        includes = buffer.includes(buffer, 1, "utf8");
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        /* comment out for --target es5
+        for (let key of buffer.keys()) {
+            val = key;
+        }
+         */
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        /* comment out for --target es5
+        for (let value of buffer.values()) {
+            val = value;
+        }
+         */
     }
 
     // Imported Buffer from buffer module works properly
@@ -941,6 +989,31 @@ namespace vm_tests {
     }
 }
 
+/////////////////////////////////////////////////////
+/// Timers tests : https://nodejs.org/api/timers.html
+/////////////////////////////////////////////////////
+
+namespace timers_tests {
+    {
+        let immediateId = timers.setImmediate(function(){ console.log("immediate"); });
+        timers.clearImmediate(immediateId);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setInterval(function(){ console.log("interval"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearInterval(timeout);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setTimeout(function(){ console.log("timeout"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearTimeout(timeout);
+    }
+}
+
 /////////////////////////////////////////////////////////
 /// Errors Tests : https://nodejs.org/api/errors.html ///
 /////////////////////////////////////////////////////////
@@ -952,5 +1025,23 @@ namespace errors_tests {
     {
         const myObject = {};
         Error.captureStackTrace(myObject);
+    }
+}
+
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+         eventEmitter = process;                // Test that process implements EventEmitter...
+    }
+}
+
+///////////////////////////////////////////////////////////
+/// Console Tests : https://nodejs.org/api/console.html ///
+///////////////////////////////////////////////////////////
+
+import * as c from "console";
+namespace console_tests{
+    {
+        assert(c === console);
     }
 }

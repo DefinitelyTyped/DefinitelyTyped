@@ -9,7 +9,7 @@
 interface BootboxBaseOptions {
 	title?: string | Element;
 	callback?: (result: boolean | string) => any;
-	onEscape?: () => any | boolean;
+	onEscape?: (() => any) | boolean;
 	show?: boolean;
 	backdrop?: boolean;
 	closeButton?: boolean;

@@ -233,14 +233,14 @@ declare var Buffer: {
 ************************************************/
 declare namespace NodeJS {
     export interface ErrnoException extends Error {
-        errno?: number;
+        errno?: string;
         code?: string;
         path?: string;
         syscall?: string;
         stack?: string;
     }
 
-    export interface EventEmitter {
+    export class EventEmitter {
         addListener(event: string, listener: Function): this;
         on(event: string, listener: Function): this;
         once(event: string, listener: Function): this;
@@ -251,6 +251,10 @@ declare namespace NodeJS {
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
+        // Added in Node 6...
+        prependListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: Function): this;
+        eventNames(): string[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -368,7 +372,7 @@ declare namespace NodeJS {
         arch: string;
         platform: string;
         memoryUsage(): MemoryUsage;
-        nextTick(callback: Function): void;
+        nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: number[]): number[];
@@ -452,6 +456,8 @@ declare namespace NodeJS {
     }
 }
 
+interface IterableIterator<T> {}
+
 /**
  * @deprecated
  */
@@ -460,7 +466,7 @@ interface NodeBuffer extends Uint8Array {
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): any;
     equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer): number;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -505,10 +511,10 @@ interface NodeBuffer extends Uint8Array {
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    // TODO: entries
-    // TODO: includes
-    // TODO: keys
-    // TODO: values
+    entries(): IterableIterator<[number, number]>;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
 }
 
 /************************************************
@@ -541,7 +547,7 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter implements NodeJS.EventEmitter {
+    export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
@@ -651,6 +657,9 @@ declare module "http" {
     }
     export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
+        httpVersionMajor: string;
+        httpVersionMinor: string;
+        connection: any;
         headers: any;
         rawHeaders: string[];
         trailers: any;
@@ -890,6 +899,7 @@ declare module "os" {
     export function freemem(): number;
     export function cpus(): CpuInfo[];
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
+    export function userInfo(options?: {encoding: string}): { username: string, uid: number, gid: number, shell: any, homedir: string }
     export var EOL: string;
 }
 
@@ -963,7 +973,7 @@ declare module "punycode" {
 
 declare module "repl" {
     import * as stream from "stream";
-    import * as events from "events";
+    import * as readline from "readline";
 
     export interface ReplOptions {
         prompt?: string;
@@ -975,8 +985,17 @@ declare module "repl" {
         useGlobal?: boolean;
         ignoreUndefined?: boolean;
         writer?: Function;
+        completer?: Function;
+        replMode?: any;
+        breakEvalOnSigint?: any;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+
+    export interface REPLServer extends readline.ReadLine {
+        defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
+        displayPrompt(preserveCursor?: boolean): void
+    }
+
+    export function start(options: ReplOptions): REPLServer;
 }
 
 declare module "readline" {
@@ -1269,6 +1288,32 @@ declare module "dns" {
     export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function reverse(ip: string, callback: (err: Error, domains: string[]) => void): string[];
+
+    //Error codes
+    export var NODATA: string;
+    export var FORMERR: string;
+    export var SERVFAIL: string;
+    export var NOTFOUND: string;
+    export var NOTIMP: string;
+    export var REFUSED: string;
+    export var BADQUERY: string;
+    export var BADNAME: string;
+    export var BADFAMILY: string;
+    export var BADRESP: string;
+    export var CONNREFUSED: string;
+    export var TIMEOUT: string;
+    export var EOF: string;
+    export var FILE: string;
+    export var NOMEM: string;
+    export var DESTRUCTION: string;
+    export var BADSTR: string;
+    export var BADFLAGS: string;
+    export var NONAME: string;
+    export var BADHINTS: string;
+    export var NOTINITIALIZED: string;
+    export var LOADIPHLPAPI: string;
+    export var ADDRGETNETWORKPARAMS: string;
+    export var CANCELLED: string;
 }
 
 declare module "net" {
@@ -1371,19 +1416,35 @@ declare module "dgram" {
         port: number;
     }
 
+    interface BindOptions {
+        port: number;
+        address?: string;
+        exclusive?: boolean;
+    }
+
+    interface SocketOptions {
+        type: string;
+        reuseAddr?: boolean;
+    }
+
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     interface Socket extends events.EventEmitter {
-        send(buf: Buffer, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
-        close(): void;
+        bind(options: BindOptions, callback?: Function): void;
+        close(callback?: any): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
+        setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
+        ref(): void;
+        unref(): void;
     }
 }
 
@@ -1684,6 +1745,8 @@ declare module "fs" {
         fd?: number;
         mode?: number;
     }): WriteStream;
+    export function fdatasync(fd: number, callback: Function): void;
+    export function fdatasyncSync(fd: number): void;
 }
 
 declare module "path" {
@@ -2132,12 +2195,14 @@ declare module "crypto" {
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
         update(data: any): void;
-        sign(private_key: string, output_format: string): string;
+        sign(private_key: string): Buffer;
+        sign(private_key: string, output_format:  'latin1' | 'hex' | 'base64'): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
         update(data: any): void;
-        verify(object: string, signature: string, signature_format?: string): boolean;
+        verify(object: string, signature: Buffer): boolean;
+        verify(object: string, signature: string, signature_format: 'latin1' | 'hex' | 'base64'): boolean;
     }
     export function createDiffieHellman(prime_length: number): DiffieHellman;
     export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
@@ -2174,6 +2239,15 @@ declare module "crypto" {
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
+    export interface ECDH {
+        computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string | Buffer;
+        generateKeys(encoding?: string, format?: string): string | Buffer;
+        getPrivateKey(encoding?: string): string | Buffer;
+        getPublicKey(encodind?: string): string | Buffer;
+        setPrivateKey(private_key: string | Buffer, encoding?: string): void;
+        setPublicKey(publick_key: string | Buffer, encoding?: string): void; 
+    }
+    export function createECDH(curve_name: string): ECDH;
 }
 
 declare module "stream" {
@@ -2299,6 +2373,18 @@ declare module "util" {
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
     export function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    export function isBoolean(object: any): boolean;
+    export function isBuffer(object: any): boolean;
+    export function isFunction(object: any): boolean;
+    export function isNull(object: any): boolean;
+    export function isNullOrUndefined(object: any): boolean;
+    export function isNumber(object: any): boolean;
+    export function isObject(object: any): boolean;
+    export function isPrimitive(object: any): boolean;
+    export function isString(object: any): boolean;
+    export function isSymbol(object: any): boolean;
+    export function isUndefined(object: any): boolean;
+    export function deprecate(fn: Function, message: string): Function;
 }
 
 declare module "assert" {
@@ -2374,6 +2460,9 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
+        members: any[];
+        enter(): void;
+        exit(): void;
     }
 
     export function create(): Domain;
@@ -2624,6 +2713,33 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var SIGQUIT: number;
+    export var SIGTRAP: number;
+    export var SIGIOT: number;
+    export var SIGBUS: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGPIPE: number;
+    export var SIGALRM: number;
+    export var SIGCHLD: number;
+    export var SIGSTKFLT: number;
+    export var SIGCONT: number;
+    export var SIGSTOP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGURG: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var SIGVTALRM: number;
+    export var SIGPROF: number;
+    export var SIGIO: number;
+    export var SIGPOLL: number;
+    export var SIGPWR: number;
+    export var SIGSYS: number;
+    export var SIGUNUSED: number;
+    export var defaultCoreCipherList: string;
+    export var defaultCipherList: string;
 }
 
 declare module "process" {
@@ -2641,4 +2757,17 @@ declare module "v8" {
     export function getHeapStatistics() : {total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number};
     export function getHeapSpaceStatistics(): HeapSpaceInfo[];
     export function setFlagsFromString(flags: string): void;
+}
+
+declare module "timers" {
+    export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export function clearTimeout(timeoutId: NodeJS.Timer): void;
+    export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export function clearInterval(intervalId: NodeJS.Timer): void;
+    export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export function clearImmediate(immediateId: any): void;
+}
+
+declare module "console" {
+    export = console;
 }
