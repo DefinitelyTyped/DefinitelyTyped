@@ -1036,6 +1036,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
+        connected: boolean;
         disconnect(): void;
         unref(): void;
     }
@@ -2406,4 +2407,8 @@ declare module "constants" {
 
 declare module "process" {
     export = process;
+}
+
+declare module "console" {
+    export = console;
 }
