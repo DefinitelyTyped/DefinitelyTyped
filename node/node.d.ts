@@ -1717,14 +1717,23 @@ declare module "fs" {
     export function watch(filename: string, options: { persistent?: boolean; recursive?: boolean; encoding?: string }, listener?: (event: string, filename: string | Buffer) => any): FSWatcher;
     export function exists(path: string | Buffer, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string | Buffer): boolean;
-    /** Constant for fs.access(). File is visible to the calling process. */
-    export var F_OK: number;
-    /** Constant for fs.access(). File can be read by the calling process. */
-    export var R_OK: number;
-    /** Constant for fs.access(). File can be written by the calling process. */
-    export var W_OK: number;
-    /** Constant for fs.access(). File can be executed by the calling process. */
-    export var X_OK: number;
+
+    interface Constants {
+        /** Constant for fs.access(). File is visible to the calling process. */
+        F_OK: number;
+
+        /** Constant for fs.access(). File can be read by the calling process. */
+        R_OK: number;
+
+        /** Constant for fs.access(). File can be written by the calling process. */
+        W_OK: number;
+
+        /** Constant for fs.access(). File can be executed by the calling process. */
+        X_OK: number;
+    }
+
+    export const constants: Constants;
+    
     /** Tests a user's permissions for the file specified by path. */
     export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
