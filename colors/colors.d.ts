@@ -47,6 +47,8 @@ declare module "colors" {
     namespace e {
         export function setTheme(theme:any): void;
 
+        export var enabled: boolean;
+
         export var black: Color;
         export var red: Color;
         export var green: Color;

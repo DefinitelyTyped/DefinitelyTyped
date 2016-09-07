@@ -2408,3 +2408,7 @@ declare module "constants" {
 declare module "process" {
     export = process;
 }
+
+declare module "console" {
+    export = console;
+}

@@ -21,6 +21,7 @@ import * as os from "os";
 import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
+import * as timers from "timers";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -164,6 +165,22 @@ fs.watch('/tmp/foo-', {
 }, (event, filename) => {
   console.log(event, filename);
 });
+
+fs.access('/path/to/folder', (err) => {});
+
+fs.access(Buffer.from(''), (err) => {});
+
+fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+
+fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+
+fs.accessSync('/path/to/folder');
+
+fs.accessSync(Buffer.from(''));
+
+fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
+
+fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -988,6 +1005,31 @@ namespace vm_tests {
     }
 }
 
+/////////////////////////////////////////////////////
+/// Timers tests : https://nodejs.org/api/timers.html
+/////////////////////////////////////////////////////
+
+namespace timers_tests {
+    {
+        let immediateId = timers.setImmediate(function(){ console.log("immediate"); });
+        timers.clearImmediate(immediateId);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setInterval(function(){ console.log("interval"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearInterval(timeout);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setTimeout(function(){ console.log("timeout"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearTimeout(timeout);
+    }
+}
+
 /////////////////////////////////////////////////////////
 /// Errors Tests : https://nodejs.org/api/errors.html ///
 /////////////////////////////////////////////////////////
@@ -1006,5 +1048,16 @@ namespace process_tests{
     {
         var eventEmitter: events.EventEmitter;
          eventEmitter = process;                // Test that process implements EventEmitter...
+    }
+}
+
+///////////////////////////////////////////////////////////
+/// Console Tests : https://nodejs.org/api/console.html ///
+///////////////////////////////////////////////////////////
+
+import * as c from "console";
+namespace console_tests{
+    {
+        assert(c === console);
     }
 }
