@@ -24,7 +24,7 @@ d.remove();
 d.toggle();
 d.position();
 d.destroy();
-d.element.appendChild(document.createElement("div"));
+d.drop.appendChild(document.createElement("div"));
 d.tether.position();
 
 d.on("open", () => false);
