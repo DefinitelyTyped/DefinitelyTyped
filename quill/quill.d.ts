@@ -7,7 +7,7 @@ declare namespace QuillJS {
 
     export interface QuillOptionsStatic {
         debug?: string,
-        modules?: {[key: string]: any},
+        modules?: { [key: string]: any },
         placeholder?: string,
         readOnly?: boolean,
         theme?: string
@@ -34,53 +34,55 @@ declare namespace QuillJS {
         length: number;
     }
 
+    type sourceType = "api" | "user" | "silent";
+    type formatsType = { [key: string]: any };
+
     export interface QuillStatic {
         new (selector: string, options?: QuillOptionsStatic): QuillStatic;
-
-        deleteText(start: number, end: number, source?: "api"|"user"|"silent"): void;
+        deleteText(start: number, end: number, source?: sourceType): void;
         disable(): void;
         enable(enabled?: boolean): void;
         getContents(start?: number, end?: number): DeltaStatic;
         getLength(): number;
         getText(start?: number, end?: number): string;
-        insertEmbed(index: number, type: string, url: string, source?: "api"|"user"|"silent"): void;
-        insertText(index: number, text: string, source?: "api"|"user"|"silent"): void;
-        insertText(index: number, text: string, format: string, value: string, source?: "api"|"user"|"silent"): void;
-        insertText(index: number, text: string, formats: { [key: string] : any  }, source?: "api"|"user"|"silent"): void;
+        insertEmbed(index: number, type: string, url: string, source?: sourceType): void;
+        insertText(index: number, text: string, source?: sourceType): void;
+        insertText(index: number, text: string, format: string, value: string, source?: sourceType): void;
+        insertText(index: number, text: string, formats: formatsType, source?: sourceType): void;
         pasteHTML(): string;
-        setContents(delta: DeltaStatic, source?: "api"|"user"|"silent"): void;
-        setText(text: string, source?: "api"|"user"|"silent"): void;
+        setContents(delta: DeltaStatic, source?: sourceType): void;
+        setText(text: string, source?: sourceType): void;
         update(source?: string): void;
-        updateContents(delta: DeltaStatic, source?: "api"|"user"|"silent"): void;
+        updateContents(delta: DeltaStatic, source?: sourceType): void;
 
-        format(name: string, value: any, source?: "api"|"user"|"silent"): void;
-        formatLine(index: number, length: number, source?: "api"|"user"|"silent"): void;
-        formatLine(index: number, length: number, format: string, value: any, source?: "api"|"user"|"silent"): void;
-        formatLine(index: number, length: number, formats: { [key: string] : any  }, source?: "api"|"user"|"silent"): void;
-        formatText(index: number, length: number, source?: "api"|"user"|"silent"): void;
-        formatText(index: number, length: number, format: string, value: any, source?: "api"|"user"|"silent"): void;
-        formatText(index: number, length: number, formats: { [key: string] : any  }, source?: "api"|"user"|"silent"): void;
-        getFormat(range?: RangeStatic): {[key: string]: any};
-        getFormat(index: number, length?: number): {[key: string]: any};
-        removeFormat(index: Number, length: Number, source?: "api"|"user"|"silent"): void;
+        format(name: string, value: any, source?: sourceType): void;
+        formatLine(index: number, length: number, source?: sourceType): void;
+        formatLine(index: number, length: number, format: string, value: any, source?: sourceType): void;
+        formatLine(index: number, length: number, formats: formatsType, source?: sourceType): void;
+        formatText(index: number, length: number, source?: sourceType): void;
+        formatText(index: number, length: number, format: string, value: any, source?: sourceType): void;
+        formatText(index: number, length: number, formats: formatsType, source?: sourceType): void;
+        getFormat(range?: RangeStatic): formatsType;
+        getFormat(index: number, length?: number): formatsType;
+        removeFormat(index: Number, length: Number, source?: sourceType): void;
 
         blur(): void;
         focus(): void;
         getBounds(index: number, length?: number): BoundsStatic;
         getSelection(focus?: boolean): RangeStatic;
         hasFocus(): boolean;
-        setSelection(index: number, length: number, source?: "api"|"user"|"silent"): void;
-        setSelection(range: RangeStatic, source?: "api"|"user"|"silent"): void;
+        setSelection(index: number, length: number, source?: sourceType): void;
+        setSelection(range: RangeStatic, source?: sourceType): void;
 
         on(eventName: string, callback: (<T>(delta: T, oldContents: T, source: string) => void) |
-                                            ((name: string, ...args:any[]) => void )): QuillStatic;
+            ((name: string, ...args: any[]) => void)): QuillStatic;
         once(eventName: string, callback: (delta: DeltaStatic, source: string) => void): QuillStatic;
         off(eventName: string, callback: (delta: DeltaStatic, source: string) => void): QuillStatic;
 
         debug(level: string): void;
         import(path: string): any;
         register(path: string, def: any, suppressWarning?: boolean): void;
-        register(defs: { [key: string] : any  }, suppressWarning?: boolean): void;
+        register(defs: formatsType, suppressWarning?: boolean): void;
         addContainer(className: string, refNode?: any): any;
         getModule(name: string): any
     }
