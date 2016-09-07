@@ -235,19 +235,7 @@ declare namespace ReactRouter {
     //
     // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
 
-    interface InjectedRouter {
-      push: (pathOrLoc: H.LocationDescriptor) => void
-      replace: (pathOrLoc: H.LocationDescriptor) => void
-      go: (n: number) => void
-      goBack: () => void
-      goForward: () => void
-      setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
-      createPath(path: H.Path, query?: H.Query): H.Path
-      createHref(path: H.Path, query?: H.Query): H.Href
-      isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
-    }
-
-    function withRouter<C extends React.ComponentClass<TProps>, TProps extends { router?: InjectedRouter }>(component: C): C
+    function withRouter<C extends React.ComponentClass<TProps>, TProps extends { router?: RouterOnContext }>(component: C): C
 
     /* utils */
 
@@ -514,7 +502,6 @@ declare module "react-router" {
     export type HistoryBase = ReactRouter.HistoryBase
     export type RouterOnContext = ReactRouter.RouterOnContext
     export type RouteProps = ReactRouter.RouteProps
-    export type InjectedRouter = ReactRouter.InjectedRouter
 
     export {
         Router,
