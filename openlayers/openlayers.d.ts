@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.2
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -228,6 +228,30 @@ declare namespace olx {
         serverType?: ol.source.wms.ServerType;
 
         /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
+    interface OSMOptions {
+        /** Attributions */
+        attributions?: ol.AttributionLike;
+        /** Cache size. Default is 2048. */
+        cacheSize?: number;
+        /**
+         * The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL
+         * renderer or if you want to access pixel data with the Canvas renderer.
+         * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. Default is anonymous.
+         */
+        crossOrigin?: string;
+        /** Max zoom. Default is 19. */
+        maxZoom?: number;
+        /** Whether the layer is opaque. Default is true. */
+        opaque?: boolean;
+        /** Maximum allowed reprojection error (in pixels). Default is 0.5. Higher values can increase reprojection performance, but decrease precision. */
+        reprojectionErrorThreshold?: number;
+        /** Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+        /** URL template. Must include {x}, {y} or {-y}, and {z} placeholders. Default is https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png. */
+        url?: string;
+        /** Whether to wrap the world horizontally. Default is true. */
         wrapX?: boolean;
     }
     /**
@@ -1145,6 +1169,8 @@ declare namespace ol {
     interface TileLoadFunctionType { (image: ol.Image, url: string): void }
 
     interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
+
+    type AttributionLike = string | Array<string> | ol.Attribution | Array<ol.Attribution>
 
     /**
      * An attribution for a layer source.
@@ -4274,6 +4300,7 @@ declare namespace ol {
         }
 
         class OSM extends XYZ {
+            constructor(opt_options?: olx.OSMOptions);
         }
 
         class Source extends ol.Object {
