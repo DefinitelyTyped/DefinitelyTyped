@@ -1008,3 +1008,14 @@ namespace process_tests{
          eventEmitter = process;                // Test that process implements EventEmitter...
     }
 }
+
+///////////////////////////////////////////////////////////
+/// Console Tests : https://nodejs.org/api/console.html ///
+///////////////////////////////////////////////////////////
+
+import * as c from "console";
+namespace console_tests{
+    {
+        assert(c === console);
+    }
+}
