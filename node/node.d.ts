@@ -2086,7 +2086,7 @@ declare module "tls" {
     }
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: ConnectOptions, secureConnectionListener?: () => void): ClearTextStream;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
