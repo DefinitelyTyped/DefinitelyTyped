@@ -240,7 +240,7 @@ declare namespace NodeJS {
         stack?: string;
     }
 
-    export interface EventEmitter {
+    export class EventEmitter {
         addListener(event: string, listener: Function): this;
         on(event: string, listener: Function): this;
         once(event: string, listener: Function): this;
