@@ -2152,23 +2152,6 @@ declare module "crypto" {
         (): Certificate;
     }
 
-    export function createECDH(curve_name: string): ECDH;
-    export interface ECDH {
-        generateKeys(): Buffer;
-        generateKeys(encoding: "latin1" | "hex" | "base64"): string;
-        generateKeys(encoding: "latin1" | "hex" | "base64", format: "compressed" | "uncompressed" | "hybrid"): string;
-        computeSecret(other_public_key: Buffer): Buffer;
-        computeSecret(other_public_key: string, input_encoding: "latin1" | "hex" | "base64"): Buffer;
-        computeSecret(other_public_key: string, input_encoding: "latin1" | "hex" | "base64", output_encoding: "latin1" | "hex" | "base64"): string;
-        getPrivateKey(): Buffer;
-        getPrivateKey(encoding: "latin1" | "hex" | "base64"): string;
-        getPublicKey(): Buffer;
-        getPublicKey(encoding: "latin1" | "hex" | "base64"): string;
-        getPublicKey(encoding: "latin1" | "hex" | "base64", format: "compressed" | "uncompressed" | "hybrid"): string;
-        setPrivateKey(private_key: Buffer): void;
-        setPrivateKey(private_key: string, encoding: "latin1" | "hex" | "base64"): void;
-    }
-
     export var fips: boolean;
 
     export interface CredentialDetails {
@@ -2285,12 +2268,19 @@ declare module "crypto" {
     export function getCurves(): string[];
     export function getHashes(): string[];
     export interface ECDH {
-        computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string | Buffer;
-        generateKeys(encoding?: string, format?: string): string | Buffer;
-        getPrivateKey(encoding?: string): string | Buffer;
-        getPublicKey(encodind?: string): string | Buffer;
-        setPrivateKey(private_key: string | Buffer, encoding?: string): void;
-        setPublicKey(publick_key: string | Buffer, encoding?: string): void; 
+        generateKeys(): Buffer;
+        generateKeys(encoding: "latin1" | "hex" | "base64"): string;
+        generateKeys(encoding: "latin1" | "hex" | "base64", format: "compressed" | "uncompressed" | "hybrid"): string;
+        computeSecret(other_public_key: Buffer): Buffer;
+        computeSecret(other_public_key: string, input_encoding: "latin1" | "hex" | "base64"): Buffer;
+        computeSecret(other_public_key: string, input_encoding: "latin1" | "hex" | "base64", output_encoding: "latin1" | "hex" | "base64"): string;
+        getPrivateKey(): Buffer;
+        getPrivateKey(encoding: "latin1" | "hex" | "base64"): string;
+        getPublicKey(): Buffer;
+        getPublicKey(encoding: "latin1" | "hex" | "base64"): string;
+        getPublicKey(encoding: "latin1" | "hex" | "base64", format: "compressed" | "uncompressed" | "hybrid"): string;
+        setPrivateKey(private_key: Buffer): void;
+        setPrivateKey(private_key: string, encoding: "latin1" | "hex" | "base64"): void;
     }
     export function createECDH(curve_name: string): ECDH;
 }
