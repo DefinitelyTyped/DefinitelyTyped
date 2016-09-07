@@ -75,7 +75,7 @@ declare namespace rbush {
      * Note that the nodeSize option passed to the constructor must be the same
      * in both trees for export/import to work properly.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /**
      * Import previously exported data.
@@ -88,7 +88,7 @@ declare namespace rbush {
      * Note that the nodeSize option passed to the constructor must be the same
      * in both trees for export/import to work properly.
      */
-    fromJSON(data: Object): RBush<T>;
+    fromJSON(data: any): RBush<T>;
   }
 
   interface IRBush {
