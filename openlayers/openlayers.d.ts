@@ -2506,7 +2506,7 @@ declare namespace ol {
         }
 
         class OverviewMap extends Control {
-            contructor(options?: olx.OverviewMapOptions);
+            constructor(options?: olx.OverviewMapOptions);
 
             /**
              * Update the overview map element.
