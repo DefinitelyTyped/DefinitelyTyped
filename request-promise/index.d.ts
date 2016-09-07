@@ -7,7 +7,7 @@ declare module 'request-promise' {
     import request = require('request');
     import http = require('http');
     import errors = require('request-promise/errors');
-    import promise = require('bluebird');
+    import Promise = require('bluebird');
 
     namespace requestPromise {
         interface RequestPromise extends request.Request {
