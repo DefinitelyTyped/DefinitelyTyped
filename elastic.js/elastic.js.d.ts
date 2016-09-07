@@ -40,7 +40,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -139,7 +139,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -278,7 +278,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -314,7 +314,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -362,7 +362,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -425,7 +425,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -522,7 +522,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -593,7 +593,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets if transpositions should be counted as one or two changes, defaults
@@ -666,7 +666,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -805,7 +805,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -986,7 +986,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Allows you to specify a different value field to aggrerate over.
@@ -1086,7 +1086,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1165,7 +1165,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1285,7 +1285,7 @@ declare module elasticjs {
      Retrieves the internal generator object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1419,7 +1419,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1521,7 +1521,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1573,7 +1573,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1616,7 +1616,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1662,7 +1662,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1734,7 +1734,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1813,7 +1813,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -1908,7 +1908,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -2000,7 +2000,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -2091,7 +2091,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -2179,7 +2179,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Set to false to use classic Levenshtein edit distance.
@@ -2344,7 +2344,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the distance unit.  Valid values are:
@@ -2479,7 +2479,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the distance unit.  Valid values are "mi" for miles or "km"
@@ -2771,7 +2771,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -2834,7 +2834,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -3059,7 +3059,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -3100,7 +3100,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -3232,7 +3232,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the child document type to search against
@@ -3360,7 +3360,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -3508,7 +3508,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the highligher type.  You can apply the option
@@ -3621,7 +3621,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -3762,7 +3762,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Allows you to specify a different value field to aggrerate over.
@@ -3859,7 +3859,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the type as a single type or an array of types.  If type is a
@@ -3919,7 +3919,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the type which the shape is indexed under.
@@ -4036,7 +4036,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4115,7 +4115,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4227,7 +4227,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4377,7 +4377,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the type of the MatchQuery.  Valid values are
@@ -4443,7 +4443,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4485,7 +4485,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4539,7 +4539,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4585,7 +4585,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4748,7 +4748,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -4860,7 +4860,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -5022,7 +5022,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the type of the MultiMatchQuery.  Valid values are
@@ -5087,7 +5087,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -5227,7 +5227,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -5496,7 +5496,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -5625,7 +5625,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the token limit.
@@ -5743,7 +5743,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      The prefix value.
@@ -5827,7 +5827,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -5899,7 +5899,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -6114,7 +6114,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets whether or not queries against multiple fields should be combined using Lucene's
@@ -6156,7 +6156,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -6239,7 +6239,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -6356,7 +6356,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Allows you to specify an alternate value field to be used to compute statistical information.
@@ -6537,7 +6537,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -6698,7 +6698,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      The regexp value.
@@ -6859,7 +6859,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Enables score computation and tracking during sorting.  Be default,
@@ -6921,7 +6921,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the window_size parameter of the rescoring.
@@ -6947,7 +6947,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -6997,7 +6997,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7098,7 +7098,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7137,7 +7137,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the shape type.  Can be set to one of:  point, linestring, polygon,
@@ -7237,7 +7237,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7393,7 +7393,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the script sort type.  Valid values are:
@@ -7454,7 +7454,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7490,7 +7490,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7543,7 +7543,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7583,7 +7583,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7620,7 +7620,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7661,7 +7661,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7762,7 +7762,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7818,7 +7818,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7866,7 +7866,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -7920,7 +7920,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8015,7 +8015,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8134,7 +8134,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the type of the field value for use in scripts.  Current values are:
@@ -8301,7 +8301,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8451,7 +8451,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8579,7 +8579,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the field for which statistical information will be generated.
@@ -8716,7 +8716,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8787,7 +8787,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the child document type to search against
@@ -8890,7 +8890,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
   }
 
@@ -8960,7 +8960,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): Object;
+    toJSON(): any;
 
     /*
      Sets the wildcard query value.
