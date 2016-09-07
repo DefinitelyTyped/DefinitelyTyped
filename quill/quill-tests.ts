@@ -69,9 +69,22 @@ function test_formatText2() {
     });
 }
 
-function test_formatLine() {
+function test_formatLine1() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, 'api');
+}
+
+function test_formatLine2() {
     var quillEditor = new Quill('#editor');
     quillEditor.formatLine(1, 3, 'align', 'right');
+}
+
+function test_formatLine3() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.formatLine(1, 3, {
+            'align': 'right',
+            'bold': false,
+        });
 }
 
 function test_insertEmbed() {
@@ -150,4 +163,12 @@ function test_addContainer()
 {
     var quillEditor = new Quill('#editor');
     quillEditor.addContainer('ql-custom');
+}
+
+function test_on_EventType1(){
+    var quillEditor = new Quill('#editor');
+    quillEditor.on('text-change', (newDelta, oldDelta, source)=>{
+        // happened
+    });
+
 }
