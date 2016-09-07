@@ -10,7 +10,7 @@ declare class Drop {
     constructor(options: Drop.IDropOptions);
 
     public content: HTMLElement;
-    public element: HTMLElement;
+    public drop: HTMLElement;
     public tether: Tether;
     public open(): void;
     public close(): void;
