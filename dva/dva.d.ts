@@ -14,13 +14,13 @@ declare module 'dva' {
         use: (hooks:Object)=>void,
 
         /** dva bootstrap */
-        start: (selector?:Object)=>void,
+        start: (selector?:String|HTMLElement)=>void,
 
         /** dva add model */
         model: (model:Object)=>void,
 
         /** dva setting router */
-        router: (router:Object)=>void,
+        router: (router:Object)=>Object|JSX.Element,
     };
 }
 
@@ -34,7 +34,7 @@ declare module 'dva/router' {
         history?: Object
     }
     export class Router extends React.Component<RouterProps, {}> {
-        render(): JSX.Element
+        render():JSX.Element
     }
 
 
@@ -43,15 +43,14 @@ declare module 'dva/router' {
         component?: React.ReactNode
     }
     export class Route extends React.Component<RouteProps, {}> {
-        render(): JSX.Element
+        render():JSX.Element
     }
-}
 
-/**
- * https://github.com/reactjs/react-router-redux
- */
-declare module 'dva/routerRedux' {
-    export default Object;
+    /**
+     * https://github.com/reactjs/react-router-redux
+     */
+    export class routerRedux {}
+
 }
 
 /**
