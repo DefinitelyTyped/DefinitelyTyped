@@ -248,10 +248,17 @@ url.format({
 var helloUrl = url.parse('http://example.com/?hello=world', true)
 assert.equal(helloUrl.query.hello, 'world');
 
+/////////////////////////////////////////////////////
+/// util tests : https://nodejs.org/api/util.html ///
+/////////////////////////////////////////////////////
 
-// Old and new util.inspect APIs
-util.inspect(["This is nice"], false, 5);
-util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+namesapce util_tests{
+    {
+        // Old and new util.inspect APIs
+        util.inspect(["This is nice"], false, 5);
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html
