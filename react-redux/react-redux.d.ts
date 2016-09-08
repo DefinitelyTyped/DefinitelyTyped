@@ -14,51 +14,72 @@ declare namespace ReactRedux {
   type Dispatch<S> = Redux.Dispatch<S>;
   type ActionCreator<A> = Redux.ActionCreator<A>;
 
-  interface ComponentDecorator<TOriginalProps, TOwnProps> {
-    (component: ComponentClass<TOriginalProps>|StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+
+  interface ComponentConstructor<P, S> extends __React.ComponentLifecycle<P, S> {
+  new(props?: P, context?: S) : void;
+  }
+
+  interface ComponentClassDecorator<TOriginalProps, TOwnProps> {
+  (component: ComponentConstructor<TOriginalProps, any> | ComponentClass<TOriginalProps> | StatelessComponent<TOriginalProps>): ComponentClass<TOwnProps>;
+  }
+
+  interface ComponentDecorator<TOriginalProps, TOwnProps, TState> {
+  (constructor: ComponentConstructor<TOriginalProps, TState>): void;
   }
 
   /**
-   * Decorator that infers the type from the original component
-   *
-   * Can't use the above decorator because it would default the type to {}
-   */
+  * Decorator that infers the type from the original component
+  *
+  * Can't use the above decorator because it would default the type to {}
+  */
   export interface InferableComponentDecorator {
-    <P, TComponentConstruct extends (ComponentClass<P>|StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
+  <P, TComponentConstruct extends (ComponentClass<P> | StatelessComponent<P>)>(component: TComponentConstruct): TComponentConstruct;
   }
 
   /**
-   * Connects a React component to a Redux store.
-   *
-   * - Without arguments, just wraps the component, without changing the behavior / props
-   *
-   * - If 2 params are passed (3rd param, mergeProps, is skipped), default behavior
-   * is to override ownProps (as stated in the docs), so what remains is everything that's
-   * not a state or dispatch prop
-   *
-   * - When 3rd param is passed, we don't know if ownProps propagate and whether they
-   * should be valid component props, because it depends on mergeProps implementation.
-   * As such, it is the user's responsibility to extend ownProps interface from state or
-   * dispatch props or both when applicable
-   *
-   * @param mapStateToProps
-   * @param mapDispatchToProps
-   * @param mergeProps
-   * @param options
-   */
+  * Connects a React component to a Redux store.
+  *
+  * - Without arguments, just wraps the component, without changing the behavior / props
+  *
+  * - If 2 params are passed (3rd param, mergeProps, is skipped), default behavior
+  * is to override ownProps (as stated in the docs), so what remains is everything that's
+  * not a state or dispatch prop
+  *
+  * - When 3rd param is passed, we don't know if ownProps propagate and whether they
+  * should be valid component props, because it depends on mergeProps implementation.
+  * As such, it is the user's responsibility to extend ownProps interface from state or
+  * dispatch props or both when applicable
+  *
+  * @param mapStateToProps
+  * @param mapDispatchToProps
+  * @param mergeProps
+  * @param options
+  */
   export function connect(): InferableComponentDecorator;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
-    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject>
-  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>
+  ): ComponentClassDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
   export function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
-    mapDispatchToProps: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps>|MapDispatchToPropsObject>,
+    mapDispatchToProps: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
     options?: Options
-  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+  ): ComponentClassDecorator<TStateProps & TDispatchProps, TOwnProps>;
+
+  export function connect<TStateProps, TDispatchProps, TOwnProps, TState>(
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps?: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps, TState>;
+
+  export function connect<TStateProps, TDispatchProps, TOwnProps, TState>(
+    mapStateToProps: FuncOrSelf<MapStateToProps<TStateProps, TOwnProps>>,
+    mapDispatchToProps: FuncOrSelf<MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject>,
+    mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps>,
+    options?: Options
+  ): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps, TState>;
 
   type FuncOrSelf<T> = T | (() => T);
 
@@ -88,7 +109,7 @@ declare namespace ReactRedux {
      */
     pure?: boolean;
     /**
-    * If true, stores a ref to the wrapped component instance and makes it available via 
+    * If true, stores a ref to the wrapped component instance and makes it available via
     * getWrappedInstance() method. Defaults to false.
     */
     withRef?: boolean;

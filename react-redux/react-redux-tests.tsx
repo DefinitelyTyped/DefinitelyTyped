@@ -10,7 +10,7 @@ import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Router, RouterState } from 'react-router';
-import { Store, Dispatch, bindActionCreators } from 'redux';
+import { Store, Dispatch, bindActionCreators, Action } from 'redux';
 import { connect, Provider } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -20,11 +20,17 @@ import objectAssign = require('object-assign');
 //
 
 interface CounterState {
-    counter: number;
+    counter: number
 }
-declare var increment: Function;
 
-class Counter extends Component<any, any> {
+declare var increment: () => Action
+
+interface CounterProps {
+    value: number,
+    onIncrement: Function
+}
+
+class CounterAny extends Component<any, any> {
     render() {
         return (
             <button onClick={this.props.onIncrement}>
@@ -34,6 +40,15 @@ class Counter extends Component<any, any> {
     }
 }
 
+class Counter extends Component<CounterProps, any> {
+    render() {
+        return (
+            <button onClick={this.props.onIncrement}>
+                {this.props.value}
+            </button>
+        );
+    }
+}
 function mapStateToProps(state: CounterState) {
     return {
         value: state.counter
@@ -41,7 +56,7 @@ function mapStateToProps(state: CounterState) {
 }
 
 // Which action creators does it want to receive by props?
-function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
+function mapDispatchToProps(dispatch: Dispatch<Action>) {
     return {
         onIncrement: () => dispatch(increment())
     };
@@ -50,12 +65,13 @@ function mapDispatchToProps(dispatch: Dispatch<CounterState>) {
 connect(
     mapStateToProps,
     mapDispatchToProps
-)(Counter);
-
+)(CounterAny);
 
 @connect(mapStateToProps)
 class CounterContainer extends Component<any, any> {
-
+    render() {
+        return <CounterAny {...this.props}/>
+    }
 }
 
 // Ensure connect's first two arguments can be replaced by wrapper functions
@@ -87,6 +103,12 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     { pure: true }
 )(Counter);
 
+@connect<ICounterStateProps, ICounterDispatchProps, any, any>(mapStateToProps, mapDispatchToProps)
+class CounterDispatchContainer extends Component<ICounterStateProps & ICounterDispatchProps, any> {
+    render() {
+        return <Counter {...this.props}/>
+    }
+}
 
 class App extends Component<any, any> {
     render(): JSX.Element {
