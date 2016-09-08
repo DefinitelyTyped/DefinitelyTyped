@@ -724,13 +724,17 @@ childProcess.spawnSync("echo test");
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-cluster.fork();
-Object.keys(cluster.workers).forEach(key => {
-    const worker = cluster.workers[key];
-    if (worker.isDead()) {
-        console.log('worker %d is dead', worker.process.pid);
+namespace cluster_tests　{
+    {
+        cluster.fork();
+        Object.keys(cluster.workers).forEach(key => {
+            const worker = cluster.workers[key];
+            if (worker.isDead()) {
+                console.log('worker %d is dead', worker.process.pid);
+            }
+        });
     }
-});
+}
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
