@@ -700,82 +700,82 @@ namespace path_tests {
     path.isAbsolute('.')         // false
 
     path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
-// returns
-//    '..\\..\\impl\\bbb'
+    // returns
+    //    '..\\..\\impl\\bbb'
 
     path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
-// returns
-//    '../../impl/bbb'
+    // returns
+    //    '../../impl/bbb'
 
     path.dirname('/foo/bar/baz/asdf/quux')
-// returns
-//    '/foo/bar/baz/asdf'
+    // returns
+    //    '/foo/bar/baz/asdf'
 
     path.basename('/foo/bar/baz/asdf/quux.html')
-// returns
-//    'quux.html'
+    // returns
+    //    'quux.html'
 
     path.basename('/foo/bar/baz/asdf/quux.html', '.html')
-// returns
-//    'quux'
+    // returns
+    //    'quux'
 
     path.extname('index.html')
-// returns
-//    '.html'
+    // returns
+    //    '.html'
 
     path.extname('index.coffee.md')
-// returns
-//    '.md'
+    // returns
+    //    '.md'
 
     path.extname('index.')
-// returns
-//    '.'
+    // returns
+    //    '.'
 
     path.extname('index')
-// returns
-//    ''
+    // returns
+    //    ''
 
     'foo/bar/baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     'foo\\bar\\baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     console.log(process.env.PATH)
-// '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
+    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+    // returns
+    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
 
     console.log(process.env.PATH)
-// 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
+    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    // returns
+    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
 
     path.parse('/home/user/dir/file.txt')
-// returns
-//    {
-//        root : "/",
-//        dir : "/home/user/dir",
-//        base : "file.txt",
-//        ext : ".txt",
-//        name : "file"
-//    }
+    // returns
+    //    {
+    //        root : "/",
+    //        dir : "/home/user/dir",
+    //        base : "file.txt",
+    //        ext : ".txt",
+    //        name : "file"
+    //    }
 
     path.parse('C:\\path\\dir\\index.html')
-// returns
-//    {
-//        root : "C:\",
-//        dir : "C:\path\dir",
-//        base : "index.html",
-//        ext : ".html",
-//        name : "index"
-//    }
+    // returns
+    //    {
+    //        root : "C:\",
+    //        dir : "C:\path\dir",
+    //        base : "index.html",
+    //        ext : ".html",
+    //        name : "index"
+    //    }
 
     path.format({
         root : "/",
@@ -784,8 +784,8 @@ namespace path_tests {
         ext : ".txt",
         name : "file"
     });
-// returns
-//    '/home/user/dir/file.txt'
+    // returns
+    //    '/home/user/dir/file.txt'
 }
 
 ////////////////////////////////////////////////////
