@@ -252,7 +252,7 @@ assert.equal(helloUrl.query.hello, 'world');
 /// util tests : https://nodejs.org/api/util.html ///
 /////////////////////////////////////////////////////
 
-namesapce util_tests{
+namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
