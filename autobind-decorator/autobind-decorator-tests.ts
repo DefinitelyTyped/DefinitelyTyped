@@ -28,13 +28,13 @@ Test.test(); // logs 'static'.
 
 @autobind
 class Component {
-  public constructor(private someMember: string) {
-    this.someMember = someMember;
-  }
+    public constructor(private someMember: string) {
+        this.someMember = someMember;
+    }
   
-  public somMethod(): void {
-    console.error(this.someMember);
-  }
+    public somMethod(): void {
+        console.error(this.someMember);
+    }
 }
 
 const component: Component = new Component('React vs Angular2');
