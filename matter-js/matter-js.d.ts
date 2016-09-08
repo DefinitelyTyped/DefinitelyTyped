@@ -488,7 +488,7 @@ declare namespace Matter {
         * @type boolean
         * @default true
         */
-        visible: boolean;
+        visible?: boolean;
 
         /**
          * An `Object` that defines the sprite properties to use when rendering, if any.
@@ -496,31 +496,31 @@ declare namespace Matter {
         * @property render.sprite
         * @type object
         */
-        sprite: IBodyRenderOptionsSprite;
+        sprite?: IBodyRenderOptionsSprite;
 
         /**
          * A String that defines the fill style to use when rendering the body (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
-        fillStyle: string;
+        fillStyle?: string;
 
         /**
          * A Number that defines the line width to use when rendering the body outline (if a sprite is not defined). A value of 0 means no outline will be rendered.
          Default: 1.5
         */
-        lineWidth: number;
+        lineWidth?: number;
 
         /**
          * A String that defines the stroke style to use when rendering the body outline (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
         */
-        strokeStyle: string;
+        strokeStyle?: string;
 
 
 		/*
 		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
 		 */
-		opacity: number;
+		opacity?: number;
     }
 
     export interface IBodyRenderOptionsSprite {
