@@ -32,12 +32,12 @@ class Component {
         this.someMember = someMember;
     }
   
-    public somMethod(): void {
+    public someMethod(): void {
         console.error(this.someMember);
     }
 }
 
 const component: Component = new Component('React vs Angular2');
-const { somMethod } = component;
+const { someMethod } = component;
 component.someMethod(); // errors 'React vs Angular2'
-somMethod(); // errors 'React vs Angular2'
+someMethod(); // errors 'React vs Angular2'
