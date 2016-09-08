@@ -5,7 +5,7 @@ import autobind = require('autobind-decorator');
 class Test {
     public static what: string = 'static';
 
-    @bind
+    @autobind
     public static test(): void {
         console.log(this.what);
     }
@@ -14,7 +14,7 @@ class Test {
         this.what = what;
     }
 
-    @bind
+    @autobind
     public test(): void {
         console.warn(this.what);
     }
