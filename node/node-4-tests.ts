@@ -416,11 +416,13 @@ namespace tty_tests {
 /// Dgram tests : http://nodejs.org/api/dgram.html
 ////////////////////////////////////////////////////
 
-var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-});
-var ai: dgram.AddressInfo = ds.address();
-ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-});
+namespace dgram_tests {
+    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+    });
+    var ai: dgram.AddressInfo = ds.address();
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    });
+}
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html
