@@ -102,30 +102,94 @@ namespace events_tests {
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
 ////////////////////////////////////////////////////
-fs.writeFile("thebible.txt",
-    "Do unto others as you would have them do unto you.",
-    assert.ifError);
 
-fs.write(1234, "test");
-
-fs.writeFile("Harry Potter",
-    "\"You be wizzing, Harry,\" jived Dumbledore.",
+namespace fs_tests {
     {
-        encoding: "ascii"
-    },
-    assert.ifError);
+        fs.writeFile("thebible.txt",
+            "Do unto others as you would have them do unto you.",
+            assert.ifError);
+        
+        fs.write(1234, "test");
+        
+        fs.writeFile("Harry Potter",
+            "\"You be wizzing, Harry,\" jived Dumbledore.",
+            {
+                encoding: "ascii"
+            },
+            assert.ifError);	
+    }
 
-var content: string,
-    buffer: Buffer;
-
-content = fs.readFileSync('testfile', 'utf8');
-content = fs.readFileSync('testfile', {encoding : 'utf8'});
-buffer = fs.readFileSync('testfile');
-buffer = fs.readFileSync('testfile', {flag : 'r'});
-fs.readFile('testfile', 'utf8', (err, data) => content = data);
-fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
-fs.readFile('testfile', (err, data) => buffer = data);
-fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    {
+        var content: string;
+        var buffer: Buffer;
+        
+        content = fs.readFileSync('testfile', 'utf8');
+        content = fs.readFileSync('testfile', {encoding : 'utf8'});
+        buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', {flag : 'r'});
+        fs.readFile('testfile', 'utf8', (err, data) => content = data);
+        fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+        fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    }
+    
+    {
+        var errno: string;
+        fs.readFile('testfile', (err, data) => {
+            if (err && err.errno) {
+                errno = err.errno;
+            }
+        });
+    }
+    
+    {
+        fs.mkdtemp('/tmp/foo-', (err, folder) => {
+            console.log(folder);
+            // Prints: /tmp/foo-itXde2
+        });
+    }
+    
+    {
+        var tempDir: string;
+        tempDir = fs.mkdtempSync('/tmp/foo-');
+    }
+    
+    {
+        fs.watch('/tmp/foo-', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', {
+          recursive: true,
+          persistent: true,
+          encoding: 'utf8'
+        }, (event, filename) => {
+          console.log(event, filename);
+        });
+    }
+    
+    {
+        fs.access('/path/to/folder', (err) => {});
+        
+        fs.access(Buffer.from(''), (err) => {});
+        
+        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.accessSync('/path/to/folder');
+        
+        fs.accessSync(Buffer.from(''));
+        
+        fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
+        
+        fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+}
 
 class Networker extends events.EventEmitter {
     constructor() {
@@ -134,53 +198,6 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
-
-var errno: string;
-fs.readFile('testfile', (err, data) => {
-    if (err && err.errno) {
-        errno = err.errno;
-    }
-});
-
-fs.mkdtemp('/tmp/foo-', (err, folder) => {
-    console.log(folder);
-    // Prints: /tmp/foo-itXde2
-});
-
-var tempDir: string;
-tempDir = fs.mkdtempSync('/tmp/foo-');
-
-fs.watch('/tmp/foo-', (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.watch('/tmp/foo-', {
-  recursive: true,
-  persistent: true,
-  encoding: 'utf8'
-}, (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.access('/path/to/folder', (err) => {});
-
-fs.access(Buffer.from(''), (err) => {});
-
-fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
-
-fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
-
-fs.accessSync('/path/to/folder');
-
-fs.accessSync(Buffer.from(''));
-
-fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
-
-fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
