@@ -840,3 +840,15 @@ namespace errors_tests {
         Error.captureStackTrace(myObject);
     }
 }
+
+///////////////////////////////////////////////////////////
+/// Console Tests : https://nodejs.org/api/console.html ///
+///////////////////////////////////////////////////////////
+
+import * as c from "console";
+namespace console_tests{
+    {
+        assert(c === console);
+    }
+}
+

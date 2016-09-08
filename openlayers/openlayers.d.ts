@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.2
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,6 +46,25 @@ declare namespace olx {
 
         /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
         extent: ol.Extent;
+    }
+
+    interface RotateOptions {
+        /*** CSS class name. Default is ol-rotate.*/
+        className?: string;
+        /*** Text label to use for the rotate button. Default is ⇧. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** Text label to use for the rotate tip. Default is Reset rotation.*/
+        tipLabel?: string;
+        /*** Animation duration in milliseconds. Default is 250.*/
+        duration?: number;
+        /*** Hide the control when rotation is 0. Default is true.*/
+        autoHide?: boolean;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Function called when the control is clicked. This will override the default resetNorth.*/
+        resetNorth?: Function;
+        /*** Target.*/
+        target?: Element;
     }
 
     interface AttributionOptions {
@@ -209,6 +228,30 @@ declare namespace olx {
         serverType?: ol.source.wms.ServerType;
 
         /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
+    interface OSMOptions {
+        /** Attributions */
+        attributions?: ol.AttributionLike;
+        /** Cache size. Default is 2048. */
+        cacheSize?: number;
+        /**
+         * The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL
+         * renderer or if you want to access pixel data with the Canvas renderer.
+         * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. Default is anonymous.
+         */
+        crossOrigin?: string;
+        /** Max zoom. Default is 19. */
+        maxZoom?: number;
+        /** Whether the layer is opaque. Default is true. */
+        opaque?: boolean;
+        /** Maximum allowed reprojection error (in pixels). Default is 0.5. Higher values can increase reprojection performance, but decrease precision. */
+        reprojectionErrorThreshold?: number;
+        /** Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+        /** URL template. Must include {x}, {y} or {-y}, and {z} placeholders. Default is https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png. */
+        url?: string;
+        /** Whether to wrap the world horizontally. Default is true. */
         wrapX?: boolean;
     }
     /**
@@ -791,24 +834,24 @@ declare namespace olx {
              */
             wrapX?: boolean;
         }
-        
+
         interface ClusterOptions extends VectorOptions{
-            
+
             /**
              * Minimum distance in pixels between clusters. Default is 20.
              */
             distance?: number;
-            
+
             extent?: ol.Extent;
-            
+
             geometryFunction?: any;
-            
+
             projection?: ol.proj.ProjectionLike;
-            
+
             source: ol.source.Vector;
-            
+
         }
-        
+
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -1126,6 +1169,8 @@ declare namespace ol {
     interface TileLoadFunctionType { (image: ol.Image, url: string): void }
 
     interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
+
+    type AttributionLike = string | Array<string> | ol.Attribution | Array<ol.Attribution>
 
     /**
      * An attribution for a layer source.
@@ -2422,9 +2467,9 @@ declare namespace ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-        
+
         namespace ScaleLine {
-            
+
             /**
              * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
              */
@@ -2433,29 +2478,29 @@ declare namespace ol {
 
         class Control extends ol.Object{
             constructor(options: olx.control.ControlOptions);
-            
+
             /**
              * Get the map associated with this control.
              */
             getMap():ol.Map;
-            
+
             /**
-             * Remove the control from its current map and attach it to the new map. 
+             * Remove the control from its current map and attach it to the new map.
              * Subclasses may set up event handlers to get notified about changes to the map here.
              */
             setMap(map: ol.Map):void;
-            
+
             /**
-             * This function is used to set a target element for the control. 
-             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control). 
-             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
+             * This function is used to set a target element for the control.
+             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control).
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is
              * added to the map's overlay container.
              */
             setTarget(target: Element | string):void;
-            
-            
+
+
         }
-        
+
         class Attribution extends Control {
         }
 
@@ -2469,20 +2514,21 @@ declare namespace ol {
         }
 
         class Rotate extends Control {
+            constructor(opt_options?: olx.RotateOptions);
         }
 
         class ScaleLine extends Control {
-            
+
             /**
              * Return the units to use in the scale line.
              */
             getUnits(): ScaleLine.Units;
-            
+
             /**
              * Set the units to use in the scale line.
              */
             setUnits(units: ScaleLine.Units): void;
-            
+
         }
 
         class Zoom extends Control{
@@ -4061,7 +4107,7 @@ declare namespace ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
-            
+
             /**
              * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
              */
@@ -4254,12 +4300,13 @@ declare namespace ol {
         }
 
         class OSM extends XYZ {
+            constructor(opt_options?: olx.OSMOptions);
         }
 
         class Source extends ol.Object {
-            
+
             constructor(options: any);
-            
+
             /**
              * Get the projection of the source.
              * @return Projection.

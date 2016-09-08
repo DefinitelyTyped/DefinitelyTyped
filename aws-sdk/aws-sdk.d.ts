@@ -235,6 +235,7 @@ declare module "aws-sdk" {
     upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
     listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
     listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
+    waitFor(state: string, params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
   }
 
   export class STS {
