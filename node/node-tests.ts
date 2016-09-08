@@ -902,7 +902,7 @@ childProcess.spawnSync("echo test");
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-namespace os_tests　{
+namespace clusters_tests　{
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
