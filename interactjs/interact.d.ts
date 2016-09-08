@@ -1,11 +1,11 @@
 // Type definitions for Interacting for interact.js v1.0.25
 // Project: https://github.com/taye/interact.js
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>, Adi Dahiya <https://github.com/adidahiya>, Tom Hasner <https://github.com/thasner>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API documentation: http://interactjs.io/docs
 
-declare module Interact {
+declare namespace Interact {
     interface Interactable {
         // returns Element or string
         accept(): any;
@@ -200,6 +200,7 @@ declare module Interact {
         (element: HTMLElement): Interactable;
         (element: SVGElement): Interactable;
         (element: string): Interactable;
+        (element: string, {context: Element}): Interactable;
         // returns boolean or {[key: string]: any}
         autoScroll(): any;
         autoScroll(options: boolean): InteractStatic;
@@ -242,6 +243,6 @@ declare module Interact {
 
 declare var interact: Interact.InteractStatic;
 
-declare module "interact" {
+declare module "interact.js" {
     export = interact;
 }

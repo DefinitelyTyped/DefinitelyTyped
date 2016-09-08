@@ -5,12 +5,12 @@ angular
     .module('app', ['SignalR'])
     .factory('Employees', ngSignalrTest.EmployeesFactory);
 
-module ngSignalrTest {
+namespace ngSignalrTest {
     export class EmployeesFactory {
         static $inject = ['$rootScope', 'Hub', '$timeout'];
         private hub: ngSignalr.Hub;
         public all: Array<Employee>;
-        
+
         constructor($rootScope: ng.IRootScopeService, Hub: ngSignalr.HubFactory, $timeout: ng.ITimeoutService) {
             // declaring the hub connection
             this.hub = new Hub('employee', {
@@ -27,45 +27,45 @@ module ngSignalrTest {
                         $rootScope.$apply();
                     }
                 },
-                
+
                 // server-side methods
                 methods: ['lock', 'unlock'],
-                
+
                 // query params sent on initial connection
                 queryParams:{
                         'token': 'exampletoken'
                 },
-                
+
                 // handle connection error
                 errorHandler: (message: string) => {
                     console.error(message);
                 },
-                
-                stateChanged: (state: SignalRStateChange) => {
+
+                stateChanged: (state: SignalR.StateChanged) => {
                     // your code here
                 }
             });
         }
-        
+
         private find(id: number) {
             for (var i = 0; i < this.all.length; i++) {
                 if (this.all[i].Id === id) return this.all[i];
             }
-            
+
             return null;
         }
-        
+
         public edit = (employee: Employee) => {
             employee.Edit = true;
             this.hub.invoke('lock', employee.Id);
         };
-        
+
         public done = (employee: Employee) => {
             employee.Edit = false;
             this.hub.invoke('unlock', employee.Id);
         }
     }
-    
+
     interface Employee {
         Id: number;
         Name: string;

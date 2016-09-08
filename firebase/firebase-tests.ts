@@ -27,9 +27,43 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
 	});
 }
 
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+
+	var onComplete = function (authData: FirebaseAuthData) {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Log me in
+	dataRef.authWithCustomToken(AUTH_TOKEN).then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
+}
+
 /*
  * Firebase.authAnonymously()
  */
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+
+	var onComplete = function (authData: FirebaseAuthData) {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Log me in
+	dataRef.authAnonymously().then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
+}
+
 () => {
 	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
 	// Log me in
@@ -60,6 +94,25 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
 	});
 }
 
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+	var onComplete = function (authData: FirebaseAuthData) {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Log me in
+	dataRef.authWithPassword({
+		"email": "bobtony@firebase.com",
+		"password": "correcthorsebatterystaple"
+	}).then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
+}
+
 /*
  * Firebase.authWithOAuthPopup()
  */
@@ -73,6 +126,23 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
 			console.log('Authenticated successfully with payload:', authData);
 		}
 	});
+}
+
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+
+	var onComplete = function (authData: FirebaseAuthData) {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Log me in
+	dataRef.authWithOAuthPopup("twitter").then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
 }
 
 /*
@@ -90,6 +160,23 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
 	});
 }
 
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+
+	var onComplete = function () {
+		// We'll never get here, as the page will redirect on success.
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Log me in
+	dataRef.authWithOAuthRedirect("twitter").then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
+}
+
 /*
  * Firebase.authWithOAuthToken()
  */
@@ -104,6 +191,24 @@ var firebaseRef = new Firebase('https://samplechat.firebaseio-demo.com/');
 		}
 	});
 }
+
+() => {
+	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
+
+	var onComplete = function (authData: FirebaseAuthData) {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	// Authenticate with Facebook using an existing OAuth 2.0 access token
+	dataRef.authWithOAuthToken("facebook", "<ACCESS-TOKEN>").then(onComplete, onError);
+	// Same as before but use returned Promise to handle the result
+}
+
 () => {
 	var dataRef = new Firebase('https://samplechat.firebaseio-demo.com');
 	// Authenticate with Twitter using an existing OAuth 1.0a credential set
@@ -226,6 +331,20 @@ var x4:string = fredRef3.name();
 	// when the data has finished synchronizing
 }
 
+() => {
+	var fredNameRef = new Firebase('https://samplechat.firebaseio-demo.com/users/fred/name');
+	var onComplete = function () {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+	fredNameRef.set({ first: 'Fred', last: 'Flintstone' }).then(onComplete, onError);
+	// Same as the previous example but use returned Promise to handle the result
+}
+
 /*
  * Firebase.update()
  */
@@ -247,6 +366,21 @@ var x4:string = fredRef3.name();
 	};
 	fredNameRef.update({ first: 'Wilma', last: 'Flintstone' }, onComplete);
 }
+
+() => {
+	var fredNameRef = new Firebase('https://samplechat.firebaseio-demo.com/users/fred/name');
+	var onComplete = function () {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+	fredNameRef.update({ first: 'Fred', last: 'Flintstone' }).then(onComplete, onError);
+	// Same as the previous example but use returned Promise to handle the result
+}
+
 () => {
 	var fredRef = new Firebase('https://samplechat.firebaseio-demo.com/users/fred');
 	//The following 2 function calls are equivalent
@@ -274,6 +408,19 @@ var x4:string = fredRef3.name();
 	fredRef.remove(onComplete);
 	// Same as the previous example, except we will also log
 	// a message when the delete has finished synchronizing
+}
+
+() => {
+	var onComplete = function () {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+	fredRef.remove().then(onComplete, onError);
+	// Same as the previous example but use returned Promise to handle the result
 }
 
 /*
@@ -311,6 +458,33 @@ var x4:string = fredRef3.name();
 	fredRef.setWithPriority(user, 1000);
 	// We've written Fred's name and rank to firebase, and used his rank (1000) as the
 	// priority of the data so he'll be ordered relative to other users by his rank
+}
+
+
+() => {
+	var fredRef = new Firebase('https://samplechat.firebaseio-demo.com/users/fred');
+
+	var user = {
+		name: {
+			first: 'Fred',
+			last: 'Flintstone'
+		},
+		rank: 1000
+	};
+
+	fredRef.setWithPriority(user, 1000);
+
+	var onComplete = function () {
+		console.log('Synchronization succeeded');
+	};
+	var onError = function (error: any) {
+		if (error) {
+			console.log('Synchronization failed');
+		}
+	};
+
+	fredRef.setWithPriority(user, 1000).then(onComplete, onError);
+	// Same as the previous example but use returned Promise to handle the result
 }
 
 /*
@@ -526,11 +700,18 @@ wilmaRef.transaction(function(currentData) {
 	}, { x: 1 });
 }
 
+() => {
+	// Use a Promise in place of a callback
+	firebaseRef.once('value').then(function(dataSnapshot){
+		// handle read data
+	})
+}
+
 /*
  * FirebaseQuery.orderByChild()
  */
 () => {
-	// For example, using our sample Firebase of dinosaur facts, 
+	// For example, using our sample Firebase of dinosaur facts,
 	// we can read all dinosaurs ordered by height using the following query:
 	var ref = new Firebase("https://dinosaur-facts.firebaseio.com/");
 	ref.orderByChild("height").on("child_added", function (snapshot) {

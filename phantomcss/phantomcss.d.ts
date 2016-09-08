@@ -1,21 +1,21 @@
 // Type definitions for PhantomCSS 0.11.1
 // Project: https://github.com/Huddle/PhantomCSS
 // Definitions by: Amaury Bauzac <https://github.com/abauzac>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../casperjs/casperjs.d.ts" />
 /// <reference path="../resemblejs/resemblejs.d.ts" />
-declare module PhantomCSS {
+declare namespace PhantomCSS {
     interface PhantomCSS {
         init(options: PhantomCSSOptions): void;
         update(options: PhantomCSSOptions): void;
-	
+
         /**
          * Take a screenshot of the targeted HTML element
          * FileName is required if addIteratorToImage option is set to false
          */
         screenshot(target: string, fileName?: string): void;
-    
+
         /**
          * Take a screenshot of the targeted HTML element
          * FileName is required if addIteratorToImage option is set to false
@@ -64,7 +64,7 @@ declare module PhantomCSS {
 
     interface PhantomCSSOptions {
 		/**
-			Rebase is useful when you want to create new baseline 
+			Rebase is useful when you want to create new baseline
 			images without manually deleting the files
 			casperjs demo/test.js --rebase
 		*/
@@ -80,45 +80,45 @@ declare module PhantomCSS {
 
         screenshotRoot?: string;
 		/**
-        By default, failure images are put in the './failures' folder. 
-        If failedComparisonsRoot is set to false a separate folder will 
-        not be created but failure images can still be found alongside 
+        By default, failure images are put in the './failures' folder.
+        If failedComparisonsRoot is set to false a separate folder will
+        not be created but failure images can still be found alongside
         the original and new images.
     	*/
         failedComparisonsRoot?: string;
-		
+
 		/**
-        You might want to keep master/baseline images in a completely 
-        different folder to the diffs/failures.  Useful when working 
-        with version control systems. By default this resolves to the 
+        You might want to keep master/baseline images in a completely
+        different folder to the diffs/failures.  Useful when working
+        with version control systems. By default this resolves to the
         screenshotRoot folder.
 		*/
         comparisonResultRoot?: string;
-		
-        /** 
-        Don't add count number to images. If set to false (default), a filename is 
+
+        /**
+        Don't add count number to images. If set to false (default), a filename is
         required when capturing screenshots.
         */
         addIteratorToImage: boolean;
-        
+
 		/**
-        Remove results directory tree after run.  Use in conjunction 
+        Remove results directory tree after run.  Use in conjunction
         with failedComparisonsRoot to see failed comparisons.
 		*/
         cleanupComparisonImages?: boolean;
-		
+
 		/**
 		 * Don't add label to generated failure image
 		 */
         addLabelToFailedImage?: boolean;
 		/**
-        * Change the output screenshot filenames for your specific 
+        * Change the output screenshot filenames for your specific
         * integration
     	*/
         fileNameGetter?: (rootPath: string, fileName?: string) => string;
-		
+
 		/**
-        Mismatch tolerance defaults to  0.05%. Increasing this value 
+        Mismatch tolerance defaults to  0.05%. Increasing this value
         will decrease test coverage
     	*/
         mismatchTolerance?: number;
@@ -127,11 +127,11 @@ declare module PhantomCSS {
         onFail?: (test: PhantomCSSTest) => void;
         onTimeout?: (test: PhantomCSSTest) => void;
         onComplete?: (tests: PhantomCSSTest[], noOfFails: number, noOfErrors: number) => void;
-		/** 
+		/**
         Called when creating new baseline images
 		*/
         onNewImage?: (test: PhantomCSSTest) => void;
-		
+
         /**
        Prefix the screenshot number to the filename, instead of suffixing it
        */

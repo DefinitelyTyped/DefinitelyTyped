@@ -1,11 +1,11 @@
 ﻿// Type definitions for stylus 0.48.1
 // Project: https://github.com/LearnBoost/stylus
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Stylus {
+declare namespace Stylus {
 
     export interface Static {
         /**
@@ -634,7 +634,7 @@ declare module Stylus {
     export class Compiler {
     }
 
-    export class Renderer implements NodeJS.EventEmitter {
+    export class Renderer extends NodeJS.EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;

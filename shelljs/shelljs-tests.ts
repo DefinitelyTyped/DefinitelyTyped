@@ -1,7 +1,7 @@
 // Tests for shelljs.d.ts
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
 ///<reference path="../node/node.d.ts" />

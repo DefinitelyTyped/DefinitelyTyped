@@ -1,7 +1,7 @@
 // Type definitions for sockjs-node 0.3.x
 // Project: https://github.com/sockjs/sockjs-node
 // Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

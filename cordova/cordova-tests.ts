@@ -126,12 +126,27 @@ function fsaccessor(fs: FileSystem) {
         (err: FileError)=> { alert('Error: ' + err.code); });
 }
 
+
+
+//----------------------------------------------------------------------
+// FileSystem plugin
+//
+//cordova states that the enums for requestFileSystem live on LocalFileSystem
+//
 window.requestFileSystem(
-    window.TEMPORARY,
+    LocalFileSystem.TEMPORARY,
     1024 * 1024 * 5,
     fsaccessor,
     (err: FileError) => { alert('Error: ' + err.code); }
 );
+window.requestFileSystem(
+    LocalFileSystem.PERSISTENT,
+    1024 * 1024 * 5,
+    fsaccessor,
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+// FileSystem plugin
+//----------------------------------------------------------------------
 
 window.resolveLocalFileSystemURI(cordova.file.applicationDirectory,
     (entry: Entry)=> {
@@ -192,7 +207,7 @@ file.upload('cdvfile://localhost/persistent/path/to/downloads/',
             console.error('Failed with exception ' + err.exception);
         }
     },
-    { headers: null, httpMethod: "PUT" },
+    { headers: {"X-Email": "user@mail.com", 'X-Token': "asdf3w234"}, httpMethod: "PUT" },
     true);
 
 file.abort();

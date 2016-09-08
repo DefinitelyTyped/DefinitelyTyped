@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_sparkLinePlus {
+namespace nvd3_test_sparkLinePlus {
     function defaultChartConfig(containerId, data) {
         nv.addGraph(function () {
 

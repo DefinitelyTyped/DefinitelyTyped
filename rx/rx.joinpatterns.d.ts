@@ -1,11 +1,11 @@
 // Type definitions for RxJS-Join v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 
 	interface Pattern1<T1> {
 		and<T2>(other: Observable<T2>): Pattern2<T1, T2>;

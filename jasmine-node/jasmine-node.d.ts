@@ -1,11 +1,17 @@
 // Type definitions for jasmine-node v1.14.5
 // Project: https://github.com/mhevery/jasmine-node
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../jasmine/legacy/jasmine-1.3.d.ts"/>
 
 declare function it(expectation:string, assertion:(done:(err?:any) => void) => void, timeout?:number):void;
+
+declare namespace jasmine {
+	interface Env {
+		defaultTimeoutInterval: number;
+	}
+}
 
 declare module "jasmine-node" {
     interface ExecuteSpecsOptions {

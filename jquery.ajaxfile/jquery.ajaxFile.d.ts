@@ -1,7 +1,7 @@
 // Type definitions for jquery.ajaxfile v0.2.0
 // Project: https://github.com/fpellet/jquery.ajaxFile
 // Definitions by: Florent PELLET <https://github.com/fpellet/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />

@@ -1,9 +1,9 @@
 // Type definitions for JavaScript software for implementing an OAuth consumer
 // Project: https://code.google.com/p/oauth/
 // Definitions by: NOBUOKA Yu <https://github.com/nobuoka>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module OAuth {
+declare namespace OAuth {
 
     /** An Array of name-value pairs [[name, value], [name2, value2]]. */
     type ParameterList = [string, string][];
@@ -12,7 +12,7 @@ declare module OAuth {
     type ParameterMap = { [name: string]: string; };
 
     type ParameterListOrMap = ParameterList|ParameterMap;
-    
+
     /**
      * An OAuth message is represented as an object like this:
      *   { method: "GET", action: "http://server.com/path", parameters: ... }
@@ -42,7 +42,7 @@ declare module OAuth {
      * @param s Target text value.
      */
     function percentEncode(s: string): string;
-    
+
     /**
      * Encode text values according to OAuth Percent Encoding.
      * Encoded values are joined with an ampersand character (&) in between them.
@@ -50,7 +50,7 @@ declare module OAuth {
      * @param s Target text values.
      */
     function percentEncode(s: string[]): string;
-    
+
     /**
      * Decode percent-encoded value.
      * @see {@link https://tools.ietf.org/html/rfc5849#section-3.6}
@@ -89,7 +89,7 @@ declare module OAuth {
 
     function setParameters(message: Message, parameters: ParameterListOrMap): void;
     function setParameters(message: Message, parameters: string): void;
-    
+
     /**
      * Fill in parameters to help construct a request message.
      * This function doesn't fill in every parameter.
@@ -111,13 +111,13 @@ declare module OAuth {
     /** Construct the value of the Authorization header for an HTTP request. */
     function getAuthorizationHeader(realm: string, parameters: ParameterListOrMap): string;
     function getAuthorizationHeader(realm: string, parameters: string): string;
-    
+
     /** Correct the time using a parameter from the URL from which the last script was loaded. */
     function correctTimestampFromSrc(parameterName?: string): void;
 
     /** Generate timestamps starting with the given value. */
     function correctTimestamp(timestamp: number): void;
-    
+
     /** The difference between the correct time and my clock. */
     var timeCorrectionMsec: number;
 
@@ -161,7 +161,7 @@ declare module OAuth {
 
         /**
          * Create a subclass of OAuth.SignatureMethod, with the given getSignature function.
-         * @param getSignatureFunction 
+         * @param getSignatureFunction
          */
         makeSubclass(getSignatureFunction: (baseString: string) => string): { new(): SignatureMethod };
 

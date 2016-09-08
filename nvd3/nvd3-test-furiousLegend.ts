@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_furiousLegend {
+namespace nvd3_test_furiousLegend {
     var width = 500,
         height = 40;
 

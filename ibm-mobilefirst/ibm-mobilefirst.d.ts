@@ -1,15 +1,15 @@
 // Type definitions for IBM MobileFirst Platform Foundation
 // Project: http://www.ibm.com/software/products/en/mobilefirstfoundation
 // Definitions by: Guillermo Ignacio Enriquez Gutierrez <https://github.com/nacho4d>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module WL.Events {
+declare namespace WL.Events {
     var WORKLIGHT_IS_CONNECTED: string;
     var WORKLIGHT_IS_DISCONNECTED: string;
 }
-declare module WL.AppProperty {
+declare namespace WL.AppProperty {
     var AIR_ICON_16x16_PATH: string;
     var AIR_ICON_128x128_PATH: string;
     var DOWNLOAD_APP_LINK: string;
@@ -21,7 +21,7 @@ declare module WL.AppProperty {
     var SHOW_IN_TASKBAR: string;
     var THUMBNAIL_IMAGE_URL: string;
 }
-declare module WL.Environment {
+declare namespace WL.Environment {
     var ADOBE_AIR: string;
     var ANDROID: string;
     var EMBEDDED: string;
@@ -32,7 +32,7 @@ declare module WL.Environment {
     var WINDOWS_PHONE_8: string;
     var WINDOWS8: string;
 }
-declare module WL {
+declare namespace WL {
     interface IResponse {
         invocationContext?: any;
     }
@@ -68,7 +68,7 @@ declare module WL {
         (response: T): void;
     }
 }
-declare module WL.Analytics {
+declare namespace WL.Analytics {
     function disable(): void;
     function enable(): void;
     function log(message: string, name: string): void;
@@ -79,7 +79,7 @@ declare module WL.Analytics {
     function send(): void;
     function state(): void;
 }
-declare module WL.App {
+declare namespace WL.App {
     interface ActionReceiverCallback {
         (action: any): void;
     }
@@ -129,7 +129,7 @@ declare module WL.App {
     function setKeepAliveInBackground(enabled: boolean, options?: KeepAliveInBackgroundOptions): void;
     function showSplashScreen(): void;
 }
-declare module WL.App.BackgroundHandler {
+declare namespace WL.App.BackgroundHandler {
     interface Handler {
         (): void;
     }
@@ -141,10 +141,10 @@ declare module WL.App.BackgroundHandler {
      */
     var hideElements: Handler;
 }
-declare module WL.Badge {
+declare namespace WL.Badge {
     function setNumber(badgeNumber: number): void;
 }
-declare module WL {
+declare namespace WL {
     interface BusyIndicatorOptions {
         tickerText?: string;
         contentTitle?: string;
@@ -159,7 +159,7 @@ declare module WL {
         show(): void;
     }
 }
-declare module WL.Client {
+declare namespace WL.Client {
     interface SharedTokenObject {
         key: string;
     }
@@ -192,7 +192,7 @@ declare module WL.Client {
         timeout?: number;
         /**
          * @deprecated since version 6.2. Use WL.Logger.config function with an object specifying the level instead.
-         */ 
+         */
         enableLogger?: boolean;
         messages?: string;
         authenticator?: Object;
@@ -299,7 +299,7 @@ declare module WL.Client {
     function transmitEvent(event: any, immediate?: boolean): void;
     function updateUserInfo(options: Options): void;
 }
-declare module WL.Device {
+declare namespace WL.Device {
     interface AddressPair {
         wifiAddress: string;
         "3GAddress": string;
@@ -318,7 +318,7 @@ declare module WL.Device {
     }
     function getNetworkInfo(callback: (networkInfo: NetworkInfo) => void): void;
 }
-declare module WL.EncryptedCache {
+declare namespace WL.EncryptedCache {
     var OK: number;
     var ERROR_COULD_NOT_GENERATE_KEY: number;
     var ERROR_CREDENTIALS_MISMATCH: number;
@@ -347,7 +347,7 @@ declare module WL.EncryptedCache {
     function remove(key: string, successHandler: StatusHandler, failureHandler: StatusHandler): void;
     function write(key: string, value: string, successHandler: StatusHandler, failureHandler: StatusHandler): void;
 }
-declare module WL.Geo {
+declare namespace WL.Geo {
     interface Coordinate {
         latitute: number;
         longitude: number;
@@ -372,14 +372,14 @@ declare module WL.Geo {
     function isOutsideCircle(coordinate: Coordinate, circle: Circle, options: InsideOutsideOptions): boolean;
     function isOutsidePolygon(coordinate: Coordinate, polygon: Coordinate[], options: InsideOutsideOptions): boolean;
 }
-declare module WL {
+declare namespace WL {
     class Item {
         setEnabled(isEnable: string): void;
         setImagePath(imagePath: string): void;
         setTitle(title: string): void;
     }
 }
-declare module WL.JSONStore {
+declare namespace WL.JSONStore {
     /**
      * Changes the password for the internal storage. You must have an initialized collection before calling WL.JSONStore.changePassword.
      */
@@ -613,13 +613,13 @@ declare module WL.JSONStore {
         rightLike(searchField: any, value: any): any[];
     }
 }
-declare module WL.LocalStorage {
+declare namespace WL.LocalStorage {
     function getValue(key: string): string;
     function setValue(key: string, value: string): void;
     function clear(key: string): void;
     function clearAll(): void;
 }
-declare module WL {
+declare namespace WL {
     var Logger: LoggerObject;
     interface LoggerCallback {
         (message: string | string[], level: string, package: string): void;
@@ -746,10 +746,10 @@ declare module WL {
         warn(message: string): void;
     }
 }
-declare module WL.NativePage {
+declare namespace WL.NativePage {
     function show(className: string, callback: (data: any) => void, data: any): void;
 }
-declare module WL.SecurityUtils {
+declare namespace WL.SecurityUtils {
     interface DecryptOptions {
         key: string;
         ct: string;
@@ -774,7 +774,7 @@ declare module WL.SecurityUtils {
     function localRandomString(bytes?: number): JQueryDeferred<string>;
     function remoteRandomString(bytes?: number): JQueryDeferred<string>;
 }
-declare module WL.SimpleDialog {
+declare namespace WL.SimpleDialog {
     interface Button {
         text: string;
         handler?: Function;
@@ -786,7 +786,7 @@ declare module WL.SimpleDialog {
     function show(title: string, text: string, buttons: Button[], options?: Options): void;
 }
 
-declare module WL.TabBar {
+declare namespace WL.TabBar {
     interface ItemOptions {
         image: string;
         badge?: string; // for iOS
@@ -805,17 +805,17 @@ declare module WL.TabBar {
     function setVisible(isVisible: boolean): void;
 }
 
-declare module WL {
+declare namespace WL {
     class TabBarItem {
         setEnabled(isEnabled: boolean): void;
         updateBadge(badge?: string): void;
     }
 }
 
-declare module WL.Toast {
+declare namespace WL.Toast {
     function show(): void;
 }
-declare module WL.Trusteer {
+declare namespace WL.Trusteer {
     interface AssesmentRisk {
         value: number;
         additionalData: string;
@@ -837,10 +837,10 @@ declare module WL.Trusteer {
     }
     function getRiskAssessment(onSuccess: ResponseHandler<Response>, onFailure: ResponseHandler<FailureResponse>): AssetmentRisks;
 }
-declare module WL.UserAuth {
+declare namespace WL.UserAuth {
     function deleteCertificate(provisioningEntity?: string): JQueryDeferred<void>;
 }
-declare module WLAuthorizationManager {
+declare namespace WLAuthorizationManager {
     /**
      * AuthorizationPersistencePolicy possible values
      */
@@ -875,7 +875,7 @@ declare module WLAuthorizationManager {
     function setAuthorizationPersistencePolicy(authorizationPersistencePolicy: string): void;
 }
 
-declare module WL {
+declare namespace WL {
     var ClientMessages: { [name: string]: string };
 }
 
@@ -886,7 +886,7 @@ declare class WLResourceRequest {
     getHeaderNames(): string[];
     getHeaders(name: string): string[];
     getMethod(): string;
-    getQueryParameters(): any; // JSON 
+    getQueryParameters(): any; // JSON
     getTimeout(): number;
     getUrl(): string;
     send(content?: any): JQueryDeferred<any>;

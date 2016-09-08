@@ -1,9 +1,9 @@
 // Type definitions for event-kit v1.2.0
 // Project: https://github.com/atom/event-kit
 // Definitions by: Vadim Macagon <https://github.com/enlight/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module AtomEventKit {
+declare namespace AtomEventKit {
 	interface IDisposable {
 		dispose(): void;
 	}

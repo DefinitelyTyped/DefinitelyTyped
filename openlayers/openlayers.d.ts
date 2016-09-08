@@ -1,9 +1,71 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.2
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module olx {
+declare namespace olx {
+    interface StaticImageOptions {
+
+        /** Attributions */
+        attributions?: Array<ol.Attribution>
+
+        /*** The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. */
+        crossOrigin?: string
+
+        /*** Extent of the image in map coordinates. This is the [left, bottom, right, top] map coordinates of your image.*/
+        imageExtent: ol.Extent;
+
+        /*** Size of the image in pixels.*/
+        imageSize?: ol.Size;
+
+        /*** experimental Optional function to load an image given a URL.*/
+        imageLoadFunction?: ol.TileLoadFunctionType;
+
+        /*** Optional logo.*/
+        logo?: olx.LogoOptions;
+
+        /*** experimental Projection.*/
+        projection: ol.proj.Projection;
+
+        /*** Image URL.*/
+        url: string;
+    }
+
+    interface ZoomToExtentOptions {
+        /*** Class name. Default is ol-zoom-extent.*/
+        className?: string;
+
+        /*** Target.*/
+        target?: Element;
+
+        /*** Text label to use for the button. Default is E. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+
+        /*** Text label to use for the button tip. Default is Zoom to extent.*/
+        tipLabel?: string;
+
+        /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
+        extent: ol.Extent;
+    }
+
+    interface RotateOptions {
+        /*** CSS class name. Default is ol-rotate.*/
+        className?: string;
+        /*** Text label to use for the rotate button. Default is ⇧. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** Text label to use for the rotate tip. Default is Reset rotation.*/
+        tipLabel?: string;
+        /*** Animation duration in milliseconds. Default is 250.*/
+        duration?: number;
+        /*** Hide the control when rotation is 0. Default is true.*/
+        autoHide?: boolean;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Function called when the control is clicked. This will override the default resetNorth.*/
+        resetNorth?: Function;
+        /*** Target.*/
+        target?: Element;
+    }
 
     interface AttributionOptions {
 
@@ -130,12 +192,12 @@ declare module olx {
     interface TileWMSOptions {
 
         attributions?: Array<ol.Attribution>;
-        
+
         /**WMS request parameters. At least a LAYERS param is required. STYLES is '' by default. VERSION is 1.3.0 by default. WIDTH, HEIGHT, BBOX and CRS (SRS for WMS version < 1.3.0) will be set dynamically. Required.*/
         params: Object;
         /**The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL renderer or if you want to access pixel data with the Canvas renderer. See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.*/
         crossOrigin?: string;
-        
+
         /** The size in pixels of the gutter around image tiles to ignore. By setting this property to a non-zero value, images will be requested that are wider and taller than the tile size by a value of 2 x gutter. Defaults to zero. Using a non-zero value allows artifacts of rendering at tile edges to be ignored. If you control the WMS service it is recommended to address "artifacts at tile edges" issues by properly configuring the WMS service. For example, MapServer has a tile_map_edge_buffer configuration parameter for this. See http://mapserver.org/output/tile_mode.html. */
         gutter?: number;
 
@@ -143,7 +205,7 @@ declare module olx {
         hidpi?: boolean;
 
         logo?: string | olx.LogoOptions;
-        
+
         /** Tile grid. Base this on the resolutions, tilesize and extent supported by the server. If this is not defined, a default grid will be used: if there is a projection extent, the grid will be based on that; if not, a grid based on a global extent with origin at 0,0 will be used. */
         tileGrid?: ol.tilegrid.TileGrid;
 
@@ -152,7 +214,7 @@ declare module olx {
 
         projection?: ol.proj.ProjectionLike;
         reprojectionErrorThreshold?: number;
-                
+
         /** experimental Optional function to load a tile given a URL. */
         tileLoadFunction?: ol.TileLoadFunctionType;
 
@@ -166,6 +228,30 @@ declare module olx {
         serverType?: ol.source.wms.ServerType;
 
         /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
+    interface OSMOptions {
+        /** Attributions */
+        attributions?: ol.AttributionLike;
+        /** Cache size. Default is 2048. */
+        cacheSize?: number;
+        /**
+         * The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL
+         * renderer or if you want to access pixel data with the Canvas renderer.
+         * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. Default is anonymous.
+         */
+        crossOrigin?: string;
+        /** Max zoom. Default is 19. */
+        maxZoom?: number;
+        /** Whether the layer is opaque. Default is true. */
+        opaque?: boolean;
+        /** Maximum allowed reprojection error (in pixels). Default is 0.5. Higher values can increase reprojection performance, but decrease precision. */
+        reprojectionErrorThreshold?: number;
+        /** Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+        /** URL template. Must include {x}, {y} or {-y}, and {z} placeholders. Default is https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png. */
+        url?: string;
+        /** Whether to wrap the world horizontally. Default is true. */
         wrapX?: boolean;
     }
     /**
@@ -378,7 +464,7 @@ declare module olx {
         getPointResolution?: (resolution: number, coordinate: ol.Coordinate) => number;
     }
 
-    module animation {
+    namespace animation {
 
         interface BounceOptions {
 
@@ -478,7 +564,7 @@ declare module olx {
         }
     }
 
-    module control {
+    namespace control {
 
         interface DefaultsOptions {
 
@@ -517,7 +603,7 @@ declare module olx {
         }
     }
 
-    module interaction {
+    namespace interaction {
         interface DefaultsOptions {
             altShiftDragRotate?: boolean;
             doubleClickZoom?: boolean;
@@ -552,18 +638,18 @@ declare module olx {
         interface SelectOptions {
             addCondition?: ol.events.ConditionType;
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer>;
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
             removeCondition?: ol.events.ConditionType;
             toggleCondition?: ol.events.ConditionType;
             multi?: boolean;
-            features?: ol.Collection<ol.Feature>
+            features?: ol.Collection<ol.Feature>;
             filter?: ol.interaction.SelectFilterFunction;
             wrapX?: boolean;
         }
     }
 
-    module layer {
+    namespace layer {
 
         interface BaseOptions {
             /**
@@ -688,7 +774,7 @@ declare module olx {
         }
     }
 
-    module source {
+    namespace source {
 
         interface VectorOptions {
             /**
@@ -748,6 +834,24 @@ declare module olx {
              */
             wrapX?: boolean;
         }
+
+        interface ClusterOptions extends VectorOptions{
+
+            /**
+             * Minimum distance in pixels between clusters. Default is 20.
+             */
+            distance?: number;
+
+            extent?: ol.Extent;
+
+            geometryFunction?: any;
+
+            projection?: ol.proj.ProjectionLike;
+
+            source: ol.source.Vector;
+
+        }
+
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -772,7 +876,7 @@ declare module olx {
         }
     }
 
-    module style {
+    namespace style {
 
         interface FillOptions {
             color?: ol.Color | string;
@@ -833,7 +937,7 @@ declare module olx {
         }
     }
 
-    module tilegrid {
+    namespace tilegrid {
 
         interface TileGridOptions {
 
@@ -953,7 +1057,7 @@ declare module olx {
         }
     }
 
-    module view {
+    namespace view {
 
         interface FitGeometryOptions {
 
@@ -984,7 +1088,7 @@ declare module olx {
         }
     }
 
-    module format {
+    namespace format {
         interface WKTOptions {
             /**
              * Whether to split GeometryCollections into multiple features on reading. Default is false.
@@ -1036,16 +1140,37 @@ declare module olx {
             rightHanded?: boolean;
         }
     }
+
+    namespace control {
+        interface ControlOptions {
+            /**
+             * The element is the control's container element. This only needs to be specified if you're developing a custom control.
+             */
+            element?: Element;
+
+            /**
+             * Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.
+             */
+            render?: any;
+
+            /**
+             * Specify a target if you want the control to be rendered outside of the map's viewport.
+             */
+            target?: Element | string;
+        }
+    }
 }
 
 /**
  * A high-performance, feature-packed library for all your mapping needs.
  */
-declare module ol {
+declare namespace ol {
 
     interface TileLoadFunctionType { (image: ol.Image, url: string): void }
 
     interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
+
+    type AttributionLike = string | Array<string> | ol.Attribution | Array<ol.Attribution>
 
     /**
      * An attribution for a layer source.
@@ -1158,7 +1283,7 @@ declare module ol {
     /**
      * Events emitted by ol.Collection instances are instances of this type.
      */
-    class CollectionEvent<T> {
+    class CollectionEvent<T> extends ol.events.Event {
 
         /**
          * The element that is added to or removed from the collection.
@@ -1217,7 +1342,7 @@ declare module ol {
     /**
      * Events emitted by ol.interaction.DragBox instances are instances of this type.
      */
-    class DragBoxEvent {
+    class DragBoxEvent extends ol.events.Event {
 
         /**
          * The coordinate of the drag event.
@@ -1283,7 +1408,7 @@ declare module ol {
          * @param name The property name of the default geometry.
          */
         setGeometryName(name: string): void;
-        
+
         /**
          * Set the feature id. The feature id is considered stable and may be used when requesting features or comparing identifiers returned from a remote source. The feature id can be used with the ol.source.Vector#getFeatureById method.
          * @param id The feature id.
@@ -1873,7 +1998,7 @@ declare module ol {
     /**
      * Events emitted as map events are instances of this type. See ol.Map for which events trigger a map event.
      */
-    class MapEvent {
+    class MapEvent extends ol.events.Event {
 
         /**
          * The frame state at the time of the event.
@@ -1943,7 +2068,7 @@ declare module ol {
     /**
      * Events emitted by ol.Object instances are instances of this type.
      */
-    class ObjectEvent {
+    class ObjectEvent extends ol.events.Event {
 
         /**
          * The name of the property whose value is changing.
@@ -1983,7 +2108,7 @@ declare module ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen for a certain type of event.
@@ -1992,7 +2117,7 @@ declare module ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        on(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        on(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2001,7 +2126,7 @@ declare module ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: string, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: string, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Listen once for a certain type of event.
@@ -2010,7 +2135,7 @@ declare module ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        once(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        once(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Unlisten for a certain type of event.
@@ -2019,7 +2144,7 @@ declare module ol {
          * @param ref The object to use as this in listener.
          * @returns Unique key for the listener.
          */
-        un(type: Array<string>, listener: (event: MapBrowserEvent) => void, ref?: any): any;
+        un(type: Array<string>, listener: (event: ol.events.Event) => void, ref?: any): any;
 
         /**
          * Removes an event listener using the key returned by on() or once(). Note that using the ol.Observable.unByKey static function is to be preferred.
@@ -2103,7 +2228,7 @@ declare module ol {
     /**
      * Events emitted by ol.interaction.Select instances are instances of this type.
      */
-    class SelectEvent {
+    class SelectEvent extends ol.events.Event {
 
         /**
          * Deselected features array.
@@ -2277,7 +2402,7 @@ declare module ol {
     /**
      * The animation static methods are designed to be used with the ol.Map#beforeRender method.
      */
-    module animation {
+    namespace animation {
 
         /**
          * Generate an animated transition that will "bounce" the resolution as it approaches the final value.
@@ -2307,7 +2432,7 @@ declare module ol {
     /**
      * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
      */
-    module color {
+    namespace color {
 
         /**
          * Return the color as an array. This function maintains a cache of calculated arrays which means the result should not be modified.
@@ -2334,7 +2459,7 @@ declare module ol {
         function asString(color: string): string;
     }
 
-    module control {
+    namespace control {
 
         /**
          * Set of controls included in maps by default. Unless configured otherwise, this returns a collection containing an instance of each of the following controls: ol.control.Zoom, ol.control.Rotate, ol.control.Attribution
@@ -2343,43 +2468,81 @@ declare module ol {
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
 
-        /**
-         * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
-         */
-        interface ScaleLineUnits extends String { }
+        namespace ScaleLine {
 
-        class Attribution {
+            /**
+             * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
+             */
+            type Units = 'degrees' | 'imperial' | 'nautical' | 'metric' | 'us';
         }
 
-        class Control {
+        class Control extends ol.Object{
+            constructor(options: olx.control.ControlOptions);
+
+            /**
+             * Get the map associated with this control.
+             */
+            getMap():ol.Map;
+
+            /**
+             * Remove the control from its current map and attach it to the new map.
+             * Subclasses may set up event handlers to get notified about changes to the map here.
+             */
+            setMap(map: ol.Map):void;
+
+            /**
+             * This function is used to set a target element for the control.
+             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control).
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is
+             * added to the map's overlay container.
+             */
+            setTarget(target: Element | string):void;
+
+
         }
 
-        class FullScreen {
+        class Attribution extends Control {
         }
 
-        class MousePosition {
+        class FullScreen extends Control {
         }
 
-        class OverviewMap {
+        class MousePosition extends Control {
         }
 
-        class Rotate {
+        class OverviewMap extends Control {
         }
 
-        class ScaleLine {
+        class Rotate extends Control {
+            constructor(opt_options?: olx.RotateOptions);
         }
 
-        class Zoom {
+        class ScaleLine extends Control {
+
+            /**
+             * Return the units to use in the scale line.
+             */
+            getUnits(): ScaleLine.Units;
+
+            /**
+             * Set the units to use in the scale line.
+             */
+            setUnits(units: ScaleLine.Units): void;
+
         }
 
-        class ZoomSlider {
+        class Zoom extends Control{
         }
 
-        class ZoomToExtent {
+        class ZoomSlider extends Control{
+        }
+
+        class ZoomToExtent extends Control{
+        	constructor(options?: olx.ZoomToExtentOptions);
         }
     }
 
-    module coordinate {
+    namespace coordinate {
 
         /**
          * Add delta to coordinate. coordinate is modified in place and returned by the function.
@@ -2432,7 +2595,7 @@ declare module ol {
     /**
      * Easing functions for ol.animation.
      */
-    module easing {
+    namespace easing {
 
         /**
          * Start slow and speed up.
@@ -2470,8 +2633,8 @@ declare module ol {
         function upAndDown(t: number): number;
     }
 
-    module events {
-        module condition {
+    namespace events {
+        namespace condition {
             function altKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
             function altShiftKeyOnly(mapBrowserEvent: ol.MapBrowserEvent): boolean;
             function always(mapBrowserEvent: ol.MapBrowserEvent): boolean;
@@ -2487,9 +2650,15 @@ declare module ol {
             function targetNotEditable(mapBrowserEvent: ol.MapBrowserEvent): boolean;
         }
         interface ConditionType { (mapBrowseEvent: ol.MapBrowserEvent): boolean; }
+        class Event {
+          target: any;
+          type: string;
+          preventDefault(): void;
+          stopPropagation(): void;
+        }
     }
 
-    module extent {
+    namespace extent {
 
         /**
          * Apply a transform function to the extent.
@@ -2647,7 +2816,7 @@ declare module ol {
     /**
      * Loading mechanisms for vector data.
      */
-    module featureloader {
+    namespace featureloader {
 
         /**
          * Create an XHR feature loader for a url and format. The feature loader loads features (with XHR), parses the features, and adds them to the vector source.
@@ -2658,7 +2827,7 @@ declare module ol {
         function xhr(url: string, format: ol.format.Feature): ol.FeatureLoader;
     }
 
-    module format {
+    namespace format {
 
         // Type definitions
         interface IGCZ extends String { }
@@ -2869,12 +3038,12 @@ declare module ol {
         }
     }
 
-    module geom {
-        
+    namespace geom {
+
         // Type definitions
         interface GeometryLayout extends String { }
         interface GeometryType extends String { }
-        
+
         /**
          * Abstract base class; only used for creating subclasses; do not instantiate
          * in apps, as cannot be rendered.
@@ -2884,7 +3053,7 @@ declare module ol {
             /**
             * Test if the geometry and the passed extent intersect.
             * @param extent Extent
-            * @returns true if the geometry and the extent intersect. 
+            * @returns true if the geometry and the extent intersect.
             */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -2926,7 +3095,7 @@ declare module ol {
              * @returns Extent
              */
             getExtent(extent?: ol.Extent): ol.Extent;
-            
+
             /**
              * Transform each coordinate of the geometry from one coordinate reference system to another.
              * The geometry is modified in place. For example, a line will be transformed to a line and a
@@ -2934,9 +3103,9 @@ declare module ol {
              * then use this function on the clone.
              * @param source The current projection. Can be a string identifier or a ol.proj.Projection object.
              * @param destination The desired projection. Can be a string identifier or a ol.proj.Projection object.
-             * @return This geometry. Note that original geometry is modified in place. 
+             * @return This geometry. Note that original geometry is modified in place.
              */
-            transform(source: ol.proj.ProjectionLike, destination: ol.proj.ProjectionLike): ol.geom.Geometry;
+            transform(source: ol.proj.ProjectionLike | ol.proj.Projection, destination: ol.proj.ProjectionLike | ol.proj.Projection): ol.geom.Geometry;
         }
 
         /**
@@ -2978,7 +3147,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3014,7 +3183,7 @@ declare module ol {
              * @returns Area (on projected plane).
              */
             getArea(): number;
-            
+
             /**
              * Return the coordinates of the linear ring.
              * @returns Coordinates.
@@ -3096,7 +3265,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3183,7 +3352,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3247,7 +3416,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3258,37 +3427,37 @@ declare module ol {
              */
             setCoordinates(coordinates: Array<ol.Coordinate>, layout?: ol.geom.GeometryLayout): void;
         }
-        
+
         /**
          * Multi-polygon geometry.
          */
         class MultiPolygon extends ol.geom.SimpleGeometry {
-            
+
             /**
              * constructor
              * @param coordinates Coordinates.
              * @param layout Layout.
              */
             constructor(coordinates: Array<Array<Array<ol.Coordinate>>>, layout?: ol.geom.GeometryLayout);
-            
+
             /**
              * Append the passed polygon to this multipolygon.
              * @param polygon Polygon.
              */
             appendPolygon(polygon: ol.geom.Polygon): void;
-            
+
             /**
              * Make a complete copy of the geometry.
              * @returns Clone.
              */
             clone(): ol.geom.MultiPolygon;
-            
+
             /**
              * Return the area of the multipolygon on projected plane.
              * @returns Area (on projected plane).
              */
             getArea(): number;
-            
+
             /**
              * Get the coordinate array for this geometry.  This array has the structure
              * of a GeoJSON coordinate array for multi-polygons.
@@ -3302,36 +3471,36 @@ declare module ol {
              * @returns Coordinates.
              */
             getCoordinates(right?: boolean): Array<Array<Array<ol.Coordinate>>>;
-            
+
             /**
              * Return the interior points as {@link ol.geom.MultiPoint multipoint}.
              * @returns Interior points.
              */
             getInteriorPoints(): ol.geom.MultiPoint;
-            
+
             /**
              * Return the polygon at the specified index.
              * @param index Index.
              * @returns  Polygon.
              */
             getPolygon(index: number): ol.geom.Polygon;
-            
+
             /**
              * Return the polygons of this multipolygon.
              * @returns Polygons.
              */
             getPolygons(): Array<ol.geom.Polygon>;
-            
+
             /**
              * Get the type of this geometry.
              * @returns Geometry type
              */
             getType(): ol.geom.GeometryType;
-            
+
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3376,7 +3545,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3474,7 +3643,7 @@ declare module ol {
             /**
              * Test if the geometry and the passed extent intersect.
              * @param extent Extent
-             * @returns true if the geometry and the extent intersect. 
+             * @returns true if the geometry and the extent intersect.
              */
             intersectsExtent(extent: ol.Extent): boolean;
 
@@ -3516,8 +3685,8 @@ declare module ol {
              */
             getLayout(): ol.geom.GeometryLayout;
 
-            /** 
-            * Translate the geometry. This modifies the geometry coordinates in place. 
+            /**
+            * Translate the geometry. This modifies the geometry coordinates in place.
             * If instead you want a new geometry, first clone() this geometry.
             * @param deltaX Delta X
             * @param deltaY Delta Y
@@ -3526,10 +3695,10 @@ declare module ol {
         }
     }
 
-    module has {
+    namespace has {
     }
 
-    module interaction {
+    namespace interaction {
 
         class DoubleClickZoom {
         }
@@ -3537,7 +3706,7 @@ declare module ol {
         class DragAndDrop {
         }
 
-        class DragAndDropEvent {
+        class DragAndDropEvent extends ol.events.Event {
         }
 
         class DragBox {
@@ -3559,7 +3728,7 @@ declare module ol {
             constructor(opt_options?: olx.interaction.DrawOptions)
         }
 
-        class DrawEvent {
+        class DrawEvent extends ol.events.Event {
         }
 
         class Interaction extends ol.Object {
@@ -3597,11 +3766,11 @@ declare module ol {
         }
 
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
-        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate[], geom?: ol.geom.Geometry): ol.geom.Geometry; }
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
     }
 
-    module layer {
+    namespace layer {
 
         /**
          * Abstract base class; normally only used for creating subclasses and not instantiated in apps. Note that with ol.layer.Base and all its subclasses, any property set in the options is set as a ol.Object property on the layer object, so is observable, and has get/set accessors.
@@ -3929,7 +4098,7 @@ declare module ol {
              * @param Layer style
              */
             setStyle(style: ol.style.StyleFunction): void;
-            
+
             /**
              * Sets the layer to be rendered on top of other layers on a map. The map will not manage this layer
              * in its layers collection, and the callback in ol.Map#forEachLayerAtPixel will receive null as
@@ -3938,10 +4107,15 @@ declare module ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
+
+            /**
+             * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
+             */
+            setZIndex(zIndex: number): void;
         }
     }
 
-    module loadingstrategy {
+    namespace loadingstrategy {
 
         /**
          * Strategy function for loading all features with a single request.
@@ -3967,7 +4141,7 @@ declare module ol {
         function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
     }
 
-    module proj {
+    namespace proj {
 
         // Type definitions
         interface ProjectionLike extends String { }
@@ -4051,13 +4225,21 @@ declare module ol {
         function transformExtent(extent: Extent, source: ProjectionLike, destination: ProjectionLike): Extent;
 
         class Projection {
-            constructor(options: olx.Projection)
+            constructor(options: olx.Projection);
+
+            getExtent(): Extent;
+
+            /**
+             * Set the validity extent for this projection.
+             * @param extent The new extent of the projection.
+             */
+            setExtent(extent: Extent): void;
         }
     }
 
-    module render {
+    namespace render {
 
-        class Event {
+        class Event extends ol.events.Event {
         }
 
         class VectorContext {
@@ -4069,96 +4251,143 @@ declare module ol {
             getProperties: Object[];
             getType(): ol.geom.GeometryType;
         }
-        module canvas {
+        namespace canvas {
             class Immediate {
             }
         }
     }
 
-    module source {
+    namespace source {
 
-        class BingMaps {
+        class BingMaps extends TileImage {
         }
 
-        class Cluster {
+        class CartoDB extends XYZ {
         }
 
-        class Image {
+        class Cluster extends Vector {
+            constructor(options: olx.source.ClusterOptions);
         }
 
-        class ImageCanvas {
+        class Image extends Source {
         }
 
-        class ImageEvent {
+        class ImageArcGISRest extends Image {
         }
 
-        class ImageMapGuide {
+        class ImageCanvas extends Image {
         }
 
-        class ImageStatic {
+        class ImageEvent extends ol.events.Event {
         }
 
-        class ImageVector {
+        class ImageMapGuide extends Image {
         }
 
-        class ImageWMS {
+        class ImageStatic extends ol.source.Image {
+        	constructor(options?: olx.StaticImageOptions);
+        }
+
+        class ImageVector extends ImageCanvas {
+        }
+
+        class ImageWMS extends Image {
             constructor(options: olx.ImageWMSOptions);
         }
 
-        class MapQuest {
+        class MapQuest extends XYZ {
             constructor(options: any);
         }
 
-        class OSM {
+        class OSM extends XYZ {
+            constructor(opt_options?: olx.OSMOptions);
         }
 
-        class Source {
+        class Source extends ol.Object {
+
+            constructor(options: any);
+
+            /**
+             * Get the projection of the source.
+             * @return Projection.
+             */
+            getProjection(): ol.proj.Projection;
+
+            /**
+             * Refreshes the source and finally dispatches a 'change' event.
+             */
+            refresh(): void;
         }
 
-        class Stamen {
+        class Stamen extends XYZ {
         }
 
-        class Tile {
+        class Tile extends Source {
         }
 
-        class TileArcGISRest {
+        class TileArcGISRest extends TileImage {
         }
 
-        class TileDebug {
+        class TileDebug extends Tile {
         }
 
-        class TileEvent {
+        class TileEvent extends ol.events.Event {
         }
 
-        class TileImage {
+        class TileImage extends UrlTile {
         }
 
-        class TileJSON {
+        class TileJSON extends TileImage {
         }
 
-        class TileUTFGrid {
+        class TileUTFGrid extends Tile {
         }
 
-        class TileVector {
-        }
-
-        class TileWMS {
+        class TileWMS extends TileImage {
             constructor(options: olx.TileWMSOptions);
+
+            /**
+             * Update the user-provided (WMS request) parameters.
+             */
+            updateParams(params: any): void;
+
+            /**
+             * Get the user-provided (WMS request) params, i.e. those passed to the constructor through the "params" option, and possibly updated using the updateParams method.
+             */
+            getParams(): any;
+
+            /**
+             * Return the GetFeatureInfo URL for the passed coordinate, resolution, and
+             * projection. Return `undefined` if the GetFeatureInfo URL cannot be
+             * constructed.
+             * @param coordinate Coordinate.
+             * @param resolution Resolution.
+             * @param rojection Projection.
+             * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
+             *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
+             *     in the `LAYERS` parameter will be used. `VERSION` should not be
+             *     specified here.
+             * @return GetFeatureInfo URL.
+             */
+            getGetFeatureInfoUrl(coordinate: ol.Coordinate, resolution: number, projection: ol.proj.ProjectionLike, params: {}): string;
         }
 
-        class Vector {
+        class UrlTile extends Tile {
+        }
+
+        class Vector extends Source {
             constructor(opts?: olx.source.VectorOptions)
             /**
              * Add a single feature to the source. If you want to add a batch of features at once,
              * call source.addFeatures() instead.
              */
             addFeature(feature: ol.Feature): void;
-           
+
             /**
              * Add a batch of features to the source.
              */
             addFeatures(features: ol.Feature[]): void;
-            
+
             /**
              * Remove all features from the source.
              * @param Skip dispatching of removefeature events.
@@ -4168,35 +4397,43 @@ declare module ol {
              * Get the extent of the features currently in the source.
              */
             getExtent(): ol.Extent;
-          
+
             /**
              * Get all features in the provided extent. Note that this returns all features whose bounding boxes
              * intersect the given extent (so it may include features whose geometries do not intersect the extent).
              * This method is not available when the source is configured with useSpatialIndex set to false.
              */
             getFeaturesInExtent(extent: ol.Extent): ol.Feature[];
-          
+
             /**
              * Get all features on the source
              */
             getFeatures(): ol.Feature[];
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
         }
 
-        class VectorEvent {
+        class VectorEvent extends ol.events.Event {
         }
 
-        class WMTS {
+        class VectorTile extends UrlTile {
+        }
+
+        class WMTS extends TileImage {
             constructor(options: olx.source.WMTSOptions);
         }
 
-        class XYZ {
+        class XYZ extends TileImage {
         }
 
-        class Zoomify {
+        class Zoomify extends TileImage {
         }
 
         // Namespaces
-        module wms {
+        namespace wms {
             interface ServerType extends String { }
         }
 
@@ -4205,7 +4442,7 @@ declare module ol {
         interface WMTSRequestEncoding extends String { }
     }
 
-    module style {
+    namespace style {
 
         class AtlasManager {
         }
@@ -4282,7 +4519,7 @@ declare module ol {
             /***
              * Get the geometry to be rendered.
              * @return Feature property or geometry or function that returns the geometry that will
-             * be rendered with this style. 
+             * be rendered with this style.
              */
             getGeometry(): string | ol.geom.Geometry | ol.style.GeometryFunction;
             getGeometryFunction(): ol.style.GeometryFunction;
@@ -4370,7 +4607,7 @@ declare module ol {
         interface StyleFunction { (feature: ol.Feature, resolution: number): ol.style.Style }
     }
 
-    module tilegrid {
+    namespace tilegrid {
 
         /**
          * Base class for setting the grid pattern for sources accessing tiled-image servers.
@@ -4492,7 +4729,7 @@ declare module ol {
         function createXYZ(options?: olx.tilegrid.XYZOptions): ol.tilegrid.TileGrid;
     }
 
-    module webgl {
+    namespace webgl {
 
         class Context {
 

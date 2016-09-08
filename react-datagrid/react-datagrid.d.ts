@@ -1,7 +1,7 @@
 // Type definitions for react-datagrid 1.2.15
 // Project: https://github.com/zippyui/react-datagrid.git
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
 

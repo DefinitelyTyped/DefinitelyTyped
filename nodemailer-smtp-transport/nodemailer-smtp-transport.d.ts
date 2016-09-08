@@ -1,16 +1,16 @@
 ﻿// Type definitions for nodemailer-smtp-transport 1.0.2
 // Project: https://github.com/andris9/nodemailer-smtp-transport
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference path="../nodemailer/nodemailer.d.ts" />
 
 declare module "nodemailer-smtp-transport" {
 
 	import tls = require("tls");
 
-	module smtpTransport {
+	namespace smtpTransport {
 		export interface AuthOptions {
 			user?: string;
 			pass?: string;

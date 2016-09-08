@@ -88,16 +88,16 @@ interface RowData {
 interface MyCellProps extends CellProps {
     rowIndex?: number;
     field: string;
-    data: RowData[];
+    myData: RowData[];
 }
 
 class MyTextCell extends React.Component<MyCellProps, {}> {
     render(): React.ReactElement<any> {
-        const {rowIndex, field, data} = this.props;
+        const {rowIndex, field, myData} = this.props;
 
         return (
-                <Cell {...this.props}>
-                    {data[rowIndex][field]}
+                <Cell {...this.props} className="text-cell">
+                    {myData[rowIndex][field]}
                 </Cell>
             );
     }
@@ -105,11 +105,11 @@ class MyTextCell extends React.Component<MyCellProps, {}> {
 
 class MyLinkCell extends React.Component<MyCellProps, {}> {
     render(): React.ReactElement<any> {
-        const {rowIndex, field, data} = this.props;
-        const link: string = data[rowIndex][field];
+        const {rowIndex, field, myData} = this.props;
+        const link: string = myData[rowIndex][field];
 
         return (
-            <Cell {...this.props}>
+            <Cell {...this.props} className="link-cell">
                 <a href={link}>{link}</a>
             </Cell>
         );
@@ -150,7 +150,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
                             header={<Cell>{field}</Cell>}
                             cell={
                                 <MyTextCell
-                                    data={this.state.tableData}
+                                    myData={this.state.tableData}
                                     field={field}
                                 />
                             }

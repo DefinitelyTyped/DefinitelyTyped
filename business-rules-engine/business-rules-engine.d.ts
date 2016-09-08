@@ -1,12 +1,12 @@
 // Type definitions for business-rules-engine v1.0.20
 // Project: https://github.com/rsamec/form
 // Definitions by: Roman Samec <https://github.com/rsamec>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Source: typings/business-rules-engine/Validation.d.ts
 /// <reference path="../q/Q.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
-declare module Validation {
+declare namespace Validation {
     interface IErrorCustomMessage {
         (config: any, args: any): string;
     }

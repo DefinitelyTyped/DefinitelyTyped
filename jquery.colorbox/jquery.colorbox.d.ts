@@ -1,7 +1,7 @@
 // Type definitions for jQuery.Colorbox 1.4.15
 // Project: http://www.jacklmoore.com/colorbox/
 // Definitions by: Gidon Junge <https://github.com/gjunge>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -252,7 +252,7 @@ interface ColorboxStatic {
     /**
     * This method allows you to call Colorbox without having to assign it to an element.
     */
-    (settings: ColorboxSettings);
+    (settings: ColorboxSettings): any;
     /**
     * This method moves to the next item in a group and are the same as pressing the 'next' or 'previous' buttons.
     */

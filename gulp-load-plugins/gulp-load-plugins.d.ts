@@ -1,7 +1,7 @@
 // Type definitions for gulp-load-plugins
 // Project: https://github.com/jackfranklin/gulp-load-plugins
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

@@ -1,14 +1,14 @@
 // Type definitions for JsHamcrest 0.7.0
 // Project: https://github.com/danielfm/jshamcrest/
 // Definitions by: David Harkness <https://github.com/dharkness>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Top-level module for the JsHamcrest matcher library.
  *
  * @author Daniel Martins
  */
-declare module JsHamcrest {
+declare namespace JsHamcrest {
     /**
      * Library version.
      */
@@ -188,7 +188,7 @@ declare module JsHamcrest {
     /**
      * Provides the assertion, filtering, and currying methods.
      */
-    module Operators {
+    namespace Operators {
         /**
          * Defines the options accepted by assert().
          */
@@ -231,7 +231,7 @@ declare module JsHamcrest {
     /**
      * Defines all of the built-in matchers grouped into five categories.
      */
-    module Matchers {
+    namespace Matchers {
         //
         // Collection Matchers
         //
@@ -618,7 +618,7 @@ declare module JsHamcrest {
     /**
      * Provides methods for exposing matchers and operators for several testing frameworks.
      */
-    module Integration {
+    namespace Integration {
         /**
          * Copies all members of the Matchers and Operators modules to target.
          *

@@ -1,7 +1,7 @@
 // Type definitions for Bounce.js v0.8.2
 // Project: http://github.com/tictail/bounce.js
 // Definitions by: Cherry <http://github.com/cherrry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

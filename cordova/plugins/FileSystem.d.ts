@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova File System plugin.
 // Project: https://github.com/apache/cordova-plugin-file
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
@@ -15,7 +15,7 @@ interface Window {
      * @param errorCallback     A callback that is called when errors happen, or when the request to obtain the filesystem is denied.
      */
     requestFileSystem(
-        type: number,
+        type: LocalFileSystem,
         size: number,
         successCallback: (fileSystem: FileSystem) => void,
         errorCallback?: (fileError: FileError) => void): void;
@@ -371,3 +371,8 @@ interface Cordova {
     }
 }
 
+
+declare enum LocalFileSystem {
+    PERSISTENT=0,
+    TEMPORARY=1
+}

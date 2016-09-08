@@ -1,9 +1,9 @@
 // Type definitions for tween.js r12
 // Project: https://github.com/sole/tween.js/
 // Definitions by: sunetos <https://github.com/sunetos>, jzarnikov <https://github.com/jzarnikov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module TWEEN {
+declare namespace TWEEN {
   export var REVISION: string;
   export function getAll(): Tween[];
   export function removeAll(): void;
@@ -97,4 +97,8 @@ interface TweenInterpolation {
     Bernstein(n:number, i:number): number;
     Factorial(n:number): number;
   };
+}
+
+declare module 'tween.js' {
+  export = TWEEN;
 }

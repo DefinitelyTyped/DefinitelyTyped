@@ -1,7 +1,7 @@
 // Tests for type definitions for Foundation Sites v6.0.4
 // Project: http://foundation.zurb.com/
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="foundation-sites.d.ts" />

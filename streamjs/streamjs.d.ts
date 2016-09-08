@@ -1,7 +1,7 @@
 // Type definitions for streamjs 1.5.0
 // Project: http://winterbe.github.io/streamjs/
 // Definitions by: Bence Eros <https://github.com/erosb>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Stream<T> {
 	static from <T> (elems: T[]): Stream<T>;
@@ -11,7 +11,7 @@ declare class Stream<T> {
 	static rangeClosed (startInclusive: number, endInclusive: number): Stream<number>;
 	static generate <T> (supplier: Stream.Supplier<T>): Stream<T>;
 	static iterate<T>(seed: T, fn: Stream.Function<T, T>): Stream<T>;
-	
+
 	anyMatch(predicate: Stream.Predicate<T>): boolean;
 	anyMatch(regexp: RegExp): boolean;
 	anyMatch(sample: Stream.Sample): boolean;
@@ -35,7 +35,7 @@ declare class Stream<T> {
 	findAny(): Stream.Optional<T>;
 	findFirst(): Stream.Optional<T>;
 	forEach(consumer: Stream.Consumer<T>): void;
-	
+
 	groupBy(mapper: Stream.Function<T, string>): Stream.GroupingResult<T>;
 	groupBy(path: string): Stream.GroupingResult<T>;
 	groupingBy(mapper: Stream.Function<T, string>): Stream.GroupingResult<T>;
@@ -92,12 +92,12 @@ declare class Stream<T> {
 	toMap(path: string, mergeFunction?: Stream.Accumulator<T>): Stream.Map<T>;
 }
 
-declare module Stream {
+declare namespace Stream {
 
 	export interface Map<T> {
 		[index: string]: T
 	}
-	
+
 
 	export interface Sample {
 		[index: string]: any
@@ -106,7 +106,7 @@ declare module Stream {
 	export interface Accumulator<T> {
 		(e1: T, e2: T): T;
 	}
-	
+
 	export interface Collector<T> {
 		supplier: Supplier<T>;
 		accumulator: Stream.Accumulator<T>;
@@ -116,7 +116,7 @@ declare module Stream {
 	export interface Comparator<T> {
 		(e1: T, e2: T): number
 	}
-	
+
 	export interface Consumer<T> {
 		(elem: T): void;
 	}
@@ -124,16 +124,16 @@ declare module Stream {
 	export interface Function<T, U> {
 		(elem: T): U;
 	}
-	
+
 	export interface GroupingResult<T> {
 		[index: string]: T
 	}
-	
+
 	export interface Iterator<T> {
 		next(): T;
 		done: boolean;
 	}
-	
+
 	export interface JoinOptions {
 		prefix: string;
 		delimiter: string;
@@ -143,7 +143,7 @@ declare module Stream {
 	export interface Predicate<T> {
 		(elem: T): boolean;
 	}
-	
+
 	export interface Supplier<T> {
 		(): T
 	}
@@ -151,7 +151,7 @@ declare module Stream {
 	export class Optional<T> {
 		static of<T>(elem: T): Optional<T>;
 		static ofNullable<T>(elem: T): Optional<T>;
-		
+
 		filter(predicate: (elem: T) => boolean): Optional<T>;
 		map<U>(mapper: (elem: T) => U): Optional<U>;
 		flatMap<U>(mapper: (elem: T) => Stream.Optional<U>): Optional<U>;

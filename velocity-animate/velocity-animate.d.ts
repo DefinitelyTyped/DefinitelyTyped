@@ -1,7 +1,7 @@
 // Type definitions for Velocity 1.2.2
 // Project: http://velocityjs.org/
 // Definitions by: Greg Smith <https://github.com/smrq/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -19,7 +19,7 @@ interface JQueryStatic {
 	Velocity: jquery.velocity.VelocityStatic;
 }
 
-declare module jquery.velocity {
+declare namespace jquery.velocity {
 	type Properties = Object;
 	type Easing = string|number[];
 	type ElementCallback = (elements: NodeListOf<HTMLElement>) => void;

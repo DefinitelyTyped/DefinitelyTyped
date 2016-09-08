@@ -1,11 +1,11 @@
 ﻿// Type definitions for CKEditor
 // Project: http://ckeditor.com/
 // Definitions by: Ondrej Sevcik <https://github.com/ondrejsevcik/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // WORK-IN-PROGRESS: Any contribution support welcomed.
-// See https://github.com/borisyankov/DefinitelyTyped/issues/1827 for more informations.
-declare module CKEDITOR {
+// See https://github.com/DefinitelyTyped/DefinitelyTyped/issues/1827 for more informations.
+declare namespace CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
@@ -57,6 +57,7 @@ declare module CKEDITOR {
     var basePath: string;
     var currentInstance: editor;
     var document: dom.document;
+    var env: environmentConfig;
     var instances: editor[];
     var loadFullCoreTimeout: number;
     var revision: string;
@@ -88,7 +89,7 @@ declare module CKEDITOR {
     function replaceAll(assertionFunction: (textarea: HTMLTextAreaElement, config: config) => boolean): void;
 
 
-    module dom {
+    namespace dom {
 
         class comment {
 
@@ -167,7 +168,7 @@ declare module CKEDITOR {
             // Properties
             type: number;
 
-            // Methods            
+            // Methods
             constructor(element: string, ownerDocument?: document);
             constructor(element: HTMLElement, ownerDocument?: document);
             addClass(className: string): void;
@@ -506,7 +507,7 @@ declare module CKEDITOR {
     }
 
 
-    module ajax {
+    namespace ajax {
 
         // Methods
         function load(url: string, callback?: Function): string;
@@ -556,7 +557,7 @@ declare module CKEDITOR {
         groups?: string[];
     }
 
-    module config {
+    namespace config {
         interface styleObject {
             name?: string;
             element: string;
@@ -641,7 +642,7 @@ declare module CKEDITOR {
         filebrowserImageBrowseLinkUrl?: string;
         filebrowserImageBrowseUrl?: string;
         filebrowserImageUploadUrl?: string;
-        filebrowserUploadUr?: string;
+        filebrowserUploadUrl?: string;
         filebrowserWindowFeatures?: string;
         filebrowserWindowHeight?: number | string;
         filebrowserWindowWidth?: number | string;
@@ -842,7 +843,7 @@ declare module CKEDITOR {
     }
 
 
-    module plugins {
+    namespace plugins {
 
         class contextMenu extends menu {
             constructor(editor: editor);
@@ -851,7 +852,7 @@ declare module CKEDITOR {
         }
 
 
-        module link {
+        namespace link {
             var emptyAnchorFix: boolean;
             var fakeAnchor: boolean;
             var synAnchorSelector: boolean;
@@ -861,9 +862,9 @@ declare module CKEDITOR {
         }
 
 
-        module widget {
+        namespace widget {
 
-            module nestedEditable {
+            namespace nestedEditable {
                 interface definition {
                     allowedContent?: any;
                     pathName?: string;
@@ -1024,11 +1025,17 @@ declare module CKEDITOR {
         function get(name: string): any;
         function getFilePath(name: string): string;
         function getPath(name: string): string;
-        function load(name: string, callback: string, scope: any): void;
+        function load(name: string, callback: Function, scope?: Object): void;
         function setLang(pluginName: string, languageCode: string, languageEntries: any): void;
 
     }
 
+    interface IMenuItemDefinition {
+        label:string,
+        command:string,
+        group:string,
+        order:number
+    }
 
     class editor extends event {
         activeEnterMode: number;
@@ -1066,13 +1073,14 @@ declare module CKEDITOR {
         addCommand(commandName: string, commandDefinition: commandDefinition): void;
         addFeature(feature: feature): boolean;
         addMenuGroup(name: string, order?: number): void;
-        addMenuItem(name: string, definition?: any): void;
-        addMenuItems(definitions: any[]): void;
+        addMenuItem(name: string, definition?: IMenuItemDefinition): void;
+        addMenuItems(definitions: {[id:string]:IMenuItemDefinition}): void;
         addMode(mode: string, exec: () => void): void;
         addRemoveFormatFilter(func: Function): void;
         applyStyle(style: style): void;
         attachStyleStateChange(style: style, callback: Function): void;
         checkDirty(): boolean;
+        commands:any;
         createFakeElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createFakeParserElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createRange(): dom.range;
@@ -1127,7 +1135,7 @@ declare module CKEDITOR {
         updateElement(): void;
     }
 
-    module editor {
+    namespace editor {
         interface eventObject {
             activeEnterModeChange?: (evt: CKEDITOR.eventInfo) => void;
             activeFilterChange?: (evt: CKEDITOR.eventInfo) => void;
@@ -1235,6 +1243,11 @@ declare module CKEDITOR {
 
     }
 
+    interface buttonDefinition {
+        label : string;
+        command : string;
+        toolbar : string;
+    }
 
     interface template {
 
@@ -1284,12 +1297,33 @@ declare module CKEDITOR {
     class ui extends event {
         constructor(editor: editor);
         add(name: string, type: Object, definition: Object): void;
-        addButton(name: string, definition: dialog.definition.button): void;
+        addButton(name: string, definition: buttonDefinition): void;
         addHandler(type: Object, handler: Object): void;
     }
 
-    module ui {
-        module dialog {
+    class environmentConfig  {
+        air : boolean;
+        chrome : boolean;
+        cssClass : string;
+        edge : boolean;
+        gecko : boolean;
+        hc : boolean;
+        hidpi : boolean;
+        iOS : boolean;
+        ie : boolean;
+        isCompatible : boolean;
+        mac : boolean;
+        needsBrFiller : boolean;
+        needsNbspFiller : boolean;
+        quirks : boolean;
+        safari : boolean;
+        version : number;
+        webkit : boolean;
+        secure( ) : boolean;
+    }
+
+    namespace ui {
+        namespace dialog {
             class uiElement {
                 eventProcessors: any;
 
@@ -1460,14 +1494,14 @@ declare module CKEDITOR {
         show(): void;
         showPage(id: string): void;
         updateStyle(): void;
-        
+
         // NOTE: Static methods are added to dialog module
     }
 
 
-    module dialog {
+    namespace dialog {
 
-        module definition {
+        namespace definition {
 
             interface button extends uiElement {
                 disabled?: boolean;
@@ -1619,7 +1653,7 @@ declare module CKEDITOR {
     }
 
 
-    module htmlParser {
+    namespace htmlParser {
 
         class basicWriter {
             constructor();
@@ -1759,12 +1793,13 @@ declare module CKEDITOR {
     }
 
 
-    module tools {
+    namespace tools {
         var callFunction: Function;
+        function enableHtml5Elements(doc: Object, withAppend? : Boolean) : void;
     }
 
 
-    module lang {
+    namespace lang {
         var languages: any;
         var rtl: any;
 
@@ -1772,3 +1807,4 @@ declare module CKEDITOR {
         function detect(defaultLanguage: string, probeLanguage: string): string;
     }
 }
+

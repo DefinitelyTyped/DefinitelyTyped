@@ -1,7 +1,7 @@
 // Type definitions for GreenSock Animation Platform 1.15.1
 // Project: http://www.greensock.com/get-started-js/
 // Definitions by: Robert S <https://github.com/codebelt>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JavaScript Docs http://api.greensock.com/js/
 // Version 1.15.1 (TypeScript 1.4)

@@ -24,6 +24,11 @@ var payments = crossfilter<Payment>([
   {date: "2011-11-14T17:29:52Z", quantity: 1, total: 200, tip: 100, type: "visa"}
 ]);
 
+var total_payments : number = payments.groupAll<number>().reduce(
+    function(p,v) { return p+=v.total; },
+    function(p,v) { return p-=v.total; },
+    function() { return 0; } ).value();
+
 var paymentsByTotal = payments.dimension((d) => d.total);
 
 // Filters

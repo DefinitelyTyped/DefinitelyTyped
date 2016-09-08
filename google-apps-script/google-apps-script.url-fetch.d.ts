@@ -6,12 +6,12 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module URL_Fetch {
     /**
      * This class allows users to access specific information on HTTP responses.
      * See also
-     * 
+     *
      * UrlFetchApp
      */
     export interface HTTPResponse {
@@ -26,11 +26,11 @@ declare module GoogleAppsScript {
     }
 
     /**
-     * 
+     *
      * Deprecated. This class is deprecated and should not be used in new scripts.
      * Represents configuration settings for an OAuth-enabled remote service.
      * See also
-     * 
+     *
      * UrlFetchApp
      */
     export interface OAuthConfig {
@@ -51,15 +51,15 @@ declare module GoogleAppsScript {
 
     /**
      * Fetch resources and communicate with other hosts over the Internet.
-     * 
+     *
      *  This service allows scripts to communicate with other applications or access other resources on
      *  the web by fetching URLs. A script can use the URL Fetch service to issue HTTP and HTTPS requests
      *  and receive responses. The URL Fetch service uses Google's network infrastructure for efficiency
      *  and scaling purposes.
      * See also
-     * 
+     *
      * OAuthConfig
-     * 
+     *
      * HTTPResponse
      */
     export interface UrlFetchApp {

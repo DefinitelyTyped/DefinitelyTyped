@@ -1,17 +1,17 @@
 // Type definitions for express-myconnection v1.0.4
 // Project: https://www.npmjs.org/package/express-myconnection
 // Definitions by: Michael Ferris <https://github.com/Cellule/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../mysql/mysql.d.ts" />
 
-declare module mysql{
+declare namespace mysql{
   export interface IConnection {}
   export interface IError {}
 }
 
-declare module Express {
+declare namespace Express {
 
   export interface Request {
     getConnection?: (callback: (err: mysql.IError, connection: mysql.IConnection) => void) => void;

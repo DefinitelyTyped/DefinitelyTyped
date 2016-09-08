@@ -1,7 +1,7 @@
 // Type definitions for asciify 1.3.5
 // Project: https://www.npmjs.org/package/asciify
 // Definitions by: Alan Norbauer <http://alan.norbauer.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -21,7 +21,7 @@ declare module "asciify" {
     function asciify(text: string, options: string, callback: AsciifyCallback): void;
     function asciify(text: string, options: AsciifyOptions, callback: AsciifyCallback): void;
 
-    module asciify {
+    namespace asciify {
         function getFonts(callback: (err: Error, fonts: string[]) => void): void;
     }
 

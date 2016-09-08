@@ -1,7 +1,7 @@
 // Type definitions for maildev 0.11.0
 // Project: https://github.com/djfarrelly/maildev
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 

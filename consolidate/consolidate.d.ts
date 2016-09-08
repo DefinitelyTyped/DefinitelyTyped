@@ -1,12 +1,12 @@
 // Type definitions for consolidate
 // Project: https://github.com/visionmedia/consolidate.js
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 
 declare module "consolidate" {
 	var cons: Consolidate;

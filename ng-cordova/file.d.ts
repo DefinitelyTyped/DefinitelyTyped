@@ -6,7 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../cordova/plugins/FileSystem.d.ts" />
 
-declare module ngCordova {
+declare namespace ngCordova {
     export interface IFileService {
         getFreeDiskSpace(): IFilePromise<number>;
 

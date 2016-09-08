@@ -89,7 +89,7 @@ angular.module('app').controller(['$ocLazyLoadProvider', function ($ocLazyLoad: 
         'testModule2.js'
     ]);
 
-    $ocLazyLoad.inject('testModule');
+    var promise: ng.IPromise<any> = $ocLazyLoad.inject('testModule');
 
     $ocLazyLoad.toggleWatch(true);
 }]);

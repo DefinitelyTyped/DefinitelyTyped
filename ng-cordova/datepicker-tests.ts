@@ -1,9 +1,9 @@
 /// <reference path="datepicker.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-module ngCordova {
+namespace ngCordova {
     function smoketest($cordovaDatePicker: IDatePickerService, isIos: boolean) {
-    
+
         // minDate is a Date object for iOS and a millisecond precision unix timestamp
         // for Android, so you need to account for that when using the plugin. Also,
         // on Android, only the date is enforced (time is not).

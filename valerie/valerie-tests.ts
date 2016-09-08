@@ -4,7 +4,7 @@
 // Tests for valerie.d.ts
 // Project: https://github.com/davewatts/valerie
 // Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Checks the .d.ts definition work. Not a fully comprehensive set of tests yet.

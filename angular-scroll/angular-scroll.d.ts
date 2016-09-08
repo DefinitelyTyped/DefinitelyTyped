@@ -1,12 +1,12 @@
 // Type definitions for angular-scroll
 // Project: https://github.com/oblador/angular-scroll
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module duScroll {
+declare namespace duScroll {
 
     /**
      * Extends the angular.element object returned by the $document sercive with a few jQuery like functions.

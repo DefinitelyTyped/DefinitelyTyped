@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.resource {
+declare namespace ng.resource {
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -136,7 +136,7 @@ declare module ng.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module ng {
+declare namespace ng {
 
     interface IModule {
         /** creating a resource service factory */

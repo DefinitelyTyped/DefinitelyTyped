@@ -1,7 +1,7 @@
 // Type definitions for FileSaver.js
 // Project: https://github.com/eligrey/FileSaver.js/
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * @summary Interface for "saveAs" function.
@@ -15,7 +15,7 @@ interface FileSaver {
          * @type {Blob}
          */
         data: Blob,
-        
+
         /**
          * @summary File name.
          * @type {DOMString}
@@ -31,3 +31,8 @@ interface FileSaver {
 }
 
 declare var saveAs: FileSaver;
+
+declare module "file-saver" {
+    var fileSaver: { saveAs: typeof saveAs };
+    export = fileSaver
+}

@@ -1,11 +1,11 @@
 // Type definitions for jquery.serialize-object 2.5.0
 // Project: https://github.com/macek/jquery-serialize-object
 // Definitions by: Florian Wagner <https://github.com/flqw>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module FormSerializer {
+declare namespace FormSerializer {
 
   interface FormSerializerPatterns {
     validate: RegExp;

@@ -1,16 +1,16 @@
 // Type definitions for rewire v2.5.1
 // Project: https://github.com/jhnns/rewire
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module RewireInterfaces {
+declare namespace RewireInterfaces {
     interface Rewire {
         /**
          * Returns a rewired version of the module found at filename. Use rewire() exactly like require().
          */
         (filename: string): RewiredModule;
     }
-    
+
     interface RewiredModule {
         /**
          * Takes all enumerable keys of obj as variable names and sets the values respectively. Returns a function which can be called to revert the change.

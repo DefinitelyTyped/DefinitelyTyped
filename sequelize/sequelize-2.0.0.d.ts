@@ -1,7 +1,7 @@
 // Type definitions for Sequelize 2.0.0 dev13
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
@@ -10,7 +10,7 @@
 
 declare module "sequelize"
 {
-    module sequelize {
+    namespace sequelize {
         interface SequelizeStaticAndInstance {
 
             /**
@@ -291,9 +291,9 @@ declare module "sequelize"
             validate(): EventEmitter;
 
             /**
-             * !! DEPRECATED : When passing a callback to a transaction a promise chain is expected in return, 
-             * the transaction will be committed or rejected based on the promise chain returned to the callback. 
-             * 
+             * !! DEPRECATED : When passing a callback to a transaction a promise chain is expected in return,
+             * the transaction will be committed or rejected based on the promise chain returned to the callback.
+             *
              * Start a transaction. When using transactions, you should pass the transaction in the options argument in order
              * for the query to happen under that transaction.
              *
@@ -1112,7 +1112,7 @@ declare module "sequelize"
             deleteQuery<TInstance, TPojo>(tableName: string, where: any, options: DestroyOptions, model: Model<TInstance, TPojo>): string;
             /**
              * Creates a query to increment a value. Note "options" here is an additional hash of values to update.
-             * 
+             *
              * @param tableName
              * @param attrValueHash
              * @param where
@@ -1379,7 +1379,7 @@ declare module "sequelize"
              * connecting to a pg database, you should specify 'pg.js' here
              */
             dialectModulePath?: string;
-			
+
             /**
              * The dialect options that are passed to the underlying dialect library.
              */
@@ -1416,8 +1416,8 @@ declare module "sequelize"
             sync?: SyncOptions;
 
             /**
-             * The timezone used when converting a date from the database into a javascript date. The timezone is also used to 
-             * SET TIMEZONE when connecting to the server, to ensure that the result of NOW, CURRENT_TIMESTAMP and other time 
+             * The timezone used when converting a date from the database into a javascript date. The timezone is also used to
+             * SET TIMEZONE when connecting to the server, to ensure that the result of NOW, CURRENT_TIMESTAMP and other time
              * related functions have in the right timezone. For best cross platform performance use the format +/-HH:MM.
              * Default '+00:00'.
              */
@@ -1698,7 +1698,7 @@ declare module "sequelize"
             validate?: any;
 
             /**
-             * 
+             *
              */
             indexes?: Array<DefineIndexOptions>;
         }
@@ -1715,13 +1715,13 @@ declare module "sequelize"
             type: string;
 
             /**
-             * The method to create the index by (USING statement in SQL). BTREE and HASH are supported by mysql and postgres, 
+             * The method to create the index by (USING statement in SQL). BTREE and HASH are supported by mysql and postgres,
              * and postgres additionally supports GIST and GIN.
              */
             method: string;
 
             /**
-             * Should the index by unique? Can also be triggered by setting type to UNIQUE. Default false (unless type = "UNIQUE", 
+             * Should the index by unique? Can also be triggered by setting type to UNIQUE. Default false (unless type = "UNIQUE",
              * then true).
              */
             unique?: boolean;
@@ -1732,8 +1732,8 @@ declare module "sequelize"
             concurrently?: boolean;
 
             /**
-             * An array of the fields to index. Each field can either be a string containing the name of the field, or an object 
-             * with the following attributes: attribute (field name), length (create a prefix index of length chars), order (the 
+             * An array of the fields to index. Each field can either be a string containing the name of the field, or an object
+             * with the following attributes: attribute (field name), length (create a prefix index of length chars), order (the
              * direction the column should be sorted in), collate (the collation (sort order) for the column)
              */
             fields: Array<any>;
@@ -1779,7 +1779,7 @@ declare module "sequelize"
             logging?: any;
 
             /**
-             * If plain is true, then sequelize will only return the first record of the result set. In case of false it will 
+             * If plain is true, then sequelize will only return the first record of the result set. In case of false it will
              * all records.
              */
             plain?: boolean;
@@ -1840,9 +1840,9 @@ declare module "sequelize"
             where?: any;
 
             /**
-             * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with two 
-             * elements - the first is the name of the attribute in the DB (or some kind of expression such as 
-             * Sequelize.literal, Sequelize.fn and so on), and the second is the name you want the attribute to have in the 
+             * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with two
+             * elements - the first is the name of the attribute in the DB (or some kind of expression such as
+             * Sequelize.literal, Sequelize.fn and so on), and the second is the name you want the attribute to have in the
              * returned instance
              */
             attributes?: Array<any>;
@@ -2066,7 +2066,7 @@ declare module "sequelize"
              * or can be an object defining the foreign key and its options. Note foreignKey is not fully
              * typed since TypeScript does not support union types--it can be either a string or an
              * options object. String name defaults to the name of source + primary key of source.
-             * 
+             *
              * @see ForeignKeyAttributeOptions.
              */
             foreignKey?: any;
@@ -2325,10 +2325,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2336,10 +2336,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2347,10 +2347,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2358,10 +2358,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2369,10 +2369,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2380,82 +2380,82 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
             then<R1, R2>(onFulfilled?: (result?: any) => PromiseT<R1>, onRejected?: (result?: any) => PromiseT<R2>): Promise;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => Promise): Promise;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => void): Promise;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => Promise, onRejected?: (...results: Array<any>) => void): Promise;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => Promise): Promise;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => void, onRejected?: (...results: Array<any>) => PromiseT<R>): PromiseT<R>;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
             spread<R>(onFulfilled?: (...results: Array<any>) => PromiseT<R>, onRejected?: (...results: Array<any>) => void): PromiseT<R>;
 
             /**
-             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter, 
+             * Attach listeners to the emitter, promise style. This listener will recieve all arguments emitted by the emitter,
              * as opposed to then which will only recieve the first argument.
-             * 
+             *
              * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
              * @param onRejected
              */
@@ -2531,10 +2531,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2542,10 +2542,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2553,10 +2553,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2564,10 +2564,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2575,10 +2575,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */
@@ -2586,10 +2586,10 @@ declare module "sequelize"
 
             /**
              * Attach listeners to the emitter, promise style.
-             * 
-             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success). 
-             *                          Note that this function will always only be called with one argument, as per 
-             *                          the promises/A spec. For functions that emit multiple arguments 
+             *
+             * @param onFulfilled       The function to call if the promise is fulfilled (if the emitter emits success).
+             *                          Note that this function will always only be called with one argument, as per
+             *                          the promises/A spec. For functions that emit multiple arguments
              *                          (e.g. findOrCreate) @see spread
              * @param onRejected
              */

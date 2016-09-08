@@ -1,7 +1,7 @@
 // Type definitions for vinyl 1.1.0
 // Project: https://github.com/wearefractal/vinyl
 // Definitions by: vvakame <https://github.com/vvakame/>, jedmao <https://github.com/jedmao>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

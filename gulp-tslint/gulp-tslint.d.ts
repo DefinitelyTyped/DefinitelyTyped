@@ -1,7 +1,7 @@
 // Type definitions for gulp-tslint 3.6.0
 // Project: https://github.com/panuhorsmalahti/gulp-tslint
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>

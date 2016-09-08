@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_bullet {
+namespace nvd3_test_bullet {
     var width = 960,
         height = 55,
         margin = { top: 5, right: 40, bottom: 20, left: 120 };
@@ -11,9 +11,9 @@ module nvd3_test_bullet {
 
     var data = [
         { "title": "Revenue", "subtitle": "US$, in thousands", "ranges": [-150, -225, -300], "measures": [-220], "markers": [-250] }
-    ]; 
+    ];
 
-    //TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element 
+    //TODO: to be consistent with other models, should be appending a g to an already made svg, not creating the svg element
     var vis = d3.select("#chart").selectAll("svg")
         .data(data)
         .enter().append("svg")

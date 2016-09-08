@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_lineWithFocusChartx2AxisLabel {
+namespace nvd3_test_lineWithFocusChartx2AxisLabel {
 
     nv.addGraph(function () {
         var chart = nv.models.lineWithFocusChart();

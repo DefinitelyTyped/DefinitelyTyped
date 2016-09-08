@@ -1,7 +1,7 @@
 // Type definitions for pluralize
 // Project: https://www.npmjs.com/package/pluralize
 // Definitions by: Syu Kato <https://github.com/ukyo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PluralizeStatic {
     /**

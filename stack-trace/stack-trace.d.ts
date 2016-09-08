@@ -1,7 +1,7 @@
 // Type definitions for node-stack-trace
 // Project: https://github.com/felixge/node-stack-trace
 // Definitions by: Exceptionless <https://github.com/exceptionless>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'stack-trace' {
   export interface StackFrame {

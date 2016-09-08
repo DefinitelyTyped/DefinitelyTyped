@@ -1,7 +1,7 @@
 ﻿// Type definitions for bcrypt
 // Project: https://www.npmjs.org/package/bcrypt
 // Definitions by: Peter Harris <https://github.com/codeanimal>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "bcrypt" {
   /**

@@ -1,7 +1,7 @@
 // Type definitions for connect-mongo
 // Project: https://github.com/kcbanner/connect-mongo
 // Definitions by: Mizuki Yamamoto <https://github.com/Syati>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../mongoose/mongoose.d.ts" />
@@ -16,7 +16,7 @@ declare module "connect-mongo" {
 
     function connectMongo(connect: (options?: session.SessionOptions) => express.RequestHandler): connectMongo.MongoStoreFactory;
 
-    module connectMongo {
+    namespace connectMongo {
 
         export interface DefaultOptions{
             /**
@@ -99,7 +99,7 @@ declare module "connect-mongo" {
             new (options: NaitiveMongoOptions): MongoStore;
         }
 
-        export class MongoStore implements session.Store {
+        export class MongoStore extends session.Store {
             get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
             set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
             destroy: (sid: string, callback: (err: any) => void) => void;

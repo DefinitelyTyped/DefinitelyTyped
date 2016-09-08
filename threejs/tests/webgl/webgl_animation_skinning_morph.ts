@@ -182,12 +182,10 @@
         scene.add( helper );
 
 
-        var clipMorpher = THREE.AnimationClip.CreateFromMorphTargetSequence( 'facialExpressions', mesh.geometry.morphTargets, 3 );
+        var clipMorpher = THREE.AnimationClip.CreateFromMorphTargetSequence( 'facialExpressions', mesh.geometry.morphTargets, 3, true );
         var clipBones = geometry.animations[0];
 
         mixer = new THREE.AnimationMixer( mesh );
-        mixer.addAction( new THREE.AnimationAction( clipMorpher ) );
-        mixer.addAction( new THREE.AnimationAction( clipBones ) );
     }
 
     function initGUI() {
