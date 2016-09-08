@@ -235,18 +235,24 @@ function bufferTests() {
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
 
-url.format(url.parse('http://www.example.com/xyz'));
+namespace url_tests {
+    {
+        url.format(url.parse('http://www.example.com/xyz'));
+        
+        // https://google.com/search?q=you're%20a%20lizard%2C%20gary
+        url.format({
+            protocol: 'https',
+            host: "google.com",
+            pathname: 'search',
+            query: { q: "you're a lizard, gary" }
+        });   
+    }
 
-// https://google.com/search?q=you're%20a%20lizard%2C%20gary
-url.format({
-    protocol: 'https',
-    host: "google.com",
-    pathname: 'search',
-    query: { q: "you're a lizard, gary" }
-});
-
-var helloUrl = url.parse('http://example.com/?hello=world', true)
-assert.equal(helloUrl.query.hello, 'world');
+    {
+        var helloUrl = url.parse('http://example.com/?hello=world', true)
+        assert.equal(helloUrl.query.hello, 'world');
+    }
+}
 
 
 // Old and new util.inspect APIs
