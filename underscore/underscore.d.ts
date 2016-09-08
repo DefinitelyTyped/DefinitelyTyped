@@ -5074,7 +5074,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.all
 	**/
-	all(iterator?: _.ListIterator<T, boolean>, context?: any): _Chain<T>;
+	all(iterator?: _.ListIterator<T, boolean>, context?: any): _ChainSingle<boolean>;
 
 	/**
 	* @see _.all
@@ -5390,18 +5390,18 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.indexOf
 	**/
-	indexOf(value: T, isSorted?: boolean): _ChainSingle<T>;
+	indexOf(value: T, isSorted?: boolean): _ChainSingle<number>;
 
 	/**
 	* @see _.indexOf
 	**/
-	indexOf(value: T, startFrom: number): _ChainSingle<T>;
+	indexOf(value: T, startFrom: number): _ChainSingle<number>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.lastIndexOf
 	**/
-	lastIndexOf(value: T, from?: number): _ChainSingle<T>;
+	lastIndexOf(value: T, from?: number): _ChainSingle<number>;
 
 	/**
 	* @see _.findIndex
@@ -5417,7 +5417,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.sortedIndex
 	**/
-	sortedIndex(value: T, iterator?: (x: T) => any, context?: any): _Chain<T>;
+	sortedIndex(value: T, iterator?: (x: T) => any, context?: any): _ChainSingle<number>;
 
 	/**
 	* Wrapped type `number`.

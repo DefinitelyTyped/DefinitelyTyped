@@ -321,13 +321,13 @@ declare module "riot-api-nodejs" {
             * get league of legends status
             * @param     {RiotGamesAPI.LolStatus.Shard[]}    callback    data callback
             */
-        getSatus(): Promise<RiotGamesAPI.LolStatus.Shard[]>;
+        getStatus(): Promise<RiotGamesAPI.LolStatus.Shard[]>;
         /**
             * get status for a given region
             * @param     {region_e}                        region      region
             * @param     {RiotGamesAPI.LolStatus.Shard}    callback    data callback
             */
-        getSatusByRegion(region: region_e): Promise<RiotGamesAPI.LolStatus.Shard>;
+        getStatusByRegion(region: region_e): Promise<RiotGamesAPI.LolStatus.Shard>;
         /**
             * get match infos for a given match ID
             * @param     {number}                            matchId     Match ID
