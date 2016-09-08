@@ -180,22 +180,30 @@ braintree.client.create({
       return;
     }
 
-    var paymentRequest = braintree.applePay.createPaymentRequest({
-      total: {
-        label: 'My Company',
-        amount: '19.99'
-      }
-    });
+    let request = {
+      countryCode: 'US',
+      currencyCode: 'USD',
+      supportedNetworks: ['visa', 'masterCard'],
+      merchantCapabilities: ['supports3DS'],
+      total: { label: 'Your Label', amount: '10.00' },
+    };
+
+    var paymentRequest = braintree.applePay.createPaymentRequest(request);
 
     console.log(paymentRequest);
     // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
   });
 
   braintree.applePay.create({ client: clientInstance }, function (createErr, applePayInstance) {
-    var session = new BraintreeWeb.ApplePaySession(1, {
-      // This should be the payment request object that
-      // contains the information needed to display the payment sheet.
-    });
+    let request = {
+      countryCode: 'US',
+      currencyCode: 'USD',
+      supportedNetworks: ['visa', 'masterCard'],
+      merchantCapabilities: ['supports3DS'],
+      total: { label: 'Your Label', amount: '10.00' },
+    };
+
+    var session = new ApplePaySession(1, request);
 
     session.onvalidatemerchant = function (event: { validationURL: string }) {
       braintree.applePay.performValidation({
@@ -207,6 +215,32 @@ braintree.client.create({
           return;
         }
         session.completeMerchantValidation(validationData);
+      });
+    };
+  });
+
+  braintree.applePay.create({ client: clientInstance }, function (createErr, applePayInstance) {
+    let request = {
+      countryCode: 'US',
+      currencyCode: 'USD',
+      supportedNetworks: ['visa', 'masterCard'],
+      merchantCapabilities: ['supports3DS'],
+      total: { label: 'Your Label', amount: '10.00' },
+    };
+
+    var session = new ApplePaySession(1, request);
+
+    session.onpaymentauthorized = function (event) {
+      braintree.applePay.tokenize({
+        token: event.payment.token
+      }, function (err, tokenizedPayload) {
+        if (err) {
+          session.completePayment(ApplePayStatusCodes.STATUS_FAILURE);
+          return;
+        }
+        session.completePayment(ApplePayStatusCodes.STATUS_SUCCESS);
+
+        // Send the tokenizedPayload to your server.
       });
     };
   });
