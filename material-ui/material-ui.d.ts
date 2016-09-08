@@ -556,7 +556,7 @@ declare namespace __MaterialUI {
         errorStyle?: React.CSSProperties;
         errorText?: string;
         filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
-        floatingLabelText?: string;
+        floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
         hintText?: string;
         listStyle?: React.CSSProperties;
