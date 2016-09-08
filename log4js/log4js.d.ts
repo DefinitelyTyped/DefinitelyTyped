@@ -97,8 +97,8 @@ declare module "log4js" {
    * @returns {any} Instance of middleware.
    * @static
    */
-  export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; });
-  export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; });
+  export function connectLogger(logger: Logger, options: { format?: string; level?: string; nolog?: any; }): any;
+  export function connectLogger(logger: Logger, options: { format?: string; level?: Level; nolog?: any; }): any;
 
   export var layouts: {
     basicLayout: Layout,
