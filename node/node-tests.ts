@@ -904,8 +904,12 @@ namespace string_decoder_tests {
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
 
-childProcess.exec("echo test");
-childProcess.spawnSync("echo test");
+namespace child_process_tests {
+    {
+        childProcess.exec("echo test");
+        childProcess.spawnSync("echo test");    
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 /// cluster tests: https://nodejs.org/api/cluster.html ///
