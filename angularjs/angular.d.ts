@@ -1411,6 +1411,16 @@ declare namespace angular {
          * Absolute or relative URL of the resource that is being requested.
          */
         url: string;
+        /**
+         * Event listeners to be bound to the XMLHttpRequest object. 
+         * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
+         */
+        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        /**
+         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
+         */
+        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
     }
 
     interface IHttpHeadersGetter {
