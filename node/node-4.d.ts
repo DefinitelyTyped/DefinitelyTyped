@@ -2182,7 +2182,7 @@ declare module "domain" {
 }
 
 declare module "constants" {
-export var E2BIG: number;
+    export var E2BIG: number;
     export var EACCES: number;
     export var EADDRINUSE: number;
     export var EADDRNOTAVAIL: number;
