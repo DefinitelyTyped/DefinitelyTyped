@@ -2755,6 +2755,19 @@ declare module "process" {
     export = process;
 }
 
+declare module "v8" {
+    interface HeapSpaceInfo {
+        space_name: string;
+        space_size: number;
+        space_used_size: number;
+        space_available_size: number;
+        physical_space_size: number;
+    }
+    export function getHeapStatistics() : {total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number};
+    export function getHeapSpaceStatistics(): HeapSpaceInfo[];
+    export function setFlagsFromString(flags: string): void;
+}
+
 declare module "timers" {
     export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     export function clearTimeout(timeoutId: NodeJS.Timer): void;
