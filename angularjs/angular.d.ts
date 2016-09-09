@@ -125,6 +125,7 @@ declare namespace angular {
         isFunction(value: any): value is Function;
         isNumber(value: any): value is number;
         isObject(value: any): value is Object;
+        isObject<T>(value: any): value is T;
         isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
