@@ -1423,14 +1423,14 @@ declare module "dgram" {
     }
 
     interface SocketOptions {
-        type: string;
+        type: "udp4" | "udp6";
         reuseAddr?: boolean;
     }
 
     export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
-    interface Socket extends events.EventEmitter {
+    export interface Socket extends events.EventEmitter {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
