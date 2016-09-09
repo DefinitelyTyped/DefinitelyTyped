@@ -132,6 +132,7 @@ declare namespace angular.material {
         close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
+        onClose(onClose: Function): void;
     }
 
     interface ISidenavService {
@@ -162,6 +163,7 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
         position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+        toastClass?: string;
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
@@ -291,6 +293,7 @@ declare namespace angular.material {
     }
 
     interface IPanelConfig {
+        id?: string;
         template?: string;
         templateUrl?: string;
         controller?: string|Function;
