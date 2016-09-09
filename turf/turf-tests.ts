@@ -17,6 +17,9 @@ const units = 'miles'
 const properties = {foo: 'bar'}
 const highQuality = false
 const breaks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const num_vertices = 10
+const max_radial_length = 10
+const num = 10
 
 const point: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
@@ -127,9 +130,7 @@ const polygon1 = polygon
 
 const polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
-  "properties": {
-    "fill": "#00f"
-  },
+  "properties": {},
   "geometry": {
     "type": "Polygon",
     "coordinates": [[
@@ -175,87 +176,13 @@ const points: GeoJSON.FeatureCollection<GeoJSON.Point> = {
         "type": "Point",
         "coordinates": [-97.502754, 35.463455]
       }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.508269, 35.463245]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.516809, 35.465779]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.515372, 35.467072]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.509363, 35.463053]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.511123, 35.466601]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.518547, 35.469327]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.519706, 35.469659]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.517839, 35.466998]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.508678, 35.464942]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.514914, 35.463453]
-      }
     }
   ]
 }
 
 const triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
-  "properties": {
-    "a": 11,
-    "b": 122,
-    "c": 44
-  },
+  "properties": {},
   "geometry": {
     "type": "Polygon",
     "coordinates": [[
@@ -406,24 +333,41 @@ turf.geometryCollection([point.geometry, line.geometry]);
 ///////////////////////////////////////////
 
 // -- Test random --
-turf.random('points', 100)
-turf.random('points', 100, { bbox })
-turf.random('polygons', 4, {
+turf.random('points', count)
+turf.random('points', count, { bbox })
+turf.random('polygons', count, {
   bbox,
-  num_vertices: 10,
-  max_radial_length: 10
+  num_vertices,
+  max_radial_length
 })
 
 // -- Test sample --
-turf.random('points', 1000)
-turf.sample(points, 10)
+turf.random('points', count)
+turf.sample(points, num)
 
 ///////////////////////////////////////////
 // Tests Interpolation
 ///////////////////////////////////////////
 
 // -- Test hexGrid --
-turf.hexGrid(bbox, cellWidth, units)
+turf.hexGrid(bbox, cellWidth)
+turf.hexGrid(bbox, cellWidth, 'miles')
+
+// -- Test pointGrid --
+turf.pointGrid(bbox, cellWidth)
+turf.pointGrid(bbox, cellWidth, 'kilometres')
+
+// -- Test squareGrid --
+turf.squareGrid(bbox, cellWidth)
+turf.squareGrid(bbox, cellWidth, 'inches')
+
+// -- Test triangleGrid --
+turf.triangleGrid(bbox, cellWidth)
+turf.triangleGrid(bbox, cellWidth, units)
+
+///////////////////////////////////////////
+// Tests Interpolation
+///////////////////////////////////////////
 
 // -- Test isolines --
 turf.isolines(points, 'z', resolution, breaks)
@@ -431,17 +375,8 @@ turf.isolines(points, 'z', resolution, breaks)
 // -- Test planepoint --
 turf.planepoint(point1, triangle)
 
-// -- Test pointGrid --
-turf.pointGrid(bbox, cellWidth, units)
-
-// -- Test squareGrid --
-turf.squareGrid(bbox, cellWidth, units)
-
 // -- Test tin --
 turf.tin(points, 'z')
-
-// -- Test triangleGrid --
-turf.triangleGrid(bbox, cellWidth, units)
 
 ///////////////////////////////////////////
 // Tests Joins

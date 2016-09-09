@@ -63,12 +63,12 @@ JOINS
 - [ ] inside
 - [ ] tag
 GRIDS
-- [ ] hexGrid
-- [ ] pointGrid
-- [ ] squareGrid
-- [ ] triangleGrid
-- [ ] within
+- [x] hexGrid
+- [x] pointGrid
+- [x] squareGrid
+- [x] triangleGrid
 CLASSIFICATION
+- [ ] within
 - [ ] nearest
 META
 - [ ] propEach
@@ -93,13 +93,9 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-     * Merges a specified property from a FeatureCollection of points into a
-     * FeatureCollection of polygons. Given an `inProperty` on points and an `outProperty`
-     * for polygons, this finds every point that lies within each polygon, collects the
-     * `inProperty` values from those points, and adds them as an array to `outProperty`
-     * on the polygon.
+     * Merges a specified property from a FeatureCollection of points into a FeatureCollection of polygons. Given an `inProperty` on points and an `outProperty` for polygons, this finds every point that lies within each polygon, collects the `inProperty` values from those points, and adds them as an array to `outProperty` on the polygon.
      *
-     * @name collect
+     * @name [collect](http://turfjs.org/docs/#collect)
      * @param {FeatureCollection<Polygon>} polygons polygons with values on which to aggregate
      * @param {FeatureCollection<Point>} points points to be aggregated
      * @param {string} inProperty property to be nested from
@@ -366,9 +362,8 @@ declare module turf {
 
     /**
      * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
-     * http://turfjs.org/docs/#featurecollection
      * 
-     * @name featureCollection
+     * @name [featureCollection](http://turfjs.org/docs/#featurecollection)
      * @param {Feature[]} features input features
      * @returns {FeatureCollection} a FeatureCollection of input features
      * @example
@@ -386,9 +381,8 @@ declare module turf {
 
     /**
      * Wraps a GeoJSON {@link Geometry} in a GeoJSON {@link Feature}.
-     * http://turfjs.org/docs/#feature
      *
-     * @name feature
+     * @name [feature](http://turfjs.org/docs/#feature)
      * @param {Geometry} geometry input geometry
      * @param {Object} properties properties
      * @returns {FeatureCollection} a FeatureCollection of input features
@@ -409,9 +403,8 @@ declare module turf {
 
     /**
      * Creates a {@link LineString} based on a coordinate array. Properties can be added optionally.
-     * http://turfjs.org/docs/#linestring
      * 
-     * @name lineString
+     * @name [lineString](http://turfjs.org/docs/#linestring)
      * @param {Array<Array<number>>} coordinates an array of Positions
      * @param {Object=} properties an Object of key-value pairs to add as properties
      * @returns {Feature<LineString>} a LineString feature
@@ -438,9 +431,8 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiLineString>} based on a coordinate array. Properties can be added optionally.
-     * http://turfjs.org/docs/#multilinestring
      * 
-     * @name multiLineString
+     * @name [multiLineString](http://turfjs.org/docs/#multilinestring)
      * @param {Array<Array<Array<number>>>} coordinates an array of LineStrings
      * @param {Object=} properties an Object of key-value pairs to add as properties
      * @returns {Feature<MultiLineString>} a MultiLineString feature
@@ -455,9 +447,8 @@ declare module turf {
 
     /**
      * Takes coordinates and properties (optional) and returns a new {@link Point} feature.
-     * http://turfjs.org/docs/#point
      * 
-     * @name point
+     * @name [point](http://turfjs.org/docs/#point)
      * @param {Array<number>} coordinates longitude, latitude position (each in decimal degrees)
      * @param {Object=} properties an Object that is used as the {@link Feature}'s
      * properties
@@ -471,9 +462,8 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiPoint>} based on a coordinate array. Properties can be added optionally.
-     * http://turfjs.org/docs/#multipoint
      * 
-     * @name multiPoint
+     * @name [multiPoint](http://turfjs.org/docs/#multipoint)
      * @param {Array<Array<number>>} coordinates an array of Positions
      * @param {Object=} properties an Object of key-value pairs to add as properties
      * @returns {Feature<MultiPoint>} a MultiPoint feature
@@ -488,9 +478,8 @@ declare module turf {
 
     /**
      * Takes an array of LinearRings and optionally an {@link Object} with properties and returns a {@link Polygon} feature.
-     * http://turfjs.org/docs/#polygon
      * 
-     * @name polygon
+     * @name [polygon](http://turfjs.org/docs/#polygon)
      * @param {Array<Array<Array<number>>>} coordinates an array of LinearRings
      * @param {Object=} properties a properties object
      * @returns {Feature<Polygon>} a Polygon feature
@@ -512,9 +501,8 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiPolygon>} based on a coordinate array. Properties can be added optionally.
-     * http://turfjs.org/docs/#multipolygon
      * 
-     * @name multiPolygon
+     * @name [multiPolygon](http://turfjs.org/docs/#multipolygon)
      * @param {Array<Array<Array<Array<number>>>>} coordinates an array of Polygons
      * @param {Object=} properties an Object of key-value pairs to add as properties
      * @returns {Feature<MultiPolygon>} a multipolygon feature
@@ -529,9 +517,8 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<GeometryCollection>} based on acoordinate array. Properties can be added optionally.
-     * http://turfjs.org/docs/#geometrycollection
      *
-     * @name geometryCollection
+     * @name [geometryCollection](http://turfjs.org/docs/#geometrycollection)
      * @param {Array<{Geometry}>} geometries an array of GeoJSON Geometries
      * @param {Object=} properties an Object of key-value pairs to add as properties
      * @returns {Feature<GeometryCollection>} a GeoJSON GeometryCollection Feature
@@ -555,10 +542,9 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-     * Generates random {@link GeoJSON} data, including {@link Point|Points} and {@link Polygon|Polygons}, for testing
-     * and experimentation.
+     * Generates random {@link GeoJSON} data, including {@link Point|Points} and {@link Polygon|Polygons}, for testing and experimentation.
      *
-     * @name random
+     * @name [random](http://turfjs.org/docs/#random)
      * @param {String} [type='point'] type of features desired: 'points' or 'polygons'
      * @param {Number} [count=1] how many geometries should be generated.
      * @param {Object} options options relevant to the feature desired. Can include:
@@ -595,9 +581,8 @@ declare module turf {
 
     /**
      * Takes a {@link FeatureCollection} and returns a FeatureCollection with given number of {@link Feature|features} at random.
-     * http://turfjs.org/docs/#sample
      * 
-     * @name sample
+     * @name [sample](http://turfjs.org/docs/#sample)
      * @param {FeatureCollection} featurecollection set of input features
      * @param {number} num number of features to select
      * @return {FeatureCollection} a FeatureCollection with `n` features
@@ -613,17 +598,106 @@ declare module turf {
     function sample(featurecollection: GeoJSON.FeatureCollection<any>, num: number): GeoJSON.FeatureCollection<any>;
 
     //////////////////////////////////////////////////////
-    // Interpolation
+    // GRIDS
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a bounding box and a cell size in degrees and returns a FeatureCollection of flat-topped hexagons (Polygon features) aligned in an "odd-q" vertical grid as described in Hexagonal Grids.
-    * @param bbox Bounding box in [minX, minY, maxX, maxY] order
-    * @param cellWidth Width of cell in specified units
-    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
-    * @returns A hexagonal grid
-    */
-    function hexGrid(bbox: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+     * Takes a bounding box and a cell size in degrees and returns a {@link FeatureCollection} of flat-topped hexagons ({@link Polygon} features) aligned in an "odd-q" vertical grid as described in [Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/).
+     * 
+     * @name [hexGrid](http://turfjs.org/docs/#hexgrid)
+     * @param {Array<number>} bbox bounding box in [minX, minY, maxX, maxY] order
+     * @param {number} cellSize dimension of cell in specified units
+     * @param {string} units used in calculating cellSize ('miles' or 'kilometers')
+     * @param {boolean} triangles whether to return as triangles instead of hexagons
+     * @return {FeatureCollection<Polygon>} a hexagonal grid
+     * @example
+     * var bbox = [-96,31,-84,40];
+     * var cellSize = 50;
+     * var units = 'miles';
+     *
+     * var hexgrid = turf.hexGrid(bbox, cellSize, units);
+     *
+     * //=hexgrid
+     */
+    function hexGrid(
+      bbox: Array<number>,
+      cellSize: number,
+      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres',
+      triangles?: boolean
+    ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+
+    /**
+     * Takes a bounding box and a cell depth and returns a set of {@link Point|points} in a grid.
+     *
+     * @name [pointGrid](http://turfjs.org/docs/#pointgrid)
+     * @param {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
+     * @param {number} cellSize the distance across each cell
+     * @param {string} [units=kilometers] used in calculating cellSize, can be degrees, radians, miles, or kilometers
+     * @return {FeatureCollection<Point>} grid of points
+     * @example
+     * var extent = [-70.823364, -33.553984, -70.473175, -33.302986];
+     * var cellSize = 3;
+     * var units = 'miles';
+     *
+     * var grid = turf.pointGrid(extent, cellSize, units);
+     *
+     * //=grid
+     */
+    function pointGrid(
+      bbox: Array<number>,
+      cellSize: number,
+      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres' 
+    ): GeoJSON.FeatureCollection<GeoJSON.Point>;
+
+    /**
+     * Takes a bounding box and a cell depth and returns a set of square {@link Polygon|polygons} in a grid.
+     *
+     * @name [squareGrid](http://turfjs.org/docs/#squaregrid)
+     * @param {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
+     * @param {number} cellSize width of each cell
+     * @param {string} [units=kilometers] used in calculating cellSize, can be degrees, radians, miles, or kilometers
+     * @return {FeatureCollection<Polygon>} grid a grid of polygons
+     * @example
+     * var bbox = [-96,31,-84,40]
+     * var cellSize = 10
+     * var units = 'miles'
+     *
+     * var squareGrid = turf.squareGrid(bbox, cellSize, units)
+     *
+     * //=squareGrid
+     */
+    function squareGrid(
+      bbox: Array<number>,
+      cellSize: number,
+      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
+    ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+
+    /**
+     * Takes a bounding box and a cell depth and returns a set of triangular {@link Polygon|polygons} in a grid.
+     *
+     * @name [triangleGrid](http://turfjs.org/docs/#trianglegrid))
+     * @param {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
+     * @param {number} cellSize dimension of each cell
+     * @param {string} [units=kilometers] used in calculating cellSize, can be degrees, radians, miles, or kilometers
+     * @return {FeatureCollection<Polygon>} grid of polygons
+     * @example
+     * var bbox = [-96,31,-84,40]
+     * var cellSize = 10;
+     * var units = 'miles';
+     *
+     * var triangleGrid = turf.triangleGrid(extent, cellSize, units);
+     *
+     * //=triangleGrid
+     */
+    function triangleGrid(
+      bbox: Array<number>,
+      cellSize: number,
+      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
+    ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+
+    //////////////////////////////////////////////////////
+    // Interpolation
+    //////////////////////////////////////////////////////
 
     /**
     * Takes points with z-values and an array of value breaks and generates isolines.
@@ -645,44 +719,6 @@ declare module turf {
     function planepoint(interpolatedpoint: GeoJSON.Feature<GeoJSON.Point>, triangle: GeoJSON.Feature<GeoJSON.Polygon>): number;
 
     /**
-     * Takes a bounding box and a cell depth and returns a set of {@link Point|points} in a grid.
-     *
-     * @name pointGrid
-     * @param {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
-     * @param {number} cellSize the distance across each cell
-     * @param {string} [units=kilometers] used in calculating cellWidth, can be degrees, radians, miles, or kilometers
-     * @return {FeatureCollection<Point>} grid of points
-     * @example
-     * const extent = [-70.823364, -33.553984, -70.473175, -33.302986]
-     * const cellSize = 3
-     * const units = 'miles'
-     *
-     * const grid = turf.pointGrid(extent, cellSize, units)
-     *
-     * //=grid
-     */
-    function pointGrid(bbox: Array<number>, cellSize: number, units: string): GeoJSON.FeatureCollection<GeoJSON.Point>;
-
-    /**
-     * Takes a bounding box and a cell depth and returns a set of square {@link Polygon|polygons} in a grid.
-     *
-     * @name squareGrid
-     * @param {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
-     * @param {number} cellSize width of each cell
-     * @param {string} units units to use for cellSize
-     * @return {FeatureCollection<Polygon>} grid a grid of polygons
-     * @example
-     * const extent = [-77.3876953125,38.71980474264239,-76.9482421875,39.027718840211605]
-     * const cellSize = 10
-     * const units = 'miles'
-     *
-     * const squareGrid = turf.squareGrid(extent, cellSize, units)
-     *
-     * //=squareGrid
-     */
-    function squareGrid(extent: Array<number>, cellSize: number, units: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
     * Takes a set of points and the name of a z-value property and creates a Triangulated Irregular Network, or a TIN for short, returned as a collection of Polygons.
     * These are often used for developing elevation contour maps or stepped heat visualizations.
     * This triangulates the points, as well as adds properties called a, b, and c representing the value of the given propertyName at each of the points that represent the corners of the triangle.
@@ -691,15 +727,6 @@ declare module turf {
     * @returns TIN output
     */
     function tin(points: GeoJSON.FeatureCollection<GeoJSON.Point>, propertyName?: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
-
-    /**
-    * Takes a bounding box and a cell depth and returns a set of triangular polygons in a grid.
-    * @param extent Extent in [minX, minY, maxX, maxY] order
-    * @param cellWidth Width of each cell
-    * @param units Used in calculating cellWidth ('miles' or 'kilometers')
-    * @returns Grid of triangles
-    */
-    function triangleGrid(extent: Array<number>, cellWidth: number, units: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
 
     //////////////////////////////////////////////////////
     // Joins
@@ -742,9 +769,12 @@ declare module turf {
     * @param against Input point set
     * @returns The closest point in the set to the reference point
     */
-    function nearest(point: GeoJSON.Feature<GeoJSON.Point>, against: GeoJSON.FeatureCollection<GeoJSON.Point>): GeoJSON.Feature<GeoJSON.Point>;
+    function nearest(
+      point: GeoJSON.Feature<GeoJSON.Point>,
+      against: GeoJSON.FeatureCollection<GeoJSON.Point>
+    ): GeoJSON.Feature<GeoJSON.Point>;
 }
 
 declare module 'turf' {
-  export= turf
+  export = turf
 }
