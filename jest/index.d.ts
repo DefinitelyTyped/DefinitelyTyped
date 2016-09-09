@@ -9,6 +9,7 @@ declare function afterEach(fn: jest.EmptyFunction): void;
 declare function beforeEach(fn: jest.EmptyFunction): void;
 declare function describe(name: string, fn: jest.EmptyFunction): void;
 declare var it: jest.It;
+declare var test: jest.It;
 declare function pit(name: string, fn: jest.EmptyFunction): void;
 
 declare function xdescribe(name: string, fn: jest.EmptyFunction): void;
