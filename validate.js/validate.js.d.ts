@@ -6,7 +6,7 @@
 declare namespace ValidateJS {
 
   export interface Validator {
-    message?: string | ((value: any, attribute: any, validatorOptions: any, attributes: any, globalOptions: any) => any);
+    message?: string | ((value: any, attribute: any, validatorOptions: any, attributes: any, globalOptions: any) => string);
   }
 
   namespace Validator {
