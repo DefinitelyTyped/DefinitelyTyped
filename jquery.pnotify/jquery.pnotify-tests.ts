@@ -233,8 +233,8 @@ function test_pnotify() {
         width: "100%",
         stack: stack_bottomright,
         type: "error"
+    } as PNotifyOptions;
 
-    };
     new PNotify(opts);
 
     new PNotify({
