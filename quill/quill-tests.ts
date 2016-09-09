@@ -172,3 +172,15 @@ function test_on_EventType1(){
     });
 
 }
+
+function test_PasteHTML()
+{
+    var quillEditor = new Quill('#editor');
+    quillEditor.pasteHTML('<h1>Quill Rocks</h1>');
+}
+
+function test_PasteHTML2()
+{
+    var quillEditor = new Quill('#editor');
+    quillEditor.pasteHTML(5, '<h1>Quill Rocks</h1>');
+}
