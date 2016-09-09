@@ -93,5 +93,5 @@ mobileApp.api.add('query', { authorize: true, get: (req, res, next) => {
         parameters: [
             { name: 'complete', value: 1 }
         ]
-    }).then(x => {})
+    }).then(x => {});
 }, delete: function () {} });
