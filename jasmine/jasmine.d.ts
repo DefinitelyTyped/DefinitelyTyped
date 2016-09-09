@@ -116,7 +116,7 @@ declare namespace jasmine {
         /** Calls to any registered callback are triggered when the clock is ticked forward via the jasmine.clock().tick function, which takes a number of milliseconds. */
         tick(ms: number): void;
         mockDate(date?: Date): void;
-        withMock(Function): void;
+        withMock(func: Function): void;
     }
 
     interface CustomEqualityTester {
@@ -257,7 +257,7 @@ declare namespace jasmine {
     }
 
     interface TreeProcessor {
-        new (attrs: any);
+        new (attrs: any): any;
         execute: (done: Function) => void;
         processTree() : any;
     }
