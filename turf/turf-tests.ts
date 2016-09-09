@@ -1,5 +1,14 @@
 /// <reference path="turf.d.ts"/>
-import * as turf from 'turf'
+import * as turf from '@turf/turf'
+import {
+  collect,
+  random,
+  sample,
+  hexGrid,
+  pointGrid,
+  squareGrid,
+  triangleGrid
+} from '@turf/turf'
 
 ///////////////////////////////////////////
 // Tests data initialisation
