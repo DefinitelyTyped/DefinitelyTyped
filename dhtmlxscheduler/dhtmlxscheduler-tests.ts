@@ -29,7 +29,7 @@ scheduler.load("/data/events");
 
 //events
 scheduler.attachEvent("onEmptyClick", function (ev?: Event) {
-    var date: Date = scheduler.getActionData(ev).date;
+    var date: Date = scheduler.getActionData<any>(ev).date;
 });
 
 //filters
