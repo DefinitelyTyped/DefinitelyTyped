@@ -85,3 +85,13 @@ mobileApps.logger.debug('a debug message')
 // Query
 queries.create('table').where({ x: 10 }).select('col1,col2');
 mobileApps.query.create('table');
+
+// custom sql query
+mobileApp.api.add('query', { authorize: true, get: (req, res, next) => {
+    req.azureMobile.data.execute({
+        sql: "SELECT * FROM TODOITEM WHERE COMPLETE = :complete",
+        parameters: [
+            { name: 'complete', value: 1 }
+        ]
+    }).then(x => {})
+}, delete: function () {} });
