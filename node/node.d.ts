@@ -896,7 +896,7 @@ declare module "os" {
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export function homedir(): string;
     export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string }
-    export function constants(): {
+    export var constants: {
         UV_UDP_REUSEADDR: number,
         errno: {
             SIGHUP: number;
