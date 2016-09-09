@@ -2065,18 +2065,26 @@ declare module "tls" {
     export interface TlsOptions {
         host?: string;
         port?: number;
-        pfx?: any;   //string or buffer
-        key?: any;   //string or buffer
+        pfx?: string | Buffer[];
+        key?: string | string[] | Buffer | any[];
         passphrase?: string;
-        cert?: any;
-        ca?: any;    //string or buffer
-        crl?: any;   //string or string array
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | string[] | Buffer | Buffer[];
+        crl?: string | string[];
         ciphers?: string;
-        honorCipherOrder?: any;
+        honorCipherOrder?: boolean;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: any;  //array or Buffer;
+        NPNProtocols?: string[] | Buffer;
         SNICallback?: (servername: string, cb:(err:Error,ctx:SecureContext)=>any) => any;
+        ecdhCurve?: string;
+        dhparam?: string | Buffer;
+        handshakeTimeout?: number;
+        ALPNProtocols?: string[] | Buffer;
+        sessionTimeout?: number;
+        ticketKeys?: any;
+        sessionIdContext?: string;
+        secureProtocol?: string;
     }
 
     export interface ConnectionOptions {
@@ -2084,13 +2092,20 @@ declare module "tls" {
         port?: number;
         socket?: net.Socket;
         pfx?: string | Buffer
-        key?: string | Buffer
+        key?: string |string[] | Buffer | Buffer[];
         passphrase?: string;
-        cert?: string | Buffer
-        ca?: (string | Buffer)[];
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | Buffer | (string | Buffer)[];
         rejectUnauthorized?: boolean;
         NPNProtocols?: (string | Buffer)[];
         servername?: string;
+        path?: string;
+        ALPNProtocols?: (string | Buffer)[];
+        checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
+        secureProtocol?: string;
+        secureContext?: Object;
+        session?: Buffer;
+        minDHSize?: number;
     }
 
     export interface Server extends net.Server {
@@ -2143,7 +2158,7 @@ declare module "tls" {
     }
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: TlsOptions, secureConnectionListener?: () => void): ClearTextStream;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
