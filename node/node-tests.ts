@@ -102,30 +102,94 @@ namespace events_tests {
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
 ////////////////////////////////////////////////////
-fs.writeFile("thebible.txt",
-    "Do unto others as you would have them do unto you.",
-    assert.ifError);
 
-fs.write(1234, "test");
-
-fs.writeFile("Harry Potter",
-    "\"You be wizzing, Harry,\" jived Dumbledore.",
+namespace fs_tests {
     {
-        encoding: "ascii"
-    },
-    assert.ifError);
+        fs.writeFile("thebible.txt",
+            "Do unto others as you would have them do unto you.",
+            assert.ifError);
+        
+        fs.write(1234, "test");
+        
+        fs.writeFile("Harry Potter",
+            "\"You be wizzing, Harry,\" jived Dumbledore.",
+            {
+                encoding: "ascii"
+            },
+            assert.ifError);	
+    }
 
-var content: string,
-    buffer: Buffer;
-
-content = fs.readFileSync('testfile', 'utf8');
-content = fs.readFileSync('testfile', {encoding : 'utf8'});
-buffer = fs.readFileSync('testfile');
-buffer = fs.readFileSync('testfile', {flag : 'r'});
-fs.readFile('testfile', 'utf8', (err, data) => content = data);
-fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
-fs.readFile('testfile', (err, data) => buffer = data);
-fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    {
+        var content: string;
+        var buffer: Buffer;
+        
+        content = fs.readFileSync('testfile', 'utf8');
+        content = fs.readFileSync('testfile', {encoding : 'utf8'});
+        buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', {flag : 'r'});
+        fs.readFile('testfile', 'utf8', (err, data) => content = data);
+        fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+        fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    }
+    
+    {
+        var errno: string;
+        fs.readFile('testfile', (err, data) => {
+            if (err && err.errno) {
+                errno = err.errno;
+            }
+        });
+    }
+    
+    {
+        fs.mkdtemp('/tmp/foo-', (err, folder) => {
+            console.log(folder);
+            // Prints: /tmp/foo-itXde2
+        });
+    }
+    
+    {
+        var tempDir: string;
+        tempDir = fs.mkdtempSync('/tmp/foo-');
+    }
+    
+    {
+        fs.watch('/tmp/foo-', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', {
+          recursive: true,
+          persistent: true,
+          encoding: 'utf8'
+        }, (event, filename) => {
+          console.log(event, filename);
+        });
+    }
+    
+    {
+        fs.access('/path/to/folder', (err) => {});
+        
+        fs.access(Buffer.from(''), (err) => {});
+        
+        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.accessSync('/path/to/folder');
+        
+        fs.accessSync(Buffer.from(''));
+        
+        fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
+        
+        fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+}
 
 class Networker extends events.EventEmitter {
     constructor() {
@@ -134,53 +198,6 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
-
-var errno: string;
-fs.readFile('testfile', (err, data) => {
-    if (err && err.errno) {
-        errno = err.errno;
-    }
-});
-
-fs.mkdtemp('/tmp/foo-', (err, folder) => {
-    console.log(folder);
-    // Prints: /tmp/foo-itXde2
-});
-
-var tempDir: string;
-tempDir = fs.mkdtempSync('/tmp/foo-');
-
-fs.watch('/tmp/foo-', (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.watch('/tmp/foo-', {
-  recursive: true,
-  persistent: true,
-  encoding: 'utf8'
-}, (event, filename) => {
-  console.log(event, filename);
-});
-
-fs.access('/path/to/folder', (err) => {});
-
-fs.access(Buffer.from(''), (err) => {});
-
-fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
-
-fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
-
-fs.accessSync('/path/to/folder');
-
-fs.accessSync(Buffer.from(''));
-
-fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
-
-fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -356,10 +373,17 @@ url.format({
 var helloUrl = url.parse('http://example.com/?hello=world', true)
 assert.equal(helloUrl.query.hello, 'world');
 
+/////////////////////////////////////////////////////
+/// util tests : https://nodejs.org/api/util.html ///
+/////////////////////////////////////////////////////
 
-// Old and new util.inspect APIs
-util.inspect(["This is nice"], false, 5);
-util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+namespace util_tests {
+    {
+        // Old and new util.inspect APIs
+        util.inspect(["This is nice"], false, 5);
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html
@@ -588,14 +612,16 @@ namespace tty_tests {
 /// Dgram tests : http://nodejs.org/api/dgram.html
 ////////////////////////////////////////////////////
 
-var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-});
-ds.bind();
-ds.bind(41234);
-var ai: dgram.AddressInfo = ds.address();
-ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-});
-ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+namespace dgram_tests {
+    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+    });
+    ds.bind();
+    ds.bind(41234);
+    var ai: dgram.AddressInfo = ds.address();
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    });
+    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+}
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html
@@ -691,82 +717,82 @@ namespace path_tests {
     path.isAbsolute('.')         // false
 
     path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
-// returns
-//    '..\\..\\impl\\bbb'
+    // returns
+    //    '..\\..\\impl\\bbb'
 
     path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
-// returns
-//    '../../impl/bbb'
+    // returns
+    //    '../../impl/bbb'
 
     path.dirname('/foo/bar/baz/asdf/quux')
-// returns
-//    '/foo/bar/baz/asdf'
+    // returns
+    //    '/foo/bar/baz/asdf'
 
     path.basename('/foo/bar/baz/asdf/quux.html')
-// returns
-//    'quux.html'
+    // returns
+    //    'quux.html'
 
     path.basename('/foo/bar/baz/asdf/quux.html', '.html')
-// returns
-//    'quux'
+    // returns
+    //    'quux'
 
     path.extname('index.html')
-// returns
-//    '.html'
+    // returns
+    //    '.html'
 
     path.extname('index.coffee.md')
-// returns
-//    '.md'
+    // returns
+    //    '.md'
 
     path.extname('index.')
-// returns
-//    '.'
+    // returns
+    //    '.'
 
     path.extname('index')
-// returns
-//    ''
+    // returns
+    //    ''
 
     'foo/bar/baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     'foo\\bar\\baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     console.log(process.env.PATH)
-// '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
+    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+    // returns
+    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
 
     console.log(process.env.PATH)
-// 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
+    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    // returns
+    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
 
     path.parse('/home/user/dir/file.txt')
-// returns
-//    {
-//        root : "/",
-//        dir : "/home/user/dir",
-//        base : "file.txt",
-//        ext : ".txt",
-//        name : "file"
-//    }
+    // returns
+    //    {
+    //        root : "/",
+    //        dir : "/home/user/dir",
+    //        base : "file.txt",
+    //        ext : ".txt",
+    //        name : "file"
+    //    }
 
     path.parse('C:\\path\\dir\\index.html')
-// returns
-//    {
-//        root : "C:\",
-//        dir : "C:\path\dir",
-//        base : "index.html",
-//        ext : ".html",
-//        name : "index"
-//    }
+    // returns
+    //    {
+    //        root : "C:\",
+    //        dir : "C:\path\dir",
+    //        base : "index.html",
+    //        ext : ".html",
+    //        name : "index"
+    //    }
 
     path.format({
         root : "/",
@@ -775,8 +801,8 @@ namespace path_tests {
         ext : ".txt",
         name : "file"
     });
-// returns
-//    '/home/user/dir/file.txt'
+    // returns
+    //    '/home/user/dir/file.txt'
 }
 
 ////////////////////////////////////////////////////
@@ -895,20 +921,28 @@ namespace string_decoder_tests {
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
 
-childProcess.exec("echo test");
-childProcess.spawnSync("echo test");
+namespace child_process_tests {
+    {
+        childProcess.exec("echo test");
+        childProcess.spawnSync("echo test");    
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-cluster.fork();
-Object.keys(cluster.workers).forEach(key => {
-    const worker = cluster.workers[key];
-    if (worker.isDead()) {
-        console.log('worker %d is dead', worker.process.pid);
+namespace cluster_tests　{
+    {
+        cluster.fork();
+        Object.keys(cluster.workers).forEach(key => {
+            const worker = cluster.workers[key];
+            if (worker.isDead()) {
+                console.log('worker %d is dead', worker.process.pid);
+            }
+        });
     }
-});
+}
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
