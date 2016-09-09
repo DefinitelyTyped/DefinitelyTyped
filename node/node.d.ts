@@ -2764,6 +2764,8 @@ declare module "constants" {
     export var SIGUNUSED: number;
     export var defaultCoreCipherList: string;
     export var defaultCipherList: string;
+    export var ENGINE_METHOD_RSA: number;
+    export var ALPN_ENABLED: number;
 }
 
 declare module "process" {
