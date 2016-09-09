@@ -24,22 +24,44 @@ import * as string_decoder from "string_decoder";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
-assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
+//////////////////////////////////////////////////////////
+/// Assert Tests : https://nodejs.org/api/assert.html ///
+//////////////////////////////////////////////////////////
 
-assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+namespace assert_tests{
+    {
+        assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
+        
+        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+        
+        // TODO: assert.deepStrictEqual
+        
+        assert.doesNotThrow(() => {
+            const b = false;
+            if (b) { throw "a hammer at your face"; }
+        }, undefined, "What the...*crunch*");
+        
+        assert.equal(3, "3", "uses == comparator");
 
-assert.equal(3, "3", "uses == comparator");
-
-assert.notStrictEqual(2, "2", "uses === comparator");
-
-assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
-
-assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
-
-assert.doesNotThrow(() => {
-    const b = false;
-    if (b) { throw "a hammer at your face"; }
-}, undefined, "What the...*crunch*");
+        // TODO: assert.fail
+        
+        // TODO: assert.ifError
+        
+        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
+        
+        // TODO: assert.notDeepStrictEqual
+        
+        // TODO: assert.notEqual
+        
+        assert.notStrictEqual(2, "2", "uses === comparator");
+        
+        // TODO: assert.ok
+        
+        // TODO: assert.strictEqual
+        
+        assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Events tests : http://nodejs.org/api/events.html
