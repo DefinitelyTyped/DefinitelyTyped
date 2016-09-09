@@ -233,7 +233,7 @@ declare namespace PDFKit {
         size?: number[];
         margin?: number;
         margins?: { top: number; left: number; bottom: number; right: number };
-        layout?: "portrait" | "landscape"
+        layout?: "portrait" | "landscape";
 
         bufferPages?: boolean;
     }
