@@ -27,6 +27,9 @@ declare namespace AmCharts {
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
     
+    /** Handle ready event */
+    function ready(Function): void;
+    
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
     
