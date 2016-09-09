@@ -4651,7 +4651,7 @@ declare namespace ol {
         /**
          * A function that takes an ol.Feature and a {number} representing the view's resolution. The function should return an array of ol.style.Style. This way e.g. a vector layer can be styled.
          */
-        interface StyleFunction { (feature: ol.Feature, resolution: number): ol.style.Style }
+        interface StyleFunction { (feature: ol.Feature, resolution: number): ol.style.Style | ol.style.Style[] }
     }
 
     namespace tilegrid {
