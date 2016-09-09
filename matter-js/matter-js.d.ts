@@ -1971,6 +1971,11 @@ declare namespace Matter {
         enableSleeping: boolean;
 
         /**
+         * Collision pair set for this `Engine`.
+         */
+        pairs: any;
+
+        /**
          * An integer `Number` that specifies the number of position iterations to perform each update.
          * The higher the value, the higher quality the simulation will be at the expense of performance.
          *
@@ -2172,6 +2177,21 @@ declare namespace Matter {
         */
 
         type: string;
+    }
+
+    /**
+    * The `Matter.Pairs` module contains methods for creating and manipulating collision pair sets.
+    *
+    * @class Pairs
+    */
+    export class Pairs {
+        /**
+         * Clears the given pairs structure.
+         * @method clear
+         * @param {pairs} pairs
+         * @return {pairs} pairs
+         */
+        static clear(pairs: any): any;
     }
 
     export interface IPair {
