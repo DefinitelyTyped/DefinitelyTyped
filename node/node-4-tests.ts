@@ -894,7 +894,7 @@ namespace console_tests{
 ///////////////////////////////////////////////////////////
 
 import * as constants from 'constants';
-namesapce constants_tests {
+namespace constants_tests {
     var str: string;
     var num: number;
     num = constants.E2BIG
