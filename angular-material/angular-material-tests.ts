@@ -127,6 +127,8 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isOpen();
         instance.isLockedOpen();
     });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {

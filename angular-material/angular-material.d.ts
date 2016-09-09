@@ -132,6 +132,7 @@ declare namespace angular.material {
         close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
+        onClose(onClose: Function): void;
     }
 
     interface ISidenavService {
