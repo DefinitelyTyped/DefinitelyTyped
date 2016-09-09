@@ -44,7 +44,7 @@ class Master extends React.Component<React.Props<{}>, {}> {
 }
 
 interface DashboardProps {
-	router: ReactRouter.InjectedRouter
+	router: ReactRouter.RouterOnContext
 };
 
 class Dashboard extends React.Component<DashboardProps, {}> {
