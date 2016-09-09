@@ -2329,9 +2329,12 @@ declare namespace Matter {
         */
         hasBounds?: boolean;
 
-
-
-
+        /**
+         * Render wireframes only
+         * @type boolean
+         * @default true 
+         */
+        wireframes?: boolean;
     }
 
     /**
