@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'common-tags' {
-    type TemplateTag = (literals: string[], ...placeholders: any[]) => string;
+    type TemplateTag = (literals: TemplateStringsArray, ...placeholders: any[]) => string;
 
     type TemplateTransformer = {
         onSubstitution?: (substitution: string, resultSoFar: string) => string;
