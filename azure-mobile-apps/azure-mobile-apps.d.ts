@@ -70,7 +70,7 @@ declare namespace Azure.MobileApps {
                 access: AccessType;
             }
 
-            type AccessType = undefined | 'anonymous' | 'authenticated' | 'disabled';
+            type AccessType = 'anonymous' | 'authenticated' | 'disabled';
 
             interface Tables {
                 configuration: Configuration;

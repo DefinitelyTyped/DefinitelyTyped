@@ -72,6 +72,7 @@ table.read.use([function () {}, function () {}]);
 table.read.use(function () {}, function () {});
 table.use(function () {}).use(function () {}).read(function () {}).use(function () {})
 
+table.access = undefined;
 table.access = 'authenticated';
 table.read.access = 'anonymous';
 table.update.access = 'disabled';
