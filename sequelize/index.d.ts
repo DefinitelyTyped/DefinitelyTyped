@@ -2545,6 +2545,41 @@ declare namespace sequelize {
         afterInit(name: string, fn: (sequelize: Sequelize) => void): void;
         afterInit(fn: (sequelize: Sequelize) => void): void;
 
+        /**
+         * A hook that is run before Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        beforeSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        afterSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run before sequelize.sync call
+         *
+         * @param name
+         * @param fn    A callback function that is called with options passed to sequelize.sync
+         */
+        beforeBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeBulkSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after sequelize.sync call
+         *
+         * @param name
+         * @param fn   A callback function that is called with options passed to sequelize.sync
+         */
+        afterBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterBulkSync(fn: (options: SyncOptions) => void): void;
     }
 
     //
