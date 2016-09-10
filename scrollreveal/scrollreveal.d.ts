@@ -4,25 +4,25 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace scrollReveal {
-    interface IScrollRevealRotateObject {
+    interface ScrollRevealRotateObject {
         x?: number;
         y?: number;
         z?: number;
     }
 
-    interface IScrollRevealPositionObject {
+    interface ScrollRevealPositionObject {
         top?: number;
         right?: number;
         bottom?: number;
         left?: number;
     }
 
-    interface IScrollRevealOptions {
+    interface ScrollRevealObjectOptions {
         origin ? : string;
         distance ? : string;
         duration ? : number;
         delay ? : number;
-        rotate ? : IScrollRevealRotateObject;
+        rotate ? : ScrollRevealRotateObject;
         opacity ? : number;
         scale ? : number;
         easing ? : string;
@@ -31,7 +31,7 @@ declare namespace scrollReveal {
         reset ? : boolean;
         useDelay ? : string;
         viewFactor ? : number;
-        viewOffset ? : IScrollRevealPositionObject;
+        viewOffset ? : ScrollRevealPositionObject;
         beforeReveal ? (domEl: HTMLElement): void;
         afterReveal ? (domEl: HTMLElement): void;
         beforeReset ? (domEl: HTMLElement): void;
@@ -43,26 +43,26 @@ declare namespace scrollReveal {
     }
 
 
-    interface IScrollReveal {
-        (): IScrollReveal;
-        (options: IScrollRevealOptions): IScrollReveal;
-        reveal(selector: string): IScrollReveal;
-        reveal(selector: string, interval: number): IScrollReveal;
-        reveal(selector: string, options: IScrollRevealOptions): IScrollReveal;
-        reveal(selector: string, options: IScrollRevealOptions, interval: number): IScrollReveal;
+    interface ScrollRevealObject {
+        (): ScrollRevealObject;
+        (options: ScrollRevealObjectOptions): ScrollRevealObject;
+        reveal(selector: string): ScrollRevealObject;
+        reveal(selector: string, interval: number): ScrollRevealObject;
+        reveal(selector: string, options: ScrollRevealObjectOptions): ScrollRevealObject;
+        reveal(selector: string, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
         
-        reveal(selector: HTMLElement): IScrollReveal;
-        reveal(selector: HTMLElement, interval: number): IScrollReveal;
-        reveal(selector: HTMLElement, options: IScrollRevealOptions): IScrollReveal;
-        reveal(selector: HTMLElement, options: IScrollRevealOptions, interval: number): IScrollReveal;
+        reveal(selector: HTMLElement): ScrollRevealObject;
+        reveal(selector: HTMLElement, interval: number): ScrollRevealObject;
+        reveal(selector: HTMLElement, options: ScrollRevealObjectOptions): ScrollRevealObject;
+        reveal(selector: HTMLElement, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
 
-        reveal(selector: NodeListOf<Element>): IScrollReveal;
-        reveal(selector: NodeListOf<Element>, interval: number): IScrollReveal;
-        reveal(selector: NodeListOf<Element>, options: IScrollRevealOptions): IScrollReveal;
-        reveal(selector: NodeListOf<Element>, options: IScrollRevealOptions, interval: number): IScrollReveal;
+        reveal(selector: NodeListOf<Element>): ScrollRevealObject;
+        reveal(selector: NodeListOf<Element>, interval: number): ScrollRevealObject;
+        reveal(selector: NodeListOf<Element>, options: ScrollRevealObjectOptions): ScrollRevealObject;
+        reveal(selector: NodeListOf<Element>, options: ScrollRevealObjectOptions, interval: number): ScrollRevealObject;
 
         sync(): void;
     }
 }
 
-declare var ScrollReveal: scrollReveal.IScrollReveal;
+declare var ScrollReveal: scrollReveal.ScrollRevealObject;
