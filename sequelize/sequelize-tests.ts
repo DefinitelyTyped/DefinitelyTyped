@@ -714,6 +714,12 @@ User.beforeFindAfterOptions( 'myHook', function( options ) {} );
 User.afterFind( function( user ) {} );
 User.afterFind( 'myHook', function( user ) {} );
 
+User.beforeSync( function( options ) {} );
+User.beforeSync( 'myHook', function( options ) {} );
+
+User.afterSync( function( options ) {} );
+User.afterSync( 'myHook', function( options ) {} );
+
 s.beforeDefine( function( attributes, options ) {} );
 s.beforeDefine( 'myHook', function( attributes, options ) {} );
 
@@ -725,6 +731,12 @@ s.beforeInit( 'myHook', function( attributes, options ) {} );
 
 s.afterInit( function( model ) {} );
 s.afterInit( 'myHook', function( model ) {} );
+
+s.beforeBulkSync( function( options ) {} );
+s.beforeBulkSync( 'myHook', function( options ) {} );
+
+s.afterBulkSync( function( options ) {} );
+s.afterBulkSync( 'myHook', function( options ) {} );
 
 s.define( 'User', {}, {
     hooks : {
