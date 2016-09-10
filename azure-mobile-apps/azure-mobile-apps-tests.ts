@@ -72,6 +72,12 @@ table.read.use([function () {}, function () {}]);
 table.read.use(function () {}, function () {});
 table.use(function () {}).use(function () {}).read(function () {}).use(function () {})
 
+table.access = 'authenticated';
+table.read.access = 'anonymous';
+table.update.access = 'disabled';
+table.delete.access = 'authenticated';
+table.insert.access = 'authenticated';
+
 // Express.Table, instantiated from the static require('azure-mobile-apps').table()
 // This is going to be interesting if we ever support more than one provider
 var table2 = mobileApps.table();

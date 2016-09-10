@@ -47,6 +47,7 @@ declare namespace Azure.MobileApps {
 
             interface Table {
                 authorize?: boolean;
+                access?: AccessType;
                 autoIncrement?: boolean;
                 dynamicSchema?: boolean;
                 name: string;
@@ -66,7 +67,10 @@ declare namespace Azure.MobileApps {
                 (operationHandler: (context: Context) => void): Table;
                 use(...middleware: Middleware[]): Table;
                 use(middleware: Middleware[]): Table;
+                access: AccessType;
             }
+
+            type AccessType = undefined | 'anonymous' | 'authenticated' | 'disabled';
 
             interface Tables {
                 configuration: Configuration;
