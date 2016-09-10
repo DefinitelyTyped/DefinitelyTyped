@@ -10,8 +10,17 @@ declare namespace cucumber {
 		(errror?:any, pending?: string):void;
 	}
 
+	export interface TableDefinition{
+		raw: () => Array<any>;
+		rows: () => Array<any>;
+		rowsHash: () => {};
+		hashes: () => {};
+	}
+
+	type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
+
 	interface StepDefinitionCode {
-		(...stepArgs: Array<string |CallbackStepDefinition>): PromiseLike<any> | any | void;
+		(...stepArgs: Array<StepDefinitionParam>): PromiseLike<any> | any | void;
 	}
 
 	interface StepDefinitionOptions{
