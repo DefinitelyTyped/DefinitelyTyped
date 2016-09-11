@@ -2,7 +2,8 @@
 
 
 import * as React from 'react';
-import {Badge,
+import {Chip, ChipContact,
+    Badge,
     FABButton, Button, IconButton,
     Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
     Checkbox,
@@ -39,12 +40,41 @@ React.createClass({
                 <Badge text="♥" overlap>
                     <Icon name="account_box" />
                 </Badge>
-                
+
                 {/* Number badge on text */}
                 <Badge text="4">Inbox</Badge>
 
                 {/* Icon badge without background on text */}
                 <Badge text="♥" noBackground>Mood</Badge>
+            </div>
+        );
+    }
+});
+
+
+// Chip tests
+React.createClass({
+    render: function() {
+        return (
+            <div>
+                <Chip>Basic chip</Chip>
+
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>Deletable Chip</Chip>
+
+                <Chip onClick={e => { alert('Clicked!'); }}>Button Chip</Chip>
+                {/* Contact Chip */}
+                <Chip>
+                    <ChipContact className="mdl-color--teal mdl-color-text--white">A</ChipContact>
+                    Contact chip
+                </Chip>
+
+                {/* User Contact Chip */}
+                <Chip onClose={e => { alert('Close icon clicked!'); }}>
+                    <ChipContact
+                        style={{ background: 'url("https://placekitten.com/150/150") 0 0 / cover' }}
+                    />
+                    Deletable user contact chip
+                </Chip>
             </div>
         );
     }
@@ -151,7 +181,7 @@ React.createClass({
                         <IconButton name="share" />
                     </CardMenu>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '320px', height: '320px', margin: 'auto'}}>
                     <CardTitle expand style={{color: '#fff', background: 'url(http://www.getmdl.io/assets/demos/dog.png) bottom right 15% no-repeat #46B6AC'}}>Update</CardTitle>
                     <CardText>
@@ -162,7 +192,7 @@ React.createClass({
                         <Button colored>View Updates</Button>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: 'url(http://www.getmdl.io/assets/demos/image_card.jpg) center / cover', margin: 'auto'}}>
                     <CardTitle expand />
                     <CardActions style={{height: '52px', padding: '16px', background: 'rgba(0,0,0,0.2)'}}>
@@ -171,7 +201,7 @@ React.createClass({
                         </span>
                     </CardActions>
                 </Card>
-                
+
                 <Card shadow={0} style={{width: '256px', height: '256px', background: '#3E4EB8'}}>
                     <CardTitle expand style={{alignItems: 'flex-start', color: '#fff'}}>
                         <h4 style={{marginTop: '0'}}>
@@ -294,7 +324,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} raised ripple>Show Modal</Button>
                     <Dialog open={this.state.openDialog}>
@@ -308,7 +338,7 @@ React.createClass({
                     </DialogActions>
                     </Dialog>
                 </div>
-                
+
                 <div>
                     <Button colored onClick={this.handleOpenDialog} onAbort={this.handleCloseDialog} raised ripple>Show Dialog</Button>
                     <Dialog open={this.state.openDialog} onAbort={this.handleCloseDialog}>
@@ -591,8 +621,8 @@ React.createClass({
                 {/* Simple header with fixed tabs. */}
                 <div style={{height: '300px', position: 'relative'}}>
                     <Layout fixedHeader fixedTabs>
-                        <Header>
-                            <HeaderRow title="Title" />
+                        <Header hideSpacer>
+                            <HeaderRow hideSpacer title="Title" />
                             <HeaderTabs activeTab={1} onChange={(tabId) => {}}>
                                 <Tab>Tab1</Tab>
                                 <Tab>Tab2</Tab>
@@ -890,7 +920,7 @@ React.createClass({
                         onTimeout={this.handleTimeoutSnackbar}
                         action="Undo">Button color changed.</Snackbar>
                 </div>
-                
+
                 <div>
                     <Button raised onClick={this.handleShowSnackbar}>Show a Toast</Button>
                     <Snackbar
@@ -946,7 +976,7 @@ React.createClass({
                     <section>
                         <div className="content">Content for the tab: {this.state.activeTab}</div>
                     </section>
-                </div> 
+                </div>
             </div>
         );
     }
