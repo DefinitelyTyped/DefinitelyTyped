@@ -926,3 +926,11 @@ namespace console_tests{
         assert(c === console);
     }
 }
+
+/*****************************************************************************
+ *                                                                           *
+ * The following tests are the modules not mentioned in document but existed *
+ *                                                                           *
+ *****************************************************************************/
+ 
+// Do something
