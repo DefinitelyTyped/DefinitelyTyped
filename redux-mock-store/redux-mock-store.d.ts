@@ -10,9 +10,9 @@ declare module 'redux-mock-store' {
 
     function createMockStore<T>(middlewares?:Redux.Middleware[]):mockStore<T>
 
-    type mockStore<T> = (state?:T) => IStore<T>;
+    export type mockStore<T> = (state?:T) => IStore<T>;
 
-    type IStore<T> = {
+    export type IStore<T> = {
         dispatch(action: any):any
         getState():T
         getActions():Object[]

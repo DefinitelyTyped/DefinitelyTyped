@@ -215,12 +215,27 @@ declare namespace Azure.MobileApps {
         item: any;
         req: Express.Request;
         res: Express.Response;
-        data: (table: TableDefinition) => Data.Table;
+        data: ContextData;
         tables: (tableName: string) => Data.Table;
         user: User;
         push: typeof nh;
         logger: Logger;
         execute(): Thenable<any>;
+    }
+
+    interface ContextData {
+        (table: TableDefinition): Data.Table;
+        execute(q: SqlQueryDefinition): Thenable<any>;
+    }
+
+    interface SqlQueryDefinition {
+        sql: string;
+        parameters?: SqlParameterDefinition[];
+    }
+
+    interface SqlParameterDefinition {
+        name: string;
+        value: any;
     }
 
     interface TableDefinition {

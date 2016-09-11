@@ -326,6 +326,14 @@ declare namespace maquette {
          */
     append(parentNode: Element, renderMaquetteFunction: () => VNode): void;
         /**
+         * Stops running the `renderMaquetteFunction` to update the DOM. The `renderMaquetteFunction` must have been
+         * registered using [[append]], [[merge]], [[insertBefore]] or [[replace]].
+         *
+         * @returns The [[Projection]] which was created using this `renderMaquetteFunction`.
+         * The [[Projection]] contains a reference to the DOM Node that was rendered.
+         */
+    detach(renderMaquetteFunction: () => VNode): Projection;
+        /**
          * Scans the document for `<script>` tags with `type="text/hyperscript"`.
          * The content of these scripts are registered as `renderMaquette` functions.
          * The result of evaluating these functions will be inserted into the DOM after the script.

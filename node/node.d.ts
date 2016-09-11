@@ -233,14 +233,14 @@ declare var Buffer: {
 ************************************************/
 declare namespace NodeJS {
     export interface ErrnoException extends Error {
-        errno?: number;
+        errno?: string;
         code?: string;
         path?: string;
         syscall?: string;
         stack?: string;
     }
 
-    export interface EventEmitter {
+    export class EventEmitter {
         addListener(event: string, listener: Function): this;
         on(event: string, listener: Function): this;
         once(event: string, listener: Function): this;
@@ -251,6 +251,10 @@ declare namespace NodeJS {
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
         listenerCount(type: string): number;
+        // Added in Node 6...
+        prependListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: Function): this;
+        eventNames(): string[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -368,7 +372,7 @@ declare namespace NodeJS {
         arch: string;
         platform: string;
         memoryUsage(): MemoryUsage;
-        nextTick(callback: Function): void;
+        nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
         hrtime(time?: number[]): number[];
@@ -452,6 +456,8 @@ declare namespace NodeJS {
     }
 }
 
+interface IterableIterator<T> {}
+
 /**
  * @deprecated
  */
@@ -460,7 +466,7 @@ interface NodeBuffer extends Uint8Array {
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): any;
     equals(otherBuffer: Buffer): boolean;
-    compare(otherBuffer: Buffer): number;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
     slice(start?: number, end?: number): Buffer;
     writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
@@ -505,10 +511,10 @@ interface NodeBuffer extends Uint8Array {
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
-    // TODO: entries
-    // TODO: includes
-    // TODO: keys
-    // TODO: values
+    entries(): IterableIterator<[number, number]>;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
 }
 
 /************************************************
@@ -541,7 +547,7 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter implements NodeJS.EventEmitter {
+    export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
         static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
         static defaultMaxListeners: number;
@@ -651,6 +657,9 @@ declare module "http" {
     }
     export interface IncomingMessage extends events.EventEmitter, stream.Readable {
         httpVersion: string;
+        httpVersionMajor: string;
+        httpVersionMinor: string;
+        connection: any;
         headers: any;
         rawHeaders: string[];
         trailers: any;
@@ -749,7 +758,7 @@ declare module "cluster" {
         id: string;
         process: child.ChildProcess;
         suicide: boolean;
-        send(message: any, sendHandle?: any): void;
+        send(message: any, sendHandle?: any): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
         disconnect(): void;
@@ -876,21 +885,144 @@ declare module "os" {
         internal: boolean;
     }
 
-    export function tmpdir(): string;
-    export function homedir(): string;
-    export function endianness(): "BE" | "LE";
     export function hostname(): string;
-    export function type(): string;
-    export function platform(): string;
-    export function arch(): string;
-    export function release(): string;
-    export function uptime(): number;
     export function loadavg(): number[];
-    export function totalmem(): number;
+    export function uptime(): number;
     export function freemem(): number;
+    export function totalmem(): number;
     export function cpus(): CpuInfo[];
+    export function type(): string;
+    export function release(): string;
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
+    export function homedir(): string;
+    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string }
+    export var constants: {
+        UV_UDP_REUSEADDR: number,
+        errno: {
+            SIGHUP: number;
+            SIGINT: number;
+            SIGQUIT: number;
+            SIGILL: number;
+            SIGTRAP: number;
+            SIGABRT: number;
+            SIGIOT: number;
+            SIGBUS: number;
+            SIGFPE: number;
+            SIGKILL: number;
+            SIGUSR1: number;
+            SIGSEGV: number;
+            SIGUSR2: number;
+            SIGPIPE: number;
+            SIGALRM: number;
+            SIGTERM: number;
+            SIGCHLD: number;
+            SIGSTKFLT: number;
+            SIGCONT: number;
+            SIGSTOP: number;
+            SIGTSTP: number;
+            SIGTTIN: number;
+            SIGTTOU: number;
+            SIGURG: number;
+            SIGXCPU: number;
+            SIGXFSZ: number;
+            SIGVTALRM: number;
+            SIGPROF: number;
+            SIGWINCH: number;
+            SIGIO: number;
+            SIGPOLL: number;
+            SIGPWR: number;
+            SIGSYS: number;
+            SIGUNUSED: number;
+        },
+        signals: {
+            E2BIG: number;
+            EACCES: number;
+            EADDRINUSE: number;
+            EADDRNOTAVAIL: number;
+            EAFNOSUPPORT: number;
+            EAGAIN: number;
+            EALREADY: number;
+            EBADF: number;
+            EBADMSG: number;
+            EBUSY: number;
+            ECANCELED: number;
+            ECHILD: number;
+            ECONNABORTED: number;
+            ECONNREFUSED: number;
+            ECONNRESET: number;
+            EDEADLK: number;
+            EDESTADDRREQ: number;
+            EDOM: number;
+            EDQUOT: number;
+            EEXIST: number;
+            EFAULT: number;
+            EFBIG: number;
+            EHOSTUNREACH: number;
+            EIDRM: number;
+            EILSEQ: number;
+            EINPROGRESS: number;
+            EINTR: number;
+            EINVAL: number;
+            EIO: number;
+            EISCONN: number;
+            EISDIR: number;
+            ELOOP: number;
+            EMFILE: number;
+            EMLINK: number;
+            EMSGSIZE: number;
+            EMULTIHOP: number;
+            ENAMETOOLONG: number;
+            ENETDOWN: number;
+            ENETRESET: number;
+            ENETUNREACH: number;
+            ENFILE: number;
+            ENOBUFS: number;
+            ENODATA: number;
+            ENODEV: number;
+            ENOENT: number;
+            ENOEXEC: number;
+            ENOLCK: number;
+            ENOLINK: number;
+            ENOMEM: number;
+            ENOMSG: number;
+            ENOPROTOOPT: number;
+            ENOSPC: number;
+            ENOSR: number;
+            ENOSTR: number;
+            ENOSYS: number;
+            ENOTCONN: number;
+            ENOTDIR: number;
+            ENOTEMPTY: number;
+            ENOTSOCK: number;
+            ENOTSUP: number;
+            ENOTTY: number;
+            ENXIO: number;
+            EOPNOTSUPP: number;
+            EOVERFLOW: number;
+            EPERM: number;
+            EPIPE: number;
+            EPROTO: number;
+            EPROTONOSUPPORT: number;
+            EPROTOTYPE: number;
+            ERANGE: number;
+            EROFS: number;
+            ESPIPE: number;
+            ESRCH: number;
+            ESTALE: number;
+            ETIME: number;
+            ETIMEDOUT: number;
+            ETXTBSY: number;
+            EWOULDBLOCK: number;
+            EXDEV: number;
+        },
+    };
+    export function arch(): string;
+    export function platform(): string;
+    export function tmpdir(): string;
+    export function tmpDir(): string;
+    export function getNetworkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export var EOL: string;
+    export function endianness(): "BE" | "LE";
 }
 
 declare module "https" {
@@ -963,7 +1095,7 @@ declare module "punycode" {
 
 declare module "repl" {
     import * as stream from "stream";
-    import * as events from "events";
+    import * as readline from "readline";
 
     export interface ReplOptions {
         prompt?: string;
@@ -975,8 +1107,17 @@ declare module "repl" {
         useGlobal?: boolean;
         ignoreUndefined?: boolean;
         writer?: Function;
+        completer?: Function;
+        replMode?: any;
+        breakEvalOnSigint?: any;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+
+    export interface REPLServer extends readline.ReadLine {
+        defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
+        displayPrompt(preserveCursor?: boolean): void
+    }
+
+    export function start(options: ReplOptions): REPLServer;
 }
 
 declare module "readline" {
@@ -1071,7 +1212,7 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): void;
+        send(message: any, sendHandle?: any): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
@@ -1269,6 +1410,32 @@ declare module "dns" {
     export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function reverse(ip: string, callback: (err: Error, domains: string[]) => void): string[];
+
+    //Error codes
+    export var NODATA: string;
+    export var FORMERR: string;
+    export var SERVFAIL: string;
+    export var NOTFOUND: string;
+    export var NOTIMP: string;
+    export var REFUSED: string;
+    export var BADQUERY: string;
+    export var BADNAME: string;
+    export var BADFAMILY: string;
+    export var BADRESP: string;
+    export var CONNREFUSED: string;
+    export var TIMEOUT: string;
+    export var EOF: string;
+    export var FILE: string;
+    export var NOMEM: string;
+    export var DESTRUCTION: string;
+    export var BADSTR: string;
+    export var BADFLAGS: string;
+    export var NONAME: string;
+    export var BADHINTS: string;
+    export var NOTINITIALIZED: string;
+    export var LOADIPHLPAPI: string;
+    export var ADDRGETNETWORKPARAMS: string;
+    export var CANCELLED: string;
 }
 
 declare module "net" {
@@ -1371,19 +1538,35 @@ declare module "dgram" {
         port: number;
     }
 
-    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    interface BindOptions {
+        port: number;
+        address?: string;
+        exclusive?: boolean;
+    }
 
-    interface Socket extends events.EventEmitter {
-        send(buf: Buffer, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
-        send(buf: Buffer, offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+    interface SocketOptions {
+        type: "udp4" | "udp6";
+        reuseAddr?: boolean;
+    }
+
+    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+
+    export interface Socket extends events.EventEmitter {
+        send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
+        send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
-        close(): void;
+        bind(options: BindOptions, callback?: Function): void;
+        close(callback?: any): void;
         address(): AddressInfo;
         setBroadcast(flag: boolean): void;
+        setTTL(ttl: number): void;
         setMulticastTTL(ttl: number): void;
         setMulticastLoopback(flag: boolean): void;
         addMembership(multicastAddress: string, multicastInterface?: string): void;
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
+        ref(): void;
+        unref(): void;
     }
 }
 
@@ -1656,14 +1839,23 @@ declare module "fs" {
     export function watch(filename: string, options: { persistent?: boolean; recursive?: boolean; encoding?: string }, listener?: (event: string, filename: string | Buffer) => any): FSWatcher;
     export function exists(path: string | Buffer, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string | Buffer): boolean;
-    /** Constant for fs.access(). File is visible to the calling process. */
-    export var F_OK: number;
-    /** Constant for fs.access(). File can be read by the calling process. */
-    export var R_OK: number;
-    /** Constant for fs.access(). File can be written by the calling process. */
-    export var W_OK: number;
-    /** Constant for fs.access(). File can be executed by the calling process. */
-    export var X_OK: number;
+
+    interface Constants {
+        /** Constant for fs.access(). File is visible to the calling process. */
+        F_OK: number;
+
+        /** Constant for fs.access(). File can be read by the calling process. */
+        R_OK: number;
+
+        /** Constant for fs.access(). File can be written by the calling process. */
+        W_OK: number;
+
+        /** Constant for fs.access(). File can be executed by the calling process. */
+        X_OK: number;
+    }
+
+    export const constants: Constants;
+    
     /** Tests a user's permissions for the file specified by path. */
     export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -1684,6 +1876,8 @@ declare module "fs" {
         fd?: number;
         mode?: number;
     }): WriteStream;
+    export function fdatasync(fd: number, callback: Function): void;
+    export function fdatasyncSync(fd: number): void;
 }
 
 declare module "path" {
@@ -1993,18 +2187,26 @@ declare module "tls" {
     export interface TlsOptions {
         host?: string;
         port?: number;
-        pfx?: any;   //string or buffer
-        key?: any;   //string or buffer
+        pfx?: string | Buffer[];
+        key?: string | string[] | Buffer | any[];
         passphrase?: string;
-        cert?: any;
-        ca?: any;    //string or buffer
-        crl?: any;   //string or string array
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | string[] | Buffer | Buffer[];
+        crl?: string | string[];
         ciphers?: string;
-        honorCipherOrder?: any;
+        honorCipherOrder?: boolean;
         requestCert?: boolean;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: any;  //array or Buffer;
+        NPNProtocols?: string[] | Buffer;
         SNICallback?: (servername: string, cb:(err:Error,ctx:SecureContext)=>any) => any;
+        ecdhCurve?: string;
+        dhparam?: string | Buffer;
+        handshakeTimeout?: number;
+        ALPNProtocols?: string[] | Buffer;
+        sessionTimeout?: number;
+        ticketKeys?: any;
+        sessionIdContext?: string;
+        secureProtocol?: string;
     }
 
     export interface ConnectionOptions {
@@ -2012,13 +2214,20 @@ declare module "tls" {
         port?: number;
         socket?: net.Socket;
         pfx?: string | Buffer
-        key?: string | Buffer
+        key?: string |string[] | Buffer | Buffer[];
         passphrase?: string;
-        cert?: string | Buffer
-        ca?: (string | Buffer)[];
+        cert?: string | string[] | Buffer | Buffer[];
+        ca?: string | Buffer | (string | Buffer)[];
         rejectUnauthorized?: boolean;
         NPNProtocols?: (string | Buffer)[];
         servername?: string;
+        path?: string;
+        ALPNProtocols?: (string | Buffer)[];
+        checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
+        secureProtocol?: string;
+        secureContext?: Object;
+        session?: Buffer;
+        minDHSize?: number;
     }
 
     export interface Server extends net.Server {
@@ -2071,7 +2280,7 @@ declare module "tls" {
     }
 
     export function createServer(options: TlsOptions, secureConnectionListener?: (cleartextStream: ClearTextStream) => void): Server;
-    export function connect(options: TlsOptions, secureConnectionListener?: () => void): ClearTextStream;
+    export function connect(options: ConnectionOptions, secureConnectionListener?: () => void): ClearTextStream;
     export function connect(port: number, host?: string, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function connect(port: number, options?: ConnectionOptions, secureConnectListener?: () => void): ClearTextStream;
     export function createSecurePair(credentials?: crypto.Credentials, isServer?: boolean, requestCert?: boolean, rejectUnauthorized?: boolean): SecurePair;
@@ -2079,6 +2288,18 @@ declare module "tls" {
 }
 
 declare module "crypto" {
+    export interface Certificate {
+        exportChallenge(spkac: string | Buffer): Buffer;
+        exportPublicKey(spkac: string | Buffer): Buffer;
+        verifySpkac(spkac: Buffer): boolean;
+    }
+    export var Certificate: {
+        new (): Certificate;
+        (): Certificate;
+    }
+
+    export var fips: boolean;
+
     export interface CredentialDetails {
         pfx: string;
         key: string;
@@ -2091,70 +2312,93 @@ declare module "crypto" {
     export interface Credentials { context?: any; }
     export function createCredentials(details: CredentialDetails): Credentials;
     export function createHash(algorithm: string): Hash;
-    export function createHmac(algorithm: string, key: string): Hmac;
-    export function createHmac(algorithm: string, key: Buffer): Hmac;
-    export interface Hash {
-        update(data: any, input_encoding?: string): Hash;
-        digest(encoding: 'buffer'): Buffer;
-        digest(encoding: string): any;
+    export function createHmac(algorithm: string, key: string | Buffer): Hmac;
+
+    type Utf8AsciiLatin1Encoding = "utf8" | "ascii" | "latin1";
+    type HexBase64Latin1Encoding = "latin1" | "hex" | "base64";
+    type Utf8AsciiBinaryEncoding = "utf8" | "ascii" | "binary";
+    type HexBase64BinaryEncoding = "binary" | "base64" | "hex";
+    type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
+
+    export interface Hash extends NodeJS.ReadWriteStream {
+        update(data: string | Buffer): Hash;
+        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hash;
         digest(): Buffer;
+        digest(encoding: HexBase64Latin1Encoding): string;
     }
     export interface Hmac extends NodeJS.ReadWriteStream {
-        update(data: any, input_encoding?: string): Hmac;
-        digest(encoding: 'buffer'): Buffer;
-        digest(encoding: string): any;
+        update(data: string | Buffer): Hmac;
+        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Hmac;
         digest(): Buffer;
+        digest(encoding: HexBase64Latin1Encoding): string;
     }
     export function createCipher(algorithm: string, password: any): Cipher;
     export function createCipheriv(algorithm: string, key: any, iv: any): Cipher;
     export interface Cipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding: "utf8" | "ascii" | "binary"): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: "binary" | "base64" | "hex"): string;
-        update(data: string, input_encoding: "utf8" | "ascii" | "binary", output_encoding: "binary" | "base64" | "hex"): string;
+        update(data: string, input_encoding: Utf8AsciiBinaryEncoding): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: HexBase64BinaryEncoding): string;
+        update(data: string, input_encoding: Utf8AsciiBinaryEncoding, output_encoding: HexBase64BinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding: boolean): void;
+        setAutoPadding(auto_padding?: boolean): void;
         getAuthTag(): Buffer;
+        setAAD(buffer: Buffer): void;
     }
     export function createDecipher(algorithm: string, password: any): Decipher;
     export function createDecipheriv(algorithm: string, key: any, iv: any): Decipher;
     export interface Decipher extends NodeJS.ReadWriteStream {
         update(data: Buffer): Buffer;
-        update(data: string, input_encoding: "binary" | "base64" | "hex"): Buffer;
-        update(data: Buffer, input_encoding: any, output_encoding: "utf8" | "ascii" | "binary"): string;
-        update(data: string, input_encoding: "binary" | "base64" | "hex", output_encoding: "utf8" | "ascii" | "binary"): string;
+        update(data: string, input_encoding: HexBase64BinaryEncoding): Buffer;
+        update(data: Buffer, input_encoding: any, output_encoding: Utf8AsciiBinaryEncoding): string;
+        update(data: string, input_encoding: HexBase64BinaryEncoding, output_encoding: Utf8AsciiBinaryEncoding): string;
         final(): Buffer;
         final(output_encoding: string): string;
-        setAutoPadding(auto_padding: boolean): void;
+        setAutoPadding(auto_padding?: boolean): void;
         setAuthTag(tag: Buffer): void;
+        setAAD(buffer: Buffer): void;
     }
     export function createSign(algorithm: string): Signer;
     export interface Signer extends NodeJS.WritableStream {
-        update(data: any): void;
-        sign(private_key: string, output_format: string): string;
+        update(data: string | Buffer): Signer;
+        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Signer;
+        sign(private_key: string | { key: string; passphrase: string }): Buffer;
+        sign(private_key: string | { key: string; passphrase: string }, output_format: HexBase64Latin1Encoding): string;
     }
     export function createVerify(algorith: string): Verify;
     export interface Verify extends NodeJS.WritableStream {
-        update(data: any): void;
-        verify(object: string, signature: string, signature_format?: string): boolean;
+        update(data: string | Buffer): Verify;
+        update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
+        verify(object: string, signature: Buffer): boolean;
+        verify(object: string, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
     }
-    export function createDiffieHellman(prime_length: number): DiffieHellman;
-    export function createDiffieHellman(prime: number, encoding?: string): DiffieHellman;
+    export function createDiffieHellman(prime_length: number, generator?: number): DiffieHellman;
+    export function createDiffieHellman(prime: Buffer): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: number | Buffer): DiffieHellman;
+    export function createDiffieHellman(prime: string, prime_encoding: HexBase64Latin1Encoding, generator: string, generator_encoding: HexBase64Latin1Encoding): DiffieHellman;
     export interface DiffieHellman {
-        generateKeys(encoding?: string): string;
-        computeSecret(other_public_key: string, input_encoding?: string, output_encoding?: string): string;
-        getPrime(encoding?: string): string;
-        getGenerator(encoding: string): string;
-        getPublicKey(encoding?: string): string;
-        getPrivateKey(encoding?: string): string;
-        setPublicKey(public_key: string, encoding?: string): void;
-        setPrivateKey(public_key: string, encoding?: string): void;
+        generateKeys(): Buffer;
+        generateKeys(encoding: HexBase64Latin1Encoding): string;
+        computeSecret(other_public_key: Buffer): Buffer;
+        computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
+        computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
+        getPrime(): Buffer;
+        getPrime(encoding: HexBase64Latin1Encoding): string;
+        getGenerator(): Buffer;
+        getGenerator(encoding: HexBase64Latin1Encoding): string;
+        getPublicKey(): Buffer;
+        getPublicKey(encoding: HexBase64Latin1Encoding): string;
+        getPrivateKey(): Buffer;
+        getPrivateKey(encoding: HexBase64Latin1Encoding): string;
+        setPublicKey(public_key: Buffer): void;
+        setPublicKey(public_key: string, encoding: string): void;
+        setPrivateKey(private_key: Buffer): void;
+        setPrivateKey(private_key: string, encoding: string): void;
+        verifyError: number;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2Sync(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number): Buffer;
     export function pbkdf2Sync(password: string | Buffer, salt: string | Buffer, iterations: number, keylen: number, digest: string): Buffer;
     export function randomBytes(size: number): Buffer;
     export function randomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
@@ -2162,119 +2406,143 @@ declare module "crypto" {
     export function pseudoRandomBytes(size: number, callback: (err: Error, buf: Buffer) => void): void;
     export interface RsaPublicKey {
         key: string;
-        padding?: any;
+        padding?: number;
     }
     export interface RsaPrivateKey {
         key: string;
         passphrase?: string,
-        padding?: any;
+        padding?: number;
     }
     export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
     export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
+    export interface ECDH {
+        generateKeys(): Buffer;
+        generateKeys(encoding: HexBase64Latin1Encoding): string;
+        generateKeys(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        computeSecret(other_public_key: Buffer): Buffer;
+        computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding): Buffer;
+        computeSecret(other_public_key: string, input_encoding: HexBase64Latin1Encoding, output_encoding: HexBase64Latin1Encoding): string;
+        getPrivateKey(): Buffer;
+        getPrivateKey(encoding: HexBase64Latin1Encoding): string;
+        getPublicKey(): Buffer;
+        getPublicKey(encoding: HexBase64Latin1Encoding): string;
+        getPublicKey(encoding: HexBase64Latin1Encoding, format: ECDHKeyFormat): string;
+        setPrivateKey(private_key: Buffer): void;
+        setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
+    }
+    export function createECDH(curve_name: string): ECDH;
 }
 
 declare module "stream" {
     import * as events from "events";
 
-    export class Stream extends events.EventEmitter {
+    class internal extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
+    namespace internal {
 
-    export interface ReadableOptions {
-        highWaterMark?: number;
-        encoding?: string;
-        objectMode?: boolean;
-        read?: (size?: number) => any;
+        export class Stream extends internal {}
+
+        export interface ReadableOptions {
+            highWaterMark?: number;
+            encoding?: string;
+            objectMode?: boolean;
+            read?: (size?: number) => any;
+        }
+
+        export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
+            readable: boolean;
+            constructor(opts?: ReadableOptions);
+            _read(size: number): void;
+            read(size?: number): any;
+            setEncoding(encoding: string): void;
+            pause(): Readable;
+            resume(): Readable;
+            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+            unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+            unshift(chunk: any): void;
+            wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+            push(chunk: any, encoding?: string): boolean;
+        }
+
+        export interface WritableOptions {
+            highWaterMark?: number;
+            decodeStrings?: boolean;
+            objectMode?: boolean;
+            write?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
+            writev?: (chunks: {chunk: string|Buffer, encoding: string}[], callback: Function) => any;
+        }
+
+        export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
+            writable: boolean;
+            constructor(opts?: WritableOptions);
+            _write(chunk: any, encoding: string, callback: Function): void;
+            write(chunk: any, cb?: Function): boolean;
+            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            end(): void;
+            end(chunk: any, cb?: Function): void;
+            end(chunk: any, encoding?: string, cb?: Function): void;
+        }
+
+        export interface DuplexOptions extends ReadableOptions, WritableOptions {
+            allowHalfOpen?: boolean;
+            readableObjectMode?: boolean;
+            writableObjectMode?: boolean;
+        }
+
+        // Note: Duplex extends both Readable and Writable.
+        export class Duplex extends Readable implements NodeJS.ReadWriteStream {
+            // Readable
+            pause(): Duplex;
+            resume(): Duplex;
+            // Writeable
+            writable: boolean;
+            constructor(opts?: DuplexOptions);
+            _write(chunk: any, encoding: string, callback: Function): void;
+            write(chunk: any, cb?: Function): boolean;
+            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            end(): void;
+            end(chunk: any, cb?: Function): void;
+            end(chunk: any, encoding?: string, cb?: Function): void;
+        }
+
+        export interface TransformOptions extends ReadableOptions, WritableOptions {
+            transform?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
+            flush?: (callback: Function) => any;
+        }
+
+        // Note: Transform lacks the _read and _write methods of Readable/Writable.
+        export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
+            readable: boolean;
+            writable: boolean;
+            constructor(opts?: TransformOptions);
+            _transform(chunk: any, encoding: string, callback: Function): void;
+            _flush(callback: Function): void;
+            read(size?: number): any;
+            setEncoding(encoding: string): void;
+            pause(): Transform;
+            resume(): Transform;
+            pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
+            unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
+            unshift(chunk: any): void;
+            wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
+            push(chunk: any, encoding?: string): boolean;
+            write(chunk: any, cb?: Function): boolean;
+            write(chunk: any, encoding?: string, cb?: Function): boolean;
+            end(): void;
+            end(chunk: any, cb?: Function): void;
+            end(chunk: any, encoding?: string, cb?: Function): void;
+        }
+
+        export class PassThrough extends Transform { }
     }
 
-    export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
-        readable: boolean;
-        constructor(opts?: ReadableOptions);
-        _read(size: number): void;
-        read(size?: number): any;
-        setEncoding(encoding: string): void;
-        pause(): Readable;
-        resume(): Readable;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: any): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-        push(chunk: any, encoding?: string): boolean;
-    }
-
-    export interface WritableOptions {
-        highWaterMark?: number;
-        decodeStrings?: boolean;
-        objectMode?: boolean;
-        write?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
-        writev?: (chunks: {chunk: string|Buffer, encoding: string}[], callback: Function) => any;
-    }
-
-    export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
-        writable: boolean;
-        constructor(opts?: WritableOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
-        write(chunk: any, cb?: Function): boolean;
-        write(chunk: any, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(chunk: any, cb?: Function): void;
-        end(chunk: any, encoding?: string, cb?: Function): void;
-    }
-
-    export interface DuplexOptions extends ReadableOptions, WritableOptions {
-        allowHalfOpen?: boolean;
-        readableObjectMode?: boolean;
-        writableObjectMode?: boolean;
-    }
-
-    // Note: Duplex extends both Readable and Writable.
-    export class Duplex extends Readable implements NodeJS.ReadWriteStream {
-        // Readable
-        pause(): Duplex;
-        resume(): Duplex;
-        // Writeable
-        writable: boolean;
-        constructor(opts?: DuplexOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
-        write(chunk: any, cb?: Function): boolean;
-        write(chunk: any, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(chunk: any, cb?: Function): void;
-        end(chunk: any, encoding?: string, cb?: Function): void;
-    }
-
-    export interface TransformOptions extends ReadableOptions, WritableOptions {
-        transform?: (chunk: string|Buffer, encoding: string, callback: Function) => any;
-        flush?: (callback: Function) => any;
-    }
-
-    // Note: Transform lacks the _read and _write methods of Readable/Writable.
-    export class Transform extends events.EventEmitter implements NodeJS.ReadWriteStream {
-        readable: boolean;
-        writable: boolean;
-        constructor(opts?: TransformOptions);
-        _transform(chunk: any, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
-        read(size?: number): any;
-        setEncoding(encoding: string): void;
-        pause(): Transform;
-        resume(): Transform;
-        pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
-        unpipe<T extends NodeJS.WritableStream>(destination?: T): void;
-        unshift(chunk: any): void;
-        wrap(oldStream: NodeJS.ReadableStream): NodeJS.ReadableStream;
-        push(chunk: any, encoding?: string): boolean;
-        write(chunk: any, cb?: Function): boolean;
-        write(chunk: any, encoding?: string, cb?: Function): boolean;
-        end(): void;
-        end(chunk: any, cb?: Function): void;
-        end(chunk: any, encoding?: string, cb?: Function): void;
-    }
-
-    export class PassThrough extends Transform { }
+    export = internal;
 }
 
 declare module "util" {
@@ -2299,6 +2567,18 @@ declare module "util" {
     export function isError(object: any): boolean;
     export function inherits(constructor: any, superConstructor: any): void;
     export function debuglog(key: string): (msg: string, ...param: any[]) => void;
+    export function isBoolean(object: any): boolean;
+    export function isBuffer(object: any): boolean;
+    export function isFunction(object: any): boolean;
+    export function isNull(object: any): boolean;
+    export function isNullOrUndefined(object: any): boolean;
+    export function isNumber(object: any): boolean;
+    export function isObject(object: any): boolean;
+    export function isPrimitive(object: any): boolean;
+    export function isString(object: any): boolean;
+    export function isSymbol(object: any): boolean;
+    export function isUndefined(object: any): boolean;
+    export function deprecate(fn: Function, message: string): Function;
 }
 
 declare module "assert" {
@@ -2374,6 +2654,9 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
+        members: any[];
+        enter(): void;
+        exit(): void;
     }
 
     export function create(): Domain;
@@ -2624,4 +2907,63 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var SIGQUIT: number;
+    export var SIGTRAP: number;
+    export var SIGIOT: number;
+    export var SIGBUS: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGPIPE: number;
+    export var SIGALRM: number;
+    export var SIGCHLD: number;
+    export var SIGSTKFLT: number;
+    export var SIGCONT: number;
+    export var SIGSTOP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGURG: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var SIGVTALRM: number;
+    export var SIGPROF: number;
+    export var SIGIO: number;
+    export var SIGPOLL: number;
+    export var SIGPWR: number;
+    export var SIGSYS: number;
+    export var SIGUNUSED: number;
+    export var defaultCoreCipherList: string;
+    export var defaultCipherList: string;
+    export var ENGINE_METHOD_RSA: number;
+    export var ALPN_ENABLED: number;
+}
+
+declare module "process" {
+    export = process;
+}
+
+declare module "v8" {
+    interface HeapSpaceInfo {
+        space_name: string;
+        space_size: number;
+        space_used_size: number;
+        space_available_size: number;
+        physical_space_size: number;
+    }
+    export function getHeapStatistics() : {total_heap_size: number, total_heap_size_executable: number, total_physical_size: number, total_avaialble_size: number, used_heap_size: number, heap_size_limit: number};
+    export function getHeapSpaceStatistics(): HeapSpaceInfo[];
+    export function setFlagsFromString(flags: string): void;
+}
+
+declare module "timers" {
+    export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export function clearTimeout(timeoutId: NodeJS.Timer): void;
+    export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export function clearInterval(intervalId: NodeJS.Timer): void;
+    export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export function clearImmediate(immediateId: any): void;
+}
+
+declare module "console" {
+    export = console;
 }
