@@ -1353,7 +1353,7 @@ declare namespace H {
            * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
            */
           export interface Options {
-            style?: H.map.SpatialStyle;
+            style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
             visibility?: boolean;
             precision?: number;
             zIndex?: number;
@@ -2294,8 +2294,8 @@ declare namespace H {
             miterLimit: number;
             lineDash: Array<number>;
             lineDashOffset: number;
-            MAX_LINE_WIDTH: number;
-            DEFAULT_STYLE: H.map.SpatialStyle;
+            static MAX_LINE_WIDTH: number;
+            static DEFAULT_STYLE: H.map.SpatialStyle;
         }
 
         export module SpatialStyle {
@@ -2327,7 +2327,7 @@ declare namespace H {
                 lineCap?: H.map.SpatialStyle.LineCap;
                 lineJoin?: H.map.SpatialStyle.LineJoin;
                 miterLimit?: number;
-                lineDash: Array<number>;
+                lineDash?: Array<number>;
                 lineDashOffset?: number;
             }
         }
