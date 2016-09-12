@@ -12,36 +12,38 @@ declare namespace L {
 
     }
 
-    export interface LatLngObjectLiteral {
+    export interface LatLngLiteral {
         lat: number;
         lng: number;
     }
 
-    export type LatLngTupleLiteral = [number, number];
+    export type LatLngTuple = [number, number];
 
-    type LatLngExpression = LatLng | LatLngObjectLiteral | LatLngTupleLiteral;
+    type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
     export interface LatLngBounds {
 
     }
 
-    export type LatLngBoundsLiteral = Array<LatLngTupleLiteral>;
+    export type LatLngBoundsLiteral = Array<LatLngTuple>;
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
-    export type PointLiteral = [number, number];
+    export type PointTuple = [number, number];
 
     export interface Point {
 
     }
 
-    type PointExpression = Point | PointLiteral;
+    type PointExpression = Point | PointTuple;
 
     export interface Bounds {
 
     }
 
-    type BoundsExpression = Bounds | Array<PointLiteral>;
+    export type BoundsLiteral = Array<PointTuple>;
+
+    type BoundsExpression = Bounds | BoundsLiteral;
 
     export interface Evented {
 
@@ -215,7 +217,7 @@ declare namespace L {
 
         // Panning inertia options
         inertia?: boolean;
-        inertiaDeceleration?: boolean;
+        inertiaDeceleration?: number;
         inertiaMaxSpeed?: number;
         easeLinearity?: number;
         worldCopyJump?: boolean;
@@ -223,16 +225,16 @@ declare namespace L {
 
         // Keyboard navigation options
         keyboard?: boolean;
-        keyboardPanDelta?: boolean;
+        keyboardPanDelta?: number;
 
         // Mousewheel options
-        scrollWheelZoom?: boolean;
+        scrollWheelZoom?: Zoom;
         wheelDebounceTime?: number;
         wheelPxPerZoomLevel?: number;
 
         // Touch interaction options
         tap?: boolean;
-        tapTolerance?: boolean;
+        tapTolerance?: number;
         touchZoom?: Zoom;
         bounceAtZoomLimits?: boolean;
     }
@@ -362,6 +364,8 @@ declare namespace L {
         openPopup(content: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): this;
         closePopup(popup?: Popup): this;
         openTooltip(tooltip: Tooltip): this;
+        openTooltip(content: string, latlng: LatLngExpression, options?: TooltipOptions): this;
+        openTooltip(content: HTMLElement, latlng: LatLngExpression, options?: TooltipOptions): this;
         closeTooltip(tooltip?: Tooltip): this;
 
         // Methods for modifying map state
@@ -379,6 +383,7 @@ declare namespace L {
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
         panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
+        invalidateSize(options: ZoomPanOptions): this;
         invalidateSize(animate: boolean): this;
         stop(): this;
         flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
