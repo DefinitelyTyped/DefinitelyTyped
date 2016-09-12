@@ -103,12 +103,13 @@ exitTransition = exitCircles.transition('exit');
 let newEnterTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
 newEnterTransition = enterCircles.transition(enterTransition);
 
-let wrongElementTypeTransition: d3Transition.Transition<HTMLDivElement, CircleDatum, HTMLBodyElement, any>;
-let wrongDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { wrong: string }, SVGSVGElement, any>;
+let differentElementTypeTransition: d3Transition.Transition<SVGSVGElement, CircleDatum, HTMLBodyElement, any>;
+let differentDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { differrent: string }, SVGSVGElement, any>;
 
-newEnterTransition = enterCircles.transition(enterTransition);
-// newEnterTransition = enterCircles.transition(wrongElementTypeTransition);// fails, wrong group element type
-// newEnterTransition = enterCircles.transition(wrongDatumTypeTransition);// fails, wrong datum type
+// Comparable use cases arise e.g. when using an existing transition to generate a new transition
+// on a different selection to synchronize them (see e.g. Mike Bostock's Brush & Zoom II Example https://bl.ocks.org/mbostock/f48fcdb929a620ed97877e4678ab15e6)
+newEnterTransition = enterCircles.transition(differentElementTypeTransition);
+newEnterTransition = enterCircles.transition(differentDatumTypeTransition);
 
 // --------------------------------------------------------------------------
 // Test Transition Configuration (Timing)
