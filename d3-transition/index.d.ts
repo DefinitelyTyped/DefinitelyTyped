@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-transition module 1.0.0
+// Type definitions for D3JS d3-transition module v1.0.1
 // Project: https://github.com/d3/d3-transition/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@ declare module 'd3-selection' {
     export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
         interrupt(name?: string): Transition<GElement, Datum, PElement, PDatum>;
         transition(name?: string): Transition<GElement, Datum, PElement, PDatum>;
-        transition(transition: Transition<GElement, Datum, PElement, PDatum>): Transition<GElement, Datum, PElement, PDatum>;
+        transition(transition: Transition<BaseType, any, any, any>): Transition<GElement, Datum, PElement, PDatum>;
     }
 }
 
