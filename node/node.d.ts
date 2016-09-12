@@ -1410,6 +1410,7 @@ declare module "dns" {
     export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function reverse(ip: string, callback: (err: Error, domains: string[]) => void): string[];
+    export function setServers(servers: string[]): void;
 
     //Error codes
     export var NODATA: string;
