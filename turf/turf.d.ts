@@ -87,8 +87,8 @@ ASSERTIONS
 - [ ] tesselate
  */
 
-declare var turf: turf.TurfStatic;
-
+declare const turf: turf.TurfStatic;
+declare const TemplateUnits: 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
 declare module turf {
   interface TurfStatic {
     //////////////////////////////////////////////////////
@@ -135,7 +135,11 @@ declare module turf {
     * @param [units=miles] 'miles', 'kilometers', 'radians' or 'degrees'
     * @returns Point along the line
     */
-    along(line: GeoJSON.Feature<GeoJSON.LineString>, distance: number, units?: string): GeoJSON.Feature<GeoJSON.Point>;
+    along(
+      line: GeoJSON.Feature<GeoJSON.LineString>,
+      distance: number,
+      units?: typeof TemplateUnits
+    ): GeoJSON.Feature<GeoJSON.Point>;
 
     /**
     * Takes one or more features and returns their area in square meters.
@@ -183,7 +187,12 @@ declare module turf {
     * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Destination point
     */
-    destination(start: GeoJSON.Feature<GeoJSON.Point>, distance: number, bearing: number, units: string): GeoJSON.Feature<GeoJSON.Point>;
+    destination(
+      start: GeoJSON.Feature<GeoJSON.Point>,
+      distance: number,
+      bearing: number,
+      units?: typeof TemplateUnits
+    ): GeoJSON.Feature<GeoJSON.Point>;
 
     /**
     * Calculates the distance between two points in degress, radians, miles, or kilometers.
@@ -193,7 +202,11 @@ declare module turf {
     * @param [units=kilometers] 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Distance between the two points
     */
-    distance(from: GeoJSON.Feature<GeoJSON.Point>, to: GeoJSON.Feature<GeoJSON.Point>, units?: string): number;
+    distance(
+      from: GeoJSON.Feature<GeoJSON.Point>,
+      to: GeoJSON.Feature<GeoJSON.Point>,
+      units?: typeof TemplateUnits
+    ): number;
 
     /**
     * Takes any number of features and returns a rectangular Polygon that encompasses all vertices.
@@ -208,7 +221,10 @@ declare module turf {
     * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Length of the input line
     */
-    lineDistance(line: GeoJSON.Feature<GeoJSON.LineString>, units: string): number;
+    lineDistance(
+      line: GeoJSON.Feature<GeoJSON.LineString>,
+      units?: typeof TemplateUnits
+    ): number;
 
     /**
     * Takes two points and returns a point midway between them.
@@ -254,7 +270,14 @@ declare module turf {
     * @param units 'miles', 'kilometers', 'radians', or 'degrees'
     * @returns Buffered features
     */
-    buffer(feature: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>, distance: number, units: string): GeoJSON.FeatureCollection<GeoJSON.Polygon> | GeoJSON.FeatureCollection<GeoJSON.MultiPolygon> | GeoJSON.Polygon | GeoJSON.MultiPolygon;
+    buffer(feature: GeoJSON.Feature<GeoJSON.Polygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Polygon>;
+    buffer(feature: GeoJSON.Feature<GeoJSON.MultiPolygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.MultiPolygon>;
+    buffer(feature: GeoJSON.Feature<GeoJSON.Point>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Point>;        
+    buffer(feature: GeoJSON.Feature<any>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<any>;
+    buffer(feature: GeoJSON.FeatureCollection<GeoJSON.Polygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+    buffer(feature: GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>;
+    buffer(feature: GeoJSON.FeatureCollection<GeoJSON.Point>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    buffer(feature: GeoJSON.FeatureCollection<any>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<any>;
 
     /**
     * Takes a set of points and returns a concave hull polygon. Internally, this implements a Monotone chain algorithm.
@@ -263,14 +286,20 @@ declare module turf {
     * @param units Used for maxEdge distance (miles or kilometers)
     * @returns A concave hull
     */
-    concave(points: GeoJSON.FeatureCollection<GeoJSON.Point>, maxEdge: number, units: string): GeoJSON.Feature<GeoJSON.Polygon>;
+    concave(
+      points: GeoJSON.FeatureCollection<GeoJSON.Point>,
+      maxEdge: number,
+      units?: typeof TemplateUnits
+    ): GeoJSON.Feature<GeoJSON.Polygon>;
 
     /**
     * Takes a set of points and returns a convex hull polygon. Internally this uses the convex-hull module that implements a monotone chain hull.
     * @param input Input points
     * @returns A convex hull
     */
-    convex(input: GeoJSON.FeatureCollection<GeoJSON.Point>): GeoJSON.Feature<GeoJSON.Polygon>;
+    convex(
+      input: GeoJSON.FeatureCollection<GeoJSON.Point>
+    ): GeoJSON.Feature<GeoJSON.Polygon>;
 
     /**
     * Finds the difference between two polygons by clipping the second polygon from the first.
@@ -278,18 +307,65 @@ declare module turf {
     * @param poly2 Polygon feature to difference from poly1
     * @returns A Polygon feature showing the area of poly1 excluding the area of poly2
     */
-    difference(poly1: GeoJSON.Feature<GeoJSON.Polygon>, poly2: GeoJSON.Feature<GeoJSON.Polygon>): GeoJSON.Feature<GeoJSON.Polygon>;
+    difference(
+      poly1: GeoJSON.Feature<GeoJSON.Polygon>,
+      poly2: GeoJSON.Feature<GeoJSON.Polygon>
+    ): GeoJSON.Feature<GeoJSON.Polygon>;
 
     /**
-    * Takes two polygons and finds their intersection.
-    *  If they share a border, returns the border if they don't intersect, returns undefined.
-    * @param poly1 The first polygon
-    * @param poly2 The second polygon
-    * @returns If poly1 and poly2 overlap, returns a Polygon feature representing the area they overlap
-    * if poly1 and poly2 do not overlap, returns undefined
-    * if poly1 and poly2 share a border, a MultiLineString of the locations where their borders are shared
+    * Takes two Features and finds their intersection.
+    * If they share a border, returns the border if they don't intersect, returns undefined.
+    *
+    * @name [intersect](http://turfjs.org/docs/#intersect)
+    * @param {Feature} feature1 
+    * @param {Feature} feature2
+    * @returns {Feature} If feature1 and feature2 overlap, returns a Feature representing the area they overlap
+    * if feature1 and feature2 do not overlap, returns undefined
     */
-    intersect(poly1: GeoJSON.Feature<GeoJSON.Polygon>, poly2: GeoJSON.Feature<GeoJSON.Polygon>): GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString> | typeof undefined;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Point>,
+      feature2: GeoJSON.Feature<GeoJSON.Point>
+    ): GeoJSON.Feature<GeoJSON.Point>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.LineString>,
+      feature2: GeoJSON.Feature<GeoJSON.LineString>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Polygon>,
+      feature2: GeoJSON.Feature<GeoJSON.Polygon>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.MultiPoint>,
+      feature2: GeoJSON.Feature<GeoJSON.MultiPoint>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.MultiPoint>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.MultiLineString>,
+      feature2: GeoJSON.Feature<GeoJSON.MultiLineString>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiLineString>;
+        intersect(
+      feature1: GeoJSON.Feature<GeoJSON.MultiPolygon>,
+      feature2: GeoJSON.Feature<GeoJSON.MultiPolygon>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon | GeoJSON.MultiPolygon>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.Point>,
+      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.Point>
+    ): GeoJSON.Feature<GeoJSON.Point>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.LineString>,
+      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.LineString>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString>,
+      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiLineString>;
+    intersect(
+      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiPolygon>,
+      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiPolygon>
+    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon | GeoJSON.MultiLineString | GeoJSON.MultiPolygon>;
+    intersect(
+      feature1: GeoJSON.Feature<any>,
+      feature2: GeoJSON.Feature<any>
+    ): GeoJSON.Feature<any>;
 
     /**
     * Takes a LineString or Polygon and returns a simplified version.
@@ -573,13 +649,10 @@ declare module turf {
      *
      * //=polygons
      */
-    random(
-      type?: 'points' | 'polygons',
-      count?: number,
-      options?: {
-        bbox?: Array<number>
-        num_vertices?: number
-        max_radial_length?: number
+    random(type?: 'points' | 'polygons', count?: number, options?: {
+      bbox?: Array<number>
+      num_vertices?: number
+      max_radial_length?: number
     }): GeoJSON.FeatureCollection<any>;
 
     /**
@@ -625,7 +698,7 @@ declare module turf {
     hexGrid(
       bbox: Array<number>,
       cellSize: number,
-      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres',
+      units?: typeof TemplateUnits,
       triangles?: boolean
     ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
 
@@ -649,7 +722,7 @@ declare module turf {
     pointGrid(
       bbox: Array<number>,
       cellSize: number,
-      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres' 
+      units?: typeof TemplateUnits 
     ): GeoJSON.FeatureCollection<GeoJSON.Point>;
 
     /**
@@ -672,7 +745,7 @@ declare module turf {
     squareGrid(
       bbox: Array<number>,
       cellSize: number,
-      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
+      units?: typeof TemplateUnits
     ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
 
     /**
@@ -695,7 +768,7 @@ declare module turf {
     triangleGrid(
       bbox: Array<number>,
       cellSize: number,
-      units?: string | 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
+      units?: typeof TemplateUnits
     ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
 
     //////////////////////////////////////////////////////

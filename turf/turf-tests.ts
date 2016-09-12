@@ -13,23 +13,8 @@ import {
 ///////////////////////////////////////////
 // Tests data initialisation
 ///////////////////////////////////////////
-
-const resolution = 15
-const cellWidth = 50
-const count = 100
 const bbox = [0, 0, 10, 10]
-const distance = 50
-const bearing = 90
-const tolerance = 0.01
-const maxEdge = 1
-const units = 'miles'
 const properties = {foo: 'bar'}
-const highQuality = false
-const breaks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const num_vertices = 10
-const max_radial_length = 10
-const num = 10
-
 const point: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
@@ -176,14 +161,42 @@ const points: GeoJSON.FeatureCollection<GeoJSON.Point> = {
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.522259, 35.4691]
+        "coordinates": [-63.601226, 44.642643]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.502754, 35.463455]
+        "coordinates": [-63.591442, 44.651436]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-63.580799, 44.648749]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-63.573589, 44.641788]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-63.587665, 44.64533]
+      }
+    }, {
+      "type": "Feature",
+      "properties": {},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-63.595218, 44.64765]
       }
     }
   ]
@@ -208,8 +221,8 @@ const triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
 ///////////////////////////////////////////
 
 // -- Test along --
-turf.along(line, distance, units)
-turf.along(line, distance)
+turf.along(line, 50)
+turf.along(line, 50, 'miles')
 
 // -- Test area --
 turf.area(polygons)
@@ -227,16 +240,19 @@ turf.center(points)
 turf.centroid(polygon1)
 
 // -- Test destination --
-turf.destination(point1, distance, bearing, units)
+turf.destination(point1, 50, 90)
+turf.destination(point1, 50, 90, 'miles')
 
 // -- Test distance --
-turf.distance(point1, point2, units)
+turf.distance(point1, point2)
+turf.distance(point1, point2, 'miles')
 
 // -- Test envelope --
 turf.envelope(polygons)
 
 // -- Test lineDistance
-turf.lineDistance(line, units)
+turf.lineDistance(line)
+turf.lineDistance(line, 'miles')
 
 // -- Test midpoint --
 turf.midpoint(point1, point2)
@@ -255,10 +271,11 @@ turf.square(bbox)
 turf.bezier(line)
 
 // -- Test buffer --
-turf.buffer(point1, distance, units)
+turf.buffer(point1, 50)
+turf.buffer(point1, 50, 'miles')
 
 // -- Test concave --
-turf.concave(points, maxEdge, units)
+turf.concave(points, 1, 'miles')
 
 // -- Test convex --
 turf.convex(points)
@@ -271,7 +288,7 @@ turf.intersect(polygon1, polygon2)
 
 // -- Test simplify --
 
-turf.simplify(polygon1, tolerance, highQuality)
+turf.simplify(polygon1, 0.01, false)
 
 // -- Test union --
 turf.union(polygon1, polygon2)
@@ -342,44 +359,44 @@ turf.geometryCollection([point.geometry, line.geometry]);
 ///////////////////////////////////////////
 
 // -- Test random --
-turf.random('points', count)
-turf.random('points', count, { bbox })
-turf.random('polygons', count, {
+turf.random('points', 100)
+turf.random('points', 100, { bbox })
+turf.random('polygons', 100, {
   bbox,
-  num_vertices,
-  max_radial_length
+  num_vertices: 10,
+  max_radial_length: 10
 })
 
 // -- Test sample --
-turf.random('points', count)
-turf.sample(points, num)
+turf.random('points', 100)
+turf.sample(points, 10)
 
 ///////////////////////////////////////////
 // Tests Interpolation
 ///////////////////////////////////////////
 
 // -- Test hexGrid --
-turf.hexGrid(bbox, cellWidth)
-turf.hexGrid(bbox, cellWidth, 'miles')
+turf.hexGrid(bbox, 50)
+turf.hexGrid(bbox, 50, 'miles')
 
 // -- Test pointGrid --
-turf.pointGrid(bbox, cellWidth)
-turf.pointGrid(bbox, cellWidth, 'kilometres')
+turf.pointGrid(bbox, 50)
+turf.pointGrid(bbox, 50, 'miles')
 
 // -- Test squareGrid --
-turf.squareGrid(bbox, cellWidth)
-turf.squareGrid(bbox, cellWidth, 'inches')
+turf.squareGrid(bbox, 50)
+turf.squareGrid(bbox, 50, 'miles')
 
 // -- Test triangleGrid --
-turf.triangleGrid(bbox, cellWidth)
-turf.triangleGrid(bbox, cellWidth, units)
+turf.triangleGrid(bbox, 50)
+turf.triangleGrid(bbox, 50, 'miles')
 
 ///////////////////////////////////////////
 // Tests Interpolation
 ///////////////////////////////////////////
 
 // -- Test isolines --
-turf.isolines(points, 'z', resolution, breaks)
+turf.isolines(points, 'z', 15, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 // -- Test planepoint --
 turf.planepoint(point1, triangle)
