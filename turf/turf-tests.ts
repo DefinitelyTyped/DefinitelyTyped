@@ -7,15 +7,16 @@ import {
   hexGrid,
   pointGrid,
   squareGrid,
-  triangleGrid
+  triangleGrid,
+  featureCollection
 } from '@turf/turf'
 
 ///////////////////////////////////////////
 // Tests data initialisation
 ///////////////////////////////////////////
 const bbox = [0, 0, 10, 10]
-const properties = {foo: 'bar'}
-const point: GeoJSON.Feature<GeoJSON.Point> = {
+const properties = {pop: 3000}
+const point1: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -23,8 +24,6 @@ const point: GeoJSON.Feature<GeoJSON.Point> = {
     "coordinates": [-75.343, 39.984]
   }
 }
-
-const point1 = point
 
 const point2: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
@@ -34,6 +33,7 @@ const point2: GeoJSON.Feature<GeoJSON.Point> = {
     "coordinates": [-75.401, 39.884]
   }
 }
+const point = point1
 
 const multiPoint: GeoJSON.Feature<GeoJSON.MultiPoint> = {
   "type": "Feature",
@@ -412,7 +412,7 @@ turf.tin(points, 'z')
 turf.inside(point, polygon)
 
 // -- Test tag --
-turf.tag(points, polygons, 'fill', 'marker-color')
+turf.tag(points, polygons, 'pop', 'population')
 
 // -- Test within --
 turf.within(points, polygons)

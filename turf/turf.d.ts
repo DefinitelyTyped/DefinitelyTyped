@@ -60,15 +60,15 @@ INTERPOLATION
 - [ ] planepoint
 - [ ] tin
 JOINS
-- [ ] inside
-- [ ] tag
+- [x] inside
+- [x] tag
+- [ ] within
 GRIDS
 - [x] hexGrid
 - [x] pointGrid
 - [x] squareGrid
 - [x] triangleGrid
 CLASSIFICATION
-- [ ] within
 - [ ] nearest
 META
 - [ ] propEach
@@ -89,6 +89,7 @@ ASSERTIONS
 
 declare const turf: turf.TurfStatic;
 declare const TemplateUnits: 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
+declare const TemplateType: 'point'| 'points' | 'polygon' | 'polygons'
 declare module turf {
   interface TurfStatic {
     //////////////////////////////////////////////////////
@@ -105,16 +106,16 @@ declare module turf {
      * @param {string} outProperty property to be nested into
      * @return {FeatureCollection<Polygon>} polygons with properties listed based on `outField`
      * @example
-     * const poly1 = polygon([[[0,0],[10,0],[10,10],[0,10],[0,0]]])
-     * const poly2 = polygon([[[10,0],[20,10],[20,20],[20,0],[10,0]]])
-     * const polyFC = featurecollection([poly1, poly2])
-     * const pt1 = point([5,5], {population: 200})
-     * const pt2 = point([1,3], {population: 600})
-     * const pt3 = point([14,2], {population: 100})
-     * const pt4 = point([13,1], {population: 200})
-     * const pt5 = point([19,7], {population: 300})
-     * const ptFC = featurecollection([pt1, pt2, pt3, pt4, pt5])
-     * const aggregated = aggregate(polyFC, ptFC, 'population', 'values')
+     * var poly1 = polygon([[[0,0],[10,0],[10,10],[0,10],[0,0]]])
+     * var poly2 = polygon([[[10,0],[20,10],[20,20],[20,0],[10,0]]])
+     * var polyFC = featurecollection([poly1, poly2])
+     * var pt1 = point([5,5], {population: 200})
+     * var pt2 = point([1,3], {population: 600})
+     * var pt3 = point([14,2], {population: 100})
+     * var pt4 = point([13,1], {population: 200})
+     * var pt5 = point([19,7], {population: 300})
+     * var ptFC = featurecollection([pt1, pt2, pt3, pt4, pt5])
+     * var aggregated = aggregate(polyFC, ptFC, 'population', 'values')
      *
      * aggregated.features[0].properties.values // => [200, 600])
      */
@@ -122,7 +123,8 @@ declare module turf {
       polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>,
       points: GeoJSON.FeatureCollection<GeoJSON.Point>,
       inProperty: string,
-      outProperty: string): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+      outProperty: string
+    ): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
 
     //////////////////////////////////////////////////////
     // Measurement
@@ -637,19 +639,19 @@ declare module turf {
      * from its center.
      * @return {FeatureCollection} generated random features
      * @example
-     * const points = turf.random('points', 100, {
+     * var points = turf.random('points', 100, {
      *   bbox: [-70, 40, -60, 60]
      * })
      *
      * //=points
      *
-     * const polygons = turf.random('polygons', 4, {
+     * var polygons = turf.random('polygons', 4, {
      *   bbox: [-70, 40, -60, 60]
      * })
      *
      * //=polygons
      */
-    random(type?: 'points' | 'polygons', count?: number, options?: {
+    random(type?: typeof TemplateType, count?: number, options?: {
       bbox?: Array<number>
       num_vertices?: number
       max_radial_length?: number
@@ -809,23 +811,52 @@ declare module turf {
     //////////////////////////////////////////////////////
 
     /**
-    * Takes a Point and a Polygon or MultiPolygon and determines if the point resides inside the polygon.
-    * The polygon can be convex or concave. The function accounts for holes.;
-    * @param point Input point
-    * @param polygon Input polygon or multipolygon
-    * @returns true if the Point is inside the Polygon false if the Point is not inside the Polygon
-    */
-    inside(point: GeoJSON.Feature<GeoJSON.Point>, polygon: GeoJSON.Feature<GeoJSON.Polygon>): boolean;
+     * Takes a {<Point>} and a {<Polygon>} or {<MultiPolygon>} and determines if the point resides inside the polygon. The polygon can be convex or concave. The function accounts for holes.
+     *
+     * @name [inside](http://turfjs.org/docs/#inside)
+     * @param {Feature<Point>} point input point
+     * @param {Feature<(Polygon|MultiPolygon)>} polygon input polygon or multipolygon
+     * @return {Boolean} `true` if the Point is inside the Polygon; `false` if the Point is not inside the Polygon
+     * @example
+     * var pt = point([-77, 44])
+     * var poly = polygon([[[-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]]])
+     *
+     * var isInside = turf.inside(pt, poly)
+     * 
+     * //=isInside
+     */
+    inside(
+      point: GeoJSON.Feature<GeoJSON.Point>,
+      polygon: GeoJSON.Feature<GeoJSON.Polygon>
+    ): boolean;
 
     /**
-    * Takes a set of points and a set of polygons and performs a spatial join.
-    * @param points Input points
-    * @param polygons Input polygons
-    * @param polyId Property in polygons to add to joined Point features
-    * @param containingPolyId Property in points in which to store joined property from polygons
-    * @returns Points with containingPolyId property containing values from polyId
-    */
-    tag(points: GeoJSON.FeatureCollection<GeoJSON.Point>, polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>, polyId: string, containingPolyId: string): GeoJSON.FeatureCollection<GeoJSON.Point>;
+     * Takes a {FeatureCollection<Point>} and a {FeatureCollection<Polygon>} and performs a spatial join.
+     *
+     * @name [tag](http://turfjs.org/docs/#inside)
+     * @param {FeatureCollection<Point>} points input points
+     * @param {FeatureCollection<Polygon>} polygons input polygons
+     * @param {string} field property in `polygons` to add to joined {<Point>} features
+     * @param {string} outField property in `points` in which to store joined property from `polygons`
+     * @return {FeatureCollection<Point>} points with `containingPolyId` property containing values from `polyId`
+     * @example
+     * var pt1 = point([-77, 44])
+     * var pt2 = point([-77, 38])
+     * var poly1 = polygon([[[-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]]], {pop: 1000})
+     * var poly2 = polygon([[[-81, 35], [-81, 41], [-72, 41], [-72, 35], [-81, 35]]], {pop: 3000})
+     * 
+     * var points = featureCollection([pt1, pt2])
+     * var polygons = featureCollection([poly1, poly2])
+     * 
+     * var tagged = turf.tag(points, polygons, 'pop', 'population')
+     * //=tagged
+     */
+    tag(
+      points: GeoJSON.FeatureCollection<GeoJSON.Point>,
+      polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>,
+      field: string,
+      outField: string
+    ): GeoJSON.FeatureCollection<GeoJSON.Point>;
 
     /**
     * Takes a set of points and a set of polygons and returns the points that fall within the polygons.
@@ -833,7 +864,10 @@ declare module turf {
     * @param polygons Input polygons
     * @returns Points that land within at least one polygon
     */
-    within(points: GeoJSON.FeatureCollection<GeoJSON.Point>, polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    within(
+      points: GeoJSON.FeatureCollection<GeoJSON.Point>,
+      polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon>
+    ): GeoJSON.FeatureCollection<GeoJSON.Point>;
 
     //////////////////////////////////////////////////////
     // Classification
