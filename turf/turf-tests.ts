@@ -1,15 +1,80 @@
 /// <reference path="turf.d.ts"/>
 import * as turf from '@turf/turf'
+// AGGREGATION
+import * as collect from '@turf/collect'
+// MEASUREMENT
+import * as along from '@turf/along'
+import * as area from '@turf/area'
+import * as bboxPolygon from '@turf/bbox-polygon'
+import * as bearing from '@turf/bearing'
+import * as center from '@turf/center'
+import * as centroid from '@turf/centroid'
+import * as destination from '@turf/destination'
+import * as envelope from '@turf/envelope'
+import * as lineDistance from '@turf/line-distance'
+import * as midpoint from '@turf/midpoint'
+import * as pointOnSurce from '@turf/point-on-surface'
+import * as square from '@turf/square'
+// TRANSFORMATION
+import * as bezier from '@turf/bezier'
+import * as buffer from '@turf/buffer'
+import * as concave from '@turf/concave'
+import * as convex from '@turf/convex'
+import * as difference from '@turf/difference'
+import * as intersect from '@turf/intersect'
+import * as simplify from '@turf/simplify'
+import * as union from '@turf/union'
+// MISC
+import * as combine from '@turf/combine'
+import * as explode from '@turf/explode'
+import * as flip from '@turf/flip'
+import * as kinks from '@turf/kinks'
+import * as lineSlice from '@turf/line-slice'
+import * as pointOnLine from '@turf/point-on-line'
+// HELPER
 import {
-  collect,
-  random,
-  sample,
-  hexGrid,
-  pointGrid,
-  squareGrid,
-  triangleGrid,
-  featureCollection
-} from '@turf/turf'
+  featureCollection,
+  feature,
+  lineString,
+  multiLineString,
+  point,
+  multiPoint,
+  polygon,
+  multiPolygon,
+  geometryCollection } from '@turf/helpers'
+// DATA
+import * as random from '@turf/random'
+import * as sample from '@turf/sample'
+// INTERPOLATION
+import * as isolines from '@turf/isolines'
+import * as planepoint from '@turf/planepoint'
+import * as tin from '@turf/tin'
+// JOINS
+import * as inside from '@turf/inside'
+import * as tag from '@turf/tag'
+import * as within from '@turf/within'
+// GRIDS
+import * as hexGrid from '@turf/hex-grid'
+import * as pointGrid from '@turf/point-grid'
+import * as squareGrid from '@turf/square-grid'
+import * as triangleGrid from '@turf/triangle-grid'
+// CLASSIFICATION
+import * as nearest from '@turf/nearest'
+// // META
+// import * as propEach from '@turf/propEach'
+// import * as coordEach from '@turf/coordEach'
+// import * as coordReduce from '@turf/coordReduce'
+// import * as featureEach from '@turf/featureEach'
+// import * as getCoord from '@turf/getCoord'
+// // ASSERTIONS
+// import * as featureOf from '@turf/featureOf'
+// import * as collectionOf from '@turf/collectionOf'
+// import * as bbox from '@turf/bbox'
+// import * as circle from '@turf/circle'
+// import * as geojsonType from '@turf/geojsonType'
+// import * as propReduce from '@turf/propReduce'
+// import * as coordAll from '@turf/coordAll'
+// import * as tesselate from '@turf/tesselate'
 
 ///////////////////////////////////////////
 // Tests data initialisation
@@ -33,9 +98,8 @@ const point2: GeoJSON.Feature<GeoJSON.Point> = {
     "coordinates": [-75.401, 39.884]
   }
 }
-const point = point1
 
-const multiPoint: GeoJSON.Feature<GeoJSON.MultiPoint> = {
+const multiPoint1: GeoJSON.Feature<GeoJSON.MultiPoint> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -44,7 +108,7 @@ const multiPoint: GeoJSON.Feature<GeoJSON.MultiPoint> = {
   }
 }
 
-const line: GeoJSON.Feature<GeoJSON.LineString> = {
+const line1: GeoJSON.Feature<GeoJSON.LineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -60,7 +124,7 @@ const line: GeoJSON.Feature<GeoJSON.LineString> = {
   }
 }
 
-const multiLine: GeoJSON.Feature<GeoJSON.MultiLineString> = {
+const multiLine1: GeoJSON.Feature<GeoJSON.MultiLineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -105,7 +169,7 @@ const polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
   ]
 }
 
-const polygon: GeoJSON.Feature<GeoJSON.Polygon> = {
+const polygon1: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -119,8 +183,6 @@ const polygon: GeoJSON.Feature<GeoJSON.Polygon> = {
     ]]
   }
 }
-
-const polygon1 = polygon
 
 const polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
@@ -140,7 +202,7 @@ const polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   }
 }
 
-const multiPolygon: GeoJSON.Feature<GeoJSON.MultiPolygon> = {
+const multiPolygon1: GeoJSON.Feature<GeoJSON.MultiPolygon> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -221,8 +283,8 @@ const triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
 ///////////////////////////////////////////
 
 // -- Test along --
-turf.along(line, 50)
-turf.along(line, 50, 'miles')
+turf.along(line1, 50)
+turf.along(line1, 50, 'miles')
 
 // -- Test area --
 turf.area(polygons)
@@ -251,8 +313,8 @@ turf.distance(point1, point2, 'miles')
 turf.envelope(polygons)
 
 // -- Test lineDistance
-turf.lineDistance(line)
-turf.lineDistance(line, 'miles')
+turf.lineDistance(line1)
+turf.lineDistance(line1, 'miles')
 
 // -- Test midpoint --
 turf.midpoint(point1, point2)
@@ -268,7 +330,7 @@ turf.square(bbox)
 ///////////////////////////////////////////
 
 // -- Test bezier --
-turf.bezier(line)
+turf.bezier(line1)
 
 // -- Test buffer --
 turf.buffer(point1, 50)
@@ -310,10 +372,10 @@ turf.flip(point1)
 turf.kinks(polygon1)
 
 // -- Test lineSlice --
-turf.lineSlice(point1, point2, line)
+turf.lineSlice(point1, point2, line1)
 
 // -- Test pointOnLine --
-turf.pointOnLine(line, point1)
+turf.pointOnLine(line1, point1)
 
 ///////////////////////////////////////////
 // Tests Helper
@@ -321,38 +383,38 @@ turf.pointOnLine(line, point1)
 
 // -- Test featurecollection --
 turf.featureCollection([point1, point2])
-turf.featureCollection([point, polygon])
+turf.featureCollection([point1, polygon1])
 turf.featureCollection([polygon1, polygon2])
-turf.featureCollection([line, polygon])
-turf.featureCollection([line, point])
+turf.featureCollection([line1, polygon1])
+turf.featureCollection([line1, point1])
 
 // -- Test feature --
-turf.feature(point)
-turf.feature(polygon)
-turf.feature(line)
+turf.feature(point1)
+turf.feature(polygon1)
+turf.feature(line1)
 
 // -- Test lineString --
-turf.lineString(line.geometry.coordinates)
-turf.lineString(line.geometry.coordinates, properties)
+turf.lineString(line1.geometry.coordinates)
+turf.lineString(line1.geometry.coordinates, properties)
 
 // -- Test multiLineString --
-turf.multiLineString(multiLine.geometry.coordinates)
+turf.multiLineString(multiLine1.geometry.coordinates)
 
 // -- Test point --
-turf.point(point.geometry.coordinates)
-turf.point(point.geometry.coordinates, properties)
+turf.point(point1.geometry.coordinates)
+turf.point(point1.geometry.coordinates, properties)
 
 // -- Test multiPoint --
-turf.multiPoint(multiPoint.geometry.coordinates)
+turf.multiPoint(multiPoint1.geometry.coordinates)
 
 // -- Test polygon --
-turf.polygon(polygon.geometry.coordinates, properties)
+turf.polygon(polygon1.geometry.coordinates, properties)
 
 // -- Test multiPolygon --
-turf.multiPolygon(multiPolygon.geometry.coordinates, properties)
+turf.multiPolygon(multiPolygon1.geometry.coordinates, properties)
 
 // -- Test geometryCollection --
-turf.geometryCollection([point.geometry, line.geometry]);
+turf.geometryCollection([point1.geometry, line1.geometry]);
 
 ///////////////////////////////////////////
 // Tests Data
@@ -409,7 +471,7 @@ turf.tin(points, 'z')
 ///////////////////////////////////////////
 
 // -- Test inside --
-turf.inside(point, polygon)
+turf.inside(point1, polygon1)
 
 // -- Test tag --
 turf.tag(points, polygons, 'pop', 'population')

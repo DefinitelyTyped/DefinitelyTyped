@@ -886,7 +886,7 @@ declare module turf {
   }
 }
 
-// Stable version of Turf
+// NPM Stable version of Turf
 declare module "turf" {
   export = turf
 }
@@ -895,3 +895,300 @@ declare module "turf" {
 declare module "@turf/turf" {
   export = turf
 }
+
+// AGGREGATION
+declare module "@turf/collect" {
+   const collect: typeof turf.collect;
+   export = collect;
+}
+
+// MEASUREMENT
+declare module "@turf/along" {
+   const along: typeof turf.along;
+   export = along;
+}
+
+declare module "@turf/area" {
+   const area: typeof turf.area;
+   export = area;
+}
+
+declare module "@turf/bbox-polygon" {
+   const bboxPolygon: typeof turf.bboxPolygon;
+   export = bboxPolygon;
+}
+
+declare module "@turf/bearing" {
+   const bearing: typeof turf.bearing;
+   export = bearing;
+}
+
+declare module "@turf/center" {
+   const center: typeof turf.center;
+   export = center;
+}
+
+declare module "@turf/centroid" {
+   const centroid: typeof turf.centroid;
+   export = centroid;
+}
+
+declare module "@turf/destination" {
+   const destination: typeof turf.destination;
+   export = destination;
+}
+
+declare module "@turf/distance" {
+   const distance: typeof turf.distance;
+   export = distance;
+}
+
+declare module "@turf/envelope" {
+   const envelope: typeof turf.envelope;
+   export = envelope;
+}
+
+declare module "@turf/line-distance" {
+   const lineDistance: typeof turf.lineDistance;
+   export = lineDistance;
+}
+
+declare module "@turf/midpoint" {
+   const midpoint: typeof turf.midpoint;
+   export = midpoint;
+}
+
+declare module "@turf/point-on-surface" {
+   const pointOnSurface: typeof turf.pointOnSurface;
+   export = pointOnSurface;
+}
+
+declare module "@turf/square" {
+   const square: typeof turf.square;
+   export = square;
+}
+
+// TRANSFORMATION
+declare module "@turf/bezier" {
+   const bezier: typeof turf.bezier;
+   export = bezier;
+}
+
+declare module "@turf/buffer" {
+   const buffer: typeof turf.buffer;
+   export = buffer;
+}
+
+declare module "@turf/concave" {
+   const concave: typeof turf.concave;
+   export = concave;
+}
+
+declare module "@turf/convex" {
+   const convex: typeof turf.convex;
+   export = convex;
+}
+
+declare module "@turf/difference" {
+   const difference: typeof turf.difference;
+   export = difference;
+}
+
+declare module "@turf/intersect" {
+   const intersect: typeof turf.intersect;
+   export = intersect;
+}
+
+declare module "@turf/simplify" {
+   const simplify: typeof turf.simplify;
+   export = simplify;
+}
+
+declare module "@turf/union" {
+   const union: typeof turf.union;
+   export = union;
+}
+
+// MISC
+declare module "@turf/combine" {
+   const combine: typeof turf.combine;
+   export = combine;
+}
+
+declare module "@turf/explode" {
+   const explode: typeof turf.explode;
+   export = explode;
+}
+
+declare module "@turf/flip" {
+   const flip: typeof turf.flip;
+   export = flip;
+}
+
+declare module "@turf/kinks" {
+   const kinks: typeof turf.kinks;
+   export = kinks;
+}
+
+declare module "@turf/line-slice" {
+   const lineSlice: typeof turf.lineSlice;
+   export = lineSlice;
+}
+
+declare module "@turf/point-on-line" {
+   const pointOnLine: typeof turf.pointOnLine;
+   export = pointOnLine;
+}
+
+// HELPER
+declare module "@turf/helpers" {
+   const helpers: {
+     featureCollection: typeof turf.featureCollection,
+     feature: typeof turf.feature,
+     lineString: typeof turf.lineString,
+     multiLineString: typeof turf.multiLineString,
+     point: typeof turf.point,
+     multiPoint: typeof turf.multiPoint,
+     polygon: typeof turf.polygon,
+     multiPolygon: typeof turf.multiPolygon,
+     geometryCollection: typeof turf.geometryCollection,
+   };
+   export = helpers;
+}
+
+// DATA
+declare module "@turf/random" {
+   const random: typeof turf.random;
+   export = random;
+}
+
+declare module "@turf/sample" {
+   const sample: typeof turf.sample;
+   export = sample;
+}
+
+// INTERPOLATION
+declare module "@turf/isolines" {
+   const isolines: typeof turf.isolines;
+   export = isolines;
+}
+
+declare module "@turf/planepoint" {
+   const planepoint: typeof turf.planepoint;
+   export = planepoint;
+}
+
+declare module "@turf/tin" {
+   const tin: typeof turf.tin;
+   export = tin;
+}
+
+// JOINS
+declare module "@turf/inside" {
+   const inside: typeof turf.inside;
+   export = inside;
+}
+
+declare module "@turf/tag" {
+   const tag: typeof turf.tag;
+   export = tag;
+}
+
+declare module "@turf/within" {
+   const within: typeof turf.within;
+   export = within;
+}
+
+// GRIDS
+declare module "@turf/hex-grid" {
+   const hexGrid: typeof turf.hexGrid;
+   export = hexGrid;
+}
+
+declare module "@turf/point-grid" {
+   const pointGrid: typeof turf.pointGrid;
+   export = pointGrid;
+}
+
+declare module "@turf/square-grid" {
+   const squareGrid: typeof turf.squareGrid;
+   export = squareGrid;
+}
+
+declare module "@turf/triangle-grid" {
+   const triangleGrid: typeof turf.triangleGrid;
+   export = triangleGrid;
+}
+
+// CLASSIFICATION
+declare module "@turf/nearest" {
+   const nearest: typeof turf.nearest;
+   export = nearest;
+}
+
+// // META
+// declare module "@turf/propEach" {
+//    const propEach: typeof turf.propEach;
+//    export = propEach;
+// }
+
+// declare module "@turf/coordEach" {
+//    const coordEach: typeof turf.coordEach;
+//    export = coordEach;
+// }
+
+// declare module "@turf/coordReduce" {
+//    const coordReduce: typeof turf.coordReduce;
+//    export = coordReduce;
+// }
+
+// declare module "@turf/featureEach" {
+//    const featureEach: typeof turf.featureEach;
+//    export = featureEach;
+// }
+
+// declare module "@turf/getCoord" {
+//    const getCoord: typeof turf.getCoord;
+//    export = getCoord;
+// }
+
+// // ASSERTIONS
+// declare module "@turf/featureOf" {
+//    const featureOf: typeof turf.featureOf;
+//    export = featureOf;
+// }
+
+// declare module "@turf/collectionOf" {
+//    const collectionOf: typeof turf.collectionOf;
+//    export = collectionOf;
+// }
+
+// declare module "@turf/bbox" {
+//    const bbox: typeof turf.bbox;
+//    export = bbox;
+// }
+
+// declare module "@turf/circle" {
+//    const circle: typeof turf.circle;
+//    export = circle;
+// }
+
+// declare module "@turf/geojsonType" {
+//    const geojsonType: typeof turf.geojsonType;
+//    export = geojsonType;
+// }
+
+// declare module "@turf/propReduce" {
+//    const propReduce: typeof turf.propReduce;
+//    export = propReduce;
+// }
+
+// declare module "@turf/coordAll" {
+//    const coordAll: typeof turf.coordAll;
+//    export = coordAll;
+// }
+
+// declare module "@turf/tesselate" {
+//    const tesselate: typeof turf.tesselate;
+//    export = tesselate;
+// }
