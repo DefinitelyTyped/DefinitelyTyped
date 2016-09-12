@@ -98,7 +98,7 @@ export interface IfStatement extends BaseStatement {
   type: "IfStatement";
   test: Expression;
   consequent: Statement;
-  alternate?: Statement;
+  alternate?: Statement | null;
 }
 
 export interface LabeledStatement extends BaseStatement {
