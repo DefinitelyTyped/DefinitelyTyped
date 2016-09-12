@@ -1,65 +1,82 @@
-﻿// Type definitions for d3-dsv
-// Project: https://www.npmjs.com/package/d3-dsv
-// Definitions by: Jason Swearingen <https://jasonswearingen.github.io>
+// Type definitions for D3JS d3-dsv module v1.0.1
+// Project: https://github.com/d3/d3-dsv/
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// ------------------------------------------------------------------------------------------
+// Shared Types and Interfaces
+// ------------------------------------------------------------------------------------------
 
-	/** A parser and formatter for DSV (CSV and TSV) files.
-Extracted from D3. */
-declare var loader: (
-    /** the symbol used to seperate cells in the row.*/
-    delimiter: string,
-    /** example: "text/plain" */
-    encoding?: string) => _d3dsv.D3Dsv;
-export = loader;
-export as namespace d3_dsv;
-
-declare module _d3dsv {
-	/** A parser and formatter for DSV (CSV and TSV) files.
-Extracted from D3. */
-	export class D3Dsv {
-		/** Parses the specified string, which is the contents of a CSV file, returning an array of objects representing the parsed rows. 
-		The string is assumed to be RFC4180-compliant. 
-		Unlike the parseRows method, this method requires that the first line of the CSV file contains a comma-separated list of column names; 
-		these column names become the attributes on the returned objects. 
-		For example, consider the following CSV file:
-
-Year,Make,Model,Length
-1997,Ford,E350,2.34
-2000,Mercury,Cougar,2.38
-
-The resulting JavaScript array is:
-
-[  {"Year": "1997", "Make": "Ford", "Model": "E350", "Length": "2.34"},
-  {"Year": "2000", "Make": "Mercury", "Model": "Cougar", "Length": "2.38"} ]
-		 */
-		public parse<TRow>(
-			table: string, 
-			/** coerce cells (strings) into different types or modify them. return null to strip this row from the output results. */
-			accessor?: (row: any) => TRow
-			): TRow[];
-		/** Parses the specified string, which is the contents of a CSV file, returning an array of arrays representing the parsed rows. The string is assumed to be RFC4180-compliant. Unlike the parse method, this method treats the header line as a standard row, and should be used whenever the CSV file does not contain a header. Each row is represented as an array rather than an object. Rows may have variable length. For example, consider the following CSV file:
-
-1997,Ford,E350,2.34
-2000,Mercury,Cougar,2.38
-The resulting JavaScript array is:
-
-[  ["1997", "Ford", "E350", "2.34"],
-  ["2000", "Mercury", "Cougar", "2.38"] ]
-Note that the values themselves are always strings; they will not be automatically converted to numbers. See parse for details.*/
-		public parseRows<TRow>(
-			table: string,
-			/** coerce cells (strings) into different types or modify them. return null to strip this row from the output results.*/
-			accessor?: (row: string[]) => TRow
-			): TRow[];
-		/** Converts the specified array of rows into comma-separated values format, returning a string. This operation is the reverse of parse. Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,). Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes.
-
-Each row should be an object, and all object properties will be converted into fields. For greater control over which properties are converted, convert the rows into arrays containing only the properties that should be converted and use formatRows. */
-		public format(rows: any[]): string;
-		/** Converts the specified array of rows into comma-separated values format, returning a string. This operation is the reverse of parseRows. Each row will be separated by a newline (\n), and each column within each row will be separated by a comma (,). Values that contain either commas, double-quotes (") or newlines will be escaped using double-quotes. */
-		public formatRows(rows: any[]): string;
-
-
-	}
-
+export interface DSVRowString {
+    [key: string]: string;
 }
+
+export interface DSVRowAny {
+    [key: string]: any;
+}
+
+export interface DSVParsedArray<T> extends Array<T> {
+    columns: Array<string>;
+}
+
+// ------------------------------------------------------------------------------------------
+// CSV Parsers and Formatters
+// ------------------------------------------------------------------------------------------
+
+// csvParse(...) ============================================================================
+
+export function csvParse(csvString: string): DSVParsedArray<DSVRowString>;
+export function csvParse<ParsedRow extends DSVRowAny>(csvString: string, row: (rawRow: DSVRowString, index: number, columns: Array<string>) => ParsedRow): DSVParsedArray<ParsedRow>;
+
+// csvParseRows(...) ========================================================================
+
+export function csvParseRows(csvString: string): Array<Array<string>>;
+export function csvParseRows<ParsedRow extends DSVRowAny>(csvString: string, row: (rawRow: Array<string>, index: number) => ParsedRow): Array<ParsedRow>;
+
+// csvFormat(...) ============================================================================
+
+export function csvFormat(rows: Array<DSVRowAny>): string;
+export function csvFormat(rows: Array<DSVRowAny>, columns: Array<string>): string;
+
+// csvFormatRows(...) ========================================================================
+
+export function csvFormatRows(rows: Array<Array<string>>): string;
+
+// ------------------------------------------------------------------------------------------
+// TSV Parsers and Formatters
+// ------------------------------------------------------------------------------------------
+
+// tsvParse(...) ============================================================================
+
+export function tsvParse(tsvString: string): DSVParsedArray<DSVRowString>;
+export function tsvParse<MappedRow extends DSVRowAny>(tsvString: string, row: (rawRow: DSVRowString, index: number, columns: Array<string>) => MappedRow): DSVParsedArray<MappedRow>;
+
+// tsvParseRows(...) ========================================================================
+
+export function tsvParseRows(tsvString: string): Array<Array<string>>;
+export function tsvParseRows<MappedRow extends DSVRowAny>(tsvString: string, row: (rawRow: Array<string>, index: number) => MappedRow): Array<MappedRow>;
+
+// tsvFormat(...) ============================================================================
+
+export function tsvFormat(rows: Array<DSVRowAny>): string;
+export function tsvFormat(rows: Array<DSVRowAny>, columns: Array<string>): string;
+
+// tsvFormatRows(...) ========================================================================
+
+export function tsvFormatRows(rows: Array<Array<string>>): string;
+
+// ------------------------------------------------------------------------------------------
+// DSV Generalized Parsers and Formatters
+// ------------------------------------------------------------------------------------------
+
+export interface DSV {
+    parse(dsvString: string): DSVParsedArray<DSVRowString>;
+    parse<ParsedRow extends DSVRowAny>(dsvString: string, row: (rawRow: DSVRowString, index: number, columns: Array<string>) => ParsedRow): DSVParsedArray<ParsedRow>;
+    parseRows(dsvString: string): Array<Array<string>>;
+    parseRows<ParsedRow extends DSVRowAny>(dsvString: string, row: (rawRow: Array<string>, index: number) => ParsedRow): Array<ParsedRow>;
+    format(rows: Array<DSVRowAny>): string;
+    format(rows: Array<DSVRowAny>, columns: Array<string>): string;
+    formatRows(rows: Array<Array<string>>): string;
+}
+
+export function dsvFormat(delimiter: string): DSV;
