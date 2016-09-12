@@ -310,6 +310,7 @@ request
 request
   .get('/blob')
   .responseType('blob')
-  .end(function(err, res){
-    assert.deepEqual(res.xhr.response instanceof Blob, true);
+  .end(function (err, res) {
+    assert(res.xhr instanceof XMLHttpRequest)
+    assert(res.xhr.response instanceof Blob);
   });
