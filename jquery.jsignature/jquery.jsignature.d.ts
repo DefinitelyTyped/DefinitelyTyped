@@ -1,7 +1,7 @@
 // Type definitions for jQuery.jsignature v2
 // Project: https://github.com/willowsystems/jSignature
 // Definitions by: Patrick Magee <https://github.com/pjmagee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Willow Systems Corp
 
 /// <reference path='../jquery/jquery.d.ts'/>

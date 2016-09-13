@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Calendar {
     /**
      * Represents a calendar that the user owns or is subscribed to.
@@ -246,12 +246,12 @@ declare module GoogleAppsScript {
 
     /**
      * Represents a recurrence rule for an event series.
-     * 
+     *
      * Note that this class also behaves like the EventRecurrence that it belongs
      *  to, allowing you to chain rule creation together like so:
-     * 
+     *
      *      recurrence.addDailyRule().times(3).interval(2).addWeeklyExclusion().times(2);
-     * 
+     *
      * times(times)
      * interval(interval)
      */

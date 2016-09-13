@@ -1,9 +1,9 @@
 // Type definitions for switchery 0.8.1
 // Project: https://github.com/abpetkov/switchery
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>, Clayton Lautier <https://github.com/claylaut>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Switchery {
+declare namespace Switchery {
 
     interface SwitcheryStatic {
         new (node: Node, options?: Options): Switchery;
@@ -63,26 +63,26 @@ interface Switchery {
 
 	/**
      * Unbinding all event handlers attached to the switch element to prepare the object for garbage collection.
-     * @returns {void} 
+     * @returns {void}
      */
     destroy(): void;
 
 	/**
      * Enable disabled switch by re-adding event handlers and changing the opacity to 1.
-     * @returns {void} 
+     * @returns {void}
      */
     enable(): void;
 
 	/**
      * Disable switch by unbinding attached events and changing opacity to disabledOpacity value
-     * @returns {void} 
+     * @returns {void}
      */
     disable(): void;
 
 	/**
      * Check if switch is currently disabled by checking the readonly and disabled attributes on the checkbox and the disabled option set via JS.
      *  If any of those are present, the returned value is true.
-     * @returns {boolean} whether it's disabled or not. 
+     * @returns {boolean} whether it's disabled or not.
      */
     isDisabled(): boolean;
 }

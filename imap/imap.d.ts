@@ -5,7 +5,7 @@
 
 /// <reference path='../node/node.d.ts' />
 
-declare module IMAP {
+declare namespace IMAP {
 
     // The property names of these interfaces match the documentation (where type names were given).
 
@@ -236,7 +236,7 @@ declare module IMAP {
         serverSupports(capability: string): boolean;
     }
 
-    export class Connection implements NodeJS.EventEmitter, MessageFunctions {
+    export class Connection extends NodeJS.EventEmitter implements MessageFunctions {
         /** @constructor */
         constructor(config: Config);
 

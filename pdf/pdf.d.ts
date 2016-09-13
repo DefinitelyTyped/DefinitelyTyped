@@ -1,7 +1,7 @@
 // Type definitions for PDF.js
 // Project: https://github.com/mozilla/pdf.js
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/pdf.d.ts
@@ -32,7 +32,7 @@ interface PDFPromise<T> {
 	isRejected(): boolean;
 	resolve(value: T): void;
 	reject(reason: string): void;
-	then(onResolve: (promise: T) => void, onReject?: (reason: string) => void): PDFPromise<T>;
+	then<U>(onResolve: (promise: T) => U, onReject?: (reason: string) => void): PDFPromise<U>;
 }
 
 interface PDFTreeNode {
@@ -156,9 +156,9 @@ interface PDFPageViewport {
 	transforms: number[];
 
 	clone(options: PDFPageViewportOptions): PDFPageViewport;
-	convertToViewportPoint(): number[]; // [x, y]
-	convertToViewportRectangle(): number[]; // [x1, y1, x2, y2]
-	convertToPdfPoint(): number[]; // [x, y]
+	convertToViewportPoint(x: number, y: number): number[]; // [x, y]
+	convertToViewportRectangle(rect: number[]): number[]; // [x1, y1, x2, y2]
+	convertToPdfPoint(x: number, y: number): number[]; // [x, y]
 }
 
 interface PDFAnnotationData {
@@ -195,6 +195,7 @@ interface PDFRenderImageLayer {
 
 interface PDFRenderParams {
 	canvasContext: CanvasRenderingContext2D;
+	viewport?: PDFPageViewport;
 	textLayer?: PDFRenderTextLayer;
 	imageLayer?: PDFRenderImageLayer;
 	continueCallback?: (_continue: () => void) => void;
@@ -298,6 +299,19 @@ interface PDFObjects {
 	getData(objId: number): any;
 	clear(): void;
 }
+
+interface PDFJSUtilStatic {
+	/**
+	 * Normalize rectangle so that (x1,y1) < (x2,y2)
+	 * @param {number[]} rect - the rectangle with [x1,y1,x2,y2]
+	 *
+	 * For coordinate systems whose origin lies in the bottom-left, this
+	 * means normalization to (BL,TR) ordering. For systems with origin in the
+	 * top-left, this means (TL,BR) ordering.
+	 **/
+	normalizeRect(rect:number[]): number[];
+}
+
 
 interface PDFJSStatic {
 
@@ -422,6 +436,8 @@ interface PDFJSStatic {
 	 * performance for font rendering.
 	 */
 	isEvalSupported: boolean;
+
+	Util: PDFJSUtilStatic;
 
 	/**
 	 * This is the main entry point for loading a PDF and interacting with it.

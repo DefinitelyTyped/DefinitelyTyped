@@ -1,14 +1,14 @@
-// Type definitions for Matter.js - EDGE
+// Type definitions for Matter.js - 0.10.0
 // Project: https://github.com/liabru/matter-js
 // Definitions by: Ivane Gegia <https://twitter.com/ivanegegia>,
 //                 David Asmuth <https://github.com/piranha771/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'matter-js' {
     export = Matter;
 }
 
-declare module Matter {
+declare namespace Matter {
     /**
     * The `Matter.Axes` module contains methods for creating and manipulating sets of axes.
     *
@@ -29,6 +29,17 @@ declare module Matter {
          * @param {number} angle
          */
         static rotate(axes: Array<Vector>, angle: number): void;
+    }
+
+    interface IChamfer {
+        radius?: number | Array<number>;
+        quality?: number;
+        qualityMin?: number;
+        qualityMax?: number;
+    }
+
+    interface IChamferableBodyDefinition extends IBodyDefinition {
+        chamfer?: IChamfer;
     }
 
     /**
@@ -66,7 +77,7 @@ declare module Matter {
          * @param {object} [options]
          * @return {body} A new regular polygon body
          */
-        static polygon(x: number, y: number, sides: number, radius: number, options?: IBodyDefinition): Body;
+        static polygon(x: number, y: number, sides: number, radius: number, options?: IChamferableBodyDefinition): Body;
 
         /**
          * Creates a new rigid body model with a rectangle hull.
@@ -80,7 +91,7 @@ declare module Matter {
          * @param {object} [options]
          * @return {body} A new rectangle body
          */
-        static rectangle(x: number, y: number, width: number, height: number, options?: IBodyDefinition): Body;
+        static rectangle(x: number, y: number, width: number, height: number, options?: IChamferableBodyDefinition): Body;
 
         /**
          * Creates a new rigid body model with a trapezoid hull.
@@ -95,7 +106,7 @@ declare module Matter {
          * @param {object} [options]
          * @return {body} A new trapezoid body
          */
-        static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IBodyDefinition): Body;
+        static trapezoid(x: number, y: number, width: number, height: number, slope: number, options?: IChamferableBodyDefinition): Body;
         /**
         * Creates a body using the supplied vertices (or an array containing multiple sets of vertices).
         * If the vertices are convex, they will pass through as supplied.
@@ -250,6 +261,14 @@ declare module Matter {
         * @type number
         */
         inverseMass?: number;
+        /**
+         * A flag that indicates whether a body is a sensor. Sensor triggers collision events, but doesn't react with colliding body physically.
+         *
+         * @property isSensor
+         * @type boolean
+         * @default false
+         */
+        isSensor?: boolean;
         /**
          * A flag that indicates whether the body is considered sleeping. A sleeping body acts similar to a static body, except it is only temporary and can be awoken.
          * If you need to set a body as sleeping, you should use `Sleeping.set` as this requires more than just setting this flag.
@@ -491,8 +510,6 @@ declare module Matter {
         */
         lineWidth: number;
 
-
-
         /**
          * A String that defines the stroke style to use when rendering the body outline (if a sprite is not defined). It is the same as when using a canvas, so it accepts CSS style property values.
          Default: a random colour
@@ -500,7 +517,10 @@ declare module Matter {
         strokeStyle: string;
 
 
-
+		/*
+		 * Sets the opacity. 1.0 is fully opaque. 0.0 is fully translucent
+		 */
+		opacity: number;
     }
 
     export interface IBodyRenderOptionsSprite {
@@ -612,7 +632,7 @@ declare module Matter {
          * @param {body} body
          * @param {number} inertia
          */
-        static setInterna(body: Body, interna: number): void;
+        static setInertia(body: Body, interna: number): void;
         /**
          * Sets the body's vertices and updates body properties accordingly, including inertia, area and mass (with respect to `body.density`).
          * Vertices will be automatically transformed to be orientated around their centre of mass as the origin.
@@ -636,7 +656,7 @@ declare module Matter {
          * @param [body] parts
          * @param {bool} [autoHull=true]
          */
-        static setParts(body: Body, parts: Body, autoHull: boolean): void;
+        static setParts(body: Body, parts: Body[], autoHull?: boolean): void;
         /**
          * Sets the position of the body instantly. Velocity, angle, force etc. are unchanged.
          * @method setPosition
@@ -1050,13 +1070,56 @@ declare module Matter {
     }
 
     /**
-    * Internal Class, not generally used outside of the engine's internals.
     * The `Matter.Bounds` module contains methods for creating and manipulating axis-aligned bounding boxes (AABB).
     *
     * @class Bounds
     */
     export class Bounds {
-
+        /**
+         * Creates a new axis-aligned bounding box (AABB) for the given vertices.
+         * @method create
+         * @param {vertices} vertices
+         * @return {bounds} A new bounds object
+         */
+        static create (vertices: Vertices): Bounds;
+        /**
+         * Updates bounds using the given vertices and extends the bounds given a velocity.
+         * @method update
+         * @param {bounds} bounds
+         * @param {vertices} vertices
+         * @param {vector} velocity
+         */
+        static update(bounds: Bounds, vertices: Vertices, velocity: Vector): void;
+        /**
+         * Returns true if the bounds contains the given point.
+         * @method contains
+         * @param {bounds} bounds
+         * @param {vector} point
+         * @return {boolean} True if the bounds contain the point, otherwise false
+         */
+        static contains(bounds: Bounds, point: Vector): boolean;
+        /**
+         * Returns true if the two bounds intersect.
+         * @method overlaps
+         * @param {bounds} boundsA
+         * @param {bounds} boundsB
+         * @return {boolean} True if the bounds overlap, otherwise false
+         */
+        static overlaps(boundsA: Bounds, boundsB: Bounds): boolean;
+        /**
+        * Translates the bounds by the given vector.
+        * @method translate
+        * @param {bounds} bounds
+        * @param {vector} vector
+        */
+        static translate(bounds: Bounds, vector: Vector): void;
+        /**
+         * Shifts the bounds to the given position.
+         * @method shift
+         * @param {bounds} bounds
+         * @param {vector} position
+         */
+        static shift(bounds: Bounds, position: Vector): void;
     }
 
     export interface ICompositeDefinition {
@@ -1825,8 +1888,20 @@ declare module Matter {
          * @param {HTMLElement} element
          * @param {object} [options]
          * @return {engine} engine
+         * @deprecated
          */
         static create(element?: HTMLElement | IEngineDefinition, options?: IEngineDefinition): Engine;
+
+        /**
+         * Creates a new engine. The options parameter is an object that specifies any properties you wish to override the defaults.
+         * All properties have default values, and many are pre-calculated automatically based on other properties.
+         * See the properties section below for detailed information on what you can pass via the `options` object.
+         * @method create
+         * @param {object} [options]
+         * @return {engine} engine
+         * @deprecated
+         */
+        static create(options?: IEngineDefinition): Engine;
 
         /**
          * Merges two engines by keeping the configuration of `engineA` but replacing the world with the one from `engineB`.
@@ -1845,14 +1920,14 @@ declare module Matter {
          * Therefore the value is always `1` (no correction) when `delta` constant (or when no correction is desired, which is the default).
          * See the paper on <a href="http://lonesock.net/article/verlet.html">Time Corrected Verlet</a> for more information.
          *
-        * Triggers `beforeUpdate` and `afterUpdate` events.
-        * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
-        * @method update
-        * @param {engine} engine
-        * @param {number} delta
-        * @param {number} [correction]
-        */
-        static update(engine: Engine, delta: number, correction?: number): Engine;
+         * Triggers `beforeUpdate` and `afterUpdate` events.
+         * Triggers `collisionStart`, `collisionActive` and `collisionEnd` events.
+         * @method update
+         * @param {engine} engine
+         * @param {number} [delta=16.666]
+         * @param {number} [correction=1]
+         */
+        static update(engine: Engine, delta?: number, correction?: number): Engine;
 
         /**
          * An alias for `Runner.run`, see `Matter.Runner` for more information.
@@ -2164,11 +2239,19 @@ declare module Matter {
         */
         controller?: any;
         /**
+        * A reference to the `Matter.Engine` instance to be used.
+        *
+        * @property engine
+        * @type engine
+        */
+        engine: Engine;
+        /**
          * A reference to the element where the canvas is to be inserted (if `render.canvas` has not been specified)
         *
         * @property element
         * @type HTMLElement
         * @default null
+        * @deprecated
         */
         element?: HTMLElement;
         /**
@@ -2252,13 +2335,9 @@ declare module Matter {
     }
 
     /**
-    * The `Matter.Render` module is the default `render.controller` used by a `Matter.Engine`.
-    * This renderer is HTML5 canvas based and supports a number of drawing options including sprites and viewports.
-    *
-    * It is possible develop a custom renderer module based on `Matter.Render` and pass an instance of it to `Engine.create` via `options.render`.
-    * A minimal custom renderer object must define at least three functions: `create`, `clear` and `world` (see `Matter.Render`).
-    *
-    * See also `Matter.RenderPixi` for an alternate WebGL, scene-graph based renderer.
+    * The `Matter.Render` module is a simple HTML5 canvas based renderer for visualising instances of `Matter.Engine`.
+    * It is intended for development and debugging purposes, but may also be suitable for simple games.
+    * It includes a number of drawing options including wireframe, vector with support for sprites and viewports.
     *
     * @class Render
     */
@@ -2273,6 +2352,18 @@ declare module Matter {
          */
         static create(options: IRenderDefinition): Render;
         /**
+         * Continuously updates the render canvas on the `requestAnimationFrame` event.
+         * @method run
+         * @param {render} render
+         */
+        static run(render: Render): void;
+        /**
+         * Ends execution of `Render.run` on the given `render`, by canceling the animation frame request event loop.
+         * @method stop
+         * @param {render} render
+         */
+        static stop(render: Render): void;
+        /**
          * Sets the pixel ratio of the renderer and updates the canvas.
          * To automatically detect the correct ratio, pass the string `'auto'` for `pixelRatio`.
          * @method setPixelRatio
@@ -2286,7 +2377,7 @@ declare module Matter {
          * @method world
          * @param {engine} engine
          */
-        static world(engine: Engine): void;
+        static world(render: Render): void;
 
         /**
         * A back-reference to the `Matter.Render` module.
@@ -2731,7 +2822,7 @@ declare module Matter {
          * @param {number} qualityMin
          * @param {number} qualityMax
          */
-        static chamfer(vertices: Array<Vector>, radius: Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
+        static chamfer(vertices: Array<Vector>, radius: number | Array<number>, quality: number, qualityMin: number, qualityMax: number): void;
 
 
         /**
@@ -2826,7 +2917,7 @@ declare module Matter {
     * @class World
     * @extends Composite
     */
-    export class World {
+    export class World extends Composite {
         /**
          * Add objects or arrays of objects of types: Body, Constraint, Composite
          * @param world
@@ -2959,7 +3050,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepStart", callback: (e: IEvent<Body>) => void): void;
         /**
          * Fired when a body ends sleeping (where `this` is the body).
          *
@@ -2969,7 +3060,7 @@ declare module Matter {
         * @param {} event.source The source object of the event
         * @param {} event.name The name of the event
         */
-        static on(obj: Engine, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
+        static on(obj: Body, name: "sleepEnd", callback: (e: IEvent<Body>) => void): void;
 
         /**
         * Fired when a call to `Composite.add` is made, before objects have been added.
@@ -3158,7 +3249,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousedown", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousedown", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse has moved (or a touch moves) during the last step
@@ -3166,7 +3257,7 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mousemove", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mousemove", callback: (e: any) => void): void;
 
         /**
          * Fired when the mouse is up (or a touch has ended) during the last step
@@ -3174,10 +3265,10 @@ declare module Matter {
          * @param name
          * @param callback
          */
-        static on(obj: Engine, name: "mouseup", callback: (e: any) => void): void;
+        static on(obj: MouseConstraint, name: "mouseup", callback: (e: any) => void): void;
 
 
-        static on(obj: Engine, name: string, callback: (e: any) => void): void;
+        static on(obj: any, name: string, callback: (e: any) => void): void;
 
         /**
          * Removes the given event callback. If no callback, clears all callbacks in eventNames. If no eventNames, clears all events.

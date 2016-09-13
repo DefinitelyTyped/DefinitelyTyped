@@ -1,7 +1,7 @@
 // Type definitions for easy-xapi-utils
 // Project: https://github.com/DeadAlready/easy-xapi-utils
 // Definitions by: Karl Düüna <https://github.com/DeadAlready/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../easy-jsend/easy-jsend.d.ts" />

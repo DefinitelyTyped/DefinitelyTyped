@@ -1,7 +1,7 @@
 // Type definitions for Node Sass
 // Project: https://github.com/sass/node-sass
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

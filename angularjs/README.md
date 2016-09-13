@@ -19,6 +19,7 @@ The following extra definition files are available for referencing:
 * angular-route.d.ts (for the **ngRoute** module)
 * angular-cookies.d.ts (for the **ngCookies** module)
 * angular-sanitize.d.ts (for the **ngSanitize** module)
+* angular-animate.d.ts (for the **ngAnimate** module)
 * angular-mocks.d.ts (for the **ngMock** and **ngMockE2E** modules)
 
 (postfix with version number for specific verion, eg. angular-resource-1.0.d.ts)
@@ -39,6 +40,7 @@ To avoid cluttering the list of suggestions as you type in your IDE, all interfa
 * `ng.resource` for **ngResource**
 * `ng.route` for **ngRoute**
 * `ng.sanitize` for **ngSanitize**
+* `ng.animate` for **ngAnimate**
 
 **ngMockE2E** does not define a new namespace, but rather modifies some of **ng**'s interfaces.
 

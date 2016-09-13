@@ -1,7 +1,7 @@
 // Type definitions for jBinary
 // Project: https://github.com/jDataView/jBinary
 // Definitions by: Tim Bureck <https://github.com/tbureck>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Additional notes:
 // Method stubs and types are taken from the official jBinary documentation, which can be found here:

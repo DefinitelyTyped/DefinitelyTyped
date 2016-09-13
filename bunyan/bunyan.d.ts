@@ -1,7 +1,7 @@
 // Type definitions for node-bunyan
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -19,6 +19,9 @@ declare module "bunyan" {
         level():string|number;
         level(value: number | string):void;
         levels(name: number | string, value: number | string):void;
+
+        fields:any;
+        src:boolean;       
 
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;

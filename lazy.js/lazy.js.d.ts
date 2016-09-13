@@ -1,9 +1,9 @@
 // Type definitions for Lazy.js 0.3.2
 // Project: https://github.com/dtao/lazy.js/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module LazyJS {
+declare namespace LazyJS {
 
     interface LazyStatic {
 
@@ -102,7 +102,7 @@ declare module LazyJS {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    module Sequence {
+    namespace Sequence {
         function define(methodName: string[], overrides: Object): Function;
     }
 
@@ -177,7 +177,7 @@ declare module LazyJS {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    module ArrayLikeSequence {
+    namespace ArrayLikeSequence {
         function define(methodName: string[], overrides: Object): Function;
     }
 
@@ -197,7 +197,7 @@ declare module LazyJS {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    module ObjectLikeSequence {
+    namespace ObjectLikeSequence {
         function define(methodName: string[], overrides: Object): Function;
     }
 
@@ -220,7 +220,7 @@ declare module LazyJS {
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    module StringLikeSequence {
+    namespace StringLikeSequence {
         function define(methodName: string[], overrides: Object): Function;
     }
 

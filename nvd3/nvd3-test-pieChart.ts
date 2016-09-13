@@ -1,6 +1,6 @@
 /// <reference path="../d3/d3.d.ts" />
 /// <reference path="nvd3.d.ts" />
-module nvd3_test_pieChart {
+namespace nvd3_test_pieChart {
 
     var testdata = [
         { key: "One", y: 5, color: "#5F5" },

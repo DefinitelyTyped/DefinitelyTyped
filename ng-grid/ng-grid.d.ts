@@ -1,7 +1,7 @@
-// Type definitions for ng-grid 
+// Type definitions for ng-grid
 // Project: http://angular-ui.github.io/ng-grid/
 // Definitions by: Ken Smith <https://github.com/smithkl42>, Roland Zwaga <https://github.com/rolandzwaga>, Kent Cooper <https://github.com/kentcooper>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are very definitely preliminary. Please feel free to improve.
 
@@ -25,7 +25,7 @@ declare var ngRow:ngGrid.IRowStatic;
 declare var ngColumn:ngGrid.IColumnStatic;
 declare var ngFooter:ngGrid.IFooterStatic;
 
-declare module ngGrid {
+declare namespace ngGrid {
 
     export interface IDomAccessProvider {
         previousColumn:IColumn;
@@ -34,14 +34,14 @@ declare module ngGrid {
         focusCellElement($scope:IGridScope, index:number):void;
         selectionHandlers($scope:IGridScope, elm:angular.IAugmentedJQuery):void;
     }
-    
+
     export interface IStyleProviderStatic {
         new($scope:IGridScope, grid:IGridInstance):IStyleProvider;
     }
 
     export interface IStyleProvider {
     }
-    
+
     export interface ISearchProviderStatic {
         new($scope:IGridScope, grid:IGridInstance, $filter:angular.IFilterService):ISearchProvider;
     }
@@ -51,7 +51,7 @@ declare module ngGrid {
         extFilter:boolean;
         evalFilter():void;
     }
-    
+
     export interface ISelectionProviderStatic {
         new(grid:IGridInstance, $scope:IGridScope, $parse:angular.IParseService):ISelectionProvider;
     }
@@ -69,7 +69,7 @@ declare module ngGrid {
         setSelection(rowItem:IRow, isSelected:boolean):void;
         toggleSelectAll(checkAll:boolean, bypass:boolean, selectFiltered:boolean):void;
     }
-    
+
     export interface IEventProviderStatic {
         new(grid:IGridInstance, $scope:IGridScope, domUtilityService:service.IDomUtilityService, $timeout:angular.ITimeoutService):IEventProvider;
     }
@@ -124,7 +124,7 @@ declare module ngGrid {
         afterSelectionChangeCallback():void;
         beforeSelectionChangeCallback():void;
     }
-    
+
     export interface IRenderedRangeStatic {
         new(top:number, bottom:number):IRenderedRange;
     }
@@ -156,7 +156,7 @@ declare module ngGrid {
         renderedChange():void;
         renderedChangeNoGroups():void;
     }
-    
+
     export interface IDimensionStatic {
         new(options:any):IDimension;
     }
@@ -175,7 +175,7 @@ declare module ngGrid {
         scrollH?:number;
         scrollW?:number;
     }
-    
+
     export interface IRowStatic {
         new(entity:any, config:IRowConfig, selectionProvider:ISelectionProvider, rowIndex:number, $utils:any):IRow;
     }
@@ -201,7 +201,7 @@ declare module ngGrid {
         copy():IRow;
         setVars(fromRow:IRow):void;
     }
-    
+
     export interface IColumnStatic {
         new(config:IGridOptions, $scope:IGridScope, grid:IGridInstance, domUtilityService:service.IDomUtilityService, $templateCache:angular.ITemplateCacheService, $utils:any):IColumn;
     }
@@ -355,9 +355,9 @@ declare module ngGrid {
         afterSelectionChange?: (rowItem?: IRow, event?: any) => void ;
 
         /** Callback if you want to inspect something before selection,
-        return false if you want to cancel the selection. return true otherwise. 
-        If you need to wait for an async call to proceed with selection you can 
-        use rowItem.changeSelection(event) method after returning false initially. 
+        return false if you want to cancel the selection. return true otherwise.
+        If you need to wait for an async call to proceed with selection you can
+        use rowItem.changeSelection(event) method after returning false initially.
         Note: when shift+ Selecting multiple items in the grid this will only get called
         once and the rowItem will be an array of items that are queued to be selected. */
         beforeSelectionChange?: (rowItem?: IRow, event?: any) => boolean ;
@@ -413,7 +413,7 @@ declare module ngGrid {
         excludeProperties?: any;
 
         /** filterOptions -
-        filterText: The text bound to the built-in search box. 
+        filterText: The text bound to the built-in search box.
         useExternalFilter: Bypass internal filtering if you want to roll your own filtering mechanism but want to use builtin search box.
         */
         filterOptions?: IFilterOptions;
@@ -430,7 +430,7 @@ declare module ngGrid {
         /** Define a header row template for further customization. See github wiki for more details. */
         headerRowTemplate?: string;
 
-        /** Enables the use of jquery UI reaggable/droppable plugin. requires jqueryUI to work if enabled. 
+        /** Enables the use of jquery UI reaggable/droppable plugin. requires jqueryUI to work if enabled.
         Useful if you want drag + drop but your users insist on crappy browsers. */
         jqueryUIDraggable?: boolean;
 
@@ -440,7 +440,7 @@ declare module ngGrid {
         /** Prevent unselections when in single selection mode. */
         keepLastSelected?: boolean;
 
-        /** Maintains the column widths while resizing. 
+        /** Maintains the column widths while resizing.
         Defaults to true when using *'s or undefined widths. Can be ovverriden by setting to false. */
         maintainColumnRatios?: boolean;
 
@@ -471,11 +471,11 @@ declare module ngGrid {
         /** Disable row selections by clicking on the row and only when the checkbox is clicked. */
         selectWithCheckboxOnly?: boolean;
 
-        /** Enables menu to choose which columns to display and group by. 
+        /** Enables menu to choose which columns to display and group by.
         If both showColumnMenu and showFilter are false the menu button will not display.*/
         showColumnMenu?: boolean;
 
-        /** Enables display of the filterbox in the column menu. 
+        /** Enables display of the filterbox in the column menu.
         If both showColumnMenu and showFilter are false the menu button will not display.*/
         showFilter?: boolean;
 
@@ -488,7 +488,7 @@ declare module ngGrid {
         /** Row selection check boxes appear as the first column. */
         showSelectionCheckbox?: boolean;
 
-        /** Define a sortInfo object to specify a default sorting state. 
+        /** Define a sortInfo object to specify a default sorting state.
         You can also observe this variable to utilize server-side sorting (see useExternalSorting).
         Syntax is sortinfo: { fields: ['fieldName1',' fieldName2'], direction: 'ASC'/'asc' || 'desc'/'DESC'}*/
         sortInfo?: any;
@@ -496,7 +496,7 @@ declare module ngGrid {
         /** Set the tab index of the Vieport. */
         tabIndex?: number;
 
-        /** Prevents the internal sorting from executing. 
+        /** Prevents the internal sorting from executing.
         The sortInfo object will be updated with the sorting information so you can handle sorting (see sortInfo)*/
         useExternalSorting?: boolean;
 
@@ -512,9 +512,9 @@ declare module ngGrid {
 
     export interface IColumnDef {
         /**
-         * This can be an absolute numberor it can also be defined in percentages (20%, 30%), 
-         * in weighted *s, or "auto" (which sizes the column based on data length) 
-         * (much like WPF/Silverlight)/ note: "auto" only works in single page apps currently because the re-size 
+         * This can be an absolute numberor it can also be defined in percentages (20%, 30%),
+         * in weighted *s, or "auto" (which sizes the column based on data length)
+         * (much like WPF/Silverlight)/ note: "auto" only works in single page apps currently because the re-size
          * happens on "document.ready
          */
         width?: any;
@@ -545,10 +545,10 @@ declare module ngGrid {
 
         /** The template to use while editing */
         editableCellTemplate?: string;
-    
+
         /** Allows the cell to use an edit template when focused (grid option enableCellSelection must be enabled)*/
         enableCellEdit?: boolean;
-        
+
         /** Controls when to use the edit template on per-row basis using an angular expression (enableCellEdit must also be true for editing)*/
         cellEditableCondition?: string;
 
@@ -569,7 +569,7 @@ declare module ngGrid {
 
         /** string name for filter to use on the cell ('currency', 'date', etc..) */
         cellFilter?: string;
-        
+
         /** String name for filter to use on the aggregate label ('currency', 'date', etc..) defaults to cellFilter if not set. */
         aggLabelFilter?: string;
 

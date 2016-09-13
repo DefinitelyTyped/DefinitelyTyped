@@ -1,7 +1,7 @@
 // Type definitions for Meteor Roles 1.2.14
 // Project: https://github.com/alanning/meteor-roles/
 // Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../meteor/meteor.d.ts" />
 
@@ -10,7 +10,7 @@
  *
  * @module Roles
  */
-declare module Roles {
+declare namespace Roles {
     /**
      * Constant used to reference the special 'global' group that
      * can be used to apply blanket permissions across all groups.
@@ -259,6 +259,6 @@ declare module Roles {
     }
 } // module
 
-declare module Meteor {
+declare namespace Meteor {
     var roles : Mongo.Collection<Roles.Role>;
 }

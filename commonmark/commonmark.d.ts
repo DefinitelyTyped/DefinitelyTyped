@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module commonmark {
+declare namespace commonmark {
 
     export interface NodeWalkingStep {
         /**
@@ -41,7 +41,7 @@ declare module commonmark {
     export class Node {
         constructor(nodeType: string, sourcepos?: Position);
         isContainer: boolean;
-        
+
         /**
          * (read-only): one of Text, Softbreak, Hardbreak, Emph, Strong, Html, Link, Image, Code, Document, Paragraph, BlockQuote, Item, List, Heading, CodeBlock, HtmlBlock ThematicBreak.
          */
@@ -139,7 +139,7 @@ declare module commonmark {
          */
         walker(): NodeWalker;
         /**
-         * Setting the backing object of listType, listTight, listStat and listDelimiter directly. 
+         * Setting the backing object of listType, listTight, listStat and listDelimiter directly.
          * Not needed unless creating list nodes directly. Should be fixed from v>0.22.1
          * https://github.com/jgm/commonmark.js/issues/74
          */
@@ -147,7 +147,7 @@ declare module commonmark {
     }
 
     /**
-     * Instead of converting Markdown directly to HTML, as most converters do, commonmark.js parses Markdown to an AST (abstract syntax tree), and then renders this AST as HTML. 
+     * Instead of converting Markdown directly to HTML, as most converters do, commonmark.js parses Markdown to an AST (abstract syntax tree), and then renders this AST as HTML.
      * This opens up the possibility of manipulating the AST between parsing and rendering. For example, one could transform emphasis into ALL CAPS.
      */
     export class Parser {
@@ -192,7 +192,7 @@ declare module commonmark {
         /**
          * Override the function that will be used to escape (sanitize) the html output. Return value is used to add to the html output
          * @param input the input to escape
-         * @param isAttributeValue indicates wheter or not the input value will be used as value of an html attribute. 
+         * @param isAttributeValue indicates wheter or not the input value will be used as value of an html attribute.
          */
         escape: (input: string, isAttributeValue: boolean) => string;
     }

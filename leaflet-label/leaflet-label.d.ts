@@ -1,11 +1,11 @@
 // Type definitions for Leaflet.label v0.2.1
 // Project: https://github.com/Leaflet/Leaflet.label
 // Definitions by: Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../leaflet/leaflet.d.ts" />
 
-declare module L {
+declare namespace L {
     export interface IconOptions {
         labelAnchor?: Point;
     }

@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
 // Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
@@ -35,7 +35,7 @@ interface Cordova {
      * @param action The action name to call on the native side (generally corresponds to the native class method).
      * @param args An array of arguments to pass into the native environment.
      */
-    exec(success: () => any, fail: () => any, service: string, action: string, args?: string[]): void;
+    exec(success: (data: any) => any, fail: (err: any) => any, service: string, action: string, args?: any[]): void;
     /** Gets the operating system name. */
     platformId: string;
     /** Gets Cordova framework version */

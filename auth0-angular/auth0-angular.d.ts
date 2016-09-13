@@ -5,7 +5,7 @@
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module auth0.angular {
+declare namespace auth0.angular {
 
     interface IAuth0ClientOptions {
         /**
@@ -65,7 +65,7 @@ declare module auth0.angular {
         (error: any): void;
     }
 
-    interface IAuth0Service {           
+    interface IAuth0Service {
         /**
         * Hooks to internal Angular events so that a user will be redirected to the login page if trying to visit a restricted resource
         */
@@ -156,7 +156,7 @@ declare module auth0.angular {
         * Configures the auth service
         * @param options Client options passed into Auth0
         */
-        init(options: IAuth0ClientOptions): void;    
+        init(options: IAuth0ClientOptions): void;
 
         /**
         * @param event Name of the event to handle.

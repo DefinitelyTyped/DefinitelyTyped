@@ -10,7 +10,7 @@ declare module 'promise' {
 
 declare var Promise: Promise.Ipromise;
 
-declare module Promise {
+declare namespace Promise {
 
 	export interface Ipromise {
 		new <T>(resolver: (resolve: (value: T) => void, reject: (reason: any) => void) => void): IThenable<T>;
@@ -18,7 +18,7 @@ declare module Promise {
 		resolve: <T>(value: T) => IThenable<T>;
 		reject: <T>(value: T) => IThenable<T>;
 		all: (array: Array<IThenable<any>>) => IThenable<Array<any>>;
-		denodeify: (fn: Function) => IThenable<any>;
+		denodeify: (fn: Function) => (...args: any[]) => IThenable<any>;
 		nodeify: (fn: Function) => Function;
 	}
 

@@ -1,7 +1,7 @@
 ﻿// Type definitions for spectrum 1.5.1
 // Project: https://github.com/bgrins/spectrum/
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../tinycolor/tinycolor.d.ts"/>
@@ -21,7 +21,7 @@ interface JQuery {
     /**
     * Toggles the colorpicker.
     *
-    * Warning: If you are calling toggle from a click handler, 
+    * Warning: If you are calling toggle from a click handler,
     *   make sure you return false to prevent the colorpicker from immediately hiding after it is toggled.
     */
     spectrum(methodName: "toggle"): JQuery;
@@ -96,7 +96,7 @@ interface JQuery {
      * as a spectrum colorpicker instance.
      */
     spectrum(options?: Spectrum.Options): JQuery;
-    
+
     /**
      * Called at the beginning of a drag event on either hue slider, alpha slider, or main color picker areas.
      */
@@ -108,7 +108,7 @@ interface JQuery {
     on(events: "dragstop.spectrum", handler: (eventObject: JQueryEventObject, color: tinycolorInstance) => any): JQuery;
 }
 
-declare module Spectrum {
+declare namespace Spectrum {
 
     interface Options {
 
@@ -120,7 +120,7 @@ declare module Spectrum {
         color?: string;
 
         /**
-         * The colorpicker will always show up at full size, and be positioned as an inline-block element. 
+         * The colorpicker will always show up at full size, and be positioned as an inline-block element.
          */
         flat?: boolean;
 
@@ -251,7 +251,7 @@ declare module Spectrum {
         appendTo?: any //same as JQuery appendTo : JQuery| any[] | Element| string
 
         /**
-         * Sets the max size for the palette. 
+         * Sets the max size for the palette.
          */
         maxSelectionSize?: number;
 
@@ -270,15 +270,15 @@ declare module Spectrum {
         move?: (color: tinycolorInstance) => void;
 
         /**
-         * Called after the colorpicker is opened. This is ignored on a flat colorpicker. 
+         * Called after the colorpicker is opened. This is ignored on a flat colorpicker.
          * Note, when any colorpicker on the page is shown it will hide any that are already open.
          */
         show?: (color: tinycolorInstance) => void;
 
         /**
-         * Called after the colorpicker is hidden. 
-         * This happens when clicking outside of the picker while it is open. 
-         * Note, when any colorpicker on the page is shown it will hide any that are already open. 
+         * Called after the colorpicker is hidden.
+         * This happens when clicking outside of the picker while it is open.
+         * Note, when any colorpicker on the page is shown it will hide any that are already open.
          * This event is ignored on a flat colorpicker.
          */
         hide?: (color: tinycolorInstance) => void;

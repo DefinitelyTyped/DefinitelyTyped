@@ -1,14 +1,14 @@
 // Type definitions for gulp-typescript
 // Project: https://github.com/ivogabe/gulp-typescript
 // Definitions by: Asana <https://asana.com>, Thomas Corbière <https://github.com/tomc974>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
 declare module "gulp-typescript" {
     function GulpTypescript(params?: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
-    module GulpTypescript {
+    namespace GulpTypescript {
         export function createProject(params?: Params): Project;
         export function createProject(file: string, params?: Params): Project;
         export function filter(filters: FilterSettings): CompilationStream;
@@ -62,7 +62,7 @@ declare module "gulp-typescript" {
             js: NodeJS.ReadWriteStream;
         }
 
-        module reporter {
+        namespace reporter {
             function nullReporter(): Reporter;
             function defaultReporter(): Reporter;
             function fullReporter(showFullFilename?: boolean): Reporter;

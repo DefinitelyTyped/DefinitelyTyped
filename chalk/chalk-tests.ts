@@ -4,6 +4,7 @@ import chalk = require('chalk');
 
 var str: string;
 var bool: boolean;
+var chain: chalk.ChalkChain;
 
 chalk.enabled = bool;
 str = chalk.stripColor(str);
@@ -28,3 +29,9 @@ console.log(  chalk.red('Hello', chalk.underline.bgBlue('world') + '!')  );
 
 // nest styles of the same type even (color, underline, background)
 console.log(  chalk.green('I am a green line ' + chalk.blue('with a blue substring') + ' that becomes green again!')  );
+
+chain = chalk.green;
+chain = chain.underline;
+str = chain('someString');
+
+chalk.enabled = chalk.supportsColor = bool;

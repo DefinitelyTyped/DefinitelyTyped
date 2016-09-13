@@ -1,7 +1,7 @@
 // Type definitions for react-router-bootstrap
 // Project: https://github.com/react-bootstrap/react-router-bootstrap
 // Definitions by: Vincent Lesierse <https://github.com/vlesierse>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
 ///<reference path="../react-router/react-router.d.ts"/>

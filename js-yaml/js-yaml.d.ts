@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module jsyaml {
+declare namespace jsyaml {
 	export function safeLoad(str: string, opts?: LoadOptions): any;
 	export function load(str: string, opts?: LoadOptions): any;
 

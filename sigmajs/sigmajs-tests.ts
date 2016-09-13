@@ -1,5 +1,5 @@
 /// <reference path="sigmajs.d.ts"/>
-module SigmaJsTests {
+namespace SigmaJsTests {
     var container = document.createElement("sigma");
     var s = new sigma({
         settings: {

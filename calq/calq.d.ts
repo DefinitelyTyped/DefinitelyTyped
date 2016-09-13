@@ -1,7 +1,7 @@
 // Type definitions for calq
 // Project: https://calq.io/docs/client/javascript/reference
 // Definitions by: Eirik Hoem <https://github.com/eirikhm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Calq
 {
@@ -11,7 +11,7 @@ interface Calq
     init(writeKey:string, options?:{[index:string]:any}):void;
 }
 
-declare module Calq
+declare namespace Calq
 {
     interface Action
     {

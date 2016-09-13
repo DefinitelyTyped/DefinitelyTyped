@@ -7,10 +7,31 @@
 
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import {renderToString} from "react-dom/server";
 
-import { browserHistory, hashHistory, Router, Route, IndexRoute, Link } from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, match, withRouter, Router, RouterContext, Route, IndexRoute, Link} from "react-router"
+import { routerShape, locationShape } from "react-router/lib/PropTypes"
+
+interface MasterContext {
+	router: ReactRouter.RouterOnContext;
+}
 
 class Master extends React.Component<React.Props<{}>, {}> {
+
+	static contextTypes: React.ValidationMap<any> = {
+		router: routerShape
+	};
+	context: MasterContext;
+
+	navigate() {
+		var router = this.context.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>
@@ -22,8 +43,21 @@ class Master extends React.Component<React.Props<{}>, {}> {
 
 }
 
+interface DashboardProps {
+	router: ReactRouter.InjectedRouter
+};
 
-class Dashboard extends React.Component<{}, {}> {
+class Dashboard extends React.Component<DashboardProps, {}> {
+
+	navigate() {
+		var router = this.props.router;
+		router.push("/users");
+		router.push({
+			pathname: "/users/12",
+			query: { modal: true },
+			state: { fromDashboard: true }
+		});
+	}
 
 	render() {
 		return <div>
@@ -32,6 +66,8 @@ class Dashboard extends React.Component<{}, {}> {
 	}
 
 }
+
+const DashboardWithRouter = withRouter(Dashboard)
 
 class NotFound extends React.Component<{}, {}> {
 
@@ -58,9 +94,22 @@ class Users extends React.Component<{}, {}> {
 ReactDOM.render((
 	<Router history={hashHistory}>
 		<Route path="/" component={Master}>
-			<IndexRoute component={Dashboard} />
+			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users}/>
 			<Route path="*" component={NotFound}/>
 		</Route>
 	</Router>
 ), document.body)
+
+
+const history = createMemoryHistory("baseurl");
+const routes = (
+	<Route path="/" component={Master}>
+		<IndexRoute component={DashboardWithRouter} />
+		<Route path="users" component={Users}/>
+	</Route>
+);
+
+match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});

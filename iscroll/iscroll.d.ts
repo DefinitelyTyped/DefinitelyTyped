@@ -1,7 +1,7 @@
 // Type definitions for iScroll 4.2
 // Project: http://cubiq.org/iscroll-4
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface iScrollEvent {

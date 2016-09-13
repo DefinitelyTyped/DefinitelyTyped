@@ -6,11 +6,11 @@
 declare module "koa-compose" {
     function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
 
-    module compose {
+    namespace compose {
         interface Middleware {
             (next?: void): IterableIterator<any>;
         }
-        
+
         interface ComposedMiddleware {
             (): IterableIterator<any>;
         }

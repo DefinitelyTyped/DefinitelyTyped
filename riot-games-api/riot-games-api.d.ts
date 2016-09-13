@@ -1,13 +1,13 @@
 // Type definitions for Riot Games API
 // Project: https://developer.riotgames.com/
 // Definitions by: Xavier Stouder <https://github.com/xstoudi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module RiotGamesAPI{
+declare namespace RiotGamesAPI{
 	/**
 	* champion-v1.2
 	*/
-	module Champion{
+	namespace Champion{
 		interface ChampionDto{
 			active: boolean,
 			botEnabled: boolean,
@@ -24,7 +24,7 @@ declare module RiotGamesAPI{
 	/**
 	* championmastery
 	*/
-	module ChampionMastery{
+	namespace ChampionMastery{
 		interface ChampionMasteryDto {
 			championId: number,
 			championLevel: number,
@@ -41,7 +41,7 @@ declare module RiotGamesAPI{
 	/**
 	* current-game-v1.0
 	*/
-	module CurrentGame{
+	namespace CurrentGame{
 		interface CurrentGameInfo{
 			bannedChampion: Array<BannedChampion>,
 			gameId: number,
@@ -88,7 +88,7 @@ declare module RiotGamesAPI{
 	/**
 	* featured-games-v1.0
 	*/
-	module FeaturedGames{
+	namespace FeaturedGames{
 		interface FeaturedGames{
 			clientRefreshInterval: number,
 			gameList: Array<FeaturedGameInfo>
@@ -128,7 +128,7 @@ declare module RiotGamesAPI{
 	/**
 	* game-v1.3
 	*/
-	module Game{
+	namespace Game{
 		interface RecentGamesDto{
 			games: Array<GameDto>,
 			summonerId: number
@@ -240,7 +240,7 @@ declare module RiotGamesAPI{
 	/**
 	* league-v2.5
 	*/
-	module League{
+	namespace League{
 		interface LeagueDto{
 			entries: Array<LeagueEntryDto>,
 			name: string,
@@ -272,7 +272,7 @@ declare module RiotGamesAPI{
 	/**
 	* lol-static-data-v1.2
 	*/
-	module LolStaticData{
+	namespace LolStaticData{
 		interface ChampionListDto{
 			data: {[str: string]: ChampionDto},
 			format: string,
@@ -664,7 +664,7 @@ declare module RiotGamesAPI{
 	/**
 	* lol-status-v1.0
 	*/
-	module LolStatus{
+	namespace LolStatus{
 		interface Shard{
 			hostname: string,
 			locales: Array<string>,
@@ -711,7 +711,7 @@ declare module RiotGamesAPI{
 	/**
 	* match-v2.2
 	*/
-	module Match{
+	namespace Match{
 		interface MatchDetail{
 			mapId: number,
 			matchCreation: number,
@@ -931,7 +931,7 @@ declare module RiotGamesAPI{
 	/**
 	* matchlist-v2.2
 	*/
-	module MatchList{
+	namespace MatchList{
 		interface MatchList{
 			endIndex: number,
 			matches: Array<MatchReference>,
@@ -954,7 +954,7 @@ declare module RiotGamesAPI{
 	/**
 	* stats-v1.3
 	*/
-	module Stats{
+	namespace Stats{
 		interface RankedStatsDto{
 			champions: Array<ChampionStatsDto>,
 			modifyDate: number,
@@ -1038,7 +1038,7 @@ declare module RiotGamesAPI{
 	/**
 	* summoner-v1.4
 	*/
-	module Summoner{
+	namespace Summoner{
 		interface SummonerDto{
 			id: number,
 			name: string,
@@ -1079,7 +1079,7 @@ declare module RiotGamesAPI{
 	/**
 	* team-v2.4
 	*/
-	module Team{
+	namespace Team{
 		interface TeamDto{
 			createDate: number,
 			fullId: string,
@@ -1130,7 +1130,7 @@ declare module RiotGamesAPI{
 	/**
 	* tournament-provider-v1
 	*/
-	module TournamentProvider{
+	namespace TournamentProvider{
 		interface TournamentCodeParameters{
 			allowedSummonerIds: SummonerIdParams,
 			mapType: string,

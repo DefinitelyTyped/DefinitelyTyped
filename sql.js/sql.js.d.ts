@@ -1,13 +1,14 @@
 // Type definitions for sql.js
 // Project: https://github.com/kripken/sql.js
 // Definitions by: George Wu <https://github.com/Hozuki/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
 declare module "sql.js" {
 
     class Database {
+        constructor();
         constructor(data: Buffer);
         constructor(data: Uint8Array);
         constructor(data: number[]);
@@ -29,6 +30,10 @@ declare module "sql.js" {
         export(): Uint8Array;
 
         close(): void;
+
+        getRowsModified(): number;
+
+        create_function(name: string, func: Function): void;
     }
 
     class Statement {

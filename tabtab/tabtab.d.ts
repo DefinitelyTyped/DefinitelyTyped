@@ -1,7 +1,7 @@
 // Type definitions for tabtab 0.0.4
 // Project: https://github.com/mklabs/node-tabtab
 // Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "tabtab" {
 

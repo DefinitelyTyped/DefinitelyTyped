@@ -1,7 +1,7 @@
 // Type definitions for circular-json v0.1.6
 // Project: https://github.com/WebReflection/circular-json
 // Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'circular-json' {
   interface ICircularJSON extends JSON {

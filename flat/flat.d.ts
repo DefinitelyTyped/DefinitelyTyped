@@ -1,9 +1,9 @@
 // Type definitions for flat
 // Project: https://github.com/hughsk/flat
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module FlatTypes {
+declare namespace FlatTypes {
 	interface FlattenOptions {
 		delimiter?: string;
 		safe?: boolean;

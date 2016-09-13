@@ -1,11 +1,11 @@
 ﻿// Type definitions for Microsoft.Maps.Directions 7.0
 // Project: http://msdn.microsoft.com/en-us/library/hh312813.aspx
 // Definitions by: Eric Todd <https://github.com/ericrtodd>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>
 
-declare module Microsoft.Maps.Directions {
+declare namespace Microsoft.Maps.Directions {
 
     export interface BusinessDetails {
 

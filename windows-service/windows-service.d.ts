@@ -1,7 +1,7 @@
 ﻿// Type definitions for windows-service 1.0.4
 // Project: https://bitbucket.org/stephenwvickers/node-windows-service
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 declare module "windows-service" {

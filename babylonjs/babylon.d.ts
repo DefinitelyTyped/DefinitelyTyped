@@ -3,7 +3,7 @@
 // Definitions by: David Catuhe <https://github.com/deltakosh/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module BABYLON {
+declare namespace BABYLON {
     class _DepthCullingState {
         private _isDepthTestDirty;
         private _isDepthMaskDirty;
@@ -413,7 +413,7 @@ interface HTMLMediaElement {
     crossOrigin: string;
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     /**
      * Node is the basic class for all scene objects (Mesh, Light Camera).
      */
@@ -493,7 +493,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IDisposable {
         dispose(): void;
     }
@@ -974,7 +974,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Action {
         triggerOptions: any;
         trigger: number;
@@ -995,7 +995,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     /**
      * ActionEvent is the event beint sent when an action is triggered.
      */
@@ -1117,7 +1117,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Condition {
         _actionManager: ActionManager;
         _evaluationId: number;
@@ -1160,7 +1160,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SwitchBooleanAction extends Action {
         propertyPath: string;
         private _target;
@@ -1244,7 +1244,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class InterpolateValueAction extends Action {
         propertyPath: string;
         value: any;
@@ -1259,7 +1259,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Animatable {
         target: any;
         fromFrame: number;
@@ -1286,7 +1286,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class AnimationRange {
         name: string;
         from: number;
@@ -1379,7 +1379,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IEasingFunction {
         ease(gradient: number): number;
     }
@@ -1451,7 +1451,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Analyser {
         SMOOTHING: number;
         FFT_SIZE: number;
@@ -1485,7 +1485,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class AudioEngine {
         private _audioContext;
         private _audioContextInitialized;
@@ -1506,7 +1506,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Sound {
         name: string;
         autoplay: boolean;
@@ -1602,7 +1602,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SoundTrack {
         private _outputAudioNode;
         private _inputAudioNode;
@@ -1626,7 +1626,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Bone extends Node {
         name: string;
         children: Bone[];
@@ -1656,7 +1656,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Skeleton {
         name: string;
         id: string;
@@ -1695,7 +1695,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ArcRotateCamera extends TargetCamera {
         alpha: number;
         beta: number;
@@ -1787,7 +1787,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VRCameraMetrics {
         hResolution: number;
         vResolution: number;
@@ -1894,7 +1894,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DeviceOrientationCamera extends FreeCamera {
         private _offsetX;
         private _offsetY;
@@ -1913,7 +1913,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FollowCamera extends TargetCamera {
         radius: number;
         rotationOffset: number;
@@ -1940,7 +1940,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FreeCamera extends TargetCamera {
         ellipsoid: Vector3;
         keysUp: number[];
@@ -1980,13 +1980,13 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class GamepadCamera extends UniversalCamera {
         constructor(name: string, position: Vector3, scene: Scene);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class AnaglyphFreeCamera extends FreeCamera {
         interaxialDistance: number;
         constructor(name: string, position: Vector3, interaxialDistance: number, scene: Scene);
@@ -2008,7 +2008,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class TargetCamera extends Camera {
         cameraDirection: Vector3;
         cameraRotation: Vector2;
@@ -2057,7 +2057,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class TouchCamera extends FreeCamera {
         private _offsetX;
         private _offsetY;
@@ -2077,7 +2077,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class UniversalCamera extends TouchCamera {
         gamepad: Gamepad;
         private _gamepads;
@@ -2092,7 +2092,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VirtualJoysticksCamera extends FreeCamera {
         private _leftjoystick;
         private _rightjoystick;
@@ -2104,7 +2104,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Collider {
         radius: Vector3;
         retry: number;
@@ -2141,7 +2141,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     var CollisionWorker: string;
     interface ICollisionCoordinator {
         getNewPosition(position: Vector3, velocity: Vector3, collider: Collider, maximumRetry: number, excludedMesh: AbstractMesh, onNewPosition: (collisionIndex: number, newPosition: Vector3, collidedMesh?: AbstractMesh) => void, collisionIndex: number): void;
@@ -2277,7 +2277,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     var WorkerIncluded: boolean;
     class CollisionCache {
         private _meshes;
@@ -2321,7 +2321,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class IntersectionInfo {
         bu: number;
         bv: number;
@@ -2345,7 +2345,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DebugLayer {
         private _scene;
         private _camera;
@@ -2402,7 +2402,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BoundingBox {
         minimum: Vector3;
         maximum: Vector3;
@@ -2429,7 +2429,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BoundingInfo {
         minimum: Vector3;
         maximum: Vector3;
@@ -2447,7 +2447,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BoundingSphere {
         minimum: Vector3;
         maximum: Vector3;
@@ -2464,7 +2464,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Layer {
         name: string;
         texture: Texture;
@@ -2486,7 +2486,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class LensFlare {
         size: number;
         position: number;
@@ -2498,7 +2498,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class LensFlareSystem {
         name: string;
         lensFlares: LensFlare[];
@@ -2530,7 +2530,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DirectionalLight extends Light implements IShadowLight {
         direction: Vector3;
         position: Vector3;
@@ -2558,7 +2558,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class HemisphericLight extends Light {
         direction: Vector3;
         groundColor: Color3;
@@ -2572,7 +2572,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IShadowLight {
         id: string;
         position: Vector3;
@@ -2613,7 +2613,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PointLight extends Light implements IShadowLight {
         position: Vector3;
         private _worldMatrix;
@@ -2632,7 +2632,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SpotLight extends Light implements IShadowLight {
         position: Vector3;
         direction: Vector3;
@@ -2656,7 +2656,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface ISceneLoaderPlugin {
         extensions: string;
         importMesh: (meshesNames: any, scene: Scene, data: any, rootUrl: string, meshes: AbstractMesh[], particleSystems: ParticleSystem[], skeletons: Skeleton[]) => boolean;
@@ -2688,7 +2688,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SIMDVector3 {
         static TransformCoordinatesToRefSIMD(vector: Vector3, transformation: Matrix, result: Vector3): void;
         static TransformCoordinatesFromFloatsToRefSIMD(x: number, y: number, z: number, transformation: Matrix, result: Vector3): void;
@@ -2706,7 +2706,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Color3 {
         r: number;
         g: number;
@@ -3229,7 +3229,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class EffectFallbacks {
         private _defines;
         private _currentRank;
@@ -3303,7 +3303,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class MaterialDefines {
         _keys: string[];
         isEqual(other: MaterialDefines): boolean;
@@ -3374,7 +3374,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class MultiMaterial extends Material {
         subMaterials: Material[];
         constructor(name: string, scene: Scene);
@@ -3385,7 +3385,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ShaderMaterial extends Material {
         private _shaderPath;
         private _options;
@@ -3427,7 +3427,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FresnelParameters {
         isEnabled: boolean;
         leftColor: Color3;
@@ -3504,7 +3504,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class AbstractMesh extends Node implements IDisposable {
         private static _BILLBOARDMODE_NONE;
         private static _BILLBOARDMODE_X;
@@ -3708,7 +3708,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class CSG {
         private polygons;
         matrix: Matrix;
@@ -3734,7 +3734,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Geometry implements IGetSetVerticesData {
         id: string;
         delayLoadState: number;
@@ -3790,7 +3790,7 @@ declare module BABYLON {
         static ImportGeometry(parsedGeometry: any, mesh: Mesh): void;
         static Parse(parsedVertexData: any, scene: Scene, rootUrl: string): Geometry;
     }
-    module Geometry.Primitives {
+    namespace Geometry.Primitives {
         class _Primitive extends Geometry {
             private _beingRegenerated;
             private _canBeRegenerated;
@@ -3924,7 +3924,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class GroundMesh extends Mesh {
         generateOctree: boolean;
         private _worldInverse;
@@ -3965,7 +3965,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     /**
      * Creates an instance based on a source mesh.
      */
@@ -3995,7 +3995,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class LinesMesh extends Mesh {
         color: Color3;
         alpha: number;
@@ -4012,7 +4012,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class _InstancesBatch {
         mustReturn: boolean;
         visibleInstances: InstancedMesh[][];
@@ -4236,7 +4236,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IGetSetVerticesData {
         isVerticesDataPresent(kind: string): boolean;
         getVerticesData(kind: string, copyWhenShared?: boolean): number[] | Int32Array | Float32Array;
@@ -4411,7 +4411,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class MeshBuilder {
         static CreateBox(name: string, options: {
             width?: number;
@@ -4610,7 +4610,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON.Internals {
+declare namespace BABYLON.Internals {
     class MeshLODLevel {
         distance: number;
         mesh: Mesh;
@@ -4618,7 +4618,7 @@ declare module BABYLON.Internals {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     /**
      * A simplifier interface for future simplification implementations.
      */
@@ -4741,7 +4741,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Polygon {
         static Rectangle(xmin: number, ymin: number, xmax: number, ymax: number): Vector2[];
         static Circle(radius: number, cx?: number, cy?: number, numberOfSides?: number): Vector2[];
@@ -4763,7 +4763,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SubMesh {
         materialIndex: number;
         verticesStart: number;
@@ -4802,7 +4802,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VertexBuffer {
         private _mesh;
         private _engine;
@@ -4849,7 +4849,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Particle {
         position: Vector3;
         direction: Vector3;
@@ -4864,7 +4864,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ParticleSystem implements IDisposable {
         name: string;
         static BLENDMODE_ONEONE: number;
@@ -4944,7 +4944,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SolidParticle {
         idx: number;
         color: Color4;
@@ -4971,7 +4971,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     /**
     * Full documentation here : http://doc.babylonjs.com/tutorials/Solid_Particle_System
     */
@@ -5192,7 +5192,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IPhysicsEnginePlugin {
         name: string;
         initialize(iterations?: number): any;
@@ -5251,19 +5251,19 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class AnaglyphPostProcess extends PostProcess {
         constructor(name: string, ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BlackAndWhitePostProcess extends PostProcess {
         constructor(name: string, ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BlurPostProcess extends PostProcess {
         direction: Vector2;
         blurWidth: number;
@@ -5271,14 +5271,14 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ColorCorrectionPostProcess extends PostProcess {
         private _colorTableTexture;
         constructor(name: string, colorTableUrl: string, ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ConvolutionPostProcess extends PostProcess {
         kernel: number[];
         constructor(name: string, kernel: number[], ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
@@ -5291,20 +5291,20 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DisplayPassPostProcess extends PostProcess {
         constructor(name: string, ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FilterPostProcess extends PostProcess {
         kernelMatrix: Matrix;
         constructor(name: string, kernelMatrix: Matrix, ratio: number, camera?: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FxaaPostProcess extends PostProcess {
         texelWidth: number;
         texelHeight: number;
@@ -5312,7 +5312,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class HDRRenderingPipeline extends PostProcessRenderPipeline implements IDisposable {
         /**
         * Public members
@@ -5435,7 +5435,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class LensRenderingPipeline extends PostProcessRenderPipeline {
         /**
         * The chromatic aberration PostProcess id in the pipeline
@@ -5526,13 +5526,13 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PassPostProcess extends PostProcess {
         constructor(name: string, ratio: number, camera: Camera, samplingMode?: number, engine?: Engine, reusable?: boolean);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcess {
         name: string;
         onApply: (effect: Effect) => void;
@@ -5566,7 +5566,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcessManager {
         private _scene;
         private _indexBuffer;
@@ -5582,7 +5582,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class RefractionPostProcess extends PostProcess {
         color: Color3;
         depth: number;
@@ -5593,7 +5593,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SSAORenderingPipeline extends PostProcessRenderPipeline {
         /**
         * The PassPostProcess id in the pipeline that contains the original scene color
@@ -5687,14 +5687,14 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class StereoscopicInterlacePostProcess extends PostProcess {
         private _stepSize;
         constructor(name: string, camB: Camera, postProcessA: PostProcess, isStereoscopicHoriz: boolean, samplingMode?: number);
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     enum TonemappingOperator {
         Hable = 0,
         Reinhard = 1,
@@ -5708,7 +5708,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VolumetricLightScatteringPostProcess extends PostProcess {
         private _volumetricLightScatteringPass;
         private _volumetricLightScatteringRTT;
@@ -5806,7 +5806,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VRDistortionCorrectionPostProcess extends PostProcess {
         aspectRatio: number;
         private _isRightEye;
@@ -5820,7 +5820,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ReflectionProbe {
         name: string;
         private _scene;
@@ -5841,7 +5841,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BoundingBoxRenderer {
         frontColor: Color3;
         backColor: Color3;
@@ -5859,7 +5859,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DepthRenderer {
         private _scene;
         private _depthMap;
@@ -5876,7 +5876,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class EdgesRenderer {
         edgesWidthScalerForOrthographic: number;
         edgesWidthScalerForPerspective: number;
@@ -5903,7 +5903,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class OutlineRenderer {
         private _scene;
         private _effect;
@@ -5914,7 +5914,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class RenderingGroup {
         index: number;
         private _scene;
@@ -5930,7 +5930,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class RenderingManager {
         static MAX_RENDERINGGROUPS: number;
         private _scene;
@@ -5951,7 +5951,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Sprite {
         name: string;
         position: Vector3;
@@ -5984,7 +5984,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SpriteManager {
         name: string;
         cellSize: number;
@@ -6013,7 +6013,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON.Internals {
+declare namespace BABYLON.Internals {
     class AndOrNotEvaluator {
         static Eval(query: string, evaluateCallback: (val: any) => boolean): boolean;
         private static _HandleParenthesisContent(parenthesisContent, evaluateCallback);
@@ -6021,7 +6021,7 @@ declare module BABYLON.Internals {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IAssetTask {
         onSuccess: (task: IAssetTask) => void;
         onError: (task: IAssetTask) => void;
@@ -6106,7 +6106,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Database {
         private callbackManifestChecked;
         private currentSceneUrl;
@@ -6137,7 +6137,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class FilesInput {
         private _engine;
         private _currentScene;
@@ -6162,7 +6162,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Gamepads {
         private babylonGamepads;
         private oneGamepadConnected;
@@ -6289,7 +6289,7 @@ interface Navigator {
     webkitGamepads(func?: any): any;
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface ILoadingScreen {
         displayLoadingUI: () => void;
         hideLoadingUI: () => void;
@@ -6311,7 +6311,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SceneOptimization {
         priority: number;
         apply: (scene: Scene) => boolean;
@@ -6366,14 +6366,14 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SceneSerializer {
         static Serialize(scene: Scene): any;
         static SerializeMesh(toSerialize: any, withParents?: boolean, withChildren?: boolean): any;
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SmartArray<T> {
         data: Array<T>;
         length: number;
@@ -6391,7 +6391,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class SmartCollection {
         count: number;
         items: any;
@@ -6411,7 +6411,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Tags {
         static EnableFor(obj: any): void;
         static DisableFor(obj: any): void;
@@ -6425,7 +6425,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON.Internals {
+declare namespace BABYLON.Internals {
     interface DDSInfo {
         width: number;
         height: number;
@@ -6444,7 +6444,7 @@ declare module BABYLON.Internals {
     }
 }
 
-declare module BABYLON.Internals {
+declare namespace BABYLON.Internals {
     class TGATools {
         private static _TYPE_NO_DATA;
         private static _TYPE_INDEXED;
@@ -6470,7 +6470,7 @@ declare module BABYLON.Internals {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IAnimatable {
         animations: Array<Animation>;
     }
@@ -6617,7 +6617,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     enum JoystickAxis {
         X = 0,
         Y = 1,
@@ -6676,7 +6676,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VRDeviceOrientationFreeCamera extends FreeCamera {
         _alpha: number;
         _beta: number;
@@ -6692,7 +6692,7 @@ declare module BABYLON {
 
 declare var HMDVRDevice: any;
 declare var PositionSensorVRDevice: any;
-declare module BABYLON {
+declare namespace BABYLON {
     class WebVRFreeCamera extends FreeCamera {
         _hmdDevice: any;
         _sensorDevice: any;
@@ -6708,7 +6708,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     interface IOctreeContainer<T> {
         blocks: Array<OctreeBlock<T>>;
     }
@@ -6731,7 +6731,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class OctreeBlock<T> {
         entries: T[];
         blocks: Array<OctreeBlock<T>>;
@@ -6755,7 +6755,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ShadowGenerator {
         private static _FILTER_NONE;
         private static _FILTER_VARIANCESHADOWMAP;
@@ -6813,10 +6813,10 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON.Internals {
+declare namespace BABYLON.Internals {
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class BaseTexture {
         name: string;
         delayLoadState: number;
@@ -6855,7 +6855,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class CubeTexture extends BaseTexture {
         url: string;
         coordinatesMode: number;
@@ -6873,7 +6873,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class DynamicTexture extends Texture {
         private _generateMipMaps;
         private _canvas;
@@ -6889,7 +6889,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class MirrorTexture extends RenderTargetTexture {
         mirrorPlane: Plane;
         private _transformMatrix;
@@ -6901,7 +6901,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class RawTexture extends Texture {
         format: number;
         constructor(data: ArrayBufferView, width: number, height: number, format: number, scene: Scene, generateMipMaps?: boolean, invertY?: boolean, samplingMode?: number);
@@ -6914,7 +6914,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class RenderTargetTexture extends Texture {
         isCube: boolean;
         static _REFRESHRATE_RENDER_ONCE: number;
@@ -6958,7 +6958,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class Texture extends BaseTexture {
         static NEAREST_SAMPLINGMODE: number;
         static BILINEAR_SAMPLINGMODE: number;
@@ -7015,7 +7015,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class VideoTexture extends Texture {
         video: HTMLVideoElement;
         private _autoLaunch;
@@ -7025,7 +7025,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class CannonJSPlugin implements IPhysicsEnginePlugin {
         private _useDeltaForWorldStep;
         private _world;
@@ -7059,7 +7059,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class OimoJSPlugin implements IPhysicsEnginePlugin {
         private _world;
         private _registeredMeshes;
@@ -7090,7 +7090,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcessRenderEffect {
         private _engine;
         private _postProcesses;
@@ -7124,7 +7124,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcessRenderPass {
         private _enabled;
         private _renderList;
@@ -7141,7 +7141,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcessRenderPipeline {
         private _engine;
         private _renderEffects;
@@ -7170,7 +7170,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class PostProcessRenderPipelineManager {
         private _renderPipelines;
         constructor();
@@ -7191,7 +7191,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class CustomProceduralTexture extends ProceduralTexture {
         private _animate;
         private _time;
@@ -7207,7 +7207,7 @@ declare module BABYLON {
     }
 }
 
-declare module BABYLON {
+declare namespace BABYLON {
     class ProceduralTexture extends Texture {
         isCube: boolean;
         private _size;

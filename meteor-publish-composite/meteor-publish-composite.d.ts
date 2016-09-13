@@ -51,7 +51,7 @@ declare interface PublishCompositeConfig<OutLevel> {
     find() : Mongo.Cursor<OutLevel>;
 }
 
-declare module Meteor {
+declare namespace Meteor {
     function publishComposite(
         name : string,
         config : PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
@@ -62,4 +62,19 @@ declare module Meteor {
         configFunc : (...args : any[]) =>
             PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
     ) : void;
+}
+
+declare module 'meteor/meteor' {
+    namespace Meteor {
+        function publishComposite(
+            name : string,
+            config : PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
+        ) : void;
+
+        function publishComposite(
+            name : string,
+            configFunc : (...args : any[]) =>
+                PublishCompositeConfig<any>|PublishCompositeConfig<any>[]
+        ) : void;
+    }
 }

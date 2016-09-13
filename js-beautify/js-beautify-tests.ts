@@ -1,7 +1,16 @@
 /// <reference path="js-beautify.d.ts" />
 
-var simple: string = js_beautify("console.log('Hello world!');");
+let bCss = js_beautify.css("body{display:none;}");
+bCss = js_beautify.css_beautify("body{display:none;}");
 
+let bHtml = js_beautify.html("<div/>");
+bHtml = js_beautify.html_beautify("<div/>");
+
+let optHtml = <HTMLBeautifyOptions> {};
+let optCss = <CSSBeautifyOptions> {};
+let optjs = <JsBeautifyOptions> {};
+
+var simple: string = js_beautify("console.log('Hello world!');");
 var full: string = js_beautify(
     "console.log('Hello world!');",
     {

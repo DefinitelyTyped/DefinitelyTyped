@@ -3,7 +3,7 @@
 // Definitions by: Sławomir Rosiek <https://github.com/rosieks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Oidc {
+declare namespace Oidc {
     class DefaultHttpRequest {
         getJSON(url: string, config: any): DefaultPromise;
     }
@@ -50,8 +50,9 @@ declare module Oidc {
     }
 
     interface OidcTokenManagerSettings {
+        load_user_profile?: boolean;
         persist?: boolean;
-        store?: any;
+        store?: Storage;
         persistKey?: string;
         client_id?: string;
         redirect_uri?: string;
@@ -62,8 +63,16 @@ declare module Oidc {
         popup_redirect_uri?: string;
         silent_redirect_uri?: string;
         silent_renew?: boolean;
+        request_state_store?: Storage;
+        request_state_key?: string;
+        metadata?: any;
+        authorization_endpoint?: string;
+        jwks_uri?: string;
+        jwks?: any;
+        userinfo_endpoint?: string;
+        end_session_endpoint?: string;
     }
-    
+
     interface PopupSettings {
         features?: string;
         target?: string;
@@ -74,7 +83,7 @@ declare module Oidc {
         setPromiseFactory(promiseFactory: DefaultPromiseFactory): void;
         setHttpRequest(httpRequest: DefaultHttpRequest): void;
     }
-    
+
     interface OidcToken {
         profile: string;
         id_token: string;
@@ -106,8 +115,8 @@ declare module Oidc {
         addOnTokenExpired(cb: () => void): void;
         addOnSilentTokenRenewFailed(cb: () => void): void;
         removeToken(): void;
-        redirectForToken(): void;
-        redirectForLogout(): void;
+        redirectForToken(): DefaultPromise;
+        redirectForLogout(): DefaultPromise;
         processTokenCallbackAsync(queryString?: string): DefaultPromise;
         renewTokenSilentAsync(): DefaultPromise;
         processTokenCallbackSilent(hash?: string): void;

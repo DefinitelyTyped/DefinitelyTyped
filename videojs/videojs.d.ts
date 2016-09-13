@@ -1,7 +1,7 @@
 // Type definitions for Video.js
 // Project: https://github.com/zencoder/video-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // The Video.js API allows you to interact with the video through Javascript, whether the browser is playing the video through HTML5 video, Flash, or any other supported playback technologies.
 
@@ -48,6 +48,9 @@ interface VideoJSPlayer {
 	on(eventName: string, callback: () => void ): void;
 	off(eventName: string, callback: () => void ): void;
 	dispose(): void;
+	addRemoteTextTrack(options : {}) : HTMLTrackElement;
+	removeRemoteTextTrack(track : HTMLTrackElement) : void;
+	poster(val?: string) : string|VideoJSPlayer;
 }
 
 interface VideoJSStatic {

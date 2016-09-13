@@ -1,7 +1,7 @@
 // Type definitions for File API: Writer
 // Project: http://www.w3.org/TR/file-writer-api/
 // Definitions by: Kon <http://phyzkit.net/> 
-// Definitions: https://github.com/borisyankov/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /**
  * This interface provides methods to monitor the asynchronous writing of blobs to disk using progress events [PROGRESS-EVENTS] and event handler attributes.

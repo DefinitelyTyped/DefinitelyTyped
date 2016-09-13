@@ -1,7 +1,7 @@
 // Type definitions for verror v1.6.0
 // Project: https://github.com/davepacheco/node-verror
 // Definitions by: Sven Reglitzki <https://github.com/svi3c/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "verror" {
 

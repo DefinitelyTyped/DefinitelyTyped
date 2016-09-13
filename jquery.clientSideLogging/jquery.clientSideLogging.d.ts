@@ -1,7 +1,7 @@
 // Type definitions for jquery.clientSideLogging
 // Project: https://github.com/remybach/jQuery.clientSideLogging
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

@@ -1,7 +1,7 @@
 // Type definitions for event-loop-lag 1.0.3
 // Project: https://github.com/pebble/event-loop-lag
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "event-loop-lag" {
 	

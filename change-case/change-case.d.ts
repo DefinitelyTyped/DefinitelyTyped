@@ -1,7 +1,7 @@
 // Type definitions for change-case
 // Project: https://github.com/blakeembrey/change-case
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "change-case" {
     function dot(s: string): string;

@@ -1,7 +1,7 @@
 ﻿// Type definitions for nconf
 // Project: https://github.com/flatiron/nconf
 // Definitions by: Jeff Goddard <https://github.com/jedigo>, Jean-Martin Thibault <https://github.com/jmthibault>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/nconf.d.ts
 
@@ -11,7 +11,7 @@ declare module "nconf" {
 	export var sources: any[];
 
 	export function clear(key: string, callback?: ICallbackFunction): any;
-	export function get (key: string, callback?: ICallbackFunction): any;
+	export function get (key?: string, callback?: ICallbackFunction): any;
 	export function merge(key: string, value: any, callback?: ICallbackFunction): any;
 	export function set (key: string, value: any, callback?: ICallbackFunction): any;
 	export function reset(callback?: ICallbackFunction): any;

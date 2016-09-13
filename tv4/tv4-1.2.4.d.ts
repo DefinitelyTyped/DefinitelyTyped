@@ -1,7 +1,7 @@
 // Type definitions for Tiny Validator tv4 1.0.6
 // Project: https://github.com/geraintluff/tv4
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface TV4ErrorCodes {
 	[key:string]:number;

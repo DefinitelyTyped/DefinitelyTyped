@@ -1,9 +1,9 @@
 // Type definitions for typekit-webfontloader 1.6.4
 // Project: https://github.com/typekit/webfontloader
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module WebFont {
+declare namespace WebFont {
 	export function load(config:WebFont.Config):void;
 	export interface Config {
 		/** Setting this to false will disable html classes (defaults to true) */

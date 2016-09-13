@@ -1,5 +1,9 @@
 /// <reference path="ravenjs.d.ts" />
 
+import RavenJS from 'raven-js';
+
+RavenJS.config('https://public@getsentry.com/1').install();
+
 var options: RavenOptions = {
     logger: 'my-logger',
     ignoreUrls: [
@@ -40,3 +44,5 @@ Raven.setUserContext({
 
 Raven.captureMessage('Broken!');
 Raven.captureMessage('Broken!', {tags: { key: "value" }});
+
+Raven.showReportDialog(options);

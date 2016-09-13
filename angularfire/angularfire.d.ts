@@ -1,7 +1,7 @@
 // Type definitions for AngularFire 0.8.2
 // Project: http://angularfire.com
 // Definitions by: Dénes Harmath <http://github.com/thSoft>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts"/>
 /// <reference path="../firebase/firebase.d.ts"/>

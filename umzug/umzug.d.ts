@@ -3,13 +3,13 @@
 // Definitions by: Ivan Drinchev <https://github.com/drinchev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../sequelize/sequelize.d.ts" />
 
 declare module "umzug" {
     import Sequelize = require("sequelize");
 
-    module umzug {
+    namespace umzug {
 
         interface MigrationOptions {
 

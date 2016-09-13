@@ -1,7 +1,7 @@
 // Type definitions for stampit 2.1
 // Project: https://github.com/stampit-org/stampit
 // Definitions by: Vasyl Boroviak <https://github.com/koresar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Function used as .init() argument.
@@ -204,7 +204,7 @@ interface Stamp {
  * */
 declare function stampit(options?: Options): Stamp
 
-declare module stampit {
+declare namespace stampit {
 
     /**
      * A shortcut methods for stampit().methods()

@@ -1,27 +1,60 @@
 // Type definitions for Microsoft Windows AzureMobile Service 1.0.0
 // Project: http://www.windowsazure.com/en-us/develop/mobile/
 // Definitions by: Morosinotto Daniele <https://github.com/dmorosinotto/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Microsoft.WindowsAzure {
-    
+declare namespace Microsoft.WindowsAzure {
+
     // MobileServiceClient object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554219.aspx
     interface MobileServiceClient {
-        new (applicationUrl: string, applicationKey: string): MobileServiceClient;
+        new (applicationUrl: string, applicationKey?: string): MobileServiceClient;
         applicationUrl: string;
         applicationKey: string;
         currentUser: User;
+        push: Push;
         //for provider:string use one of ProviderEnum: 'microsoftaccount', 'facebook', 'twitter', 'google'
         login(provider: string, token: string, callback: (error: any, user: User) => void ): void;
         login(provider: string, token: string): asyncPromise;
         login(provider: string, callback: (error: any, user: User) => void ): void;
         login(provider: string): asyncPromise;
-        logout(): void;
+        logout(): asyncPromise;
         getTable(tableName: string): MobileServiceTable;
-        withFilter(serviceFilter: (request: any, next: (request: any, callback: (error:any, response: any) => void ) => void, callback: (error: any, response: any) => void ) => void ) : MobileServiceClient;
-        invokeApi(apiName: string, options?:InvokeApiOptions): asyncPromise;
+        withFilter(serviceFilter: (request: any, next: (request: any, callback: (error: any, response: any) => void) => void, callback: (error: any, response: any) => void) => void): MobileServiceClient;
+        /**
+         * Invokes the specified custom api and returns a response object.
+         *
+         * @param apiName The custom api to invoke.
+         * @param options Contains additional parameter information, valid values are:
+         *     body: The body of the HTTP request.
+         *     method: The HTTP method to use in the request, with the default being POST,
+         *     parameters: Any additional query string parameters, 
+         *     headers: HTTP request headers, specified as an object.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        invokeApi(apiName: string, options?: InvokeApiOptions, callback?: (error: any, results: any) => void): asyncPromise;
     }
-    
+
+    interface Push
+    {
+        /**
+         * Register a push channel with the Mobile Apps backend to start receiving notifications.
+         *
+         * @param platform The device platform being used - wns, gcm or apns.
+         * @param pushChannel The push channel identifier or URI.
+         * @param templates An object containing template definitions. Template objects should contain body, headers and tags properties.
+         * @param secondaryTiles An object containing template definitions to be used with secondary tiles when using WNS.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        register(platform: string, pushChannel: string, templates?: any, secondaryTiles?: any, callback?: (error: any, results: any) => void): void;
+        /**
+         * Invokes the specified custom api and returns a response object.
+         *
+         * @param pushChannel The push channel identifier or URI.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        unregister(pushChannel: string, callback?: (error: any, results: any) => void): void;
+    }
+
     interface InvokeApiOptions
 	{
 		method?: string;
@@ -29,13 +62,14 @@ declare module Microsoft.WindowsAzure {
 		headers?: Object;
 		parameters?: Object;
 	}
-    
+
     // User object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554220.aspx
     interface User {
         getIdentities(): any;// { [providerName: string]: { userId: string, accessToken: string, accessTokenSecret?: string }; };
         accessTokens: any;   // { [providerName: string]: string; }
         level: string; //for level:string use one of LevelEnum: 'admin','anonymous','authenticated'
         userId: string;
+        mobileServiceAuthenticationToken: string;
     }
 
 
@@ -78,7 +112,7 @@ declare module Microsoft.WindowsAzure {
     // Interface to describe Query object fluent creation based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj613353.aspx
     interface IQuery {
         read(paramsQS?: Object): asyncPromise;
-        
+
         orderBy(...propName: string[]): IQuery;
         orderByDescending(...propName: string[]): IQuery;
         select(...propNameSelected: string[]): IQuery;
@@ -100,7 +134,7 @@ declare module Microsoft.WindowsAzure {
     }
 }
 
-declare module "WindowsAzure" {
+declare module "azure-mobile-apps-client" {
     export = WindowsAzure;
 }
 

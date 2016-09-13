@@ -1,7 +1,7 @@
 // Type definitions for core-decorators.js v0.10
 // Project: https://github.com/jayphelps/core-decorators.js
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "core-decorators" {
     export interface ClassDecorator {

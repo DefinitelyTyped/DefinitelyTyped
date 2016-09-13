@@ -1,9 +1,9 @@
 // Type definitions for TsMonad
 // Project: https://github.com/cbowdon/TsMonad
 // Definitions by: Chris Bowdon <https://github.com/cbowdon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module TsMonad {
+declare namespace TsMonad {
     /**
     * @name EitherType
     * @description Enumerate the different types contained by an Either object.
@@ -178,7 +178,7 @@ declare module TsMonad {
         public equals(other: Either<L, R>): any;
     }
 }
-declare module TsMonad {
+declare namespace TsMonad {
     /**
     * @name eq
     * @description Compare two objects :
@@ -279,7 +279,7 @@ declare module TsMonad {
         map<U>(f: (t: T) => U): Functor<U>;
     }
 }
-declare module TsMonad {
+declare namespace TsMonad {
     /**
     * @name MaybeType
     * @description Enumerate the different types contained by an Maybe object.
@@ -461,7 +461,7 @@ declare module TsMonad {
         public equals(other: Maybe<T>): any;
     }
 }
-declare module TsMonad {
+declare namespace TsMonad {
     /**
     * @name WriterPatterns
     * @description Define a contract to unwrap Writer object using a

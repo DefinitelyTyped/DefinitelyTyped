@@ -13,7 +13,7 @@ declare module "username" {
      */
     function username(callback: (err: Error, result: string) => void): void;
 
-    module username {
+    namespace username {
         /**
          * Tries to get the username from the LOGNAME, USER, LNAME or USERNAME environment variables. Falls back
          * to returning an empty string in the reare case none of the environment variables are set.
