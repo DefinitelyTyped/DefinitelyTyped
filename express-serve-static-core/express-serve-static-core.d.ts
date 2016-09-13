@@ -22,7 +22,7 @@ declare module "express-serve-static-core" {
     }
 
     interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
+        (req: Request, res: Response, next?: NextFunction): any;
     }
 
     interface ErrorRequestHandler {
@@ -117,11 +117,11 @@ declare module "express-serve-static-core" {
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
-        secure?: boolean;
+        secure?: boolean | 'auto';
     }
 
     interface Errback { (err: Error): void; }
@@ -199,7 +199,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted charset of the specified character sets,
-            * based on the request’s Accept-Charset HTTP header field.
+            * based on the request's Accept-Charset HTTP header field.
             * If none of the specified charsets is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
@@ -212,7 +212,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted encoding of the specified encodings,
-            * based on the request’s Accept-Encoding HTTP header field.
+            * based on the request's Accept-Encoding HTTP header field.
             * If none of the specified encodings is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
@@ -225,7 +225,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted language of the specified languages,
-            * based on the request’s Accept-Language HTTP header field.
+            * based on the request's Accept-Language HTTP header field.
             * If none of the specified languages is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.

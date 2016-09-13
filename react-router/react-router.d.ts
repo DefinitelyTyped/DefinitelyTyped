@@ -275,6 +275,8 @@ declare namespace ReactRouter {
     }
     interface MatchState extends RouterState {
         history: History
+        router: Router
+        createElement: (component: RouteComponent, props: Object) => any
     }
     function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void
 

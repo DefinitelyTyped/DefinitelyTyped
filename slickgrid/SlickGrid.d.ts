@@ -92,14 +92,16 @@ declare namespace Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public subscribe(fn: (e: EventData, data: T) => any): void;
+		public subscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
 		* @method unsubscribe
 		* @param fn {Function} Event handler to be removed.
 		*/
-		public unsubscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public unsubscribe(fn: (e: EventData, data: T) => any): void;
+		public unsubscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Fires an event notifying all subscribers.
@@ -1037,7 +1039,7 @@ declare namespace Slick {
 		* @param e A standard W3C/jQuery event.
 		* @return
 		**/
-		public getCellFromEvent<T>(e: Event<T>): Cell; // todo: !! Unsure on return type !!
+		public getCellFromEvent(e: DOMEvent): Cell;
 
 		/**
 		* Returns a hash containing row and cell indexes. Coordinates are relative to the top left corner of the grid beginning with the first row (not including the column headers).
@@ -1045,7 +1047,7 @@ declare namespace Slick {
 		* @param y A y coordinate.
 		* @return
 		**/
-		public getCellFromPoint(x: number, y: number): Cell; // todo: !! Unsure on return type !!
+		public getCellFromPoint(x: number, y: number): Cell;
 
 		/**
 		* Returns a DOM element containing a cell at a given row and cell.
