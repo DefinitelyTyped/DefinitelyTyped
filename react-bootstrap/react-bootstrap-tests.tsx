@@ -14,7 +14,7 @@ import {
     OverlayTrigger, Popover, ProgressBar,
     Nav, NavItem, Navbar, NavDropdown,
     Tabs, Tab, Pager, PageItem,
-    Pagination, Alert, Carousel,
+    Pagination, Alert, Carousel, SafeAnchor,
     Grid, Row, Col, Thumbnail, Image,
     Label, Badge, Jumbotron, PageHeader,
     Glyphicon, Table, Form, FormGroup,
@@ -632,6 +632,14 @@ export class ReactBootstrapTest extends Component<any, any> {
                             activePage={1}
                             onSelect={this.callback} />
                     </div>
+                </div>
+
+                <div style={style}>
+                    <Pagination
+                      buttonComponentClass={( props:any ) =>
+                          <SafeAnchor href="/test" disabled role="role"/>
+                      }
+                      maxButtons={10}/>
                 </div>
 
                 <div style={style}>

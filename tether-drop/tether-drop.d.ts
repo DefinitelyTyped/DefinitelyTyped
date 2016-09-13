@@ -56,6 +56,6 @@ declare namespace Drop {
     }
 }
 
-declare module "drop" {
+declare module "tether-drop" {
     export = Drop;
 }

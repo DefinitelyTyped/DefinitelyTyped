@@ -1,4 +1,4 @@
-// Type definitions for react-i18next 1.6.3
+// Type definitions for react-i18next 1.7.0
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,11 +11,16 @@
 declare namespace ReactI18next {
     import React = __React;
 
+    export type TranslationFunction = I18next.TranslationFunction;
+
     // Extend your component's Prop interface with this one to get access to `this.props.t`
+    //
+    // Please note that if you use the `translateFuncName` option, you should create
+    // your own interface just like this one, but with your name of the translation function.
     //
     // interface MyComponentProps extends ReactI18next.InjectedTranslateProps {}
     export interface InjectedTranslateProps {
-        t?: I18next.TranslationFunction;
+        t?: TranslationFunction;
     }
 
     interface I18nextProviderProps {
@@ -35,7 +40,10 @@ declare namespace ReactI18next {
         regexp?: RegExp;
         options?: I18next.TranslationOptions;
 
-        [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions;
+        useDangerouslySetInnerHTML?: boolean;
+        dangerouslySetInnerHTMLPartElement?: string;
+
+        [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean;
     }
 
     export class Interpolate extends React.Component<InterpolateProps, {}> { }
@@ -43,6 +51,7 @@ declare namespace ReactI18next {
     interface TranslateOptions {
         withRef?: boolean;
         wait?: boolean;
+        translateFuncName?: string;
     }
 
     export function translate(namespaces?: string[] | string, options?: TranslateOptions): <C extends Function>(WrappedComponent: C) => C;

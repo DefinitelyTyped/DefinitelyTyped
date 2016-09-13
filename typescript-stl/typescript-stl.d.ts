@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.0.0-rc.3
+// Type definitions for TypeScript-STL v1.0.0
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -116,13 +116,6 @@ declare namespace std {
  * @author Jeongho Nam <http://samchon.org>
  */
 declare namespace std.base {
-}
-/**
- * Examples for supporting developers who use STL library.
- *
- * @author Jeongho Nam <http://samchon.org>
- */
-declare namespace std.example {
 }
 declare namespace std {
     /**
@@ -2751,8 +2744,8 @@ declare namespace std.base {
     /**
      * <p> An abstract container. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -2872,8 +2865,8 @@ declare namespace std {
      * <p> There is not a single type of {@link Iterator bidirectional iterator}: {@link IContainer Each container}
      * may define its own specific iterator type able to iterate through it and access its elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/BidirectionalIterator
@@ -2958,18 +2951,45 @@ declare namespace std {
      * first element in a range is reversed, the reversed iterator points to the element before the first element (this
      * would be the past-the-end element of the reversed range). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/reverse_iterator
      * @author Jeongho Nam <http://samchon.org>
      */
     abstract class ReverseIterator<T, Base extends Iterator<T>, This extends ReverseIterator<T, Base, This>> extends Iterator<T> {
+        /**
+         * @hidden
+         */
         protected base_: Base;
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: Base);
+        /**
+         * <p> Return base iterator. </p>
+         *
+         * <p> Return a reference of the base iteraotr. </p>
+         *
+         * <p> The base iterator is an iterator of the same type as the one used to construct the {@link ReverseIterator},
+         * but pointing to the element next to the one the {@link ReverseIterator} is currently pointing to
+         * (a {@link ReverseIterator} has always an offset of -1 with respect to its base iterator).
+         *
+         * @return A reference of the base iterator, which iterates in the opposite direction.
+         */
         base(): Base;
+        /**
+         * @hidden
+         */
         protected abstract create_neighbor(): This;
+        /**
+         * <p> Get value of the iterator is pointing. </p>
+         *
+         * @return A value of the reverse iterator.
+         */
         value: T;
         /**
          * @inheritdoc
@@ -3194,8 +3214,8 @@ declare namespace std {
      * the end, {@link Deque Deques} perform worse and have less consistent iterators and references than
      * {@link List Lists}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -3217,66 +3237,27 @@ declare namespace std {
      */
     class Deque<T> extends base.Container<T> implements base.IArrayContainer<T>, base.IDequeContainer<T> {
         /**
-         * <p> Row size of the {@link matrix_ matrix} which contains elements. </p>
-         *
-         * <p> Note that the {@link ROW} affects on time complexity of accessing and inserting element.
-         * Accessing element is {@link ROW} times slower than ordinary {@link Vector} and inserting element
-         * in middle position is {@link ROW} times faster than ordinary {@link Vector}. </p>
-         *
-         * <p> When the {@link ROW} returns 8, time complexity of accessing element is O(8) and inserting
-         * element in middle position is O(N/8). ({@link Vector}'s time complexity of accessement is O(1)
-         * and inserting element is O(N)). </p>
+         * @hidden
          */
         private static ROW;
         /**
-         * <p> Minimum {@link capacity}. </p>
-         *
-         * <p> Although a {@link Deque} has few elements, even no element is belonged to, the {@link Deque}
-         * keeps the minimum {@link capacity} at least. </p>
+         * @hidden
          */
         private static MIN_CAPACITY;
         /**
-         * <p> A matrix containing elements. </p>
-         *
-         * <p> This {@link matrix_} is the biggest difference one between {@link Vector} and {@link Deque}.
-         * Its number of rows follows {@link ROW} and number of columns follows {@link get_col_size} which
-         * returns divide of {@link capacity} and {@link ROW}. </p>
-         *
-         * By separating segment of elements (segment: row, elements in a segment: col), {@link Deque} takes
-         * advantage of time complexity on inserting element in middle position. {@link Deque} is {@link ROW}
-         * times faster than {@link Vector} when inserting elements in middle position. </p>
-         *
-         * <p> However, separating segment of elements from matrix, {@link Deque} also takes disadvantage of
-         * time complexity on accessing element. {@link Deque} is {@link ROW} times slower than {@link Vector}
-         * when accessing element. </p>
+         * @hidden
          */
         private matrix_;
         /**
-         * Number of elements in the {@link Deque}.
+         * @hidden
          */
         private size_;
         /**
-         * <p> Size of allocated storage capacity. </p>
-         *
-         * <p> The {@link capacity_ capacity} is size of the storage space currently allocated for the
-         * {@link Deque container}, expressed in terms of elements. </p>
-         *
-         * <p> This {@link capacity_ capacity} is not necessarily equal to the {@link Deque container}
-         * {@link size}. It can be equal or greater, with the extra space allowing to accommodate for growth
-         * without the need to reallocate on each insertion. </p>
-         *
-         * <p> Notice that this {@link capacity_ capacity} does not suppose a limit on the {@link size} of
-         * the {@link Deque container}. When this {@link capacity} is exhausted and more is needed, it is
-         * automatically expanded by the {@link Deque container} (reallocating it storage space).
-         * The theoretical limit on the {@link size} of a {@link Deque container} is given by member
-         * {@link max_size}. </p>
-         *
-         * <p> The {@link capacity_ capacity} of a {@link Deque container} can be explicitly altered by
-         * calling member {@link Deque.reserve}. </p>
+         * @hidden
          */
         private capacity_;
         /**
-         * Get column size; {@link capacity_ capacity} / {@link ROW row}.
+         * @hidden
          */
         private get_col_size();
         /**
@@ -3480,8 +3461,8 @@ declare namespace std {
     /**
      * <p> An iterator of {@link Deque}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -3508,6 +3489,11 @@ declare namespace std {
         private deque;
         /**
          * @inheritdoc
+         */
+        /**
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -3552,8 +3538,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Deque. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @param <T> Type of the elements.
@@ -3561,13 +3547,20 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class DequeReverseIterator<T> extends ReverseIterator<T, DequeIterator<T>, DequeReverseIterator<T>> implements base.IArrayIterator<T> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: DequeIterator<T>);
         /**
-         * @inheritdoc
+         * @hidden
          */
         protected create_neighbor(): DequeReverseIterator<T>;
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -3629,8 +3622,8 @@ declare namespace std {
      * <p> All objects thrown by components of the standard library are derived from this class.
      * Therefore, all standard exceptions can be caught by catching this type by reference. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/exception/exception
      * @author Jeongho Nam <http://samchon.org>
@@ -3678,8 +3671,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several logical error exceptions. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/logic_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3704,8 +3697,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a></p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/domain_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3726,8 +3719,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal invalid arguments. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/invalid_argument
      * @author Jeongho Nam <http://samchon.org>
@@ -3748,8 +3741,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library,
      * such as vector and string also throw exceptions of this type to signal errors resizing. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/length_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3771,8 +3764,8 @@ declare namespace std {
      * such as vector, deque, string and bitset also throw exceptions of this type to signal arguments
      * out of range. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/out_of_range
      * @author Jeongho Nam <http://samchon.org>
@@ -3793,8 +3786,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several runtime error exceptions. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/runtime_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3815,8 +3808,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/overflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3837,8 +3830,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/underflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3860,8 +3853,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/range_error
      * @author Jeongho Nam <http://samchon.org>
@@ -4422,8 +4415,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -4820,8 +4813,8 @@ declare namespace std {
     /**
      * <p> An iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4891,13 +4884,21 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class MapReverseIterator<Key, T> extends ReverseIterator<Pair<Key, T>, MapIterator<Key, T>, MapReverseIterator<Key, T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: MapIterator<Key, T>);
+        /**
+         * @hidden
+         */
         protected create_neighbor(): MapReverseIterator<Key, T>;
         /**
          * Get first, key element.
@@ -4931,8 +4932,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5198,8 +5199,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5311,8 +5312,8 @@ declare namespace std {
      * <p> {@link HashMap} containers are faster than {@link TreeMap} containers to access individual elements by their
      * <i>key</i>, although they are generally less efficient for range iteration through a subset of their elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5342,6 +5343,9 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashMap<Key, T> extends base.UniqueMap<Key, T> implements base.IHashMap<Key, T> {
+        /**
+         * @hidden
+         */
         private hash_buckets_;
         /**
          * @hidden
@@ -5473,8 +5477,8 @@ declare namespace std {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5505,7 +5509,7 @@ declare namespace std {
      */
     class HashMultiMap<Key, T> extends base.MultiMap<Key, T> {
         /**
-         *
+         * @hidden
          */
         private hash_buckets_;
         /**
@@ -5633,8 +5637,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5910,8 +5914,8 @@ declare namespace std {
     /**
      * <p> An iterator of a Set. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -5969,144 +5973,24 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Set. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @param <T> Type of the elements.
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class SetReverseIterator<T> extends ReverseIterator<T, SetIterator<T>, SetReverseIterator<T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: SetIterator<T>);
         /**
-         * @inheritdoc
+         * @hidden
          */
         protected create_neighbor(): SetReverseIterator<T>;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> An abstract set. </p>
-     *
-     * <p> {@link SetContainer SetContainers} are containers that store elements allowing fast retrieval of
-     * individual elements based on their value. </p>
-     *
-     * <p> In an {@link SetContainer}, the value of an element is at the same time its <i>key</i>, used to uniquely
-     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link SetContainer} cannot be modified
-     * once in the container - they can be inserted and removed, though. </p>
-     *
-     * <p> {@link SetContainer} stores elements, keeps sequence and enables indexing by inserting elements into a
-     * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
-     * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd>
-     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		position in the container.
-     *	</dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Unique keys </dt>
-     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements. Each element in a {@link SetContainer} container is also identified
-     *			  by this value (each value is itself also the element's <i>key</i>).
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    abstract class UniqueSet<T> extends SetContainer<T> {
-        /**
-         * @inheritdoc
-         */
-        count(key: T): number;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>val</i> and erases it from the {@link UniqueSet}. </p>
-         *
-         * @param val Value to be extracted.
-         *
-         * @return A value.
-         */
-        extract(val: T): T;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
-         *
-         * @param it An iterator pointing an element to extract.
-         *
-         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
-         *		   erased. If no such element exists,returns {@link end end()}.
-         */
-        extract(it: SetIterator<T>): SetIterator<T>;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
-         *
-         * @param it An iterator pointing an element to extract.
-         *
-         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
-         *		   erased. If no such element exists,returns {@link end end()}.
-         */
-        extract(it: SetReverseIterator<T>): SetReverseIterator<T>;
-        /**
-         * @hidden
-         */
-        private extract_by_key(val);
-        /**
-         * @hidden
-         */
-        private extract_by_iterator(it);
-        /**
-         * @hidden
-         */
-        private extract_by_reverse_iterator(it);
-        /**
-         * <p> Insert an element. </p>
-         *
-         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
-         * the number of element inserted (zero or one). </p>
-         *
-         * <p> Because elements in a {@link UniqueSet UniqueSets} are unique, the insertion operation checks whether
-         * each inserted element is equivalent to an element already in the container, and if so, the element is not
-         * inserted, returning an iterator to this existing element (if the function returns a value). </p>
-         *
-         * <p> For a similar container allowing for duplicate elements, see {@link MultiSet}. </p>
-         *
-         * @param key Value to be inserted as an element.
-         *
-         * @return A {@link Pair}, with its member {@link Pair.first} set to an iterator pointing to either the newly
-         *		   inserted element or to the equivalent element already in the {@link UniqueSet}. The
-         *		   {@link Pair.second} element in the {@link Pair} is set to true if a new element was inserted or
-         *		   false if an equivalent element already existed.
-         */
-        insert(val: T): Pair<SetIterator<T>, boolean>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: UniqueSet<T>): void;
     }
 }
 declare namespace std.base {
@@ -6124,8 +6008,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6177,163 +6061,6 @@ declare namespace std.base {
         swap(obj: MultiSet<T>): void;
     }
 }
-declare namespace std.HashSet {
-    type iterator<T> = std.SetIterator<T>;
-    type reverse_iterator<T> = std.SetReverseIterator<T>;
-}
-declare namespace std {
-    /**
-     * <p> Hashed, unordered set. </p>
-     *
-     * <p> {@link HashSet}s are containers that store unique elements in no particular order, and which
-     * allow for fast retrieval of individual elements based on their value. </p>
-     *
-     * <p> In an {@link HashSet}, the value of an element is at the same time its <i>key</i>, that
-     * identifies it uniquely. Keys are immutable, therefore, the elements in an {@link HashSet} cannot be
-     * modified once in the container - they can be inserted and removed, though. </p>
-     *
-     * <p> Internally, the elements in the {@link HashSet} are not sorted in any particular order, but
-     * organized into buckets depending on their hash values to allow for fast access to individual elements
-     * directly by their <i>values</i> (with a constant average time complexity on average). </p>
-     *
-     * <p> {@link HashSet} containers are faster than {@link TreeSet} containers to access individual
-     * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
-     * subset of their elements. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		 position in the container. </dd>
-     *
-     *	<dt> Hashed </dt>
-     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
-     *		 by their <i>key</i>. </dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Unique keys </dt>
-     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements.
-     *			  Each element in an {@link HashSet} is also uniquely identified by this value.
-     *
-     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class HashSet<T> extends base.UniqueSet<T> {
-        private hash_buckets_;
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @inheritdoc
-         */
-        clear(): void;
-        /**
-         * @inheritdoc
-         */
-        find(key: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        begin(): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        begin(index: number): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        end(): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        end(index: number): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rbegin(): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rbegin(index: number): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rend(): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rend(index: number): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        bucket_count(): number;
-        /**
-         * @inheritdoc
-         */
-        bucket_size(n: number): number;
-        /**
-         * @inheritdoc
-         */
-        max_load_factor(): number;
-        /**
-         * @inheritdoc
-         */
-        max_load_factor(z: number): void;
-        /**
-         * @inheritdoc
-         */
-        bucket(key: T): number;
-        /**
-         * @inheritdoc
-         */
-        reserve(n: number): void;
-        /**
-         * @inheritdoc
-         */
-        rehash(n: number): void;
-        /**
-         * @hidden
-         */
-        protected insert_by_val(val: T): any;
-        /**
-         * @hidden
-         */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @hidden
-         */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
-    }
-}
 declare namespace std.HashMultiSet {
     type iterator<T> = std.SetIterator<T>;
     type reverse_iterator<T> = std.SetReverseIterator<T>;
@@ -6357,8 +6084,8 @@ declare namespace std {
      * <p> Elements with equivalent values are grouped together in the same bucket and in such a way that an
      * iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6384,6 +6111,9 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashMultiSet<T> extends base.MultiSet<T> {
+        /**
+         * @hidden
+         */
         private hash_buckets_;
         /**
          * @hidden
@@ -6495,6 +6225,291 @@ declare namespace std {
         private swap_tree_set(obj);
     }
 }
+declare namespace std.base {
+    /**
+     * <p> An abstract set. </p>
+     *
+     * <p> {@link SetContainer SetContainers} are containers that store elements allowing fast retrieval of
+     * individual elements based on their value. </p>
+     *
+     * <p> In an {@link SetContainer}, the value of an element is at the same time its <i>key</i>, used to uniquely
+     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link SetContainer} cannot be modified
+     * once in the container - they can be inserted and removed, though. </p>
+     *
+     * <p> {@link SetContainer} stores elements, keeps sequence and enables indexing by inserting elements into a
+     * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
+     * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd>
+     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		position in the container.
+     *	</dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Unique keys </dt>
+     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements. Each element in a {@link SetContainer} container is also identified
+     *			  by this value (each value is itself also the element's <i>key</i>).
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class UniqueSet<T> extends SetContainer<T> {
+        /**
+         * @inheritdoc
+         */
+        count(key: T): number;
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>val</i> and erases it from the {@link UniqueSet}. </p>
+         *
+         * @param val Value to be extracted.
+         *
+         * @return A value.
+         */
+        extract(val: T): T;
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
+         *
+         * @param it An iterator pointing an element to extract.
+         *
+         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
+         *		   erased. If no such element exists,returns {@link end end()}.
+         */
+        extract(it: SetIterator<T>): SetIterator<T>;
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
+         *
+         * @param it An iterator pointing an element to extract.
+         *
+         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
+         *		   erased. If no such element exists,returns {@link end end()}.
+         */
+        extract(it: SetReverseIterator<T>): SetReverseIterator<T>;
+        /**
+         * @hidden
+         */
+        private extract_by_key(val);
+        /**
+         * @hidden
+         */
+        private extract_by_iterator(it);
+        /**
+         * @hidden
+         */
+        private extract_by_reverse_iterator(it);
+        /**
+         * <p> Insert an element. </p>
+         *
+         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
+         * the number of element inserted (zero or one). </p>
+         *
+         * <p> Because elements in a {@link UniqueSet UniqueSets} are unique, the insertion operation checks whether
+         * each inserted element is equivalent to an element already in the container, and if so, the element is not
+         * inserted, returning an iterator to this existing element (if the function returns a value). </p>
+         *
+         * <p> For a similar container allowing for duplicate elements, see {@link MultiSet}. </p>
+         *
+         * @param key Value to be inserted as an element.
+         *
+         * @return A {@link Pair}, with its member {@link Pair.first} set to an iterator pointing to either the newly
+         *		   inserted element or to the equivalent element already in the {@link UniqueSet}. The
+         *		   {@link Pair.second} element in the {@link Pair} is set to true if a new element was inserted or
+         *		   false if an equivalent element already existed.
+         */
+        insert(val: T): Pair<SetIterator<T>, boolean>;
+        /**
+         * @inheritdoc
+         */
+        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: UniqueSet<T>): void;
+    }
+}
+declare namespace std.HashSet {
+    type iterator<T> = std.SetIterator<T>;
+    type reverse_iterator<T> = std.SetReverseIterator<T>;
+}
+declare namespace std {
+    /**
+     * <p> Hashed, unordered set. </p>
+     *
+     * <p> {@link HashSet}s are containers that store unique elements in no particular order, and which
+     * allow for fast retrieval of individual elements based on their value. </p>
+     *
+     * <p> In an {@link HashSet}, the value of an element is at the same time its <i>key</i>, that
+     * identifies it uniquely. Keys are immutable, therefore, the elements in an {@link HashSet} cannot be
+     * modified once in the container - they can be inserted and removed, though. </p>
+     *
+     * <p> Internally, the elements in the {@link HashSet} are not sorted in any particular order, but
+     * organized into buckets depending on their hash values to allow for fast access to individual elements
+     * directly by their <i>values</i> (with a constant average time complexity on average). </p>
+     *
+     * <p> {@link HashSet} containers are faster than {@link TreeSet} containers to access individual
+     * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
+     * subset of their elements. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		 position in the container. </dd>
+     *
+     *	<dt> Hashed </dt>
+     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
+     *		 by their <i>key</i>. </dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Unique keys </dt>
+     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *			  Each element in an {@link HashSet} is also uniquely identified by this value.
+     *
+     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class HashSet<T> extends base.UniqueSet<T> {
+        /**
+         * @hidden
+         */
+        private hash_buckets_;
+        /**
+         * @hidden
+         */
+        protected init(): void;
+        /**
+         * @hidden
+         */
+        protected construct_from_array(items: Array<T>): void;
+        /**
+         * @inheritdoc
+         */
+        clear(): void;
+        /**
+         * @inheritdoc
+         */
+        find(key: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        begin(): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        begin(index: number): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        end(): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        end(index: number): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rbegin(): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rbegin(index: number): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rend(): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rend(index: number): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        bucket_count(): number;
+        /**
+         * @inheritdoc
+         */
+        bucket_size(n: number): number;
+        /**
+         * @inheritdoc
+         */
+        max_load_factor(): number;
+        /**
+         * @inheritdoc
+         */
+        max_load_factor(z: number): void;
+        /**
+         * @inheritdoc
+         */
+        bucket(key: T): number;
+        /**
+         * @inheritdoc
+         */
+        reserve(n: number): void;
+        /**
+         * @inheritdoc
+         */
+        rehash(n: number): void;
+        /**
+         * @hidden
+         */
+        protected insert_by_val(val: T): any;
+        /**
+         * @hidden
+         */
+        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @hidden
+         */
+        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.UniqueSet<T>): void;
+        /**
+         * @hidden
+         */
+        private swap_tree_set(obj);
+    }
+}
 declare namespace std.List {
     type iterator<T> = std.ListIterator<T>;
     type reverse_iterator<T> = std.ListReverseIterator<T>;
@@ -6523,8 +6538,8 @@ declare namespace std {
      * distance between these. They also consume some extra memory to keep the linking information associated to each
      * element (which may be an important factor for large lists of small-sized elements). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -6546,15 +6561,15 @@ declare namespace std {
      */
     class List<T> extends base.Container<T> implements base.IDequeContainer<T> {
         /**
-         * An iterator of beginning.
+         * @hidden
          */
         protected begin_: ListIterator<T>;
         /**
-         * An iterator of end.
+         * @hidden
          */
         protected end_: ListIterator<T>;
         /**
-         * Number of elements in the {@link List}.
+         * @hidden
          */
         protected size_: number;
         /**
@@ -7096,8 +7111,8 @@ declare namespace std {
     /**
      * <p> An iterator, node of a List. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -7143,6 +7158,11 @@ declare namespace std {
         /**
          * @inheritdoc
          */
+        /**
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
+         */
         value: T;
         /**
          * @inheritdoc
@@ -7158,8 +7178,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of List. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of the elements.
@@ -7167,13 +7187,20 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class ListReverseIterator<T> extends ReverseIterator<T, ListIterator<T>, ListReverseIterator<T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: ListIterator<T>);
         /**
-         * @inheritdoc
+         * @hidden
          */
         protected create_neighbor(): ListReverseIterator<T>;
         /**
-         * @inheritdoc
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
     }
@@ -7208,8 +7235,8 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Queue} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of elements.
@@ -7540,8 +7567,8 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Stack} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of elements.
@@ -7651,18 +7678,18 @@ declare namespace std.base {
      * so that they can be interpreted when needed as more abstract (and portable)
      * {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     abstract class ErrorInstance {
         /**
-         * A reference to an {@link ErrorCategory} object.
+         * @hidden
          */
         protected category_: ErrorCategory;
         /**
-         * A numerical value identifying an error instance.
+         * @hidden
          */
         protected value_: number;
         /**
@@ -7761,15 +7788,15 @@ declare namespace std {
      * <p> The class inherits from {@link RuntimeError}, to which it adds an {@link ErrorCode} as
      * member code (and defines a specialized what member). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/system_error
      * @author Jeongho Nam <http://samchon.org>
      */
     class SystemError extends RuntimeError {
         /**
-         * Error code.
+         * @hidden
          */
         protected code_: ErrorCode;
         /**
@@ -7827,8 +7854,8 @@ declare namespace std {
      * passed by reference. As such, only one object of each of these types shall exist, each uniquely identifying its own
      * category: all error codes and conditions of a same category shall return a reference to same object. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_category
      * @author Jeongho Nam <http://samchon.org>
@@ -7955,8 +7982,8 @@ declare namespace std {
      * <p> The {@link ErrorCategory categories} associated with the {@link ErrorCondition} and the
      * {@link ErrorCode} define the equivalences between them. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_condition
      * @author Jeongho Nam <http://samchon.org>
@@ -7988,8 +8015,8 @@ declare namespace std {
      * <p> Objects of this class associate such numerical codes to {@link ErrorCategory error categories}, so that they
      * can be interpreted when needed as more abstract (and portable) {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_code
      * @author Jeongho Nam <http://samchon.org>
@@ -8034,8 +8061,8 @@ declare namespace std {
      *
      * <p> {@link TreeMap}s are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8063,7 +8090,7 @@ declare namespace std {
      */
     class TreeMap<Key, T> extends base.UniqueMap<Key, T> implements base.ITreeMap<Key, T> {
         /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeMap}.
+         * @hidden
          */
         private tree_;
         /**
@@ -8216,8 +8243,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank"> <
-     * img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank"> <
+     * img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8250,6 +8277,9 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class TreeMultiMap<Key, T> extends base.MultiMap<Key, T> implements base.ITreeMap<Key, T> {
+        /**
+         * @hidden
+         */
         private tree_;
         /**
          * Default Constructor.
@@ -8377,169 +8407,6 @@ declare namespace std {
         private swap_tree_multimap(obj);
     }
 }
-declare namespace std.TreeSet {
-    type iterator<T> = std.SetIterator<T>;
-    type reverse_iterator<T> = std.SetReverseIterator<T>;
-}
-declare namespace std {
-    /**
-     * <p> Tree-structured set, <code>std::set</code> of STL. </p>
-     *
-     * <p> {@link TreeSet}s are containers that store unique elements following a specific order. </p>
-     *
-     * <p> In a {@link TreeSet}, the value of an element also identifies it (the value is itself the
-     * <i>key</i>, of type <i>T</i>), and each value must be unique. The value of the elements in a
-     * {@link TreeSet} cannot be modified once in the container (the elements are always const), but they
-     * can be inserted or removed from the  </p>
-     *
-     * <p> Internally, the elements in a {@link TreeSet} are always sorted following a specific strict weak
-     * ordering criterion indicated by its internal comparison method (of {@link less}). </p>
-     *
-     * <p> {@link TreeSet} containers are generally slower than {@link HashSet} containers to access
-     * individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on their
-     * order. </p>
-     *
-     * <p> {@link TreeSet}s are typically implemented as binary search trees. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a></p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd>
-     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		position in the container.
-     *	</dd>
-     *
-     *	<dt> Ordered </dt>
-     *	<dd>
-     *		The elements in the container follow a strict order at all times. All inserted elements are
-     *		given a position in this order.
-     *	</dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Unique keys </dt>
-     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements.
-     *			  Each element in an {@link TreeSet} is also uniquely identified by this value.
-     *
-     * @reference http://www.cplusplus.com/reference/set/set
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class TreeSet<T> extends base.UniqueSet<T> implements base.ITreeSet<T> {
-        /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeSet}.
-         */
-        private tree_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from compare.
-         *
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(compare: (x: T, y: T) => boolean);
-        /**
-         * Contruct from elements.
-         *
-         * @param array Elements to be contained.
-         */
-        constructor(array: Array<T>);
-        /**
-         * Contruct from elements with compare.
-         *
-         * @param array Elements to be contained.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: base.IContainer<T>);
-        /**
-         * Copy Constructor with compare.
-         *
-         * @param container A container to be copied.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(container: base.IContainer<T>, compare: (x: T, y: T) => boolean);
-        /**
-         * Range Constructor.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * Range Constructor with compare.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
-        /**
-         * @inheritdoc
-         */
-        clear(): void;
-        /**
-         * @inheritdoc
-         */
-        find(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        key_comp(): (x: T, y: T) => boolean;
-        /**
-         * @inheritdoc
-         */
-        value_comp(): (x: T, y: T) => boolean;
-        /**
-         * @inheritdoc
-         */
-        lower_bound(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        upper_bound(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
-        /**
-         * @hidden
-         */
-        protected insert_by_val(val: T): any;
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @hidden
-         */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
-    }
-}
 declare namespace std.TreeMultiSet {
     type iterator<T> = std.SetIterator<T>;
     type reverse_iterator<T> = std.SetReverseIterator<T>;
@@ -8565,8 +8432,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiSet TreeMultiSets} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8597,7 +8464,7 @@ declare namespace std {
      */
     class TreeMultiSet<T> extends base.MultiSet<T> implements base.ITreeSet<T> {
         /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeMultiSet}.
+         * @hidden
          */
         private tree_;
         /**
@@ -8711,6 +8578,169 @@ declare namespace std {
         private swap_tree_set(obj);
     }
 }
+declare namespace std.TreeSet {
+    type iterator<T> = std.SetIterator<T>;
+    type reverse_iterator<T> = std.SetReverseIterator<T>;
+}
+declare namespace std {
+    /**
+     * <p> Tree-structured set, <code>std::set</code> of STL. </p>
+     *
+     * <p> {@link TreeSet}s are containers that store unique elements following a specific order. </p>
+     *
+     * <p> In a {@link TreeSet}, the value of an element also identifies it (the value is itself the
+     * <i>key</i>, of type <i>T</i>), and each value must be unique. The value of the elements in a
+     * {@link TreeSet} cannot be modified once in the container (the elements are always const), but they
+     * can be inserted or removed from the  </p>
+     *
+     * <p> Internally, the elements in a {@link TreeSet} are always sorted following a specific strict weak
+     * ordering criterion indicated by its internal comparison method (of {@link less}). </p>
+     *
+     * <p> {@link TreeSet} containers are generally slower than {@link HashSet} containers to access
+     * individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on their
+     * order. </p>
+     *
+     * <p> {@link TreeSet}s are typically implemented as binary search trees. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /> </a></p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd>
+     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		position in the container.
+     *	</dd>
+     *
+     *	<dt> Ordered </dt>
+     *	<dd>
+     *		The elements in the container follow a strict order at all times. All inserted elements are
+     *		given a position in this order.
+     *	</dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Unique keys </dt>
+     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *			  Each element in an {@link TreeSet} is also uniquely identified by this value.
+     *
+     * @reference http://www.cplusplus.com/reference/set/set
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class TreeSet<T> extends base.UniqueSet<T> implements base.ITreeSet<T> {
+        /**
+         * @hidden
+         */
+        private tree_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from compare.
+         *
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(compare: (x: T, y: T) => boolean);
+        /**
+         * Contruct from elements.
+         *
+         * @param array Elements to be contained.
+         */
+        constructor(array: Array<T>);
+        /**
+         * Contruct from elements with compare.
+         *
+         * @param array Elements to be contained.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: base.IContainer<T>);
+        /**
+         * Copy Constructor with compare.
+         *
+         * @param container A container to be copied.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(container: base.IContainer<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * Range Constructor.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * Range Constructor with compare.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * @inheritdoc
+         */
+        clear(): void;
+        /**
+         * @inheritdoc
+         */
+        find(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        lower_bound(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        upper_bound(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
+        /**
+         * @hidden
+         */
+        protected insert_by_val(val: T): any;
+        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @hidden
+         */
+        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.UniqueSet<T>): void;
+        /**
+         * @hidden
+         */
+        private swap_tree_set(obj);
+    }
+}
 declare namespace std {
     /**
      * <p> Running on Node. </p>
@@ -8818,8 +8848,8 @@ declare namespace std {
      * end, they perform worse than the others, and have less consistent iterators and references than {@link List}s.
      * </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -9200,8 +9230,8 @@ declare namespace std {
     /**
      * <p> An iterator of Vector. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </p>
      *
      * @param <T> Type of the elements.
@@ -9232,7 +9262,9 @@ declare namespace std {
          * @inheritdoc
          */
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -9277,8 +9309,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Vector. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </p>
      *
      * @param <T> Type of the elements.
@@ -9286,13 +9318,20 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class VectorReverseIterator<T> extends ReverseIterator<T, VectorIterator<T>, VectorReverseIterator<T>> implements base.IArrayIterator<T> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: VectorIterator<T>);
         /**
-         * @inheritdoc
+         * @hidden
          */
         protected create_neighbor(): VectorReverseIterator<T>;
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -9353,7 +9392,13 @@ declare namespace std.base {
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashBuckets<T> {
+        /**
+         * @hidden
+         */
         private buckets_;
+        /**
+         * @hidden
+         */
         private item_size_;
         /**
          * Default Constructor.
@@ -9400,8 +9445,8 @@ declare namespace std.base {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -9696,8 +9741,8 @@ declare namespace std.base {
     /**
      * <p> Hash buckets storing {@link MapIterator MapIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -9727,8 +9772,8 @@ declare namespace std.base {
      * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
      * subset of their elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -9951,8 +9996,8 @@ declare namespace std.base {
     /**
      * <p> Hash buckets storing {@link SetIterator SetIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -9993,8 +10038,8 @@ declare namespace std.base {
      * beginning or the end, {@link IArray} objects perform worse and have less consistent iterators and references
      * than {@link List Lists} </p>.
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -10107,8 +10152,8 @@ declare namespace std.base {
      * <p> There is not a single type of {@link IArrayIterator random-access iterator}: Each container may define its
      * own specific iterator type able to iterate through it and access its elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/RandomAccessIterator
@@ -10138,8 +10183,8 @@ declare namespace std.base {
      * <p> {@link IContainer} is an interface designed for sequence containers. Sequence containers of STL
      * (Standard Template Library) are based on the {@link IContainer}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -10330,8 +10375,8 @@ declare namespace std.base {
     /**
      * <p> An interface for deque  </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -10360,8 +10405,8 @@ declare namespace std.base {
     /**
      * <p> An interface for linear containers.  </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @author Jeonngho Nam
@@ -10522,7 +10567,7 @@ declare namespace std.base {
      *	</li>
      * </ol>
      *
-     * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_example.svg"
+     * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_example.svg"
      *			style="max-width: 100%" /> </p>
      *
      * <p> These constraints enforce a critical property of red-black trees: the path from the root to the farthest
@@ -10717,7 +10762,7 @@ declare namespace std.base {
          * the only loop, and any rotations occur after this loop, this proves that a constant number of rotations
          * occur. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_3.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_3.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10751,7 +10796,7 @@ declare namespace std.base {
          * node are <font color='darkBlue'>black</font>) is still violated, but now we can resolve this by
          * continuing to case 5. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_4.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_4.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10782,7 +10827,7 @@ declare namespace std.base {
          * through {@link XTreeNode.parent <b>P</b>}. In each case, this is the only
          * <font color='darkBlue'>black</font> node of the three. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_5.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_5.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10936,7 +10981,7 @@ declare namespace std.base {
         /**
          * <p> {@link XTreeNode.sibling <b>S</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_2.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_2.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case we reverse the colors of {@link XTreeNode.parent <b>P</b>} and
@@ -10958,7 +11003,7 @@ declare namespace std.base {
          * <p> {@link XTreeNode.parent <b>P</b>}, {@link XTreeNode.sibling <b>S</b>}, and {@link XTreeNode.sibling
          * <b>S</b>}'s children are <font color='darkBlue'>black</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_3.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_3.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply repaint {@link XTreeNode.sibling <b>S</b>} <font color='red'>red</font>. The
@@ -10982,7 +11027,7 @@ declare namespace std.base {
          * <p> {@link XTreeNode.sibling <b>S</b>} and {@link XTreeNode.sibling <b>S</b>}'s children are
          * <font color='darkBlue'>black</font>, but {@link XTreeNode.parent <b>P</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_4.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_4.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply exchange the colors of {@link XTreeNode.sibling <b>S</b>} and
@@ -10999,7 +11044,7 @@ declare namespace std.base {
          * left child is <font color='red'>red</font>, {@link XTreeNode.sibling <b>S</b>}'s right child is
          * <font color='darkBlue'>black</font>, and <i><b>N</b></i> is the left child of its parent. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_5.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_5.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case we rotate right at {@link XTreeNode.sibling <b>S</b>}, so that
@@ -11038,7 +11083,7 @@ declare namespace std.base {
          * <p> Thus, the paths passing through <i><b>N</b></i> pass through one additional
          * <font color='darkBlue'>black</font> node. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_6.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_6.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> Meanwhile, if a path does not go through <i><b>N</b></i>, then there are two possibilities: </p>
@@ -11122,8 +11167,8 @@ declare namespace std.base {
      *
      * <p> {@link ITreeMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -11257,13 +11302,19 @@ declare namespace std.base {
     /**
      * <p> A red-black tree storing {@link MapIterator MapIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class PairTree<Key, T> extends XTree<MapIterator<Key, T>> {
+        /**
+         * @hidden
+         */
         private map_;
+        /**
+         * @hidden
+         */
         private compare_;
         /**
          * Default Constructor.
@@ -11409,8 +11460,8 @@ declare namespace std.base {
      *
      * <p> {@link ITreeSet TreeMultiSets} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -11551,13 +11602,19 @@ declare namespace std.base {
     /**
      * <p> A red-black Tree storing {@link SetIterator SetIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class AtomicTree<T> extends XTree<SetIterator<T>> {
+        /**
+         * @hidden
+         */
         private set_;
+        /**
+         * @hidden
+         */
         private compare_;
         /**
          * Default Constructor.
@@ -11737,28 +11794,4 @@ declare namespace std.base {
          */
         uncle: XTreeNode<T>;
     }
-}
-declare namespace std.example {
-    function test_all(): void;
-}
-declare namespace std.example {
-    function test_bind(): void;
-}
-declare namespace std.example {
-    function test_deque(): void;
-}
-declare namespace std.example {
-    function test_for_each(): void;
-}
-declare namespace std.example {
-    function test_hash_map(): void;
-}
-declare namespace std.example {
-    function test_list(): void;
-}
-declare namespace std.example {
-    function sorting(): void;
-}
-declare namespace std.example {
-    function tree_set(): void;
 }
