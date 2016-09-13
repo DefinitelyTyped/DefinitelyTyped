@@ -1,7 +1,7 @@
 // Type definitions for eq.js
 // Project: https://github.com/Snugug/eq.js
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var eqjs: eq.EqjsStatic;
 
@@ -10,11 +10,11 @@ declare module 'eqjs' {
 	export = eqjs;
 }
 
-declare module eq {
+declare namespace eq {
 	type AvailableElementType = HTMLElement|HTMLElement[]|NodeList|JQuery;
 
 	interface EqjsStatic {
-	
+
 		/**
 		 * List of all nodes.
 		 */
@@ -27,7 +27,7 @@ declare module eq {
 
 		/**
 		 * Runs through all nodes and finds their widths and points
-		 * @param nodes 
+		 * @param nodes
 		 * @param callback function to use as a callback once query and nodeWrites have finished
 		 */
 		query(nodes: AvailableElementType, callback?: Function): void;
@@ -47,7 +47,7 @@ declare module eq {
 		/**
 		 * Runs through all nodes and writes their eq status.
 		 * @param nodes An array or NodeList of nodes to query
-		 * @returns {} 
+		 * @returns {}
 		 */
 		nodeWrites(nodes?: AvailableElementType): void;
 	}

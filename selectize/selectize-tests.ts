@@ -212,7 +212,7 @@ interface Link {
 }
 
 $('#select-links').selectize({
-    // NOTE ( https://github.com/borisyankov/DefinitelyTyped/pull/5590 ) theme: 'links',
+    // NOTE ( https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590 ) theme: 'links',
     maxItems: null,
     valueField: 'id',
     searchField: 'title',

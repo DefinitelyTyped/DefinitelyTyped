@@ -1,7 +1,7 @@
 // Type definitions for Stripe Checkout
 // Project: https://stripe.com/checkout
 // Definitions by: Chris Wrench <https://github.com/cgwrench>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../stripe/stripe.d.ts"/>
 

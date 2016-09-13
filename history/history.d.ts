@@ -1,7 +1,7 @@
 // Type definitions for History.js 1.8.0
 // Project: https://github.com/browserstate/history.js
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Gidon Junge <https://github.com/gjunge/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface HistoryAdapter {
@@ -13,7 +13,7 @@ interface HistoryAdapter {
 // Since History is defined in lib.d.ts as well
 // the name for our interfaces was chosen to be Historyjs
 // However at runtime you would need to do
-// https://github.com/borisyankov/DefinitelyTyped/issues/277
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/277
 // var Historyjs: Historyjs = <any>History;
 
 interface Historyjs {

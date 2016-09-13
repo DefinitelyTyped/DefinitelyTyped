@@ -1,7 +1,7 @@
 // Type definitions for howler.js v1.1.29
 // Project: https://github.com/goldfire/howler.js
 // Definitions by: Pedro Casaubon <https://github.com/xperiments/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HowlerGlobal {
     mute(): HowlerGlobal;
@@ -18,14 +18,21 @@ interface IHowlSoundSpriteDefinition {
     [name: string]: number[];
 }
 
+declare type HowlPos3d = [number, number, number]|[number, number, number, number];
+
 interface IHowlProperties {
     autoplay?: boolean;
     buffer?: boolean;
+    duration?: number;
     format?: string;
     loop?: boolean;
     sprite?: IHowlSoundSpriteDefinition;
+    src?: string;
+    pos3d?: HowlPos3d;
     volume?: number;
     urls?: string[];
+    rate?: number;
+    model?: 'equalpower'|'HRTF';
     onend?: Function;
     onload?: Function;
     onloaderror?: Function;
@@ -45,20 +52,20 @@ interface Howl {
     onpause: Function;
     onplay: Function;
     load(): Howl;
-    play(sprite?: string, callback?: (soundId: number) => void): Howl;
-    play(callback?: (soundId: number) => void): Howl;
-    pause(soundId?: number): Howl;
-    stop(soundId?: number): Howl;
-    mute(soundId?: number): Howl;
-    unmute(soundId?: number): Howl;
-    fade(from: number, to: number, duration: number, callback?: Function, soundId?: number): Howl;
+    play(sprite?: string, callback?: (soundId: string) => void): Howl;
+    play(callback?: (soundId: string) => void): Howl;
+    pause(soundId?: string): Howl;
+    stop(soundId?: string): Howl;
+    mute(soundId?: string): Howl;
+    unmute(soundId?: string): Howl;
+    fade(from: number, to: number, duration: number, callback?: Function, soundId?: string): Howl;
     loop(): boolean;
     loop(loop: boolean): Howl;
-    pos(position?: number, soundId?: number): number;
-    pos3d(x: number, y: number, z: number, soundId?: number): any;
+    pos(position?: number, soundId?: string): number;
+    pos3d(x: number, y: number, z: number, soundId?: string): any;
     sprite(definition?: IHowlSoundSpriteDefinition): IHowlSoundSpriteDefinition;
     volume(): number;
-    volume(volume?: number, soundId?: number): Howl;
+    volume(volume?: number, soundId?: string): Howl;
     urls(): string[];
     urls(urls: string[]): Howl;
     on(event: string, listener?: Function): Howl;

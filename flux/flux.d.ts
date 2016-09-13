@@ -1,11 +1,13 @@
 ﻿// Type definitions for Flux
 // Project: http://facebook.github.io/flux/
-// Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Steve Baker <https://github.com/stkb/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
+/// <reference path="../fbemitter/fbemitter.d.ts" />
+/// <reference path="../immutable/immutable.d.ts" />
 
-declare module Flux {
+declare namespace Flux {
 
     /**
     * Dispatcher class
@@ -68,37 +70,59 @@ declare module "flux" {
     export = Flux;
 }
 
-declare module FluxUtils {
+declare namespace FluxUtils {
 
     import React = __React;
+    import fbEmitter = FBEmitter;
+    import immutable = Immutable;
+    
+    /**
+     * Default options to create a Container with
+     * 
+     * @interface RealOptions
+     */
+    interface RealOptions {
+        /**
+         * Default value: true
+         * 
+         * @type {boolean}
+         */
+        pure?: boolean;
+        /**
+         * Default value: false
+         * 
+         * @type {boolean}
+         */
+        withProps?: boolean;
+    }
+    
     export class Container {
         constructor();
         /**
-        * Create is used to transform a react class into a container 
-        * that updates its state when relevant stores change. 
+        * Create is used to transform a react class into a container
+        * that updates its state when relevant stores change.
         * The provided base class must have static methods getStores() and calculateState().
         */
-        static create(base: React.ComponentClass<any>, options?: any): React.ComponentClass<any>;
+        static create<TComponent>(base: React.ComponentClass<TComponent>, options?: RealOptions): React.ComponentClass<TComponent>;
     }
 
     /**
     * This class extends ReduceStore and defines the state as an immutable map.
     */
-    // TODO: Change <any>  to <Immutable.Map<K, V>>
-    export class MapStore<K extends string | number, V> extends ReduceStore<any> {
+    export class MapStore<K extends string | number, V, TPayload> extends ReduceStore<immutable.Map<K, V>, TPayload> {
         /**
-        * Access the value at the given key. 
+        * Access the value at the given key.
         * Throws an error if the key does not exist in the cache.
         */
         at(key: K): V;
-        
+
         /**
         *  Check if the cache has a particular key
         */
         has(key: K): boolean;
 
         /**
-        * Get the value of a particular key. 
+        * Get the value of a particular key.
         * Returns undefined if the key does not exist in the cache.
         */
         get(key: K): V;
@@ -108,67 +132,65 @@ declare module FluxUtils {
         * it allows providing a previous result to update instead of generating a new map.
         * Providing a previous result allows the possibility of keeping the same reference if the keys did not change.
         */
-        // TODO: Update with Immutable interface. 
-        // getAll(keys: Immutable.IndexedIterable<K>, prev?: Immutable.Map<K, V>): Immutable.Map<K, V>;
-        getAll(keys: any, prev?: any): any;
+        getAll(keys: immutable.Iterable.Indexed<K>, prev?: immutable.Map<K, V>): immutable.Map<K, V>;
     }
 
-    export class ReduceStore<T> extends Store {
+    export class ReduceStore<T, TPayload> extends Store<TPayload> {
         /**
-        * Getter that exposes the entire state of this store. 
+        * Getter that exposes the entire state of this store.
         * If your state is not immutable you should override this and not expose state directly.
         */
         getState(): T;
 
         /**
-        * Constructs the initial state for this store. 
+        * Constructs the initial state for this store.
         * This is called once during construction of the store.
         */
         getInitialState(): T;
 
         /**
-        * Reduces the current state, and an action to the new state of this store. 
-        * All subclasses must implement this method. 
+        * Reduces the current state, and an action to the new state of this store.
+        * All subclasses must implement this method.
         * This method should be pure and have no side-effects.
         */
-        reduce(state: T, action: any): T;
+        reduce(state: T, action: TPayload): T;
 
         /**
-        * Checks if two versions of state are the same. 
+        * Checks if two versions of state are the same.
         * You do not need to override this if your state is immutable.
         */
         areEqual(one: T, two: T): boolean;
 
     }
 
-    export class Store {
-        
+    export class Store<TPayload> {
+
         /**
         * Constructs and registers an instance of this store with the given dispatcher.
         */
-        constructor(dispatcher: Flux.Dispatcher<any>);
+        constructor(dispatcher: Flux.Dispatcher<TPayload>);
 
         /**
-        * Adds a listener to the store, when the store changes the given callback will be called. 
-        * A token is returned that can be used to remove the listener. 
+        * Adds a listener to the store, when the store changes the given callback will be called.
+        * A token is returned that can be used to remove the listener.
         * Calling the remove() function on the returned token will remove the listener.
         */
-        addListener(callback: Function): { remove: Function };
+        addListener(callback: Function): fbEmitter.EventSubscription;
 
         /**
         * Returns the dispatcher this store is registered with.
         */
-        getDispatcher(): Flux.Dispatcher<any>;
+        getDispatcher(): Flux.Dispatcher<TPayload>;
 
         /**
-        * Returns the dispatch token that the dispatcher recognizes this store by. 
+        * Returns the dispatch token that the dispatcher recognizes this store by.
         * Can be used to waitFor() this store.
         */
         getDispatchToken(): string;
 
         /**
-        * Ask if a store has changed during the current dispatch. 
-        * Can only be invoked while dispatching. 
+        * Ask if a store has changed during the current dispatch.
+        * Can only be invoked while dispatching.
         * This can be used for constructing derived stores that depend on data from other stores.
         */
         hasChanged(): boolean;
@@ -185,7 +207,7 @@ declare module FluxUtils {
         * This is how the store receives actions from the dispatcher.
         * All state mutation logic must be done during this method.
         */
-        __onDispatch(payload: any): void;
+        __onDispatch(payload: TPayload): void;
     }
 }
 

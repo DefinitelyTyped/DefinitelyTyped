@@ -1,9 +1,9 @@
 // Type definitions for Cordovarduino plugin
 // Project: https://github.com/stereolux/cordovarduino
 // Definitions by: Hendrik Maus <https://github.com/hendrikmaus>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Cordovardunio {
+declare namespace Cordovardunio {
     interface Serial {
         /**
          * Request permission to interact with the serial port.

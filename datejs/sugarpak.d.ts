@@ -1,10 +1,10 @@
 ﻿// Type definitions for DateJS - SugarPak Extensions
 // Project: http://www.datejs.com/
 // Definitions by: David Khristepher Santos <http://github.com/rupertavery>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** SugarPak.js - Domain Specific Language -  Syntactical Sugar */
-declare module sugarpak {
+declare namespace sugarpak {
 
     export interface IAddOrientation {
         millisecond(): Date;
@@ -60,7 +60,7 @@ declare module sugarpak {
         feb(): Date;
         mar(): Date;
         apr(): Date;
-        // may 
+        // may
         jun(): Date;
         jul(): Date;
         aug(): Date;
@@ -255,7 +255,7 @@ interface DateConstructor {
     feb(): Date;
     mar(): Date;
     apr(): Date;
-    // may 
+    // may
     jun(): Date;
     jul(): Date;
     aug(): Date;

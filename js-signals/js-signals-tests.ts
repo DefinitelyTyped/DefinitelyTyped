@@ -6,7 +6,7 @@ interface TestObject {
   stopped: Signal;
 }
 
-module Signals.Tests {
+namespace Signals.Tests {
   //store local reference for brevity
   var Signal = signals.Signal;
 
@@ -105,7 +105,7 @@ module Signals.Tests {
   myObject.started.dispatch(); //first handler will alert "bar", second will alert "10".
 }
 
-module Signals.AdvancedTests {
+namespace Signals.AdvancedTests {
   //store local reference for brevity
   var Signal = signals.Signal;
 

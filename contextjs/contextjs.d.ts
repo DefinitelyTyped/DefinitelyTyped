@@ -1,7 +1,7 @@
 // Type definitions for contextjs 2.1.1
 // Project: https://github.com/jakiestfu/Context.js
 // Definitions by: Kern Handa <https://github.com/kernhanda>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "contextjs" {
     interface MenuObject {
@@ -22,7 +22,7 @@ declare module "contextjs" {
         preventDoubleContext?: boolean;
     }
 
-    module context {
+    namespace context {
       function init(settings?: InitSettings): void;
       function destroy(selector: any): void;
       function attach(selector: any, menuObjects: MenuObject[]): void;

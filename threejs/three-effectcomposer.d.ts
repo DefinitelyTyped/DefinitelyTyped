@@ -1,13 +1,13 @@
 // Type definitions for three.js (EffectComposer.js)
 // Project: https://github.com/mrdoob/three.js/blob/r68/examples/js/postprocessing/EffectComposer.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 /// <reference path="./three-shaderpass.d.ts" />
 /// <reference path="./three-copyshader.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 	export class EffectComposer {
 		constructor( renderer: WebGLRenderer, renderTarget?: WebGLRenderTarget);
 

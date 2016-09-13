@@ -1,7 +1,7 @@
 // Type definitions for Jasmine 1.3
 // Project: http://pivotal.github.com/jasmine/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare function describe(description: string, specDefinitions: () => void): void;
@@ -26,7 +26,7 @@ declare function runs(asyncMethod: Function): void;
 declare function waitsFor(latchMethod: () => boolean, failureMessage?: string, timeout?: number): void;
 declare function waits(timeout?: number): void;
 
-declare module jasmine {
+declare namespace jasmine {
 
     var Clock: Clock;
 

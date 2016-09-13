@@ -1,7 +1,7 @@
 // Type definitions for passport-facebook 1.0.3
 // Project: https://github.com/jaredhanson/passport-facebook
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../passport/passport.d.ts"/>
 
@@ -28,9 +28,17 @@ declare module 'passport-google-oauth' {
         sessionKey?: string;
     }
 
+    interface VerifyOptions {
+        message: string;
+    }
+
+    interface VerifyFunction {
+        (error: any, user?: any, msg?: VerifyOptions): void;
+    }
+
     class OAuthStrategy implements passport.Strategy {
         constructor(options: IOAuthStrategyOption,
-                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+                    verify: (accessToken: string, refreshToken: string, profile: Profile, done: VerifyFunction) => void);
         name: string;
         authenticate: (req: express.Request, options?: Object) => void;
     }

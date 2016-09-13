@@ -1,11 +1,11 @@
 // Type definitions for kuromoji.js
 // Project: https://github.com/takuyaa/kuromoji.js
 // Definitions by: MIZUSHIMA Junki <https://github.com/mzsm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../doublearray/doublearray.d.ts" />
 
-declare module kuromoji {
+declare namespace kuromoji {
 
     // dict/ConnectionCosts.js
     interface ConnectionCosts {

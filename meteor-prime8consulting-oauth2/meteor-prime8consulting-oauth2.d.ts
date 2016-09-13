@@ -5,7 +5,7 @@
 
 /// <reference path="../meteor/meteor.d.ts" />
 
-declare module OAuth2Server {
+declare namespace OAuth2Server {
     interface RefreshToken {
         refreshToken : string;
         clientId : string;

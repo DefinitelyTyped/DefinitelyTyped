@@ -1,7 +1,7 @@
 // Type definitions for tinycolor v1.1.1
 // Project: https://github.com/bgrins/TinyColor
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var tinycolor: tinycolor;
 
@@ -336,14 +336,14 @@ interface tinycolorInstance {
     clone(): tinycolorInstance;
 }
 
-declare module Readable {
+declare namespace Readable {
     interface Readable {
         brightness: number;
         color: number;
     }
 }
 
-declare module ColorFormats {
+declare namespace ColorFormats {
     interface RGB {
         r: number;
         g: number;

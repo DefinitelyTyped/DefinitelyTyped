@@ -1,7 +1,7 @@
 // Type definitions for Glob 5.0.10
 // Project: https://github.com/isaacs/node-glob
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../minimatch/minimatch.d.ts" />
@@ -15,7 +15,7 @@ declare module "glob" {
 	function G(pattern: string, cb: (err: Error, matches: string[]) => void): void;
 	function G(pattern: string, options: G.IOptions, cb: (err: Error, matches: string[]) => void): void;
 
-	module G {
+	namespace G {
 		function sync(pattern: string, options?: IOptions): string[];
 
 		function hasMagic(pattern: string, options?: IOptions): boolean;

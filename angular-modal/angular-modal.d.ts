@@ -6,7 +6,7 @@
 /// <reference path="../angularjs/angular.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module angularModal {
+declare namespace angularModal {
 
     type AngularModalControllerDefinition = (new (...args: any[]) => any) | Function | string; // Possible arguments to IControllerService
 

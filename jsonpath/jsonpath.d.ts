@@ -1,7 +1,7 @@
 // Type definitions for jsonpath 0.1.3
 // Project: https://www.npmjs.org/package/jsonpath
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "jsonpath" {
 

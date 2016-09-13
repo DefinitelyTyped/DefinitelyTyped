@@ -1,11 +1,11 @@
 // Type definitions for chai-things
 // Project: https://github.com/chaijs/chai-things
 // Definitions by: David Broder-Rodgers <https://github.com/DavidBR-SW/>
-// Definitions: https://github.com/DavidBR-SW/DefinitelyTyped
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
     interface ArrayAssertion {
         include: ArrayInclude;
         contain: ArrayInclude;
@@ -23,16 +23,25 @@ declare module Chai {
         any: Anything;
     }
 
+    interface Include {
+        (item: any): any;
+        a: Item;
+        an: Item;
+        one: Something;
+        some: Something;
+        something: Something;
+    }
+
     interface Anything extends Assertion {
         (): any;
-        that: Assertion
-        with: Assertion
+        that: Assertion;
+        with: Assertion;
     }
 
     interface Something extends Assertion {
         (): any;
-        that: Assertion
-        with: Assertion
+        that: Assertion;
+        with: Assertion;
     }
 
     interface Item {

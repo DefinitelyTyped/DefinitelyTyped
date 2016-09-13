@@ -1,7 +1,7 @@
 // Type definitions for tape v4.2.2
 // Project: https://github.com/substack/tape
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Haoqun Jiang <https://github.com/sodatea>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -18,7 +18,7 @@ declare module 'tape' {
 	function tape(cb: tape.TestCase): void;
 	function tape(opts: tape.TestOptions, cb: tape.TestCase): void;
 
-	module tape {
+	namespace tape {
 
 		interface TestCase {
 			(test: Test): void;

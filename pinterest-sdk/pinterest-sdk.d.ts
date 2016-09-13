@@ -2,7 +2,7 @@
 // Project: https://assets.pinterest.com/sdk/sdk.js
 // Definitions by: Adam Burmister <https://github.com/adamburmister>
 // Definitions: https://github.com/adamburmister/DefinitelyTyped
-declare module PDK {
+declare namespace PDK {
 
   enum OAuthScopes { 'read_public', 'write_public', 'read_relationships', 'write_relationships' }
 

@@ -37,6 +37,15 @@ window.HTMLImports.whenReady(() => {
 document.querySelectorAll(`link[type=${window.HTMLImports.IMPORT_LINK_TYPE}`);
 
 /*
+ * Shadow DOM
+ */
+
+var shadow = xFoo.createShadowRoot();
+xFoo.shadowRoot;
+shadow.innerHTML;
+shadow.host;
+
+/*
  * Web Components
  */
 window.WebComponents.flags;

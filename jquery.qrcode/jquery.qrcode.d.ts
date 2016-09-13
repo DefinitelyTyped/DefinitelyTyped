@@ -1,11 +1,11 @@
 // Type definitions for jQuery.qrcode v0.12.0
 // Project: https://github.com/lrsjng/jquery-qrcode
 // Definitions by: Dan Manastireanu <https://github.com/danmana>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryQRCode {
+declare namespace JQueryQRCode {
     /**
      * One of the possible mode types.
      */

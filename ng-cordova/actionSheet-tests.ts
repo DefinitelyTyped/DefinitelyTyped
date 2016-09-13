@@ -1,7 +1,7 @@
 /// <reference path="tsd.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-module ngCordova {
+namespace ngCordova {
     'use strict';
 
     angular.module('test')

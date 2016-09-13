@@ -41,8 +41,8 @@ class AbstractStoreModel<S> implements AltJS.StoreModel<S> {
 
 class GenerateActionsClass extends AbstractActions {
     constructor(config:AltJS.Alt) {
-        this.generateActions("notifyTest");
         super(config);
+        this.generateActions("notifyTest");
     }
 }
 

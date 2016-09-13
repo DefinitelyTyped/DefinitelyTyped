@@ -1,5 +1,5 @@
 /// <reference path="jquery-galleria.d.ts" />
-module JqueryGalleriaTests {
+namespace JqueryGalleriaTests {
     var container = document.createElement("galleria");
 
     var gOptions: GalleriaJS.GalleriaOptions;

@@ -1,7 +1,7 @@
 // Type definitions for stripe
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StripeStatic {
     setPublishableKey(key: string): void;
@@ -17,8 +17,9 @@ interface StripeStatic {
 
 interface StripeTokenData {
     number: string;
-    exp_month: number;
-    exp_year: number;
+    exp_month?: number;
+    exp_year?: number;
+    exp?: string;
     cvc?: string;
     name?: string;
     address_line1?: string;
@@ -78,6 +79,8 @@ interface StripeBankTokenParams
     currency: string;
     account_number: number | string;
     routing_number?: number | string;
+    account_holder_name: string;
+    account_holder_type: string;
 }
 
 interface StripeBankTokenResponse

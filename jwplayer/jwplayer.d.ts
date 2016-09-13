@@ -1,7 +1,7 @@
 // Type definitions for JW Player
 // Project: http://developer.longtailvideo.com/trac/
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
 

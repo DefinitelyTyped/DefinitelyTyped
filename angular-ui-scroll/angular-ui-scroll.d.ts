@@ -1,11 +1,11 @@
 // Type definitions for Angular JS 1.3.1+ (ui.scroll module)
 // Project: https://github.com/angular-ui/ui-scroll
 // Definitions by: Mark Nadig <https://github.com/marknadig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.ui {
+declare namespace angular.ui {
     interface IScrollDatasource<T> {
         /**
          * The datasource object implements methods and properties to be used by the directive to access the data

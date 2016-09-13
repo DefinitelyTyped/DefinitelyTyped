@@ -5,7 +5,7 @@
 
 /// <reference path="../meteor/meteor.d.ts" />
 
-declare module Session {
+declare namespace Session {
     function setTemp(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;
     function setPersistent(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;
     function setAuth(key: string, value: string | number | boolean | any /** Null **/ | any /** Undefined **/): boolean;

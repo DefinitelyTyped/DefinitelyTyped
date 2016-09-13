@@ -5,11 +5,11 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module XML_Service {
     /**
      * A representation of an XML attribute.
-     * 
+     *
      *      // Reads the first and last name of each person and adds a new attribute with the full name.
      *      var xml = '<roster>'
      *          + '<person first="John" last="Doe"/>'
@@ -37,8 +37,8 @@ declare module GoogleAppsScript {
 
     /**
      * A representation of an XML CDATASection node.
-     * 
-     *      // Create and log an XML document that shows how special characters like '<', '>', and '&' are 
+     *
+     *      // Create and log an XML document that shows how special characters like '<', '>', and '&' are
      *      // stored in a CDATASection node as compared to in a Text node.
      *      var illegalCharacters = '<em>The Amazing Adventures of Kavalier & Clay</em>';
      *      var cdata = XmlService.createCdata(illegalCharacters);
@@ -71,21 +71,21 @@ declare module GoogleAppsScript {
     /**
      * A representation of a generic XML node.
      * Implementing classes
-     * 
+     *
      * NameBrief description
-     * 
+     *
      * CdataA representation of an XML CDATASection node.
-     * 
+     *
      * CommentA representation of an XML Comment node.
-     * 
+     *
      * DocTypeA representation of an XML DocumentType node.
-     * 
+     *
      * ElementA representation of an XML Element node.
-     * 
+     *
      * EntityRefA representation of an XML EntityReference node.
-     * 
+     *
      * ProcessingInstructionA representation of an XML ProcessingInstruction node.
-     * 
+     *
      * TextA representation of an XML Text node.
      */
     export interface Content {
@@ -148,7 +148,7 @@ declare module GoogleAppsScript {
 
     /**
      * A representation of an XML Element node.
-     * 
+     *
      *      // Adds up the values listed in a sample XML document and adds a new element with the total.
      *      var xml = '<things>'
      *          + '<plates>12</plates>'
@@ -228,7 +228,7 @@ declare module GoogleAppsScript {
     /**
      * A formatter for outputting an XML document, with three pre-defined formats that can be further
      *  customized.
-     * 
+     *
      *      // Log an XML document with specified formatting options.
      *      var xml = '<root><a><b>Text!</b><b>More text!</b></a></root>';
      *      var document = XmlService.parse(xml);
@@ -282,7 +282,7 @@ declare module GoogleAppsScript {
 
     /**
      * This service allows scripts to parse, navigate, and programmatically create XML documents.
-     * 
+     *
      *      // Log the title and labels for the first page of blog posts on the Google Apps Developer blog.
      *      function parseXml() {
      *        var url = 'http://googleappsdeveloper.blogspot.com/atom.xml';
@@ -290,7 +290,7 @@ declare module GoogleAppsScript {
      *        var document = XmlService.parse(xml);
      *        var root = document.getRootElement();
      *        var atom = XmlService.getNamespace('http://www.w3.org/2005/Atom');
-     *      
+     *
      *        var entries = document.getRootElement().getChildren('entry', atom);
      *        for (var i = 0; i < entries.length; i++) {
      *          var title = entries[i].getChild('title', atom).getText();
@@ -302,7 +302,7 @@ declare module GoogleAppsScript {
      *          Logger.log('%s (%s)', title, labels.join(', '));
      *        }
      *      }
-     *      
+     *
      *      // Create and log an XML representation of the threads in your Gmail inbox.
      *      function createXml() {
      *        var root = XmlService.createElement('threads');

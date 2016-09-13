@@ -1,13 +1,13 @@
 ﻿// Type definitions for csv-stringify 0.0.6
 // Project: https://github.com/wdavidw/node-csv-stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
 declare module "csv-stringify" {
 
-	module stringify {
+	namespace stringify {
 		interface StringifyOpts {
 			/**
 			 * List of fields, applied when transform returns an object, order matters, read the transformer documentation for additionnal information, columns are auto discovered when the user write object, see the "header" option on how to print columns names on the first line.
@@ -58,8 +58,8 @@ declare module "csv-stringify" {
 
 		interface Stringifier extends NodeJS.ReadWriteStream {
 
-			// Stringifier stream takes array of strings
-			write(line: string[]): boolean;
+			// Stringifier stream takes array of strings or Object
+			write(line: string[] | Object): boolean;
 
 			// repeat declarations from NodeJS.WritableStream to avoid compile error
 			write(buffer: Buffer, cb?: Function): boolean;

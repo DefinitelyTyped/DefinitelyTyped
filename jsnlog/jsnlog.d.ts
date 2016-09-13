@@ -1,7 +1,7 @@
-// Type definitions for JSNLog v2.11.0+
+// Type definitions for JSNLog v2.17.3+
 // Project: https://github.com/mperdeck/jsnlog.js
 // Definitions by: Mattijs Perdeck <https://github.com/mperdeck>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // -------------------------------
 // Full documentation is at 
@@ -9,7 +9,7 @@
 // -------------------------------
 
 ﻿/**
-* Copyright 2015 Mattijs Perdeck.
+* Copyright 2016 Mattijs Perdeck.
 *
 * This project is licensed under the MIT license.
 * 
@@ -24,7 +24,7 @@
 // Provides strong typing in both jsnlog.ts itself and in TypeScript programs that use 
 // JSNLog. 
 
-declare module JSNLog {
+declare namespace JL {
 
 	interface JSNLogOptions {
 		enabled?: boolean;
@@ -83,30 +83,33 @@ declare module JSNLog {
 
 	interface JSNLogConsoleAppender extends JSNLogAppender {
 	}
-
-	interface JSNLogStatic {
-		(loggerName?: string): JSNLogLogger;
-
-		setOptions(options: JSNLogOptions): JSNLogStatic;
-		createAjaxAppender(appenderName: string): JSNLogAjaxAppender;
-		createConsoleAppender(appenderName: string): JSNLogConsoleAppender;
-
-		getTraceLevel(): number;
-		getDebugLevel(): number;
-		getInfoLevel(): number;
-		getWarnLevel(): number;
-		getErrorLevel(): number;
-		getFatalLevel(): number;
-	}
 }
 
-declare function __jsnlog_configure(jsnlog: JSNLog.JSNLogStatic): void;
+declare function __jsnlog_configure(jsnlog: any): void;
 
 ﻿
-// Ambient declaration of the JL object itself
+// Ambient declaration of the JL function itself
+declare function JL(loggerName?: string): JL.JSNLogLogger;
 
-declare var JL: JSNLog.JSNLogStatic;
+// Definitions that need to be kept out of the main namespace definition,
+// because otherwise during compilation of jsnlog.ts it complains that you can't 
+// overload ambient declarations with non-ambient declarations.
 
+declare namespace JL {
+	export function setOptions(options: JSNLogOptions): void;
+	export function createAjaxAppender(appenderName: string): JSNLogAjaxAppender;
+	export function createConsoleAppender(appenderName: string): JSNLogConsoleAppender;
 
-
-
+	export class Exception {
+		constructor(data: any, inner?: any);
+	}
+	
+	export function getOffLevel(): number;
+	export function getTraceLevel(): number;
+	export function getDebugLevel(): number;
+	export function getInfoLevel(): number;
+	export function getWarnLevel(): number;
+	export function getErrorLevel(): number;
+	export function getFatalLevel(): number;
+	export function getAllLevel(): number;
+}

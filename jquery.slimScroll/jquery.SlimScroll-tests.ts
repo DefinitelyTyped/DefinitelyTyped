@@ -41,6 +41,21 @@ $('#slimtest3').slimScroll({
     alwaysVisible: true
 });
 
+$('#slimtest3').slimScroll({
+    color: '#00f',
+    size: '10px',
+    height: '180px',
+    alwaysVisible: true,
+    destroy: true
+});
+
 $("div").slimScroll().bind('slimscroll', function(e){
     console.log("Reached " + e);
 });
+
+var options : IJQuerySlimScrollOptions = {
+    destroy: true,
+    position: 'left'
+};
+
+$('#slimtest3').slimScroll(options);

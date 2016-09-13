@@ -3,7 +3,7 @@
 // Definitions by: Matt Wheatley <https://github.com/terrawheat>
 // Definitions: https://github.com/LiberisLabs
 
-declare module angular.environment {
+declare namespace angular.environment {
   interface ServiceProvider {
     /**
      * Sets the configuration object
@@ -14,6 +14,11 @@ declare module angular.environment {
      * loads the correct environment variables.
      */
     check: () => void;
+    /**
+     * Retrieves the correct version of a
+     * variable for the current environment.
+     */
+    read: (key: string) => any;    
   }
   interface Service {
     /**

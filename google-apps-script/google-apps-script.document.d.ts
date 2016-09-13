@@ -6,18 +6,18 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Document {
     /**
      * An enumeration of the element attributes.
-     * 
+     *
      * Use attributes to compose custom styles. For example:
-     * 
+     *
      *      // Define a style with yellow background.
      *      var highlightStyle = {};
      *      highlightStyle[DocumentApp.Attribute.BACKGROUND_COLOR] = '#FFFF00';
      *      highlightStyle[DocumentApp.Attribute.BOLD] = true;
-     *     
+     *
      *      // Insert "Hello", highlighted.
      *      DocumentApp.getActiveDocument().editAsText()
      *        .insertText(0, 'Hello\n')
@@ -30,13 +30,13 @@ declare module GoogleAppsScript {
      *  Paragraph, Table, and TableOfContents elements. For more information on
      *  document structure, see the
      *  guide to extending Google Docs.
-     * 
+     *
      * The Body typically contains the full document contents except for the
      *  HeaderSection, FooterSection, and any FootnoteSection elements.
-     * 
+     *
      *      var doc = DocumentApp.getActiveDocument();
      *      var body = doc.getBody();
-     *      
+     *
      *      // Append a paragraph and a page break to the document body section directly.
      *      body.appendParagraph("A paragraph.");
      *      body.appendPageBreak();
@@ -112,7 +112,7 @@ declare module GoogleAppsScript {
 
     /**
      * An object representing a bookmark.
-     * 
+     *
      *      // Insert a bookmark at the cursor position and log its ID.
      *      var doc = DocumentApp.getActiveDocument();
      *      var cursor = doc.getCursor();
@@ -170,12 +170,12 @@ declare module GoogleAppsScript {
 
     /**
      * A document, containing rich text and elements such as tables and lists.
-     * 
+     *
      * Documents may be opened or created using DocumentApp.
-     * 
+     *
      *      // Open a document by ID.
      *      var doc = DocumentApp.openById("<my-id>");
-     *     
+     *
      *      // Create and open a document.
      *      doc = DocumentApp.create("Document Title");
      */
@@ -222,10 +222,10 @@ declare module GoogleAppsScript {
 
     /**
      * The document service creates and opens Documents that can be edited.
-     * 
+     *
      *      // Open a document by ID.
      *      var doc = DocumentApp.openById('DOCUMENT_ID_GOES_HERE');
-     *     
+     *
      *      // Create and open a document.
      *      doc = DocumentApp.create('Document Name');
      */
@@ -251,51 +251,51 @@ declare module GoogleAppsScript {
      *  are elements and inherit all of the methods defined by Element, such as
      *  getType().
      * Implementing classes
-     * 
+     *
      * NameBrief description
-     * 
+     *
      * BodyAn element representing a document body.
-     * 
+     *
      * ContainerElementA generic element that may contain other elements.
-     * 
+     *
      * EquationAn element representing a mathematical expression.
-     * 
+     *
      * EquationFunctionAn element representing a function in a mathematical Equation.
-     * 
+     *
      * EquationFunctionArgumentSeparatorAn element representing a function separator in a mathematical Equation.
-     * 
+     *
      * EquationSymbolAn element representing a symbol in a mathematical Equation.
-     * 
+     *
      * FooterSectionAn element representing a footer section.
-     * 
+     *
      * FootnoteAn element representing a footnote.
-     * 
+     *
      * FootnoteSectionAn element representing a footnote section.
-     * 
+     *
      * HeaderSectionAn element representing a header section.
-     * 
+     *
      * HorizontalRuleAn element representing an horizontal rule.
-     * 
+     *
      * InlineDrawingAn element representing an embedded drawing.
-     * 
+     *
      * InlineImageAn element representing an embedded image.
-     * 
+     *
      * ListItemAn element representing a list item.
-     * 
+     *
      * PageBreakAn element representing a page break.
-     * 
+     *
      * ParagraphAn element representing a paragraph.
-     * 
+     *
      * TableAn element representing a table.
-     * 
+     *
      * TableCellAn element representing a table cell.
-     * 
+     *
      * TableOfContentsAn element containing a table of contents.
-     * 
+     *
      * TableRowAn element representing a table row.
-     * 
+     *
      * TextAn element representing a rich text region.
-     * 
+     *
      * UnsupportedElementAn element representing a region that is unknown or cannot be affected by a script, such as a
      *  page number.
      */
@@ -334,10 +334,10 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of all the element types.
-     * 
+     *
      * Use the ElementType enumeration to check the type of a given
      *  element, for instance:
-     * 
+     *
      *      var firstChild = DocumentApp.getActiveDocument().getBody().getChild(0);
      *      if (firstChild.getType() == DocumentApp.ElementType.PARAGRAPH) {
      *        // It's a paragraph, apply a paragraph heading.
@@ -455,26 +455,26 @@ declare module GoogleAppsScript {
     }
 
     /**
-     * 
+     *
      * Deprecated. The methods getFontFamily() and setFontFamily(String) now use string
      *      names for fonts instead of this enum. Although this enum is deprecated, it will remain
      *      available for compatibility with older scripts.
      * An enumeration of the supported fonts.
-     * 
+     *
      * Use the FontFamily enumeration to set the font for a range of
      *  text, element or document.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Insert a paragraph at the start of the document.
      *      body.insertParagraph(0, "Hello, Apps Script!");
-     *     
+     *
      *      // Set the document font to Calibri.
      *      body.editAsText().setFontFamily(DocumentApp.FontFamily.CALIBRI);
-     *     
+     *
      *      // Set the first paragraph font to Arial.
      *      body.getParagraphs()[0].setFontFamily(DocumentApp.FontFamily.ARIAL);
-     *     
+     *
      *      // Set "Apps Script" to Comic Sans MS.
      *      var text = 'Apps Script';
      *      var a = body.getText().indexOf(text);
@@ -607,15 +607,15 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of the supported glyph types.
-     * 
+     *
      * Use the GlyphType enumeration to set the bullet type for list
      *  items.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Insert at list item, with the default nesting level of zero.
      *       body.appendListItem("Item 1");
-     *     
+     *
      *       // Append a second list item, with a nesting level of one, indented one inch.
      *       // The two items will have different bullet glyphs.
      *       body.appendListItem("Item 2").setNestingLevel(1).setIndentStart(72)
@@ -687,24 +687,24 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of the supported horizontal alignment types.
-     * 
+     *
      * Use the HorizontalAlignment enumeration to manipulate the
      *  alignment of Paragraph contents.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Insert a paragraph and a table at the start of document.
      *      var par1 = body.insertParagraph(0, "Center");
      *      var table = body.insertTable(1, [['Left', 'Right']]);
      *      var par2 = table.getCell(0, 0).getChild(0).asParagraph();
      *      var par3 = table.getCell(0, 0).getChild(0).asParagraph();
-     *     
+     *
      *      // Center align the first paragraph.
      *      par1.setAlignment(DocumentApp.HorizontalAlignment.CENTER);
-     *     
+     *
      *      // Left align the first cell.
      *      par2.setAlignment(DocumentApp.HorizontalAlignment.LEFT);
-     *     
+     *
      *      // Right align the second cell.
      *      par3.setAlignment(DocumentApp.HorizontalAlignment.RIGHT);
      */
@@ -782,28 +782,28 @@ declare module GoogleAppsScript {
      *  HorizontalRule, InlineDrawing, InlineImage, PageBreak, and
      *  Text elements. For more information on document structure, see the
      *  guide to extending Google Docs.
-     * 
+     *
      * ListItems may not contain new-line characters. New-line characters ("\n") are
      *  converted to line-break characters ("\r").
-     * 
+     *
      * ListItems with the same list ID belong to the same list and are numbered accordingly.
      *  The ListItems for a given list are not required to be adjacent in the document or even
      *  have the same parent element. Two items belonging to the same list may exist anywhere in the
      *  document while maintaining consecutive numbering, as the following example illustrates:
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Append a new list item to the body.
      *      var item1 = body.appendListItem('Item 1');
-     *     
+     *
      *      // Log the new list item's list ID.
      *      Logger.log(item1.getListId());
-     *     
+     *
      *      // Append a table after the list item.
      *      body.appendTable([
      *        ['Cell 1', 'Cell 2']
      *      ]);
-     *     
+     *
      *      // Append a second list item with the same list ID. The two items are treated as the same list,
      *      // despite not being consecutive.
      *      var item2 = body.appendListItem('Item 2');
@@ -882,10 +882,10 @@ declare module GoogleAppsScript {
      *  necessarily unique; several different ranges in the same document may share the same name, much
      *  like a class in HTML. By contrast, IDs are unique within the document, like an ID in HTML. Once a
      *  NamedRange has been added to a document, it cannot be modified, only removed.
-     * 
+     *
      * A NamedRange can be accessed by any script that accesses the document. To avoid
      *  unintended conflicts between scripts, consider prefixing range names with a unique string.
-     * 
+     *
      *      // Create a named range that includes every table in the document.
      *      var doc = DocumentApp.getActiveDocument();
      *      var rangeBuilder = doc.newRange();
@@ -927,20 +927,20 @@ declare module GoogleAppsScript {
      *  Footnote, HorizontalRule, InlineDrawing, InlineImage,
      *  PageBreak, and Text elements. For more information on document structure, see the
      *  guide to extending Google Docs.
-     * 
+     *
      * Paragraphs may not contain new-line characters. New-line characters ("\n") are
      *  converted to line-break characters ("\r").
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Append a document header paragraph.
      *      var header = body.appendParagraph("A Document");
      *      header.setHeading(DocumentApp.ParagraphHeading.HEADING1);
-     *     
+     *
      *      // Append a section header paragraph.
      *      var section = body.appendParagraph("Section 1");
      *      section.setHeading(DocumentApp.ParagraphHeading.HEADING2);
-     *     
+     *
      *      // Append a regular paragraph.
      *      body.appendParagraph("This is a typical paragraph.");
      */
@@ -1008,20 +1008,20 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of the standard paragraph headings.
-     * 
+     *
      * Use the ParagraphHeading enumeration to configure
      *  the heading style for ParagraphElement.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Append a paragraph, with heading 1.
      *      var par1 = body.appendParagraph("Title");
      *      par1.setHeading(DocumentApp.ParagraphHeading.HEADING1);
-     *     
+     *
      *      // Append a paragraph, with heading 2.
      *      var par2 = body.appendParagraph("SubTitle");
      *      par2.setHeading(DocumentApp.ParagraphHeading.HEADING2);
-     *     
+     *
      *      // Append a paragraph, with normal heading.
      *      var par3 = body.appendParagraph("Text");
      *      par3.setHeading(DocumentApp.ParagraphHeading.NORMAL);
@@ -1033,7 +1033,7 @@ declare module GoogleAppsScript {
      *  represented as a Position, among other uses. Scripts can only access the cursor of the
      *  user who is running the script, and only if the script is
      *  bound to the document.
-     * 
+     *
      *      // Insert some text at the cursor position and make it bold.
      *      var cursor = DocumentApp.getActiveDocument().getCursor();
      *      if (cursor) {
@@ -1064,18 +1064,18 @@ declare module GoogleAppsScript {
      *  Range, among other uses. Scripts can only access the selection of the user who is running
      *  the script, and only if the script is
      *  bound to the document.
-     * 
+     *
      *      // Bold all selected text.
      *      var selection = DocumentApp.getActiveDocument().getSelection();
      *      if (selection) {
      *        var elements = selection.getRangeElements();
      *        for (var i = 0; i < elements.length; i++) {
      *          var element = elements[i];
-     *     
+     *
      *          // Only modify elements that can be edited as text; skip images and other non-text elements.
      *          if (element.getElement().editAsText) {
      *            var text = element.getElement().editAsText();
-     *     
+     *
      *            // Bold the selected part of the element, or the full element if it's completely selected.
      *            if (element.isPartial()) {
      *              text.setBold(element.getStartOffset(), element.getEndOffsetInclusive(), true);
@@ -1093,7 +1093,7 @@ declare module GoogleAppsScript {
 
     /**
      * A builder used to construct Range objects from document elements.
-     * 
+     *
      *      // Change the user's selection to a range that includes every table in the document.
      *      var doc = DocumentApp.getActiveDocument();
      *      var rangeBuilder = doc.newRange();
@@ -1130,18 +1130,18 @@ declare module GoogleAppsScript {
      * An element representing a table. A Table may only contain TableRow elements. For
      *  more information on document structure, see the
      *  guide to extending Google Docs.
-     * 
+     *
      * When creating a Table that contains a large number of rows or cells, consider building
      *  it from a string array, as shown in the following example.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Create a two-dimensional array containing the cell contents.
      *      var cells = [
      *        ['Row 1, Cell 1', 'Row 1, Cell 2'],
      *        ['Row 2, Cell 1', 'Row 2, Cell 2']
      *      ];
-     *     
+     *
      *      // Build a table from the array.
      *      body.appendTable(cells);
      */
@@ -1347,19 +1347,19 @@ declare module GoogleAppsScript {
      *  EquationFunction, ListItem, or Paragraph, but cannot itself contain any
      *  other element. For more information on document structure, see the
      *  guide to extending Google Docs.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Use editAsText to obtain a single text element containing
      *      // all the characters in the document.
      *      var text = body.editAsText();
-     *     
+     *
      *      // Insert text at the beginning of the document.
      *      text.insertText(0, 'Inserted text.\n');
-     *     
+     *
      *      // Insert text at the end of the document.
      *      text.appendText('\nAppended text.');
-     *     
+     *
      *      // Make the first half of the document blue.
      *      text.setForegroundColor(0, text.getText().length / 2, '#00FFFF');
      */
@@ -1430,7 +1430,7 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of the type of text alignments.
-     * 
+     *
      *      // Make the first character in the first paragraph be superscript.
      *      var text = DocumentApp.getActiveDocument().getBody().getParagraphs()[0].editAsText();
      *      text.setTextAlignment(0, 0, DocumentApp.TextAlignment.SUPERSCRIPT);
@@ -1456,21 +1456,21 @@ declare module GoogleAppsScript {
 
     /**
      * An enumeration of the supported vertical alignment types.
-     * 
+     *
      * Use the VerticalAlignment enumeration to set the vertical
      *  alignment of table cells.
-     * 
+     *
      *      var body = DocumentApp.getActiveDocument().getBody();
-     *     
+     *
      *      // Append table containing two cells.
      *      var table = body.appendTable([['Top', 'Center', 'Bottom']]);
-     *     
+     *
      *      // Align the first cell's contents to the top.
      *      table.getCell(0, 0).setVerticalAlignment(DocumentApp.VerticalAlignment.TOP);
-     *     
+     *
      *      // Align the second cell's contents to the center.
      *      table.getCell(0, 1).setVerticalAlignment(DocumentApp.VerticalAlignment.CENTER);
-     *     
+     *
      *      // Align the third cell's contents to the bottom.
      *      table.getCell(0, 2).setVerticalAlignment(DocumentApp.VerticalAlignment.BOTTOM);
      */

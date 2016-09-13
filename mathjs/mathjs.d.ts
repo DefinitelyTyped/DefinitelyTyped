@@ -1,11 +1,11 @@
 // Type definitions for mathjs
 // Project: http://mathjs.org/
 // Definitions by: Ilya Shestakov <https://github.com/siavol/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var math: mathjs.IMathJsStatic;
 
-declare module mathjs {
+declare namespace mathjs {
 
 	type MathArray = number[]|number[][];
 	type MathType = number|BigNumber|Fraction|Complex|Unit|MathArray|Matrix;
@@ -15,8 +15,22 @@ declare module mathjs {
 
 		e: number;
 		pi: number;
-		uninitialized: any;
+		i: number;
+		Infinity: number;
+		LN2: number;
+		LN10: number;
+		LOG2E: number;
+		LOG10E: number;
+		NaN: number;
+		null: number;
+		phi: number;
+		SQRT1_2: number;
+		SQRT2: number;
+		tau: number;
 
+		uninitialized: any;
+		version: string;
+		
 		config(options: any): void;
 
                 expression: MathNode;
@@ -1319,10 +1333,15 @@ declare module mathjs {
 
 	export interface MathNode {
                 isNode: boolean;
-                isSymbolNode: boolean;
+                isSymbolNode?: boolean;
+                isConstantNode?: boolean;
+                isOperatorNode?: boolean;
+                op?: string;
+                fn?: string;
+                args?: MathNode[];
                 type: string;
-                name: string;
-                value: any;
+                name?: string;
+                value?: any;
 
                 compile(): EvalFunction;
                 eval(): any;
@@ -2208,3 +2227,8 @@ declare module mathjs {
 		toString(): string;
 	}
 }
+
+declare module 'mathjs'{
+	export = math;
+}
+

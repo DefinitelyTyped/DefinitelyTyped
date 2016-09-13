@@ -1,9 +1,9 @@
 // Type definitions for meteorjs for node-mysql-wrapper which helps in development
 // Project: https://github.com/nodets/node-mysql-wrapper
 // Definitions by: Makis Maropoulos <https://github.com/kataras>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Mongo {
+declare namespace Mongo {
 	var Collection: CollectionStatic;
 	interface CollectionStatic {
 		new <T>(name: string, options?: {
@@ -78,7 +78,7 @@ declare module Mongo {
 
 }
 
-declare module Meteor {
+declare namespace Meteor {
     var isServer: boolean;
     var isClient: boolean;
 }

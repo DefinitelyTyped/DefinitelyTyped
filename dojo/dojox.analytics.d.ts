@@ -1,21 +1,21 @@
 ﻿// Type definitions for Dojo v1.9
 // Project: http://dojotoolkit.org
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module dojox {
-    
+declare namespace dojox {
+
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojox/analytics.html
      *
      * Deprecated.  Should require dojox/analytics modules directly rather than trying to access them through
      * this module.
-     * 
+     *
      */
     interface analytics {
     }
-    module analytics {
+    namespace analytics {
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojox/analytics/Urchin.html
          *
@@ -27,23 +27,23 @@ declare module dojox {
          * stall until the external API has been completely loaded. The Urchin helper
          * will load the API on the fly, and provide a convenient API to use, wrapping
          * Analytics for Ajaxy or single page applications.
-         * 
+         *
          * The class can be instantiated two ways: Programatically, by passing an
          * acct: parameter, or via Markup / dojoType and defining a djConfig
          * parameter urchin:
-         * 
+         *
          * IMPORTANT:
          * This module will not work simultaneously with the core dojox.analytics
          * package. If you need the ability to run Google Analytics AND your own local
          * analytics system, you MUST include dojox.analytics._base BEFORE dojox.analytics.Urchin
-         * 
-         * @param args     
+         *
+         * @param args
          */
         class Urchin {
             constructor(args: any);
             /**
              * your GA urchin tracker account number. Overrides djConfig.urchin
-             * 
+             *
              */
             "acct": string;
             /**
@@ -52,22 +52,22 @@ declare module dojox {
              * complete and initialized. The initial trackPageView (with
              * no arguments) is called here as well, so remeber to call
              * manually if overloading this method.
-             * 
+             *
              */
             GAonLoad(): void;
             /**
              * A public API attached to this widget instance, allowing you
              * Ajax-like notification of updates.
-             * 
-             * @param url A location to tell the tracker to track, eg: "/my-ajaxy-endpoint"             
+             *
+             * @param url A location to tell the tracker to track, eg: "/my-ajaxy-endpoint"
              */
             trackPageView(url: String): void;
         }
-        module plugins {
+        namespace plugins {
             /**
              * Permalink: http://dojotoolkit.org/api/1.9/dojox/analytics/plugins/consoleMessages.html
              *
-             * 
+             *
              */
             interface consoleMessages {
             }

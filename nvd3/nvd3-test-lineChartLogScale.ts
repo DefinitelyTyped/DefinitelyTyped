@@ -1,5 +1,5 @@
 ﻿/// <reference path="nvd3.d.ts" />
-module nvd3_test_lineChartLogScale {
+namespace nvd3_test_lineChartLogScale {
 var chart;
      var data;
 
@@ -38,30 +38,30 @@ var chart;
      function GenerateData() {
            var sin = [],
                sin2 = [];
-  
+
            for (var i = 0; i < 100; i++) {
-                   sin.push({ x: i, y: Math.abs(i % 10 == 5 ? null : Math.sin(i / 10)) }); //the nulls are to show how defined works 
+                   sin.push({ x: i, y: Math.abs(i % 10 == 5 ? null : Math.sin(i / 10)) }); //the nulls are to show how defined works
                    sin2.push({ x: i, y: Math.abs(Math.sin(i / 5) * 0.4 - 0.25) });
-      
+
   }
-  
+
            return [
-                { 
-                           area: true, 
+                {
+                           area: true,
                            values: sin,
-                           key: "l1", 
-                           color: "#ff7f0e", 
-                           strokeWidth: 4, 
-                           classed: 'dashed' 
+                           key: "l1",
+                           color: "#ff7f0e",
+                           strokeWidth: 4,
+                           classed: 'dashed'
          },
-                  { 
+                  {
                            values: sin2,
-                           key: "l2", 
-                           color: "#2ca02c" 
-         } 
+                           key: "l2",
+                           color: "#2ca02c"
+         }
      ];
 
-  } 
+  }
 
-  
+
 }

@@ -1,7 +1,7 @@
 // Type definitions for simple-mock
 // Project: https://github.com/jupiter/simple-mock
 // Definitions by: Leon Yu <https://github.com/leonyu>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Simple {
   type Fn<T> = {

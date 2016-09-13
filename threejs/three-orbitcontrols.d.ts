@@ -1,16 +1,16 @@
 // Type definitions for three.js (OrbitControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/OrbitControls.js
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
     class OrbitControls {
         constructor(object: Camera, domElement?: HTMLElement);
 
         object: Camera;
-        domElement: HTMLElement;
+        domElement: HTMLElement | HTMLDocument;
 
         // API
         enabled: boolean;
@@ -49,6 +49,7 @@ declare module THREE {
         dollyOut(dollyScale: number): void;
         update(): void;
         reset(): void;
+        dispose(): void;
         getPolarAngle(): number;
         getAzimuthalAngle(): number;
 

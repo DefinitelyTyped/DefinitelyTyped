@@ -1,7 +1,7 @@
 // Type definitions for camljs
 // Project: http://camljs.codeplex.com
 // Definitions by: Andrey Markeev <http://markeev.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare class CamlBuilder {
@@ -21,7 +21,7 @@ declare class CamlBuilder {
     */
     static Expression(): CamlBuilder.IFieldExpression;
 }
-declare module CamlBuilder {
+declare namespace CamlBuilder {
     interface IView extends IJoinable, IFinalizable {
         Query(): IQuery;
         RowLimit(limit: number, paged?: boolean): IView;

@@ -1,14 +1,14 @@
 // Type definitions for tedious-connection-pool
 // Project: https://github.com/pekim/tedious-connection-pool
 // Definitions by: Cyprien Autexier <https://github.com/sandorfr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../tedious/tedious.d.ts" />
 
 declare module "tedious-connection-pool" {
     import tedious = require('tedious');
 
-    module tcp {
+    namespace tcp {
 
         /**
          * Extends Tedious Connection with release function

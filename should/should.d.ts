@@ -1,7 +1,7 @@
 // Type definitions for should.js v8.1.1
 // Project: https://github.com/shouldjs/should.js
 // Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Object {
   should: ShouldAssertion;
@@ -40,6 +40,8 @@ interface ShouldAssertion {
   Function(): ShouldAssertion;
   Date(): ShouldAssertion;
   Class(): ShouldAssertion;
+  Undefined(): ShouldAssertion;
+  Null(): ShouldAssertion;
   generator(): ShouldAssertion;
   iterable(): ShouldAssertion;
   iterator(): ShouldAssertion;
@@ -131,6 +133,8 @@ interface ShouldAssertion {
   hasOwnProperty(name: string, description?: string): ShouldAssertion;
   greaterThan(n: number, description?: string): ShouldAssertion;
   lessThan(n: number, description?: string): ShouldAssertion;
+  null(): ShouldAssertion;
+  undefined(): ShouldAssertion;
 }
 
 interface ShouldInternal {

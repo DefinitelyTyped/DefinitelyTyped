@@ -1,7 +1,7 @@
 /// <reference path="jest.d.ts" />
 
 // Tests based on the Jest website
-jest.dontMock('../sum');
+jest.unmock('../sum');
 
 describe('sum', function() {
     it('adds 1 + 2 to equal 3', function() {
@@ -16,7 +16,7 @@ describe('fetchCurrentUser', function() {
         var fetchCurrentUser = require('../fetchCurrentUser');
 
         // Create a mock function for our callback
-        var callback = jest.genMockFunction();
+        var callback = jest.fn();
         fetchCurrentUser(callback);
 
         // Now we emulate the process by which `$.ajax` would execute its own
@@ -35,7 +35,9 @@ describe('fetchCurrentUser', function() {
     });
 });
 
-jest.dontMock('../displayUser.js')
+// unmock is the recommended approach for unmocking...
+jest.unmock('../displayUser.js')
+// ...but dontMock also still works.
 jest.dontMock('jquery');
 
 describe('displayUser', function() {
@@ -70,7 +72,7 @@ describe('displayUser', function() {
     });
 });
 
-jest.dontMock('../CheckboxWithLabel.js');
+jest.unmock('../CheckboxWithLabel.js');
 describe('CheckboxWithLabel', function() {
     it('changes the text after click', function() {
         var React = require('react/addons');
@@ -99,7 +101,7 @@ describe('CheckboxWithLabel', function() {
 });
 
 function testInstances() {
-    var mockFn = jest.genMockFunction<Function>();
+    var mockFn = jest.fn<Function>();
     var a = new mockFn();
     var b = new mockFn();
 
@@ -108,7 +110,7 @@ function testInstances() {
 }
 
 function testMockImplementation() {
-    var mockFn = jest.genMockFunction<Function>().mockImplementation(function (scalar:number):number {
+    var mockFn = jest.fn<Function>().mockImplementation(function (scalar:number):number {
         return 42 + scalar;
     });
 

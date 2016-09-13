@@ -1,7 +1,7 @@
 // Type definitions for LeState v0.1.3
 // Project: https://github.com/LeTools/LeState
 // Definitions by: Hadrian Oliveira <https://github.com/thelambdaparty/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare let LeState : {
     createState: (props?: {

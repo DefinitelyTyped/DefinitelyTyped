@@ -8,6 +8,7 @@ import * as util from "util";
 import * as crypto from "crypto";
 import * as tls from "tls";
 import * as http from "http";
+import * as https from "https";
 import * as net from "net";
 import * as tty from "tty";
 import * as dgram from "dgram";
@@ -15,31 +16,60 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as cluster from "cluster";
 import * as os from "os";
+import * as vm from "vm";
+import * as string_decoder from "string_decoder";
+import * as stream from "stream";
+import * as timers from "timers";
+
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
-assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
+//////////////////////////////////////////////////////////
+/// Assert Tests : https://nodejs.org/api/assert.html ///
+//////////////////////////////////////////////////////////
 
-assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+namespace assert_tests{
+    {
+        assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
+        
+        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+        
+        // TODO: assert.deepStrictEqual
+        
+        assert.doesNotThrow(() => {
+            const b = false;
+            if (b) { throw "a hammer at your face"; }
+        }, undefined, "What the...*crunch*");
+        
+        assert.equal(3, "3", "uses == comparator");
 
-assert.equal(3, "3", "uses == comparator");
-
-assert.notStrictEqual(2, "2", "uses === comparator");
-
-assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
-
-assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
-
-assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
-}, undefined, "What the...*crunch*");
+        // TODO: assert.fail
+        
+        // TODO: assert.ifError
+        
+        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
+        
+        // TODO: assert.notDeepStrictEqual
+        
+        // TODO: assert.notEqual
+        
+        assert.notStrictEqual(2, "2", "uses === comparator");
+        
+        // TODO: assert.ok
+        
+        // TODO: assert.strictEqual
+        
+        assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Events tests : http://nodejs.org/api/events.html
 ////////////////////////////////////////////////////
 
-module events_tests {
+namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string;
     let listener: Function;
@@ -51,6 +81,8 @@ module events_tests {
         result = emitter.addListener(event, listener);
         result = emitter.on(event, listener);
         result = emitter.once(event, listener);
+        result = emitter.prependListener(event, listener);
+        result = emitter.prependOnceListener(event, listener);
         result = emitter.removeListener(event, listener);
         result = emitter.removeAllListeners();
         result = emitter.removeAllListeners(event);
@@ -81,35 +113,105 @@ module events_tests {
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
     }
+
+    {
+        let result: string[];
+
+        result = emitter.eventNames();
+    }
 }
 
 ////////////////////////////////////////////////////
 /// File system tests : http://nodejs.org/api/fs.html
 ////////////////////////////////////////////////////
-fs.writeFile("thebible.txt",
-    "Do unto others as you would have them do unto you.",
-    assert.ifError);
 
-fs.write(1234, "test");
-
-fs.writeFile("Harry Potter",
-    "\"You be wizzing, Harry,\" jived Dumbledore.",
+namespace fs_tests {
     {
-        encoding: "ascii"
-    },
-    assert.ifError);
+        fs.writeFile("thebible.txt",
+            "Do unto others as you would have them do unto you.",
+            assert.ifError);
+        
+        fs.write(1234, "test");
+        
+        fs.writeFile("Harry Potter",
+            "\"You be wizzing, Harry,\" jived Dumbledore.",
+            {
+                encoding: "ascii"
+            },
+            assert.ifError);	
+    }
 
-var content: string,
-    buffer: Buffer;
-
-content = fs.readFileSync('testfile', 'utf8');
-content = fs.readFileSync('testfile', {encoding : 'utf8'});
-buffer = fs.readFileSync('testfile');
-buffer = fs.readFileSync('testfile', {flag : 'r'});
-fs.readFile('testfile', 'utf8', (err, data) => content = data);
-fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
-fs.readFile('testfile', (err, data) => buffer = data);
-fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    {
+        var content: string;
+        var buffer: Buffer;
+        
+        content = fs.readFileSync('testfile', 'utf8');
+        content = fs.readFileSync('testfile', {encoding : 'utf8'});
+        buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', {flag : 'r'});
+        fs.readFile('testfile', 'utf8', (err, data) => content = data);
+        fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+        fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+    }
+    
+    {
+        var errno: string;
+        fs.readFile('testfile', (err, data) => {
+            if (err && err.errno) {
+                errno = err.errno;
+            }
+        });
+    }
+    
+    {
+        fs.mkdtemp('/tmp/foo-', (err, folder) => {
+            console.log(folder);
+            // Prints: /tmp/foo-itXde2
+        });
+    }
+    
+    {
+        var tempDir: string;
+        tempDir = fs.mkdtempSync('/tmp/foo-');
+    }
+    
+    {
+        fs.watch('/tmp/foo-', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
+          console.log(event, filename);
+        });
+        
+        fs.watch('/tmp/foo-', {
+          recursive: true,
+          persistent: true,
+          encoding: 'utf8'
+        }, (event, filename) => {
+          console.log(event, filename);
+        });
+    }
+    
+    {
+        fs.access('/path/to/folder', (err) => {});
+        
+        fs.access(Buffer.from(''), (err) => {});
+        
+        fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => {});
+        
+        fs.accessSync('/path/to/folder');
+        
+        fs.accessSync(Buffer.from(''));
+        
+        fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
+        
+        fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+}
 
 class Networker extends events.EventEmitter {
     constructor() {
@@ -118,14 +220,6 @@ class Networker extends events.EventEmitter {
         this.emit("mingling");
     }
 }
-
-var errno: number;
-fs.readFile('testfile', (err, data) => {
-    if (err && err.errno) {
-        errno = err.errno;
-    }
-});
-
 
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
@@ -136,6 +230,7 @@ function bufferTests() {
     var base64Buffer = new Buffer('','base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
+    var sharedBuffer = new Buffer(octets.buffer);
     var copiedBuffer = new Buffer(utf8Buffer);
     console.log(Buffer.isBuffer(octetBuffer));
     console.log(Buffer.isEncoding('utf8'));
@@ -143,6 +238,43 @@ function bufferTests() {
     console.log(Buffer.byteLength('xyz123', 'ascii'));
     var result1 = Buffer.concat([utf8Buffer, base64Buffer]);
     var result2 = Buffer.concat([utf8Buffer, base64Buffer], 9999999);
+
+    // Class Methods: Buffer.swap16(), Buffer.swa32(), Buffer.swap64()
+    {
+        const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
+        buf.swap16();
+        buf.swap32();
+        buf.swap64();
+    }
+
+    // Class Method: Buffer.from(array)
+    {
+        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+    }
+
+    // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
+    {
+        const arr: Uint16Array = new Uint16Array(2);
+        arr[0] = 5000;
+        arr[1] = 4000;
+
+        let buf: Buffer;
+        buf = Buffer.from(arr.buffer);
+        buf = Buffer.from(arr.buffer, 1);
+        buf = Buffer.from(arr.buffer, 0, 1);
+    }
+
+    // Class Method: Buffer.from(buffer)
+    {
+        const buf1: Buffer = Buffer.from('buffer');
+        const buf2: Buffer = Buffer.from(buf1);
+    }
+
+    // Class Method: Buffer.from(str[, encoding])
+    {
+        const buf1: Buffer = Buffer.from('this is a tést');
+        const buf2: Buffer = Buffer.from('7468697320697320612074c3a97374', 'hex');
+    }
 
     // Test that TS 1.6 works with the 'as Buffer' annotation
     // on isBuffer.
@@ -162,14 +294,72 @@ function bufferTests() {
 
     // fill returns the input buffer.
     b.fill('a').fill('b');
-   
+
     {
         let buffer = new Buffer('123');
         let index: number;
         index = buffer.indexOf("23");
         index = buffer.indexOf("23", 1);
+        index = buffer.indexOf("23", 1, "utf8");
         index = buffer.indexOf(23);
         index = buffer.indexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let index: number;
+        index = buffer.lastIndexOf("23");
+        index = buffer.lastIndexOf("23", 1);
+        index = buffer.lastIndexOf("23", 1, "utf8");
+        index = buffer.lastIndexOf(23);
+        index = buffer.lastIndexOf(buffer);
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: [number, number];
+
+        /* comment out for --target es5
+        for (let entry of buffer.entries()) {
+            val = entry;
+        }
+         */
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let includes: boolean;
+        includes = buffer.includes("23");
+        includes = buffer.includes("23", 1);
+        includes = buffer.includes("23", 1, "utf8");
+        includes = buffer.includes(23);
+        includes = buffer.includes(23, 1);
+        includes = buffer.includes(23, 1, "utf8");
+        includes = buffer.includes(buffer);
+        includes = buffer.includes(buffer, 1);
+        includes = buffer.includes(buffer, 1, "utf8");
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        /* comment out for --target es5
+        for (let key of buffer.keys()) {
+            val = key;
+        }
+         */
+    }
+
+    {
+        let buffer = new Buffer('123');
+        let val: number;
+
+        /* comment out for --target es5
+        for (let value of buffer.values()) {
+            val = value;
+        }
+         */
     }
 
     // Imported Buffer from buffer module works properly
@@ -179,6 +369,12 @@ function bufferTests() {
         let sb = new ImportedSlowBuffer(43);
         b.writeUInt8(0, 6);
     }
+
+    // Buffer has Uint8Array's buffer field (an ArrayBuffer).
+    {
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
+    }
 }
 
 
@@ -186,23 +382,36 @@ function bufferTests() {
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
 
-url.format(url.parse('http://www.example.com/xyz'));
+namespace url_tests {
+    {
+        url.format(url.parse('http://www.example.com/xyz'));
+        
+        // https://google.com/search?q=you're%20a%20lizard%2C%20gary
+        url.format({
+            protocol: 'https',
+            host: "google.com",
+            pathname: 'search',
+            query: { q: "you're a lizard, gary" }
+        });   
+    }
 
-// https://google.com/search?q=you're%20a%20lizard%2C%20gary
-url.format({
-    protocol: 'https',
-    host: "google.com",
-    pathname: 'search',
-    query: { q: "you're a lizard, gary" }
-});
+    {
+        var helloUrl = url.parse('http://example.com/?hello=world', true)
+        assert.equal(helloUrl.query.hello, 'world');
+    }
+}
 
-var helloUrl = url.parse('http://example.com/?hello=world', true)
-assert.equal(helloUrl.query.hello, 'world');
+/////////////////////////////////////////////////////
+/// util tests : https://nodejs.org/api/util.html ///
+/////////////////////////////////////////////////////
 
-
-// Old and new util.inspect APIs
-util.inspect(["This is nice"], false, 5);
-util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+namespace util_tests {
+    {
+        // Old and new util.inspect APIs
+        util.inspect(["This is nice"], false, 5);
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html
@@ -215,6 +424,70 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();
+}
+
+// Simplified constructors
+function simplified_stream_ctor_test() {
+    new stream.Readable({
+        read: function (size) {
+            size.toFixed();
+        }
+    });
+
+    new stream.Writable({
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    });
+
+    new stream.Duplex({
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        },
+        readableObjectMode: true,
+        writableObjectMode: true
+    });
+
+    new stream.Transform({
+        transform: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb();
+        },
+        flush: function (cb) {
+            cb()
+        },
+        read: function (size) {
+            size.toFixed();
+        },
+        write: function (chunk, enc, cb) {
+            chunk.slice(1);
+            enc.charAt(0);
+            cb()
+        },
+        writev: function (chunks, cb) {
+            chunks[0].chunk.slice(0);
+            chunks[0].encoding.charAt(0);
+            cb();
+        }
+    })
 }
 
 ////////////////////////////////////////////////////
@@ -274,11 +547,11 @@ var ctx: tls.SecureContext = tls.createSecureContext({
 });
 var blah = ctx.context;
 
-var tlsOpts: tls.TlsOptions = {
+var connOpts: tls.ConnectionOptions = {
 	host: "127.0.0.1",
 	port: 55
 };
-var tlsSocket = tls.connect(tlsOpts);
+var tlsSocket = tls.connect(connOpts);
 
 
 ////////////////////////////////////////////////////
@@ -295,7 +568,7 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
@@ -322,10 +595,35 @@ module http_tests {
 }
 
 ////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html
+////////////////////////////////////////////////////
+namespace https_tests {
+    var agent: https.Agent = new https.Agent({
+        keepAlive: true,
+        keepAliveMsecs: 10000,
+        maxSockets: Infinity,
+        maxFreeSockets: 256,
+        maxCachedSessions: 100
+    });
+
+    var agent: https.Agent = https.globalAgent;
+
+    https.request({
+        agent: false
+    });
+    https.request({
+        agent: agent
+    });
+    https.request({
+        agent: undefined
+    });
+}
+
+////////////////////////////////////////////////////
 /// TTY tests : http://nodejs.org/api/tty.html
 ////////////////////////////////////////////////////
 
-module tty_tests {
+namespace tty_tests {
     let rs: tty.ReadStream;
     let ws: tty.WriteStream;
 
@@ -342,17 +640,22 @@ module tty_tests {
 /// Dgram tests : http://nodejs.org/api/dgram.html
 ////////////////////////////////////////////////////
 
-var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-});
-var ai: dgram.AddressInfo = ds.address();
-ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-});
+namespace dgram_tests {
+    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+    });
+    ds.bind();
+    ds.bind(41234);
+    var ai: dgram.AddressInfo = ds.address();
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    });
+    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+}
 
 ////////////////////////////////////////////////////
 ///Querystring tests : https://nodejs.org/api/querystring.html
 ////////////////////////////////////////////////////
 
-module querystring_tests {
+namespace querystring_tests {
     type SampleObject = {a: string; b: number;}
 
     {
@@ -395,7 +698,7 @@ module querystring_tests {
 /// path tests : http://nodejs.org/api/path.html
 ////////////////////////////////////////////////////
 
-module path_tests {
+namespace path_tests {
 
     path.normalize('/foo/bar//baz/asdf/quux/..');
 
@@ -442,82 +745,82 @@ module path_tests {
     path.isAbsolute('.')         // false
 
     path.relative('C:\\orandea\\test\\aaa', 'C:\\orandea\\impl\\bbb')
-// returns
-//    '..\\..\\impl\\bbb'
+    // returns
+    //    '..\\..\\impl\\bbb'
 
     path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
-// returns
-//    '../../impl/bbb'
+    // returns
+    //    '../../impl/bbb'
 
     path.dirname('/foo/bar/baz/asdf/quux')
-// returns
-//    '/foo/bar/baz/asdf'
+    // returns
+    //    '/foo/bar/baz/asdf'
 
     path.basename('/foo/bar/baz/asdf/quux.html')
-// returns
-//    'quux.html'
+    // returns
+    //    'quux.html'
 
     path.basename('/foo/bar/baz/asdf/quux.html', '.html')
-// returns
-//    'quux'
+    // returns
+    //    'quux'
 
     path.extname('index.html')
-// returns
-//    '.html'
+    // returns
+    //    '.html'
 
     path.extname('index.coffee.md')
-// returns
-//    '.md'
+    // returns
+    //    '.md'
 
     path.extname('index.')
-// returns
-//    '.'
+    // returns
+    //    '.'
 
     path.extname('index')
-// returns
-//    ''
+    // returns
+    //    ''
 
     'foo/bar/baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     'foo\\bar\\baz'.split(path.sep)
-// returns
-//        ['foo', 'bar', 'baz']
+    // returns
+    //        ['foo', 'bar', 'baz']
 
     console.log(process.env.PATH)
-// '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
+    // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
+    // returns
+    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
 
     console.log(process.env.PATH)
-// 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
+    // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
 
     process.env.PATH.split(path.delimiter)
-// returns
-//        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
+    // returns
+    //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
 
     path.parse('/home/user/dir/file.txt')
-// returns
-//    {
-//        root : "/",
-//        dir : "/home/user/dir",
-//        base : "file.txt",
-//        ext : ".txt",
-//        name : "file"
-//    }
+    // returns
+    //    {
+    //        root : "/",
+    //        dir : "/home/user/dir",
+    //        base : "file.txt",
+    //        ext : ".txt",
+    //        name : "file"
+    //    }
 
     path.parse('C:\\path\\dir\\index.html')
-// returns
-//    {
-//        root : "C:\",
-//        dir : "C:\path\dir",
-//        base : "index.html",
-//        ext : ".html",
-//        name : "index"
-//    }
+    // returns
+    //    {
+    //        root : "C:\",
+    //        dir : "C:\path\dir",
+    //        base : "index.html",
+    //        ext : ".html",
+    //        name : "index"
+    //    }
 
     path.format({
         root : "/",
@@ -526,15 +829,15 @@ module path_tests {
         ext : ".txt",
         name : "file"
     });
-// returns
-//    '/home/user/dir/file.txt'
+    // returns
+    //    '/home/user/dir/file.txt'
 }
 
 ////////////////////////////////////////////////////
 /// readline tests : https://nodejs.org/api/readline.html
 ////////////////////////////////////////////////////
 
-module readline_tests {
+namespace readline_tests {
     let rl: readline.ReadLine;
 
     {
@@ -627,18 +930,53 @@ module readline_tests {
     }
 }
 
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    const StringDecoder = string_decoder.StringDecoder;
+    const buffer = new Buffer('test');
+    const decoder1 = new StringDecoder();
+    const decoder2 = new StringDecoder('utf8');
+    const part1: string = decoder1.write(new Buffer('test'));
+    const end1: string = decoder1.end();
+    const part2: string = decoder2.write(new Buffer('test'));
+    const end2: string = decoder1.end(new Buffer('test'));
+}
+
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///
 //////////////////////////////////////////////////////////////////////
 
-childProcess.exec("echo test");
-childProcess.spawnSync("echo test");
+namespace child_process_tests {
+    {
+        childProcess.exec("echo test");
+        childProcess.spawnSync("echo test");    
+    }
+}
+
+//////////////////////////////////////////////////////////////////////
+/// cluster tests: https://nodejs.org/api/cluster.html ///
+//////////////////////////////////////////////////////////////////////
+
+namespace cluster_tests　{
+    {
+        cluster.fork();
+        Object.keys(cluster.workers).forEach(key => {
+            const worker = cluster.workers[key];
+            if (worker.isDead()) {
+                console.log('worker %d is dead', worker.process.pid);
+            }
+        });
+    }
+}
 
 ////////////////////////////////////////////////////
 /// os tests : https://nodejs.org/api/os.html
 ////////////////////////////////////////////////////
 
-module os_tests {
+namespace os_tests {
     {
         let result: string;
 
@@ -678,4 +1016,271 @@ module os_tests {
 
         result = os.networkInterfaces();
     }
+}
+
+////////////////////////////////////////////////////
+/// vm tests : https://nodejs.org/api/vm.html
+////////////////////////////////////////////////////
+
+namespace vm_tests {
+    {
+        const sandbox = {
+            animal: 'cat',
+            count: 2
+        };
+
+        const context = vm.createContext(sandbox);
+        console.log(vm.isContext(context));
+        const script = new vm.Script('count += 1; name = "kitty"');
+
+        for (let i = 0; i < 10; ++i) {
+            script.runInContext(context);
+        }
+
+        console.log(util.inspect(sandbox));
+
+        vm.runInNewContext('count += 1; name = "kitty"', sandbox);
+        console.log(util.inspect(sandbox));
+    }
+
+    {
+        const sandboxes = [{}, {}, {}];
+
+        const script = new vm.Script('globalVar = "set"');
+
+        sandboxes.forEach((sandbox) => {
+            script.runInNewContext(sandbox);
+            script.runInThisContext();
+        });
+
+        console.log(util.inspect(sandboxes));
+
+        var localVar = 'initial value';
+        vm.runInThisContext('localVar = "vm";');
+
+        console.log(localVar);
+    }
+
+    {
+        const Debug = vm.runInDebugContext('Debug');
+        Debug.scripts().forEach(function(script: any) { console.log(script.name); });
+    }
+}
+
+/////////////////////////////////////////////////////
+/// Timers tests : https://nodejs.org/api/timers.html
+/////////////////////////////////////////////////////
+
+namespace timers_tests {
+    {
+        let immediateId = timers.setImmediate(function(){ console.log("immediate"); });
+        timers.clearImmediate(immediateId);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setInterval(function(){ console.log("interval"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearInterval(timeout);
+    }
+    {
+        let counter = 0;
+        let timeout = timers.setTimeout(function(){ console.log("timeout"); }, 20);
+        timeout.unref();
+        timeout.ref();
+        timers.clearTimeout(timeout);
+    }
+}
+
+/////////////////////////////////////////////////////////
+/// Errors Tests : https://nodejs.org/api/errors.html ///
+/////////////////////////////////////////////////////////
+
+namespace errors_tests {
+    {
+        Error.stackTraceLimit = Infinity;
+    }
+    {
+        const myObject = {};
+        Error.captureStackTrace(myObject);
+    }
+}
+
+///////////////////////////////////////////////////////////
+/// Process Tests : https://nodejs.org/api/process.html ///
+///////////////////////////////////////////////////////////
+
+import * as p from "process";
+namespace process_tests{
+    {
+        var eventEmitter: events.EventEmitter;
+        eventEmitter = process;                // Test that process implements EventEmitter...
+        
+        var _p: NodeJS.Process = process;
+        _p = p;
+        assert(p === process);
+    }
+}
+
+///////////////////////////////////////////////////////////
+/// Console Tests : https://nodejs.org/api/console.html ///
+///////////////////////////////////////////////////////////
+
+import * as c from "console";
+namespace console_tests{
+    {
+        assert(c === console);
+    }
+}
+
+/*****************************************************************************
+ *                                                                           *
+ * The following tests are the modules not mentioned in document but existed *
+ *                                                                           *
+ *****************************************************************************/
+
+///////////////////////////////////////////////////////////
+/// Constants Tests                                     ///
+///////////////////////////////////////////////////////////
+
+import * as constants from 'constants';
+namespace constants_tests {
+    var str: string;
+    var num: number;
+    num = constants.SIGHUP
+    num = constants.SIGINT
+    num = constants.SIGQUIT
+    num = constants.SIGILL
+    num = constants.SIGTRAP
+    num = constants.SIGABRT
+    num = constants.SIGIOT
+    num = constants.SIGBUS
+    num = constants.SIGFPE
+    num = constants.SIGKILL
+    num = constants.SIGUSR1
+    num = constants.SIGSEGV
+    num = constants.SIGUSR2
+    num = constants.SIGPIPE
+    num = constants.SIGALRM
+    num = constants.SIGTERM
+    num = constants.SIGCHLD
+    num = constants.SIGSTKFLT
+    num = constants.SIGCONT
+    num = constants.SIGSTOP
+    num = constants.SIGTSTP
+    num = constants.SIGTTIN
+    num = constants.SIGTTOU
+    num = constants.SIGURG
+    num = constants.SIGXCPU
+    num = constants.SIGXFSZ
+    num = constants.SIGVTALRM
+    num = constants.SIGPROF
+    num = constants.SIGWINCH
+    num = constants.SIGIO
+    num = constants.SIGPOLL
+    num = constants.SIGPWR
+    num = constants.SIGSYS
+    num = constants.SIGUNUSED
+    num = constants.O_RDONLY
+    num = constants.O_WRONLY
+    num = constants.O_RDWR
+    num = constants.S_IFMT
+    num = constants.S_IFREG
+    num = constants.S_IFDIR
+    num = constants.S_IFCHR
+    num = constants.S_IFBLK
+    num = constants.S_IFIFO
+    num = constants.S_IFLNK
+    num = constants.S_IFSOCK
+    num = constants.O_CREAT
+    num = constants.O_EXCL
+    num = constants.O_NOCTTY
+    num = constants.O_TRUNC
+    num = constants.O_APPEND
+    num = constants.O_DIRECTORY
+    num = constants.O_NOATIME
+    num = constants.O_NOFOLLOW
+    num = constants.O_SYNC
+    num = constants.O_DIRECT
+    num = constants.O_NONBLOCK
+    num = constants.S_IRWXU
+    num = constants.S_IRUSR
+    num = constants.S_IWUSR
+    num = constants.S_IXUSR
+    num = constants.S_IRWXG
+    num = constants.S_IRGRP
+    num = constants.S_IWGRP
+    num = constants.S_IXGRP
+    num = constants.S_IRWXO
+    num = constants.S_IROTH
+    num = constants.S_IWOTH
+    num = constants.S_IXOTH
+    num = constants.F_OK
+    num = constants.R_OK
+    num = constants.W_OK
+    num = constants.X_OK
+    num = constants.SSL_OP_ALL
+    num = constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION
+    num = constants.SSL_OP_CIPHER_SERVER_PREFERENCE
+    num = constants.SSL_OP_CISCO_ANYCONNECT
+    num = constants.SSL_OP_COOKIE_EXCHANGE
+    num = constants.SSL_OP_CRYPTOPRO_TLSEXT_BUG
+    num = constants.SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS
+    num = constants.SSL_OP_EPHEMERAL_RSA
+    num = constants.SSL_OP_LEGACY_SERVER_CONNECT
+    num = constants.SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER
+    num = constants.SSL_OP_MICROSOFT_SESS_ID_BUG
+    num = constants.SSL_OP_MSIE_SSLV2_RSA_PADDING
+    num = constants.SSL_OP_NETSCAPE_CA_DN_BUG
+    num = constants.SSL_OP_NETSCAPE_CHALLENGE_BUG
+    num = constants.SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG
+    num = constants.SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG
+    num = constants.SSL_OP_NO_COMPRESSION
+    num = constants.SSL_OP_NO_QUERY_MTU
+    num = constants.SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION
+    num = constants.SSL_OP_NO_SSLv2
+    num = constants.SSL_OP_NO_SSLv3
+    num = constants.SSL_OP_NO_TICKET
+    num = constants.SSL_OP_NO_TLSv1
+    num = constants.SSL_OP_NO_TLSv1_1
+    num = constants.SSL_OP_NO_TLSv1_2
+    num = constants.SSL_OP_PKCS1_CHECK_1
+    num = constants.SSL_OP_PKCS1_CHECK_2
+    num = constants.SSL_OP_SINGLE_DH_USE
+    num = constants.SSL_OP_SINGLE_ECDH_USE
+    num = constants.SSL_OP_SSLEAY_080_CLIENT_DH_BUG
+    num = constants.SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG
+    num = constants.SSL_OP_TLS_BLOCK_PADDING_BUG
+    num = constants.SSL_OP_TLS_D5_BUG
+    num = constants.SSL_OP_TLS_ROLLBACK_BUG
+    num = constants.ENGINE_METHOD_RSA
+    num = constants.ENGINE_METHOD_DSA
+    num = constants.ENGINE_METHOD_DH
+    num = constants.ENGINE_METHOD_RAND
+    num = constants.ENGINE_METHOD_ECDH
+    num = constants.ENGINE_METHOD_ECDSA
+    num = constants.ENGINE_METHOD_CIPHERS
+    num = constants.ENGINE_METHOD_DIGESTS
+    num = constants.ENGINE_METHOD_STORE
+    num = constants.ENGINE_METHOD_PKEY_METHS
+    num = constants.ENGINE_METHOD_PKEY_ASN1_METHS
+    num = constants.ENGINE_METHOD_ALL
+    num = constants.ENGINE_METHOD_NONE
+    num = constants.DH_CHECK_P_NOT_SAFE_PRIME
+    num = constants.DH_CHECK_P_NOT_PRIME
+    num = constants.DH_UNABLE_TO_CHECK_GENERATOR
+    num = constants.DH_NOT_SUITABLE_GENERATOR
+    num = constants.NPN_ENABLED
+    num = constants.ALPN_ENABLED
+    num = constants.RSA_PKCS1_PADDING
+    num = constants.RSA_SSLV23_PADDING
+    num = constants.RSA_NO_PADDING
+    num = constants.RSA_PKCS1_OAEP_PADDING
+    num = constants.RSA_X931_PADDING
+    num = constants.RSA_PKCS1_PSS_PADDING
+    num = constants.POINT_CONVERSION_COMPRESSED
+    num = constants.POINT_CONVERSION_UNCOMPRESSED
+    num = constants.POINT_CONVERSION_HYBRID
+    str = constants.defaultCoreCipherList
+    str = constants.defaultCipherList
 }

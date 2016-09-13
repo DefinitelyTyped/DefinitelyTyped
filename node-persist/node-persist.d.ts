@@ -1,14 +1,14 @@
 // Type definitions for node-persist
 // Project: https://github.com/simonlast/node-persist
 // Definitions by: Spencer Williams <http://spencerwi.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
 declare module "node-persist" {
     type milliseconds = number;
-    module NodePersist {
+    namespace NodePersist {
         export interface InitOptions {
             dir?: string;
             stringify?: (toSerialize: any)=>string;
@@ -19,7 +19,7 @@ declare module "node-persist" {
             interval?: milliseconds|boolean;
             ttl?: milliseconds|boolean;
         }
-        export function init(options?: InitOptions, callback?: Function): Q.Promise<any>; 
+        export function init(options?: InitOptions, callback?: Function): Q.Promise<any>;
         export function initSync(options?: InitOptions): void;
         export function getItem(key: string, callback?: (err: any, value: any)=>any): Q.Promise<any>;
         export function getItemSync(key: string): any;

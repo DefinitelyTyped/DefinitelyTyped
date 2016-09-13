@@ -5,7 +5,7 @@
 
 import fb = facebook;
 declare var FB: fb.FacebookStatic;
-declare module facebook {
+declare namespace facebook {
 
     interface FacebookStatic {
         // api: any;

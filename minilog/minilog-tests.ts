@@ -1,7 +1,7 @@
 ﻿// Type definitions for minilog v2
 // Project: https://github.com/mixu/minilog
 // Definitions by: Guido <http://guido.io>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="minilog.d.ts"/>
 

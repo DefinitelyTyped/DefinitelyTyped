@@ -1,7 +1,7 @@
 // Type definitions for react-spinkit 1.1.4
 // Project: https://github.com/KyleAMathews/react-spinkit
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts" />
 

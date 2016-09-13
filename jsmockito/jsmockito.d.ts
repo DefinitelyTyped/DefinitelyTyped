@@ -312,7 +312,7 @@
  * verifyNoMoreInteractions(mockArray);
  * </pre>
  */
-declare module JsMockito {
+declare namespace JsMockito {
 
     /**
      * Library version.
@@ -378,6 +378,7 @@ declare module JsMockito {
      * @param verifier Optional JsMockito.Verifier instance (default: JsMockito.Verifiers.once())
      * @return {T} A verifier on which the method or function to be verified can be invoked
      */
+    export function verify<T>(mock: T): T;
     export function verify<T>(mock: T, verifier: Verifier): T;
 
     /**
@@ -457,7 +458,7 @@ declare module JsMockito {
      */
     export function mock<T>(Obj: { new(): T ;}): T;
 
-    module Verifiers {
+    namespace Verifiers {
 
         /**
          * Test that a invocation never occurred. For example:
@@ -506,7 +507,7 @@ declare module JsMockito {
         export function once(): Verifier;
     }
 
-    module Integration {
+    namespace Integration {
 
         /**
          * Import the public JsMockito API into the specified object (namespace)
@@ -587,6 +588,7 @@ declare function when<T>(mock: T): T;
  * @param verifier Optional JsMockito.Verifier instance (default: JsMockito.Verifiers.once())
  * @return {T} A verifier on which the method or function to be verified can be invoked
  */
+declare function verify<T>(mock: T): T;
 declare function verify<T>(mock: T, verifier: JsMockito.Verifier): T;
 
 /**

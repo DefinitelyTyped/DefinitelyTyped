@@ -1,7 +1,7 @@
-// Type definitions for react-router v2.0.0-rc5
+// Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <http://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../react/react.d.ts" />
@@ -18,15 +18,23 @@ declare namespace ReactRouter {
 
     type Component = React.ReactType
 
-    type EnterHook = (nextState: RouterState, replaceState: RedirectFunction, callback?: Function) => any
+    type EnterHook = (nextState: RouterState, replace: RedirectFunction, callback?: Function) => void
 
-    type LeaveHook = () => any
+    type LeaveHook = () => void
 
-    type Params = Object
+    type ChangeHook = (prevState: RouterState, nextState: RouterState, replace: RedirectFunction, callback: Function) => void;
+
+    type Params = { [param: string]: string }
 
     type ParseQueryString = (queryString: H.QueryString) => H.Query
 
-    type RedirectFunction = (state: H.LocationState, pathname: H.Pathname | H.Path, query?: H.Query) => void
+    interface RedirectFunction {
+        (location: H.LocationDescriptor): void;
+        /**
+        * @deprecated `replaceState(state, pathname, query) is deprecated; Use `replace(location)` with a location descriptor instead. http://tiny.cc/router-isActivedeprecated
+        */
+        (state: H.LocationState, pathname: H.Pathname | H.Path, query?: H.Query): void;
+    }
 
     type RouteComponent = Component
 
@@ -78,6 +86,8 @@ declare namespace ReactRouter {
     const browserHistory: History;
     const hashHistory: History;
 
+    function createMemoryHistory(options?: H.HistoryOptions): H.History
+
     /* components */
 
     interface RouterProps extends React.Props<Router> {
@@ -98,7 +108,7 @@ declare namespace ReactRouter {
         activeStyle?: React.CSSProperties
         activeClassName?: string
         onlyActiveOnIndex?: boolean
-        to: RoutePattern
+        to: RoutePattern | H.LocationDescriptor
         query?: H.Query
         state?: H.LocationState
     }
@@ -134,10 +144,11 @@ declare namespace ReactRouter {
         path?: RoutePattern
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
+        getComponent?: (nextState: RouterState, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (nextState: RouterState, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
+        onChange?: ChangeHook
         getIndexRoute?: (location: H.Location, cb: (error: any, indexRoute: RouteConfig) => void) => void
         getChildRoutes?: (location: H.Location, cb: (error: any, childRoutes: RouteConfig) => void) => void
     }
@@ -195,6 +206,10 @@ declare namespace ReactRouter {
     interface IndexRedirectElement extends React.ReactElement<IndexRedirectProps> {}
     const IndexRedirect: IndexRedirect
 
+    interface RouterOnContext extends H.History {
+        setRouteLeaveHook(route: PlainRoute, hook?: RouteHook): () => void;
+        isActive(pathOrLoc: H.LocationDescriptor, indexOnly?: boolean): boolean;
+    }
 
     /* mixins */
 
@@ -212,6 +227,27 @@ declare namespace ReactRouter {
 
     const RouteContext: React.Mixin<any, any>
 
+    /* Higher Order Component */
+
+    // Wrap a component using withRouter(Component) to provide a router object
+    // to the Component's props, allowing the Component to programmatically call
+    // push and other functions.
+    //
+    // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
+
+    interface InjectedRouter {
+      push: (pathOrLoc: H.LocationDescriptor) => void
+      replace: (pathOrLoc: H.LocationDescriptor) => void
+      go: (n: number) => void
+      goBack: () => void
+      goForward: () => void
+      setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
+      createPath(path: H.Path, query?: H.Query): H.Path
+      createHref(path: H.Path, query?: H.Query): H.Href
+      isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
+    }
+
+    function withRouter<C extends React.ComponentClass<any>>(component: C): C
 
     /* utils */
 
@@ -220,6 +256,7 @@ declare namespace ReactRouter {
         listenBeforeLeavingRoute(route: PlainRoute, hook: RouteHook): void
         match(location: H.Location, callback: (error: any, nextState: RouterState, nextLocation: H.Location) => void): void
         isActive(pathname: H.Pathname, query?: H.Query, indexOnly?: boolean): boolean
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
     }
 
     function useRoutes<T>(createHistory: HistoryModule.CreateHistory<T>): HistoryModule.CreateHistory<T & HistoryRoutes>
@@ -231,12 +268,15 @@ declare namespace ReactRouter {
     interface MatchArgs {
         routes?: RouteConfig
         history?: H.History
-        location?: H.Location
+        location?: H.Location | string
         parseQueryString?: ParseQueryString
         stringifyQuery?: StringifyQuery
+        basename?: string
     }
     interface MatchState extends RouterState {
         history: History
+        router: Router
+        createElement: (component: RouteComponent, props: Object) => any
     }
     function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void
 
@@ -365,6 +405,10 @@ declare module "react-router/lib/PropTypes" {
 
     export const routes: React.Requireable<any>
 
+    export const routerShape: React.Requireable<any>
+
+    export const locationShape: React.Requireable<any>
+
     export default {
         falsy,
         history,
@@ -390,6 +434,21 @@ declare module "react-router/lib/match" {
 
 }
 
+declare module "react-router/lib/useRouterHistory" {
+    interface CreateRouterHistory {
+        (options?: HistoryModule.HistoryOptions): HistoryModule.History & HistoryModule.HistoryQueries;
+    }
+
+    export default function useRouterHistory<T>(createHistory: HistoryModule.CreateHistory<T>): CreateRouterHistory;
+}
+
+declare module "react-router/lib/createMemoryHistory" {
+  export default ReactRouter.createMemoryHistory;
+}
+
+declare module "react-router/lib/withRouter" {
+  export default ReactRouter.withRouter;
+}
 
 declare module "react-router" {
 
@@ -429,6 +488,12 @@ declare module "react-router" {
 
     import match from "react-router/lib/match"
 
+    import useRouterHistory from "react-router/lib/useRouterHistory";
+
+    import createMemoryHistory from "react-router/lib/createMemoryHistory";
+
+    import withRouter from "react-router/lib/withRouter";
+
     // PlainRoute is defined in the API documented at:
     // https://github.com/rackt/react-router/blob/master/docs/API.md
     // but not included in any of the .../lib modules above.
@@ -447,6 +512,8 @@ declare module "react-router" {
     export type RouterListener = ReactRouter.RouterListener
     export type RouterState = ReactRouter.RouterState
     export type HistoryBase = ReactRouter.HistoryBase
+    export type RouterOnContext = ReactRouter.RouterOnContext
+    export type RouteProps = ReactRouter.RouteProps
 
     export {
         Router,
@@ -466,7 +533,10 @@ declare module "react-router" {
         formatPattern,
         RouterContext,
         PropTypes,
-        match
+        match,
+        useRouterHistory,
+        createMemoryHistory,
+        withRouter
     }
 
     export default Router

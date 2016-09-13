@@ -1,7 +1,7 @@
 // Type definitions for gulp-uglify
 // Project: https://github.com/terinjokes/gulp-uglify
 // Definitions by: Christopher Haws <https://github.com/ChristopherHaws/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="../uglify-js/uglify-js.d.ts"/>
@@ -32,7 +32,7 @@ declare module "gulp-uglify" {
              * some - Preserve comments that start with a bang (!) or include a Closure Compiler directive (@preserve, @license, @cc_on)
              * function - Specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return either true or false.
              */
-            preserverComments?: string|((node: any, comment: UglifyJS.Tokenizer) => boolean);
+            preserveComments?: string|((node: any, comment: UglifyJS.Tokenizer) => boolean);
         }
     }
 
