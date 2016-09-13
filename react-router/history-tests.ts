@@ -130,3 +130,13 @@ let input = { value: "" };
     history.createPath('/the/path') // /base/the/path
     history.push('/the/path') // push /base/the/path
 }
+
+{
+    let history = createHistory()
+
+    const { pathname, query, search, state} = history.getCurrentLocation()
+    console.log(pathname)
+    console.log(query)
+    console.log(search)
+    console.log(state)
+}
