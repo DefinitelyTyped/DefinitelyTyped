@@ -7,7 +7,7 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import * as i18n from 'i18next';
-import { translate, I18nextProvider, Interpolate, InjectedTranslateProps } from 'react-i18next';
+import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction } from 'react-i18next';
 
 
 i18n
@@ -26,18 +26,19 @@ i18n
     });
 
 
-interface InnerAnotherComponentProps extends InjectedTranslateProps {
+interface InnerAnotherComponentProps {
+    _?: TranslationFunction;
 }
 
 class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps, {}> {
     render() {
-        const { t } = this.props;
+        const { _ } = this.props;
 
-        return <p>{t('content.text', { /* options t options */ })}</p>;
+        return <p>{_('content.text', { /* options t options */ })}</p>;
     }
 }
 
-const AnotherComponent = translate('view', { wait: true })(InnerAnotherComponent);
+const AnotherComponent = translate('view', { wait: true, translateFuncName: '_' })(InnerAnotherComponent);
 
 
 
@@ -69,7 +70,20 @@ class TranslatableView extends React.Component<TranslatableViewProps, {}> {
                 <h1>{t('common:appName')}</h1>
                 <AnotherComponent />
                 <YetAnotherComponent />
-                <Interpolate parent='p' i18nKey='common:interpolateSample' value='"some value in props"' component={interpolateComponent} />
+                <Interpolate
+                    parent='p'
+                    i18nKey='common:interpolateSample'
+                    value='"some value in props"'
+                    component={interpolateComponent}
+                />
+                <Interpolate
+                    parent='p'
+                    i18nKey='common:interpolateSample'
+                    useDangerouslySetInnerHTML={true}
+                    dangerouslySetInnerHTMLPartElement='span'
+                    value='"some value in props"'
+                    component={interpolateComponent}
+                />
                 <a href='https://github.com/i18next/react-i18next' target='_blank'>{t('nav:link1')}</a>
             </div>
         )
