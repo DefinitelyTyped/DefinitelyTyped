@@ -3,10 +3,8 @@
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "typescript-stl"
-{
-        export = std;
-}
+export = std;
+export as namespace std;
 
 /**
  * <h1> TypeScript-STL </h1>

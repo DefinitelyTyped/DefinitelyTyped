@@ -3,11 +3,8 @@
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../samchon-framework/samchon-framework.d.ts" />
+/// <reference types="samchon-framework" />
+export = collection;
 
-declare module "samchon-collection"
-{
-	import collection = samchon.collection;
-	export = collection;
-}
-
+import samchon = require("samchon-framework");
+import collection = samchon.collection;

@@ -1,6 +1,6 @@
-/// <reference types="avoscloud-sdk" />
+/// <reference types="leanengine" />
 
-import  * as AV from 'avoscloud-sdk'
+import  * as AV from 'leanengine'
 // 创建一个新的 TestObject 对象
 AV.initialize('...','...');
 var TestObject = AV.Object.extend('TestObject');

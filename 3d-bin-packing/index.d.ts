@@ -3,17 +3,18 @@
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../typescript-stl/typescript-stl.d.ts" />
-/// <reference path="../samchon-framework/samchon-framework.d.ts" />
-/// <reference path="../react/react-global.d.ts" />
-/// <reference path="../react-data-grid/react-data-grid.d.ts" />
-/// <reference path="../threejs/three.d.ts" />
+/// <reference types="typescript-stl" />
+/// <reference types="samchon-framework" />
+/// <reference types="react" />
+/// <reference types="react-data-grid" />
+/// <reference types="three" />
 
-declare module "3d-bin-packing"
-{
-        export = bws.packer;
-}
-declare var ReactDataGrid: typeof AdazzleReactDataGrid.ReactDataGrid;
+import std = require("typescript-stl");
+import samchon = require("samchon-framework");
+import React = require("react");
+import ReactDataGrid = require("react-data-grid");
+import THREE = require("three");
+
 declare namespace boxologic {
     /**
      * <p> An abstract instance of boxologic. </p>
@@ -1439,7 +1440,7 @@ declare namespace bws.packer {
          * Default Constructor.
          */
         constructor();
-        protected abstract createColumns(): AdazzleReactDataGrid.Column[];
+        protected abstract createColumns(): ReactDataGrid.Column[];
         private get_row(index);
         private insert_instance(event);
         private erase_instances(event);
@@ -1463,10 +1464,10 @@ declare namespace bws.packer {
         render(): JSX.Element;
     }
     class InstanceEditor extends Editor<InstanceForm> {
-        protected createColumns(): AdazzleReactDataGrid.Column[];
+        protected createColumns(): ReactDataGrid.Column[];
     }
     class WrapperEditor extends Editor<Wrapper> {
-        protected createColumns(): AdazzleReactDataGrid.Column[];
+        protected createColumns(): ReactDataGrid.Column[];
     }
 }
 declare namespace bws.packer {
@@ -1498,3 +1499,7 @@ declare namespace bws.packer {
         wrappers: WrapperArray;
     }
 }
+
+import _bws = bws;
+
+export = bws.packer;

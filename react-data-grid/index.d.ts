@@ -3,11 +3,17 @@
 // Definitions by: Simon Gellis <https://github.com/SupernaviX>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
+import React = require("react");
 
-declare namespace AdazzleReactDataGrid {
-    import React = __React;
+/**
+ * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
+ * http://adazzle.github.io/react-data-grid/
+ */
+declare class ReactDataGrid extends React.Component<ReactDataGrid.GridProps, {}> { }
+
+declare namespace ReactDataGrid {
 
     interface GridProps {
         /**
@@ -248,7 +254,7 @@ declare namespace AdazzleReactDataGrid {
          * @param ev The react event
          * @param args The row and column coordinates of the cell, and the name of the event.
          */
-        (ev: React.SyntheticEvent, args: {rowIdx: number, idx: number, name: string}): void
+        (ev: React.SyntheticEvent<{}>, args: {rowIdx: number, idx: number, name: string}): void
     }
 
     /**
@@ -314,7 +320,7 @@ declare namespace AdazzleReactDataGrid {
         /**
          * The double click event.
          */
-        e: React.SyntheticEvent
+        e: React.SyntheticEvent<{}>
     }
 
     /**
@@ -384,100 +390,16 @@ declare namespace AdazzleReactDataGrid {
         filterTerm: string
     }
 
+    // Actual classes exposed on module.exports
     /**
-     * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
-     * http://adazzle.github.io/react-data-grid/
+     * A react component that renders a row of the grid
      */
-    export class ReactDataGrid extends React.Component<GridProps, {}> { }
-    export namespace ReactDataGrid {
-        // Useful types
-        export import Column = AdazzleReactDataGrid.Column;
-        export import Filter = AdazzleReactDataGrid.Filter;
+    class Row extends React.Component<any, any> { }
 
-        // Various events
-        export import RowUpdateEvent = AdazzleReactDataGrid.RowUpdateEvent;
-        export import CellDragEvent = AdazzleReactDataGrid.CellDragEvent;
-        export import DragHandleDoubleClickEvent = AdazzleReactDataGrid.DragHandleDoubleClickEvent;
-        export import CellCopyPasteEvent = AdazzleReactDataGrid.CellCopyPasteEvent;
-        export import GridRowsUpdatedEvent = AdazzleReactDataGrid.GridRowsUpdatedEvent;
-
-        // Actual classes exposed on module.exports
-        /**
-         * A react component that renders a row of the grid
-         */
-        export class Row extends React.Component<any, any> { }
-        /**
-         * A react coponent that renders a cell of the grid
-         */
-        export class Cell extends React.Component<any, any> { }
-    }
+    /**
+     * A react coponent that renders a cell of the grid
+     */
+    class Cell extends React.Component<any, any> { }
 }
 
-declare namespace AdazzleReactDataGridPlugins {
-    import React = __React;
-
-    // TODO: refine types for these addons
-    export namespace Editors {
-        export class AutoComplete extends React.Component<any, {}> { }
-        export class DropDownEditor extends React.Component<any, {}> { }
-        export class SimpleTextEditor extends React.Component<any, {}> { }
-        export class CheckboxEditor extends React.Component<any, {}> { }
-    }
-    export namespace Formatters {
-        export class ImageFormatter extends React.Component<any, {}> { }
-    }
-    export class Toolbar extends React.Component<any, any> {}
-    // TODO: re-export the react-contextmenu typings once those exist
-    // https://github.com/vkbansal/react-contextmenu/issues/10
-    export namespace Menu {
-        export class ContextMenu extends React.Component<any, {}> { }
-        export class MenuHeader extends React.Component<any, {}> { }
-        export class MenuItem extends React.Component<any, {}> { }
-        export class SubMenu extends React.Component<any, {}> { }
-        export const monitor: {
-            getItem(): any
-            getPosition(): any
-            hideMenu(): void
-        };
-        export function connect(Menu: any): any;
-        export function ContextMenuLayer(
-            identifier: any,
-            configure?: (props: any) => any
-        ): (Component: any) => any
-    }
-}
-
-declare module "react-data-grid" {
-    import ReactDataGrid = AdazzleReactDataGrid.ReactDataGrid;
-
-    // commonjs export
-    export = ReactDataGrid;
-}
-
-declare module "react-data-grid/addons" {
-    import Plugins = AdazzleReactDataGridPlugins;
-    import Editors = Plugins.Editors;
-    import Formatters = Plugins.Formatters;
-    import Toolbar = Plugins.Toolbar;
-    import Menu = Plugins.Menu;
-
-    // ES6 named exports
-    export {
-        Editors,
-        Formatters,
-        Toolbar,
-        Menu
-    }
-
-    // attach to window
-    global {
-        interface Window {
-            ReactDataGridPlugins: {
-                Editors: typeof Editors
-                Formatters: typeof Formatters
-                Toolbar: typeof Toolbar
-                Menu: typeof Menu
-            }
-        }
-    }
-}
+export = ReactDataGrid;
