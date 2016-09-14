@@ -3,10 +3,10 @@
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-imageloader" {
-  interface ImageLoaderProps extends __React.Props<ImageLoader> {
+  interface ImageLoaderProps extends React.Props<ImageLoader> {
       /** An optional class name for the wrapper component. */
       className?: string;
 
@@ -20,19 +20,19 @@ declare module "react-imageloader" {
       onLoad?: (event: any) => void;
 
       /** An optional function that returns a React element to be shown while the image loads. */
-      preloader?: (params: any) => __React.ReactElement<any>;
+      preloader?: (params: any) => React.ReactElement<any>;
 
       /** The URL of the image to be loaded. */
       src: string;
 
       /** An optional object containing styles for the wrapper component. */
-      style?: __React.CSSProperties;
+      style?: React.CSSProperties;
 
       /** A function that takes a props argument and returns a React element to be used as the wrapper component. Defaults to React.DOM.span. */
-      wrapper?: (props: any) => __React.ReactElement<any>;
+      wrapper?: (props: any) => React.ReactElement<any>;
   }
 
-  class ImageLoader extends __React.Component<ImageLoaderProps, {}> {}
+  class ImageLoader extends React.Component<ImageLoaderProps, {}> {}
 
   export = ImageLoader;
 }

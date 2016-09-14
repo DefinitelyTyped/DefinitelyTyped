@@ -8,6 +8,7 @@
 
 
 import Orchestrator = require("orchestrator");
+import VinylFile = require("vinyl");
 
 declare namespace gulp {
     interface Gulp extends Orchestrator {

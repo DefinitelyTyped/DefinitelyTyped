@@ -3,7 +3,7 @@
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>, Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../whatwg-streams/whatwg-streams.d.ts" />
+/// <reference types="whatwg-streams" />
 
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;

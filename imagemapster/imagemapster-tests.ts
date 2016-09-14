@@ -1,6 +1,3 @@
-///<reference path="./imagemapster.d.ts" />
-///<reference path="../jquery/jquery.d.ts" />
-
 const areaOptions: ImageMapster.AreaRenderingOptions = {
     key:         "foo",
     includeKeys: "foo",

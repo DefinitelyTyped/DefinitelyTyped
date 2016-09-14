@@ -1,9 +1,9 @@
-// Type definitions for tinder 1.19.0 
+// Type definitions for tinder 1.19.0
 // Project: https://github.com/tinderjs/tinderjs
 // Definitions by: Matej Drolc <https://github.com/pingec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node-0.12.d.ts" />
+/// <reference types="node" />
 
 declare module 'tinder' {
 
@@ -91,14 +91,14 @@ declare module 'tinder' {
         unmatch(matchId: string, callback: Callback<any>): void;
 
         /**
-         * Gets a list of new updates. This will be things like new messages, users who liked you, etc. 
+         * Gets a list of new updates. This will be things like new messages, users who liked you, etc.
          * @param {Function} callback the callback to invoke when the request completes
          */
         getUpdates(callback: Callback<TinderUpdates>): void;
 
         /**
          * Gets the entire history for the current account (all matches, messages, blocks, etc.)
-         * 
+         *
          * NOTE: Old messages seem to not be returned after a certain threshold. Not yet
          * sure what exactly that timeout is. The official client seems to get this update
          * once when the app is installed then cache the results and only rely on the
@@ -108,7 +108,7 @@ declare module 'tinder' {
         getHistory(callback: Callback<TinderHistory>): void;
 
         /**
-         * Updates the geographical position for the current account 
+         * Updates the geographical position for the current account
          * @param {Number} lon the longitude
          * @param {Number} lat the latitutde
          * @param {Function} callback the callback to invoke when the request completes
@@ -219,7 +219,7 @@ declare module 'tinder' {
 
         /**
          * Get a share URL for a user
-         * 
+         *
          * @param {String} userId the id of the user
          * @param {Function} callback the callback to invoke when the request completes
          */
@@ -227,7 +227,7 @@ declare module 'tinder' {
 
         /**
          * Report a user
-         * 
+         *
          * @param {String} userId the id of the user
          * @param {Number} causeId one of 4 (inappropriate photos), 1 (spam), or 0 (other)
          * @param {String} causeText optional reason for report when causeId is 0 (other)
@@ -237,7 +237,7 @@ declare module 'tinder' {
 
         /**
          * Create a web username for the current account
-         * 
+         *
          * @param {String} userName the username to request be created
          * @param {Function} callback the callback to invoke when the request completes
          */
@@ -245,7 +245,7 @@ declare module 'tinder' {
 
         /**
          * Change a web username for the current account if it's already been set
-         * 
+         *
          * @param {String} userName the username to request be created
          * @param {Function} callback the callback to invoke when the request completes
          */
@@ -253,21 +253,21 @@ declare module 'tinder' {
 
         /**
          * Deletes the existing web username for the current account
-         * 
+         *
          * @param {Function} callback the callback to invoke when the request completes
          */
         deleteUsername(username: string, callback: Callback<any>): void;
 
         /**
-         * Update the passport location 
+         * Update the passport location
          * @param {Number} lon the longitude
          * @param {Number} lat the latitutde
          * @param {Function} callback the callback to invoke when the request completes
          */
         updatePassport(latitude: string, longitude: string, callback: Callback<any>): void;
-        
+
         /**
-         * Reset the passport location 
+         * Reset the passport location
          * @param {Function} callback the callback to invoke when the request completes
          */
         resetPassport(callback: Callback<any>): void;

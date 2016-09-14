@@ -6,7 +6,7 @@
 export as namespace ReactRouter;
 
 import * as React from 'react';
-    
+
 export const routerShape: React.Requireable<any>
 
 export const locationShape: React.Requireable<any>
@@ -45,6 +45,7 @@ export type EnterHook = Router.EnterHook;
 export type LeaveHook = Router.LeaveHook;
 export type ParseQueryString = Router.ParseQueryString;
 export type RedirectFunction = Router.RedirectFunction;
+export type RouteComponent = Router.RouteComponent;
 export type RouteComponentProps<P, R> = Router.RouteComponentProps<P, R>;
 export type RouteHook = Router.RouteHook;
 export type StringifyQuery = Router.StringifyQuery;

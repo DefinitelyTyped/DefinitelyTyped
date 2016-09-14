@@ -3,10 +3,10 @@
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-scrollbar" {
-  interface ScrollAreaProps extends __React.Props<ScrollArea> {
+  interface ScrollAreaProps extends React.Props<ScrollArea> {
       className?: string,
       style?: __React.CSSProperties,
       speed?: number,
@@ -26,7 +26,7 @@ declare module "react-scrollbar" {
       swapWheelAxes?: boolean
   }
 
-  class ScrollArea extends __React.Component<ScrollAreaProps, {}> {}
+  class ScrollArea extends React.Component<ScrollAreaProps, {}> {}
 
   export = ScrollArea;
 }
