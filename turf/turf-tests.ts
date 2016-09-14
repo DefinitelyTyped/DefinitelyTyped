@@ -347,6 +347,11 @@ turf.difference(polygon1, polygon2)
 
 // -- Test intersect --
 turf.intersect(polygon1, polygon2)
+turf.intersect(point1, polygon1)
+turf.intersect(point1, point1)
+turf.intersect(polygon1, point1)
+turf.intersect(polygon1, line1)
+turf.intersect(line1, point1)
 
 // -- Test simplify --
 

@@ -315,55 +315,44 @@ declare module turf {
     ): GeoJSON.Feature<GeoJSON.Polygon>;
 
     /**
-    * Takes two Features and finds their intersection.
-    * If they share a border, returns the border if they don't intersect, returns undefined.
-    *
-    * @name [intersect](http://turfjs.org/docs/#intersect)
-    * @param {Feature} feature1 
-    * @param {Feature} feature2
-    * @returns {Feature} If feature1 and feature2 overlap, returns a Feature representing the area they overlap
-    * if feature1 and feature2 do not overlap, returns undefined
-    */
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.Point>,
-      feature2: GeoJSON.Feature<GeoJSON.Point>
-    ): GeoJSON.Feature<GeoJSON.Point>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.LineString>,
-      feature2: GeoJSON.Feature<GeoJSON.LineString>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString>;
+     * Takes two Features and finds their intersection.
+     * If they share a border, returns the border if they don't intersect, returns undefined.
+     *
+     * @name [intersect](http://turfjs.org/docs/#intersect)
+     * @param {Feature<Polygon>} poly1 
+     * @param {Feature<Polygon>} poly2
+     * @returns {Feature|undefined} A feature representing the point(s) they share (in case of a {Point}  or {MultiPoint}), the borders they share (in case of a {LineString} or a {MultiLineString}), the area they share (in case of {Polygon} or {MultiPolygon}). If they do not share any point, returns `undefined`.
+     * @example
+     * var poly1 = polygon([[
+     *   [-122.801742, 45.48565],
+     *   [-122.801742, 45.60491],
+     *   [-122.584762, 45.60491],
+     *   [-122.584762, 45.48565],
+     *   [-122.801742, 45.48565]
+     * ]]);
+     *
+     * var poly2 = polygon([[
+     *   [-122.520217, 45.535693],
+     *   [-122.64038, 45.553967],
+     *   [-122.720031, 45.526554],
+     *   [-122.669906, 45.507309],
+     *   [-122.723464, 45.446643],
+     *   [-122.532577, 45.408574],
+     *   [-122.487258, 45.477466],
+     *   [-122.520217, 45.535693]
+     * ]]);
+     * var polygons = featureCollection([poly1, poly2]);
+     *
+     * var intersection = turf.intersect(poly1, poly2);
+     *
+     * //=polygons
+     *
+     * //=intersection
+     */
     intersect(
       feature1: GeoJSON.Feature<GeoJSON.Polygon>,
       feature2: GeoJSON.Feature<GeoJSON.Polygon>
     ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.MultiPoint>,
-      feature2: GeoJSON.Feature<GeoJSON.MultiPoint>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.MultiPoint>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.MultiLineString>,
-      feature2: GeoJSON.Feature<GeoJSON.MultiLineString>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiLineString>;
-        intersect(
-      feature1: GeoJSON.Feature<GeoJSON.MultiPolygon>,
-      feature2: GeoJSON.Feature<GeoJSON.MultiPolygon>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon | GeoJSON.MultiPolygon>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.Point>,
-      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.Point>
-    ): GeoJSON.Feature<GeoJSON.Point>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.LineString>,
-      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.LineString>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString>,
-      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiLineString>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.MultiLineString>;
-    intersect(
-      feature1: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiPolygon>,
-      feature2: GeoJSON.Feature<GeoJSON.Polygon | GeoJSON.MultiPolygon>
-    ): GeoJSON.Feature<GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon | GeoJSON.MultiLineString | GeoJSON.MultiPolygon>;
     intersect(
       feature1: GeoJSON.Feature<any>,
       feature2: GeoJSON.Feature<any>
