@@ -1,6 +1,6 @@
 // Type definitions for canvas-gauges
 // Project: https://github.com/Mikhus/canvas-gauges
-// Definitions by: Mikhus <ttps://github.com/Mikhus>
+// Definitions by: Mikhus <https://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
 
 declare namespace CanvasGauges {
