@@ -777,6 +777,7 @@ declare module "cluster" {
         [index: string]: Worker
     };
 
+    // Event emitter
     export function addListener(event: string, listener: Function): void;
     export function on(event: "disconnect", listener: (worker: Worker) => void): void;
     export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): void;
