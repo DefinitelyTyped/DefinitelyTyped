@@ -1019,8 +1019,6 @@ declare module "os" {
     export function arch(): string;
     export function platform(): string;
     export function tmpdir(): string;
-    export function tmpDir(): string;
-    export function getNetworkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export var EOL: string;
     export function endianness(): "BE" | "LE";
 }
