@@ -56,10 +56,8 @@ var WebSocketServer = WebSocket.Server;
 }
 
 {
-    var httpsserver = https.createServer({});
-    var wss = new WebSocket.Server({ server: httpsserver});
-    var httpserver = http.createServer();
-    var wss = new WebSocket.Server({ server: httpserver});
+    new WebSocket.Server({ server: https.createServer({}) });
+    new WebSocket.Server({ server: http.createServer() });
 }
 
 
