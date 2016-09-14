@@ -3,7 +3,7 @@
 // Definitions by: Bill Armstrong <https://github.com/BillArmstrong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../selenium-webdriver/selenium-webdriver-2.44.0.d.ts" />
+/// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
 
 declare namespace protractor {
     //region Wrapped webdriver Items
