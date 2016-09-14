@@ -513,8 +513,8 @@ declare namespace __MaterialUI {
         iconClassNameRight?: string;
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
-        iconStyleRight?: string;
-        iconStyleLeft?: string;
+        iconStyleRight?: React.CSSProperties;
+        iconStyleLeft?: React.CSSProperties;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;

@@ -5,7 +5,7 @@
 
 /// <reference path="../angular-protractor/angular-protractor.d.ts" />
 /// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
+/// <reference path="../selenium-webdriver/selenium-webdriver-2.44.0.d.ts" />
 
 // ElementArrayFinder
 
@@ -108,4 +108,3 @@ declare module "protractor-helpers" {
   function getFilteredConsoleErrors() : webdriver.promise.IThenable<string[]>; // TODO - discuss handling in IE
 
 }
-
