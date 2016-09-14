@@ -777,15 +777,6 @@ declare module "cluster" {
         [index: string]: Worker
     };
 
-    /**
-     * Event emitter
-     * The defined events on documents including:
-     *   1. close
-     *   2. data
-     *   3. end
-     *   4. readable
-     *   5. error
-     **/
     export function addListener(event: string, listener: Function): void;
     export function on(event: "disconnect", listener: (worker: Worker) => void): void;
     export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): void;
