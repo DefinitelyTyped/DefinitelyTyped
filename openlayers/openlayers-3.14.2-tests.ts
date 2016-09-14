@@ -68,6 +68,7 @@ var tilegrid: ol.tilegrid.TileGrid;
 var transformFn: ol.TransformFunction;
 var vectorSource: ol.source.Vector;
 var units: ol.proj.Units;
+var styleRegularShape: ol.style.RegularShape;
 
 //
 // ol.Attribution
@@ -722,3 +723,18 @@ voidValue = interaction.setActive(true);
 const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
+
+//
+// ol.style.RegularShape
+//
+
+styleRegularShape = new ol.style.RegularShape({
+    fill: new ol.style.Fill({color: 'red'}),
+    points: 4,
+});
+
+//
+// ol.proj
+//
+
+let value = ol.proj.METERS_PER_UNIT['degrees'];

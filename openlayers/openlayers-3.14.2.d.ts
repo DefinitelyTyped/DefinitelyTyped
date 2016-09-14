@@ -865,6 +865,17 @@ declare namespace olx {
             snapToPixel?: boolean;
             stroke?: ol.style.Stroke;
         }
+        interface RegularShapeOptions {
+            fill?: ol.style.Fill;
+            points: number;
+            radius?: number;
+            radius1?: number;
+            radius2?: number;
+            angle?: number;
+            snapToPixel?: boolean;
+            stroke?: ol.style.Stroke;
+            rotation?: number;
+        }
     }
 
     namespace tilegrid {
@@ -4170,7 +4181,7 @@ declare namespace ol {
          * Meters per unit lookup table.
          */
         //TODO: validate!
-        var METERS_PER_UNIT: GlobalObject;
+        var METERS_PER_UNIT: {[unit: string]: number};
 
         /**
          * Registers coordinate transform functions to convert coordinates between the source projection and the destination projection. The forward and inverse functions convert coordinate pairs; this function converts these into the functions used internally which also handle extents and coordinate arrays.
@@ -4535,7 +4546,8 @@ declare namespace ol {
             (feature: Feature): ol.geom.Geometry
         }
 
-        class RegularShape {
+        class RegularShape extends Image {
+            constructor(opts: olx.style.RegularShapeOptions);
         }
 
         class Stroke {
