@@ -12,11 +12,11 @@ import * as Http from 'http';
 
 import Q = require('q');
 
-export interface twilio {
+declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-export module twilio {
+declare module twilio {
 
   // Composite Classes:
   //==============================
@@ -166,7 +166,7 @@ export module twilio {
     clientName: string;
     outgoingScopeParams: any;
     scopeParams: any;
-    
+
     constructor(sid?: string, tkn?: string);
 
     allowClientIncoming(clientName: string): Capability;
@@ -319,7 +319,7 @@ export module twilio {
     allowWorkerActivityUpdates(): void;
     allowWorkerFetchAttributes(): void;
     allowTaskReservationUpdates(): void;
-    
+
     addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: any, postFilter?: any): void;
     allow(url: string, method: string, queryFilter?: any, postFilter?: any): void;
     deny(url: string, method: string, queryFilter?: any, postFilter?: any): void;
@@ -380,7 +380,7 @@ export module twilio {
   }
 
   export interface TwimlMethod { (arg1: any | string | TwimlCallback, arg2?: any | string | TwimlCallback): Node }
-  
+
   export interface TwimlCallback { (node?: Node): void; }
 
   export class Node implements NodeOptions {
@@ -435,7 +435,7 @@ export module twilio {
   export interface WebhookExpressOptions {
     // The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
     url?: string;
-    
+
     // manually specify the host name used by Twilio in a number's webhook config
     host?: string;
 
@@ -871,5 +871,6 @@ export module twilio {
     originationUrls: OriginationURLResource;
   }
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
-
 }
+
+export = twilio;
