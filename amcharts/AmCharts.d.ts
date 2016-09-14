@@ -2,7 +2,7 @@
 // Project: http://www.amcharts.com/
 // Definitions by: avonwyss <https://github.com/avonwyss>
 // Generated from web help on 2016-09-14 18:00:08Z
-
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Namespace of the framework which holds the general settings, gets automatically injected to document since the source has been included. ExampleAmCharts.useUTC = true; AmCharts.processDelay = 100; */
 declare namespace AmCharts {
