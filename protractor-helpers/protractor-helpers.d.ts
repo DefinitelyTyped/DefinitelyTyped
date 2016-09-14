@@ -5,7 +5,7 @@
 
 /// <reference path="../angular-protractor/angular-protractor.d.ts" />
 /// <reference path="../jasmine/jasmine.d.ts" />
-/// <reference path="../selenium-webdriver/selenium-webdriver-2.44.0.d.ts" />
+/// <reference path="../selenium-webdriver/selenium-webdriver.d.ts" />
 
 // ElementArrayFinder
 
