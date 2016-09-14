@@ -8,7 +8,7 @@
 declare module "ws" {
     import * as events from 'events';
     import * as http from 'http';
-    import * as http from 'https';
+    import * as https from 'https';
     import * as net from 'net';
 
     class WebSocket extends events.EventEmitter {
