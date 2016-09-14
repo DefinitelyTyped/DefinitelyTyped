@@ -2488,7 +2488,7 @@ declare module "stream" {
             emit(event: "data", chunk: Buffer | string): boolean;
             emit(event: "end"): boolean;
             emit(event: "readable"): boolean;
-            emit(event: "error", (err: Error): boolean;
+            emit(event: "error", err: Error): boolean;
             
             on(event: "close", listener: () => void): this;
             on(event: "data", listener: (chunk: Buffer | string) => void): this;
@@ -2538,6 +2538,65 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            
+            /**
+             * Event emitter
+             * The defined events on documents including:
+             *   1. close
+             *   2. drain
+             *   3. error
+             *   4. finish
+             *   5. pipe
+             *   6. unpipe
+             **/
+            addListener(event: "close", listener: () => void): this;
+            addListener(event: "drain", listener: () => void): this;
+            addListener(event: "error", listener: (err: Error) => void): this;
+            addListener(event: "finish", listener: () => void): this;
+            addListener(event: "pipe", listener: (src: Readable) => void): this;
+            addListener(event: "unpipe", listener: (src: Readable) => void): this;
+
+            emit(event: "close"): boolean;
+            emit(event: "drain", chunk: Buffer | string): boolean;
+            emit(event: "error", err: Error): boolean;
+            emit(event: "finish"): boolean;
+            emit(event: "pipe", src: Readable): boolean;
+            emit(event: "unpipe", src: Readable): boolean;
+            
+            on(event: "close", listener: () => void): this;
+            on(event: "drain", listener: () => void): this;
+            on(event: "error", listener: (err: Error) => void): this;
+            on(event: "finish", listener: () => void): this;
+            on(event: "pipe", listener: (src: Readable) => void): this;
+            on(event: "unpipe", listener: (src: Readable) => void): this;
+
+            once(event: "close", listener: () => void): this;
+            once(event: "drain", listener: () => void): this;
+            once(event: "error", listener: (err: Error) => void): this;
+            once(event: "finish", listener: () => void): this;
+            once(event: "pipe", listener: (src: Readable) => void): this;
+            once(event: "unpipe", listener: (src: Readable) => void): this;
+
+            prependListener(event: "close", listener: () => void): this;
+            prependListener(event: "drain", listener: () => void): this;
+            prependListener(event: "error", listener: (err: Error) => void): this;
+            prependListener(event: "finish", listener: () => void): this;
+            prependListener(event: "pipe", listener: (src: Readable) => void): this;
+            prependListener(event: "unpipe", listener: (src: Readable) => void): this;
+
+            prependOnceListener(event: "close", listener: () => void): this;
+            prependOnceListener(event: "drain", listener: () => void): this;
+            prependOnceListener(event: "error", listener: (err: Error) => void): this;
+            prependOnceListener(event: "finish", listener: () => void): this;
+            prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
+            prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
+
+            removeListener(event: "close", listener: () => void): this;
+            removeListener(event: "drain", listener: () => void): this;
+            removeListener(event: "error", listener: (err: Error) => void): this;
+            removeListener(event: "finish", listener: () => void): this;
+            removeListener(event: "pipe", listener: (src: Readable) => void): this;
+            removeListener(event: "unpipe", listener: (src: Readable) => void): this;
         }
 
         export interface DuplexOptions extends ReadableOptions, WritableOptions {
