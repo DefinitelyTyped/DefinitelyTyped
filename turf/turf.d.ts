@@ -1,6 +1,6 @@
 // Type definitions for Turf 3.5.2
 // Project: http://turfjs.org/
-// Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+// Definitions by: Guillaume Croteau <https://github.com/gcroteau>, Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../geojson/geojson.d.ts" />
