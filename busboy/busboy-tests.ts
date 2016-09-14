@@ -1,7 +1,7 @@
 /// <reference path="busboy.d.ts"/>
 /// <reference path="../node/node.d.ts" />
 
-import Busboy = require('busboy');
+import * as Busboy from 'busboy';
 import * as http from 'http';
 import * as util from 'util';
 

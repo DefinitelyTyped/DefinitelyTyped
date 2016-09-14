@@ -2,11 +2,8 @@
 // Project: https://www.npmjs.com/package/busboy
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="../node/node.d.ts" />
 
-declare module 'busboy' {
-    import * as stream from 'stream';
-
+declare namespace busboy {
     interface Options {
         headers: any;
     }
@@ -28,9 +25,7 @@ declare module 'busboy' {
         };
     }
 
-    class Busboy extends stream.Writable {
-        constructor(options: BusboyConfig);
-
+    interface Busboy extends NodeJS.WritableStream {
         on(event: 'field',
            listener: (
                fieldname: string,
@@ -53,5 +48,7 @@ declare module 'busboy' {
         on(event: string, listener: Function): this;
     }
 
-    export = Busboy;
+    interface BusboyConstructor {
+        new (options: BusboyConfig): Busboy;
+    }
 }
