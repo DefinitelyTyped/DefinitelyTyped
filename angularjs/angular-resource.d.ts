@@ -186,6 +186,12 @@ declare namespace angular {
         /** creating a resource service factory */
         factory(name: string, resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<any>): IModule;
     }
+    
+    namespace auto {
+    	interface IInjectorService {
+    		get(name: '$resource'): ng.resource.IResourceService;
+    	}
+    }
 }
 
 interface Array<T>
