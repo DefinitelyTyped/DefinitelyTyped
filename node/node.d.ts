@@ -659,7 +659,7 @@ declare module "http" {
         httpVersion: string;
         httpVersionMajor: string;
         httpVersionMinor: string;
-        connection: any;
+        connection: net.Socket;
         headers: any;
         rawHeaders: string[];
         trailers: any;
