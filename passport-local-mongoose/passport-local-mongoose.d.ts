@@ -3,8 +3,8 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mongoose/mongoose.d.ts" />
-/// <reference path="../passport-local/passport-local.d.ts" />
+/// <reference types="mongoose" />
+/// <reference types="passport-local" />
 
 declare module 'mongoose' {
   import passportLocal = require('passport-local');

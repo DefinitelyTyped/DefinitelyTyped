@@ -3,7 +3,7 @@
 // Definitions by: Leo Liang <https://github.com/aleung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../pg/pg.d.ts" />
+/// <reference types="pg" />
 
 declare module "pg-pool" {
     export {Pool, PoolConfig} from "pg";

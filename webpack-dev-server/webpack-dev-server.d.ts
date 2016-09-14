@@ -3,10 +3,6 @@
 // Definitions by: maestroh <https://github.com/maestroh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../webpack/webpack.d.ts" />
-/// <reference path="../serve-static/serve-static.d.ts" />
-/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
-
 declare module "webpack-dev-server" {
     import * as webpack from 'webpack';
     import * as core from 'express-serve-static-core';

@@ -3,8 +3,8 @@
 // Definitions by: Niko Kovačič <https://github.com/nkovacic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
-/// <reference path="../googlemaps/google.maps.d.ts" />
+/// <reference types="angular" />
+/// <reference types="googlemaps" />
 
 declare module "ngmap" {
     let _: string;
@@ -45,7 +45,7 @@ declare namespace angular.map {
              */
             icon?: string|google.maps.Icon|google.maps.Symbol;
             /**
-             * Adds a label to the marker. The label can either be a string, or a MarkerLabel object. 
+             * Adds a label to the marker. The label can either be a string, or a MarkerLabel object.
              * Only the first character of the string will be displayed.
              * @type {string}
              */
@@ -94,7 +94,7 @@ declare namespace angular.map {
         addMap(mapCtrl: Function | any[]): void;
 		/**
 		 * Delete map from pool
-		 * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last 
+		 * @param {Function | any[]} mapCtrl Map controller optional. Defaults to last
 		 * controller in pool
 		 */
         deleteMap(mapCtrl?: Function | any[]): void;
@@ -104,13 +104,13 @@ declare namespace angular.map {
 		 * @param  {PositionOptions}                      options optional
 		 * @return {angular.IPromise<google.maps.LatLng>}         Latitude ang longitude of the address
 		 */
-        getGeoLocation(address: string, options?: PositionOptions): angular.IPromise<google.maps.LatLng>
+        getGeoLocation(address: string, options?: PositionOptions): ng.IPromise<google.maps.LatLng>
     	/**
     	 * Get map from the pool of all shown maps.
     	 * @param  {IGetMapOptions}                    options optional
     	 * @return {angular.IPromise<google.maps.Map>}         promise
     	 */
-        getMap(options?: IGetMapOptions): angular.IPromise<google.maps.Map>
+        getMap(options?: IGetMapOptions): ng.IPromise<google.maps.Map>
         /**
          * Initialize map from mapId or the current first shown map
          * @param  {string}          mapId id of the map. default 0
@@ -123,7 +123,7 @@ declare namespace angular.map {
          * @param  {Object}             object   a Google maps object to be changed
          * @return {IObserveAndSetFunc}          attribute obvserve function
          */
-        observeAndSet(attrName: string, object: Object): IObserveAndSetFunc;  
+        observeAndSet(attrName: string, object: Object): IObserveAndSetFunc;
         /**
          * Set display, width, height of map container element
          * @param {HTMLElement} el map container element

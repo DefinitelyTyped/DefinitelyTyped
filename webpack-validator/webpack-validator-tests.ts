@@ -1,5 +1,3 @@
-///<reference path="webpack-validator.d.ts" />
-
 import {Configuration} from "webpack";
 import validate = require("webpack-validator");
 

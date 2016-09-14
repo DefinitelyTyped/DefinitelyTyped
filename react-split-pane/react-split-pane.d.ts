@@ -3,7 +3,7 @@
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 declare namespace ReactSplitPane {
     interface ReactSplitPaneProps {
@@ -32,7 +32,7 @@ declare namespace ReactSplitPane {
         split?: string;
     }
 
-    interface ReactSplitPaneClass extends __React.ComponentClass<ReactSplitPaneProps> { }
+    interface ReactSplitPaneClass extends React.ComponentClass<ReactSplitPaneProps> { }
 }
 
 declare module "react-split-pane" {

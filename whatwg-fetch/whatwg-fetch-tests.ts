@@ -20,7 +20,7 @@ function test_HeadersCopiedFromHeaders2() {
 }
 
 function test_HeadersCopiedFromHash2() {
-	var source:HeadersMap = {
+	var source:HeadersInit = {
 		'Content-Type': 'application/json'
 	};
 	return new Headers(source);
@@ -33,7 +33,7 @@ function test_HeadersCopiedFromHeaders3() {
 }
 
 function test_HeadersCopiedFromHash3() {
-	var source:HeadersMap = {
+	var source:HeadersInit = {
 		'Content-Type': 'application/json'
 	};
 	return new Headers(source);

@@ -1,7 +1,4 @@
-﻿/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="notify.js.d.ts"/>
-
-// setting defaults for notification plugin
+﻿// setting defaults for notification plugin
 $.notify.defaults({
     clickToHide: true,
     autoHide: false,

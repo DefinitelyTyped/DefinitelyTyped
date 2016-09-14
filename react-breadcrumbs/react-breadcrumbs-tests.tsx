@@ -1,9 +1,5 @@
-///<reference path="../react/react.d.ts" />
-///<reference path="../react-router/react-router.d.ts"/>
-///<reference path="./react-breadcrumbs.d.ts" />
-
-
 import * as React from 'react';
+import * as ReactRouter from "react-router";
 import * as Breadcrumbs from 'react-breadcrumbs';
 
 

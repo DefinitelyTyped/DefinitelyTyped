@@ -2655,7 +2655,7 @@ interface JQuery {
 
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
-     * 
+     *
      * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert after each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert after each element in the set of matched elements.
      */
@@ -2669,7 +2669,7 @@ interface JQuery {
 
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-     * 
+     *
      * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the end of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the end of each element in the set of matched elements.
      */
@@ -2690,7 +2690,7 @@ interface JQuery {
 
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
-     * 
+     *
      * param content1 HTML string, DOM element, DocumentFragment, array of elements, or jQuery object to insert before each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert before each element in the set of matched elements.
      */
@@ -2738,7 +2738,7 @@ interface JQuery {
 
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-     * 
+     *
      * param content1 DOM element, DocumentFragment, array of elements, HTML string, or jQuery object to insert at the beginning of each element in the set of matched elements.
      * param content2 One or more additional DOM elements, arrays of elements, HTML strings, or jQuery objects to insert at the beginning of each element in the set of matched elements.
      */

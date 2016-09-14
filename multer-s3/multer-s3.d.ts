@@ -3,8 +3,8 @@
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
-/// <reference path="../aws-sdk/aws-sdk.d.ts" />
-/// <reference path="../multer/multer.d.ts" />
+/// <reference types="aws-sdk" />
+/// <reference types="multer" />
 
 declare module "multer-s3" {
     import * as AWS from "aws-sdk"

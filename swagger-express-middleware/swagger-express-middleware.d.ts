@@ -26,7 +26,7 @@ app.listen(8000, function () {
 
  =============================================== */
 
-/// <reference path="../express/express.d.ts" />
+/// <reference types="express" />
 
 declare module "swagger-express-middleware" {
     import {Application, Router, RequestHandler, Request, Response} from "express";
@@ -41,21 +41,21 @@ declare module "swagger-express-middleware" {
             (err: any, middleware: SwaggerMiddleware): void;
         }
         export interface SwaggerMiddleware {
-            /** 
+            /**
             * Annotates the HTTP request (the `req` object) with Swagger metadata.
             * This middleware populates Request.swagger
             */
             metadata: MetadataSignature;
-            /** 
-             * Handles CORS preflight requests and sets CORS headers for all requests according the Swagger API definition. 
+            /**
+             * Handles CORS preflight requests and sets CORS headers for all requests according the Swagger API definition.
              */
             CORS: CORSSignature;
-            /** 
-             * Serves the Swagger API file(s) in JSON and YAML formats, so they can be used with third-party front-end tools like Swagger UI and Swagger Editor. 
+            /**
+             * Serves the Swagger API file(s) in JSON and YAML formats, so they can be used with third-party front-end tools like Swagger UI and Swagger Editor.
              */
             files: FilesSignature;
-            /** 
-             * Parses the HTTP request into typed values. 
+            /**
+             * Parses the HTTP request into typed values.
              */
             parseRequest: ParseRequestSignature;
             /**
@@ -116,7 +116,7 @@ declare module "swagger-express-middleware" {
                 options?: ParseRequestOptions): RequestHandler
             (
                 /**
-                 * An Express Application or Router. 
+                 * An Express Application or Router.
                  * If provided, this will be used to register path-param middleware via Router.Param
                  */
                 router: Application | Router,
@@ -158,7 +158,7 @@ declare module "swagger-express-middleware" {
              */
             multipart?: MulterOptions
         }
-        
+
         interface MulterOptions{
             /** The destination directory for the uploaded files. */
             dest?: string;
@@ -183,14 +183,14 @@ declare module "swagger-express-middleware" {
             };
             /** A function to control which files to upload and which to skip. */
             fileFilter?: (req: Request, file: File, callback: (error: Error, acceptFile: boolean) => void) => void;
-        
+
         }
-        
+
         interface StorageEngine {
             _handleFile(req: Request, file: File, callback: (error?: any, info?: File) => void): void;
             _removeFile(req: Request, file: File, callback: (error: Error) => void): void;
         }
-        
+
         export interface File {
             /** Field name specified in the form */
             fieldname: string;
@@ -218,15 +218,15 @@ declare module "swagger-express-middleware" {
              */
             inflate?: boolean;
             /**
-             * Controls the maximum request body size. If this is a number, then the value specifies the number of bytes; 
+             * Controls the maximum request body size. If this is a number, then the value specifies the number of bytes;
              * if it is a string, the value is passed to the bytes library for parsing. Defaults to '100kb'.
              */
             limit?: string | number;
             /**
-             * The type option is used to determine what media type the middleware will parse. 
-             * This option can be a function or a string. 
+             * The type option is used to determine what media type the middleware will parse.
+             * This option can be a function or a string.
              * If a string, type option is passed directly to the type-is library and this can be an extension name (like bin), a mime type (like application/octet-stream), or a mime type with a wildcard (like * /* or application/*).
-             * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. 
+             * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value.
              * Defaults to application/octet-stream.
              */
             type?: ((req: Request) => string) | string
@@ -238,10 +238,10 @@ declare module "swagger-express-middleware" {
         }
 
         interface CookieParserOptionItem {
-            /** 
-             * A string or array used for signing cookies. 
-             * This is optional and if not specified, will not parse signed cookies. 
-             * If a string is provided, this is used as the secret. 
+            /**
+             * A string or array used for signing cookies.
+             * This is optional and if not specified, will not parse signed cookies.
+             * If a string is provided, this is used as the secret.
              * If an array is provided, an attempt will be made to unsign the cookie with each secret in order.
              */
             secret?: string | Array<string>
@@ -257,20 +257,20 @@ declare module "swagger-express-middleware" {
              */
             inflate?: boolean;
             /**
-             * Controls the maximum request body size. 
-             * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing. 
+             * Controls the maximum request body size.
+             * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'
              */
             limit?: string | number;
             /**
-             * The type option is used to determine what media type the middleware will parse. 
-             * This option can be a function or a string. 
-             * If a string, type option is passed directly to the type-is library and this can be an extension name (like json), a mime type (like application/json), or a mime * type with a wildcard (like * /* or * /json). 
+             * The type option is used to determine what media type the middleware will parse.
+             * This option can be a function or a string.
+             * If a string, type option is passed directly to the type-is library and this can be an extension name (like json), a mime type (like application/json), or a mime * type with a wildcard (like * /* or * /json).
              * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. Defaults to application/json
              */
             type?: ((req: Request) => string) | string
             /**
-             * The verify option, if supplied, is called as verify(req, res, buf, encoding), where buf is a Buffer of the raw request body and encoding is the encoding of the request. 
+             * The verify option, if supplied, is called as verify(req, res, buf, encoding), where buf is a Buffer of the raw request body and encoding is the encoding of the request.
              * The parsing can be aborted by throwing an error.
              */
             verify?: (req: Request, res: Response, buf: Buffer, encoding: string) => void;
@@ -290,15 +290,15 @@ declare module "swagger-express-middleware" {
              */
             inflate?: boolean;
             /**
-             * Controls the maximum request body size. 
-             * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing. 
+             * Controls the maximum request body size.
+             * If this is a number, then the value specifies the number of bytes; if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'
              */
             limit?: string | number;
             /**
-             * The type option is used to determine what media type the middleware will parse. 
-             * This option can be a function or a string. 
-             * If a string, type option is passed directly to the type-is library and this can be an extension name (like txt), a mime type (like text/plain), or a mime type * with a wildcard (like * /* or text/*). 
+             * The type option is used to determine what media type the middleware will parse.
+             * This option can be a function or a string.
+             * If a string, type option is passed directly to the type-is library and this can be an extension name (like txt), a mime type (like text/plain), or a mime type * with a wildcard (like * /* or text/*).
              * If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. Defaults to text/plain.
              */
             type?: ((req: Request) => string) | string
@@ -318,17 +318,17 @@ declare module "swagger-express-middleware" {
              */
             inflate?: boolean;
             /**
-             * Controls the maximum request body size. 
-             * If this is a number, then the value specifies the number of bytes; 
-             * if it is a string, the value is passed to the bytes library for parsing. 
+             * Controls the maximum request body size.
+             * If this is a number, then the value specifies the number of bytes;
+             * if it is a string, the value is passed to the bytes library for parsing.
              * Defaults to '100kb'.
              */
             limit?: string | number;
             /**
-             * The type option is used to determine what media type the middleware will parse. 
-             * This option can be a function or a string. 
-             * If a string, type option is passed directly to the type-is library and this can be an extension name (like urlencoded), a mime type (like application/x-www-form-urlencoded), 
-             * or a mime type with a wildcard (like * /x-www-form-urlencoded). If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value. 
+             * The type option is used to determine what media type the middleware will parse.
+             * This option can be a function or a string.
+             * If a string, type option is passed directly to the type-is library and this can be an extension name (like urlencoded), a mime type (like application/x-www-form-urlencoded),
+             * or a mime type with a wildcard (like * /x-www-form-urlencoded). If a function, the type option is called as fn(req) and the request is parsed if it returns a truthy value.
              * Defaults to application/x-www-form-urlencoded.
              */
             type?: ((req: Request) => string) | string

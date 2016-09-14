@@ -3,7 +3,7 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference types="mongoose" />
 
 declare module 'mongoose' {
   export interface PaginateOptions {

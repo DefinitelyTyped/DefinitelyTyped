@@ -1,6 +1,4 @@
-﻿/// <reference path="whatwg-streams.d.ts" />
-
-function makeReadableWebSocketStream(url: string, protocols: string[]) {
+﻿function makeReadableWebSocketStream(url: string, protocols: string[]) {
     const ws = new WebSocket(url, protocols);
     ws.binaryType = "arraybuffer";
 
@@ -161,7 +159,7 @@ class WebSocketSink implements WritableStreamSink {
         this._ws.addEventListener("error", () => {
             controller.error(new Error("The WebSocket errored!"));
         });
-        
+
         return new Promise<void>(resolve => this._ws.onopen = () => resolve());
     }
 

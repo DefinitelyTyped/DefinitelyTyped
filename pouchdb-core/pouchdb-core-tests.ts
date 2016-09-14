@@ -1,5 +1,3 @@
-/// <reference path="./pouchdb-core.d.ts" />
-
 namespace PouchDBCoreTests {
     function isString(someString: string) {
     }

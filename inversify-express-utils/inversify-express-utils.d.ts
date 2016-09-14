@@ -3,8 +3,8 @@
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../inversify/inversify.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="inversify" />
+/// <reference types="express" />
 
 declare module "inversify-express-utils" {
 

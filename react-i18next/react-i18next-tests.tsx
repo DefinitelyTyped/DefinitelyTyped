@@ -1,9 +1,3 @@
-///<reference path="../react/react.d.ts" />
-///<reference path="../react/react-dom.d.ts" />
-///<reference path="../i18next/i18next.d.ts" />
-///<reference path="./react-i18next.d.ts" />
-
-
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import * as i18n from 'i18next';

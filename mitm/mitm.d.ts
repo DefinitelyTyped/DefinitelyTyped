@@ -3,7 +3,7 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts"/>
+///<reference types="node"/>
 
 declare module 'mitm' {
 	import * as http from 'http';
@@ -11,10 +11,10 @@ declare module 'mitm' {
 
 	interface SocketOptions {
 		port: number;
-		host?: string; 
+		host?: string;
 		localAddress?: string;
-		localPort?: string; 
-		family?: number; 
+		localPort?: string;
+		family?: number;
 		allowHalfOpen?: boolean;
 	}
 
@@ -25,7 +25,7 @@ declare module 'mitm' {
 	type SocketConnectCallback = (socket: BypassableSocket, opts: SocketOptions) => void;
 
 	type SocketConnectionCallback = (socket: net.Socket, opts: SocketOptions) => void;
-	
+
 	type HttpCallback = (request: http.IncomingMessage, response: http.ServerResponse) => void;
 
 	type Event = 'connect' | 'connection' | 'request';

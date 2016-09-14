@@ -3,7 +3,7 @@
 // Definitions by: Nick Paddock <https://github.com/nickp10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "set-cookie-parser" {
     import http = require("http");
