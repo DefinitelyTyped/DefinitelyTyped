@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/busboy
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+/// <reference path="../node/node.d.ts" />
 
 declare namespace busboy {
     interface Options {
@@ -51,4 +52,9 @@ declare namespace busboy {
     interface BusboyConstructor {
         new (options: BusboyConfig): Busboy;
     }
+}
+
+declare module 'busboy' {
+    const temp: busboy.BusboyConstructor;
+    export = temp;
 }
