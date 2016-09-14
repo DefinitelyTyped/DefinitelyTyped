@@ -1,5 +1,5 @@
 // Type definitions for BaiduMap v2.0
-// Document: http://lbsyun.baidu.com/index.php?title=jspopular
+// Project: http://lbsyun.baidu.com/index.php?title=jspopular
 // Definitions by: Codemonk <http://www.youxianxueche.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -235,7 +235,7 @@ declare namespace BMap {
         constructor(opts?: AutocompleteOptions)
         show(): void
         hide(): void
-        setTypes(types: string[])
+        setTypes(types: string[]): void
         setLocation(location: string | Map | Point): void
         search(keywords: string): void
         getResults(): AutocompleteResult

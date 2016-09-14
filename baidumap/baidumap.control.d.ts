@@ -1,5 +1,5 @@
 // Type definitions for BaiduMap v2.0
-// Document: http://lbsyun.baidu.com/index.php?title=jspopular
+// Project: http://lbsyun.baidu.com/index.php?title=jspopular
 // Definitions by: Codemonk <http://www.youxianxueche.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -78,8 +78,8 @@ declare namespace BMap {
     class CopyrightControl extends Control {
         constructor(opts?: CopyrightControlOptions)
         addCopyright(copyright: Copyright): void
-        removeCopyright(id): void
-        getCopyright(id): Copyright
+        removeCopyright(id: number): void
+        getCopyright(id: number): Copyright
         getCopyrightCollection(): Copyright[]
     }
     interface MapTypeControlOptions {
