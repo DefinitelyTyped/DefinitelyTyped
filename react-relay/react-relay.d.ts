@@ -3,8 +3,6 @@
 // Definitions by: Johannes Schickling <https://github.com/graphcool>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
-
 declare module "react-relay" {
     import * as React from "react";
 

@@ -3,9 +3,6 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-
-
 declare module "react-textarea-autosize" {
     import * as React from "react";
 
@@ -21,7 +18,7 @@ declare module "react-textarea-autosize" {
          * Callback on value change
          * @param event
          */
-        onChange?: (event: React.FormEvent) => void;
+        onChange?: (event: React.FormEvent<any>) => void;
         /**
          * Callback on height change
          * @param height

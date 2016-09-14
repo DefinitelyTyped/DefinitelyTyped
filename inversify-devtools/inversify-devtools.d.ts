@@ -3,13 +3,10 @@
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../inversify/inversify.d.ts" />
+import * as inversify from "inversify";
 
 interface ConnectKernel extends Function {
   (kernel: inversify.interfaces.Kernel): void;
 }
 
-declare module "inversify-devtools" {
-  let render: (container: string) => ConnectKernel;
-  export default render;
-}
+export default function render(container: string): ConnectKernel;

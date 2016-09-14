@@ -3,9 +3,9 @@
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express"/>
-/// <reference types="node"/>
-/// <reference types="q"/>
+/// <reference types="express" />
+/// <reference types="node" />
+/// <reference types="q" />
 
 import * as express from 'express';
 import * as Http from 'http';
@@ -166,7 +166,7 @@ declare module twilio {
     clientName: string;
     outgoingScopeParams: any;
     scopeParams: any;
-    
+
     constructor(sid?: string, tkn?: string);
 
     allowClientIncoming(clientName: string): Capability;
@@ -319,7 +319,7 @@ declare module twilio {
     allowWorkerActivityUpdates(): void;
     allowWorkerFetchAttributes(): void;
     allowTaskReservationUpdates(): void;
-    
+
     addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: any, postFilter?: any): void;
     allow(url: string, method: string, queryFilter?: any, postFilter?: any): void;
     deny(url: string, method: string, queryFilter?: any, postFilter?: any): void;
@@ -380,7 +380,7 @@ declare module twilio {
   }
 
   export interface TwimlMethod { (arg1: any | string | TwimlCallback, arg2?: any | string | TwimlCallback): Node }
-  
+
   export interface TwimlCallback { (node?: Node): void; }
 
   export class Node implements NodeOptions {
@@ -435,7 +435,7 @@ declare module twilio {
   export interface WebhookExpressOptions {
     // The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
     url?: string;
-    
+
     // manually specify the host name used by Twilio in a number's webhook config
     host?: string;
 

@@ -3,12 +3,9 @@
 // Definitions by: Seth Westphal <https://github.com/westy92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../aws-sdk/aws-sdk.d.ts" />
-/// <reference path="../nodemailer/nodemailer.d.ts" />
-
 declare module "nodemailer-ses-transport" {
-
 	import * as AWS from 'aws-sdk';
+	import * as nodemailer from "nodemailer";
 
 	namespace sesTransport {
 		export interface SesOptions {

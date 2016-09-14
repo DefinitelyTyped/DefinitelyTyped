@@ -1,5 +1,3 @@
-/// <reference path="node-usb.d.ts"/>
-
 import * as usb from "usb";
 
 const device = new usb.Device();

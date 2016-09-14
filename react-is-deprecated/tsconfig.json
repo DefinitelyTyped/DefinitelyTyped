@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+
+        "jsx": "react"
+    },
+    "files": [
+        "react-is-deprecated.d.ts",
+        "react-is-deprecated-tests.tsx"
+    ]
+}

@@ -3,10 +3,6 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react-motion/react-motion.d.ts" />
-
-
 declare module "react-motion-slider" {
     import * as React from "react";
     import { OpaqueConfig } from "react-motion";

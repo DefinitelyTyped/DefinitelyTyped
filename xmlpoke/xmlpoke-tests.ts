@@ -1,5 +1,4 @@
-/// <reference path="xmlpoke.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 // tsc xmlpoke-tests.ts && node xmlpoke-tests.js
 
@@ -13,7 +12,7 @@ result = xmlpoke('<a/>', xml => xml.add('/a/b', 'c'));
 assert.equal(result, '<a><b>c</b></a>');
 
 // add with xpath, Transform
-const addfn: XmlPoke.Transform = (node, value) => 'c'; 
+const addfn: XmlPoke.Transform = (node, value) => 'c';
 result = xmlpoke('<a/>', xml => xml.add('/a/b', addfn));
 assert.equal(result, '<a><b>c</b></a>');
 
@@ -78,6 +77,6 @@ result = xmlpoke('<test><x><![CDATA[hello]]></x></test>', xml =>
             assert.equal(typeof node, 'object');
             assert.equal((node.constructor as any).name, 'Element');
             assert.equal(value, 'hello');
-            return 'y';   
+            return 'y';
        }));
 assert.equal(result, '<test><x>y</x></test>');

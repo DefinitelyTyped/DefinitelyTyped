@@ -3,8 +3,7 @@
 // Definitions by: Leonard Lausen <http://leonard.lausen.nl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference types="leaflet" />
 
 declare namespace L {
     namespace Control {
