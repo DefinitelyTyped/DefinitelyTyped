@@ -9,7 +9,15 @@ declare namespace L {
     }
 
     export interface LatLng {
+        equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
+        toString(): string;
+        distanceTo(otherLatLng: LatLngExpression): number;
+        wrap(): LatLng;
+        toBounds(sizeInMeters: number): LatLngBounds;
 
+        lat: number;
+        lng: number;
+        alt: number;
     }
 
     export interface LatLngLiteral {
@@ -21,29 +29,111 @@ declare namespace L {
 
     type LatLngExpression = LatLng | LatLngLiteral | LatLngTuple;
 
-    export interface LatLngBounds {
+    export function latLng(latitude: number, longitude: number, altitude?: number): LatLng;
 
+    export function latLng(coords: LatLngTuple): LatLng;
+
+    export function latLng(coords: [number, number, number]): LatLng;
+
+    export function latLng(coords: LatLngLiteral): LatLng;
+
+    export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
+
+    export interface LatLngBounds {
+        extend(latlng: LatLngExpression): this;
+        extend(otherBounds: LatLngExpression): this;
+        pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
+        getCenter(): LatLng;
+        getSouthWest(): LatLng;
+        getNorthEast(): LatLng;
+        getNorthWest(): LatLng;
+        getSouthEast(): LatLng;
+        getWest(): number;
+        getSouth(): number;
+        getEast(): number;
+        getNorth(): number;
+        contains(otherBounds: LatLngBoundsExpression): boolean;
+        contains(latlng: LatLngExpression): boolean;
+        intersects(otherBounds: LatLngBoundsExpression): boolean;
+        overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
+        toBBoxString(): string;
+        equals(otherBounds: LatLngBoundsExpression): boolean;
+        isValid(): boolean;
     }
 
     export type LatLngBoundsLiteral = Array<LatLngTuple>;
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
+    export function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
+
+    export function latLngBounds(latlngs: Array<LatLngExpression>): LatLngBounds;
+
     export type PointTuple = [number, number];
 
     export interface Point {
-
+        clone(): Point;
+        add(otherPoint: Point): Point; // investigate if this mutates or returns a new instance
+        add(otherPoint: PointTuple): Point;
+        subtract(otherPoint: Point): Point;
+        subtract(otherPoint: PointTuple): Point;
+        divideBy(num: number): Point;
+        multiplyBy(num: number): Point;
+        scaleBy(scale: Point): Point;
+        scaleBy(scale: PointTuple): Point;
+        unscaleBy(scale: Point): Point;
+        unscaleBy(scale: PointTuple): Point;
+        round(): Point;
+        floor(): Point;
+        ceil(): Point;
+        distanceTo(otherPoint: Point): Point;
+        distanceTo(otherPoint: PointTuple): Point;
+        equals(otherPoint: Point): boolean;
+        equals(otherPoint: PointTuple): boolean;
+        contains(otherPoint: Point): boolean;
+        contains(otherPoint: PointTuple): boolean;
+        toString(): string;
     }
 
     type PointExpression = Point | PointTuple;
 
-    export interface Bounds {
+    export function point(x: number, y: number, round?: boolean): Point;
 
-    }
+    export function point(coords: PointTuple): Point;
+
+    export function point(coords: {x: number, y: number}): Point;
 
     export type BoundsLiteral = Array<PointTuple>;
 
+    export interface Bounds {
+        extend(point: Point): this;
+        extend(point: PointTuple): this;
+        getCenter(round?: boolean): Point;
+        getBottomLeft(): Point;
+        getTopRight(): Point;
+        getSize(): Point;
+        contains(otherBounds: Bounds): boolean;
+        contains(otherBounds: BoundsLiteral): boolean;
+        contains(point: Point): boolean;
+        contains(point: PointTuple): boolean;
+        intersects(otherBounds: Bounds): boolean;
+        intersects(otherBounds: BoundsLiteral): boolean;
+        overlaps(otherBounds: Bounds): boolean;
+        overlaps(otherBounds: BoundsLiteral): boolean;
+
+        min: Point;
+        max: Point;
+    }
+
     type BoundsExpression = Bounds | BoundsLiteral;
+
+    export function bounds(topLeft: Point, bottomRight: Point): Bounds;
+
+    export function bounds(topLeft: PointTuple, bottomRight: PointTuple): Bounds;
+
+    export function bounds(points: Array<Point>): Bounds;
+
+    export function bounds(points: BoundsLiteral): Bounds;
 
     export interface Evented {
 
@@ -58,7 +148,53 @@ declare namespace L {
     }
 
     export interface Layer extends Evented {
+        addTo(map: Map): this;
+        remove(): this;
+        removeFrom(map: Map): this;
+        getPane(name?: string): HTMLElement;
 
+        // Popup methods
+        bindPopup(content: string, options?: PopupOptions): this;
+        bindPopup(content: HTMLElement, options?: PopupOptions): this;
+        bindPopup(content: (layer: Layer) => Content, options?: PopupOptions): this;
+        bindPopup(content: Popup): this;
+        unbindPopup(): this;
+        openPopup(): this;
+        openPopup(latlng: LatLng): this;
+        openPopup(latlng: LatLngLiteral): this;
+        openPopup(latlng: LatLngTuple): this;
+        closePopup(): this;
+        togglePopup(): this;
+        isPopupOpen(): boolean;
+        setPopupContent(content: string): this;
+        setPopupContent(content: HTMLElement): this;
+        setPopupContent(content: Popup): this;
+        getPopup(): Popup;
+
+        // Tooltip methods
+        bindTooltip(content: string, options?: TooltipOptions): this;
+        bindTooltip(content: HTMLElement, options?: TooltipOptions): this;
+        bindTooltip(content: (layer: Layer) => Content, options?: TooltipOptions): this;
+        bindTooltip(content: Tooltip, options?: TooltipOptions): this;
+        unbindTooltip(): this;
+        openTooltip(): this;
+        openTooltip(latlng: LatLng): this;
+        openTooltip(latlng: LatLngLiteral): this;
+        openTooltip(latlng: LatLngTuple): this;
+        closeTooltip(): this;
+        toggleTooltip(): this;
+        isTooltipOpen(): boolean;
+        setTooltipContent(content: string): this;
+        setTooltipContent(content: HTMLElement): this;
+        setTooltipContent(content: Tooltip): this;
+        getTooltip(): Tooltip;
+
+        // Extension methods
+        onAdd(map: Map): this;
+        onRemove(map: Map): this;
+        getEvents(): {[name: string]: (event: Event) => void};
+        getAttribution(): string;
+        beforeAdd(map: Map): this;
     }
 
     export interface GridLayerOptions {
@@ -332,11 +468,82 @@ declare namespace L {
     }
 
     export interface Handler {
+        enable(): this;
+        disable(): this;
+        enabled(): boolean;
 
+        // Extension methods
+        addHooks(): void;
+        removeHooks(): void;
     }
 
-    export interface MouseEvent {
+    export interface Event {
+        type: string;
+        target: any; // should this be Object and have users cast?
+    }
 
+    export interface MouseEvent extends Event {
+        latlng: LatLng;
+        layerPoint: Point;
+        containerPoint: Point;
+        originalEvent: MouseEvent; // how can I reference the global MouseEvent?
+    }
+
+    export interface LocationEvent extends Event {
+        latlng: LatLng;
+        bounds: LatLngBounds;
+        accuracy: number;
+        altitude: number;
+        altitudeAccuracy: number;
+        heading: number;
+        speed: number;
+        timestamp: number;
+    }
+
+    export interface ErrorEvent extends Event {
+        message: string;
+        code: number;
+    }
+
+    export interface LayerEvent extends Event {
+        layer: Layer;
+    }
+
+    export interface LayersControlEvent extends LayerEvent {
+        name: string;
+    }
+
+    export interface TileEvent extends Event {
+        tile: HTMLImageElement;
+        coords: Point; // apparently not a normal point, since docs say it has z (zoom)
+    }
+
+    export interface TileErrorEvent extends TileEvent {
+        error: Error;
+    }
+
+    export interface ResizeEvent extends Event {
+        oldSize: Point;
+        newSize: Point;
+    }
+
+    export interface GeoJSONEvent extends Event {
+        layer: Layer;
+        properties: any; // any or Object?
+        geometryType: string;
+        id: string;
+    }
+
+    export interface PopupEvent extends Event {
+        popup: Popup;
+    }
+
+    export interface TooltipEvent extends Event {
+        tooltip: Tooltip;
+    }
+
+    export interface DragEndEvent extends Event {
+        distance: number;
     }
 
     interface DefaultMapPanes {
@@ -378,7 +585,7 @@ declare namespace L {
         fitBounds(bounds: LatLngBoundsExpression, options: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
         panTo(latlng: LatLngExpression, options?: PanOptions): this;
-        panBy(offset: Point): this;
+        panBy(offset: PointExpression): this;
         setMaxBounds(bounds: BoundsExpression): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
@@ -445,9 +652,40 @@ declare namespace L {
 
     export function map(el: HTMLElement, options?: MapOptions): Map;
 
-    export interface Icon {
-
+    export interface IconOptions extends LayerOptions {
+        iconUrl: string;
+        iconRetinaUrl?: string;
+        iconSize?: PointExpression;
+        iconAnchor?: PointExpression;
+        popupAnchor?: PointExpression;
+        shadowUrl?: string;
+        shadowRetinaUrl?: string;
+        shadowSize?: PointExpression;
+        shadowAnchor?: PointExpression;
+        className?: string;
     }
+
+    export interface Icon extends Layer {
+        createIcon(oldIcon?: HTMLElement): HTMLElement;
+        createShadow(oldIcon?: HTMLElement): HTMLElement;
+
+        Default: Icon;
+    }
+
+    export function icon(options: IconOptions): Icon;
+
+    export interface DivIconOptions extends LayerOptions {
+        html?: string;
+        bgPos?: PointExpression;
+        iconSize?: PointExpression;
+        iconAnchor?: PointExpression;
+        popupAnchor?: PointExpression;
+        className?: string;
+    }
+
+    export interface DivIcon extends Icon {}
+
+    export function divIcon(options: DivIconOptions): DivIcon;
 
     export interface MarkerOptions extends InteractiveLayerOptions {
         icon?: Icon;
