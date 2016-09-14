@@ -2,8 +2,8 @@
 /// <reference path="../node/node.d.ts" />
 
 import Busboy = require('busboy');
-import http = require('http');
-import util = require('util');
+import * as http from 'http';
+import * as util from 'util';
 
 function serverFn(req: http.ServerRequest, res: http.ServerResponse) {
   if (req.method === 'POST') {
