@@ -2434,6 +2434,7 @@ declare module "crypto" {
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
+    export var DEFAULT_ENCODING: string;
 }
 
 declare module "stream" {
