@@ -6,7 +6,6 @@
 export as namespace ReactRouter;
 
 import * as React from 'react';
-
     
 export const routerShape: React.Requireable<any>
 

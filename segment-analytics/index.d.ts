@@ -3,7 +3,7 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+declare interface JQuery {}
 
 declare namespace SegmentAnalytics {
 

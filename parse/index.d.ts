@@ -1072,7 +1072,7 @@ declare namespace Parse {
             title?: string;
         }
 
-        interface SendOptions {
+        interface SendOptions extends UseMasterKeyOption {
             success?: () => void;
             error?: (error: Error) => void;
         }

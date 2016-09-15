@@ -41,8 +41,8 @@ declare module 'pino' {
     }
 
     interface Pino {
-        (optionsOrStream?: LoggerOptions | stream.Writable): Logger
-        (options: LoggerOptions, stream: stream.Writable): Logger
+        (optionsOrStream?: LoggerOptions | stream.Writable | stream.Readable): Logger
+        (options: LoggerOptions, stream: stream.Writable | stream.Readable): Logger
         levels: {
             values: LevelLabelsToValues
             labels: LevelValuesToLabels

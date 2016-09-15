@@ -85,6 +85,7 @@ export interface CopyOptions {
     preserveTimestamps?: boolean
     dereference?: boolean
     filter?: CopyFilter
+    recursive?: boolean
 }
 
 export interface OpenOptions {

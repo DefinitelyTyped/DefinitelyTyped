@@ -418,7 +418,7 @@ declare namespace d3 {
 
             select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
             call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
-            
+
             empty(): boolean;
             size(): number;
         }
@@ -2930,6 +2930,8 @@ declare namespace d3 {
             links(links: Link[]): Force<Link, Node>;
 
             start(): Force<Link, Node>;
+
+            tick(): Force<Link, Node>;
 
             alpha(): number;
             alpha(value: number): Force<Link, Node>;

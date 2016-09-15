@@ -9,7 +9,9 @@ interface MatchArgs {
     stringifyQuery?: Router.StringifyQuery;
 }
 interface MatchState extends Router.RouterState {
-    history: History;
+    history: H.History;
+    router: Router;
+    createElement: (component: Router.RouteComponent, props: Object) => any;
 }
 export default function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void;
 
