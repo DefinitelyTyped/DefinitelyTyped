@@ -1,126 +1,88 @@
-// Type definitions for Jest 0.9.0
+// Type definitions for Jest 15.1.1
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare function afterEach(fn: jest.EmptyFunction): void;
-declare function beforeEach(fn: jest.EmptyFunction): void;
-declare function describe(name: string, fn: jest.EmptyFunction): void;
-declare var it: jest.It;
-declare function pit(name: string, fn: jest.EmptyFunction): void;
-
-declare function xdescribe(name: string, fn: jest.EmptyFunction): void;
-declare function xit(name: string, fn: jest.EmptyFunction): void;
-
+declare function afterEach(fn: () => any): void;
+declare function beforeEach(fn: () => any): void;
+declare function describe(name: string, fn: () => any): void;
 declare function expect(actual: any): jest.Matchers;
+declare function it(name: string, fn: () => any): void;
+declare function fit(name: string, fn: () => any): void;
 
-interface NodeRequire {
-    requireActual(moduleName: string): any;
-}
+declare function test(name: string, fn: () => any): void;
+declare function xdescribe(name: string, fn: () => any): void;
+declare function xit(name: string, fn: () => any): void;
 
 declare namespace jest {
-    function addMatchers(matchers: CustomMatcherFactories): void;
-    function autoMockOff(): void;
-    function autoMockOn(): void;
-    function clearAllTimers(): void;
-    function currentTestPath(): string;
-    function disableAutomock(): void;
-    function fn<T>(implementation?: Function): Mock<T>;
-    function dontMock(moduleName: string): void;
-    function genMockFromModule<T>(moduleName: string): Mock<T>;
-    function mock(moduleName: string, factory?: Function): void;
-    function runAllTicks(): void;
-    function runAllTimers(): void;
-    function runOnlyPendingTimers(): void;
-    function setMock<T>(moduleName: string, moduleExports: T): void;
-    function unmock(moduleName: string): void;
-
-    interface EmptyFunction {
-        (): void;
-    }
-
     interface Matchers {
+        lastCalledWith(...args: any[]): boolean;
         not: Matchers;
-        toThrow(expected?: any): boolean;
-        toThrowError(expected?: any): boolean;
         toBe(expected: any): boolean;
-        toEqual(expected: any): boolean;
-        toBeFalsy(): boolean;
-        toBeTruthy(): boolean;
-        toBeNull(): boolean;
-        toBeDefined(): boolean;
-        toBeUndefined(): boolean;
-        toMatch(expected: RegExp): boolean;
-        toContain(expected: string): boolean;
-        toBeCloseTo(expected: number, delta: number): boolean;
-        toBeGreaterThan(expected: number): boolean;
-        toBeLessThan(expected: number): boolean;
         toBeCalled(): boolean;
         toBeCalledWith(...args: any[]): boolean;
-        lastCalledWith(...args: any[]): boolean;
+        toBeCloseTo(expected: number, delta: number): boolean;
+        toBeDefined(): boolean;
+        toBeFalsy(): boolean;
+        toBeGreaterThan(expected: number): boolean;
+        toBeGreaterThanOrEqual(expected: number): boolean;
+        toBeLessThan(expected: number): boolean;
+        toBeLessThanOrEqual(expected: number): boolean;
+        toBeNull(): boolean;
+        toBeTruthy(): boolean;
+        toBeUndefined(): boolean;
+        toContain(expected: string): boolean;
+        toEqual(expected: any): boolean;
+        toMatch(expected: RegExp): boolean;
+        toMatchSnapshot(): boolean;
+        toThrow(): boolean;
+        toThrowError(expected: string | RegExp): boolean;
+        toThrowError<TFunction extends Function>(expected: TFunction): boolean;
     }
-
-    interface It {
-        (name: string, fn: EmptyFunction): void;
-        only(name: string, fn: EmptyFunction): void;
-    }
-
-    interface Mock<T> {
-        new (): T;
-        (...args: any[]): any; // TODO please fix this line! added for TypeScript 1.1.0-1 https://github.com/DefinitelyTyped/DefinitelyTyped/pull/2932
-        mock: MockContext<T>;
-        mockClear(): void;
-        mockImplementation(fn: Function): Mock<T>;
-        mockImpl(fn: Function): Mock<T>;
-        mockReturnThis(): Mock<T>;
-        mockReturnValue(value: any): Mock<T>;
-        mockReturnValueOnce(value: any): Mock<T>;
-    }
-
+    
     interface MockContext<T> {
         calls: any[][];
         instances: T[];
     }
 
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface CustomMatcherFactories {
-        [index: string]: CustomMatcherFactory;
+    interface Mock<T> {
+        new (): T;
+        (...args: any[]): any; // Making Mock Callable and fixing: Value of type 'Mock<T>' is not callable.
+        mock: MockContext<T>;
+        mockClear(): void;
+        mockImplementation(fn: Function): Mock<T>;
+        mockImplementationOnce(fn: Function): Mock<T>;
+        mockReturnThis(): Mock<T>;
+        mockReturnValue(value: any): Mock<T>;
+        mockReturnValueOnce(value: any): Mock<T>;
     }
-
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface CustomMatcherFactory {
-        (util: MatchersUtil, customEqualityTesters: Array<CustomEqualityTester>): CustomMatcher;
-    }
-
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface MatchersUtil {
-        equals(a: any, b: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        contains<T>(haystack: ArrayLike<T> | string, needle: any, customTesters?: Array<CustomEqualityTester>): boolean;
-        buildFailureMessage(matcherName: string, isNot: boolean, actual: any, ...expected: Array<any>): string;
-    }
-
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface CustomEqualityTester {
-        (first: any, second: any): boolean;
-    }
-
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface CustomMatcher {
-        compare<T>(actual: T, expected: T): CustomMatcherResult;
-        compare(actual: any, expected: any): CustomMatcherResult;
-    }
-
-    // taken from Jasmine since addMatchers calls into the jasmine api
-    interface CustomMatcherResult {
-        pass: boolean;
-        message: string;
-    }
+    
+    function clearAllTimers(): void;
+    function disableAutomock(): void;
+    function enableAutomock(): void;
+    function fn<T>(implementation?: Function): Mock<T>;
+    function isMockFunction(fn: Function): boolean;
+    function genMockFromModule<T>(moduleName: string): T;
+    function mock(moduleName: string, factory?: Function, options?: {virtual: boolean}): void;
+    function resetModules(): void;
+    function runAllTicks(): void;
+    function runAllTimers(): void;
+    function runOnlyPendingTimers(): void;
+    function setMock<T>(moduleName: string, moduleExports: T): void;
+    function unmock(moduleName: string): void;
+    function useFakeTimers(): void;
+    function useRealTimers(): void;
 
     // taken from Jasmine which takes from TypeScript lib.core.es6.d.ts, applicable to CustomMatchers.contains()
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
     }
+}
+
+interface NodeRequire {
+    requireActual(moduleName: string): any;
+    requireMock(moduleName: string): any;
 }
