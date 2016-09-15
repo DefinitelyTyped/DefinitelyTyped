@@ -17,10 +17,8 @@ const latLngBoundsLiteral: L.LatLngBoundsLiteral = [[12, 13], latLngTuple];
 
 let latLngBounds: L.LatLngBounds;
 latLngBounds = L.latLngBounds(latLng, latLng);
-latLngBounds = L.latLngBounds(latLng, latLngLiteral);
-latLngBounds = L.latLngBounds(latLngLiteral, latLng);
 latLngBounds = L.latLngBounds(latLngLiteral, latLngLiteral);
-// TODO
+latLngBounds = L.latLngBounds(latLngTuple, latLngTuple);
 
 const pointTuple: L.PointTuple = [0, 0];
 

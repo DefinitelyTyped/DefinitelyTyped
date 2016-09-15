@@ -5,13 +5,64 @@
 
 declare namespace L {
     export interface CRS {
+        latLngToPoint(latlng: LatLng, zoom: number): Point;
+        latLngToPoint(latlng: LatLngLiteral, zoom: number): Point;
+        latLngToPoint(latlng: LatLngTuple, zoom: number): Point;
+        pointToLatLng(point: Point): LatLng;
+        pointToLatLng(point: PointTuple): LatLng;
+        project(latlng: LatLng): Point;
+        project(latlng: LatLngLiteral): Point;
+        project(latlng: LatLngTuple): Point;
+        unproject(point: Point): LatLng;
+        unproject(point: PointTuple): LatLng;
+        scale(zoom: number): number;
+        zoom(scale: number): number;
+        getProjectedBounds(zoom: number): Bounds;
+        distance(latlng1: LatLng, latlng2: LatLng): number;
+        distance(latlng1: LatLngLiteral, latlng2: LatLngLiteral): number;
+        distance(latlng1: LatLngTuple, latlng2: LatLngTuple): number;
+        wrapLatLng(latlng: LatLng): LatLng;
+        wrapLatLng(latlng: LatLngLiteral): LatLng;
+        wrapLatLng(latlng: LatLngTuple): LatLng;
 
+        code: string;
+        wrapLng: [number, number];
+        wrapLat: [number, number];
+        infinite: boolean;
+    }
+
+    export namespace CRS {
+        export const EPSG3395: CRS;
+        export const EPSG3857: CRS;
+        export const EPSG4326: CRS;
+        export const Earth: CRS;
+        export const Simple: CRS;
+    }
+
+    export interface Projection {
+        project(latlng: LatLng): Point;
+        project(latlng: LatLngLiteral): Point;
+        project(latlng: LatLngTuple): Point;
+        unproject(point: Point): LatLng;
+        unproject(point: PointTuple): LatLng;
+
+        bounds: LatLngBounds;
+    }
+
+    export namespace Projection {
+        export const LonLat: Projection;
+        export const Mercator: Projection;
+        export const SphericalMercator: Projection;
     }
 
     export interface LatLng {
-        equals(otherLatLng: LatLngExpression, maxMargin?: number): boolean;
+        equals(otherLatLng: LatLng, maxMargin?: number): boolean;
+        equals(otherLatLng: LatLngLiteral, maxMargin?: number): boolean;
+        equals(otherLatLng: LatLngTuple, maxMargin?: number): boolean;
         toString(): string;
-        distanceTo(otherLatLng: LatLngExpression): number;
+        distanceTo(otherLatLng: LatLng): number;
+        distanceTo(otherLatLng: LatLngLiteral): number;
+        distanceTo(otherLatLng: LatLngTuple): number;
         wrap(): LatLng;
         toBounds(sizeInMeters: number): LatLngBounds;
 
@@ -40,8 +91,11 @@ declare namespace L {
     export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
 
     export interface LatLngBounds {
-        extend(latlng: LatLngExpression): this;
-        extend(otherBounds: LatLngExpression): this;
+        extend(latlng: LatLng): this;
+        extend(latlng: LatLngLiteral): this;
+        extend(latlng: LatLngTuple): this;
+        extend(otherBounds: LatLngBounds): this;
+        extend(otherBounds: LatLngBoundsLiteral): this;
         pad(bufferRatio: number): LatLngBounds; // does this modify the current instance or does it return a new one?
         getCenter(): LatLng;
         getSouthWest(): LatLng;
@@ -52,12 +106,18 @@ declare namespace L {
         getSouth(): number;
         getEast(): number;
         getNorth(): number;
-        contains(otherBounds: LatLngBoundsExpression): boolean;
-        contains(latlng: LatLngExpression): boolean;
-        intersects(otherBounds: LatLngBoundsExpression): boolean;
-        overlaps(otherBounds: BoundsExpression): boolean; // investigate if this is really bounds and not latlngbounds
+        contains(otherBounds: LatLngBounds): boolean;
+        contains(otherBounds: LatLngBoundsLiteral): boolean;
+        contains(latlng: LatLng): boolean;
+        contains(latlng: LatLngLiteral): boolean;
+        contains(latlng: LatLngTuple): boolean;
+        intersects(otherBounds: LatLngBounds): boolean;
+        intersects(otherBounds: LatLngLiteral): boolean;
+        overlaps(otherBounds: Bounds): boolean; // investigate if this is really bounds and not latlngbounds
+        overlaps(otherBounds: BoundsLiteral): boolean;
         toBBoxString(): string;
-        equals(otherBounds: LatLngBoundsExpression): boolean;
+        equals(otherBounds: LatLngBounds): boolean;
+        equals(otherBounds: LatLngBoundsLiteral): boolean;
         isValid(): boolean;
     }
 
@@ -65,9 +125,13 @@ declare namespace L {
 
     type LatLngBoundsExpression = LatLngBounds | LatLngBoundsLiteral;
 
-    export function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
+    export function latLngBounds(southWest: LatLng, northEast: LatLng): LatLngBounds;
 
-    export function latLngBounds(latlngs: Array<LatLngExpression>): LatLngBounds;
+    export function latLngBounds(southWest: LatLngLiteral, northEast: LatLngLiteral): LatLngBounds;
+
+    export function latLngBounds(southWest: LatLngTuple, northEast: LatLngTuple): LatLngBounds;
+
+    export function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
 
     export type PointTuple = [number, number];
 
@@ -668,8 +732,10 @@ declare namespace L {
     export interface Icon extends Layer {
         createIcon(oldIcon?: HTMLElement): HTMLElement;
         createShadow(oldIcon?: HTMLElement): HTMLElement;
+    }
 
-        Default: Icon;
+    export namespace Icon {
+        export const Default: Icon;
     }
 
     export function icon(options: IconOptions): Icon;
