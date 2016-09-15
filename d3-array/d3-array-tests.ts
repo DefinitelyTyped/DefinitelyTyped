@@ -154,7 +154,7 @@ extentNum = d3Array.extent(numbersArray);
 extentStr = d3Array.extent(stringyNumbersArray);
 extentNumeric = d3Array.extent(numericArray);
 extentDate = d3Array.extent(dateArray);
-extentMixed = d3Array.extent([new NumCoercible(10), 13, '12', true]);
+extentMixed = d3Array.extent<NumCoercible>([new NumCoercible(10), 13, '12', true]);
 
 // with accessors
 
