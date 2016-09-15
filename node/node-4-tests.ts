@@ -108,6 +108,16 @@ namespace events_tests {
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
     }
+    
+    {
+        class Networker extends events.EventEmitter {
+            constructor() {
+                super();
+
+                this.emit("mingling");
+            }
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -165,14 +175,6 @@ namespace fs_tests {
         tempDir = fs.mkdtempSync('/tmp/foo-');
     }
 
-}
-
-class Networker extends events.EventEmitter {
-    constructor() {
-        super();
-
-        this.emit("mingling");
-    }
 }
 
 ///////////////////////////////////////////////////////
