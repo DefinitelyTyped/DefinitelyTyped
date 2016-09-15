@@ -552,27 +552,18 @@ var connOpts: tls.ConnectionOptions = {
 };
 var tlsSocket = tls.connect(connOpts);
 
-
+////////////////////////////////////////////////////
+/// Http tests : http://nodejs.org/api/http.html ///
 ////////////////////////////////////////////////////
 
-// Make sure .listen() and .close() retuern a Server instance
-http.createServer().listen(0).close().address();
-net.createServer().listen(0).close().address();
-
-var request = http.request('http://0.0.0.0');
-request.once('error', function () {});
-request.setNoDelay(true);
-request.abort();
-
-////////////////////////////////////////////////////
-/// Http tests : http://nodejs.org/api/http.html
-////////////////////////////////////////////////////
 namespace http_tests {
-    // Status codes
-    var code = 100;
-    var codeMessage = http.STATUS_CODES['400'];
-    var codeMessage = http.STATUS_CODES[400];
+    {
+        // Status codes
+        var codeMessage = http.STATUS_CODES['400'];
+        var codeMessage = http.STATUS_CODES[400];
+    }
 
+    {
 	var agent: http.Agent = new http.Agent({
 		keepAlive: true,
 		keepAliveMsecs: 10000,
@@ -582,20 +573,29 @@ namespace http_tests {
 
 	var agent: http.Agent = http.globalAgent;
 
-	http.request({
-		agent: false
-	});
-	http.request({
-		agent: agent
-	});
-	http.request({
-		agent: undefined
-	});
+	http.request({agent: false});
+	http.request({agent: agent});
+	http.request({agent: undefined});
+    }
+    
+    {
+        // Make sure .listen() and .close() retuern a Server instance
+        http.createServer().listen(0).close().address();
+        net.createServer().listen(0).close().address();
+    }
+    
+    {
+        var request = http.request('http://0.0.0.0');
+        request.once('error', function() { });
+        request.setNoDelay(true);
+        request.abort();
+    }
 }
 
-////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html
-////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html ///
+//////////////////////////////////////////////////////
+
 namespace https_tests {
     var agent: https.Agent = new https.Agent({
         keepAlive: true,
@@ -1129,6 +1129,17 @@ import * as c from "console";
 namespace console_tests{
     {
         assert(c === console);
+    }
+}
+
+///////////////////////////////////////////////////
+/// Net Tests : https://nodejs.org/api/net.html ///
+///////////////////////////////////////////////////
+
+namespace net_tests {
+    {
+        // Make sure .listen() and .close() retuern a Server instance
+        net.createServer().listen(0).close().address();
     }
 }
 
