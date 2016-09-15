@@ -160,8 +160,6 @@ declare namespace Xrm
             /**
              * Opens quick create.
              *
-             * @param   {Function}  callback                    The function that will be called when a record is created. This
-             *                                                  function is passed a LookupValue object as a parameter.
              * @param   {string}    entityLogicalName           The logical name of the entity to create.
              * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
              *                                                  based on mapped attribute values.
@@ -170,10 +168,9 @@ declare namespace Xrm
              *                                                  error.
              */
             openQuickCreate(
-                callback: ( recordReference: Page.LookupValue ) => void,
                 entityLogicalName: string,
                 createFromEntity?: Page.LookupValue,
-                parameters?: Utility.OpenParameters ): void;
+                parameters?: Utility.OpenParameters ): Async.XrmPromise;
 
             /**
              * Opens an entity form.
