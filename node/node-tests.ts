@@ -489,20 +489,24 @@ function simplified_stream_ctor_test() {
     })
 }
 
-////////////////////////////////////////////////////
-/// Crypto tests : http://nodejs.org/api/crypto.html
-////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+/// Crypto tests : http://nodejs.org/api/crypto.html ///
+////////////////////////////////////////////////////////
 
-var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
-
-{
-    let hmac: crypto.Hmac;
-    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
-        let hash: Buffer|string = hmac.read();
-    });
-}
-
-function crypto_cipher_decipher_string_test() {
+namespace crypto_tests {
+    {
+        var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
+    
+    {
+        let hmac: crypto.Hmac;
+        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+            let hash: Buffer | string = hmac.read();
+        });
+    }
+    
+    {
+    	//crypto_cipher_decipher_string_test
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
 	var clearText:string = "This is the clear text.";
 	var cipher:crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
@@ -514,9 +518,10 @@ function crypto_cipher_decipher_string_test() {
 	clearText2 += decipher.final("utf8");
 
 	assert.equal(clearText2, clearText);
-}
-
-function crypto_cipher_decipher_buffer_test() {
+    }
+    
+    {
+    	//crypto_cipher_decipher_buffer_test
 	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
 	var clearText:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
 	var cipher:crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
@@ -534,6 +539,7 @@ function crypto_cipher_decipher_buffer_test() {
 	var clearText2:Buffer = Buffer.concat(decipherBuffers);
 
 	assert.deepEqual(clearText2, clearText);
+    }
 }
 
 ////////////////////////////////////////////////////
