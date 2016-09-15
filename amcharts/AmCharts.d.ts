@@ -27,6 +27,9 @@ declare namespace AmCharts {
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
     
+    /** Handle ready event */
+    function ready(Function): void;
+    
     /** Create chart by params. */
     function makeChart(selector: string, params: any, delay?: number): AmChart;
     
@@ -961,6 +964,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @Default 150
         */
         hideBalloonTime: number;
+        /** Allows changing language easily.
+         * Note, you should include the language.js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de";
+         * Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
+        language: string;
         /** Legend of a chart. */
         legend: AmLegend;
         /** Reference to the div of the legend. */
@@ -989,6 +996,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         prefixesOfBigNumbers: any[];
         /** Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true. [{number:1e-24, prefix:"y"},{number:1e-21, prefix:"z"},{number:1e-18, prefix:"a"},{number:1e-15, prefix:"f"},{number:1e-12, prefix:"p"},{number:1e-9, prefix:"n"},{number:1e-6, prefix:"μ"},{number:1e-3, prefix:"m"}] */
         prefixesOfSmallNumbers: any[];
+        /** A config object for Responsive plugin. */
+        responsive: any;
         /** Theme of a chart. Config files of themes can be found in amcharts/themes/ folder. More info about using themes. */
         theme: string;
         /** Thousands separator.

@@ -22,7 +22,7 @@ declare namespace angular.material {
         clickOutsideToClose?: boolean;
         disableBackdrop?: boolean;
         escapeToClose?: boolean;
-        resolve?: {[index: string]: angular.IPromise<any>};
+        resolve?: {[index: string]: () => angular.IPromise<any>};
         controllerAs?: string;
         parent?: Function|string|Object; // default: root node
         disableParentScroll?: boolean; // default: true
@@ -53,7 +53,7 @@ declare namespace angular.material {
         controller(controller?: string|Function): T;
         locals(locals?: {[index: string]: any}): T;
         bindToController(bindToController?: boolean): T; // default: false
-        resolve(resolve?: {[index: string]: angular.IPromise<any>}): T;
+        resolve(resolve?: {[index: string]: () => angular.IPromise<any>}): T;
         controllerAs(controllerAs?: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
         onComplete(onComplete?: Function): T;
@@ -91,7 +91,7 @@ declare namespace angular.material {
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
         onShowing?: Function;
@@ -132,6 +132,7 @@ declare namespace angular.material {
         close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
+        onClose(onClose: Function): void;
     }
 
     interface ISidenavService {
@@ -162,10 +163,11 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
         position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+        toastClass?: string;
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
     }
@@ -291,13 +293,14 @@ declare namespace angular.material {
     }
 
     interface IPanelConfig {
+        id?: string;
         template?: string;
         templateUrl?: string;
         controller?: string|Function;
         controllerAs?: string;
         bindToController?: boolean; // default: true
         locals?: {[index: string]: any};
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         attachTo?: string|JQuery|Element;
         propagateContainerEvents?: boolean;
         panelClass?: string;

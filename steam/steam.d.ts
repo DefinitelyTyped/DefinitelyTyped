@@ -31,7 +31,7 @@ declare namespace Steam {
         Kicked
     }
 
-    export class SteamClient implements NodeJS.EventEmitter {
+    export class SteamClient extends NodeJS.EventEmitter {
         sessionId: string;
         cookie: string[];
         steamID: string;

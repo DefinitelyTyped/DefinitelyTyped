@@ -57,7 +57,7 @@ declare namespace JSData {
         scopes?:Object;
         strategy?: string;
         upsert?: boolean;
-        useClass?: boolean;
+        useClass?: boolean | any;
         useFilter?: boolean;
         watchChanges?:boolean;
     }
@@ -342,6 +342,7 @@ declare namespace JSData {
 declare var JSData:{
     DS: JSData.DS;
     DSErrors: JSData.DSErrors;
+    DSUtils: any;
 };
 
 //Support node require

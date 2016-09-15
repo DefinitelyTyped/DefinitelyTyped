@@ -4,9 +4,9 @@ import * as validator from 'validator';
 
 let any: any;
 
-/**************
- * Validators *
- **************/
+// **************
+// * Validators *
+// **************
 
 {
   let result: boolean;
@@ -16,7 +16,7 @@ let any: any;
   result = validator.equals('sample', 'sample');
 
   result = validator.isAfter('sample');
-  result = validator.isAfter('sample', new Date());
+  result = validator.isAfter('sample', new Date().toString());
 
   result = validator.isAlpha('sample');
 
@@ -27,7 +27,7 @@ let any: any;
   result = validator.isBase64('sample');
 
   result = validator.isBefore('sample');
-  result = validator.isBefore('sample', new Date());
+  result = validator.isBefore('sample', new Date().toString());
 
   result = validator.isBoolean('sample');
 
@@ -41,6 +41,8 @@ let any: any;
   let isCurrencyOptions: ValidatorJS.IsCurrencyOptions;
   result = validator.isCurrency('sample');
   result = validator.isCurrency('sample', isCurrencyOptions);
+
+  result = validator.isDataURI('sample');
 
   result = validator.isDate('sample');
 
@@ -95,6 +97,8 @@ let any: any;
 
   result = validator.isMACAddress('sample');
 
+  result = validator.isMD5('sample');
+
   result = validator.isMobilePhone('sample', 'en-US');
 
   result = validator.isMongoId('sample');
@@ -113,6 +117,7 @@ let any: any;
 
   result = validator.isUUID('sample');
   result = validator.isUUID('sample', 5);
+  result = validator.isUUID('sample', 'all');
 
   result = validator.isUppercase('sample');
 
@@ -125,9 +130,9 @@ let any: any;
   result = validator.matches('foobar', 'foo', 'i');
 }
 
-/**************
- * Sanitizers *
- **************/
+// **************
+// * Sanitizers *
+// **************
 
 {
   let result: string;
@@ -135,6 +140,8 @@ let any: any;
   result = validator.blacklist('sample', 'abc');
 
   result = validator.escape('sample');
+
+  result = validator.unescape('sample');
 
   result = validator.ltrim('sample');
   result = validator.ltrim('sample', ' ');
@@ -175,16 +182,14 @@ let any: any;
 {
   let result: string;
 
-  result = validator.toString(any);
-
   result = validator.trim('sample');
   result = validator.trim('sample', ' ');
 
   result = validator.whitelist('sample', 'abc');
 }
 
-/**************
- * Extensions *
- **************/
+// **************
+// * Extensions *
+// **************
 
 validator.extend<(str: string, options: {}) => boolean>('isTest', (str: any, options: {}) => !str);
