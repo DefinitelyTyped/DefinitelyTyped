@@ -1112,14 +1112,13 @@ namespace errors_tests {
 ///////////////////////////////////////////////////////////
 
 import * as p from "process";
-namespace process_tests{
+namespace process_tests {
     {
         var eventEmitter: events.EventEmitter;
         eventEmitter = process;                // Test that process implements EventEmitter...
         
         var _p: NodeJS.Process = process;
         _p = p;
-        assert(p === process);
     }
 }
 
@@ -1128,9 +1127,10 @@ namespace process_tests{
 ///////////////////////////////////////////////////////////
 
 import * as c from "console";
-namespace console_tests{
+namespace console_tests {
     {
-        assert(c === console);
+        var _c: Console = console;
+        _c = c;
     }
 }
 
