@@ -882,7 +882,7 @@ declare module "turf" {
 
 // Latest version of Turf
 declare module "@turf/turf" {
-  export = turf
+  export default turf
 }
 
 // AGGREGATION
