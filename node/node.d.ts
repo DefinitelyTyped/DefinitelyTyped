@@ -791,7 +791,7 @@ declare module "cluster" {
         worker: Worker;
         workers: {
             [index: string]: Worker
-        }
+        };
 
         /**
          * events.EventEmitter
@@ -860,7 +860,7 @@ declare module "cluster" {
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker
-    }
+    };
 
     /**
      * events.EventEmitter
