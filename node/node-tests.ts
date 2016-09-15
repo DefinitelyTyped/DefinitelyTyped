@@ -540,18 +540,19 @@ function crypto_cipher_decipher_buffer_test() {
 /// TLS tests : http://nodejs.org/api/tls.html
 ////////////////////////////////////////////////////
 
-var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-});
-var blah = ctx.context;
+namespace tls_tests {
+    var ctx: tls.SecureContext = tls.createSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
+    });
+    var blah = ctx.context;
 
-var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
-};
-var tlsSocket = tls.connect(connOpts);
-
+    var connOpts: tls.ConnectionOptions = {
+        host: "127.0.0.1",
+        port: 55
+    };
+    var tlsSocket = tls.connect(connOpts);
+}
 
 ////////////////////////////////////////////////////
 
