@@ -80,6 +80,7 @@ var voidProm: Promise<void>;
 
 var fooProm: Promise<Foo>;
 var barProm: Promise<Bar>;
+var barOrVoidProm: Promise<Bar | void>;
 var fooOrBarProm: Promise<Foo|Bar>;
 var bazProm: Promise<Baz>;
 
@@ -219,12 +220,12 @@ barProm = fooProm.then((value: Foo) => {
 }, (reason: any) => {
 	return barProm;
 });
-barProm = fooProm.then((value: Foo) => {
+barOrVoidProm = fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return;
 });
-barProm = fooProm.then((value: Foo) => {
+barOrVoidProm = fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return voidProm;

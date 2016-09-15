@@ -38,6 +38,16 @@ namespace PouchDBCoreTests {
         });
     }
 
+    function testCompact() {
+      const db = new PouchDB<{}>();
+      // Promise version
+      db.compact().then( (res: PouchDB.Core.Response) => {});
+      // Promise version with optional options
+      db.compact({interval: 300}).then( (res: PouchDB.Core.Response) => {});
+      // Options with a callback
+      db.compact({interval: 300},  (res: PouchDB.Core.Response) => {});
+    }
+
     function testDestroy() {
         const db = new PouchDB<{}>();
 
@@ -74,5 +84,32 @@ namespace PouchDBCoreTests {
         });
         db.info({ ajax: { cache: true }}, (error, result) => {
         });
+    }
+
+    function testRemove() {
+      type MyModel = { rev: 'rev', property: 'someProperty '};
+      let model: PouchDB.Core.Document<MyModel>;
+      const id = 'model';
+      const rev = 'rev';
+
+      const db = new PouchDB<MyModel>();
+
+      // Promise version with doc
+      db.remove(model).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with doc and options
+      db.remove(model, {}).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with docId and rev
+      db.remove(id, rev).then( (res: PouchDB.Core.Response) => {});
+
+      // Promise version with docId and rev and options
+      db.remove(id, rev, {}).then( (res: PouchDB.Core.Response) => {});
+
+      // Callback version with doc
+      db.remove(model, {}, (res: PouchDB.Core.Response) => {});
+
+      // Callback version with docId and rev
+      db.remove(id, rev, {}, (res: PouchDB.Core.Response) => {});
     }
 }

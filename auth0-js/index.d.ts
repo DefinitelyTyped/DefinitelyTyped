@@ -42,6 +42,7 @@ interface Auth0ClientOptions {
 /** Represents a normalized UserProfile. */
 interface Auth0UserProfile {
     email: string;
+    email_verified: boolean;
     family_name: string;
     gender: string;
     given_name: string;

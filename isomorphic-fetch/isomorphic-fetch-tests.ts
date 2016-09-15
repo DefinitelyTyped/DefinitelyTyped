@@ -1,3 +1,4 @@
+/// <reference types="bluebird" />
 import fetchImportedViaCommonJS = require('isomorphic-fetch');
 import * as fetchImportedViaES6Module from 'isomorphic-fetch';
 

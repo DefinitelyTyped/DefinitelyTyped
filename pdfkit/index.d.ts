@@ -85,9 +85,9 @@ declare namespace PDFKit.Mixins {
     }
 
     interface PDFImage<TDocument> {
-    /**
-     * Draw an image in PDFKit document.
-     */
+        /**
+         * Draw an image in PDFKit document.
+         */
         image(src: any, x?: number, y?: number, options?: ImageOption): TDocument;
         image(src: any, options?: ImageOption): TDocument;
     }
@@ -231,7 +231,9 @@ declare namespace PDFKit {
         info?: DocumentInfo;
         autoFirstPage?: boolean;
         size?: number[];
-        margin?: { top: number; left: number; bottom: number; right: number }|number;
+        margin?: number;
+        margins?: { top: number; left: number; bottom: number; right: number };
+        layout?: "portrait" | "landscape";
 
         bufferPages?: boolean;
     }

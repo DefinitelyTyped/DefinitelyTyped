@@ -390,7 +390,7 @@ declare module _ {
 
     interface LoDashExplicitNumberArrayWrapper extends LoDashExplicitArrayWrapper<number> { }
 
-    /* *******
+    /*********
      * Array *
      *********/
 
@@ -5701,7 +5701,7 @@ declare module _ {
         zipWith<TResult>(...args: any[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    /* *******
+    /*********
      * Chain *
      *********/
 
@@ -6050,7 +6050,7 @@ declare module _ {
         valueOf(): T;
     }
 
-    /* ************
+    /**************
      * Collection *
      **************/
 
@@ -6787,12 +6787,13 @@ declare module _ {
          *
          * @param collection The collection to search.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
+         * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
         find<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6800,7 +6801,8 @@ declare module _ {
          */
         find<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>
+            predicate?: DictionaryIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6808,7 +6810,8 @@ declare module _ {
          */
         find<T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6816,7 +6819,8 @@ declare module _ {
          */
         find<TObject extends {}, T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): T;
     }
 
@@ -6825,21 +6829,24 @@ declare module _ {
          * @see _.find
          */
         find(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
          * @see _.find
          */
         find(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): T;
 
         /**
          * @see _.find
          */
         find<TObject extends {}>(
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): T;
     }
 
@@ -6848,21 +6855,24 @@ declare module _ {
          * @see _.find
          */
         find<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            fromIndex?: number
         ): TResult;
 
         /**
          * @see _.find
          */
         find<TResult>(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): TResult;
 
         /**
          * @see _.find
          */
         find<TObject extends {}, TResult>(
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): TResult;
     }
 
@@ -8574,6 +8584,21 @@ declare module _ {
             callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**LoDashExplicitWrapper
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
@@ -9636,7 +9661,7 @@ declare module _ {
         ): LoDashExplicitArrayWrapper<T>;
     }
 
-    /* ******
+    /********
      * Date *
      ********/
 
@@ -9664,7 +9689,7 @@ declare module _ {
         now(): LoDashExplicitWrapper<number>;
     }
 
-    /* ***********
+    /*************
      * Functions *
      *************/
 
@@ -10934,7 +10959,7 @@ declare module _ {
         wrap<R extends Function>(wrapper: Function): LoDashExplicitObjectWrapper<R>;
     }
 
-    /* ******
+    /********
      * Lang *
      ********/
 
@@ -12971,7 +12996,7 @@ declare module _ {
         toString(value: any): string;
     }
 
-    /* ******
+    /********
      * Math *
      ********/
 
@@ -13580,7 +13605,7 @@ declare module _ {
         sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
-    /* ********
+    /**********
      * Number *
      **********/
 
@@ -13790,7 +13815,7 @@ declare module _ {
         random(floating?: boolean): LoDashExplicitWrapper<number>;
     }
 
-    /* ********
+    /**********
      * Object *
      **********/
 
@@ -17121,7 +17146,7 @@ declare module _ {
         valuesIn<T>(): LoDashExplicitArrayWrapper<T>;
     }
 
-    /* ********
+    /**********
      * String *
      **********/
 
@@ -18115,7 +18140,7 @@ declare module _ {
         words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
     }
 
-    /* *********
+    /***********
      * Utility *
      ***********/
 

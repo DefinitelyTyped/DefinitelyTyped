@@ -31,7 +31,7 @@ declare namespace Express {
     secure?: boolean;
     httpOnly: boolean;
     domain?: string;
-    expires: Date;
+    expires: Date | boolean;
     serialize: (name: string, value: string) => string;
   }
 }
@@ -70,7 +70,7 @@ declare module "express-session" {
 	  regenerate (req: express.Request, fn: (err: any) => any): void;
       load (sid: string, fn: (err: any, session: Express.Session) => any): void;
       createSession (req: express.Request, sess: Express.Session): void;
-
+      
       get: (sid: string, callback: (err: any, session: Express.Session) => void) => void;
       set: (sid: string, session: Express.Session, callback: (err: any) => void) => void;
       destroy: (sid: string, callback: (err: any) => void) => void;

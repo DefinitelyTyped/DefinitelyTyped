@@ -112,6 +112,8 @@ import {cyan500, cyan700,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 
+import {SMALL, MEDIUM, LARGE, default as withWidth} from 'material-ui/utils/withWidth';
+
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -4925,6 +4927,8 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
     );
   }
 }
+
+const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
 
 interface MaterialUiTestsState {

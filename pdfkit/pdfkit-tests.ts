@@ -24,12 +24,16 @@ doc.addPage({
 });
 
 doc.addPage({
-  margin: {
+  margins: {
     top: 50,
     bottom: 50,
     left: 72,
     right: 72
   }
+});
+
+doc.addPage({
+  layout: "landscape"
 });
 
 doc.info.Title = "Sample";

@@ -6109,6 +6109,19 @@ declare module "react" {
     export var NativeModules: any
     export var NativeAppEventEmitter: NativeAppEventEmitterStatic
 
+    //////////// Plugins //////////////
+    export interface ComponentInterface<P> {
+        name?: string;
+        displayName?: string;
+        propTypes: P
+    }
+
+    export function requireNativeComponent<P>(
+        viewName: string,
+        componentInterface?: ComponentInterface<P>,
+        extraConfig?: {nativeOnly: Object}
+    ): React.ComponentClass<P>;
+
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited
     //

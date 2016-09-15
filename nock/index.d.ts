@@ -95,7 +95,10 @@ declare namespace nock {
         log(out: () => void): Scope;
 
         delay(timeMs: number): Scope;
+        delayBody(timeMs: number): Scope;
         delayConnection(timeMs: number): Scope;
+        getTotalDelay(): number;
+        socketDelay(timeMs: number): Scope;
 
         times(repeats: number): Scope;
         once(): Scope;

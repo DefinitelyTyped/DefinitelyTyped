@@ -27,7 +27,7 @@ export declare var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void
  * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
  *     for the Element.
  */
-export declare var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => void;
+export declare var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => HTMLElement;
 /**
  * Declares a virtual Element at the current location in the document. This
  * corresponds to an opening tag and a elementClose tag is required. This is
@@ -54,11 +54,11 @@ export declare var attr: (name: string, value: any) => void;
 /**
  * Closes an open tag started with elementOpenStart.
  */
-export declare var elementOpenEnd: () => void;
+export declare var elementOpenEnd: () => HTMLElement;
 /**
  * Closes an open virtual Element.
  */
-export declare var elementClose: (tag: string) => void;
+export declare var elementClose: (tag: string) => HTMLElement;
 /**
  * Declares a virtual Element at the current location in the document that has
  * no children.
@@ -72,10 +72,10 @@ export declare var elementClose: (tag: string) => void;
  * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
  *     for the Element.
  */
-export declare var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => void;
+export declare var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => HTMLElement;
 /**
  * Declares a virtual Text at this point in the document.
  *
  * @param {string} value The text of the Text.
  */
-export declare var text: (value: string) => void;
+export declare var text: (value: string) => Text;
