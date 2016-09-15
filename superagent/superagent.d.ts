@@ -77,6 +77,7 @@ declare module "superagent" {
       notAcceptable: boolean;
       notFound: boolean;
       forbidden: boolean;
+      xhr: XMLHttpRequest;
       get(header: string): string;
     }
 
@@ -96,6 +97,7 @@ declare module "superagent" {
       pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
       query(val: Object): this;
       redirects(n: number): this;
+      responseType(type: string): this;
       send(data: string): this;
       send(data: Object): this;
       send(): this;

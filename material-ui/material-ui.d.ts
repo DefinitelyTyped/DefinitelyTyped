@@ -513,8 +513,8 @@ declare namespace __MaterialUI {
         iconClassNameRight?: string;
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
-        iconStyleRight?: string;
-        iconStyleLeft?: string;
+        iconStyleRight?: React.CSSProperties;
+        iconStyleLeft?: React.CSSProperties;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
@@ -556,7 +556,7 @@ declare namespace __MaterialUI {
         errorStyle?: React.CSSProperties;
         errorText?: string;
         filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
-        floatingLabelText?: string;
+        floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
         hintText?: string;
         listStyle?: React.CSSProperties;
@@ -7228,7 +7228,7 @@ declare module 'material-ui/utils/withWidth' {
       mediumWidth?: number;
       resizeInterval?: number;
   }
-  export default function withWidth(options?: Options): __React.ComponentClass<any>
+  export default function withWidth<C extends Function>(options?: Options): (component: C) => C;
 }
 
 declare namespace __MaterialUI.Styles {

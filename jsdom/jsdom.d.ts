@@ -68,6 +68,7 @@ declare module "jsdom" {
 	export function createCookieJar(): CookieJar;
 	export function nodeLocation(node: Node): any;
 	export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
+	export function changeURL(window: Window, url: string): void;
 	
 	export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 	

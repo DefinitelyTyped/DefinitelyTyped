@@ -7,6 +7,9 @@ declare module "colors" {
     interface Color {
         (text: string): string;
 
+        strip: Color;
+        stripColors: Color;
+
         black: Color;
         red: Color;
         green: Color;
@@ -46,6 +49,11 @@ declare module "colors" {
 
     namespace e {
         export function setTheme(theme:any): void;
+
+        export var enabled: boolean;
+
+        export var strip: Color;
+        export var stripColors: Color;
 
         export var black: Color;
         export var red: Color;
@@ -88,6 +96,9 @@ declare module "colors" {
 }
 
 interface String {
+    strip: string;
+    stripColors: string;
+
     black: string;
     red: string;
     green: string;

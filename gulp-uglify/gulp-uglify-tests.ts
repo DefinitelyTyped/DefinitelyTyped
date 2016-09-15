@@ -14,7 +14,7 @@ gulp.task('compress2', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(uglify({
             mangle: false,
-            preserverComments: "some",
+            preserveComments: "some",
             compress: false,
             output: {
                 max_line_len: 300

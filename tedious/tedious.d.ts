@@ -443,7 +443,7 @@ declare module 'tedious' {
 		 * a connection, another request should not be initiated until this callback is called.
 		 * @param callback The callback is called when the request to start the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
 		 * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. Required when isolationLevel is present.
-		 * @param isolationLevel	The isolation level that the transaction is to be run with.
+		 * @param isolationLevel The isolation level that the transaction is to be run with.
 		 */
 		beginTransaction(callback: (error?: Error) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
 
@@ -456,11 +456,31 @@ declare module 'tedious' {
 		commitTransaction(callback: (error: Error) => void): void;
 
 		/**
-		 * Rollback a transaction.	There should be an active transaction. That is, beginTransaction should have been previously called.
-		 * @param callback	The callback is called when the request to rollback the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
+		 * Rollback a transaction. There should be an active transaction. That is, beginTransaction should have been previously called.
+		 * @param callback The callback is called when the request to rollback the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
 		 * 						As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
 		 */
 		rollbackTransaction(callback: (error: Error) => void): void;
+
+		/**
+		 * Set a savepoint within a transaction. There should be an active transaction. That is, beginTransaction should have been previously called.
+		 * @param callback The callback is called when the request to set a savepoint within the transaction has completed, either successfully or with an error. If an error occured then err will describe the error.
+		 * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+		 */
+		saveTransaction(callback: (error: Error) => void): void;
+
+		/**
+		 * Run the given callback after starting a transaction, and commit or rollback the transaction afterwards.
+		 * This is a helper that employs beginTransaction, commitTransaction, rollbackTransaction and saveTransaction to greatly simplify the use of database transactions and automatically handle transaction nesting.
+		 * @param callback The callback is called when the request to start a transaction (or create a savepoint, in the case of a nested transaction) has completed, either successfully or with an error.
+		 *                  If an error occured, then err will describe the error. If no error occured, the callback should perform its work and eventually call done with an error or null
+		 *                  (to trigger a transaction rollback or a transaction commit) and an additional completion callback that will be called when the request to rollback or commit the current transaction
+		 *                  has completed, either successfully or with an error. Additional arguments given to done will be passed through to this callback.
+		 * 					As only one request at a time may be executed on a connection, another request should not be initiated until this callback is called.
+		 * @param name A string representing a name to associate with the transaction. Optional, and defaults to an empty string. In case of a nested transaction, naming the transaction name has no effect.
+		 * @param isolationLevel The isolation level that the transaction is to be run with.
+		 */
+		transaction(callback: (error: Error, done: (error?: Error) => void) => void, name?: string, isolationLevel?: ISOLATION_LEVEL): void;
 
 		/**
 		 * Prepare the SQL represented by the request. The request can then be used in subsequent calls to execute and unprepare

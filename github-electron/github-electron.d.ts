@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.3
+// Type definitions for Electron v1.3.5
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 declare namespace Electron {
 
-	class EventEmitter implements NodeJS.EventEmitter {
+	class EventEmitter extends NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): this;
 		on(event: string, listener: Function): this;
 		once(event: string, listener: Function): this;
@@ -199,7 +199,7 @@ declare namespace Electron {
 		 * All windows will be closed immediately without asking user
 		 * and the before-quit and will-quit events will not be emitted.
 		 */
-		exit(exitCode: number): void;
+		exit(exitCode?: number): void;
 		/**
 		 * Relaunches the app when current instance exits.
 		 *
@@ -296,28 +296,56 @@ declare namespace Electron {
 		 * Once registered, all links with your-protocol:// will be opened with the current executable.
 		 * The whole link, including protocol, will be passed to your application as a parameter.
 		 *
+		 * On Windows you can provide optional parameters path, the path to your executable,
+		 * and args, an array of arguments to be passed to your executable when it launches.
+		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 *       On macOS, you can only register protocols that have been added to your app's info.plist.
 		 */
-		setAsDefaultProtocolClient(protocol: string): boolean;
+		setAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		removeAsDefaultProtocolClient(protocol: string): boolean;
+		removeAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
 		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		isDefaultProtocolClient(protocol: string): boolean;
+		isDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
 		 * Note: This API is only available on Windows.
 		 */
 		setUserTasks(tasks: Task[]): boolean;
+		/**
+		 * Note: This API is only available on Windows.
+		 */
+		getJumpListSettings(): JumpListSettings;
+		/**
+		 * Sets or removes a custom Jump List for the application.
+		 *
+		 * If categories is null the previously set custom Jump List (if any) will be replaced
+		 * by the standard Jump List for the app (managed by Windows).
+		 *
+		 * Note: This API is only available on Windows.
+		 */
+		setJumpList(categories: JumpListCategory[]): SetJumpListResult;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
@@ -545,6 +573,89 @@ declare namespace Electron {
 		iconIndex?: number;
 	}
 
+	/**
+	 * ok - Nothing went wrong.
+	 * error - One or more errors occured, enable runtime logging to figure out the likely cause.
+	 * invalidSeparatorError - An attempt was made to add a separator to a custom category in the Jump List.
+	 *                         Separators are only allowed in the standard Tasks category.
+	 * fileTypeRegistrationError - An attempt was made to add a file link to the Jump List
+	 *                             for a file type the app isn't registered to handle.
+	 * customCategoryAccessDeniedError - Custom categories can't be added to the Jump List
+	 *                                   due to user privacy or group policy settings.
+	 */
+	type SetJumpListResult = 'ok' | 'error' | 'invalidSeparatorError' | 'fileTypeRegistrationError' | 'customCategoryAccessDeniedError';
+
+	interface JumpListSettings {
+		/**
+		 * The minimum number of items that will be shown in the Jump List.
+		 */
+		minItems: number;
+		/**
+		 * Items that the user has explicitly removed from custom categories in the Jump List.
+		 */
+		removedItems: JumpListItem[];
+	}
+
+	interface JumpListCategory {
+		/**
+		 * tasks - Items in this category will be placed into the standard Tasks category.
+		 * frequent - Displays a list of files frequently opened by the app, the name of the category and its items are set by Windows.
+		 * recent - Displays a list of files recently opened by the app, the name of the category and its items are set by Windows.
+		 * custom - Displays tasks or file links, name must be set by the app.
+		 */
+		type?: 'tasks' | 'frequent' | 'recent' | 'custom';
+		/**
+		 * Must be set if type is custom, otherwise it should be omitted.
+		 */
+		name?: string;
+		/**
+		 * Array of JumpListItem objects if type is tasks or custom, otherwise it should be omitted.
+		 */
+		items?: JumpListItem[];
+	}
+
+	interface JumpListItem {
+		/**
+		 * task - A task will launch an app with specific arguments.
+		 * separator - Can be used to separate items in the standard Tasks category.
+		 * file - A file link will open a file using the app that created the Jump List.
+		 */
+		type: 'task' | 'separator' | 'file';
+		/**
+		 * Path of the file to open, should only be set if type is file.
+		 */
+		path?: string;
+		/**
+		 * Path of the program to execute, usually you should specify process.execPath which opens the current program.
+		 * Should only be set if type is task.
+		 */
+		program?: string;
+		/**
+		 * The command line arguments when program is executed. Should only be set if type is task.
+		 */
+		args?: string;
+		/**
+		 * The text to be displayed for the item in the Jump List. Should only be set if type is task.
+		 */
+		title?: string;
+		/**
+		 * Description of the task (displayed in a tooltip). Should only be set if type is task.
+		 */
+		description?: string;
+		/**
+		 * The absolute path to an icon to be displayed in a Jump List, which can be an arbitrary
+		 * resource file that contains an icon (e.g. .ico, .exe, .dll).
+		 * You can usually specify process.execPath to show the program icon.
+		 */
+		iconPath?: string;
+		/**
+		 * The index of the icon in the resource file. If a resource file contains multiple icons
+		 * this value can be used to specify the zero-based index of the icon that should be displayed
+		 * for this task. If a resource file contains only one icon, this property should be set to zero.
+		 */
+		iconIndex?: number;
+	}
+
 	interface LoginItemSettings {
 		/**
 		 * True if the app is set to open at login.
@@ -630,7 +741,7 @@ declare namespace Electron {
 		 * Emitted when the document changed its title,
 		 * calling event.preventDefault() would prevent the native window’s title to change.
 		 */
-		on(event: 'page-title-updated', listener: (event: Event) => void): this;
+		on(event: 'page-title-updated', listener: (event: Event, title: string) => void): this;
 		/**
 		 * Emitted when the window is going to be closed. It’s emitted before the beforeunload
 		 * and unload event of the DOM. Calling event.preventDefault() will cancel the close.
@@ -2947,18 +3058,22 @@ declare namespace Electron {
 	interface NetworkEmulationOptions {
 		/**
 		 * Whether to emulate network outage.
+		 * Default: false.
 		 */
 		offline?: boolean;
 		/**
 		 * RTT in ms.
+		 * Default: 0, which will disable latency throttling.
 		 */
 		latency?: number;
 		/**
 		 * Download rate in Bps.
+		 * Default: 0, which will disable download throttling.
 		 */
 		downloadThroughput?: number;
 		/**
 		 * Upload rate in Bps.
+		 * Default: 0, which will disable upload throttling.
 		 */
 		uploadThroughput?: number;
 	}
@@ -3576,7 +3691,7 @@ declare namespace Electron {
 
 	interface WebContentsStatic {
 		/**
-		 * @returns An array of all web contents. This will contain web contents for all windows,
+		 * @returns An array of all WebContents instances. This will contain web contents for all windows,
 		 * webviews, opened devtools, and devtools extension background pages.
 		 */
 		getAllWebContents(): WebContents[];
@@ -3584,6 +3699,10 @@ declare namespace Electron {
 		 * @returns The web contents that is focused in this application, otherwise returns null.
 		 */
 		getFocusedWebContents(): WebContents;
+		/**
+		 * Find a WebContents instance according to its ID.
+		 */
+		fromId(id: number): WebContents;
 	}
 
 	/**
@@ -3687,7 +3806,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		on(event: 'did-navigate-in-page', listener: (event: Event, url: string) => void): this;
+		on(event: 'did-navigate-in-page', listener: (event: Event, url: string, isMainFrame: boolean) => void): this;
 		/**
 		 * Emitted when the renderer process has crashed.
 		 */
@@ -4382,7 +4501,7 @@ declare namespace Electron {
 		/**
 		 * PEM encoded data.
 		 */
-		data: Buffer;
+		data: string;
 		/**
 		 * Issuer's Common Name.
 		 */
@@ -4953,6 +5072,17 @@ declare namespace Electron {
 		 */
 		sendInputEvent(event: SendInputEvent): void
 		/**
+		 * Changes the zoom factor to the specified factor.
+		 * Zoom factor is zoom percent divided by 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * Changes the zoom level to the specified level.
+		 * The original size is 0 and each increment above or below represents
+		 * zooming 20% larger or smaller to default limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
 		 * Shows pop-up dictionary that searches the selected word on the page.
 		 * Note: This API is available only on macOS.
 		 */
@@ -5047,14 +5177,14 @@ declare namespace Electron {
 		 *
 		 * Calling event.preventDefault() does NOT have any effect.
 		 */
-		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.WillNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a navigation is done.
 		 *
 		 * This event is not emitted for in-page navigations, such as clicking anchor links
 		 * or updating the window.location.hash. Use did-navigate-in-page event for this purpose.
 		 */
-		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.DidNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when an in-page navigation happened.
 		 *
@@ -5062,7 +5192,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.DidNavigateInPageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page attempts to close itself.
 		 */
@@ -5186,8 +5316,17 @@ declare namespace Electron {
 			options: BrowserWindowOptions;
 		}
 
-		interface NavigateEvent extends Event {
+		interface WillNavigateEvent extends Event {
 			url: string;
+		}
+
+		interface DidNavigateEvent extends Event {
+			url: string;
+		}
+
+		interface DidNavigateInPageEvent extends Event {
+			url: string;
+			isMainFrame: boolean;
 		}
 
 		interface IpcMessageEvent extends Event {

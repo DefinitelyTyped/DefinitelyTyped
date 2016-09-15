@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.0.1
+// Type definitions for TypeScript-STL v1.0.8
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2984,7 +2984,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected abstract create_neighbor(): This;
+        protected abstract create_neighbor(base: Base): This;
         /**
          * <p> Get value of the iterator is pointing. </p>
          *
@@ -3292,7 +3292,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: Deque<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -3342,6 +3342,10 @@ declare namespace std {
         /**
          * @inheritdoc
          */
+        empty(): boolean;
+        /**
+         * @inheritdoc
+         */
         capacity(): number;
         /**
          * @inheritdoc
@@ -3360,11 +3364,9 @@ declare namespace std {
          */
         back(): T;
         /**
-         * <p> Fetch row and column's index. </p>
-         *
-         * <p> Fetches index of row and column of {@link matrix_} from sequence number. </p>
-         *
-         * @param index Sequence number
+        // Fetch row and column's index.
+        /**
+         * @hidden
          */
         private fetch_index(index);
         /**
@@ -3418,11 +3420,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: DequeIterator<T>, n: number, val: T): DequeIterator<T>;
+        protected _Insert_by_repeating_val(position: DequeIterator<T>, n: number, val: T): DequeIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: DequeIterator<T>, begin: InputIterator, end: InputIterator): DequeIterator<T>;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: DequeIterator<T>, begin: InputIterator, end: InputIterator): DequeIterator<T>;
         /**
          * @hidden
          */
@@ -3446,15 +3448,29 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected erase_by_range(first: DequeIterator<T>, last: DequeIterator<T>): DequeIterator<T>;
+        protected _Erase_by_range(first: DequeIterator<T>, last: DequeIterator<T>): DequeIterator<T>;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link Deque container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link Deque container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container Deque}.
+         */
+        swap(obj: Deque<T>): void;
         /**
          * @inheritdoc
          */
         swap(obj: base.IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_deque(obj);
     }
 }
 declare namespace std {
@@ -3556,7 +3572,10 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(): DequeReverseIterator<T>;
+        protected create_neighbor(base: DequeIterator<T>): DequeReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
         /**
          * Set value of the iterator is pointing to.
          *
@@ -4438,7 +4457,7 @@ declare namespace std.base {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class MapContainer<Key, T> extends base.Container<Pair<Key, T>> {
+    abstract class MapContainer<Key, T> extends Container<Pair<Key, T>> {
         /**
          * <p> {@link List} storing elements. </p>
          *
@@ -4447,45 +4466,11 @@ declare namespace std.base {
          * by storing {@link ListIterator iterators} ({@link MapIterator} references {@link ListIterator}) who are
          * created from {@link data_ here}. </p>
          */
-        protected data_: List<Pair<Key, T>>;
+        private data_;
         /**
          * Default Constructor.
          */
         constructor();
-        /**
-         * Construct from elements.
-         */
-        constructor(items: Array<Pair<Key, T>>);
-        /**
-         * Contruct from tuples.
-         *
-         * @param array Tuples to be contained.
-         */
-        constructor(array: Array<[Key, T]>);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: IContainer<Pair<Key, T>>);
-        /**
-         * Construct from range iterators.
-         */
-        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<Pair<Key, T> | [Key, T]>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: IContainer<Pair<Key, T>>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range<InputIterator extends Iterator<Pair<Key, T>>>(begin: InputIterator, end: InputIterator): void;
         /**
          * @inheritdoc
          */
@@ -4595,6 +4580,7 @@ declare namespace std.base {
          * Return the number of elements in the map.
          */
         size(): number;
+        protected _Get_data(): List<Pair<Key, T>>;
         /**
          * @inheritdoc
          */
@@ -4670,7 +4656,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_pair<L extends Key, U extends T>(pair: Pair<L, U>): any;
+        protected abstract _Insert_by_pair<L extends Key, U extends T>(pair: Pair<L, U>): any;
         /**
          * @hidden
          */
@@ -4678,7 +4664,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected abstract _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
@@ -4686,7 +4672,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected abstract _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * <p> Erase an elemet by key. </p>
          *
@@ -4785,7 +4771,7 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected abstract _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
@@ -4806,7 +4792,11 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected abstract _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * @hidden
+         */
+        protected _Swap(obj: MapContainer<Key, T>): void;
     }
 }
 declare namespace std {
@@ -4899,7 +4889,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(): MapReverseIterator<Key, T>;
+        protected create_neighbor(base: MapIterator<Key, T>): MapReverseIterator<Key, T>;
         /**
          * Get first, key element.
          */
@@ -5160,24 +5150,6 @@ declare namespace std.base {
          * @hidden
          */
         private insert_or_assign_with_hint(hint, key, value);
-        /**
-         * <p> Swap content. </p>
-         *
-         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
-         * {@link UniqueMap map} of the same type. Sizes abd container type may differ. </p>
-         *
-         * <p> After the call to this member function, the elements in this container are those which were
-         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
-         * iterators, references and pointers remain valid for the swapped objects. </p>
-         *
-         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
-         * algorithm with an optimization that behaves like this member function. </p>
-         *
-         * @param obj Another {@link UniqueMap map container} of the same type of elements as this (i.e.,
-         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
-         *			  with that of this {@link UniqueMap container}.
-         */
-        swap(obj: UniqueMap<Key, T>): void;
     }
 }
 declare namespace std.base {
@@ -5268,24 +5240,6 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * <p> Swap content. </p>
-         *
-         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
-         * {@link UniqueMap map} of the same type. Sizes abd container type may differ. </p>
-         *
-         * <p> After the call to this member function, the elements in this container are those which were
-         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
-         * iterators, references and pointers remain valid for the swapped objects. </p>
-         *
-         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
-         * algorithm with an optimization that behaves like this member function. </p>
-         *
-         * @param obj Another {@link MultiMap map container} of the same type of elements as this (i.e.,
-         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
-         *			  with that of this {@link MultiMap container}.
-         */
-        swap(obj: MultiMap<Key, T>): void;
     }
 }
 declare namespace std.HashMap {
@@ -5348,13 +5302,27 @@ declare namespace std {
          */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<Pair<Key, T>>): void;
+        constructor(items: Pair<Key, T>[]);
+        /**
+         * Contruct from tuples.
+         *
+         * @param array Tuples to be contained.
+         */
+        constructor(array: [Key, T][]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMap<Key, T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
         /**
          * @inheritdoc
          */
@@ -5426,31 +5394,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMap container}.
+         */
+        swap(obj: HashMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_hash_map(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.HashMultiMap {
@@ -5461,15 +5443,15 @@ declare namespace std {
     /**
      * <p> Hashed, unordered Multimap. </p>
      *
-     * <p> {@link HashMap}s are associative containers that store elements formed by the combination of
-     * a <i>key value</i> and a <i>mapped value</i>, much like {@link HashMap} containers, but allowing
+     * <p> {@link HashMultiMap}s are associative containers that store elements formed by the combination of
+     * a <i>key value</i> and a <i>mapped value</i>, much like {@link HashMultiMap} containers, but allowing
      * different elements to have equivalent <i>keys</i>. </p>
      *
-     * <p> In an {@link HashMap}, the <i>key value</i> is generally used to uniquely identify the
+     * <p> In an {@link HashMultiMap}, the <i>key value</i> is generally used to uniquely identify the
      * element, while the <i>mapped value</i> is an object with the content associated to this <i>key</i>.
      * Types of <i>key</i> and <i>mapped value</i> may differ. </p>
      *
-     * <p> Internally, the elements in the {@link HashMap} are not sorted in any particular order with
+     * <p> Internally, the elements in the {@link HashMultiMap} are not sorted in any particular order with
      * respect to either their <i>key</i> or <i>mapped values</i>, but organized into <i>buckets</i> depending on
      * their hash values to allow for fast access to individual elements directly by their <i>key values</i>
      * (with a constant average time complexity on average). </p>
@@ -5500,9 +5482,9 @@ declare namespace std {
      * </dl>
      *
      * @param <Key> Type of the key values.
-     *				Each element in an {@link HashMap} is identified by a key value.
+     *				Each element in an {@link HashMultiMap} is identified by a key value.
      * @param <T> Type of the mapped value.
-     *			  Each element in an {@link HashMap} is used to store some data as its mapped value.
+     *			  Each element in an {@link HashMultiMap} is used to store some data as its mapped value.
      *
      * @reference http://www.cplusplus.com/reference/unordered_map/unordered_multimap
      * @author Jeongho Nam <http://samchon.org>
@@ -5513,13 +5495,27 @@ declare namespace std {
          */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<Pair<Key, T>>): void;
+        constructor(items: Pair<Key, T>[]);
+        /**
+         * Contruct from tuples.
+         *
+         * @param array Tuples to be contained.
+         */
+        constructor(array: [Key, T][]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMultiMap<Key, T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
         /**
          * @inheritdoc
          */
@@ -5595,31 +5591,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMultiMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMultiMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMultiMap container}.
+         */
+        swap(obj: HashMultiMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.MultiMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_hash_multimap(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.base {
@@ -5666,39 +5676,11 @@ declare namespace std.base {
          * by storing {@link ListIterator iterators} ({@link SetIterator} references {@link ListIterator}) who are
          * created from {@link data_ here}. </p>
          */
-        protected data_: List<T>;
+        private data_;
         /**
          * Default Constructor.
          */
         constructor();
-        /**
-         * Construct from elements.
-         */
-        constructor(items: Array<T>);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: IContainer<T>);
-        /**
-         * Construct from range iterators.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range<InputIterator extends Iterator<T>>(begin: InputIterator, end: InputIterator): void;
         /**
          * @inheritdoc
          */
@@ -5763,6 +5745,10 @@ declare namespace std.base {
          */
         size(): number;
         /**
+         * @hidden
+         */
+        _Get_data(): List<T>;
+        /**
          * @inheritdoc
          */
         push<U extends T>(...args: U[]): number;
@@ -5805,15 +5791,15 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_val(val: T): any;
+        protected abstract _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected abstract insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected abstract _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected abstract insert_by_range<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        protected abstract _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
         /**
          * <p> Erase an element. </p>
          * <p> Removes from the set container the elements whose value is <i>key</i>. </p>
@@ -5886,7 +5872,7 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected abstract _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
@@ -5907,7 +5893,11 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected abstract _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @hidden
+         */
+        protected _Swap(obj: SetContainer<T>): void;
     }
 }
 declare namespace std {
@@ -5990,7 +5980,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(): SetReverseIterator<T>;
+        protected create_neighbor(base: SetIterator<T>): SetReverseIterator<T>;
     }
 }
 declare namespace std.base {
@@ -6055,10 +6045,6 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: MultiSet<T>): void;
     }
 }
 declare namespace std.HashMultiSet {
@@ -6070,7 +6056,7 @@ declare namespace std {
      * <p> Hashed, unordered Multiset. </p>
      *
      * <p> {@link HashMultiSet HashMultiSets} are containers that store elements in no particular order, allowing fast
-     * retrieval of individual elements based on their value, much like {@link HashSet} containers,
+     * retrieval of individual elements based on their value, much like {@link HashMultiSet} containers,
      * but allowing different elements to have equivalent values. </p>
      *
      * <p> In an {@link HashMultiSet}, the value of an element is at the same time its <i>key</i>, used to
@@ -6116,13 +6102,21 @@ declare namespace std {
          */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<T>): void;
+        constructor(items: T[]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMultiSet<T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
         /**
          * @inheritdoc
          */
@@ -6198,31 +6192,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
+        protected _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMultiSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMultiSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMultiSet container}.
+         */
+        swap(obj: HashMultiSet<T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.MultiSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std.base {
@@ -6344,10 +6352,6 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: UniqueSet<T>): void;
     }
 }
 declare namespace std.HashSet {
@@ -6399,19 +6403,27 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
      * @author Jeongho Nam <http://samchon.org>
      */
-    class HashSet<T> extends base.UniqueSet<T> {
+    class HashSet<T> extends base.UniqueSet<T> implements base.IHashSet<T> {
         /**
          * @hidden
          */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<T>): void;
+        constructor(items: T[]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashSet<T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
         /**
          * @inheritdoc
          */
@@ -6483,31 +6495,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
+        protected _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashSet container}.
+         */
+        swap(obj: HashSet<T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std.List {
@@ -6563,15 +6589,15 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected begin_: ListIterator<T>;
+        private begin_;
         /**
          * @hidden
          */
-        protected end_: ListIterator<T>;
+        private end_;
         /**
          * @hidden
          */
-        protected size_: number;
+        private size_;
         /**
          * <p> Default Constructor. </p>
          *
@@ -6604,7 +6630,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: List<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -6794,11 +6820,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: ListIterator<T>, size: number, val: T): ListIterator<T>;
+        protected _Insert_by_repeating_val(position: ListIterator<T>, size: number, val: T): ListIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: ListIterator<T>, begin: InputIterator, end: InputIterator): ListIterator<T>;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: ListIterator<T>, begin: InputIterator, end: InputIterator): ListIterator<T>;
         /**
          * <p> Erase an element. </p>
          *
@@ -6868,7 +6894,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected erase_by_range(first: ListIterator<T>, last: ListIterator<T>): ListIterator<T>;
+        protected _Erase_by_range(first: ListIterator<T>, last: ListIterator<T>): ListIterator<T>;
         /**
          * <p> Remove duplicate values. </p>
          *
@@ -7106,13 +7132,27 @@ declare namespace std {
          */
         private partition(first, last, compare);
         /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link List container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link List container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container List}.
+         */
+        swap(obj: List<T>): void;
+        /**
          * @inheritdoc
          */
         swap(obj: base.IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_list(obj);
     }
 }
 declare namespace std {
@@ -7142,14 +7182,6 @@ declare namespace std {
          * @param value Value to be stored in the node (iterator).
          */
         constructor(source: List<T>, prev: ListIterator<T>, next: ListIterator<T>, value: T);
-        /**
-         * @inheritdoc
-         */
-        set_prev(it: ListIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        set_next(next: ListIterator<T>): void;
         private list();
         /**
          * @inheritdoc
@@ -7172,6 +7204,14 @@ declare namespace std {
          * @param val Value to set.
          */
         value: T;
+        /**
+         * @hidden
+         */
+        _Set_prev(it: ListIterator<T>): void;
+        /**
+         * @hidden
+         */
+        _Set_next(it: ListIterator<T>): void;
         /**
          * @inheritdoc
          */
@@ -7204,13 +7244,202 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(): ListReverseIterator<T>;
+        protected create_neighbor(base: ListIterator<T>): ListReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
         /**
          * Set value of the iterator is pointing to.
          *
          * @param val Value to set.
          */
         value: T;
+    }
+}
+declare namespace std {
+    /**
+     * <p> Priority queue. </p>
+     *
+     * <p> {@link PriorityQueue Priority queues} are a type of container adaptors, specifically designed such that its
+     * first element is always the greatest of the elements it contains, according to some <i>strict weak ordering</i>
+     * criterion. </p>
+     *
+     * <p> This context is similar to a <i>heap</i>, where elements can be inserted at any moment, and only the
+     * <i>max heap</i> element can be retrieved (the one at the top in the {@link PriorityQueue priority queue}). </p>
+     *
+     * <p> {@link PriorityQueue Priority queues} are implemented as <i>container adaptors</i>, which are classes that
+     * use an encapsulated object of a specific container class as its {@link container_ underlying container},
+     * providing a specific set of member functions to access its elements. Elements are popped from the <i>"back"</i>
+     * of the specific container, which is known as the <i>top</i> of the {@link PriorityQueue Priority queue}. </p>
+     *
+     * <p> The {@link container_ underlying container} may be any of the standard container class templates or some
+     * other specifically designed container class. The container shall be accessible through
+     * {@link IArrayIterator random access iterators} and support the following operations: </p>
+     *
+     * <ul>
+     *	<li> empty() </li>
+     *	<li> size() </li>
+     *	<li> front() </li>
+     *	<li> push_back() </li>
+     *	<li> pop_back() </li>
+     * </ul>
+     *
+     * <p> The standard container classes {@link Vector} and {@link Deque} fulfill these requirements. By default, if
+     * no container class is specified for a particular {@link PriorityQueue} class instantiation, the standard
+     * container {@link Vector} is used. </p>
+     *
+     * <p> Support of {@link IArrayIterator random access iterators} is required to keep a heap structure internally
+     * at all times. This is done automatically by the container adaptor by automatically calling the algorithm
+     * functions <i>make_heap</i>, <i>push_heap</i> and <i>pop_heap</i> when needed. </p>
+     *
+     * @param <T> Type of the elements.
+     *
+     * @reference http://www.cplusplus.com/reference/queue/priority_queue/
+     * @author Jeongho Nam
+     */
+    class PriorityQueue<T> {
+        /**
+         * <p> The <i>underlying container</i> for implementing the <i>priority queue</i>. </p>
+         *
+         * <p> Following standard definition from the C++ committee, the <i>underlying container</i> should be one of
+         * {@link Vector} or {@link Deque}, however, I've adopted {@link TreeMultiSet} instead of them. Of course,
+         * there are proper reasons for adapting the {@link TreeMultiSet} even violating standard advice. </p>
+         *
+         * <p> <i>Underlying container</i> of {@link PriorityQueue} must keep a condition; the highest (or lowest)
+         * element must be placed on the terminal node for fast retrieval and deletion. To keep the condition with
+         * {@link Vector} or {@link Deque}, lots of times will only be spent for re-arranging elements. It calls
+         * rearrangement functions like <i>make_heap</i>, <i>push_heap</i> and <i>pop_head</i> for rearrangement. </p>
+         *
+         * <p> However, the {@link TreeMultiSet} container always keeps arrangment automatically without additional
+         * operations and it even meets full criteria of {@link PriorityQueue}. Those are the reason why I've adopted
+         * {@link TreeMultiSet} as the <i>underlying container</i> of {@link PriorityQueue}. </p>
+         */
+        private container_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from compare.
+         *
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(compare: (left: T, right: T) => boolean);
+        /**
+         * Contruct from elements.
+         *
+         * @param array Elements to be contained.
+         */
+        constructor(array: Array<T>);
+        /**
+         * Contruct from elements with compare.
+         *
+         * @param array Elements to be contained.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: base.IContainer<T>);
+        /**
+         * Copy Constructor with compare.
+         *
+         * @param container A container to be copied.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(container: base.IContainer<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * Range Constructor.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * Range Constructor with compare.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * <p> Return size. </p>
+         *
+         * <p> Returns the number of elements in the {@link PriorityQueue}. </p>
+         *
+         * <p> This member function effectively calls member {@link IArray.size size} of the
+         * {@link container_ underlying container} object. </p>
+         *
+         * @return The number of elements in the underlying
+         */
+        size(): number;
+        /**
+         * <p> Test whether container is empty. </p>
+         *
+         * <p> Returns whether the {@link PriorityQueue} is empty: i.e. whether its {@link size} is zero. </p>
+         *
+         * <p> This member function effectively calls member {@link IARray.empty empty} of the
+         * {@link container_ underlying container} object. </p>
+         */
+        empty(): boolean;
+        /**
+         * <p> Access top element. </p>
+         *
+         * <p> Returns a constant reference to the top element in the {@link PriorityQueue}. </p>
+         *
+         * <p> The top element is the element that compares higher in the {@link PriorityQueue}, and the next that is
+         * removed from the container when {@link PriorityQueue.pop} is called. </p>
+         *
+         * <p> This member function effectively calls member {@link IArray.front front} of the
+         * {@link container_ underlying container} object. </p>
+         *
+         * @return A reference to the top element in the {@link PriorityQueue}.
+         */
+        top(): T;
+        /**
+         * <p> Insert element. </p>
+         *
+         * <p> Inserts a new element in the {@link PriorityQueue}. The content of this new element is initialized to
+         * <i>val</i>.
+         *
+         * <p> This member function effectively calls the member function {@link IArray.push_back push_back} of the
+         * {@link container_ underlying container} object, and then reorders it to its location in the heap by calling
+         * the <i>push_heap</i> algorithm on the range that includes all the elements of the  </p>
+         *
+         * @param val Value to which the inserted element is initialized.
+         */
+        push(val: T): void;
+        /**
+         * <p> Remove top element. </p>
+         *
+         * <p> Removes the element on top of the {@link PriorityQueue}, effectively reducing its {@link size} by one.
+         * The element removed is the one with the highest (or lowest) value. </p>
+         *
+         * <p> The value of this element can be retrieved before being popped by calling member
+         * {@link PriorityQueue.top}. </p>
+         *
+         * <p> This member function effectively calls the <i>pop_heap</i> algorithm to keep the heap property of
+         * {@link PriorityQueue PriorityQueues} and then calls the member function {@link IArray.pop_back pop_back} of
+         * the {@link container_ underlying container} object to remove the element. </p>
+         */
+        pop(): void;
+        /**
+         * <p> Swap contents. </p>
+         *
+         * <p> Exchanges the contents of the container adaptor by those of <i>obj</i>, swapping both the
+         * {@link container_ underlying container} value and their comparison function using the corresponding
+         * {@link std.swap swap} non-member functions (unqualified). </p>
+         *
+         * <p> This member function has a <i>noexcept</i> specifier that matches the combined <i>noexcept</i> of the
+         * {@link IArray.swap swap} operations on the {@link container_ underlying container} and the comparison
+         * functions. </p>
+         *
+         * @param obj {@link PriorityQueue} container adaptor of the same type (i.e., instantiated with the same
+         *			  template parameters, <b>T</b>). Sizes may differ.
+         */
+        swap(obj: PriorityQueue<T>): void;
     }
 }
 declare namespace std {
@@ -7347,204 +7576,6 @@ declare namespace std {
          *			  template parameter, <b>T</b>). Sizes may differ. </p>
          */
         swap(obj: Queue<T>): void;
-    }
-}
-declare namespace std {
-    /**
-     * <p> Priority queue. </p>
-     *
-     * <p> {@link PriorityQueue Priority queues} are a type of container adaptors, specifically designed such that its
-     * first element is always the greatest of the elements it contains, according to some <i>strict weak ordering</i>
-     * criterion. </p>
-     *
-     * <p> This context is similar to a <i>heap</i>, where elements can be inserted at any moment, and only the
-     * <i>max heap</i> element can be retrieved (the one at the top in the {@link PriorityQueue priority queue}). </p>
-     *
-     * <p> {@link PriorityQueue Priority queues} are implemented as <i>container adaptors</i>, which are classes that
-     * use an encapsulated object of a specific container class as its {@link container_ underlying container},
-     * providing a specific set of member functions to access its elements. Elements are popped from the <i>"back"</i>
-     * of the specific container, which is known as the <i>top</i> of the {@link PriorityQueue Priority queue}. </p>
-     *
-     * <p> The {@link container_ underlying container} may be any of the standard container class templates or some
-     * other specifically designed container class. The container shall be accessible through
-     * {@link IArrayIterator random access iterators} and support the following operations: </p>
-     *
-     * <ul>
-     *	<li> empty() </li>
-     *	<li> size() </li>
-     *	<li> front() </li>
-     *	<li> push_back() </li>
-     *	<li> pop_back() </li>
-     * </ul>
-     *
-     * <p> The standard container classes {@link Vector} and {@link Deque} fulfill these requirements. By default, if
-     * no container class is specified for a particular {@link PriorityQueue} class instantiation, the standard
-     * container {@link Vector} is used. </p>
-     *
-     * <p> Support of {@link IArrayIterator random access iterators} is required to keep a heap structure internally
-     * at all times. This is done automatically by the container adaptor by automatically calling the algorithm
-     * functions <i>make_heap</i>, <i>push_heap</i> and <i>pop_heap</i> when needed. </p>
-     *
-     * @param <T> Type of the elements.
-     *
-     * @reference http://www.cplusplus.com/reference/queue/priority_queue/
-     * @author Jeongho Nam
-     */
-    class PriorityQueue<T> {
-        /**
-         * <p> The <i>underlying container</i> for implementing the <i>priority queue</i>. </p>
-         *
-         * <p> Following standard definition from the C++ committee, the <i>underlying container</i> should be one of
-         * {@link Vector} or {@link Deque}, however, I've adopted {@link TreeMultiSet} instead of them. Of course,
-         * there are proper reasons for adapting the {@link TreeMultiSet} even violating standard advice. </p>
-         *
-         * <p> <i>Underlying container</i> of {@link PriorityQueue} must keep a condition; the highest (or lowest)
-         * element must be placed on the terminal node for fast retrieval and deletion. To keep the condition with
-         * {@link Vector} or {@link Deque}, lots of times will only be spent for re-arranging elements. It calls
-         * rearrangement functions like <i>make_heap</i>, <i>push_heap</i> and <i>pop_head</i> for rearrangement. </p>
-         *
-         * <p> However, the {@link TreeMultiSet} container always keeps arrangment automatically without additional
-         * operations and it even meets full criteria of {@link PriorityQueue}. Those are the reason why I've adopted
-         * {@link TreeMultiSet} as the <i>underlying container</i> of {@link PriorityQueue}. </p>
-         */
-        private container_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from compare.
-         *
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(compare: (left: T, right: T) => boolean);
-        /**
-         * Contruct from elements.
-         *
-         * @param array Elements to be contained.
-         */
-        constructor(array: Array<T>);
-        /**
-         * Contruct from elements with compare.
-         *
-         * @param array Elements to be contained.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: base.Container<T>);
-        /**
-         * Copy Constructor with compare.
-         *
-         * @param container A container to be copied.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(container: base.Container<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * Range Constructor.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * Range Constructor with compare.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: base.IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range(begin: Iterator<T>, end: Iterator<T>): void;
-        /**
-         * <p> Return size. </p>
-         *
-         * <p> Returns the number of elements in the {@link PriorityQueue}. </p>
-         *
-         * <p> This member function effectively calls member {@link IArray.size size} of the
-         * {@link container_ underlying container} object. </p>
-         *
-         * @return The number of elements in the underlying
-         */
-        size(): number;
-        /**
-         * <p> Test whether container is empty. </p>
-         *
-         * <p> Returns whether the {@link PriorityQueue} is empty: i.e. whether its {@link size} is zero. </p>
-         *
-         * <p> This member function effectively calls member {@link IARray.empty empty} of the
-         * {@link container_ underlying container} object. </p>
-         */
-        empty(): boolean;
-        /**
-         * <p> Access top element. </p>
-         *
-         * <p> Returns a constant reference to the top element in the {@link PriorityQueue}. </p>
-         *
-         * <p> The top element is the element that compares higher in the {@link PriorityQueue}, and the next that is
-         * removed from the container when {@link PriorityQueue.pop} is called. </p>
-         *
-         * <p> This member function effectively calls member {@link IArray.front front} of the
-         * {@link container_ underlying container} object. </p>
-         *
-         * @return A reference to the top element in the {@link PriorityQueue}.
-         */
-        top(): T;
-        /**
-         * <p> Insert element. </p>
-         *
-         * <p> Inserts a new element in the {@link PriorityQueue}. The content of this new element is initialized to
-         * <i>val</i>.
-         *
-         * <p> This member function effectively calls the member function {@link IArray.push_back push_back} of the
-         * {@link container_ underlying container} object, and then reorders it to its location in the heap by calling
-         * the <i>push_heap</i> algorithm on the range that includes all the elements of the  </p>
-         *
-         * @param val Value to which the inserted element is initialized.
-         */
-        push(val: T): void;
-        /**
-         * <p> Remove top element. </p>
-         *
-         * <p> Removes the element on top of the {@link PriorityQueue}, effectively reducing its {@link size} by one.
-         * The element removed is the one with the highest (or lowest) value. </p>
-         *
-         * <p> The value of this element can be retrieved before being popped by calling member
-         * {@link PriorityQueue.top}. </p>
-         *
-         * <p> This member function effectively calls the <i>pop_heap</i> algorithm to keep the heap property of
-         * {@link PriorityQueue PriorityQueues} and then calls the member function {@link IArray.pop_back pop_back} of
-         * the {@link container_ underlying container} object to remove the element. </p>
-         */
-        pop(): void;
-        /**
-         * <p> Swap contents. </p>
-         *
-         * <p> Exchanges the contents of the container adaptor by those of <i>obj</i>, swapping both the
-         * {@link container_ underlying container} value and their comparison function using the corresponding
-         * {@link std.swap swap} non-member functions (unqualified). </p>
-         *
-         * <p> This member function has a <i>noexcept</i> specifier that matches the combined <i>noexcept</i> of the
-         * {@link IArray.swap swap} operations on the {@link container_ underlying container} and the comparison
-         * functions. </p>
-         *
-         * @param obj {@link PriorityQueue} container adaptor of the same type (i.e., instantiated with the same
-         *			  template parameters, <b>T</b>). Sizes may differ.
-         */
-        swap(obj: PriorityQueue<T>): void;
     }
 }
 declare namespace std {
@@ -8142,14 +8173,14 @@ declare namespace std {
          *
          * @param container Another map to copy.
          */
-        constructor(container: base.MapContainer<Key, T>);
+        constructor(container: TreeMap<Key, T>);
         /**
          * Copy Constructor.
          *
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
+        constructor(container: TreeMap<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8196,31 +8227,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMap container}.
+         */
+        swap(obj: TreeMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_map(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.TreeMultiMap {
@@ -8330,14 +8375,14 @@ declare namespace std {
          *
          * @param container Another map to copy.
          */
-        constructor(container: base.MapContainer<Key, T>);
+        constructor(container: TreeMultiMap<Key, T>);
         /**
          * Copy Constructor.
          *
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
+        constructor(container: TreeMultiMap<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8388,31 +8433,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMapMulti map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeMapMulti map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMapMulti container}.
+         */
+        swap(obj: TreeMultiMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.MultiMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_multimap(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.TreeMultiSet {
@@ -8501,14 +8560,14 @@ declare namespace std {
         /**
          * Copy Constructor.
          */
-        constructor(container: base.Container<T>);
+        constructor(container: TreeMultiSet<T>);
         /**
          * Copy Constructor with compare.
          *
          * @param container A container to be copied.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.Container<T>, compare: (x: T, y: T) => boolean);
+        constructor(container: TreeMultiSet<T>, compare: (x: T, y: T) => boolean);
         /**
          * Range Constructor.
          *
@@ -8559,31 +8618,49 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
+        _Get_tree(): base.AtomicTree<T>;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.MultiSet<T>): void;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        private swap_tree_set(obj);
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMultiSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeMultiSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMultiSet container}.
+         */
+        swap(obj: TreeMultiSet<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std.TreeSet {
@@ -8671,14 +8748,14 @@ declare namespace std {
         /**
          * Copy Constructor.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: TreeMultiSet<T>);
         /**
          * Copy Constructor with compare.
          *
          * @param container A container to be copied.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.IContainer<T>, compare: (x: T, y: T) => boolean);
+        constructor(container: TreeMultiSet<T>, compare: (x: T, y: T) => boolean);
         /**
          * Range Constructor.
          *
@@ -8687,7 +8764,7 @@ declare namespace std {
          */
         constructor(begin: Iterator<T>, end: Iterator<T>);
         /**
-         * Range Constructor with compare.
+         * Construct from range and compare.
          *
          * @param begin Input interator of the initial position in a sequence.
          * @param end Input interator of the final position in a sequence.
@@ -8725,28 +8802,42 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_val(val: T): any;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeSet container}.
+         */
+        swap(obj: TreeSet<T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std {
@@ -8880,7 +8971,7 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/vector/vector
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Vector<T> extends Array<T> implements base.IArrayContainer<T> {
+    class Vector<T> extends Array<T> implements base.IContainer<T>, base.IArrayContainer<T> {
         /**
          * <p> Default Constructor. </p>
          *
@@ -8917,7 +9008,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: Vector<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -9137,11 +9228,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: VectorIterator<T>, n: number, val: T): VectorIterator<T>;
+        protected _Insert_by_repeating_val(position: VectorIterator<T>, n: number, val: T): VectorIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<InputIterator extends Iterator<T>>(position: VectorIterator<T>, first: InputIterator, last: InputIterator): VectorIterator<T>;
+        protected _Insert_by_range<InputIterator extends Iterator<T>>(position: VectorIterator<T>, first: InputIterator, last: InputIterator): VectorIterator<T>;
         /**
          * @inheritdoc
          */
@@ -9227,7 +9318,25 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected erase_by_range(first: VectorIterator<T>, last: VectorIterator<T>): VectorIterator<T>;
+        protected _Erase_by_range(first: VectorIterator<T>, last: VectorIterator<T>): VectorIterator<T>;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link Vector container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link Vector container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container Vector}.
+         */
+        obj(obj: Vector<T>): void;
         /**
          * @inheritdoc
          */
@@ -9335,7 +9444,10 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(): VectorReverseIterator<T>;
+        protected create_neighbor(base: VectorIterator<T>): VectorReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
         /**
          * Set value of the iterator is pointing to.
          *
@@ -11328,6 +11440,7 @@ declare namespace std.base {
          * Default Constructor.
          */
         constructor(map: TreeMap<Key, T> | TreeMultiMap<Key, T>, compare?: (x: Key, y: Key) => boolean);
+        _Set_compare(val: (x: Key, y: Key) => boolean): void;
         find(key: Key): XTreeNode<MapIterator<Key, T>>;
         find(it: MapIterator<Key, T>): XTreeNode<MapIterator<Key, T>>;
         /**
@@ -11628,6 +11741,7 @@ declare namespace std.base {
          * Default Constructor.
          */
         constructor(set: TreeSet<T> | TreeMultiSet<T>, compare?: (x: T, y: T) => boolean);
+        _Set_compare(val: (x: T, y: T) => boolean): void;
         find(val: T): XTreeNode<SetIterator<T>>;
         find(it: SetIterator<T>): XTreeNode<SetIterator<T>>;
         /**

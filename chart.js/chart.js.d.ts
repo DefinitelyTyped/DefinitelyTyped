@@ -73,7 +73,7 @@ interface ChartOptions {
     onClick?: (any?: any) => any;
     title?: ChartTitleOptions;
     legend?: ChartLegendOptions;
-    tooltip?: ChartTooltipOptions;
+    tooltips?: ChartTooltipOptions;
     hover?: ChartHoverOptions;
     animation?: ChartAnimationOptions;
     elements?: ChartElementsOptions;
