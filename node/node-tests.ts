@@ -118,6 +118,16 @@ namespace events_tests {
 
         result = emitter.eventNames();
     }
+    
+    {
+        class Networker extends events.EventEmitter {
+            constructor() {
+                super();
+
+                this.emit("mingling");
+            }
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -209,14 +219,6 @@ namespace fs_tests {
         fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
         
         fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
-    }
-}
-
-class Networker extends events.EventEmitter {
-    constructor() {
-        super();
-
-        this.emit("mingling");
     }
 }
 
