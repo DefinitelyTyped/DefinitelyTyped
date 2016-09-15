@@ -592,6 +592,7 @@ declare module "http" {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
+        listening: boolean;
     }
     /**
      * @deprecated Use IncomingMessage
