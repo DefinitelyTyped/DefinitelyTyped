@@ -1,6 +1,6 @@
 // Type definitions for elasticsearch
 // Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
-// Definitions by: Casper Skydt <https://github.com/CasperSkydt/DefinitelyTyped>, Blake Smith <https://github.com/bfsmith/DefinitelyTyped>, Dave Dunkin <https://github.com/ddunkin/DefinitelyTyped>
+// Definitions by: Casper Skydt <https://github.com/CasperSkydt>, Blake Smith <https://github.com/bfsmith>, Dave Dunkin <https://github.com/ddunkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Elasticsearch {
