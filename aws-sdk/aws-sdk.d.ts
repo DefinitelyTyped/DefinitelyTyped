@@ -236,6 +236,11 @@ declare module "aws-sdk" {
     listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
     listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
     waitFor(state: string, params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+
+    createMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
+    uploadPart(params: any, callback: (err: Error, data: any) => void): void;
+    listParts(params: any, callback: (err: Error, data: any) => void): void;
+    completeMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
   }
 
   export class STS {
