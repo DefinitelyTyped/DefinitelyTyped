@@ -79,7 +79,7 @@ META
 ASSERTIONS
 - [ ] featureOf
 - [ ] collectionOf
-- [ ] bbox
+- [x] bbox
 - [ ] circle
 - [ ] geojsonType
 - [ ] propReduce
@@ -149,6 +149,30 @@ declare module turf {
     * @returns Area in square meters
     */
     area(input: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): number;
+
+    /**
+     * Takes a set of features, calculates the bbox of all input features, and returns a bounding box.
+     *
+     * @name bbox
+     * @param {(Feature|FeatureCollection)} geojson input features
+     * @return {Array<number>} bbox extent in [minX, minY, maxX, maxY] order
+     * @example
+     * var pt1 = point([114.175329, 22.2524])
+     * var pt2 = point([114.170007, 22.267969])
+     * var pt3 = point([114.200649, 22.274641])
+     * var pt4 = point([114.200649, 22.274641])
+     * var pt5 = point([114.186744, 22.265745])
+     * var features = featureCollection([pt1, pt2, pt3, pt4, pt5])
+     *
+     * var bbox = turf.bbox(features);
+     *
+     * var bboxPolygon = turf.bboxPolygon(bbox);
+     *
+     * //=bbox
+     * 
+     * //=bboxPolygon
+     */
+    bbox(bbox: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<number>;
 
     /**
     * Takes a bbox and returns an equivalent polygon.
@@ -1152,10 +1176,10 @@ declare module "@turf/nearest" {
 //    export = collectionOf;
 // }
 
-// declare module "@turf/bbox" {
-//    const bbox: typeof turf.bbox;
-//    export = bbox;
-// }
+declare module "@turf/bbox" {
+   const bbox: typeof turf.bbox;
+   export = bbox;
+}
 
 // declare module "@turf/circle" {
 //    const circle: typeof turf.circle;

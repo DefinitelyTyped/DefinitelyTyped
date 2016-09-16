@@ -69,7 +69,7 @@ import * as nearest from '@turf/nearest'
 // // ASSERTIONS
 // import * as featureOf from '@turf/featureOf'
 // import * as collectionOf from '@turf/collectionOf'
-// import * as bbox from '@turf/bbox'
+import * as bboxAssertions from '@turf/bbox'
 // import * as circle from '@turf/circle'
 // import * as geojsonType from '@turf/geojsonType'
 // import * as propReduce from '@turf/propReduce'
@@ -108,7 +108,7 @@ const multiPoint1: GeoJSON.Feature<GeoJSON.MultiPoint> = {
   }
 }
 
-const line1: GeoJSON.Feature<GeoJSON.LineString> = {
+const lineString1: GeoJSON.Feature<GeoJSON.LineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -124,7 +124,7 @@ const line1: GeoJSON.Feature<GeoJSON.LineString> = {
   }
 }
 
-const multiLine1: GeoJSON.Feature<GeoJSON.MultiLineString> = {
+const multiLineString1: GeoJSON.Feature<GeoJSON.MultiLineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -283,8 +283,8 @@ const triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
 ///////////////////////////////////////////
 
 // -- Test along --
-turf.along(line1, 50)
-turf.along(line1, 50, 'miles')
+turf.along(lineString1, 50)
+turf.along(lineString1, 50, 'miles')
 
 // -- Test area --
 turf.area(polygons)
@@ -313,8 +313,8 @@ turf.distance(point1, point2, 'miles')
 turf.envelope(polygons)
 
 // -- Test lineDistance
-turf.lineDistance(line1)
-turf.lineDistance(line1, 'miles')
+turf.lineDistance(lineString1)
+turf.lineDistance(lineString1, 'miles')
 
 // -- Test midpoint --
 turf.midpoint(point1, point2)
@@ -330,7 +330,7 @@ turf.square(bbox)
 ///////////////////////////////////////////
 
 // -- Test bezier --
-turf.bezier(line1)
+turf.bezier(lineString1)
 
 // -- Test buffer --
 turf.buffer(point1, 50)
@@ -350,8 +350,8 @@ turf.intersect(polygon1, polygon2)
 turf.intersect(point1, polygon1)
 turf.intersect(point1, point1)
 turf.intersect(polygon1, point1)
-turf.intersect(polygon1, line1)
-turf.intersect(line1, point1)
+turf.intersect(polygon1, lineString1)
+turf.intersect(lineString1, point1)
 
 // -- Test simplify --
 
@@ -377,10 +377,10 @@ turf.flip(point1)
 turf.kinks(polygon1)
 
 // -- Test lineSlice --
-turf.lineSlice(point1, point2, line1)
+turf.lineSlice(point1, point2, lineString1)
 
 // -- Test pointOnLine --
-turf.pointOnLine(line1, point1)
+turf.pointOnLine(lineString1, point1)
 
 ///////////////////////////////////////////
 // Tests Helper
@@ -390,20 +390,20 @@ turf.pointOnLine(line1, point1)
 turf.featureCollection([point1, point2])
 turf.featureCollection([point1, polygon1])
 turf.featureCollection([polygon1, polygon2])
-turf.featureCollection([line1, polygon1])
-turf.featureCollection([line1, point1])
+turf.featureCollection([lineString1, polygon1])
+turf.featureCollection([lineString1, point1])
 
 // -- Test feature --
 turf.feature(point1)
 turf.feature(polygon1)
-turf.feature(line1)
+turf.feature(lineString1)
 
 // -- Test lineString --
-turf.lineString(line1.geometry.coordinates)
-turf.lineString(line1.geometry.coordinates, properties)
+turf.lineString(lineString1.geometry.coordinates)
+turf.lineString(lineString1.geometry.coordinates, properties)
 
 // -- Test multiLineString --
-turf.multiLineString(multiLine1.geometry.coordinates)
+turf.multiLineString(multiLineString1.geometry.coordinates)
 
 // -- Test point --
 turf.point(point1.geometry.coordinates)
@@ -419,7 +419,7 @@ turf.polygon(polygon1.geometry.coordinates, properties)
 turf.multiPolygon(multiPolygon1.geometry.coordinates, properties)
 
 // -- Test geometryCollection --
-turf.geometryCollection([point1.geometry, line1.geometry]);
+turf.geometryCollection([point1.geometry, lineString1.geometry]);
 
 ///////////////////////////////////////////
 // Tests Data
@@ -495,3 +495,12 @@ turf.nearest(point1, points)
 // Tests Aggregation
 ///////////////////////////////////////////
 turf.collect(polygons, points, 'population', 'values')
+
+///////////////////////////////////////////
+// Tests Assertions
+///////////////////////////////////////////
+turf.bbox(polygon1)
+turf.bbox(point1)
+turf.bbox(lineString1)
+turf.bbox(multiLineString1)
+turf.bbox(multiPolygon1)
