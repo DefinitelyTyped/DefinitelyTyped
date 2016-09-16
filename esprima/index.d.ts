@@ -21,7 +21,7 @@ declare namespace esprima {
         value: string;
     }
 
-    interface Comment extends ESTree.Node {
+    interface Comment extends ESTree.BaseNode {
         value: string;
     }
 
