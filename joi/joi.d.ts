@@ -816,6 +816,13 @@ declare module 'joi' {
 	export function alternatives(): AlternativesSchema;
 	export function alternatives(types: Schema[]): AlternativesSchema;
 	export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
+	
+	/**
+	 * Generates a placeholder schema for a schema that you would provide with the fn.
+	 * Supports the same methods of the any() type.
+	 * This is mostly useful for recursive schemas
+	 */
+	export function lazy(cb: () => Schema): Schema;
 
 	/**
 	 * Validates a value using the given schema and options.

@@ -61,6 +61,7 @@ declare namespace google.maps {
         backgroundColor?: string;
         center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
+        clickableIcons?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
         draggableCursor?: string;
@@ -755,7 +756,7 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
-    export interface PolyMouseEvent {
+    export interface PolyMouseEvent extends MouseEvent {
         edge?: number;
         path?: number;
         vertex?: number;

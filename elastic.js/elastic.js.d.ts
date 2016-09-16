@@ -19,7 +19,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -40,7 +40,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -58,7 +58,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -107,7 +107,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -139,7 +139,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -161,7 +161,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -226,7 +226,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets if the Query should be enhanced with a
@@ -278,7 +278,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -298,7 +298,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost factor.
@@ -314,7 +314,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -335,7 +335,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -362,7 +362,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -382,7 +382,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -425,7 +425,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -454,7 +454,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the analyzer name used to analyze the Query object.
@@ -522,7 +522,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -536,7 +536,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets analyzer used to analyze the suggest text.
@@ -593,7 +593,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets if transpositions should be counted as one or two changes, defaults
@@ -635,7 +635,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -666,7 +666,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -693,7 +693,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -805,7 +805,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -839,7 +839,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -986,7 +986,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Allows you to specify a different value field to aggrerate over.
@@ -1023,7 +1023,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -1086,7 +1086,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1110,7 +1110,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the decay value which defines how documents are scored at the distance
@@ -1165,7 +1165,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1185,7 +1185,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the accuracy.  How similar the suggested terms at least
@@ -1285,7 +1285,7 @@ declare module elasticjs {
      Retrieves the internal generator object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1389,7 +1389,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -1419,7 +1419,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1438,7 +1438,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -1489,7 +1489,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -1521,7 +1521,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1531,7 +1531,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -1573,7 +1573,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1595,7 +1595,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -1616,7 +1616,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1636,7 +1636,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -1662,7 +1662,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1684,7 +1684,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -1734,7 +1734,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1766,7 +1766,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -1813,7 +1813,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1823,7 +1823,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -1864,7 +1864,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -1908,7 +1908,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -1946,7 +1946,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      The analyzer that will be used to analyze the text. Defaults to the
@@ -2000,7 +2000,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -2035,7 +2035,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      The analyzer that will be used to analyze the text. Defaults to the
@@ -2091,7 +2091,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -2116,7 +2116,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value of the Query.
@@ -2179,7 +2179,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Set to false to use classic Levenshtein edit distance.
@@ -2208,7 +2208,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the bottom-right coordinate of the bounding box
@@ -2284,7 +2284,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -2344,7 +2344,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the distance unit.  Valid values are:
@@ -2383,7 +2383,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Adds a new bounded range.
@@ -2479,7 +2479,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the distance unit.  Valid values are "mi" for miles or "km"
@@ -2515,7 +2515,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -2601,7 +2601,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -2728,7 +2728,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -2771,7 +2771,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -2792,7 +2792,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the GeoPoint from an array point.  The array must contain only
@@ -2834,7 +2834,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -2853,7 +2853,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -2921,7 +2921,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -3007,7 +3007,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -3059,7 +3059,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -3079,7 +3079,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -3100,7 +3100,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -3119,7 +3119,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -3185,7 +3185,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -3232,7 +3232,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the child document type to search against
@@ -3256,7 +3256,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -3317,7 +3317,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -3360,7 +3360,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -3390,7 +3390,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Set's the boundary characters.  When highlighting a field that is
@@ -3462,7 +3462,7 @@ declare module elasticjs {
      Sets arbitrary options that can be passed to the highlighter
      implementation in use.
      */
-    options(opts: string, oField: Object): Highlight;
+    options(opts: string, oField: string): Highlight;
 
     /*
      Sets the order of highlight fragments.  You can apply the option
@@ -3508,7 +3508,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the highligher type.  You can apply the option
@@ -3539,7 +3539,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -3621,7 +3621,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -3655,7 +3655,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -3762,7 +3762,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Allows you to specify a different value field to aggrerate over.
@@ -3793,7 +3793,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -3848,7 +3848,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -3859,7 +3859,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the type as a single type or an array of types.  If type is a
@@ -3896,7 +3896,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the document id of the indexed shape.
@@ -3919,7 +3919,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the type which the shape is indexed under.
@@ -3945,7 +3945,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -4006,7 +4006,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -4036,7 +4036,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4057,7 +4057,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -4115,7 +4115,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4133,7 +4133,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -4177,7 +4177,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -4216,7 +4216,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -4227,7 +4227,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4248,7 +4248,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the analyzer name used to analyze the Query object.
@@ -4377,7 +4377,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the type of the MatchQuery.  Valid values are
@@ -4411,7 +4411,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -4443,7 +4443,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4453,7 +4453,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -4485,7 +4485,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4507,7 +4507,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -4539,7 +4539,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4559,7 +4559,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -4585,7 +4585,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4603,7 +4603,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -4657,7 +4657,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      The analyzer that will be used to analyze the text. Defaults to the
@@ -4748,7 +4748,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4767,7 +4767,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      The analyzer that will be used to analyze the text. Defaults to the
@@ -4860,7 +4860,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -4883,7 +4883,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the analyzer name used to analyze the Query object.
@@ -5022,7 +5022,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the type of the MultiMatchQuery.  Valid values are
@@ -5061,7 +5061,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -5087,7 +5087,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -5113,7 +5113,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value of the nested Query.
@@ -5190,7 +5190,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -5227,7 +5227,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -5246,7 +5246,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -5300,7 +5300,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -5388,7 +5388,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -5437,7 +5437,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Compression controls memory usage and approximation error. The compression
@@ -5496,7 +5496,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -5518,7 +5518,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets analyzer used to analyze the suggest text.
@@ -5625,7 +5625,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the token limit.
@@ -5649,7 +5649,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -5698,7 +5698,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value of the Query.
@@ -5743,7 +5743,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      The prefix value.
@@ -5780,7 +5780,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -5827,7 +5827,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -5853,7 +5853,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -5888,7 +5888,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -5899,7 +5899,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -5922,7 +5922,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets whether or not wildcard characters (* and ?) are allowed as the
@@ -6114,7 +6114,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets whether or not queries against multiple fields should be combined using Lucene's
@@ -6140,7 +6140,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Adds a filter whose matching documents will have the score function applied.
@@ -6156,7 +6156,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -6181,7 +6181,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -6223,7 +6223,7 @@ declare module elasticjs {
     /*
      Adds a range to the list of exsiting range expressions.
      */
-    range(from: string, to: string, key: string): RangeAggregation;
+    range(from: number, to?: number, key?: string): RangeAggregation;
 
     /*
      Allows you generate or modify the terms using a script.
@@ -6239,7 +6239,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -6271,7 +6271,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Adds a new bounded range.
@@ -6356,7 +6356,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Allows you to specify an alternate value field to be used to compute statistical information.
@@ -6385,7 +6385,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -6476,7 +6476,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value of the Query.
@@ -6537,7 +6537,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -6557,7 +6557,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -6630,7 +6630,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value of the Query.
@@ -6698,7 +6698,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      The regexp value.
@@ -6721,7 +6721,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add an aggregation.  This method can be called multiple times
@@ -6769,7 +6769,7 @@ declare module elasticjs {
      by making multiple request. This parameters specifies the starting
      result/document number point. Combine with size() to achieve paging.
      */
-    from(f: any[]): Request;
+    from(f: number): Request;
 
     /*
      Performs highlighting based on the Highlight
@@ -6827,7 +6827,7 @@ declare module elasticjs {
 
      It is recommended to use Sort objects when possible.
      */
-    sort(fieldName: string): Request;
+    sort(fieldName?: string | any[] | Sort, order?: string): Request;
 
     /*
      Allows to control how the _source field is returned with every hit.
@@ -6859,7 +6859,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Enables score computation and tracking during sorting.  Be default,
@@ -6889,7 +6889,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the weight assigned to the original query of the rescoring.
@@ -6921,7 +6921,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the window_size parameter of the rescoring.
@@ -6936,7 +6936,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Adds a filter whose matching documents will have the score function applied.
@@ -6947,7 +6947,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -6969,7 +6969,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      If execeptions thrown from the script should be ignored or not.
@@ -6997,7 +6997,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7015,7 +7015,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -7071,7 +7071,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Adds a filter whose matching documents will have the score function applied.
@@ -7098,7 +7098,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7119,7 +7119,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the coordinates for the shape definition.  Note, the coordinates
@@ -7137,7 +7137,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the shape type.  Can be set to one of:  point, linestring, polygon,
@@ -7163,7 +7163,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -7237,7 +7237,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7258,7 +7258,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the sort order to ascending (asc).  Same as calling
@@ -7393,7 +7393,7 @@ declare module elasticjs {
      Retrieves the internal script object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the script sort type.  Valid values are:
@@ -7433,7 +7433,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7454,7 +7454,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7474,7 +7474,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7490,7 +7490,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7509,7 +7509,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7543,7 +7543,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7562,7 +7562,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7583,7 +7583,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7602,7 +7602,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7620,7 +7620,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7640,7 +7640,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -7661,7 +7661,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7693,7 +7693,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enables caching of the facetFilter
@@ -7762,7 +7762,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7786,7 +7786,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -7818,7 +7818,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7854,7 +7854,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the text to get suggestions for.  If not set, the global
@@ -7866,7 +7866,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7888,7 +7888,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -7920,7 +7920,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -7940,7 +7940,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -7994,7 +7994,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -8015,7 +8015,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -8034,7 +8034,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Add a nested aggregation.  This method can be called multiple times
@@ -8134,7 +8134,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the type of the field value for use in scripts.  Current values are:
@@ -8169,7 +8169,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Allows you to return all terms, even if the frequency count is 0. This should not be
@@ -8301,7 +8301,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -8320,7 +8320,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -8416,7 +8416,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -8451,7 +8451,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -8483,7 +8483,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Allows you to return all terms, even if the frequency count is 0. This should not be
@@ -8579,7 +8579,7 @@ declare module elasticjs {
      Retrieves the internal facet object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the field for which statistical information will be generated.
@@ -8612,7 +8612,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the accuracy.  How similar the suggested terms at least
@@ -8716,7 +8716,7 @@ declare module elasticjs {
      Retrieves the internal suggest object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -8740,7 +8740,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -8787,7 +8787,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the child document type to search against
@@ -8810,7 +8810,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Enable or disable caching of the filter
@@ -8858,7 +8858,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the field to operate on.
@@ -8890,7 +8890,7 @@ declare module elasticjs {
      Retrieves the internal agg object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
   }
 
@@ -8915,7 +8915,7 @@ declare module elasticjs {
     /*
      The type of ejs object.  For internal use only.
      */
-    _type(): String;
+    _type(): string;
 
     /*
      Sets the boost value for documents matching the Query.
@@ -8960,7 +8960,7 @@ declare module elasticjs {
      Retrieves the internal query object. This is typically used by
      internal API functions so use with caution.
      */
-    toJSON(): String;
+    toJSON(): any;
 
     /*
      Sets the wildcard query value.

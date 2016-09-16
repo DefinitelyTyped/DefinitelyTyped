@@ -49,7 +49,7 @@ interface IUser extends Document {
   data: any[];
 }
 
-var UserModel: Model<IUser> = mongoose.model<IUser>('User', UserSchema);
+var UserModel: Model<IUser> = model<IUser>('User', UserSchema);
 
 var user = new UserModel({name: 'Jane'});
 user.username;     // IUser properties are available
