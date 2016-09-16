@@ -34,13 +34,13 @@ export interface ClientConfig extends ConnectionConfig {
 }
 
 export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      refreshIdle?: boolean;
-      idleTimeoutMillis?: number;
-      reapIntervalMillis?: number;
-      returnToHead?: boolean;
+    // properties from module 'node-pool'
+    max?: number;
+    min?: number;
+    refreshIdle?: boolean;
+    idleTimeoutMillis?: number;
+    reapIntervalMillis?: number;
+    returnToHead?: boolean;
 }
 
 export interface QueryConfig {
@@ -50,9 +50,9 @@ export interface QueryConfig {
 }
 
 export interface QueryResult {
-        command: string;
-        rowCount: number;
-        oid: number;
+    command: string;
+    rowCount: number;
+    oid: number;
     rows: any[];
 }
 

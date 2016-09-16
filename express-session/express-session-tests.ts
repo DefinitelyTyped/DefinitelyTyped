@@ -6,7 +6,8 @@ import session = require('express-session');
 var app = express();
 
 app.use(session({
-  secret: 'keyboard cat'
+  secret: 'keyboard cat',
+  cookie: { secure: 'auto' }
 }));
 app.use(session({
   secret: 'keyboard cat',

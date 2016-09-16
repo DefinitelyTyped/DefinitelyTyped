@@ -127,6 +127,7 @@ declare namespace angular {
         isFunction(value: any): value is Function;
         isNumber(value: any): value is number;
         isObject(value: any): value is Object;
+        isObject<T>(value: any): value is T;
         isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
@@ -1413,6 +1414,16 @@ declare namespace angular {
          * Absolute or relative URL of the resource that is being requested.
          */
         url: string;
+        /**
+         * Event listeners to be bound to the XMLHttpRequest object. 
+         * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
+         */
+        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        /**
+         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
+         */
+        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
     }
 
     interface IHttpHeadersGetter {
@@ -1747,12 +1758,12 @@ declare namespace angular {
          */
         $onInit?(): void;
         /**
-         * Called whenever one-way bindings are updated. The changesObj is a hash whose keys are the names of the bound
+         * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
          * properties that have changed, and the values are an {@link IChangesObject} object  of the form
          * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
          * cloning the bound value to prevent accidental mutation of the outer value.
          */
-        $onChanges?(changesObj: {[property:string]: IChangesObject}): void;
+        $onChanges?(onChangesObj: IOnChangesObject): void;
         /**
          * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
          * watches and event handlers.
@@ -1767,6 +1778,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+    }
+
+    interface IOnChangesObject {
+        [property: string]: IChangesObject;
     }
 
     interface IChangesObject {

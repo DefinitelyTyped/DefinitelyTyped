@@ -555,7 +555,7 @@ declare namespace __MaterialUI {
         errorStyle?: React.CSSProperties;
         errorText?: string;
         filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
-        floatingLabelText?: string;
+        floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
         hintText?: string;
         listStyle?: React.CSSProperties;
@@ -7310,7 +7310,7 @@ declare module 'material-ui/utils/withWidth' {
       mediumWidth?: number;
       resizeInterval?: number;
   }
-  export default function withWidth(options?: Options): React.ComponentClass<any>
+  export default function withWidth<C extends Function>(options?: Options): (component: C) => C;
 }
 
 declare namespace __MaterialUI.Styles {

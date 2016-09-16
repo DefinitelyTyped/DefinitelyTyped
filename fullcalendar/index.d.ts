@@ -28,14 +28,16 @@ export interface Timespan {
     end?: moment.Moment | string | Date;
 }
 
+export interface Header {
+    left: string;
+    center: string;
+    right: string;
+}
+
 export interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
     // General display - http://fullcalendar.io/docs/display/
 
-    header?: {
-        left: string;
-        center: string;
-        right: string;
-    };
+    header?: boolean | Header;
     theme?: boolean;
     buttonIcons?: {
         prev: string;
@@ -326,7 +328,7 @@ declare global {
         /**
          * Moves the calendar to an arbitrary date.
          */
-        fullCalendar(method: 'gotoDate', date: Date | string): void;
+        fullCalendar(method: 'gotoDate', date: moment.Moment | Date | string): void;
 
         /**
          * Moves the calendar forward/backward an arbitrary amount of time.

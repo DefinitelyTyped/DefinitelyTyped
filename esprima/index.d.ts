@@ -21,7 +21,7 @@ declare namespace esprima {
         value: string;
     }
 
-    interface Comment extends ESTree.BaseNode {
+    interface Comment extends ESTree.Node {
         value: string;
     }
 
@@ -34,6 +34,7 @@ declare namespace esprima {
         attachComment?: boolean;
         tolerant?: boolean;
         source?: boolean;
+        sourceType?: 'script' | 'module';
     }
 
     const Syntax: {

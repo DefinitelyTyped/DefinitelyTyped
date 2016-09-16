@@ -97,6 +97,12 @@ inst = inst.log(() => {
 
 });
 
+inst = inst.delay(2000);
+inst = inst.delayBody(2000);
+inst = inst.delayConnection(2000);
+inst.getTotalDelay();
+inst = inst.socketDelay(2000);
+
 inst.done();
 bool = inst.isDone();
 inst.restore();
