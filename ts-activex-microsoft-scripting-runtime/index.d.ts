@@ -3,8 +3,6 @@
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="jscript-extensions.d.ts" />
-
 declare namespace Scripting {
 
     //Enums
@@ -102,9 +100,9 @@ declare namespace Scripting {
     interface File {
         Attributes: FileAttribute;
         Copy: (Destination: string, OverWriteFiles?: boolean) => void;
-        DateCreated: VarDate;
-        DateLastAccessed: VarDate;
-        DateLastModified: VarDate;
+        DateCreated: Date;
+        DateLastAccessed: Date;
+        DateLastModified: Date;
         Delete: (Force?: boolean) => void;
         Drive: Drive;
         Move: (Destination: string) => void;
@@ -157,9 +155,9 @@ declare namespace Scripting {
         Attributes: FileAttribute;
         Copy: (Destination: string, OverWriteFiles?: boolean) => void;
         CreateTextFile: (FileName: string, Overwrite?: boolean, Unicode?: boolean) => TextStream;
-        DateCreated: VarDate;
-        DateLastAccessed: VarDate;
-        DateLastModified: VarDate;
+        DateCreated: Date;
+        DateLastAccessed: Date;
+        DateLastModified: Date;
         Delete: (Force?: boolean) => void;
         Drive: Drive;
         Files: Files;

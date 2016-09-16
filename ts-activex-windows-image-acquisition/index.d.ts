@@ -3,8 +3,6 @@
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="jscript-extensions.d.ts" />
-
 declare namespace WIA {
 
     //Enums
@@ -359,7 +357,7 @@ declare namespace WIA {
         BinaryData: any;
         Clear: () => void;
         Count: number;
-        Date: VarDate;
+        Date: Date;
         ImageFile: (Width?: number, Height?: number) => ImageFile;
         Item: (Index: number) => any;   //Also has setter with parameters
         Picture: (Width?: number, Height?: number) => any;
