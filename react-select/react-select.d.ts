@@ -1,6 +1,6 @@
 // Type definitions for react-select v1.0.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../react/react.d.ts"/>
@@ -68,12 +68,6 @@ declare namespace ReactSelect {
          * @default 'Add "{label}"?'
          */
         addLabelText?: string;
-        /**
-         * allow new options to be created in multi mode (displays an "Add <option> ?" item
-         * when a value not already in the options array is entered)
-         * @default false
-         */
-        allowCreate?: boolean;
         /**
          * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
          * @default false
@@ -202,11 +196,6 @@ declare namespace ReactSelect {
          * field name, for hidden `<input>` tag
          */
         name?: string;
-        /**
-         * factory to create new options when `allowCreate` is true
-         * @default false
-         */
-        newOptionCreator?: (input: string) => Option;
         /**
          * placeholder displayed when there are no matching search results or a falsy value to hide it
          * @default "No results found"
@@ -401,10 +390,41 @@ declare namespace ReactSelect {
         searchingText?: string;
     }
 
+    interface ReactCreatableSelectProps extends ReactSelectProps {
+        /**
+         * Searches for any matching option within the set of options. This function prevents
+         * duplicate options from being created.
+         */
+        isOptionUnique?: (arg: { option: Option, options: Option[], labelKey: string, valueKey: string }) => boolean;
+
+        /**
+         * Determines if the current input text represents a valid option.
+         */
+        isValidNewOption?: (arg: { label: string }) => boolean;
+
+        /**
+         * factory to create new options
+         */
+        newOptionCreator?: (input: string) => Option;
+
+        /**
+         * Creates prompt/placeholder for option text.
+         */
+        promptTextCreator?: (filterText: string) => string;
+
+        /**
+         * Decides if a keyDown event (eg its 'keyCode') should result in the creation of a new option.
+         */
+        shouldKeyDownEventCreateNewOption?: (arg: { keyCode: number }) => boolean;
+    }
+
+    class ReactSelectCreatableClass extends __React.Component<ReactCreatableSelectProps, {}> {
+    }
     class ReactSelectAsyncClass extends __React.Component<ReactAsyncSelectProps, {}> {
     }
     class ReactSelectClass extends __React.Component<ReactSelectProps, {}> {
         static Async: ReactSelectAsyncClass;
+        static Creatable: ReactSelectCreatableClass;
     }
 
 }
@@ -419,6 +439,7 @@ declare module "react-select-props" {
     import MenuRendererProps = ReactSelect.MenuRendererProps;
     import ReactSelectProps = ReactSelect.ReactSelectProps;
     import ReactAsyncSelectProps = ReactSelect.ReactAsyncSelectProps;
+    import ReactCreatableSelectProps = ReactSelect.ReactCreatableSelectProps;
 
-    export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, Option };
+    export { MenuRendererProps, ReactSelectProps, ReactAsyncSelectProps, ReactCreatableSelectProps, Option };
 }

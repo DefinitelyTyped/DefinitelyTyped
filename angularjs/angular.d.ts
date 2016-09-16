@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -125,6 +125,7 @@ declare namespace angular {
         isFunction(value: any): value is Function;
         isNumber(value: any): value is number;
         isObject(value: any): value is Object;
+        isObject<T>(value: any): value is T;
         isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
@@ -238,7 +239,6 @@ declare namespace angular {
          * @param directiveFactory An injectable directive factory function.
          */
         directive(name: string, inlineAnnotatedFunction: any[]): IModule;
-        directive(name: string, injectionFunction: Function): IModule;
         directive(object: Object): IModule;
         /**
          * Register a service factory, which will be called to return the service instance. This is short for registering a service where its provider consists of only a $get property, which is the given service factory function. You should use $provide.factory(getFn) if you do not need to configure your service in a provider.
@@ -1412,6 +1412,16 @@ declare namespace angular {
          * Absolute or relative URL of the resource that is being requested.
          */
         url: string;
+        /**
+         * Event listeners to be bound to the XMLHttpRequest object. 
+         * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
+         */
+        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        /**
+         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
+         */
+        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
     }
 
     interface IHttpHeadersGetter {
