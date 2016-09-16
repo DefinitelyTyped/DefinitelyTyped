@@ -778,6 +778,7 @@ declare module "cluster" {
         disconnect(): void;
         isConnected(): boolean;
         isDead(): boolean;
+        exitedAfterDisconnect: boolean;
         
         /**
          * events.EventEmitter
