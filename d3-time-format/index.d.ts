@@ -1,4 +1,4 @@
-// Type definitions for d3JS d3-time-format module 2.0.0
+// Type definitions for d3JS d3-time-format module v2.0.2
 // Project: https://github.com/d3/d3-time-format/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

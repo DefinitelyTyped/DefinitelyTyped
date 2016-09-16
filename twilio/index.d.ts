@@ -3,20 +3,20 @@
 // Definitions by: nickiannone <https://github.com/nickiannone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../q/index.d.ts" />
+/// <reference types="express"/>
+/// <reference types="node"/>
+/// <reference types="q"/>
 
 import * as express from 'express';
 import * as Http from 'http';
 
 import Q = require('q');
 
-export interface twilio {
+declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-export module twilio {
+declare module twilio {
 
   // Composite Classes:
   //==============================
@@ -871,5 +871,6 @@ export module twilio {
     originationUrls: OriginationURLResource;
   }
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
-
 }
+
+export = twilio;

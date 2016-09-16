@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-hsv module 0.0.3
+// Type definitions for D3JS d3-hsv module v0.0.3
 // Project: https://github.com/d3/d3-hsv/
 // Definitions by: Yuri Feldman <https://github.com/arrayjam>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

@@ -1,4 +1,4 @@
-import { twilio } from './twilio';
+import * as twilio from 'twilio';
 
 // Examples taken from https://twilio.github.io/twilio-node/ (v2.1.0)
 

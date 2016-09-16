@@ -21,6 +21,7 @@ declare module 'request-promise' {
             finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
             finally<TResult>(handler: () => TResult): Promise<any>;
             promise(): Promise<any>;
+            cancel(): void;
         }
 
         interface RequestPromiseOptions extends request.CoreOptions {
