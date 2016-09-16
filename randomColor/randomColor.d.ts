@@ -16,7 +16,7 @@ declare namespace RandomColor {
 interface randomColorOptions {
 		hue? : string;
 		luminosity? : string;		
-		count? : string;
+		count? : string | number;
 		seed?: string;
 		format?: string;
 	}
