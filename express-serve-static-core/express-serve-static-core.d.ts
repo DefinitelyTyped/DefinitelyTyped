@@ -1052,7 +1052,7 @@ declare module "express-serve-static-core" {
         routes: any;
         
         /**
-         * Using to all registered routes in Express Application
+         * Used to get all registered routes in Express Application
          */
         _router: any;
     }
