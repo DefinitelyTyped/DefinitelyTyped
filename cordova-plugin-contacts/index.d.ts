@@ -204,7 +204,7 @@ declare var ContactName: {
  * The ContactField object is a reusable component that represents contact fields generically.
  * Each ContactField object contains a value, type, and pref property. A Contact object stores
  * several properties in ContactField[] arrays, such as phone numbers and email addresses.
- * 
+ *
  * In most instances, there are no pre-determined values for a ContactField object's type attribute.
  * For example, a phone number can specify type values of home, work, mobile, iPhone,
  * or any other value that is supported by a particular device platform's contact database.

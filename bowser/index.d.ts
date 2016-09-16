@@ -9,7 +9,7 @@ declare module 'bowser' {
     export = bowser;
 }
 
-declare namespace BowserModule {
+declare namespace bowser {
 
     export interface IBowserOS {
         mac: boolean;
