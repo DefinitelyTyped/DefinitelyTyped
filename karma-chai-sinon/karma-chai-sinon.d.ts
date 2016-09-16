@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference types="chai" />
-import Sinon = require("Sinon");
+import Sinon = require("sinon");
 
 declare global {
     var should: Chai.Should;
