@@ -10,7 +10,6 @@ declare namespace RandomColor {
 	() : string;
 
 	(options : randomColorOptions): string;
-	
 }
 
 interface randomColorOptions {
@@ -21,7 +20,6 @@ interface randomColorOptions {
 		format?: string;
 	}
 }
-
 
 declare var randomColor: RandomColor.RandomColorStatic;
 
