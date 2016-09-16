@@ -14,7 +14,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "inversify-devtools.d.ts",
+        "index.d.ts",
         "inversify-devtools-test.ts"
     ]
 }
