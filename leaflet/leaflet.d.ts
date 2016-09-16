@@ -376,9 +376,114 @@ declare namespace L {
         bringToBack(): this;
     }
 
-    export interface Renderer {
-
+    export interface PolylineOptions extends PathOptions {
+        smoothFactor?: number;
+        noClip?: boolean;
     }
+
+    export interface Polyline extends Path {
+        toGeoJSON(): Object; // should import GeoJSON typings
+        getLatLngs(): Array<LatLng>;
+        setLatLngs(latlngs: Array<LatLng>): this;
+        setLatLngs(latlngs: Array<LatLngLiteral>): this;
+        setLatLngs(latlngs: Array<LatLngTuple>): this;
+        isEmpty(): boolean;
+        getCenter(): LatLng;
+        getBounds(): LatLngBounds;
+        addLatLng(latlng: LatLng): this;
+        addLatLng(latlng: LatLngLiteral): this;
+        addLatLng(latlng: LatLngTuple): this;
+        addLatLng(latlng: Array<LatLng>): this; // these three overloads aren't explicitly noted in the docs
+        addLatLng(latlng: Array<LatLngLiteral>): this;
+        addLatLng(latlng: Array<LatLngTuple>): this;
+    }
+
+    export function polyline(latlngs: Array<LatLng>, options?: PolylineOptions): Polyline;
+
+    export function polyline(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polyline;
+
+    export function polyline(latlngs: Array<LatLngTuple>, options?: PolylineOptions): Polyline;
+
+    export function polyline(latlngs: Array<Array<LatLng>>, options?: PolylineOptions): Polyline;
+
+    export function polyline(latlngs: Array<Array<LatLngLiteral>>, options?: PolylineOptions): Polyline;
+
+    export function polyline(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polyline;
+
+    export interface Polygon extends Polyline {
+        toGeoJSON(): Object; // should import GeoJSON typings
+    }
+
+    export function polygon(latlngs: Array<LatLng>, options?: PolylineOptions): Polygon;
+
+    export function polygon(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polygon;
+
+    export function polygon(latlngs: Array<LatLngTuple>, options?: PolylineOptions): Polygon;
+
+    export function polygon(latlngs: Array<Array<LatLng>>, options?: PolylineOptions): Polygon;
+
+    export function polygon(latlngs: Array<Array<LatLngLiteral>>, options?: PolylineOptions): Polygon;
+
+    export function polygon(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polygon;
+
+    export interface Rectangle extends Polygon {
+        setBounds(latLngBounds: LatLngBounds): this;
+        setBounds(latLngBounds: LatLngBoundsLiteral): this;
+    }
+
+    export function rectangle(latLngBounds: LatLngBounds, options?: PolylineOptions): Rectangle;
+
+    export function rectangle(latLngBounds: LatLngBoundsLiteral, options?: PolylineOptions): Rectangle;
+
+    export interface CircleMarkerOptions extends PathOptions {
+        radius?: number;
+    }
+
+    export interface CircleMarker extends Path {
+        toGeoJSON(): Object; // should import GeoJSON typings
+        setLatLng(latLng: LatLng): this;
+        setLatLng(latLng: LatLngLiteral): this;
+        setLatLng(latLng: LatLngTuple): this;
+        getLatLng(): LatLng;
+        setRadius(radius: number): this;
+        getRadius(): number;
+    }
+
+    export function circleMarker(latlng: LatLng, options?: CircleMarkerOptions): CircleMarker;
+
+    export function circleMarker(latlng: LatLngLiteral, options?: CircleMarkerOptions): CircleMarker;
+
+    export function circleMarker(latlng: LatLngLiteral, options?: CircleMarkerOptions): CircleMarker;
+
+    export interface CircleOptions extends PathOptions {
+        radius?: number;
+    }
+
+    export interface Circle extends CircleMarker {
+        setRadius(radius: number): this;
+        getRadius(): number;
+        getBounds(): LatLngBounds;
+    }
+
+    export function circle(latlng: LatLng, options?: CircleOptions): Circle;
+
+    export function circle(latlng: LatLngLiteral, options?: CircleOptions): Circle;
+
+    export function circle(latlng: LatLngTuple, options?: CircleOptions): Circle;
+
+    export function circle(latlng: LatLng, radius: number, options?: CircleOptions): Circle;
+
+    export function circle(latlng: LatLngLiteral, radius: number, options?: CircleOptions): Circle;
+
+    export function circle(latlng: LatLngTuple, radius: number, options?: CircleOptions): Circle;
+
+    export interface RendererOptions extends LayerOptions {
+        padding?: number;
+    }
+
+    export interface Renderer extends Layer {}
+
+    export interface SVG extends Renderer {}
 
     type Zoom = boolean | 'center';
 
@@ -437,10 +542,6 @@ declare namespace L {
         tapTolerance?: number;
         touchZoom?: Zoom;
         bounceAtZoomLimits?: boolean;
-    }
-
-    export interface Path {
-
     }
 
     export interface Control {
@@ -631,37 +732,58 @@ declare namespace L {
         hasLayer(layer: Layer): boolean;
         eachLayer(fn: (layer: Layer) => void, context?: Object): this;
         openPopup(popup: Popup): this;
-        openPopup(content: string, latlng: LatLngExpression, options?: PopupOptions): this;
-        openPopup(content: HTMLElement, latlng: LatLngExpression, options?: PopupOptions): this;
+        openPopup(content: string, latlng: LatLng, options?: PopupOptions): this;
+        openPopup(content: string, latlng: LatLngLiteral, options?: PopupOptions): this;
+        openPopup(content: string, latlng: LatLngTuple, options?: PopupOptions): this;
+        openPopup(content: HTMLElement, latlng: LatLng, options?: PopupOptions): this;
+        openPopup(content: HTMLElement, latlng: LatLngLiteral, options?: PopupOptions): this;
+        openPopup(content: HTMLElement, latlng: LatLngTuple, options?: PopupOptions): this;
         closePopup(popup?: Popup): this;
         openTooltip(tooltip: Tooltip): this;
-        openTooltip(content: string, latlng: LatLngExpression, options?: TooltipOptions): this;
-        openTooltip(content: HTMLElement, latlng: LatLngExpression, options?: TooltipOptions): this;
+        openTooltip(content: string, latlng: LatLng, options?: TooltipOptions): this;
+        openTooltip(content: string, latlng: LatLngLiteral, options?: TooltipOptions): this;
+        openTooltip(content: string, latlng: LatLngTuple, options?: TooltipOptions): this;
+        openTooltip(content: HTMLElement, latlng: LatLng, options?: TooltipOptions): this;
+        openTooltip(content: HTMLElement, latlng: LatLngLiteral, options?: TooltipOptions): this;
+        openTooltip(content: HTMLElement, latlng: LatLngTuple, options?: TooltipOptions): this;
         closeTooltip(tooltip?: Tooltip): this;
 
         // Methods for modifying map state
-        setView(center: LatLngExpression, zoom: number, options?: ZoomPanOptions): this;
+        setView(center: LatLng, zoom: number, options?: ZoomPanOptions): this;
+        setView(center: LatLngLiteral, zoom: number, options?: ZoomPanOptions): this;
+        setView(center: LatLngTuple, zoom: number, options?: ZoomPanOptions): this;
         setZoom(zoom: number, options: ZoomPanOptions): this;
         zoomIn(delta?: number, options?: ZoomOptions): this;
         zoomOut(delta?: number, options?: ZoomOptions): this;
-        setZoomAround(latlng: LatLngExpression, zoom: number, options: ZoomOptions): this;
+        setZoomAround(latlng: LatLng, zoom: number, options: ZoomOptions): this;
+        setZoomAround(latlng: LatLngLiteral, zoom: number, options: ZoomOptions): this;
+        setZoomAround(latlng: LatLngTuple, zoom: number, options: ZoomOptions): this; // will the latlng version using tuple take precedence or will the point tuple version?
         setZoomAround(offset: Point, zoom: number, options: ZoomOptions): this;
-        fitBounds(bounds: LatLngBoundsExpression, options: FitBoundsOptions): this;
+        fitBounds(bounds: LatLngBounds, options: FitBoundsOptions): this;
+        fitBounds(bounds: LatLngBoundsLiteral, options: FitBoundsOptions): this;
         fitWorld(options?: FitBoundsOptions): this;
-        panTo(latlng: LatLngExpression, options?: PanOptions): this;
-        panBy(offset: PointExpression): this;
-        setMaxBounds(bounds: BoundsExpression): this;
+        panTo(latlng: LatLng, options?: PanOptions): this;
+        panTo(latlng: LatLngLiteral, options?: PanOptions): this;
+        panTo(latlng: LatLngTuple, options?: PanOptions): this;
+        panBy(offset: Point): this;
+        panBy(offset: PointTuple): this;
+        setMaxBounds(bounds: Bounds): this; // is this really bounds and not lanlngbounds?
+        setMaxBounds(bounds: BoundsLiteral): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
-        panInsideBounds(bounds: LatLngBoundsExpression, options?: PanOptions): this;
+        panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;
+        panInsideBounds(bounds: LatLngBoundsLiteral, options?: PanOptions): this;
         invalidateSize(options: ZoomPanOptions): this;
         invalidateSize(animate: boolean): this;
         stop(): this;
-        flyTo(latlng: LatLngExpression, zoom?: number, options?: ZoomPanOptions): this;
-        flyToBounds(bounds: LatLngBoundsExpression, options?: FitBoundsOptions): this;
+        flyTo(latlng: LatLng, zoom?: number, options?: ZoomPanOptions): this;
+        flyTo(latlng: LatLngLiteral, zoom?: number, options?: ZoomPanOptions): this;
+        flyTo(latlng: LatLngTuple, zoom?: number, options?: ZoomPanOptions): this;
+        flyToBounds(bounds: LatLngBounds, options?: FitBoundsOptions): this;
+        flyToBounds(bounds: LatLngBoundsLiteral, options?: FitBoundsOptions): this;
 
         // Other methods
-        addHandler(name: string, HandlerClass: () => Handler): this;
+        addHandler(name: string, HandlerClass: () => Handler): this; // HandlerClass is actually a constructor function, is this the right way?
         remove(): this;
         createPane(name: string, container?: HTMLElement): HTMLElement;
         getPane(pane: string): HTMLElement;
@@ -676,7 +798,8 @@ declare namespace L {
         getBounds(): LatLngBounds;
         getMinZoom(): number;
         getMaxZoom(): number;
-        getBoundsZoom(bounds: LatLngBoundsExpression, inside?: boolean): number;
+        getBoundsZoom(bounds: LatLngBounds, inside?: boolean): number;
+        getBoundsZoom(bounds: LatLngBoundsLiteral, inside?: boolean): number;
         getSize(): Point;
         getPixelBounds(): Bounds;
         getPixelOrigin(): Point;
@@ -685,15 +808,29 @@ declare namespace L {
         // Conversion methods
         getZoomScale(toZoom: number, fromZoom: number): number;
         getScaleZoom(scale: number, fromZoom: number): number;
-        project(latlng: LatLngExpression, zoom: number): Point;
+        project(latlng: LatLng, zoom: number): Point;
+        project(latlng: LatLngLiteral, zoom: number): Point;
+        project(latlng: LatLngTuple, zoom: number): Point;
         unproject(point: Point, zoom: number): LatLng;
-        layerPointToLatLng(point: PointExpression): LatLng;
-        latLngToLayerPoint(latlng: LatLngExpression): Point;
-        wrapLatLng(latlng: LatLngExpression): LatLng;
-        distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
-        containerPointToLayerPoint(point: PointExpression): Point;
-        layerPointToContainerPoint(point: PointExpression): Point;
-        latLngToContainerPoint(latlng: LatLngExpression): Point;
+        unproject(point: PointTuple, zoom: number): LatLng;
+        layerPointToLatLng(point: Point): LatLng;
+        layerPointToLatLng(point: PointTuple): LatLng;
+        latLngToLayerPoint(latlng: LatLng): Point;
+        latLngToLayerPoint(latlng: LatLngLiteral): Point;
+        latLngToLayerPoint(latlng: LatLngTuple): Point;
+        wrapLatLng(latlng: LatLng): LatLng;
+        wrapLatLng(latlng: LatLngLiteral): LatLng;
+        wrapLatLng(latlng: LatLngTuple): LatLng;
+        distance(latlng1: LatLng, latlng2: LatLng): number;
+        distance(latlng1: LatLngLiteral, latlng2: LatLngLiteral): number;
+        distance(latlng1: LatLngTuple, latlng2: LatLngTuple): number;
+        containerPointToLayerPoint(point: Point): Point;
+        containerPointToLayerPoint(point: PointTuple): Point;
+        layerPointToContainerPoint(point: Point): Point;
+        layerPointToContainerPoint(point: PointTuple): Point;
+        latLngToContainerPoint(latlng: LatLng): Point;
+        latLngToContainerPoint(latlng: LatLngLiteral): Point;
+        latLngToContainerPoint(latlng: LatLngTuple): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
         mouseEventToLayerPoint(ev: MouseEvent): Point;
         mouseEventToLatLng(ev: MouseEvent): LatLng;
@@ -767,7 +904,9 @@ declare namespace L {
 
     export interface Marker extends Layer {
         getLatLng(): LatLng;
-        setLatLng(latlng: LatLngExpression): this;
+        setLatLng(latlng: LatLng): this;
+        setLatLng(latlng: LatLngLiteral): this;
+        setLatLng(latlng: LatLngTuple): this;
         setZIndexOffset(offset: number): this;
         setIcon(icon: Icon): this;
         setOpacity(opacity: number): this;
@@ -776,7 +915,11 @@ declare namespace L {
         dragging: Handler;
     }
 
-    export function marker(latlng: LatLngExpression, options?: MarkerOptions): Marker;
+    export function marker(latlng: LatLng, options?: MarkerOptions): Marker;
+
+    export function marker(latlng: LatLngLiteral, options?: MarkerOptions): Marker;
+
+    export function marker(latlng: LatLngTuple, options?: MarkerOptions): Marker;
 }
 
 declare module 'leaflet' {
