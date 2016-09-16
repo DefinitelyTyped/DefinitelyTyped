@@ -1,5 +1,5 @@
 // Type definitions for pug 2.0.0-beta6
-// https://github.com/pugjs/pug
+// Project: https://github.com/pugjs/pug
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
