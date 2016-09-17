@@ -22,7 +22,7 @@ interface MockJaxSettings {
     isTimeout?: boolean;
     dataType?: string;
     contentType?: string;
-    response?: (settings: any) => void;
+    response?: (settings: any, done?: Function) => void;
     responseText?: string | Object;
     responseXml?: string;
     proxy?: string;

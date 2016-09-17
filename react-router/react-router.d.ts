@@ -247,7 +247,7 @@ declare namespace ReactRouter {
       isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
-    function withRouter<C extends React.ComponentClass<any>>(component: C): C
+    function withRouter<C extends React.ComponentClass<any> | React.StatelessComponent<any> | React.PureComponent<any, any>>(component: C): C
 
     /* utils */
 
@@ -275,6 +275,8 @@ declare namespace ReactRouter {
     }
     interface MatchState extends RouterState {
         history: History
+        router: Router
+        createElement: (component: RouteComponent, props: Object) => any
     }
     function match(args: MatchArgs, cb: (error: any, nextLocation: H.Location, nextState: MatchState) => void): void
 

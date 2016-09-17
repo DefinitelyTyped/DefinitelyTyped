@@ -37,5 +37,6 @@ declare module "koa-compress" {
      */
     function compress(options?: CompressOptions): { (ctx: Koa.Context, next?: () => any): any };
 
+    namespace compress {}
     export = compress;
 }
