@@ -5,9 +5,11 @@
 
 /// <reference types="node" />
 /// <reference types="orchestrator" />
+/// <reference types="vinyl" />
 
 
 import Orchestrator = require("orchestrator");
+import VinylFile = require("vinyl");
 
 declare namespace gulp {
     interface Gulp extends Orchestrator {
