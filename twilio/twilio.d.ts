@@ -12,11 +12,11 @@ import * as Http from 'http';
 
 import q = require('q');
 
-export interface twilio {
+declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-export module twilio {
+declare module twilio {
 
   // Composite Classes:
   //==============================
@@ -449,7 +449,7 @@ export module twilio {
   export function webhook(options?: string | webhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
-  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+  export function validateExpressRequest(request: express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
   export interface OutgoingCallerIdInstance extends InstanceResource {
@@ -871,5 +871,6 @@ export module twilio {
     originationUrls: OriginationURLResource;
   }
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
-
 }
+
+export = twilio;

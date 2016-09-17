@@ -226,7 +226,7 @@ declare module "aws-sdk" {
     constructor(options?: any);
     endpoint: Endpoint;
 
-    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    getObject(params: s3.GetObjectRequest, callback?: (err: Error, data: any) => void): any;
     putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
     deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
     headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
@@ -235,6 +235,12 @@ declare module "aws-sdk" {
     upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
     listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
     listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
+    waitFor(state: string, params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+
+    createMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
+    uploadPart(params: any, callback: (err: Error, data: any) => void): void;
+    listParts(params: any, callback: (err: Error, data: any) => void): void;
+    completeMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
   }
 
   export class STS {

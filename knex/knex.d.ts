@@ -12,7 +12,7 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
