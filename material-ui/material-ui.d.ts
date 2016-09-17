@@ -344,6 +344,9 @@ declare namespace __MaterialUI {
                 disabledTextColor?: string;
                 connectorLineColor?: string;
             };
+            svgIcon?: {
+                color?: string,
+            };
             table?: {
                 backgroundColor?: string;
             };
