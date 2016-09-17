@@ -21,7 +21,7 @@ declare module "react-textarea-autosize" {
          * Callback on value change
          * @param event
          */
-        onChange?: (event: React.FormEvent) => void;
+        onChange?: (event: React.FormEvent<HTMLTextAreaElement>) => void;
         /**
          * Callback on height change
          * @param height
