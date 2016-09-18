@@ -5,45 +5,56 @@
 
 /// <reference path="../redis/redis.d.ts" />
 
+// Type definitions for simple-url-cache
+// Project: https://github.com/a-lucas/simple-url-cache
+// Definitions by: Antoine LUCAS <https://github.com/a-lucas>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 
 declare module 'simple-url-cache' {
     import redis = require("redis");
 
-    namespace SimpleUrlCache {
-        
-        interface RegexRule {
-            regex:RegExp
-        }
+    export class CacheEngine {
+        constructor(storageConfig: FileStorageConfig, cacheRules: CacheRules);
+        constructor(storageConfig: RedisStorageConfig, cacheRules: CacheRules);
+        url(url: string): FileStorage;
+        url(url: string): RedisStorage;
+    }
 
-        interface MaxAgeRegexRule extends RegexRule {
-            maxAge:number
-        }
+    export interface RegexRule {
+        regex:RegExp
+    }
 
-        interface CacheRules {
-            cacheMaxAge:MaxAgeRegexRule[],
-            cacheAlways:RegexRule[],
-            cacheNever:RegexRule[],
-            default:string
-        }
+    export interface MaxAgeRegexRule extends RegexRule {
+        maxAge:number
+    }
 
+    export interface CacheRules {
+        cacheMaxAge:MaxAgeRegexRule[],
+        cacheAlways:RegexRule[],
+        cacheNever:RegexRule[],
+        default:string
+    }
+
+
+    export interface FileStorageConfig extends privateN.StorageConfig {
+        dir:string;
+    }
+
+    export interface RedisStorageConfig extends privateN.StorageConfig {
+        host:string;
+        port:number;
+        path?:string;
+        url?:string;
+        socket_keepalive?:boolean;
+        password?:string;
+        db?:string;
+    }
+
+    namespace privateN {
         interface StorageConfig {
             type:string
         }
-
-        interface FileStorageConfig extends StorageConfig {
-            dir:string;
-        }
-
-        interface RedisStorageConfig extends StorageConfig {
-            host:string;
-            port:number;
-            path?:string;
-            url?:string;
-            socket_keepalive?:boolean;
-            password?:string;
-            db?:string;
-        }
-
 
         interface CacheStorage {
             isCached():Promise<boolean>;
@@ -77,9 +88,8 @@ declare module 'simple-url-cache' {
 
     }
 
-
-    export class FileStorage extends SimpleUrlCache.CacheCategory implements SimpleUrlCache.CacheStorage {
-        constructor(_url:string, _storageConfig: SimpleUrlCache.FileStorageConfig, _regexRules: SimpleUrlCache.CacheRules);
+    export class FileStorage extends privateN.CacheCategory implements privateN.CacheStorage {
+        constructor(_url:string, _storageConfig: FileStorageConfig, _regexRules: CacheRules);
 
         isCached():Promise<boolean>;
         removeUrl():Promise<boolean>;
@@ -90,8 +100,8 @@ declare module 'simple-url-cache' {
         destroy(): void;
     }
 
-    export class RedisStorage extends SimpleUrlCache.CacheCategory implements SimpleUrlCache.CacheStorage {
-        constructor(_url:string, _storageConfig: SimpleUrlCache.RedisStorageConfig, _regexRules: SimpleUrlCache.CacheRules);
+    export class RedisStorage extends privateN.CacheCategory implements privateN.CacheStorage {
+        constructor(_url:string, _storageConfig: RedisStorageConfig, _regexRules: CacheRules);
 
         isCached():Promise<boolean>;
         removeUrl():Promise<boolean>;
@@ -100,13 +110,4 @@ declare module 'simple-url-cache' {
         cache(html:string, force:boolean):Promise<boolean>;
         destroy(): void;
     }
-
-    export class CacheEngine {
-        constructor(storageConfig: SimpleUrlCache.FileStorageConfig, cacheRules: SimpleUrlCache.CacheRules);
-        constructor(storageConfig: SimpleUrlCache.RedisStorageConfig, cacheRules: SimpleUrlCache.CacheRules);
-        url(url: string): FileStorage;
-        url(url: string): RedisStorage;
-    }
-
-
 }
