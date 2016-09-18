@@ -409,6 +409,7 @@ declare namespace Redux {
     ): (a1: T1, a2: T2, a3: T3, ...args: any[]) => R;
 
     /* four functions */
+    export function compose<A, B, C, R>(
         f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: () => R
     ): () => R;
     function compose<A, B, C, T1, R>(
