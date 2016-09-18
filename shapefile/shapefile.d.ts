@@ -3,18 +3,27 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../geojson/geojson.d.ts"/>
+/// <reference path="../es6-promise/es6-promise.d.ts"/>
 
 declare const shapefile: shapefile.ShapefileStatic;
 
 declare namespace shapefile {
+    interface Options {
+        encoding: string
+        highWaterMark: number
+    }
+    interface Feature {
+        done: boolean
+        value: GeoJSON.Feature<any>
+    }
     interface Shapefile {
-        _shp: any
-        _dbf: any
         bbox: Array<number>
+        read(): Promise<Feature>;
     }
     interface ShapefileStatic {
-        open(shp: any, dbf?:any, options?:any): Promise<Shapefile>;
-        read(shp: any, dbf?:any, options?:any): Promise<GeoJSON.FeatureCollection<any>>;
+        open(shp: any, dbf?: any, options?: Options): Promise<Shapefile>;
+        read(shp: any, dbf?: any, options?: Options): Promise<GeoJSON.FeatureCollection<any>>;
     }
 }
 
