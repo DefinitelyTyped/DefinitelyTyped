@@ -128,7 +128,7 @@ declare module "shelljs"
      * @param {string} dest   The destination.
      */
     export function mv(source: string, dest: string): void;
-    
+
     /**
      * Moves files. The wildcard * is accepted.
      * @param {string[]} source The source.
@@ -436,7 +436,7 @@ declare module "shelljs"
      * Object containing environment variables (both getter and setter). Shortcut to process.env.
      */
     export var env: { [key: string]: string };
-    
+
     /**
      * Executes the given command synchronously.
      * @param  {string}                 command The command to execute.
@@ -510,6 +510,18 @@ declare module "shelljs"
      * @return {string} Returns null if no error occurred, otherwise returns string explaining the error
      */
     export function error(): string;
+
+
+    export function touch(...files: string[]): void;
+    export function touch(files: string[]): void;
+
+    export function touch(options: string, ...files: string[]): void;
+    export function touch(options: string, files: string[]): void;
+    
+    export function touch(options: Object, ...files: string[]): void;
+    export function touch(options: Object, files: string[]): void;
+
+
 
     // Configuration
 
