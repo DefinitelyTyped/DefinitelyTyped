@@ -23,3 +23,9 @@ string = token.value;
 
 // Comment
 string = comment.value;
+
+// Type narrowing
+var node: ESTree.Node;
+if(node.type === esprima.Syntax.IfStatement){
+    node.consequent = node;
+}
