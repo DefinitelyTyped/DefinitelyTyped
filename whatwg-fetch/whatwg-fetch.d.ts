@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../whatwg-streams/whatwg-streams.d.ts" />
 /// <reference path="../es6-shim/es6-shim.d.ts" />
-/// <reference path="../es6-shim/es6-shim.d.ts" />
 
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
@@ -26,7 +25,7 @@ declare class Headers {
     forEach(callback: (value: string, index: number, headers: Headers) => void, thisArg?: any): void;
     keys(): IterableIteratorShim<string>;
     values(): IterableIteratorShim<string>;
-    [Symbol.iterator](): IterableIteratorShim<[string, string]>;
+    // [Symbol.iterator](): IterableIteratorShim<[string, string]>; // commenting this out since we are not going to use this and it also eliminates the need for installing another dependency for symbol definitions
 }
 
 declare type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;

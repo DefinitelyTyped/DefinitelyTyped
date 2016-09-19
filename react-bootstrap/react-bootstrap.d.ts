@@ -459,6 +459,7 @@ declare namespace ReactBootstrap {
         stacked?: boolean;
         ulClassName?: string;
         ulId?: string;
+		onSelect?: (e: Object) => void;
     }
     class Nav extends React.Component<NavProps, {}> {
     }
