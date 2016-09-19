@@ -32,7 +32,7 @@ declare namespace BMap {
         transparentPng?: boolean
         tileUrlTemplate?: string
         copyright?: Copyright
-        zIndex: number
+        zIndex?: number
     }
     class TrafficLayer extends TileLayer {
         constructor(opts?: TrafficLayerOptions)
@@ -75,7 +75,7 @@ declare namespace BMap {
         q?: string
         tags?: string
         filter?: string
-        pointDensityType: PointDensityType
+        pointDensityType?: PointDensityType
     }
     type PointDensityType = number
 }

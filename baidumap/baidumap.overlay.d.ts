@@ -122,7 +122,7 @@ declare namespace BMap {
         draggingCursor?: string
         rotation?: number
         shadow?: Icon
-        title: string
+        title?: string
     }
     class InfoWindow implements Overlay {
         constructor(content: string | HTMLElement, opts?: InfoWindowOptions)

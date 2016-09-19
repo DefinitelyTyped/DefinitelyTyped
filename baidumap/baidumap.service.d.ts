@@ -137,7 +137,7 @@ declare namespace BMap {
     }
     interface RenderOptions {
         map: Map
-        panel: string | HTMLElement
+        panel?: string | HTMLElement
         selectFirstResult?: boolean
         autoViewport?: boolean
         highlightMode?: HighlightModes
@@ -196,7 +196,7 @@ declare namespace BMap {
     }
     interface LocalResultPoi {
         title: string
-        point: string
+        point: Point
         url: string
         address: string
         city: string
@@ -229,7 +229,7 @@ declare namespace BMap {
         totalFare: number
     }
     interface LocalCityOptions {
-        renderOptions: RenderOptions
+        renderOptions?: RenderOptions
     }
     class Autocomplete {
         constructor(opts?: AutocompleteOptions)
@@ -376,8 +376,8 @@ declare namespace BMap {
         toString(): string
     }
     interface PositionOptions {
-        enableHighAccuracy: boolean
-        timeout: number
+        enableHighAccuracy?: boolean
+        timeout?: number
         maximumAge?: number
     }
     interface Line {

@@ -101,8 +101,8 @@ declare namespace BMap {
         onremove: (event: { type: string, target: any }) => void
     }
     interface PanoramaLabelOptions {
-        position: Point
-        altitude: number
+        position?: Point
+        altitude?: number
     }
     interface AlbumsControlOptions {
         anchor?: ControlAnchor
