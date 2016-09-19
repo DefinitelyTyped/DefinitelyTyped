@@ -177,7 +177,8 @@ declare namespace angular.material {
         showSimple(content: string): angular.IPromise<any>;
         simple(): ISimpleToastPreset;
         build(): IToastPreset<any>;
-        updateContent(): void;
+        updateContent(newContent: string): void;
+        updateTextContent(newContent: string): void
         hide(response?: any): void;
         cancel(response?: any): void;
     }

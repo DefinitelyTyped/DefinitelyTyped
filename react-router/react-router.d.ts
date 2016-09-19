@@ -39,10 +39,10 @@ declare namespace ReactRouter {
     type RouteComponent = Component
 
     // use the following interface in an app code to get access to route param values, history, location...
-    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: number }> {}
+    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: string }> {}
     // somewhere in MyComponent
     // ...
-    //   let id = this.props.routeParams.id
+    //   let id = parseInt(this.props.routeParams.id, 10);
     // ...
     //   this.props.history. ...
     // ...
@@ -247,7 +247,7 @@ declare namespace ReactRouter {
       isActive: (pathOrLoc: H.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 
-    function withRouter<C extends React.ComponentClass<any>>(component: C): C
+    function withRouter<C extends React.ComponentClass<any> | React.StatelessComponent<any> | React.PureComponent<any, any>>(component: C): C
 
     /* utils */
 
