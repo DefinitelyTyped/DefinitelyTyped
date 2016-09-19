@@ -1,4 +1,4 @@
-// Type definitions for node-vitalsigns 0.4.3
+// Type definitions for vitalsigns 0.4.3
 // Project: https://github.com/TomFrost/node-vitalsigns
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,7 +11,7 @@ declare module "vitalsigns" {
          */
         export interface Constraint {
             /**
-             * The comparator to use when comparing the field's value with the constraint value. 
+             * The comparator to use when comparing the field's value with the constraint value.
              * Valid comparators are: 'equal', 'greater', and 'less'.
              * @type {string}
              */

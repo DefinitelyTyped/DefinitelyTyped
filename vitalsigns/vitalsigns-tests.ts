@@ -1,4 +1,4 @@
-/// <reference path="node-vitalsigns.d.ts"/>
+/// <reference path="vitalsigns.d.ts"/>
 
 import * as VitalSigns from "vitalsigns";
 
