@@ -1,4 +1,5 @@
 /// <reference path="jest.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 // Tests based on the Jest website
 jest.unmock('../sum');
