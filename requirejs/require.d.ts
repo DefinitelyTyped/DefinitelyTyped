@@ -206,7 +206,7 @@ interface RequireConfig {
 	* 	}
 	* });
 	**/
-	urlArgs?: string | { (id: string, url: string): string; };
+	urlArgs?: string | ((id: string, url: string) => string); 
 
 	/**
 	* Specify the value for the type="" attribute used for script
