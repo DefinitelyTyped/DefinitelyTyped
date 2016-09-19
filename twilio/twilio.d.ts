@@ -446,7 +446,8 @@ declare namespace twilio {
   // For interop with node middleware chains
   export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
 
-  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
+  export function webhook(authToken: string, options?: webhookOptions): MiddlewareFunction;
+  export function webhook(options?: webhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
   export function validateExpressRequest(request: express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
