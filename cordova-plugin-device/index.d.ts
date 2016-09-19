@@ -13,6 +13,8 @@
 interface Device {
     /** Get the version of Cordova running on the device. */
     cordova: string;
+    /** Indicates that Cordova initialize successfully. */
+    available: boolean;
     /**
      * The device.model returns the name of the device's model or product. The value is set
      * by the device manufacturer and may be different across versions of the same product.
