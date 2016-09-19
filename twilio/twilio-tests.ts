@@ -228,5 +228,5 @@ twilio.validateRequest(token, str, 'http://example.herokuapp.com', { query: 'val
 twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN');
 twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN', {});
 twilio.webhook({ validate: false });
-
+twilio.webhook("MYAUTHTOKEN", { validate: false });
 
