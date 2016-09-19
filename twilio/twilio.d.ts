@@ -449,7 +449,7 @@ declare module twilio {
   export function webhook(options?: string | webhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
-  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+  export function validateExpressRequest(request: express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
   export interface OutgoingCallerIdInstance extends InstanceResource {
