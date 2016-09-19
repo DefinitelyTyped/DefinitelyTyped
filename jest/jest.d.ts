@@ -1,4 +1,4 @@
-// Type definitions for Jest 0.9.0
+// Type definitions for Jest 15.0.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,10 +53,12 @@ declare namespace jest {
         toBeDefined(): boolean;
         toBeUndefined(): boolean;
         toMatch(expected: RegExp): boolean;
-        toContain(expected: string): boolean;
+        toContain(expected: any): boolean;
         toBeCloseTo(expected: number, delta: number): boolean;
         toBeGreaterThan(expected: number): boolean;
+        toBeGreaterThanOrEqual(expected: number): boolean;
         toBeLessThan(expected: number): boolean;
+        toBeLessThanOrEqual(expected: number): boolean;
         toBeCalled(): boolean;
         toBeCalledWith(...args: any[]): boolean;
         lastCalledWith(...args: any[]): boolean;
