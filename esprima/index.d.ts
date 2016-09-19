@@ -21,10 +21,6 @@ declare namespace esprima {
         value: string;
     }
 
-    interface Comment extends ESTree.BaseNode {
-        value: string;
-    }
-
     interface Options {
         loc?: boolean;
         range?: boolean;

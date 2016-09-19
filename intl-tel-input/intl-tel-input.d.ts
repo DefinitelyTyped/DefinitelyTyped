@@ -8,7 +8,7 @@
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery/jquery.d.ts#L958
 //     fn: any;  //TODO: Decide how we want to type this
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 declare namespace IntlTelInput {
 
