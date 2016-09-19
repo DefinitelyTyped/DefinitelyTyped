@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference path="../nodemailer/nodemailer.d.ts" />
 
 declare module "nodemailer-smtp-pool" {
 	import tls = require("tls");

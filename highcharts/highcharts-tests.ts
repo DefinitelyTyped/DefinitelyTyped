@@ -2258,6 +2258,7 @@ function test_PointObject() {
     var point = <HighchartsPointObject>$('#container').highcharts().get('point1');
     var category = point.category;
     var percentage = point.percentage;
+    point.index;
     point.remove();
     point.remove(false);
     point.remove(false, {duration: 50});

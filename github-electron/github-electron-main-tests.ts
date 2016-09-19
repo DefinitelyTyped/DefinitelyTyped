@@ -20,7 +20,7 @@ import {
 	shell,
 	session,
 	systemPreferences,
-	hideInternalModules
+	webContents
 } from 'electron';
 
 import * as path from 'path';
@@ -96,6 +96,7 @@ app.on('ready', () => {
 	mainWindow.webContents.executeJavaScript('return true;', true);
 	mainWindow.webContents.executeJavaScript('return true;', true, (result: boolean) => console.log(result));
 	mainWindow.webContents.insertText('blah, blah, blah');
+	mainWindow.webContents.startDrag({file: '/path/to/img.png', icon: nativeImage.createFromPath('/path/to/icon.png')});
 	mainWindow.webContents.findInPage('blah');
 	mainWindow.webContents.findInPage('blah', {
 		forward: true,
@@ -133,6 +134,12 @@ app.on('ready', () => {
 	});
 
 	mainWindow.webContents.debugger.sendCommand("Network.enable");
+	mainWindow.webContents.capturePage(image => {
+		console.log(image.toDataURL());
+	});
+	mainWindow.webContents.capturePage({x: 0, y: 0, width: 100, height: 200}, image => {
+		console.log(image.toPNG());
+	});
 });
 
 app.commandLine.appendSwitch('enable-web-bluetooth');
@@ -220,6 +227,7 @@ app.dock.setBadge('foo');
 var id = app.dock.bounce('informational');
 app.dock.cancelBounce(id);
 app.dock.setIcon('/path/to/icon.png');
+app.dock.setBadgeCount(app.dock.getBadgeCount() + 1);
 
 app.setUserTasks([
 	<Electron.Task>{
@@ -232,6 +240,69 @@ app.setUserTasks([
 	}
 ]);
 app.setUserTasks([]);
+
+app.setJumpList([
+	{
+		type: 'custom',
+		name: 'Recent Projects',
+		items: [
+			{ type: 'file', path: 'C:\\Projects\\project1.proj' },
+			{ type: 'file', path: 'C:\\Projects\\project2.proj' }
+		]
+	},
+	{ // has a name so type is assumed to be "custom"
+		name: 'Tools',
+		items: [
+		{
+			type: 'task',
+			title: 'Tool A',
+			program: process.execPath,
+			args: '--run-tool-a',
+			iconPath: process.execPath,
+			iconIndex: 0,
+			description: 'Runs Tool A'
+		},
+		{
+			type: 'task',
+			title: 'Tool B',
+			program: process.execPath,
+			args: '--run-tool-b',
+			iconPath: process.execPath,
+			iconIndex: 0,
+			description: 'Runs Tool B'
+		}]
+	},
+	{
+		type: 'frequent'
+	},
+	{ // has no name and no type so type is assumed to be "tasks"
+		items: [
+		{
+			type: 'task',
+			title: 'New Project',
+			program: process.execPath,
+			args: '--new-project',
+			description: 'Create a new project.'
+		},
+		{
+			type: 'separator'
+		},
+		{
+			type: 'task',
+			title: 'Recover Project',
+			program: process.execPath,
+			args: '--recover-project',
+			description: 'Recover Project'
+		}]
+	}
+]);
+
+if (app.isUnityRunning()) {
+}
+if (app.isAccessibilitySupportEnabled()) {
+}
+app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
+console.log(app.getLoginItemSettings().wasOpenedAtLogin);
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -247,6 +318,7 @@ app.on('ready', () => {
 	onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
 	onlineStatusWindow.loadURL(`file://${__dirname}/online-status.html`);
 });
+app.on('accessibility-support-changed', (_, enabled) => console.log('accessibility: ' + enabled));
 
 ipcMain.on('online-status-changed', (event: any, status: any) => {
 	console.log(status);
@@ -269,7 +341,6 @@ app.on('ready', () => {
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1');
-app.commandLine.appendSwitch('v', -1);
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 // systemPreferences
@@ -429,6 +500,14 @@ ipcMain.on('synchronous-message', (event: Electron.IpcMainEvent, arg: any) => {
 	event.returnValue = 'pong';
 });
 
+var winWindows = new BrowserWindow({
+	width: 800,
+	height: 600,
+	show: false,
+	thickFrame: false,
+	type: 'toolbar',
+});
+
 // menu-item
 // https://github.com/atom/electron/blob/master/docs/api/menu-item.md
 
@@ -553,6 +632,42 @@ var template = <Electron.MenuItemOptions[]>[
 				click: (item, focusedWindow) => {
 					if (focusedWindow) {
 						focusedWindow.webContents.toggleDevTools();
+					}
+				}
+			},
+			{
+				type: 'separator'
+			},
+			{
+				label: 'Actual Size',
+				accelerator: 'CmdOrCtrl+0',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						focusedWindow.webContents.setZoomLevel(0)
+					}
+				}
+			},
+			{
+				label: 'Zoom In',
+				accelerator: 'CmdOrCtrl+Plus',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel + 0.5)
+						});
+					}
+				}
+			},
+			{
+				label: 'Zoom Out',
+				accelerator: 'CmdOrCtrl+-',
+				click: (item, focusedWindow) => {
+					if (focusedWindow) {
+						const { webContents } = focusedWindow;
+						webContents.getZoomLevel((zoomLevel) => {
+							webContents.setZoomLevel(zoomLevel - 0.5)
+						});
 					}
 				}
 			}
@@ -700,8 +815,11 @@ app.on('ready', () => {
 
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
+clipboard.writeBookmark('foo', 'http://example.com');
+clipboard.writeBookmark('foo', 'http://example.com', 'selection');
 console.log(clipboard.readText('selection'));
 console.log(clipboard.availableFormats());
+console.log(clipboard.readBookmark().title);
 clipboard.clear();
 
 clipboard.write({
@@ -740,6 +858,8 @@ let image2 = nativeImage.createFromPath('/Users/somebody/images/icon.png');
 // process
 // https://github.com/electron/electron/blob/master/docs/api/process.md
 
+console.log(process.versions.electron);
+console.log(process.versions.chrome);
 console.log(process.type);
 console.log(process.resourcesPath);
 console.log(process.mas);
@@ -800,6 +920,8 @@ shell.openExternal('https://github.com', {
 
 shell.beep();
 
+shell.writeShortcutLink('/home/user/Desktop/shortcut.lnk', 'update', shell.readShortcutLink('/home/user/Desktop/shortcut.lnk'));
+
 // session
 // https://github.com/atom/electron/blob/master/docs/api/session.md
 
@@ -833,6 +955,7 @@ session.defaultSession.cookies.set(cookie, (error) => {
 session.defaultSession.on('will-download', (event, item, webContents) => {
 	// Set the save path, making Electron not to prompt a save dialog.
 	item.setSavePath('/tmp/save.pdf');
+	console.log(item.getSavePath());
 	console.log(item.getMimeType());
 	console.log(item.getFilename());
 	console.log(item.getTotalBytes());
@@ -913,3 +1036,21 @@ app.on('ready', function () {
 		}
 	})
 });
+
+// webContents
+// https://github.com/electron/electron/blob/master/docs/api/web-contents.md
+
+console.log(webContents.getAllWebContents());
+console.log(webContents.getFocusedWebContents());
+
+var win = new BrowserWindow({
+	webPreferences: {
+		offscreen: true
+	}
+});
+
+win.webContents.on('paint', (event, dirty, image) => {
+	console.log(dirty, image.getBitmap());
+});
+
+win.loadURL('http://github.com');

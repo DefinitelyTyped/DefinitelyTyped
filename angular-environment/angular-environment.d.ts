@@ -14,6 +14,11 @@ declare namespace angular.environment {
      * loads the correct environment variables.
      */
     check: () => void;
+    /**
+     * Retrieves the correct version of a
+     * variable for the current environment.
+     */
+    read: (key: string) => any;    
   }
   interface Service {
     /**

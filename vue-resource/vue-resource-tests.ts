@@ -29,6 +29,9 @@ class App extends Vue {
             response.headers('expires');
 
             this.$set('someData', response.data);
+            this.$set('someJsonData', response.json());
+            this.$set('someTextData', response.text());
+            this.$set('someBlobData', response.blob());
         });
 
         var resource = this.$resource('someItem/{id}');

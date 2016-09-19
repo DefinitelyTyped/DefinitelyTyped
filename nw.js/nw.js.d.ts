@@ -13,7 +13,7 @@ declare module NWJS_Helpers {
     /**
      * Node.js v6.x EventEmitter Class
      */
-    class EventEmitter implements NodeJS.EventEmitter {
+    class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
 
         static listenerCount( emitter: EventEmitter, event: string ): number; // deprecated

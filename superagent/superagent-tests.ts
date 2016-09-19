@@ -5,6 +5,7 @@
 
 import * as request from 'superagent';
 import * as fs from 'fs';
+import * as assert from 'assert';
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
@@ -193,6 +194,24 @@ request('/search')
     var charset: string = res.charset;
   });
 
+// Custom parsers
+request
+  .post('/search')
+  .parse((res, callback) => {
+    res.setEncoding("binary");
+    let data = "";
+    res.on("data", (chunk: string) => {
+      data += chunk;
+    });
+
+    res.on("end", () => {
+      callback(null, new Buffer(data, "base64"));
+    });
+  })
+  .end((res: request.Response) => {
+    res.body.toString("hex");
+  });
+
 var req = request.get('/hoge');
 // Aborting requests
 req.abort();
@@ -279,3 +298,19 @@ request
   .attach('image', 'path/to/tobi.png')
   .on('error', (err: any) => {})
   .end(callback);
+
+//Promise
+request
+  .get('/search')
+  .then((response) => {})
+  .catch((error) => {});
+
+// Requesting binary data.
+// adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
+request
+  .get('/blob')
+  .responseType('blob')
+  .end(function (err, res) {
+    assert(res.xhr instanceof XMLHttpRequest)
+    assert(res.xhr.response instanceof Blob);
+  });

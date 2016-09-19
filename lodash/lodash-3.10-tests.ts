@@ -7700,8 +7700,13 @@ namespace TestRound {
 // _.sum
 namespace TestSum {
     let array: number[];
+    let objectArray: { 'age': number }[];
+
     let list: _.List<number>;
+    let objectList: _.List<{ 'age': number }>;
+
     let dictionary: _.Dictionary<number>;
+    let objectDictionary: _.Dictionary<{ 'age': number }>;
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => number;
     let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
@@ -7713,36 +7718,36 @@ namespace TestSum {
         result = _.sum<number>(array);
         result = _.sum<number>(array, listIterator);
         result = _.sum<number>(array, listIterator, any);
-        result = _.sum<number>(array, '');
+        result = _.sum(objectArray, 'age');
 
 
         result = _.sum(list);
         result = _.sum<number>(list);
         result = _.sum<number>(list, listIterator);
         result = _.sum<number>(list, listIterator, any);
-        result = _.sum<number>(list, '');
+        result = _.sum(objectList, 'age');
 
         result = _.sum(dictionary);
         result = _.sum<number>(dictionary);
         result = _.sum<number>(dictionary, dictionaryIterator);
         result = _.sum<number>(dictionary, dictionaryIterator, any);
-        result = _.sum<number>(dictionary, '');
+        result = _.sum(objectDictionary, 'age');
 
         result = _(array).sum();
         result = _(array).sum(listIterator);
         result = _(array).sum(listIterator, any);
-        result = _(array).sum('');
+        result = _(objectArray).sum('age');
 
 
         result = _(list).sum();
         result = _(list).sum<number>(listIterator);
         result = _(list).sum<number>(listIterator, any);
-        result = _(list).sum('');
+        result = _(objectList).sum('age');
 
         result = _(dictionary).sum();
         result = _(dictionary).sum<number>(dictionaryIterator);
         result = _(dictionary).sum<number>(dictionaryIterator, any);
-        result = _(dictionary).sum('');
+        result = _(objectDictionary).sum('age');
     }
 
     {
@@ -7751,18 +7756,18 @@ namespace TestSum {
         result = _(array).chain().sum();
         result = _(array).chain().sum(listIterator);
         result = _(array).chain().sum(listIterator, any);
-        result = _(array).chain().sum('');
+        result = _(objectArray).chain().sum('');
 
 
         result = _(list).chain().sum();
         result = _(list).chain().sum<number>(listIterator);
         result = _(list).chain().sum<number>(listIterator, any);
-        result = _(list).chain().sum('');
+        result = _(objectList).chain().sum('age');
 
         result = _(dictionary).chain().sum();
         result = _(dictionary).chain().sum<number>(dictionaryIterator);
         result = _(dictionary).chain().sum<number>(dictionaryIterator, any);
-        result = _(dictionary).chain().sum('');
+        result = _(objectDictionary).chain().sum('age');
     }
 }
 
@@ -9650,6 +9655,25 @@ namespace TestSnakeCase {
         let result: _.LoDashExplicitWrapper<string>;
 
         result = _('Foo Bar').chain().snakeCase();
+    }
+}
+
+// _.split
+namespace TestSplit {
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('a-b-c').split();
+        result = _('a-b-c').split('-');
+        result = _('a-b-c').split('-', 2);
+    }
+
+    {
+        let result: _.LoDashImplicitArrayWrapper<string>;
+
+        result = _('a-b-c').chain().split();
+        result = _('a-b-c').chain().split('-');
+        result = _('a-b-c').chain().split('-', 2);
     }
 }
 

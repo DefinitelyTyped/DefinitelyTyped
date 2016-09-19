@@ -112,6 +112,8 @@ import {cyan500, cyan700,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 
+import {SMALL, MEDIUM, LARGE, default as withWidth} from 'material-ui/utils/withWidth';
+
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -680,7 +682,7 @@ const FlatButtonExampleComplex = () => (
     </FlatButton>
 
     <FlatButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       style={styles.button}
@@ -741,7 +743,7 @@ const RaisedButtonExampleComplex = () => (
       <input type="file" style={styles.exampleImageInput} />
     </RaisedButton>
     <RaisedButton
-      label="Label before"
+      label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       icon={<ActionAndroid />}
@@ -4925,6 +4927,8 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
     );
   }
 }
+
+const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
 
 interface MaterialUiTestsState {
