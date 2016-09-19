@@ -3,8 +3,6 @@
 // Definitions by: Timur Rustamov <https://github.com/timurrustamov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
-
 declare module "react-fontawesome" {
 
   //Import react

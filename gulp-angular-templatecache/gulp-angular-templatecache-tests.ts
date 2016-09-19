@@ -1,6 +1,3 @@
-/// <reference path="../gulp/gulp.d.ts"/>
-/// <reference path="../gulp-angular-templatecache/gulp-angular-templatecache.d.ts"/>
-
 import * as gulp from 'gulp';
 import * as templateCache from 'gulp-angular-templatecache';
 

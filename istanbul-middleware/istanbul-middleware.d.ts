@@ -3,7 +3,7 @@
 // Definitions by: Hookclaw <https://github.com/hookclaw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+/// <reference types="express" />
 
 declare module "istanbul-middleware" {
     import * as express from "express";

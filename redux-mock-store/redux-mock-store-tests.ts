@@ -1,5 +1,4 @@
-/// <reference path="./redux-mock-store.d.ts" />
-
+import * as Redux from 'redux';
 import configureStore, {IStore} from 'redux-mock-store';
 
 // Redux store API tests

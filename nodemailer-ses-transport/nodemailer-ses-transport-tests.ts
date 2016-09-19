@@ -1,7 +1,5 @@
-/// <reference path="../aws-sdk/aws-sdk.d.ts" />
-/// <reference path="nodemailer-ses-transport.d.ts" />
-
 import * as AWS from 'aws-sdk';
+import * as nodemailer from "nodemailer";
 import * as sesTransport from 'nodemailer-ses-transport';
 
 var opts: sesTransport.SesOptions = {

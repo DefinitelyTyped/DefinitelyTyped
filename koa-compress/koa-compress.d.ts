@@ -12,8 +12,8 @@
     app.use(compress());
 
  =============================================== */
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../koa/koa.d.ts" />
+/// <reference types="node" />
+/// <reference types="koa" />
 
 declare module "koa-compress" {
 
@@ -31,7 +31,7 @@ declare module "koa-compress" {
          */
         threshold?: number
     }
-    
+
     /**
      * Compress middleware for Koa
      */

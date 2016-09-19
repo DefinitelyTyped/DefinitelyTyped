@@ -3,11 +3,9 @@
 // Definitions by: Nicolas Schmitt <https://github.com/nicolas-schmitt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 declare namespace ReactAutosuggest {
-  import React = __React;
-
   interface SuggestionUpdateRequest {
     value: string;
     reason: string;
@@ -18,9 +16,9 @@ declare namespace ReactAutosuggest {
     valueBeforeUpDown?: string;
   }
 
-  interface InputProps extends React.HTMLAttributes {
+  interface InputProps extends React.HTMLAttributes<any> {
     value: string;
-    onChange: (event: React.FormEvent, params?: {newValue: string, method: string}) => void;
+    onChange: (event: React.FormEvent<any>, params?: {newValue: string, method: string}) => void;
   }
 
   interface ExplicitSuggestionSelectedEventData<TSuggestion> {
@@ -55,7 +53,7 @@ declare namespace ReactAutosuggest {
     multiSection?: boolean;
     renderSectionTitle?: (section: any, inputValues: InputValues) => JSX.Element;
     getSectionSuggestions?: (section: any) => any[];
-    onSuggestionSelected?: (event: React.FormEvent, data: SuggestionSelectedEventData | ExplicitSuggestionSelectedEventData<any>) => void;
+    onSuggestionSelected?: (event: React.FormEvent<any>, data: SuggestionSelectedEventData | ExplicitSuggestionSelectedEventData<any>) => void;
     focusInputOnSuggestionClick?: boolean;
     theme?: Theme;
     id?: string;
