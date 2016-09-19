@@ -5,6 +5,7 @@
 
 /// <reference types="node" />
 /// <reference types="orchestrator" />
+/// <reference types="vinyl" />
 
 
 import Orchestrator = require("orchestrator");
