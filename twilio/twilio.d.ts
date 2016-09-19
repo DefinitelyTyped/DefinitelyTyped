@@ -7,7 +7,7 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-import * as express from 'express';
+import * as Express from 'express';
 import * as Http from 'http';
 
 import q = require('q');
@@ -444,13 +444,13 @@ declare namespace twilio {
   }
 
   // For interop with node middleware chains
-  export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
+  export interface MiddlewareFunction { (request: Http.ServerRequest, response: Http.ServerResponse, next: Express.NextFunction): void; }
 
   export function webhook(authToken: string, options?: webhookOptions): MiddlewareFunction;
   export function webhook(options?: webhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
-  export function validateExpressRequest(request: express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
+  export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
 
   /// resources/Accounts.js
   export interface OutgoingCallerIdInstance extends InstanceResource {
