@@ -380,8 +380,9 @@ declare namespace twilio {
   }
 
   export interface TwimlMethod {
-    (arg1: TwimlCallback | string, arg2?: any): Node
-    (arg1: any, arg2?: TwimlCallback | string): Node
+    (): Node;
+    (arg1: TwimlCallback | string, arg2?: any): Node;
+    (arg1: any, arg2?: TwimlCallback | string): Node;
   }
 
   export interface TwimlCallback { (node: Node): void; }

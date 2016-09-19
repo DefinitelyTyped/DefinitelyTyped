@@ -212,6 +212,8 @@ resp.say('Your conference call is starting.',
         });
     });
 
+resp.hangup();
+
 /// Capabilities
 var capability = new twilio.Capability(str, str);
 capability.allowClientIncoming('jenny');
