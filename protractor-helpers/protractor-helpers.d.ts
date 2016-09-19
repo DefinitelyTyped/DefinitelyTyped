@@ -108,4 +108,3 @@ declare module "protractor-helpers" {
   function getFilteredConsoleErrors() : webdriver.promise.IThenable<string[]>; // TODO - discuss handling in IE
 
 }
-
