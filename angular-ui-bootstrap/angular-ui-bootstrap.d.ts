@@ -329,13 +329,7 @@ declare namespace angular.ui.bootstrap {
          * @default false
          */
         bindToController?: boolean;
-		
-        /**
-        * A string reference to the component to be rendered that is registered with Angular's compiler.
-        * If using a directive, the directive must have restrict: 'E' and a template or templateUrl set.
-        */
-        component?: string;
-
+	
         /**
          * members that will be resolved and passed to the controller as locals; it is equivalent of the `resolve` property for AngularJS routes
          * If property value is an array, it must be in Inline Array Annotation format for injection (strings followed by factory method)
