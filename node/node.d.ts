@@ -257,6 +257,13 @@ declare namespace NodeJS {
         eventNames(): string[];
     }
 
+    interface EventEmitter_Static {
+        new() : EventEmitter;
+        EventEmitter: EventEmitter_Static;
+        listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        defaultMaxListeners: number;
+     } 
+
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
@@ -547,25 +554,11 @@ declare module "querystring" {
 }
 
 declare module "events" {
-    export class EventEmitter extends NodeJS.EventEmitter {
-        static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
-        static defaultMaxListeners: number;
-
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        eventNames(): string[];
-        listenerCount(type: string): number;
+       namespace EventEmitter {
+        type  EventEmitter= NodeJS.EventEmitter;
     }
+    const EventEmitter: NodeJS.EventEmitter_Static;
+    export = EventEmitter;
 }
 
 declare module "http" {
