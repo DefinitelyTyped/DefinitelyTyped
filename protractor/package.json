@@ -1,0 +1,10 @@
+{
+  "name": "protractor",
+  "version": "1.0.0",
+  "description": "protractor",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/selenium-webdriver": "~2.44.28"
+  }
+}
