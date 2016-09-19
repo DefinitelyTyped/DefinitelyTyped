@@ -9,6 +9,9 @@ device.busNumber = 1;
 device.deviceAddress = 1;
 device.portNumbers = [1, 2, 3];
 
+device.__open();
+device.__claimInterface(0);
+
 device.open(true);
 device.close();
 const xferDevice: usb.Device = device.controlTransfer(1, 1, 1, 1, 1, (error: string, buf: Buffer): usb.Device => new usb.Device());

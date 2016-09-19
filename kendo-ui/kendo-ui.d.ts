@@ -89,40 +89,10 @@ declare namespace kendo {
         };
     };
 
-    var cultures: {[culture: string] : {
-        name?: string;
-        calendar?: {
-            AM: string[];
-            PM: string[];
-            days: {
-                names: string[];
-                namesAbbr: string[];
-                namesShort: string[];
-                firstDay: number;
-            };
-            months: {
-                names: string[];
-                namesAbbr: string[];
-            };
-            patterns: {
-                D: string;
-                F: string;
-                G: string;
-                M: string;
-                T: string;
-                Y: string;
-                d: string;
-                g: string;
-                m: string;
-                s: string;
-                t: string;
-                u: string;
-                y: string;
-            };
-            twoDigitYearMax: number;
-        };
-        calendars?: {
-            standard: {
+    var cultures: {
+        [culture: string]: {
+            name?: string;
+            calendar?: {
                 AM: string[];
                 PM: string[];
                 days: {
@@ -152,25 +122,57 @@ declare namespace kendo {
                 };
                 twoDigitYearMax: number;
             };
-        };
-        numberFormat?: {
-            currency: {
+            calendars?: {
+                standard: {
+                    AM: string[];
+                    PM: string[];
+                    days: {
+                        names: string[];
+                        namesAbbr: string[];
+                        namesShort: string[];
+                        firstDay: number;
+                    };
+                    months: {
+                        names: string[];
+                        namesAbbr: string[];
+                    };
+                    patterns: {
+                        D: string;
+                        F: string;
+                        G: string;
+                        M: string;
+                        T: string;
+                        Y: string;
+                        d: string;
+                        g: string;
+                        m: string;
+                        s: string;
+                        t: string;
+                        u: string;
+                        y: string;
+                    };
+                    twoDigitYearMax: number;
+                };
+            };
+            numberFormat?: {
+                currency: {
+                    decimals: number;
+                    groupSize: number[];
+                    pattern: string[];
+                    symbol: string;
+                };
                 decimals: number;
                 groupSize: number[];
                 pattern: string[];
-                symbol: string;
+                percent: {
+                    decimals: number;
+                    groupSize: number[];
+                    pattern: string[];
+                    symbol: string;
+                };
             };
-            decimals: number;
-            groupSize: number[];
-            pattern: string[];
-            percent: {
-                decimals: number;
-                groupSize: number[];
-                pattern: string[];
-                symbol: string;
-            };
-        };
-    }};
+        }
+    };
 
     function format(format: string, ...values: any[]): string;
 
@@ -488,8 +490,8 @@ declare namespace kendo.data {
         change(e: Object): void;
         start(source: kendo.Observable): void;
         stop(source: kendo.Observable): void;
-        get (): any;
-        set (value: any): void;
+        get(): any;
+        set(value: any): void;
         destroy(): void;
     }
 
@@ -500,7 +502,7 @@ declare namespace kendo.data {
     }
 
     class EventBinding extends Binding {
-        get (): void;
+        get(): void;
     }
 
     class TemplateBinding extends Binding {
@@ -531,7 +533,7 @@ declare namespace kendo.data {
     interface BinderOptions {
     }
 
-    class ObservableObject extends Observable{
+    class ObservableObject extends Observable {
         constructor(value?: any);
         uid: string;
         init(value?: any): void;
@@ -571,6 +573,7 @@ declare namespace kendo.data {
         isAllDay?: boolean;
         id?: any;
         start?: Date;
+        taskId?: number;
         startTimezone?: string;
         recurrenceId?: any;
         recurrenceRule?: string;
@@ -583,7 +586,7 @@ declare namespace kendo.data {
         static fields: DataSourceSchemaModelFields;
 
         constructor(data?: SchedulerEventData);
-
+        taskId: number;
         description: string;
         end: Date;
         endTimezone: string;
@@ -2653,7 +2656,7 @@ declare namespace kendo.ui {
         separator?: string;
         suggest?: boolean;
         headerTemplate?: string|Function;
-        template?: string|Function;
+        template?: string | Function;
         valuePrimitive?: boolean;
         virtual?: boolean|AutoCompleteVirtual;
         change?(e: AutoCompleteChangeEvent): void;
@@ -4411,6 +4414,7 @@ declare namespace kendo.ui {
         name?: string;
         text?: GridColumnCommandItemText;
         className?: string;
+        template?: string;
         imageClass?: string;
         click?: Function;
     }
@@ -4470,6 +4474,7 @@ declare namespace kendo.ui {
         width?: string|number;
         values?: any;
         menu?: boolean;
+        type?: any;
     }
 
     interface GridEditable {
@@ -5889,6 +5894,7 @@ declare namespace kendo.ui {
         destroy(): void;
         enable(enable: boolean): void;
         value(): any;
+        values(): any;
         value(selectionStart: number, selectionEnd: number): void;
         resize(): void;
 
@@ -8833,6 +8839,7 @@ declare namespace kendo.dataviz.ui {
         type?: string;
         visible?: boolean;
         weekStartDay?: number;
+        axisCrossingValues?: number[];
         notes?: ChartCategoryAxisItemNotes;
     }
 
@@ -10598,6 +10605,7 @@ declare namespace kendo.dataviz.ui {
         autoBind?: boolean;
         axisDefaults?: ChartAxisDefaults;
         categoryAxis?: ChartCategoryAxisItem[];
+        valueAxis?: ChartValueAxisItem[];
         chartArea?: ChartChartArea;
         dataSource?: any|any|kendo.data.DataSource;
         legend?: ChartLegend;
@@ -10613,7 +10621,6 @@ declare namespace kendo.dataviz.ui {
         title?: ChartTitle;
         tooltip?: ChartTooltip;
         transitions?: boolean;
-        valueAxis?: ChartValueAxisItem[];
         xAxis?: ChartXAxisItem[];
         yAxis?: ChartYAxisItem[];
         zoomable?: boolean|ChartZoomable;

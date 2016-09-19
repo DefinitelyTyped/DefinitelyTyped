@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
@@ -12,8 +12,9 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
+  type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
   interface Knex extends Knex.QueryInterface {
     (tableName?: string): Knex.QueryBuilder;
@@ -164,12 +165,12 @@ declare module "knex" {
 
     interface Join {
       (raw: Raw): QueryBuilder;
-      (tableName: string, callback: (joinClause: JoinClause) => any): QueryBuilder;
-      (tableName: string, columns: {[key: string]: string|Raw}): QueryBuilder;
-      (tableName: string, raw: Raw): QueryBuilder;
-      (tableName: string, column1: string, column2: string): QueryBuilder;
-      (tableName: string, column1: string, raw: Raw): QueryBuilder;
-      (tableName: string, column1: string, operator: string, column2: string): QueryBuilder;
+      (tableName: TableName, callback: (joinClause: JoinClause) => any): QueryBuilder;
+      (tableName: TableName, columns: {[key: string]: string|Raw}): QueryBuilder;
+      (tableName: TableName, raw: Raw): QueryBuilder;
+      (tableName: TableName, column1: string, column2: string): QueryBuilder;
+      (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
+      (tableName: TableName, column1: string, operator: string, column2: string): QueryBuilder;
     }
 
     interface JoinClause {
@@ -329,6 +330,7 @@ declare module "knex" {
     interface Transaction extends QueryBuilder {
       commit: any;
       rollback: any;
+      raw: Knex.RawBuilder;
     }
 
     //
@@ -369,6 +371,7 @@ declare module "knex" {
       enum(columnName: string, values: Value[]): ColumnBuilder;
       enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
+      jsonb(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;
       specificType(columnName: string, type: string): ColumnBuilder;
@@ -452,6 +455,9 @@ declare module "knex" {
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigratorConfig;
+      acquireConnectionTimeout?: number;
+      useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {
