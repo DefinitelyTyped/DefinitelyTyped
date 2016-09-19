@@ -344,6 +344,9 @@ declare namespace __MaterialUI {
                 disabledTextColor?: string;
                 connectorLineColor?: string;
             };
+            svgIcon?: {
+                color?: string,
+            };
             table?: {
                 backgroundColor?: string;
             };
@@ -513,8 +516,8 @@ declare namespace __MaterialUI {
         iconClassNameRight?: string;
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
-        iconStyleRight?: string;
-        iconStyleLeft?: string;
+        iconStyleRight?: React.CSSProperties;
+        iconStyleLeft?: React.CSSProperties;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
