@@ -1,4 +1,4 @@
-/// <reference path="randomColor.d.ts" />
+/// <reference path="randomcolor.d.ts" />
 
 // Returns a hex code for an attractive color
 randomColor(); 
