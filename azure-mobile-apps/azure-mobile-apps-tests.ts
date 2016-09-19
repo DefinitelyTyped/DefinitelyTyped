@@ -72,6 +72,13 @@ table.read.use([function () {}, function () {}]);
 table.read.use(function () {}, function () {});
 table.use(function () {}).use(function () {}).read(function () {}).use(function () {})
 
+table.access = undefined;
+table.access = 'authenticated';
+table.read.access = 'anonymous';
+table.update.access = 'disabled';
+table.delete.access = 'authenticated';
+table.insert.access = 'authenticated';
+
 // Express.Table, instantiated from the static require('azure-mobile-apps').table()
 // This is going to be interesting if we ever support more than one provider
 var table2 = mobileApps.table();
@@ -85,3 +92,13 @@ mobileApps.logger.debug('a debug message')
 // Query
 queries.create('table').where({ x: 10 }).select('col1,col2');
 mobileApps.query.create('table');
+
+// custom sql query
+mobileApp.api.add('query', { authorize: true, get: (req, res, next) => {
+    req.azureMobile.data.execute({
+        sql: "SELECT * FROM TODOITEM WHERE COMPLETE = :complete",
+        parameters: [
+            { name: 'complete', value: 1 }
+        ]
+    }).then(x => {});
+}, delete: function () {} });

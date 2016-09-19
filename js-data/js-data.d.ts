@@ -342,6 +342,7 @@ declare namespace JSData {
 declare var JSData:{
     DS: JSData.DS;
     DSErrors: JSData.DSErrors;
+    DSUtils: any;
 };
 
 //Support node require

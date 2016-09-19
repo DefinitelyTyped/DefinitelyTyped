@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v3.6.0
+// Type definitions for OpenLayers v3.18.2
 // Project: http://openlayers.org/
 // Definitions by: Wouter Goedhart <https://github.com/woutergd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -46,6 +46,46 @@ declare namespace olx {
 
         /*** The extent to zoom to. If undefined the validity extent of the view projection is used.*/
         extent: ol.Extent;
+    }
+
+    interface OverviewMapOptions {
+        /*** Whether the control should start collapsed or not (expanded). Default to true.*/
+        collapsed?: boolean;
+        /*** Text label to use for the expanded overviewmap button. Default is «. Instead of text, also a Node (e.g. a span element) can be used.*/
+        collapseLabel? :string | Node;
+        /*** Whether the control can be collapsed or not. Default to true.*/
+        collapsible?: boolean;
+        /*** Text label to use for the collapsed overviewmap button. Default is ». Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Node;
+        /*** Layers for the overview map. If not set, then all main map layers are used instead.*/
+        layers?: ol.layer.Layer[] | ol.Collection<ol.layer.Layer>;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Specify a target if you want the control to be rendered outside of the map's viewport.*/
+        target?: Element;
+        /*** Text label to use for the button tip. Default is Overview map*/
+        tipLabel?: string;
+        /*** Custom view for the overview map. If not provided, a default view with an EPSG:3857 projection will be used.*/
+        view?: ol.View;
+    }
+
+    interface RotateOptions {
+        /*** CSS class name. Default is ol-rotate.*/
+        className?: string;
+        /*** Text label to use for the rotate button. Default is ⇧. Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** Text label to use for the rotate tip. Default is Reset rotation.*/
+        tipLabel?: string;
+        /*** Animation duration in milliseconds. Default is 250.*/
+        duration?: number;
+        /*** Hide the control when rotation is 0. Default is true.*/
+        autoHide?: boolean;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+        /*** Function called when the control is clicked. This will override the default resetNorth.*/
+        resetNorth?: Function;
+        /*** Target.*/
+        target?: Element;
     }
 
     interface AttributionOptions {
@@ -209,6 +249,30 @@ declare namespace olx {
         serverType?: ol.source.wms.ServerType;
 
         /** experimental Whether to wrap the world horizontally. When set to false, only one world will be rendered. When true, tiles will be requested for one world only, but they will be wrapped horizontally to render multiple worlds. The default is true. */
+        wrapX?: boolean;
+    }
+    interface OSMOptions {
+        /** Attributions */
+        attributions?: ol.AttributionLike;
+        /** Cache size. Default is 2048. */
+        cacheSize?: number;
+        /**
+         * The crossOrigin attribute for loaded images. Note that you must provide a crossOrigin value if you are using the WebGL
+         * renderer or if you want to access pixel data with the Canvas renderer.
+         * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail. Default is anonymous.
+         */
+        crossOrigin?: string;
+        /** Max zoom. Default is 19. */
+        maxZoom?: number;
+        /** Whether the layer is opaque. Default is true. */
+        opaque?: boolean;
+        /** Maximum allowed reprojection error (in pixels). Default is 0.5. Higher values can increase reprojection performance, but decrease precision. */
+        reprojectionErrorThreshold?: number;
+        /** Optional function to load a tile given a URL. */
+        tileLoadFunction?: ol.TileLoadFunctionType;
+        /** URL template. Must include {x}, {y} or {-y}, and {z} placeholders. Default is https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png. */
+        url?: string;
+        /** Whether to wrap the world horizontally. Default is true. */
         wrapX?: boolean;
     }
     /**
@@ -562,46 +626,365 @@ declare namespace olx {
 
     namespace interaction {
         interface DefaultsOptions {
+            /*** Whether Alt-Shift-drag rotate is desired. Default is true.*/
             altShiftDragRotate?: boolean;
+            /*** Whether double click zoom is desired. Default is true.*/
             doubleClickZoom?: boolean;
+            /*** Whether keyboard interaction is desired. Default is true.*/
             keyboard?: boolean;
+            /*** Whether mousewheel zoom is desired. Default is true.*/
             mouseWheelZoom?: boolean;
+            /*** Whether Shift-drag zoom is desired. Default is true.*/
             shiftDragZoom?: boolean;
+            /*** Whether drag pan is desired. Default is true.*/
             dragPan?: boolean;
+            /*** Whether pinch rotate is desired. Default is true.*/
             pinchRotate?: boolean;
+            /*** Whether pinch zoom is desired. Default is true.*/
             pinchZoom?: boolean;
+            /*** Zoom delta*/
             zoomDelta?: number;
+            /*** Zoom duration*/
             zoomDuration?: number;
         }
+        interface InteractionOptions {
+            /**
+             * Method called by the map to notify the interaction that a browser event was dispatched to the map.
+             * The function may return false to prevent the propagation of the event to other interactions in
+             * the map's interactions chain. Required.
+             */
+            handleEvent: Function;
+        }
         interface ModifyOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event will
+             * be considered to add or move a vertex to the sketch. Default is ol.events.condition.primaryAction.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should
+             * be handled. By default, ol.events.condition.singleClick with ol.events.condition.noModifierKeys results
+             * in a vertex deletion.
+             */
             deleteCondition?: ol.events.ConditionType;
+            /*** Pixel tolerance for considering the pointer close enough to a segment or vertex for editing. Default is 10.*/
             pixelTolerance?: number;
+            /*** Style used for the features being modified. By default the default edit style is used (see ol.style).*/
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            /*** The features the interaction works on. Required.*/
             features: ol.Collection<ol.Feature>;
+            /*** Wrap the world horizontally on the sketch overlay. Default is false.*/
             wrapX?: boolean;
+        }
+        interface DragBoxOptions {
+            /*** CSS class name for styling the box. The default is ol-dragbox.*/
+            className?: string;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.always.
+             */
+            condition?: ol.events.ConditionType;
+            /*** A function that takes a ol.MapBrowserEvent and two ol.Pixels to indicate whether a boxend event should be fired.*/
+            boxEndCondition?: ol.interaction.DragBoxEndConditionType;
         }
         interface DrawOptions {
+            /**
+             * The maximum distance in pixels between "down" and "up" for a "up" event to be considered a "click" event and actually
+             * add a point/vertex to the geometry being drawn. Default is 6 pixels. That value was chosen for the draw interaction
+             * to behave correctly on mouse as well as on touch devices.
+             */
             clickTolerance?: number;
+            /**
+             * Destination collection for the drawn features.
+             */
             features?: ol.Collection<ol.Feature>;
+            /**
+             * Destination source for the drawn features.
+             */
             source?: ol.source.Vector;
+            /**
+             * Pixel distance for snapping to the drawing finish. Default is 12.
+             */
             snapTolerance?: number;
+            /**
+             * Drawing type ('Point', 'LineString', 'Polygon', 'MultiPoint', 'MultiLineString', 'MultiPolygon' or 'Circle'). Required.
+             */
             type: ol.geom.GeometryType;
+            /**
+             * The number of points that can be drawn before a polygon ring or line string is finished. The default is no restriction.
+             */
             maxPoints?: number;
+            /**
+             * The number of points that must be drawn before a polygon ring or line string can be finished. Default is 3 for polygon
+             * rings and 2 for line strings.
+             */
             minPoints?: number;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether the drawing can be finished.
+             */
+            finishCondition?: ol.events.ConditionType;
+            /**
+             * Style for sketch features.
+             */
             style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            /**
+             * Function that is called when a geometry's coordinates are updated.
+             */
             geometryFunction?: ol.interaction.DrawGeometryFunctionType;
+            /**
+             * Geometry name to use for features created by the draw interaction.
+             */
+            geometryName?: string;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * By default ol.events.condition.noModifierKeys, i.e. a click, adds a vertex or deactivates freehand drawing.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * Condition that activates freehand drawing for lines and polygons. This function takes an ol.MapBrowserEvent and returns
+             * a boolean to indicate whether that event should be handled. The default is ol.events.condition.shiftKeyOnly, meaning that
+             *  the Shift key activates freehand drawing.
+             */
+            freehandCondition?: ol.events.ConditionType;
+            /**
+             * Wrap the world horizontally on the sketch overlay. Default is false.
+             */
             wrapX?: boolean;
         }
-        interface SelectOptions {
-            addCondition?: ol.events.ConditionType;
+        interface DoubleClickZoomOptions {
+            /**
+             * Animation duration in milliseconds. Default is 250.
+             */
+            duration?: number;
+            /**
+             * The zoom delta applied on each double click, default is 1.
+             */
+            delta?: number;
+        }
+        interface DragAndDropOptions {
+            /**
+             * Format constructors.
+             */
+            formatConstructors?: Array<ol.format.Feature>;
+            /**
+             * Target projection. By default, the map's view's projection is used.
+             */
+            projection: ol.proj.ProjectionLike;
+            /**
+             * The element that is used as the drop target, default is the viewport element.
+             */
+            target?: Element;
+        }
+        interface DragPanOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.noModifierKeys.
+             */
             condition?: ol.events.ConditionType;
-            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
-            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
-            removeCondition?: ol.events.ConditionType;
-            toggleCondition?: ol.events.ConditionType;
-            multi?: boolean;
+            /**
+             * Kinetic inertia to apply to the pan.
+             */
+            kinetic?: ol.Kinetic;
+        }
+        interface DragRotateOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.altShiftKeysOnly.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * Animation duration in milliseconds. Default is 250.
+             */
+            duration?: number;
+        }
+        interface DragRotateAndZoomOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.shiftKeyOnly.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * Animation duration in milliseconds. Default is 400.
+             */
+            duration?: number;
+        }
+        interface DragZoomOptions {
+            /**
+             * CSS class name for styling the box. The default is ol-dragzoom.
+             */
+            className?: string;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.shiftKeyOnly.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * Animation duration in milliseconds. Default is 200.
+             */
+            duration?: number;
+            /**
+             * Use interaction for zooming out. Default is false.
+             */
+            out?: boolean;
+        }
+        interface KeyboardPanOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.noModifierKeys and ol.events.condition.targetNotEditable.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * Animation duration in milliseconds. Default is 100.
+             */
+            duration?: number;
+            /**
+             * Pixel The amount to pan on each key press. Default is 128 pixels.
+             */
+            pixelDelta?: number;
+        }
+        interface KeyboardZoomOptions {
+            /**
+             * Animation duration in milliseconds. Default is 100.
+             */
+            duration?: number;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * Default is ol.events.condition.targetNotEditable.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * The amount to zoom on each key press. Default is 1.
+             */
+            delta?: number;
+        }
+        interface MouseWheelZoomOptions {
+            /**
+             * Animation duration in milliseconds. Default is 250.
+             */
+            duration?: number;
+            /**
+             * Enable zooming using the mouse's location as the anchor. Default is true.
+             * When set to false, zooming in and out will zoom to the center of the screen instead of zooming on the mouse's location.
+             */
+            useAnchor?: boolean;
+        }
+        interface PinchRotateOptions {
+            /**
+             * The duration of the animation in milliseconds. Default is 250.
+             */
+            duration?: number;
+            /**
+             * Minimal angle in radians to start a rotation. Default is 0.3.
+             */
+            threshold?: number;
+        }
+        interface PinchZoomOptions {
+            /**
+             * Animation duration in milliseconds. Default is 400.
+             */
+            duration?: number;
+        }
+        interface PointerOptions {
+            /**
+             * Function handling "down" events. If the function returns true then a drag sequence is started.
+             */
+            handleDownEvent?: Function;
+            /**
+             * Function handling "drag" events. This function is called on "move" events during a drag sequence.
+             */
+            handleDragEvent?: Function;
+            /**
+             * Method called by the map to notify the interaction that a browser event was dispatched to the map.
+             * The function may return false to prevent the propagation of the event to other interactions in the map's interactions chain.
+             */
+            handleEvent?: Function;
+            /**
+             * Function handling "move" events. This function is called on "move" events, also during a drag sequence
+             * (so during a drag sequence both the handleDragEvent function and this function are called).
+             */
+            handleMoveEvent?: Function;
+            /**
+             * Function handling "up" events. If the function returns false then the current drag sequence is stopped.
+             */
+            handleUpEvent?: Function;
+        }
+        interface SnapOptions {
+            /**
+             * Snap to these features. Either this option or source should be provided.
+             */
             features?: ol.Collection<ol.Feature>;
+            /**
+             * Snap to edges. Default is true.
+             */
+            edge?: boolean;
+            /**
+             * Snap to vertices. Default is true.
+             */
+            vertex?: boolean;
+            /**
+             * Pixel tolerance for considering the pointer close enough to a segment or vertex for snapping. Default is 10 pixels.
+             */
+            pixelTolerance?: number;
+            /**
+             * Snap to features from this source. Either this option or features should be provided.
+             */
+            source?: ol.source.Vector;
+        }
+        interface SelectOptions {
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * By default, this is ol.events.condition.never.
+             * Use this if you want to use different events for add and remove instead of toggle.
+             */
+            addCondition?: ol.events.ConditionType;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * This is the event for the selected features as a whole. By default, this is ol.events.condition.singleClick.
+             * Clicking on a feature selects that feature and removes any that were in the selection.
+             * Clicking outside any feature removes all from the selection.
+             * See toggle, add, remove options for adding/removing extra features to/ from the selection.
+             */
+            condition?: ol.events.ConditionType;
+            /**
+             * A list of layers from which features should be selected. Alternatively, a filter function can be provided.
+             * The function will be called for each layer in the map and should return true for layers that you want to be selectable.
+             * If the option is absent, all visible layers will be considered selectable.
+             */
+            layers?: Array<ol.layer.Layer> | ((layer: ol.layer.Layer) => boolean);
+            /**
+             * Style for the selected features. By default the default edit style is used (see ol.style).
+             */
+            style?: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * By default, this is ol.events.condition.never.
+             * Use this if you want to use different events for add and remove instead of toggle.
+             */
+            removeCondition?: ol.events.ConditionType;
+            /**
+             * A function that takes an ol.MapBrowserEvent and returns a boolean to indicate whether that event should be handled.
+             * This is in addition to the condition event. By default, ol.events.condition.shiftKeyOnly,
+             * i.e. pressing shift as well as the condition event, adds that feature to the current selection if it is not currently
+             * selected, and removes it if it is. See add and remove if you want to use different events instead of a toggle.
+             */
+            toggleCondition?: ol.events.ConditionType;
+            /**
+             * A boolean that determines if the default behaviour should select only single features or all (overlapping)
+             * features at the clicked map position. Default is false i.e single select
+             */
+            multi?: boolean;
+            /**
+             * Collection where the interaction will place selected features. Optional. If not set the interaction will create a collection.
+             * In any case the collection used by the interaction is returned by ol.interaction.Select#getFeatures.
+             */
+            features?: ol.Collection<ol.Feature>;
+            /**
+             * A function that takes an ol.Feature and an ol.layer.Layer and returns true if the feature may be selected or false otherwise.
+             */
             filter?: ol.interaction.SelectFilterFunction;
+            /**
+             * Wrap the world horizontally on the selection overlay. Default is true.
+             */
             wrapX?: boolean;
         }
     }
@@ -791,24 +1174,24 @@ declare namespace olx {
              */
             wrapX?: boolean;
         }
-        
+
         interface ClusterOptions extends VectorOptions{
-            
+
             /**
              * Minimum distance in pixels between clusters. Default is 20.
              */
             distance?: number;
-            
+
             extent?: ol.Extent;
-            
+
             geometryFunction?: any;
-            
+
             projection?: ol.proj.ProjectionLike;
-            
+
             source: ol.source.Vector;
-            
+
         }
-        
+
         interface WMTSOptions {
             attributions?: Array<ol.Attribution>;
             crossOrigin?: string;
@@ -1126,6 +1509,8 @@ declare namespace ol {
     interface TileLoadFunctionType { (image: ol.Image, url: string): void }
 
     interface ImageLoadFunctionType { (image: ol.Image, url: string): void }
+
+    type AttributionLike = string | Array<string> | ol.Attribution | Array<ol.Attribution>
 
     /**
      * An attribution for a layer source.
@@ -2422,9 +2807,9 @@ declare namespace ol {
          * @returns Control.s
          */
         function defaults(options?: olx.control.DefaultsOptions): ol.Collection<ol.control.Control>;
-        
+
         namespace ScaleLine {
-            
+
             /**
              * Units for the scale line. Supported values are 'degrees', 'imperial', 'nautical', 'metric', 'us'.
              */
@@ -2433,29 +2818,29 @@ declare namespace ol {
 
         class Control extends ol.Object{
             constructor(options: olx.control.ControlOptions);
-            
+
             /**
              * Get the map associated with this control.
              */
             getMap():ol.Map;
-            
+
             /**
-             * Remove the control from its current map and attach it to the new map. 
+             * Remove the control from its current map and attach it to the new map.
              * Subclasses may set up event handlers to get notified about changes to the map here.
              */
             setMap(map: ol.Map):void;
-            
+
             /**
-             * This function is used to set a target element for the control. 
-             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control). 
-             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is 
+             * This function is used to set a target element for the control.
+             * It has no effect if it is called after the control has been added to the map (i.e. after setMap is called on the control).
+             * If no target is set in the options passed to the control constructor and if setTarget is not called then the control is
              * added to the map's overlay container.
              */
             setTarget(target: Element | string):void;
-            
-            
+
+
         }
-        
+
         class Attribution extends Control {
         }
 
@@ -2466,23 +2851,58 @@ declare namespace ol {
         }
 
         class OverviewMap extends Control {
+            constructor(options?: olx.OverviewMapOptions);
+
+            /**
+             * Update the overview map element.
+             * @param mapEvent
+             */
+            render(mapEvent: ol.MapEvent): void;
+
+            /**
+             * Determine if the overview map is collapsed.
+             */
+            getCollapsed(): boolean;
+
+            /**
+             * Return true if the overview map is collapsible, false otherwise.
+             */
+            getCollapsible(): boolean;
+
+            /**
+             * Return the overview map.
+             */
+            getOverviewMap(): ol.Map;
+
+            /**
+             * Collapse or expand the overview map according to the passed parameter. Will not do anything if the overview map isn't collapsible or if the current collapsed state is already the one requested.
+             * @param collapsed
+             */
+            setCollapsed(collapsed: boolean): void;
+
+            /**
+             * Set whether the overview map should be collapsible.
+             * @param collapsible
+             */
+            setCollapsible(collapsible: boolean): void;
         }
 
         class Rotate extends Control {
+            constructor(opt_options?: olx.RotateOptions);
         }
 
         class ScaleLine extends Control {
-            
+
             /**
              * Return the units to use in the scale line.
              */
             getUnits(): ScaleLine.Units;
-            
+
             /**
              * Set the units to use in the scale line.
              */
             setUnits(units: ScaleLine.Units): void;
-            
+
         }
 
         class Zoom extends Control{
@@ -3653,79 +4073,262 @@ declare namespace ol {
     }
 
     namespace interaction {
-
-        class DoubleClickZoom {
+        /**
+         * Allows the user to zoom by double-clicking on the map.
+         */
+        class DoubleClickZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.DoubleClickZoomOptions);
         }
-
-        class DragAndDrop {
+        /**
+         * Handles input of vector data by drag and drop.
+         */
+        class DragAndDrop extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.DragAndDropOptions);
         }
-
+        /**
+         * Events emitted by ol.interaction.DragAndDrop instances are instances of this type.
+         */
         class DragAndDropEvent extends ol.events.Event {
         }
-
-        class DragBox {
+        /**
+         * Allows the user to draw a vector box by clicking and dragging on the map,
+         * normally combined with an ol.events.condition that limits it to when the shift or other key is held down.
+         * This is used, for example, for zooming to a specific area of the map
+         * (see ol.interaction.DragZoom and ol.interaction.DragRotateAndZoom).
+         *
+         * This interaction is only supported for mouse devices.
+         */
+        class DragBox extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragBoxOptions);
+            /**
+             * Returns geometry of last drawn box.
+             */
+            getGeometry(): ol.geom.Polygon;
         }
-
-        class DragPan {
+        /**
+         * Allows the user to pan the map by dragging the map.
+         */
+        class DragPan extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragPanOptions);
         }
-
-        class DragRotate {
+        /**
+         * Allows the user to rotate the map by clicking and dragging on the map,
+         * normally combined with an ol.events.condition that limits it to when the alt and shift keys are held down.
+         *
+         * This interaction is only supported for mouse devices.
+         */
+        class DragRotate extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragRotateOptions);
         }
-
-        class DragRotateAndZoom {
+        /**
+         * Allows the user to zoom and rotate the map by clicking and dragging on the map.
+         * By default, this interaction is limited to when the shift key is held down.
+         *
+         * This interaction is only supported for mouse devices.
+         *
+         * And this interaction is not included in the default interactions.
+         */
+        class DragRotateAndZoom extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.DragRotateAndZoomOptions);
         }
-
-        class DragZoom {
+        /**
+         * Allows the user to zoom the map by clicking and dragging on the map,
+         * normally combined with an ol.events.condition that limits it to when a key, shift by default, is held down.
+         *
+         * To change the style of the box, use CSS and the .ol-dragzoom selector, or your custom one configured with className.
+         */
+        class DragZoom extends ol.interaction.DragBox {
+            constructor(opt_options?: olx.interaction.DragZoomOptions);
         }
-
+        /**
+         * Interaction for drawing feature geometries.
+         */
         class Draw extends ol.interaction.Pointer {
-            constructor(opt_options?: olx.interaction.DrawOptions)
+            constructor(opt_options?: olx.interaction.DrawOptions);
         }
-
+        /**
+         * Events emitted by ol.interaction.Draw instances are instances of this type.
+         */
         class DrawEvent extends ol.events.Event {
+            /**
+             * The feature being drawn.
+             */
+            feature: ol.Feature;
+            /**
+             * The event target.
+             */
+            target: ol.Object;
+            /**
+             * The event type.
+             */
+            type: string;
         }
-
+        /**
+         * Abstract base class; normally only used for creating subclasses and not instantiated in apps.
+         * User actions that change the state of the map. Some are similar to controls, but are not associated with a DOM element.
+         * For example, ol.interaction.KeyboardZoom is functionally the same as ol.control.Zoom, but triggered by a keyboard event
+         * not a button element event. Although interactions do not have a DOM element,
+         * some of them do render vectors and so are visible on the screen.
+         */
         class Interaction extends ol.Object {
+            constructor (options: olx.interaction.InteractionOptions)
+            /**
+             * Return whether the interaction is currently active.
+             */
+            getActive (): boolean;
+            /**
+             * Get the map associated with this interaction.
+             */
+            getMap (): ol.Map;
+            /**
+             * Activate or deactivate the interaction.
+             */
+            setActive (active: boolean): void;
         }
-
-        class KeyboardPan {
+        /**
+         * Allows the user to pan the map using keyboard arrows. Note that, although this interaction is by default included in maps,
+         * the keys can only be used when browser focus is on the element to which the keyboard events are attached.
+         * By default, this is the map div, though you can change this with the keyboardEventTarget in ol.Map.
+         * document never loses focus but, for any other element, focus will have to be on, and returned to,
+         * this element if the keys are to function. See also ol.interaction.KeyboardZoom.
+         */
+        class KeyboardPan extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.KeyboardPanOptions);
         }
-
-        class KeyboardZoom {
+        /**
+         * Allows the user to zoom the map using keyboard + and -. Note that, although this interaction is by default included in maps,
+         * the keys can only be used when browser focus is on the element to which the keyboard events are attached. By default,
+         * this is the map div, though you can change this with the keyboardEventTarget in ol.Map. document never loses focus but,
+         * for any other element, focus will have to be on, and returned to, this element if the keys are to function.
+         * See also ol.interaction.KeyboardPan.
+         */
+        class KeyboardZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.KeyboardZoomOptions);
         }
-
+        /**
+         * Interaction for modifying feature geometries.
+         */
         class Modify extends ol.interaction.Pointer {
-            constructor(opt_options?: olx.interaction.ModifyOptions)
+            constructor(opt_options?: olx.interaction.ModifyOptions);
         }
-
-        class MouseWheelZoom {
+        /**
+         * Allows the user to zoom the map by scrolling the mouse wheel.
+         */
+        class MouseWheelZoom extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.MouseWheelZoomOptions);
         }
-
-        class PinchRotate {
+        /**
+         * Allows the user to rotate the map by twisting with two fingers on a touch screen.
+         */
+        class PinchRotate extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.PinchRotateOptions);
         }
-
-        class PinchZoom {
+        /**
+         * Allows the user to zoom the map by pinching with two fingers on a touch screen.
+         */
+        class PinchZoom extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.PinchZoomOptions);
         }
-
+        /**
+         * Base class that calls user-defined functions on down, move and up events. This class also manages "drag sequences".
+         *
+         * When the handleDownEvent user function returns true a drag sequence is started. During a drag sequence the handleDragEvent
+         * user function is called on move events. The drag sequence ends when the handleUpEvent user function is called and returns false.
+         */
         class Pointer extends ol.interaction.Interaction {
+            constructor(opt_options?: olx.interaction.PointerOptions);
         }
-
+        /**
+         * Interaction for selecting vector features. By default, selected features are styled differently, so this interaction can be used
+         * for visual highlighting, as well as selecting features for other actions, such as modification or output. There are three ways of
+         * controlling which features are selected: using the browser event as defined by the condition and optionally the toggle,
+         * add/remove, and multi options; a layers filter; and a further feature filter using the filter option.
+         *
+         * Selected features are added to an internal unmanaged layer.
+         */
         class Select extends ol.interaction.Interaction {
             constructor(opt_options?: olx.interaction.SelectOptions);
+            /**
+             * Returns the associated vectorlayer of the (last) selected feature.
+             * Note that this will not work with any programmatic method like pushing features to collection.
+             */
             getLayer(): ol.layer.Layer;
+            /**
+             * Get the selected features.
+             */
             getFeatures(): ol.Collection<ol.Feature>;
         }
-
-        class Snap {
+        /**
+         * Events emitted by ol.interaction.Select instances are instances of this type.
+         */
+        class SelectEvent extends ol.events.Event {
+            /**
+             * Deselectd features array.
+             */
+            deselected: Array<ol.Feature>;
+            /**
+             * Associated ol.MapBrowserEvent.
+             */
+            mapBrowserEvent: ol.MapBrowserEvent;
+            /**
+             * Selected features array.
+             */
+            selected: Array<ol.Feature>;
+            /**
+             * The event target.
+             */
+            target: ol.Object;
+            /**
+             * The event type.
+             */
+            type: string;
+            /**
+             * Stop event propagation.
+             */
+            preventDefault(): void;
+            /**
+             * Stop event propagation.
+             */
+            stopPropagation(): void;
         }
-
+        /**
+         * Handles snapping of vector features while modifying or drawing them. The features can come from a ol.source.Vector or
+         * ol.Collection Any interaction object that allows the user to interact with the features using the mouse can benefit
+         * from the snapping, as long as it is added before.
+         *
+         *The snap interaction modifies map browser event coordinate and pixel properties to force the snap to occur
+         * to any interaction that them.
+         */
+        class Snap extends ol.interaction.Pointer {
+            constructor(opt_options?: olx.interaction.SnapOptions);
+        }
+        /**
+         * Set of interactions included in maps by default. Specific interactions can be excluded by setting the appropriate option
+         * to false in the constructor options, but the order of the interactions is fixed. If you want to specify a different order for
+         * interactions, you will need to create your own ol.interaction.Interaction instances and insert them into a ol.Collection in
+         * the order you want before creating your ol.Map instance.
+         */
         function defaults(opts: olx.interaction.DefaultsOptions): ol.Collection<ol.interaction.Interaction>;
-        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate[], geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        /**
+         * Function that takes coordinates and an optional existing geometry as arguments, and returns a geometry.
+         * The optional existing geometry is the geometry that is returned when the function is called without a second argument.
+         */
+        interface DrawGeometryFunctionType { (coordinates: ol.Coordinate, geom?: ol.geom.Geometry): ol.geom.Geometry; }
+        /**
+         * A function that takes an ol.Feature or ol.render.Feature and an ol.layer.Layer and returns true if the feature
+         * may be selected or false otherwise.
+         */
         interface SelectFilterFunction { (feature: ol.Feature | ol.render.Feature, layer: ol.layer.Layer): boolean; }
+        /**
+         * A function that takes a ol.MapBrowserEvent and two ol.Pixels and returns a {boolean}.
+         * If the condition is met, true should be returned.
+         */
+        interface DragBoxEndConditionType {
+            (evt: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel): boolean
+        }
     }
 
     namespace layer {
-
         /**
          * Abstract base class; normally only used for creating subclasses and not instantiated in apps. Note that with ol.layer.Base and all its subclasses, any property set in the options is set as a ol.Object property on the layer object, so is observable, and has get/set accessors.
          */
@@ -4061,7 +4664,7 @@ declare namespace ol {
              * @argument map.
              */
             setMap(map: ol.Map): void;
-            
+
             /**
              * Set Z-index of the layer, which is used to order layers before rendering. The default Z-index is 0.
              */
@@ -4254,12 +4857,13 @@ declare namespace ol {
         }
 
         class OSM extends XYZ {
+            constructor(opt_options?: olx.OSMOptions);
         }
 
         class Source extends ol.Object {
-            
+
             constructor(options: any);
-            
+
             /**
              * Get the projection of the source.
              * @return Projection.
