@@ -161,8 +161,8 @@ declare namespace ReactRouter {
         path?: RoutePattern
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
+        getComponent?: (nextState: RouterState, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (nextState: RouterState, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
         indexRoute?: PlainRoute
@@ -187,8 +187,8 @@ declare namespace ReactRouter {
     interface IndexRouteProps extends React.Props<IndexRoute> {
         component?: RouteComponent
         components?: RouteComponents
-        getComponent?: (location: H.Location, cb: (error: any, component?: RouteComponent) => void) => void
-        getComponents?: (location: H.Location, cb: (error: any, components?: RouteComponents) => void) => void
+        getComponent?: (nextState: RouterState, cb: (error: any, component?: RouteComponent) => void) => void
+        getComponents?: (nextState: RouterState, cb: (error: any, components?: RouteComponents) => void) => void
         onEnter?: EnterHook
         onLeave?: LeaveHook
     }
