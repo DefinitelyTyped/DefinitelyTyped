@@ -13,29 +13,30 @@ declare module 'adal' {
 declare namespace adal {
 
     interface Config {
-        tenant?: string,
-        clientId: string,
-        redirectUri?: string,
-        cacheLocation?: string,
-        displayCall?: (urlNavigate: string) => any,
-        correlationId?: string,
-        loginResource?: string,
-        resource?: string
-        endpoints?: any  // If you need to send CORS api requests.
-        extraQueryParameter?: string
+        tenant?: string;
+        clientId: string;
+        redirectUri?: string;
+        cacheLocation?: string;
+        displayCall?: (urlNavigate: string) => any;
+        correlationId?: string;
+        loginResource?: string;
+        resource?: string;
+        endpoints?: any;  // If you need to send CORS api requests.
+        extraQueryParameter?: string;
+        postLogoutRedirectUri?: string; // redirect url after succesful logout operation
     }
 
     interface User {
-        userName: string,
-        profile: any
+        userName: string;
+        profile: any;
     }
 
     interface RequestInfo {
-        valid: boolean,
-        parameters: any,
-        stateMatch: boolean,
-        stateResponse: string,
-        requestType: string
+        valid: boolean;
+        parameters: any;
+        stateMatch: boolean;
+        stateResponse: string;
+        requestType: string;
     }
     
     interface Logging {
@@ -64,6 +65,10 @@ declare namespace adal {
          * Saves the resulting Idtoken in localStorage.
          */
         login(): void;
+
+        /**
+         * Indicates whether login is in progress now or not.
+         */
         loginInProgress(): boolean;
 
         /**
@@ -131,9 +136,9 @@ declare namespace adal {
 
         /**
          * Gets requestInfo from given hash.
-         * @returns {string} error message related to login
+         * @returns {RequestInfo} for appropriate hash.
          */
-        getRequestInfo(hash: string): string;
+        getRequestInfo(hash: string): RequestInfo;
 
         /**
          * Saves token from hash that is received from redirect.
@@ -147,6 +152,11 @@ declare namespace adal {
          */
         getResourceForEndpoint(endpoint: string): string;
 
+        /**
+         * Handles redirection after login operation. 
+         * Gets access token from url and saves token to the (local/session) storage
+         * or saves error in case unsuccessful login.
+         */
         handleWindowCallback(): void;
 
         log(level: number, message: string, error: any): void;

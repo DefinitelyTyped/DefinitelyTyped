@@ -11,6 +11,14 @@ declare class Pikaday {
     constructor(options: Pikaday.PikadayOptions);
 
     /**
+     * Extends the existing configuration options for Pikaday object with the options provided.
+     * Can be used to change/extend the configurations on runtime.
+     * @param options full/partial configuration options.
+     * @returns {} extended configurations.
+     */
+    config(options: Pikaday.PikadayOptions): Pikaday.PikadayOptions;
+
+    /**
      * Returns the selected date in a string format. If Moment.js exists
      * (recommended) then Pikaday can return any format that Moment
      * understands, otherwise you're stuck with JavaScript's default.
@@ -93,6 +101,11 @@ declare class Pikaday {
      * a date range.
      */
     setEndRange(date: Date): void;
+
+    /**
+     * Update the HTML.
+     */
+    draw(force: boolean): void;
 
     /**
      * Returns true if the picker is visible.
@@ -241,7 +254,7 @@ declare namespace Pikaday {
          * Render the month after the year in the title. Default: false.
          */
         showMonthAfterYear?: boolean;
-		
+
         /**
          * Render days of the calendar grid that fall in the next or previous months to the current month instead of rendering an empty table cell. Default: false.
          */

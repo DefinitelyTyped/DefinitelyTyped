@@ -23,6 +23,15 @@ declare namespace Chai {
         any: Anything;
     }
 
+    interface Include {
+        (item: any): any;
+        a: Item;
+        an: Item;
+        one: Something;
+        some: Something;
+        something: Something;
+    }
+
     interface Anything extends Assertion {
         (): any;
         that: Assertion;

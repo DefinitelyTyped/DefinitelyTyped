@@ -12,6 +12,7 @@ import net = require("net");
 import dgram = require("dgram");
 import querystring = require('querystring');
 import readline = require('readline');
+import string_decoder = require('string_decoder');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -120,6 +121,18 @@ namespace http_tests {
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
+}
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    var StringDecoder = string_decoder.StringDecoder;
+    var buffer = new Buffer('test');
+    var decoder = new StringDecoder('utf8');
+    var part: string = decoder.write(new Buffer('test'));
+    var end: string = decoder.end();
 }
 
 ////////////////////////////////////////////////////

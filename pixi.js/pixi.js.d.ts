@@ -87,10 +87,10 @@ declare namespace PIXI {
         emit(event: string, ...args: any[]): boolean;
         on(event: string, fn: Function, context?: any): EventEmitter;
         once(event: string, fn: Function, context?: any): EventEmitter;
-        removeListener(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
-        removeAllListeners(event: string): EventEmitter;
+        removeListener(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
+        removeAllListeners(event?: string): EventEmitter;
 
-        off(event: string, fn: Function, context?: any, once?: boolean): EventEmitter;
+        off(event: string, fn?: Function, context?: any, once?: boolean): EventEmitter;
         addListener(event: string, fn: Function, context?: any): EventEmitter;
 
     }
@@ -1456,6 +1456,7 @@ declare namespace PIXI {
             global: Point;
             target: DisplayObject;
             originalEvent: Event;
+            identifier: number;
 
             getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
 

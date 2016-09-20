@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -8,6 +8,12 @@ declare namespace google {
     function load(visualization: string, version: string, packages: any): void;
     function setOnLoadCallback(handler: Function): void;
     function setOnLoadCallback(handler: () => void): void;
+
+    // https://developers.google.com/chart/interactive/docs/basic_load_libs
+    namespace charts {
+        function load(version: string, packages: Object): void;
+        function setOnLoadCallback(handler: Function): void;
+    }
 
     //https://developers.google.com/chart/interactive/docs/reference
     namespace visualization {
@@ -141,6 +147,7 @@ declare namespace google {
             id?: string;
             role?: string;
             pattern?: string;
+            p?: any;
         }
 
         export interface DataObject {
@@ -185,6 +192,42 @@ declare namespace google {
         }
 
         function arrayToDataTable(data: any[], firstRowIsData?: boolean): DataTable;
+
+        //#endregion
+        //#region Query
+
+        // https://developers.google.com/chart/interactive/docs/reference#query
+        export class Query {
+            constructor(dataSourceUrl: string, options?: QueryOptions);
+
+            abort(): void;
+
+            setRefreshInterval(intervalSeconds: number): void;
+            setTimeout(timeoutSeconds: number): void;
+            setQuery(queryString:string): void;
+
+            send(callback: (response: QueryResponse) => void): void;
+        }
+
+        export interface QueryOptions {
+            sendMethod?: string,
+            makeRequestParams?: Object
+        }
+
+        //#endregion
+        //#region QueryResponse
+
+        // https://developers.google.com/chart/interactive/docs/reference#queryresponse
+        export class QueryResponse {
+            constructor(responseObject: Object);
+
+            getDataTable(): DataTable;
+            getDetailedMessage(): string;
+            getMessage(): string;
+            getReasons(): string[];
+            hasWarning(): boolean;
+            isError(): boolean;
+        }
 
         //#endregion
         //#region DataView

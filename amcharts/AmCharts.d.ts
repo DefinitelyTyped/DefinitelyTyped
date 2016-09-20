@@ -26,6 +26,22 @@ declare namespace AmCharts {
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
+    
+    /** Handle ready event */
+    function ready(Function): void;
+    
+    /** Create chart by params. */
+    function makeChart(selector: string, params: any, delay?: number): AmChart;
+    
+    /** Set a method to be called before initializing the chart.
+     * When the method is called, the chart instance is passed as an attribute.
+     * You can use this feature to preprocess chart data or do some other things you need
+     * before initializing the chart.
+     * @param {Function} handler - The method to be called.
+     * @param {string[]} types - Which chart types should call this method. Defaults to all
+     * if none is passed.
+     */
+    function addInitHandler(handler: Function, types: string[]);
 
     /** AmPieChart class creates pie/donut chart. In order to display pie chart you need to set at least three properties - dataProvider, titleField and valueField.
         @example
@@ -948,6 +964,10 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             @Default 150
         */
         hideBalloonTime: number;
+        /** Allows changing language easily.
+         * Note, you should include the language.js file from amcharts/lang or ammap/lang folder and then use variable name used in this file, like chart.language = "de";
+         * Note, for maps this works differently - you use language only for country names, as there are no other strings in the maps application. */
+        language: string;
         /** Legend of a chart. */
         legend: AmLegend;
         /** Reference to the div of the legend. */
@@ -976,6 +996,8 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
         prefixesOfBigNumbers: any[];
         /** Prefixes which are used to make small numbers shorter: 2μ instead of 0.000002, etc. Prefixes are used on value axes and in the legend. To enable prefixes, set usePrefixes property to true. [{number:1e-24, prefix:"y"},{number:1e-21, prefix:"z"},{number:1e-18, prefix:"a"},{number:1e-15, prefix:"f"},{number:1e-12, prefix:"p"},{number:1e-9, prefix:"n"},{number:1e-6, prefix:"μ"},{number:1e-3, prefix:"m"}] */
         prefixesOfSmallNumbers: any[];
+        /** A config object for Responsive plugin. */
+        responsive: any;
         /** Theme of a chart. Config files of themes can be found in amcharts/themes/ folder. More info about using themes. */
         theme: string;
         /** Thousands separator.
@@ -1003,7 +1025,7 @@ If you do not set properties such as dashLength, lineAlpha, lineColor, etc - val
             bold - specifies if text is bold (true/false),
             url - url
         */
-        addLabel(x: number, y: number, text: string, align: string, size: number, color: string, rotation: number, alpha: number, bold: boolean, url: string);
+        addLabel(x: number|string, y: number|string, text: string, align: string, size?: number, color?: string, rotation?: number, alpha?: number, bold?: boolean, url?: string);
         /** Adds a legend to the chart.
             By default, you don't need to create div for your legend, however if you want it to be positioned in some different way, you can create div anywhere you want and pass id or reference to your div as a second parameter.
             (NOTE: This method will not work on StockPanel.)

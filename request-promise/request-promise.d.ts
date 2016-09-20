@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../request/request.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 
 declare module 'request-promise' {
     import request = require('request');
@@ -23,6 +23,7 @@ declare module 'request-promise' {
             finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
             finally<TResult>(handler: () => TResult): Promise<any>;
             promise(): Promise<any>;
+            cancel(): void;
         }
 
         interface RequestPromiseOptions extends request.CoreOptions {

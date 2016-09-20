@@ -79,8 +79,9 @@ declare module "fs-extra" {
 	export interface CopyOptions {
 		clobber?: boolean
 		preserveTimestamps?: boolean
-        dereference?: boolean
+        	dereference?: boolean
 		filter?: CopyFilter
+        	recursive?: boolean
 	}
 
 	export interface OpenOptions {

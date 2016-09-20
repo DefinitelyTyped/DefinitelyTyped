@@ -16,6 +16,7 @@ declare module "cors" {
             exposedHeaders?: any;
             credentials?: boolean;
             maxAge?: number;
+            preflightContinue?: boolean;
         }
     }
 

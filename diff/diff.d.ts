@@ -16,6 +16,22 @@ declare namespace JsDiff {
         componenets: IDiffResult[];
     }
 
+    interface IHunk {
+        oldStart: number;
+        oldLines: number;
+        newStart: number;
+        newLines: number;
+        lines: string[];
+    }
+
+    interface IUniDiff {
+        oldFileName: string;
+        newFileName: string;
+        oldHeader: string;
+        newHeader: string;
+        hunks: IHunk[];
+    }
+
     class Diff {
         ignoreWhitespace:boolean;
 
@@ -46,9 +62,21 @@ declare namespace JsDiff {
 
     function diffCss(oldStr:string, newStr:string):IDiffResult[];
 
-    function createPatch(fileName:string, oldStr:string, newStr:string, oldHeader:string, newHeader:string):string;
+    function createPatch(fileName: string, oldStr: string, newStr: string, oldHeader: string, newHeader: string, options?: {context: number}): string;
 
-    function applyPatch(oldStr:string, uniDiff:string):string;
+    function createTwoFilesPatch(oldFileName: string, newFileName: string, oldStr: string, newStr: string, oldHeader: string, newHeader: string, options?: {context: number}): string;
+
+    function structuredPatch(oldFileName: string, newFileName: string, oldStr: string, newStr: string, oldHeader: string, newHeader: string, options?: {context: number}): IUniDiff;
+
+    function applyPatch(oldStr: string, uniDiff: string | IUniDiff | IUniDiff[]): string;
+
+    function applyPatches(uniDiff: IUniDiff[], options: {
+        loadFile: (index: number, callback: (err: Error, data: string) => void) => void,
+        patched: (index: number, content: string) => void,
+        complete: (err?: Error) => void
+    }): void;
+
+    function parsePatch(diffStr: string, options?: {strict: boolean}): IUniDiff[];
 
     function convertChangesToXML(changes:IDiffResult[]):string;
 

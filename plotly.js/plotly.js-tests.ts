@@ -1,5 +1,7 @@
 /// <reference path="plotly.js.d.ts" />
 
+import * as Plotly from 'plotly.js';
+
 var data = [
   {
     x: ['giraffes', 'orangutans', 'monkeys'],
