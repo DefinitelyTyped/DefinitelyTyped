@@ -1124,7 +1124,6 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
-MongoModel.discriminator('M', new mongoose.Schema({name: String}));
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
@@ -1387,3 +1386,15 @@ Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
 final2.method;
+interface ibase extends mongoose.Document {
+  username: string;
+}
+interface extended extends ibase {
+  email: string;
+}
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour', null)
+const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', null);
+const x = new extended({
+  username: 'hi',     // required in baseSchema
+  email: 'beddiw',    // required in extededSchema
+})
