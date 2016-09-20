@@ -429,7 +429,7 @@ declare namespace twilio {
   export class TwimlResponse extends Node {}
 
   /// webhook.js
-  export interface webhookOptions {
+  export interface WebhookOptions {
     validate?: boolean;
     includeHelpers?: boolean;
     host?: string;
@@ -450,8 +450,8 @@ declare namespace twilio {
   // For interop with node middleware chains
   export interface MiddlewareFunction { (request: Http.ServerRequest, response: Http.ServerResponse, next: Express.NextFunction): void; }
 
-  export function webhook(authToken: string, options?: webhookOptions): MiddlewareFunction;
-  export function webhook(options?: webhookOptions): MiddlewareFunction;
+  export function webhook(authToken: string, options?: WebhookOptions): MiddlewareFunction;
+  export function webhook(options?: WebhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
   export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
