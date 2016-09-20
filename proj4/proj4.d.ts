@@ -27,29 +27,15 @@ declare module "proj4" {
     }
 
     interface InterfaceProjection {
-        title: string
-        projName: string
-        ellps: string
-        datumCode: string
-        units: string
-        a: number
-        rf: number
-        ellipseName: string
+        datum: string
         b: number
-        a2: number
-        b2: number
+        rf: number
+        sphere: number
         es: number
         e: number
         ep2: number
-        k0: number
-        axis: string
-        datum: InterfaceDatum
-        init: typeof proj4.Proj,
         forward(coordinates: typeof TemplateCoordinates): Array<number>
         inverse(coordinates: typeof TemplateCoordinates): Array<number>
-        names: Array<string>
-        to_meter(value: number): any
-        from_greenwich(value: number): any
     }
 
     namespace proj4 {
