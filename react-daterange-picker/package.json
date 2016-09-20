@@ -1,5 +1,5 @@
 {
-    "dependencies": {
-        "moment": "2.14.*"
-    }
+  "scripts": {
+    "postinstall": "cd ../moment-range && npm install"
+  }
 }
