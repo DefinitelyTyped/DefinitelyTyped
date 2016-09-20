@@ -638,7 +638,7 @@ declare namespace DataTables {
         *
         * @param fn Function to execute for every cell selected.
         */
-        every(fn: (cellRowIdx?: number, cellColIdx?: number, tableLoop?: number, cellLoop?: number) => void): DataTable;
+        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): DataTable;
 
         /**
         * Get index information about the selected cells
@@ -766,7 +766,7 @@ declare namespace DataTables {
         *
         * @param fn Function to execute for every column selected.
         */
-        every(fn: (colIdx?: number, tableLoop?: number, colLoop?: number) => void): DataTable;
+        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): DataTable;
 
         /**
         * Get the column indexes of the selected columns.
@@ -945,7 +945,7 @@ declare namespace DataTables {
         *
         * @param fn Function to execute for every row selected.
         */
-        every(fn: (rowIdx?: number, tableLoop?: number, rowLoop?: number) => void): DataTable;
+        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): DataTable;
 
         /**
         * Get the row indexes of the selected rows.
