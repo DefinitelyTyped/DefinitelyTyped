@@ -458,6 +458,7 @@ declare module "enzyme" {
     export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
         unmount(): ReactWrapper<any, any>;
         mount(): ReactWrapper<any, any>;
+        render(): CheerioWrapper<P, S>;
 
         /**
          * Returns a wrapper of the node that matches the provided reference name.
