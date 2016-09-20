@@ -3,14 +3,20 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface HighchartsPosition {
+/// <reference path='../jquery/jquery.d.ts' />
+
+declare namespace __Highcharts {
+
+var Chart: Chart;
+
+interface Position {
     align?: string;
     verticalAlign?: string;
     x?: number;
     y?: number;
 }
 
-interface HighchartsDateTimeFormats {
+interface DateTimeFormats {
     /**
      * @default '%H:%M:%S.%L'
      */
@@ -45,12 +51,12 @@ interface HighchartsDateTimeFormats {
     year?: string;
 }
 
-interface HighchartsAxisEvent extends Event {
+interface AxisEvent extends Event {
     min: number;
     max: number;
 }
 
-interface HighchartsAxisLabels {
+interface AxisLabels {
     /**
      * What part of the string the given position is anchored to. Can be one of 'left', 'center' or 'right'. Defaults to
      * an intelligent guess based on which side of the chart the axis is on and the rotation of the label.
@@ -111,7 +117,7 @@ interface HighchartsAxisLabels {
      * @since 2.2.5
      * @deprecated
      */
-    overflow?: string|boolean;
+    overflow?: string | boolean;
     /**
      * The pixel padding for axis labels, to ensure white space between them.
      * @default 5
@@ -147,7 +153,7 @@ interface HighchartsAxisLabels {
      * 'none' to prevent ellipsis (dots).
      * @default {'color':'#6D869F','fontWeight':'bold'}.
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * Whether to use HTML to render the labels.
      * @default false
@@ -171,7 +177,7 @@ interface HighchartsAxisLabels {
     zIndex?: number;
 }
 
-interface HighchartsMousePlotEvents {
+interface MousePlotEvents {
     click?: (event: Event) => void;
     mouseover?: (event: Event) => void;
     mouseout?: (event: Event) => void;
@@ -181,7 +187,7 @@ interface HighchartsMousePlotEvents {
 /**
  * Text labels for the plot bands
  */
-interface HighchartsPlotLabel {
+interface PlotLabel {
     /**
      * Horizontal alignment of the label. Can be one of 'left', 'center' or 'right'.
      * @default 'center'
@@ -198,7 +204,7 @@ interface HighchartsPlotLabel {
      * CSS styles for the text label.
      * @since 2.1
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * The string text itself. A subset of HTML is supported.
      * @since 2.1
@@ -208,7 +214,7 @@ interface HighchartsPlotLabel {
      * The text alignment for the label. While align determines where the texts anchor point is placed within the plot
      * band, textAlign determines how the text is aligned against its anchor point. Possible values are 'left', 'center'
      * and 'right'. Defaults to the same as the align option.
-      * @since 2.1
+     * @since 2.1
      */
     textAlign?: string;
     /**
@@ -235,12 +241,12 @@ interface HighchartsPlotLabel {
     y?: number;
 }
 
-interface HighchartsPlotBands {
+interface PlotBands {
     /**
      * Border color for the plot band. Also requires borderWidth to be set.
      * @default null
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * Border width for the plot band. Also requires borderColor to be set.
      * @default 0
@@ -249,14 +255,14 @@ interface HighchartsPlotBands {
     /**
      * The color of the plot band.
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * An object defining mouse events for the plot band. Supported properties are click, mouseover, mouseout,
      * mousemove.
      * The this keyword refers to the PlotLineOrBand object.
      * @since 1.2
      */
-    events?: HighchartsMousePlotEvents;
+    events?: MousePlotEvents;
     /**
      * The start position of the plot band in axis units.
      */
@@ -273,11 +279,11 @@ interface HighchartsPlotBands {
      * @default null
      * @since 2.3
      */
-    innerRadius?: number|string;
+    innerRadius?: number | string;
     /**
      * Text labels for the plot bands
      */
-    label?: HighchartsPlotLabel;
+    label?: PlotLabel;
     /**
      * In a gauge chart, this option determines the outer radius of the plot band that stretches along the perimeter. It
      * can be given as a percentage string, like '100%', or as a pixel number, like 100.
@@ -285,7 +291,7 @@ interface HighchartsPlotBands {
      * @default '100%'
      * @since 2.3
      */
-    outerRadius?: number|string;
+    outerRadius?: number | string;
     /**
      * In a gauge chart, this option sets the width of the plot band stretching along the perimeter. It can be given as
      * a percentage string, like '10%', or as a pixel number, like 10. The default value 10 is the same as the default
@@ -294,7 +300,7 @@ interface HighchartsPlotBands {
      * @default 10
      * @since 2.3
      */
-    thickness?: number|string;
+    thickness?: number | string;
     /**
      * The end position of the plot band in axis units.
      */
@@ -312,11 +318,11 @@ interface HighchartsPlotBands {
  * An array of lines stretching across the plot area, marking a specific value
  * on one of the axes.
  */
-interface HighchartsPlotLines {
+interface PlotLines {
     /**
      * The color of the line.
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * The dashing or dot style for the plot line. For possible values see
      * {@link http://jsfiddle.net/gh/get/jquery/1.7.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/series-dashstyle-all/|this overview}.
@@ -331,7 +337,7 @@ interface HighchartsPlotLines {
      * The this keyword refers to the PlotLineOrBand object.
      * @since 1.2
      */
-    events?: HighchartsMousePlotEvents;
+    events?: MousePlotEvents;
     /**
      * An id used for identifying the plot line in Axis.removePlotLine.
      */
@@ -339,7 +345,7 @@ interface HighchartsPlotLines {
     /**
      * Text labels for the plot lines
      */
-    label?: HighchartsPlotLabel;
+    label?: PlotLabel;
     /**
      * The position of the line in axis units.
      */
@@ -355,7 +361,7 @@ interface HighchartsPlotLines {
     zIndex?: number;
 }
 
-interface HighchartsAxisTitle {
+interface AxisTitle {
     /**
      * Alignment of the title relative to the axis values. Possible values are 'low', 'middle' or 'high'.
      * @default 'middle'
@@ -389,7 +395,7 @@ interface HighchartsAxisTitle {
      * styles are applicable.
      * @default { 'color': '#707070', 'fontWeight': 'bold' }.
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * The actual text of the axis title. It can contain basic HTML text markup like <b>, <i> and spans with style.
      * @default xAxis: null, yAxis: 'Values'
@@ -407,7 +413,7 @@ interface HighchartsAxisTitle {
     y?: number;
 }
 
-interface HighchartsAxisBreak {
+interface AxisBreak {
     /**
      * A number indicating how much space should be left between the start and the end of the break. The break size is
      * given in axis units, so for instance on a datetime axis, a break size of 3600000 would indicate the equivalent of
@@ -434,7 +440,7 @@ interface HighchartsAxisBreak {
     to?: number;
 }
 
-interface HighchartsAxisOptions {
+interface AxisOptions {
     /**
      * Whether to allow decimals in this axis' ticks. When counting integers,
      * like persons or hits on a web page, decimals must be avoided in the axis
@@ -453,7 +459,7 @@ interface HighchartsAxisOptions {
      * each other. Requires that the broken-axis.js module is loaded.
      * @since 4.1.0
      */
-    breaks?: HighchartsAxisBreak[];
+    breaks?: AxisBreak[];
     /**
      * If categories are present for the xAxis, names are used instead of numbers for that axis. Since Highcharts 3.0,
      * categories can also be extracted by giving each point a name and setting axis type to category. However, if you
@@ -471,12 +477,12 @@ interface HighchartsAxisOptions {
     /**
      * Configure a crosshair that follows either the mouse pointer or the hovered point.
      */
-    crosshair?: HighchartsCrosshairObject | boolean;
+    crosshair?: CrosshairObject | boolean;
     /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
      */
-    dateTimeLabelFormats?: HighchartsDateTimeFormats;
+    dateTimeLabelFormats?: DateTimeFormats;
     /**
      * Whether to force the axis to end on a tick. Use this option with the maxPadding option to control the axis end.
      * @default false
@@ -494,13 +500,13 @@ interface HighchartsAxisOptions {
         /**
          * As opposed to the setExtremes event, this event fires after the final min and max values are computed and
          * corrected for minRange.
-         * The this keyword refers to the {@link HighchartsAxisObject|Axis} object.
+         * The this keyword refers to the {@link AxisObject|Axis} object.
          * @since 2.3
          */
-        afterSetExtremes?: (event: HighchartsAxisEvent) => void;
+        afterSetExtremes?: (event: AxisEvent) => void;
         /**
          * An event fired when a break from this axis occurs on a point.
-         * The this keyword refers to the {@link HighchartsAxisObject|Axis} object.
+         * The this keyword refers to the {@link AxisObject|Axis} object.
          */
         pointBreak?: (event: Event) => void;
         /**
@@ -512,10 +518,10 @@ interface HighchartsAxisOptions {
          * all the way out from the 'Reset zoom' button, event.min and event.max are null, and the new extremes are set
          * based on this.dataMin and this.dataMax.
          *
-         * The this keyword refers to the {@link HighchartsAxisObject|Axis} object.
+         * The this keyword refers to the {@link AxisObject|Axis} object.
          * @since 1.2.0
          */
-        setExtremes?: (event: HighchartsAxisEvent) => void;
+        setExtremes?: (event: AxisEvent) => void;
     };
     /**
      * The lowest allowed value for automatically computed axis extremes.
@@ -551,12 +557,12 @@ interface HighchartsAxisOptions {
     /**
      * The axis labels show the number or category for each tick.
      */
-    labels?: HighchartsAxisLabels;
+    labels?: AxisLabels;
     /**
      * The color of the line marking the axis itself.
      * @default '#C0D0E0'.
      */
-    lineColor?: string | HighchartsGradient;
+    lineColor?: string | Gradient;
     /**
      * The width of the line marking the axis itself.
      * @default 1
@@ -654,7 +660,7 @@ interface HighchartsAxisOptions {
      *
      * On axes using categories, minor ticks are not supported.
      */
-    minorTickInterval?: number|string;
+    minorTickInterval?: number | string;
     /**
      * The pixel length of the minor tick marks.
      * @default 2
@@ -689,11 +695,11 @@ interface HighchartsAxisOptions {
      *
      * In a gauge, a plot band on the Y axis (value axis) will stretch along the perimeter of the gauge.
      */
-    plotBands?: HighchartsPlotBands[];
+    plotBands?: PlotBands[];
     /**
      * An array of lines stretching across the plot area, marking a specific value on one of the axes.
      */
-    plotLines?: HighchartsPlotLines[];
+    plotLines?: PlotLines[];
     /**
      * Whether to reverse the axis so that the highest number is closest to the origin. If the chart is inverted, the x
      * axis is reversed by default.
@@ -795,7 +801,7 @@ interface HighchartsAxisOptions {
     /**
      * The axis title, showing next to the axis line.
      */
-    title?: HighchartsAxisTitle;
+    title?: AxisTitle;
     /**
      * The type of axis. Can be one of 'linear', 'logarithmic', 'datetime' or 'category'. In a datetime axis, the
      * numbers are given in milliseconds, and tick marks are placed on appropriate values like full hours or days. In a
@@ -817,10 +823,10 @@ interface HighchartsAxisOptions {
     visible?: boolean;
 }
 
-interface HighchartsColorAxisDataClass {
+interface ColorAxisDataClass {
     from?: number;
     to?: number;
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     name?: string;
 }
 
@@ -841,7 +847,7 @@ interface HighchartsColorAxisDataClass {
  *
  * See the Axis object for programmatic access to the axis.
  */
-interface HighchartsColorAxisOptions {
+interface ColorAxisOptions {
     /**
      * Determines how to set each data class' color if no individual color is set. The default value, tween, computes
      * intermediate colors between minColor and maxColor. The other possible value, category, pulls colors from the
@@ -853,7 +859,7 @@ interface HighchartsColorAxisOptions {
      * An array of data classes or ranges for the choropleth map. If none given, the color axis is scalar and values are
      * distributed as a gradient between the minimum and maximum colors.
      */
-    dataClasses?: HighchartsColorAxisDataClass[];
+    dataClasses?: ColorAxisDataClass[];
     /**
      * Whether to force the axis to end on a tick. Use this option with the maxPadding option to control the axis end.
      * @default true
@@ -863,9 +869,9 @@ interface HighchartsColorAxisOptions {
         /**
          * As opposed to the setExtremes event, this event fires after the final min and max values are computed and
          * corrected for minRange.
-         * The this keyword refers to the {@link HighchartsAxisObject|Axis} object.
+         * The this keyword refers to the {@link AxisObject|Axis} object.
          */
-        afterSetExtremes?: (event: HighchartsAxisEvent) => void;
+        afterSetExtremes?: (event: AxisEvent) => void;
         /**
          * Fires when the minimum and maximum is set for the axis, either by calling the .setExtremes() method or by
          * selecting an area in the chart. One parameter, event, is passed to the function. This contains common event
@@ -875,9 +881,9 @@ interface HighchartsColorAxisOptions {
          * all the way out from the 'Reset zoom' button, event.min and event.max are null, and the new extremes are set
          * based on this.dataMin and this.dataMax.
          *
-         * The this keyword refers to the {@link HighchartsAxisObject|Axis} object.
+         * The this keyword refers to the {@link AxisObject|Axis} object.
          */
-        setExtremes?: (event: HighchartsAxisEvent) => void;
+        setExtremes?: (event: AxisEvent) => void;
     };
     /**
      * Color of the grid lines extending from the axis across the gradient.
@@ -901,12 +907,12 @@ interface HighchartsColorAxisOptions {
     /**
      * The axis labels show the number for each tick.
      */
-    labels?: HighchartsAxisLabels;
+    labels?: AxisLabels;
     /**
      * The color of the line marking the axis itself.
      * @default '#C0D0E0'
      */
-    lineColor?: string | HighchartsGradient;
+    lineColor?: string | Gradient;
     /**
      * The width of the line marking the axis itself.
      * @default 0
@@ -921,12 +927,12 @@ interface HighchartsColorAxisOptions {
          * Animation for the marker as it moves between values. Set to false to disable animation.
          * @default {duration: 50}
          */
-        animation?: boolean | HighchartsAnimation;
+        animation?: boolean | Animation;
         /**
          * The color of the marker.
          * @default 'gray'
          */
-        color?: string | HighchartsGradient;
+        color?: string | Gradient;
     };
     /**
      * The maximum value of the axis in terms of map point values. If null, the max value is automatically calculated.
@@ -1088,7 +1094,7 @@ interface HighchartsColorAxisOptions {
     type?: string;
 }
 
-interface HighchartsExtremes {
+interface Extremes {
     /**
      * The maximum value of the axis' associated series.
      */
@@ -1109,7 +1115,7 @@ interface HighchartsExtremes {
     min: number;
 }
 
-interface HighchartsAnimation {
+interface Animation {
     /**
      * The duration of the animation in milliseconds.
      */
@@ -1123,32 +1129,32 @@ interface HighchartsAnimation {
     easing?: string;
 }
 
-interface HighchartsAddSeriesEvent extends Event {
+interface AddSeriesEvent extends Event {
     /**
      * The series options that was passed to the addSeries method.
      */
-    options: HighchartsChartOptions;
+    options: ChartOptions;
 }
 
-interface HighchartsAxisValueOptions extends HighchartsAxisOptions {
+interface AxisValueOptions extends AxisOptions {
     /**
      * The axis value at the clicked spot
      */
     value: number;
 }
 
-interface HighchartsChartClickEvent extends Event {
+interface ChartClickEvent extends Event {
     /**
      * Array containing the axes of each dimension and each axis' value at the clicked spot
      */
-    xAxis: HighchartsAxisValueOptions[];
+    xAxis: AxisValueOptions[];
     /**
      * Array containing the axes of each dimension and each axis' value at the clicked spot
      */
-    yAxis: HighchartsAxisValueOptions[];
+    yAxis: AxisValueOptions[];
 }
 
-interface HighchartsChartDrilldownEvent extends Event {
+interface ChartDrilldownEvent extends Event {
     /**
      * If a category label was clicked, which index.
      */
@@ -1156,29 +1162,29 @@ interface HighchartsChartDrilldownEvent extends Event {
     /**
      * The originating point.
      */
-    point?: HighchartsPointObject;
+    point?: PointObject;
     /**
      * If a category label was clicked, this array holds all points corresponing to the category.
      */
-    points?: HighchartsPointObject[];
+    points?: PointObject[];
     /**
      * Options for the new series.
      */
-    seriesOptions?: HighchartsIndividualSeriesOptions;
+    seriesOptions?: IndividualSeriesOptions;
 }
 
-interface HighchartsChartSelectionEvent extends Event {
+interface ChartSelectionEvent extends Event {
     /**
      * Array containing the axes of each dimension and each axis' min and max values
      */
-    xAxis: HighchartsAxisOptions[];
+    xAxis: AxisOptions[];
     /**
      * Array containing the axes of each dimension and each axis' min and max values
      */
-    yAxis: HighchartsAxisOptions[];
+    yAxis: AxisOptions[];
 }
 
-interface HighchartsChartEvents {
+interface ChartEvents {
     /**
      * Fires when a series is added to the chart after load time, using the addSeries method. One parameter, event, is
      * passed to the function. This contains common event information based on jQuery or MooTools depending on which
@@ -1188,7 +1194,7 @@ interface HighchartsChartEvents {
      * The this keyword refers to the Chart object.
      * @since 1.2.0
      */
-    addSeries?: (event: HighchartsAddSeriesEvent) => boolean|void;
+    addSeries?: (event: AddSeriesEvent) => boolean | void;
     /**
      * Fires after a chart is printed through the context menu item or the Chart.print method. Requires the exporting
      * module.
@@ -1210,18 +1216,18 @@ interface HighchartsChartEvents {
      * event.yAxis[0]. Remember the unit of a datetime axis is milliseconds since 1970-01-01 00:00:00.
      *
      * click: function(e) {
-     * 		console.log(Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', e.xAxis[0].value), e.yAxis[0].value);
+     *      console.log(Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', e.xAxis[0].value), e.yAxis[0].value);
      * }
      *
      * The this keyword refers to the Chart object.
      * @since 1.2.0
      */
-    click?: (event: HighchartsChartClickEvent) => void;
+    click?: (event: ChartClickEvent) => void;
     /**
      * Fires when a drilldown point is clicked, before the new series is added.
      * @since 3.0.8
      */
-    drilldown?: (event: HighchartsChartDrilldownEvent) => void;
+    drilldown?: (event: ChartDrilldownEvent) => void;
     /**
      * Fires when drilling up from a drilldown series.
      * @since 3.0.8
@@ -1258,27 +1264,27 @@ interface HighchartsChartEvents {
      * event.yAxis[0]. Remember the unit of a datetime axis is milliseconds since 1970-01-01 00:00:00.
      *
      * selection: function(event) {
-     * 		// log the min and max of the primary, datetime x-axis
-     * 		console.log(
-     * 			Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', event.xAxis[0].min),
-     * 			Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', event.xAxis[0].max)
-     * 		);
-     * 		// log the min and max of the y axis
-     * 		console.log(event.yAxis[0].min, event.yAxis[0].max);
+     *      // log the min and max of the primary, datetime x-axis
+     *      console.log(
+     *          Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', event.xAxis[0].min),
+     *          Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', event.xAxis[0].max)
+     *      );
+     *      // log the min and max of the y axis
+     *      console.log(event.yAxis[0].min, event.yAxis[0].max);
      * }
      */
-    selection?: (event: HighchartsChartSelectionEvent) => void;
+    selection?: (event: ChartSelectionEvent) => void;
 }
 
-interface HighchartsLinearGradient {
+interface LinearGradient {
     x1: number;
     y1: number;
     x2: number;
     y2: number;
 }
 
-interface HighchartsGradient {
-    linearGradient?: HighchartsLinearGradient | number[];
+interface Gradient {
+    linearGradient?: LinearGradient | number[];
     radialGradient?: {
         cx: number; cy: number; r: number;
     };
@@ -1287,7 +1293,7 @@ interface HighchartsGradient {
      * Brighten the color
      * @param {number} alpha
      */
-    brighten?(alpha: number): HighchartsGradient;
+    brighten?(alpha: number): Gradient;
     /**
      * Return the color a specified format
      * @param {string} format
@@ -1304,18 +1310,18 @@ interface HighchartsGradient {
     /**
      * Set the color's opacity to a given alpha value
      * @param  {number} alpha
-     * @return {HighchartsGradient}
+     * @return {Gradient}
      */
-    setOpacity?(alpha: number): HighchartsGradient;
+    setOpacity?(alpha: number): Gradient;
 }
 
-interface HighchartsChartOptions3dFrame {
+interface ChartOptions3dFrame {
     /**
      * The color of the panel.
      * @default 'transparent'
      * @since 4.0
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient,
     /**
      * Thickness of the panel.
      * @default 1
@@ -1324,7 +1330,7 @@ interface HighchartsChartOptions3dFrame {
     size?: number;
 }
 
-interface HighchartsChartOptions3d {
+interface ChartOptions3d {
     /**
      * One of the two rotation angles for the chart.
      * @default 0
@@ -1357,17 +1363,17 @@ interface HighchartsChartOptions3d {
          * Defines the back panel of the frame around 3D charts.
          * @since 4.0
          */
-        back?: HighchartsChartOptions3dFrame;
+        back?: ChartOptions3dFrame;
         /**
          * The bottom of the frame around a 3D chart.
          * @since 4.0
          */
-        bottom?: HighchartsChartOptions3dFrame;
+        bottom?: ChartOptions3dFrame;
         /**
          * The side for the frame around a 3D chart.
          * @since 4.0
          */
-        side?: HighchartsChartOptions3dFrame;
+        side?: ChartOptions3dFrame;
     };
     /**
      * Defines the distance the viewer is standing in front of the chart, this setting is important to calculate the
@@ -1378,11 +1384,11 @@ interface HighchartsChartOptions3d {
     viewDistance?: number;
 }
 
-interface HighchartsShadow {
+interface Shadow {
     /**
      * @default 'black'
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * @default 1
      */
@@ -1401,12 +1407,12 @@ interface HighchartsShadow {
     width?: number;
 }
 
-interface HighchartsChartResetZoomButton {
+interface ChartResetZoomButton {
     /**
      * The position of the button. This is an object that can hold the properties align, verticalAlign, x and y.
      * @since 2.2
      */
-    position?: HighchartsPosition;
+    position?: Position;
     /**
      * What frame the button should be placed related to. Can be either 'plot' or 'chart'.
      * @default 'plot'
@@ -1419,15 +1425,15 @@ interface HighchartsChartResetZoomButton {
      * attributes for the hover state are given in theme.states.hover.
      * @since 2.2
      */
-    theme?: HighchartsButtonStatesTheme;
+    theme?: ButtonStatesTheme;
 }
 
-interface HighchartsButtonTheme {
+interface ButtonTheme {
     display?: string; // css attr eg: 'none'
     /**
      * The button fill color, SVG color definition
      */
-    fill?: string | HighchartsGradient;
+    fill?: string | Gradient;
     /**
      * The button stroke color, SVG color definition
      */
@@ -1447,7 +1453,7 @@ interface HighchartsButtonTheme {
     style?: Object;
 }
 
-interface HighchartsButtonStatesTheme extends HighchartsButtonTheme {
+interface ButtonStatesTheme extends ButtonTheme {
     /**
      * Themed button states. Only hover is supported for reset zoom button.
      */
@@ -1455,15 +1461,15 @@ interface HighchartsButtonStatesTheme extends HighchartsButtonTheme {
         /**
          * Attributes and styles applied when hovering.
          */
-        hover?: HighchartsButtonTheme;
+        hover?: ButtonTheme;
         /**
          * Attributes and styles applied when button is selected (tri-state).
          */
-        select?: HighchartsButtonTheme;
+        select?: ButtonTheme;
     };
 }
 
-interface HighchartsChartOptions {
+interface ChartOptions {
     /**
      * When using multiple axis, the ticks of two or more opposite axes will automatically be aligned by adding ticks to
      * the axis or axes with the least ticks. This can be prevented by setting alignTicks to false. If the grid lines
@@ -1481,17 +1487,17 @@ interface HighchartsChartOptions {
      *
      * @default true
      */
-    animation?: boolean | HighchartsAnimation;
+    animation?: boolean | Animation;
     /**
      * The background color or gradient for the outer chart area.
      * @default '#FFFFFF'
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The color of the outer chart border.
      * @default '#4572A7'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The corner radius of the outer chart border.
      * @default 0
@@ -1515,7 +1521,7 @@ interface HighchartsChartOptions {
     /**
      * Event listeners for the chart.
      */
-    events?: HighchartsChartEvents;
+    events?: ChartEvents;
     /**
      * An explicit height for the chart. By default the height is calculated from the offset height of the containing
      * element, or 400 pixels if the containing element's height is 0.
@@ -1573,7 +1579,7 @@ interface HighchartsChartOptions {
      * Options to render charts in 3 dimensions. This feature requires highcharts-3d.js, found in the download package
      * or online at {@link code.highcharts.com/highcharts-3d.js}.
      */
-    options3d?: HighchartsChartOptions3d;
+    options3d?: ChartOptions3d;
     /**
      * Allows setting a key to switch between zooming and panning.
      * @since 4.0.3
@@ -1596,7 +1602,7 @@ interface HighchartsChartOptions {
     /**
      * The background color or gradient for the plot area.
      */
-    plotBackgroundColor?: string | HighchartsGradient;
+    plotBackgroundColor?: string | Gradient;
     /**
      * The URL for an image to use as the plot background. To set an image as the background for the entire chart, set a
      * CSS background image to the container element. Note that for the image to be applied to exported charts, its URL
@@ -1618,7 +1624,7 @@ interface HighchartsChartOptions {
      * can be an object configuration containing color, offsetX, offsetY, opacity and width.
      * @default false
      */
-    plotShadow?: boolean | HighchartsShadow;
+    plotShadow?: boolean | Shadow;
     /**
      * When true, cartesian charts like line, spline, area and column are transformed into the polar coordinate system.
      * Requires highcharts-more.js.
@@ -1640,7 +1646,7 @@ interface HighchartsChartOptions {
     /**
      * The button that appears after a selection zoom, allowing the user to reset zoom.
      */
-    resetZoomButton?: HighchartsChartResetZoomButton;
+    resetZoomButton?: ChartResetZoomButton;
     /**
      * The background color of the marker square when selecting (zooming in on) an area of the chart.
      * @default 'rgba(69,114,167,0.25)'
@@ -1652,7 +1658,7 @@ interface HighchartsChartOptions {
      * shadow can be an object configuration containing color, offsetX, offsetY, opacity and width.
      * @default false
      */
-    shadow?: boolean | HighchartsShadow;
+    shadow?: boolean | Shadow;
     /**
      * Whether to show the axes initially. This only applies to empty charts where series are added dynamically, as axes
      * are automatically added to cartesian series.
@@ -1700,7 +1706,7 @@ interface HighchartsChartOptions {
      * Additional CSS styles to apply inline to the container div. Note that since the default font styles are applied
      * in the renderer, it is ignorant of the individual chart options and must be set globally.
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * The default series type for the chart. Can be any of the chart types listed under plotOptions.
      * @default 'line'
@@ -1718,10 +1724,10 @@ interface HighchartsChartOptions {
     zoomType?: string;
 }
 
-interface HighchartsCSSObject {
+interface CSSObject {
     background?: string;
     border?: string;
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     cursor?: string;
     font?: string;
     fontFamily?: string;
@@ -1735,7 +1741,7 @@ interface HighchartsCSSObject {
     textShadow?: string;
 }
 
-interface HighchartsCreditsOptions {
+interface CreditsOptions {
     /**
      * Whether to show the credits text.
      * @default true
@@ -1749,7 +1755,7 @@ interface HighchartsCreditsOptions {
     /**
      * Position configuration for the credits label. Supported properties are align, verticalAlign, x and y.
      */
-    position?: HighchartsPosition;
+    position?: Position;
     /**
      * CSS styles for the credits label.
      */
@@ -1761,7 +1767,7 @@ interface HighchartsCreditsOptions {
     text?: string;
 }
 
-interface HighchartsDataSeriesMapping {
+interface DataSeriesMapping {
     [pointPropertyName: string]: number;
 }
 
@@ -1774,21 +1780,21 @@ interface HighchartsDataSeriesMapping {
  * Please note that the default way of adding data in Highcharts, without the need of a module, is through the
  * series.data option.
  */
-interface HighchartsDataOptions {
+interface DataOptions {
     /**
      * A two-dimensional array representing the input data on tabular form. This input can be used when the data is
      * already parsed, for example from a grid view component. Each cell can be a string or number. If not
      * switchRowsAndColumns is set, the columns are interpreted as series.
      * @since 4.0
      */
-    columns?: [string|number][];
+    columns?: [string | number][];
     /**
      * The callback that is evaluated when the data is finished loading, optionally from an external source, and parsed.
      * The first argument passed is a finished chart options object, containing the series. These options can be
      * extended with additional options and passed directly to the chart constructor.
      * @since 4.0
      */
-    complete?: (options: HighchartsOptions) => void;
+    complete?: (options: Options) => void;
     /**
      * A comma delimited string to be parsed. Related options are startRow, endRow, startColumn and endColumn to delimit
      * what part of the table is used. The lineDelimiter and itemDelimiter options define the CSV delimiter formats.
@@ -1864,17 +1870,17 @@ interface HighchartsDataOptions {
      * async.
      * @since 4.0
      */
-    parsed?: (columns: [string|number][]) => boolean | void;
+    parsed?: (columns: [string | number][]) => boolean | void;
     /**
      * The same as the columns input option, but defining rows intead of columns.
      * @since 4.0
      */
-    rows?: [string|number][];
+    rows?: [string | number][];
     /**
      * An array containing object with Point property names along with what column id the property should be taken from.
      * @since 4.0.4
      */
-    seriesMapping?: HighchartsDataSeriesMapping[];
+    seriesMapping?: DataSeriesMapping[];
     /**
      * In tabular input data, the first column (indexed by 0) to use.
      * @default 0
@@ -1908,7 +1914,7 @@ interface HighchartsDataOptions {
  * The drilldown feature requires the drilldown.js file to be loaded, found in the modules directory of the download
  * package, or online at code.highcharts.com/modules/drilldown.js.
  */
-interface HighchartsDrilldownOptions {
+interface DrilldownOptions {
     /**
      * Additional styles to apply to the X axis label for a point that has drilldown data. By default it is underlined
      * and blue to invite to interaction.
@@ -1939,7 +1945,7 @@ interface HighchartsDrilldownOptions {
      * easing and a duration of 500 ms.
      * @since 3.0.8
      */
-    animation?: boolean | HighchartsAnimation;
+    animation?: boolean | Animation;
     /**
      * Options for the drill up button that appears when drilling down on a series. The text for the button is defined
      * in lang.drillUpText.
@@ -1950,7 +1956,7 @@ interface HighchartsDrilldownOptions {
          * verticalAlign.
          * @since 3.0.8
          */
-        position?: HighchartsPosition;
+        position?: Position;
         /**
          * What box to align the button to. Can be either 'plotBox' or 'spacingBox'.
          * @default 'plotBox'
@@ -1963,7 +1969,7 @@ interface HighchartsDrilldownOptions {
          * attributes for the hover state are given in theme.states.hover.
          * @since 3.0.8
          */
-        theme?: HighchartsButtonStatesTheme;
+        theme?: ButtonStatesTheme;
     }
     /**
      * An array of series configurations for the drill down. Each series configuration uses the same syntax as the
@@ -1971,10 +1977,10 @@ interface HighchartsDrilldownOptions {
      * series' point by its id.
      * @since 3.0.8
      */
-    series?: HighchartsIndividualSeriesOptions[];
+    series?: IndividualSeriesOptions[];
 }
 
-interface HighchartsMenuItem {
+interface MenuItem {
     /**
      * String to show in the menu item.
      */
@@ -1985,7 +1991,7 @@ interface HighchartsMenuItem {
     onclick: () => void;
 }
 
-interface HighchartsButton {
+interface Button {
     /**
      * Alignment for the buttons.
      * @default 'right'
@@ -2051,7 +2057,7 @@ interface HighchartsButton {
      * fill. Tri-state button styles are supported by the states.hover and states.select objects.
      * @since 3.0
      */
-    theme?: HighchartsButtonStatesTheme;
+    theme?: ButtonStatesTheme;
     /**
      * The vertical alignment of the buttons. Can be one of 'top', 'middle' or 'bottom'.
      * @default 'top'
@@ -2072,7 +2078,7 @@ interface HighchartsButton {
     y?: number;
 }
 
-interface HighchartsExportingContextButton extends HighchartsButton {
+interface ExportingContextButton extends Button {
     /**
      * A collection of config options for the menu items. Each options object consists of a text option which is a
      * string to show in the menu item, as well as an onclick parameter which is a callback function to run on click.
@@ -2081,7 +2087,7 @@ interface HighchartsExportingContextButton extends HighchartsButton {
      * can be customized by defining a new array of items and assigning null to unwanted positions.
      * @since 2.0
      */
-    menuItems?: HighchartsMenuItem[];
+    menuItems?: MenuItem[];
     /**
      * A click handler callback to use on the button directly instead of the popup menu.
      * @since 2.0
@@ -2100,7 +2106,7 @@ interface HighchartsExportingContextButton extends HighchartsButton {
     x?: number;
 }
 
-interface HighchartsExportingOptions {
+interface ExportingOptions {
     /**
      * Experimental setting to allow HTML inside the chart (added through the useHTML options), directly in the exported
      * image. This allows you to preserve complicated HTML structures like tables or bi-directional text in exported
@@ -2118,14 +2124,14 @@ interface HighchartsExportingOptions {
      * buttons can be added. See navigation.buttonOptions for general options.
      */
     buttons?: {
-        contextButton?: HighchartsExportingContextButton;
+        contextButton?: ExportingContextButton;
     };
     /**
      * Additional chart options to be merged into an exported chart. For example, the exported chart can be given a
      * specific width and height, or a printer-friendly color scheme.
      * @default null
      */
-    chartOptions?: HighchartsOptions;
+    chartOptions?: Options;
     /**
      * Whether to enable the exporting module. Disabling the module will hide the context button, but API methods will
      * still be available.
@@ -2199,7 +2205,7 @@ interface HighchartsExportingOptions {
  * Global options that don't apply to each chart. These options, like the lang options, must be set using the
  * Highcharts.setOptions method.
  */
-interface HighchartsGlobalObject {
+interface GlobalObject {
     /**
      * A custom Date class for advanced date handling. For example, JDate can be hooked in to handle Jalali dates.
      * @since 4.0.4
@@ -2242,17 +2248,17 @@ interface HighchartsGlobalObject {
     useUTC?: boolean;
 }
 
-interface HighchartsLabelItem {
+interface LabelItem {
     html: string;
-    style: HighchartsCSSObject;
+    style: CSSObject;
 }
 
-interface HighchartsLabelsOptions {
-    items?: HighchartsLabelItem[];
-    style?: HighchartsCSSObject;
+interface LabelsOptions {
+    items?: LabelItem[];
+    style?: CSSObject;
 }
 
-interface HighchartsLangObject {
+interface LangObject {
     /**
      * Exporting module menu. The tooltip title for the context menu holding print and export menu items.
      * @default 'Chart context menu'
@@ -2365,7 +2371,7 @@ interface HighchartsLangObject {
     weekdays?: string[];
 }
 
-interface HighchartsLegendNavigationOptions {
+interface LegendNavigationOptions {
     /**
      * The color for the active up or down arrow in the legend page navigation.
      * @default '#3E576F'
@@ -2378,7 +2384,7 @@ interface HighchartsLegendNavigationOptions {
      * @default true
      * @since 2.2.4
      */
-    animation?: boolean | HighchartsAnimation;
+    animation?: boolean | Animation;
     /**
      * The pixel size of the up and down arrows in the legend paging navigation.
      * @default 12
@@ -2394,16 +2400,16 @@ interface HighchartsLegendNavigationOptions {
      * Text styles for the legend page navigation.
      * @since 2.2.4
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
 }
 
-interface HighchartsLegendTitleOptions {
+interface LegendTitleOptions {
     /**
      * Generic CSS styles for the legend title.
      * @default {'fontWeight':'bold'}
      * @since 3.0
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * A text or HTML string for the title.
      * @default null
@@ -2412,7 +2418,7 @@ interface HighchartsLegendTitleOptions {
     text?: string;
 }
 
-interface HighchartsLegendOptions {
+interface LegendOptions {
     /**
      * The horizontal alignment of the legend box within the chart area. Valid values are 'left', 'center' and 'right'.
      * In the case that the legend is aligned in a corner position, the layout option will determine whether to place it
@@ -2424,12 +2430,12 @@ interface HighchartsLegendOptions {
     /**
      * The background color of the legend.
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The color of the drawn border around the legend.
      * @default '#909090'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The border corner radius of the legend.
      * @default 0
@@ -2462,13 +2468,13 @@ interface HighchartsLegendOptions {
      * supported, notably those options related to text. Properties are inherited from style unless overridden here.
      * @default {color: '#CCC'}
      */
-    itemHiddenStyle?: HighchartsCSSObject;
+    itemHiddenStyle?: CSSObject;
     /**
      * CSS styles for each legend item in hover mode. Only a subset of CSS is supported, notably those options related
      * to text. Properties are inherited from style unless overridden here.
      * @default {color: '#000'}
      */
-    itemHoverStyle?: HighchartsCSSObject;
+    itemHoverStyle?: CSSObject;
     /**
      * The pixel bottom margin for each legend item.
      * @default 0
@@ -2485,7 +2491,7 @@ interface HighchartsLegendOptions {
      * CSS styles for each legend item. Only a subset of CSS is supported, notably those options related to text.
      * @default { 'color': '#333333', 'cursor': 'pointer', 'fontSize': '12px', 'fontWeight': 'bold' }
      */
-    itemStyle?: HighchartsCSSObject;
+    itemStyle?: CSSObject;
     /**
      * The width for each legend item. This is useful in a horizontal layout with many items when you want the items to
      * align vertically.
@@ -2532,7 +2538,7 @@ interface HighchartsLegendOptions {
     /**
      * Options for the paging or navigation appearing when the legend is overflown.
      */
-    navigation?: HighchartsLegendNavigationOptions;
+    navigation?: LegendNavigationOptions;
     /**
      * The inner padding of the legend box.
      * @default 8
@@ -2558,14 +2564,14 @@ interface HighchartsLegendOptions {
      * Since 2.3 the shadow can be an object configuration containing color, offsetX, offsetY, opacity and width.
      * @default false
      */
-    shadow?: boolean | HighchartsShadow;
+    shadow?: boolean | Shadow;
     /**
      * CSS styles for the legend area. In the 1.x versions the position of the legend area was determined by CSS. In
      * 2.x, the position is determined by properties like align, verticalAlign, x and y, but the styles are still parsed
      * for backwards compatibility.
      * @deprecated
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * The pixel height of the symbol for series types that use a rectangle in the legend. Defaults to the font size of
      * legend items.
@@ -2592,7 +2598,7 @@ interface HighchartsLegendOptions {
      * A title to be added on top of the legend.
      * @since 3.0
      */
-    title?: HighchartsLegendTitleOptions;
+    title?: LegendTitleOptions;
     /**
      * Whether to use HTML to render the legend item texts. Prior to 4.1.7, when using HTML, legend.navigation was
      * disabled.
@@ -2637,7 +2643,7 @@ interface HighchartsLegendOptions {
  * the end user that something is going on, for example while retrieving new data via an XHR connection. The
  * 'Loading...' text itself is not part of this configuration object, but part of the lang object.
  */
-interface HighchartsLoadingOptions {
+interface LoadingOptions {
     /**
      * The duration in milliseconds of the fade out effect.
      * @default 100
@@ -2648,7 +2654,7 @@ interface HighchartsLoadingOptions {
      * CSS styles for the loading label span.
      * @default { 'fontWeight': 'bold', 'position': 'relative', 'top': '45%' }
      */
-    labelStyle?: HighchartsCSSObject;
+    labelStyle?: CSSObject;
     /**
      * The duration in milliseconds of the fade in effect.
      * @default 100
@@ -2665,15 +2671,15 @@ interface HighchartsLoadingOptions {
 /**
  * A collection of options for buttons and menus appearing in the exporting module.
  */
-interface HighchartsNavigationOptions {
+interface NavigationOptions {
     /**
      * A collection of options for buttons appearing in the exporting module.
      */
-    buttonOptions?: HighchartsButton;
+    buttonOptions?: Button;
     /**
      * CSS styles for the hover state of the individual items within the popup menu appearing by default when the export
      * icon is clicked. The menu items are rendered in HTML.
-     * @default {background: '#4572A5',	color: '#FFFFFF'}
+     * @default {background: '#4572A5', color: '#FFFFFF'}
      * @since 2.0
      */
     menuItemHoverStyle?: Object;
@@ -2697,7 +2703,7 @@ interface HighchartsNavigationOptions {
  * Options for displaying a message like 'No data to display'. This feature requires the file no-data-to-display.js to
  * be loaded in the page. The actual text to display is set in the lang.noData option.
  */
-interface HighchartsNoDataOptions {
+interface NoDataOptions {
     /**
      * An object of additional SVG attributes for the no-data label.
      * @since 3.0.8
@@ -2708,23 +2714,23 @@ interface HighchartsNoDataOptions {
      * @default { 'x': 0, 'y': 0, 'align': 'center', 'verticalAlign': 'middle' }
      * @since 3.0.8
      */
-    position?: HighchartsPosition;
+    position?: Position;
     /**
      * CSS styles for the no-data label.
      * @default { 'fontSize': '12px', 'fontWeight': 'bold', 'color': '#60606a' }
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
 }
 
-interface HighchartsPaneBackground {
+interface PaneBackground {
     /**
      * @default {linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 }, stops: [[0, '#FFF'],[1, '#DDD']]}
      */
-    backgroundColor: string | HighchartsGradient;
+    backgroundColor: string | Gradient;
     /**
      * @default 'silver'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * @default 1
      */
@@ -2747,20 +2753,20 @@ interface HighchartsPaneBackground {
  * Applies only to polar charts and angular gauges. This configuration object holds general options for the combined X
  * and Y axes set. Each xAxis or yAxis can reference the pane by index.
  */
-interface HighchartsPaneOptions {
+interface PaneOptions {
     /**
      * An object, or array of objects, for backgrounds. Sub options include backgroundColor (can be solid or gradient),
      * shape ('solid', 'arc' or 'circle'), innerWidth, outerWidth, borderWidth, borderColor.
      * @since 2.3.0
      */
-    background?: HighchartsPaneBackground | HighchartsPaneBackground[];
+    background?: PaneBackground | PaneBackground[];
     /**
      * The center of a polar chart or angular gauge, given as an array of [x, y] positions. Positions can be given as
      * integers that transform to pixels, or as percentages of the plot area size.
      * @default ['50%', '50%']
      * @since 2.3.0
      */
-    center?: [number|string, number|string];
+    center?: [number | string, number | string];
     /**
      * The end angle of the polar X axis or gauge value axis, given in degrees where 0 is north.
      * @default startAngle + 360
@@ -2779,7 +2785,7 @@ interface HighchartsPaneOptions {
     startAngle?: number;
 }
 
-interface HighchartsDataLabels {
+interface DataLabels {
     /**
      * The alignment of the data label compared to the point. If right, the right side of the label should be touching
      * the point. For points with an extent, like columns, the alignments also dictates how to align it inside the box,
@@ -2798,12 +2804,12 @@ interface HighchartsDataLabels {
      * The background color or gradient for the data label.
      * @since 2.2.1
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The border color for the data label.
      * @since 2.2.1
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The border radius in pixels for the data label.
      * @default 0
@@ -2820,7 +2826,7 @@ interface HighchartsDataLabels {
      * The text color for the data labels.
      * @default null
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
      * area according to the overflow option.
@@ -2849,8 +2855,8 @@ interface HighchartsDataLabels {
      * precedence and the formatter is ignored.
      * Available data are:
      * - this.percentage Stacked series and pies only. The point's percentage of the total.
-     * - this.point	     The point object. The point name, if defined, is available through this.point.name.
-     * - this.series	 The series object. The series name is available through this.series.name.
+     * - this.point      The point object. The point name, if defined, is available through this.point.name.
+     * - this.series     The series object. The series name is available through this.series.name.
      * - this.total      Stacked series only. The total value at this point's x value.
      * - this.x:         The x value.
      * - this.y:         The y value.
@@ -2871,7 +2877,7 @@ interface HighchartsDataLabels {
      */
     overflow?: string;
     /**
-     * When either the borderWidth or the backgroundColor is set, this	is the padding within the box.
+     * When either the borderWidth or the backgroundColor is set, this  is the padding within the box.
      * @default 5
      * @since 2.2.1
      */
@@ -2887,7 +2893,7 @@ interface HighchartsDataLabels {
      * configuration containing color, offsetX, offsetY, opacity and width.
      * @default false
      */
-    shadow?: boolean | HighchartsShadow;
+    shadow?: boolean | Shadow;
     /**
      * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer
      * object.
@@ -2900,7 +2906,7 @@ interface HighchartsDataLabels {
      * @default {'color': 'contrast', 'fontSize': '11px', 'fontWeight': 'bold', 'textShadow': '0 0 6px contrast, 0 0 3px contrast' }
      * @since 4.1.0
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * Whether to {@link http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html|use HTML} to render the labels.
      * @default false
@@ -2931,7 +2937,7 @@ interface HighchartsDataLabels {
     zIndex?: number;
 }
 
-interface HighchartsPieDataLabels extends HighchartsDataLabels {
+interface PieDataLabels extends DataLabels {
     /**
      * The color of the line connecting the data label to the pie slice. The default color is the same as the point's
      * color. Defaults to {point.color}.
@@ -2965,7 +2971,7 @@ interface HighchartsPieDataLabels extends HighchartsDataLabels {
     softConnector?: boolean;
 }
 
-interface HighchartsAreaCheckboxEvent extends Event {
+interface AreaCheckboxEvent extends Event {
     /**
      * The state of the checkbox
      */
@@ -2973,17 +2979,17 @@ interface HighchartsAreaCheckboxEvent extends Event {
     /**
      * The checked item
      */
-    item: HighchartsSeriesObject | HighchartsPointObject;
+    item: SeriesObject | PointObject;
 }
 
-interface HighchartsAreaClickEvent extends Event {
+interface AreaClickEvent extends Event {
     /**
      * A pointer to the nearest point on the graph
      */
-    point: HighchartsPointObject;
+    point: PointObject;
 }
 
-interface HighchartsPlotEvents {
+interface PlotEvents {
     /**
      * Fires after the series has finished its initial animation, or in case animation is disabled, immediately as the
      * series is displayed.
@@ -3000,7 +3006,7 @@ interface HighchartsPlotEvents {
      * The this keyword refers to the Series object.
      * @since 1.2.0
      */
-    checkboxClick?: (event: HighchartsAreaCheckboxEvent) => boolean|void;
+    checkboxClick?: (event: AreaCheckboxEvent) => boolean | void;
     /**
      * Fires when the series is clicked. One parameter, event, is passed to the function. This contains common event
      * information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -3008,7 +3014,7 @@ interface HighchartsPlotEvents {
      *
      * The this keyword refers to the Series object.
      */
-    click?: (event: HighchartsAreaClickEvent) => void;
+    click?: (event: AreaClickEvent) => void;
     /**
      * Fires when the series is hidden after chart generation time, either by clicking the legend item or by calling
      * .hide().
@@ -3024,7 +3030,7 @@ interface HighchartsPlotEvents {
      *
      * The this keyword refers to the Series object.
      */
-    legendItemClick?: (event: Event) => boolean|void;
+    legendItemClick?: (event: Event) => boolean | void;
     /**
      * Fires when the mouse leaves the graph. One parameter, event, is passed to the function. This contains common
      * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts. If
@@ -3051,7 +3057,7 @@ interface HighchartsPlotEvents {
     show?: () => void;
 }
 
-interface HighchartsMarkerState {
+interface MarkerState {
     /**
      * Enable or disable the point marker. If null, the markers are hidden when the data is dense, and shown for more
      * widespread data points.
@@ -3066,7 +3072,7 @@ interface HighchartsMarkerState {
      * The color of the point marker's outline. When null, the series' or point's color is used.
      * @default '#FFFFFF', '#000000' for select state
      */
-    lineColor?: string | HighchartsGradient;
+    lineColor?: string | Gradient;
     /**
      * The width of the point marker's outline.
      * @default 0
@@ -3079,7 +3085,7 @@ interface HighchartsMarkerState {
     radius?: number;
 }
 
-interface HighchartsMarkerHoverState extends HighchartsMarkerState {
+interface MarkerHoverState extends MarkerState {
     /**
      * The additional line width for a hovered point.
      * @default 1
@@ -3094,7 +3100,7 @@ interface HighchartsMarkerHoverState extends HighchartsMarkerState {
     radiusPlus?: number;
 }
 
-interface HighchartsMarker extends HighchartsMarkerState {
+interface Marker extends MarkerState {
     /**
      * Image markers only. Set the image width explicitly. When using this option, a width must also be set.
      * @default null
@@ -3102,12 +3108,12 @@ interface HighchartsMarker extends HighchartsMarkerState {
      */
     height?: number;
     states?: {
-        hover?: HighchartsMarkerHoverState;
+        hover?: MarkerHoverState;
         /**
          * The appearance of the point marker when selected. In order to allow a point to be selected, set the
          * series.allowPointSelect option to true.
          */
-        select?: HighchartsMarkerState;
+        select?: MarkerState;
     };
     /**
      * A predefined shape or symbol for the marker. When null, the symbol is pulled from options.symbols. Other possible
@@ -3128,7 +3134,7 @@ interface HighchartsMarker extends HighchartsMarkerState {
     width?: number;
 }
 
-interface HighchartsPointEvents {
+interface PointEvents {
     /**
      * Fires when a point is clicked. One parameter, event, is passed to the function. This contains common event
      * information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
@@ -3162,7 +3168,7 @@ interface HighchartsPointEvents {
      * The this keyword refers to the Point object.
      * @since 1.2.0
      */
-    remove?: (event: Event) => boolean|void;
+    remove?: (event: Event) => boolean | void;
     /**
      * Fires when the point is selected either programmatically or following a click on the point. One parameter, event,
      * is passed to the function. Returning false cancels the operation.
@@ -3170,7 +3176,7 @@ interface HighchartsPointEvents {
      * The this keyword refers to the Point object.
      * @since 1.2.0
      */
-    select?: (event: Event) => boolean|void;
+    select?: (event: Event) => boolean | void;
     /**
      * Fires when the point is unselected either programmatically or following a click on the point. One parameter,
      * event, is passed to the function. Returning false cancels the operation.
@@ -3178,7 +3184,7 @@ interface HighchartsPointEvents {
      * The this keyword refers to the Point object.
      * @since 1.2.0
      */
-    unselect?: (event: Event) => boolean|void;
+    unselect?: (event: Event) => boolean | void;
     /**
      * Fires when the point is updated programmatically through the .update() method. One parameter, event, is passed to
      * the function. The new point options can be accessed through event.options. Returning false cancels the operation.
@@ -3194,10 +3200,9 @@ interface HighchartsPointEvents {
      * The default action is to toggle the visibility of the point. This can be prevented by calling event.preventDefault().
      */
     legendItemClick?: (event: Event) => boolean | void;
-
 }
 
-interface HighchartsHalo {
+interface Halo {
     /**
      * A collection of SVG attributes to override the appearance of the halo, for example fill, stroke and stroke-width.
      * @since 4.0
@@ -3218,7 +3223,7 @@ interface HighchartsHalo {
     size?: number;
 }
 
-interface HighchartsLineStates {
+interface LineStates {
     /**
      * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
      * legend.
@@ -3232,7 +3237,7 @@ interface HighchartsLineStates {
      * halo can be disabled by setting the halo option to false.
      * @since 4.0
      */
-    halo?: boolean | HighchartsHalo;
+    halo?: boolean | Halo;
     /**
      * Pixel with of the graph line.
      * @default 2
@@ -3244,10 +3249,10 @@ interface HighchartsLineStates {
      * @since 4.0.3
      */
     lineWidthPlus?: number;
-    marker?: HighchartsMarker;
+    marker?: Marker;
 }
 
-interface HighchartsBarStates {
+interface BarStates {
     /**
      * How much to brighten the point on interaction. Requires the main color to be defined in hex or rgb(a) format.
      * @default 0.1
@@ -3266,17 +3271,17 @@ interface HighchartsBarStates {
      * halo can be disabled by setting the halo option to false.
      * @since 4.0
      */
-    halo?: boolean | HighchartsHalo;
+    halo?: boolean | Halo;
 }
 
-interface HighchartsPieStates extends HighchartsBarStates, HighchartsLineStates { }
+interface PieStates extends BarStates, LineStates { }
 
-interface HighchartsAreaZone {
+interface AreaZone {
     /**
      * Defines the color of the series.
      * @since 4.1.0
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * A name for the dash style to use for the graph.
      * @since 4.1.0
@@ -3295,7 +3300,7 @@ interface HighchartsAreaZone {
     value?: number;
 }
 
-interface HighchartsRangeDataLabels {
+interface RangeDataLabels {
     /**
      * The alignment of the data label compared to the point. If right, the right side of the label should be touching
      * the point. For points with an extent, like columns, the alignments also dictates how to align it inside the box,
@@ -3315,13 +3320,13 @@ interface HighchartsRangeDataLabels {
      * @default undefined
      * @since 2.2.1
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The border color for the data label.
      * @default undefined
      * @since 2.2.1
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The border radius in pixels for the data label.
      * @default 0
@@ -3338,7 +3343,7 @@ interface HighchartsRangeDataLabels {
      * The text color for the data labels.
      * @default null
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
      * area according to the overflow option.
@@ -3368,8 +3373,8 @@ interface HighchartsRangeDataLabels {
      * precedence and the formatter is ignored.
      * Available data are:
      * - this.percentage Stacked series and pies only. The point's percentage of the total.
-     * - this.point	     The point object. The point name, if defined, is available through this.point.name.
-     * - this.series	 The series object. The series name is available through this.series.name.
+     * - this.point      The point object. The point name, if defined, is available through this.point.name.
+     * - this.series     The series object. The series name is available through this.series.name.
      * - this.total      Stacked series only. The total value at this point's x value.
      * - this.x:         The x value.
      * - this.y:         The y value.
@@ -3390,7 +3395,7 @@ interface HighchartsRangeDataLabels {
      */
     overflow?: string;
     /**
-     * When either the borderWidth or the backgroundColor is set, this	is the padding within the box.
+     * When either the borderWidth or the backgroundColor is set, this  is the padding within the box.
      * @default 5
      * @since 2.2.1
      */
@@ -3407,7 +3412,7 @@ interface HighchartsRangeDataLabels {
      * @default false
      * @since 2.2.1
      */
-    shadow?: boolean | HighchartsShadow;
+    shadow?: boolean | Shadow;
     /**
      * The name of a symbol to use for the border around the label. Symbols are predefined functions on the Renderer
      * object.
@@ -3420,7 +3425,7 @@ interface HighchartsRangeDataLabels {
      * @default {'color': 'contrast', 'fontSize': '11px', 'fontWeight': 'bold', 'textShadow': '0 0 6px contrast, 0 0 3px contrast' }
      * @since 4.1.0
      */
-    style?: HighchartsCSSObject;
+    style?: CSSObject;
     /**
      * Whether to {@link http://www.highcharts.com/docs/chart-concepts/labels-and-string-formatting#html|use HTML} to render the labels.
      * @default false
@@ -3465,13 +3470,13 @@ interface HighchartsRangeDataLabels {
     zIndex?: number;
 }
 
-interface HighchartsDial {
+interface Dial {
     /**
      * The background or fill color of the gauge's dial.
      * @default 'black'
      * @since 2.3.0
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The length of the dial's base part, relative to the total radius or length of the dial.
      * @default '70%'.
@@ -3490,7 +3495,7 @@ interface HighchartsDial {
      * @default 'silver'
      * @since 2.3.0
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The width of the gauge dial border in pixels.
      * @default 0
@@ -3518,20 +3523,20 @@ interface HighchartsDial {
     topWidth?: number;
 }
 
-interface HighchartsPivot {
+interface Pivot {
     /**
      * The background color or fill of the pivot.
      * @default 'black'
      * @since 2.3.0
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The border or stroke color of the pivot. In able to change this, the borderWidth must also be set to something
      * other than the default 0.
      * @default 'silver'
      * @since 2.3.0
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The border or stroke width of the pivot.
      * @default 0
@@ -3549,12 +3554,12 @@ interface HighchartsPivot {
 /**
  * Set options on specific levels. Takes precedence over series options, but not point options.
  */
-interface HighchartsTreeMapLevel {
+interface TreeMapLevel {
     /**
      * Can set borderColor on all points which lies on the same level.
      * @since 4.1.0
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * et the dash style of the border of all the point which lies on the level.
      * @since 4.1.0
@@ -3569,13 +3574,13 @@ interface HighchartsTreeMapLevel {
      * Can set a color on all points which lies on the same level.
      * @since 4.1.0
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * Can set the options of dataLabels on each point which lies on the level.
      * @default undefined
      * @since 4.1.0
      */
-    dataLabels?: HighchartsDataLabels;
+    dataLabels?: DataLabels;
     /**
      * Can set the layoutAlgorithm option on a specific level.
      * @since 4.1.0
@@ -3596,7 +3601,7 @@ interface HighchartsTreeMapLevel {
 /**
  * General options for all series types.
  */
-interface HighchartsSeriesChart {
+interface SeriesChart {
     /**
      * Allow this series' points to be selected by clicking on the markers, bars or pie slices.
      * @default false
@@ -3609,13 +3614,13 @@ interface HighchartsSeriesChart {
      * For other animations, see chart.animation and the animation parameter under the API methods.
      * @default true
      */
-    animation?: boolean | HighchartsAnimation;
+    animation?: boolean | Animation;
     /**
      * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
      * specified. In bar type series it applies to the bars unless a color is specified per point. The default value is
      * pulled from the options.colors array.
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * Polar charts only. Whether to connect the ends of a line series plot across the extremes.
      * @default true
@@ -3659,14 +3664,14 @@ interface HighchartsSeriesChart {
      * @default 'Solid'
      */
     dashStyle?: string;
-    dataLabels?: HighchartsDataLabels;
+    dataLabels?: DataLabels;
     /**
      * Enable or disable the mouse tracking for a specific series. This includes point tooltips and click events on
      * graphs and points. For large datasets it improves performance.
      * @default true
      */
     enableMouseTracking?: boolean;
-    events?: HighchartsPlotEvents;
+    events?: PlotEvents;
     /**
      * Whether to use the Y extremes of the total chart width or only the zoomed area when zooming in on parts of the X
      * axis. By default, the Y axis adjusts to the min and max of the visible data. Cartesian series only.
@@ -3697,7 +3702,7 @@ interface HighchartsSeriesChart {
      * @since 3.0
      */
     linkedTo?: string;
-    marker?: HighchartsMarker;
+    marker?: Marker;
     /**
      * The color for the parts of the graph or points that are below the threshold.
      * @default null.
@@ -3705,7 +3710,7 @@ interface HighchartsSeriesChart {
      */
     negativeColor?: string;
     point?: {
-        events: HighchartsPointEvents;
+        events: PointEvents;
     };
     /**
      * If no x values are given for the points in a series, pointInterval defines the interval of the x values. For
@@ -3758,7 +3763,7 @@ interface HighchartsSeriesChart {
      * color, offsetX, offsetY, opacity and width.
      * @default false
      */
-    shadow?: boolean | HighchartsShadow;
+    shadow?: boolean | Shadow;
     /**
      * If true, a checkbox is displayed next to the legend item to allow selecting the series. The state of the checkbox
      * is determined by the selected option.
@@ -3793,7 +3798,7 @@ interface HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsLineStates;
+        hover?: LineStates;
     };
     /**
      * Sticky tracking of mouse events. When true, the mouseOut event on a series isn't triggered until the mouse moves
@@ -3817,7 +3822,7 @@ interface HighchartsSeriesChart {
      * but only the following properties can be defined on a series level.
      * @since 2.3
      */
-    tooltip?: HighchartsSeriesTooltipOptions;
+    tooltip?: SeriesTooltipOptions;
     /**
      * When a series contains a data array that is longer than this, only one dimensional arrays of numbers, or two
      * dimensional arrays with x and y values are allowed. Also, only the first point is tested, and the rest are
@@ -3842,14 +3847,14 @@ interface HighchartsSeriesChart {
      * An array defining zones within a series. Zones can be applied to the X axis, Y axis or Z axis for bubbles,
      * according to the zoneAxis option.
      */
-    zones?: HighchartsAreaZone[];
+    zones?: AreaZone[];
 }
 
-interface HighchartsAreaChart extends HighchartsSeriesChart {
+interface AreaChart extends SeriesChart {
     /**
      * Fill color or gradient for the area. When null, the series' color is used with the series' fillOpacity.
      */
-    fillColor?: string | HighchartsGradient;
+    fillColor?: string | Gradient;
     /**
      * Fill opacity for the area. Note that when you set an explicit fillColor, the fillOpacity is not applied. Instead,
      * you should define the opacity in the fillColor with an rgba color definition.
@@ -3860,7 +3865,7 @@ interface HighchartsAreaChart extends HighchartsSeriesChart {
      * A separate color for the graph line. By default the line takes the color of the series, but the lineColor setting
      * allows setting a separate color for the line without altering the fillColor.
      */
-    lineColor?: string | HighchartsGradient;
+    lineColor?: string | Gradient;
     /**
      * A separate color for the negative part of the area.
      * @since 3.0
@@ -3882,27 +3887,27 @@ interface HighchartsAreaChart extends HighchartsSeriesChart {
     trackByArea?: boolean;
 }
 
-interface HighchartsAreaRangeChart extends HighchartsAreaChart {
+interface AreaRangeChart extends AreaChart {
     /**
      * Extended data labels for range series types. Range series data labels have no x and y options. Instead, they have
      * xLow, xHigh, yLow and yHigh options to allow the higher and lower data label sets individually.
      * @since 2.3.0
      */
-    dataLabels?: HighchartsRangeDataLabels;
+    dataLabels?: RangeDataLabels;
 }
 
-interface HighchartsAreaSplineChart extends HighchartsAreaChart {
+interface AreaSplineChart extends AreaChart {
 }
 
-interface HighchartsAreaSplineRangeChart extends HighchartsAreaRangeChart {
+interface AreaSplineRangeChart extends AreaRangeChart {
 }
 
-interface HighchartsBarChart extends HighchartsSeriesChart {
+interface BarChart extends SeriesChart {
     /**
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The corner radius of the border surrounding each column or bar.
      * @default 0
@@ -3999,7 +4004,7 @@ interface HighchartsBarChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsBarStates;
+        hover?: BarStates;
     };
 }
 
@@ -4008,7 +4013,7 @@ interface HighchartsBarChart extends HighchartsSeriesChart {
  * observation (sample minimum), lower quartile (Q1), median (Q2), upper quartile (Q3), and largest observation (sample
  * maximum).
  */
-interface HighchartsBoxPlotChart extends HighchartsErrorBarChart {
+interface BoxPlotChart extends ErrorBarChart {
     /**
      * The fill color of the box.
      * @default '#FFFFFF'
@@ -4053,7 +4058,7 @@ interface HighchartsBoxPlotChart extends HighchartsErrorBarChart {
  * as a bubble where the position along the X and Y axes mark the X and Y values, and the size of the bubble relates to
  * the Z value.
  */
-interface HighchartsBubbleChart extends HighchartsSeriesChart {
+interface BubbleChart extends SeriesChart {
     /**
      * Whether to display negative sized bubbles. The threshold is given by the zThreshold option, and negative bubbles
      * can be visualized by setting negativeColor.
@@ -4119,22 +4124,22 @@ interface HighchartsBubbleChart extends HighchartsSeriesChart {
     zThreshold?: number;
 }
 
-interface HighchartsColumnChart extends HighchartsBarChart {
+interface ColumnChart extends BarChart {
 }
 
 /**
  * The column range is a cartesian series type with higher and lower Y values along an X axis. Requires
  * highcharts-more.js. To display horizontal bars, set chart.inverted to true.
  */
-interface HighchartsColumnRangeChart extends HighchartsColumnChart {
-    dataLabels?: HighchartsRangeDataLabels;
+interface ColumnRangeChart extends ColumnChart {
+    dataLabels?: RangeDataLabels;
 }
 
 /**
  * Error bars are a graphical representation of the variability of data and are used on graphs to indicate the error, or
  * uncertainty in a reported measurement.
  */
-interface HighchartsErrorBarChart extends HighchartsSeriesChart {
+interface ErrorBarChart extends SeriesChart {
     /**
      * When using automatic point colors pulled from the options.colors collection, this option determines whether the
      * chart should receive one color per series or one color per point.
@@ -4209,7 +4214,7 @@ interface HighchartsErrorBarChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsBarStates;
+        hover?: BarStates;
     };
     /**
      * The color of the stem, the vertical line extending from the box to the whiskers. If null, the series color is
@@ -4258,12 +4263,12 @@ interface HighchartsErrorBarChart extends HighchartsSeriesChart {
  * Funnel charts are a type of chart often used to visualize stages in a sales project, where the top are the initial
  * stages with the most clients. It requires that the modules/funnel.js file is loaded
  */
-interface HighchartsFunnelChart extends HighchartsSeriesChart {
+interface FunnelChart extends SeriesChart {
     /**
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4275,13 +4280,13 @@ interface HighchartsFunnelChart extends HighchartsSeriesChart {
      * @default ['50%', '50%']
      * @since 3.0
      */
-    center?: [string|number, string|number];
+    center?: [string | number, string | number];
     /**
      * A series specific or series type specific color set to use instead of the global colors.
      * @since 3.0
      */
     colors?: string[];
-    dataLabels?: HighchartsPieDataLabels;
+    dataLabels?: PieDataLabels;
     /**
      * The thickness of a 3D pie. Requires highcharts-3d.js
      * @default 0
@@ -4332,7 +4337,7 @@ interface HighchartsFunnelChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsPieStates;
+        hover?: PieStates;
     };
     /**
      * The width of the funnel compared to the width of the plot area, or the pixel width if it is a number.
@@ -4345,16 +4350,16 @@ interface HighchartsFunnelChart extends HighchartsSeriesChart {
 /**
  * General plotting options for the gauge series type. Requires highcharts-more.js
  */
-interface HighchartsGaugeChart extends HighchartsSeriesChart {
+interface GaugeChart extends SeriesChart {
     /**
      * Data labels for the gauge. For gauges, the data labels are enabled by default and shown in a bordered box below
      * the point.
      */
-    datalabels?: HighchartsDataLabels;
+    datalabels?: DataLabels;
     /**
      * Options for the dial or arrow pointer of the gauge.
      */
-    dial?: HighchartsDial;
+    dial?: Dial;
     /**
      * Allow the dial to overshoot the end of the perimeter axis by this many degrees. Say if the gauge axis goes from 0
      * to 60, a value of 100, or 1000, will show 5 degrees beyond the end of the axis. Defaults to 0.
@@ -4366,7 +4371,7 @@ interface HighchartsGaugeChart extends HighchartsSeriesChart {
      * Options for the pivot or the center point of the gauge.
      * @since 2.3.0
      */
-    pivot?: HighchartsPivot;
+    pivot?: Pivot;
     /**
      * When this option is true, the dial will wrap around the axes. For instance, in a full-range gauge going from 0 to
      * 360, a value of 400 will point to 40. When wrap is false, the dial stops at 360.
@@ -4380,12 +4385,12 @@ interface HighchartsGaugeChart extends HighchartsSeriesChart {
  * The heatmap series type. This series type is available both in Highcharts and Highmaps.
  * The colors of each heat map point is usually determined by its value and controlled by settings on the colorAxis.
  */
-interface HighchartsHeatMapChart extends HighchartsSeriesChart {
+interface HeatMapChart extends SeriesChart {
     /**
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The corner radius of the border surrounding each column or bar.
      * @default 0
@@ -4444,31 +4449,31 @@ interface HighchartsHeatMapChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsBarStates;
+        hover?: BarStates;
     }
 }
 
-interface HighchartsLineChart extends HighchartsSeriesChart {
+interface LineChart extends SeriesChart {
     /**
      * Whether to apply steps to the line. Possible values are left, center and right. Prior to 2.3.5, only left was
      * supported.
      * @default false
      * @since 1.2.5
      */
-    step?: boolean|string;
+    step?: boolean | string;
 }
 
 /**
  * A pie chart is a circular chart divided into sectors, illustrating numerical proportion.
  */
-interface HighchartsPieChart extends HighchartsSeriesChart {
+interface PieChart extends SeriesChart {
     /**
      * The color of the border surrounding each slice. When null, the border takes the same color as the slice fill.
      * This can be used together with a borderWidth to fill drawing gaps created by antialiazing artefacts in
      * borderless pies.
      * @default '#FFFFFF'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4481,13 +4486,13 @@ interface HighchartsPieChart extends HighchartsSeriesChart {
      * center should be explicitly set, for example to ['50%', '50%'].
      * @default [null, null]
      */
-    center?: [string|number, string|number];
+    center?: [string | number, string | number];
     /**
      * A series specific or series type specific color set to use instead of the global colors.
      * @since 3.0
      */
     colors?: string[];
-    dataLabels?: HighchartsPieDataLabels;
+    dataLabels?: PieDataLabels;
     /**
      * The thickness of a 3D pie. Requires highcharts-3d.js
      * @default 0
@@ -4551,7 +4556,7 @@ interface HighchartsPieChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsPieStates;
+        hover?: PieStates;
     };
 }
 
@@ -4560,7 +4565,7 @@ interface HighchartsPieChart extends HighchartsSeriesChart {
  * the color option, and stroke is applied through lineWidth and lineColor options. Requires the highcharts-more.js
  * file.
  */
-interface HighchartsPolygonChart extends HighchartsSeriesChart {
+interface PolygonChart extends SeriesChart {
     /**
      * The width of the line connecting the data points.
      * @default 0
@@ -4568,12 +4573,12 @@ interface HighchartsPolygonChart extends HighchartsSeriesChart {
     lineWidth?: number;
 }
 
-interface HighchartsPyramidChart extends HighchartsSeriesChart {
+interface PyramidChart extends SeriesChart {
     /**
      * The color of the border surrounding each slice
      * @default '#FFFFFF'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The width of the border surrounding each slice
      * @default 1
@@ -4585,13 +4590,13 @@ interface HighchartsPyramidChart extends HighchartsSeriesChart {
      * @default ['50%', '50%']
      * @since 3.0
      */
-    center?: [string|number, string|number];
+    center?: [string | number, string | number];
     /**
      * A series specific or series type specific color set to use instead of the global colors.
      * @since 3.0
      */
     colors?: string[];
-    dataLabels?: HighchartsPieDataLabels;
+    dataLabels?: PieDataLabels;
     /**
      * The thickness of a 3D pie. Requires highcharts-3d.js
      * @default 0
@@ -4630,7 +4635,7 @@ interface HighchartsPyramidChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsPieStates;
+        hover?: PieStates;
     };
     /**
      * The width of the pyramid compared to the width of the plot area, or the pixel width if it is a number.
@@ -4640,14 +4645,14 @@ interface HighchartsPyramidChart extends HighchartsSeriesChart {
     width?: number | string;
 }
 
-interface HighchartsScatterChart extends HighchartsSeriesChart { }
+interface ScatterChart extends SeriesChart { }
 
 /**
  * A gauge showing values using a filled arc with colors indicating the value. The solid gauge plots values against the
  * yAxis, which is extended with some color options, minColor, maxColor and stops, to control the color of the gauge
  * itself.
  */
-interface HighchartsSolidGaugeChart extends HighchartsSeriesChart {
+interface SolidGaugeChart extends SeriesChart {
     /**
      * Allow the dial to overshoot the end of the perimeter axis by this many degrees. Say if the gauge axis goes from 0
      * to 60, a value of 100, or 1000, will show 5 degrees beyond the end of the axis.
@@ -4664,13 +4669,13 @@ interface HighchartsSolidGaugeChart extends HighchartsSeriesChart {
     wrap?: boolean;
 }
 
-interface HighchartsSplineChart extends HighchartsSeriesChart { }
+interface SplineChart extends SeriesChart { }
 
 /**
  * The size of the point shape is determined by its value relative to its siblings values. Requires the module
  * heatmap.js as well, if functionality such as the colorAxis is to be used.
  */
-interface HighchartsTreeMapChart extends HighchartsSeriesChart {
+interface TreeMapChart extends SeriesChart {
     /**
      * When enabled the user can click on a point which is a parent and zoom in on its children.
      * @default false
@@ -4688,7 +4693,7 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
      * The color of the border surrounding each tree map item.
      * @default '#E0E0E0'
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4736,7 +4741,7 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
     /**
      * Set options on specific levels. Takes precedence over series options, but not point options.
      */
-    levels?: HighchartsTreeMapLevel[];
+    levels?: TreeMapLevel[];
     /**
      * The maximum allowed pixel width for a column, translated to the height of a bar in a bar chart. This prevents the
      * columns from becoming too wide when there is a small number of points in the chart.
@@ -4756,11 +4761,11 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
         /**
          * Options for the hovered series
          */
-        hover?: HighchartsBarStates;
+        hover?: BarStates;
     }
 }
 
-interface HighchartsWaterFallChart extends HighchartsBarChart {
+interface WaterFallChart extends BarChart {
     /**
      * A name for the dash style to use for the graph. Applies only to series type having a graph, like line, spline,
      * area and scatter in case it has a lineWidth. The value for the dashStyle include:
@@ -4783,7 +4788,7 @@ interface HighchartsWaterFallChart extends HighchartsBarChart {
      * @default '#333333'
      * @since 3.0
      */
-    lineColor?: string | HighchartsGradient;
+    lineColor?: string | Gradient;
     /**
      * The color used specifically for positive point columns. When not specified, the general series color is used.
      */
@@ -4798,43 +4803,43 @@ interface HighchartsWaterFallChart extends HighchartsBarChart {
  * plotOptions.series object. Then options for all series of a specific type are given in the plotOptions of that type,
  * for example plotOptions.line. Next, options for one single series are given in the series array.
  */
-interface HighchartsPlotOptions {
-    area?: HighchartsAreaChart;
-    arearange?: HighchartsAreaRangeChart;
-    areaspline?: HighchartsAreaSplineChart;
-    areasplinerange?: HighchartsAreaSplineRangeChart;
-    bar?: HighchartsBarChart;
-    boxplot?: HighchartsBoxPlotChart;
-    bubble?: HighchartsBubbleChart;
-    column?: HighchartsColumnChart;
-    columnrange?: HighchartsColumnRangeChart;
-    errorbar?: HighchartsErrorBarChart;
-    funnel?: HighchartsFunnelChart;
-    gauge?: HighchartsGaugeChart;
-    heatmap?: HighchartsHeatMapChart;
-    line?: HighchartsLineChart;
-    pie?: HighchartsPieChart;
-    polygon?: HighchartsPolygonChart;
-    pyramid?: HighchartsPyramidChart;
-    scatter?: HighchartsScatterChart;
-    series?: HighchartsSeriesChart;
-    solidgauge?: HighchartsSolidGaugeChart;
-    spline?: HighchartsSplineChart;
-    treemap?: HighchartsTreeMapChart;
-    waterfall?: HighchartsWaterFallChart;
+interface PlotOptions {
+    area?: AreaChart;
+    arearange?: AreaRangeChart;
+    areaspline?: AreaSplineChart;
+    areasplinerange?: AreaSplineRangeChart;
+    bar?: BarChart;
+    boxplot?: BoxPlotChart;
+    bubble?: BubbleChart;
+    column?: ColumnChart;
+    columnrange?: ColumnRangeChart;
+    errorbar?: ErrorBarChart;
+    funnel?: FunnelChart;
+    gauge?: GaugeChart;
+    heatmap?: HeatMapChart;
+    line?: LineChart;
+    pie?: PieChart;
+    polygon?: PolygonChart;
+    pyramid?: PyramidChart;
+    scatter?: ScatterChart;
+    series?: SeriesChart;
+    solidgauge?: SolidGaugeChart;
+    spline?: SplineChart;
+    treemap?: TreeMapChart;
+    waterfall?: WaterFallChart;
 }
 
 /* You will rarely, if ever, want to use this interface directly. Instead it is much more useful to use one of the derived
- * interfaces (HighchartsAreaChartSeriesOptions, HighchartsLineChartSeriesOptions, etc.)
+ * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
  */
-interface HighchartsIndividualSeriesOptions {
+interface IndividualSeriesOptions {
     type?: string;
     /**
      * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
      *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
      *     value is pulled from the options.colors array.
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
      *     that the points and lines can be clicked.
@@ -4851,9 +4856,9 @@ interface HighchartsIndividualSeriesOptions {
      * 2. An array of arrays with 2 values. In this case, the values correspond to x,y. If the first value is a string,
      *    it is applied as the name of the point, and the x value is inferred.
      *        data: [
-     *        	  [0, 9],
-     *        	  [1, 7],
-     *        	  [2, 6]
+     *            [0, 9],
+     *            [1, 7],
+     *            [2, 6]
      *        ]
      *
      * 3. An array of objects with named values. The objects are point configuration objects as seen below. If the total
@@ -4870,7 +4875,7 @@ interface HighchartsIndividualSeriesOptions {
      *            color: '#FF00FF'
      *        }]
      */
-    data?: number[] | [number, number][] | [string, number][] | HighchartsDataPoint[];
+    data?: number[] | [number, number][] | [string, number][] | DataPoint[];
     /**
      * An id for the series. This can be used after render time to get a pointer to the series object through
      * chart.get().
@@ -4919,37 +4924,37 @@ interface HighchartsIndividualSeriesOptions {
     zIndex?: number;
 }
 
-interface HighchartsSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSeriesChart { }
+interface SeriesOptions extends IndividualSeriesOptions, SeriesChart { }
 
-interface HighchartsAreaChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaChart { }
-interface HighchartsAreaRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaRangeChart { }
-interface HighchartsAreaSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaSplineChart { }
-interface HighchartsAreaSplineRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsAreaSplineRangeChart { }
-interface HighchartsBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBarChart { }
-interface HighchartsBoxPlotChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBoxPlotChart { }
-interface HighchartsBubbleChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsBubbleChart { }
-interface HighchartsColumnChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnChart { }
-interface HighchartsColumnRangeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsColumnRangeChart { }
-interface HighchartsErrorBarChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsErrorBarChart { }
-interface HighchartsFunnelChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsFunnelChart { }
-interface HighchartsGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsGaugeChart { }
-interface HighchartsHeatMapSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsHeatMapChart { }
-interface HighchartsLineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsLineChart { }
-interface HighchartsPieChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPieChart { }
-interface HighchartsPolygonChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPolygonChart { }
-interface HighchartsPyramidChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsPyramidChart { }
-interface HighchartsScatterChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsScatterChart { }
-interface HighchartsSolidGaugeChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSolidGaugeChart { }
-interface HighchartsSplineChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsSplineChart { }
-interface HighchartsTreeMapChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsTreeMapChart { }
-interface HighchartsWaterFallChartSeriesOptions extends HighchartsIndividualSeriesOptions, HighchartsWaterFallChart { }
+interface AreaChartSeriesOptions extends IndividualSeriesOptions, AreaChart { }
+interface AreaRangeChartSeriesOptions extends IndividualSeriesOptions, AreaRangeChart { }
+interface AreaSplineChartSeriesOptions extends IndividualSeriesOptions, AreaSplineChart { }
+interface AreaSplineRangeChartSeriesOptions extends IndividualSeriesOptions, AreaSplineRangeChart { }
+interface BarChartSeriesOptions extends IndividualSeriesOptions, BarChart { }
+interface BoxPlotChartSeriesOptions extends IndividualSeriesOptions, BoxPlotChart { }
+interface BubbleChartSeriesOptions extends IndividualSeriesOptions, BubbleChart { }
+interface ColumnChartSeriesOptions extends IndividualSeriesOptions, ColumnChart { }
+interface ColumnRangeChartSeriesOptions extends IndividualSeriesOptions, ColumnRangeChart { }
+interface ErrorBarChartSeriesOptions extends IndividualSeriesOptions, ErrorBarChart { }
+interface FunnelChartSeriesOptions extends IndividualSeriesOptions, FunnelChart { }
+interface GaugeChartSeriesOptions extends IndividualSeriesOptions, GaugeChart { }
+interface HeatMapSeriesOptions extends IndividualSeriesOptions, HeatMapChart { }
+interface LineChartSeriesOptions extends IndividualSeriesOptions, LineChart { }
+interface PieChartSeriesOptions extends IndividualSeriesOptions, PieChart { }
+interface PolygonChartSeriesOptions extends IndividualSeriesOptions, PolygonChart { }
+interface PyramidChartSeriesOptions extends IndividualSeriesOptions, PyramidChart { }
+interface ScatterChartSeriesOptions extends IndividualSeriesOptions, ScatterChart { }
+interface SolidGaugeChartSeriesOptions extends IndividualSeriesOptions, SolidGaugeChart { }
+interface SplineChartSeriesOptions extends IndividualSeriesOptions, SplineChart { }
+interface TreeMapChartSeriesOptions extends IndividualSeriesOptions, TreeMapChart { }
+interface WaterFallChartSeriesOptions extends IndividualSeriesOptions, WaterFallChart { }
 
-interface HighchartsDataPoint {
+interface DataPoint {
     /**
      * Individual color for the point. By default the color is pulled from the global colors array.
      * @default undefined
      */
-    color?: string | HighchartsGradient;
+    color?: string | Gradient;
     /**
      * Serves a purpose only if a colorAxis object is defined in the chart options. This value will decide which color
      * the point gets from the scale of the colorAxis.
@@ -4959,7 +4964,7 @@ interface HighchartsDataPoint {
     /**
      * Individual data label for each point. The options are the same as the ones for plotOptions.series.dataLabels
      */
-    dataLabels?: HighchartsDataLabels;
+    dataLabels?: DataLabels;
     /**
      * The id of a series in the drilldown.series array to use for a drilldown for this point.
      * @since 3.0.8
@@ -4968,7 +4973,7 @@ interface HighchartsDataPoint {
     /**
      * Individual point events
      */
-    events?: HighchartsPointEvents;
+    events?: PointEvents;
     /**
      * The high or maximum value for each data point.
      */
@@ -5002,7 +5007,7 @@ interface HighchartsDataPoint {
      * The low or minimum value for each data point.
      */
     low?: number;
-    marker?: HighchartsMarker;
+    marker?: Marker;
     /**
      * The median for each data point. This is drawn as a line through the middle area of the box.
      */
@@ -5066,7 +5071,7 @@ interface HighchartsDataPoint {
 /**
  * The chart's subtitle
  */
-interface HighchartsSubtitleOptions {
+interface SubtitleOptions {
     /**
      * The horizontal alignment of the subtitle. Can be one of 'left', 'center' and 'right'.
      * @default 'center'
@@ -5115,7 +5120,7 @@ interface HighchartsSubtitleOptions {
     y?: number;
 }
 
-interface HighchartsTitleOptions {
+interface TitleOptions {
     /**
      * The horizontal alignment of the title. Can be one of 'left', 'center' and 'right'.
      * @default 'center'
@@ -5172,19 +5177,19 @@ interface HighchartsTitleOptions {
     y?: number;
 }
 
-interface HighchartsCrosshairObject {
-    color?: string | HighchartsGradient;
+interface CrosshairObject {
+    color?: string | Gradient;
     width?: number;
     dashStyle?: string; //Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
     zIndex?: number;
 }
 
-interface HighchartsPlotPoint {
+interface PlotPoint {
     plotX: number;
     plotY: number;
 }
 
-interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
+interface TooltipOptions extends SeriesTooltipOptions {
     /**
      * Enable or disable animation of the tooltip. In slow legacy IE browsers the animation is disabled by default.
      * @default true
@@ -5195,12 +5200,12 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
      * The background color or gradient for the tooltip.
      * @default 'rgba(255, 255, 255, 0.85)'
      */
-    backgroundColor?: string | HighchartsGradient;
+    backgroundColor?: string | Gradient;
     /**
      * The color of the tooltip border. When null, the border takes the color of the corresponding series or point.
      * @default null
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: string | Gradient;
     /**
      * The radius of the rounded border corners.
      * @default 3
@@ -5228,7 +5233,7 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
      *
      * @default null
      */
-    crosshairs?: boolean | [boolean, boolean] | HighchartsCrosshairObject | [HighchartsCrosshairObject, HighchartsCrosshairObject];
+    crosshairs?: boolean | [boolean, boolean] | CrosshairObject | [CrosshairObject, CrosshairObject];
     /**
      * Enable or disable the tooltip.
      * @default true
@@ -5271,7 +5276,7 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
      * The return should be an object containing x and y values, for example { x: 100, y: 100 }.
      * @since 2.2.4
      */
-    positioner?: (labelWidth: number, labelHeight: number, point: HighchartsPlotPoint) => { x: number; y: number; };
+    positioner?: (labelWidth: number, labelHeight: number, point: PlotPoint) => { x: number; y: number; };
     /**
      * Whether to apply a drop shadow to the tooltip.
      * @default true
@@ -5313,12 +5318,12 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
     useHTML?: boolean;
 }
 
-interface HighchartsSeriesTooltipOptions {
+interface SeriesTooltipOptions {
     /**
      * For series on a datetime axes, the date format in the tooltip's header will by default be guessed based on the
      * closest data points. This member gives the default string representations used for each unit.
      */
-    dateTimeLabelFormats?: HighchartsDateTimeFormats;
+    dateTimeLabelFormats?: DateTimeFormats;
     /**
      * Whether the tooltip should follow the mouse as it moves across columns, pie slices and other point types with an
      * extent. By default it behaves this way for scatter, bubble and pie series by override in the plotOptions for
@@ -5398,12 +5403,12 @@ interface HighchartsSeriesTooltipOptions {
     xDateFormat?: string;
 }
 
-interface HighchartsOptions {
+interface Options {
     /**
      * Options regarding the chart area and plot area as well as general chart options.
      */
-    chart?: HighchartsChartOptions;
-    colorAxis?: HighchartsColorAxisOptions | HighchartsColorAxisOptions[];
+    chart?: ChartOptions;
+    colorAxis?: ColorAxisOptions | ColorAxisOptions[];
     /**
      * An array containing the default colors for the chart's series. When all colors are used, new colors are pulled
      * from the start again.
@@ -5416,7 +5421,7 @@ interface HighchartsOptions {
     /**
      * Highchart by default puts a credits label in the lower right corner of the chart. This can be changed using these options.
      */
-    credits?: HighchartsCreditsOptions;
+    credits?: CreditsOptions;
     /**
      * The Data module provides a simplified interface for adding data to a chart from sources like CVS, HTML tables or
      * grid views. See also the tutorial article on the Data module.
@@ -5426,7 +5431,7 @@ interface HighchartsOptions {
      * Please note that the default way of adding data in Highcharts, without the need of a module, is through the
      * series.data option.
      */
-    data?: HighchartsDataOptions;
+    data?: DataOptions;
     /**
      * Options for drill down, the concept of inspecting increasingly high resolution data through clicking on chart
      * items like columns or pie slices.
@@ -5434,41 +5439,41 @@ interface HighchartsOptions {
      * The drilldown feature requires the drilldown.js file to be loaded, found in the modules directory of the download
      * package, or online at code.highcharts.com/modules/drilldown.js.
      */
-    drilldown?: HighchartsDrilldownOptions;
+    drilldown?: DrilldownOptions;
     /**
      * Options for the exporting module.
      */
-    exporting?: HighchartsExportingOptions;
+    exporting?: ExportingOptions;
     /**
      * HTML labels that can be positioned anywhere in the chart area.
      */
-    labels?: HighchartsLabelsOptions;
-    lang?: HighchartsLangObject;
+    labels?: LabelsOptions;
+    lang?: LangObject;
     /**
      * The legend is a box containing a symbol and name for each series item or point item in the chart.
      */
-    legend?: HighchartsLegendOptions;
+    legend?: LegendOptions;
     /**
      * The loading options control the appearance of the loading screen that covers the plot area on chart operations.
      * This screen only appears after an explicit call to chart.showLoading(). It is a utility for developers to
      * communicate to the end user that something is going on, for example while retrieving new data via an XHR
      * connection. The 'Loading...' text itself is not part of this configuration object, but part of the lang object.
      */
-    loading?: HighchartsLoadingOptions;
+    loading?: LoadingOptions;
     /**
      * A collection of options for buttons and menus appearing in the exporting module.
      */
-    navigation?: HighchartsNavigationOptions;
+    navigation?: NavigationOptions;
     /**
      * Options for displaying a message like 'No data to display'. This feature requires the file no-data-to-display.js
      * to be loaded in the page. The actual text to display is set in the lang.noData option.
      */
-    noData?: HighchartsNoDataOptions;
+    noData?: NoDataOptions;
     /**
      * Applies only to polar charts and angular gauges. This configuration object holds general options for the combined
      * X and Y axes set. Each xAxis or yAxis can reference the pane by index.
      */
-    pane?: HighchartsPaneOptions;
+    pane?: PaneOptions;
     /**
      * The plotOptions is a wrapper object for config objects for each series type. The config objects for each series
      * can also be overridden for each series item as given in the series array.
@@ -5477,52 +5482,51 @@ interface HighchartsOptions {
      * the plotOptions.series object. Then options for all series of a specific type are given in the plotOptions of
      * that type, for example plotOptions.line. Next, options for one single series are given in the series array.
      */
-    plotOptions?: HighchartsPlotOptions;
+    plotOptions?: PlotOptions;
     /**
      * The actual series to append to the chart. In addition to the members listed below, any member of the plotOptions
      * for that specific type of plot can be added to a series individually. For example, even though a general
      * lineWidth is specified in plotOptions.series, an individual lineWidth can be specified for each series.
      */
-    series?: HighchartsIndividualSeriesOptions[];
+    series?: IndividualSeriesOptions[];
     /**
      * The chart's subtitle
      */
-    subtitle?: HighchartsSubtitleOptions;
+    subtitle?: SubtitleOptions;
     /**
      * The chart's main title.
      */
-    title?: HighchartsTitleOptions;
+    title?: TitleOptions;
     /**
      * Options for the tooltip that appears when the user hovers over a series or point.
      */
-    tooltip?: HighchartsTooltipOptions;
+    tooltip?: TooltipOptions;
     /**
      * The X axis or category axis. Normally this is the horizontal axis, though if the chart is inverted this is the
      * vertical axis. In case of multiple axes, the xAxis node is an array of configuration objects.
      */
-    xAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
+    xAxis?: AxisOptions | AxisOptions[];
     /**
      * The Y axis or value axis. Normally this is the vertical axis, though if the chart is inverted this is the
      * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
      */
-    yAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
+    yAxis?: AxisOptions | AxisOptions[];
 }
 
-interface HighchartsGlobalOptions extends HighchartsOptions {
+interface GlobalOptions extends Options {
     /**
      * Global options that don't apply to each chart. These options, like the lang options, must be set using the
      * Highcharts.setOptions method.
      */
-    global?: HighchartsGlobalObject;
+    global?: GlobalObject;
     /**
      * Language object. The language object is global and it can't be set on each chart initiation. Instead, use
      * Highcharts.setOptions to set it before any chart is initiated.
      */
-    lang?: HighchartsLangObject;
+    lang?: LangObject;
 }
 
-interface HighchartsDateFormatSpecifiers
-{
+interface DateFormatSpecifiers {
     [index: string]: (timestamp: number) => string;
 }
 
@@ -5542,24 +5546,24 @@ interface HighchartsDateFormatSpecifiers
  *
  * Configuration options for the axes are given in options.xAxis and options.yAxis.
  */
-interface HighchartsAxisObject {
+interface AxisObject {
     /**
      * Add a plot band after render time.
-     * @param {HighchartsPlotBands} options A configuration object consisting of the same members as options.xAxis.plotBands
+     * @param {PlotBands} options A configuration object consisting of the same members as options.xAxis.plotBands
      * @since 1.2.0
      */
-    addPlotBand(options: HighchartsPlotBands): void;
+    addPlotBand(options: PlotBands): void;
     /**
      * Add a plot line after render time.
-     * @param {HighchartsPlotLines} options A configuration object consisting of the same members as options.xAxis.plotLines
+     * @param {PlotLines} options A configuration object consisting of the same members as options.xAxis.plotLines
      * @since 1.2.0
      */
-    addPlotLine(options: HighchartsPlotLines): void;
+    addPlotLine(options: PlotLines): void;
     /**
      * Get the current extremes for the axis.
      * @since 1.2.0
      */
-    getExtremes(): HighchartsExtremes;
+    getExtremes(): Extremes;
     /**
      * Remove an axis from the chart.
      * @param [boolean] redraw Defaults to true. Whether to redraw the chart following the remove.
@@ -5599,17 +5603,17 @@ interface HighchartsAxisObject {
      * @param {number} min The new minimum value
      * @param {number} max The new maximum value
      * @param {boolean} redraw Whether to redraw the chart or wait for an explicit call to chart.redraw().
-     * @param {boolean | HighchartsAnimation} animation When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param {boolean | Animation} animation When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | HighchartsAnimation, eventArguments?: any): void;
+		setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | Animation, eventArguments?: any): void;
     /**
      * Update the title of the axis after render time.
-     * @param {HighchartsAxisTitle} title  The new title options on the same format as given in xAxis.title.
+     * @param {AxisTitle} title  The new title options on the same format as given in xAxis.title.
      * @param {boolean}             redraw Whether to redraw the chart now or hold until the next chart.redraw()
      * @since 2.2
      */
-    setTitle(title: HighchartsAxisTitle, redraw?: boolean): void;
+    setTitle(title: AxisTitle, redraw?: boolean): void;
     /**
      * Translates a value in terms of axis units in to pixels within the chart.
      * @param  {number}  value           A value in terms of axis units.
@@ -5629,11 +5633,11 @@ interface HighchartsAxisObject {
     /**
      * Update an axis object with a new set of options. The options are merged with the existing options, so only new or
      * altered options need to be specified.
-     * @param {HighchartsAxisOptions} options The new options that will be merged in with existing options on the axis.
+     * @param {AxisOptions} options The new options that will be merged in with existing options on the axis.
      * @param {boolean}               redraw  Defaults to true. Whether to redraw the chart after the new options are set.
      * @since 3.0
      */
-    update(options: HighchartsAxisOptions, redraw?: boolean): void;
+    update(options: AxisOptions, redraw?: boolean): void;
 }
 
 /**
@@ -5641,19 +5645,19 @@ interface HighchartsAxisObject {
  * object is returned when a chart is created using the Highcharts.Chart() constructor:
  * var chart1 = new Highcharts.Chart(options);
  */
-interface HighchartsChartObject {
+interface ChartObject {
     /**
      * Add an axis to the chart after render time. Note that this method should never be used when adding data
      * synchronously at chart render time, as it adds expense to the calculations and rendering. When adding data at the
      * same time as the chart is initiated, add the axis as a configuration option instead.
-     * @param  {HighchartsAxisOptions} options The Axis options, as documented under xAxis and yAxis.
+     * @param  {AxisOptions} options The Axis options, as documented under xAxis and yAxis.
      * @param  [boolean] isX Whether it is an X axis or Y axis
      * @param  [boolean] redraw Defaults to true. Whether to redraw the chart after the series is added. See the redraw() method.
-     * @param  [boolean | HighchartsAnimation] animation Defaults to true. When true, the series' updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
-     * @return {HighchartsAxisObject}
+     * @param  [boolean | Animation] animation Defaults to true. When true, the series' updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @return {AxisObject}
      * @since 3.0
      */
-    addAxis(options: HighchartsAxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | HighchartsAnimation): HighchartsAxisObject;
+    addAxis(options: AxisOptions, isX?: boolean, redraw?: boolean, animation?: boolean | Animation): AxisObject;
     /**
      * Add a series to the chart after render time. Note that this method should never be used when adding data
      * synchronously at chart render time, as it adds expense to the calculations and rendering. When adding data at the
@@ -5662,16 +5666,16 @@ interface HighchartsChartObject {
      * @param [boolean] redraw
      * @since 1.2.0
      */
-    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | HighchartsAnimation): T;
+    addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): T;
     /**
      * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
      * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
      * series. When not async, the setup is simpler using the drilldown.series options structure.
-     * @param {HighchartsPointObject} point The existing Point object from which the drilldown will start.
-     * @param {HighchartsIndividualSeriesOptions} seriesOptions The series options, as documented under plotOptions.series and under the plotOptions for each series type.
+     * @param {PointObject} point The existing Point object from which the drilldown will start.
+     * @param {IndividualSeriesOptions} seriesOptions The series options, as documented under plotOptions.series and under the plotOptions for each series type.
      * @since 3.0.8
      */
-    addSeriesAsDrilldown(point: HighchartsPointObject, seriesOptions: HighchartsIndividualSeriesOptions): void;
+    addSeriesAsDrilldown(point: PointObject, seriesOptions: IndividualSeriesOptions): void;
     /**
      * A reference to the containing HTML element, dynamically inserted into the element given in chart.renderTo.
      * @since 1.2.5
@@ -5697,18 +5701,18 @@ interface HighchartsChartObject {
     /**
      * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
      * conversion.
-     * @param {HighchartsExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
+     * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
      * @since 2.0
      */
-    exportChart(options: HighchartsExportingOptions): void;
+    exportChart(options: ExportingOptions): void;
     /**
      * Exporting module required. Submit an SVG version of the chart to a server along with some parameters for
      * conversion.
-     * @param {HighchartsExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
-     * @param {HighchartsOptions} chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
+     * @param {ExportingOptions} options Exporting options. Out of the exporting options, the following options can be given as parameters to the exportChart method. All options default to the values given in the exporting config options. filename: the filename for the export without extension, url: the URL for the server module to do the conversion, width: the width of the PNG or JPEG image generated on the server, type: the MIME type of the converted image, sourceWidth: the width of the source (in-page) chart, sourceHeight: the height of the source chart.
+     * @param {Options} chartOptions Additional chart options for the exported chart. For example a different background color can be added here.
      * @since 2.0
      */
-    exportChart(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
+    exportChart(options: ExportingOptions, chartOptions: Options): void;
     /**
      * Export the chart to a PNG or SVG without sending it to a server. Requires
      * modules/exporting.js and modules/offline-exporting.js.
@@ -5722,7 +5726,7 @@ interface HighchartsChartObject {
      * the exportChart params.
      * @since 2.0
      */
-    exportChartLocal(options: HighchartsExportingOptions): void;
+    exportChartLocal(options: ExportingOptions): void;
     /**
      * Export the chart to a PNG or SVG without sending it to a server.
      * Requires modules/exporting.js and modules/offline-exporting.js.
@@ -5732,35 +5736,35 @@ interface HighchartsChartObject {
      * exported chart. Same as the exportChart params.
      * @since 2.0
      */
-    exportChartLocal(options: HighchartsExportingOptions, chartOptions: HighchartsOptions): void;
+    exportChartLocal(options: ExportingOptions, chartOptions: Options): void;
     /**
      * Get an axis, series or point by its id as given in the configuration options.
      * @param  {string} id The id of the axis, series or point to get.
-     * @return {HighchartsAxisObject|HighchartsSeriesObject|HighchartsPointObject}
+     * @return {AxisObject|SeriesObject|PointObject}
      * @since 1.2.0
      */
-    get(id: string): HighchartsAxisObject | HighchartsSeriesObject | HighchartsPointObject;
+    get(id: string): AxisObject | SeriesObject | PointObject;
     /**
      * Exporting module required. Get an SVG string representing the chart.
-     * @param  {HighchartsOptions} additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart. For example if series.lineWidth should be greater in the exported chart than in the original, or the chart should have a different background color, this is added here.
+     * @param  {Options} additionalOptions Chart options to add to the exported chart in addition to the options given for the original chart. For example if series.lineWidth should be greater in the exported chart than in the original, or the chart should have a different background color, this is added here.
      * @return {string}
      * @since 2.0
      */
-    getSVG(additionalOptions?: HighchartsOptions): string;
+    getSVG(additionalOptions?: Options): string;
     /**
      * Returns an array of all currently selected points in the chart. Points can be selected either programmatically by
      * the point.select() method or by clicking.
-     * @return {HighchartsPointObject[]} An array of the selected points.
+     * @return {PointObject[]} An array of the selected points.
      * @since 1.2.0
      */
-    getSelectedPoints(): HighchartsPointObject[];
+    getSelectedPoints(): PointObject[];
     /**
      * Returns an array of all currently selected series in the chart. Series can be selected either programmatically by
      * the series.select() method or by checking the checkbox next to the legend item if series.showCheckBox is true.
-     * @return {HighchartsSeriesObject[]} An array of the selected Series items.
+     * @return {SeriesObject[]} An array of the selected Series items.
      * @since 1.2.0
      */
-    getSelectedSeries(): HighchartsSeriesObject[];
+    getSelectedSeries(): SeriesObject[];
     /**
      * Hide the loading screen. Options for the loading screen are defined at options.loading.
      * @since 1.2.0
@@ -5770,7 +5774,7 @@ interface HighchartsChartObject {
      * The options structure for the chart.
      * @since 1.2.0
      */
-    options: HighchartsOptions;
+    options: Options;
     /**
      * Exporting module required. Clears away other elements in the page and prints the chart as it is displayed. By
      * default, when the exporting module is enabled, a button at the upper left calls this method.
@@ -5783,10 +5787,10 @@ interface HighchartsChartObject {
      * more than one operation on the chart before redrawing, for example add a number of points. In those cases it is a
      * waste of resources to redraw the chart for each new point added. So you add the points and call chart.redraw()
      * after.
-     * @param [boolean | HighchartsAnimation] animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param [boolean | Animation] animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    redraw(animation?: boolean | HighchartsAnimation): void;
+    redraw(animation?: boolean | Animation): void;
     /**
      * Reflows the chart to its container. By default, the chart reflows automatically to its container following a
      * window.resize event, as per the chart.reflow option. However, there are no reliable events for div resize, so if
@@ -5795,25 +5799,25 @@ interface HighchartsChartObject {
     reflow(): void;
     /**
      * An array of all the chart's series.
-     * @type {HighchartsSeriesObject[]}
+     * @type {SeriesObject[]}
      * @since 1.2.0
      */
-    series: HighchartsSeriesObject[];
+    series: SeriesObject[];
     /**
      * Resize the chart to a given width and height.
      * @param {number} width The new pixel width of the chart.
      * @param {number} height The new pixel height of the chart.
-     * @param {boolean | HighchartsAnimation} animation Defaults to true. When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param {boolean | Animation} animation Defaults to true. When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      */
-    setSize(width: number, height: number, animation?: boolean | HighchartsAnimation): void;
+    setSize(width: number, height: number, animation?: boolean | Animation): void;
     /**
      * Set a new title or subtitle for the chart
-     * @param {HighchartsTitleOptions} title A configuration object for the new title as defined at #title.
-     * @param [HighchartsSubtitleOptions] subtitle A configuration object for the new subtitle as defined at #subtitle.
+     * @param {TitleOptions} title A configuration object for the new title as defined at #title.
+     * @param [SubtitleOptions] subtitle A configuration object for the new subtitle as defined at #subtitle.
      * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
      * @since 2.1.0
      */
-    setTitle(title: HighchartsTitleOptions, subtitle?: HighchartsSubtitleOptions, redraw?: boolean): void;
+    setTitle(title: TitleOptions, subtitle?: SubtitleOptions, redraw?: boolean): void;
     /**
      * Dim the chart's plot area and show a loading label text. Options for the loading screen are defined at
      * options.loading. A custom text can be given as a parameter for loading.
@@ -5830,45 +5834,45 @@ interface HighchartsChartObject {
      * An array of the chart's x axes. If only one x axis, it is referenced by chart.xAxis[0].
      * @since 1.2.0
      */
-    xAxis: HighchartsAxisObject[];
+    xAxis: AxisObject[];
     /**
      * An array of the chart's y axes. If only one y axis, it is referenced by chart.yAxis[0].
      * @since 1.2.0
      */
-    yAxis: HighchartsAxisObject[];
+    yAxis: AxisObject[];
 
-    renderer: HighchartsRendererObject;
+    renderer: RendererObject;
 }
 
-interface HighchartsChart {
+interface Chart {
     /**
      * This is the constructor for creating a new chart object.
-     * @param  {HighchartsOptions} options The chart options
-     * @return {HighchartsChartObject}
+     * @param  {Options} options The chart options
+     * @return {ChartObject}
      */
-    new (options: HighchartsOptions): HighchartsChartObject;
+    new (options: Options): ChartObject;
     /**
      * This is the constructor for creating a new chart object.
-     * @param {HighchartsOptions} options The chart options
+     * @param {Options} options The chart options
      * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
-     * @return {HighchartsChartObject}
+     * @return {ChartObject}
      */
-    new (options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    new (options: Options, callback: (chart: ChartObject) => void): ChartObject;
     /**
      * This is the constructor for creating a new chart object.
      * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
      * @param {HighchartsOptions} options The chart options
      * @return {HighchartsChartObject}
      */
-    new (renderTo: string | HTMLElement, options: HighchartsOptions): HighchartsChartObject;
+    new (renderTo: string | HTMLElement, options: Options): ChartObject;
     /**
      * This is the constructor for creating a new chart object.
      * @param {string|HTMLElement} renderTo The id or a reference to a DOM element where the chart should be rendered (since v4.2.0).
      * @param {HighchartsOptions} options The chart options
      * @param callback A function to execute when the chart object is finished loading and rendering. In most cases the chart is built in one thread, but in Internet Explorer version 8 or less the chart is sometimes initiated before the document is ready, and in these cases the chart object will not be finished directly after callingnew Highcharts.Chart(). As a consequence, code that relies on the newly built Chart object should always run in the callback. Defining a chart.event.load handler is equivalent.
-     * @return {HighchartsChartObject}
+     * @return {ChartObject}
      */
-    new (renderTo: string | HTMLElement, options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    new (renderTo: string | HTMLElement, options: Options, callback: (chart: ChartObject) => void): ChartObject;
 }
 
 /**
@@ -5876,23 +5880,23 @@ interface HighchartsChart {
  * the Renderer object, these elements allows freeform annotation in the charts or even in your HTML pages without
  * creating a chart at all.
  */
-interface HighchartsElementObject {
+interface ElementObject {
     /**
      * Add the element to the renderer canvas.
-     * @param  {HighchartsElementObject} parent The element can be added to a g (group) element.
-     * @return {HighchartsElementObject}
+     * @param  {ElementObject} parent The element can be added to a g (group) element.
+     * @return {ElementObject}
      * @since 2.0
      */
-    add(parent?: HighchartsElementObject): HighchartsElementObject;
+    add(parent?: ElementObject): ElementObject;
     /**
      * Apply numeric attributes to the SVG/VML element by animation. See Element.attr() for more information on setting
      * attributes.
      * @param  {any} attributes A set of attributes to apply.
      * @param  {any} animation Optional animation parameters that are passed over to jQuery or other framework. Valid properties depend on the library, but options like duration, easing and complete are supported by jQuery.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    animate(attributes: any, animation?: any): HighchartsElementObject;
+    animate(attributes: any, animation?: any): ElementObject;
     /**
      * Apply attributes to the SVG/VML elements. These attributes for the most parts correspond to SVG, but some are
      * specific to Highcharts, like zIndex and rotation.
@@ -5902,17 +5906,17 @@ interface HighchartsElementObject {
      *
      * Attributes frequently used in Highcharts are fill, stroke, stroke-width.
      * @param  {any} hash A set of attributes to apply.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    attr(hash: any): HighchartsElementObject;
+    attr(hash: any): ElementObject;
     /**
      * Apply some CSS properties to the element
      * @param {Object} hash The object literal of CSS properties to apply. Properties should be hyphenated, not camelCased.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    css(hash: Object): HighchartsElementObject;
+    css(hash: Object): ElementObject;
     /**
      * Destroy the element and free up memory
      * @since 2.0
@@ -5929,16 +5933,16 @@ interface HighchartsElementObject {
      * Apply an event handler to the element
      * @param {string} eventType The event type to attach, for example 'click', 'mouseover', 'touch'.
      * @param handler The event handler function.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    on(eventType: string, handler: () => void): HighchartsElementObject;
+    on(eventType: string, handler: () => void): ElementObject;
     /**
      * Bring the element to the front. Alternatively, a zIndex attribute can be given.
-     * @return {HighchartsElementObject} The element object
+     * @return {ElementObject} The element object
      * @since 2.0
      */
-    toFront(): HighchartsElementObject;
+    toFront(): ElementObject;
 }
 
 /**
@@ -5953,7 +5957,7 @@ interface HighchartsElementObject {
  * The Renderer's methods are chained wherever possible, so you can initiate an element then call for example attr and
  * css and add on that element in one statement.
  */
-interface HighchartsRendererObject {
+interface RendererObject {
     /**
      * Draw an arc on the renderer canvas.
      * @param  {number} centerX The x position of the arc's center in the SVG element.
@@ -5962,26 +5966,26 @@ interface HighchartsRendererObject {
      * @param  {number} innerRadius The inner radius of the arc.
      * @param  {number} start The starting angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
      * @param  {number} end The ending angle of the arc in radians, where 0 is to the right and -Math.PI/2 is up.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): HighchartsElementObject;
+    arc(centerX: number, centerY: number, outerRadius: number, innerRadius: number, start: number, end: number): ElementObject;
     /**
      * Draw circle on the renderer canvas.
      * @param  {number} centerX The x position of the circle's center in the SVG element.
      * @param  {number} centerY The y position of the circle's center in the SVG element.
      * @param  {number} radius  [description]
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    circle(centerX: number, centerY: number, radius: number): HighchartsElementObject;
+    circle(centerX: number, centerY: number, radius: number): ElementObject;
     /**
      * Add an SVG/VML group.
      * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name. Other Element objects are added to the group by using the group as the first parameter in .add() for the wrappers
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    g(name?: string): HighchartsElementObject;
+    g(name?: string): ElementObject;
     /**
      * Add an image from an external resource.
      * @param  {string} source The URL of the image.
@@ -5989,10 +5993,10 @@ interface HighchartsRendererObject {
      * @param  {number} y      The y position of the image's upper left corner.
      * @param  {number} width  The width of the image.
      * @param  {number} height The height of the image.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    image(source: string, x: number, y: number, width: number, height: number): HighchartsElementObject;
+    image(source: string, x: number, y: number, width: number, height: number): ElementObject;
     /**
      * Draw a label, which is an extended text element with support for border and background. Highcharts creates a g
      * element with a text and a path or rect inside, to make it behave somewhat like a HTML div. Border and background
@@ -6007,17 +6011,17 @@ interface HighchartsRendererObject {
      * @param  [boolean] useHTML Use HTML to render the text of the label.
      * @param  [boolean] baseline Whether the label should be vertically aligned by the text baseline, which makes it behave like the text element, or by the top left side, which makes it behave like a HTML div.
      * @param  [string] className A class name for the g element surrounding the label.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    label(str: string, x: number, y: number, shape?: string, anchorX?: number, anchorY?: number, useHTML?: boolean, baseline?: boolean, className?: string): HighchartsElementObject;
+    label(str: string, x: number, y: number, shape?: string, anchorX?: number, anchorY?: number, useHTML?: boolean, baseline?: boolean, className?: string): ElementObject;
     /**
      * Add a path based on SVG's path commands. In SVG capable browsers all path commands are supported, but in VML only
      * a subset is supported: absolute moveTo (M), absolute lineTo (L), absolute curveTo (C) and close (Z).
      * @param  {(string|number)[]} path An SVG path split up in array form.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      */
-    path(path: [string|number]): HighchartsElementObject;
+    path(path: [string | number]): ElementObject;
     /**
      * Add a rectangle.
      * @param  {number} x The x position of the rectangle's upper left corner.
@@ -6025,47 +6029,47 @@ interface HighchartsRendererObject {
      * @param  {number} width The width of the rectangle.
      * @param  {number} height The height of the rectangle.
      * @param  {number} cornerRadius The corner radius of all the rectangle's corners.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    rect(x: number, y: number, width: number, height: number, cornerRadius: number): HighchartsElementObject;
+    rect(x: number, y: number, width: number, height: number, cornerRadius: number): ElementObject;
     /**
      * Draw text. The text can contain a subset of HTML, like spans and anchors and some basic text styling of these.
      * For more advanced features like border and background, use label instead.
      * @param  {string} str The text or HTML to draw
      * @param  {number} x The x position of the text's lower left corner.
      * @param  {number} y The y position of the text's lower left corner.
-     * @return {HighchartsElementObject}
+     * @return {ElementObject}
      * @since 2.0
      */
-    text(str: string, x: number, y: number): HighchartsElementObject;
+    text(str: string, x: number, y: number): ElementObject;
 }
 
-interface HighchartsRenderer {
-    new (parentNode: HTMLElement, width: number, height: number): HighchartsRendererObject;
+interface Renderer {
+    new (parentNode: HTMLElement, width: number, height: number): RendererObject;
 }
 
-interface HighchartsStatic {
-    Chart: HighchartsChart;
-    Renderer: HighchartsRenderer;
-    Color(color: string | HighchartsGradient): string | HighchartsGradient;
+interface Static {
+    Chart: Chart;
+    Renderer: Renderer;
+    Color(color: string | Gradient): string | Gradient;
 
     /**
      * As Highcharts.Chart, but without need for the new keyword.
      * @since 4.2.0
      */
-    chart(options: HighchartsOptions, callback?: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    chart(options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     /**
      * As Highcharts.Chart, but without need for the new keyword.
      * @since 4.2.0
      */
-    chart(renderTo: string | HTMLElement, options: HighchartsOptions, callback?: (chart: HighchartsChartObject) => void): HighchartsChartObject;
+    chart(renderTo: string | HTMLElement, options: Options, callback?: (chart: ChartObject) => void): ChartObject;
     /**
      * An array containing the current chart objects in the page. A chart's position in the array is preserved
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
      * @since 2.3.4
      */
-    charts: HighchartsChartObject[];
+    charts: ChartObject[];
     /**
      * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
      * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the
@@ -6081,7 +6085,7 @@ interface HighchartsStatic {
      * specifier as key, and a function which takes the timestamp as value. This function returns the formatted portion
      * of the date.
      */
-    dateFormats: HighchartsDateFormatSpecifiers;
+    dateFormats: DateFormatSpecifiers;
     /**
      * Formats a JavaScript number with grouped thousands, a fixed amount of decimals and an optional decimal point. It
      * is a port of PHP's function with the same name. See PHP number_format for a full explanation of the parameters.
@@ -6096,19 +6100,17 @@ interface HighchartsStatic {
      * Sets the options globally for all charts created after this has been called. Takes an options JavaScript object
      * structure as the argument. These options are merged with the default options and the result is returned.
      * @param options The chart configuration object.
-     * @return {HighchartsOptions}
+     * @return {Options}
      */
-    setOptions(options: HighchartsGlobalOptions): HighchartsOptions;
+    setOptions(options: GlobalOptions): Options;
     /**
      * Get the updated default options. Until 3.0.7, merely exposing defaultOptions for outside modules
      * wasn't enough because the setOptions method created a new object.
      */
-    getOptions(): HighchartsOptions;
+    getOptions(): Options;
 
     map(array: any[], fn: Function): any[];
 }
-
-declare var Highcharts: HighchartsStatic;
 
 /**
  * The Point object is the JavaScript representation of each data point
@@ -6119,7 +6121,7 @@ declare var Highcharts: HighchartsStatic;
  * Another way to reference the point programmatically is by id. Add an id in the point configuration options, and get
  * the point object by chart.get(id).
  */
-interface HighchartsPointObject {
+interface PointObject {
     /**
      * For categorized axes this property holds the category name for the point. For other axis it holds the x value.
      * @since 1.2.0
@@ -6135,10 +6137,10 @@ interface HighchartsPointObject {
     /**
      * Remove the point from the series.
      * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is removed.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-     * @param [boolean|HighchartsAnimation] animation Defaults to true. When true, the graph's updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param [boolean|Animation] animation Defaults to true. When true, the graph's updating will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    remove(redraw?: boolean, animation?: boolean|HighchartsAnimation): void;
+    remove(redraw?: boolean, animation?: boolean | Animation): void;
     /**
      * Select or unselect the point.
      * @param [boolean] select When true, the point is selected. When false, the point is unselected. When null or undefined, the selection state is toggled.
@@ -6155,28 +6157,28 @@ interface HighchartsPointObject {
      * The series object associated with the point.
      * @since 1.2.0
      */
-    series: HighchartsSeriesObject;
+    series: SeriesObject;
     /**
      * Slice out or set back in a pie chart slice. This is the default way of Highcharts to visualize that a pie point
      * is selected.
      * @param [boolean] sliced When true, the point is sliced out. When false, the point is set in. When null or undefined, the sliced state is toggled.
      * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is altered.
-     * @param [boolean|HighchartsAnimation] animation Defaults to true. When true, the move will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param [boolean|Animation] animation Defaults to true. When true, the move will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    slice(sliced?: boolean, redraw?: boolean, animation?: boolean|HighchartsAnimation): void;
+    slice(sliced?: boolean, redraw?: boolean, animation?: boolean | Animation): void;
     /**
      * The total of a stack for stacked series, or pie in pie charts.
      */
     total: number;
     /**
      * Update the point with new values.
-     * @param {number|[number,number]|HighchartsDataPoint} options The point options. Point options are handled as described under the series<type>.data item for each series type. For example for a line series, if options is a single number, the point will be given that number as the main y value. If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options are applied.
+     * @param {number|[number,number]|DataPoint} options The point options. Point options are handled as described under the series<type>.data item for each series type. For example for a line series, if options is a single number, the point will be given that number as the main y value. If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options are applied.
      * @param [boolean] redraw Defaults to true. Whether to redraw the chart after the point is updated.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-     * @param {boolean|HighchartsAnimation} animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param {boolean|Animation} animation Defaults to true. When true, the update will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    update(options: number | [number, number] | HighchartsDataPoint, redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
+    update(options: number | [number, number] | DataPoint, redraw?: boolean, animation?: boolean | Animation): void;
     /**
      * The x value for the point.
      * @since 1.2.0
@@ -6203,27 +6205,27 @@ interface HighchartsPointObject {
  * plotOptions.series object. Then options for all series of a specific type are given in the plotOptions of that type,
  * for example plotOptions.line. Next, options for one single series are given in the series array.
  */
-interface HighchartsSeriesObject {
+interface SeriesObject {
     /**
      * Add a point to the series after render time. The point can be added at the end, or by giving it an X value, to
      * the start or in the middle of the series.
-     * @param {number|[number,number]|HighchartsDataPoint} The point options. If options is a single number, a point with that y value is appended to the series.If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options as outlined under series.data are applied.
+     * @param {number|[number,number]|DataPoint} The point options. If options is a single number, a point with that y value is appended to the series.If it is an array, it will be interpreted as x and y values respectively. If it is an object, advanced options as outlined under series.data are applied.
      * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point, it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
      * @param [boolean=false] shift - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
-     * @param [(boolean|HighchartsAnimation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
+     * @param [(boolean|Animation)=false] animation - When shift is true, one point is shifted off the start of the series as one is appended to the end. Use this option for live charts monitoring a value over time.
      * @since 1.2.0
      */
-    addPoint(options: number |[number, number]| HighchartsDataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | HighchartsAnimation): void;
+    addPoint(options: number | [number, number] | DataPoint, redraw?: boolean, shift?: boolean, animation?: boolean | Animation): void;
     /**
      * Read only. The chart that the series belongs to.
      * @since 1.2.0
      */
-    chart: HighchartsChartObject;
+    chart: ChartObject;
     /**
      * Read only. An array with the series' data point objects.
      * @since 1.2.0
      */
-    data: HighchartsPointObject[];
+    data: PointObject[];
     /**
      * Hides the series if visible. If the chart.ignoreHiddenSeries option is true,the chart is redrawn without this
      * series.
@@ -6239,7 +6241,7 @@ interface HighchartsSeriesObject {
      * Read only. The series' options.
      * @since 1.2.0
      */
-    options: HighchartsIndividualSeriesOptions;
+    options: IndividualSeriesOptions;
     /**
      * Remove the series from the chart.
      * @param [boolean=true] redraw - Whether to redraw the chart after the series is removed.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
@@ -6251,10 +6253,10 @@ interface HighchartsSeriesObject {
      * instanciated because it is outside the view or subject to data grouping.
      * @param {number} index - The index of the point in the data array.
      * @param [boolean=true] redraw - Whether to redraw the chart after the point is added. When adding more than one point, it is highly recommended that the redraw option be set to false, and instead chart.redraw() is explicitly called after the adding of points is finished.
-     * @param [boolean|HighchartsAnimation=true] animation - When true, the graph will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
+     * @param [boolean|Animation=true] animation - When true, the graph will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 4.1.0
      */
-    removePoint(index: number, redraw?: boolean, animation?: boolean|HighchartsAnimation): void;
+    removePoint(index: number, redraw?: boolean, animation?: boolean | Animation): void;
     /**
      * Select or unselect the series. This means its selected property is set,the checkbox in the legend is toggled and
      * when selected, the series is returned in the chart.getSelectedSeries() method.
@@ -6270,13 +6272,13 @@ interface HighchartsSeriesObject {
     /**
      * Apply a new set of data to the series and optionally redraw it. Note that this method throws away all points and
      * creates new ones. For updating the values of existing points, use Point.update() instead.
-     * @param {number[]|number[][]|HighchartsDataPoint[]} data - Takes an array of data in the same format as described under series<type>data for the given series type.
+     * @param {number[]|number[][]|DataPoint[]} data - Takes an array of data in the same format as described under series<type>data for the given series type.
      * @param [boolean=true] redraw - Whether to redraw the chart after the series is altered.If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
-     * @param [boolean|HighchartsAnimation] animation - When the updated data is the same length as the existing data, points will be updated by default, and animation visualizes how the points are changed. Set false to disable animation, or a configuration object to set duration or easing.
+     * @param [boolean|Animation] animation - When the updated data is the same length as the existing data, points will be updated by default, and animation visualizes how the points are changed. Set false to disable animation, or a configuration object to set duration or easing.
      * @param [boolean] updatePoints - When the updated data is the same length as the existing data, points will be updated instead of replace. This option prevents this, and makes setData behave like it did prior to Highcharts 3.0.10.
      * @since 1.2.0
      */
-    setData(data: number[] | number[][] | HighchartsDataPoint[], redraw?: boolean, animation?: boolean | HighchartsAnimation, updatePoints?: boolean): void;
+    setData(data: number[] | number[][] | DataPoint[], redraw?: boolean, animation?: boolean | Animation, updatePoints?: boolean): void;
     /**
      * A utility function to show or hide the series with an optional redraw.
      * @param [boolean] visible - Whether to show or hide the series. If undefined, the visibility is toggled.
@@ -6298,11 +6300,11 @@ interface HighchartsSeriesObject {
      * Update the series with a new set of options. For a clean and precise handling of new options, all methods and
      * elements from the series is removed, and it is initiated from scratch. Therefore, this method is more performance
      * expensive than some other utility methods like setData or setVisible.
-     * @param {HighchartsIndividualSeriesOptions} options New options that will be merged into the series' existing options.
+     * @param {IndividualSeriesOptions} options New options that will be merged into the series' existing options.
      * @param [boolean] redraw - Whether to redraw the chart after the series is altered. If doing more operations on the chart, it is a good idea to set redraw to false and call chart.redraw() after.
      * @since 1.2.0
      */
-    update(options: HighchartsIndividualSeriesOptions, redraw?: boolean): void;
+    update(options: IndividualSeriesOptions, redraw?: boolean): void;
     /**
      * Read only. The series' visibility state as set by series.show(), series.hide(), or the initial configuration.
      * @since 1.2.0
@@ -6312,42 +6314,34 @@ interface HighchartsSeriesObject {
      * Read only. The unique xAxis object associated with the series.
      * @since 1.2.0
      */
-    xAxis: HighchartsAxisObject;
+    xAxis: AxisObject;
     /**
      * Read only. The unique yAxis object associated with the series.
      * @since 1.2.0
      */
-    yAxis: HighchartsAxisObject;
+    yAxis: AxisObject;
+}
+
+}
+declare module "highcharts" {
+    export = __Highcharts;
 }
 
 interface JQuery {
-    highcharts(): HighchartsChartObject;
+    highcharts(): __Highcharts.ChartObject;
     /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-    * @param {HighchartsOptions} options Options for this chart
-    * @return current {JQuery} selector the current JQuery selector
-    **/
-    highcharts(options: HighchartsOptions): JQuery;
+     * Creates a new Highcharts.Chart for the current JQuery selector; usually
+     * a div selected by $('#container')
+     * @param {Options} options Options for this chart
+     * @return current {JQuery} selector the current JQuery selector
+     **/
+    highcharts(options: __Highcharts.Options): JQuery;
     /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-    * @param {HighchartsOptions} options Options for this chart
-    * @param callback Callback function used to manipulate the constructed chart instance
-    * @return current {JQuery} selector the current JQuery selector
-    **/
-    highcharts(options: HighchartsOptions, callback: (chart: HighchartsChartObject) => void): JQuery;
+     * Creates a new Highcharts.Chart for the current JQuery selector; usually
+     * a div selected by $('#container')
+     * @param {Options} options Options for this chart
+     * @param callback Callback function used to manipulate the constructed chart instance
+     * @return current {JQuery} selector the current JQuery selector
+     **/
+    highcharts(options: __Highcharts.Options, callback: (chart: __Highcharts.ChartObject) => void): JQuery;
 }
-
-/**
- * Enabling the usage of ES6 module loading.
- */
-declare var Highcharts: HighchartsStatic;
-
-/**
- * Declaration for ES6 module loading.
- */
-declare module "highcharts" {
-    export = Highcharts;
-}
-

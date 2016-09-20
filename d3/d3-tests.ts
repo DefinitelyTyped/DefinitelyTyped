@@ -5,6 +5,8 @@ interface TestPieChartData {
     population: number;
     age: string;
 }
+
+import d3 from "d3";
 function testPieChart() {
     var width = 960,
     height = 500,
@@ -2708,14 +2710,14 @@ function testMultiUtcFormat() {
 }
 
 function testEnterSizeEmpty() {
-    
+
     var selectionSize: number,
         emptyStatus: boolean;
-        
+
     var newNodes = d3.selectAll('.test')
                 .data(['1', '2', '3'])
                 .enter();
-                
+
     emptyStatus = newNodes.empty();
     selectionSize = newNodes.size();
 

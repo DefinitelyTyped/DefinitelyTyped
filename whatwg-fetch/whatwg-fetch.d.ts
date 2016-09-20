@@ -2,8 +2,8 @@
 // Project: https://github.com/github/fetch
 // Definitions by: Ryan Graham <https://github.com/ryan-codingintrigue>, Kagami Sascha Rosylight <https://github.com/saschanaz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference path="../whatwg-streams/whatwg-streams.d.ts" />
+/// <reference path="../es6-shim/es6-shim.d.ts" />
 
 interface Window {
     fetch(url: RequestInfo, init?: RequestInit): Promise<Response>;
@@ -21,11 +21,11 @@ declare class Headers {
     set(name: string, value: string): void;
 
     // WebIDL pair iterator: iterable<ByteString, ByteString>
-    entries(): IterableIterator<[string, string]>;
+    entries(): IterableIteratorShim<[string, string]>;
     forEach(callback: (value: string, index: number, headers: Headers) => void, thisArg?: any): void;
-    keys(): IterableIterator<string>;
-    values(): IterableIterator<string>;
-    [Symbol.iterator](): IterableIterator<[string, string]>;
+    keys(): IterableIteratorShim<string>;
+    values(): IterableIteratorShim<string>;
+    // [Symbol.iterator](): IterableIteratorShim<[string, string]>; // commenting this out since we are not going to use this and it also eliminates the need for installing another dependency for symbol definitions
 }
 
 declare type BodyInit = Blob | ArrayBufferView | ArrayBuffer | FormData /* | URLSearchParams */ | string;
@@ -102,7 +102,6 @@ interface ResponseInit {
 }
 interface ResponseConstructor {
     new (body?: BodyInit, init?: ResponseInit): Response;
-
     error(): Response;
     redirect(url: string, status?: number): Response;
 }

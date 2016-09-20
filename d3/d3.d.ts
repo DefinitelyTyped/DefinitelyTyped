@@ -3,7 +3,7 @@
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace d3 {
+declare module __d3 {
     /**
      * The current version of D3.js.
      */
@@ -1345,7 +1345,7 @@ declare namespace d3 {
         sortValues(comparator: (a: T, b: T) => number): Nest<T>;
         rollup<U>(func: (values: T[]) => U): Nest<T>;
         map(array: T[]): { [key: string]: any };
-        map(array: T[], mapType: typeof d3.map): Map<any>;
+        map(array: T[], mapType: typeof __d3.map): Map<any>;
         entries(array: T[]): { key: string; values: any }[];
     }
 
@@ -1871,64 +1871,64 @@ declare namespace d3 {
         }
     }
 
-    export module behavior {
-        export function drag<Datum>(): Drag<Datum>;
+	namespace behavior {
+		export function drag<Datum>(): Drag<Datum>;
 
-        interface Drag<Datum> {
-            (selection: Selection<Datum>): void;
+		interface Drag<Datum> {
+			(selection: Selection<Datum>): void;
 
-            on(type: string): (d: Datum, i: number) => any;
-            on(type: string, listener: (d: Datum, i: number) => any): Drag<Datum>;
+			on(type: string): (d: Datum, i: number) => any;
+			on(type: string, listener: (d: Datum, i: number) => any): Drag<Datum>;
 
-            origin(): (d: Datum, i: number) => { x: number; y: number };
-            origin(accessor: (d: Datum, i: number) => { x: number; y: number }): Drag<Datum>;
-        }
+			origin(): (d: Datum, i: number) => { x: number; y: number };
+			origin(accessor: (d: Datum, i: number) => { x: number; y: number }): Drag<Datum>;
+		}
 
-        export function zoom<Datum>(): Zoom<Datum>;
+		export function zoom<Datum>(): Zoom<Datum>;
 
-        namespace zoom {
-            interface Scale {
-                domain(): number[];
-                domain(values: number[]): Scale;
+		namespace zoom {
+			interface Scale {
+				domain(): number[];
+				domain(values: number[]): Scale;
 
-                invert(y: number): number;
+				invert(y: number): number;
 
-                range(values: number[]): Scale;
-                range(): number[];
-            }
-        }
+				range(values: number[]): Scale;
+				range(): number[];
+			}
+		}
 
-        interface Zoom<Datum> {
-            (selection: Selection<Datum>): void;
+		interface Zoom<Datum> {
+			(selection: Selection<Datum>): void;
 
-            translate(): [number, number];
-            translate(translate: [number, number]): Zoom<Datum>;
+			translate(): [number, number];
+			translate(translate: [number, number]): Zoom<Datum>;
 
-            scale(): number;
-            scale(scale: number): Zoom<Datum>;
+			scale(): number;
+			scale(scale: number): Zoom<Datum>;
 
-            scaleExtent(): [number, number];
-            scaleExtent(extent: [number, number]): Zoom<Datum>;
+			scaleExtent(): [number, number];
+			scaleExtent(extent: [number, number]): Zoom<Datum>;
 
-            center(): [number, number];
-            center(center: [number, number]): Zoom<Datum>;
+			center(): [number, number];
+			center(center: [number, number]): Zoom<Datum>;
 
-            size(): [number, number];
-            size(size: [number, number]): Zoom<Datum>;
+			size(): [number, number];
+			size(size: [number, number]): Zoom<Datum>;
 
-            x(): zoom.Scale;
-            x(x: zoom.Scale): Zoom<Datum>;
+			x(): zoom.Scale;
+			x(x: zoom.Scale): Zoom<Datum>;
 
-            y(): zoom.Scale;
-            y(y: zoom.Scale): Zoom<Datum>;
+			y(): zoom.Scale;
+			y(y: zoom.Scale): Zoom<Datum>;
 
-            on(type: string): (d: Datum, i: number) => any;
-            on(type: string, listener: (d: Datum, i: number) => any): Zoom<Datum>;
+			on(type: string): (d: Datum, i: number) => any;
+			on(type: string, listener: (d: Datum, i: number) => any): Zoom<Datum>;
 
-            event(selection: Selection<Datum>): void;
-            event(transition: Transition<Datum>): void;
-        }
-    }
+			event(selection: Selection<Datum>): void;
+			event(transition: Transition<Datum>): void;
+		}
+	}
 
     export module geo {
         export function path(): Path;
@@ -3372,5 +3372,5 @@ declare namespace d3 {
 interface TouchList { }
 
 declare module 'd3' {
-    export = d3;
+    export default __d3;
 }
