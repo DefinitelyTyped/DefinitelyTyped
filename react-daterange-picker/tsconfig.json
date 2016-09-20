@@ -8,10 +8,9 @@
         "typeRoots": [
             "../"
         ],
-        "types": [],
+        "types": ["moment-range", "react"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-
         "jsx": "react"
     },
     "files": [
