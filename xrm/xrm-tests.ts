@@ -72,7 +72,7 @@ if (Xrm.Page.data.process != null)
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Utility.openQuickCreate("account").then(( newRecord ) => { alert( `Newly created record Id: ${newRecord["id"]}` ); });
+Xrm.Utility.openQuickCreate("account").then(( newRecord: Page.LookupValue ) => { alert( `Newly created record Id: ${newRecord.id}` ); });
 
 /// Make all controls visible.
 
