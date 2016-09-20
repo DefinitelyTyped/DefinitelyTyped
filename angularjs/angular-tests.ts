@@ -867,6 +867,26 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('multiSlotTranscludeExample', [])
+    .directive('dropDownMenu', function() {
+        return {
+            transclude: {
+                button: 'button',
+                list: 'ul',
+            },
+            link: function(scope, element, attrs, ctrl, transclude) {
+                // without scope
+                transclude().appendTo(element);
+                transclude(clone => clone.appendTo(element));
+
+                // with scope
+                transclude(scope, clone => clone.appendTo(element));
+                transclude(scope, clone => clone.appendTo(element), element, 'button');
+                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+            }
+        };
+    });
+
 angular.module('componentExample', [])
     .component('counter', {
         require: {'ctrl': '^ctrl'},
@@ -1098,6 +1118,12 @@ function parseTyping() {
     }
 }
 
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
+}
+
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
     if (mode === 'debug') {
         return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
@@ -1105,11 +1131,11 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
                 $delegate['debug'] = true;
             });
         }, 'debug-helpers'], {
-            debugInfoEnabled: true
+            strictDi: true
         });
     }
     return angular.bootstrap(element, ['main'], {
-        debugInfoEnabled: false
+        strictDi: false
     });
 }
 

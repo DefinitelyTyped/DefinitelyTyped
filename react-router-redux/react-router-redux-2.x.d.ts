@@ -20,7 +20,7 @@ declare namespace ReactRouterRedux {
     const goForward: GoBackAction;
     const routeActions: RouteActions;
 
-    type LocationDescriptor = H.Location | H.Path;
+    type LocationDescriptor = H.LocationDescriptor;
     type PushAction = (nextLocation: LocationDescriptor) => void;
     type ReplaceAction = (nextLocation: LocationDescriptor) => void;
     type GoAction = (n: number) => void;
@@ -35,11 +35,11 @@ declare namespace ReactRouterRedux {
         goBack: GoBackAction;
     }
     interface HistoryMiddleware extends R.Middleware {
-        listenForReplays(store: R.Store, selectLocationState?: Function): void;
+        listenForReplays(store: R.Store<any>, selectLocationState?: Function): void;
         unsubscribe(): void;
     }
 
-    function routeReducer(state?: any, options?: any): R.Reducer;
+    function routeReducer(state?: any, options?: any): R.Reducer<any>;
     function syncHistory(history: H.History): HistoryMiddleware;
 }
 

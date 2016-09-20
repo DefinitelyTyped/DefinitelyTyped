@@ -5617,7 +5617,7 @@ declare namespace dojo {
              * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: Function): any;
+            hitch(scope: Object, method: (...args: any[]) => any, ...args: any[]): any;
             /**
              * Returns a function that will only ever execute in the a given scope.
              * This allows for easy use of object member functions
@@ -5631,7 +5631,7 @@ declare namespace dojo {
              * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: String[]): any;
+            hitch(scope: Object, method: string, ...args: any[]): any;
             /**
              * Returns true if it is a built-in function or some other kind of
              * oddball that should report as a function but doesn't
@@ -5686,7 +5686,23 @@ declare namespace dojo {
              * @param dest The object to which to copy/add all properties contained in source. If dest is falsy, thena new object is manufactured before copying/adding properties begins.
              * @param sources One of more objects from which to draw all properties to copy into dest. sources are processedleft-to-right and if more than one of these objects contain the same property name, the right-mostvalue "wins".
              */
-            mixin(dest: Object, sources: Object[]): Object;
+            mixin<T>(dest: T): T;
+            mixin<T, U>(
+                dest: T,
+                source: U
+            ): T & U;
+            mixin<T, U, V>(
+                dest: T,
+                source1: U,
+                source2: V
+            ): T & U & V;
+            mixin<T, U, V, W>(
+                dest: T,
+                source1: U,
+                source2: V,
+                source3: W
+            ): T & U & V & W;
+            mixin<T>(dest: Object, ...sources: Object[]): T;
             /**
              * similar to hitch() except that the scope object is left to be
              * whatever the execution context eventually becomes.

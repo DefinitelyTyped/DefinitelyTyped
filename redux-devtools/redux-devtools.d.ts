@@ -10,13 +10,13 @@ declare module "redux-devtools" {
 
   interface IDevTools {
     new (): JSX.ElementClass
-    instrument(): Function
+    instrument(): (opts: any) => any;
   }
 
   export function createDevTools(el: React.ReactElement<any>): IDevTools
   export function persistState(debugSessionKey: string): Function
 
-  var factory: { instrument(): Function }
+  var factory: { instrument(): (opts: any) => any }
 
   export default factory;
 }

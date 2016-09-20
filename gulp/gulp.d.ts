@@ -5,9 +5,11 @@
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../orchestrator/orchestrator.d.ts" />
+/// <reference path="../vinyl/vinyl.d.ts" />
 
 declare module "gulp" {
     import Orchestrator = require("orchestrator");
+    import VinylFile = require("vinyl");
 
     namespace gulp {
         interface Gulp extends Orchestrator {
@@ -92,7 +94,7 @@ declare module "gulp" {
              * @param outFolder The path (output folder) to write files to. Or a function that returns it, the function will be provided a vinyl File instance.
              * @param opt
              */
-            (outFolder: string|((file: string) => string), opt?: DestOptions): NodeJS.ReadWriteStream;
+            (outFolder: string|((file: VinylFile) => string), opt?: DestOptions): NodeJS.ReadWriteStream;
         }
 
         interface SrcMethod {
@@ -149,6 +151,11 @@ declare module "gulp" {
              * Note that an explicit dot in a portion of the pattern will always match dot files.
              */
             dot?: boolean;
+
+            /**
+             * Set to match only fles, not directories. Set this flag to prevent copying empty directories
+             */
+            nodir?: boolean;
 
             /**
              * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid

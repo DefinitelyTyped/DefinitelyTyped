@@ -1,6 +1,6 @@
 /// <reference path="./redux-mock-store.d.ts" />
 
-import configureStore from 'redux-mock-store';
+import configureStore, {IStore} from 'redux-mock-store';
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -19,16 +19,17 @@ function counter(state: any, action: any) {
 }
 
 function loggingMiddleware() {
-    return (next: Redux.Dispatch) => (action: any) => {
+    return (next: Redux.Dispatch<any>) => (action: any) => {
         console.log(action.type);
         next(action);
     };
 }
 
-const storeMock = configureStore([loggingMiddleware]);
+const storeMock = configureStore<number>([loggingMiddleware]);
 const initialState = 0
-let store = storeMock(initialState);
+let store: IStore<number>;
 
+store = storeMock(initialState);
 
 store.subscribe(() => {
     // ...

@@ -7,7 +7,7 @@
 
 declare namespace __React {
 
-    interface TransitionGroupProps {
+    interface TransitionGroupProps extends HTMLAttributes {
         component?: ReactType;
         className?: string;
         childFactory?: (child: ReactElement<any>) => ReactElement<any>;

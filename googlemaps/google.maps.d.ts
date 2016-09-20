@@ -61,6 +61,7 @@ declare namespace google.maps {
         backgroundColor?: string;
         center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
+        clickableIcons?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
         draggableCursor?: string;
@@ -427,7 +428,7 @@ declare namespace google.maps {
         /**
          * Marker position. Required.
          */
-        position: LatLng;
+        position: LatLng|LatLngLiteral;
         /** Image map region definition used for drag/click. */
         shape?: MarkerShape;
         /** Rollover text. */
@@ -755,7 +756,7 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
-    export interface PolyMouseEvent {
+    export interface PolyMouseEvent extends MouseEvent {
         edge?: number;
         path?: number;
         vertex?: number;
@@ -1783,21 +1784,22 @@ declare namespace google.maps {
     }
 
     export type LatLngLiteral = { lat: number; lng: number }
+    export type LatLngBoundsLiteral = { east: number; north: number; south: number; west: number }
 
     export class LatLngBounds {
-        constructor(sw?: LatLng, ne?: LatLng);
+        constructor(sw?: LatLng|LatLngLiteral, ne?: LatLng|LatLngLiteral);
         contains(latLng: LatLng): boolean;
-        equals(other: LatLngBounds): boolean;
+        equals(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         extend(point: LatLng): LatLngBounds;
         getCenter(): LatLng;
         getNorthEast(): LatLng;
         getSouthWest(): LatLng;
-        intersects(other: LatLngBounds): boolean;
+        intersects(other: LatLngBounds|LatLngBoundsLiteral): boolean;
         isEmpty(): boolean;
         toSpan(): LatLng;
         toString(): string;
         toUrlValue(precision?: number): string;
-        union(other: LatLngBounds): LatLngBounds;
+        union(other: LatLngBounds|LatLngBoundsLiteral): LatLngBounds;
     }
 
     export class Point {

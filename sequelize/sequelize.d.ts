@@ -6,10 +6,11 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path='../lodash/lodash.d.ts' />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
+    import * as _ from "lodash";
 
     namespace sequelize {
 
@@ -3727,7 +3728,7 @@ declare module "sequelize" {
              * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
              *     which case the complete data result is returned.
              */
-            aggregate( field : string, aggregateFunction : Function, options? : AggregateOptions ) : Promise<Object>;
+            aggregate( field : string, aggregateFunction : string, options? : AggregateOptions ) : Promise<Object>;
 
             /**
              * Count the number of records matching the provided where clause.
@@ -4986,17 +4987,17 @@ declare module "sequelize" {
             /**
              * Maximum connections of the pool
              */
-            maxConnections?: number;
+            max?: number;
 
             /**
              * Minimum connections of the pool
              */
-            minConnections?: number;
+            min?: number;
 
             /**
              * The maximum time, in milliseconds, that a connection can be idle before being released.
              */
-            maxIdleTime?: number;
+            idle?: number;
 
             /**
              * A function that validates a connection. Called with client. The default function checks that client is an

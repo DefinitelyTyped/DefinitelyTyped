@@ -6,5 +6,5 @@
 /// <reference path="../redux/redux.d.ts" />
 
 declare module "redux-immutable" {
-    export function combineReducers(reducers : Object): Redux.Reducer;
+    export function combineReducers(reducers: Object): Redux.Reducer<any>;
 }

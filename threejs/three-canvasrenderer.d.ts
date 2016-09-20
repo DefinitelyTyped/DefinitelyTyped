@@ -17,7 +17,6 @@ declare namespace THREE {
         color: Color;
 
         program(context: any, color: Color): void;
-        clone(): SpriteCanvasMaterial;
     }
 
     export interface CanvasRendererParameters {
