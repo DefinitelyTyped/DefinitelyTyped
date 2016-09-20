@@ -1,9 +1,4 @@
 {
-  "name": "protractor-http-mock",
-  "version": "1.0.0",
-  "description": "protractor http mock",
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "@types/selenium-webdriver": "~2.44.28"
   }
