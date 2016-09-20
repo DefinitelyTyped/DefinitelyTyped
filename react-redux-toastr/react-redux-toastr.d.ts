@@ -1,6 +1,6 @@
 // Type definitions for react-redux-toastr 3.7.0
 // Project: https://github.com/diegoddox/react-redux-toastr
-// Definitions by: Aleksandar Ivanov https://github.com/Smiche
+// Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts" />
