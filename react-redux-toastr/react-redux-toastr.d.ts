@@ -53,8 +53,8 @@ declare module "react-redux-toastr" {
     }
 
     interface ToastrConfirmOptions {
-        onOk: (): void;
-        onCancel: (): void;
+        onOk(): void;
+        onCancel(): void;
     }
 
     interface ToastrEmitter {
