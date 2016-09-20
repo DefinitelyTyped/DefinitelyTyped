@@ -3,26 +3,13 @@
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace RandomColor {
 
- interface RandomColorStatic {
+declare function randomColor(options?: RandomColorOptions): string;
 
-	() : string;
-
-	(options : randomColorOptions): string;
-}
-
-interface randomColorOptions {
-		hue? : string;
-		luminosity? : string;		
-		count? : string | number;
-		seed?: string;
-		format?: string;
+interface RandomColorOptions {
+		hue? : number | "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "monochrome" | "random";
+		luminosity? : "bright" | "light" | "dark" | "random";		
+		count? : number;
+		seed?: number | string;
+		format?: "hsvArray" | "hslArray" | "hsl" | "hsla" | "rgbArray"| "rgb"| "rgba"| "hex";
 	}
-}
-
-declare var randomColor: RandomColor.RandomColorStatic;
-
-declare module 'randomcolor' {
-    export = randomColor;
-}
