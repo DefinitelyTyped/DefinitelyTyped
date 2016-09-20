@@ -217,12 +217,10 @@ readStreeam = fs.createReadStream(path, {
 	flags: str,
 	encoding: str,
 	fd: num,
-	mode: num,
-	bufferSize: num
+	mode: num
 });
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	encoding: str,
-	string: str
+	encoding: str
 });
