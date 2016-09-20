@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "fs-extra-promise-es6-tests.ts"
+        "uid-safe-tests.ts"
     ]
 }
