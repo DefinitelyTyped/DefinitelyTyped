@@ -84,6 +84,7 @@ declare var exportNamedDeclaration: ESTree.ExportNamedDeclaration;
 declare var exportSpecifier: ESTree.ExportSpecifier;
 declare var exportDefaultDeclaration: ESTree.ExportDefaultDeclaration;
 declare var exportAllDeclaration: ESTree.ExportAllDeclaration;
+declare var awaitExpression: ESTree.AwaitExpression;
 
 declare var toplevelStatement: ESTree.Statement | ESTree.ModuleDeclaration;
 declare var expressionOrPattern: ESTree.Expression | ESTree.Pattern;
@@ -181,6 +182,7 @@ pattern = assignmentPattern.left;
 expression = assignmentPattern.right;
 blockStatement = functionExpression.body;
 var booleanMaybe: boolean | undefined = functionExpression.generator;
+booleanMaybe = functionExpression.async;
 
 // SequenceExpression
 var sequenceExpression: ESTree.SequenceExpression;
@@ -224,6 +226,7 @@ identifier = functionDeclaration.id;
 var params: Array<ESTree.Pattern> = functionDeclaration.params;
 blockStatement = functionDeclaration.body;
 booleanMaybe = functionDeclaration.generator;
+booleanMaybe = functionDeclaration.async;
 
 var variableDeclaration: ESTree.VariableDeclaration;
 var declarations: Array<ESTree.VariableDeclarator> = variableDeclaration.declarations;
@@ -253,6 +256,9 @@ string = identifier.name;
 string = literal.type;
 any = literal.value;
 
+// Await Expression
+var awaitExpression: ESTree.AwaitExpression;
+expression = awaitExpression.argument;
 
 // Test narrowing
 
@@ -416,6 +422,9 @@ switch (node.type) {
     break;
   case 'Identifier':
     identifier = node;
+    break;
+  case 'AwaitExpression':
+    awaitExpression = node;
     break;
   // end narrowing of Expression
 
@@ -636,6 +645,9 @@ switch (expression.type) {
     break;
   case 'Identifier':
     identifier = expression;
+    break;
+  case 'AwaitExpression':
+    awaitExpression = expression;
     break;
   default:
     never = expression;
