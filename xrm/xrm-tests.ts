@@ -6,7 +6,7 @@
 window.Xrm.Utility.alertDialog( "message", () => {} );
 parent.Xrm.Page.context.getOrgLcid();
 
-/// Demonstrate clientglobalcontext.d.ts 
+/// Demonstrate clientglobalcontext.d.ts
 
 function _getContext()
 {
@@ -72,7 +72,7 @@ if (Xrm.Page.data.process != null)
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Utility.openQuickCreate(( newRecord ) => { alert( `Newly created record Id: ${newRecord.id}` ); }, "account" );
+Xrm.Utility.openQuickCreate("account").then(( newRecord ) => { alert( `Newly created record Id: ${newRecord["id"]}` ); });
 
 /// Make all controls visible.
 
@@ -119,7 +119,7 @@ optionSetAttribute.controls.get(0).setFocus();
 
 var level: Xrm.Page.ui.FormNotificationLevel;
 level = "ERROR";
-Xrm.Page.ui.setFormNotification("Test", level, "uniqueId"); 
+Xrm.Page.ui.setFormNotification("Test", level, "uniqueId");
 
 /// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
 
@@ -133,5 +133,3 @@ attribute.setSubmitMode(submitMode);
 attribute.setSubmitMode(submitMode);
 attribute.setRequiredLevel(requirementLevel);
 attribute.setRequiredLevel(requirementLevelString);
-
-
