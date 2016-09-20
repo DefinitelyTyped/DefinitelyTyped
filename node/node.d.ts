@@ -241,20 +241,20 @@ declare namespace NodeJS {
     }
 
     export class EventEmitter {
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        listenerCount(type: string|symbol): number;
         // Added in Node 6...
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        eventNames(): string[];
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        eventNames(): (string|symbol)[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -549,22 +549,22 @@ declare module "querystring" {
 declare module "events" {
     export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        static listenerCount(emitter: EventEmitter, event: string|symbol): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        eventNames(): string[];
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        eventNames(): (string|symbol)[];
+        listenerCount(type: string|symbol): number;
     }
 }
 
