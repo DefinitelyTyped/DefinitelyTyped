@@ -1,4 +1,4 @@
-// Type definitions for co-body
+// Type definitions for uid-safe
 // Project: https://github.com/crypto-utils/uid-safe
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,8 @@ declare namespace UID {
 
     export interface Generate {
 
-        (byteLenth: number, callback: (err: any, str: string) => any): void;
-        (byteLenth: number): Promise<any>;
-        (byteLenth: number, callback?: (err: any, str: string) => any): Promise<any> | void;
+        (byteLength: number, callback: (err: any, str: string) => any): void;
+        (byteLength: number): Promise<any>;
 
         sync(byteLength: number): string;
     }
