@@ -48,8 +48,8 @@ declare module "react-redux-toastr" {
         removeOnHover?: boolean,
         removeOnClick?: boolean,
         component?: R.Component<any, any>,
-        onShowComplete?: (): void;
-        onHideComplete?: (): void;
+        onShowComplete?(): void;
+        onHideComplete?(): void;
     }
 
     interface ToastrConfirmOptions {
@@ -62,19 +62,19 @@ declare module "react-redux-toastr" {
          * Used to provide a large amount of information.
          * It will not close unless a timeOut is provided.
          */
-        message: (title: string, message: string, options?: EmitterOptions): void;
-        info: (title: string, message: string, options?: EmitterOptions): void;
-        success: (title: string, message: string, options?: EmitterOptions): void;
-        warning: (title: string, message: string, options?: EmitterOptions): void;
-        error: (title: string, message: string, options?: EmitterOptions): void;
+        message(title: string, message: string, options?: EmitterOptions): void;
+        info(title: string, message: string, options?: EmitterOptions): void;
+        success(title: string, message: string, options?: EmitterOptions): void;
+        warning(title: string, message: string, options?: EmitterOptions): void;
+        error(title: string, message: string, options?: EmitterOptions): void;
         /**
          * Clear all notifications
          */
-        clean: (): void;
+        clean(): void;
         /**
          * Hook confirmation toastr with callback.
          */
-        confirm: (message: string, options: ToastrConfirmOptions): void;
+        confirm(message: string, options: ToastrConfirmOptions): void;
     }
 
     /**
