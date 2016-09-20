@@ -3,13 +3,12 @@
 // Definitions by: Mathias Feitzinger <https://github.com/feitzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare function randomColor(options?: RandomColorOptions): string;
 
 interface RandomColorOptions {
-		hue? : number | "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "monochrome" | "random";
-		luminosity? : "bright" | "light" | "dark" | "random";		
-		count? : number;
-		seed?: number | string;
-		format?: "hsvArray" | "hslArray" | "hsl" | "hsla" | "rgbArray"| "rgb"| "rgba"| "hex";
-	}
+	hue?: number | "red" | "orange" | "yellow" | "green" | "blue" | "purple" | "pink" | "monochrome" | "random";
+	luminosity?: "bright" | "light" | "dark" | "random";
+	count?: number;
+	seed?: number | string;
+	format?: "hsvArray" | "hslArray" | "hsl" | "hsla" | "rgbArray" | "rgb" | "rgba" | "hex";
+}
