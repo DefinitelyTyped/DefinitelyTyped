@@ -70,7 +70,7 @@ namespace assert_tests {
 
 namespace events_tests {
     let emitter: events.EventEmitter;
-    let event: string;
+    let event: string|symbol;
     let listener: Function;
     let any: any;
 
@@ -114,7 +114,7 @@ namespace events_tests {
     }
 
     {
-        let result: string[];
+        let result: (string|symbol)[];
 
         result = emitter.eventNames();
     }
