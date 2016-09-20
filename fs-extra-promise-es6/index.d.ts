@@ -11,6 +11,9 @@
 import stream = require("stream");
 import fs = require("fs");
 
+export interface Stats extends fs.Stats {
+}
+
 export interface FSWatcher {
     close(): void;
 }
@@ -84,12 +87,12 @@ export declare function lchmod(path: string, mode: string, callback?: (err: Erro
 export declare function lchmod(path: string, mode: number, callback?: (err: Error) => void): void;
 export declare function lchmodSync(path: string, mode: number): void;
 export declare function lchmodSync(path: string, mode: string): void;
-export declare function stat(path: string, callback?: (err: Error, stats: fs.Stats) => void): void;
-export declare function lstat(path: string, callback?: (err: Error, stats: fs.Stats) => void): void;
-export declare function fstat(fd: number, callback?: (err: Error, stats: fs.Stats) => void): void;
-export declare function statSync(path: string): fs.Stats;
-export declare function lstatSync(path: string): fs.Stats;
-export declare function fstatSync(fd: number): fs.Stats;
+export declare function stat(path: string, callback?: (err: Error, stats: Stats) => void): void;
+export declare function lstat(path: string, callback?: (err: Error, stats: Stats) => void): void;
+export declare function fstat(fd: number, callback?: (err: Error, stats: Stats) => void): void;
+export declare function statSync(path: string): Stats;
+export declare function lstatSync(path: string): Stats;
+export declare function fstatSync(fd: number): Stats;
 export declare function link(srcpath: string, dstpath: string, callback?: (err: Error) => void): void;
 export declare function linkSync(srcpath: string, dstpath: string): void;
 export declare function symlink(srcpath: string, dstpath: string, type?: string, callback?: (err: Error) => void): void;
@@ -136,9 +139,9 @@ export declare function appendFile(filename: string, data: any, encoding?: strin
 export declare function appendFile(filename: string, data: any, option?: OpenOptions, callback?: (err: Error) => void): void;
 export declare function appendFileSync(filename: string, data: any, encoding?: string): void;
 export declare function appendFileSync(filename: string, data: any, option?: OpenOptions): void;
-export declare function watchFile(filename: string, listener: { curr: fs.Stats; prev: fs.Stats; }): void;
-export declare function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: fs.Stats; prev: fs.Stats; }): void;
-export declare function unwatchFile(filename: string, listener?: fs.Stats): void;
+export declare function watchFile(filename: string, listener: { curr: Stats; prev: Stats; }): void;
+export declare function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: { curr: Stats; prev: Stats; }): void;
+export declare function unwatchFile(filename: string, listener?: Stats): void;
 export declare function watch(filename: string, options?: { persistent?: boolean; }, listener?: (event: string, filename: string) => any): FSWatcher;
 export declare function exists(path: string, callback?: (exists: boolean) => void): void;
 export declare function existsSync(path: string): boolean;
@@ -207,9 +210,9 @@ export declare function fchmodAsync(fd: number, mode: number): Promise<void>;
 export declare function fchmodAsync(fd: number, mode: string): Promise<void>;
 export declare function lchmodAsync(path: string, mode: string): Promise<void>;
 export declare function lchmodAsync(path: string, mode: number): Promise<void>;
-export declare function statAsync(path: string): Promise<fs.Stats>;
-export declare function lstatAsync(path: string): Promise<fs.Stats>;
-export declare function fstatAsync(fd: number): Promise<fs.Stats>;
+export declare function statAsync(path: string): Promise<Stats>;
+export declare function lstatAsync(path: string): Promise<Stats>;
+export declare function fstatAsync(fd: number): Promise<Stats>;
 export declare function linkAsync(srcpath: string, dstpath: string): Promise<void>;
 export declare function symlinkAsync(srcpath: string, dstpath: string, type?: string): Promise<void>;
 export declare function readlinkAsync(path: string): Promise<string>;
