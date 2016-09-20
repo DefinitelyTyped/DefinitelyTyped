@@ -173,6 +173,18 @@ declare namespace AdazzleReactDataGrid {
          * @default 0
          */
         rowScrollTimeout?: number
+        /**
+         * Options object for selecting rows
+         */
+        rowSelection?: {
+            showCheckbox?: boolean
+            enableShiftSelect?: boolean
+            onRowsSelected?: (rows: Array<Object>) => void,
+            onRowsDeselected?: (rows: Array<Object>) => void,
+            selectBy?: {
+              indexes?: Array<number>
+            }
+        }
     }
 
     /**
