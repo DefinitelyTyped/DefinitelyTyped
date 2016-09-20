@@ -484,7 +484,7 @@ declare namespace Xrm
         /**
          * Called when the operation is successful.
          */
-        export type SuccessCallbackDelegate = () => void;
+        export type SuccessCallbackDelegate = ( object?: any ) => void;
 
         /**
          * Called when the operation fails.
