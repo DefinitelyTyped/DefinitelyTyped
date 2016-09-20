@@ -512,16 +512,25 @@ declare module "shelljs"
     export function error(): string;
 
 
+
     export function touch(...files: string[]): void;
     export function touch(files: string[]): void;
 
-    export function touch(options: string, ...files: string[]): void;
-    export function touch(options: string, files: string[]): void;
-    
-    export function touch(options: Object, ...files: string[]): void;
-    export function touch(options: Object, files: string[]): void;
+    type TouchOptionsLiteral = "-a" |  "-c" | "-m" | "-d" | "-r";
 
+    export function touch(options: TouchOptionsLiteral, ...files: string[]): void;
+    export function touch(options: TouchOptionsLiteral, files: string[]): void;
 
+    /**
+     * Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
+     */
+    type touchOptionsArray = {
+        '-d'?: string;
+        '-r'?: string;
+    };
+
+    export function touch(options: touchOptionsArray, ...files: string[]): void;
+    export function touch(options: touchOptionsArray, files: string[]): void;
 
     // Configuration
 
