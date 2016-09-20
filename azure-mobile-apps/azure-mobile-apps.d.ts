@@ -253,9 +253,9 @@ declare namespace Azure.MobileApps {
         softDelete?: boolean;
         userIdColumn?: string;
 
-        filters?: [(QueryJs, Context) => void | QueryJs];
-        transforms?: [(any, Context) => void | any];
-        hooks?: [(any, Context) => void];
+        filters?: [(query: QueryJs, context: Context) => void | QueryJs];
+        transforms?: [(item: any, context: Context) => void | any];
+        hooks?: [(results: any, context: Context) => void];
 
         perUser?: boolean;
         recordsExpire?: Duration;
