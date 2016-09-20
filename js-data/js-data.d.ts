@@ -10,14 +10,13 @@
 // defining what exists in JSData and how it looks
 declare module JSData {
 
-    interface JSDataPromise<R> {
-
-        then<U>(onFulfilled?: (value: R) => U | JSDataPromise<U>,  onRejected?: (error: any) => U | JSDataPromise<U>): JSDataPromise<U>;
+    interface JSDataPromise<T> {
+        then<U>(onFulfilled?: (value: T) => U | JSDataPromise<U>,  onRejected?: (error: any) => U | JSDataPromise<U>): JSDataPromise<U>;
 
         catch<U>(onRejected?: (error: any) => U | JSDataPromise<U>): JSDataPromise<U>;
 
         // enhanced with finally
-        finally<U>(finallyCb?:() => U):JSDataPromise<U>;
+        finally(callback?: () => any): JSDataPromise<T>;
     }
 
     //TODO switch to class again when typescript supports open ended class declaration
