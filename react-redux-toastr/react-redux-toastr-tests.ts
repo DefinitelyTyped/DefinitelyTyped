@@ -1,6 +1,6 @@
 ///<reference path="react-redux-toastr.d.ts" />
 ///<reference path="../react/react.d.ts" />
-///<reference path="../react-dom/react-dom.d.ts" />
+///<reference path="../react/react-dom.d.ts" />
 ///<reference path="../react-redux/react-redux.d.ts" />
 import {toastr, reducer as toastrReducer, actions} from 'react-redux-toastr';
 import ReduxToastr from 'react-redux-toastr';
@@ -15,29 +15,6 @@ function test() {
     var element = toastrFactory({ timeOut: 1000, newestOnTop: false });
     var providerFactory = React.createFactory(Provider);
     var root = providerFactory({ store: store }, element);
-
-    class Test extends React.Component<any, {}>{
-        private toastr;
-        constructor() {
-            super()
-            this.toastr = bindActionCreators(actions, this.props.dispatch);
-            this.toastr.clean();
-            this.toastr.success("hi");
-        }
-
-    }
-
-
-    var TestComponent = connect(mapStateToProps, mapDispatchToProps)(Test);
-    function mapDispatchToProps(dispatch) {
-        return {
-            actions: bindActionCreators(actions, dispatch)
-        };
-    }
-
-    function mapStateToProps(state) {
-        return {};
-    }
 
     function callback() { }
 
