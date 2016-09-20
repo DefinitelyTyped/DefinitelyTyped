@@ -63,11 +63,13 @@ export interface Program extends BaseNode {
 interface BaseFunction extends BaseNode {
   params: Array<Pattern>;
   generator?: boolean;
+  async?: boolean;
   // The body is either BlockStatement or Expression because arrow functions
   // can have a body that's either. FunctionDeclarations and
-  // FunctionExpressions nave only BlockStatement bodies.
+  // FunctionExpressions have only BlockStatement bodies.
   body: BlockStatement | Expression;
 }
+
 export type Function =
     FunctionDeclaration | FunctionExpression | ArrowFunctionExpression;
 
@@ -208,7 +210,8 @@ type Expression =
     UpdateExpression | BinaryExpression | AssignmentExpression |
     LogicalExpression | MemberExpression | ConditionalExpression |
     CallExpression | NewExpression | SequenceExpression | TemplateLiteral |
-    TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier;
+    TaggedTemplateExpression | ClassExpression | MetaProperty | Identifier |
+    AwaitExpression;
 export interface BaseExpression extends BaseNode { }
 
 export interface ThisExpression extends BaseExpression {
@@ -525,4 +528,9 @@ export interface ExportDefaultDeclaration extends BaseModuleDeclaration {
 export interface ExportAllDeclaration extends BaseModuleDeclaration {
   type: "ExportAllDeclaration";
   source: Literal;
+}
+
+export interface AwaitExpression extends BaseExpression {
+  type: "AwaitExpression";
+  argument: Expression;
 }
