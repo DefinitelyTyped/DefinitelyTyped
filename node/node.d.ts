@@ -1688,7 +1688,7 @@ declare module "net" {
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
-        emit(event: string, ...args: any[]);
+        emit(event: string, ...args: any[]): this;
         emit(event: "close", had_error: Boolean): this;
         emit(event: "connect"): this;
         emit(event: "data", data: Buffer): this;
@@ -1782,7 +1782,7 @@ declare module "net" {
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
 
-        emit(event: string, ...args: any[]);
+        emit(event: string, ...args: any[]): this;
         emit(event: "close"): this;
         emit(event: "connection", socket: Socket): this;
         emit(event: "error", err: Error): this;
