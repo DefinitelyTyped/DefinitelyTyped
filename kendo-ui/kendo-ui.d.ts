@@ -2585,6 +2585,8 @@ declare namespace kendo.ui {
 
         startDate(): Date;
         endDate(): Date;
+
+        static extend(proto: Object): AgendaView;
     }
 
     class AutoComplete extends kendo.ui.Widget {
