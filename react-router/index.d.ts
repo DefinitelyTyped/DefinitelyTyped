@@ -32,6 +32,7 @@ import match from "./lib/match";
 import useRouterHistory from "./lib/useRouterHistory";
 import createMemoryHistory from "./lib/createMemoryHistory";
 import withRouter from "./lib/withRouter";
+import applyRouterMiddleware from "./lib/applyRouterMiddleware";
 
 // PlainRoute is defined in the API documented at:
 // https://github.com/rackt/react-router/blob/master/docs/API.md
@@ -79,7 +80,8 @@ export {
     match,
     useRouterHistory,
     createMemoryHistory,
-    withRouter
+    withRouter,
+    applyRouterMiddleware
 };
 
 export default Router;

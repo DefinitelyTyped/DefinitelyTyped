@@ -74,6 +74,9 @@ declare module 'mongoose' {
       plugin: (schema: PassportLocalSchema, options?: PassportLocalOptions) => void,
       options?: PassportLocalOptions
     ): this;
+
+    // overload for the default mongoose plugin function
+    plugin(plugin: (schema: Schema, options?: Object) => void, opts?: Object): this;
   }
 
   export function model<T extends Document>(

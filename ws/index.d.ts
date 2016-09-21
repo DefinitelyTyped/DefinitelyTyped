@@ -8,6 +8,7 @@
 
 import * as events from 'events';
 import * as http from 'http';
+import * as https from 'https';
 import * as net from 'net';
 
 declare class WebSocket extends events.EventEmitter {
@@ -101,7 +102,7 @@ declare namespace WebSocket {
     export interface IServerOptions {
         host?: string;
         port?: number;
-        server?: http.Server;
+        server?: http.Server | https.Server;
         verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
         handleProtocols?: any;
         path?: string;
