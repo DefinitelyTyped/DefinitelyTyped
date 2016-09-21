@@ -19,8 +19,10 @@ let any: any;
   result = validator.isAfter('sample', new Date().toString());
 
   result = validator.isAlpha('sample');
+  result = validator.isAlpha('sample', 'sample-local');
 
   result = validator.isAlphanumeric('sample');
+  result = validator.isAlphanumeric('sample', 'sample-local');
 
   result = validator.isAscii('sample');
 
