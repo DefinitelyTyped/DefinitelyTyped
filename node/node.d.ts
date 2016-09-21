@@ -1697,7 +1697,7 @@ declare module "net" {
         emit(event: "end"): this;
         emit(event: "error", err: Error): this;
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): this;
-        emit(event: "timeout") => void): this;
+        emit(event: "timeout"): this;
         
         on(event: string, listener: Function): this;
         on(event: "close", listener: (had_error: Boolean) => void): this;
