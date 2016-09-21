@@ -6396,6 +6396,10 @@ declare namespace kendo.ui {
         event?: kendo.data.SchedulerEvent;
     }
 
+    class AgendaView implements SchedulerView {
+        startDate(): Date;
+        endDate(): Date;
+    }
 
     class Slider extends kendo.ui.Widget {
 
