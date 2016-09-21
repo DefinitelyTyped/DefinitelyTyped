@@ -3,6 +3,8 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../geojson/geojson.d.ts" />
+
 declare namespace mapboxgl {
 	let accessToken: string;
 	let version: string;

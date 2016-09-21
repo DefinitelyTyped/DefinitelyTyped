@@ -1,6 +1,6 @@
 // These examples are from Mapbox (https://www.mapbox.com/mapbox-gl-js/examples/) and therefore under the copyright of Mapbox Inc.
 /// <reference path="./mapbox-gl.d.ts" />
-/// <reference path="./typings/index.d.ts" />
+/// <reference path="../geojson/geojson.d.ts" />
 
 /**
  * Set API Access Token
