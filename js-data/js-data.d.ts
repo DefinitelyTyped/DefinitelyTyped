@@ -15,7 +15,7 @@ declare namespace JSData {
         catch<U>(onRejected?:(error:any) => U | JSDataPromise<U>): JSDataPromise<U>;
 
         // enhanced with finally
-        finally<U>(finallyCb?:() => U):JSDataPromise<U>;
+        finally(finallyCb?:() => any): JSDataPromise<R>;
     }
 
     interface DSConfiguration extends IDSResourceLifecycleEventHandlers {
