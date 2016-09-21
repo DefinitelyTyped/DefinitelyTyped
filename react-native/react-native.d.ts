@@ -3252,9 +3252,9 @@ declare namespace  __React {
    * Class that contains the info and methods for app navigation.
    */
     export interface NavigationContext { 
-        parent: NavigationContext,
-        top: NavigationContext,
-        currentRoute: any,
+        parent: NavigationContext;
+        top: NavigationContext;
+        currentRoute: any;
         appendChild(childContext: NavigationContext): void;
         addListener(eventType: string, listener: () => void, useCapture?: boolean): NativeEventSubscription;
         emit(eventType: string, data: any, didEmitCallback?: () => void): void;
@@ -3273,7 +3273,7 @@ declare namespace  __React {
     export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
         NavigationBar: NavigatorStatic.NavigationBarStatic;
-        BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic
+        BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic;
 
 	navigationContext: NavigationContext;
 
