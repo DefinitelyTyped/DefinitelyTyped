@@ -2580,7 +2580,7 @@ declare namespace kendo.drawing {
 
 }
 declare namespace kendo.ui {
-    class AgendaView implements SchedulerView {
+    class AgendaView implements kendo.ui.SchedulerView {
         startDate(): Date;
         endDate(): Date;
     }
