@@ -1313,6 +1313,66 @@ namespace net_tests {
         })
         socket = socket.prependOnceListener("timeout", () => { })
     }
+    
+    {
+        /**
+         * net.Server - events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        let _server = net.Server;
+
+        let _socket = net.Socket;
+        let _err: Error;
+        
+        /// addListener
+        _server = _server.addListener("close", () => { })
+        _server = _server.addListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.addListener("error", err => {
+            _err = Error;
+        })
+        _server = _server.addListener("listening", () => { })
+        
+        /// emit
+        _server = _server.emit("close")
+        _server = _server.emit("connection", _socket)
+        _server = _server.emit("error", _err)
+        _server = _server.emit("listening")
+        
+        /// once
+        _server = _server.once("close", () => { })
+        _server = _server.once("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.once("error", err => {
+            _err = Error;
+        })
+        _server = _server.once("listening", () => { })
+        
+        /// prependListener
+        _server = _server.prependListener("close", () => { })
+        _server = _server.prependListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.prependListener("error", err => {
+            _err = Error;
+        })
+        _server = _server.prependListener("listening", () => { })
+        
+        /// prependOnceListener
+        _server = _server.prependOnceListener("close", () => { })
+        _server = _server.prependOnceListener("connection", socket => {
+            _socket = socket
+        })
+        _server = _server.prependOnceListener("error", err => {
+            _err = Error;
+        })
+        _server = _server.prependOnceListener("listening", () => { })
+    }
 }
 
 /*****************************************************************************
