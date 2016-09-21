@@ -1738,10 +1738,10 @@ declare namespace angular {
          */
         require?: {[controller: string]: string};
     }
-    
+
     interface IComponentBindings {
 		[binding: string]: string;
-	}
+    }
 
     interface IComponentTemplateFn {
         ( $element?: JQuery, $attrs?: IAttributes ): string;
