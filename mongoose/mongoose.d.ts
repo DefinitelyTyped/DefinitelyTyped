@@ -927,7 +927,7 @@ declare module "mongoose" {
      * section types/array.js
      * http://mongoosejs.com/docs/api.html#types-array-js
      */
-    class Array<T> extends global.Array {
+    class Array<T> extends global.Array<T> {
       /**
        * Atomically shifts the array at most one time per document save().
        * Calling this mulitple times on an array before saving sends the same command as
