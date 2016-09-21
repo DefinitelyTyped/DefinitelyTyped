@@ -7,7 +7,7 @@
 /// <reference types="node" />
 /// <reference types="q" />
 
-import * as express from 'express';
+import * as Express from 'express';
 import * as Http from 'http';
 
 import Q = require('q');
@@ -16,7 +16,7 @@ declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-declare module twilio {
+declare namespace twilio {
 
   // Composite Classes:
   //==============================
@@ -379,9 +379,13 @@ declare module twilio {
     legalNodes: Array<string>;
   }
 
-  export interface TwimlMethod { (arg1: any | string | TwimlCallback, arg2?: any | string | TwimlCallback): Node }
+  export interface TwimlMethod {
+    (): Node;
+    (arg1: TwimlCallback | string, arg2?: any): Node;
+    (arg1: any, arg2?: TwimlCallback | string): Node;
+  }
 
-  export interface TwimlCallback { (node?: Node): void; }
+  export interface TwimlCallback { (node: Node): void; }
 
   export class Node implements NodeOptions {
     name: string;
@@ -425,7 +429,7 @@ declare module twilio {
   export class TwimlResponse extends Node {}
 
   /// webhook.js
-  export interface webhookOptions {
+  export interface WebhookOptions {
     validate?: boolean;
     includeHelpers?: boolean;
     host?: string;
@@ -444,9 +448,10 @@ declare module twilio {
   }
 
   // For interop with node middleware chains
-  export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
+  export interface MiddlewareFunction { (request: Http.ServerRequest, response: Http.ServerResponse, next: Express.NextFunction): void; }
 
-  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
+  export function webhook(authToken: string, options?: WebhookOptions): MiddlewareFunction;
+  export function webhook(options?: WebhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
   export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;

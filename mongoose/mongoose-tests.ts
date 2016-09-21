@@ -1,5 +1,7 @@
-
 import * as mongoose from 'mongoose';
+
+// test compatibility with other libraries
+import * as _ from 'lodash';
 var fs = require('fs');
 
 // dummy variables
@@ -457,6 +459,20 @@ mongooseArray.unshift(2, 4, 'hi').toFixed();
 /* inherited properties */
 mongooseArray.concat();
 mongooseArray.length;
+/* practical examples */
+interface MySubEntity extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity extends mongoose.Document {
+  sub: mongoose.Types.Array<MySubEntity>
+}
+var myEntity: MyEntity;
+var subDocArray = _.filter(myEntity.sub, function (sd) {
+  sd.property1;
+  sd.property2.toLowerCase();
+});
+
 
 /*
  * section types/documentarray.js
@@ -1123,7 +1139,6 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
-MongoModel.discriminator('M', new mongoose.Schema({name: String}));
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
@@ -1385,4 +1400,15 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;
+final2.method;interface ibase extends mongoose.Document {
+  username: string;
+}
+interface extended extends ibase {
+  email: string;
+}
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour', null)
+const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', null);
+const x = new extended({
+  username: 'hi',     // required in baseSchema
+  email: 'beddiw',    // required in extededSchema
+});
