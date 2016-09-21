@@ -70,7 +70,7 @@ namespace assert_tests {
 
 namespace events_tests {
     let emitter: events.EventEmitter;
-    let event: string|symbol;
+    let event: string | symbol;
     let listener: Function;
     let any: any;
 
@@ -114,7 +114,7 @@ namespace events_tests {
     }
 
     {
-        let result: (string|symbol)[];
+        let result: (string | symbol)[];
 
         result = emitter.eventNames();
     }
@@ -969,7 +969,7 @@ namespace child_process_tests {
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-namespace cluster_tests 　{
+namespace cluster_tests {
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
@@ -1151,9 +1151,9 @@ namespace net_tests {
         // Make sure .listen() and .close() retuern a Server instance
         net.createServer().listen(0).close().address();
     }
-    
+
     {
-        /** 
+        /**
          * net.Socket - events.EventEmitter
          *   1. close
          *   2. connect
@@ -1164,91 +1164,92 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let socket = net.Socket;
+        let _socket: net.Socket;
 
         let bool: Boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
         let num: number;
-         
-         /// addListener
-        socket = socket.addListener("close", had_error => {
+
+        /// addListener
+
+        _socket = _socket.addListener("close", had_error => {
             bool = had_error;
         })
-        socket = socket.addListener("connect", () => { })
-        socket = socket.addListener("data", data => {
+        _socket = _socket.addListener("connect", () => { })
+        _socket = _socket.addListener("data", data => {
             buffer = data;
         })
-        socket = socket.addListener("drain", () => { })
-        socket = socket.addListener("end", () => { })
-        socket = socket.addListener("error", err => {
+        _socket = _socket.addListener("drain", () => { })
+        _socket = _socket.addListener("end", () => { })
+        _socket = _socket.addListener("error", err => {
             error = err;
         })
-        socket = socket.addListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.addListener("lookup", (err, address: string, family: string | number, host: string) => {
             error = err;
-        
+
             if (typeof family === 'string') {
                 str = family;
             } else if (typeof family === 'number') {
                 num = family;
             }
-        
+
             str = host;
         })
-        socket = socket.addListener("timeout", () => { })
-        
+        _socket = _socket.addListener("timeout", () => { })
+
         /// emit
-        socket = socket.emit("close", bool);
-        socket = socket.emit("connect");
-        socket = socket.emit("data", buffer);
-        socket = socket.emit("drain");
-        socket = socket.emit("end");
-        socket = socket.emit("error", error);
-        socket = socket.emit("lookup", error, str, str, str);
-        socket = socket.emit("lookup", error, str, num, str);
-        socket = socket.emit("timeout");
+        _socket = _socket.emit("close", bool);
+        _socket = _socket.emit("connect");
+        _socket = _socket.emit("data", buffer);
+        _socket = _socket.emit("drain");
+        _socket = _socket.emit("end");
+        _socket = _socket.emit("error", error);
+        _socket = _socket.emit("lookup", error, str, str, str);
+        _socket = _socket.emit("lookup", error, str, num, str);
+        _socket = _socket.emit("timeout");
 
         /// on
-        socket = socket.on("close", had_error => {
+        _socket = _socket.on("close", had_error => {
             bool = had_error;
         })
-        socket = socket.on("connect", () => { })
-        socket = socket.on("data", data => {
+        _socket = _socket.on("connect", () => { })
+        _socket = _socket.on("data", data => {
             buffer = data;
         })
-        socket = socket.on("drain", () => { })
-        socket = socket.on("end", () => { })
-        socket = socket.on("error", err => {
+        _socket = _socket.on("drain", () => { })
+        _socket = _socket.on("end", () => { })
+        _socket = _socket.on("error", err => {
             error = err;
         })
-        socket = socket.on("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.on("lookup", (err, address: string, family: string | number, host: string) => {
             error = err;
-        
+
             if (typeof family === 'string') {
                 str = family;
             } else if (typeof family === 'number') {
                 num = family;
             }
-        
+
             str = host;
         })
-        socket = socket.on("timeout", () => { })
+        _socket = _socket.on("timeout", () => { })
 
         /// once
-        socket = socket.once("close", had_error => {
+        _socket = _socket.once("close", had_error => {
             bool = had_error;
         })
-        socket = socket.once("connect", () => { })
-        socket = socket.once("data", data => {
+        _socket = _socket.once("connect", () => { })
+        _socket = _socket.once("data", data => {
             buffer = data;
         })
-        socket = socket.once("drain", () => { })
-        socket = socket.once("end", () => { })
-        socket = socket.once("error", err => {
+        _socket = _socket.once("drain", () => { })
+        _socket = _socket.once("end", () => { })
+        _socket = _socket.once("error", err => {
             error = err;
         })
-        socket = socket.once("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.once("lookup", (err, address: string, family: string | number, host: string) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1259,61 +1260,62 @@ namespace net_tests {
 
             str = host;
         })
-        socket = socket.once("timeout", () => { })
- 
+        _socket = _socket.once("timeout", () => { })
+
         /// prependListener
-        socket = socket.prependListener("close", had_error => {
+        _socket = _socket.prependListener("close", had_error => {
             bool = had_error;
         })
-        socket = socket.prependListener("connect", () => { })
-        socket = socket.prependListener("data", data => {
+        _socket = _socket.prependListener("connect", () => { })
+        _socket = _socket.prependListener("data", data => {
             buffer = data;
         })
-        socket = socket.prependListener("drain", () => { })
-        socket = socket.prependListener("end", () => { })
-        socket = socket.prependListener("error", err => {
+        _socket = _socket.prependListener("drain", () => { })
+        _socket = _socket.prependListener("end", () => { })
+        _socket = _socket.prependListener("error", err => {
             error = err;
         })
-        socket = socket.prependListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.prependListener("lookup", (err, address: string, family: string | number, host: string) => {
             error = err;
-        
+
             if (typeof family === 'string') {
                 str = family;
             } else if (typeof family === 'number') {
                 num = family;
             }
-        
+
             str = host;
         })
-        socket = socket.prependListener("timeout", () => { })
+        _socket = _socket.prependListener("timeout", () => { })
 
         /// prependOnceListener
-        socket = socket.prependOnceListener("close", had_error => {
+        _socket = _socket.prependOnceListener("close", had_error => {
             bool = had_error;
         })
-        socket = socket.prependOnceListener("connect", () => { })
-        socket = socket.prependOnceListener("data", data => {
+        _socket = _socket.prependOnceListener("connect", () => { })
+        _socket = _socket.prependOnceListener("data", data => {
             buffer = data;
         })
-        socket = socket.prependOnceListener("drain", () => { })
-        socket = socket.prependOnceListener("end", () => { })
-        socket = socket.prependOnceListener("error", err => {
+        _socket = _socket.prependOnceListener("drain", () => { })
+        _socket = _socket.prependOnceListener("end", () => { })
+        _socket = _socket.prependOnceListener("error", err => {
             error = err;
         })
-        socket = socket.prependOnceListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.prependOnceListener("lookup", (err, address: string, family: string | number, host: string) => {
             error = err;
-        
+
             if (typeof family === 'string') {
                 str = family;
             } else if (typeof family === 'number') {
                 num = family;
             }
-        
+
             str = host;
         })
-        socket = socket.prependOnceListener("timeout", () => { })
+        _socket = _socket.prependOnceListener("timeout", () => { })
     }
-    
+
+
     {
         /**
          * net.Server - events.EventEmitter
@@ -1322,57 +1324,59 @@ namespace net_tests {
          *   3. error
          *   4. listening
          */
-        let _server = net.Server;
+        let _server: net.Server;
 
-        let _socket = net.Socket;
-        let _err: Error;
-        
+        let _socket: net.Socket;
+        let error: Error;
+
         /// addListener
         _server = _server.addListener("close", () => { })
         _server = _server.addListener("connection", socket => {
             _socket = socket
         })
         _server = _server.addListener("error", err => {
-            _err = Error;
+            error = err;
         })
         _server = _server.addListener("listening", () => { })
-        
+
         /// emit
         _server = _server.emit("close")
         _server = _server.emit("connection", _socket)
-        _server = _server.emit("error", _err)
+        _server = _server.emit("error", error)
         _server = _server.emit("listening")
-        
+
         /// once
         _server = _server.once("close", () => { })
         _server = _server.once("connection", socket => {
             _socket = socket
         })
         _server = _server.once("error", err => {
-            _err = Error;
+            error = err;
         })
         _server = _server.once("listening", () => { })
-        
+
         /// prependListener
         _server = _server.prependListener("close", () => { })
         _server = _server.prependListener("connection", socket => {
             _socket = socket
         })
         _server = _server.prependListener("error", err => {
-            _err = Error;
+            error = err;
         })
         _server = _server.prependListener("listening", () => { })
-        
+
         /// prependOnceListener
         _server = _server.prependOnceListener("close", () => { })
         _server = _server.prependOnceListener("connection", socket => {
             _socket = socket
         })
         _server = _server.prependOnceListener("error", err => {
-            _err = Error;
+            error = err;
         })
         _server = _server.prependOnceListener("listening", () => { })
+
     }
+
 }
 
 /*****************************************************************************
