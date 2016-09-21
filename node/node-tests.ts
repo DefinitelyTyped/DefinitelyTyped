@@ -1186,7 +1186,7 @@ namespace net_tests {
         _socket = _socket.addListener("error", err => {
             error = err;
         })
-        _socket = _socket.addListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.addListener("lookup", (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1223,7 +1223,7 @@ namespace net_tests {
         _socket = _socket.on("error", err => {
             error = err;
         })
-        _socket = _socket.on("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.on("lookup", (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1249,7 +1249,7 @@ namespace net_tests {
         _socket = _socket.once("error", err => {
             error = err;
         })
-        _socket = _socket.once("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.once("lookup", (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1275,7 +1275,7 @@ namespace net_tests {
         _socket = _socket.prependListener("error", err => {
             error = err;
         })
-        _socket = _socket.prependListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.prependListener("lookup", (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1301,7 +1301,7 @@ namespace net_tests {
         _socket = _socket.prependOnceListener("error", err => {
             error = err;
         })
-        _socket = _socket.prependOnceListener("lookup", (err, address: string, family: string | number, host: string) => {
+        _socket = _socket.prependOnceListener("lookup", (err, address, family, host) => {
             error = err;
 
             if (typeof family === 'string') {
@@ -1314,7 +1314,6 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
     }
-
 
     {
         /**
