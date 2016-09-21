@@ -1,4 +1,3 @@
-
 import * as dir from "node-dir";
 
 // display contents of files in this script's directory

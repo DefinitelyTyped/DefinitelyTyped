@@ -343,6 +343,9 @@ declare namespace __MaterialUI {
                 disabledTextColor?: string;
                 connectorLineColor?: string;
             };
+            svgIcon?: {
+                color?: string,
+            };
             table?: {
                 backgroundColor?: string;
             };
@@ -744,7 +747,7 @@ declare namespace __MaterialUI {
         onMouseLeave?: React.MouseEventHandler<{}>;
         onMouseOut?: React.MouseEventHandler<{}>;
         style?: React.CSSProperties;
-        tooltip?: string;
+        tooltip?: React.ReactNode | string;
         tooltipPosition?: propTypes.cornersAndCenter;
         tooltipStyles?: React.CSSProperties;
         touch?: boolean;

@@ -534,6 +534,7 @@ declare namespace Knex {
         directory?: string;
         extension?: string;
         tableName?: string;
+        disableTransactions?: boolean;
     }
 
     interface Migrator {
