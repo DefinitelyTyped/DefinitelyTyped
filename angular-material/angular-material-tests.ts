@@ -30,7 +30,11 @@ myApp.config((
 myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
-            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
+            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
+            clickOutsideToClose: true,
+            disableBackdrop: true,
+            disableParentScroll: false,
+            parent: () => {}
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
@@ -115,15 +119,41 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
     $scope['close'] = () => $mdSidenav(componentId).close();
     $scope['isOpen'] = $mdSidenav(componentId).isOpen();
     $scope['isLockedOpen'] = $mdSidenav(componentId).isLockedOpen();
+
+    $scope['asyncLookup'] = $mdSidenav(componentId, true).then((instance) => {
+        instance.toggle();
+        instance.open();
+        instance.close();
+        instance.isOpen();
+        instance.isLockedOpen();
+    });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+    $scope['openToast'] = () => {
+        $mdToast.show($mdToast.simple().textContent('Hello!'));
+        $mdToast.updateTextContent('New Content');
+    }
+
+    $scope['customToast'] = () => {
+        var options = {
+            hideDelay: 3000,
+            position: 'top right',
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
+        };
+
+        $mdToast.show(options);
+    }
 });
 
 myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
     $scope['createPanel'] = () => {
         var config = {
+            id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,

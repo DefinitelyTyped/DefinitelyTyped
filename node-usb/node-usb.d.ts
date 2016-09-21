@@ -16,6 +16,9 @@ declare module "usb" {
     public configDescriptor: ConfigDescriptor;
     public interfaces: Array<Interface>;
 
+    __open(): void;
+    __claimInterface(addr: number): void;
+
     open(defaultConfig?: boolean): void;
     close(): void;
     interface(addr: number): Interface;

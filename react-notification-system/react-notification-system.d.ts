@@ -74,6 +74,7 @@ declare namespace NotificationSystem {
         noAnimation?: boolean;
         ref?: string;
         style?: Style | boolean;
+        allowHTML?: boolean;
     }
 }
 

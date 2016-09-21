@@ -43,7 +43,7 @@ declare class EventEmitter2 {
      * @param event
      * @param listener
      */
-    on(event: string, listener: Function): EventEmitter2;
+    on(event: string | string[], listener: Function): EventEmitter2;
 
     /**
      * Adds a listener that will be fired when any event is emitted.
@@ -128,7 +128,7 @@ declare class EventEmitter2 {
      * @param event
      * @param args
      */
-    emit(event: string, ...args: any[]): boolean;
+    emit(event: string | string[], ...args: any[]): boolean;
 
     /**
      * Execute each of the listeners that may be listening for the specified event name in order with the list of arguments.
@@ -156,7 +156,7 @@ declare module "eventemitter2" {
          * @param event
          * @param listener
          */
-        on(event: string, listener: Function): EventEmitter2;
+        on(event: string | string[], listener: Function): EventEmitter2;
 
         /**
          * Adds a listener that will be fired when any event is emitted.
@@ -241,7 +241,7 @@ declare module "eventemitter2" {
          * @param event
          * @param args
          */
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | string[], ...args: any[]): boolean;
 
         /**
          * Execute each of the listeners that may be listening for the specified event name in order with the list of arguments.

@@ -14,6 +14,7 @@ import * as querystring from "querystring";
 import * as path from "path";
 import * as readline from "readline";
 import * as childProcess from "child_process";
+import * as string_decoder from "string_decoder";
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -403,6 +404,18 @@ rl.prompt(true);
 rl.question("do you like typescript?", function(answer: string) {
   rl.close();
 });
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    var StringDecoder = string_decoder.StringDecoder;
+    var buffer = new Buffer('test');
+    var decoder = new StringDecoder('utf8');
+    var part: string = decoder.write(new Buffer('test'));
+    var end: string = decoder.end();
+}
 
 //////////////////////////////////////////////////////////////////////
 /// Child Process tests: https://nodejs.org/api/child_process.html ///

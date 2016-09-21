@@ -1,5 +1,5 @@
 // Type definitions for Microsoft Scripting Runtime
-// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7.aspx?f=255&MSPPError=-2147217396
+// Project: https://msdn.microsoft.com/en-us/library/bstcxhf7.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -60,14 +60,14 @@ declare namespace Scripting {
         TristateUseDefault = -2
     }
 
-    //Classes
+    //Interfaces
     interface Dictionary {
         Add: (Key: any, Item: any) => void;
         CompareMode: CompareMethod;
         Count: number;
         Exists: (Key: any) => boolean;
         HashVal: (Key: any) => any;
-        Item: (Key: any) => any  //Also has setter with parameters;
+        Item: (Key: any) => any;   //Also has setter with parameters
         Items: () => any;
         Key: (Key: any) => any;
         Keys: () => any;
@@ -204,3 +204,4 @@ interface ActiveXObject {
     new (progID: 'Scripting.FileSystemObject'): Scripting.FileSystemObject;
     new (progID: 'Scripting.Encoder'): Scripting.Encoder;
 }
+

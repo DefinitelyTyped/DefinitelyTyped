@@ -24,6 +24,14 @@ declare namespace Chai {
         value(text: string): Assertion;
 
     }
+    
+    interface Include {
+        
+        text(text: string|string[]): Assertion;
+        
+        html(text: string|string[]): Assertion;
+        
+    }
 
 }
 

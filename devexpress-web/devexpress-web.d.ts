@@ -250,6 +250,9 @@ interface ASPxClientDashboardItemWidgetCreatedEventHandler<S> {
      */
     (source: S, e: ASPxClientDashboardItemWidgetEventArgs): void;
 }
+/**
+ * References a method that will handle the ItemWidgetUpdating event.
+ */
 interface ASPxClientDashboardItemWidgetUpdatingEventHandler<S> {
     /**
      * References a method that will handle the ItemWidgetUpdating event.
@@ -258,6 +261,9 @@ interface ASPxClientDashboardItemWidgetUpdatingEventHandler<S> {
      */
     (source: S, e: ASPxClientDashboardItemWidgetEventArgs): void;
 }
+/**
+ * References a method that will handle the ItemWidgetUpdated event.
+ */
 interface ASPxClientDashboardItemWidgetUpdatedEventHandler<S> {
     /**
      * References a method that will handle the ItemWidgetUpdated event.
@@ -617,6 +623,11 @@ interface ASPxClientDashboardDesigner extends ASPxClientControl {
      */
     DashboardChanged: ASPxClientEvent<ASPxClientDashboardChangedEventHandler<ASPxClientDashboardDesigner>>;
     /**
+     * For internal use.
+     */
+    CustomizeMenuItems: ASPxClientEvent<ASPxClientDashboardDesignerCustomizeMenuItemsEventHandler<ASPxClientDashboardDesigner>>;
+    BeforeRender: ASPxClientEvent<ASPxClientDashboardDesignerBeforeRenderEventHandler<ASPxClientDashboardDesigner>>;
+    /**
      * Switches the ASPxClientDashboardDesigner to the viewer mode.
      */
     SwitchToViewer(): void;
@@ -650,6 +661,9 @@ interface ASPxClientDashboardDesigner extends ASPxClientControl {
      */
     SaveDashboard(): void;
 }
+/**
+ * References a method that will handle the DashboardStateChanged event.
+ */
 interface ASPxClientDashboardStateChangedEventHandler<S> {
     /**
      * References a method that will handle the DashboardStateChanged event.
@@ -668,6 +682,9 @@ interface ASPxClientDashboardStateChangedEventArgs extends ASPxClientEventArgs {
      */
     DashboardState: string;
 }
+/**
+ * References a method that will handle the DashboardChanged event.
+ */
 interface ASPxClientDashboardChangedEventHandler<S> {
     /**
      * References a method that will handle the DashboardChanged event.
@@ -690,6 +707,26 @@ interface ASPxClientDashboardChangedEventArgs extends ASPxClientEventArgs {
      * Value: A String values that is the name of newly opened dashboard.
      */
     DashboardName: string;
+}
+interface ASPxClientDashboardDesignerCustomizeMenuItemsEventHandler<S> {
+    (source: S, e: ASPxClientDashboardDesignerCustomizeMenuItemsEventArgs): void;
+}
+interface ASPxClientDashboardDesignerMenuItem {
+    id: string;
+    title: string;
+    template: string;
+    selected: boolean;
+    disabled: boolean;
+    hasSeparator: boolean;
+    click: Function;
+    hotKey: number;
+}
+interface ASPxClientDashboardDesignerCustomizeMenuItemsEventArgs extends ASPxClientEventArgs {
+    Items: ASPxClientDashboardDesignerMenuItem[];
+    FindById(itemId: string): ASPxClientDashboardDesignerMenuItem;
+}
+interface ASPxClientDashboardDesignerBeforeRenderEventHandler<S> {
+    (source: S, e: ASPxClientEventArgs): void;
 }
 /**
  * A client-side equivalent of the ASPxDashboardViewer control.
@@ -1332,6 +1369,9 @@ interface ASPxClientDashboardActionAvailabilityChangedEventArgs extends ASPxClie
      */
     ItemActions: ASPxClientDashboardItemAction[];
 }
+/**
+ * References a method that will handle the DataLoadingError event.
+ */
 interface ASPxClientDashboardDataLoadingErrorEventHandler<S> {
     /**
      * References a method that will handle the DataLoadingError event.
@@ -1630,11 +1670,11 @@ interface ASPxClientBinaryImage extends ASPxClientEdit {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that contains any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * Represents the client-side equivalent of the ASPxButton control.
@@ -2482,8 +2522,8 @@ interface ASPxClientListEdit extends ASPxClientEdit {
  */
 interface ASPxClientListEditItem {
     /**
-     * Gets a value that indicates whether a list box item is selected.
-     * Value: true if a list box item is selected; otherwise, false.
+     * Gets a value that indicates whether a list edit item is selected.
+     * Value: true if a list edit item is selected; otherwise, false.
      */
     selected: boolean;
     /**
@@ -3367,11 +3407,11 @@ interface ASPxClientGaugeControl extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * Represents the client ASPxGridView.
@@ -6159,7 +6199,7 @@ interface ASPxClientVerticalGrid extends ASPxClientGridBase {
      */
     RowSorting: ASPxClientEvent<ASPxClientVerticalGridRowCancelEventHandler<ASPxClientVerticalGrid>>;
     /**
-     * Fires on the client side before the expansion state of a row is changed via end-user interaction.
+     * Fires on the client side before the expansion state of a row is changed by end-user interaction.
      */
     RowExpandedChanging: ASPxClientEvent<ASPxClientVerticalGridRowExpandingEventHandler<ASPxClientVerticalGrid>>;
     /**
@@ -7407,6 +7447,27 @@ interface ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments extends ASPxCli
 interface ASPxClientHtmlEditorChangeYouTubeVideoCommandArguments extends ASPxClientHtmlEditorInsertYouTubeVideoCommandArguments {
 }
 /**
+ * A method that will handle the DialogInitialized client event.
+ */
+interface ASPxClientHtmlEditorDialogInitializedEventHandler<S> {
+    /**
+     * A method that will handle the client DialogInitialized event.
+     * @param source An object representing the event's source.
+     * @param e An ASPxClientHtmlEditorDialogInitializedEventArgs object that contains event data.
+     */
+    (source: S, e: ASPxClientHtmlEditorDialogInitializedEventArgs): void;
+}
+/**
+ * Provides data for the DialogInitialized client event.
+ */
+interface ASPxClientHtmlEditorDialogInitializedEventArgs extends ASPxClientEventArgs {
+    /**
+     * Gets the name of the dialog that has been initialized.
+     * Value: A string value that is the name of the initialized dialog.
+     */
+    dialogName: string;
+}
+/**
  * A method that will handle the CommandExecuting event.
  */
 interface ASPxClientHtmlEditorCommandExecutingEventHandler<S> {
@@ -7635,6 +7696,10 @@ interface ASPxClientHtmlEditorBeforePasteEventArgs extends ASPxClientEventArgs {
  */
 interface ASPxClientHtmlEditor extends ASPxClientControl {
     /**
+     * Occurs on the client side after a dialog has been initialized.
+     */
+    DialogInitialized: ASPxClientEvent<ASPxClientHtmlEditorDialogInitializedEventHandler<ASPxClientHtmlEditor>>;
+    /**
      * Occurs before a default or custom command has been executed and allows you to cancel the action.
      */
     CommandExecuting: ASPxClientEvent<ASPxClientHtmlEditorCommandExecutingEventHandler<ASPxClientHtmlEditor>>;
@@ -7797,7 +7862,7 @@ interface ASPxClientHtmlEditor extends ASPxClientControl {
      */
     SetToolbarDropDownItemPickerValue(commandName: string, value: string): void;
     /**
-     * Specifies the visibility of a ribbon context tab ?ategory specified by its name.
+     * Specifies the visibility of a ribbon context tab category specified by its name.
      * @param categoryName A Name property value of the required category.
      * @param active true to make a category visible; false to make it hidden.
      */
@@ -7958,11 +8023,11 @@ interface ASPxClientPivotGrid extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A method that will handle the CellDblClick event.
@@ -8239,11 +8304,11 @@ interface ASPxClientRichEdit extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Indicates whether any unsaved changes are contained in the current document.
      */
@@ -9122,11 +9187,7 @@ interface RichEditCommands {
      * Value: A <see cref="ToggleTableCellBottomBorderCommand" /> object that provides methods for executing the command and checking its state.
      */
     toggleTableCellBottomBorder: ToggleTableCellBottomBorderCommand;
-    /**
-     * Gets a command to toggle left borders for selected cells on/off.
-     * Value: A <see cref="ToggleTableCellsLeftBorderCommand" /> object that provides methods for executing the command and checking its state.
-     */
-    toggleTableCellsLeftBorder: ToggleTableCellsLeftBorderCommand;
+    toggleTableCellLeftBorder: ToggleTableCellLeftBorderCommand;
     /**
      * Gets a command to remove the borders of the selected table cells.
      * Value: A <see cref="RemoveTableCellBordersCommand" /> object that provides methods for executing the command and checking its state.
@@ -9202,6 +9263,7 @@ interface RichEditCommands {
      * Value: A <see cref="ReplaceNextCommand" /> object that provides methods for executing the command and checking its state.
      */
     replaceNext: ReplaceNextCommand;
+    openSpellingDialog: OpenSpellingDialogCommand;
 }
 /**
  * Serves as a base for objects that implement different client command functionalities.
@@ -10814,10 +10876,10 @@ interface OpenPageMarginsDialogCommand extends CommandWithSimpleStateBase {
  */
 interface ChangePageOrientationCommand extends CommandBase {
     /**
-     * Executes the ChangePageOrientationCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param isPortrait true to apply portrait page orientation, false to apply landscape page orientation.
+     * 
+     * @param isPortrait 
      */
-    execute(isPortrait: boolean): boolean;
+    execute(isPortrait: any): boolean;
     /**
      * Gets information about the command state.
      */
@@ -11428,6 +11490,9 @@ declare enum ParagraphFirstLineIndent {
     Indented=1,
     Hanging=2
 }
+interface OpenSpellingDialogCommand extends CommandWithSimpleStateBase {
+    execute(): boolean;
+}
 /**
  * A command to invoke the Insert Table dialog.
  */
@@ -11519,7 +11584,7 @@ interface ChangeTableColumnPreferredWidthCommand extends CommandBase {
 interface ChangeTableCellFormattingCommand extends CommandBase {
     /**
      * Executes the ChangeTableCellFormattingCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param settings A TableFormattingSettings object specifying ?ell formatting of the selected table elements.
+     * @param settings A TableFormattingSettings object specifying cell formatting of the selected table elements.
      */
     execute(settings: TableCellFormattingSettings): boolean;
     /**
@@ -11656,7 +11721,7 @@ interface SplitTableCellsDialogCommand extends CommandWithSimpleStateBase {
 /**
  * A command to split the selected table cells based on the specified options.
  */
-interface SplitTableCellsCommand extends CommandBase {
+interface SplitTableCellsCommand extends CommandWithSimpleStateBase {
     /**
      * Executes the SplitTableCellsCommand command by applying the specified settings.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      * @param rowCount An integer value specifying number of rows in the splitted table cells.
@@ -11664,10 +11729,6 @@ interface SplitTableCellsCommand extends CommandBase {
      * @param mergeBeforeSplit true to merge the selected cells before splitting; otherwise, false.
      */
     execute(rowCount: number, columnCount: number, mergeBeforeSplit: boolean): boolean;
-    /**
-     * Gets information about the command state.
-     */
-    getState(): SimpleCommandState;
 }
 /**
  * A command to insert table cells with a vertical shift into the selected table.
@@ -11829,13 +11890,7 @@ interface ToggleTableCellBottomBorderCommand extends CommandWithBooleanStateBase
      */
     execute(): boolean;
 }
-/**
- * A command to toggle left borders for selected cells on/off.
- */
-interface ToggleTableCellsLeftBorderCommand extends CommandWithBooleanStateBase {
-    /**
-     * Executes the ToggleTableCellsLeftBorderCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     */
+interface ToggleTableCellLeftBorderCommand extends CommandWithBooleanStateBase {
     execute(): boolean;
 }
 /**
@@ -12202,10 +12257,6 @@ interface TableHeightUnit {
      * Value: An integer value specifying the table height.
      */
     value: number;
-    /**
-     * Gets or sets the unit type for the table height.
-     * Value: One of the <see cref="TableWidthUnitType" /> values.
-     */
     type: any;
 }
 declare enum TableHeightUnitType {
@@ -12816,18 +12867,42 @@ interface ASPxClientAppointment {
  * A client point object.
  */
 interface ASPxClientPoint {
+    /**
+     * Gets the point's X-coordinate.
+     */
     GetX(): number;
+    /**
+     * Gets the point's Y-coordinate.
+     */
     GetY(): number;
 }
 /**
  * A client rectangle object.
  */
 interface ASPxClientRect {
+    /**
+     * Gets the X-coordinate of the rectangle's left edge.
+     */
     GetLeft(): number;
+    /**
+     * Gets the X-coordinate of the rectangle's right edge.
+     */
     GetRight(): number;
+    /**
+     * Gets the Y-coordinate of the rectangle's top edge.
+     */
     GetTop(): number;
+    /**
+     * Gets the Y-coordinate of the rectangle's bottom edge.
+     */
     GetBottom(): number;
+    /**
+     * Gets the rectangle's width.
+     */
     GetWidth(): number;
+    /**
+     * Gets the rectangle's height.
+     */
     GetHeight(): number;
 }
 /**
@@ -13078,10 +13153,13 @@ interface ASPxClientWeekOfMonth {
  * Represents a client-side equivalent of the WeekDaysCheckEdit control.
  */
 interface ASPxClientWeekDaysCheckEdit extends ASPxClientControl {
+    /**
+     * Gets the selection state of the week day check boxes.
+     */
     GetValue(): ASPxClientWeekDays;
     /**
-     * 
-     * @param value 
+     * Gets the selection state of the week day check boxes.
+     * @param value An ASPxClientWeekDays object specifying the selection state of the week day check boxes.
      */
     SetValue(value: ASPxClientWeekDays): void;
 }
@@ -13089,22 +13167,31 @@ interface ASPxClientWeekDaysCheckEdit extends ASPxClientControl {
  * Represents a client-side equivalent of the RecurrenceRangeControl.
  */
 interface ASPxClientRecurrenceRangeControl extends ASPxClientControl {
+    /**
+     * Gets the type of the recurrence range.
+     */
     GetRange(): ASPxClientRecurrenceRange;
+    /**
+     * Gets how many times the appointment occurs.
+     */
     GetOccurrenceCount(): number;
+    /**
+     * Gets the recurrence end date.
+     */
     GetEndDate(): Date;
     /**
-     * 
-     * @param range 
+     * Sets the type of the recurrence range.
+     * @param range An ASPxClientRecurrenceRangeenumeration value that specifies the recurrence range type.
      */
     SetRange(range: ASPxClientRecurrenceRange): void;
     /**
-     * 
-     * @param occurrenceCount 
+     * Sets how many times the appointment occurs.
+     * @param occurrenceCount An integer value that specifies how many times the appointment occurs.
      */
     SetOccurrenceCount(occurrenceCount: number): void;
     /**
-     * 
-     * @param date 
+     * Sets the recurrence end date.
+     * @param date A JavaScript Date object that specifies the end date for the recurrence.
      */
     SetEndDate(date: Date): void;
 }
@@ -13112,10 +13199,13 @@ interface ASPxClientRecurrenceRangeControl extends ASPxClientControl {
  * A base for client equivalents of recurrence controls available in the XtraScheduler library.
  */
 interface ASPxClientRecurrenceControlBase extends ASPxClientControl {
+    /**
+     * Returns an object providing access to the ASPxClientRecurrenceControlBase control's editor values.
+     */
     CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
     /**
-     * 
-     * @param recurrenceInfo 
+     * Updates values of editors displayed by the ASPxClientRecurrenceControlBase control.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
      */
     Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
 }
@@ -13123,10 +13213,13 @@ interface ASPxClientRecurrenceControlBase extends ASPxClientControl {
  * Represents a client-side equivalent of the DailyRecurrenceControl - a control for specifying the daily recurrence.
  */
 interface ASPxClientDailyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientDailyRecurrenceControl's editor values.
+     */
     CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
     /**
-     * 
-     * @param recurrenceInfo 
+     * Updates values of editors displayed by the ASPxClientDailyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
      */
     Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
 }
@@ -13134,10 +13227,13 @@ interface ASPxClientDailyRecurrenceControl extends ASPxClientRecurrenceControlBa
  * Represents a client-side equivalent of the WeeklyRecurrenceControl.
  */
 interface ASPxClientWeeklyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientWeeklyRecurrenceControl's editor values.
+     */
     CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
     /**
-     * 
-     * @param recurrenceInfo 
+     * Updates values of editors displayed by the ASPxClientWeeklyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
      */
     Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
 }
@@ -13145,10 +13241,13 @@ interface ASPxClientWeeklyRecurrenceControl extends ASPxClientRecurrenceControlB
  * Represents a client-side equivalent of the MonthlyRecurrenceControl.
  */
 interface ASPxClientMonthlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientMonthlyRecurrenceControl's editor values.
+     */
     CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
     /**
-     * 
-     * @param recurrenceInfo 
+     * Updates values of editors displayed by the ASPxClientMonthlyRecurrenceControll.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
      */
     Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
 }
@@ -13156,55 +13255,139 @@ interface ASPxClientMonthlyRecurrenceControl extends ASPxClientRecurrenceControl
  * Represents a client-side equivalent of the YearlyRecurrenceControl.
  */
 interface ASPxClientYearlyRecurrenceControl extends ASPxClientRecurrenceControlBase {
+    /**
+     * Returns an object providing access to the ASPxClientYearlyRecurrenceControl's editor values.
+     */
     CreateValueAccessor(): DefaultRecurrenceRuleValuesAccessor;
     /**
-     * 
-     * @param recurrenceInfo 
+     * Updates values of editors displayed by the ASPxClientYearlyRecurrenceControl.
+     * @param recurrenceInfo An ASPxClientRecurrenceInfo object containing new editor values.
      */
     Update(recurrenceInfo: ASPxClientRecurrenceInfo): void;
 }
+/**
+ * An object providing access to an ASPxClientRecurrenceControlBase control's editor values.
+ */
 interface DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Get the frequency with which the appointment occurs with respect to the appointment's recurrence type.
+     */
     GetPeriodicity(): number;
+    /**
+     * Gets the number of the month's day in which the appointment is scheduled.
+     */
     GetDayNumber(): number;
+    /**
+     * Gets or sets the month's number.
+     */
     GetMonth(): number;
+    /**
+     * Gets the days of the week to which a weekly recurrent appointment is scheduled.
+     */
     GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets the number of the week in a month when an appointment is scheduled.
+     */
     GetWeekOfMonth(): ASPxClientWeekOfMonth;
 }
+/**
+ * An object providing access to an ASPxClientDailyRecurrenceControl's editor values.
+ */
 interface DailyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Gets the number of days between appointment occurrences.
+     */
     GetPeriodicity(): number;
+    /**
+     * Gets the days of the week to which a daily recurrent appointment is scheduled.
+     */
     GetWeekDays(): ASPxClientWeekDays;
 }
+/**
+ * An object providing access to an ASPxClientWeeklyRecurrenceControl's editor values.
+ */
 interface WeeklyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Gets the number of weeks between appointment occurrences.
+     */
     GetPeriodicity(): number;
+    /**
+     * Gets the days of the week to which a weekly recurrent appointment is scheduled.
+     */
     GetWeekDays(): ASPxClientWeekDays;
 }
+/**
+ * An object providing access to an ASPxClientMonthlyRecurrenceControl's editor values.
+ */
 interface MonthlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Gets the number of the month's day in which the appointment is scheduled.
+     */
     GetDayNumber(): number;
+    /**
+     * Gets the number of months between appointment occurrences.
+     */
     GetPeriodicity(): number;
+    /**
+     * Gets the days of the week to which a monthly recurrent appointment is scheduled.
+     */
     GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets the number of the week in a month when an appointment is scheduled.
+     */
     GetWeekOfMonth(): ASPxClientWeekOfMonth;
 }
+/**
+ * An object providing access to an ASPxClientYearlyRecurrenceControl's editor values.
+ */
 interface YearlyRecurrenceValuesAccessor extends DefaultRecurrenceRuleValuesAccessor {
+    /**
+     * Gets the number of the month's day in which the appointment is scheduled.
+     */
     GetDayNumber(): number;
+    /**
+     * Gets or sets the month's number.
+     */
     GetMonth(): number;
+    /**
+     * Gets the days of the week to which a yearly recurrent appointment is scheduled.
+     */
     GetWeekDays(): ASPxClientWeekDays;
+    /**
+     * Gets or sets the number of a week in a month when an appointment is scheduled.
+     */
     GetWeekOfMonth(): ASPxClientWeekOfMonth;
 }
+/**
+ * Provides base functionality for ASPxClientScheduler's forms.
+ */
 interface ASPxClientFormBase {
+    /**
+     * Occurs when the form has been closed.
+     */
     FormClosed: ASPxClientEvent<ASPxClientEventHandler<ASPxClientFormBase>>;
+    /**
+     * Closes the form.
+     */
     Close(): void;
     /**
-     * 
-     * @param element 
-     * @param isVisible 
+     * Sets the visibility state of the specified form element.
+     * @param element An object specifying the element whose visibility state should be changed.
+     * @param isVisible true to display the element; false to hide the element.
      */
     SetVisibleCore(element: Object, isVisible: boolean): void;
 }
+/**
+ * Represents a client-side equivalent of the RecurrenceTypeEdit.
+ */
 interface ASPxClientRecurrenceTypeEdit extends ASPxClientRadioButtonList {
+    /**
+     * Gets the selected recurrence type.
+     */
     GetRecurrenceType(): ASPxClientRecurrenceType;
     /**
-     * 
-     * @param recurrenceType 
+     * Sets the selected recurrence type.
+     * @param recurrenceType An ASPxClientRecurrenceType enumeration value.
      */
     SetRecurrenceType(recurrenceType: ASPxClientRecurrenceType): void;
 }
@@ -13227,10 +13410,13 @@ interface AppointmentPropertyNames {
  * Represents the client-side equivalent of the TimeInterval class.
  */
 interface ASPxClientTimeInterval {
+    /**
+     * Gets a value indicating if the time interval is All-Day.
+     */
     GetAllDay(): boolean;
     /**
-     * 
-     * @param allDayValue 
+     * Sets a value specifying if the time interval is All-Day.
+     * @param allDayValue true, if this is an all-day time interval; otherwise, false.
      */
     SetAllDay(allDayValue: boolean): void;
     /**
@@ -13908,23 +14094,44 @@ interface ASPxClientAppointmentResizeEventArgs extends ASPxClientEventArgs {
      */
     operation: ASPxClientAppointmentOperation;
 }
+/**
+ * Contains information about a client tooltip.
+ */
 interface ASPxClientSchedulerToolTipData {
+    /**
+     * Returns the client appointment for which the tooltip is displayed.
+     */
     GetAppointment(): ASPxClientAppointment;
+    /**
+     * Returns the client time interval for which the tooltip is displayed.
+     */
     GetInterval(): ASPxClientTimeInterval;
+    /**
+     * Returns the resources associated with the appointment for which the tooltip is displayed.
+     */
     GetResources(): Object[];
 }
+/**
+ * A client-side equivalent of the ASPxSchedulerToolTipBase control.
+ */
 interface ASPxClientToolTipBase {
+    /**
+     * Returns the value that indicates whether or not the tooltip can be displayed.
+     */
     CanShowToolTip(): boolean;
     /**
-     * 
-     * @param toolTipData 
+     * Ends updating the tooltip content.
+     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
      */
     FinalizeUpdate(toolTipData: ASPxClientSchedulerToolTipData): void;
     /**
-     * 
-     * @param toolTipData 
+     * Updates the tooltip content.
+     * @param toolTipData An ASPxClientSchedulerToolTipData object providing data required to update the tooltip content.
      */
     Update(toolTipData: ASPxClientSchedulerToolTipData): void;
+    /**
+     * Closes the tooltip.
+     */
     Close(): void;
     /**
      * 
@@ -13932,18 +14139,18 @@ interface ASPxClientToolTipBase {
      */
     CalculatePosition(bounds: Object): ASPxClientPoint;
     /**
-     * 
-     * @param eventObject 
+     * Displays the Appointment Menu in the position of the tooltip.
+     * @param eventObject An object containing information about the event on which the menu is displayed.
      */
     ShowAppointmentMenu(eventObject: Object): void;
     /**
-     * 
-     * @param eventObject 
+     * Displays the View Menu in the position of the tooltip.
+     * @param eventObject An object containing information about the event on which the menu is displayed.
      */
     ShowViewMenu(eventObject: Object): void;
     /**
-     * 
-     * @param interval 
+     * Returns the string representation of the specified interval.
+     * @param interval An ASPxClientTimeInterval object to convert.
      */
     ConvertIntervalToString(interval: ASPxClientTimeInterval): string;
 }
@@ -14222,11 +14429,11 @@ interface ASPxClientSpreadsheet extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side DocumentCallback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side DocumentCallback event.
@@ -14373,6 +14580,7 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * Sets input focus to the ASPxTreeList.
      */
     Focus(): void;
+    GetPopupEditForm(): ASPxClientPopupControl;
     /**
      * Returns the focused node's key value.
      */
@@ -14430,11 +14638,11 @@ interface ASPxClientTreeList extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomDataCallback event passing it the specified argument.
      * @param arg A string value that represents any information that needs to be sent to the server-side CustomDataCallback event.
@@ -15011,22 +15219,22 @@ interface MVCxClientCallbackPanel extends ASPxClientCallbackPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the Callback Panel by processing the passed information on the server, in an Action specified by the Callback Panel's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the CardView extension.
@@ -15042,11 +15250,11 @@ interface MVCxClientCardView extends ASPxClientCardView {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the CardView by processing the passed information on the server, in an Action specified via the CardView's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CardView's CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the CardView's CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the CardView.
      * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomDataActionRouteValues property.
@@ -15079,22 +15287,22 @@ interface MVCxClientChart extends ASPxClientWebChartControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update a Chart by processing the passed information on the server, in an Action specified via the Chart's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side event, passing it the specified argument.
      * @param args A string value that represents any information that needs to be sent to the server-side event.
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the ComboBox and ComboBoxFor extensions.
@@ -15110,11 +15318,11 @@ interface MVCxClientComboBox extends ASPxClientComboBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the ComboBox by processing the passed information on the server, in an Action specified by the ComboBox's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
@@ -15135,22 +15343,22 @@ interface MVCxClientDataView extends ASPxClientDataView {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the DataView by processing the passed information on the server, in an Action specified via the DataView's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the DateEdit extension.
@@ -15167,22 +15375,22 @@ interface MVCxClientDockManager extends ASPxClientDockManager {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the DockManager by processing the passed information on the server, in an Action specified by the DockManager's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that contains any information that needs to be sent to the server-side Callback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that contains any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the DockPanel extension.
@@ -15198,11 +15406,11 @@ interface MVCxClientDockPanel extends ASPxClientDockPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the DockPanel by processing the passed information on the server, in an Action specified by the DockPanel's DockPanelSettings.CallbackRouteValues) property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side WindowCallback event, passing the specified argument to it.
      * @param parameter A string value that is any information that needs to be sent to the server-side WindowCallback event.
@@ -15223,22 +15431,22 @@ interface MVCxClientFileManager extends ASPxClientFileManager {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the FileManager by processing the passed information on the server, in an Action specified via the extension's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the file manager's CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
      * @param args A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the GridView extension.
@@ -15254,11 +15462,11 @@ interface MVCxClientGridView extends ASPxClientGridView {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the GridView by processing the passed information on the server, in an Action specified via the grid's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the GridView's CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the GridView.
      * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomDataActionRouteValues property.
@@ -15317,22 +15525,22 @@ interface MVCxClientImageGallery extends ASPxClientImageGallery {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the ImageGallery by processing the passed information on the server, in an Action specified via the ImageGallery's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the ListBox and ListBoxFor extensions.
@@ -15348,11 +15556,11 @@ interface MVCxClientListBox extends ASPxClientListBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the ListBox by processing the passed information on the server, in an Action specified by the ListBox's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server, and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
@@ -15382,11 +15590,11 @@ interface MVCxClientPivotGrid extends ASPxClientPivotGrid {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the PivotGrid by processing the passed information on the server, in an Action specified via the grid's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Passes PivotGrid callback parameters to the specified object.
      * @param obj An object that receives PivotGrid callback parameters.
@@ -15398,11 +15606,11 @@ interface MVCxClientPivotGrid extends ASPxClientPivotGrid {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the PopupControl extension.
@@ -15418,11 +15626,11 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the PopupControl by processing the passed information on the server, in an Action specified via the PopupControl's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback with a parameters to update the popup window by processing the related popup window and the passed information on the server, in an Action specified by the PopupControl's CallbackRouteValues property.
      * @param window A ASPxClientPopupWindow object identifying the processed popup window.
@@ -15436,12 +15644,12 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side WindowCallback event, passing it the related popup window object and the specified argument.
-     * @param window An ASPxClientPopupWindow object identifying the processed popup window.
-     * @param parameter A string value specifying any information that needs to be sent to the server-side WindowCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param window 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: Function): void;
+    PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side WindowCallback event, passing the specified argument to it.
      * @param parameter A string value that is any information that needs to be sent to the server-side WindowCallback event.
@@ -15513,22 +15721,22 @@ interface MVCxClientReportDesigner extends ASPxClientReportDesigner {
      */
     PerformCallback(arg: Object): void;
     /**
-     * Sends a callback to the server with the specified argument.
-     * @param arg A Object value, specifying the callback argument.
-     * @param onSuccess A delegate method that will be called if the callback is successful.
+     * 
+     * @param arg 
+     * @param onSuccess 
      */
-    PerformCallback(arg: Object, onSuccess: Function): void;
+    PerformCallback(arg: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server with the specified argument.
      * @param arg A String value, specifying the callback argument.
      */
     PerformCallback(arg: string): void;
     /**
-     * Sends a callback to the server with the specified argument.
-     * @param arg A String value, specifying the callback argument.
-     * @param onSuccess A delegate method that will be called if the callback is successful.
+     * 
+     * @param arg 
+     * @param onSuccess 
      */
-    PerformCallback(arg: string, onSuccess: Function): void;
+    PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A method that will handle the SaveCommandExecuted event.
@@ -15565,22 +15773,22 @@ interface MVCxClientRichEdit extends ASPxClientRichEdit {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the RichEdit by processing the passed information on the server, in an Action specified via the CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the RoundPanel extension.
@@ -15596,22 +15804,22 @@ interface MVCxClientRoundPanel extends ASPxClientRoundPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the Round Panel by processing the passed information on the server, in an Action specified by the Round Panel's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side ContentCallback event, passing it the specified argument.
      * @param parameter A string value that is any information that needs to be sent to the server-side ContentCallback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side ContentCallback event, passing it the specified argument.
-     * @param parameter A string value that is any information that needs to be sent to the server-side ContentCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the Scheduler extension.
@@ -15628,11 +15836,11 @@ interface MVCxClientScheduler extends ASPxClientScheduler {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the Scheduler by processing the passed information on the server, in an Action specified via the Scheduler's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument
      * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
@@ -15682,22 +15890,22 @@ interface MVCxClientSpreadsheet extends ASPxClientSpreadsheet {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the Spreadsheet by processing the passed information on the server, in an Action specified via the CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the PageControl extension.
@@ -15713,22 +15921,22 @@ interface MVCxClientPageControl extends ASPxClientPageControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the PageControl by processing the passed information on the server, in an Action specified by the PageControl's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A client-side counterpart of the TokenBox and TokenBoxFor extensions.
@@ -15744,11 +15952,11 @@ interface MVCxClientTokenBox extends ASPxClientTokenBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the TokenBox by processing the passed information on the server, in an Action specified by the TokenBox's CallbackRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
      * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
@@ -15769,11 +15977,11 @@ interface MVCxClientTreeList extends ASPxClientTreeList {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the TreeList by processing the passed information on the server, in an Action specified via the TreeList's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the TreeList's CustomDataCallback event. This method does not update the TreeList.
      * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomDataActionRouteValues property.
@@ -15785,11 +15993,11 @@ interface MVCxClientTreeList extends ASPxClientTreeList {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback to the server and generates the server-side CustomDataCallback event passing it the specified argument.
      * @param arg A string value that represents any information that needs to be sent to the server-side CustomDataCallback event.
@@ -15887,11 +16095,11 @@ interface MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
      */
     PerformCallback(data: Object): void;
     /**
-     * Sends a callback with a parameter to update the VerticalGrid by processing the passed information on the server in an Action specified via the grid's CustomActionRouteValues property.
-     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param data 
+     * @param onSuccess 
      */
-    PerformCallback(data: Object, onSuccess: Function): void;
+    PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
      * Sends a callback with a parameter to process the passed information on the server, in an Action specified via the VerticalGrid's CustomDataActionRouteValues property, and then process the returned result in the specified client function. This method does not update the VerticalGrid.
      * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomDataActionRouteValues property.
@@ -16013,11 +16221,11 @@ interface ASPxClientCallback extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A method that will handle the client events related to completion of callback server-side processing.
@@ -16072,11 +16280,11 @@ interface ASPxClientCallbackPanel extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Returns the text displayed within the control's loading panel.
      */
@@ -16460,6 +16668,12 @@ interface ASPxClientControlsInitializedEventArgs extends ASPxClientEventArgs {
      */
     isCallback: boolean;
 }
+interface ASPxClientControlPredicate {
+    (control: Object): boolean;
+}
+interface ASPxClientControlAction {
+    (control: Object): void;
+}
 /**
  * A collection object used on the client side to maintain particular client control objects
  */
@@ -16498,6 +16712,21 @@ interface ASPxClientControlCollection {
      * @param name A string value that is the hierarchically-qualified identifier of the required DevExpress control.
      */
     GetByName(name: string): Object;
+    /**
+     * 
+     * @param predicate 
+     */
+    GetControlsByPredicate(predicate: ASPxClientControlPredicate): Object[];
+    /**
+     * 
+     * @param type 
+     */
+    GetControlsByType(type: Object): Object[];
+    /**
+     * 
+     * @param action 
+     */
+    ForEachControl(action: ASPxClientControlAction): void;
 }
 /**
  * Represents a client-side equivalent of the ASPxDataView object.
@@ -16559,11 +16788,11 @@ interface ASPxClientDataView extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A JavaScript function which returns a value specifying whether an object meets the criteria defined within the method specified by this delegate.
@@ -16629,11 +16858,11 @@ interface ASPxClientDockManager extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that contains any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Returns a zone specified by its unique identifier (zoneUID).
      * @param zoneUID A string value specifying the unique identifier of the zone.
@@ -17375,11 +17604,11 @@ interface ASPxClientFileManager extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * A JavaScript function which receives callback data obtained via a call to the client SetCurrentFolderPath method.
@@ -17448,6 +17677,7 @@ interface ASPxClientFileManagerFile extends ASPxClientFileManagerItem {
  * A client-side equivalent of the FileManagerFolder object.
  */
 interface ASPxClientFileManagerFolder extends ASPxClientFileManagerItem {
+    isParentFolder: boolean;
 }
 /**
  * A JavaScript function which receives callback data obtained by a call to the client GetAllItems method.
@@ -18659,6 +18889,7 @@ interface ASPxClientMenuBase extends ASPxClientControl {
  * Represents a client collection that maintains client menu objects.
  */
 interface ASPxClientMenuCollection extends ASPxClientControlCollection {
+    RecalculateAll(): void;
     /**
      * Hides all menus maitained by the collection.
      */
@@ -19358,12 +19589,12 @@ interface ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side WindowCallback event, passing it the related popup window object and the specified argument.
-     * @param window An ASPxClientPopupWindow object identifying the processed popup window.
-     * @param parameter A string value specifying any information that needs to be sent to the server-side WindowCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param window 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: Function): void;
+    PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Specifies the default popup window's size.
      * @param width An integer value that specifies the default popup window's width.
@@ -20006,7 +20237,7 @@ interface ASPxClientRibbon extends ASPxClientControl {
      */
     GetMinimized(): boolean;
     /**
-     * Specifies the visibility of a context tab ?ategory specified by its name.
+     * Specifies the visibility of a context tab category specified by its name.
      * @param categoryName A Name property value of the required category.
      * @param visible true to make a category visible; false to make it hidden.
      */
@@ -20248,11 +20479,11 @@ interface ASPxClientRoundPanel extends ASPxClientPanelBase {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side ContentCallback event, passing it the specified argument.
-     * @param parameter A string value that is any information that needs to be sent to the server-side ContentCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
      * Returns the text displayed within the panel's header.
      */
@@ -20623,11 +20854,11 @@ interface ASPxClientPageControl extends ASPxClientTabControlBase {
      */
     PerformCallback(parameter: string): void;
     /**
-     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
-     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param parameter 
+     * @param onSuccess 
      */
-    PerformCallback(parameter: string, onSuccess: Function): void;
+    PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
 /**
  * Represents a client-side equivalent of a tab control's TabPage object.
@@ -21481,11 +21712,15 @@ interface ASPxClientChartDesigner extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
-     * @param arg A string value that represents any information that needs to be sent to the server-side event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param arg 
+     * @param onSuccess 
      */
-    PerformCallback(arg: string, onSuccess: Function): void;
+    PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
+    /**
+     * Updates the localization settings of the ASPxClientChartDesigner properties.
+     * @param localization A dictionary containing the property names, along with their localized equivalents.
+     */
     UpdateLocalization(localization: { [key: string]: string; }): void;
     /**
      * Returns the model of the Client Chart Designer.
@@ -21636,11 +21871,11 @@ interface ASPxClientWebChartControl extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
-     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
-     * @param onSuccess A delegate method  that will be called if the callback is successful.
+     * 
+     * @param args 
+     * @param onSuccess 
      */
-    PerformCallback(args: string, onSuccess: Function): void;
+    PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
      * Prints the current chart on the client side.
      */
@@ -23640,11 +23875,15 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * Sends a callback to the server with the specified argument.
-     * @param arg A String value, specifying the callback argument.
-     * @param onSuccess A delegate method that will be called if the callback is successful.
+     * 
+     * @param arg 
+     * @param onSuccess 
      */
-    PerformCallback(arg: string, onSuccess: Function): void;
+    PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
+    /**
+     * Updates the localization settings of the ASPxClientQueryBuilder properties.
+     * @param localization A dictionary containing the property names, along with their localized equivalents.
+     */
     UpdateLocalization(localization: { [key: string]: string; }): void;
     /**
      * Returns the object model of a Query Builder.
@@ -23797,11 +24036,15 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * Sends a callback to the server with the specified argument.
-     * @param arg A String value, specifying the callback argument.
-     * @param onSuccess A delegate method that will be called if the callback is successful.
+     * 
+     * @param arg 
+     * @param onSuccess 
      */
-    PerformCallback(arg: string, onSuccess: Function): void;
+    PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
+    /**
+     * Updates the localization settings of the ASPxClientReportDesigner properties.
+     * @param localization A dictionary containing the property names, along with their localized equivalents.
+     */
     UpdateLocalization(localization: { [key: string]: string; }): void;
     /**
      * Returns the object model of a Web Report Designer.
@@ -24013,6 +24256,10 @@ interface ASPxClientReportViewer extends ASPxClientControl {
      * Occurs on the client side when another report page is loaded into this ASPxClientReportViewer instance.
      */
     PageLoad: ASPxClientEvent<ASPxClientReportViewerPageLoadEventHandler<ASPxClientReportViewer>>;
+    /**
+     * Submits the values of the specified parameters.
+     * @param parameters A dictionary containing the parameter names, along with their Object values.
+     */
     SubmitParameters(parameters: { [key: string]: Object; }): void;
     /**
      * Prints a report shown in the ReportViewer.
@@ -24260,6 +24507,10 @@ interface ASPxClientWebDocumentViewer extends ASPxClientControl {
      * @param format A String value, specifying the export format. The following formats are currently supported: 'csv', 'html', 'image', 'mht', 'pdf', 'rtf', 'txt', 'xls', and 'xlsx'.
      */
     ExportTo(format: string): void;
+    /**
+     * Updates the localization settings of the ASPxClientWebDocumentViewer properties.
+     * @param localization A dictionary containing the property names, along with their localized equivalents.
+     */
     UpdateLocalization(localization: { [key: string]: string; }): void;
 }
 /**
@@ -25661,30 +25912,30 @@ interface ASPxClientRichEditStatic extends ASPxClientControlStatic {
 }
 interface ASPxSchedulerDateTimeHelperStatic {
     /**
-     * 
-     * @param date 
+     * Returns the date part of the specified DateTime value.
+     * @param date A DateTime object from which to extract the date.
      */
     TruncToDate(date: Date): Date;
     /**
-     * 
-     * @param date 
+     * Returns the day time part of the specified DateTime value.
+     * @param date A DateTime object from which to extract the day time.
      */
     ToDayTime(date: Date): any;
     /**
-     * 
-     * @param date 
+     * Adds the specified number of days to a DateTime object and returns the result.
+     * @param date A DateTime object to which to add days.
      */
     AddDays(date: Date): Date;
     /**
-     * 
-     * @param date 
-     * @param timeSpan 
+     * Adds the specified timespan to a DateTime object and returns the result.
+     * @param date A DateTime object to which to add a timespan.
+     * @param timeSpan A TimeSpan object specifying the timespan to add.
      */
     AddTimeSpan(date: Date, timeSpan: any): Date;
     /**
-     * 
-     * @param date 
-     * @param spanInMs 
+     * Rounds a DateTime value up to the nearest interval.
+     * @param date A DateTime object containing a value to round.
+     * @param spanInMs A TimeSpan object specifying an interval to which to round.
      */
     CeilDateTime(date: Date, spanInMs: any): Date;
 }
@@ -25706,9 +25957,9 @@ interface ASPxClientRecurrenceTypeEditStatic extends ASPxClientRadioButtonListSt
 }
 interface ASPxClientTimeIntervalStatic {
     /**
-     * 
-     * @param start 
-     * @param end 
+     * Gets the duration of a time interval between two points in time.
+     * @param start A DateTime object specifying the starting point of the time interval.
+     * @param end A DateTime object specifying the ending point of the time interval.
      */
     CalculateDuration(start: Date, end: Date): number;
 }

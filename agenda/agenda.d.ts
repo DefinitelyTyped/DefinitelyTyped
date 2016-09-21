@@ -319,6 +319,11 @@ declare module "agenda" {
              * The date/time the job last failed.
              */
             failedAt: Date;
+
+            /**
+             * Job's state
+             */
+            disabled: boolean
         }
 
         /**
@@ -409,6 +414,11 @@ declare module "agenda" {
              * @param cb Called after the job has been saved to the database.
              */
             touch(cb?: Callback): void;
+
+            /**
+             * Calculates next time the job should run
+             */
+            computeNextRunAt(): Job;
         }
 
         interface JobOptions {

@@ -77,33 +77,38 @@ declare namespace JQueryPayment {
         /**
          * Card type
          */
-        type: string;
+        type?: string;
 
-        /*
+        /**
          * Regex used to identify the card type. For the best experience, this should be
          * the shortest pattern that can guarantee the card is of a particular type.
          */
-        pattern: RegExp;
+        pattern?: RegExp;
+
+        /**
+         * Array of prefixes used to identify the card type.
+         */
+        patterns?: number[];
 
         /**
          * Array of valid card number lengths.
          */
-        length: number[];
+        length?: number[];
 
         /**
          * Array of valid card CVC lengths.
          */
-        cvcLength: number[];
+        cvcLength?: number[];
 
         /**
          * Boolean indicating whether a valid card number should satisfy the Luhn check.
          */
-        luhn: boolean;
+        luhn?: boolean;
 
         /**
          * Regex used to format the card number. Each match is joined with a space.
          */
-        format: RegExp;
+        format?: RegExp;
     }
 }
 

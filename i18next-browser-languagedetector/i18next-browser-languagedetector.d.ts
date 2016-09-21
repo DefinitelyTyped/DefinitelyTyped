@@ -3,7 +3,6 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../express/express.d.ts"/>
 ///<reference path="../i18next/i18next-2.0.17.d.ts"/>
 
 declare namespace I18next {
@@ -81,8 +80,6 @@ declare namespace i18nextBrowserLanguageDetector {
 }
 
 declare module "i18next-browser-languagedetector" {
-    import * as express from "express";
-    import * as i18next from "i18next";
 
     export default i18nextBrowserLanguageDetector.LngDetector;
 }

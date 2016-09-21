@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 4.1.9
+// Type definitions for Highcharts 4.2.5
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -240,7 +240,7 @@ interface HighchartsPlotBands {
      * Border color for the plot band. Also requires borderWidth to be set.
      * @default null
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * Border width for the plot band. Also requires borderColor to be set.
      * @default 0
@@ -469,6 +469,10 @@ interface HighchartsAxisOptions {
      */
     ceiling?: number;
     /**
+     * Configure a crosshair that follows either the mouse pointer or the hovered point.
+     */
+    crosshair?: HighchartsCrosshairObject | boolean;
+    /**
      * For a datetime axis, the scale will automatically adjust to the appropriate unit. This member gives the default
      * string representations used for each unit. For an overview of the replacement codes, see dateFormat.
      */
@@ -552,7 +556,7 @@ interface HighchartsAxisOptions {
      * The color of the line marking the axis itself.
      * @default '#C0D0E0'.
      */
-    lineColor?: string;
+    lineColor?: string | HighchartsGradient;
     /**
      * The width of the line marking the axis itself.
      * @default 1
@@ -816,7 +820,7 @@ interface HighchartsAxisOptions {
 interface HighchartsColorAxisDataClass {
     from?: number;
     to?: number;
-    color?: string;
+    color?: string | HighchartsGradient;
     name?: string;
 }
 
@@ -902,7 +906,7 @@ interface HighchartsColorAxisOptions {
      * The color of the line marking the axis itself.
      * @default '#C0D0E0'
      */
-    lineColor?: string;
+    lineColor?: string | HighchartsGradient;
     /**
      * The width of the line marking the axis itself.
      * @default 0
@@ -922,7 +926,7 @@ interface HighchartsColorAxisOptions {
          * The color of the marker.
          * @default 'gray'
          */
-        color?: string;
+        color?: string | HighchartsGradient;
     };
     /**
      * The maximum value of the axis in terms of map point values. If null, the max value is automatically calculated.
@@ -1378,7 +1382,7 @@ interface HighchartsShadow {
     /**
      * @default 'black'
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * @default 1
      */
@@ -1487,7 +1491,7 @@ interface HighchartsChartOptions {
      * The color of the outer chart border.
      * @default '#4572A7'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The corner radius of the outer chart border.
      * @default 0
@@ -1717,7 +1721,7 @@ interface HighchartsChartOptions {
 interface HighchartsCSSObject {
     background?: string;
     border?: string;
-    color?: string;
+    color?: string | HighchartsGradient;
     cursor?: string;
     font?: string;
     fontFamily?: string;
@@ -2425,7 +2429,7 @@ interface HighchartsLegendOptions {
      * The color of the drawn border around the legend.
      * @default '#909090'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The border corner radius of the legend.
      * @default 0
@@ -2720,7 +2724,7 @@ interface HighchartsPaneBackground {
     /**
      * @default 'silver'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * @default 1
      */
@@ -2799,7 +2803,7 @@ interface HighchartsDataLabels {
      * The border color for the data label.
      * @since 2.2.1
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The border radius in pixels for the data label.
      * @default 0
@@ -2816,7 +2820,7 @@ interface HighchartsDataLabels {
      * The text color for the data labels.
      * @default null
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
      * area according to the overflow option.
@@ -3062,7 +3066,7 @@ interface HighchartsMarkerState {
      * The color of the point marker's outline. When null, the series' or point's color is used.
      * @default '#FFFFFF', '#000000' for select state
      */
-    lineColor?: string;
+    lineColor?: string | HighchartsGradient;
     /**
      * The width of the point marker's outline.
      * @default 0
@@ -3183,6 +3187,14 @@ interface HighchartsPointEvents {
      * @since 1.2.0
      */
     update?: (event: Event) => boolean|void;
+    /**
+     * Fires when the legend item belonging to the pie point (slice) is clicked.
+     * The this keyword refers to the point itself. One parameter, event, is passed to the function.
+     * This contains common event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.
+     * The default action is to toggle the visibility of the point. This can be prevented by calling event.preventDefault().
+     */
+    legendItemClick?: (event: Event) => boolean | void;
+
 }
 
 interface HighchartsHalo {
@@ -3264,7 +3276,7 @@ interface HighchartsAreaZone {
      * Defines the color of the series.
      * @since 4.1.0
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * A name for the dash style to use for the graph.
      * @since 4.1.0
@@ -3309,7 +3321,7 @@ interface HighchartsRangeDataLabels {
      * @default undefined
      * @since 2.2.1
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The border radius in pixels for the data label.
      * @default 0
@@ -3326,7 +3338,7 @@ interface HighchartsRangeDataLabels {
      * The text color for the data labels.
      * @default null
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * Whether to hide data labels that are outside the plot area. By default, the data label is moved inside the plot
      * area according to the overflow option.
@@ -3459,7 +3471,7 @@ interface HighchartsDial {
      * @default 'black'
      * @since 2.3.0
      */
-    backgroundColor?: string;
+    backgroundColor?: string | HighchartsGradient;
     /**
      * The length of the dial's base part, relative to the total radius or length of the dial.
      * @default '70%'.
@@ -3478,7 +3490,7 @@ interface HighchartsDial {
      * @default 'silver'
      * @since 2.3.0
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The width of the gauge dial border in pixels.
      * @default 0
@@ -3512,14 +3524,14 @@ interface HighchartsPivot {
      * @default 'black'
      * @since 2.3.0
      */
-    backgroundColor?: string;
+    backgroundColor?: string | HighchartsGradient;
     /**
      * The border or stroke color of the pivot. In able to change this, the borderWidth must also be set to something
      * other than the default 0.
      * @default 'silver'
      * @since 2.3.0
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The border or stroke width of the pivot.
      * @default 0
@@ -3542,7 +3554,7 @@ interface HighchartsTreeMapLevel {
      * Can set borderColor on all points which lies on the same level.
      * @since 4.1.0
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * et the dash style of the border of all the point which lies on the level.
      * @since 4.1.0
@@ -3557,7 +3569,7 @@ interface HighchartsTreeMapLevel {
      * Can set a color on all points which lies on the same level.
      * @since 4.1.0
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * Can set the options of dataLabels on each point which lies on the level.
      * @default undefined
@@ -3582,7 +3594,7 @@ interface HighchartsTreeMapLevel {
 }
 
 /**
- * General options for all series types
+ * General options for all series types.
  */
 interface HighchartsSeriesChart {
     /**
@@ -3603,7 +3615,7 @@ interface HighchartsSeriesChart {
      * specified. In bar type series it applies to the bars unless a color is specified per point. The default value is
      * pulled from the options.colors array.
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * Polar charts only. Whether to connect the ends of a line series plot across the extremes.
      * @default true
@@ -3848,7 +3860,7 @@ interface HighchartsAreaChart extends HighchartsSeriesChart {
      * A separate color for the graph line. By default the line takes the color of the series, but the lineColor setting
      * allows setting a separate color for the line without altering the fillColor.
      */
-    lineColor?: string;
+    lineColor?: string | HighchartsGradient;
     /**
      * A separate color for the negative part of the area.
      * @since 3.0
@@ -3890,7 +3902,7 @@ interface HighchartsBarChart extends HighchartsSeriesChart {
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The corner radius of the border surrounding each column or bar.
      * @default 0
@@ -4251,7 +4263,7 @@ interface HighchartsFunnelChart extends HighchartsSeriesChart {
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4373,7 +4385,7 @@ interface HighchartsHeatMapChart extends HighchartsSeriesChart {
      * The color of the border surrounding each column or bar.
      * @default '#FFFFFF'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The corner radius of the border surrounding each column or bar.
      * @default 0
@@ -4456,7 +4468,7 @@ interface HighchartsPieChart extends HighchartsSeriesChart {
      * borderless pies.
      * @default '#FFFFFF'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4561,7 +4573,7 @@ interface HighchartsPyramidChart extends HighchartsSeriesChart {
      * The color of the border surrounding each slice
      * @default '#FFFFFF'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The width of the border surrounding each slice
      * @default 1
@@ -4676,7 +4688,7 @@ interface HighchartsTreeMapChart extends HighchartsSeriesChart {
      * The color of the border surrounding each tree map item.
      * @default '#E0E0E0'
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The width of the border surrounding each column or bar.
      * @default 1
@@ -4771,7 +4783,7 @@ interface HighchartsWaterFallChart extends HighchartsBarChart {
      * @default '#333333'
      * @since 3.0
      */
-    lineColor?: string;
+    lineColor?: string | HighchartsGradient;
     /**
      * The color used specifically for positive point columns. When not specified, the general series color is used.
      */
@@ -4817,6 +4829,17 @@ interface HighchartsPlotOptions {
  */
 interface HighchartsIndividualSeriesOptions {
     type?: string;
+    /**
+     * The main color or the series. In line type series it applies to the line and the point markers unless otherwise
+     *     specified. In bar type series it applies to the bars unless a color is specified per point. The default
+     *     value is pulled from the options.colors array.
+     */
+    color?: string | HighchartsGradient;
+    /**
+     * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
+     *     that the points and lines can be clicked.
+     */
+    cursor?: string;
     /**
      * An array of data points for the series. For the area series type, points can be given in the following ways:
      *
@@ -4867,6 +4890,11 @@ interface HighchartsIndividualSeriesOptions {
      * The name of the series as shown in the legend, tooltip etc.
      */
     name?: string;
+    /**
+     * A pixel value specifying a fixed width for each column or bar. When null, the width is calculated from
+     * the pointPadding and groupPadding.
+     */
+    pointWidth?: number;
     /**
      * This option allows grouping series in a stacked chart. The stack option can be a string or a number or anything
      * else, as long as the grouped series' stack options match each other.
@@ -4921,7 +4949,7 @@ interface HighchartsDataPoint {
      * Individual color for the point. By default the color is pulled from the global colors array.
      * @default undefined
      */
-    color?: string;
+    color?: string | HighchartsGradient;
     /**
      * Serves a purpose only if a colorAxis object is defined in the chart options. This value will decide which color
      * the point gets from the scale of the colorAxis.
@@ -5145,7 +5173,7 @@ interface HighchartsTitleOptions {
 }
 
 interface HighchartsCrosshairObject {
-    color?: string;
+    color?: string | HighchartsGradient;
     width?: number;
     dashStyle?: string; //Solid ShortDash ShortDot ShortDashDot ShortDashDotDot Dot Dash LongDash DashDot LongDashDot LongDashDotDot
     zIndex?: number;
@@ -5172,7 +5200,7 @@ interface HighchartsTooltipOptions extends HighchartsSeriesTooltipOptions {
      * The color of the tooltip border. When null, the border takes the color of the corresponding series or point.
      * @default null
      */
-    borderColor?: string;
+    borderColor?: string | HighchartsGradient;
     /**
      * The radius of the rounded border corners.
      * @default 3
@@ -5472,12 +5500,12 @@ interface HighchartsOptions {
      * The X axis or category axis. Normally this is the horizontal axis, though if the chart is inverted this is the
      * vertical axis. In case of multiple axes, the xAxis node is an array of configuration objects.
      */
-    xAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
+    xAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
     /**
      * The Y axis or value axis. Normally this is the vertical axis, though if the chart is inverted this is the
      * horizontal axis. In case of multiple axes, the yAxis node is an array of configuration objects.
      */
-    yAxis?: HighchartsAxisOptions | HighchartsAxisOptions[];
+    yAxis?: HighchartsAxisOptions[] | HighchartsAxisOptions;
 }
 
 interface HighchartsGlobalOptions extends HighchartsOptions {
@@ -5574,7 +5602,7 @@ interface HighchartsAxisObject {
      * @param {boolean | HighchartsAnimation} animation When true, the resize will be animated with default animation options. The animation can also be a configuration object with properties duration and easing.
      * @since 1.2.0
      */
-    setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | HighchartsAnimation): void;
+    setExtremes(min?: number, max?: number, redraw?: boolean, animation?: boolean | HighchartsAnimation, eventArguments?: any): void;
     /**
      * Update the title of the axis after render time.
      * @param {HighchartsAxisTitle} title  The new title options on the same format as given in xAxis.title.
@@ -6037,7 +6065,7 @@ interface HighchartsStatic {
      * throughout the page's lifetime. When a chart is destroyed, the array item becomes undefined.
      * @since 2.3.4
      */
-    charts: HighchartsChart[];
+    charts: HighchartsChartObject[];
     /**
      * Formats a JavaScript date timestamp (milliseconds since Jan 1st 1970) into a human readable date string. The
      * format is a subset of the formats for PHP's strftime function. Additional formats can be given in the
@@ -6098,6 +6126,7 @@ interface HighchartsPointObject {
      */
     category: string | number;
     name: string;
+    index: number;
     /**
      * The percentage for points in a stacked series or pies.
      * @since 1.2.0
