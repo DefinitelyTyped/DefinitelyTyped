@@ -1,7 +1,7 @@
 
 
 // common
-import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "./gl-matrix";
+import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "gl-matrix";
 
 var outVal: number;
 var outBool: boolean;
@@ -34,7 +34,7 @@ let outMat2d = mat2d.create();
 let outMat3 = mat3.create();
 let outMat4 = mat4.create();
 let outQuat = quat.create();
-            
+
 // vec2
 outVec2 = vec2.create();
 outVec2 = vec2.clone(vec2A);
@@ -193,8 +193,8 @@ outMat2 = mat2.fromRotation(outMat2, 0.5);
 outMat2 = mat2.fromScaling(outMat2, vec2A);
 outStr = mat2.str(mat2A);
 outVal = mat2.frob(mat2A);
-var L = mat2.create(); 
-var D = mat2.create(); 
+var L = mat2.create();
+var D = mat2.create();
 var U = mat2.create();
 outMat2 = mat2.LDU(L, D, U, mat2A);
 outMat2 = mat2.add(outMat2, mat2A, mat2B);

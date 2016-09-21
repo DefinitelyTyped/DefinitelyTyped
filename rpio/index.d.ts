@@ -3,7 +3,7 @@
 // Definitions by: Dominik Palo <https://github.com/DominikPalo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare var rpio: Rpio;
 

@@ -367,7 +367,7 @@ declare namespace React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent<{}> {
         propertyName: string;
         pseudoElement: string;
