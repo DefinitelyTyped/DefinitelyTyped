@@ -501,7 +501,7 @@ declare module _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(...values: (T[]|List<T>)[]) : T[];
+         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]) : T[];
     }
 
     //_.difference

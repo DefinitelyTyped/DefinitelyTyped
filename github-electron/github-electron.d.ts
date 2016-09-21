@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.5
+// Type definitions for Electron v1.3.6
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -62,7 +62,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when Electron has finished initialization.
 		 */
-		on(event: 'ready', listener: Function): this;
+		on(event: 'ready', listener: (event: Event, launchInfo: Object) => void): this;
 		/**
 		 * Emitted when all windows have been closed.
 		 *
@@ -218,6 +218,10 @@ declare namespace Electron {
 			args?: string[],
 			execPath?: string
 		}): void;
+		/**
+		 * @returns Whether Electron has finished initializing.
+		 */
+		isReady(): boolean;
 		/**
 		 * On Linux, focuses on the first visible window.
 		 * On macOS, makes the application the active app.
@@ -1368,6 +1372,12 @@ declare namespace Electron {
 
 	interface WebPreferences {
 		/**
+		 * Whether to enable DevTools.
+		 * If it is set to false, can not use BrowserWindow.webContents.openDevTools() to open DevTools.
+		 * Default: true.
+		 */
+		devTools?: boolean;
+		/**
 		 * Whether node integration is enabled.
 		 * Default: true.
 		 */
@@ -1957,7 +1967,7 @@ declare namespace Electron {
 
 	interface CrashReporterStartOptions {
 		/**
-		 * Default: Electron
+		 * Default: app.getName()
 		 */
 		productName?: string;
 		companyName: string;
@@ -3392,16 +3402,18 @@ declare namespace Electron {
 	interface Shell {
 		/**
 		 * Show the given file in a file manager. If possible, select the file.
+		 * @returns Whether the item was successfully shown.
 		 */
-		showItemInFolder(fullPath: string): void;
+		showItemInFolder(fullPath: string): boolean;
 		/**
 		 * Open the given file in the desktop's default manner.
+		 * @returns Whether the item was successfully shown.
 		 */
-		openItem(fullPath: string): void;
+		openItem(fullPath: string): boolean;
 		/**
 		 * Open the given external protocol URL in the desktop's default manner
 		 * (e.g., mailto: URLs in the default mail user agent).
-		 * @returns true if an application was available to open the URL, false otherwise.
+		 * @returns Whether an application was available to open the URL.
 		 */
 		openExternal(url: string, options?: {
 			/**
@@ -3412,7 +3424,7 @@ declare namespace Electron {
 		}): boolean;
 		/**
 		 * Move the given file to trash.
-		 * @returns boolean status for the operation.
+		 * @returns Whether the item was successfully moved to the trash.
 		 */
 		moveItemToTrash(fullPath: string): boolean;
 		/**

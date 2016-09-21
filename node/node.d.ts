@@ -241,20 +241,20 @@ declare namespace NodeJS {
     }
 
     export class EventEmitter {
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        listenerCount(type: string|symbol): number;
         // Added in Node 6...
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        eventNames(): string[];
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        eventNames(): (string|symbol)[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -549,22 +549,22 @@ declare module "querystring" {
 declare module "events" {
     export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        static listenerCount(emitter: EventEmitter, event: string|symbol): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        eventNames(): string[];
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        eventNames(): (string|symbol)[];
+        listenerCount(type: string|symbol): number;
     }
 }
 
@@ -778,6 +778,56 @@ declare module "cluster" {
         disconnect(): void;
         isConnected(): boolean;
         isDead(): boolean;
+        exitedAfterDisconnect: boolean;
+        
+        /**
+         * events.EventEmitter
+         *   1. disconnect
+         *   2. error
+         *   3. exit
+         *   4. listening
+         *   5. message
+         *   6. online
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "disconnect", listener: () => void): this;
+        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        addListener(event: "listening", listener: (address: Address) => void): this;
+        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "disconnect", listener: () => void): this;
+        on(event: "error", listener: (code: number, signal: string) => void): this;
+        on(event: "exit", listener: (code: number, signal: string) => void): this;
+        on(event: "listening", listener: (address: Address) => void): this;
+        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "disconnect", listener: () => void): this;
+        once(event: "error", listener: (code: number, signal: string) => void): this;
+        once(event: "exit", listener: (code: number, signal: string) => void): this;
+        once(event: "listening", listener: (address: Address) => void): this;
+        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "disconnect", listener: () => void): this;
+        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "listening", listener: (address: Address) => void): this;
+        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependListener(event: "online", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "disconnect", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
+        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependOnceListener(event: "online", listener: () => void): this;
     }
 
     export interface Cluster extends events.EventEmitter {
@@ -1738,16 +1788,92 @@ declare module "fs" {
 
     interface FSWatcher extends events.EventEmitter {
         close(): void;
+        
+        /**
+         * events.EventEmitter
+         *   1. change
+         *   2. error
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        on(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        once(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
     }
 
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
+        
+        /**
+         * events.EventEmitter
+         *   1. open
+         *   2. close
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "close", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "close", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
+
     export interface WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
+        
+        /**
+         * events.EventEmitter
+         *   1. open
+         *   2. close
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "close", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "close", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
 
     /**
