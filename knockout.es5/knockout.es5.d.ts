@@ -16,8 +16,8 @@ interface KnockoutStatic {
 }
 
 interface KnockoutEs5 {
-    getAllObservablesForObject<T>(obj: T, createIfNotDefined?: boolean): any;
-    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: KnockoutObservable<T>);
+    getAllObservablesForObject<T>(obj: T, createIfNotDefined?: boolean): T;
+    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: KnockoutObservable<T>): void;
     isTracked<T>(obj: T, propertyName: string): boolean;
 }
 
