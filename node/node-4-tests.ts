@@ -34,7 +34,7 @@ namespace assert_tests{
         
         assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
         
-        // TODO: assert.deepStrictEqual
+        assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
         
         assert.doesNotThrow(() => {
             const b = false;
@@ -43,21 +43,20 @@ namespace assert_tests{
         
         assert.equal(3, "3", "uses == comparator");
 
-        // TODO: assert.fail
+        assert.fail(1, 2, undefined, '>');
         
-        // TODO: assert.ifError
+        assert.ifError(0);
         
-        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
+        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
         
-        // TODO: assert.notDeepStrictEqual
-        
-        // TODO: assert.notEqual
+        assert.notEqual(1, 2, "uses != comparator");
         
         assert.notStrictEqual(2, "2", "uses === comparator");
         
-        // TODO: assert.ok
+        assert.ok(true);
+        assert.ok(1);
         
-        // TODO: assert.strictEqual
+        assert.strictEqual(1, 1,  "uses === comparator");
         
         assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
     }

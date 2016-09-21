@@ -45,6 +45,7 @@ declare namespace jest {
     interface Matchers {
         not: Matchers;
         toThrow(expected?: any): boolean;
+        toThrowError(expected?: any): boolean;
         toBe(expected: any): boolean;
         toEqual(expected: any): boolean;
         toBeFalsy(): boolean;
