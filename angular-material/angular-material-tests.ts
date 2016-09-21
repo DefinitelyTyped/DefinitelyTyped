@@ -49,12 +49,15 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
 });
 
 myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+    var colorExpression : ng.material.IColorExpression;
     var element : Element;
+
+    colorExpression = { color: '#FFFFFF' }
 
     element = new Element();
 
     $scope['applyThemeColors'] = () => {
-        $mdColor.applyThemeColors(element, { color: '#FFFFFF' });
+        $mdColor.applyThemeColors(element, colorExpression);
     };
     $scope['getThemeColor'] = () => {
         $mdColor.getThemeColor('default-neonRed')
