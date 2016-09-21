@@ -20,6 +20,13 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
+    var browserColors: ng.material.IBrowserColors = {
+      theme: 'default', 
+      palette: 'neonRed', 
+      hue: '500'  
+    };
+    $mdThemingProvider.enableBrowserColor(browserColors);
+
     $mdIconProvider
         .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
         .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
@@ -39,6 +46,22 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
+});
+
+myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+    var element : Element;
+
+    element = new Element();
+
+    $scope['applyThemeColors'] = () => {
+        $mdColor.applyThemeColors(element, { color: '#FFFFFF' });
+    };
+    $scope['getThemeColor'] = () => {
+        $mdColor.getThemeColor('default-neonRed')
+    };
+    $scope['hasTheme'] = () => {
+        $mdColor.hasTheme();
+    };
 });
 
 myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
