@@ -1679,7 +1679,7 @@ declare module "net" {
          *   8. timeout
          */
         addListener(event: string, listener: Function): this;
-        addListener(event: "close", listener: (had_error: Boolean) => void): this;
+        addListener(event: "close", listener: (had_error: boolean) => void): this;
         addListener(event: "connect", listener: () => void): this;
         addListener(event: "data", listener: (data: Buffer) => void): this;
         addListener(event: "drain", listener: () => void): this;
@@ -1688,18 +1688,18 @@ declare module "net" {
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): this;
-        emit(event: "close", had_error: Boolean): this;
-        emit(event: "connect"): this;
-        emit(event: "data", data: Buffer): this;
-        emit(event: "drain"): this;
-        emit(event: "end"): this;
-        emit(event: "error", err: Error): this;
-        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): this;
-        emit(event: "timeout"): this;
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close", had_error: boolean): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "data", data: Buffer): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "timeout"): boolean;
 
         on(event: string, listener: Function): this;
-        on(event: "close", listener: (had_error: Boolean) => void): this;
+        on(event: "close", listener: (had_error: boolean) => void): this;
         on(event: "connect", listener: () => void): this;
         on(event: "data", listener: (data: Buffer) => void): this;
         on(event: "drain", listener: () => void): this;
@@ -1709,7 +1709,7 @@ declare module "net" {
         on(event: "timeout", listener: () => void): this;
 
         once(event: string, listener: Function): this;
-        once(event: "close", listener: (had_error: Boolean) => void): this;
+        once(event: "close", listener: (had_error: boolean) => void): this;
         once(event: "connect", listener: () => void): this;
         once(event: "data", listener: (data: Buffer) => void): this;
         once(event: "drain", listener: () => void): this;
@@ -1719,7 +1719,7 @@ declare module "net" {
         once(event: "timeout", listener: () => void): this;
 
         prependListener(event: string, listener: Function): this;
-        prependListener(event: "close", listener: (had_error: Boolean) => void): this;
+        prependListener(event: "close", listener: (had_error: boolean) => void): this;
         prependListener(event: "connect", listener: () => void): this;
         prependListener(event: "data", listener: (data: Buffer) => void): this;
         prependListener(event: "drain", listener: () => void): this;
@@ -1729,7 +1729,7 @@ declare module "net" {
         prependListener(event: "timeout", listener: () => void): this;
 
         prependOnceListener(event: string, listener: Function): this;
-        prependOnceListener(event: "close", listener: (had_error: Boolean) => void): this;
+        prependOnceListener(event: "close", listener: (had_error: boolean) => void): this;
         prependOnceListener(event: "connect", listener: () => void): this;
         prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
         prependOnceListener(event: "drain", listener: () => void): this;
@@ -1782,11 +1782,11 @@ declare module "net" {
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): this;
-        emit(event: "close"): this;
-        emit(event: "connection", socket: Socket): this;
-        emit(event: "error", err: Error): this;
-        emit(event: "listening"): this;
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "close", listener: () => void): this;
