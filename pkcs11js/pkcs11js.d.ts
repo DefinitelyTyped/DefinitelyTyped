@@ -210,7 +210,7 @@ declare module "pkcs11js" {
          * @param {Handle} slot ID of token's slot
          * @returns {Handle[]} Gets mech. array
          */
-        C_GetMechanismList(slot: Handle): Handle[];
+        C_GetMechanismList(slot: Handle): number[];
         /**
          * Obtains information about a particular mechanism possibly supported by a token 
          * 
@@ -218,7 +218,7 @@ declare module "pkcs11js" {
          * @param {Handle} mech Type of mechanism
          * @returns {MechanismInfo} Receives mechanism info
          */
-        C_GetMechanismInfo(slot: Handle, mech: Handle): MechanismInfo;
+        C_GetMechanismInfo(slot: Handle, mech: number): MechanismInfo;
 
         /* Session management */
 

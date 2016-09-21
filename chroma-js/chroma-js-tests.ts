@@ -1,5 +1,7 @@
 /// <reference path="chroma-js.d.ts" />
 
+import * as myChroma from "chroma-js";
+
 function test_chroma() {
     chroma('hotpink');
     chroma('#ff3399');
@@ -41,6 +43,9 @@ function test_chroma() {
     chroma.limits(data, 'e', 5);
     chroma.limits(data, 'q', 5);
     chroma.limits(data, 'k', 5);
+
+    myChroma(0xff3399);
+    myChroma.limits(data, 'k', 5);
 }
 
 function test_color() {
@@ -99,6 +104,10 @@ function test_color() {
     chroma('#cbdbff').temperature();
     chroma('#b3ccff').temperature();
     chroma('33cc00').gl();
+
+    myChroma('teal').alpha(0.5).css();
+    myChroma('teal').css('hsl');
+    myChroma('orange').rgb();
 }
 
 function test_scale() {
@@ -163,4 +172,17 @@ function test_scale() {
 
     chroma.scale('OrRd').classes(5);
     chroma.scale('OrRd').classes(8);
+
+    myChroma.cubehelix()
+        .start(200)
+        .rotations(-0.35)
+        .gamma(0.7)
+        .lightness([0.3, 0.8])
+        .scale() // convert to chroma.scale
+
+        .correctLightness()
+        .colors(5);
+
+    myChroma.scale('RdYlBu');
+    myChroma.scale('RdYlBu').padding(0.15);
 }

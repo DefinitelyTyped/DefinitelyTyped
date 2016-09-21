@@ -476,7 +476,7 @@ declare namespace angular {
     // Supplement IComponentOptions from angular.d.ts with router-specific
     // fields.
     interface IComponentOptions {
-      $canActivate?: () => boolean;
+      $canActivate?: (...args: any[]) => boolean | angular.IPromise<boolean>;
       $routeConfig?: RouteDefinition[];
     }
 }

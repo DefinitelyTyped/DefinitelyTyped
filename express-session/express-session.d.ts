@@ -30,7 +30,7 @@ declare namespace Express {
     secure?: boolean;
     httpOnly: boolean;
     domain?: string;
-    expires: Date;
+    expires: Date | boolean;
     serialize: (name: string, value: string) => string;
   }
 }

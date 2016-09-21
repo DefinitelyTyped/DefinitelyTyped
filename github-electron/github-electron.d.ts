@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.2
+// Type definitions for Electron v1.3.6
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 declare namespace Electron {
 
-	class EventEmitter implements NodeJS.EventEmitter {
+	class EventEmitter extends NodeJS.EventEmitter {
 		addListener(event: string, listener: Function): this;
 		on(event: string, listener: Function): this;
 		once(event: string, listener: Function): this;
@@ -62,7 +62,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when Electron has finished initialization.
 		 */
-		on(event: 'ready', listener: Function): this;
+		on(event: 'ready', listener: (event: Event, launchInfo: Object) => void): this;
 		/**
 		 * Emitted when all windows have been closed.
 		 *
@@ -199,7 +199,7 @@ declare namespace Electron {
 		 * All windows will be closed immediately without asking user
 		 * and the before-quit and will-quit events will not be emitted.
 		 */
-		exit(exitCode: number): void;
+		exit(exitCode?: number): void;
 		/**
 		 * Relaunches the app when current instance exits.
 		 *
@@ -218,6 +218,10 @@ declare namespace Electron {
 			args?: string[],
 			execPath?: string
 		}): void;
+		/**
+		 * @returns Whether Electron has finished initializing.
+		 */
+		isReady(): boolean;
 		/**
 		 * On Linux, focuses on the first visible window.
 		 * On macOS, makes the application the active app.
@@ -296,28 +300,56 @@ declare namespace Electron {
 		 * Once registered, all links with your-protocol:// will be opened with the current executable.
 		 * The whole link, including protocol, will be passed to your application as a parameter.
 		 *
+		 * On Windows you can provide optional parameters path, the path to your executable,
+		 * and args, an array of arguments to be passed to your executable when it launches.
+		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 *       On macOS, you can only register protocols that have been added to your app's info.plist.
 		 */
-		setAsDefaultProtocolClient(protocol: string): void;
+		setAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Removes the current executable as the default handler for a protocol (aka URI scheme).
 		 *
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		removeAsDefaultProtocolClient(protocol: string): void;
+		removeAsDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
+		 * @param protocol The name of your protocol, without ://.
+		 * @param path Defaults to process.execPath.
+		 * @param args Defaults to an empty array.
+		 *
 		 * @returns Whether the current executable is the default handler for a protocol (aka URI scheme).
 		 *
 		 * Note: This is only implemented on macOS and Windows.
 		 */
-		isDefaultProtocolClient(protocol: string): boolean;
+		isDefaultProtocolClient(protocol: string, path?: string, args?: string[]): boolean;
 		/**
 		 * Adds tasks to the Tasks category of JumpList on Windows.
 		 *
 		 * Note: This API is only available on Windows.
 		 */
-		setUserTasks(tasks: Task[]): void;
+		setUserTasks(tasks: Task[]): boolean;
+		/**
+		 * Note: This API is only available on Windows.
+		 */
+		getJumpListSettings(): JumpListSettings;
+		/**
+		 * Sets or removes a custom Jump List for the application.
+		 *
+		 * If categories is null the previously set custom Jump List (if any) will be replaced
+		 * by the standard Jump List for the app (managed by Windows).
+		 *
+		 * Note: This API is only available on Windows.
+		 */
+		setJumpList(categories: JumpListCategory[]): SetJumpListResult;
 		/**
 		 * This method makes your application a Single Instance Application instead of allowing
 		 * multiple instances of your app to run, this will ensure that only a single instance
@@ -349,6 +381,8 @@ declare namespace Electron {
 		getCurrentActivityType(): string;
 		/**
 		 * Changes the Application User Model ID to id.
+		 *
+		 * Note: This is only implemented on Windows.
 		 */
 		setAppUserModelId(id: string): void;
 		/**
@@ -543,6 +577,89 @@ declare namespace Electron {
 		iconIndex?: number;
 	}
 
+	/**
+	 * ok - Nothing went wrong.
+	 * error - One or more errors occured, enable runtime logging to figure out the likely cause.
+	 * invalidSeparatorError - An attempt was made to add a separator to a custom category in the Jump List.
+	 *                         Separators are only allowed in the standard Tasks category.
+	 * fileTypeRegistrationError - An attempt was made to add a file link to the Jump List
+	 *                             for a file type the app isn't registered to handle.
+	 * customCategoryAccessDeniedError - Custom categories can't be added to the Jump List
+	 *                                   due to user privacy or group policy settings.
+	 */
+	type SetJumpListResult = 'ok' | 'error' | 'invalidSeparatorError' | 'fileTypeRegistrationError' | 'customCategoryAccessDeniedError';
+
+	interface JumpListSettings {
+		/**
+		 * The minimum number of items that will be shown in the Jump List.
+		 */
+		minItems: number;
+		/**
+		 * Items that the user has explicitly removed from custom categories in the Jump List.
+		 */
+		removedItems: JumpListItem[];
+	}
+
+	interface JumpListCategory {
+		/**
+		 * tasks - Items in this category will be placed into the standard Tasks category.
+		 * frequent - Displays a list of files frequently opened by the app, the name of the category and its items are set by Windows.
+		 * recent - Displays a list of files recently opened by the app, the name of the category and its items are set by Windows.
+		 * custom - Displays tasks or file links, name must be set by the app.
+		 */
+		type?: 'tasks' | 'frequent' | 'recent' | 'custom';
+		/**
+		 * Must be set if type is custom, otherwise it should be omitted.
+		 */
+		name?: string;
+		/**
+		 * Array of JumpListItem objects if type is tasks or custom, otherwise it should be omitted.
+		 */
+		items?: JumpListItem[];
+	}
+
+	interface JumpListItem {
+		/**
+		 * task - A task will launch an app with specific arguments.
+		 * separator - Can be used to separate items in the standard Tasks category.
+		 * file - A file link will open a file using the app that created the Jump List.
+		 */
+		type: 'task' | 'separator' | 'file';
+		/**
+		 * Path of the file to open, should only be set if type is file.
+		 */
+		path?: string;
+		/**
+		 * Path of the program to execute, usually you should specify process.execPath which opens the current program.
+		 * Should only be set if type is task.
+		 */
+		program?: string;
+		/**
+		 * The command line arguments when program is executed. Should only be set if type is task.
+		 */
+		args?: string;
+		/**
+		 * The text to be displayed for the item in the Jump List. Should only be set if type is task.
+		 */
+		title?: string;
+		/**
+		 * Description of the task (displayed in a tooltip). Should only be set if type is task.
+		 */
+		description?: string;
+		/**
+		 * The absolute path to an icon to be displayed in a Jump List, which can be an arbitrary
+		 * resource file that contains an icon (e.g. .ico, .exe, .dll).
+		 * You can usually specify process.execPath to show the program icon.
+		 */
+		iconPath?: string;
+		/**
+		 * The index of the icon in the resource file. If a resource file contains multiple icons
+		 * this value can be used to specify the zero-based index of the icon that should be displayed
+		 * for this task. If a resource file contains only one icon, this property should be set to zero.
+		 */
+		iconIndex?: number;
+	}
+
 	interface LoginItemSettings {
 		/**
 		 * True if the app is set to open at login.
@@ -628,7 +745,7 @@ declare namespace Electron {
 		 * Emitted when the document changed its title,
 		 * calling event.preventDefault() would prevent the native window’s title to change.
 		 */
-		on(event: 'page-title-updated', listener: (event: Event) => void): this;
+		on(event: 'page-title-updated', listener: (event: Event, title: string) => void): this;
 		/**
 		 * Emitted when the window is going to be closed. It’s emitted before the beforeunload
 		 * and unload event of the DOM. Calling event.preventDefault() will cancel the close.
@@ -808,6 +925,10 @@ declare namespace Electron {
 		 */
 		isFocused(): boolean;
 		/**
+		 * @returns Whether the window is destroyed.
+		 */
+		isDestroyed(): boolean;
+		/**
 		 * Shows and gives focus to the window.
 		 */
 		show(): void;
@@ -877,6 +998,14 @@ declare namespace Electron {
 		 * @returns The window's width, height, x and y values.
 		 */
 		getBounds(): Rectangle;
+		/**
+		 * Resizes and moves the window's client area (e.g. the web page) to width, height, x, y.
+		 */
+		setContentBounds(options: Rectangle, animate?: boolean): void;
+		/**
+		 * @returns The window's client area (e.g. the web page) width, height, x and y values.
+		 */
+		getContentBounds(): Rectangle;
 		/**
 		 * Resizes the window to width and height.
 		 */
@@ -1101,7 +1230,13 @@ declare namespace Electron {
 		 * @param progress Valid range is [0, 1.0]. If < 0, the progress bar is removed.
 		 * If greater than 0, it becomes indeterminate.
 		 */
-		setProgressBar(progress: number): void;
+		setProgressBar(progress: number, options?: {
+			/**
+			 * Mode for the progress bar.
+			 * Note: This is only implemented on Windows.
+			 */
+			mode: 'none' | 'normal' | 'indeterminate' | 'error' | 'paused'
+		}): void;
 		/**
 		 * Sets a 16px overlay onto the current Taskbar icon, usually used to convey
 		 * some sort of application status or to passively notify the user.
@@ -1136,7 +1271,12 @@ declare namespace Electron {
 		 *
 		 * Note: This API is available only on Windows.
 		 */
-		setThumbnailClip(region: Rectangle): void;
+		setThumbnailClip(region: Rectangle): boolean;
+		/**
+		 * Sets the toolTip that is displayed when hovering over the window thumbnail in the taskbar.
+		 * Note: This API is available only on Windows.
+		 */
+		setThumbnailToolTip(toolTip: string): boolean;
 		/**
 		 * Same as webContents.showDefinitionForSelection().
 		 * Note: This API is available only on macOS.
@@ -1231,6 +1371,12 @@ declare namespace Electron {
 	}
 
 	interface WebPreferences {
+		/**
+		 * Whether to enable DevTools.
+		 * If it is set to false, can not use BrowserWindow.webContents.openDevTools() to open DevTools.
+		 * Default: true.
+		 */
+		devTools?: boolean;
 		/**
 		 * Whether node integration is enabled.
 		 * Default: true.
@@ -1379,9 +1525,14 @@ declare namespace Electron {
 		defaultEncoding?: string;
 		/**
 		 * Whether to throttle animations and timers when the page becomes background.
-		 * Default: true
+		 * Default: true.
 		 */
 		backgroundThrottling?: boolean;
+		/**
+		 * Whether to enable offscreen rendering for the browser window.
+		 * Default: false.
+		 */
+		offscreen?: boolean;
 	}
 
 	interface BrowserWindowOptions {
@@ -1816,7 +1967,7 @@ declare namespace Electron {
 
 	interface CrashReporterStartOptions {
 		/**
-		 * Default: Electron
+		 * Default: app.getName()
 		 */
 		productName?: string;
 		companyName: string;
@@ -2266,8 +2417,8 @@ declare namespace Electron {
 	}
 
 	type MenuItemType = 'normal' | 'separator' | 'submenu' | 'checkbox' | 'radio';
-	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen';
-	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'front' | 'zoom' | 'window' | 'help' | 'services';
+	type MenuItemRole = 'undo' | 'redo' | 'cut' | 'copy' | 'paste' | 'pasteandmatchstyle' | 'selectall' | 'delete' | 'minimize' | 'close' | 'quit' | 'togglefullscreen' | 'resetzoom' | 'zoomin' | 'zoomout';
+	type MenuItemRoleMac = 'about' | 'hide' | 'hideothers' | 'unhide' | 'startspeaking' | 'stopspeaking' | 'front' | 'zoom' | 'window' | 'help' | 'services';
 
 	interface MenuItemOptions {
 		/**
@@ -2458,9 +2609,17 @@ declare namespace Electron {
 		 */
 		toJPEG(quality: number): Buffer;
 		/**
-		 * @returns Buffer that contains the image's raw pixel data.
+		 * @returns Buffer that contains a copy of the image's raw bitmap pixel data.
 		 */
 		toBitmap(): Buffer;
+		/**
+		 * @returns Buffer that contains the image's raw bitmap pixel data.
+		 *
+		 * The difference between getBitmap() and toBitmap() is, getBitmap() does not copy the bitmap data,
+		 * so you have to use the returned Buffer immediately in current event loop tick,
+		 * otherwise the data might be changed or destroyed.
+		 */
+		getBitmap(): Buffer;
 		/**
 		 * @returns string The data URL of the image.
 		 */
@@ -2909,18 +3068,22 @@ declare namespace Electron {
 	interface NetworkEmulationOptions {
 		/**
 		 * Whether to emulate network outage.
+		 * Default: false.
 		 */
 		offline?: boolean;
 		/**
 		 * RTT in ms.
+		 * Default: 0, which will disable latency throttling.
 		 */
 		latency?: number;
 		/**
 		 * Download rate in Bps.
+		 * Default: 0, which will disable download throttling.
 		 */
 		downloadThroughput?: number;
 		/**
 		 * Upload rate in Bps.
+		 * Default: 0, which will disable upload throttling.
 		 */
 		uploadThroughput?: number;
 	}
@@ -3239,16 +3402,18 @@ declare namespace Electron {
 	interface Shell {
 		/**
 		 * Show the given file in a file manager. If possible, select the file.
+		 * @returns Whether the item was successfully shown.
 		 */
-		showItemInFolder(fullPath: string): void;
+		showItemInFolder(fullPath: string): boolean;
 		/**
 		 * Open the given file in the desktop's default manner.
+		 * @returns Whether the item was successfully shown.
 		 */
-		openItem(fullPath: string): void;
+		openItem(fullPath: string): boolean;
 		/**
 		 * Open the given external protocol URL in the desktop's default manner
 		 * (e.g., mailto: URLs in the default mail user agent).
-		 * @returns true if an application was available to open the URL, false otherwise.
+		 * @returns Whether an application was available to open the URL.
 		 */
 		openExternal(url: string, options?: {
 			/**
@@ -3259,7 +3424,7 @@ declare namespace Electron {
 		}): boolean;
 		/**
 		 * Move the given file to trash.
-		 * @returns boolean status for the operation.
+		 * @returns Whether the item was successfully moved to the trash.
 		 */
 		moveItemToTrash(fullPath: string): boolean;
 		/**
@@ -3336,6 +3501,26 @@ declare namespace Electron {
 		 * Note: This is only implemented on macOS.
 		 */
 		isDarkMode(): boolean;
+		/**
+		 * @returns If the Swipe between pages setting is on.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		isSwipeTrackingFromScrollEventsEnabled(): boolean;
+		/**
+		 * Posts event as native notifications of macOS.
+		 * The userInfo contains the user information dictionary sent along with the notification.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		postNotification(event: string, userInfo: Object): void;
+		/**
+		 * Posts event as native notifications of macOS.
+		 * The userInfo contains the user information dictionary sent along with the notification.
+		 *
+		 * Note: This is only implemented on macOS.
+		 */
+		postLocalNotification(event: string, userInfo: Object): void;
 		/**
 		 * Subscribes to native notifications of macOS, callback will be called when the corresponding event happens.
 		 * The id of the subscriber is returned, which can be used to unsubscribe the event.
@@ -3518,7 +3703,7 @@ declare namespace Electron {
 
 	interface WebContentsStatic {
 		/**
-		 * @returns An array of all web contents. This will contain web contents for all windows,
+		 * @returns An array of all WebContents instances. This will contain web contents for all windows,
 		 * webviews, opened devtools, and devtools extension background pages.
 		 */
 		getAllWebContents(): WebContents[];
@@ -3526,6 +3711,10 @@ declare namespace Electron {
 		 * @returns The web contents that is focused in this application, otherwise returns null.
 		 */
 		getFocusedWebContents(): WebContents;
+		/**
+		 * Find a WebContents instance according to its ID.
+		 */
+		fromId(id: number): WebContents;
 	}
 
 	/**
@@ -3629,7 +3818,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		on(event: 'did-navigate-in-page', listener: (event: Event, url: string) => void): this;
+		on(event: 'did-navigate-in-page', listener: (event: Event, url: string, isMainFrame: boolean) => void): this;
 		/**
 		 * Emitted when the renderer process has crashed.
 		 */
@@ -3722,9 +3911,9 @@ declare namespace Electron {
 		 */
 		on(event: 'select-bluetooth-device', listener: (event: Event, deviceList: BluetoothDevice[], callback: (deviceId: string) => void) => void): this;
 		/**
-		 * Emitted when a page's view is repainted.
+		 * Emitted when a new frame is generated. Only the dirty area is passed in the buffer.
 		 */
-		on(event: 'view-painted', listener: Function): this;
+		on(event: 'paint', listener: (event: Event, dirtyRect: Rectangle, image: NativeImage) => void): this;
 		on(event: string, listener: Function): this;
 		/**
 		 * Loads the url in the window.
@@ -4024,6 +4213,31 @@ declare namespace Electron {
 		 */
 		showDefinitionForSelection(): void;
 		/**
+		 * @returns Whether offscreen rendering is enabled.
+		 */
+		isOffscreen(): boolean;
+		/**
+		 * If offscreen rendering is enabled and not painting, start painting.
+		 */
+		startPainting(): void;
+		/**
+		 * If offscreen rendering is enabled and painting, stop painting.
+		 */
+		stopPainting(): void;
+		/**
+		 * If offscreen rendering is enabled returns whether it is currently painting.
+		 */
+		isPainting(): boolean;
+		/**
+		 * If offscreen rendering is enabled sets the frame rate to the specified number.
+		 * Only values between 1 and 60 are accepted.
+		 */
+		setFrameRate(fps: number): void;
+		/**
+		 * If offscreen rendering is enabled returns the current frame rate.
+		 */
+		getFrameRate(): number;
+		/**
 		 * Sets the item as dragging item for current drag-drop operation.
 		 */
 		startDrag(item: DragItem): void;
@@ -4299,7 +4513,7 @@ declare namespace Electron {
 		/**
 		 * PEM encoded data.
 		 */
-		data: Buffer;
+		data: string;
 		/**
 		 * Issuer's Common Name.
 		 */
@@ -4680,6 +4894,14 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
+		 * @returns Whether the web page is destroyed.
+		 */
+		isDestroyed(): boolean;
+		/**
+		 * @returns Whether the web page is focused.
+		 */
+		isFocused(): boolean;
+		/**
 		 * @returns Whether guest page is still loading resources.
 		 */
 		isLoading(): boolean;
@@ -4862,6 +5084,17 @@ declare namespace Electron {
 		 */
 		sendInputEvent(event: SendInputEvent): void
 		/**
+		 * Changes the zoom factor to the specified factor.
+		 * Zoom factor is zoom percent divided by 100, so 300% = 3.0.
+		 */
+		setZoomFactor(factor: number): void;
+		/**
+		 * Changes the zoom level to the specified level.
+		 * The original size is 0 and each increment above or below represents
+		 * zooming 20% larger or smaller to default limits of 300% and 50% of original size, respectively.
+		 */
+		setZoomLevel(level: number): void;
+		/**
 		 * Shows pop-up dictionary that searches the selected word on the page.
 		 * Note: This API is available only on macOS.
 		 */
@@ -4956,14 +5189,14 @@ declare namespace Electron {
 		 *
 		 * Calling event.preventDefault() does NOT have any effect.
 		 */
-		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'will-navigate', listener: (event: WebViewElement.WillNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when a navigation is done.
 		 *
 		 * This event is not emitted for in-page navigations, such as clicking anchor links
 		 * or updating the window.location.hash. Use did-navigate-in-page event for this purpose.
 		 */
-		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate', listener: (event: WebViewElement.DidNavigateEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Emitted when an in-page navigation happened.
 		 *
@@ -4971,7 +5204,7 @@ declare namespace Electron {
 		 * navigation outside of the page. Examples of this occurring are when anchor links
 		 * are clicked or when the DOM hashchange event is triggered.
 		 */
-		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.NavigateEvent) => void, useCapture?: boolean): void;
+		addEventListener(type: 'did-navigate-in-page', listener: (event: WebViewElement.DidNavigateInPageEvent) => void, useCapture?: boolean): void;
 		/**
 		 * Fired when the guest page attempts to close itself.
 		 */
@@ -5095,8 +5328,17 @@ declare namespace Electron {
 			options: BrowserWindowOptions;
 		}
 
-		interface NavigateEvent extends Event {
+		interface WillNavigateEvent extends Event {
 			url: string;
+		}
+
+		interface DidNavigateEvent extends Event {
+			url: string;
+		}
+
+		interface DidNavigateInPageEvent extends Event {
+			url: string;
+			isMainFrame: boolean;
 		}
 
 		interface IpcMessageEvent extends Event {
