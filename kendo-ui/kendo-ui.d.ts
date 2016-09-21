@@ -2581,10 +2581,12 @@ declare namespace kendo.drawing {
 }
 declare namespace kendo.ui {
     class AgendaView implements kendo.ui.SchedulerView {
+        static fn: AgendaView;
+        
         startDate(): Date;
         endDate(): Date;
     }
-    
+
     class AutoComplete extends kendo.ui.Widget {
 
         static fn: AutoComplete;
