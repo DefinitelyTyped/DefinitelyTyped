@@ -5483,7 +5483,7 @@ interface HighchartsOptions {
      * for that specific type of plot can be added to a series individually. For example, even though a general
      * lineWidth is specified in plotOptions.series, an individual lineWidth can be specified for each series.
      */
-    series?: HighchartsIndividualSeriesOptions[];
+    series?: HighchartsSeriesOptions[];
     /**
      * The chart's subtitle
      */
@@ -6350,4 +6350,3 @@ declare var Highcharts: HighchartsStatic;
 declare module "highcharts" {
     export = Highcharts;
 }
-
