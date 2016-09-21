@@ -1,6 +1,6 @@
 import {createAction} from 'redux-actions';
 import { createStore, applyMiddleware, PromiseAction } from 'redux';
-import promise from 'redux-promise';
+import promise = require('redux-promise');
 
 declare var userReducer: any;
 

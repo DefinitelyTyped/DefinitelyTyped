@@ -137,6 +137,12 @@ declare namespace Navigation {
          */
         urlDecode(state: State, key: string, val: string, queryString: boolean): string;
         /**
+         * Validates the NavigationData before navigating to the new State
+         * @param data The new NavigationData
+         * @returns Validation success indicator
+         */
+        validate(data: any): boolean;
+        /**
          * Truncates the crumb trail whenever a repeated or initial State is
          * encountered
          * @param The State navigated to
@@ -176,9 +182,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes browser history event listeners
          */
@@ -228,9 +234,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes a listener for the hashchange event
          */
@@ -279,9 +285,9 @@ declare namespace Navigation {
          */
         getHref(url: string): string;
         /**
-         * Gets a Url from the anchor 
+         * Gets a Url from the anchor or location
          */
-        getUrl(anchor: HTMLAnchorElement): string;
+        getUrl(hrefElement: HTMLAnchorElement | Location): string;
         /**
          * Removes a listener for the popstate event
          */
@@ -379,10 +385,6 @@ declare namespace Navigation {
          * Crumb first
          */
         crumbs: Crumb[];
-        /**
-         * Gets the crumb trail
-         */
-        crumbTrail: string[];
         /**
          * Gets the next crumb
          */
