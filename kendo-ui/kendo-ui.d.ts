@@ -2580,6 +2580,11 @@ declare namespace kendo.drawing {
 
 }
 declare namespace kendo.ui {
+    class AgendaView implements SchedulerView {
+        startDate(): Date;
+        endDate(): Date;
+    }
+    
     class AutoComplete extends kendo.ui.Widget {
 
         static fn: AutoComplete;
@@ -6396,10 +6401,6 @@ declare namespace kendo.ui {
         event?: kendo.data.SchedulerEvent;
     }
 
-    class AgendaView implements SchedulerView {
-        startDate(): Date;
-        endDate(): Date;
-    }
 
     class Slider extends kendo.ui.Widget {
 
