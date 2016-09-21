@@ -484,7 +484,7 @@ interface IterableIterator<T> {}
 interface NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): any;
+    toJSON(): {type: 'Buffer', data: any[]};
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -1039,8 +1039,6 @@ declare module "os" {
     export function arch(): string;
     export function platform(): string;
     export function tmpdir(): string;
-    export function tmpDir(): string;
-    export function getNetworkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export var EOL: string;
     export function endianness(): "BE" | "LE";
 }
@@ -2456,6 +2454,7 @@ declare module "crypto" {
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
+    export var DEFAULT_ENCODING: string;
 }
 
 declare module "stream" {
@@ -2618,7 +2617,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message: string, operator: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;

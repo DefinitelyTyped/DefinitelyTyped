@@ -1046,6 +1046,11 @@ declare module "express-serve-static-core" {
             * simply by removing them from this object.
             */
         routes: any;
+        
+        /**
+         * Using to all registered routes in Express Application
+         */
+        _router: any;
     }
 
     interface Express extends Application {
