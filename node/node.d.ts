@@ -658,8 +658,8 @@ declare module "http" {
     }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
-        httpVersionMajor: string;
-        httpVersionMinor: string;
+        httpVersionMajor: number;
+        httpVersionMinor: number;
         connection: net.Socket;
         headers: any;
         rawHeaders: string[];
