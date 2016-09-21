@@ -26,7 +26,7 @@ var showDriveType = (drive: Scripting.Drive) => {
 //Generates a string describing the attributes of a file or folder.
 var showFileAttributes = (file: Scripting.File) => {
     var attr = file.Attributes;
-    if (attr == 0) {
+    if (attr === 0) {
         return 'Normal';
     }
     var attributeStrings: string[] = [];
@@ -44,24 +44,24 @@ var showFileAttributes = (file: Scripting.File) => {
 
 //source --https://msdn.microsoft.com/en-us/library/ts2t8ybh(v=vs.84).aspx
 var showFreeSpace = (drvPath: string) => {
-    var fso = new ActiveXObject("Scripting.FileSystemObject");
+    var fso = new ActiveXObject('Scripting.FileSystemObject');
     var d = fso.GetDrive(fso.GetDriveName(drvPath));
-    var s = "Drive " + drvPath + " - ";
-    s += d.VolumeName + "<br>";
-    s += "Free Space: " + d.FreeSpace / 1024 + " Kbytes";
+    var s = 'Drive ' + drvPath + ' - ';
+    s += d.VolumeName + '<br>';
+    s += 'Free Space: ' + d.FreeSpace / 1024 + ' Kbytes';
     return (s);
 };
 
 
 //source -- https://msdn.microsoft.com/en-us/library/kaf6yaft(v=vs.84).aspx
 var getALine = (filespec: string) => {
-    var fso = new ActiveXObject("Scripting.FileSystemObject");
+    var fso = new ActiveXObject('Scripting.FileSystemObject');
     var file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
 
-    var s = "";
+    var s = '';
     while (!file.AtEndOfLine) {
         s += file.Read(1);
     }
     file.Close();
     return (s);
-}
+};

@@ -1,8 +1,6 @@
 /// <reference path="./graphene-pk11.d.ts" />
 
 import * as graphene from "graphene-pk11";
-
-// Example of Hashing from README.MD <https://github.com/PeculiarVentures/graphene#hashing>
 let Module = graphene.Module;
 
 let lib = "/usr/local/lib/softhsm/libsofthsm2.so";
@@ -13,13 +11,44 @@ mod.initialize();
 let slot = mod.getSlots(0);
 if (slot.flags & graphene.SlotFlag.TOKEN_PRESENT) {
     let session = slot.open();
+    session.login("12345");
 
-    let digest = session.createDigest("sha1");
-    digest.update("simple text 1");
-    digest.update("simple text 2");
-    let hash = digest.final();
+    // generate EC key
+    let keys = session.generateKeyPair(graphene.KeyGenMechanism.ECDSA, {
+        keyType: graphene.KeyType.ECDSA,
+        token: false,
+        derive: true,
+        paramsECDSA: graphene.NamedCurve.getByName("secp192r1").value
+    }, {
+            keyType: graphene.KeyType.ECDSA,
+            token: false,
+            derive: true
+        });
 
-    console.log("Hash SHA1:", hash.toString("hex")); // Hash SHA1: e1dc1e52e9779cd69679b3e0af87d2e288190d34 
+    // derive algorithm
+    let alg = {
+        name: "ECDH1_DERIVE",
+        params: new graphene.EcdhParams(
+            graphene.EcKdf.SHA1,
+            null,
+            keys.publicKey.getAttribute({ pointEC: null }).pointEC)
+    };
+
+    // Template for derived key
+    let template = {
+        "class": graphene.ObjectClass.SECRET_KEY,
+        "token": false,
+        "keyType": graphene.KeyType.AES,
+        "valueLen": 256 / 8,
+        "encrypt": true,
+        "decrypt": true
+    };
+
+    // Key derivation
+    let dKey = session.deriveKey(alg, keys.privateKey, template);
+    console.log("Derived key handle:", dKey.handle);
+
+    session.logout();
     session.close();
 }
 else {

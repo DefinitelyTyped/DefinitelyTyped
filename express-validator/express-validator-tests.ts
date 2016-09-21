@@ -15,19 +15,23 @@ app.post('/:urlparam', function(req: express.Request, res: express.Response) {
   // Similarly checkParams only checks in req.params (URL params) and
   // checkQuery only checks req.query (GET params).
   req.checkBody('postparam', 'Invalid postparam').notEmpty().isInt();
-  req.checkParams('urlparam', 'Invalid urlparam').isAlpha();
+  req.checkParams('urlparam', 'Invalid urlparam').isAlpha().matches(/test?/i).matches('test?', 'i');
   req.checkQuery('getparam', 'Invalid getparam').isInt();
-  req.checkHeader('testHeader', 'Invalid testHeader').isLowercase().isUppercase();
-  req.checkFiles('testFiles', 'Invalid testFiles').isUrl();
-
+  req.checkHeaders('testHeader', 'Invalid testHeader').isLowercase().isUppercase();
+  req.checkFiles('testFiles', 'Invalid testFiles').isURL();
 
   // OR assert can be used to check on all 3 types of params.
   // req.assert('postparam', 'Invalid postparam').notEmpty().isInt();
   // req.assert('urlparam', 'Invalid urlparam').isAlpha();
   // req.assert('getparam', 'Invalid getparam').isInt();
 
-  req.sanitize('postparam').toBoolean();
   req.filter('postparam').toBoolean();
+  req.sanitize('postparam').blacklist('t').blacklist(['<script', '</script>']).whitelist('hello').whitelist(['h', 'e', 'l']);
+  req.sanitizeBody('postvar').trim().stripLow().escape();
+  req.sanitizeQuery('queryvar').toDate();
+  req.sanitizeParams('urlparam').toFloat().toInt().toInt(10);
+  req.sanitizeHeaders('header').normalizeEmail();
+  
 
   var errors = req.validationErrors();
   var mappedErrors = req.validationErrors(true);

@@ -46,6 +46,6 @@ declare module "koa-static" {
          */
         gzip?: boolean;
     }): { (ctx: Koa.Context, next?: () => any): any };
-
+    namespace serve{}
     export = serve;
 }

@@ -58,6 +58,36 @@ class CounterContainer extends Component<any, any> {
 
 }
 
+// Ensure connect's first two arguments can be replaced by wrapper functions
+interface ICounterStateProps {
+    value: number
+}
+interface ICounterDispatchProps {
+    onIncrement: () => void
+}
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    () => mapStateToProps,
+    () => mapDispatchToProps
+)(Counter);
+// only first argument
+connect<ICounterStateProps, {}, {}>(
+    () => mapStateToProps
+)(Counter);
+// wrap only one argument
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    mapStateToProps,
+    () => mapDispatchToProps
+)(Counter);
+// with extra arguments
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
+    () => mapStateToProps,
+    () => mapDispatchToProps,
+    (s: ICounterStateProps, d: ICounterDispatchProps) =>
+        objectAssign({}, s, d),
+    { pure: true }
+)(Counter);
+
+
 class App extends Component<any, any> {
     render(): JSX.Element {
         // ...
@@ -238,8 +268,8 @@ connect(mapStateToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState {
-    return objectAssign({}, ownProps, {
+function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState & TodoProps {
+    return objectAssign({}, ownProps, dispatchProps, {
         todos: stateProps.todos[ownProps.userId],
         addTodo: (text: string) => dispatchProps.addTodo(ownProps.userId, text)
     });

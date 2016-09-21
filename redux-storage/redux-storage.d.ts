@@ -96,6 +96,18 @@ declare module "redux-storage-engine-localstorage" {
     export default function createEngine(key: string): LocalStorageEngine;
 }
 
+declare module "redux-storage-engine-reactnativeasyncstorage" {
+    import { StorageEngine } from "redux-storage";
+
+    export interface ReactNativeAsyncStorageEngine extends StorageEngine {}
+
+    /**
+     * Create React Native Async Storage
+     * @param key React Native Async Storage key
+     */
+    export default function createEngine(key: string): ReactNativeAsyncStorageEngine;
+}
+
 declare module "redux-storage-merger-immutablejs" {
     import { StateMerger } from "redux-storage";
 

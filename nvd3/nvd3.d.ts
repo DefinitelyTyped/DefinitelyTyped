@@ -126,6 +126,43 @@ declare namespace nv {
         width(value: number): this;
     }
 
+    interface Focus extends Nvd3Element {
+        color(value: string[]): this;
+        color(func: (d: any, i: number) => string): this;
+        width(): number;
+        width(value: number): this;
+        height(): number;
+        height(value: number): this;
+        margin(): Margin;
+        margin(value: Margin): this;
+        x(): (d: any) => any;
+        x(func: (d: any) => any): this;
+        y(): (d: any) => number;
+        y(func: (d: any) => number): this;
+        showXAxis(): boolean;
+        showXAxis(value: boolean): this;
+        showYAxis(): boolean;
+        showYAxis(value: boolean): this;
+        brushExtent(): [number, number] | [[number, number], [number, number]];
+        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
+        duration(): number;
+        duration(value: number): this;
+        xTickFormat(): (d: any) => string;
+        xTickFormat(format: (t: any) => string): this;
+        xTickFormat(format: string): this;
+        xTickFormat(format: (d: any, i: any) => string): this;
+        yTickFormat(): (d: any) => string;
+        yTickFormat(format: (t: any) => string): this;
+        yTickFormat(format: string): this;
+        yTickFormat(format: (d: any, i: any) => string): this;
+        interpolate(): string;
+        interpolate(value: string): this;
+        rightAlignYAxis(): boolean;
+        rightAlignYAxis(value: boolean): this;
+        syncBrushing(): boolean;
+        syncBrushing(value: boolean): this;
+    }
+
 	interface Nvd3Axis extends d3.svg.Axis {
         axisLabel(): string;
         axisLabel(value: string): this;
@@ -1204,6 +1241,10 @@ id(value: number|string): this;
         style(offset: 'expand'): this;
         style(offset: 'stack_percent'): this;
         style(offset: string): this;
+        width(): number;
+        width(value: number): this;
+        height(): number;
+        height(value: number): this;
     }
 
     interface Sunburst extends Nvd3Element {
@@ -1801,6 +1842,7 @@ id(value: number|string): this;
         yAxis: Nvd3Axis;
         legend: Legend;
         tooltip: Tooltip;
+        focus: Focus;
 
         clearHighlights(): this;
         /*If true, masks lines within the X and Y scales using a clip-path*/
@@ -3230,8 +3272,11 @@ id(value: number|string): this;
         legend: Legend;
         controls: Legend;
         xAxis: Nvd3Axis;
+        x2Axis: Nvd3Axis;
         yAxis: Nvd3Axis;
+        y2Axis: Nvd3Axis;
         tooltip: Tooltip;
+        focus: Focus;
 
         controlLabels(): any;
         /*Object that defines the labels for control items in the graph. For instance, in the stackedAreaChart, there are controls for making it stacked, expanded, or stream. For stacked bar charts, there is stacked and grouped.*/
@@ -3270,6 +3315,15 @@ id(value: number|string): this;
         useInteractiveGuideline(): boolean;
         /*Sets the chart to use a guideline and floating tooltip instead of requiring the user to hover over specific hotspots. Turning this on will set the 'interactive' and 'useVoronoi' options to false to avoid conflicting.*/
         useInteractiveGuideline(value: boolean): this;
+
+        focusEnable(): boolean;
+        focusEnable(value: boolean): this;
+        focusHeight(): number;
+        focusHeight(value: number): this;
+        showControls(): boolean;
+        showControls(value: boolean): this;
+        brushExtent(): [number, number] | [[number, number], [number, number]];
+        brushExtent(value: [number, number] | [[number, number], [number, number]]) : this;
     }
 
     interface SunburstChart extends Sunburst, Chart {
@@ -3349,3 +3403,7 @@ id(value: number|string): this;
 	}
 }
 declare var nv : nv.Nvd3Static;
+
+declare module "nvd3" {
+    export = nv;
+}

@@ -867,6 +867,26 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('multiSlotTranscludeExample', [])
+    .directive('dropDownMenu', function() {
+        return {
+            transclude: {
+                button: 'button',
+                list: 'ul',
+            },
+            link: function(scope, element, attrs, ctrl, transclude) {
+                // without scope
+                transclude().appendTo(element);
+                transclude(clone => clone.appendTo(element));
+
+                // with scope
+                transclude(scope, clone => clone.appendTo(element));
+                transclude(scope, clone => clone.appendTo(element), element, 'button');
+                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+            }
+        };
+    });
+
 angular.module('componentExample', [])
     .component('counter', {
         require: {'ctrl': '^ctrl'},
@@ -1096,6 +1116,12 @@ function parseTyping() {
     } else if (compiledExp.literal) {
         return compiledExp({}, {a: {b: {c: 42}}});
     }
+}
+
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
 }
 
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {

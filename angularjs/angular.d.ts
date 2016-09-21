@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -118,14 +118,15 @@ declare namespace angular {
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
-        isArray(value: any): boolean;
-        isDate(value: any): boolean;
+        isArray(value: any): value is Array<any>;
+        isDate(value: any): value is Date;
         isDefined(value: any): boolean;
         isElement(value: any): boolean;
-        isFunction(value: any): boolean;
-        isNumber(value: any): boolean;
-        isObject(value: any): boolean;
-        isString(value: any): boolean;
+        isFunction(value: any): value is Function;
+        isNumber(value: any): value is number;
+        isObject(value: any): value is Object;
+        isObject<T>(value: any): value is T;
+        isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
 
@@ -387,6 +388,7 @@ declare namespace angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
+        $name: string;
         $pending: any;
         $addControl(control: INgModelController | IFormController): void;
         $removeControl(control: INgModelController | IFormController): void;
@@ -873,7 +875,7 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
-        (expression: string): ICompiledExpression;
+        (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
     }
 
     interface IParseProvider {
@@ -985,7 +987,10 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {}
+    interface IDocumentService extends JQuery {
+        // Must return intersection type for index signature compatibility with JQuery
+        [index: number]: HTMLElement & Document;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -1254,7 +1259,7 @@ declare namespace angular {
     // This corresponds to $transclude (and also the transclude function passed to link).
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction): JQuery;
     }
@@ -1407,6 +1412,16 @@ declare namespace angular {
          * Absolute or relative URL of the resource that is being requested.
          */
         url: string;
+        /**
+         * Event listeners to be bound to the XMLHttpRequest object. 
+         * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
+         */
+        eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
+        /**
+         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
+         */
+        uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
     }
 
     interface IHttpHeadersGetter {
@@ -1710,12 +1725,22 @@ declare namespace angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[binding: string]: string};
+        bindings?: IComponentBindings;
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
+        /**
+         * Requires the controllers of other directives and binds them to this component's controller.
+         * The object keys specify the property names under which the required controllers (object values) will be bound.
+         * Note that the required controllers will not be available during the instantiation of the controller,
+         * but they are guaranteed to be available just before the $onInit method is executed!
+         */
         require?: {[controller: string]: string};
+    }
+
+    interface IComponentBindings {
+        [binding: string]: string;
     }
 
     interface IComponentTemplateFn {
@@ -1735,12 +1760,12 @@ declare namespace angular {
          */
         $onInit?(): void;
         /**
-         * Called whenever one-way bindings are updated. The changesObj is a hash whose keys are the names of the bound
-         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
+         * properties that have changed, and the values are an {@link IChangesObject} object of the form
          * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
          * cloning the bound value to prevent accidental mutation of the outer value.
          */
-        $onChanges?(changesObj: {[property:string]: IChangesObject}): void;
+        $onChanges?(onChangesObj: IOnChangesObject): void;
         /**
          * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
          * watches and event handlers.
@@ -1755,6 +1780,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+    }
+    
+    interface IOnChangesObject {
+        [property: string]: IChangesObject;
     }
 
     interface IChangesObject {
@@ -1802,6 +1831,10 @@ declare namespace angular {
         ): void | IDirectivePrePost;
     }
 
+    interface IDirectiveScope {
+        [property: string]: string;
+    }
+
     interface IDirective {
         compile?: IDirectiveCompileFn;
         controller?: any;
@@ -1815,7 +1848,7 @@ declare namespace angular {
         bindToController?: boolean | Object;
         link?: IDirectiveLinkFn | IDirectivePrePost;
         multiElement?: boolean;
-        name?: string;
+        directiveName?: string;
         priority?: number;
         /**
          * @deprecated
@@ -1823,7 +1856,7 @@ declare namespace angular {
         replace?: boolean;
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
-        scope?: boolean | Object;
+        scope?: boolean | IDirectiveScope;
         template?: string | Function;
         templateNamespace?: string;
         templateUrl?: string | Function;

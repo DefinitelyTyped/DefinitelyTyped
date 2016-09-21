@@ -149,8 +149,8 @@ people2.some((person: Em.Object) => {
 people2.everyProperty('isHappy', true);
 people2.someProperty('isHappy', true);
 
-// Examples taken from http://emberjs.com/api/classes/Ember.RSVP.Promise.html
-var promise = new Ember.RSVP.Promise(function(resolve: Function, reject: Function) {
+// Examples taken from http://emberjs.com/api/classes/Em.RSVP.Promise.html
+var promise = new Em.RSVP.Promise(function(resolve: Function, reject: Function) {
   // on success
   resolve('ok!');
 

@@ -2,7 +2,7 @@
 /// <reference path="./react-modal.d.ts"/>
 
 import * as React from "react";
-import ReactModal from 'react-modal';
+import * as ReactModal from 'react-modal';
 
 class ExampleOfUsingReactModal extends React.Component<{}, {}> {
   render() {

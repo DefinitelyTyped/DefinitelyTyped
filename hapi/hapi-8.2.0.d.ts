@@ -221,21 +221,7 @@ declare module "hapi" {
 		defaultExtension?: string;
 	}
 
-	/**  Concludes the handler activity by setting a response and returning control over to the framework where:
-	erran optional error response.
-	resultan optional response payload.
-	Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
-	FLOW CONTROL:
-	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
-	export interface IReply {
-		<T>(err: Error,
-		result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T,
-		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-		credentialData?: any
-		): IBoom;
-		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-		<T>(result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
-
+	interface IReplyMethods {
 		/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 		  * The data argument is only used for passing back authentication data and is ignored elsewhere. */
 		continue(credentialData?: any): void;
@@ -282,8 +268,39 @@ declare module "hapi" {
 		redirect(uri: string): Response;
 	}
 
+	/**  Concludes the handler activity by setting a response and returning control over to the framework where:
+	erran optional error response.
+	resultan optional response payload.
+	Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
+	FLOW CONTROL:
+	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
+	export interface IReply extends IReplyMethods{
+		<T>(err: Error,
+		result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T,
+		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+		credentialData?: any
+		): IBoom;
+		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+		<T>(result?: string|number|boolean|Buffer|stream.Stream | Promise<T> | T): Response;
+	}
+	
+	/**  Concludes the handler activity by setting a response and returning control over to the framework where:
+	 erran optional error response.
+	 result an optional response payload.
+	 Since an request can only have one response regardless if it is an error or success, the reply() method can only result in a single response value. This means that passing both an err and result will only use the err. There is no requirement for either err or result to be (or not) an Error object. The framework will simply use the first argument if present, otherwise the second. The method supports two arguments to be compatible with the common callback pattern of error first.
+	 FLOW CONTROL:
+	 When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
+	export interface IStrictReply<T> extends IReplyMethods {
+		(err: Error,
+			result?: Promise<T> | T,
+			/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+			credentialData?: any): IBoom;
+		/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+		(result: Promise<T> | T): Response;
+	}
 	export interface ISessionHandler {
 		(request: Request, reply: IReply): void;
+		<T>(request: Request, reply: IStrictReply<T>): void;
 	}
 	export interface IRequestHandler<T> {
 		(request: Request): T;
@@ -868,6 +885,7 @@ declare module "hapi" {
 		};
 		server.auth.scheme('custom', scheme);*/
 		authenticate(request: Request, reply: IReply): void;
+		authenticate<T>(request: Request, reply: IStrictReply<T>): void;
 		/** payload(request, reply) - optional function called to authenticate the request payload where:
 		request - the request object.
 		reply(err, response) - is called if authentication failed where:
@@ -876,6 +894,7 @@ declare module "hapi" {
 		reply.continue() - is called if payload authentication succeeded.
 		When the scheme payload() method returns an error with a message, it means payload validation failed due to bad payload. If the error has no message but includes a scheme name (e.g. Boom.unauthorized(null, 'Custom')), authentication may still be successful if the route auth.payload configuration is set to 'optional'.*/
 		payload? (request: Request, reply: IReply): void;
+		payload?<T>(request: Request, reply: IStrictReply<T>): void;
 		/** response(request, reply) - optional function called to decorate the response with authentication headers before the response headers or payload is written where:
 		request - the request object.
 		reply(err, response) - is called if an error occurred where:
@@ -883,6 +902,7 @@ declare module "hapi" {
 		response - any authentication response to send instead of the current response. Ignored if err is present, otherwise required.
 		reply.continue() - is called if the operation succeeded.*/
 		response? (request: Request, reply: IReply): void;
+		response?<T>(request: Request, reply: IStrictReply<T>): void;
 		/** an optional object  */
 		options?: {
 			/**  if true, requires payload validation as part of the scheme and forbids routes from disabling payload auth validation. Defaults to false.*/
@@ -1830,6 +1850,7 @@ declare module "hapi" {
 		server.start();
 		// All requests will get routed to '/test'*/
 		ext(event: string, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string|string[]; after: string|string[]; bind?: any }): void;
+		ext<T>(event: string, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
 
 		/** server.handler(name, method)
 		Registers a new handler type to be used in routes where:
