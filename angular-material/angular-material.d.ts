@@ -73,9 +73,13 @@ declare namespace angular.material {
         initialValue(initialValue: string): IPromptDialog;
     }
 
+    interface IColorExpression {
+        [cssPropertyName: string]: string
+    }
+
     interface IColorService {
-        applyThemeColors(element:Element|JQuery, colorExpression: Object): void;
-        getThemeColor(expression: Object): string;
+        applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+        getThemeColor(expression: string): string;
         hasTheme(): boolean;
     }    
 
