@@ -189,4 +189,16 @@ dropzone.processFiles(addedFiles);
 dropzone.processQueue();
 dropzone.removeAllFiles(true);
 
+dropzone
+	.on("drop", () => {
+		console.count('drop');
+	})
+	.on("dragstart", () => {
+		console.count('dragstart');
+	})
+	.on("addedfile", () => {
+		console.count('addedfile');
+	});
+
+
 dropzone.destroy();
