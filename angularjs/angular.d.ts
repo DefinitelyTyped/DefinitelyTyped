@@ -1725,7 +1725,7 @@ declare namespace angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[binding: string]: string};
+        bindings?: IComponentBindings;
         /**
          * Whether transclusion is enabled. Enabled by default.
          */
@@ -1738,6 +1738,10 @@ declare namespace angular {
          */
         require?: {[controller: string]: string};
     }
+    
+    interface IComponentBindings {
+		[binding: string]: string;
+	}
 
     interface IComponentTemplateFn {
         ( $element?: JQuery, $attrs?: IAttributes ): string;
@@ -1826,6 +1830,10 @@ declare namespace angular {
             transclude: ITranscludeFunction
         ): void | IDirectivePrePost;
     }
+    
+    interface IDirectiveScope {
+		[property: string]: string;
+	}
 
     interface IDirective {
         compile?: IDirectiveCompileFn;
@@ -1848,7 +1856,7 @@ declare namespace angular {
         replace?: boolean;
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
-        scope?: boolean | Object;
+        scope?: boolean | IDirectiveScope;
         template?: string | Function;
         templateNamespace?: string;
         templateUrl?: string | Function;
