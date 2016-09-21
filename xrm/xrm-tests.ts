@@ -72,7 +72,7 @@ if (Xrm.Page.data.process != null)
 
 /// Demonstrate v7.1 Quick Create form
 
-Xrm.Utility.openQuickCreate(( newRecord ) => { alert( `Newly created record Id: ${newRecord.id}` ); }, "account" );
+Xrm.Utility.openQuickCreate("account").then(( newRecord: Xrm.Page.LookupValue ) => { alert( `Newly created record Id: ${newRecord.id}` ); }, (code, message) => {console.log(message)});
 
 /// Make all controls visible.
 
@@ -133,5 +133,3 @@ attribute.setSubmitMode(submitMode);
 attribute.setSubmitMode(submitMode);
 attribute.setRequiredLevel(requirementLevel);
 attribute.setRequiredLevel(requirementLevelString);
-
-

@@ -261,20 +261,20 @@ declare namespace NodeJS {
     }
 
     export class EventEmitter {
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        listenerCount(type: string|symbol): number;
         // Added in Node 6...
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        eventNames(): string[];
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        eventNames(): (string|symbol)[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -569,22 +569,22 @@ declare module "querystring" {
 declare module "events" {
     export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string): number; // deprecated
+        static listenerCount(emitter: EventEmitter, event: string|symbol): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        prependListener(event: string, listener: Function): this;
-        prependOnceListener(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
-        removeAllListeners(event?: string): this;
+        addListener(event: string|symbol, listener: Function): this;
+        on(event: string|symbol, listener: Function): this;
+        once(event: string|symbol, listener: Function): this;
+        prependListener(event: string|symbol, listener: Function): this;
+        prependOnceListener(event: string|symbol, listener: Function): this;
+        removeListener(event: string|symbol, listener: Function): this;
+        removeAllListeners(event?: string|symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string): Function[];
-        emit(event: string, ...args: any[]): boolean;
-        eventNames(): string[];
-        listenerCount(type: string): number;
+        listeners(event: string|symbol): Function[];
+        emit(event: string|symbol, ...args: any[]): boolean;
+        eventNames(): (string|symbol)[];
+        listenerCount(type: string|symbol): number;
     }
 }
 
@@ -612,6 +612,7 @@ declare module "http" {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
+        listening: boolean;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -761,17 +762,30 @@ declare module "http" {
 declare module "cluster" {
     import * as child from "child_process";
     import * as events from "events";
+    import * as net from "net";
 
+    // interfaces
     export interface ClusterSettings {
+        execArgv?: string[]; // default: process.execArgv
         exec?: string;
         args?: string[];
         silent?: boolean;
+        stdio?: any[];
+        uid?: number;
+        gid?: number;
+    }
+
+    export interface ClusterSetupMasterSettings {
+        exec?: string;  // default: process.argv[1]
+        args?: string[];  // default: process.argv.slice(2)
+        silent?: boolean;  // default: false
+        stdio?: any[];
     }
 
     export interface Address {
         address: string;
         port: number;
-        addressType: string;
+        addressType: number | "udp4" | "udp6";  // 4, 6, -1, "udp4", "udp6"
     }
 
     export class Worker extends events.EventEmitter {
@@ -784,35 +798,205 @@ declare module "cluster" {
         disconnect(): void;
         isConnected(): boolean;
         isDead(): boolean;
+        exitedAfterDisconnect: boolean;
+        
+        /**
+         * events.EventEmitter
+         *   1. disconnect
+         *   2. error
+         *   3. exit
+         *   4. listening
+         *   5. message
+         *   6. online
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "disconnect", listener: () => void): this;
+        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        addListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        addListener(event: "listening", listener: (address: Address) => void): this;
+        addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "disconnect", listener: () => void): this;
+        on(event: "error", listener: (code: number, signal: string) => void): this;
+        on(event: "exit", listener: (code: number, signal: string) => void): this;
+        on(event: "listening", listener: (address: Address) => void): this;
+        on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "disconnect", listener: () => void): this;
+        once(event: "error", listener: (code: number, signal: string) => void): this;
+        once(event: "exit", listener: (code: number, signal: string) => void): this;
+        once(event: "listening", listener: (address: Address) => void): this;
+        once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "disconnect", listener: () => void): this;
+        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependListener(event: "listening", listener: (address: Address) => void): this;
+        prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependListener(event: "online", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "disconnect", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
+        prependOnceListener(event: "listening", listener: (address: Address) => void): this;
+        prependOnceListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependOnceListener(event: "online", listener: () => void): this;
     }
 
-    export var settings: ClusterSettings;
+    export interface Cluster extends events.EventEmitter {
+        Worker: Worker;
+        disconnect(callback?: Function): void;
+        fork(env?: any): Worker;
+        isMaster: boolean;
+        isWorker: boolean;
+        // TODO: cluster.schedulingPolicy
+        settings: ClusterSettings;
+        setupMaster(settings?: ClusterSetupMasterSettings): void;
+        worker: Worker;
+        workers: {
+            [index: string]: Worker
+        };
+
+        /**
+         * events.EventEmitter
+         *   1. disconnect
+         *   2. exit
+         *   3. fork
+         *   4. listening
+         *   5. message
+         *   6. online
+         *   7. setup
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        addListener(event: "fork", listener: (worker: Worker) => void): this;
+        addListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        addListener(event: "online", listener: (worker: Worker) => void): this;
+        addListener(event: "setup", listener: (settings: any) => void): this;
+
+        on(event: string, listener: Function): this;
+        on(event: "disconnect", listener: (worker: Worker) => void): this;
+        on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        on(event: "fork", listener: (worker: Worker) => void): this;
+        on(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        on(event: "online", listener: (worker: Worker) => void): this;
+        on(event: "setup", listener: (settings: any) => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "disconnect", listener: (worker: Worker) => void): this;
+        once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        once(event: "fork", listener: (worker: Worker) => void): this;
+        once(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        once(event: "online", listener: (worker: Worker) => void): this;
+        once(event: "setup", listener: (settings: any) => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependListener(event: "fork", listener: (worker: Worker) => void): this;
+        prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependListener(event: "online", listener: (worker: Worker) => void): this;
+        prependListener(event: "setup", listener: (settings: any) => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
+        prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): this;
+        prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
+        prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
+        prependOnceListener(event: "setup", listener: (settings: any) => void): this;
+
+    }
+
+    export function disconnect(callback ?: Function): void;
+    export function fork(env?: any): Worker;
     export var isMaster: boolean;
     export var isWorker: boolean;
-    export function setupMaster(settings?: ClusterSettings): void;
-    export function fork(env?: any): Worker;
-    export function disconnect(callback?: Function): void;
+    // TODO: cluster.schedulingPolicy
+    export var settings: ClusterSettings;
+    export function setupMaster(settings?: ClusterSetupMasterSettings): void;
     export var worker: Worker;
     export var workers: {
         [index: string]: Worker
     };
 
-    // Event emitter
-    export function addListener(event: string, listener: Function): void;
-    export function on(event: "disconnect", listener: (worker: Worker) => void): void;
-    export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): void;
-    export function on(event: "fork", listener: (worker: Worker) => void): void;
-    export function on(event: "listening", listener: (worker: Worker, address: any) => void): void;
-    export function on(event: "message", listener: (worker: Worker, message: any) => void): void;
-    export function on(event: "online", listener: (worker: Worker) => void): void;
-    export function on(event: "setup", listener: (settings: any) => void): void;
-    export function on(event: string, listener: Function): any;
-    export function once(event: string, listener: Function): void;
-    export function removeListener(event: string, listener: Function): void;
-    export function removeAllListeners(event?: string): void;
-    export function setMaxListeners(n: number): void;
+    /**
+     * events.EventEmitter
+     *   1. disconnect
+     *   2. exit
+     *   3. fork
+     *   4. listening
+     *   5. message
+     *   6. online
+     *   7. setup
+     */
+    export function addListener(event: string, listener: Function): Cluster;
+    export function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
+
+    export function on(event: string, listener: Function): Cluster;
+    export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function on(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function on(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function on(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function on(event: "setup", listener: (settings: any) => void): Cluster;
+
+    export function once(event: string, listener: Function): Cluster;
+    export function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function once(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function once(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function once(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function once(event: "setup", listener: (settings: any) => void): Cluster;
+
+    export function removeListener(event: string, listener: Function): Cluster;
+    export function removeAllListeners(event?: string): Cluster;
+    export function setMaxListeners(n: number): Cluster;
+    export function getMaxListeners(): number;
     export function listeners(event: string): Function[];
     export function emit(event: string, ...args: any[]): boolean;
+    export function listenerCount(type: string): number;
+
+    export function prependListener(event: string, listener: Function): Cluster;
+    export function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function prependListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
+
+    export function prependOnceListener(event: string, listener: Function): Cluster;
+    export function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
+    export function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "listening", listener: (worker: Worker, address: Address) => void): Cluster;
+    export function prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): Cluster;  // the handle is a net.Socket or net.Server object, or undefined.
+    export function prependOnceListener(event: "online", listener: (worker: Worker) => void): Cluster;
+    export function prependOnceListener(event: "setup", listener: (settings: any) => void): Cluster;
+
+    export function eventNames(): string[];
 }
 
 declare module "zlib" {
@@ -1624,16 +1808,92 @@ declare module "fs" {
 
     interface FSWatcher extends events.EventEmitter {
         close(): void;
+        
+        /**
+         * events.EventEmitter
+         *   1. change
+         *   2. error
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        addListener(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        on(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        once(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependListener(event: "error", listener: (code: number, signal: string) => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
+        prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
     }
 
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
+        
+        /**
+         * events.EventEmitter
+         *   1. open
+         *   2. close
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "close", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "close", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
+
     export interface WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
+        
+        /**
+         * events.EventEmitter
+         *   1. open
+         *   2. close
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "open", listener: (fd: number) => void): this;
+        addListener(event: "close", listener: () => void): this;
+        
+        on(event: string, listener: Function): this;
+        on(event: "open", listener: (fd: number) => void): this;
+        on(event: "close", listener: () => void): this;
+        
+        once(event: string, listener: Function): this;
+        once(event: "open", listener: (fd: number) => void): this;
+        once(event: "close", listener: () => void): this;
+        
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "open", listener: (fd: number) => void): this;
+        prependListener(event: "close", listener: () => void): this;
+        
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "open", listener: (fd: number) => void): this;
+        prependOnceListener(event: "close", listener: () => void): this;
     }
 
     /**
