@@ -3,10 +3,11 @@
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts" />
-///<reference path="../redux/redux.d.ts"/>
+/// <reference types="react" />
+/// <reference types="redux"/>
+
 declare module "react-redux-toastr" {
-    import R = __React;
+    import R = React;
     import _Redux = Redux;
 
     interface ToastrOptions {
