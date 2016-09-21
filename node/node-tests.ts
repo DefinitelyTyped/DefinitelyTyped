@@ -1166,7 +1166,7 @@ namespace net_tests {
          */
         let _socket: net.Socket;
 
-        let bool: Boolean;
+        let bool: boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
@@ -1200,15 +1200,15 @@ namespace net_tests {
         _socket = _socket.addListener("timeout", () => { })
 
         /// emit
-        _socket = _socket.emit("close", bool);
-        _socket = _socket.emit("connect");
-        _socket = _socket.emit("data", buffer);
-        _socket = _socket.emit("drain");
-        _socket = _socket.emit("end");
-        _socket = _socket.emit("error", error);
-        _socket = _socket.emit("lookup", error, str, str, str);
-        _socket = _socket.emit("lookup", error, str, num, str);
-        _socket = _socket.emit("timeout");
+        bool = _socket.emit("close", bool);
+        bool = _socket.emit("connect");
+        bool = _socket.emit("data", buffer);
+        bool = _socket.emit("drain");
+        bool = _socket.emit("end");
+        bool = _socket.emit("error", error);
+        bool = _socket.emit("lookup", error, str, str, str);
+        bool = _socket.emit("lookup", error, str, num, str);
+        bool = _socket.emit("timeout");
 
         /// on
         _socket = _socket.on("close", had_error => {
@@ -1327,6 +1327,7 @@ namespace net_tests {
         let _server: net.Server;
 
         let _socket: net.Socket;
+        let bool: boolean;
         let error: Error;
 
         /// addListener
@@ -1340,10 +1341,10 @@ namespace net_tests {
         _server = _server.addListener("listening", () => { })
 
         /// emit
-        _server = _server.emit("close")
-        _server = _server.emit("connection", _socket)
-        _server = _server.emit("error", error)
-        _server = _server.emit("listening")
+        bool = _server.emit("close")
+        bool = _server.emit("connection", _socket)
+        bool = _server.emit("error", error)
+        bool = _server.emit("listening")
 
         /// once
         _server = _server.once("close", () => { })
