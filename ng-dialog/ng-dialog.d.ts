@@ -222,6 +222,11 @@ declare namespace angular.dialog {
 		 * If specified, the first matching element is used.
 		 */
 		ariaDescribedBySelector?: string;
+
+		/**
+		 * Specifies the width of the dialog content element. Default value is null (unspecified)
+		 */
+		width?: string|number;
 	}
 
 	/**

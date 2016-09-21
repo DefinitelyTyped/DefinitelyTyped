@@ -3,7 +3,7 @@
 // Definitions by: Gorgi Kosev <https://github.com/spion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../anydb-sql/anydb-sql.d.ts" />
 
 declare module "anydb-sql-migrations" {

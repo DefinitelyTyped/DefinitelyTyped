@@ -47,6 +47,7 @@ declare namespace Azure.MobileApps {
 
             interface Table {
                 authorize?: boolean;
+                access?: AccessType;
                 autoIncrement?: boolean;
                 dynamicSchema?: boolean;
                 name: string;
@@ -66,7 +67,10 @@ declare namespace Azure.MobileApps {
                 (operationHandler: (context: Context) => void): Table;
                 use(...middleware: Middleware[]): Table;
                 use(middleware: Middleware[]): Table;
+                access: AccessType;
             }
+
+            type AccessType = 'anonymous' | 'authenticated' | 'disabled';
 
             interface Tables {
                 configuration: Configuration;
@@ -215,12 +219,27 @@ declare namespace Azure.MobileApps {
         item: any;
         req: Express.Request;
         res: Express.Response;
-        data: (table: TableDefinition) => Data.Table;
+        data: ContextData;
         tables: (tableName: string) => Data.Table;
         user: User;
         push: typeof nh;
         logger: Logger;
         execute(): Thenable<any>;
+    }
+
+    interface ContextData {
+        (table: TableDefinition): Data.Table;
+        execute(q: SqlQueryDefinition): Thenable<any>;
+    }
+
+    interface SqlQueryDefinition {
+        sql: string;
+        parameters?: SqlParameterDefinition[];
+    }
+
+    interface SqlParameterDefinition {
+        name: string;
+        value: any;
     }
 
     interface TableDefinition {

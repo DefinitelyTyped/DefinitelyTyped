@@ -127,15 +127,33 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isOpen();
         instance.isLockedOpen();
     });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+    $scope['openToast'] = () => {
+        $mdToast.show($mdToast.simple().textContent('Hello!'));
+        $mdToast.updateTextContent('New Content');
+    }
+
+    $scope['customToast'] = () => {
+        var options = {
+            hideDelay: 3000,
+            position: 'top right',
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
+        };
+
+        $mdToast.show(options);
+    }
 });
 
 myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
     $scope['createPanel'] = () => {
         var config = {
+            id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,

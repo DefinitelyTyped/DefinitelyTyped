@@ -197,7 +197,7 @@ declare namespace __React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props?: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -276,7 +276,9 @@ declare namespace __React {
         isTrusted: boolean;
         nativeEvent: Event;
         preventDefault(): void;
+        isDefaultPrevented(): boolean;
         stopPropagation(): void;
+        isPropagationStopped(): boolean;
         persist(): void;
         target: EventTarget;
         timeStamp: Date;
@@ -1179,6 +1181,12 @@ declare namespace __React {
 
         imeMode?: any;
 
+        /**
+         * Defines how the browser distributes space between and around flex items
+         * along the main-axis of their container.
+         */
+        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+
         layoutGrid?: any;
 
         layoutGridChar?: any;
@@ -1966,7 +1974,6 @@ declare namespace __React {
         hrefLang?: string;
         htmlFor?: string;
         httpEquiv?: string;
-        icon?: string;
         id?: string;
         inputMode?: string;
         integrity?: string;

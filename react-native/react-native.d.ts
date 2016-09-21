@@ -1916,7 +1916,7 @@ declare namespace  __React {
          * The navigation view that will be rendered to the side of the
          * screen and can be pulled in.
          */
-        renderNavigationView?: () => View
+        renderNavigationView?: () => JSX.Element
 
         /**
          * Make the drawer take the entire screen and draw the background of
@@ -5976,6 +5976,20 @@ declare namespace  __React {
      */
     export var NativeModules: any
     export var NativeAppEventEmitter: NativeAppEventEmitterStatic
+
+
+    //////////// Plugins //////////////
+    export interface ComponentInterface<P> {
+        name?: string;
+        displayName?: string;
+        propTypes: P
+    }
+
+    export function requireNativeComponent<P>(
+        viewName: string,
+        componentInterface?: ComponentInterface<P>,
+        extraConfig?: {nativeOnly: Object}
+    ): React.ComponentClass<P>;
 
     //
     // /TODO: BGR: These are leftovers of the initial port that must be revisited

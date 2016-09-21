@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.0.0-rc.3
+// Type definitions for TypeScript-STL v1.0.8
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -116,13 +116,6 @@ declare namespace std {
  * @author Jeongho Nam <http://samchon.org>
  */
 declare namespace std.base {
-}
-/**
- * Examples for supporting developers who use STL library.
- *
- * @author Jeongho Nam <http://samchon.org>
- */
-declare namespace std.example {
 }
 declare namespace std {
     /**
@@ -2751,8 +2744,8 @@ declare namespace std.base {
     /**
      * <p> An abstract container. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -2872,8 +2865,8 @@ declare namespace std {
      * <p> There is not a single type of {@link Iterator bidirectional iterator}: {@link IContainer Each container}
      * may define its own specific iterator type able to iterate through it and access its elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/BidirectionalIterator
@@ -2958,18 +2951,45 @@ declare namespace std {
      * first element in a range is reversed, the reversed iterator points to the element before the first element (this
      * would be the past-the-end element of the reversed range). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/reverse_iterator
      * @author Jeongho Nam <http://samchon.org>
      */
     abstract class ReverseIterator<T, Base extends Iterator<T>, This extends ReverseIterator<T, Base, This>> extends Iterator<T> {
+        /**
+         * @hidden
+         */
         protected base_: Base;
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: Base);
+        /**
+         * <p> Return base iterator. </p>
+         *
+         * <p> Return a reference of the base iteraotr. </p>
+         *
+         * <p> The base iterator is an iterator of the same type as the one used to construct the {@link ReverseIterator},
+         * but pointing to the element next to the one the {@link ReverseIterator} is currently pointing to
+         * (a {@link ReverseIterator} has always an offset of -1 with respect to its base iterator).
+         *
+         * @return A reference of the base iterator, which iterates in the opposite direction.
+         */
         base(): Base;
-        protected abstract create_neighbor(): This;
+        /**
+         * @hidden
+         */
+        protected abstract create_neighbor(base: Base): This;
+        /**
+         * <p> Get value of the iterator is pointing. </p>
+         *
+         * @return A value of the reverse iterator.
+         */
         value: T;
         /**
          * @inheritdoc
@@ -3194,8 +3214,8 @@ declare namespace std {
      * the end, {@link Deque Deques} perform worse and have less consistent iterators and references than
      * {@link List Lists}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -3217,66 +3237,27 @@ declare namespace std {
      */
     class Deque<T> extends base.Container<T> implements base.IArrayContainer<T>, base.IDequeContainer<T> {
         /**
-         * <p> Row size of the {@link matrix_ matrix} which contains elements. </p>
-         *
-         * <p> Note that the {@link ROW} affects on time complexity of accessing and inserting element.
-         * Accessing element is {@link ROW} times slower than ordinary {@link Vector} and inserting element
-         * in middle position is {@link ROW} times faster than ordinary {@link Vector}. </p>
-         *
-         * <p> When the {@link ROW} returns 8, time complexity of accessing element is O(8) and inserting
-         * element in middle position is O(N/8). ({@link Vector}'s time complexity of accessement is O(1)
-         * and inserting element is O(N)). </p>
+         * @hidden
          */
         private static ROW;
         /**
-         * <p> Minimum {@link capacity}. </p>
-         *
-         * <p> Although a {@link Deque} has few elements, even no element is belonged to, the {@link Deque}
-         * keeps the minimum {@link capacity} at least. </p>
+         * @hidden
          */
         private static MIN_CAPACITY;
         /**
-         * <p> A matrix containing elements. </p>
-         *
-         * <p> This {@link matrix_} is the biggest difference one between {@link Vector} and {@link Deque}.
-         * Its number of rows follows {@link ROW} and number of columns follows {@link get_col_size} which
-         * returns divide of {@link capacity} and {@link ROW}. </p>
-         *
-         * By separating segment of elements (segment: row, elements in a segment: col), {@link Deque} takes
-         * advantage of time complexity on inserting element in middle position. {@link Deque} is {@link ROW}
-         * times faster than {@link Vector} when inserting elements in middle position. </p>
-         *
-         * <p> However, separating segment of elements from matrix, {@link Deque} also takes disadvantage of
-         * time complexity on accessing element. {@link Deque} is {@link ROW} times slower than {@link Vector}
-         * when accessing element. </p>
+         * @hidden
          */
         private matrix_;
         /**
-         * Number of elements in the {@link Deque}.
+         * @hidden
          */
         private size_;
         /**
-         * <p> Size of allocated storage capacity. </p>
-         *
-         * <p> The {@link capacity_ capacity} is size of the storage space currently allocated for the
-         * {@link Deque container}, expressed in terms of elements. </p>
-         *
-         * <p> This {@link capacity_ capacity} is not necessarily equal to the {@link Deque container}
-         * {@link size}. It can be equal or greater, with the extra space allowing to accommodate for growth
-         * without the need to reallocate on each insertion. </p>
-         *
-         * <p> Notice that this {@link capacity_ capacity} does not suppose a limit on the {@link size} of
-         * the {@link Deque container}. When this {@link capacity} is exhausted and more is needed, it is
-         * automatically expanded by the {@link Deque container} (reallocating it storage space).
-         * The theoretical limit on the {@link size} of a {@link Deque container} is given by member
-         * {@link max_size}. </p>
-         *
-         * <p> The {@link capacity_ capacity} of a {@link Deque container} can be explicitly altered by
-         * calling member {@link Deque.reserve}. </p>
+         * @hidden
          */
         private capacity_;
         /**
-         * Get column size; {@link capacity_ capacity} / {@link ROW row}.
+         * @hidden
          */
         private get_col_size();
         /**
@@ -3311,7 +3292,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: Deque<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -3361,6 +3342,10 @@ declare namespace std {
         /**
          * @inheritdoc
          */
+        empty(): boolean;
+        /**
+         * @inheritdoc
+         */
         capacity(): number;
         /**
          * @inheritdoc
@@ -3379,11 +3364,9 @@ declare namespace std {
          */
         back(): T;
         /**
-         * <p> Fetch row and column's index. </p>
-         *
-         * <p> Fetches index of row and column of {@link matrix_} from sequence number. </p>
-         *
-         * @param index Sequence number
+        // Fetch row and column's index.
+        /**
+         * @hidden
          */
         private fetch_index(index);
         /**
@@ -3437,11 +3420,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: DequeIterator<T>, n: number, val: T): DequeIterator<T>;
+        protected _Insert_by_repeating_val(position: DequeIterator<T>, n: number, val: T): DequeIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: DequeIterator<T>, begin: InputIterator, end: InputIterator): DequeIterator<T>;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: DequeIterator<T>, begin: InputIterator, end: InputIterator): DequeIterator<T>;
         /**
          * @hidden
          */
@@ -3465,23 +3448,37 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected erase_by_range(first: DequeIterator<T>, last: DequeIterator<T>): DequeIterator<T>;
+        protected _Erase_by_range(first: DequeIterator<T>, last: DequeIterator<T>): DequeIterator<T>;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link Deque container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link Deque container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container Deque}.
+         */
+        swap(obj: Deque<T>): void;
         /**
          * @inheritdoc
          */
         swap(obj: base.IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_deque(obj);
     }
 }
 declare namespace std {
     /**
      * <p> An iterator of {@link Deque}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -3508,6 +3505,11 @@ declare namespace std {
         private deque;
         /**
          * @inheritdoc
+         */
+        /**
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -3552,8 +3554,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Deque. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @param <T> Type of the elements.
@@ -3561,13 +3563,23 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class DequeReverseIterator<T> extends ReverseIterator<T, DequeIterator<T>, DequeReverseIterator<T>> implements base.IArrayIterator<T> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: DequeIterator<T>);
+        /**
+         * @hidden
+         */
+        protected create_neighbor(base: DequeIterator<T>): DequeReverseIterator<T>;
         /**
          * @inheritdoc
          */
-        protected create_neighbor(): DequeReverseIterator<T>;
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -3629,8 +3641,8 @@ declare namespace std {
      * <p> All objects thrown by components of the standard library are derived from this class.
      * Therefore, all standard exceptions can be caught by catching this type by reference. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/exception/exception
      * @author Jeongho Nam <http://samchon.org>
@@ -3678,8 +3690,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several logical error exceptions. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/logic_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3704,8 +3716,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a></p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/domain_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3726,8 +3738,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal invalid arguments. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/invalid_argument
      * @author Jeongho Nam <http://samchon.org>
@@ -3748,8 +3760,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library,
      * such as vector and string also throw exceptions of this type to signal errors resizing. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/length_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3771,8 +3783,8 @@ declare namespace std {
      * such as vector, deque, string and bitset also throw exceptions of this type to signal arguments
      * out of range. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/out_of_range
      * @author Jeongho Nam <http://samchon.org>
@@ -3793,8 +3805,8 @@ declare namespace std {
      *
      * <p> It is used as a base class for several runtime error exceptions. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/runtime_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3815,8 +3827,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/overflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3837,8 +3849,8 @@ declare namespace std {
      * <p> No component of the standard library throws exceptions of this type. It is designed as a standard
      * exception to be thrown by programs. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/underflow_error
      * @author Jeongho Nam <http://samchon.org>
@@ -3860,8 +3872,8 @@ declare namespace std {
      * <p> It is a standard exception that can be thrown by programs. Some components of the standard library
      * also throw exceptions of this type to signal range errors. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/stdexcept/range_error
      * @author Jeongho Nam <http://samchon.org>
@@ -4422,8 +4434,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -4445,7 +4457,7 @@ declare namespace std.base {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    abstract class MapContainer<Key, T> extends base.Container<Pair<Key, T>> {
+    abstract class MapContainer<Key, T> extends Container<Pair<Key, T>> {
         /**
          * <p> {@link List} storing elements. </p>
          *
@@ -4454,45 +4466,11 @@ declare namespace std.base {
          * by storing {@link ListIterator iterators} ({@link MapIterator} references {@link ListIterator}) who are
          * created from {@link data_ here}. </p>
          */
-        protected data_: List<Pair<Key, T>>;
+        private data_;
         /**
          * Default Constructor.
          */
         constructor();
-        /**
-         * Construct from elements.
-         */
-        constructor(items: Array<Pair<Key, T>>);
-        /**
-         * Contruct from tuples.
-         *
-         * @param array Tuples to be contained.
-         */
-        constructor(array: Array<[Key, T]>);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: IContainer<Pair<Key, T>>);
-        /**
-         * Construct from range iterators.
-         */
-        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<Pair<Key, T> | [Key, T]>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: IContainer<Pair<Key, T>>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range<InputIterator extends Iterator<Pair<Key, T>>>(begin: InputIterator, end: InputIterator): void;
         /**
          * @inheritdoc
          */
@@ -4602,6 +4580,7 @@ declare namespace std.base {
          * Return the number of elements in the map.
          */
         size(): number;
+        protected _Get_data(): List<Pair<Key, T>>;
         /**
          * @inheritdoc
          */
@@ -4677,7 +4656,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_pair<L extends Key, U extends T>(pair: Pair<L, U>): any;
+        protected abstract _Insert_by_pair<L extends Key, U extends T>(pair: Pair<L, U>): any;
         /**
          * @hidden
          */
@@ -4685,7 +4664,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected abstract _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
@@ -4693,7 +4672,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected abstract _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * <p> Erase an elemet by key. </p>
          *
@@ -4792,7 +4771,7 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected abstract _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
@@ -4813,15 +4792,19 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected abstract _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * @hidden
+         */
+        protected _Swap(obj: MapContainer<Key, T>): void;
     }
 }
 declare namespace std {
     /**
      * <p> An iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4891,14 +4874,22 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class MapReverseIterator<Key, T> extends ReverseIterator<Pair<Key, T>, MapIterator<Key, T>, MapReverseIterator<Key, T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: MapIterator<Key, T>);
-        protected create_neighbor(): MapReverseIterator<Key, T>;
+        /**
+         * @hidden
+         */
+        protected create_neighbor(base: MapIterator<Key, T>): MapReverseIterator<Key, T>;
         /**
          * Get first, key element.
          */
@@ -4931,8 +4922,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5159,24 +5150,6 @@ declare namespace std.base {
          * @hidden
          */
         private insert_or_assign_with_hint(hint, key, value);
-        /**
-         * <p> Swap content. </p>
-         *
-         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
-         * {@link UniqueMap map} of the same type. Sizes abd container type may differ. </p>
-         *
-         * <p> After the call to this member function, the elements in this container are those which were
-         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
-         * iterators, references and pointers remain valid for the swapped objects. </p>
-         *
-         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
-         * algorithm with an optimization that behaves like this member function. </p>
-         *
-         * @param obj Another {@link UniqueMap map container} of the same type of elements as this (i.e.,
-         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
-         *			  with that of this {@link UniqueMap container}.
-         */
-        swap(obj: UniqueMap<Key, T>): void;
     }
 }
 declare namespace std.base {
@@ -5198,8 +5171,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5267,24 +5240,6 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * <p> Swap content. </p>
-         *
-         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
-         * {@link UniqueMap map} of the same type. Sizes abd container type may differ. </p>
-         *
-         * <p> After the call to this member function, the elements in this container are those which were
-         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
-         * iterators, references and pointers remain valid for the swapped objects. </p>
-         *
-         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
-         * algorithm with an optimization that behaves like this member function. </p>
-         *
-         * @param obj Another {@link MultiMap map container} of the same type of elements as this (i.e.,
-         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
-         *			  with that of this {@link MultiMap container}.
-         */
-        swap(obj: MultiMap<Key, T>): void;
     }
 }
 declare namespace std.HashMap {
@@ -5311,8 +5266,8 @@ declare namespace std {
      * <p> {@link HashMap} containers are faster than {@link TreeMap} containers to access individual elements by their
      * <i>key</i>, although they are generally less efficient for range iteration through a subset of their elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5342,15 +5297,32 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashMap<Key, T> extends base.UniqueMap<Key, T> implements base.IHashMap<Key, T> {
+        /**
+         * @hidden
+         */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<Pair<Key, T>>): void;
+        constructor(items: Pair<Key, T>[]);
+        /**
+         * Contruct from tuples.
+         *
+         * @param array Tuples to be contained.
+         */
+        constructor(array: [Key, T][]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMap<Key, T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
         /**
          * @inheritdoc
          */
@@ -5422,31 +5394,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMap container}.
+         */
+        swap(obj: HashMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_hash_map(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.HashMultiMap {
@@ -5457,15 +5443,15 @@ declare namespace std {
     /**
      * <p> Hashed, unordered Multimap. </p>
      *
-     * <p> {@link HashMap}s are associative containers that store elements formed by the combination of
-     * a <i>key value</i> and a <i>mapped value</i>, much like {@link HashMap} containers, but allowing
+     * <p> {@link HashMultiMap}s are associative containers that store elements formed by the combination of
+     * a <i>key value</i> and a <i>mapped value</i>, much like {@link HashMultiMap} containers, but allowing
      * different elements to have equivalent <i>keys</i>. </p>
      *
-     * <p> In an {@link HashMap}, the <i>key value</i> is generally used to uniquely identify the
+     * <p> In an {@link HashMultiMap}, the <i>key value</i> is generally used to uniquely identify the
      * element, while the <i>mapped value</i> is an object with the content associated to this <i>key</i>.
      * Types of <i>key</i> and <i>mapped value</i> may differ. </p>
      *
-     * <p> Internally, the elements in the {@link HashMap} are not sorted in any particular order with
+     * <p> Internally, the elements in the {@link HashMultiMap} are not sorted in any particular order with
      * respect to either their <i>key</i> or <i>mapped values</i>, but organized into <i>buckets</i> depending on
      * their hash values to allow for fast access to individual elements directly by their <i>key values</i>
      * (with a constant average time complexity on average). </p>
@@ -5473,8 +5459,8 @@ declare namespace std {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5496,26 +5482,40 @@ declare namespace std {
      * </dl>
      *
      * @param <Key> Type of the key values.
-     *				Each element in an {@link HashMap} is identified by a key value.
+     *				Each element in an {@link HashMultiMap} is identified by a key value.
      * @param <T> Type of the mapped value.
-     *			  Each element in an {@link HashMap} is used to store some data as its mapped value.
+     *			  Each element in an {@link HashMultiMap} is used to store some data as its mapped value.
      *
      * @reference http://www.cplusplus.com/reference/unordered_map/unordered_multimap
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashMultiMap<Key, T> extends base.MultiMap<Key, T> {
         /**
-         *
+         * @hidden
          */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<Pair<Key, T>>): void;
+        constructor(items: Pair<Key, T>[]);
+        /**
+         * Contruct from tuples.
+         *
+         * @param array Tuples to be contained.
+         */
+        constructor(array: [Key, T][]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMultiMap<Key, T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<Pair<Key, T>>, end: Iterator<Pair<Key, T>>);
         /**
          * @inheritdoc
          */
@@ -5591,31 +5591,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMultiMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMultiMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMultiMap container}.
+         */
+        swap(obj: HashMultiMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.MultiMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_hash_multimap(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.base {
@@ -5633,8 +5647,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5662,39 +5676,11 @@ declare namespace std.base {
          * by storing {@link ListIterator iterators} ({@link SetIterator} references {@link ListIterator}) who are
          * created from {@link data_ here}. </p>
          */
-        protected data_: List<T>;
+        private data_;
         /**
          * Default Constructor.
          */
         constructor();
-        /**
-         * Construct from elements.
-         */
-        constructor(items: Array<T>);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: IContainer<T>);
-        /**
-         * Construct from range iterators.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range<InputIterator extends Iterator<T>>(begin: InputIterator, end: InputIterator): void;
         /**
          * @inheritdoc
          */
@@ -5759,6 +5745,10 @@ declare namespace std.base {
          */
         size(): number;
         /**
+         * @hidden
+         */
+        _Get_data(): List<T>;
+        /**
          * @inheritdoc
          */
         push<U extends T>(...args: U[]): number;
@@ -5801,15 +5791,15 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        protected abstract insert_by_val(val: T): any;
+        protected abstract _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected abstract insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected abstract _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected abstract insert_by_range<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        protected abstract _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
         /**
          * <p> Erase an element. </p>
          * <p> Removes from the set container the elements whose value is <i>key</i>. </p>
@@ -5882,7 +5872,7 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected abstract _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
@@ -5903,15 +5893,19 @@ declare namespace std.base {
          *			   [<i>first</i>, <i>last</i>), which contains all the elements between <i>first</i> and <i>last</i>,
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
-        protected abstract handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected abstract _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @hidden
+         */
+        protected _Swap(obj: SetContainer<T>): void;
     }
 }
 declare namespace std {
     /**
      * <p> An iterator of a Set. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -5969,19 +5963,274 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Set. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @param <T> Type of the elements.
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class SetReverseIterator<T> extends ReverseIterator<T, SetIterator<T>, SetReverseIterator<T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: SetIterator<T>);
+        /**
+         * @hidden
+         */
+        protected create_neighbor(base: SetIterator<T>): SetReverseIterator<T>;
+    }
+}
+declare namespace std.base {
+    /**
+     * <p> An abstract set. </p>
+     *
+     * <p> {@link SetContainer SetContainers} are containers that store elements allowing fast retrieval of
+     * individual elements based on their value. </p>
+     *
+     * <p> In an {@link SetContainer}, the value of an element is at the same time its <i>key</i>, used to
+     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link SetContainer} cannot be
+     * modified once in the container - they can be inserted and removed, though. </p>
+     *
+     * <p> {@link SetContainer} stores elements, keeps sequence and enables indexing by inserting elements into a
+     * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
+     * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd>
+     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		position in the container.
+     *	</dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Multiple equivalent keys </dt>
+     *	<dd> Multiple elements in the container can have equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements. Each element in a {@link SetContainer} container is also identified
+     *			  by this value (each value is itself also the element's <i>key</i>).
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class MultiSet<T> extends SetContainer<T> {
+        /**
+         * <p> Insert an element. </p>
+         *
+         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
+         * the number of elements inserted. </p>
+         *
+         * @param key Value to be inserted as an element.
+         *
+         * @return An iterator to the newly inserted element.
+         */
+        insert(val: T): SetIterator<T>;
         /**
          * @inheritdoc
          */
-        protected create_neighbor(): SetReverseIterator<T>;
+        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+    }
+}
+declare namespace std.HashMultiSet {
+    type iterator<T> = std.SetIterator<T>;
+    type reverse_iterator<T> = std.SetReverseIterator<T>;
+}
+declare namespace std {
+    /**
+     * <p> Hashed, unordered Multiset. </p>
+     *
+     * <p> {@link HashMultiSet HashMultiSets} are containers that store elements in no particular order, allowing fast
+     * retrieval of individual elements based on their value, much like {@link HashMultiSet} containers,
+     * but allowing different elements to have equivalent values. </p>
+     *
+     * <p> In an {@link HashMultiSet}, the value of an element is at the same time its <i>key</i>, used to
+     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link HashMultiSet} cannot be
+     * modified once in the container - they can be inserted and removed, though. </p>
+     *
+     * <p> Internally, the elements in the {@link HashMultiSet} are not sorted in any particular, but
+     * organized into <i>buckets</i> depending on their hash values to allow for fast access to individual
+     * elements directly by their <i>values</i> (with a constant average time complexity on average). </p>
+     *
+     * <p> Elements with equivalent values are grouped together in the same bucket and in such a way that an
+     * iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		 position in the container. </dd>
+     *
+     *	<dt> Hashed </dt>
+     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
+     *		 by their <i>key</i>. </dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Multiple equivalent keys </dt>
+     *	<dd> The container can hold multiple elements with equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *		   Each element in an {@link UnorderedMultiSet} is also identified by this value..
+     *
+     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_multiset
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class HashMultiSet<T> extends base.MultiSet<T> {
+        /**
+         * @hidden
+         */
+        private hash_buckets_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from elements.
+         */
+        constructor(items: T[]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashMultiSet<T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * @inheritdoc
+         */
+        clear(): void;
+        /**
+         * @inheritdoc
+         */
+        find(key: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        count(key: T): number;
+        /**
+         * @inheritdoc
+         */
+        begin(): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        begin(index: number): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        end(): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        end(index: number): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rbegin(): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rbegin(index: number): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rend(): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        rend(index: number): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        bucket_count(): number;
+        /**
+         * @inheritdoc
+         */
+        bucket_size(n: number): number;
+        /**
+         * @inheritdoc
+         */
+        max_load_factor(): number;
+        /**
+         * @inheritdoc
+         */
+        max_load_factor(z: number): void;
+        /**
+         * @inheritdoc
+         */
+        bucket(key: T): number;
+        /**
+         * @inheritdoc
+         */
+        reserve(n: number): void;
+        /**
+         * @inheritdoc
+         */
+        rehash(n: number): void;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_val(val: T): any;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashMultiSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashMultiSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashMultiSet container}.
+         */
+        swap(obj: HashMultiSet<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std.base {
@@ -5999,8 +6248,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6103,78 +6352,6 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: UniqueSet<T>): void;
-    }
-}
-declare namespace std.base {
-    /**
-     * <p> An abstract set. </p>
-     *
-     * <p> {@link SetContainer SetContainers} are containers that store elements allowing fast retrieval of
-     * individual elements based on their value. </p>
-     *
-     * <p> In an {@link SetContainer}, the value of an element is at the same time its <i>key</i>, used to
-     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link SetContainer} cannot be
-     * modified once in the container - they can be inserted and removed, though. </p>
-     *
-     * <p> {@link SetContainer} stores elements, keeps sequence and enables indexing by inserting elements into a
-     * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
-     * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd>
-     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		position in the container.
-     *	</dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Multiple equivalent keys </dt>
-     *	<dd> Multiple elements in the container can have equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements. Each element in a {@link SetContainer} container is also identified
-     *			  by this value (each value is itself also the element's <i>key</i>).
-     *
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    abstract class MultiSet<T> extends SetContainer<T> {
-        /**
-         * <p> Insert an element. </p>
-         *
-         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
-         * the number of elements inserted. </p>
-         *
-         * @param key Value to be inserted as an element.
-         *
-         * @return An iterator to the newly inserted element.
-         */
-        insert(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: MultiSet<T>): void;
     }
 }
 declare namespace std.HashSet {
@@ -6200,8 +6377,8 @@ declare namespace std {
      * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
      * subset of their elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -6226,16 +6403,27 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/unordered_set/unordered_set
      * @author Jeongho Nam <http://samchon.org>
      */
-    class HashSet<T> extends base.UniqueSet<T> {
+    class HashSet<T> extends base.UniqueSet<T> implements base.IHashSet<T> {
+        /**
+         * @hidden
+         */
         private hash_buckets_;
         /**
-         * @hidden
+         * Default Constructor.
          */
-        protected init(): void;
+        constructor();
         /**
-         * @hidden
+         * Construct from elements.
          */
-        protected construct_from_array(items: Array<T>): void;
+        constructor(items: T[]);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: HashSet<T>);
+        /**
+         * Construct from range iterators.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
         /**
          * @inheritdoc
          */
@@ -6307,192 +6495,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
+        protected _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link HashSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link HashSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link HashSet container}.
+         */
+        swap(obj: HashSet<T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
-    }
-}
-declare namespace std.HashMultiSet {
-    type iterator<T> = std.SetIterator<T>;
-    type reverse_iterator<T> = std.SetReverseIterator<T>;
-}
-declare namespace std {
-    /**
-     * <p> Hashed, unordered Multiset. </p>
-     *
-     * <p> {@link HashMultiSet HashMultiSets} are containers that store elements in no particular order, allowing fast
-     * retrieval of individual elements based on their value, much like {@link HashSet} containers,
-     * but allowing different elements to have equivalent values. </p>
-     *
-     * <p> In an {@link HashMultiSet}, the value of an element is at the same time its <i>key</i>, used to
-     * identify it. <i>Keys</i> are immutable, therefore, the elements in an {@link HashMultiSet} cannot be
-     * modified once in the container - they can be inserted and removed, though. </p>
-     *
-     * <p> Internally, the elements in the {@link HashMultiSet} are not sorted in any particular, but
-     * organized into <i>buckets</i> depending on their hash values to allow for fast access to individual
-     * elements directly by their <i>values</i> (with a constant average time complexity on average). </p>
-     *
-     * <p> Elements with equivalent values are grouped together in the same bucket and in such a way that an
-     * iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd> Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		 position in the container. </dd>
-     *
-     *	<dt> Hashed </dt>
-     *	<dd> Hashed containers organize their elements using hash tables that allow for fast access to elements
-     *		 by their <i>key</i>. </dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Multiple equivalent keys </dt>
-     *	<dd> The container can hold multiple elements with equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements.
-     *		   Each element in an {@link UnorderedMultiSet} is also identified by this value..
-     *
-     * @reference http://www.cplusplus.com/reference/unordered_set/unordered_multiset
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class HashMultiSet<T> extends base.MultiSet<T> {
-        private hash_buckets_;
-        /**
-         * @hidden
-         */
-        protected init(): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @inheritdoc
-         */
-        clear(): void;
-        /**
-         * @inheritdoc
-         */
-        find(key: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        count(key: T): number;
-        /**
-         * @inheritdoc
-         */
-        begin(): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        begin(index: number): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        end(): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        end(index: number): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rbegin(): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rbegin(index: number): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rend(): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        rend(index: number): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        bucket_count(): number;
-        /**
-         * @inheritdoc
-         */
-        bucket_size(n: number): number;
-        /**
-         * @inheritdoc
-         */
-        max_load_factor(): number;
-        /**
-         * @inheritdoc
-         */
-        max_load_factor(z: number): void;
-        /**
-         * @inheritdoc
-         */
-        bucket(key: T): number;
-        /**
-         * @inheritdoc
-         */
-        reserve(n: number): void;
-        /**
-         * @inheritdoc
-         */
-        rehash(n: number): void;
-        /**
-         * @hidden
-         */
-        protected insert_by_val(val: T): any;
-        /**
-         * @hidden
-         */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @hidden
-         */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.MultiSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std.List {
@@ -6523,8 +6564,8 @@ declare namespace std {
      * distance between these. They also consume some extra memory to keep the linking information associated to each
      * element (which may be an important factor for large lists of small-sized elements). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -6546,17 +6587,17 @@ declare namespace std {
      */
     class List<T> extends base.Container<T> implements base.IDequeContainer<T> {
         /**
-         * An iterator of beginning.
+         * @hidden
          */
-        protected begin_: ListIterator<T>;
+        private begin_;
         /**
-         * An iterator of end.
+         * @hidden
          */
-        protected end_: ListIterator<T>;
+        private end_;
         /**
-         * Number of elements in the {@link List}.
+         * @hidden
          */
-        protected size_: number;
+        private size_;
         /**
          * <p> Default Constructor. </p>
          *
@@ -6589,7 +6630,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: List<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -6779,11 +6820,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: ListIterator<T>, size: number, val: T): ListIterator<T>;
+        protected _Insert_by_repeating_val(position: ListIterator<T>, size: number, val: T): ListIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: ListIterator<T>, begin: InputIterator, end: InputIterator): ListIterator<T>;
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: ListIterator<T>, begin: InputIterator, end: InputIterator): ListIterator<T>;
         /**
          * <p> Erase an element. </p>
          *
@@ -6853,7 +6894,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected erase_by_range(first: ListIterator<T>, last: ListIterator<T>): ListIterator<T>;
+        protected _Erase_by_range(first: ListIterator<T>, last: ListIterator<T>): ListIterator<T>;
         /**
          * <p> Remove duplicate values. </p>
          *
@@ -7083,21 +7124,43 @@ declare namespace std {
          */
         sort(compare: (left: T, right: T) => boolean): void;
         /**
-         * @inheritdoc
+         * @hidden
          */
-        swap(obj: base.IContainer<T>): void;
+        private qsort(first, last, compare);
         /**
          * @hidden
          */
-        private swap_list(obj);
+        private partition(first, last, compare);
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link List container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link List container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container List}.
+         */
+        swap(obj: List<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std {
     /**
      * <p> An iterator, node of a List. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -7119,14 +7182,6 @@ declare namespace std {
          * @param value Value to be stored in the node (iterator).
          */
         constructor(source: List<T>, prev: ListIterator<T>, next: ListIterator<T>, value: T);
-        /**
-         * @inheritdoc
-         */
-        set_prev(it: ListIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        set_next(next: ListIterator<T>): void;
         private list();
         /**
          * @inheritdoc
@@ -7143,7 +7198,20 @@ declare namespace std {
         /**
          * @inheritdoc
          */
+        /**
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
+         */
         value: T;
+        /**
+         * @hidden
+         */
+        _Set_prev(it: ListIterator<T>): void;
+        /**
+         * @hidden
+         */
+        _Set_next(it: ListIterator<T>): void;
         /**
          * @inheritdoc
          */
@@ -7158,8 +7226,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of List. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of the elements.
@@ -7167,15 +7235,211 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class ListReverseIterator<T> extends ReverseIterator<T, ListIterator<T>, ListReverseIterator<T>> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: ListIterator<T>);
         /**
-         * @inheritdoc
+         * @hidden
          */
-        protected create_neighbor(): ListReverseIterator<T>;
+        protected create_neighbor(base: ListIterator<T>): ListReverseIterator<T>;
         /**
          * @inheritdoc
          */
+        /**
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
+         */
         value: T;
+    }
+}
+declare namespace std {
+    /**
+     * <p> Priority queue. </p>
+     *
+     * <p> {@link PriorityQueue Priority queues} are a type of container adaptors, specifically designed such that its
+     * first element is always the greatest of the elements it contains, according to some <i>strict weak ordering</i>
+     * criterion. </p>
+     *
+     * <p> This context is similar to a <i>heap</i>, where elements can be inserted at any moment, and only the
+     * <i>max heap</i> element can be retrieved (the one at the top in the {@link PriorityQueue priority queue}). </p>
+     *
+     * <p> {@link PriorityQueue Priority queues} are implemented as <i>container adaptors</i>, which are classes that
+     * use an encapsulated object of a specific container class as its {@link container_ underlying container},
+     * providing a specific set of member functions to access its elements. Elements are popped from the <i>"back"</i>
+     * of the specific container, which is known as the <i>top</i> of the {@link PriorityQueue Priority queue}. </p>
+     *
+     * <p> The {@link container_ underlying container} may be any of the standard container class templates or some
+     * other specifically designed container class. The container shall be accessible through
+     * {@link IArrayIterator random access iterators} and support the following operations: </p>
+     *
+     * <ul>
+     *	<li> empty() </li>
+     *	<li> size() </li>
+     *	<li> front() </li>
+     *	<li> push_back() </li>
+     *	<li> pop_back() </li>
+     * </ul>
+     *
+     * <p> The standard container classes {@link Vector} and {@link Deque} fulfill these requirements. By default, if
+     * no container class is specified for a particular {@link PriorityQueue} class instantiation, the standard
+     * container {@link Vector} is used. </p>
+     *
+     * <p> Support of {@link IArrayIterator random access iterators} is required to keep a heap structure internally
+     * at all times. This is done automatically by the container adaptor by automatically calling the algorithm
+     * functions <i>make_heap</i>, <i>push_heap</i> and <i>pop_heap</i> when needed. </p>
+     *
+     * @param <T> Type of the elements.
+     *
+     * @reference http://www.cplusplus.com/reference/queue/priority_queue/
+     * @author Jeongho Nam
+     */
+    class PriorityQueue<T> {
+        /**
+         * <p> The <i>underlying container</i> for implementing the <i>priority queue</i>. </p>
+         *
+         * <p> Following standard definition from the C++ committee, the <i>underlying container</i> should be one of
+         * {@link Vector} or {@link Deque}, however, I've adopted {@link TreeMultiSet} instead of them. Of course,
+         * there are proper reasons for adapting the {@link TreeMultiSet} even violating standard advice. </p>
+         *
+         * <p> <i>Underlying container</i> of {@link PriorityQueue} must keep a condition; the highest (or lowest)
+         * element must be placed on the terminal node for fast retrieval and deletion. To keep the condition with
+         * {@link Vector} or {@link Deque}, lots of times will only be spent for re-arranging elements. It calls
+         * rearrangement functions like <i>make_heap</i>, <i>push_heap</i> and <i>pop_head</i> for rearrangement. </p>
+         *
+         * <p> However, the {@link TreeMultiSet} container always keeps arrangment automatically without additional
+         * operations and it even meets full criteria of {@link PriorityQueue}. Those are the reason why I've adopted
+         * {@link TreeMultiSet} as the <i>underlying container</i> of {@link PriorityQueue}. </p>
+         */
+        private container_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from compare.
+         *
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(compare: (left: T, right: T) => boolean);
+        /**
+         * Contruct from elements.
+         *
+         * @param array Elements to be contained.
+         */
+        constructor(array: Array<T>);
+        /**
+         * Contruct from elements with compare.
+         *
+         * @param array Elements to be contained.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: base.IContainer<T>);
+        /**
+         * Copy Constructor with compare.
+         *
+         * @param container A container to be copied.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(container: base.IContainer<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * Range Constructor.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * Range Constructor with compare.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
+        /**
+         * <p> Return size. </p>
+         *
+         * <p> Returns the number of elements in the {@link PriorityQueue}. </p>
+         *
+         * <p> This member function effectively calls member {@link IArray.size size} of the
+         * {@link container_ underlying container} object. </p>
+         *
+         * @return The number of elements in the underlying
+         */
+        size(): number;
+        /**
+         * <p> Test whether container is empty. </p>
+         *
+         * <p> Returns whether the {@link PriorityQueue} is empty: i.e. whether its {@link size} is zero. </p>
+         *
+         * <p> This member function effectively calls member {@link IARray.empty empty} of the
+         * {@link container_ underlying container} object. </p>
+         */
+        empty(): boolean;
+        /**
+         * <p> Access top element. </p>
+         *
+         * <p> Returns a constant reference to the top element in the {@link PriorityQueue}. </p>
+         *
+         * <p> The top element is the element that compares higher in the {@link PriorityQueue}, and the next that is
+         * removed from the container when {@link PriorityQueue.pop} is called. </p>
+         *
+         * <p> This member function effectively calls member {@link IArray.front front} of the
+         * {@link container_ underlying container} object. </p>
+         *
+         * @return A reference to the top element in the {@link PriorityQueue}.
+         */
+        top(): T;
+        /**
+         * <p> Insert element. </p>
+         *
+         * <p> Inserts a new element in the {@link PriorityQueue}. The content of this new element is initialized to
+         * <i>val</i>.
+         *
+         * <p> This member function effectively calls the member function {@link IArray.push_back push_back} of the
+         * {@link container_ underlying container} object, and then reorders it to its location in the heap by calling
+         * the <i>push_heap</i> algorithm on the range that includes all the elements of the  </p>
+         *
+         * @param val Value to which the inserted element is initialized.
+         */
+        push(val: T): void;
+        /**
+         * <p> Remove top element. </p>
+         *
+         * <p> Removes the element on top of the {@link PriorityQueue}, effectively reducing its {@link size} by one.
+         * The element removed is the one with the highest (or lowest) value. </p>
+         *
+         * <p> The value of this element can be retrieved before being popped by calling member
+         * {@link PriorityQueue.top}. </p>
+         *
+         * <p> This member function effectively calls the <i>pop_heap</i> algorithm to keep the heap property of
+         * {@link PriorityQueue PriorityQueues} and then calls the member function {@link IArray.pop_back pop_back} of
+         * the {@link container_ underlying container} object to remove the element. </p>
+         */
+        pop(): void;
+        /**
+         * <p> Swap contents. </p>
+         *
+         * <p> Exchanges the contents of the container adaptor by those of <i>obj</i>, swapping both the
+         * {@link container_ underlying container} value and their comparison function using the corresponding
+         * {@link std.swap swap} non-member functions (unqualified). </p>
+         *
+         * <p> This member function has a <i>noexcept</i> specifier that matches the combined <i>noexcept</i> of the
+         * {@link IArray.swap swap} operations on the {@link container_ underlying container} and the comparison
+         * functions. </p>
+         *
+         * @param obj {@link PriorityQueue} container adaptor of the same type (i.e., instantiated with the same
+         *			  template parameters, <b>T</b>). Sizes may differ.
+         */
+        swap(obj: PriorityQueue<T>): void;
     }
 }
 declare namespace std {
@@ -7208,8 +7472,8 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Queue} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of elements.
@@ -7316,204 +7580,6 @@ declare namespace std {
 }
 declare namespace std {
     /**
-     * <p> Priority queue. </p>
-     *
-     * <p> {@link PriorityQueue Priority queues} are a type of container adaptors, specifically designed such that its
-     * first element is always the greatest of the elements it contains, according to some <i>strict weak ordering</i>
-     * criterion. </p>
-     *
-     * <p> This context is similar to a <i>heap</i>, where elements can be inserted at any moment, and only the
-     * <i>max heap</i> element can be retrieved (the one at the top in the {@link PriorityQueue priority queue}). </p>
-     *
-     * <p> {@link PriorityQueue Priority queues} are implemented as <i>container adaptors</i>, which are classes that
-     * use an encapsulated object of a specific container class as its {@link container_ underlying container},
-     * providing a specific set of member functions to access its elements. Elements are popped from the <i>"back"</i>
-     * of the specific container, which is known as the <i>top</i> of the {@link PriorityQueue Priority queue}. </p>
-     *
-     * <p> The {@link container_ underlying container} may be any of the standard container class templates or some
-     * other specifically designed container class. The container shall be accessible through
-     * {@link IArrayIterator random access iterators} and support the following operations: </p>
-     *
-     * <ul>
-     *	<li> empty() </li>
-     *	<li> size() </li>
-     *	<li> front() </li>
-     *	<li> push_back() </li>
-     *	<li> pop_back() </li>
-     * </ul>
-     *
-     * <p> The standard container classes {@link Vector} and {@link Deque} fulfill these requirements. By default, if
-     * no container class is specified for a particular {@link PriorityQueue} class instantiation, the standard
-     * container {@link Vector} is used. </p>
-     *
-     * <p> Support of {@link IArrayIterator random access iterators} is required to keep a heap structure internally
-     * at all times. This is done automatically by the container adaptor by automatically calling the algorithm
-     * functions <i>make_heap</i>, <i>push_heap</i> and <i>pop_heap</i> when needed. </p>
-     *
-     * @param <T> Type of the elements.
-     *
-     * @reference http://www.cplusplus.com/reference/queue/priority_queue/
-     * @author Jeongho Nam
-     */
-    class PriorityQueue<T> {
-        /**
-         * <p> The <i>underlying container</i> for implementing the <i>priority queue</i>. </p>
-         *
-         * <p> Following standard definition from the C++ committee, the <i>underlying container</i> should be one of
-         * {@link Vector} or {@link Deque}, however, I've adopted {@link TreeMultiSet} instead of them. Of course,
-         * there are proper reasons for adapting the {@link TreeMultiSet} even violating standard advice. </p>
-         *
-         * <p> <i>Underlying container</i> of {@link PriorityQueue} must keep a condition; the highest (or lowest)
-         * element must be placed on the terminal node for fast retrieval and deletion. To keep the condition with
-         * {@link Vector} or {@link Deque}, lots of times will only be spent for re-arranging elements. It calls
-         * rearrangement functions like <i>make_heap</i>, <i>push_heap</i> and <i>pop_head</i> for rearrangement. </p>
-         *
-         * <p> However, the {@link TreeMultiSet} container always keeps arrangment automatically without additional
-         * operations and it even meets full criteria of {@link PriorityQueue}. Those are the reason why I've adopted
-         * {@link TreeMultiSet} as the <i>underlying container</i> of {@link PriorityQueue}. </p>
-         */
-        private container_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from compare.
-         *
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(compare: (left: T, right: T) => boolean);
-        /**
-         * Contruct from elements.
-         *
-         * @param array Elements to be contained.
-         */
-        constructor(array: Array<T>);
-        /**
-         * Contruct from elements with compare.
-         *
-         * @param array Elements to be contained.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(array: Array<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: base.Container<T>);
-        /**
-         * Copy Constructor with compare.
-         *
-         * @param container A container to be copied.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(container: base.Container<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * Range Constructor.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * Range Constructor with compare.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (left: T, right: T) => boolean);
-        /**
-         * @hidden
-         */
-        protected construct_from_array(items: Array<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_container(container: base.IContainer<T>): void;
-        /**
-         * @hidden
-         */
-        protected construct_from_range(begin: Iterator<T>, end: Iterator<T>): void;
-        /**
-         * <p> Return size. </p>
-         *
-         * <p> Returns the number of elements in the {@link PriorityQueue}. </p>
-         *
-         * <p> This member function effectively calls member {@link IArray.size size} of the
-         * {@link container_ underlying container} object. </p>
-         *
-         * @return The number of elements in the underlying
-         */
-        size(): number;
-        /**
-         * <p> Test whether container is empty. </p>
-         *
-         * <p> Returns whether the {@link PriorityQueue} is empty: i.e. whether its {@link size} is zero. </p>
-         *
-         * <p> This member function effectively calls member {@link IARray.empty empty} of the
-         * {@link container_ underlying container} object. </p>
-         */
-        empty(): boolean;
-        /**
-         * <p> Access top element. </p>
-         *
-         * <p> Returns a constant reference to the top element in the {@link PriorityQueue}. </p>
-         *
-         * <p> The top element is the element that compares higher in the {@link PriorityQueue}, and the next that is
-         * removed from the container when {@link PriorityQueue.pop} is called. </p>
-         *
-         * <p> This member function effectively calls member {@link IArray.front front} of the
-         * {@link container_ underlying container} object. </p>
-         *
-         * @return A reference to the top element in the {@link PriorityQueue}.
-         */
-        top(): T;
-        /**
-         * <p> Insert element. </p>
-         *
-         * <p> Inserts a new element in the {@link PriorityQueue}. The content of this new element is initialized to
-         * <i>val</i>.
-         *
-         * <p> This member function effectively calls the member function {@link IArray.push_back push_back} of the
-         * {@link container_ underlying container} object, and then reorders it to its location in the heap by calling
-         * the <i>push_heap</i> algorithm on the range that includes all the elements of the  </p>
-         *
-         * @param val Value to which the inserted element is initialized.
-         */
-        push(val: T): void;
-        /**
-         * <p> Remove top element. </p>
-         *
-         * <p> Removes the element on top of the {@link PriorityQueue}, effectively reducing its {@link size} by one.
-         * The element removed is the one with the highest (or lowest) value. </p>
-         *
-         * <p> The value of this element can be retrieved before being popped by calling member
-         * {@link PriorityQueue.top}. </p>
-         *
-         * <p> This member function effectively calls the <i>pop_heap</i> algorithm to keep the heap property of
-         * {@link PriorityQueue PriorityQueues} and then calls the member function {@link IArray.pop_back pop_back} of
-         * the {@link container_ underlying container} object to remove the element. </p>
-         */
-        pop(): void;
-        /**
-         * <p> Swap contents. </p>
-         *
-         * <p> Exchanges the contents of the container adaptor by those of <i>obj</i>, swapping both the
-         * {@link container_ underlying container} value and their comparison function using the corresponding
-         * {@link std.swap swap} non-member functions (unqualified). </p>
-         *
-         * <p> This member function has a <i>noexcept</i> specifier that matches the combined <i>noexcept</i> of the
-         * {@link IArray.swap swap} operations on the {@link container_ underlying container} and the comparison
-         * functions. </p>
-         *
-         * @param obj {@link PriorityQueue} container adaptor of the same type (i.e., instantiated with the same
-         *			  template parameters, <b>T</b>). Sizes may differ.
-         */
-        swap(obj: PriorityQueue<T>): void;
-    }
-}
-declare namespace std {
-    /**
      * <p> LIFO stack. </p>
      *
      * <p> {@link Stack}s are a type of container adaptor, specifically designed to operate in a LIFO context
@@ -7540,8 +7606,8 @@ declare namespace std {
      * By default, if no container class is specified for a particular {@link Stack} class instantiation, the standard
      * container {@link List} is used. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @param <T> Type of elements.
@@ -7651,18 +7717,18 @@ declare namespace std.base {
      * so that they can be interpreted when needed as more abstract (and portable)
      * {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     abstract class ErrorInstance {
         /**
-         * A reference to an {@link ErrorCategory} object.
+         * @hidden
          */
         protected category_: ErrorCategory;
         /**
-         * A numerical value identifying an error instance.
+         * @hidden
          */
         protected value_: number;
         /**
@@ -7761,15 +7827,15 @@ declare namespace std {
      * <p> The class inherits from {@link RuntimeError}, to which it adds an {@link ErrorCode} as
      * member code (and defines a specialized what member). </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/system_error
      * @author Jeongho Nam <http://samchon.org>
      */
     class SystemError extends RuntimeError {
         /**
-         * Error code.
+         * @hidden
          */
         protected code_: ErrorCode;
         /**
@@ -7827,8 +7893,8 @@ declare namespace std {
      * passed by reference. As such, only one object of each of these types shall exist, each uniquely identifying its own
      * category: all error codes and conditions of a same category shall return a reference to same object. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_category
      * @author Jeongho Nam <http://samchon.org>
@@ -7955,8 +8021,8 @@ declare namespace std {
      * <p> The {@link ErrorCategory categories} associated with the {@link ErrorCondition} and the
      * {@link ErrorCode} define the equivalences between them. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_condition
      * @author Jeongho Nam <http://samchon.org>
@@ -7988,8 +8054,8 @@ declare namespace std {
      * <p> Objects of this class associate such numerical codes to {@link ErrorCategory error categories}, so that they
      * can be interpreted when needed as more abstract (and portable) {@link ErrorCondition error conditions}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/exceptions.png" style="max-width: 100%" /> </a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/exceptions.png" style="max-width: 100%" /> </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/system_error/error_code
      * @author Jeongho Nam <http://samchon.org>
@@ -8034,8 +8100,8 @@ declare namespace std {
      *
      * <p> {@link TreeMap}s are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8063,7 +8129,7 @@ declare namespace std {
      */
     class TreeMap<Key, T> extends base.UniqueMap<Key, T> implements base.ITreeMap<Key, T> {
         /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeMap}.
+         * @hidden
          */
         private tree_;
         /**
@@ -8107,14 +8173,14 @@ declare namespace std {
          *
          * @param container Another map to copy.
          */
-        constructor(container: base.MapContainer<Key, T>);
+        constructor(container: TreeMap<Key, T>);
         /**
          * Copy Constructor.
          *
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
+        constructor(container: TreeMap<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8161,31 +8227,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMap map} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeMap map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMap container}.
+         */
+        swap(obj: TreeMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        swap(obj: base.UniqueMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_map(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.TreeMultiMap {
@@ -8216,8 +8296,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank"> <
-     * img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank"> <
+     * img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8250,6 +8330,9 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class TreeMultiMap<Key, T> extends base.MultiMap<Key, T> implements base.ITreeMap<Key, T> {
+        /**
+         * @hidden
+         */
         private tree_;
         /**
          * Default Constructor.
@@ -8292,14 +8375,14 @@ declare namespace std {
          *
          * @param container Another map to copy.
          */
-        constructor(container: base.MapContainer<Key, T>);
+        constructor(container: TreeMultiMap<Key, T>);
         /**
          * Copy Constructor.
          *
          * @param container Another map to copy.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.MapContainer<Key, T>, compare: (x: Key, y: Key) => boolean);
+        constructor(container: TreeMultiMap<Key, T>, compare: (x: Key, y: Key) => boolean);
         /**
          * Range Constructor.
          *
@@ -8350,194 +8433,45 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_pair(pair: Pair<Key, T>): any;
+        protected _Insert_by_pair(pair: Pair<Key, T>): any;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        protected _Insert_by_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
         /**
          * @hidden
          */
-        protected insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        protected _Insert_by_range<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
         /**
          * @inheritdoc
          */
-        protected handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_insert(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
          * @inheritdoc
          */
-        protected handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
+        protected _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
         /**
-         * @inheritdoc
-         */
-        swap(obj: base.MultiMap<Key, T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_multimap(obj);
-    }
-}
-declare namespace std.TreeSet {
-    type iterator<T> = std.SetIterator<T>;
-    type reverse_iterator<T> = std.SetReverseIterator<T>;
-}
-declare namespace std {
-    /**
-     * <p> Tree-structured set, <code>std::set</code> of STL. </p>
-     *
-     * <p> {@link TreeSet}s are containers that store unique elements following a specific order. </p>
-     *
-     * <p> In a {@link TreeSet}, the value of an element also identifies it (the value is itself the
-     * <i>key</i>, of type <i>T</i>), and each value must be unique. The value of the elements in a
-     * {@link TreeSet} cannot be modified once in the container (the elements are always const), but they
-     * can be inserted or removed from the  </p>
-     *
-     * <p> Internally, the elements in a {@link TreeSet} are always sorted following a specific strict weak
-     * ordering criterion indicated by its internal comparison method (of {@link less}). </p>
-     *
-     * <p> {@link TreeSet} containers are generally slower than {@link HashSet} containers to access
-     * individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on their
-     * order. </p>
-     *
-     * <p> {@link TreeSet}s are typically implemented as binary search trees. </p>
-     *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a></p>
-     *
-     * <h3> Container properties </h3>
-     * <dl>
-     *	<dt> Associative </dt>
-     *	<dd>
-     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
-     *		position in the container.
-     *	</dd>
-     *
-     *	<dt> Ordered </dt>
-     *	<dd>
-     *		The elements in the container follow a strict order at all times. All inserted elements are
-     *		given a position in this order.
-     *	</dd>
-     *
-     *	<dt> Set </dt>
-     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
-     *
-     *	<dt> Unique keys </dt>
-     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
-     * </dl>
-     *
-     * @param <T> Type of the elements.
-     *			  Each element in an {@link TreeSet} is also uniquely identified by this value.
-     *
-     * @reference http://www.cplusplus.com/reference/set/set
-     * @author Jeongho Nam <http://samchon.org>
-     */
-    class TreeSet<T> extends base.UniqueSet<T> implements base.ITreeSet<T> {
-        /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeSet}.
-         */
-        private tree_;
-        /**
-         * Default Constructor.
-         */
-        constructor();
-        /**
-         * Construct from compare.
+         * <p> Swap content. </p>
          *
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(compare: (x: T, y: T) => boolean);
-        /**
-         * Contruct from elements.
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMapMulti map} of the same type. Sizes abd container type may differ. </p>
          *
-         * @param array Elements to be contained.
-         */
-        constructor(array: Array<T>);
-        /**
-         * Contruct from elements with compare.
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
          *
-         * @param array Elements to be contained.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
-        /**
-         * Copy Constructor.
-         */
-        constructor(container: base.IContainer<T>);
-        /**
-         * Copy Constructor with compare.
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
          *
-         * @param container A container to be copied.
-         * @param compare A binary predicate determines order of elements.
+         * @param obj Another {@link TreeMapMulti map container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMapMulti container}.
          */
-        constructor(container: base.IContainer<T>, compare: (x: T, y: T) => boolean);
-        /**
-         * Range Constructor.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
-        /**
-         * Range Constructor with compare.
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         * @param compare A binary predicate determines order of elements.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
+        swap(obj: TreeMultiMap<Key, T>): void;
         /**
          * @inheritdoc
          */
-        clear(): void;
-        /**
-         * @inheritdoc
-         */
-        find(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        key_comp(): (x: T, y: T) => boolean;
-        /**
-         * @inheritdoc
-         */
-        value_comp(): (x: T, y: T) => boolean;
-        /**
-         * @inheritdoc
-         */
-        lower_bound(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        upper_bound(val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
-        /**
-         * @hidden
-         */
-        protected insert_by_val(val: T): any;
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @hidden
-         */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.UniqueSet<T>): void;
-        /**
-         * @hidden
-         */
-        private swap_tree_set(obj);
+        swap(obj: base.IContainer<Pair<Key, T>>): void;
     }
 }
 declare namespace std.TreeMultiSet {
@@ -8565,8 +8499,8 @@ declare namespace std {
      *
      * <p> {@link TreeMultiSet TreeMultiSets} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a></p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /> </a></p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -8597,7 +8531,7 @@ declare namespace std {
      */
     class TreeMultiSet<T> extends base.MultiSet<T> implements base.ITreeSet<T> {
         /**
-         * <i>RB-Tree+</i> object for implemeting the {@link TreeMultiSet}.
+         * @hidden
          */
         private tree_;
         /**
@@ -8626,14 +8560,14 @@ declare namespace std {
         /**
          * Copy Constructor.
          */
-        constructor(container: base.Container<T>);
+        constructor(container: TreeMultiSet<T>);
         /**
          * Copy Constructor with compare.
          *
          * @param container A container to be copied.
          * @param compare A binary predicate determines order of elements.
          */
-        constructor(container: base.Container<T>, compare: (x: T, y: T) => boolean);
+        constructor(container: TreeMultiSet<T>, compare: (x: T, y: T) => boolean);
         /**
          * Range Constructor.
          *
@@ -8684,31 +8618,226 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_val(val: T): any;
+        _Get_tree(): base.AtomicTree<T>;
         /**
          * @hidden
          */
-        protected insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        protected _Insert_by_val(val: T): any;
         /**
          * @hidden
          */
-        protected insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        protected handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @inheritdoc
-         */
-        swap(obj: base.MultiSet<T>): void;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
         /**
          * @hidden
          */
-        private swap_tree_set(obj);
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeMultiSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeMultiSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeMultiSet container}.
+         */
+        swap(obj: TreeMultiSet<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
+    }
+}
+declare namespace std.TreeSet {
+    type iterator<T> = std.SetIterator<T>;
+    type reverse_iterator<T> = std.SetReverseIterator<T>;
+}
+declare namespace std {
+    /**
+     * <p> Tree-structured set, <code>std::set</code> of STL. </p>
+     *
+     * <p> {@link TreeSet}s are containers that store unique elements following a specific order. </p>
+     *
+     * <p> In a {@link TreeSet}, the value of an element also identifies it (the value is itself the
+     * <i>key</i>, of type <i>T</i>), and each value must be unique. The value of the elements in a
+     * {@link TreeSet} cannot be modified once in the container (the elements are always const), but they
+     * can be inserted or removed from the  </p>
+     *
+     * <p> Internally, the elements in a {@link TreeSet} are always sorted following a specific strict weak
+     * ordering criterion indicated by its internal comparison method (of {@link less}). </p>
+     *
+     * <p> {@link TreeSet} containers are generally slower than {@link HashSet} containers to access
+     * individual elements by their <i>key</i>, but they allow the direct iteration on subsets based on their
+     * order. </p>
+     *
+     * <p> {@link TreeSet}s are typically implemented as binary search trees. </p>
+     *
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /> </a></p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     *	<dt> Associative </dt>
+     *	<dd>
+     *		Elements in associative containers are referenced by their <i>key</i> and not by their absolute
+     *		position in the container.
+     *	</dd>
+     *
+     *	<dt> Ordered </dt>
+     *	<dd>
+     *		The elements in the container follow a strict order at all times. All inserted elements are
+     *		given a position in this order.
+     *	</dd>
+     *
+     *	<dt> Set </dt>
+     *	<dd> The value of an element is also the <i>key</i> used to identify it. </dd>
+     *
+     *	<dt> Unique keys </dt>
+     *	<dd> No two elements in the container can have equivalent <i>keys</i>. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *			  Each element in an {@link TreeSet} is also uniquely identified by this value.
+     *
+     * @reference http://www.cplusplus.com/reference/set/set
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    class TreeSet<T> extends base.UniqueSet<T> implements base.ITreeSet<T> {
+        /**
+         * @hidden
+         */
+        private tree_;
+        /**
+         * Default Constructor.
+         */
+        constructor();
+        /**
+         * Construct from compare.
+         *
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(compare: (x: T, y: T) => boolean);
+        /**
+         * Contruct from elements.
+         *
+         * @param array Elements to be contained.
+         */
+        constructor(array: Array<T>);
+        /**
+         * Contruct from elements with compare.
+         *
+         * @param array Elements to be contained.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(array: Array<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * Copy Constructor.
+         */
+        constructor(container: TreeMultiSet<T>);
+        /**
+         * Copy Constructor with compare.
+         *
+         * @param container A container to be copied.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(container: TreeMultiSet<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * Range Constructor.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>);
+        /**
+         * Construct from range and compare.
+         *
+         * @param begin Input interator of the initial position in a sequence.
+         * @param end Input interator of the final position in a sequence.
+         * @param compare A binary predicate determines order of elements.
+         */
+        constructor(begin: Iterator<T>, end: Iterator<T>, compare: (x: T, y: T) => boolean);
+        /**
+         * @inheritdoc
+         */
+        clear(): void;
+        /**
+         * @inheritdoc
+         */
+        find(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        key_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        value_comp(): (x: T, y: T) => boolean;
+        /**
+         * @inheritdoc
+         */
+        lower_bound(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        upper_bound(val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_val(val: T): any;
+        protected _Insert_by_hint(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_insert(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * @inheritdoc
+         */
+        protected _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link TreeSet set} of the same type. Sizes abd container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were
+         * in <i>obj</i> before the call, and the elements of <i>obj</i> are those which were in this. All
+         * iterators, references and pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link TreeSet set container} of the same type of elements as this (i.e.,
+         *			  with the same template parameters, <b>Key</b> and <b>T</b>) whose content is swapped
+         *			  with that of this {@link TreeSet container}.
+         */
+        swap(obj: TreeSet<T>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
     }
 }
 declare namespace std {
@@ -8818,8 +8947,8 @@ declare namespace std {
      * end, they perform worse than the others, and have less consistent iterators and references than {@link List}s.
      * </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -8842,7 +8971,7 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/vector/vector
      * @author Jeongho Nam <http://samchon.org>
      */
-    class Vector<T> extends Array<T> implements base.IArrayContainer<T> {
+    class Vector<T> extends Array<T> implements base.IContainer<T>, base.IArrayContainer<T> {
         /**
          * <p> Default Constructor. </p>
          *
@@ -8879,7 +9008,7 @@ declare namespace std {
          * @param container Another container object of the same type (with the same class template
          *					arguments <i>T</i>), whose contents are either copied or acquired.
          */
-        constructor(container: base.IContainer<T>);
+        constructor(container: Vector<T>);
         /**
          * <p> Range Constructor. </p>
          *
@@ -9099,11 +9228,11 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected insert_by_repeating_val(position: VectorIterator<T>, n: number, val: T): VectorIterator<T>;
+        protected _Insert_by_repeating_val(position: VectorIterator<T>, n: number, val: T): VectorIterator<T>;
         /**
          * @hidden
          */
-        protected insert_by_range<InputIterator extends Iterator<T>>(position: VectorIterator<T>, first: InputIterator, last: InputIterator): VectorIterator<T>;
+        protected _Insert_by_range<InputIterator extends Iterator<T>>(position: VectorIterator<T>, first: InputIterator, last: InputIterator): VectorIterator<T>;
         /**
          * @inheritdoc
          */
@@ -9187,9 +9316,27 @@ declare namespace std {
          */
         erase(first: VectorReverseIterator<T>, last: VectorReverseIterator<T>): VectorReverseIterator<T>;
         /**
-         * @hiddde
+         * @hidden
          */
-        protected erase_by_range(first: VectorIterator<T>, last: VectorIterator<T>): VectorIterator<T>;
+        protected _Erase_by_range(first: VectorIterator<T>, last: VectorIterator<T>): VectorIterator<T>;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link Vector container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link Vector container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container Vector}.
+         */
+        obj(obj: Vector<T>): void;
         /**
          * @inheritdoc
          */
@@ -9200,8 +9347,8 @@ declare namespace std {
     /**
      * <p> An iterator of Vector. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </p>
      *
      * @param <T> Type of the elements.
@@ -9232,7 +9379,9 @@ declare namespace std {
          * @inheritdoc
          */
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -9277,8 +9426,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of Vector. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </p>
      *
      * @param <T> Type of the elements.
@@ -9286,13 +9435,23 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class VectorReverseIterator<T> extends ReverseIterator<T, VectorIterator<T>, VectorReverseIterator<T>> implements base.IArrayIterator<T> {
+        /**
+         * Construct from base iterator.
+         *
+         * @param base A reference of the base iterator, which iterates in the opposite direction.
+         */
         constructor(base: VectorIterator<T>);
+        /**
+         * @hidden
+         */
+        protected create_neighbor(base: VectorIterator<T>): VectorReverseIterator<T>;
         /**
          * @inheritdoc
          */
-        protected create_neighbor(): VectorReverseIterator<T>;
         /**
-         * Set value.
+         * Set value of the iterator is pointing to.
+         *
+         * @param val Value to set.
          */
         value: T;
         /**
@@ -9353,7 +9512,13 @@ declare namespace std.base {
      * @author Jeongho Nam <http://samchon.org>
      */
     class HashBuckets<T> {
+        /**
+         * @hidden
+         */
         private buckets_;
+        /**
+         * @hidden
+         */
         private item_size_;
         /**
          * Default Constructor.
@@ -9400,8 +9565,8 @@ declare namespace std.base {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -9696,8 +9861,8 @@ declare namespace std.base {
     /**
      * <p> Hash buckets storing {@link MapIterator MapIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -9727,8 +9892,8 @@ declare namespace std.base {
      * elements by their <i>key</i>, although they are generally less efficient for range iteration through a
      * subset of their elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -9951,8 +10116,8 @@ declare namespace std.base {
     /**
      * <p> Hash buckets storing {@link SetIterator SetIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/set_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -9993,8 +10158,8 @@ declare namespace std.base {
      * beginning or the end, {@link IArray} objects perform worse and have less consistent iterators and references
      * than {@link List Lists} </p>.
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -10107,8 +10272,8 @@ declare namespace std.base {
      * <p> There is not a single type of {@link IArrayIterator random-access iterator}: Each container may define its
      * own specific iterator type able to iterate through it and access its elements. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * @reference http://www.cplusplus.com/reference/iterator/RandomAccessIterator
@@ -10138,8 +10303,8 @@ declare namespace std.base {
      * <p> {@link IContainer} is an interface designed for sequence containers. Sequence containers of STL
      * (Standard Template Library) are based on the {@link IContainer}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/abstract_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/abstract_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * <h3> Container properties </h3>
@@ -10330,8 +10495,8 @@ declare namespace std.base {
     /**
      * <p> An interface for deque  </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" />
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" />
      * </a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
@@ -10360,8 +10525,8 @@ declare namespace std.base {
     /**
      * <p> An interface for linear containers.  </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/linear_containers.png" style="max-width: 100%" /></a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/linear_containers.png" style="max-width: 100%" /></a>
      * </p>
      *
      * @author Jeonngho Nam
@@ -10522,7 +10687,7 @@ declare namespace std.base {
      *	</li>
      * </ol>
      *
-     * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_example.svg"
+     * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_example.svg"
      *			style="max-width: 100%" /> </p>
      *
      * <p> These constraints enforce a critical property of red-black trees: the path from the root to the farthest
@@ -10717,7 +10882,7 @@ declare namespace std.base {
          * the only loop, and any rotations occur after this loop, this proves that a constant number of rotations
          * occur. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_3.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_3.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10751,7 +10916,7 @@ declare namespace std.base {
          * node are <font color='darkBlue'>black</font>) is still violated, but now we can resolve this by
          * continuing to case 5. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_4.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_4.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10782,7 +10947,7 @@ declare namespace std.base {
          * through {@link XTreeNode.parent <b>P</b>}. In each case, this is the only
          * <font color='darkBlue'>black</font> node of the three. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_insert_case_5.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_insert_case_5.svg"
                     style="max-width: 100%" /> </p>
          *
          * @param N A node to be inserted or swapped.
@@ -10936,7 +11101,7 @@ declare namespace std.base {
         /**
          * <p> {@link XTreeNode.sibling <b>S</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_2.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_2.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case we reverse the colors of {@link XTreeNode.parent <b>P</b>} and
@@ -10958,7 +11123,7 @@ declare namespace std.base {
          * <p> {@link XTreeNode.parent <b>P</b>}, {@link XTreeNode.sibling <b>S</b>}, and {@link XTreeNode.sibling
          * <b>S</b>}'s children are <font color='darkBlue'>black</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_3.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_3.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply repaint {@link XTreeNode.sibling <b>S</b>} <font color='red'>red</font>. The
@@ -10982,7 +11147,7 @@ declare namespace std.base {
          * <p> {@link XTreeNode.sibling <b>S</b>} and {@link XTreeNode.sibling <b>S</b>}'s children are
          * <font color='darkBlue'>black</font>, but {@link XTreeNode.parent <b>P</b>} is <font color='red'>red</font>. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_4.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_4.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case, we simply exchange the colors of {@link XTreeNode.sibling <b>S</b>} and
@@ -10999,7 +11164,7 @@ declare namespace std.base {
          * left child is <font color='red'>red</font>, {@link XTreeNode.sibling <b>S</b>}'s right child is
          * <font color='darkBlue'>black</font>, and <i><b>N</b></i> is the left child of its parent. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_5.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_5.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> In this case we rotate right at {@link XTreeNode.sibling <b>S</b>}, so that
@@ -11038,7 +11203,7 @@ declare namespace std.base {
          * <p> Thus, the paths passing through <i><b>N</b></i> pass through one additional
          * <font color='darkBlue'>black</font> node. </p>
          *
-         * <p> <img src="http://samchon.github.io/typescript-stl/api/assets/images/tree/Red-black_tree_delete_case_6.svg"
+         * <p> <img src="http://samchon.github.io/typescript-stl/images/design/conceptual_diagram/Red-black_tree_delete_case_6.svg"
                     style="max-width: 100%" /> </p>
          *
          * <p> Meanwhile, if a path does not go through <i><b>N</b></i>, then there are two possibilities: </p>
@@ -11122,8 +11287,8 @@ declare namespace std.base {
      *
      * <p> {@link ITreeMap TreeMultiMaps} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -11257,18 +11422,25 @@ declare namespace std.base {
     /**
      * <p> A red-black tree storing {@link MapIterator MapIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class PairTree<Key, T> extends XTree<MapIterator<Key, T>> {
+        /**
+         * @hidden
+         */
         private map_;
+        /**
+         * @hidden
+         */
         private compare_;
         /**
          * Default Constructor.
          */
         constructor(map: TreeMap<Key, T> | TreeMultiMap<Key, T>, compare?: (x: Key, y: Key) => boolean);
+        _Set_compare(val: (x: Key, y: Key) => boolean): void;
         find(key: Key): XTreeNode<MapIterator<Key, T>>;
         find(it: MapIterator<Key, T>): XTreeNode<MapIterator<Key, T>>;
         /**
@@ -11409,8 +11581,8 @@ declare namespace std.base {
      *
      * <p> {@link ITreeSet TreeMultiSets} are typically implemented as binary search trees. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -11551,18 +11723,25 @@ declare namespace std.base {
     /**
      * <p> A red-black Tree storing {@link SetIterator SetIterators}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/api/assets/images/design/set_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/set_containers.png" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
     class AtomicTree<T> extends XTree<SetIterator<T>> {
+        /**
+         * @hidden
+         */
         private set_;
+        /**
+         * @hidden
+         */
         private compare_;
         /**
          * Default Constructor.
          */
         constructor(set: TreeSet<T> | TreeMultiSet<T>, compare?: (x: T, y: T) => boolean);
+        _Set_compare(val: (x: T, y: T) => boolean): void;
         find(val: T): XTreeNode<SetIterator<T>>;
         find(it: SetIterator<T>): XTreeNode<SetIterator<T>>;
         /**
@@ -11737,28 +11916,4 @@ declare namespace std.base {
          */
         uncle: XTreeNode<T>;
     }
-}
-declare namespace std.example {
-    function test_all(): void;
-}
-declare namespace std.example {
-    function test_bind(): void;
-}
-declare namespace std.example {
-    function test_deque(): void;
-}
-declare namespace std.example {
-    function test_for_each(): void;
-}
-declare namespace std.example {
-    function test_hash_map(): void;
-}
-declare namespace std.example {
-    function test_list(): void;
-}
-declare namespace std.example {
-    function sorting(): void;
-}
-declare namespace std.example {
-    function tree_set(): void;
 }

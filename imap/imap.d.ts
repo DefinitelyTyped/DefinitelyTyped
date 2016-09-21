@@ -236,7 +236,7 @@ declare namespace IMAP {
         serverSupports(capability: string): boolean;
     }
 
-    export class Connection implements NodeJS.EventEmitter, MessageFunctions {
+    export class Connection extends NodeJS.EventEmitter implements MessageFunctions {
         /** @constructor */
         constructor(config: Config);
 

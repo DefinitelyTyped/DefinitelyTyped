@@ -87,6 +87,11 @@ declare namespace PageJS {
          */
         redirect(page: string): void;
         /**
+         * Replace `path` with optional `state` object.
+         *
+         */
+        replace(path: string, state?: any, init?: boolean, dispatch?: boolean): Context;
+        /**
          *  Navigate to the given path.
          *
          *      $('.view').click(function(e){
