@@ -3,7 +3,7 @@
 // Definitions by: David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../parse/parse.d.ts" />
+/// <reference types="parse" />
 
 declare namespace ParseMockDB {
     function mockDB(): void;

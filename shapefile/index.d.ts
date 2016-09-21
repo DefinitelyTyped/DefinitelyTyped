@@ -3,7 +3,7 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts"/>
+/// <reference types="geojson"/>
 
 declare const shapefile: shapefile.ShapefileStatic;
 
