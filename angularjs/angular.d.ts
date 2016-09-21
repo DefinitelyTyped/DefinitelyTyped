@@ -1740,7 +1740,7 @@ declare namespace angular {
     }
 
     interface IComponentBindings {
-		[binding: string]: string;
+        [binding: string]: string;
     }
 
     interface IComponentTemplateFn {
@@ -1830,10 +1830,10 @@ declare namespace angular {
             transclude: ITranscludeFunction
         ): void | IDirectivePrePost;
     }
-    
+
     interface IDirectiveScope {
-		[property: string]: string;
-	}
+        [property: string]: string;
+    }
 
     interface IDirective {
         compile?: IDirectiveCompileFn;
