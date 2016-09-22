@@ -1787,19 +1787,7 @@ declare namespace ol {
          * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
          * @param style Style for this feature.
          */
-        setStyle(style: ol.style.Style): void;
-
-        /**
-         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
-         * @param style Style for this feature.
-         */
-        setStyle(style: Array<ol.style.Style>): void;
-
-        /**
-         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
-         * @param style Style for this feature.
-         */
-        setStyle(style: ol.FeatureStyleFunction): void;
+        setStyle(style: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction): void;
     }
 
     /**
