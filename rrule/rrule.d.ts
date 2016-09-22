@@ -14,7 +14,7 @@ declare namespace RRule {
     * The only required option is `freq`, one of RRule.YEARLY, RRule.MONTHLY, ...
     */
     interface Options {
-        freq: any; // Should be enum
+        freq: RRule.Frequency;
         dtstart?: Date;
         interval?: number;
         wkst?: number | Weekday
