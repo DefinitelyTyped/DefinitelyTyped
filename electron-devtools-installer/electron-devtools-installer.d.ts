@@ -3,9 +3,6 @@
 // Definitions by: Robin Van den Broeck <https://github.com/gamesmaxed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
-
-
 declare module "electron-devtools-installer" {
     interface ExtensionReference {
         id: string,
