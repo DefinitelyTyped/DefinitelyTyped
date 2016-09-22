@@ -10,7 +10,7 @@ declare module "electron-devtools-installer" {
     }
 
     // Default installation function
-    export default function (extensionReference: ExtensionReference, forceDownload?: boolean): Promise<String>;
+    export default function (extensionReference: ExtensionReference | string, forceDownload?: boolean): Promise<string>;
 
     // Devtools themself
     export const EMBER_INSPECTOR: ExtensionReference;
