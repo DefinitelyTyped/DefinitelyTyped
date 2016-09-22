@@ -309,6 +309,11 @@ declare namespace TsMonad {
         */
         nothing: () => U;
     }
+    // ditto, but optional
+    export interface OptionalMaybePatterns<T, U> {
+        just?: (t: T) => U;
+        nothing?: () => U;
+    }
     /**
     * @name maybe
     * @description Build a Maybe object.
@@ -448,6 +453,15 @@ declare namespace TsMonad {
         */
         public caseOf<U>(patterns: MaybePatterns<T, U>): U;
         /**
+        * @name defaulting
+        * @description Convert a possible Nothing into a guaranteed Maybe.Just.
+        * @methodOf Maybe#
+        * @public
+        * @param {T} pattern Default value to have if Nothing
+        * @return {Maybe<T>}
+        */
+        public defaulting(defaultValue: T): T;
+        /**
         * @name equals
         * @description Compare the type and the content of two Maybe
         *     objects.
@@ -459,6 +473,49 @@ declare namespace TsMonad {
         * @see Eq#equals
         */
         public equals(other: Maybe<T>): any;
+        /**
+        * @name valueOr
+        * @description Unwrap a Maybe with a default value
+        * @methodOf Maybe#
+        * @public
+        * @param {T} defaultValue Default value to have if Nothing
+        * @return {T}
+        * Separate U type to allow Maybe.nothing().valueOr() to match
+        * without explicitly typing Maybe.nothing.
+        */
+        valueOr<U extends T>(defaultValue: U): T | U;
+        /**
+        * @name valueOrCompute
+        * @description Unwrap a Maybe with a default value computed from a thunk
+        * @methodOf Maybe#
+        * @public
+        * @param {T} defaultValueFunction Default value to compute if Nothing
+        * @return {T}
+        * Separate U type to allow Maybe.nothing().valueOrCompute() to match
+        * without explicitly typing Maybe.nothing.
+        */
+        valueOrCompute<U extends T>(defaultValueFunction: () => U): T | U;
+        /**
+        * @name valueOrThrow
+        * @description Unwrap a Maybe throwing if it is nothing
+        * @methodOf Maybe#
+        * @public
+        * @param {Error} [error] Optional error to throw
+        * @return {T}
+        */
+        valueOrThrow(error?: Error): T;
+        /**
+        * @name do
+        * @description Execute a function based on the Maybe content. Returns the
+        *     original value, so is meant for running functions with side-effects.
+        * @methodOf Maybe#
+        * @public
+        * @param {OptionalMaybePatterns<T, U>} pattern Object containing the
+        *     functions to applied on each Maybe type.
+        * @return The original Maybe value.
+        * @see OptionalMaybePatterns#
+        */
+        do(patterns: OptionalMaybePatterns<T, void>): Maybe<T>;
     }
 }
 declare namespace TsMonad {
