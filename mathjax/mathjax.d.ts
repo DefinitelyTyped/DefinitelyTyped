@@ -578,7 +578,7 @@ declare namespace jax {
         MMLorHTML?:IMMLorHTMLConfiguration;
         NativeMML?:INativeMMLOutputProcessor;
         "HTML-CSS"?:IHTMLCSSOutputProcessor;
-        CommonHTML: ICommonHTMLOutputProcessor;
+        CommonHTML?: ICommonHTMLOutputProcessor;
         AsciiMath?:IAsciiMathInputProcessor;
         MathML?:IMathMLInputProcessor;
         TeX?:ITeXInputProcessor;
