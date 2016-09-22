@@ -8,7 +8,7 @@
 declare module "errorhandler" {
     import * as express from 'express';
 
-    function errorHandler(options?: errorHandler.Options): express.ErrorRequestHandler;
+    function errorHandler(options?: errorHandler.Options): express.ErrorHandler;
 
     namespace errorHandler {
         interface LoggingCallback {
