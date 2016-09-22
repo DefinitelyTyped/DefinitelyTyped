@@ -823,6 +823,12 @@ declare module "express-serve-static-core" {
 
     interface Application extends IRouter, Express.Application {
         /**
+         * Express instance itself is a request handler, which could be invoked without
+         * third argument.
+         */
+        (req: Request, res: Response): any;
+        
+        /**
             * Initialize the server.
             *
             *   - setup default configuration
@@ -1058,11 +1064,6 @@ declare module "express-serve-static-core" {
     }
 
     interface Express extends Application {
-        /**
-         * Express instance itself is a request handler, which could be invoked without
-         * third argument.
-         */
-        (req: Request, res: Response): any;
         /**
             * Framework version.
             */
