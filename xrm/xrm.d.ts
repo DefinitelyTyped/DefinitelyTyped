@@ -160,8 +160,6 @@ declare namespace Xrm
             /**
              * Opens quick create.
              *
-             * @param   {Function}  callback                    The function that will be called when a record is created. This
-             *                                                  function is passed a LookupValue object as a parameter.
              * @param   {string}    entityLogicalName           The logical name of the entity to create.
              * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
              *                                                  based on mapped attribute values.
@@ -170,10 +168,9 @@ declare namespace Xrm
              *                                                  error.
              */
             openQuickCreate(
-                callback: ( recordReference: Page.LookupValue ) => void,
                 entityLogicalName: string,
                 createFromEntity?: Page.LookupValue,
-                parameters?: Utility.OpenParameters ): void;
+                parameters?: Utility.OpenParameters ): Async.XrmPromise;
 
             /**
              * Opens an entity form.
@@ -487,7 +484,7 @@ declare namespace Xrm
         /**
          * Called when the operation is successful.
          */
-        export type SuccessCallbackDelegate = () => void;
+        export type SuccessCallbackDelegate = ( object: any ) => void;
 
         /**
          * Called when the operation fails.
@@ -1537,11 +1534,11 @@ declare namespace Xrm
                  * Use this method to asynchronously retrieve the enabled business process flows that the user can switch to for an
                  * entity.
                  *
-                 * @param   {Function} callbackFunction The callback function must accept a parameter that contains an object with 
+                 * @param   {Function} callbackFunction The callback function must accept a parameter that contains an object with
                  *                                      dictionary properties where the name of the property is the Id of the
                  *                                      business process flow and the value of the property is the name of the
                  *                                      business process flow.
-                 *                                      
+                 *
                  *                                      The enabled processes are filtered according to the user’s privileges. The
                  *                                      list of enabled processes is the same ones a user can see in the UI if they
                  *                                      want to change the process manually.
@@ -1561,7 +1558,7 @@ declare namespace Xrm
                  * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
                  *                                              handler pipeline. The execution context is automatically
                  *                                              set to be the first parameter passed to the event handler.
-                 * 
+                 *
                  *                                              Use a reference to a named function rather than an
                  *                                              anonymous function if you may later want to remove the
                  *                                              event handler.
@@ -1575,7 +1572,7 @@ declare namespace Xrm
                  * @param   {ContextSensitiveHandler}   handler The function will be added to the bottom of the event
                  *                                              handler pipeline. The execution context is automatically
                  *                                              set to be the first parameter passed to the event handler.
-                 * 
+                 *
                  *                                              Use a reference to a named function rather than an
                  *                                              anonymous function if you may later want to remove the
                  *                                              event handler.

@@ -3,7 +3,7 @@
 // Definitions by: Dominic Alie <https://github.com/dalie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 declare namespace L {
     /**
