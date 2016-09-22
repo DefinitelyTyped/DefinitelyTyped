@@ -1,26 +1,28 @@
 // Type definitions for elasticsearch
 // Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
-// Definitions by: Casper Skydt <https://github.com/CasperSkydt/DefinitelyTyped>
+// Definitions by: Casper Skydt <https://github.com/CasperSkydt>, Blake Smith <https://github.com/bfsmith>, Dave Dunkin <https://github.com/ddunkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Elasticsearch {
     export class Client {
         constructor(params: ConfigOptions);
         indices: Indices;
+        cluster: Cluster;
+        cat: Cat;
         bulk(params: BulkIndexDocumentsParams): PromiseLike<any>;
         bulk(params: BulkIndexDocumentsParams, callback: (error: any, response: any) => void): void;
         create(params: CreateDocumentParams): PromiseLike<any>;
         create(params: CreateDocumentParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
-        get(params: GetParams, callback: (error: any, response: any) => void): void;
+        get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
         get<T>(params: GetParams): PromiseLike<GetResponse<T>>;
         index<T>(params: IndexDocumentParams<T>): PromiseLike<any>;
         index<T>(params: IndexDocumentParams<T>, callback: (error: any, response: any) => void): void;
-        mget(params: MGetParams, callback: (error: any, response: any) => void): void;
-        mget<T>(params: MGetParams): PromiseLike<GetResponse<T>>;
-        msearch(params: MSearchParams, callback: (error: any, response: any) => void): void;
-        msearch<T>(params: MSearchParams): PromiseLike<GetResponse<T>>;
+        mget<T>(params: MGetParams, callback: (error: any, response: MGetResponse<T>) => void): void;
+        mget<T>(params: MGetParams): PromiseLike<MGetResponse<T>>;
+        msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
+        msearch<T>(params: MSearchParams): PromiseLike<MSearchResponse<T>>;
         ping(params: PingParams): PromiseLike<any>;
         ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
         scroll(params: ScrollParams): PromiseLike<any>;
@@ -194,7 +196,8 @@ declare module Elasticsearch {
         versionType?: string;
     }
 
-    export interface GetResponse<T> extends GenericParams {
+    export interface GetResponse<T> {
+        _index: string;
         _type: string;
         _id: string;
         _version: number;
@@ -230,6 +233,7 @@ declare module Elasticsearch {
         scroll?: string;
         search_type?: string;
         fields?: string[];
+        from?: number;
         size?: number;
         sort?: string | string[] | boolean;
         _source?: string | string[] | boolean;
@@ -276,6 +280,10 @@ declare module Elasticsearch {
         search_type?: string;
     }
 
+    export interface MSearchResponse<T> {
+        responses?: SearchResponse<T>[];
+    }
+
     export interface MGetParams extends GenericParams {
         fields?: string | string[] | Boolean;
         preference?: string;
@@ -285,6 +293,10 @@ declare module Elasticsearch {
         _sourceInclude?: string | string[] | boolean;
         index?: string;
         type?: string;
+    }
+
+    export interface MGetResponse<T> {
+        docs?: GetResponse<T>[];
     }
 
     export interface IndicesIndexExitsParams extends GenericParams {
@@ -332,6 +344,91 @@ declare module Elasticsearch {
         source?: string;
         body: string | any;
         index: string | string[] | boolean;
+    }
+
+    export interface Cat {
+        health(params: CatHealthOptions, callback: (error: any, response: any) => void): void;
+        health(params: CatHealthOptions): PromiseLike<any>
+    }
+
+    export interface CatHealthOptions extends GenericParams {
+        local?: boolean;
+        masterTimeout?: number | Date;
+        h?: string | string[] | boolean;
+        help?: boolean;
+        ts?: boolean;
+        v?: boolean;
+    }
+
+    export interface Cluster {
+        getSettings(params: ClusterGetSettingsOptions, callback: (error: any, response: any) => void): void;
+        getSettings(params: ClusterGetSettingsOptions): PromiseLike<any>;
+        health(params: ClusterHealthOptions, callback: (error: any, response: any) => void): void;
+        health(params: ClusterHealthOptions): PromiseLike<any>;
+        pendingTasks(params: ClusterPendingTasksOptions, callback: (error: any, response: any) => void): void;
+        pendingTasks(params: ClusterPendingTasksOptions): PromiseLike<any>;
+        putSettings(params: ClusterPutSettingsOptions, callback: (error: any, response: any) => void): void;
+        putSettings(params: ClusterPutSettingsOptions): PromiseLike<any>;
+        reroute(params: ClusterRerouteOptions, callback: (error: any, response: any) => void): void;
+        reroute(params: ClusterRerouteOptions): PromiseLike<any>;
+        state(params: ClusterStateOptions, callback: (error: any, response: any) => void): void;
+        state(params: ClusterStateOptions): PromiseLike<any>;
+        stats(params: ClusterStatsOptions, callback: (error: any, response: any) => void): void;
+        stats(params: ClusterStatsOptions): PromiseLike<any>;
+    }
+
+    export interface ClusterGetSettingsOptions extends GenericParams {
+        flatSettings?: boolean;
+        masterTimeout?: number | Date;
+        timeout?: number | Date;
+    }
+
+    export interface ClusterHealthOptions extends GenericParams {
+        level?: string; // cluster, indices, shards
+        local?: boolean;
+        masterTimeout?: number | Date;
+        waitForActiveShards?: number;
+        waitForNodes?: string;
+        waitForRelocatingShards?: number;
+        waitForStatus?: string; // green, yellow, red
+        index?: string | string[] | boolean;
+    }
+
+    export interface ClusterPendingTasksOptions extends GenericParams {
+        local?: boolean;
+        masterTimeout?: number | Date;
+    }
+
+    export interface ClusterPutSettingsOptions extends GenericParams {
+        flatSettings?: boolean;
+        masterTimeout?: number | Date;
+        timeout?: number | Date;
+    }
+
+    export interface ClusterRerouteOptions extends GenericParams {
+        dryRun?: boolean;
+        explain?: boolean;
+        metric?: string | string[] | boolean;
+        masterTimeout?: number | Date;
+        timeout?: number | Date;
+    }
+
+    export interface ClusterStateOptions extends GenericParams {
+        local?: boolean;
+        masterTimeout?: number | Date;
+        flatSettings?: boolean;
+        ignoreUnavailable?: boolean;
+        allowNoIndices?: boolean;
+        expandWildcards?: string; // open, closed, none, all (default open)
+        index?: string | string[] | boolean;
+        metric?: string | string[] | boolean;
+    }
+
+    export interface ClusterStatsOptions extends GenericParams {
+        flatSettings?: boolean;
+        human?: boolean;
+        timeout?: number | Date;
+        nodeId?: string | string[] | boolean;
     }
 }
 

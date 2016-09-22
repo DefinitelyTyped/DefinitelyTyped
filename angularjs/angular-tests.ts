@@ -867,6 +867,26 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('multiSlotTranscludeExample', [])
+    .directive('dropDownMenu', function() {
+        return {
+            transclude: {
+                button: 'button',
+                list: 'ul',
+            },
+            link: function(scope, element, attrs, ctrl, transclude) {
+                // without scope
+                transclude().appendTo(element);
+                transclude(clone => clone.appendTo(element));
+
+                // with scope
+                transclude(scope, clone => clone.appendTo(element));
+                transclude(scope, clone => clone.appendTo(element), element, 'button');
+                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+            }
+        };
+    });
+
 angular.module('componentExample', [])
     .component('counter', {
         require: {'ctrl': '^ctrl'},

@@ -532,10 +532,10 @@ declare module "knex" {
     }
 
     interface MigratorConfig {
-      database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
+      disableTransactions?: boolean;
     }
 
     interface Migrator {
