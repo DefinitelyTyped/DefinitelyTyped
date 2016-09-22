@@ -347,6 +347,7 @@ declare module "knex" {
       table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
       dropTableIfExists(tableName: string): Promise<void>;
       raw(statement: string): SchemaBuilder;
+      withSchema(schemaName: string): SchemaBuilder;
     }
 
     interface TableBuilder {
