@@ -7,21 +7,21 @@
 
 
 declare module "electron-devtools-installer" {
-    // Default installation function
-    export default function (extensionReference: any, forceDownload?: boolean): Promise<String>;
-
-    interface Extension {
+    interface ExtensionReference {
         id: string,
         electron: string,
     }
 
+    // Default installation function
+    export default function (extensionReference: ExtensionReference, forceDownload?: boolean): Promise<String>;
+
     // Devtools themself
-    export const EMBER_INSPECTOR: Extension;
-    export const REACT_DEVELOPER_TOOLS: Extension;
-    export const BACKBONE_DEBUGGER: Extension;
-    export const JQUERY_DEBUGGER: Extension;
-    export const ANGULARJS_BATARANG: Extension;
-    export const VUEJS_DEVTOOLS: Extension;
-    export const REDUX_DEVTOOLS: Extension;
-    export const REACT_PERF: Extension;
+    export const EMBER_INSPECTOR: ExtensionReference;
+    export const REACT_DEVELOPER_TOOLS: ExtensionReference;
+    export const BACKBONE_DEBUGGER: ExtensionReference;
+    export const JQUERY_DEBUGGER: ExtensionReference;
+    export const ANGULARJS_BATARANG: ExtensionReference;
+    export const VUEJS_DEVTOOLS: ExtensionReference;
+    export const REDUX_DEVTOOLS: ExtensionReference;
+    export const REACT_PERF: ExtensionReference;
 }
