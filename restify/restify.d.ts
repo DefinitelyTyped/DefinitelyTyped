@@ -452,6 +452,7 @@ declare module "restify" {
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
     handleUpgrades ?: boolean;
     router ?: Router;
+    httpsServerOptions?: any;
   }
 
   interface ClientOptions {
