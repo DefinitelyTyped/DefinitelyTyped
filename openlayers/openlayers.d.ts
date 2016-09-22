@@ -88,6 +88,34 @@ declare namespace olx {
         target?: Element;
     }
 
+    interface AttributionControlOptions {
+        /*** CSS class name. Default is ol-attribution.*/
+        className?: string;
+        /*** Target.*/
+        target?: Element;
+        /**
+         * Specify if attributions can be collapsed. If you use an OSM source,
+         * should be set to false — see OSM Copyright — Default is true.
+         */
+        collapsible?: boolean;
+        /*** Specify if attributions should be collapsed at startup. Default is true.*/
+        collapsed?: boolean;
+        /*** Text label to use for the button tip. Default is "Attributions".*/
+        tipLabel?: Array<ol.layer.Layer> | ol.Collection<ol.layer.Layer>;
+        /**
+         * Text label to use for the collapsed attributions button. Default is i.
+         * Instead of text, also a Node (e.g. a span element) can be used.
+         */
+        label?: string | Node;
+        /**
+         * Text label to use for the expanded attributions button. Default is ».
+         * Instead of text, also a Node (e.g. a span element) can be used.
+         */
+        collapseLabel?: string | Node;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+    }
+
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -2841,7 +2869,41 @@ declare namespace ol {
 
         }
 
+        /**
+         * Control to show all the attributions associated with the layer sources in the map.
+         * This control is one of the default controls included in maps. By default it will show in the bottom right portion of the map,
+         * but this can be changed by using a css selector for .ol-attribution.
+         */
         class Attribution extends Control {
+            constructor(opt_options?: olx.AttributionControlOptions);
+            /**
+             * Update the attribution element.
+             * @param mapEvent
+             */
+            render(mapEvent: ol.MapEvent): void;
+
+            /**
+             * Return true when the attribution is currently collapsed or false otherwise.
+             */
+            getCollapsed(): boolean;
+
+            /**
+             * Return true if the attribution is collapsible, false otherwise.
+             */
+            getCollapsible(): boolean;
+
+            /**
+             * Collapse or expand the attribution according to the passed parameter. Will not do anything if the attribution isn't
+             * collapsible or if the current collapsed state is already the one requested.
+             * @param collapsed
+             */
+            setCollapsed(collapsed: boolean): void;
+
+            /**
+             * Set whether the attribution should be collapsible.
+             * @param collapsible
+             */
+            setCollapsible(collapsible: boolean): void;
         }
 
         class FullScreen extends Control {
