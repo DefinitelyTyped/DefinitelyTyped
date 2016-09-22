@@ -29,22 +29,27 @@ declare namespace IMAPS {
         constructor(imap: IMAP.Connection);
 
         /** Open a mailbox, calling the provided callback with signature (err, boxName), or resolves the returned promise with boxName. */
-        openBox(boxName: string, callback?: (err: Error, boxName: string) => void): Promise<string>;
+        openBox(boxName: string, callback: (err: Error, boxName: string) => void): void;
+        openBox(boxName: string): Promise<string>;
 
         /** Search for and retrieve mail in the previously opened mailbox. */
-        search(searchCriteria: any[], fetchOptions: IMAP.FetchOptions, callback?: (err: Error, messages: Message[]) => void): Promise<Message[]>;
+        search(searchCriteria: any[], fetchOptions: IMAP.FetchOptions, callback: (err: Error, messages: Message[]) => void): void;
+        search(searchCriteria: any[], fetchOptions: IMAP.FetchOptions): Promise<Message[]>;
 
         /** Close the connection to the imap server. */
         end(): void;
 
         /** Downloads part data (which is either part of the message body, or an attachment). Upon success, either the provided callback will be called with signature (err, data), or the returned promise will be resolved with data. The data will be automatically decoded based on its encoding. If the encoding of the part is not supported, an error will occur. */
-        getPartData(message: Message, part: any, callback?: (err: Error, data: any) => void): Promise<any>;
+        getPartData(message: Message, part: any, callback: (err: Error, data: any) => void): void;
+        getPartData(message: Message, part: any): Promise<any>;
 
         /** Adds the provided label(s) to the specified message(s). source corresponds to a node-imap MessageSource which specifies the messages to be moved. label is either a string or array of strings indicating the labels to add. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
-        addMessageLabel(source: string | string[], label: string | string[], callback?: (err: Error) => void): Promise<void>;
+        addMessageLabel(source: string | string[], label: string | string[], callback: (err: Error) => void): void;
+        addMessageLabel(source: string | string[], label: string | string[]): Promise<void>;
 
         /** Moves the specified message(s) in the currently open mailbox to another mailbox. source corresponds to a node-imap MessageSource which specifies the messages to be moved. When completed, either calls the provided callback with signature (err), or resolves the returned promise. */
-        moveMessage(source: string | string[], boxName: string, callback?: (err: Error) => void): Promise<void>;
+        moveMessage(source: string | string[], boxName: string, callback: (err: Error) => void): void;
+        moveMessage(source: string | string[], boxName: string): Promise<void>;
     }
 
     /** Error thrown when a connection attempt has timed out. */
@@ -56,7 +61,8 @@ declare namespace IMAPS {
 
 declare module "imap-simple" {
     /** Main entry point. Connect to an Imap server. */
-    export const connect: (options: IMAPS.ImapSimpleOptions, callback?: Function) => Promise<IMAPS.ImapSimple>;
+    export function connect(options: IMAPS.ImapSimpleOptions, callback: (err: Error, connection: IMAPS.ImapSimple) => void): void;
+    export function connect(options: IMAPS.ImapSimpleOptions): Promise<IMAPS.ImapSimple>;
 
     export namespace errors {
         export import ConnectionTimeoutError = IMAPS.ConnectionTimeoutError;
@@ -65,5 +71,5 @@ declare module "imap-simple" {
     export import ImapSimple = IMAPS.ImapSimple;
 
     /** Given the message.attributes.struct, retrieve a flattened array of parts objects that describe the structure of the different parts of the message's body. Useful for getting a simple list to iterate for the purposes of, for example, finding all attachments. */
-    export const getParts: (struct: any[]) => any[];
+    export function getParts(struct: any[]): any[];
 }
