@@ -12,7 +12,7 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer|Knex.Raw;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
@@ -31,7 +31,7 @@ declare module "knex" {
     client: any;
     migrate: Knex.Migrator;
     seed: any;
-    fn: any;
+    fn: Knex.FunctionHelper;
     on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
@@ -544,6 +544,10 @@ declare module "knex" {
       rollback(config?: MigratorConfig):Promise<any>;
       status(config?: MigratorConfig):Promise<number>;
       currentVersion(config?: MigratorConfig):Promise<string>;
+    }
+
+    interface FunctionHelper {
+      now(): Raw;
     }
   }
 
