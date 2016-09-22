@@ -688,8 +688,8 @@ declare namespace mapboxgl {
 		originalEvent: TouchEvent;
 		point: mapboxgl.Point;
 		lngLat: mapboxgl.LngLat;
-		points: Array<Point>;
-		lngLats: Array<LngLat>;
+		points: Point[];
+		lngLats: LngLat[];
 	}
 
 	export class MapBoxZoomEvent {
@@ -789,13 +789,13 @@ declare namespace mapboxgl {
 
 		interactive?: boolean;
 
-		filter?: Array<any>;
+		filter?: any[];
 		layout?: BackgroundLayout | FillLayout | LineLayout | SymbolLayout | RasterLayout | CircleLayout;
 		paint?: BackgroundPaint | FillPaint | LinePaint | SymbolPaint | RasterPaint | CirclePaint;
 	}
 
 	export interface StyleFunction {
-		stops: Array<Array<any>>;
+		stops: any[][];
 		property?: string;
 		base?: number;
 		type?: "continuous" | "interval" | "categorical";
@@ -818,7 +818,7 @@ declare namespace mapboxgl {
 		"fill-opacity"?: number | StyleFunction;
 		"fill-color"?: string | StyleFunction;
 		"fill-outline-color": string | StyleFunction;
-		"fill-translate"?: Array<number>;
+		"fill-translate"?: number[];
 		"fill-translate-anchor"?: "map" | "viewport";
 		"fill-pattern"?: "string";
 	}
@@ -834,13 +834,13 @@ declare namespace mapboxgl {
 	export interface LinePaint {
 		"line-opacity"?: number;
 		"line-color"?: string| StyleFunction;
-		"line-translate"?: Array<number>;
+		"line-translate"?: number[];
 		"line-translate-anchor"?: "map" | "viewport";
 		"line-width"?: number;
 		"line-gap-width"?: number;
 		"line-offset"?: number;
 		"line-blur"?: number;
-		"line-dasharray"?: Array<number>;
+		"line-dasharray"?: number[];
 		"line-dasharray-transition"?: Transition;
 		"line-pattern"?: string;
 	}
@@ -857,12 +857,12 @@ declare namespace mapboxgl {
 		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
 		"icon-size"?: number;
 		"icon-text-fit"?: "none" | "both" | "width" | "height";
-		"icon-text-fit-padding"?: Array<number>;
+		"icon-text-fit-padding"?: number[];
 		"icon-image"?: string;
 		"icon-rotate"?: number | StyleFunction;
 		"icon-padding"?: number;
 		"icon-keep-upright"?: boolean;
-		"icon-offset"?: Array<number>;
+		"icon-offset"?: number[];
 		"text-pitch-alignment"?: "map" | "viewport" | "auto";
 		"text-rotation-alignment"?: "map" | "viewport" | "auto";
 		"text-field"?: string;
@@ -878,7 +878,7 @@ declare namespace mapboxgl {
 		"text-padding"?: number;
 		"text-keep-upright"?: boolean;
 		"text-transform"?: "none" | "uppercase" | "lowercase";
-		"text-offset"?: Array<number>;
+		"text-offset"?: number[];
 		"text-allow-overlap"?: boolean;
 		"text-ignore-placement"?: boolean;
 		"text-optional"?: boolean;
@@ -890,14 +890,14 @@ declare namespace mapboxgl {
 		"icon-halo-color"?: string;
 		"icon-halo-width"?: number;
 		"icon-halo-blur"?: number;
-		"icon-translate"?: Array<number>;
+		"icon-translate"?: number[];
 		"icon-translate-anchor"?: "map" | "viewport";
 		"text-opacity"?: number;
 		"text-color"?: "string";
 		"text-halo-color"?: "string";
 		"text-halo-width"?: number;
 		"text-halo-blur"?: number;
-		"text-translate"?: Array<number>;
+		"text-translate"?: number[];
 		"text-translate-anchor"?: "map" | "viewport";
 	}
 
@@ -925,7 +925,7 @@ declare namespace mapboxgl {
 		"circle-color"?: number | StyleFunction;
 		"circle-blur"?: number | StyleFunction;
 		"circle-opacity"?: number | StyleFunction;
-		"circle-translate"?: Array<number>;
+		"circle-translate"?: number[];
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
 	}
