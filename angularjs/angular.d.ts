@@ -1413,12 +1413,12 @@ declare namespace angular {
          */
         url: string;
         /**
-         * Event listeners to be bound to the XMLHttpRequest object. 
+         * Event listeners to be bound to the XMLHttpRequest object.
          * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
          */
         eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
         /**
-         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * Event listeners to be bound to the XMLHttpRequest upload object.
          * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
          */
         uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
@@ -1781,14 +1781,14 @@ declare namespace angular {
          */
         $postLink?(): void;
     }
-    
+
     interface IOnChangesObject {
-        [property: string]: IChangesObject;
+        [property: string]: IChangesObject<any>;
     }
 
-    interface IChangesObject {
-        currentValue: any;
-        previousValue: any;
+    interface IChangesObject<T> {
+        currentValue: T;
+        previousValue: T;
         isFirstChange(): boolean;
     }
 
