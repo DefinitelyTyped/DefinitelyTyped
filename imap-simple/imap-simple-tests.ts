@@ -75,7 +75,7 @@ imaps.connect(config).then(function (connection) {
             }));
         });
 
-        return Promise.all(attachments);
+        return Promise.all<{filename: string, data: any}>(attachments);
     }).then(function (attachments: {filename: string, data: any}[]) {
         console.log(attachments);
         // =>
