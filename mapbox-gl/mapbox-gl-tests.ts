@@ -1,4 +1,3 @@
-// These examples are from Mapbox (https://www.mapbox.com/mapbox-gl-js/examples/) and therefore under the copyright of Mapbox Inc.
 /// <reference path="./mapbox-gl.d.ts" />
 /// <reference path="../geojson/geojson.d.ts" />
 
@@ -12,51 +11,47 @@ mapboxgl.accessToken = 'foo';
  * Display a Map
  */
 let map = new mapboxgl.Map({
-	container: 'map', // container id
-	style: 'mapbox://styles/mapbox/streets-v8', //stylesheet location
-	center: [-74.50, 40], // starting position
-	zoom: 9 // starting zoom
+	container: 'map',
+	style: 'mapbox://styles/mapbox/streets-v8',
+	center: [-50, 50],
+	zoom: 10,
+	minZoom: 1,
+	maxZoom: 2,
+	interactive: true,
+	attributionControl: false,
+	bearingSnap: 7,
+	scrollZoom: true,
+	maxBounds: [[-100,-90],[100,90]],
+	boxZoom: true,
+	dragRotate: false,
+	dragPan: true,
 });
 
 
 /**
  * Create and style marker clusters
  */
-map = new mapboxgl.Map({
-	container: 'map',
-	style: 'mapbox://styles/mapbox/dark-v8',
-	center: [-103.59179687498357, 40.66995747013945],
-	zoom: 3,
-});
-
 map.on('load', function(){
 
 	// Add a new source from our GeoJSON data and set the
 	// 'cluster' option to true.
-	map.addSource("earthquakes", {
+	map.addSource("data", {
 		type: "geojson",
-		// Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
-		// from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-		data: "/mapbox-gl-js/assets/earthquakes.geojson",
+		data: "/data.geojson",
 		cluster: true,
 		clusterMaxZoom: 14, // Max zoom to cluster points on
 		clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
 	});
 
-	// Use the earthquakes source to create five layers:
-	// One for non-clustered markers, three for each cluster category,
-	// and one for cluster labels.
 	map.addLayer({
-		"id": "non-cluster-markers",
+		"id": "layer",
 		"type": "symbol",
-		"source": "earthquakes",
+		"source": "data",
 		"layout": {
 			"icon-image": "marker-15"
 		}
 	});
 
-	// Display the earthquake data in three layers, each filtered to a range of
-	// count values. Each range gets a different fill color.
 	var layers = [
 		[150, '#f28cb1'],
 		[20, '#f1f075'],
@@ -67,7 +62,7 @@ map.on('load', function(){
 		map.addLayer({
 			"id": "cluster-" + i,
 			"type": "circle",
-			"source": "earthquakes",
+			"source": "data",
 			"paint": {
 				"circle-color": layer[1],
 				"circle-radius": 18
@@ -84,7 +79,7 @@ map.on('load', function(){
 	map.addLayer({
 		"id": "cluster-count",
 		"type": "symbol",
-		"source": "earthquakes",
+		"source": "data",
 		"layout": {
 			"text-field": "{point_count}",
 			"text-font": [
@@ -94,19 +89,10 @@ map.on('load', function(){
 			"text-size": 12
 		}
 	});
-});
 
 /**
  * Add a GeoJSON line
  */
-map = new mapboxgl.Map({
-	container: 'map',
-	style: 'mapbox://styles/mapbox/streets-v8',
-	center: [-122.486052, 37.830348],
-	zoom: 15
-});
-
-map.on('load', function () {
 	map.addSource("route", {
 		"type": "geojson",
 		"data": {
@@ -156,24 +142,13 @@ map.on('load', function () {
 	});
 });
 
-/**
- * Display a Popup
- */
-
-map = new mapboxgl.Map({
-	container: 'map',
-	style: 'mapbox://styles/mapbox/streets-v8',
-	center: [-96, 37.8],
-	zoom: 3
-});
-
-map.flyTo({center: [0, 0], zoom: 9});
-
+// FlyTo
 map.flyTo({
 	center: [0, 0],
-	zoom: 9,
-	speed: 0.2,
+	zoom: 10,
+	speed: 0.5,
 	curve: 1,
+	screenSpeed: 1,
 	easing: function(t: any) {
 		return t;
 	}
@@ -190,10 +165,7 @@ var geoJSONSourceObj = new mapboxgl.GeoJSONSource({
 			"properties": null,
 			"geometry": {
 				"type": "Point",
-				"coordinates": [
-					-76.53063297271729,
-					39.18174077994108
-				]
+				"coordinates": [-50, 0]
 			}
 		}]
 	}
@@ -205,7 +177,7 @@ map.removeSource('some id');  // remove
  * ImageSource
  */
 var imageSourceObj = new mapboxgl.ImageSource({
-	url: 'https://www.mapbox.com/images/foo.png',
+	url: '/foo.png',
 	coordinates: [
 		[-76.54335737228394, 39.18579907229748],
 		[-76.52803659439087, 39.1838364847587],
@@ -221,8 +193,8 @@ map.removeSource('some id');  // remove
  */
 var videoSourceObj = new mapboxgl.VideoSource({
 	urls: [
-		'https://www.mapbox.com/videos/baltimore-smoke.mp4',
-		'https://www.mapbox.com/videos/baltimore-smoke.webm'
+		'/blah.mp4',
+		'/blah.webm'
 	],
 	coordinates: [
 		[-76.54335737228394, 39.18579907229748],
@@ -235,10 +207,10 @@ map.addSource('some id', videoSourceObj); // add
 map.removeSource('some id');  // remove
 
 /**
- * Tooltip
+ * Popup
  */
-var tooltip = new mapboxgl.Popup({closeOnClick: false})
-	.setLngLat([-96, 37.8])
+var popup = new mapboxgl.Popup({closeOnClick: false, closeButton: true, anchor: 'top-right', offset: {'top': [0,0], 'bottom': [25,-50]} })
+	.setLngLat([-50, 50])
 	.setHTML('<h1>Hello World!</h1>')
 	.addTo(map);
 
@@ -257,10 +229,10 @@ var mapStyle = {
 			"type": "image",
 			"url": "/mapbox-gl-js/assets/radar.gif",
 			"coordinates": [
-				[-80.425, 46.437],
-				[-71.516, 46.437],
-				[-71.516, 37.936],
-				[-80.425, 37.936]
+				[-50, 40],
+				[0, 40],
+				[0, 0],
+				[-50, 0]
 			]
 		}
 	},
@@ -334,18 +306,18 @@ var mapStyle = {
 
 map = new mapboxgl.Map({
 	container: 'map',
-	maxZoom: 5.99,
-	minZoom: 4,
-	zoom: 5,
-	center: [-75.789, 41.874],
-	style: mapStyle,
+	minZoom: 14,
+	zoom: 17,
+	center: [-122.514426, 37.562984],
+	bearing: -96,
+	style: videoStyle,
 	hash: false
 });
 
 /**
  * Add video
  */
-var videoStyle = {
+var videoStyle: mapboxgl.Style = {
 	"version": 8,
 	"sources": {
 		"satellite": {
@@ -355,7 +327,7 @@ var videoStyle = {
 		},
 		"video": {
 			"type": "video",
-			"urls": ["https://www.mapbox.com/drone/video/drone.mp4", "https://www.mapbox.com/drone/video/drone.webm"],
+			"urls": ["drone.mp4", "drone.webm"],
 			"coordinates": [
 				[-122.51596391201019, 37.56238816766053],
 				[-122.51467645168304, 37.56410183312965],
@@ -392,54 +364,10 @@ map = new mapboxgl.Map({
 });
 
 /**
- * Add GeoJSON Markers
+ * Marker
  */
-map = new mapboxgl.Map({
-	container: 'map',
-	style: 'mapbox://styles/mapbox/streets-v8',
-	center: [-96, 37.8],
-	zoom: 3
-});
+let marker = new mapboxgl.Marker(null,{offset: [10, 0]})
+	.setLngLat([-50,50])
+	.addTo(map);
 
-map.on('load', function () {
-	map.addSource("markers", {
-		"type": "geojson",
-		"data": {
-			"type": "FeatureCollection",
-			"features": [{
-				"type": "Feature",
-				"geometry": {
-					"type": "Point",
-					"coordinates": [-77.03238901390978, 38.913188059745586]
-				},
-				"properties": {
-					"title": "Mapbox DC",
-					"marker-symbol": "monument"
-				}
-			}, {
-				"type": "Feature",
-				"geometry": {
-					"type": "Point",
-					"coordinates": [-122.414, 37.776]
-				},
-				"properties": {
-					"title": "Mapbox SF",
-					"marker-symbol": "harbor"
-				}
-			}]
-		}
-	});
-
-	map.addLayer({
-		"id": "markers",
-		"type": "symbol",
-		"source": "markers",
-		"layout": {
-			"icon-image": "{marker-symbol}-15",
-			"text-field": "{title}",
-			"text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-			"text-offset": [0, 0.6],
-			"text-anchor": "top"
-		}
-	});
-});
+marker.remove();
