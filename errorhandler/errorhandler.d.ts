@@ -3,10 +3,10 @@
 // Definitions by: Santi Albo <https://github.com/santialbo/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-serve-static-core/express-serve-static-core.d.ts" />
 
 declare module "errorhandler" {
-    import * as express from 'express';
+    import * as express from 'express-serve-static-core';
 
     function errorHandler(options?: errorHandler.Options): express.ErrorRequestHandler;
 
