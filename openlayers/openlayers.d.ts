@@ -1853,19 +1853,7 @@ declare namespace ol {
          * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
          * @param style Overlay style
          */
-        setStyle(style: ol.style.Style): void;
-
-        /**
-         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
-         * @param style Overlay style
-         */
-        setStyle(style: Array<ol.style.Style>): void;
-
-        /**
-         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
-         * @param style Overlay style
-         */
-        setStyle(style: ol.style.StyleFunction): void;
+        setStyle(style: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction): void;
     }
 
     /**
