@@ -311,7 +311,7 @@ $(document).ready(function () {
 
     var initSettings = dt.init();
 
-    var i18n = dt.i18n('buttons.copy', 'Copy to clipboard');
+    var i18n: string = dt.i18n('buttons.copy', 'Copy to clipboard');
     i18n = dt.i18n('select.rows', { _: '%d rows selected', 1: '1 row selected' }, 0);
 
     var off = dt.off("event");
@@ -904,7 +904,7 @@ $(document).ready(function () {
 
     //#region "Methods-Util"
 
-    var util_1 = dt.any();
+    var util_1: boolean = dt.any();
 
     //#endregion "Methods-Util"
 });
