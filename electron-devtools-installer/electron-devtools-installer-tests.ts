@@ -9,27 +9,12 @@ import installExtension, {
 } from 'electron-devtools-installer';
 
 
-installExtension(EMBER_INSPECTOR)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(REACT_DEVELOPER_TOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(BACKBONE_DEBUGGER)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(JQUERY_DEBUGGER)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(ANGULARJS_BATARANG)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(VUEJS_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(REDUX_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
-installExtension(REACT_PERF)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
+installExtension(EMBER_INSPECTOR);
+installExtension(REACT_DEVELOPER_TOOLS);
+installExtension(BACKBONE_DEBUGGER);
+installExtension(JQUERY_DEBUGGER);
+installExtension(ANGULARJS_BATARANG);
+installExtension(VUEJS_DEVTOOLS);
+installExtension(REDUX_DEVTOOLS);
+installExtension(REACT_PERF);
+installExtension('abcdefghijkl');
