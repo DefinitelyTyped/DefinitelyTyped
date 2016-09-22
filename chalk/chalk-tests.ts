@@ -1,5 +1,3 @@
-
-
 import chalk = require('chalk');
 
 var str: string;
@@ -35,3 +33,10 @@ chain = chain.underline;
 str = chain('someString');
 
 chalk.enabled = chalk.supportsColor = bool;
+
+var chalkObj = new chalk.constructor({enabled: false});
+
+chain = chalkObj.green;
+chain = chalkObj.underline;
+chalkObj.enabled = true;
+str = chain('foo');
