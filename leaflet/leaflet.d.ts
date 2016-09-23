@@ -329,6 +329,23 @@ declare namespace L {
         export function wms(baseUrl: string, options: WMSOptions): WMS;
     }
 
+    export interface LayerGroup extends Layer {
+        toGeoJSON(): Object;
+        addLayer(layer: Layer):	this;
+        removeLayer(layer: Layer): this;
+        removeLayer(id: number): this;
+        hasLayer(layer: Layer): boolean;
+        clearLayers(): this;
+        invoke(methodName: string, ...parms: any[]): this;
+        eachLayer(fn: Function, context?: Object): this;
+        getLayer(id: number): Layer;
+        getLayers(): Layer[];
+        setZIndex(zIndex: number): this;
+        getLayerId(layer: Layer): number;
+    }
+
+    export function layerGroup(layers?: Layer[]): LayerGroup
+
     export interface ImageOverlayOptions extends LayerOptions {
         opacity?: number;
         alt?: string;
@@ -544,8 +561,71 @@ declare namespace L {
         bounceAtZoomLimits?: boolean;
     }
 
-    export interface Control {
+    export namespace control {
+        function zoom(options?: ZoomControlOptions): ZoomControl;
+        function attribution(options?: AttributionControlOptions): AttributionControl;
+        function layers(baselayers?: Object, overlays?: Object, options?: LayersControlOptions): LayersControl;
+        function scale(options?: ScaleControlOptions): ScaleControl;
+    }
 
+    export interface Control {
+        getPosition(): string;
+        setPosition(position: string ): this;
+        getContainer(): HTMLElement;
+        addTo(map: Map): this;
+        remove(): this;
+        onAdd(map: Map): HTMLElement;
+        onRemove(map: Map): void;
+    }
+
+    interface ControlOptions {
+        position?: 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
+    }
+
+    export interface ZoomControl extends Control {
+
+    }
+
+    interface ZoomControlOptions extends ControlOptions {
+        zoomInText?: string;
+        zoomInTitle?: string;
+        zoomOutText?: string;
+        zoomOutTitle?: string;
+    }
+
+    export interface AttributionControl extends Control {
+        setPrefix(prefix: string): this
+        addAttribution(text: string): this
+        removeAttribution(text: string): this
+    }
+
+    interface AttributionControlOptions extends ControlOptions {
+        prefix?: string;
+    }
+
+    export interface LayersControl extends Control {
+        addBaseLayer(layer: Layer, name: string): this
+        addBaseLayer(layer, name: string): this
+        removeLayer(layer: Layer): this
+        expand(): this
+        collapse(): this
+    }
+
+    export interface LayersControlOptions extends ControlOptions {
+        collapsed?: boolean;
+        autoZIndex?: boolean;
+        hideSingleBase?: boolean;
+    }
+
+    export interface ScaleControl extends Control {
+
+    }
+
+    export interface ScaleControlOptions extends ControlOptions {
+        maxWidth?: number
+        metric?: boolean
+        imperial?: boolean
+        updateWhenIdle?: boolean
     }
 
     interface DivOverlayOptions {

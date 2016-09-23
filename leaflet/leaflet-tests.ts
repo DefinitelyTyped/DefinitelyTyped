@@ -166,6 +166,21 @@ mapPixelBounds = map.getPixelBounds();
 mapPixelBounds = map.getPixelWorldBounds();
 mapPixelBounds = map.getPixelWorldBounds(12);
 
+
+L.control.zoom({position: 'topright'}).addTo(map);
+L.control.attribution({prefix: 'test'}).addTo(map);
+L.control.layers({
+	'Road': L.tileLayer(''),
+	'Aerial': L.tileLayer('')
+}).addTo(map);
+L.control.scale().addTo(map);
+
+let littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.');
+let denver    = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.');
+let aurora    = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.');
+let golden    = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
+let cities = L.layerGroup([littleton, denver, aurora, golden]);
+
 map = map
 	// addControl
 	// removeControl
