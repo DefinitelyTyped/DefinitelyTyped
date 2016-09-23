@@ -1387,13 +1387,13 @@ interface SchedulerStatic {
 	 * returns the current cursor-pointed date and section (if defined)
 	 * @param e a native event object
 	*/
-    getActionData<T>(e: Event): T;
+    getActionData(e: Event): any;
 
 	/**
 	 * returns the event object by its id
 	 * @param event_id the  event's id
 	*/
-    getEvent<T>(event_id: string | number): T;
+    getEvent(event_id: string | number): any;
 
 	/**
 	 * gets the event's end date
@@ -1418,14 +1418,14 @@ interface SchedulerStatic {
 	 * @param from the start date of the period
 	 * @param to the end date of the period
 	*/
-    getEvents<T>(from?: Date, to?: Date): T[];
+    getEvents(from?: Date, to?: Date): any;
 
 	/**
 	 * gets the label of a select control in the lightbox
 	 * @param property the name of a data property that the control is mapped to
 	 * @param key the option's id. This parameter is compared with the event's data property <br> to assign the select's option to an event
 	*/
-    getLabel<T>(property: string, key: string | number): T;
+    getLabel(property: string, key: string | number): any;
 
 	/**
 	 * gets the lightbox's HTML object element
@@ -1437,7 +1437,7 @@ interface SchedulerStatic {
 	 * @param id the id of a recurring event
 	 * @param number the maximum number of occurrences to return (by default, 100)
 	*/
-    getRecDates<T>(id: string, number: number): T[];
+    getRecDates(id: string, number: number): any;
 
 	/**
 	 * gets the object of the currently displayed event
