@@ -3,7 +3,7 @@
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="geojson" />
 
 declare namespace mapboxgl {
 	let accessToken: string;
@@ -462,7 +462,7 @@ declare namespace mapboxgl {
 	 */
 	export class VideoSource implements Source, VideoSourceOptions {
 		type: "video";
-		
+
 		constructor(options?: mapboxgl.VideoSourceOptions);
 
 		getVideo(): HTMLVideoElement;
