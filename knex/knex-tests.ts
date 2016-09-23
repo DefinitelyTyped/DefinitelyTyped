@@ -619,7 +619,12 @@ knex.select('*')
 //
 // Migrations
 //
-var config = { };
+var config = {
+  directory: "./migrations",
+  extension: "js",
+  tableName: "knex_migrations",
+  disableTransactions: false
+};
 knex.migrate.make(name, config);
 knex.migrate.make(name);
 
