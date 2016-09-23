@@ -225,7 +225,7 @@ declare namespace L {
          * Note that if you passed a custom context to on, you must pass the same context
          * to off in order to remove the listener.
          */
-        off(type: string, fn: (e: Event) => void, context?: any): Evented;
+        off(type: string, fn?: (e: Event) => void, context?: any): Evented;
 
         /**
          * Removes a set of type/listener pairs.
