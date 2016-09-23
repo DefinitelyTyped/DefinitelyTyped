@@ -23,7 +23,7 @@ declare class Ids {
     /**
      * Manually claim an existing id.
      * @param {string} id
-     * @param {string} [element] element the id is claimed by
+     * @param {*} [element] element the id is claimed by
      */
     claim(id: string, element?: any): void;
 
