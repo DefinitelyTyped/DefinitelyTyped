@@ -235,19 +235,19 @@ declare namespace L {
         /**
          * Removes all listeners to all events on the object.
          */
-        off();
+        off(): Evented;
 
         /**
          * Fires an event of the specified type. You can optionally provide a data
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fire(type: string, data?: any, propagate?: boolean);
+        fire(type: string, data?: any, propagate?: boolean): Evented;
 
         /**
          * Returns true if a particular event type has any listeners attached to it.
          */
-        listens(type: string);
+        listens(type: string): boolean;
 
         /**
          * Behaves as on(...), except the listener will only get fired once and then removed.
@@ -262,12 +262,12 @@ declare namespace L {
         /**
          * Adds an event parent - an Evented that will receive propagated events
          */
-        addEventParent(obj: Evented);
+        addEventParent(obj: Evented): Evented;
 
         /**
          * Removes an event parent, so it will stop receiving propagated events
          */
-        removeEventParent(obj: Evented)
+        removeEventParent(obj: Evented): Evented;
 
         /**
          * Alias for on(...)
@@ -308,7 +308,7 @@ declare namespace L {
          *
          * Removes all listeners to all events on the object.
          */
-        clearAllEventListeners();
+        clearAllEventListeners(): Evented;
 
         /**
          * Alias for once(...)
@@ -331,14 +331,14 @@ declare namespace L {
          * object — the first argument of the listener function will contain its properties.
          * The event might can optionally be propagated to event parents.
          */
-        fireEvent(type: string, data?: any, propagate?: boolean);
+        fireEvent(type: string, data?: any, propagate?: boolean): Evented;
 
         /**
          * Alias for listens(...)
          *
          * Returns true if a particular event type has any listeners attached to it.
          */
-        hasEventHandlers(type: string)
+        hasEventHandlers(type: string): boolean;
     }
 
     interface LayerOptions {
