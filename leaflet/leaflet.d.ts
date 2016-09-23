@@ -199,8 +199,27 @@ declare namespace L {
 
     export function bounds(points: BoundsLiteral): Bounds;
 
-    export interface Evented {
+    export type EventHandlerFn = (event: Event) => void;
 
+    export type EventHandlerFnMap = {[type: string]: EventHandlerFn};
+
+    export interface Evented {
+        on(type: string, fn: EventHandlerFn, context?: Object): this;
+        on(eventMap: EventHandlerFnMap): this;
+        off(type: string, fn?: EventHandlerFn, context?: Object): this;
+        off(eventMap: EventHandlerFnMap): this;
+        off(): this;
+        fire(type: string, data?: Object, propagate?: boolean): this;
+        listens(type: string): boolean;
+        once(type: string, fn: EventHandlerFn, context?: Object): this;
+        addEventParnet(obj: Evented): this;
+        removeEventParent(obj: Evented): this;
+        addEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        removeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        clearAllEventListeners(): this;
+        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+        fireEvent(type: string, data?: Object, propagate?: boolean): this;
+        hasEventListeners(type: string): boolean;
     }
 
     interface LayerOptions {
@@ -355,7 +374,7 @@ declare namespace L {
     export interface PathOptions extends InteractiveLayerOptions {
         stroke?: boolean;
         color?: string;
-        wight?: number;
+        weight?: number;
         opacity?: number;
         lineCap?: LineCapShape;
         lineJoin?: LineJoinShape;
@@ -366,7 +385,7 @@ declare namespace L {
         fillOpacity?: number;
         fillRule?: FillRule;
         renderer?: Renderer;
-        className: string;
+        className?: string;
     }
 
     export interface Path extends Layer {
@@ -485,6 +504,72 @@ declare namespace L {
 
     export interface SVG extends Renderer {}
 
+    export namespace SVG {
+        export function create(name: string): SVGElement;
+
+        export function pointsToPath(rings: Array<Point>, close: boolean): string;
+
+        export function pointsToPath(rings: Array<PointTuple>, close: boolean): string;
+    }
+
+    export function svg(options?: RendererOptions): SVG;
+
+    export interface Canvas extends Renderer {}
+
+    export function canvas(options?: RendererOptions): Canvas;
+
+    export interface LayerGroup extends Layer {
+        toGeoJSON(): Object; // should import GeoJSON typings
+        addLayer(layer: Layer): this;
+        removeLayer(layer: Layer): this;
+        removeLayer(id: number): this;
+        hasLayer(layer: Layer): boolean;
+        clearLayers(): this;
+        invoke(methodName: string, ...params: Array<any>): this;
+        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        getLayer(id: number): Layer;
+        getLayers(): Array<Layer>;
+        setZIndex(zIndex: number): this;
+        getLayerId(layer: Layer): number;
+    }
+
+    export function layerGroup(layers: Array<Layer>): LayerGroup;
+
+    export interface FeatureGroup extends LayerGroup {
+        setStyle(style: PathOptions): this;
+        bringToFront(): this;
+        bringToBack(): this;
+        getBounds(): LatLngBounds;
+    }
+
+    export function featureGroup(layers: Array<Layer>): FeatureGroup;
+
+    export interface GeoJSONOptions extends LayerOptions {
+        pointToLayer?: (geoJsonPoint: Object, latlng: LatLng) => Layer; // should import GeoJSON typings
+        style?: (geoJsonFeature: Object) => PathOptions;
+        onEachFeature?: (feaure: Object, layer: Layer) => void;
+        filter?: (geoJsonFeature: Object) => boolean;
+        coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
+    }
+
+    export interface GeoJSON extends FeatureGroup {}
+
+    export namespace GeoJSON {
+        export function addData(data: Object): Layer;
+
+        export function resetStyle(layer: Layer): Layer;
+
+        export function setStyle(style: (geoJsonFeature: Object) => PathOptions): Layer; // not sure about this one, docs don't provide enough detail
+
+        export function geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
+
+        export function coordsToLatLng(coords: [number, number]): LatLng;
+
+        export function coordsToLatLng(coords: [number, number, number]): LatLng; // check if LatLng has an altitude property
+    }
+
+    export function geoJSON(geojson?: Object, options?: GeoJSONOptions): GeoJSON;
+
     type Zoom = boolean | 'center';
 
     export interface MapOptions {
@@ -544,8 +629,78 @@ declare namespace L {
         bounceAtZoomLimits?: boolean;
     }
 
-    export interface Control {
+    export type ControlPosition = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 
+    export interface ControlOptions {
+        position?: ControlPosition;
+    }
+
+    export interface Control {
+        getPosition(): ControlPosition;
+        setPosition(position: ControlPosition): this;
+        getContainer(): HTMLElement;
+        addTo(map: Map): this;
+        remove(): this;
+
+        // Extension methods
+        onAdd(map: Map): HTMLElement;
+        onRemove(map: Map): void;
+    }
+
+    export namespace Control {
+        export interface ZoomOptions extends ControlOptions {
+            zoomInText?: string;
+            zoomInTitle?: string;
+            zoomOutText?: string;
+            zoomOutTitle?: string;
+        }
+
+        export interface Zoom extends Control {}
+
+        export interface AttributionOptions extends ControlOptions {
+            prefix?: string | boolean;
+        }
+
+        export interface Attribution extends Control {
+            setPrefix(prefix: string): this;
+            addAttribution(text: string): this;
+            removeAttribution(text: string): this;
+        }
+
+        export interface LayersOptions extends ControlOptions {
+            collapsed?: boolean;
+            autoZIndex?: boolean;
+            hideSingleBase?: boolean;
+        }
+
+        export interface Layers extends Control {
+            addBaseLayer(layer: Layer, name: string): this;
+            addOverlay(layer: Layer, name: string): this;
+            removeLayer(layer: Layer): this;
+            expand(): this;
+            collapse(): this;
+        }
+
+        export interface ScaleOptions extends ControlOptions {
+            maxWidth?: number;
+            metric?: boolean;
+            imperial?: boolean;
+            updateWhenIdle?: boolean;
+        }
+
+        export interface Scale extends Control {}
+    }
+
+    export namespace control {
+        export function zoom(options: Control.ZoomOptions): Control.Zoom;
+
+        export function attribution(options: Control.AttributionOptions): Control.Attribution;
+
+        type LayersObject = {[name: string]: Layer};
+
+        export function layers(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions): Control.Layers;
+
+        export function scale(options?: Control.ScaleOptions): Control.Scale;
     }
 
     interface DivOverlayOptions {
@@ -920,6 +1075,56 @@ declare namespace L {
     export function marker(latlng: LatLngLiteral, options?: MarkerOptions): Marker;
 
     export function marker(latlng: LatLngTuple, options?: MarkerOptions): Marker;
+
+    export namespace Browser {
+        export const ie: boolean;
+        export const ielt9: boolean;
+        export const edge: boolean;
+        export const webkit: boolean;
+        export const gecko: boolean;
+        export const android: boolean;
+        export const android23: boolean;
+
+        export const chrome: boolean;
+
+        export const safari: boolean;
+
+        export const win: boolean;
+
+        export const ie3d: boolean;
+
+        export const webkit3d: boolean;
+
+        export const gecko3d: boolean;
+
+        export const opera12: boolean;
+
+        export const any3d: boolean;
+
+        export const mobile: boolean;
+
+        export const mobileWebkit: boolean;
+
+        export const mobiWebkit3d: boolean;
+
+        export const mobileOpera: boolean;
+
+        export const mobileGecko: boolean;
+
+        export const touch: boolean;
+
+        export const msPointer: boolean;
+
+        export const pointer: boolean;
+
+        export const retina: boolean;
+
+        export const canvas: boolean;
+
+        export const vml: boolean;
+
+        export const svg: boolean;
+    }
 }
 
 declare module 'leaflet' {
