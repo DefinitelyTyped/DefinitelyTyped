@@ -1,4 +1,4 @@
-/// <reference path="farbtastic.d.ts" />
+
 
 var callback = () => {};
 var domNode = document.createElement("div");

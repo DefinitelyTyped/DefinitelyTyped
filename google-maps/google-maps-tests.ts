@@ -1,4 +1,4 @@
-/// <reference path="google-maps.d.ts" />
+
 
 import GoogleMapsLoader = require('google-maps');
  

@@ -1,6 +1,5 @@
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../tabtab/tabtab.d.ts" />
+/// <reference types="node" />
 
 import tabtab = require('tabtab');
 import child_process = require('child_process');

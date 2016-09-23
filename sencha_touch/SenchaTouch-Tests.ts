@@ -1,4 +1,3 @@
-/// <reference path="SenchaTouch.d.ts" />
 
 Ext.application({
     name: 'Sencha',

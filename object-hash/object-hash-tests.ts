@@ -1,4 +1,4 @@
-/// <reference path="object-hash.d.ts" />
+
 
 import hash = require('object-hash');
 
@@ -23,7 +23,7 @@ var options = {
 hashed = hash(obj, options);
 
 // HashTable
-var table: ObjectHash.HashTable;
+var table: any;
 table = hash.HashTable();
 table = hash.HashTable(options);
 

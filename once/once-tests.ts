@@ -1,4 +1,4 @@
-/// <reference path="once.d.ts" />
+
 
 import once from "once";
 

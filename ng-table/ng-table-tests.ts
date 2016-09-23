@@ -1,4 +1,4 @@
-/// <reference path="ng-table.d.ts" />
+
 
 interface IPerson {
     age: number;

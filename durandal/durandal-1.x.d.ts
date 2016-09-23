@@ -3,8 +3,8 @@
 // Definitions by: Evan Larsen <http://nouvosoft.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 declare module "durandal/system" {
     /**

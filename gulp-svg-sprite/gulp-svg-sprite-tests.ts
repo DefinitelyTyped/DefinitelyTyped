@@ -1,7 +1,3 @@
-/// <reference path="gulp-svg-sprite.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
-/// <reference path="../svg-sprite/svg-sprite.d.ts" />
-
 import svgSprite = require('gulp-svg-sprite');
 import spriter = require('svg-sprite');
 import gulp = require('gulp')

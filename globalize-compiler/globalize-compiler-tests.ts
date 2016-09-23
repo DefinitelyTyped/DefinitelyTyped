@@ -1,12 +1,11 @@
-///<reference path="globalize-compiler.d.ts" />
-
-import globalizeCompiler = require("globalize-compiler");
+import * as ESTree from "estree";
+import * as globalizeCompiler from "globalize-compiler";
 const globalize: GlobalizeStatic = null;
 
-let extractsArray: GlobalizeCompiler.FormatterOrParserFunction[];
+let extractsArray: globalizeCompiler.FormatterOrParserFunction[];
 
-const templateFunction: (options: GlobalizeCompiler.CompileTemplateOptions) => string =
-  (options: GlobalizeCompiler.CompileTemplateOptions): string => {
+const templateFunction: (options: globalizeCompiler.CompileTemplateOptions) => string =
+  (options: globalizeCompiler.CompileTemplateOptions): string => {
     const deps: string[] = options.dependencies;
     const code: string = options.code;
     return `${deps.join(';')}${code}`;
@@ -18,7 +17,7 @@ compileOutput = globalizeCompiler.compile({ x: () => "test", y: (x: string) => x
 compileOutput = globalizeCompiler.compile(extractsArray, { template: templateFunction });
 compileOutput = globalizeCompiler.compile({ x: () => "test", y: (x: string) => x }, { template: templateFunction });
 
-let extractOutput: GlobalizeCompiler.ExtractFunction;
+let extractOutput: globalizeCompiler.ExtractFunction;
 extractOutput = globalizeCompiler.extract("path");
 
 const ast: ESTree.Program = undefined;

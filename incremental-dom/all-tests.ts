@@ -1,4 +1,3 @@
-/// <reference path="incremental-dom.d.ts" />
 
 declare var describe:any
 ,it:any

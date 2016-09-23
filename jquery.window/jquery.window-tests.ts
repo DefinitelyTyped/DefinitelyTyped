@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.window.d.ts"/>
+/// <reference types="jquery"/>
 
 function example_1() {
 	$.window({

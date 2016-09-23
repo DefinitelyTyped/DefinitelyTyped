@@ -1,4 +1,4 @@
-/// <reference path="./pebblekitjs.d.ts" />
+
 
 var transactionId = Pebble.sendAppMessage({'0': 42, '1': 'String value'},
     function (e) {

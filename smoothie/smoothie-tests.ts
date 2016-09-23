@@ -1,4 +1,3 @@
-/// <reference path="smoothie.d.ts" />
 
 // Smoothie supports browserify
 import smoothie = require('smoothie');

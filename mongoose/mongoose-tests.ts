@@ -1,6 +1,3 @@
-/// <reference path="mongoose.d.ts" />
-/// <reference path="../lodash/lodash.d.ts"/>
-
 import * as mongoose from 'mongoose';
 
 // test compatibility with other libraries
@@ -927,8 +924,8 @@ aggregate.project({
     newField: '$b.nested'
   , plusTen: { $add: ['$val', 10]}
   , sub: {
-       name: '$a'
-    }
+    name: '$a'
+  }
 })
 aggregate.project({ salary_k: { $divide: [ "$salary", 1000 ]}});
 aggregate.read('primaryPreferred').read('pp');
@@ -1404,8 +1401,7 @@ Final2.staticMethod();
 Final2.staticProp;
 var final2 = new Final2();
 final2.prop;
-final2.method;
-interface ibase extends mongoose.Document {
+final2.method;interface ibase extends mongoose.Document {
   username: string;
 }
 interface extended extends ibase {

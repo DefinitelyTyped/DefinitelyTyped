@@ -1,6 +1,4 @@
-/// <reference path="../../stats/stats.d.ts" />
-/// <reference path="../physijs.d.ts" />
-/// <reference path="../../threejs/three-projector.d.ts" />
+/// <reference types="stats" />
 
 Physijs.scripts.worker = '../physijs_worker.js';
 Physijs.scripts.ammo = 'examples/js/ammo.js';

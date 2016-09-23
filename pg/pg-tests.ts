@@ -1,4 +1,4 @@
-/// <reference path="pg.d.ts" />
+
 import * as pg from "pg";
 
 var conString = "postgres://username:password@localhost/database";

@@ -1,4 +1,4 @@
-/// <reference path="jasmine-promise-matchers.d.ts" />
+
 
 describe('something', () => {
 	beforeEach(() => {

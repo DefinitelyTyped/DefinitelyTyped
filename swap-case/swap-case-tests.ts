@@ -1,4 +1,3 @@
-/// <reference path="swap-case.d.ts" />
 
 import swapCase = require('swap-case');
 

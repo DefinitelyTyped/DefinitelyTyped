@@ -1,4 +1,4 @@
-/// <reference path="koa-1.1.2.d.ts" />
+
 
 import * as Koa from 'koa';
 var app = new Koa();

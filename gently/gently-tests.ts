@@ -1,4 +1,3 @@
-/// <reference path="gently.d.ts" />
 
 import Gently = require('gently');
 

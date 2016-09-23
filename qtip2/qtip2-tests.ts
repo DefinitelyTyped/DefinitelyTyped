@@ -1,4 +1,4 @@
-/// <reference path="qtip2.d.ts" />
+
 
 var $a = $('_');
 

@@ -1,5 +1,5 @@
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="quixote.d.ts" />
+/// <reference types="mocha" />
+
 
 function test_createFrame() {
     var frame: QFrame;

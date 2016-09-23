@@ -1,4 +1,4 @@
-/// <reference path="jquery.uniform.d.ts" />
+
 
 // Style all <select> elements
 $("select").uniform();

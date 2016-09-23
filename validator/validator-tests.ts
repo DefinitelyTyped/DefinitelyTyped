@@ -1,4 +1,4 @@
-/// <reference path='./validator.d.ts' />
+/// <reference types="validator" />
 
 import * as validator from 'validator';
 

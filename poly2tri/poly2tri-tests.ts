@@ -1,4 +1,4 @@
-﻿/// <reference path="poly2tri.d.ts" />
+﻿
 
 function initializeCDT(): poly2tri.SweepContext {
     var contour = [

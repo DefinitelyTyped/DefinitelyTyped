@@ -1,4 +1,4 @@
-/// <reference path="atmosphere.d.ts" />
+
 
 var socket = atmosphere;
 

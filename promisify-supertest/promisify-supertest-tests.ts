@@ -1,5 +1,3 @@
-/// <reference path="promisify-supertest.d.ts" />
-/// <reference path="../express/express.d.ts" />
 
 import * as request from 'promisify-supertest';
 import * as express from 'express';

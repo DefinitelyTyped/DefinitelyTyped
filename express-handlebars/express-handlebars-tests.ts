@@ -1,6 +1,6 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
-/// <reference path="express-handlebars.d.ts" />
+/// <reference types="node" />
+
+
 
 import express = require('express');
 import exphbs = require('express-handlebars');

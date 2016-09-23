@@ -1,4 +1,4 @@
-/// <reference path="./diff.d.ts" />
+
 
 import jsdiff = require('diff');
 
@@ -59,7 +59,6 @@ function verifyPatchMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUni
         console.error("Patch did not match uniDiff");
     }
 }
-
 function verifyApplyMethods(oldStr: string, newStr: string, uniDiff: jsdiff.IUniDiff) {
     var verifyApply = [
         jsdiff.applyPatch(oldStr, uniDiff),

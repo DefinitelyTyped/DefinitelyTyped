@@ -1,5 +1,3 @@
-/// <reference path="wallabyjs.d.ts" />
-
 import * as wallabyjs from 'wallabyjs';
 
 export class WallabyConfig implements wallabyjs.IWallabyConfig {

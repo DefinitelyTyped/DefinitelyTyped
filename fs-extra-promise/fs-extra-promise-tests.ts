@@ -1,5 +1,5 @@
-/// <reference path="fs-extra-promise.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import fs = require('fs-extra-promise');
 import stream = require('stream');

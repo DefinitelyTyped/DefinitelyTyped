@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-bootstrap.d.ts" />
+
 
 var testApp = angular.module('testApp');
 

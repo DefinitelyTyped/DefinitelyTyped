@@ -1,4 +1,3 @@
-/// <reference path="html-minifier.d.ts" />
 
 import * as HTMLMinifier from 'html-minifier';
 const minify = HTMLMinifier.minify;

@@ -17,7 +17,7 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
  */
 
-///<reference path="../react-native/react-native.d.ts" />
+///<reference types="react-native" />
 
 
 import * as React from 'react-native'

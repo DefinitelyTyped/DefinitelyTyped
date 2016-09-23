@@ -1,4 +1,7 @@
 /// <reference path="camera.d.ts" />
+/// <reference path="../cordova-plugin-camera/index.d.ts" />
+
+
 
 namespace ngCordova {
     function cameraTest($cordovaCamera: ICameraService) {

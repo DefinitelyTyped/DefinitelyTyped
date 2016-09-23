@@ -3,8 +3,6 @@
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
-
 interface HighstockChartObject extends HighchartsChartObject {
     options: HighstockOptions;
 }
@@ -81,9 +79,9 @@ interface HighstockScrollbarOptions {
 }
 
 interface HighstockOptions extends HighchartsOptions {
-    navigator?: HighstockNavigatorOptions; 
-    rangeSelector?: HighstockRangeSelectorOptions; 
-    scrollbar?: HighstockScrollbarOptions; 
+    navigator?: HighstockNavigatorOptions;
+    rangeSelector?: HighstockRangeSelectorOptions;
+    scrollbar?: HighstockScrollbarOptions;
 }
 
 interface HighstockChart {
@@ -92,7 +90,7 @@ interface HighstockChart {
 }
 
 interface HighchartsStatic {
-    StockChart: HighstockChart; 
+    StockChart: HighstockChart;
 }
 
 interface JQuery {

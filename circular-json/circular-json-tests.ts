@@ -1,4 +1,3 @@
-/// <reference path="circular-json.d.ts" />
 
 import CircularJSON = require('circular-json');
 

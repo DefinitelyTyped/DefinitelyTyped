@@ -1,4 +1,4 @@
-/// <reference path="bluebird-1.0.d.ts" />
+
 
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 

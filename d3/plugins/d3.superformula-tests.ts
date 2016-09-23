@@ -1,5 +1,4 @@
-/// <reference path="../d3.d.ts" />
-/// <reference path="d3.superformula.d.ts" />
+import * as d3 from 'd3';
 
 function superformula() {
     var size = 1000;

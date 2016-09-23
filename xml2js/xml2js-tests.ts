@@ -1,4 +1,3 @@
-/// <reference path="xml2js.d.ts" />
 
 import xml2js = require('xml2js');
 

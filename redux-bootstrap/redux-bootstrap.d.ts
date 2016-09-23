@@ -3,11 +3,11 @@
 // Definitions by: Remo H. Jansen <https://github.com/remojansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="../react/react.d.ts" />
-/// <reference path="../react-router-redux/react-router-redux.d.ts" />
+/// <reference types="redux" />
+/// <reference types="react" />
 
 declare module "redux-bootstrap" {
+    import ReactRouterRedux = require("react-router-redux");
 
     interface BootstrapOptions {
         routes: JSX.Element;

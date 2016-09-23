@@ -1,5 +1,5 @@
-/// <reference path="gulp-json-editor.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from 'gulp';
 import * as jeditor from 'gulp-json-editor';

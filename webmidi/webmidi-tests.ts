@@ -1,4 +1,4 @@
-/// <reference path="webmidi.d.ts" />
+
 
 var onFulfilled = (item: WebMidi.MIDIAccess) => {
     this._midiPort = item;
@@ -11,7 +11,7 @@ var onFulfilled = (item: WebMidi.MIDIAccess) => {
     console.log("sysexenabled");
     console.log(item.sysexEnabled);
 
-    var inputs = this._midiPort.inputs.values();
+     var inputs = this._midiPort.inputs.values();
 
     for(const o of inputs){
         this._inputs.push(o);

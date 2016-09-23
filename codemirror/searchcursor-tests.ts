@@ -1,5 +1,5 @@
-/// <reference path="codemirror.d.ts" />
-/// <reference path="searchcursor.d.ts" />
+
+
 
 var doc = new CodeMirror.Doc('text some string and another text match');
 var cursor = doc.getSearchCursor('text', new CodeMirror.Pos(0,0), false);

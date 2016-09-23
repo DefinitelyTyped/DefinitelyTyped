@@ -1,4 +1,4 @@
-/// <reference path="swipeview.d.ts" />
+
 
 function demo1() {
     document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);

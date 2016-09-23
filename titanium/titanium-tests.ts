@@ -1,4 +1,4 @@
-/// <reference path="titanium.d.ts" />
+
 
 function test_window() {
 	var window: Ti.UI.Window = Ti.UI.createWindow({

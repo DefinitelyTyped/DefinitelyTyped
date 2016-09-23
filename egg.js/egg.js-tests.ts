@@ -1,4 +1,4 @@
-/// <reference path="egg.js.d.ts" />
+
 
 var egg = new Egg();
 egg

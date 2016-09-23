@@ -1,4 +1,4 @@
-/// <reference path="./parse-glob.d.ts" />
+
 import parseGlob = require('parse-glob');
 
 var result: parseGlob.Result = parseGlob('a/b/c/**/*.{yml,json}');

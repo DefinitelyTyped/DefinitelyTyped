@@ -1,4 +1,4 @@
-/// <reference path="electron-window-state.d.ts" />
+
 
 import {app, BrowserWindow} from 'electron';
 import windowStateKeeper = require('electron-window-state');
@@ -24,8 +24,8 @@ app.on('ready', function () {
 const s2 = windowStateKeeper({
   defaultWidth: 1000,
   defaultHeight: 800,
-  file: __dirname + '/foo.json',
-  path: __dirname,
+  file: '' + '/foo.json',
+  path: '',
   maximize: true,
   fullScreen: false,
 });

@@ -1,4 +1,4 @@
-/// <reference path="pinkyswear.d.ts" />
+
 
 var promise: PinkySwear.Promise = pinkySwear();
 

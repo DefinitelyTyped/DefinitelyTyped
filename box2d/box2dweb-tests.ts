@@ -1,4 +1,4 @@
-/// <reference path="box2dweb.d.ts" />
+
 
 import b2Common = Box2D.Common;
 import b2Math = Box2D.Common.Math;

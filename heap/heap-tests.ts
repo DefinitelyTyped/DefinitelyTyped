@@ -1,4 +1,4 @@
-/// <reference path="heap.d.ts" />
+import Heap = require("heap");
 
 var numberComparator = (a: number, b: number) => { return a.toString().length - b.toString().length; };
 var stringComparator = (a: string, b: string) => { return a.length - b.length; };

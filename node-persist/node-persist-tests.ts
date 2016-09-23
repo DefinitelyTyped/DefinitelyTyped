@@ -1,4 +1,4 @@
-/// <reference path="./node-persist.d.ts" />
+
 // node-persist tests
 // compile with --module=common
 

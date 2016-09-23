@@ -1,4 +1,3 @@
-/// <reference path='xmltojson.d.ts' />
 
 import * as xmltojson from 'xmltojson';
 

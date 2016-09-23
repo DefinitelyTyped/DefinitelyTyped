@@ -1,4 +1,4 @@
-/// <reference path="universal-analytics.d.ts" />
+import UniversalAnalytics = require("universal-analytics");
 
 var ui:UniversalAnalytics;
 

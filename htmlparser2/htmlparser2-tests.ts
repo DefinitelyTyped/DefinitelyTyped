@@ -1,4 +1,3 @@
-/// <reference path="htmlparser2.d.ts"/>
 /**
  * Created by staticfunction on 8/4/14.
  */

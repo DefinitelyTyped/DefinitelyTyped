@@ -1,13 +1,14 @@
-/// <reference path="credential.d.ts" />
 
 // all from current main repo examples
 
-import * as credential from 'credential';
+
+
+import credential = require("credential");
 
 var pw = credential();
 var newPassword = 'I have a really great password.';
 
-pw.hash(newPassword, function (err, hash) {
+pw.hash(newPassword, function(err, hash) {
     if (err) { throw err; }
     console.log('Store the password hash.', hash);
 });
@@ -21,7 +22,7 @@ var storedHash = {
 };
 var userInput = 'I have a really great password.';
 
-pw.verify(storedHash, userInput, function (err, isValid) {
+pw.verify(storedHash, userInput, function(err, isValid) {
     var msg: string;
     if (err) { throw err; }
     msg = isValid ? 'Passwords match!' : 'Wrong password.';

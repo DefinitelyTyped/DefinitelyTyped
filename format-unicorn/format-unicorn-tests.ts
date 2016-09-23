@@ -1,5 +1,3 @@
-/// <reference path="format-unicorn.d.ts"/>
-
 import 'format-unicorn';
 
 // Unsafe version

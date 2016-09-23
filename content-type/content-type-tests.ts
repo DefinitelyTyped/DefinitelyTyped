@@ -1,9 +1,5 @@
-/// <reference path="content-type.d.ts" />
-/// <reference path="../express/express.d.ts" />
-
 import contentType = require('content-type');
 import express = require('express');
-
 
 var obj = contentType.parse('image/svg+xml; charset=utf-8');
 

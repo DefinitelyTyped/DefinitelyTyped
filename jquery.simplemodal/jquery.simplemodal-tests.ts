@@ -1,7 +1,6 @@
 // Tests taken from documentation: http://www.ericmmartin.com/projects/simplemodal/
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.simplemodal.d.ts"/>
+/// <reference types="jquery"/>
 
 // Chained call with no options
 $("#sample").modal();

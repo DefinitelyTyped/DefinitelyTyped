@@ -3,13 +3,13 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "why-did-you-update" {
 	interface Options {
 		include?: RegExp;
 		exclude?: RegExp;
 	}
-	export function whyDidYouUpdate(react: typeof __React, options?: Options): void;
+	export function whyDidYouUpdate(react: typeof React, options?: Options): void;
 }
 

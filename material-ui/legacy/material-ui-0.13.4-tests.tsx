@@ -1,5 +1,5 @@
-///<reference path='../../react/react.d.ts' />
-///<reference path='../../react/react-addons-linked-state-mixin.d.ts' />
+///<reference types="react" />
+///<reference types="react-addons-linked-state-mixin" />
 ///<reference path='material-ui-0.13.4.d.ts' />
 
 import * as React from "react";

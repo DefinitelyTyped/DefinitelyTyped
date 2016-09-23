@@ -1,4 +1,5 @@
-/// <reference path="./angular-permission.d.ts" />
+
+import * as angular from 'angular';
 
 import permissionNamespace = angular.permission;
 import { permission, ngPermission, uiPermission } from "angular-permission";

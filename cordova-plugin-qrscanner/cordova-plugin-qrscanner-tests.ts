@@ -1,4 +1,4 @@
-/// <reference path="cordova-plugin-qrscanner.d.ts" />
+
 
 var QRScanner: QRScanner = window.QRScanner;
 QRScanner.prepare();

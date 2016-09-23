@@ -1,6 +1,7 @@
-/// <reference path="../meteor/meteor.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-/// <reference path="meteor-roles.d.ts" />
+/// <reference types="meteor" />
+
+
+import * as _ from 'underscore';
 
 /**
  * All code below was copied from the examples at https://github.com/alanning/meteor-roles/.

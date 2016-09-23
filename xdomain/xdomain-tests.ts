@@ -1,4 +1,4 @@
-/// <reference path="./xdomain.d.ts" />
+
 
 xdomain.masters({
   'http://abc.example.com': '/api/*'

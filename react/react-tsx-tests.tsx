@@ -1,4 +1,3 @@
-/// <reference path="react.d.ts" />
 import React = require("react");
 
 interface SCProps {

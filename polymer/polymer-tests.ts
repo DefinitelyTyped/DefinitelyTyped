@@ -1,5 +1,3 @@
-/// <reference path="polymer.d.ts"/>
-
 Polymer({
   is: "my-element",
 

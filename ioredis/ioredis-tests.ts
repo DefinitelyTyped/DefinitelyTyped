@@ -1,4 +1,4 @@
-/// <reference path="ioredis.d.ts" />
+
 
 import * as Redis from "ioredis";
 var redis = new Redis();

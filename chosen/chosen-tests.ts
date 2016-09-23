@@ -1,4 +1,4 @@
-/// <reference path="chosen.jquery.d.ts" />
+
 
 // Options
 $(".my_select_box").chosen();

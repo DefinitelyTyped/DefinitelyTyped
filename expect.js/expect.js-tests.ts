@@ -1,4 +1,4 @@
-/// <reference path="expect.js.d.ts" />
+
 
 function test_expect() {
     expect();

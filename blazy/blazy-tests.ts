@@ -1,4 +1,4 @@
-/// <reference path="blazy.d.ts" />
+
 
 /* Constructor test */
 var tester: BlazyInstance = new Blazy({

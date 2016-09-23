@@ -1,4 +1,4 @@
-/// <reference path="zepto.d.ts" />
+
 
 $('div')  //=> all DIV elements on the page
 $('#foo') //=> element with ID "foo"

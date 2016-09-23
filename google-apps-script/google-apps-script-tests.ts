@@ -1,5 +1,5 @@
-/// <reference path="google-apps-script.document.d.ts" />
-/// <reference path="google-apps-script.gmail.d.ts" />
+
+
 
 // from https://developers.google.com/apps-script/overview
 

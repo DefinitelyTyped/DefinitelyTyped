@@ -1,4 +1,3 @@
-/// <reference path="configstore.d.ts" />
 
 import cs = require('configstore');
 

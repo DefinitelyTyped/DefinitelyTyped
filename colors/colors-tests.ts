@@ -1,6 +1,3 @@
-
-///<reference path="colors.d.ts" />
-
 import colors = require("colors");
 
 colors.enabled = true;

@@ -1,4 +1,3 @@
-/// <reference path="urlsafe-base64.d.ts" />
 
 import URLSafeBase64 = require('urlsafe-base64');
 

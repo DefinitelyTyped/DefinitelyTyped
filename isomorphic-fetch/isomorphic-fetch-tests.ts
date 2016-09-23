@@ -1,6 +1,4 @@
-/// <reference path="isomorphic-fetch.d.ts"/>
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
-
+/// <reference types="bluebird" />
 import fetchImportedViaCommonJS = require('isomorphic-fetch');
 import * as fetchImportedViaES6Module from 'isomorphic-fetch';
 
@@ -70,7 +68,7 @@ function test_whatwgTestCases_ambient() {
 
     expectSuccess(fetch(request), 'Post response:');
 }
-
+    
 function test_whatwgTestCases_commonjs() {
     var headers = new Headers();
     headers.append("Content-Type", "application/json");

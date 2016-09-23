@@ -1,4 +1,4 @@
-/// <reference path="ftdomdelegate.d.ts" />
+
 
 window.addEventListener('load', function() {
   var delegate = new Delegate(document.body);

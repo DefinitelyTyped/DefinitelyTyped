@@ -1,4 +1,4 @@
-/// <reference path="knockout.es5.d.ts" />
+
 
 var empty = {},
     obj = { a: 'string', b: 123, c: true, d: empty },

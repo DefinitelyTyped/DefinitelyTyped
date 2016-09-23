@@ -1,4 +1,4 @@
-/// <reference path="../tsmonad.d.ts" />
+
 
 class User {
 

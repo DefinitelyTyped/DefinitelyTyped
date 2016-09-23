@@ -1,4 +1,3 @@
-/// <reference path="./rcloader.d.ts" />
 
 import RcLoader = require("rcloader");
 

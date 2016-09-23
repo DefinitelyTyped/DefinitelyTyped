@@ -2,8 +2,8 @@
  * Created by karl on 14/07/15.
  */
 
-/// <reference path="../express/express.d.ts" />
-/// <reference path="./easy-x-headers.d.ts" />
+
+
 
 import express = require('express');
 import xHeaders = require('easy-x-headers');

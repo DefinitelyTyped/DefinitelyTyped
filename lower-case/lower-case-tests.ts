@@ -1,4 +1,3 @@
-/// <reference path="lower-case.d.ts" />
 
 import lowerCase = require('lower-case');
 

@@ -1,5 +1,3 @@
-/// <reference path="node-jsfl-runner.d.ts" />
-
 import * as jsfl from 'node-jsfl-runner';
 
 let myJSFL: jsfl.JSFL = {

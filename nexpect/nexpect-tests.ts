@@ -1,4 +1,3 @@
-/// <reference path="./nexpect.d.ts" />
 
 import nexpect = require('nexpect');
 

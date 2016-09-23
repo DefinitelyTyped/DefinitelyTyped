@@ -1,5 +1,3 @@
-/// <reference path="./gulp-gh-pages.d.ts"/>
-/// <reference path="../gulp/gulp.d.ts"/>
 import * as gulp from "gulp";
 import * as ghPages from "gulp-gh-pages";
 

@@ -1,5 +1,5 @@
-/// <reference path="../d3/d3.d.ts" />
-/// <reference path="nvd3.d.ts" />
+/// <reference types="d3" />
+
 namespace nvd3_test_tooltip {
     var width = 500,
         height = 20;

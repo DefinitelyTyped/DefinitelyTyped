@@ -1,4 +1,4 @@
-/// <reference path="adm-zip.d.ts" />
+
 import AdmZip = require("adm-zip");
 
 // reading archives

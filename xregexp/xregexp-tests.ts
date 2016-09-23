@@ -1,4 +1,3 @@
-/// <reference path="xregexp.d.ts" />
 
 import X = require('xregexp');
 import XRegExp = X.XRegExp;

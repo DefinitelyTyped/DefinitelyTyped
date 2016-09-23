@@ -1,4 +1,4 @@
-﻿/// <reference path="auth0-angular.d.ts" />
+﻿
 
 var authProvider: auth0.angular.IAuth0ServiceProvider;
 

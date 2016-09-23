@@ -1,5 +1,5 @@
-/// <reference path="../../yui/yui.d.ts" />
-/// <reference path="../cryptojs.d.ts" />
+/// <reference types="yui" />
+
 
 YUI.add('algo-sha1-test', function (Y) {
     var C = CryptoJS;

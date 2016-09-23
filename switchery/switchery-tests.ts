@@ -1,5 +1,3 @@
-/// <reference path="switchery.d.ts"/>
-
 //
 // Examples from https://github.com/abpetkov/switchery
 //

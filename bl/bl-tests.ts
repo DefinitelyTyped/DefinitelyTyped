@@ -1,4 +1,3 @@
-/// <reference path="./bl.d.ts" />
 
 import BufferList = require('bl');
 

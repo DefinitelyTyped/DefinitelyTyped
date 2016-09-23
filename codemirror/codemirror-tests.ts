@@ -1,4 +1,4 @@
-/// <reference path="codemirror.d.ts" />
+import CodeMirror = require('codemirror');
 
 var myCodeMirror: CodeMirror.Editor = CodeMirror(document.body);
 

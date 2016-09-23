@@ -1,5 +1,3 @@
-/// <reference path="../anydb-sql/anydb-sql.d.ts" />
-/// <reference path="anydb-sql-migrations" />
 import anydbsql = require('anydb-sql');
 import { Table, Column } from 'anydb-sql'
 import migrator = require('anydb-sql-migrations');

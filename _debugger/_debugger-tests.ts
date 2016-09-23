@@ -1,4 +1,3 @@
-/// <reference path="_debugger.d.ts"/>
 import _debugger = require("_debugger");
 var {Client} = _debugger;
 

@@ -1,12 +1,12 @@
-/// <reference path="xrm.d.ts" />
-/// <reference path="parature.d.ts" />
+
+
 
 /// Demonstrate usage in the browser's window object
 
 window.Xrm.Utility.alertDialog( "message", () => {} );
 parent.Xrm.Page.context.getOrgLcid();
 
-/// Demonstrate clientglobalcontext.d.ts
+/// Demonstrate clientglobalcontext.d.ts 
 
 function _getContext()
 {
@@ -119,7 +119,7 @@ optionSetAttribute.controls.get(0).setFocus();
 
 var level: Xrm.Page.ui.FormNotificationLevel;
 level = "ERROR";
-Xrm.Page.ui.setFormNotification("Test", level, "uniqueId");
+Xrm.Page.ui.setFormNotification("Test", level, "uniqueId"); 
 
 /// Demonstrate Requirement Level and Submit Mode both via string parameters and String Literal Types
 

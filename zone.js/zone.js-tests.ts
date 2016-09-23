@@ -1,4 +1,4 @@
-/// <reference path="zone.js.d.ts" />
+
 
 declare var zone: Zone;
 

@@ -1,5 +1,3 @@
-/// <reference path="restful.js.d.ts" />
-
 import restful, {
     Api, MemberResponse, CollectionResponse, ResponseBody, CollectionEndpoint, MemberEndpoint,
 } from 'restful.js';
@@ -97,18 +95,18 @@ articleMember = api.one('articles', 1);  // http://api.example.com/articles/1
 commentMember = articleMember.one('comments', 3);  // http://api.example.com/articles/1/comments/3
 commentMember.get()
     .then((response: MemberResponse<Comment>) => {
-    var commentEntity = response.body();
+        var commentEntity = response.body();
 
-    // You can also call `all` and `one` on an entity
-    return commentEntity.all('authors').getAll(); // http://api.example.com/articles/1/comments/3/authors
-}).then((response: CollectionResponse<Author>) => {
-    var authorEntities = response.body();
+        // You can also call `all` and `one` on an entity
+        return commentEntity.all('authors').getAll(); // http://api.example.com/articles/1/comments/3/authors
+    }).then((response: CollectionResponse<Author>) => {
+        var authorEntities = response.body();
 
-    authorEntities.forEach((authorEntity: ResponseBody<Author>) => {
-        var author = authorEntity.data();
-        console.log(author.name);
+        authorEntities.forEach((authorEntity: ResponseBody<Author>) => {
+            var author = authorEntity.data();
+            console.log(author.name);
+        });
     });
-});
 
 // configure the api
 api.header('AuthToken', 'test');
@@ -145,32 +143,37 @@ resource.addFullRequestInterceptor(function(params, headers, data, method, url) 
     //...
 
     // all args had been modified
-    return {
-        params: params,
-        headers: headers,
-        data: data,
-        method: method,
-        url: url
-    };
+    if (resource === null) {
+        return {
+            params: params,
+            headers: headers,
+            data: data,
+            method: method,
+            url: url
+        };
+    } else {
 
-    // just return modified arguments
-    return {
-        headers: headers,
-        data: data
-    };
+        // just return modified arguments
+        return {
+            headers: headers,
+            data: data
+        };
+    }
 });
 
 resource.addFullResponseInterceptor(function(data, headers, method, url) {
     // all args had been modified (method and url is read only)
-    return {
-        headers: headers,
-        data: data
-    };
-
-    // just return modified arguments
-    return {
-        headers: headers
-    };
+    if (url) {
+        return {
+            headers: headers,
+            data: data
+        };
+    } else {
+        // just return modified arguments
+        return {
+            headers: headers
+        };
+    }
 });
 
 //
@@ -194,5 +197,5 @@ commentMember
     .get()
     .then(function(commentEntity) { /*  */ })
     .catch(function(err) {
-    // deal with the error
-});
+        // deal with the error
+    });

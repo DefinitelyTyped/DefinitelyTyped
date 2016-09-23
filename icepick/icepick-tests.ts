@@ -1,8 +1,5 @@
-/// <reference path="icepick.d.ts" />
-/// <reference path="../underscore/underscore.d.ts" />
-
-
 import i = require("icepick");
+import * as _ from 'underscore';
 
 "use strict"; // so attempted modifications of frozen objects will throw errors
 

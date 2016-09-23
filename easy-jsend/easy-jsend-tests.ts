@@ -1,5 +1,4 @@
-/// <reference path="./easy-jsend.d.ts" />
-/// <reference path="../mongoose/mongoose.d.ts" />
+
 
 import mongoose = require('mongoose');
 import express = require('express');

@@ -1,5 +1,3 @@
-/// <reference path="progress.d.ts"/>
-
 progressJs(); //without selector, set progress-bar for whole page
 progressJs("#targetElement"); //start progress-bar for element id='targetElement'
 

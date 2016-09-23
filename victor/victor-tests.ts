@@ -1,5 +1,3 @@
-///<reference path="victor.d.ts"/>
-
 var vector1 = new Victor(10,10)
 var vector2 = new Victor(20,20)
 

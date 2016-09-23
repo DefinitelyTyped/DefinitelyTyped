@@ -1,4 +1,4 @@
-/// <reference path="devextreme.d.ts" />
+
 
 namespace Tests.ui {
     var dataGridOptions: DevExpress.ui.dxDataGridOptions = {

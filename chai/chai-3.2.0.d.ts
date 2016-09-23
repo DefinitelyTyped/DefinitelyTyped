@@ -6,7 +6,7 @@
 //                 Olivier Chevet <https://github.com/olivr70>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference path="../assertion-error/assertion-error.d.ts"/>
+// <reference types="assertion-error"/>
 
 declare namespace Chai {
 

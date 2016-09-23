@@ -1,4 +1,4 @@
-/// <reference path="cookie.d.ts" />
+
 
 import cookie = require('cookie');
 

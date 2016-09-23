@@ -1,15 +1,3 @@
-/// <reference path="react.d.ts" />
-/// <reference path="react-dom.d.ts" />
-/// <reference path="react-addons-create-fragment.d.ts" />
-/// <reference path="react-addons-css-transition-group.d.ts" />
-/// <reference path="react-addons-linked-state-mixin.d.ts" />
-/// <reference path="react-addons-perf.d.ts" />
-/// <reference path="react-addons-pure-render-mixin.d.ts" />
-/// <reference path="react-addons-shallow-compare.d.ts" />
-/// <reference path="react-addons-test-utils.d.ts" />
-/// <reference path="react-addons-transition-group.d.ts" />
-/// <reference path="react-addons-update.d.ts" />
-
 import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");
@@ -128,8 +116,11 @@ class ModernComponent extends React.Component<Props, State>
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: input => this._input = <HTMLInputElement>input,
+                ref: input => this._input = input,
                 value: this.state.inputValue
+            }),
+            React.DOM.input({
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -176,9 +167,9 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<React.DOMAttributes, Element> =
+var domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
@@ -220,8 +211,15 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNullContainer: ModernComponent =
+    ReactDOM.render(element, null);
+
+var componentElementOrNull: ModernComponent = 
+    ReactDOM.render(element, document.getElementById("anelement"));    
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
+var componentNoStateElementOrNull: ModernComponentNoState =
+    ReactDOM.render(elementNoState, document.getElementById("anelement"));
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -313,7 +311,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
-    onClick: (event: React.MouseEvent) => {
+    onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
@@ -574,8 +572,7 @@ TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
 TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
-var renderer: React.ShallowRenderer =
-    TestUtils.createRenderer();
+var renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();

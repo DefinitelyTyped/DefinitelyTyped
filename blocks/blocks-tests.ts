@@ -1,4 +1,4 @@
-/// <reference path="blocks.d.ts" />
+
 
 function test_blocks_methods() {
 	var extended: Object;

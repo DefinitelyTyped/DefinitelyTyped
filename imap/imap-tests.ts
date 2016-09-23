@@ -1,18 +1,12 @@
-/// <reference path='imap.d.ts' />
-
 /*
 * This code contains all of the example code that was on https://www.npmjs.com/package/imap as of Sat Dec 13, 2014.
 */
 
-
-
-
-
-import Imap     = require('imap');
+import IMAP     = require('imap');
 import util     = require('util');
 import inspect  = util.inspect;
 
-var imap = new Imap({
+var imap = new IMAP({
     user: 'mygmailname@gmail.com',
     password: 'mygmailpassword',
     host: 'imap.gmail.com',
@@ -42,7 +36,7 @@ imap.once('ready', function() {
                     buffer += chunk.toString('utf8');
                 });
                 stream.once('end', function() {
-                    console.log(prefix + 'Parsed header: %s', inspect(Imap.parseHeader(buffer)));
+                    console.log(prefix + 'Parsed header: %s', inspect(IMAP.parseHeader(buffer)));
                 });
             });
             msg.once('attributes', function(attrs : Object) {
@@ -94,7 +88,7 @@ openInbox(function(err : Error, box : IMAP.Box) {
             });
             stream.once('end', function() {
                 if (info.which !== 'TEXT')
-                    console.log(prefix + 'Parsed header: %s', inspect(Imap.parseHeader(buffer)));
+                    console.log(prefix + 'Parsed header: %s', inspect(IMAP.parseHeader(buffer)));
                 else
                     console.log(prefix + 'Body [%s] Finished', inspect(info.which));
             });
@@ -154,8 +148,8 @@ openInbox(function(err : Error, box : IMAP.Box) {
 
 
 var rawHeader : string = '';
-var headers = Imap.parseHeader(rawHeader);
-headers = Imap.parseHeader(rawHeader, true);
+var headers = IMAP.parseHeader(rawHeader);
+headers = IMAP.parseHeader(rawHeader, true);
 
 var f : IMAP.ImapFetch;
 f = imap.fetch('1:3', { bodies: '' });

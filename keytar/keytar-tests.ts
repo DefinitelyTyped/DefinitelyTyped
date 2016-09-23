@@ -1,4 +1,3 @@
-/// <reference path="keytar.d.ts" />
 
 import keytar = require('keytar');
 

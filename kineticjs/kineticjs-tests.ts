@@ -1,5 +1,3 @@
-/// <reference path="kineticjs.d.ts"/>
-
 // http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-rect-tutorial/
 namespace RectTutorial {
     var stage = new Kinetic.Stage({

@@ -1,5 +1,3 @@
-/// <reference path="falcor.d.ts" />
-
 import falcor = require('falcor');
 
 let dataSource: falcor.DataSource;
@@ -58,7 +56,7 @@ const model = new falcor.Model({
 model.get('items[0].name');
 model.get(['items', 0, 'name']);
 model.get(['items', {from: 0, to: 1}, 'name']);
-model.get(['items', {from: 0, length: 2, hoge: 3}, 'name']);
+model.get(['items', {from: 0, length: 2 }, 'name']);
 model.get('items[0].name', 'items[1].name');
 
 model.set({path: 'items[0].name', value: 'ITEM 01'}, {path: ['items', 1, 'name'], value: 'ITEM 27'});

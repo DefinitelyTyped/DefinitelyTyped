@@ -1,5 +1,3 @@
-/// <reference path="supertest.d.ts" />
-/// <reference path="../express/express.d.ts" />
 
 import * as supertest from 'supertest';
 import * as express from 'express';
@@ -11,7 +9,7 @@ supertest(app)
   .expect('Content-Type', /json/)
   .expect('Content-Length', '20')
   .expect(201)
-  .end((err, res) => {
+  .end((err: any, res: any) => {
     if (err) throw err;
   });
 

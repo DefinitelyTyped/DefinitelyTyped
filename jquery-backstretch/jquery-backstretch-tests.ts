@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery-backstretch.d.ts"/>
+/// <reference types="jquery"/>
 
 var backstretch = jQuery.backstretch(['image.png'], {
     centeredX: false,

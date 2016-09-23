@@ -1,10 +1,5 @@
-
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-motion.d.ts"/>
-
 import * as React from 'react';
 import {StaggeredMotion, Motion, spring, TransitionMotion, TransitionPlainStyle, TransitionStyle, Style, PlainStyle} from 'react-motion';
-
 
 class Root extends React.Component<{}, {}> {
     render() {

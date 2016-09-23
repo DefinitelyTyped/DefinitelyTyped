@@ -1,4 +1,4 @@
-﻿/// <reference path="ractive.d.ts" />
+﻿
 
 function test_transition() {
 	var plugin: Ractive.TransitionPlugin = (t: Ractive.Transition, params: Object) => {

@@ -1,4 +1,4 @@
-/// <reference path="angular-scroll.d.ts" />
+
 
 namespace TestApp {
 

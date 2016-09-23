@@ -1,4 +1,4 @@
-/// <reference path="ip.d.ts" />
+
 
 import ip = require('ip');
 

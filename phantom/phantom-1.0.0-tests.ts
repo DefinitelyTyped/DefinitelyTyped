@@ -1,4 +1,4 @@
-/// <reference path="./phantom-1.0.0.d.ts" />
+
 
 import phantom = require("phantom");
 

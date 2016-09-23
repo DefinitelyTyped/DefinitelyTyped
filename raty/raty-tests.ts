@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="raty.d.ts" />
+/// <reference types="jquery" />
+
 
 
 var $element: JQuery = $('<div></div>');

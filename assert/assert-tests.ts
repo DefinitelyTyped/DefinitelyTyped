@@ -1,4 +1,4 @@
-/// <reference path="./assert.d.ts" />
+
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -13,7 +13,7 @@ assert.throws(() => {
 }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) {
+    if (!!false) {
         throw "a hammer at your face";
     }
 }, undefined, "What the...*crunch*");

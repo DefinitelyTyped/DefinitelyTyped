@@ -1,6 +1,6 @@
 // Examples from project repo used for tests.
+import Sortable = require("sortablejs");
 
-/// <reference path="sortablejs.d.ts" />
 
 var simpleList = document.getElementById('list');
 var list = simpleList;

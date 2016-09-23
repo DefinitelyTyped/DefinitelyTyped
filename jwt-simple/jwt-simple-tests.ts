@@ -1,4 +1,3 @@
-/// <reference path='jwt-simple.d.ts' />
 
 import jwt = require('jwt-simple');
 var payload = { foo: 'bar' };

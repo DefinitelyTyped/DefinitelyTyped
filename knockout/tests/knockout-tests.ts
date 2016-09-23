@@ -1,5 +1,5 @@
-/// <reference path="../knockout.d.ts" />
-/// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
+
+/// <reference types="knockout.mapping" />
 
 declare var $;
 
@@ -343,7 +343,7 @@ function test_more() {
     this.firstName = ko.observable(first).extend({ required: "Please enter a first name", logChange: "first name" });
 
     var upperCaseName = ko.computed(function () {
-        return name.toUpperCase();
+        return (name as string).toUpperCase();
     }).extend({ throttle: 500 });
 
     function AppViewModel3() {

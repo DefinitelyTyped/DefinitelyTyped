@@ -3,7 +3,7 @@
 // Definitions by: David Berry <https://github.com/6ix4our/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="xrm.d.ts" />
+
 
 declare namespace Xrm.Page
 {

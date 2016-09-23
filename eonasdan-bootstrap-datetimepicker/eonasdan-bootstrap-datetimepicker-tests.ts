@@ -1,4 +1,5 @@
-/// <reference path="eonasdan-bootstrap-datetimepicker.d.ts"/>
+import * as moment from 'moment';
+import * as EonasdanBootstrapDatetimepicker from './index';
 
 // Minimum Setup
 $("#datetimepicker1").datetimepicker();

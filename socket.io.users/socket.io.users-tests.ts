@@ -1,7 +1,7 @@
-/// <reference path="../socket.io/socket.io.d.ts"/>
-/// <reference path="socket.io.users.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="socket.io"/>
+
+/// <reference types="node" />
+
 var express = require('express');
 var app = express();
 var httpServer = require('http').createServer(app);

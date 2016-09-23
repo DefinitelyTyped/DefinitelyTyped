@@ -1,4 +1,3 @@
-/// <reference path="console-stamp.d.ts" />
 
 import consoleStamp = require("console-stamp");
 

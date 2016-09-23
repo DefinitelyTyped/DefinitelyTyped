@@ -1,7 +1,5 @@
-/// <reference path="../../jasmine/jasmine.d.ts" />
-/// <reference path="jasmine.extensions.d.ts" />
-/// <reference path="../knockout.d.ts" />
-/// <reference path="../../knockout.mapping/knockout.mapping.d.ts" />
+/// <reference types="jasmine" />
+/// <reference types="knockout.mapping" />
 
 var dummyTemplateEngine = function (templates?) {
     var inMemoryTemplates = templates || {};

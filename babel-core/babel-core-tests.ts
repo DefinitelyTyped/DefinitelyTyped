@@ -1,4 +1,4 @@
-/// <reference path="babel-core.d.ts" />
+
 import * as babel from "babel-core";
 
 

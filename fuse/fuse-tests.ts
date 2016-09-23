@@ -1,4 +1,4 @@
-/// <reference path="fuse.d.ts" />
+
 
 function test_fuse_find_identifiers() {
 	var books = [{

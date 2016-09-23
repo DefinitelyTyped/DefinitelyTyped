@@ -1,5 +1,5 @@
-///<reference path='angular-bootstrap-calendar.d.ts'/>
-///<reference path='../angularjs/angular.d.ts'/>
+///<reference path='index.d.ts'/>
+///<reference types="angular"/>
 
 var myApp = angular.module('testModule');
 

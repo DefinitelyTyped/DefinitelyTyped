@@ -1,4 +1,4 @@
-/// <reference path="inflection.d.ts" />
+
 
 import inflection = require("inflection");
 

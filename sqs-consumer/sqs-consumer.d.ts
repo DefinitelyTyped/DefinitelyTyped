@@ -3,18 +3,18 @@
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../aws-sdk/aws-sdk.d.ts"/>
+///<reference types="aws-sdk"/>
 
 declare module "sqs-consumer" {
-  
+
   import { SQS } from "aws-sdk";
-  
+
   module SQSConsumer {
-    
+
     interface MessageHandler {
       (message: SQS.Message, done: Function): any;
     }
-    
+
     interface ConsumerOpts {
       queueUrl: string;
       handleMessage: MessageHandler;
@@ -27,17 +27,17 @@ declare module "sqs-consumer" {
       authenticationErrorTimeout?: number;
       sqs?: SQS;
     }
-    
+
     interface Consumer extends NodeJS.EventEmitter {
       start (): void;
       stop (): void;
     }
-    
+
     interface ConsumerFactory {
       create(opts: ConsumerOpts): Consumer;
     }
   }
   const Consumer: SQSConsumer.ConsumerFactory;
   export = Consumer;
-  
+
 }

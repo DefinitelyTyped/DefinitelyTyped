@@ -1,4 +1,4 @@
-/// <reference path="../js-data-http/js-data-http.d.ts" />
+/// <reference types="js-data-http" />
 
 import JSData = require('js-data');
 import DSHttpAdapter = require('js-data-http')

@@ -1,6 +1,6 @@
-/// <reference path="chrome.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../jqueryui/jqueryui.d.ts" />
+
+/// <reference types="jquery" />
+/// <reference types="jqueryui" />
 
 // https://developer.chrome.com/extensions/examples/api/bookmarks/basic/popup.js
 function bookmarksExample() {
@@ -26,6 +26,7 @@ function bookmarksExample() {
         return list;
     }
     function dumpNode(bookmarkNode, query) {
+        var span = $('<span>');
         if (bookmarkNode.title) {
             if (query && !bookmarkNode.children) {
                 if (String(bookmarkNode.title).indexOf(query) == -1) {
@@ -42,7 +43,6 @@ function bookmarksExample() {
             anchor.click(function () {
                 chrome.tabs.create({ url: bookmarkNode.url });
             });
-            var span = $('<span>');
             var options = bookmarkNode.children ?
                 $('<span>[<a href="#" id="addlink">Add</a>]</span>') :
                 $('<span>[<a id="editlink" href="#">Edit</a> <a id="deletelink" ' +
@@ -146,7 +146,7 @@ function pageRedder() {
 function printPage() {
     chrome.browserAction.onClicked.addListener(function (tab) {
         var action_url = "javascript:window.print();";
-        chrome.tabs.update(tab.id, { url: action_url });
+        chrome.tabs.update(tab.id!, { url: action_url });
     });
 }
 
@@ -173,10 +173,10 @@ function catBlock () {
 
 // contrived settings example
 function proxySettings() {
-    chrome.proxy.settings.get({ incognito: false }, (details) => {
+    chrome.proxy.settings.get({ incognito: true }, (details) => {
         var val = details.value;
         var level: string = details.levelOfControl;
-        var incognito: boolean = details.incognitoSpecific;
+        var incognito: boolean = details.incognitoSpecific!;
     });
 
     // bare minimum set call
@@ -254,11 +254,44 @@ function testOptionsPage() {
   });
 }
 
-chrome.storage.sync.get("myKey", function (loadedData) {
-  var myValue: { x: number } = loadedData["myKey"];
-});
+// https://developer.chrome.com/extensions/storage#type-StorageArea
+function testStorage() {
+    function getCallback(loadedData: { [key: string]: any; }) {
+        var myValue: { x: number } = loadedData["myKey"];
+    }
 
-chrome.storage.onChanged.addListener(function (changes) {
-  var myNewValue: { x: number } = changes["myKey"].newValue;
-  var myOldValue: { x: number } = changes["myKey"].oldValue;
-});
+    chrome.storage.sync.get(getCallback);
+    chrome.storage.sync.get("myKey", getCallback);
+    chrome.storage.sync.get(["myKey", "myKey2"], getCallback);
+    chrome.storage.sync.get({ foo: 1, bar: 2 }, getCallback);
+    chrome.storage.sync.get(null, getCallback);
+
+    function getBytesInUseCallback(bytesInUse: number) {
+        console.log(bytesInUse);
+    }
+
+    chrome.storage.sync.getBytesInUse(getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse("myKey", getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse(["myKey", "myKey2"], getBytesInUseCallback);
+    chrome.storage.sync.getBytesInUse(null, getBytesInUseCallback);
+
+    function doneCallback() {
+        console.log("done");
+    }
+
+    chrome.storage.sync.set({ foo: 1, bar: 2});
+    chrome.storage.sync.set({ foo: 1, bar: 2}, doneCallback);
+
+    chrome.storage.sync.remove("myKey");
+    chrome.storage.sync.remove("myKey", doneCallback);
+    chrome.storage.sync.remove(["myKey", "myKey2"]);
+    chrome.storage.sync.remove(["myKey", "myKey2"], doneCallback);
+
+    chrome.storage.sync.clear();
+    chrome.storage.sync.clear(doneCallback);
+
+    chrome.storage.onChanged.addListener(function (changes) {
+        var myNewValue: { x: number } = changes["myKey"].newValue;
+        var myOldValue: { x: number } = changes["myKey"].oldValue;
+    });
+}

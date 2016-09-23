@@ -1,4 +1,4 @@
-/// <reference path="mocha-phantomjs.d.ts" />
+
 
 function test_window() {
 	window.mochaPhantomJS();	

@@ -1,5 +1,4 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./react-scroll.d.ts" />
+/// <reference types="react" />
 
 import * as React from 'react';
 import { Link, Element, scroller } from 'react-scroll';

@@ -1,4 +1,4 @@
-/// <reference path="onsenui.d.ts" />
+
 
 function onsStatic(): void {
 	ons.ready(function(): void {

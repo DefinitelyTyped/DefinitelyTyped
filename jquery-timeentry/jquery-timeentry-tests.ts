@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery-timeentry.d.ts"/>
+/// <reference types="jquery"/>
 
 var selector = '#example';
 

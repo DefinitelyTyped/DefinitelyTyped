@@ -1,4 +1,3 @@
-/// <reference path="xmldom.d.ts" />
 
 import * as xmldom from 'xmldom';
 

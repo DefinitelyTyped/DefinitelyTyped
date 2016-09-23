@@ -1,4 +1,3 @@
-/// <reference path="chai-datetime.d.ts" />
 
 import chai = require('chai');
 import chaiDateTime = require('chai-datetime');

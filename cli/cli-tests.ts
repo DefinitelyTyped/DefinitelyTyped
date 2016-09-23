@@ -1,4 +1,3 @@
-/// <reference path="./cli.d.ts" />
 
 import * as cli from "cli";
 
@@ -93,10 +92,10 @@ console.log(cli.args);
 // ==============================================================================
 
 //You can (optionally) boost the width of output with:
-cli.width = 120;
+// cli.width = 120;
 
 //You can also adjust the width of the options/command definitions
-cli.option_width = 25;
+// cli.option_width = 25;
 
 var long_desc = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s '
               + 'standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make'

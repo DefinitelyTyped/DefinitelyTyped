@@ -1,4 +1,3 @@
-/// <reference path="soap.d.ts" />
 
 import * as soap from 'soap';
 import * as events from 'events';

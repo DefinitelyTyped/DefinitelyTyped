@@ -1,5 +1,5 @@
-/// <reference path="react-props-decorators.d.ts" />
-/// <reference path="../react/react.d.ts" />
+
+/// <reference types="react" />
 
 import * as React from 'react';
 import { propTypes, defaultProps } from 'react-props-decorators';

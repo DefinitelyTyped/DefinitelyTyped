@@ -1,5 +1,5 @@
-/// <reference path="../should/should.d.ts" />
-/// <reference path="should-promised.d.ts" />
+/// <reference types="should" />
+
 
 var promise: Promise<number> = new Promise<number>(function (resolve, reject) {});
 

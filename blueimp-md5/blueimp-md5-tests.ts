@@ -1,4 +1,3 @@
-/// <reference path='./blueimp-md5.d.ts' />
 
 import blueimp = require('blueimp-md5');
 

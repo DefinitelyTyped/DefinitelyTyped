@@ -1,6 +1,6 @@
-/// <reference path="chai-string.d.ts" />
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="mocha" />
+/// <reference types="node" />
 
 var should = chai.should();
 var assert = chai.assert;

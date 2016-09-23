@@ -1,4 +1,4 @@
-/// <reference path="papaparse.d.ts" />
+
 
 import Papa = require("papaparse");
 

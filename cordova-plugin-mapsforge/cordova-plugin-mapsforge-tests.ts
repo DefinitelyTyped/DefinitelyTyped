@@ -1,6 +1,3 @@
-///<reference path="cordova-plugin-mapsforge.d.ts"/>
-
-
 mapsforge.embedded.initialize(["/mnt/sdcard/spain.map",0,0]); //Creates the view
 mapsforge.embedded.setCenter(43.360056,-5.845757); //Sets the center of the view
 mapsforge.embedded.setMaxZoom(18);

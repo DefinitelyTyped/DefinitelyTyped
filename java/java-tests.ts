@@ -1,5 +1,4 @@
-///<reference path="java.d.ts"/>
-///<reference path="../bluebird/bluebird-2.0.d.ts"/>
+///<reference types="bluebird"/>
 
 import java = require('java');
 import BluePromise = require('bluebird');
@@ -10,10 +9,10 @@ java.asyncOptions = {
   promiseSuffix: 'P',
   promisify: BluePromise.promisify
 };
-
-java.registerClientP((): Promise<void> => {
+// todo: figure out why promise doesn't work here 
+/* java.registerClientP((): Promise<void> => {
   return BluePromise.resolve();
-});
+}); */
 
 interface ProxyFunctions {
   [index: string]: Function;

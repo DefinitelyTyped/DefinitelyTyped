@@ -1,4 +1,4 @@
-﻿/// <reference path="jsts.d.ts" />
+﻿
 
 import * as jsts from 'jsts';
 

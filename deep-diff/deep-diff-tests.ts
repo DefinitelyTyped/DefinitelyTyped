@@ -1,4 +1,4 @@
-/// <reference path="./deep-diff.d.ts" />
+
 
 import _deepDiff = require('deep-diff');
 var diff = _deepDiff.diff;

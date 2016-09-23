@@ -3,8 +3,8 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="dojo.d.ts" />
-/// <reference path="dijit.d.ts" />
+
+
 declare namespace dojox {
 
     namespace layout {

@@ -1,4 +1,4 @@
-/// <reference path="chroma-js.d.ts" />
+
 
 import * as myChroma from "chroma-js";
 

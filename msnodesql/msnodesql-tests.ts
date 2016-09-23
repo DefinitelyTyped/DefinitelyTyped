@@ -1,4 +1,3 @@
-/// <reference path="msnodesql.d.ts" />
 
 import sql = require('msnodesql');
 

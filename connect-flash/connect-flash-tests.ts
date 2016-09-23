@@ -1,4 +1,4 @@
-/// <reference path="./connect-flash.d.ts" />
+
 
 import express = require('express');
 import flash = require('connect-flash');

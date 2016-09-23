@@ -1,4 +1,4 @@
-/// <reference path="winreg.d.ts" />
+
 
 var regKey = new Winreg({
     hive: Winreg.HKCU,
@@ -58,34 +58,34 @@ console.log('parent of "'+r2.path+'" -> "'+r2.parent.path+'"');
 // list values
 r1.values(function (err, items) {
 
-    if (!err) {
-        console.log(JSON.stringify(items, null, '\t'));
-    }
-
-    // query named value
-    r1.get(items[0].name, function (err, item) {
-
         if (!err) {
-            console.log(JSON.stringify(item, null, '\t'));
+            console.log(JSON.stringify(items, null, '\t'));
         }
 
-        // add value
-        r1.set('bla', Winreg.REG_SZ, 'hello world!', function (err) {
+        // query named value
+        r1.get(items[0].name, function (err, item) {
 
             if (!err) {
-                console.log('value written');
+                console.log(JSON.stringify(item, null, '\t'));
             }
 
-            // delete value
-            r1.remove('bla', function (err) {
+            // add value
+            r1.set('bla', Winreg.REG_SZ, 'hello world!', function (err) {
 
                 if (!err) {
-                    console.log('value deleted');
+                    console.log('value written');
                 }
 
+                // delete value
+                r1.remove('bla', function (err) {
+
+                    if (!err) {
+                        console.log('value deleted');
+                    }
+
+                });
             });
         });
-    });
 });
 
 // check for key

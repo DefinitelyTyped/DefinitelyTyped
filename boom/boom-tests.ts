@@ -1,4 +1,4 @@
-/// <reference path="boom.d.ts" />
+
 
 import Boom = require('boom');
 

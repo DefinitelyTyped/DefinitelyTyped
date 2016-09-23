@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="mousetrap.d.ts"/>
+/// <reference types="jquery"/>
 
 Mousetrap.bind('4', function() { console.log('4'); });
 Mousetrap.bind("?", function() { console.log('show shortcuts!'); });

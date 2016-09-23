@@ -1,4 +1,4 @@
-/// <reference path="./ionic.d.ts" />
+
 
 var testIonic = angular.module('testIonic', ['ionic']);
 

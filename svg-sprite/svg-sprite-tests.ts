@@ -1,4 +1,3 @@
-/// <reference path="svg-sprite.d.ts" />
 
 import SVGSpriter = require('svg-sprite');
 import * as fs from 'fs';

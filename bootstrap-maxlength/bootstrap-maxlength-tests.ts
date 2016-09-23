@@ -1,5 +1,4 @@
-/// <reference path="bootstrap-maxlength.d.ts"/>
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 // Examples from the projects github page
 $('input[maxlength]').maxlength();

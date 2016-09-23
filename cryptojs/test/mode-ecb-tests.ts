@@ -1,5 +1,5 @@
-/// <reference path="../../yui/yui.d.ts" />
-/// <reference path="../cryptojs.d.ts" />
+/// <reference types="yui" />
+
 
 YUI.add('mode-ecb-test', function (Y) {
     var C = CryptoJS;

@@ -1,4 +1,3 @@
-/// <reference path="turf.d.ts"/>
 import * as turf from '@turf/turf'
 // AGGREGATION
 import * as collect from '@turf/collect'

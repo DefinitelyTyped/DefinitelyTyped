@@ -1,4 +1,3 @@
-/// <reference path="watch.d.ts" />
 
 import watch = require('watch');
 import fs = require('fs');

@@ -1,4 +1,4 @@
-/// <reference path="./pkcs11js.d.ts" />
+/// <reference types="pkcs11js" />
 
 import * as pkcs11js from "pkcs11js";
 

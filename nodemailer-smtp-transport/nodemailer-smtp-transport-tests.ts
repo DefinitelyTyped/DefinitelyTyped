@@ -1,6 +1,6 @@
-/// <reference path="nodemailer-smtp-transport.d.ts" />
 
 import smtpTransport = require('nodemailer-smtp-transport');
+import nodemailer = require('nodemailer');
 
 var opts: smtpTransport.SmtpOptions = {
 	host: "localhost",

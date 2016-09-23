@@ -1,4 +1,4 @@
-/// <reference path="safari-extension.d.ts" />
+
 
 // https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/AccessingResourcesWithinYourExtensionFolder/AccessingResourcesWithinYourExtensionFolder.html#//apple_ref/doc/uid/TP40009977-CH18-SW2
 var img = document.createElement("img");

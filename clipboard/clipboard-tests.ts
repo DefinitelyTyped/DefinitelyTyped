@@ -1,4 +1,4 @@
-/// <reference path="clipboard.d.ts" />
+
 
 var cb1 = new Clipboard('.btn');
 var cb2 = new Clipboard(document.getElementById('id'), {

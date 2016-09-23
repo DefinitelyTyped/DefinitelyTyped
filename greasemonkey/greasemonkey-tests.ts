@@ -1,4 +1,4 @@
-/// <reference path="greasemonkey.d.ts" />
+
 
 ////////////////
 // Global variable

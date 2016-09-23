@@ -1,4 +1,3 @@
-/// <reference path="./archy.d.ts" />
 
 import archy = require("archy");
 

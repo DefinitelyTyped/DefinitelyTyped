@@ -1,4 +1,3 @@
-/// <reference path="winston.d.ts" />
 
 import winston = require('winston');
 

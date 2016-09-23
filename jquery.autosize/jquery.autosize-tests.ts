@@ -1,4 +1,4 @@
-/// <reference path="jquery.autosize.d.ts" />
+
 
 // from a NodeList
 autosize(document.querySelectorAll('textarea'));

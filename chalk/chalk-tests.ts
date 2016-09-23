@@ -1,4 +1,4 @@
-/// <reference path="chalk.d.ts" />
+
 
 import chalk = require('chalk');
 

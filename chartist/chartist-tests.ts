@@ -1,5 +1,4 @@
-///<reference path="chartist.d.ts" />
-
+import Chartist = require("chartist");
 Chartist.escapingMap = {
   '&': '&amp;',
   '<': '&lt;',

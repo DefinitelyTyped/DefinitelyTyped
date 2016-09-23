@@ -1,4 +1,4 @@
-/// <reference path="./wrap-ansi.d.ts" />
+
 
 import wrapAnsi = require("wrap-ansi");
 

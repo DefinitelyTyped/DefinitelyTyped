@@ -1,5 +1,5 @@
-/// <reference path="react-notification-system.d.ts" />
-/// <reference path="../react/react.d.ts" />
+
+/// <reference types="react" />
 
 import React = require('react');
 import NotificationSystem = require('react-notification-system');

@@ -1,10 +1,5 @@
-/// <reference path="../mocha/mocha.d.ts" />
-/// <reference path="../should/should.d.ts" />
-
-/// <reference path="../rimraf/rimraf.d.ts" />
-
-/// <reference path="./vinyl-fs.d.ts" />
-
+/// <reference types="mocha" />
+/// <reference types="should" />
 
 // from src
 

@@ -1,6 +1,4 @@
-/// <reference path="./minimatch.d.ts" />
-
-import mm = require("minimatch");
+import mm = require("./");
 
 var pattern = "**/*.ts";
 var options = {

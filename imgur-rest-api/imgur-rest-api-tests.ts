@@ -1,4 +1,4 @@
-/// <reference path="imgur-rest-api.d.ts" />
+
 
 function testAccount(account: ImgurRestApi.Account) : ImgurRestApi.Account {
     return account;

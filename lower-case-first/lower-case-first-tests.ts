@@ -1,4 +1,3 @@
-/// <reference path="lower-case-first.d.ts" />
 
 import lowerCaseFirst = require('lower-case-first');
 

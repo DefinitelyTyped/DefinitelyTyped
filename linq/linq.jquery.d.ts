@@ -3,7 +3,7 @@
 // Definitions by: neuecc <http://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 /// <reference path="linq.d.ts"/>
 
 declare namespace linqjs {

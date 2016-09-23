@@ -1,4 +1,4 @@
-/// <reference path="hooker.d.ts" />
+
 
 import hooker = require('hooker');
 

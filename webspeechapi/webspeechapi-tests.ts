@@ -1,6 +1,4 @@
-﻿///<reference path="webspeechapi.d.ts" />
-
-/*
+﻿/*
 Examples from the spec:
 https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html#examples-recognition
 */
@@ -35,7 +33,7 @@ declare var select: HTMLSelectElement;
     }
 
     function start() {
-        select.options.length = 0;
+        let x: number = select.options.length;
         recognition.start();
     }
 }

@@ -1,4 +1,4 @@
-/// <reference path="big-integer.d.ts" />
+
 
 // constructor tests
 var noArgument = bigInt(),

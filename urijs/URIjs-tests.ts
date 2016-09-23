@@ -1,4 +1,4 @@
-/// <reference path="URIjs.d.ts" />
+
 
 URI();
 URI('http://user:pass@example.org:80/foo/bar.html?foo=bar&bar=baz#frag');

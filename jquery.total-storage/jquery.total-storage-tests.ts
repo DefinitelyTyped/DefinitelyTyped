@@ -3,8 +3,7 @@
 // Definitions by: Jeremy Brooks <https://github.com/JeremyCBrooks/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="jquery.total-storage.d.ts"/>
+/// <reference types="jquery"/>
 
 //direct call
 $.totalStorage("test_key1", "test_value");

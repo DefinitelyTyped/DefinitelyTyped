@@ -1,4 +1,4 @@
-/// <reference path="js-git.d.ts" />
+
 
 var obj:Object;
 var bool:boolean;

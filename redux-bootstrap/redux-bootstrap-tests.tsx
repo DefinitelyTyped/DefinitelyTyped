@@ -1,5 +1,3 @@
-/// <reference path="./redux-bootstrap.d.ts" />
-
 import bootstrap from "redux-bootstrap";
 
 let routes: JSX.Element = null;

@@ -1,6 +1,5 @@
-/// <reference path="../react/react.d.ts" />
-/// <reference path="./antd.d.ts" />
-import React = __React
+/// <reference types="react" />
+
 /*import {
     Affix,
     Button,
@@ -50,6 +49,7 @@ import React = __React
 
 } from 'antd';*/
 
+import * as React from 'react'
 import Affix from 'antd/lib/Affix'
 import Button from 'antd/lib/Button'
 import Alert from 'antd/lib/Alert'

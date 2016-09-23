@@ -1,7 +1,7 @@
-///<reference path='../react/react.d.ts' />
-///<reference path='../react/react-dom.d.ts' />
-///<reference path='../react-tap-event-plugin/react-tap-event-plugin.d.ts' />
-///<reference path='material-ui.d.ts' />
+/// <reference types="react" />
+/// <reference types="react-dom" />
+/// <reference types="react-tap-event-plugin" />
+/// <reference types="material-ui" />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
@@ -98,7 +98,7 @@ import WarningIcon from 'material-ui/svg-icons/alert/warning';
 import {cyan500, cyan700,
   grey100, grey300, grey400, grey500,
   pinkA200,
-  white, darkBlack, fullBlack, 
+  white, darkBlack, fullBlack,
   blue300,
   indigo900,
   orange200,
@@ -180,7 +180,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-  },
+  } as React.CSSProperties,
   gridList: {
     width: 500,
     height: 500,
@@ -367,7 +367,7 @@ const AppBarExampleIconButton = () => (
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
-);  
+);
 
 const AppBarExampleIconMenu = () => (
   <AppBar

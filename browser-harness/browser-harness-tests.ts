@@ -1,4 +1,3 @@
-/// <reference path="./browser-harness.d.ts" />
 
 import harness = require('browser-harness');
 

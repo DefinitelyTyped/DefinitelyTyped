@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery.base64.d.ts" />
+/// <reference types="jquery" />
+
 
 var encoded = $.base64.encode("");
 $.base64.decode(encoded);

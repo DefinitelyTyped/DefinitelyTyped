@@ -1,4 +1,4 @@
-/// <reference path="faker.d.ts" />
+
 
 let resultStr: string;
 let resultBool: boolean;

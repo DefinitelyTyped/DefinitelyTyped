@@ -1,4 +1,4 @@
-/// <reference path="swiftclick.d.ts" />
+
 
 var swiftClick = SwiftClick.attach(document.body);
 

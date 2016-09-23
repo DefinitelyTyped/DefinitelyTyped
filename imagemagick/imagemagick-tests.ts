@@ -1,5 +1,5 @@
-/// <reference path="imagemagick.d.ts" />
-/// <reference path="../node/node.d.ts" />
+
+/// <reference types="node" />
 
 import imagemagick = require('imagemagick');
 import child_process = require('child_process');

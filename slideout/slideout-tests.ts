@@ -1,4 +1,4 @@
-/// <reference path="slideout.d.ts" />
+import Slideout = require("slideout");
 
 // Slideout(options)
 var slideout = new Slideout({

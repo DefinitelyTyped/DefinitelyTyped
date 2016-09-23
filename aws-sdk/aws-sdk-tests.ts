@@ -1,4 +1,3 @@
-/// <reference path="aws-sdk.d.ts" />
 
 import AWS = require('aws-sdk');
 
@@ -279,8 +278,7 @@ sqs.setQueueAttributes({
 		else console.log(data);           // successful response
 	});
 	
-
-var dynamoDBDocClient:AWS.DynamoDB.DocumentClient;
+	var dynamoDBDocClient:AWS.DynamoDB.DocumentClient;
 dynamoDBDocClient = new AWS.DynamoDB.DocumentClient();
 dynamoDBDocClient = new AWS.DynamoDB.DocumentClient({});
 dynamoDBDocClient.createSet([1, 2, 3], { validate: true });

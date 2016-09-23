@@ -1,4 +1,4 @@
-/// <reference path="axios.d.ts" />
+
 
 enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
 enum ResponseType { arraybuffer, blob, document, json, text }

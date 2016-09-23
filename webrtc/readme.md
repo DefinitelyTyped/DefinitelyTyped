@@ -10,5 +10,5 @@ but anyone who wants, feel free to add the Mozilla-specific prefixes.
 
 ### Adding the reference to your project
 
-    /// <reference path="MediaStream.d.ts" />
-    /// <reference path="RTCPeerConnection.d.ts" />
+    
+    

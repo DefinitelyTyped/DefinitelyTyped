@@ -1,4 +1,3 @@
-/// <reference path="async-writer.d.ts" />
 
 import asyncWriter = require('async-writer');
 import stream = require('stream');

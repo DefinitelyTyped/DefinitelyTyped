@@ -1,4 +1,4 @@
-/// <reference path="node-uuid-global.d.ts" />
+
 
 var uid1: string = uuid.v1();
 var uid4: string = uuid.v4();

@@ -1,6 +1,6 @@
-/// <reference path="phantomcss.d.ts" />
-/// <reference path="../casperjs/casperjs.d.ts" />
-/// <reference path="../resemblejs/resemblejs.d.ts" />
+
+/// <reference types="casperjs" />
+/// <reference types="resemblejs" />
 
 // phantomCSS 0.11.1 is based on resemblejs 1.2.1, phantomJS 1.9.2 , casperJS 1.1.0-DEV
 

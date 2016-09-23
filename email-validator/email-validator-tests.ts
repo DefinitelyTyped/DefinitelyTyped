@@ -1,4 +1,3 @@
-/// <reference path="email-validator.d.ts" />
 
 import emailValidator = require('email-validator');
 import { validate } from 'email-validator';

@@ -1,5 +1,3 @@
-///  <reference path="webix.d.ts" />
-
 //ajax operations
 webix.ready(function(){
     webix.ajax().get("te").then(function(){
