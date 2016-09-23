@@ -88,7 +88,7 @@ declare namespace L {
 
     export function latLng(coords: LatLngLiteral): LatLng;
 
-    export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
+    export function latLng(coords: { lat: number, lng: number, alt: number }): LatLng;
 
     export interface LatLngBounds {
         extend(latlng: LatLng): this;
@@ -157,6 +157,9 @@ declare namespace L {
         contains(otherPoint: Point): boolean;
         contains(otherPoint: PointTuple): boolean;
         toString(): string;
+
+        x: number;
+        y: number;
     }
 
     type PointExpression = Point | PointTuple;
@@ -165,7 +168,7 @@ declare namespace L {
 
     export function point(coords: PointTuple): Point;
 
-    export function point(coords: {x: number, y: number}): Point;
+    export function point(coords: { x: number, y: number }): Point;
 
     export type BoundsLiteral = Array<PointTuple>;
 
@@ -200,7 +203,7 @@ declare namespace L {
     export function bounds(points: BoundsLiteral): Bounds;
 
     export interface Evented {
-
+        on(type: string, fn: any, context?: any);
     }
 
     interface LayerOptions {
@@ -256,9 +259,41 @@ declare namespace L {
         // Extension methods
         onAdd(map: Map): this;
         onRemove(map: Map): this;
-        getEvents(): {[name: string]: (event: Event) => void};
+        getEvents(): { [name: string]: (event: Event) => void };
         getAttribution(): string;
         beforeAdd(map: Map): this;
+    }
+
+    export interface LayerGroup extends Layer {
+        initialize(layers: Layer[]);
+        addLayer(layer: Layer): this;
+        removeLayer(layer: Layer): this;
+        hasLayer(layer: Layer): boolean;
+        clearLayers(): this;
+        invoke(methodName: string): this;
+        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+        getLayer(id: string): Layer;
+        getLayers(): Layer[];
+        setZIndex(index: number);
+        getLayerId(layer: Layer): string;
+    }
+
+    export interface FeatureGroup extends LayerGroup {
+        setStyle(options: PathOptions): this;
+        bringToFront(): this;
+        bringToBack(): this;
+        getBounds(): LatLngBounds;
+    }
+
+    export interface GeoJSONOptions {
+        pointToLayer: (feature: any, latLng: LatLng) => void;
+        style: (feature: any) => void;
+        onEachFeature: (feature: any, layer: Layer) => void;
+        filter: (feature: any) => boolean;
+        coordsToLatLng: (coords: number[]) => LatLng;
+    }
+
+    export interface GeoJSON extends FeatureGroup {
     }
 
     export interface GridLayerOptions {
@@ -355,7 +390,7 @@ declare namespace L {
     export interface PathOptions extends InteractiveLayerOptions {
         stroke?: boolean;
         color?: string;
-        wight?: number;
+        weight?: number;
         opacity?: number;
         lineCap?: LineCapShape;
         lineJoin?: LineJoinShape;
@@ -366,7 +401,7 @@ declare namespace L {
         fillOpacity?: number;
         fillRule?: FillRule;
         renderer?: Renderer;
-        className: string;
+        className?: string;
     }
 
     export interface Path extends Layer {
@@ -481,9 +516,9 @@ declare namespace L {
         padding?: number;
     }
 
-    export interface Renderer extends Layer {}
+    export interface Renderer extends Layer { }
 
-    export interface SVG extends Renderer {}
+    export interface SVG extends Renderer { }
 
     type Zoom = boolean | 'center';
 
@@ -545,7 +580,8 @@ declare namespace L {
     }
 
     export interface Control {
-
+        addTo(map: Map): this;
+        remove(): this;
     }
 
     interface DivOverlayOptions {
@@ -599,7 +635,9 @@ declare namespace L {
         opacity?: number;
     }
 
-    export interface Tooltip extends Layer {}
+    export interface Tooltip extends Layer {
+        options: TooltipOptions;
+    }
 
     export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
@@ -614,7 +652,7 @@ declare namespace L {
         noMoveStart?: boolean;
     }
 
-    export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    export interface ZoomPanOptions extends ZoomOptions, PanOptions { }
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
@@ -788,7 +826,7 @@ declare namespace L {
         createPane(name: string, container?: HTMLElement): HTMLElement;
         getPane(pane: string): HTMLElement;
         getPane(pane: HTMLElement): HTMLElement;
-        getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
+        getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: Object): this;
 
@@ -847,6 +885,7 @@ declare namespace L {
         scrollWheelZoom: Handler;
         tap: Handler;
         touchZoom: Handler;
+        options: MapOptions;
     }
 
     export function map(id: string, options?: MapOptions): Map;
@@ -886,7 +925,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface DivIcon extends Icon {}
+    export interface DivIcon extends Icon { }
 
     export function divIcon(options: DivIconOptions): DivIcon;
 
