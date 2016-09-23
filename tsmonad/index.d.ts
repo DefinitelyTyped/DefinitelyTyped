@@ -460,7 +460,7 @@ declare namespace TsMonad {
         * @param {T} pattern Default value to have if Nothing
         * @return {Maybe<T>}
         */
-        public defaulting(defaultValue: T): T;
+        public defaulting(defaultValue: T): Maybe<T>;
         /**
         * @name equals
         * @description Compare the type and the content of two Maybe
