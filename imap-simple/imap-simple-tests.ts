@@ -1,5 +1,3 @@
-/// <reference path="./imap-simple.d.ts" />
-
 import * as imaps from "imap-simple";
 
 let config = {
