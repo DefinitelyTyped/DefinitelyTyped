@@ -6,11 +6,13 @@
 /// <reference types="node"/>
 
 
-interface IMergedStream extends NodeJS.ReadWriteStream {
-    add(source: NodeJS.ReadableStream): IMergedStream;
-    add(source: NodeJS.ReadableStream[]): IMergedStream;
-    isEmpty(): boolean;
+module merge {
+	interface IMergedStream extends NodeJS.ReadWriteStream {
+	    add(source: NodeJS.ReadableStream): IMergedStream;
+	    add(source: NodeJS.ReadableStream[]): IMergedStream;
+	    isEmpty(): boolean;
+	}
 }
 
-declare function merge<T extends NodeJS.ReadableStream>(...streams: T[]): IMergedStream;
+declare function merge<T extends NodeJS.ReadableStream>(...streams: T[]): merge.IMergedStream;
 export = merge;
