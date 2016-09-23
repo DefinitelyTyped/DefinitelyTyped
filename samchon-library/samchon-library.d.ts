@@ -3,7 +3,7 @@
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../samchon-framework/samchon-framework.d.ts" />
+/// <reference types="samchon-framework" />
 
 declare module "samchon-library"
 {

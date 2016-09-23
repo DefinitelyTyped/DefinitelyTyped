@@ -3,12 +3,14 @@
 // Definitions by: SirMartin <https://github.com/SirMartin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="../moment/moment.d.ts"/>
+/// <reference types="jquery"/>
+import moment = require("moment");
 
-interface JQuery {
-    daterangepicker(settings?: daterangepicker.Settings): JQuery;
-    daterangepicker(settings?: daterangepicker.Settings, callback?: (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any): JQuery;
+declare global {
+    interface JQuery {
+        daterangepicker(settings?: daterangepicker.Settings): JQuery;
+        daterangepicker(settings?: daterangepicker.Settings, callback?: (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any): JQuery;
+    }
 }
 
 declare namespace daterangepicker {

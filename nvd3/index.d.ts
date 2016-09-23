@@ -159,6 +159,8 @@ declare namespace nv {
         interpolate(value: string): this;
         rightAlignYAxis(): boolean;
         rightAlignYAxis(value: boolean): this;
+        syncBrushing(): boolean;
+        syncBrushing(value: boolean): this;
     }
 
 

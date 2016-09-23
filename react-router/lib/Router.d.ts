@@ -93,16 +93,16 @@ declare namespace Router {
     // push and other functions.
     //
     // https://github.com/reactjs/react-router/blob/v2.4.0/upgrade-guides/v2.4.0.md
-    
+
     interface InjectedRouter {
-      push: (pathOrLoc: History.LocationDescriptor) => void
-      replace: (pathOrLoc: History.LocationDescriptor) => void
-      go: (n: number) => void
-      goBack: () => void
-      goForward: () => void
-      setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
-      createPath(path: History.Path, query?: History.Query): History.Path
-      createHref(path: History.Path, query?: History.Query): History.Href
-      isActive: (pathOrLoc: History.LocationDescriptor, indexOnly?: boolean) => boolean
+        push: (pathOrLoc: History.LocationDescriptor) => void
+        replace: (pathOrLoc: History.LocationDescriptor) => void
+        go: (n: number) => void
+        goBack: () => void
+        goForward: () => void
+        setRouteLeaveHook(route: PlainRoute, callback: RouteHook): void
+        createPath(path: History.Path, query?: History.Query): History.Path
+        createHref(path: History.Path, query?: History.Query): History.Href
+        isActive: (pathOrLoc: History.LocationDescriptor, indexOnly?: boolean) => boolean
     }
 }

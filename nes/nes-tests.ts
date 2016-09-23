@@ -1,5 +1,3 @@
-/// <reference path="nes.d.ts" />
-
 import Hapi = require('hapi');
 import Nes = require('nes');
 
@@ -29,8 +27,8 @@ server.register(Nes, (regErr: any) => {
             } else {
                 setTimeout(() => {
                     wsServer.publish('/item/5', { id: 5, status: 'complete' });
-                    wsServer.publish('/item/6', { id: 6, status: 'initial' }); 
-                }, 100);   
+                    wsServer.publish('/item/6', { id: 6, status: 'initial' });
+                }, 100);
             }
         });
     }

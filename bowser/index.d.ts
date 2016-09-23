@@ -3,11 +3,11 @@
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var def: BowserModule.IBowser;
-export = def;
+declare const bowser: bowser.IBowser;
+export = bowser;
 export as namespace bowser;
 
-declare namespace BowserModule {
+declare namespace bowser {
 
     export interface IBowserOS {
         mac: boolean;

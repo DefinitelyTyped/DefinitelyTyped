@@ -3,8 +3,8 @@
 // Definitions by: Darren Hill <https://github.com/darrenhillconsulting>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../suitescript/suitescript"/>
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="suitescript"/>
+/// <reference types="jquery" />
 
 interface Iconfig {
     logging?: boolean;

@@ -3,7 +3,7 @@
 // Definitions by: Morgan Benton <https://github.com/morphatic/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts" />
+/// <reference types="d3" />
 
 declare namespace d3kit {
 
@@ -29,7 +29,7 @@ declare namespace d3kit {
     export class Skeleton {
 
         constructor(selector: string|Element, options?: ChartOptions, customEvents?: Array<string>);
-        
+
         // Getters
         getCustomEventNames(): Array<string>;
         getDispatcher(): any; // should be d3.Dispatch but this throws error for user-created events
@@ -78,9 +78,9 @@ declare namespace d3kit {
     export class Chartlet {
 
         constructor(
-            enterFunction?:   ChartletEventFunction, 
-            updateFunction?:  ChartletEventFunction, 
-            exitFunction?:    ChartletEventFunction, 
+            enterFunction?:   ChartletEventFunction,
+            updateFunction?:  ChartletEventFunction,
+            exitFunction?:    ChartletEventFunction,
             customEventName?: Array<string>);
 
         // Getter functions
@@ -116,15 +116,15 @@ declare namespace d3kit {
 
         constructor(container: d3.Selection<any>, tag?: string);
 
-        create(config: string|Array<string>|LayerConfig|Array<LayerConfig>): d3.Selection<any>|Array<d3.Selection<any>>;
+        create(config: string|Array<string>|LayerConfig|Array<LayerConfig>|any): d3.Selection<any>|Array<d3.Selection<any>>;
         get(name: string): d3.Selection<any>;
         has(name: string): boolean;
     }
 
     export namespace factory {
         export function createChart(
-            defaultOptions: ChartOptions, 
-            customEvents: Array<string>, 
+            defaultOptions: ChartOptions,
+            customEvents: Array<string>,
             constructor: (skeleton: Skeleton) => void
         ): (selector: string|Element, options?: ChartOptions, customEvents?: Array<string>) => Skeleton;
     }

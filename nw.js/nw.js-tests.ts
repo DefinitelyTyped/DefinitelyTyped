@@ -1,4 +1,3 @@
-/// <reference path="nw.js.d.ts" />
 /*
  * nw.App Tests
  */

@@ -46,3 +46,43 @@ client.create({
   type: 'type'
 }, (err, repsonse, status) => {
 });
+
+client.cluster.getSettings({
+  masterTimeout: 100
+}, (err, response) => {
+});
+
+client.cluster.health({
+  masterTimeout: 100
+}, (err, response) => {
+});
+
+client.cluster.pendingTasks({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.putSettings({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.putSettings({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.reroute({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.state({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.stats({
+  ignore: 1
+}, (err, response) => {
+});

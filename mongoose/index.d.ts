@@ -929,7 +929,7 @@ declare module "mongoose" {
      * section types/array.js
      * http://mongoosejs.com/docs/api.html#types-array-js
      */
-    class Array<T> extends global.Array {
+    class Array<T> extends global.Array<T> {
       /**
        * Atomically shifts the array at most one time per document save().
        * Calling this mulitple times on an array before saving sends the same command as
@@ -2121,7 +2121,7 @@ declare module "mongoose" {
      * @param name discriminator model name
      * @param schema discriminator model schema
      */
-    discriminator(name: string, schema: Schema): T;
+    discriminator<U extends Document>(name: string, schema: Schema): Model<U>;
 
     /** Creates a Query for a distinct operation. Passing a callback immediately executes the query. */
     distinct(field: string, callback?: (err: any, res: any[]) => void): Query<any[]>;
