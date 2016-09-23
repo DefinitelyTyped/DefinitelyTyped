@@ -187,12 +187,12 @@ namespace EnumTypeAction {
 
     const multiArgFn = (a: string, b: number, c: boolean): string => 'foo';
 
-    const t8: string = compose(multiArgFn)('bar', 42, true);
-    const t9: number = compose(stringToNumber, multiArgFn)('bar', 42, true);
-    const t10: string = compose(numberToString, stringToNumber,
+    const t8: string = R.compose(multiArgFn)('bar', 42, true);
+    const t9: number = R.compose(stringToNumber, multiArgFn)('bar', 42, true);
+    const t10: string = R.compose(numberToString, stringToNumber,
       multiArgFn)('bar', 42, true);
 
-    const t11: number = compose(stringToNumber, numberToString, stringToNumber,
+    const t11: number = R.compose(stringToNumber, numberToString, stringToNumber,
       multiArgFn)('bar', 42, true); 
 }());
 
