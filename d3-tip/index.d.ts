@@ -3,9 +3,9 @@
 // Definitions by: Gert Braspenning <https://github.com/brspnnggrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="d3" />
+import {Primitive} from "d3";
 
-declare namespace d3 {
+declare module "d3" {
     type TooltipDirection = ("n" | "s" | "e" | "w" | "nw" | "ne" | "sw" | "se");
     interface Tooltip {
         hide(): Tooltip;
