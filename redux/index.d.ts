@@ -382,44 +382,44 @@ declare namespace Redux {
 
     /* two functions */
     function compose<A, R>(
-        f1: (b: A) => R, f2: () => R
+        f1: (b: A) => R, f2: () => A
     ): () => R;
     function compose<A, T1, R>(
-        f1: (b: A) => R, f2: (a1: T1) => R
+        f1: (b: A) => R, f2: (a1: T1) => A
     ): (a1: T1) => R;
     function compose<A, T1, T2, R>(
-        f1: (b: A) => R, f2: (a1: T1, a2: T2) => R
+        f1: (b: A) => R, f2: (a1: T1, a2: T2) => A
     ): (a1: T1, a2: T2) => R;
     function compose<A, T1, T2, T3, R>(
-        f1: (b: A) => R, f2: (a1: T1, a2: T2, a3: T3, ...args: any[]) => R
+        f1: (b: A) => R, f2: (a1: T1, a2: T2, a3: T3, ...args: any[]) => A
     ): (a1: T1, a2: T2, a3: T3, ...args: any[]) => R;
 
     /* three functions */
     function compose<A, B, R>(
-        f1: (b: B) => R, f2: (a: A) => B, f3: () => R
+        f1: (b: B) => R, f2: (a: A) => B, f3: () => A
     ): () => R;
     function compose<A, B, T1, R>(
-        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1) => R
+        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1) => A
     ): (a1: T1) => R;
     function compose<A, B, T1, T2, R>(
-        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1, a2: T2) => R
+        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1, a2: T2) => A
     ): (a1: T1, a2: T2) => R;
     function compose<A, B, T1, T2, T3, R>(
-        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1, a2: T2, a3: T3, ...args: any[]) => R
+        f1: (b: B) => R, f2: (a: A) => B, f3: (a1: T1, a2: T2, a3: T3, ...args: any[]) => A
     ): (a1: T1, a2: T2, a3: T3, ...args: any[]) => R;
 
     /* four functions */
-    export function compose<A, B, C, R>(
-        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: () => R
+    function compose<A, B, C, R>(
+        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: () => A
     ): () => R;
     function compose<A, B, C, T1, R>(
-        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1) => R
+        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1) => A
     ): (a1: T1) => R;
     function compose<A, B, C, T1, T2, R>(
-        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1, a2: T2) => R
+        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1, a2: T2) => A
     ): (a1: T1, a2: T2) => R;
     function compose<A, B, C, T1, T2, T3, R>(
-        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1, a2: T2, a3: T3, ...args: any[]) => R
+        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: (a1: T1, a2: T2, a3: T3, ...args: any[]) => A
     ): (a1: T1, a2: T2, a3: T3, ...args: any[]) => R;
 
     /* rest */
