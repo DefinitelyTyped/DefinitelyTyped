@@ -568,6 +568,13 @@ declare namespace L {
         export function coordsToLatLng(coords: [number, number, number]): LatLng; // check if LatLng has an altitude property
     }
 
+    /**
+     * Creates a GeoJSON layer.
+     *
+     * Optionally accepts an object in GeoJSON format to display on the
+     * map (you can alternatively add it later with addData method) and
+     * an options object.
+     */
     export function geoJSON(geojson?: Object, options?: GeoJSONOptions): GeoJSON;
 
     type Zoom = boolean | 'center';
