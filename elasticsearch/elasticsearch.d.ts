@@ -109,7 +109,7 @@ declare module Elasticsearch {
     export interface CreateDocumentParams extends GenericParams {
         consistency?: "one" | "quorum" | "all";
         parent?: string;
-        refressh?: boolean;
+        refresh?: boolean;
         routing?: string;
         timeout?: number | Date;
         timestamp?: number | Date;
@@ -313,6 +313,7 @@ declare module Elasticsearch {
         index: string;
         type: string;
         id: string;
+        parent?: string;
         refresh?: boolean;
     }
 

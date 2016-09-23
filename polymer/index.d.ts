@@ -127,15 +127,16 @@ declare namespace polymer {
 
     unlinkPaths?(path: string): void;
 
-    push?(path: string): number;
+    push?(path: string, ...item: any[]): number;
 
     pop?(path: string): any;
 
-    splice?(path: string, start: number, deleteCount: number): number;
+    splice?(path: string, index: number, removeCount: number, ...item: any[]):
+        number;
 
     shift?(path: string): any;
 
-    unshift?(path: string): number;
+    unshift?(path: string, ...item: any[]): number;
 
     // ResolveUrl
 

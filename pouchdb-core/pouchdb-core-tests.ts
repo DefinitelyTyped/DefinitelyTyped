@@ -36,6 +36,23 @@ namespace PouchDBCoreTests {
         });
     }
 
+    function testBulkDocs() {
+        const db = new PouchDB<MyModel>();
+        type MyModel = { property: 'someProperty '};
+        let model: PouchDB.Core.Document<MyModel>;
+        let model2: PouchDB.Core.Document<MyModel>;
+
+        db.bulkDocs([model, model2]).then((result) => {
+            result.forEach(({ ok, id, rev }) => {
+                isString(id);
+                isString(rev);
+            });
+        });
+
+        db.bulkDocs([model, model2], null, (error, response) => {
+        });
+    }
+
     function testCompact() {
       const db = new PouchDB<{}>();
       // Promise version

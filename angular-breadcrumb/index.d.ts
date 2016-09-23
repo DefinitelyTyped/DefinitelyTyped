@@ -14,7 +14,7 @@ declare namespace angular.ui {
             /**
              * Override the parent state (only for the breadcrumb)
              **/
-            parent?: string;
+            parent?: string|Function;
             /**
             * When defined to true, the state is never included in the chain of states and never appears in the breadcrumb
             **/
