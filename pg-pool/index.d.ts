@@ -4,7 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="pg" />
-
-declare module "pg-pool" {
-    export {Pool, PoolConfig} from "pg";
-}
+export {Pool, PoolConfig} from "pg";
