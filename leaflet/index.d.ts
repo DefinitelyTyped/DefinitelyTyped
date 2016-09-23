@@ -355,7 +355,7 @@ declare namespace L {
     export interface PathOptions extends InteractiveLayerOptions {
         stroke?: boolean;
         color?: string;
-        wight?: number;
+        weight?: number;
         opacity?: number;
         lineCap?: LineCapShape;
         lineJoin?: LineJoinShape;
@@ -366,7 +366,7 @@ declare namespace L {
         fillOpacity?: number;
         fillRule?: FillRule;
         renderer?: Renderer;
-        className: string;
+        className?: string;
     }
 
     export interface Path extends Layer {
