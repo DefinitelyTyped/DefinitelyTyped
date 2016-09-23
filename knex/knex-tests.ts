@@ -414,6 +414,8 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
+knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
