@@ -544,28 +544,129 @@ declare namespace L {
 
     export function featureGroup(layers: Array<Layer>): FeatureGroup;
 
+    type StyleFunction = (feature: any) => PathOptions;
+
     export interface GeoJSONOptions extends LayerOptions {
+        /**
+         * A Function defining how GeoJSON points spawn Leaflet layers.
+         * It is internally called when data is added, passing the GeoJSON point
+         * feature and its LatLng.
+         *
+         * The default is to spawn a default Marker:
+         *
+         * ```
+         * function(geoJsonPoint, latlng) {
+         *     return L.marker(latlng);
+         * }
+         * ```
+         */
         pointToLayer?: (geoJsonPoint: Object, latlng: LatLng) => Layer; // should import GeoJSON typings
+
+        /**
+         * A Function defining the Path options for styling GeoJSON lines and polygons,
+         * called internally when data is added.
+         *
+         * The default value is to not override any defaults:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return {}
+         * }
+         * ```
+         */
         style?: (geoJsonFeature: Object) => PathOptions;
-        onEachFeature?: (feaure: Object, layer: Layer) => void;
+
+        /**
+         * A Function that will be called once for each created Feature, after it
+         * has been created and styled. Useful for attaching events and popups to features.
+         *
+         * The default is to do nothing with the newly created layers:
+         *
+         * ```
+         * function (feature, layer) {}
+         * ```
+         */
+        onEachFeature?: (feature: Object, layer: Layer) => void;
+
+        /**
+         * A Function that will be used to decide whether to show a feature or not.
+         *
+         * The default is to show all features:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return true;
+         * }
+         * ```
+         */
         filter?: (geoJsonFeature: Object) => boolean;
+
+        /**
+         * A Function that will be used for converting GeoJSON coordinates to LatLngs.
+         * The default is the coordsToLatLng static method.
+         */
         coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
     }
 
+    /**
+     * Represents a GeoJSON object or an array of GeoJSON objects.
+     * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+     */
     export interface GeoJSON extends FeatureGroup {}
 
     export namespace GeoJSON {
+        /**
+         * Adds a GeoJSON object to the layer.
+         */
         export function addData(data: Object): Layer;
 
+        /**
+         * Resets the given vector layer's style to the original GeoJSON style,
+         * useful for resetting style after hover events.
+         */
         export function resetStyle(layer: Layer): Layer;
 
-        export function setStyle(style: (geoJsonFeature: Object) => PathOptions): Layer; // not sure about this one, docs don't provide enough detail
+        /**
+         * Changes styles of GeoJSON vector layers with the given style function.
+         */
+        export function setStyle(style: PathOptions | StyleFunction): Layer;
 
+        /**
+         * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
+         * and/or coordsToLatLng functions if provided as options.
+         */
         export function geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
 
-        export function coordsToLatLng(coords: [number, number]): LatLng;
+        /**
+         * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
+         * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
+         */
+        export function coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
 
-        export function coordsToLatLng(coords: [number, number, number]): LatLng; // check if LatLng has an altitude property
+        /**
+         * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
+         * levelsDeep specifies the nesting level (0 is for an array of points, 1 for an array of
+         * arrays of points, etc., 0 by default).
+         * Can use a custom coordsToLatLng function.
+         */
+        export function coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
+
+        /**
+         * Reverse of coordsToLatLng
+         */
+        export function latLngToCoords(latlng: LatLng): number[];
+
+        /**
+         * Reverse of coordsToLatLngs closed determines whether the first point should be
+         * appended to the end of the array to close the feature, only used when levelsDeep is 0.
+         * False by default.
+         */
+        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): number[];
+
+        /**
+         * Normalize GeoJSON geometries/features into GeoJSON features.
+         */
+        export function asFeature(geojson: Object): Object;
     }
 
     /**
