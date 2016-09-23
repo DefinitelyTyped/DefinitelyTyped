@@ -199,8 +199,146 @@ declare namespace L {
 
     export function bounds(points: BoundsLiteral): Bounds;
 
+    /**
+     * A set of methods shared between event-powered classes (like Map and Marker).
+     * Generally, events allow you to execute some function when something happens
+     * with an object (e.g. the user clicks on the map, causing the map to fire
+     * 'click' event).
+     */
     export interface Evented {
+        /**
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        on(type: string, fn: (e: Event) => void, context?: any): Evented;
 
+        /**
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        on(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        off(type: string, fn?: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Removes a set of type/listener pairs.
+         */
+        off(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Removes all listeners to all events on the object.
+         */
+        off(): Evented;
+
+        /**
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fire(type: string, data?: any, propagate?: boolean): Evented;
+
+        /**
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        listens(type: string): boolean;
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Adds an event parent - an Evented that will receive propagated events
+         */
+        addEventParent(obj: Evented): Evented;
+
+        /**
+         * Removes an event parent, so it will stop receiving propagated events
+         */
+        removeEventParent(obj: Evented): Evented;
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        addEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        addEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        removeEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a set of type/listener pairs.
+         */
+        removeEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for off()
+         *
+         * Removes all listeners to all events on the object.
+         */
+        clearAllEventListeners(): Evented;
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for fire(...)
+         *
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fireEvent(type: string, data?: any, propagate?: boolean): Evented;
+
+        /**
+         * Alias for listens(...)
+         *
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        hasEventHandlers(type: string): boolean;
     }
 
     interface LayerOptions {
@@ -476,6 +614,245 @@ declare namespace L {
     export function circle(latlng: LatLngLiteral, radius: number, options?: CircleOptions): Circle;
 
     export function circle(latlng: LatLngTuple, radius: number, options?: CircleOptions): Circle;
+    
+    /**
+     * Used to group several layers and handle them as one.
+     * If you add it to the map, any layers added or removed from the group will be
+     * added/removed on the map as well. Extends Layer.
+     */
+    export interface LayerGroup extends Layer {
+        /**
+         * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
+         */
+        toGeoJSON(): any; // TODO: Return type should depend on the GeoJSON GeometryCollection
+
+        /**
+         * Adds the given layer to the group.
+         */
+        addLayer(layer: Layer): LayerGroup;
+
+        /**
+         * Removes the given layer from the group.
+         */
+        removeLayer(layer: Layer): LayerGroup;
+
+        /**
+         * Removes the layer with the given internal ID from the group.
+         */
+        removeLayer(id: number): LayerGroup;
+
+        /**
+         * Returns true if the given layer is currently added to the group.
+         */
+        hasLayer(layer: Layer): boolean;
+
+        /**
+         * Removes all the layers from the group.
+         */
+        clearLayers(): LayerGroup;
+
+        /**
+         * Calls methodName on every layer contained in this group, passing any additional parameters.
+         * Has no effect if the layers contained do not implement methodName.
+         */
+        invoke(methodName: string, ...params: any[]): LayerGroup;
+
+        /**
+         * Iterates over the layers of the group,
+         * optionally specifying context of the iterator function.
+         */
+        eachLayer(fn: (layer: Layer) => void, context?: any): LayerGroup;
+
+        /**
+         * Returns the layer with the given internal ID.
+         */
+        getLayer(id: number): Layer;
+
+        /**
+         * Returns an array of all the layers added to the group.
+         */
+        getLayers(): Layer[];
+
+        /**
+         * Calls setZIndex on every layer contained in this group, passing the z-index.
+         */
+        setZIndex(zIndex: number): LayerGroup;
+
+        /**
+         * Returns the internal ID for a layer
+         */
+        getLayerId(layer: Layer): number;
+    }
+
+    /**
+     * Create a layer group, optionally given an initial set of layers.
+     */
+    export function layerGroup(layers?: Layer[]): LayerGroup;
+
+    /**
+     * Extended LayerGroup that also has mouse events (propagated from
+     * members of the group) and a shared bindPopup method.
+     */
+    export interface FeatureGroup extends LayerGroup {
+        /**
+         * Sets the given path options to each layer of the group that has a setStyle method.
+         */
+        setStyle(style: PathOptions): FeatureGroup;
+
+        /**
+         * Brings the layer group to the top of all other layers
+         */
+        bringToFront(): FeatureGroup;
+
+        /**
+         * Brings the layer group to the top [sic] of all other layers
+         */
+        bringToBack(): FeatureGroup;
+
+        /**
+         * Returns the LatLngBounds of the Feature Group (created from
+         * bounds and coordinates of its children).
+         */
+        getBounds(): LatLngBounds;
+    }
+
+    /**
+     * Create a feature group, optionally given an initial set of layers.
+     */
+    export function featureGroup(layers?: Layer[]): FeatureGroup;
+
+    type StyleFunction = (feature: any) => PathOptions;
+
+
+    export interface GeoJSONOptions {
+        /**
+         * A Function defining how GeoJSON points spawn Leaflet layers.
+         * It is internally called when data is added, passing the GeoJSON point
+         * feature and its LatLng.
+         *
+         * The default is to spawn a default Marker:
+         *
+         * ```
+         * function(geoJsonPoint, latlng) {
+         *     return L.marker(latlng);
+         * }
+         * ```
+         */
+        pointToLayer: (geoJsonPoint: any, latlng: LatLng) => any;
+
+        /**
+         * A Function defining the Path options for styling GeoJSON lines and polygons,
+         * called internally when data is added.
+         *
+         * The default value is to not override any defaults:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return {}
+         * }
+         * ```
+         */
+        style: (geoJsonFeature: any) => PathOptions;
+
+        /**
+         * A Function that will be called once for each created Feature, after it
+         * has been created and styled. Useful for attaching events and popups to features.
+         *
+         * The default is to do nothing with the newly created layers:
+         *
+         * ```
+         * function (feature, layer) {}
+         * ```
+         */
+        onEachFeature: (feature: any, layer: any) => void;
+
+        /**
+         * A Function that will be used to decide whether to show a feature or not.
+         *
+         * The default is to show all features:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return true;
+         * }
+         * ```
+         */
+        filter: (geoJsonFeature: any) => boolean;
+
+        /**
+         * A Function that will be used for converting GeoJSON coordinates to LatLngs.
+         * The default is the coordsToLatLng static method.
+         */
+        coordsToLatLng: (coords: number[]) => LatLng;
+    }
+
+    /**
+     * Represents a GeoJSON object or an array of GeoJSON objects.
+     * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+     */
+    export interface GeoJSON extends FeatureGroup {
+        /**
+         * Adds a GeoJSON object to the layer.
+         */
+        addData(data: any): GeoJSON;
+
+        /**
+         * Resets the given vector layer's style to the original GeoJSON style,
+         * useful for resetting style after hover events.
+         */
+        resetStyle(layer: Layer): GeoJSON;
+
+        /**
+         * Changes styles of GeoJSON vector layers with the given style function.
+         */
+        setStyle(style: PathOptions | StyleFunction): GeoJSON;
+
+        /**
+         * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
+         * and/or coordsToLatLng functions if provided as options.
+         */
+        geometryToLayer(featureData: any, options?: GeoJSONOptions): GeoJSON;
+
+        /**
+         * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
+         * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
+         */
+        coordsToLatLng(coords: number[]): LatLng;
+
+        /**
+         * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
+         * levelsDeep specifies the nesting level (0 is for an array of points, 1 for an array of
+         * arrays of points, etc., 0 by default).
+         * Can use a custom coordsToLatLng function.
+         */
+        coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: number[]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
+
+        /**
+         * Reverse of coordsToLatLng
+         */
+        latLngToCoords(latlng: LatLng): number[];
+
+        /**
+         * Reverse of coordsToLatLngs closed determines whether the first point should be
+         * appended to the end of the array to close the feature, only used when levelsDeep is 0.
+         * False by default.
+         */
+        latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): number[];
+
+        /**
+         * Normalize GeoJSON geometries/features into GeoJSON features.
+         */
+        asFeature(geojson: any): any;
+    }
+
+    /**
+     * Creates a GeoJSON layer.
+     *
+     * Optionally accepts an object in GeoJSON format to display on the
+     * map (you can alternatively add it later with addData method) and
+     * an options object.
+     */
+    export function geoJSON(geoJson?: any, options?: GeoJSONOptions): GeoJSON;
 
     export interface RendererOptions extends LayerOptions {
         padding?: number;
