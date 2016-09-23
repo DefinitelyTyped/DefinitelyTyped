@@ -3,7 +3,7 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angularjs/angular.d.ts" />
+/// <reference types="angularjs" />
 
 declare namespace angular.featureflags {
     export interface FlagData {
