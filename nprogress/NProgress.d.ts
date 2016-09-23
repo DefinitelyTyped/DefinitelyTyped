@@ -107,6 +107,11 @@ interface NProgressConfigureOptions {
      * The HTML markup inserted for the progress indicator. To keep the progress bar working, keep an element with role='bar' in there.
      */
     template?: string;
+
+    /**
+     * Specify this to change the parent container. (default: body)
+     */
+    parent?: string
 }
 
 declare var NProgress: NProgressStatic;
