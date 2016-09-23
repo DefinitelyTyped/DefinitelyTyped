@@ -1931,6 +1931,14 @@ declare namespace  __React {
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
 
         /**
+         * Specifies the side of the screen from which the drawer will slide in.
+         */
+        positions: { 
+            Left: number;
+            Right: number;
+        }
+        
+        /**
          * Opens the drawer.
          */
         openDrawer(): void
