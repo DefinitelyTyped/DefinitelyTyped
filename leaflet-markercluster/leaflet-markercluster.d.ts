@@ -3,7 +3,7 @@
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet-0.7.d.ts" />
+/// <reference path="../leaflet/leaflet.d.ts" />
 
 declare namespace L {
     export interface MarkerClusterGroupOptions {
