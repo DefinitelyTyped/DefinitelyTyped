@@ -199,8 +199,146 @@ declare namespace L {
 
     export function bounds(points: BoundsLiteral): Bounds;
 
+    /**
+     * A set of methods shared between event-powered classes (like Map and Marker).
+     * Generally, events allow you to execute some function when something happens
+     * with an object (e.g. the user clicks on the map, causing the map to fire
+     * 'click' event).
+     */
     export interface Evented {
+        /**
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        on(type: string, fn: (e: Event) => void, context?: any): Evented;
 
+        /**
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        on(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        off(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Removes a set of type/listener pairs.
+         */
+        off(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Removes all listeners to all events on the object.
+         */
+        off();
+
+        /**
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fire(type: string, data?: any, propagate?: boolean);
+
+        /**
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        listens(type: string);
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Adds an event parent - an Evented that will receive propagated events
+         */
+        addEventParent(obj: Evented);
+
+        /**
+         * Removes an event parent, so it will stop receiving propagated events
+         */
+        removeEventParent(obj: Evented)
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        addEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        addEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        removeEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a set of type/listener pairs.
+         */
+        removeEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for off()
+         *
+         * Removes all listeners to all events on the object.
+         */
+        clearAllEventListeners();
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(type: string, fn: (e: Event) => void, context?: any): Evented;
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(eventMap: { [eventType: string]: (e: Event) => void; }): Evented;
+
+        /**
+         * Alias for fire(...)
+         *
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fireEvent(type: string, data?: any, propagate?: boolean);
+
+        /**
+         * Alias for listens(...)
+         *
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        hasEventHandlers(type: string)
     }
 
     interface LayerOptions {
