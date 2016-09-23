@@ -3,7 +3,7 @@
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay/>
 // Definitions: https://github.com/psnider/DefinitelyTyped/imap-simple
 
-/// <reference path="../imap/imap.d.ts" />
+/// <reference types="imap" />
 
 declare namespace IMAPS {
 

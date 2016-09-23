@@ -3,7 +3,7 @@
 // Definitions by: Gert Braspenning <https://github.com/brspnnggrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../d3/d3.d.ts" />
+/// <reference types="d3" />
 
 declare namespace d3 {
     type TooltipDirection = ("n" | "s" | "e" | "w" | "nw" | "ne" | "sw" | "se");
