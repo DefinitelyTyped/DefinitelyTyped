@@ -22,7 +22,7 @@ declare class WebSocket extends events.EventEmitter {
     protocolVersion: string;
     url: string;
     supports: any;
-    upgradeReq: http.ServerRequest;
+    upgradeReq: http.IncomingMessage;
     protocol: string;
 
     CONNECTING: number;
@@ -79,8 +79,8 @@ declare class WebSocket extends events.EventEmitter {
 
 declare namespace WebSocket {
 
-    type VerifyClientCallbackSync = (info: { origin: string; secure: boolean; req: http.ServerRequest }) => boolean;
-    type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.ServerRequest }
+    type VerifyClientCallbackSync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }) => boolean;
+    type VerifyClientCallbackAsync = (info: { origin: string; secure: boolean; req: http.IncomingMessage }
         , callback: (res: boolean) => void) => void;
 
     export interface IClientOptions {
@@ -119,7 +119,7 @@ declare namespace WebSocket {
         constructor(options?: IServerOptions, callback?: Function);
 
         close(cb?: () => {}): void;
-        handleUpgrade(request: http.ServerRequest, socket: net.Socket,
+        handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
             upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 
         // Events

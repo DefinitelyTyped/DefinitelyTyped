@@ -261,20 +261,20 @@ declare namespace NodeJS {
     }
 
     export class EventEmitter {
-        addListener(event: string|symbol, listener: Function): this;
-        on(event: string|symbol, listener: Function): this;
-        once(event: string|symbol, listener: Function): this;
-        removeListener(event: string|symbol, listener: Function): this;
-        removeAllListeners(event?: string|symbol): this;
+        addListener(event: string | symbol, listener: Function): this;
+        on(event: string | symbol, listener: Function): this;
+        once(event: string | symbol, listener: Function): this;
+        removeListener(event: string | symbol, listener: Function): this;
+        removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string|symbol): Function[];
-        emit(event: string|symbol, ...args: any[]): boolean;
-        listenerCount(type: string|symbol): number;
+        listeners(event: string | symbol): Function[];
+        emit(event: string | symbol, ...args: any[]): boolean;
+        listenerCount(type: string | symbol): number;
         // Added in Node 6...
-        prependListener(event: string|symbol, listener: Function): this;
-        prependOnceListener(event: string|symbol, listener: Function): this;
-        eventNames(): (string|symbol)[];
+        prependListener(event: string | symbol, listener: Function): this;
+        prependOnceListener(event: string | symbol, listener: Function): this;
+        eventNames(): (string | symbol)[];
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -484,7 +484,7 @@ interface IterableIterator<T> { }
 interface NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): {type: 'Buffer', data: any[]};
+    toJSON(): { type: 'Buffer', data: any[] };
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -569,22 +569,22 @@ declare module "querystring" {
 declare module "events" {
     export class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
-        static listenerCount(emitter: EventEmitter, event: string|symbol): number; // deprecated
+        static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
         static defaultMaxListeners: number;
 
-        addListener(event: string|symbol, listener: Function): this;
-        on(event: string|symbol, listener: Function): this;
-        once(event: string|symbol, listener: Function): this;
-        prependListener(event: string|symbol, listener: Function): this;
-        prependOnceListener(event: string|symbol, listener: Function): this;
-        removeListener(event: string|symbol, listener: Function): this;
-        removeAllListeners(event?: string|symbol): this;
+        addListener(event: string | symbol, listener: Function): this;
+        on(event: string | symbol, listener: Function): this;
+        once(event: string | symbol, listener: Function): this;
+        prependListener(event: string | symbol, listener: Function): this;
+        prependOnceListener(event: string | symbol, listener: Function): this;
+        removeListener(event: string | symbol, listener: Function): this;
+        removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
-        listeners(event: string|symbol): Function[];
-        emit(event: string|symbol, ...args: any[]): boolean;
-        eventNames(): (string|symbol)[];
-        listenerCount(type: string|symbol): number;
+        listeners(event: string | symbol): Function[];
+        emit(event: string | symbol, ...args: any[]): boolean;
+        eventNames(): (string | symbol)[];
+        listenerCount(type: string | symbol): number;
     }
 }
 
@@ -678,8 +678,8 @@ declare module "http" {
     }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
-        httpVersionMajor: string;
-        httpVersionMinor: string;
+        httpVersionMajor: number;
+        httpVersionMinor: number;
         connection: net.Socket;
         headers: any;
         rawHeaders: string[];
@@ -921,7 +921,7 @@ declare module "cluster" {
 
     }
 
-    export function disconnect(callback ?: Function): void;
+    export function disconnect(callback?: Function): void;
     export function fork(env?: any): Worker;
     export var isMaster: boolean;
     export var isWorker: boolean;
@@ -1611,7 +1611,7 @@ declare module "dns" {
     export function resolve(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolve4(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolve6(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
-    export function resolveMx(domain: string, callback: (err: Error, addresses: MxRecord[]) =>void ): string[];
+    export function resolveMx(domain: string, callback: (err: Error, addresses: MxRecord[]) => void): string[];
     export function resolveTxt(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveSrv(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
     export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) => void): string[];
@@ -1686,6 +1686,77 @@ declare module "net" {
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connect
+         *   3. data
+         *   4. drain
+         *   5. end
+         *   6. error
+         *   7. lookup
+         *   8. timeout
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: (had_error: boolean) => void): this;
+        addListener(event: "connect", listener: () => void): this;
+        addListener(event: "data", listener: (data: Buffer) => void): this;
+        addListener(event: "drain", listener: () => void): this;
+        addListener(event: "end", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        addListener(event: "timeout", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close", had_error: boolean): boolean;
+        emit(event: "connect"): boolean;
+        emit(event: "data", data: Buffer): boolean;
+        emit(event: "drain"): boolean;
+        emit(event: "end"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
+        emit(event: "timeout"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: (had_error: boolean) => void): this;
+        on(event: "connect", listener: () => void): this;
+        on(event: "data", listener: (data: Buffer) => void): this;
+        on(event: "drain", listener: () => void): this;
+        on(event: "end", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        on(event: "timeout", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: (had_error: boolean) => void): this;
+        once(event: "connect", listener: () => void): this;
+        once(event: "data", listener: (data: Buffer) => void): this;
+        once(event: "drain", listener: () => void): this;
+        once(event: "end", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        once(event: "timeout", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: (had_error: boolean) => void): this;
+        prependListener(event: "connect", listener: () => void): this;
+        prependListener(event: "data", listener: (data: Buffer) => void): this;
+        prependListener(event: "drain", listener: () => void): this;
+        prependListener(event: "end", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependListener(event: "timeout", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: (had_error: boolean) => void): this;
+        prependOnceListener(event: "connect", listener: () => void): this;
+        prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
+        prependOnceListener(event: "drain", listener: () => void): this;
+        prependOnceListener(event: "end", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
+        prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
     export var Socket: {
@@ -1717,6 +1788,49 @@ declare module "net" {
         unref(): Server;
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
     }
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) => void): Server;
@@ -2720,6 +2834,7 @@ declare module "crypto" {
         setPrivateKey(private_key: string, encoding: HexBase64Latin1Encoding): void;
     }
     export function createECDH(curve_name: string): ECDH;
+    export function timingSafeEqual(a: Buffer, b: Buffer): boolean;
     export var DEFAULT_ENCODING: string;
 }
 
