@@ -1,7 +1,7 @@
 import chalk = require('chalk');
 
-var str: string;
-var bool: boolean;
+var str = '';
+var bool = false;
 var chain: chalk.ChalkChain;
 
 chalk.enabled = bool;
