@@ -5012,10 +5012,22 @@ declare namespace ol {
              * @param Skip dispatching of removefeature events.
              */
             clear(fast?: boolean): void;
+
             /**
              * Get the extent of the features currently in the source.
              */
             getExtent(): ol.Extent;
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Get a feature by its identifier (the value returned by feature.getId()). Note that the index treats 
+             * string and numeric identifiers as the same.
+             */
+            getFeatureById(id: string | number): ol.Feature;
 
             /**
              * Get all features in the provided extent. Note that this returns all features whose bounding boxes
@@ -5033,6 +5045,12 @@ declare namespace ol {
              * Get all features whose geometry intersects the provided coordinate.
              */
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Remove a single feature from the source. If you want to remove all features at once, use the source.clear() 
+             * method instead.
+             */
+            removeFeature(feature: ol.Feature): void;
         }
 
         class VectorEvent extends ol.events.Event {
