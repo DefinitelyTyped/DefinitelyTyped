@@ -3384,7 +3384,7 @@ declare namespace ol {
         }
 
         class GMLBase extends ol.format.XMLFeature {
-            readFeatures(source: ol.source.Source, options?: olx.format.ReadOptions);
+            readFeatures(source: ol.source.Source, options?: olx.format.ReadOptions): Array<ol.Feature>;
         }
 
         class GPX {
