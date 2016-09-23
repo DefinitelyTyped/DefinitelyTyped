@@ -535,14 +535,37 @@ declare namespace L {
 
     export function layerGroup(layers: Array<Layer>): LayerGroup;
 
+    /**
+     * Extended LayerGroup that also has mouse events (propagated from
+     * members of the group) and a shared bindPopup method.
+     */
     export interface FeatureGroup extends LayerGroup {
+        /**
+         * Sets the given path options to each layer of the group that has a setStyle method.
+         */
         setStyle(style: PathOptions): this;
+
+        /**
+         * Brings the layer group to the top of all other layers
+         */
         bringToFront(): this;
+
+        /**
+         * Brings the layer group to the top [sic] of all other layers
+         */
         bringToBack(): this;
+
+        /**
+         * Returns the LatLngBounds of the Feature Group (created from
+         * bounds and coordinates of its children).
+         */
         getBounds(): LatLngBounds;
     }
 
-    export function featureGroup(layers: Array<Layer>): FeatureGroup;
+    /**
+     * Create a feature group, optionally given an initial set of layers.
+     */
+    export function featureGroup(layers?: Array<Layer>): FeatureGroup;
 
     type StyleFunction = (feature: any) => PathOptions;
 
