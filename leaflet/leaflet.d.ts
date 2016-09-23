@@ -518,21 +518,78 @@ declare namespace L {
 
     export function canvas(options?: RendererOptions): Canvas;
 
+    /**
+     * Used to group several layers and handle them as one.
+     * If you add it to the map, any layers added or removed from the group will be
+     * added/removed on the map as well. Extends Layer.
+     */
     export interface LayerGroup extends Layer {
+        /**
+         * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
+         */
         toGeoJSON(): Object; // should import GeoJSON typings
+
+        /**
+         * Adds the given layer to the group.
+         */
         addLayer(layer: Layer): this;
+
+        /**
+         * Removes the given layer from the group.
+         */
         removeLayer(layer: Layer): this;
+
+        /**
+         * Removes the layer with the given internal ID from the group.
+         */
         removeLayer(id: number): this;
+
+        /**
+         * Returns true if the given layer is currently added to the group.
+         */
         hasLayer(layer: Layer): boolean;
+
+        /**
+         * Removes all the layers from the group.
+         */
         clearLayers(): this;
+
+        /**
+         * Calls methodName on every layer contained in this group, passing any additional parameters.
+         * Has no effect if the layers contained do not implement methodName.
+         */
         invoke(methodName: string, ...params: Array<any>): this;
+
+        /**
+         * Iterates over the layers of the group,
+         * optionally specifying context of the iterator function.
+         */
         eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+
+        /**
+         * Returns the layer with the given internal ID.
+         */
         getLayer(id: number): Layer;
+
+        /**
+         * Returns an array of all the layers added to the group.
+         */
         getLayers(): Array<Layer>;
+
+        /**
+         * Calls setZIndex on every layer contained in this group, passing the z-index.
+         */
         setZIndex(zIndex: number): this;
+
+        /**
+         * Returns the internal ID for a layer
+         */
         getLayerId(layer: Layer): number;
     }
 
+    /**
+     * Create a layer group, optionally given an initial set of layers.
+     */
     export function layerGroup(layers: Array<Layer>): LayerGroup;
 
     /**
