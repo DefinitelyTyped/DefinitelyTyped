@@ -28,6 +28,7 @@ function test_configuration() {
         template: "<div>blah</div>",
         trickle: false,
         trickleRate: 0.42,
-        trickleSpeed: 42
+        trickleSpeed: 42,
+        parent: 'main'
     });
 }
