@@ -188,7 +188,7 @@ declare namespace ValidatorJS {
     ltrim(input: string, chars?: string): string;
 
     // canonicalize an email address.
-    normalizeEmail(email: string, options?: NormalizeEmailOptions): string | boolean;
+    normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
 
     // trim characters from the right-side of the input.
     rtrim(input: string, chars?: string): string;

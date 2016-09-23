@@ -512,7 +512,7 @@ let any: any;
   result = validator.ltrim('sample', ' ');
 
   let normalizeEmailOptions: ValidatorJS.NormalizeEmailOptions;
-  let normalizeResult: string | boolean;
+  let normalizeResult: string | false;
   normalizeResult = validator.normalizeEmail('sample');
   normalizeResult = validator.normalizeEmail('sample', normalizeEmailOptions);
 
