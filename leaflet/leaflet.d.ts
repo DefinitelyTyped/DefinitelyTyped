@@ -654,14 +654,14 @@ declare namespace L {
         /**
          * Reverse of coordsToLatLng
          */
-        export function latLngToCoords(latlng: LatLng): number[];
+        export function latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
          * appended to the end of the array to close the feature, only used when levelsDeep is 0.
          * False by default.
          */
-        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): number[];
+        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
 
         /**
          * Normalize GeoJSON geometries/features into GeoJSON features.
