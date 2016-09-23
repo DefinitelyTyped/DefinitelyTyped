@@ -3,10 +3,12 @@
 // Definitions by: Leonard Lausen <http://leonard.lausen.nl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference types="leaflet" />
 
 declare namespace L {
+    // TODO: This should be defined by leaflet itself, not by leaflet-geocoder-mapzen
+    type PositionString = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
+
     namespace Control {
         export interface GeocoderStatic extends ClassStatic {
             /**

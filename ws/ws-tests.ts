@@ -1,6 +1,7 @@
 
 import * as WebSocket from 'ws';
 import * as http from'http';
+import * as https from'https';
 
 var WebSocketServer = WebSocket.Server;
 
@@ -52,6 +53,12 @@ var WebSocketServer = WebSocket.Server;
         }, 500);
     });
 }
+
+{
+    new WebSocket.Server({ server: https.createServer({}) });
+    new WebSocket.Server({ server: http.createServer() });
+}
+
 
 {
     const verifyClient = function(

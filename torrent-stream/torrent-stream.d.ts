@@ -3,7 +3,7 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare namespace TorrentStream {
     interface TorrentEngine {
@@ -16,7 +16,7 @@ declare namespace TorrentStream {
         listen(port: number, callback: () => void): void;
         swarm: Swarm;
         infoHash: string;
-        
+
         // Events
         on(event: "ready" | "torrent" | "idle", callback: Function): void;
         on(event: "download", callback: (pieceIndex: number) => void): void;
@@ -41,7 +41,7 @@ declare namespace TorrentStream {
         name: string;
         path: string;
         length: number;
-        
+
         select(): void;
         deselect(): void;
         createReadStream(options?: ReadStreamOptions): any;

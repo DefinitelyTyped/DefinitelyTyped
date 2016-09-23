@@ -450,6 +450,7 @@ interface ServerOptions {
     responseTimeFormatter?: (durationInMilliseconds: number) => any;
     handleUpgrades?: boolean;
     router?: Router;
+    httpsServerOptions?: any;
 }
 
 interface ClientOptions {

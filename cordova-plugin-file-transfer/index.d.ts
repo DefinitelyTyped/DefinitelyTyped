@@ -2,11 +2,11 @@
 // Project: https://github.com/apache/cordova-plugin-file-transfer
 // Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
+//
 // Copyright (c) Microsoft Open Technologies Inc
 // Licensed under the MIT license
 
-/// <reference path="../cordova-plugin-file/index.d.ts" />
+/// <reference types="cordova-plugin-file" />
 
 /**
  * The FileTransfer object provides a way to upload files using an HTTP multi-part POST request,
@@ -21,7 +21,7 @@ interface FileTransfer {
      *                                this can also be the full path of the file on the device.
      * @param server            URL of the server to receive the file, as encoded by encodeURI().
      * @param successCallback   A callback that is passed a FileUploadResult object.
-     * @param errorCallback     A callback that executes if an error occurs retrieving the FileUploadResult. 
+     * @param errorCallback     A callback that executes if an error occurs retrieving the FileUploadResult.
      *                               Invoked with a FileTransferError object.
      * @param options           Optional parameters.
      * @param trustAllHosts     Optional parameter, defaults to false. If set to true, it accepts all security certificates.

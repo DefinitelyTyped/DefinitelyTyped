@@ -431,3 +431,4 @@ declare namespace Sinon {
 declare var Sinon: Sinon.SinonStatic;
 
 export = Sinon;
+export as namespace Sinon;

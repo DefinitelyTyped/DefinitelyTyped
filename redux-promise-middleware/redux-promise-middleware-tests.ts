@@ -1,6 +1,3 @@
-/// <reference path="../redux/redux.d.ts" />
-/// <reference path="./redux-promise-middleware.d.ts" />
-
 import { createStore, applyMiddleware, Store, Dispatch } from "redux";
 import promiseMiddleware from "redux-promise-middleware";
 
@@ -38,7 +35,7 @@ const actionCreator1 = () => ({
 const actionCreator2 = () => ({
   type: "FIRST_ACTION_TYPE",
   payload: {
-    promise: Promise.resolve((action: string, dispatch: Redux.Dispatch<any>, getState: Function) => {
+    promise: Promise.resolve((action: string, dispatch: Dispatch<any>, getState: Function) => {
       dispatch({ type: "SECEOND_ACTION_TYPE", payload: "..." });
       dispatch(someActionCreator());
     })

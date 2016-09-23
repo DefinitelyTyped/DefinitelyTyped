@@ -110,13 +110,13 @@ declare module Rx.DOM {
     function touchstart(element: Element, selector?:Function, useCapture?:boolean):Rx.Observable<TouchEvent>;
 
     // Ajax
-    function ajax(url:string):Rx.Observable<AjaxSuccessResponse | AjaxErrorResponse>;
-    function ajax(settings:AjaxSettings):Rx.Observable<AjaxSuccessResponse | AjaxErrorResponse>;
-    function get(url:string):Rx.Observable<AjaxSuccessResponse | AjaxErrorResponse>;
+    function ajax(url:string):Rx.Observable<AjaxSuccessResponse>;
+    function ajax(settings:AjaxSettings):Rx.Observable<AjaxSuccessResponse>;
+    function get(url:string):Rx.Observable<AjaxSuccessResponse>;
     function getJSON(url:string):Rx.Observable<string>;
-    function post(url:string, body:any):Rx.Observable<AjaxSuccessResponse | AjaxErrorResponse>;
+    function post(url:string, body:any):Rx.Observable<AjaxSuccessResponse>;
     function jsonpRequest(url:string):Rx.Observable<string>;
-    function jsonpRequest(settings:JsonpSettings):Rx.Observable<JsonpSuccessResponse | JsonpErrorResponse>;
+    function jsonpRequest(settings:JsonpSettings):Rx.Observable<JsonpSuccessResponse>;
 
     // Server-Sent Events
     function fromEventSource<T>(url:string, openObservable?:Rx.Observer<T>):Rx.Observable<T>;

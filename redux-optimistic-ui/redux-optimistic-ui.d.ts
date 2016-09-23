@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redux/redux.d.ts" />
+/// <reference types="redux" />
 
 declare module "redux-optimistic-ui" {
     import { Reducer } from "redux";

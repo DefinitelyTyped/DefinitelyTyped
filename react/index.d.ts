@@ -367,7 +367,7 @@ declare namespace React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent<{}> {
         propertyName: string;
         pseudoElement: string;
@@ -1183,6 +1183,12 @@ declare namespace React {
         hyphens?: any;
 
         imeMode?: any;
+
+        /**
+         * Defines how the browser distributes space between and around flex items
+         * along the main-axis of their container.
+         */
+        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
 
         layoutGrid?: any;
 

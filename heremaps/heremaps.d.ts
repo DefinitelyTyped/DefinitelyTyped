@@ -1073,6 +1073,125 @@ declare namespace H {
              */
             resizeToCenter(center: H.geo.IPoint, opt_out?: H.geo.Rect): H.geo.Rect;
         }
+
+        /**
+         * A strip is a flat list of latitude, longitude, altitude tuples in a fixed order.
+         */
+        export class Strip {
+          /**
+           * Constructor
+           * @param opt_latLngAlts {Array<number>=} - An optional array of latitude, longitude and altitude triples to initialize the strip with.
+           * @param opt_ctx {H.geo.AltitudeContext=} - An optional altitude context for all altitudes contained in this strip.
+           */
+          constructor(opt_latLngAlts?: Array<number>, opt_ctx?: H.geo.AltitudeContext);
+
+          /**
+           * This method pushes a lat, lng, alt to the end of this strip.
+           * @param lat {H.geo.Latitude}
+           * @param lng {H.geo.Longitude}
+           * @param alt {H.geo.Altitude}
+           */
+          pushLatLngAlt(lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+          /**
+           * This method splices the strip at the provided index, removing the specified number of items at that index and inserting the lat, lng, alt array.
+           * @param index {number} - The index at which to splice
+           * @param opt_nRemove {number=} - The number of lat, lng, alt values to remove
+           * @param opt_latLngAlts {Array<number>=} - The lat, lng, alt values to add
+           * @returns {Array<number>} - an array of removed elements
+           */
+          spliceLatLngAlts(index: number, opt_nRemove?: number, opt_latLngAlts?: Array<number>): Array<number>;
+
+          /**
+           * This method inserts one set of lat, lng, alt values into the strip at the specified index.
+           * @param index {number} - the index at which to add the element
+           * @param lat {H.geo.Latitude} - the latitude to insert
+           * @param lng {H.geo.Longitude} - the longitude to insert
+           * @param alt {H.geo.Altitude} - the altitude to insert
+           */
+          insertLatLngAlt(index: number, lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude): void;
+
+          /**
+           * This method removes one set of lat, lng, alt values from the strip at the specified index.
+           * @param index {number}
+           */
+          removeLatLngAlt(index: number): void;
+
+          /**
+           * This method pushes the lat, lng, alt values of a H.geo.Point to the end of this strip.
+           * @param geoPoint {H.geo.IPoint}
+           */
+          pushPoint(geoPoint: H.geo.IPoint): void;
+
+          /**
+           * This method inserts the lat, lng, alt values of a H.geo.Point into the list at the specified index.
+           * @param pointIndex {number}
+           * @param geoPoint {H.geo.IPoint}
+           */
+          insertPoint(pointIndex: number, geoPoint: H.geo.IPoint): void;
+
+          /**
+           * This method removes one set of lat, lng, alt values from this strip at the virtual point index specified.
+           * @param pointIndex {number} - the virtual point index
+           */
+          removePoint(pointIndex: number): void;
+
+          /**
+           * This method extracts a H.geo.Point from this strip at the virtual point index. If the extracted point has an alt value, the strip's altitude context will be supplied to the point.
+           * @param pointIndex {number} - the virtual point index in the strip
+           * @param opt_out {H.geo.Point=} - an optional point object to store the lat, lng, alt values
+           * @returns {H.geo.Point} - returns either the 'opt_out' point object or a new point object.
+           */
+          extractPoint(pointIndex: number, opt_out?: H.geo.Point): H.geo.Point;
+
+          /**
+           * This method is a utility method that iterates over the lat, lng, alt array and calls the provided function for each 3 elements passing lat, lng and alt and the virtual point index as arguments.
+           * @param eachFn {function(H.geo.Latitude, H.geo.Longitude, H.geo.Altitude, number)} - the function to be called for each 3 elements
+           * @param opt_start {number=} - an optional start index to iterate from
+           * @param opt_end {number=} - an optional end index to iterate to
+           */
+          eachLatLngAlt(eachFn: (lat: H.geo.Latitude, lng: H.geo.Longitude, alt: H.geo.Altitude, n: number) => void, opt_start?: number, opt_end?: number): void;
+
+          /**
+           * This method returns the number of times that legs in this strip cross the date border.
+           * @param opt_closed {boolean=} - indicates whether the strip is closed (i.e. whether the strip's last and first coordinates form the closing leg of a polygon)
+           * @returns {number} - the amount of times this strip crosses the date border.
+           */
+          getDBCs(opt_closed?: boolean): number;
+
+          /**
+           * This method return the number of points stored in this strip.
+           * @returns {number} - the number of points in this strip
+           */
+          getPointCount(): number;
+
+          /**
+           * This method returns the internal array keeping the lat, lng, alt values. Modifying this array directly can destroy the integrity of this strip. Use it only for read access.
+           * @returns {Array<number>} - returns the raw lat, lng, alt values of this strip
+           */
+          getLatLngAltArray(): Array<number>;
+
+          /**
+           * This method returns the bounding box of this strip.
+           * @returns {?H.geo.Rect} - this strip's bounding rectangle
+           */
+          getBounds(): H.geo.Rect;
+
+          /**
+           * This method checks whether two longitudes form a leg which crosses the date border.
+           * @param lng1 {H.geo.Longitude} - the start longitude of the leg
+           * @param lng2 {H.geo.Longitude} - the end longitude of the leg
+           * @returns {boolean} - true if the leg crosses the date border, otherwise false
+           */
+          static isDBC(lng1: H.geo.Longitude, lng2: H.geo.Longitude): boolean;
+
+          /**
+           * This method initializes a new strip with an array of lat, lng values. Arrays are expected to have an even length with the format [lat, lng, lat, lng, ...].
+           * @param latLngs {Array<number>} - the array of lat, lng value.
+           * @returns {H.geo.Strip} - the strip containing the lat, lng values
+           */
+          static fromLatLngArray(latLngs: Array<number>): H.geo.Strip;
+        }
     }
 
     /***** lang *****/
@@ -1174,6 +1293,78 @@ declare namespace H {
         }
 
         /**
+         * A Polygon with a circular shape.
+         */
+        export class Circle extends H.map.Polygon {
+          /**
+           * Constructor
+           * @param center {H.geo.IPoint} - The geographical coordinates of the circle's center
+           * @param radius {number} - The radius of the circle in meters
+           * @param opt_options {H.map.Circle.Options=} - An object that specifies circle options and their initial values (among these, precision has a significant impact on the shape of the circle - please see
+           */
+          constructor(center: H.geo.IPoint, radius: number, opt_options?: H.map.Circle.Options);
+
+          /**
+           * To set the geographical center point of this circle. If the specified center is an instance of H.geo.Point you must not modify this Point instance without calling setCenter immediately afterwards.
+           * @param center {H.geo.IPoint}
+           */
+          setCenter(center: H.geo.IPoint): void;
+
+          /**
+           * To get the center point of this circle You must not modify the returned Point instance without calling setCenter immediately afterwards.
+           * @returns {H.geo.Point}
+           */
+          getCenter(): H.geo.Point;
+
+          /**
+           * To set the length of the radius of the circle in meters. The value is clamped to the of {@code[0 ... 20015089.27787877]} (half WGS84 mean circumference)
+           * @param radius {number}
+           */
+          setRadius(radius: number): void;
+
+          /**
+           * To get the length of the radius of the circle in meters.
+           * @returns {number}
+           */
+          getRadius(): number;
+
+          /**
+           * To set the precision of this circle {@see H.map.Circle.Options#precision}
+           * @param precision {number}
+           */
+          setPrecision(precision: number): void;
+
+          /**
+           * To get the precision value of this circle
+           * @returns {number}
+           */
+          getPrecision(): number;
+        }
+
+        export module Circle {
+          /**
+           * @property style {H.map.SpatialStyle=} - the style to be used when tracing the polyline
+           * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+           * @property precision {number=} - The precision of a circle as a number of segments to be used when rendering the circle. The value is clamped to the range between [4 ... 360], where 60 is the default. Note that the lower the value the more angular and the less circle-like the shape appears and, conversely, the higher the value the smoother and more rounded the result. Thus, starting at the extreme low end of the possible values, 4 produces a square, 6 a hexagon, while 30 results in a circle-like shape, although it appears increasingly angular as the zoom level increases (as you zoom in), and finally 360 produces a smooth circle.
+           * @property zIndex {number=} - The z-index value of the circle, default is 0
+           * @property min {number=} - The minimum zoom level for which the circle is visible, default is -Infinity
+           * @property max {number=} - The maximum zoom level for which the circle is visible, default is Infinity
+           * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
+           * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+           */
+          export interface Options {
+            style?: H.map.SpatialStyle | H.map.SpatialStyle.Options;
+            visibility?: boolean;
+            precision?: number;
+            zIndex?: number;
+            min?: number;
+            max?: number;
+            provider?: H.map.provider.Provider;
+            data?: any;
+          }
+        }
+
+        /**
          * The class represents data model of the map. It holds list of layers that are rendered by map's RenderEngine. The class listens to 'update' events from layers and dispatches them to the RenderEngine.
          */
         export class DataModel extends H.util.OList {
@@ -1240,6 +1431,38 @@ declare namespace H {
                 icon?: H.map.DomIcon;
                 data?: any;
             }
+        }
+
+        /**
+         * This class represents a spatial shape in geographic space. It is defined by a path containing the vertices of the shape (lat, lng, alt values).
+         */
+        export class GeoShape extends H.map.Spatial {
+          /**
+           * Constructor
+           * @param isClosed {boolean} - Indicates whether this geographical shape is closed (a polygon)
+           * @param strip {H.geo.Strip} - The strip describing the shape of the spatial object
+           * @param options {H.map.Spatial.Options} - The options to apply
+           */
+          constructor(isClosed: boolean, strip: H.geo.Strip, options: H.map.Spatial.Options);
+
+          /**
+           * This method returns the strip which represents the shape of the spatial object.
+           * @returns {H.geo.Strip} - the strip
+           */
+          getStrip(): H.geo.Strip;
+
+          /**
+           * This method sets the geo-information for the spatial object
+           * @param strip {?H.geo.Strip} - The strip which represents the shape of the spatial object.
+           * @returns {H.map.GeoShape} - the Spatial instance itself
+           */
+          setStrip(strip: H.geo.Strip): H.map.GeoShape;
+
+          /**
+           * This method returns the bounding rectangle for this object. The rectangle is the smallest rectangle which encloses all points of the spatial object.
+           * @returns {H.geo.Rect}
+           */
+          getBounds(): H.geo.Rect;
         }
 
         /**
@@ -1856,6 +2079,92 @@ declare namespace H {
         }
 
         /**
+         * This class represents a polygon in geo-space. It is defined by a strip containing the vertices of a geo shape object (lat, lng, alt values) and a pen to use when rendering the polyline. Polygon represents a closed plane defined by the list of verticies, projected on the map display. List of vericies which define the polygon are is a list of geo coordinates encapsulated by the strip object H.geo.Strip
+         */
+        export class Polygon extends H.map.GeoShape {
+          /**
+           * Constructor
+           * @param strip {H.geo.Strip} - the strip describing this polygon's vertices
+           * @param opt_options {H.map.Spatial.Options=} - optional initialization parameters
+           */
+          constructor(strip: H.geo.Strip, opt_options?: H.map.Spatial.Options);
+
+          /**
+           * To set the indicator whether this polygon covers the north pole. It's needed for Polygons whose strip is defined as lines arround the world on longitude axis (for example a circle whose center is one of the poles). In this case a additional information is needed to know if the southern or northern part of the world should be covered by the poygon.
+           * @param flag {boolean} - A value of true means it covers the north pole, false means south pole
+           * @returns {H.map.Polygon} - the Polygon instance itself
+           */
+          setNorthPoleCovering(flag: boolean): H.map.Polygon;
+
+          /**
+           * See H.map.Polygon#setNorthPoleCovering
+           * @returns {boolean}
+           */
+          getNorthPoleCovering(): boolean;
+        }
+
+        /**
+         * This class represents a polyline in geo-space. It is defined by a path containing the vertices of a polyline (lat, lng, alt values) and a pen to use when tracing the path on the map.
+         */
+        export class Polyline extends H.map.GeoShape {
+          /**
+           * Constructor
+           * @param strip {H.geo.Strip} - the strip describing this polygon's vertices
+           * @param opt_options {H.map.Polyline.Options=} - optional initialization parameters
+           */
+          constructor(strip: H.geo.Strip, opt_options?: H.map.Polyline.Options);
+
+          /**
+           * This method clips this polyline against a rectangular area and returns the intersecting sub-lines.
+           * @param geoRect {H.geo.Rect}
+           * @returns {Array<Array<number>>}
+           */
+          clip(geoRect: H.geo.Rect): Array<Array<number>>;
+        }
+
+        export module Polyline {
+          /**
+           * Options which are used to initialize a polyline
+           * @property style {(H.map.SpatialStyle | H.map.SpatialStyle.Options)=} - the style to be used when tracing the polyline
+           * @property arrows {(H.map.ArrowStyle | H.map.ArrowStyle.Options)=} - The arrows style to be used when rendering the polyline.
+           * @property visibility {boolean=} - An optional boolean value indicating whether this map object is visible, default is true
+           * @property zIndex {number=} - The z-index value of the map object, default is 0
+           * @property min {number=} - The minimum zoom level for which the object is visible, default is -Infinity
+           * @property max {number=} - The maximum zoom level for which the object is visible, default is Infinity
+           * @property provider {(H.map.provider.Provider | null)=} - The provider of this object. This property is only needed if a customized Implementation of ObjectProvider wants to instantiate an object.
+           * @property data {*} - Optional arbitrary data to be stored with this map object. This data can be retrieved by calling getData
+           */
+          export interface Options {
+            style?: (H.map.SpatialStyle | H.map.SpatialStyle.Options);
+            arrows?: (H.map.ArrowStyle | H.map.ArrowStyle.Options);
+            visibility?: boolean;
+            zIndex?: number;
+            min?: number;
+            max?: number;
+            provider?: H.map.provider.Provider;
+            data?: any;
+          }
+        }
+
+        /**
+         * A Polygon with a rectangular shape.
+         */
+        export class Rect extends H.map.Polygon {
+          /**
+           * Constructor
+           * @param bounds {H.geo.Rect} - The geographical bounding box for this rectangle
+           * @param opt_options {H.map.Spatial.Options=}
+           */
+          constructor(bounds: H.geo.Rect, opt_options?: H.map.Spatial.Options);
+
+          /**
+           * To set the bounds of this rectangle.
+           * @param bounds {H.geo.Rect}
+           */
+          setBounds(bounds: H.geo.Rect): void;
+        }
+
+        /**
          * This class represents a spatial map object which provides its projected geometry.
          */
         export class Spatial extends H.map.Object {
@@ -1985,8 +2294,8 @@ declare namespace H {
             miterLimit: number;
             lineDash: Array<number>;
             lineDashOffset: number;
-            MAX_LINE_WIDTH: number;
-            DEFAULT_STYLE: H.map.SpatialStyle;
+            static MAX_LINE_WIDTH: number;
+            static DEFAULT_STYLE: H.map.SpatialStyle;
         }
 
         export module SpatialStyle {
@@ -2018,7 +2327,7 @@ declare namespace H {
                 lineCap?: H.map.SpatialStyle.LineCap;
                 lineJoin?: H.map.SpatialStyle.LineJoin;
                 miterLimit?: number;
-                lineDash: Array<number>;
+                lineDash?: Array<number>;
                 lineDashOffset?: number;
             }
         }

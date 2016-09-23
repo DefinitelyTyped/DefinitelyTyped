@@ -95,8 +95,8 @@ interface DropzoneOptions {
 	uploadprogress?(file:DropzoneFile, progress:number, bytesSent:number):void;
 	totaluploadprogress?(totalProgress:number, totalBytes:number, totalBytesSent:number):void;
 
-	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
-	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
+	sending?(file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData):void;
+	sendingmultiple?(files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData):void;
 
 	success?(file: DropzoneFile, response: Object|string): void;
 	successmultiple?(files:DropzoneFile[], responseText:string):void;
@@ -206,8 +206,8 @@ declare class Dropzone {
 	on(eventName:"uploadprogress", callback:(file:DropzoneFile, progress:number, bytesSent:number) => any):void;
 	on(eventName:"totaluploadprogress", callback:(totalProgress:number, totalBytes:number, totalBytesSent:number) => any):void;
 
-	on(eventName:"sending", callback:(file:DropzoneFile, xhr:XMLHttpRequest, formData:{}) => any):void;
-	on(eventName:"sendingmultiple", callback:(files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}) => any):void;
+	on(eventName:"sending", callback:(file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData) => any):void;
+	on(eventName:"sendingmultiple", callback:(files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData) => any):void;
 
 	on(eventName:"success", callback:(file:DropzoneFile) => any):void;
 	on(eventName:"successmultiple", callback:(files:DropzoneFile[]) => any):void;
@@ -246,8 +246,8 @@ declare class Dropzone {
 	emit(eventName:"uploadprogress", file:DropzoneFile, progress:number, bytesSent:number):void;
 	emit(eventName:"totaluploadprogress", totalProgress:number, totalBytes:number, totalBytesSent:number):void;
 
-	emit(eventName:"sending", file:DropzoneFile, xhr:XMLHttpRequest, formData:{}):void;
-	emit(eventName:"sendingmultiple", files:DropzoneFile[], xhr:XMLHttpRequest, formData:{}):void;
+	emit(eventName:"sending", file:DropzoneFile, xhr:XMLHttpRequest, formData:FormData):void;
+	emit(eventName:"sendingmultiple", files:DropzoneFile[], xhr:XMLHttpRequest, formData:FormData):void;
 
 	emit(eventName:"success", file:DropzoneFile):void;
 	emit(eventName:"successmultiple", files:DropzoneFile[]):void;

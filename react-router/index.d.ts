@@ -6,7 +6,7 @@
 export as namespace ReactRouter;
 
 import * as React from 'react';
-    
+
 export const routerShape: React.Requireable<any>
 
 export const locationShape: React.Requireable<any>
@@ -32,6 +32,7 @@ import match from "./lib/match";
 import useRouterHistory from "./lib/useRouterHistory";
 import createMemoryHistory from "./lib/createMemoryHistory";
 import withRouter from "./lib/withRouter";
+import applyRouterMiddleware from "./lib/applyRouterMiddleware";
 
 // PlainRoute is defined in the API documented at:
 // https://github.com/rackt/react-router/blob/master/docs/API.md
@@ -45,6 +46,7 @@ export type EnterHook = Router.EnterHook;
 export type LeaveHook = Router.LeaveHook;
 export type ParseQueryString = Router.ParseQueryString;
 export type RedirectFunction = Router.RedirectFunction;
+export type RouteComponent = Router.RouteComponent;
 export type RouteComponentProps<P, R> = Router.RouteComponentProps<P, R>;
 export type RouteHook = Router.RouteHook;
 export type StringifyQuery = Router.StringifyQuery;
@@ -78,7 +80,8 @@ export {
     match,
     useRouterHistory,
     createMemoryHistory,
-    withRouter
+    withRouter,
+    applyRouterMiddleware
 };
 
 export default Router;
