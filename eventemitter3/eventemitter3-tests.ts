@@ -1,10 +1,10 @@
 ///<reference path="eventemitter3.d.ts" />
 'use strict';
 
-import EventEmitter from 'eventemitter3';
+import EventEmitter = require('eventemitter3');
 
 const eventName = 'test';
-const eventSymbol: symbol = Symbol('test');
+const eventSymbol = Symbol('test');
 const fn = () => console.log(1);
 
 // Extending EventEmitter
