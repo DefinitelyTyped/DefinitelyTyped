@@ -210,7 +210,7 @@ declare module "pkcs11js" {
          * @param {Handle} slot ID of token's slot
          * @returns {Handle[]} Gets mech. array
          */
-        C_GetMechanismList(slot: Handle): number[];
+        C_GetMechanismList(slot: Handle): Handle[];
         /**
          * Obtains information about a particular mechanism possibly supported by a token 
          * 
@@ -218,7 +218,7 @@ declare module "pkcs11js" {
          * @param {Handle} mech Type of mechanism
          * @returns {MechanismInfo} Receives mechanism info
          */
-        C_GetMechanismInfo(slot: Handle, mech: number): MechanismInfo;
+        C_GetMechanismInfo(slot: Handle, mech: Handle): MechanismInfo;
 
         /* Session management */
 
@@ -1173,11 +1173,11 @@ declare module "pkcs11js" {
     const CKM_RSA_PKCS_TPM_1_1: number;
     const CKM_RSA_PKCS_OAEP_TPM_1_1: number;
     const CKM_VENDOR_DEFINED: number;
-
+    
     // Session flags
     const CKF_RW_SESSION: number;
     const CKF_SERIAL_SESSION: number;
-
+    
     // Follows
     const CKF_HW: number;
     const CKF_ENCRYPT: number;
@@ -1192,6 +1192,7 @@ declare module "pkcs11js" {
     const CKF_WRAP: number;
     const CKF_UNWRAP: number;
     const CKF_DERIVE: number;
+    const CKF_CLOCK_ON_TOKEN: number;
 
     // Certificates
     const CKC_X_509: number;
