@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -56,7 +56,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance | null>;
+        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>;
     }
 
     /**
@@ -170,7 +170,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance | null>;
+        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>;
     }
 
     /**
@@ -2544,41 +2544,6 @@ declare namespace sequelize {
         afterInit(name: string, fn: (sequelize: Sequelize) => void): void;
         afterInit(fn: (sequelize: Sequelize) => void): void;
 
-        /**
-         * A hook that is run before Model.sync call
-         *
-         * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
-         */
-        beforeSync(name: string, fn: (options: SyncOptions) => void): void;
-        beforeSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run after Model.sync call
-         *
-         * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
-         */
-        afterSync(name: string, fn: (options: SyncOptions) => void): void;
-        afterSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run before sequelize.sync call
-         *
-         * @param name
-         * @param fn    A callback function that is called with options passed to sequelize.sync
-         */
-        beforeBulkSync(name: string, fn: (options: SyncOptions) => void): void;
-        beforeBulkSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run after sequelize.sync call
-         *
-         * @param name
-         * @param fn   A callback function that is called with options passed to sequelize.sync
-         */
-        afterBulkSync(name: string, fn: (options: SyncOptions) => void): void;
-        afterBulkSync(fn: (options: SyncOptions) => void): void;
     }
 
     //
@@ -3087,7 +3052,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object | null;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
     }
 
     /**
@@ -3753,15 +3718,15 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance | null>;
-        find(options?: FindOptions): Promise<TInstance | null>;
+        findOne(options?: FindOptions): Promise<TInstance>;
+        find(options?: FindOptions): Promise<TInstance>;
 
         /**
          * Run an aggregation method on the specified field
