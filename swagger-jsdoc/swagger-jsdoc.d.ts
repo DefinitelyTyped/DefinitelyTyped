@@ -34,22 +34,6 @@
  =============================================== */
 
 declare module "swagger-jsdoc" {
-    interface SwaggerDefinition {
-        info: InfoObject,
-        host: string,
-        basePath: string
-    }
-
-    interface InfoObject {
-        title: string,
-        version: string
-    }
-
-    interface swaggerOptions {
-        swaggerDefinition: SwaggerDefinition
-        apis: string[]
-    }
-
-    function swaggerJSDoc(options?: swaggerOptions): any;
+    function swaggerJSDoc(options?: any): any;
     export = swaggerJSDoc;
 }

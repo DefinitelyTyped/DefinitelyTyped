@@ -2,7 +2,7 @@
 /// <reference path="./swagger-jsdoc.d.ts" />
 
 import * as express from 'express';
-import swaggerJSDoc = require('./swagger-jsdoc');
+import swaggerJSDoc = require('swagger-jsdoc');
 const app = express();
 
 let options = {
@@ -13,6 +13,7 @@ let options = {
         }
     }
 };
+
 
 let swaggerSpec = swaggerJSDoc(options);
 
