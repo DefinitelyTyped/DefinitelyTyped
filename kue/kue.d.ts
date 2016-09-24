@@ -86,7 +86,7 @@ declare module "kue" {
     delay(ms:number|Date): Job;
     removeOnComplete(param: any): void;
     backoff(param: any): void;
-    ttl(param: any): void;
+    ttl(param: any): Job;
     private _getBackoffImpl(): void;
     priority(level: string|number): Job;
     attempt(fn: Function): Job;
