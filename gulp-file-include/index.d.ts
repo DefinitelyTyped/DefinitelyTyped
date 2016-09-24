@@ -5,7 +5,8 @@
 
 /// <reference types="node" />
 
-declare function fileinclude(): NodeJS.ReadWriteStream;
+declare function fileinclude(prefix: string): NodeJS.ReadWriteStream;
+declare function fileinclude(opts: fileinclude.Options): NodeJS.ReadWriteStream;
 declare namespace fileinclude {
     export interface Options {
         /** default: "@@" */
