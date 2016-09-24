@@ -88,6 +88,8 @@ declare namespace Bookshelf {
 		static fetchAll<T extends Model<any>>(): BlueBird<Collection<T>>;
 		/** @deprecated should use `new` objects instead. */
 		static forge<T>(attributes?: any, options?: ModelOptions): T;
+		static where<T>(properties: { [key: string]: any }): T;
+		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string): R;
 		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;

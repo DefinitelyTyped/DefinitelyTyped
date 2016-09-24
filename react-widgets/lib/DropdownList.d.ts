@@ -39,7 +39,7 @@ interface DropdownListProps extends React.Props<DropdownListClass> {
      * ThetextFieldprop may also also used as to find an item in the list as you type. Providing
      * an accessor function allows for computed text values
      */
-    textField?: string;
+    textField?: string | ((dataItem: any) => string);
     /**
      * This component is used to render the selected value of the DropdownList. The default
      * component renders the text of the selected item (specified by textfield)
@@ -97,9 +97,9 @@ interface DropdownListProps extends React.Props<DropdownListClass> {
      */
     onToggle?: (isOpen: boolean) => void;
     /**
-     * Specify a filtering method used to reduce the items in the dropdown as you type. 
+     * Specify a filtering method used to reduce the items in the dropdown as you type.
      * There are a few built-in filtering methods that can be specified by passing the String name.
-     * To handle custom filtering techniques provide a function that returns true or false 
+     * To handle custom filtering techniques provide a function that returns true or false
      * for each passed in item (analogous to the array.filter builtin)
      * @enum false "startsWith" "endsWith" "contains"
      */
