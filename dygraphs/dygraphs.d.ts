@@ -3,15 +3,12 @@
 // Definitions by: Dan Vanderkam <http://danvk.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../google.visualization/google.visualization.d.ts" />
+
 declare namespace dygraphs {
     type DataArray = number[][];
 
-    // TODO: check for another DT definition to use here.
-    interface GVizDataTable {
-        getNumberOfRows(): number;
-        getNumberOfColumns(): number;
-        getValue(rowIndex: number, columnIndex: number): number;
-    }
+    type Data = string|DataArray|google.visualization.DataTable;
 
     interface PerSeriesOptions {
         /**
@@ -441,7 +438,7 @@ declare namespace dygraphs {
          * updateOptions; it cannot be set from the constructor. For a full description of valid data
          * formats, see the <a href='http://dygraphs.com/data.html'>Data Formats</a> page.
          */
-        file?: DataArray|GVizDataTable|string;
+        file?: Data;
 
         /**
          * When set, attempt to parse each cell in the CSV file as "a/b", where a and b are integers.
@@ -870,7 +867,7 @@ declare namespace dygraphs {
 declare class Dygraph {
     constructor(
         container: HTMLElement | string,
-        data: dygraphs.DataArray|dygraphs.GVizDataTable|string|(()=>(dygraphs.DataArray|dygraphs.GVizDataTable|string)),
+        data: dygraphs.Data|(()=>dygraphs.Data),
         options?: dygraphs.Options);
 
     /**
