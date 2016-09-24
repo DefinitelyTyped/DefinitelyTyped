@@ -6,10 +6,10 @@
 /* =================== USAGE ===================
 
     import * as Express from "express"
-    const swaggerJsdoc = require('./swagger-jsdoc');
+    import swaggerJsdoc = require('./swagger-jsdoc');
     const app = new Express()
 
-    let spec = SwaggerJsdoc({
+    let spec = SwaggerJSDoc({
         swaggerDefinition: {
           info: {
             title: 'Hello World',
@@ -32,19 +32,24 @@
     });
 
  =============================================== */
-interface swaggerOptions {
-    swaggerDefinition: {
-        info: {
-            title: string,
-            version: string
-        },
+
+declare module "swagger-jsdoc" {
+    interface SwaggerDefinition {
+        info: InfoObject,
         host: string,
         basePath: string
-    },
-    apis: string[]
-}
+    }
 
-declare interface swaggerjsdoc {
-    (options?: swaggerOptions): any
-}
+    interface InfoObject {
+        title: string,
+        version: string
+    }
 
+    interface swaggerOptions {
+        swaggerDefinition: SwaggerDefinition
+        apis: string[]
+    }
+
+    function swaggerJSDoc(options?: swaggerOptions): any;
+    export = swaggerJSDoc;
+}

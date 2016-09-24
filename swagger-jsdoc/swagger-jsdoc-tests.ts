@@ -1,8 +1,8 @@
-/// <reference path="swagger-jsdoc.d.ts" />
 /// <reference path="../express/express.d.ts" />
+/// <reference path="./swagger-jsdoc.d.ts" />
 
 import * as express from 'express';
-const swaggerJsdoc = require('./swagger-jsdoc');
+import swaggerJSDoc = require('./swagger-jsdoc');
 const app = express();
 
 let options = {
@@ -14,7 +14,7 @@ let options = {
     }
 };
 
-let swaggerSpec = swaggerJsdoc(options);
+let swaggerSpec = swaggerJSDoc(options);
 
 app.get('/api-docs.json', function(req, res) {
     res.send(swaggerSpec);
