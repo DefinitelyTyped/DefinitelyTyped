@@ -38,3 +38,7 @@ function testD() {
         }
     });
 }
+
+function testE() {
+    fileinclude('@@');
+}
