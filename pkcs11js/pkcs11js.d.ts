@@ -1173,11 +1173,11 @@ declare module "pkcs11js" {
     const CKM_RSA_PKCS_TPM_1_1: number;
     const CKM_RSA_PKCS_OAEP_TPM_1_1: number;
     const CKM_VENDOR_DEFINED: number;
-    
+
     // Session flags
     const CKF_RW_SESSION: number;
     const CKF_SERIAL_SESSION: number;
-    
+
     // Follows
     const CKF_HW: number;
     const CKF_ENCRYPT: number;
