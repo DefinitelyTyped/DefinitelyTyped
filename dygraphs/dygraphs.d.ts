@@ -305,7 +305,11 @@ declare namespace dygraphs {
      * See also documentation on <a href='http://dygraphs.com/per-axis.html'>per-series and
      * per-axis options</a>.
      */
-    axes?: {[axis: string]: PerAxisOptions};
+    axes?: {
+      x?: PerAxisOptions;
+      y?: PerAxisOptions;
+      y2?: PerAxisOptions;
+    };
 
     /**
      * A function to call when the canvas is clicked.
@@ -487,9 +491,6 @@ declare namespace dygraphs {
      */
     includeZero?: boolean;
 
-    /**
-     * TODO(konigsberg): document this
-     */
     interactionModel?: any;
 
     /**
@@ -557,8 +558,8 @@ declare namespace dygraphs {
     panEdgeFraction?: number;
 
     /**
-     * A function (or array of functions) which plot each data series on the chart. TODO(danvk):
-     * more details! May be set per-series.
+     * A function (or array of functions) which plot each data series on the chart.
+     * TODO(danvk): more details! May be set per-series.
      */
     plotter?: any;
 
