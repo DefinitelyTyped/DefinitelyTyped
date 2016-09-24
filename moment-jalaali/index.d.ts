@@ -23,25 +23,22 @@ declare module 'moment' {
         startOf(jUnitOfTime: JUnitOfTime): Moment;
         endOf(jUnitOfTime: JUnitOfTime): Moment;
 
-        add(amount: number, jUnitOfTime: JUnitOfTime): Moment;
-        add(amount: string, jUnitOfTime: JUnitOfTime): Moment;
+        add(amount: string | number, jUnitOfTime: JUnitOfTime): Moment;
 
-        subtract(amount: number, jUnitOfTime: JUnitOfTime): Moment;
-        subtract(amount: string, jUnitOfTime: JUnitOfTime): Moment;
+        subtract(amount: string | number, jUnitOfTime: JUnitOfTime): Moment;
 
         jYear(y: number): Moment;
         jYear(): number;
-        jMonth(M: number): Moment;
-        jMonth(M: string): Moment;
+        jMonth(M: number | string): Moment;
         jMonth(): number;
         jDate(d: number): Moment;
         jDate(): number;
-        jWeek(): number;
         jWeek(d: number): Moment;
-        jWeekYear(): number;
+        jWeek(): number;
         jWeekYear(d: number): Moment;
-        jDayOfYear(): number;
+        jWeekYear(): number;
         jDayOfYear(d: number): Moment;
+        jDayOfYear(): number;
     }
 
 }
