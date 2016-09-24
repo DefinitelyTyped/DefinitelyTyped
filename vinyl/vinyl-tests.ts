@@ -134,6 +134,18 @@ describe('File', () => {
 		});
 	});
 
+	describe('File.isCustomProp()', () => {
+		it('should return true when a File property is not managed internally', done => {
+			File.isCustomProp('foobar').should.equal(true);
+			done();
+		});
+
+		it('should return false when a File property is managed internally', done => {
+			File.isCustomProp('cwd').should.equal(false);
+			done();
+		});
+	});
+
 	describe('isBuffer()', () => {
 		it('should return true when the contents are a Buffer', done => {
 			var val = new Buffer("test");
