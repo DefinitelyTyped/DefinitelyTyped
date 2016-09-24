@@ -1,17 +1,16 @@
-// Type definitions for Sequelize 4.0.0
+// Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference path='../lodash/lodash.d.ts' />
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
-/// <reference path="../validator/validator.d.ts" />
+/// <reference types="lodash" />
+/// <reference types="bluebird" />
+/// <reference types="validator" />
 
-declare module "sequelize" {
-    import * as _ from "lodash";
 
+import * as _ from "lodash";
 
 declare namespace sequelize {
 
@@ -57,7 +56,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance | null>;
+        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>;
     }
 
     /**
@@ -171,7 +170,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance | null>;
+        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>;
     }
 
     /**
@@ -2545,41 +2544,6 @@ declare namespace sequelize {
         afterInit(name: string, fn: (sequelize: Sequelize) => void): void;
         afterInit(fn: (sequelize: Sequelize) => void): void;
 
-        /**
-         * A hook that is run before Model.sync call
-         *
-         * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
-         */
-        beforeSync(name: string, fn: (options: SyncOptions) => void): void;
-        beforeSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run after Model.sync call
-         *
-         * @param name
-         * @param fn   	A callback function that is called with options passed to Model.sync
-         */
-        afterSync(name: string, fn: (options: SyncOptions) => void): void;
-        afterSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run before sequelize.sync call
-         *
-         * @param name
-         * @param fn    A callback function that is called with options passed to sequelize.sync
-         */
-        beforeBulkSync(name: string, fn: (options: SyncOptions) => void): void;
-        beforeBulkSync(fn: (options: SyncOptions) => void): void;
-
-        /**
-         * A hook that is run after sequelize.sync call
-         *
-         * @param name
-         * @param fn   A callback function that is called with options passed to sequelize.sync
-         */
-        afterBulkSync(name: string, fn: (options: SyncOptions) => void): void;
-        afterBulkSync(fn: (options: SyncOptions) => void): void;
     }
 
     //
@@ -2632,7 +2596,6 @@ declare namespace sequelize {
          * Transaction to run query under
          */
         transaction?: Transaction;
-
     }
 
     /**
@@ -2689,13 +2652,7 @@ declare namespace sequelize {
     /**
      * Options used for Instance.save method
      */
-    interface InstanceSaveOptions {
-
-        /**
-         * An optional array of strings, representing database columns. If fields is provided, only those columns
-         * will be validated and saved.
-         */
-        fields?: string[];
+    interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions, SearchPathOptions {
 
         /**
          * If true, the updatedAt timestamp will not be updated.
@@ -2703,23 +2660,6 @@ declare namespace sequelize {
          * Defaults to false
          */
         silent?: boolean;
-
-        /**
-         * If false, validations won't be run.
-         *
-         * Defaults to true
-         */
-        validate?: boolean;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        /**
-         * Transaction to run the query in
-         */
-        transaction?: Transaction;
 
     }
 
@@ -2944,6 +2884,50 @@ declare namespace sequelize {
 
     }
 
+    interface LoggingOptions {
+        /**
+        * A function that gets executed while running the query to log the sql.
+        */
+
+        logging?: boolean | Function;
+
+        /**
+         * Print query execution time in milliseconds when logging SQL.
+         */
+        benchmark?: boolean;
+    }
+
+    interface SearchPathOptions {
+        /**
+         * Transaction to run query under
+         */
+        transaction?: Transaction;
+
+        /**
+         * An optional parameter to specify the schema search_path (Postgres only)
+         */
+        searchPath?: string;
+    }
+
+    interface ReturningOptions {
+        /**
+         * Append RETURNING * to get back auto generated values (Postgres only)
+         */
+        returning?: boolean;
+    }
+
+    interface FieldsOptions {
+        /**
+         * Run validations before the row is inserted
+         */
+        validate?: boolean;
+
+        /**
+         * The fields to insert / update. Defaults to all fields
+         */
+        fields?: string[];
+    }
+
     //
     //  Model
     // ~~~~~~~
@@ -2954,40 +2938,47 @@ declare namespace sequelize {
     /**
      * Options to pass to Model on drop
      */
-    interface DropOptions {
+    interface DropOptions extends LoggingOptions {
 
         /**
          * Also drop all objects depending on this table, such as views. Only works in postgres
          */
         cascade?: boolean;
 
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
     }
 
     /**
      * Schema Options provided for applying a schema to a model
      */
-    interface SchemaOptions {
+    interface SchemaOptions extends LoggingOptions {
 
         /**
          * The character(s) that separates the schema name from the table name
          */
         schemaDelimeter?: string;
 
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: Function | boolean;
+    }
+    /**
+ * GetTableName Options
+ */
+    interface GetTableNameOptions extends LoggingOptions {
+        // no addition properties
+    }
 
+
+    /**
+     * AddScope Options for Model.addScope
+     */
+    interface AddScopeOptions {
+        /**
+         * If a scope of the same name already exists, should it be overwritten?
+         */
+        override: boolean;
     }
 
     /**
-     * Scope Options for Model.scope
-     */
+* Scope Options for Model.scope
+*/
     interface ScopeOptions {
 
         /**
@@ -3061,7 +3052,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object | null;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
     }
 
     /**
@@ -3141,11 +3132,16 @@ declare namespace sequelize {
     }
 
     /**
-     * Options that are passed to any model creating a SELECT query
-     *
-     * A hash of options to describe the scope of the search
-     */
-    interface FindOptions {
+         * Shortcut for types used in FindOptions.attributes
+         */
+    type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+
+    /**
+* Options that are passed to any model creating a SELECT query
+*
+* A hash of options to describe the scope of the search
+*/
+    interface FindOptions extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of attributes to describe your search. See above for examples.
@@ -3158,7 +3154,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: Array<string | [string, string]>;
+        attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3193,11 +3189,6 @@ declare namespace sequelize {
         offset?: number;
 
         /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
-
-        /**
          * Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE.
          * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
          * locks with joins. See [transaction.LOCK for an example](transaction#lock)
@@ -3210,21 +3201,21 @@ declare namespace sequelize {
         raw?: boolean;
 
         /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        /**
-         * having ?!?
+             * having ?!?
          */
         having?: WhereOptions;
 
+        /**
+             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+         */
+        group?: string | string[] | Object;
     }
 
     /**
      * Options for Model.count method
      */
-    interface CountOptions {
+    interface CountOptions extends LoggingOptions, SearchPathOptions {
 
         /**
          * A hash of search attributes.
@@ -3252,19 +3243,12 @@ declare namespace sequelize {
          * TODO: Check?
          */
         group?: Object;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        transaction?: Transaction;
     }
 
     /**
      * Options for Model.build method
      */
-    interface BuildOptions {
+    interface BuildOptions extends ReturningOptions {
 
         /**
          * If set to true, values will ignore field and virtual setters.
@@ -3282,43 +3266,23 @@ declare namespace sequelize {
          * TODO: See set
          */
         include?: Array<Model<any, any> | IncludeOptions>;
-
     }
 
     /**
      * Options for Model.create method
      */
-    interface CreateOptions extends BuildOptions {
-
-        /**
-         * If set, only columns matching those in fields will be saved
-         */
-        fields?: string[];
+    interface CreateOptions extends BuildOptions, InstanceSaveOptions {
 
         /**
          * On Duplicate
          */
         onDuplicate?: string;
-
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        silent?: boolean;
-
-        returning?: boolean;
     }
 
     /**
      * Options for Model.findOrInitialize method
      */
-    interface FindOrInitializeOptions<TAttributes> {
+    interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
 
         /**
          * A hash of search attributes.
@@ -3334,65 +3298,35 @@ declare namespace sequelize {
          * Transaction to run query under
          */
         transaction?: Transaction;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
     }
 
     /**
-     * Options for Model.upsert method
+         * Options for Model.findOrInitialize method
      */
-    interface UpsertOptions {
+    interface FindCreateFindOptions<TAttributes> {
 
         /**
-         * Run validations before the row is inserted
+             * A hash of search attributes.
          */
-        validate?: boolean;
+        where: string | WhereOptions;
 
         /**
-         * The fields to insert / update. Defaults to all fields
+             * Default values to use if building a new instance
          */
-        fields?: string[];
+        defaults?: TAttributes;
+    }
 
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
-
-        /**
-         * An optional parameter to specify the schema search_path (Postgres only)
-         */
-        searchPath?: string;
-
-        /**
-         * Print query execution time in milliseconds when logging SQL.
-         */
-        benchmark?: boolean;
+    /**
+ * Options for Model.upsert method
+     */
+    interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
     }
 
     /**
      * Options for Model.bulkCreate method
      */
-    interface BulkCreateOptions {
 
-        /**
-         * Fields to insert (defaults to all fields)
-         */
-        fields?: string[];
-
-        /**
-         * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-         * fails validation
-         */
-        validate?: boolean;
+    interface BulkCreateOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
 
         /**
          * Run before / after bulk create hooks?
@@ -3417,28 +3351,12 @@ declare namespace sequelize {
          * mariadb). By default, all fields are updated.
          */
         updateOnDuplicate?: string[];
-
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
     }
 
     /**
      * The options passed to Model.destroy in addition to truncate
      */
-    interface TruncateOptions {
-
-        /**
-         * Transaction to run query under
-         */
-        transaction?: Transaction;
+    interface TruncateOptions extends LoggingOptions, SearchPathOptions {
 
         /**
          * Only used in conjuction with TRUNCATE. Truncates  all tables that have foreign-key references to the
@@ -3447,12 +3365,6 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
-
-        /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
     }
 
     /**
@@ -3497,7 +3409,7 @@ declare namespace sequelize {
     /**
      * Options for Model.restore
      */
-    interface RestoreOptions {
+    interface RestoreOptions extends LoggingOptions {
 
         /**
          * Filter the restore
@@ -3521,11 +3433,6 @@ declare namespace sequelize {
         limit?: number;
 
         /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        /**
          * Transaction to run query under
          */
         transaction?: Transaction;
@@ -3535,25 +3442,12 @@ declare namespace sequelize {
     /**
      * Options used for Model.update
      */
-    interface UpdateOptions {
+    interface UpdateOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
 
         /**
          * Options to describe the scope of the search.
          */
         where: WhereOptions;
-
-        /**
-         * Fields to update (defaults to all fields)
-         */
-        fields?: string[];
-
-        /**
-         * Should each row be subject to validation before it is inserted. The whole insert will fail if one row
-         * fails validation.
-         *
-         * Defaults to true
-         */
-        validate?: boolean;
 
         /**
          * Run before / after bulk update hooks?
@@ -3578,31 +3472,25 @@ declare namespace sequelize {
         individualHooks?: boolean;
 
         /**
-         * Return the affected rows (only for postgres)
-         */
-        returning?: boolean;
-
-        /**
          * How many rows to update (only for mysql and mariadb)
          */
         limit?: number;
 
         /**
-         * A function that gets executed while running the query to log the sql.
-         */
-        logging?: boolean | Function;
-
-        /**
-         * Transaction to run query under
+             * Transaction to run query under
          */
         transaction?: Transaction;
 
+        /**
+        * If true, the updatedAt timestamp will not be updated.
+         */
+        silent?: boolean;
     }
 
     /**
      * Options used for Model.aggregate
      */
-    interface AggregateOptions extends QueryOptions {
+    interface AggregateOptions extends LoggingOptions {
 
         /**
          * A hash of search attributes.
@@ -3620,6 +3508,17 @@ declare namespace sequelize {
          */
         distinct?: boolean;
 
+        /**
+         * The transaction that the query should be executed under
+         */
+        transaction?: Transaction;
+
+        /**
+         * When `true`, the first returned value of `aggregateFunction` is cast to `dataType` and returned.
+         * If additional attributes are specified, along with `group` clauses, set `plain` to `false` to return all values of all returned rows.
+         * Defaults to `true`
+         */
+        plain?: boolean;
     }
 
     /**
@@ -3675,55 +3574,79 @@ declare namespace sequelize {
          *     subscribers_1, subscribers_2)
          * @param options.logging=false A function that gets executed while running the query to log the sql.
          */
-        getTableName(options?: { logging: Function }): string | Object;
+        getTableName(options?: GetTableNameOptions): string | Object;
 
         /**
-         * Apply a scope created in `define` to the model. First let's look at how to create scopes:
-         * ```js
-         * var Model = sequelize.define('model', attributes, {
-         *   defaultScope: {
-         *     where: {
-         *       username: 'dan'
-         *     },
-         *     limit: 12
-         *   },
-         *   scopes: {
-         *     isALie: {
-         *       where: {
-         *         stuff: 'cake'
-         *       }
-         *     },
-         *     complexFunction: function(email, accessLevel) {
-         *       return {
-         *         where: {
-         *           email: {
-         *             $like: email
-         *           },
-         *           accesss_level {
-         *             $gte: accessLevel
-         *           }
-         *         }
-         *       }
-         *     }
-         *   }
-         * })
-         * ```
-         * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
-         * your query. Here's a couple of examples:
-         * ```js
-         * Model.findAll() // WHERE username = 'dan'
-         * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
-         * ```
+         * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
          *
-         * To invoke scope functions you can do:
-         * ```js
-         * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
-         * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
-         * ```
+         * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
          *
-         * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
-         *     model will clear the previous scope.
+         * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+         * @param {Object|Function} scope
+         * @param {Object}          [options]
+         * @param {Boolean}         [options.override=false]
          */
+        addScope(name: string, scope: FindOptions | Function, options?: AddScopeOptions): void;
+
+        /**
+             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
+             *
+             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
+             *
+             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
+             * @param {Object|Function} scope
+             * @param {Object}          [options]
+             * @param {Boolean}         [options.override=false]
+             */
+        addScope(name: string, scope: FindOptions | Function, options?: AddScopeOptions): void;
+
+        /**
+ * Apply a scope created in `define` to the model. First let's look at how to create scopes:
+ * ```js
+ * var Model = sequelize.define('model', attributes, {
+ *   defaultScope: {
+ *     where: {
+ *       username: 'dan'
+ *     },
+ *     limit: 12
+ *   },
+ *   scopes: {
+ *     isALie: {
+ *       where: {
+ *         stuff: 'cake'
+ *       }
+ *     },
+ *     complexFunction: function(email, accessLevel) {
+ *       return {
+ *         where: {
+ *           email: {
+ *             $like: email
+ *           },
+ *           accesss_level {
+ *             $gte: accessLevel
+ *           }
+ *         }
+ *       }
+ *     }
+ *   }
+ * })
+ * ```
+ * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
+ * your query. Here's a couple of examples:
+ * ```js
+ * Model.findAll() // WHERE username = 'dan'
+ * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
+ * ```
+ *
+ * To invoke scope functions you can do:
+ * ```js
+ * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
+ * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
+ * ```
+ *
+ * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
+ *     model will clear the previous scope.
+ */
         scope(options?: string | string[] | ScopeOptions | WhereOptions): this;
 
         /**
@@ -3795,15 +3718,15 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
         findOne(options?: FindOptions): Promise<TInstance>;
-        find(optionz?: FindOptions): Promise<TInstance>;
+        find(options?: FindOptions): Promise<TInstance>;
 
         /**
          * Run an aggregation method on the specified field
@@ -3814,7 +3737,7 @@ declare namespace sequelize {
          * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
          *     which case the complete data result is returned.
          */
-        aggregate(field: string, aggregateFunction: Function, options?: AggregateOptions): Promise<Object>;
+        aggregate(field: string, aggregateFunction: string, options?: AggregateOptions): Promise<Object>;
 
         /**
          * Count the number of records matching the provided where clause.
@@ -3912,24 +3835,30 @@ declare namespace sequelize {
         findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
 
         /**
-         * Insert or update a single row. An update will be executed if a row which matches the supplied values on
-         * either the primary key or a unique key is found. Note that the unique index must be defined in your
-         * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
-         * because sequelize fails to identify the row that should be updated.
-         *
-         * **Implementation details:**
-         *
-         * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
-         * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
-         *   unique_constraint UPDATE
-         * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
-         * regardless
-         *   of whether the row already existed or not
-         *
-         * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
-         * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
-         * whether the row was inserted or not.
-         */
+             * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
+             * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
+             */
+        findCreateFind(options: FindCreateFindOptions<TAttributes>): Promise<TInstance>;
+
+        /**
+ * Insert or update a single row. An update will be executed if a row which matches the supplied values on
+ * either the primary key or a unique key is found. Note that the unique index must be defined in your
+ * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
+ * because sequelize fails to identify the row that should be updated.
+ *
+ * **Implementation details:**
+ *
+ * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
+ * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
+ *   unique_constraint UPDATE
+ * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
+ * regardless
+ *   of whether the row already existed or not
+ *
+ * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
+ * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
+ * whether the row was inserted or not.
+ */
         upsert(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
         insertOrUpdate(values: TAttributes, options?: UpsertOptions): Promise<boolean>;
 
@@ -4495,7 +4424,7 @@ declare namespace sequelize {
      *
      * @see Options
      */
-    interface QueryOptions {
+    interface QueryOptions extends SearchPathOptions, ReturningOptions {
 
         /**
          * If true, sequelize will not try to format the results of the query, or build an instance of a model from
@@ -4503,10 +4432,6 @@ declare namespace sequelize {
          */
         raw?: boolean;
 
-        /**
-         * The transaction that the query should be executed under
-         */
-        transaction?: Transaction;
 
         /**
          * The type of query you are executing. The query type affects how results are formatted before they are
@@ -4536,16 +4461,22 @@ declare namespace sequelize {
         replacements?: Object | string[];
 
         /**
-         * Force the query to use the write pool, regardless of the query type.
-         *
-         * Defaults to false
-         */
+             * Either an object of named bind parameter in the format `$param` or an array of unnamed
+             * bind parameter to replace `$1`, `$2`, ... in your SQL.
+             */
+        bind?: Object | string[];
+
+        /**
+ * Force the query to use the write pool, regardless of the query type.
+ *
+ * Defaults to false
+ */
         useMaster?: boolean;
 
         /**
          * A function that gets executed while running the query to log the sql.
          */
-        logging?: Function;
+        logging?: boolean | Function;
 
         /**
          * A sequelize instance used to build the return instance
@@ -4557,8 +4488,24 @@ declare namespace sequelize {
          */
         model?: Model<any, any>;
 
-        // TODO: force, cascade
+        /**
+         * Set of flags that control when a query is automatically retried.
+         */
+        retry?: { match?: string[], max?: number };
 
+        /**
+         * If false do not prepend the query with the search_path (Postgres only)
+         */
+        supportsSearchPath?: boolean;
+
+        /**
+         * Map returned fields to model's fields if `options.model` or `options.instance` is present.
+         * Mapping will occur before building the model instance.
+         */
+        mapToModel?: boolean;
+
+        // TODO: force, cascade
+        fieldMap?: { [key: string]: string; }
     }
 
     /**
@@ -5049,17 +4996,17 @@ declare namespace sequelize {
         /**
          * Maximum connections of the pool
          */
-        maxConnections?: number;
+        max?: number;
 
         /**
          * Minimum connections of the pool
          */
-        minConnections?: number;
+        min?: number;
 
         /**
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
-        maxIdleTime?: number;
+        idle?: number;
 
         /**
          * A function that validates a connection. Called with client. The default function checks that client is an
@@ -5375,11 +5322,12 @@ declare namespace sequelize {
         where(attr: Object, logic: string | Object): where;
         condition(attr: Object, logic: string | Object): where;
 
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-        }
+    }
+
+    /**
+     * Sequelize methods available only for the static class ( basically this is the constructor and some extends )
+     */
+    interface SequelizeStatic extends SequelizeStaticAndInstance, DataTypes {
 
         /**
          * Instantiate sequelize with name of database, username and password
@@ -5452,16 +5400,22 @@ declare namespace sequelize {
         /**
          * A reference to Sequelize constructor from sequelize. Useful for accessing DataTypes, Errors etc.
          */
-        interface InstanceSaveOptions extends FieldsOptions, LoggingOptions, ReturningOptions, SearchPathOptions {
+        Sequelize: SequelizeStatic;
 
-            /**
-             * If true, the updatedAt timestamp will not be updated.
-             *
-             * Defaults to false
-             */
-            silent? : boolean;
+        /**
+         * Defined models.
+         */
+        models: ModelsHashInterface;
 
-        }
+        /**
+         * Returns the specified dialect.
+         */
+        getDialect(): string;
+
+        /**
+         * Returns an instance of QueryInterface.
+         */
+        getQueryInterface(): QueryInterface;
 
         /**
          * Define a new model, representing a table in the DB.
@@ -5491,329 +5445,32 @@ declare namespace sequelize {
          *
          * sequelize.models.modelName // The model will now be available in models under the name given to define
          * ```
-         * However, if getters and/or setters are defined for `field` they will be invoked, instead of returning the
-         * value from `dataValues`. Accessing properties directly or using `get` is preferred for regular use,
-         * `getDataValue` should only be used for custom getters.
          *
-         * @see Sequelize.define for more information about getters and setters
+         * As shown above, column definitions can be either strings, a reference to one of the datatypes that are
+         * predefined on the Sequelize constructor, or an object that allows you to specify both the type of the
+         * column, and other attributes such as default values, foreign key constraints and custom setters and
+         * getters.
+         *
+         * For a list of possible data types, see
+         * http://docs.sequelizejs.com/en/latest/docs/models-definition/#data-types
+         *
+         * For more about getters and setters, see
+         * http://docs.sequelizejs.com/en/latest/docs/models-definition/#getters-setters
+         *
+         * For more about instance and class methods, see
+         * http://docs.sequelizejs.com/en/latest/docs/models-definition/#expansion-of-models
+         *
+         * For more about validation, see
+         * http://docs.sequelizejs.com/en/latest/docs/models-definition/#validations
+         *
+         * @param modelName  The name of the model. The model will be stored in `sequelize.models` under this name
+         * @param attributes An object, where each attribute is a column of the table. Each column can be either a
+         *                   DataType, a string or a type-description object, with the properties described below:
+         * @param options    These options are merged with the default define options provided to the Sequelize
+         *                   constructor
          */
-        interface Instance<TAttributes> {
-
-            /**
-             * Returns true if this instance has not yet been persisted to the database
-             */
-            isNewRecord : boolean;
-
-            /**
-             * Returns the Model the instance was created from.
-             *
-             * @see Model
-             */
-            Model : Model<this, TAttributes>;
-
-            /**
-             * A reference to the sequelize instance
-             */
-            sequelize : Sequelize;
-
-            /**
-             * Get an object representing the query for this instance, use with `options.where`
-             */
-            where() : Object;
-
-            /**
-             * Get the value of the underlying data value
-             */
-            getDataValue( key : string ) : any;
-
-            /**
-             * Update the underlying data value
-             */
-            setDataValue( key : string, value : any ) : void;
-
-            /**
-             * If no key is given, returns all values of the instance, also invoking virtual getters.
-             *
-             * If key is given and a field or virtual getter is present for the key it will call that getter - else it
-             * will return the value for key.
-             *
-             * @param options.plain If set to true, included instances will be returned as plain objects
-             */
-            get( key : string, options? : { plain? : boolean, clone? : boolean } ) : any;
-            get( options? : { plain? : boolean, clone? : boolean } ) : TAttributes;
-
-            /**
-             * Set is used to update values on the instance (the sequelize representation of the instance that is,
-             * remember that nothing will be persisted before you actually call `save`). In its most basic form `set`
-             * will update a value stored in the underlying `dataValues` object. However, if a custom setter function
-             * is defined for the key, that function will be called instead. To bypass the setter, you can pass `raw:
-             * true` in the options object.
-             *
-             * If set is called with an object, it will loop over the object, and call set recursively for each key,
-             * value pair. If you set raw to true, the underlying dataValues will either be set directly to the object
-             * passed, or used to extend dataValues, if dataValues already contain values.
-             *
-             * When set is called, the previous value of the field is stored and sets a changed flag(see `changed`).
-             *
-             * Set can also be used to build instances for associations, if you have values for those.
-             * When using set with associations you need to make sure the property key matches the alias of the
-             * association while also making sure that the proper include options have been set (from .build() or
-             * .find())
-             *
-             * If called with a dot.seperated key on a JSON/JSONB attribute it will set the value nested and flag the
-             * entire object as changed.
-             *
-             * @param options.raw If set to true, field and virtual setters will be ignored
-             * @param options.reset Clear all previously set data values
-             */
-            set( key : string, value : any, options? : InstanceSetOptions ) : this;
-            set( keys : Object, options? : InstanceSetOptions ) : this;
-            setAttributes( key : string, value : any, options? : InstanceSetOptions ) : this;
-            setAttributes( keys : Object, options? : InstanceSetOptions ) : this;
-
-            /**
-             * If changed is called with a string it will return a boolean indicating whether the value of that key in
-             * `dataValues` is different from the value in `_previousDataValues`.
-             *
-             * If changed is called without an argument, it will return an array of keys that have changed.
-             *
-             * If changed is called without an argument and no keys have changed, it will return `false`.
-             */
-            changed( key : string ) : boolean;
-            changed() : boolean | string[];
-
-            /**
-             * Returns the previous value for key from `_previousDataValues`.
-             */
-            previous( key : string ) : any;
-
-            /**
-             * Validate this instance, and if the validation passes, persist it to the database.
-             *
-             * On success, the callback will be called with this instance. On validation error, the callback will be
-             * called with an instance of `Sequelize.ValidationError`. This error will have a property for each of the
-             * fields for which validation failed, with the error message for that field.
-             */
-            save( options? : InstanceSaveOptions ) : Promise<this>;
-
-            /**
-             * Refresh the current instance in-place, i.e. update the object with current data from the DB and return
-             * the same object. This is different from doing a `find(Instance.id)`, because that would create and
-             * return a new instance. With this method, all references to the Instance are updated with the new data
-             * and no new objects are created.
-             */
-            reload( options? : FindOptions ) : Promise<this>;
-
-            /**
-             * Validate the attribute of this instance according to validation rules set in the model definition.
-             *
-             * Emits null if and only if validation successful; otherwise an Error instance containing
-             * { field name : [error msgs] } entries.
-             *
-             * @param options.skip An array of strings. All properties that are in this array will not be validated
-             */
-            validate( options? : { skip?: string[] } ) : Promise<ValidationError>;
-
-            /**
-             * This is the same as calling `set` and then calling `save`.
-             */
-            update( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
-            update( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
-            updateAttributes( key : string, value : any, options? : InstanceUpdateOptions ) : Promise<this>;
-            updateAttributes( keys : Object, options? : InstanceUpdateOptions ) : Promise<this>;
-
-            /**
-             * Destroy the row corresponding to this instance. Depending on your setting for paranoid, the row will
-             * either be completely deleted, or have its deletedAt timestamp set to the current time.
-             */
-            destroy( options? : InstanceDestroyOptions ) : Promise<void>;
-
-            /**
-             * Restore the row corresponding to this instance. Only available for paranoid models.
-             */
-            restore( options? : InstanceRestoreOptions ) : Promise<void>;
-
-            /**
-             * Increment the value of one or more columns. This is done in the database, which means it does not use
-             * the values currently stored on the Instance. The increment is done using a
-             * ```sql
-             * SET column = column + X
-             * ```
-             * query. To get the correct value after an increment into the Instance you should do a reload.
-             *
-             *```js
-             * instance.increment('number') // increment number by 1
-             * instance.increment(['number', 'count'], { by: 2 }) // increment number and count by 2
-             * instance.increment({ answer: 42, tries: 1}, { by: 2 }) // increment answer by 42, and tries by 1.
-             *                                                        // `by` is ignored, since each column has its own
-             *                                                        // value
-             * ```
-             *
-             * @param fields If a string is provided, that column is incremented by the value of `by` given in options.
-             *               If an array is provided, the same is true for each column.
-             *               If and object is provided, each column is incremented by the value given.
-             */
-            increment( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
-
-            /**
-             * Decrement the value of one or more columns. This is done in the database, which means it does not use
-             * the values currently stored on the Instance. The decrement is done using a
-             * ```sql
-             * SET column = column - X
-             * ```
-             * query. To get the correct value after an decrement into the Instance you should do a reload.
-             *
-             * ```js
-             * instance.decrement('number') // decrement number by 1
-             * instance.decrement(['number', 'count'], { by: 2 }) // decrement number and count by 2
-             * instance.decrement({ answer: 42, tries: 1}, { by: 2 }) // decrement answer by 42, and tries by 1.
-             *                                                        // `by` is ignored, since each column has its own
-             *                                                        // value
-             * ```
-             *
-             * @param fields If a string is provided, that column is decremented by the value of `by` given in options.
-             *               If an array is provided, the same is true for each column.
-             *               If and object is provided, each column is decremented by the value given
-             */
-            decrement( fields : string | string[] | Object,
-                       options? : InstanceIncrementDecrementOptions ) : Promise<this>;
-
-            /**
-             * Check whether all values of this and `other` Instance are the same
-             */
-            equals( other : Instance<any> ) : boolean;
-
-            /**
-             * Check if this is eqaul to one of `others` by calling equals
-             */
-            equalsOneOf( others : Instance<any>[] ) : boolean;
-
-            /**
-             * Convert the instance to a JSON representation. Proxies to calling `get` with no keys. This means get all
-             * values gotten from the DB, and apply all custom getters.
-             */
-            toJSON() : TAttributes;
-
-        }
-
-        interface LoggingOptions {
-            /**
-            * A function that gets executed while running the query to log the sql.
-            */
-
-            logging?: boolean | Function;
-
-            /**
-             * Print query execution time in milliseconds when logging SQL.
-             */
-            benchmark?: boolean;
-        }
-
-        interface SearchPathOptions {
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-            /**
-             * An optional parameter to specify the schema search_path (Postgres only)
-             */
-            searchPath? : string;
-        }
-
-        interface ReturningOptions {
-            /**
-             * Append RETURNING * to get back auto generated values (Postgres only)
-             */
-            returning? : boolean;
-        }
-
-        interface FieldsOptions {
-            /**
-             * Run validations before the row is inserted
-             */
-            validate? : boolean;
-
-            /**
-             * The fields to insert / update. Defaults to all fields
-             */
-            fields? : string[];
-        }
-
-        //
-        //  Model
-        // ~~~~~~~
-        //
-        //  https://github.com/sequelize/sequelize/blob/v3.4.1/lib/model.js
-        //
-
-        /**
-         * Options to pass to Model on drop
-         */
-        interface DropOptions extends LoggingOptions {
-
-            /**
-             * Also drop all objects depending on this table, such as views. Only works in postgres
-             */
-            cascade?: boolean;
-
-        }
-
-        /**
-         * Schema Options provided for applying a schema to a model
-         */
-        interface SchemaOptions extends LoggingOptions {
-
-            /**
-             * The character(s) that separates the schema name from the table name
-             */
-            schemaDelimeter? : string;
-
-        }
-        /**
-         * GetTableName Options
-         */
-        interface GetTableNameOptions extends LoggingOptions {
-            // no addition properties
-        }
-
-
-        /**
-         * AddScope Options for Model.addScope
-         */
-        interface AddScopeOptions {
-
-            /**
-             * If a scope of the same name already exists, should it be overwritten?
-             */
-            override: boolean;
-
-        }
-
-        /**
-         * Scope Options for Model.scope
-         */
-        interface ScopeOptions {
-
-            /**
-             * The scope(s) to apply. Scopes can either be passed as consecutive arguments, or as an array of arguments.
-             * To apply simple scopes and scope functions with no arguments, pass them as strings. For scope function,
-             * pass an object, with a `method` property. The value can either be a string, if the method does not take
-             * any arguments, or an array, where the first element is the name of the method, and consecutive elements
-             * are arguments to that method. Pass null to remove all scopes, including the default.
-             */
-            method : string | any[];
-
-        }
-
-        /**
-         * Where Complex nested query
-         */
-        interface WhereNested {
-            $and : Array<WhereOptions | WhereLogic>;
-            $or : Array<WhereOptions | WhereLogic>;
-        }
+        define<TInstance, TAttributes>(modelName: string, attributes: DefineAttributes,
+            options?: DefineOptions<TInstance>): Model<TInstance, TAttributes>;
 
         /**
          * Fetch a Model which is already defined
@@ -5903,87 +5560,16 @@ declare namespace sequelize {
         createSchema(schema: string, options: { logging?: boolean | Function }): Promise<any>;
 
         /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-		type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
-
-        /**
-         * Options that are passed to any model creating a SELECT query
+         * Show all defined schemas
+         *
+         * Note,that this is a schema in the
+         * [postgres sense of the word](http://www.postgresql.org/docs/9.1/static/ddl-schemas.html),
+         * not a database table. In mysql and sqlite, this will show all tables.
          *
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-	interface FindOptions extends LoggingOptions, SearchPathOptions {
-
-            /**
-             * A hash of attributes to describe your search. See above for examples.
-             */
-            where?: WhereOptions | Array<col | and | or | string>;
-
-            /**
-             * A list of the attributes that you want to select. To rename an attribute, you can pass an array, with
-             * two elements - the first is the name of the attribute in the DB (or some kind of expression such as
-             * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
-             * have in the returned instance
-             */
-            attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
-
-            /**
-             * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
-             * be returned. Only applies if `options.paranoid` is true for the model.
-             */
-            paranoid?: boolean;
-
-            /**
-             * A list of associations to eagerly load using a left join. Supported is either
-             * `{ include: [ Model1, Model2, ...]}` or `{ include: [{ model: Model1, as: 'Alias' }]}`.
-             * If your association are set up with an `as` (eg. `X.hasMany(Y, { as: 'Z }`, you need to specify Z in
-             * the as attribute when eager loading Y).
-             */
-            include?: Array<Model<any, any> | IncludeOptions>;
-
-            /**
-             * Specifies an ordering. If a string is provided, it will be escaped. Using an array, you can provide
-             * several columns / functions to order by. Each element can be further wrapped in a two-element array. The
-             * first element is the column / function to order by, the second is the direction. For example:
-             * `order: [['name', 'DESC']]`. In this way the column will be escaped, but the direction will not.
-             */
-            order?: string | col | literal | Array<string | number | Model<any, any> | { model : Model<any, any>, as? : string}> | Array<string | col | literal | Array<string | number | Model<any, any> | { model : Model<any, any>, as? : string}>>;
-
-            /**
-             * Limit the results
-             */
-            limit?: number;
-
-            /**
-             * Skip the results;
-             */
-            offset?: number;
-
-            /**
-             * Lock the selected rows. Possible options are transaction.LOCK.UPDATE and transaction.LOCK.SHARE.
-             * Postgres also supports transaction.LOCK.KEY_SHARE, transaction.LOCK.NO_KEY_UPDATE and specific model
-             * locks with joins. See [transaction.LOCK for an example](transaction#lock)
-             */
-            lock? : string | { level: string, of: Model<any, any> };
-
-            /**
-             * Return raw result. See sequelize.query for more information.
-             */
-            raw? : boolean;
-
-            /**
-             * having ?!?
-             */
-            having? : WhereOptions;
-
-            /**
-             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
-             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
-             */
-            group?: string | string[] | Object;
-
-        }
+        showAllSchemas(options: { logging?: boolean | Function }): Promise<any>;
 
         /**
          * Drop a single schema
@@ -5996,35 +5582,7 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        interface CountOptions extends LoggingOptions, SearchPathOptions {
-
-            /**
-             * A hash of search attributes.
-             */
-            where? : WhereOptions | string[];
-
-            /**
-             * Include options. See `find` for details
-             */
-            include?: Array<Model<any, any> | IncludeOptions>;
-
-            /**
-             * Apply COUNT(DISTINCT(col))
-             */
-            distinct? : boolean;
-
-            /**
-             * Used in conjustion with `group`
-             */
-            attributes? : Array<string | [string, string]>;
-
-            /**
-             * For creating complex counts. Will return multiple rows as needed.
-             *
-             * TODO: Check?
-             */
-            group? : Object;
-        }
+        dropSchema(schema: string, options: { logging?: boolean | Function }): Promise<any>;
 
         /**
          * Drop all schemas
@@ -6036,43 +5594,104 @@ declare namespace sequelize {
          * @param options Options supplied
          * @param options.logging A function that logs sql queries, or false for no logging
          */
-        interface BuildOptions extends ReturningOptions {
-
-            /**
-             * If set to true, values will ignore field and virtual setters.
-             */
-            raw? : boolean;
-
-            /**
-             * Is this record new
-             */
-            isNewRecord? : boolean;
-
-            /**
-             * an array of include options - Used to build prefetched/included model instances. See `set`
-             *
-             * TODO: See set
-             */
-            include? :  Array<Model<any, any> | IncludeOptions>;
-        }
+        dropAllSchemas(options: { logging?: boolean | Function }): Promise<any>;
 
         /**
          * Sync all defined models to the DB.
          *
          * @param options Sync Options
          */
-        interface CreateOptions extends BuildOptions, InstanceSaveOptions {
+        sync(options?: SyncOptions): Promise<any>;
 
-            /**
-             * On Duplicate
-             */
-            onDuplicate? : string;
-        }
+        /**
+         * Truncate all tables defined through the sequelize models. This is done
+         * by calling Model.truncate() on each model.
+         *
+         * @param {object} [options] The options passed to Model.destroy in addition to truncate
+         * @param {Boolean|function} [options.transaction]
+         * @param {Boolean|function} [options.logging] A function that logs sql queries, or false for no logging
+         */
+        truncate(options?: DestroyOptions): Promise<any>;
+
+        /**
+         * Drop all tables defined through this sequelize instance. This is done by calling Model.drop on each model
+         * @see {Model#drop} for options
+         *
+         * @param options The options passed to each call to Model.drop
+         */
+        drop(options?: DropOptions): Promise<any>;
+
+        /**
+         * Test the connection by trying to authenticate
+         *
+         * @param options Query Options for authentication
+         */
+        authenticate(options?: QueryOptions): Promise<void>;
+        validate(options?: QueryOptions): Promise<ValidationError>;
+
+        /**
+         * Start a transaction. When using transactions, you should pass the transaction in the options argument
+         * in order for the query to happen under that transaction
+         *
+         * ```js
+         * sequelize.transaction().then(function (t) {
+         *   return User.find(..., { transaction: t}).then(function (user) {
+         *     return user.updateAttributes(..., { transaction: t});
+         *   })
+         *   .then(t.commit.bind(t))
+         *   .catch(t.rollback.bind(t));
+         * })
+         * ```
+         *
+         * A syntax for automatically committing or rolling back based on the promise chain resolution is also
+         * supported:
+         *
+         * ```js
+         * sequelize.transaction(function (t) { // Note that we use a callback rather than a promise.then()
+         *   return User.find(..., { transaction: t}).then(function (user) {
+         *     return user.updateAttributes(..., { transaction: t});
+         *   });
+         * }).then(function () {
+         *   // Commited
+         * }).catch(function (err) {
+         *   // Rolled back
+         *   console.error(err);
+         * });
+         * ```
+         *
+         * If you have [CLS](https://github.com/othiym23/node-continuation-local-storage) enabled, the transaction
+         * will automatically be passed to any query that runs witin the callback. To enable CLS, add it do your
+         * project, create a namespace and set it on the sequelize constructor:
+         *
+         * ```js
+         * var cls = require('continuation-local-storage'),
+         *     ns = cls.createNamespace('....');
+         * var Sequelize = require('sequelize');
+         * Sequelize.cls = ns;
+         * ```
+         * Note, that CLS is enabled for all sequelize instances, and all instances will share the same namespace
+         *
+         * @param options Transaction Options
+         * @param autoCallback Callback for the transaction
+         */
+        transaction(options: TransactionOptions,
+            autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
+        transaction(): Promise<Transaction>;
+
+        /**
+         * Close all connections used by this sequelize instance, and free all references so the instance can be
+         * garbage collected.
+         *
+         * Normally this is done on process exit, so you only need to call this method if you are creating multiple
+         * instances, and want to garbage collect some of them.
+         */
+        close(): void;
 
         /**
          * Returns the database version
          */
-        interface FindOrInitializeOptions<TAttributes> extends LoggingOptions {
+        databaseVersion(): Promise<string>;
 
     }
 
@@ -6101,33 +5720,48 @@ declare namespace sequelize {
         notContains(str: string, element: string[]): boolean;
         is(str: string, pattern: string, modifiers: string): boolean;
 
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-        }
+    }
+
+    //
+    //  Transaction
+    // ~~~~~~~~~~~~~
+    //
+    //  https://github.com/sequelize/sequelize/blob/v3.4.1/lib/transaction.js
+    //
+
+    /**
+     * The transaction object is used to identify a running transaction. It is created by calling
+     * `Sequelize.transaction()`.
+     *
+     * To run a query under a transaction, you should pass the transaction in the options object.
+     */
+    interface Transaction {
 
         /**
-         * Options for Model.findOrInitialize method
+         * Possible options for row locking. Used in conjuction with `find` calls:
+         *
+         * @see TransactionStatic
          */
-        interface FindCreateFindOptions<TAttributes> {
-
-            /**
-             * A hash of search attributes.
-             */
-            where : string | WhereOptions;
-
-            /**
-             * Default values to use if building a new instance
-             */
-            defaults? : TAttributes;
-        }
+        LOCK: TransactionLock;
 
         /**
-         * Options for Model.upsert method
+         * Commit the transaction
          */
-        interface UpsertOptions extends FieldsOptions, LoggingOptions, SearchPathOptions {
-        }
+        commit(): Promise<void>;
+
+        /**
+         * Rollback (abort) the transaction
+         */
+        rollback(): Promise<void>;
+
+    }
+
+    /**
+     * The transaction static object
+     *
+     * @see Transaction
+     */
+    interface TransactionStatic {
 
         /**
          * Isolations levels can be set per-transaction by passing `options.isolationLevel` to
@@ -6164,8 +5798,42 @@ declare namespace sequelize {
          *
          * @see ISOLATION_LEVELS
          */
+        ISOLATION_LEVELS: TransactionIsolationLevels;
 
-        interface BulkCreateOptions extends FieldsOptions, LoggingOptions, SearchPathOptions, ReturningOptions {
+        /**
+         * Transaction type can be set per-transaction by passing `options.type` to
+         * `sequelize.transaction`. Default to `DEFERRED` but you can override the default isolation level
+         * by passing `options.transactionType` in `new Sequelize`.
+         *
+         * The transaction types to use when starting a transaction:
+         *
+         * ```js
+         * {
+         *   DEFERRED: "DEFERRED",
+         *   IMMEDIATE: "IMMEDIATE",
+         *   EXCLUSIVE: "EXCLUSIVE"
+         * }
+         * ```
+         *
+         * Pass in the transaction type the first argument:
+         *
+         * ```js
+         * return sequelize.transaction({
+         *   type: Sequelize.Transaction.EXCLUSIVE
+         * }, function (t) {
+         *
+         *  // your transactions
+         *
+         * }).then(function(result) {
+         *   // transaction has been committed. Do something after the commit if required.
+         * }).catch(function(err) {
+         *   // do something with the err.
+         * });
+         * ```
+         *
+         * @see Sequelize.Transaction.TYPES
+         */
+        TYPES: TransactionTypes;
 
         /**
          * Possible options for row locking. Used in conjuction with `find` calls:
@@ -6218,96 +5886,56 @@ declare namespace sequelize {
         SERIALIZABLE: string; // 'SERIALIZABLE'
     }
 
-            /**
-             * Fields to update if row key already exists (on duplicate key update)? (only supported by mysql &
-             * mariadb). By default, all fields are updated.
-             */
-            updateOnDuplicate? : string[];
-        }
+    /**
+     * Transaction type can be set per-transaction by passing `options.type` to `sequelize.transaction`.
+     * Default to `DEFERRED` but you can override the default isolation level by passing
+     * `options.transactionType` in `new Sequelize`.
+     */
+    interface TransactionTypes {
+        DEFERRED: string; // 'DEFERRED'
+        IMMEDIATE: string; // 'IMMEDIATE'
+        EXCLUSIVE: string; // 'EXCLUSIVE'
+    }
+
+    /**
+     * Possible options for row locking. Used in conjuction with `find` calls:
+     */
+    interface TransactionLock {
+        UPDATE: string; // 'UPDATE'
+        SHARE: string; // 'SHARE'
+        KEY_SHARE: string; // 'KEY SHARE'
+        NO_KEY_UPDATE: string; // 'NO KEY UPDATE'
+    }
+
+    /**
+     * Options provided when the transaction is created
+     *
+     * @see sequelize.transaction()
+     */
+    interface TransactionOptions {
+
+        autocommit?: boolean;
 
         /**
          *  See `Sequelize.Transaction.ISOLATION_LEVELS` for possible options
          */
-        interface TruncateOptions extends LoggingOptions, SearchPathOptions {
-
-            /**
-             * Only used in conjuction with TRUNCATE. Truncates  all tables that have foreign-key references to the
-             * named table, or to any tables added to the group due to CASCADE.
-             *
-             * Defaults to false;
-             */
-            cascade? : boolean;
-        }
+        isolationLevel?: string;
 
         /**
-         * Options used for Model.destroy
+         *  See `Sequelize.Transaction.TYPES` for possible options
          */
-        interface DestroyOptions extends TruncateOptions {
-
-            /**
-             * Filter the destroy
-             */
-            where? : WhereOptions;
-
-            /**
-             * Run before / after bulk destroy hooks?
-             */
-            hooks? : boolean;
-
-            /**
-             * If set to true, destroy will SELECT all records matching the where parameter and will execute before /
-             * after destroy hooks on each row
-             */
-            individualHooks? : boolean;
-
-            /**
-             * How many rows to delete
-             */
-            limit? : number;
-
-            /**
-             * Delete instead of setting deletedAt to current timestamp (only applicable if `paranoid` is enabled)
-             */
-            force? : boolean;
-
-            /**
-             * If set to true, dialects that support it will use TRUNCATE instead of DELETE FROM. If a table is
-             * truncated the where and limit options are ignored
-             */
-            truncate? : boolean;
-
-        }
-
-        /**
-         * Options for Model.restore
-         */
-        interface RestoreOptions extends LoggingOptions {
-
-            /**
-             * Filter the restore
-             */
-            where? : WhereOptions;
-
-            /**
-             * Run before / after bulk restore hooks?
-             */
-            hooks? : boolean;
-
-            /**
-             * If set to true, restore will find all records within the where parameter and will execute before / after
-             * bulkRestore hooks on each row
-             */
-            individualHooks? : boolean;
+        type?: string;
 
         /**
          * A function that gets executed while running the query to log the sql.
          */
         logging?: Function;
 
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
+    }
+
+    //
+    //  Utils
+    // ~~~~~~~
 
     interface fn {
         clone: fnStatic;
@@ -6318,1248 +5946,8 @@ declare namespace sequelize {
          * @param fn The function you want to call
          * @param args All further arguments will be passed as arguments to the function
          */
-        interface UpdateOptions extends FieldsOptions, LoggingOptions, ReturningOptions {
-
-            /**
-             * Options to describe the scope of the search.
-             */
-            where: WhereOptions;
-
-            /**
-             * Run before / after bulk update hooks?
-             *
-             * Defaults to true
-             */
-            hooks? : boolean;
-
-            /**
-             * Whether or not to update the side effects of any virtual setters.
-             *
-             * Defaults to true
-             */
-            sideEffects? : boolean;
-
-            /**
-             * Run before / after update hooks?. If true, this will execute a SELECT followed by individual UPDATEs.
-             * A select is needed, because the row data needs to be passed to the hooks
-             *
-             * Defaults to false
-             */
-            individualHooks? : boolean;
-
-            /**
-             * How many rows to update (only for mysql and mariadb)
-             */
-            limit? : number;
-
-            /**
-             * Transaction to run query under
-             */
-            transaction? : Transaction;
-
-           /**
-	        * If true, the updatedAt timestamp will not be updated.
-	        */
-            silent? : boolean;
-        }
-
-        /**
-         * Options used for Model.aggregate
-         */
-        interface AggregateOptions extends LoggingOptions {
-
-            /**
-             * A hash of search attributes.
-             */
-            where?: WhereOptions;
-
-            /**
-             * The type of the result. If `field` is a field in this Model, the default will be the type of that field,
-             * otherwise defaults to float.
-             */
-            dataType? : DataTypeAbstract | string;
-
-            /**
-             * Applies DISTINCT to the field being aggregated over
-             */
-            distinct? : boolean;
-
-            /**
-             * The transaction that the query should be executed under
-             */
-            transaction?: Transaction;
-
-            /**
-             * When `true`, the first returned value of `aggregateFunction` is cast to `dataType` and returned.
-             * If additional attributes are specified, along with `group` clauses, set `plain` to `false` to return all values of all returned rows.
-             * Defaults to `true`
-             */
-            plain?: boolean;
-        }
-
-        /**
-         * A Model represents a table in the database. Sometimes you might also see it referred to as model, or simply
-         * as factory. This class should _not_ be instantiated directly, it is created using `sequelize.define`, and
-         * already created models can be loaded using `sequelize.import`
-         */
-        interface Model<TInstance, TAttributes> extends Hooks<TInstance>, Associations {
-
-            /**
-             * The Instance class
-             */
-            Instance() : TInstance;
-
-            /**
-             * Remove attribute from model definition
-             *
-             * @param attribute
-             */
-            removeAttribute( attribute : string ) : void;
-
-            /**
-             * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the
-             * model instance (this)
-             */
-            sync( options? : SyncOptions ) : Promise<this>;
-
-            /**
-             * Drop the table represented by this Model
-             *
-             * @param options
-             */
-            drop( options? : DropOptions ) : Promise<void>;
-
-            /**
-             * Apply a schema to this model. For postgres, this will actually place the schema in front of the table
-             * name
-             * - `"schema"."tableName"`, while the schema will be prepended to the table name for mysql and
-             * sqlite - `'schema.tablename'`.
-             *
-             * @param schema The name of the schema
-             * @param options
-             */
-            schema( schema : string, options? : SchemaOptions ) : this;
-
-            /**
-             * Get the tablename of the model, taking schema into account. The method will return The name as a string
-             * if the model has no schema, or an object with `tableName`, `schema` and `delimiter` properties.
-             *
-             * @param options The hash of options from any query. You can use one model to access tables with matching
-             *     schemas by overriding `getTableName` and using custom key/values to alter the name of the table.
-             *     (eg.
-             *     subscribers_1, subscribers_2)
-             * @param options.logging=false A function that gets executed while running the query to log the sql.
-             */
-            getTableName( options? : GetTableNameOptions ) : string | Object;
-
-            /**
-             * Add a new scope to the model. This is especially useful for adding scopes with includes, when the model you want to include is not available at the time this model is defined.
-             *
-             * By default this will throw an error if a scope with that name already exists. Pass `override: true` in the options object to silence this error.
-             *
-             * @param {String}          name The name of the scope. Use `defaultScope` to override the default scope
-             * @param {Object|Function} scope
-             * @param {Object}          [options]
-             * @param {Boolean}         [options.override=false]
-             */
-            addScope( name : string, scope : FindOptions | Function, options? : AddScopeOptions ): void;
-
-            /**
-             * Apply a scope created in `define` to the model. First let's look at how to create scopes:
-             * ```js
-             * var Model = sequelize.define('model', attributes, {
-             *   defaultScope: {
-             *     where: {
-             *       username: 'dan'
-             *     },
-             *     limit: 12
-             *   },
-             *   scopes: {
-             *     isALie: {
-             *       where: {
-             *         stuff: 'cake'
-             *       }
-             *     },
-             *     complexFunction: function(email, accessLevel) {
-             *       return {
-             *         where: {
-             *           email: {
-             *             $like: email
-             *           },
-             *           accesss_level {
-             *             $gte: accessLevel
-             *           }
-             *         }
-             *       }
-             *     }
-             *   }
-             * })
-             * ```
-             * Now, since you defined a default scope, every time you do Model.find, the default scope is appended to
-             * your query. Here's a couple of examples:
-             * ```js
-             * Model.findAll() // WHERE username = 'dan'
-             * Model.findAll({ where: { age: { gt: 12 } } }) // WHERE age > 12 AND username = 'dan'
-             * ```
-             *
-             * To invoke scope functions you can do:
-             * ```js
-             * Model.scope({ method: ['complexFunction' 'dan@sequelize.com', 42]}).findAll()
-             * // WHERE email like 'dan@sequelize.com%' AND access_level >= 42
-             * ```
-             *
-             * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
-             *     model will clear the previous scope.
-             */
-            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : this;
-
-            /**
-             * Search for multiple instances.
-             *
-             * __Simple search using AND and =__
-             * ```js
-             * Model.findAll({
-             *   where: {
-             *     attr1: 42,
-             *     attr2: 'cake'
-             *   }
-             * })
-             * ```
-             * ```sql
-             * WHERE attr1 = 42 AND attr2 = 'cake'
-             *```
-             *
-             * __Using greater than, less than etc.__
-             * ```js
-             *
-             * Model.findAll({
-             *   where: {
-             *     attr1: {
-             *       gt: 50
-             *     },
-             *     attr2: {
-             *       lte: 45
-             *     },
-             *     attr3: {
-             *       in: [1,2,3]
-             *     },
-             *     attr4: {
-             *       ne: 5
-             *     }
-             *   }
-             * })
-             * ```
-             * ```sql
-             * WHERE attr1 > 50 AND attr2 <= 45 AND attr3 IN (1,2,3) AND attr4 != 5
-             * ```
-             * Possible options are: `$ne, $in, $not, $notIn, $gte, $gt, $lte, $lt, $like, $ilike/$iLike, $notLike,
-             * $notILike, '..'/$between, '!..'/$notBetween, '&&'/$overlap, '@>'/$contains, '<@'/$contained`
-             *
-             * __Queries using OR__
-             * ```js
-             * Model.findAll({
-             *   where: Sequelize.and(
-             *     { name: 'a project' },
-             *     Sequelize.or(
-             *       { id: [1,2,3] },
-             *       { id: { gt: 10 } }
-             *     )
-             *   )
-             * })
-             * ```
-             * ```sql
-             * WHERE name = 'a project' AND (id` IN (1,2,3) OR id > 10)
-             * ```
-             *
-             * The success listener is called with an array of instances if the query succeeds.
-             *
-             * @see    {Sequelize#query}
-             */
-            findAll( options? : FindOptions ) : Promise<TInstance[]>;
-            all( optionz? : FindOptions ) : Promise<TInstance[]>;
-
-            /**
-             * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
-             * always be called with a single instance.
-             */
-            findById( identifier? : number | string, options? : FindOptions ) : Promise<TInstance>;
-            findByPrimary( identifier? : number | string, options? : FindOptions ) : Promise<TInstance>;
-
-            /**
-             * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
-             * instance.
-             */
-            findOne( options? : FindOptions ) : Promise<TInstance>;
-            find( options? : FindOptions ) : Promise<TInstance>;
-
-            /**
-             * Run an aggregation method on the specified field
-             *
-             * @param field The field to aggregate over. Can be a field name or *
-             * @param aggregateFunction The function to use for aggregation, e.g. sum, max etc.
-             * @param options Query options. See sequelize.query for full options
-             * @return Returns the aggregate result cast to `options.dataType`, unless `options.plain` is false, in
-             *     which case the complete data result is returned.
-             */
-            aggregate( field : string, aggregateFunction : string, options? : AggregateOptions ) : Promise<Object>;
-
-            /**
-             * Count the number of records matching the provided where clause.
-             *
-             * If you provide an `include` option, the number of matching associations will be counted instead.
-             */
-            count( options? : CountOptions ) : Promise<number>;
-
-            /**
-             * Find all the rows matching your query, within a specified offset / limit, and get the total number of
-             * rows matching your query. This is very usefull for paging
-             *
-             * ```js
-             * Model.findAndCountAll({
-             *   where: ...,
-             *   limit: 12,
-             *   offset: 12
-             * }).then(function (result) {
-             *   ...
-             * })
-             * ```
-             * In the above example, `result.rows` will contain rows 13 through 24, while `result.count` will return
-             * the
-             * total number of rows that matched your query.
-             *
-             * When you add includes, only those which are required (either because they have a where clause, or
-             * because
-             * `required` is explicitly set to true on the include) will be added to the count part.
-             *
-             * Suppose you want to find all users who have a profile attached:
-             * ```js
-             * User.findAndCountAll({
-             *   include: [
-             *      { model: Profile, required: true}
-             *   ],
-             *   limit 3
-             * });
-             * ```
-             * Because the include for `Profile` has `required` set it will result in an inner join, and only the users
-             * who have a profile will be counted. If we remove `required` from the include, both users with and
-             * without
-             * profiles will be counted
-             */
-            findAndCount( options? : FindOptions ) : Promise<{ rows : TInstance[], count : number }>;
-            findAndCountAll( options? : FindOptions ) : Promise<{ rows : TInstance[], count : number }>;
-
-            /**
-             * Find the maximum value of field
-             */
-            max( field : string, options? : AggregateOptions ) : Promise<any>;
-
-            /**
-             * Find the minimum value of field
-             */
-            min( field : string, options? : AggregateOptions ) : Promise<any>;
-
-            /**
-             * Find the sum of field
-             */
-            sum( field : string, options? : AggregateOptions ) : Promise<number>;
-
-            /**
-             * Builds a new model instance. Values is an object of key value pairs, must be defined but can be empty.
-             */
-            build( record? : TAttributes, options? : BuildOptions ) : TInstance;
-
-            /**
-             * Undocumented bulkBuild
-             */
-            bulkBuild( records : TAttributes[], options? : BuildOptions ) : TInstance[];
-
-            /**
-             * Builds a new model instance and calls save on it.
-             */
-            create( values? : TAttributes, options? : CreateOptions ) : Promise<TInstance>;
-
-            /**
-             * Find a row that matches the query, or build (but don't save) the row if none is found.
-             * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
-             */
-            findOrInitialize( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
-            findOrBuild( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
-
-            /**
-             * Find a row that matches the query, or build and save the row if none is found
-             * The successful result of the promise will be (instance, created) - Make sure to use .spread()
-             *
-             * If no transaction is passed in the `options` object, a new transaction will be created internally, to
-             * prevent the race condition where a matching row is created by another connection after the find but
-             * before the insert call. However, it is not always possible to handle this case in SQLite, specifically
-             * if one transaction inserts and another tries to select before the first one has comitted. In this case,
-             * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
-             * will be created instead, and any unique constraint violation will be handled internally.
-             */
-            findOrCreate( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
-
-            /**
-             * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
-             * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
-             */
-            findCreateFind( options : FindCreateFindOptions<TAttributes> ) : Promise<TInstance>;
-
-            /**
-             * Insert or update a single row. An update will be executed if a row which matches the supplied values on
-             * either the primary key or a unique key is found. Note that the unique index must be defined in your
-             * sequelize model and not just in the table. Otherwise you may experience a unique constraint violation,
-             * because sequelize fails to identify the row that should be updated.
-             *
-             * **Implementation details:**
-             *
-             * * MySQL - Implemented as a single query `INSERT values ON DUPLICATE KEY UPDATE values`
-             * * PostgreSQL - Implemented as a temporary function with exception handling: INSERT EXCEPTION WHEN
-             *   unique_constraint UPDATE
-             * * SQLite - Implemented as two queries `INSERT; UPDATE`. This means that the update is executed
-             * regardless
-             *   of whether the row already existed or not
-             *
-             * **Note** that SQLite returns undefined for created, no matter if the row was created or updated. This is
-             * because SQLite always runs INSERT OR IGNORE + UPDATE, in a single query, so there is no way to know
-             * whether the row was inserted or not.
-             */
-            upsert( values : TAttributes, options? : UpsertOptions ) : Promise<boolean>;
-            insertOrUpdate( values : TAttributes, options? : UpsertOptions ) : Promise<boolean>;
-
-            /**
-             * Create and insert multiple instances in bulk.
-             *
-             * The success handler is passed an array of instances, but please notice that these may not completely
-             * represent the state of the rows in the DB. This is because MySQL and SQLite do not make it easy to
-             * obtain
-             * back automatically generated IDs and other default values in a way that can be mapped to multiple
-             * records. To obtain Instances for the newly created values, you will need to query for them again.
-             *
-             * @param records List of objects (key/value pairs) to create instances from
-             */
-            bulkCreate( records : TAttributes[], options? : BulkCreateOptions ) : Promise<TInstance[]>;
-
-            /**
-             * Truncate all instances of the model. This is a convenient method for Model.destroy({ truncate: true }).
-             */
-            truncate( options? : TruncateOptions ) : Promise<void>;
-
-            /**
-             * Delete multiple instances, or set their deletedAt timestamp to the current time if `paranoid` is enabled.
-             *
-             * @return Promise<number> The number of destroyed rows
-             */
-            destroy( options? : DestroyOptions ) : Promise<number>;
-
-            /**
-             * Restore multiple instances if `paranoid` is enabled.
-             */
-            restore( options? : RestoreOptions ) : Promise<void>;
-
-            /**
-             * Update multiple instances that match the where options. The promise returns an array with one or two
-             * elements. The first element is always the number of affected rows, while the second element is the actual
-             * affected rows (only supported in postgres with `options.returning` true.)
-             */
-            update( values : TAttributes, options : UpdateOptions ) : Promise<[number, TInstance[]]>;
-
-            /**
-             * Run a describe query on the table. The result will be return to the listener as a hash of attributes and
-             * their types.
-             */
-            describe() : Promise<Object>;
-
-            /**
-             * Unscope the model
-             */
-            unscoped() : this;
-
-        }
-
-        //
-        //  Query Interface
-        // ~~~~~~~~~~~~~~~~~
-        //
-        //  https://github.com/sequelize/sequelize/blob/v3.4.1/lib/query-interface.js
-        //
-
-        /**
-         * Most of the methods accept options and use only the logger property of the options. That's why the most used
-         * interface type for options in a method is separated here as another interface.
-         */
-        interface QueryInterfaceOptions {
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-        }
-
-        /**
-         * The interface that Sequelize uses to talk to all databases.
-         *
-         * This interface is available through sequelize.QueryInterface. It should not be commonly used, but it's
-         * referenced anyway, so it can be used.
-         */
-        interface QueryInterface {
-
-            /**
-             * Returns the dialect-specific sql generator.
-             *
-             * We don't have a definition for the QueryGenerator, because I doubt it is commonly in use separately.
-             */
-            QueryGenerator: any;
-
-            /**
-             * Returns the current sequelize instance.
-             */
-            sequelize: Sequelize;
-
-            /**
-             * Queries the schema (table list).
-             *
-             * @param schema The schema to query. Applies only to Postgres.
-             */
-            createSchema( schema? : string, options? : QueryInterfaceOptions ): Promise<void>;
-
-            /**
-             * Drops the specified schema (table).
-             *
-             * @param schema The schema to query. Applies only to Postgres.
-             */
-            dropSchema( schema? : string, options? : QueryInterfaceOptions ): Promise<void>;
-
-            /**
-             * Drops all tables.
-             */
-            dropAllSchemas( options? : QueryInterfaceOptions ): Promise<void>;
-
-            /**
-             * Queries all table names in the database.
-             *
-             * @param options
-             */
-            showAllSchemas( options? : QueryOptions ): Promise<Object>;
-
-            /**
-             * Return database version
-             */
-            databaseVersion( options? : QueryInterfaceOptions ) : Promise<string>;
-
-            /**
-             * Creates a table with specified attributes.
-             *
-             * @param tableName     Name of table to create
-             * @param attributes    Hash of attributes, key is attribute name, value is data type
-             * @param options       Query options.
-             */
-            createTable( tableName : string | { schema? : string, tableName? : string }, attributes : DefineAttributes,
-                         options? : QueryOptions ): Promise<void>;
-
-            /**
-             * Drops the specified table.
-             *
-             * @param tableName Table name.
-             * @param options   Query options, particularly "force".
-             */
-            dropTable( tableName : string, options? : QueryOptions ): Promise<void>;
-
-            /**
-             * Drops all tables.
-             *
-             * @param options
-             */
-            dropAllTables( options? : QueryOptions ): Promise<void>;
-
-            /**
-             * Drops all defined enums
-             *
-             * @param options
-             */
-            dropAllEnums( options? : QueryOptions ): Promise<void>;
-
-            /**
-             * Renames a table
-             */
-            renameTable( before : string, after : string, options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Returns all tables
-             */
-            showAllTables( options? : QueryOptions ) : Promise<string[]>;
-
-            /**
-             * Describe a table
-             */
-            describeTable( tableName : string | { schema? : string, tableName? : string },
-                           options? : string | { schema? : string, schemaDelimeter? : string, logging? : boolean | Function } ) : Promise<Object>;
-
-            /**
-             * Adds a new column to a table
-             */
-            addColumn( table : string, key : string, attribute : DefineAttributeColumnOptions | DataTypeAbstract,
-                       options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Removes a column from a table
-             */
-            removeColumn( table : string, attribute : string, options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Changes a column
-             */
-            changeColumn( tableName : string | { schema? : string, tableName? : string }, attributeName : string,
-                          dataTypeOrOptions? : string | DataTypeAbstract | DefineAttributeColumnOptions,
-                          options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Renames a column
-             */
-            renameColumn( tableName : string | { schema? : string, tableName? : string }, attrNameBefore : string,
-                          attrNameAfter : string,
-                          options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Adds a new index to a table
-             */
-            addIndex( tableName : string | Object, attributes : string[], options? : QueryOptions,
-                      rawTablename? : string ) : Promise<void>;
-
-            /**
-             * Shows the index of a table
-             */
-            showIndex( tableName : string | Object, options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Put a name to an index
-             */
-            nameIndexes( indexes : string[], rawTablename : string ) : Promise<void>;
-
-            /**
-             * Returns all foreign key constraints of a table
-             */
-            getForeignKeysForTables( tableNames : string, options? : QueryInterfaceOptions ) : Promise<Object>;
-
-            /**
-             * Removes an index of a table
-             */
-            removeIndex( tableName : string, indexNameOrAttributes : string[] | string,
-                         options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Inserts a new record
-             */
-            insert( instance : Instance<any>, tableName : string, values : Object,
-                    options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Inserts or Updates a record in the database
-             */
-            upsert( tableName : string, values : Object, updateValues : Object, model : Model<any, any>,
-                    options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Inserts multiple records at once
-             */
-            bulkInsert( tableName : string, records : Object[], options? : QueryOptions,
-                        attributes? : string[] | string ) : Promise<Object>;
-
-            /**
-             * Updates a row
-             */
-            update( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
-                    options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Updates multiple rows at once
-             */
-            bulkUpdate( tableName : string, values : Object, identifier : Object, options? : QueryOptions,
-                        attributes? : string[] | string ) : Promise<Object>;
-
-            /**
-             * Deletes a row
-             */
-            "delete"( instance : Instance<any>, tableName : string, identifier : Object,
-                      options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Deletes multiple rows at once
-             */
-            bulkDelete( tableName : string, identifier : Object, options? : QueryOptions,
-                        model? : Model<any, any> ) : Promise<Object>;
-
-            /**
-             * Returns selected rows
-             */
-            select( model : Model<any, any>, tableName : string, options? : QueryOptions ) : Promise<Object[]>;
-
-            /**
-             * Increments a row value
-             */
-            increment( instance : Instance<any>, tableName : string, values : Object, identifier : Object,
-                       options? : QueryOptions ) : Promise<Object>;
-
-            /**
-             * Selects raw without parsing the string into an object
-             */
-            rawSelect( tableName : string, options : QueryOptions, attributeSelector : string | string[],
-                       model? : Model<any, any> ) : Promise<string[]>;
-
-            /**
-             * Postgres only. Creates a trigger on specified table to call the specified function with supplied
-             * parameters.
-             */
-            createTrigger( tableName : string, triggerName : string, timingType : string, fireOnArray : any[],
-                           functionName : string, functionParams : any[], optionsArray : string[],
-                           options? : QueryInterfaceOptions ): Promise<void>;
-
-            /**
-             * Postgres only. Drops the specified trigger.
-             */
-            dropTrigger( tableName : string, triggerName : string, options? : QueryInterfaceOptions ): Promise<void>;
-
-            /**
-             * Postgres only. Renames a trigger
-             */
-            renameTrigger( tableName : string, oldTriggerName : string, newTriggerName : string,
-                           options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Postgres only. Create a function
-             */
-            createFunction( functionName : string, params : any[], returnType : string, language : string,
-                            body : string, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Postgres only. Drops a function
-             */
-            dropFunction( functionName : string, params : any[],
-                          options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Postgres only. Rename a function
-             */
-            renameFunction( oldFunctionName : string, params : any[], newFunctionName : string,
-                            options? : QueryInterfaceOptions ) : Promise<void>;
-
-            /**
-             * Escape an identifier (e.g. a table or attribute name). If force is true, the identifier will be quoted
-             * even if the `quoteIdentifiers` option is false.
-             */
-            quoteIdentifier( identifier : string, force : boolean ) : string;
-
-            /**
-             * Escape a table name
-             */
-            quoteTable( identifier : string ) : string;
-
-            /**
-             * Split an identifier into .-separated tokens and quote each part. If force is true, the identifier will be
-             * quoted even if the `quoteIdentifiers` option is false.
-             */
-            quoteIdentifiers( identifiers : string, force : boolean ) : string;
-
-            /**
-             * Escape a value (e.g. a string, number or date)
-             */
-            escape( value? : string | number | Date ) : string;
-
-            /**
-             * Set option for autocommit of a transaction
-             */
-            setAutocommit( transaction : Transaction, value : boolean, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Set the isolation level of a transaction
-             */
-            setIsolationLevel( transaction : Transaction, value : string, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Begin a new transaction
-             */
-            startTransaction( transaction : Transaction, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Defer constraints
-             */
-            deferConstraints( transaction : Transaction, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Commit an already started transaction
-             */
-            commitTransaction( transaction : Transaction, options? : QueryOptions ) : Promise<void>;
-
-            /**
-             * Rollback ( revert ) a transaction that has'nt been commited
-             */
-            rollbackTransaction( transaction : Transaction, options? : QueryOptions ) : Promise<void>;
-
-        }
-
-        //
-        //  Query Types
-        // ~~~~~~~~~~~~~
-        //
-        //  https://github.com/sequelize/sequelize/blob/v3.4.1/lib/query-types.js
-        //
-
-        interface QueryTypes {
-            SELECT: string; // 'SELECT'
-            INSERT: string; // 'INSERT'
-            UPDATE: string; // 'UPDATE'
-            BULKUPDATE: string; // 'BULKUPDATE'
-            BULKDELETE: string; // 'BULKDELETE'
-            DELETE: string; // 'DELETE'
-            UPSERT: string; // 'UPSERT'
-            VERSION: string; // 'VERSION'
-            SHOWTABLES: string; // 'SHOWTABLES'
-            SHOWINDEXES: string; // 'SHOWINDEXES'
-            DESCRIBE: string; // 'DESCRIBE'
-            RAW: string; // 'RAW'
-            FOREIGNKEYS: string; // 'FOREIGNKEYS'
-        }
-
-        //
-        //  Sequelize
-        // ~~~~~~~~~~~
-        //
-        //  https://github.com/sequelize/sequelize/blob/v3.4.1/lib/sequelize.js
-        //
-
-        /**
-         * General column options
-         *
-         * @see Define
-         * @see AssociationForeignKeyOptions
-         */
-        interface ColumnOptions {
-
-            /**
-             * If false, the column will have a NOT NULL constraint, and a not null validation will be run before an
-             * instance is saved.
-             */
-            allowNull?: boolean;
-
-            /**
-             *  If set, sequelize will map the attribute name to a different name in the database
-             */
-            field? : string;
-
-            /**
-             * A literal default value, a JavaScript function, or an SQL function (see `sequelize.fn`)
-             */
-            defaultValue?: any;
-
-        }
-
-        /**
-         * References options for the column's attributes
-         *
-         * @see AttributeColumnOptions
-         */
-        interface DefineAttributeColumnReferencesOptions {
-
-            /**
-             * If this column references another table, provide it here as a Model, or a string
-             */
-            model?: string | Model<any, any>;
-
-            /**
-             * The column of the foreign table that this column references
-             */
-            key? : string;
-
-            /**
-             * When to check for the foreign key constraing
-             *
-             * PostgreSQL only
-             */
-            deferrable? : Deferrable;
-
-        }
-
-        /**
-         * Column options for the model schema attributes
-         *
-         * @see Attributes
-         */
-        interface DefineAttributeColumnOptions extends ColumnOptions {
-
-            /**
-             * A string or a data type
-             */
-            type: string | DataTypeAbstract;
-
-            /**
-             * If true, the column will get a unique constraint. If a string is provided, the column will be part of a
-             * composite unique index. If multiple columns have the same string, they will be part of the same unique
-             * index
-             */
-            unique?: boolean | string | { name: string, msg: string };
-
-            /**
-             * Primary key flag
-             */
-            primaryKey?: boolean;
-
-            /**
-             * Is this field an auto increment field
-             */
-            autoIncrement?: boolean;
-
-            /**
-             * Comment for the database
-             */
-            comment?: string;
-
-            /**
-             * An object with reference configurations
-             */
-            references? : DefineAttributeColumnReferencesOptions;
-
-            /**
-             * What should happen when the referenced key is updated. One of CASCADE, RESTRICT, SET DEFAULT, SET NULL or
-             * NO ACTION
-             */
-            onUpdate? : string;
-
-            /**
-             * What should happen when the referenced key is deleted. One of CASCADE, RESTRICT, SET DEFAULT, SET NULL or
-             * NO ACTION
-             */
-            onDelete? : string;
-
-            /**
-             * Provide a custom getter for this column. Use `this.getDataValue(String)` to manipulate the underlying
-             * values.
-             */
-            get? : () => any;
-
-            /**
-             * Provide a custom setter for this column. Use `this.setDataValue(String, Value)` to manipulate the
-             * underlying values.
-             */
-            set? : ( val : any ) => void;
-
-            /**
-             * An object of validations to execute for this column every time the model is saved. Can be either the
-             * name of a validation provided by validator.js, a validation function provided by extending validator.js
-             * (see the
-             * `DAOValidator` property for more details), or a custom validation function. Custom validation functions
-             * are called with the value of the field, and can possibly take a second callback argument, to signal that
-             * they are asynchronous. If the validator is sync, it should throw in the case of a failed validation, it
-             * it is async, the callback should be called with the error text.
-             */
-            validate? : DefineValidateOptions;
-
-            /**
-             * Usage in object notation
-             *
-             * ```js
-             * sequelize.define('model', {
-             *     states: {
-             *       type:   Sequelize.ENUM,
-             *       values: ['active', 'pending', 'deleted']
-             *     }
-             *   })
-             * ```
-             */
-            values? : string[];
-
-        }
-
-        /**
-         * Interface for Attributes provided for a column
-         *
-         * @see Sequelize.define
-         */
-        interface DefineAttributes {
-
-            /**
-             * The description of a database column
-             */
-            [name : string] : string | DataTypeAbstract | DefineAttributeColumnOptions;
-
-        }
-
-        /**
-         * Interface for query options
-         *
-         * @see Options
-         */
-        interface QueryOptions extends SearchPathOptions, ReturningOptions {
-
-            /**
-             * If true, sequelize will not try to format the results of the query, or build an instance of a model from
-             * the result
-             */
-            raw?: boolean;
-
-
-            /**
-             * The type of query you are executing. The query type affects how results are formatted before they are
-             * passed back. The type is a string, but `Sequelize.QueryTypes` is provided as convenience shortcuts.
-             */
-            type?: string;
-
-            /**
-             * If true, transforms objects with `.` separated property names into nested objects using
-             * [dottie.js](https://github.com/mickhansen/dottie.js). For example { 'user.username': 'john' } becomes
-             * { user: { username: 'john' }}. When `nest` is true, the query type is assumed to be `'SELECT'`,
-             * unless otherwise specified
-             *
-             * Defaults to false
-             */
-            nest?: boolean;
-
-            /**
-             * Sets the query type to `SELECT` and return a single row
-             */
-            plain?: boolean;
-
-            /**
-             * Either an object of named parameter replacements in the format `:param` or an array of unnamed
-             * replacements to replace `?` in your SQL.
-             */
-            replacements? : Object | string[];
-
-            /**
-             * Either an object of named bind parameter in the format `$param` or an array of unnamed
-             * bind parameter to replace `$1`, `$2`, ... in your SQL.
-             */
-            bind?: Object | string[];
-
-            /**
-             * Force the query to use the write pool, regardless of the query type.
-             *
-             * Defaults to false
-             */
-            useMaster? : boolean;
-
-            /**
-             * A function that gets executed while running the query to log the sql.
-             */
-            logging? : boolean | Function;
-
-            /**
-             * A sequelize instance used to build the return instance
-             */
-            instance? : Instance<any>;
-
-            /**
-             * A sequelize model used to build the returned model instances (used to be called callee)
-             */
-            model? : Model<any, any>;
-
-            /**
-             * Set of flags that control when a query is automatically retried.
-             */
-            retry? : {match?: string[], max?: number};
-
-            /**
-             * If false do not prepend the query with the search_path (Postgres only)
-             */
-	        supportsSearchPath? : boolean;
-
-            /**
-             * Map returned fields to model's fields if `options.model` or `options.instance` is present.
-             * Mapping will occur before building the model instance.
-             */
-            mapToModel? : boolean;
-
-            // TODO: force, cascade
-            fieldMap? : { [key: string]: string; }
-        }
-
-        /**
-         * Model validations, allow you to specify format/content/inheritance validations for each attribute of the
-         * model.
-         *
-         * Validations are automatically run on create, update and save. You can also call validate() to manually
-         * validate an instance.
-         *
-         * The validations are implemented by validator.js.
-         */
-        interface DefineValidateOptions {
-
-            /**
-             * is: ["^[a-z]+$",'i'] // will only allow letters
-             * is: /^[a-z]+$/i      // same as the previous example using real RegExp
-             */
-            is?: string | Array<string | RegExp> | RegExp | { msg: string, args : string | Array<string | RegExp> | RegExp };
-
-            /**
-             * not: ["[a-z]",'i']  // will not allow letters
-             */
-            not?: string | Array<string | RegExp> | RegExp | { msg: string, args : string | Array<string | RegExp> | RegExp };
-
-            /**
-             * checks for email format (foo@bar.com)
-             */
-            isEmail?: boolean | { msg: string };
-
-            /**
-             * checks for url format (http://foo.com)
-             */
-            isUrl?: boolean | { msg: string };
-
-            /**
-             * checks for IPv4 (129.89.23.1) or IPv6 format
-             */
-            isIP?: boolean | { msg: string };
-
-            /**
-             * checks for IPv4 (129.89.23.1)
-             */
-            isIPv4?: boolean | { msg: string };
-
-            /**
-             * checks for IPv6 format
-             */
-            isIPv6?: boolean | { msg: string };
-
-            /**
-             * will only allow letters
-             */
-            isAlpha?: boolean | { msg: string };
-
-            /**
-             * will only allow alphanumeric characters, so "_abc" will fail
-             */
-            isAlphanumeric?: boolean | { msg: string };
-
-            /**
-             * will only allow numbers
-             */
-            isNumeric?: boolean | { msg: string };
-
-            /**
-             * checks for valid integers
-             */
-            isInt?: boolean | { msg: string };
-
-            /**
-             * checks for valid floating point numbers
-             */
-            isFloat?: boolean | { msg: string };
-
-            /**
-             * checks for any numbers
-             */
-            isDecimal?: boolean | { msg: string };
-
-            /**
-             * checks for lowercase
-             */
-            isLowercase?: boolean | { msg: string };
-
-            /**
-             * checks for uppercase
-             */
-            isUppercase?: boolean | { msg: string };
-
-            /**
-             * won't allow null
-             */
-            notNull?: boolean | { msg: string };
-
-            /**
-             * only allows null
-             */
-            isNull?: boolean | { msg: string };
-
-            /**
-             * don't allow empty strings
-             */
-            notEmpty?: boolean | { msg: string };
-
-            /**
-             * only allow a specific value
-             */
-            equals? : string | { msg: string };
-
-            /**
-             * force specific substrings
-             */
-            contains? : string | { msg: string };
-
-            /**
-             * check the value is not one of these
-             */
-            notIn? : string[][] | { msg: string, args: string[][] };
-
-            /**
-             * check the value is one of these
-             */
-            isIn? : string[][] | { msg: string, args: string[][] };
-
-            /**
-             * don't allow specific substrings
-             */
-            notContains? : string[] | string | { msg: string, args: string[] | string };
-
-            /**
-             * only allow values with length between 2 and 10
-             */
-            len?: [number, number] | { msg: string, args: [number, number] };
-
-            /**
-             * only allow uuids
-             */
-            isUUID?: number | { msg: string, args: number };
-
-            /**
-             * only allow date strings
-             */
-            isDate?: boolean | { msg: string, args: boolean };
-
-            /**
-             * only allow date strings after a specific date
-             */
-            isAfter?: string | { msg: string, args: string };
-
-            /**
-             * only allow date strings before a specific date
-             */
-            isBefore?: string | { msg: string, args: string };
-
-            /**
-             * only allow values
-             */
-            max?: number | { msg: string, args: number };
-
-            /**
-             * only allow values >= 23
-             */
-            min?: number | { msg: string, args: number };
-
-            /**
-             * only allow arrays
-             */
-            isArray?: boolean | { msg: string, args: boolean };
-
-            /**
-             * check for valid credit card numbers
-             */
-            isCreditCard?: boolean | { msg: string, args: boolean };
-
-            /**
-             * custom validations are also possible
-             *
-             * Implementation notes :
-             *
-             * We can't enforce any other method to be a function, so :
-             *
-             * ```typescript
-             * [name: string] : ( value : any ) => boolean;
-             * ```
-             *
-             * doesn't work in combination with the properties above
-             *
-             * @see https://github.com/Microsoft/TypeScript/issues/1889
-             */
-            [name: string] : any;
+        new (fn: string, ...args: any[]): fn;
+    }
 
     interface col {
         col: string;
@@ -7648,211 +6036,8 @@ declare namespace sequelize {
          * @param value An optional value to compare against. Produces a string of the form "<json path> =
          *     '<value>'".
          */
-        interface DefineOptions<TInstance> {
-
-            /**
-             * Define the default search scope to use for this model. Scopes have the same form as the options passed to
-             * find / findAll.
-             */
-            defaultScope?: FindOptions;
-
-            /**
-             * More scopes, defined in the same way as defaultScope above. See `Model.scope` for more information about
-             * how scopes are defined, and what you can do with them
-             */
-            scopes?: DefineScopeOptions;
-
-            /**
-             * Don't persits null values. This means that all columns with null values will not be saved.
-             */
-            omitNull?: boolean;
-
-            /**
-             * Adds createdAt and updatedAt timestamps to the model. Default true.
-             */
-            timestamps?: boolean;
-
-            /**
-             * Calling destroy will not delete the model, but instead set a deletedAt timestamp if this is true. Needs
-             * timestamps=true to work. Default false.
-             */
-            paranoid?: boolean;
-
-            /**
-             * Converts all camelCased columns to underscored if true. Default false.
-             */
-            underscored?: boolean;
-
-            /**
-             * Converts camelCased model names to underscored tablenames if true. Default false.
-             */
-            underscoredAll?: boolean;
-
-            /**
-             * If freezeTableName is true, sequelize will not try to alter the DAO name to get the table name.
-             * Otherwise, the dao name will be pluralized. Default false.
-             */
-            freezeTableName?: boolean;
-
-            /**
-             * An object with two attributes, `singular` and `plural`, which are used when this model is associated to
-             * others.
-             */
-            name?: DefineNameOptions;
-
-            /**
-             * Indexes for the provided database table
-             */
-            indexes? : DefineIndexesOptions[];
-
-            /**
-             * Override the name of the createdAt column if a string is provided, or disable it if false. Timestamps
-             * must be true. Not affected by underscored setting.
-             */
-            createdAt? : string | boolean;
-
-            /**
-             * Override the name of the deletedAt column if a string is provided, or disable it if false. Timestamps
-             * must be true. Not affected by underscored setting.
-             */
-            deletedAt? : string | boolean;
-
-            /**
-             * Override the name of the updatedAt column if a string is provided, or disable it if false. Timestamps
-             * must be true. Not affected by underscored setting.
-             */
-            updatedAt? : string | boolean;
-
-            /**
-             * Defaults to pluralized model name, unless freezeTableName is true, in which case it uses model name
-             * verbatim
-             */
-            tableName? : string;
-
-            /**
-             * Provide getter functions that work like those defined per column. If you provide a getter method with
-             * the
-             * same name as a column, it will be used to access the value of that column. If you provide a name that
-             * does not match a column, this function will act as a virtual getter, that can fetch multiple other
-             * values
-             */
-            getterMethods? : DefineGetterMethodsOptions;
-
-            /**
-             * Provide setter functions that work like those defined per column. If you provide a setter method with
-             * the
-             * same name as a column, it will be used to update the value of that column. If you provide a name that
-             * does not match a column, this function will act as a virtual setter, that can act on and set other
-             * values, but will not be persisted
-             */
-            setterMethods? : DefineSetterMethodsOptions;
-
-            /**
-             * Provide functions that are added to each instance (DAO). If you override methods provided by sequelize,
-             * you can access the original method using `this.constructor.super_.prototype`, e.g.
-             * `this.constructor.super_.prototype.toJSON.apply(this, arguments)`
-             */
-            instanceMethods? : Object;
-
-            /**
-             * Provide functions that are added to the model (Model). If you override methods provided by sequelize,
-             * you can access the original method using `this.constructor.prototype`, e.g.
-             * `this.constructor.prototype.find.apply(this, arguments)`
-             */
-            classMethods? : Object;
-
-            schema? : string;
-
-            /**
-             * You can also change the database engine, e.g. to MyISAM. InnoDB is the default.
-             */
-            engine? : string;
-
-            charset? : string;
-
-            /**
-             * Finaly you can specify a comment for the table in MySQL and PG
-             */
-            comment? : string;
-
-            collate? : string;
-
-            /**
-             * Set the initial AUTO_INCREMENT value for the table in MySQL.
-             */
-            initialAutoIncrement? : string;
-
-            /**
-             * An object of hook function that are called before and after certain lifecycle events.
-             * The possible hooks are: beforeValidate, afterValidate, beforeBulkCreate, beforeBulkDestroy,
-             * beforeBulkUpdate, beforeCreate, beforeDestroy, beforeUpdate, afterCreate, afterDestroy, afterUpdate,
-             * afterBulkCreate, afterBulkDestory and afterBulkUpdate. See Hooks for more information about hook
-             * functions and their signatures. Each property can either be a function, or an array of functions.
-             */
-            hooks? : HooksDefineOptions<TInstance>;
-
-            /**
-             * An object of model wide validations. Validations have access to all model values via `this`. If the
-             * validator function takes an argument, it is asumed to be async, and is called with a callback that
-             * accepts an optional error.
-             */
-            validate? : DefineValidateOptions;
-
-        }
-
-        /**
-         * Sync Options
-         *
-         * @see Sequelize.sync
-         */
-        interface SyncOptions {
-
-            /**
-             * If force is true, each DAO will do DROP TABLE IF EXISTS ..., before it tries to create its own table
-             */
-            force?: boolean;
-
-            /**
-             * Match a regex against the database name before syncing, a safety check for cases where force: true is
-             * used in tests but not live code
-             */
-            match?: RegExp;
-
-            /**
-             * A function that logs sql queries, or false for no logging
-             */
-            logging?: Function | boolean;
-
-            /**
-             * The schema that the tables should be created in. This can be overriden for each table in sequelize.define
-             */
-            schema?: string;
-
-        }
-
-        interface SetOptions { }
-
-        /**
-         * Connection Pool options
-         *
-         * @see Options
-         */
-        interface PoolOptions {
-
-            /**
-             * Maximum connections of the pool
-             */
-            max?: number;
-
-            /**
-             * Minimum connections of the pool
-             */
-            min?: number;
-
-            /**
-             * The maximum time, in milliseconds, that a connection can be idle before being released.
-             */
-            idle?: number;
+        new (conditionsOrPath: string | Object, value?: string | number | boolean): json;
+    }
 
     interface where {
         attribute: Object;
