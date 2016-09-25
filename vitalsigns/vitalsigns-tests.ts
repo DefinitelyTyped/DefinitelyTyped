@@ -1,6 +1,6 @@
 /// <reference path="vitalsigns.d.ts"/>
 
-import * as VitalSigns from "vitalsigns";
+import VitalSigns = require("vitalsigns");
 
 var vitals = new VitalSigns();
 

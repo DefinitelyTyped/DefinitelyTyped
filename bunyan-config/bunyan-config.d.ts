@@ -8,13 +8,24 @@
 declare module "bunyan-config" {
     import * as bunyan from "bunyan";
 
-    namespace bunyanConfig { }
+    /**
+     * Configuration.
+     * @interface
+     */
+    interface Configuration {
+        name: string;
+        streams?: bunyan.Stream[];
+        level?: string | number;
+        stream?: NodeJS.WritableStream;
+        serializers?: Object;
+        src?: boolean;
+    }
 
     /**
      * Constructor.
-     * @param {Object} [jsonConfig] A JSON configuration.
+     * @param {Configuration} [jsonConfig] A JSON configuration.
      * @return {LoggerOptions} A logger options.
      */
-    function bunyanConfig(jsonConfig?: Object): bunyan.LoggerOptions;
+    function bunyanConfig(jsonConfig?: Configuration): bunyan.LoggerOptions;
     export = bunyanConfig;
 }

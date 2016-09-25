@@ -128,13 +128,13 @@ declare module "vitalsigns" {
     /**
      * VitalSigns instance.
      */
-    interface VitalSigns {
+    class VitalSigns {
         /**
          * Constructor.
          * @constructors
          * @param {Options} [options] Options.
          */
-        new (options?: vitalsigns.Options): VitalSigns;
+        constructor (options?: vitalsigns.Options);
 
         /**
          * Pushes a health constraint onto this instance's constraint array.
@@ -188,6 +188,5 @@ declare module "vitalsigns" {
         unhealthyWhen: (monitorName: string, fieldName: string) => vitalsigns.ConstraintWrapper;
     }
 
-    var vitalsigns: VitalSigns;
-    export = vitalsigns;
+    export = VitalSigns;
 }
