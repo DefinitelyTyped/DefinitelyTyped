@@ -101,6 +101,5 @@ declare module "bit-array" {
         xor(x: BitArray): BitArray;
     }
 
-    namespace BitArray {}
     export = BitArray;
 }

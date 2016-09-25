@@ -1,6 +1,6 @@
 /// <reference path="bit-array.d.ts" />
 
-import * as BitArray from "bit-array";
+import BitArray = require("bit-array");
 
 const a = new BitArray(32);
 a.set(0, true);
