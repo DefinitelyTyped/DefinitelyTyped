@@ -178,7 +178,39 @@ let any: any;
 
   result = validator.isMD5('sample');
 
+  result = validator.isMobilePhone('sample', 'ar-DZ');
+  result = validator.isMobilePhone('sample', 'ar-SA');
+  result = validator.isMobilePhone('sample', 'ar-SY');
+  result = validator.isMobilePhone('sample', 'cs-CZ');
+  result = validator.isMobilePhone('sample', 'de-DE');
+  result = validator.isMobilePhone('sample', 'da-DK');
+  result = validator.isMobilePhone('sample', 'el-GR');
+  result = validator.isMobilePhone('sample', 'en-AU');
+  result = validator.isMobilePhone('sample', 'en-GB');
+  result = validator.isMobilePhone('sample', 'en-HK');
+  result = validator.isMobilePhone('sample', 'en-IN');
+  result = validator.isMobilePhone('sample', 'en-NZ');
   result = validator.isMobilePhone('sample', 'en-US');
+  result = validator.isMobilePhone('sample', 'en-CA');
+  result = validator.isMobilePhone('sample', 'en-ZA');
+  result = validator.isMobilePhone('sample', 'en-ZM');
+  result = validator.isMobilePhone('sample', 'es-ES');
+  result = validator.isMobilePhone('sample', 'fi-FI');
+  result = validator.isMobilePhone('sample', 'fr-FR');
+  result = validator.isMobilePhone('sample', 'hu-HU');
+  result = validator.isMobilePhone('sample', 'it-IT');
+  result = validator.isMobilePhone('sample', 'ja-JP');
+  result = validator.isMobilePhone('sample', 'ms-MY');
+  result = validator.isMobilePhone('sample', 'nb-NO');
+  result = validator.isMobilePhone('sample', 'nn-NO');
+  result = validator.isMobilePhone('sample', 'pl-PL');
+  result = validator.isMobilePhone('sample', 'pt-PT');
+  result = validator.isMobilePhone('sample', 'ru-RU');
+  result = validator.isMobilePhone('sample', 'sr-RS');
+  result = validator.isMobilePhone('sample', 'tr-TR');
+  result = validator.isMobilePhone('sample', 'vi-VN');
+  result = validator.isMobilePhone('sample', 'zh-CN');
+  result = validator.isMobilePhone('sample', 'zh-TW');
 
   result = validator.isMongoId('sample');
 
