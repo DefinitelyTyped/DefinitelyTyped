@@ -199,17 +199,159 @@ declare namespace L {
 
     export function bounds(points: BoundsLiteral): Bounds;
 
-    export interface Evented {
+    export type EventHandlerFn = (event: Event) => void;
 
+    export type EventHandlerFnMap = {[type: string]: EventHandlerFn};
+
+    /**
+     * A set of methods shared between event-powered classes (like Map and Marker).
+     * Generally, events allow you to execute some function when something happens
+     * with an object (e.g. the user clicks on the map, causing the map to fire
+     * 'click' event).
+     */
+    export interface Evented {
+        /**
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        on(type: string, fn: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        on(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        off(type: string, fn?: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Removes a set of type/listener pairs.
+         */
+        off(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Removes all listeners to all events on the object.
+         */
+        off(): this;
+
+        /**
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fire(type: string, data?: Object, propagate?: boolean): this;
+
+        /**
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        listens(type: string): boolean;
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(type: string, fn: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        once(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Adds an event parent - an Evented that will receive propagated events
+         */
+        addEventParent(obj: Evented): this;
+
+        /**
+         * Removes an event parent, so it will stop receiving propagated events
+         */
+        removeEventParent(obj: Evented): this;
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a listener function (fn) to a particular event type of the object.
+         * You can optionally specify the context of the listener (object the this
+         * keyword will point to). You can also pass several space-separated types
+         * (e.g. 'click dblclick').
+         */
+        addEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Alias for on(...)
+         *
+         * Adds a set of type/listener pairs, e.g. {click: onClick, mousemove: onMouseMove}
+         */
+        addEventListener(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a previously added listener function. If no function is specified,
+         * it will remove all the listeners of that particular event from the object.
+         * Note that if you passed a custom context to on, you must pass the same context
+         * to off in order to remove the listener.
+         */
+        removeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Alias for off(...)
+         *
+         * Removes a set of type/listener pairs.
+         */
+        removeEventListener(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Alias for off()
+         *
+         * Removes all listeners to all events on the object.
+         */
+        clearAllEventListeners(): this;
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(type: string, fn: EventHandlerFn, context?: Object): this;
+
+        /**
+         * Alias for once(...)
+         *
+         * Behaves as on(...), except the listener will only get fired once and then removed.
+         */
+        addOneTimeEventListener(eventMap: EventHandlerFnMap): this;
+
+        /**
+         * Alias for fire(...)
+         *
+         * Fires an event of the specified type. You can optionally provide a data
+         * object — the first argument of the listener function will contain its properties.
+         * The event might can optionally be propagated to event parents.
+         */
+        fireEvent(type: string, data?: Object, propagate?: boolean): this;
+
+        /**
+         * Alias for listens(...)
+         *
+         * Returns true if a particular event type has any listeners attached to it.
+         */
+        hasEventListeners(type: string): boolean;
     }
 
     interface LayerOptions {
         pane?: string;
-        }
+    }
 
     interface InteractiveLayerOptions extends LayerOptions {
         interactive?: boolean;
-        }
+    }
 
     export interface Layer extends Evented {
         addTo(map: Map): this;
@@ -303,11 +445,11 @@ declare namespace L {
         zoomReverse?: boolean;
         detectRetina?: boolean;
         crossOrigin?: boolean;
-        }
+    }
 
     export interface TileLayer extends GridLayer {
         setUrl(url: string, noRedraw?: boolean): this;
-        }
+    }
 
     export function tileLayer(urlTemplate: string, options?: TileLayerOptions): TileLayer;
 
@@ -319,7 +461,7 @@ declare namespace L {
         version?: string;
         crs?: CRS;
         uppercase?: boolean;
-        }
+    }
 
     export interface WMS extends TileLayer {
         setParams(params: Object, noRedraw?: boolean): this;
@@ -355,7 +497,7 @@ declare namespace L {
     export interface PathOptions extends InteractiveLayerOptions {
         stroke?: boolean;
         color?: string;
-        wight?: number;
+        weight?: number;
         opacity?: number;
         lineCap?: LineCapShape;
         lineJoin?: LineJoinShape;
@@ -366,7 +508,7 @@ declare namespace L {
         fillOpacity?: number;
         fillRule?: FillRule;
         renderer?: Renderer;
-        className: string;
+        className?: string;
     }
 
     export interface Path extends Layer {
@@ -485,6 +627,260 @@ declare namespace L {
 
     export interface SVG extends Renderer {}
 
+    export namespace SVG {
+        export function create(name: string): SVGElement;
+
+        export function pointsToPath(rings: Array<Point>, close: boolean): string;
+
+        export function pointsToPath(rings: Array<PointTuple>, close: boolean): string;
+    }
+
+    export function svg(options?: RendererOptions): SVG;
+
+    export interface Canvas extends Renderer {}
+
+    export function canvas(options?: RendererOptions): Canvas;
+
+    /**
+     * Used to group several layers and handle them as one.
+     * If you add it to the map, any layers added or removed from the group will be
+     * added/removed on the map as well. Extends Layer.
+     */
+    export interface LayerGroup extends Layer {
+        /**
+         * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
+         */
+        toGeoJSON(): Object; // should import GeoJSON typings
+
+        /**
+         * Adds the given layer to the group.
+         */
+        addLayer(layer: Layer): this;
+
+        /**
+         * Removes the given layer from the group.
+         */
+        removeLayer(layer: Layer): this;
+
+        /**
+         * Removes the layer with the given internal ID from the group.
+         */
+        removeLayer(id: number): this;
+
+        /**
+         * Returns true if the given layer is currently added to the group.
+         */
+        hasLayer(layer: Layer): boolean;
+
+        /**
+         * Removes all the layers from the group.
+         */
+        clearLayers(): this;
+
+        /**
+         * Calls methodName on every layer contained in this group, passing any additional parameters.
+         * Has no effect if the layers contained do not implement methodName.
+         */
+        invoke(methodName: string, ...params: Array<any>): this;
+
+        /**
+         * Iterates over the layers of the group,
+         * optionally specifying context of the iterator function.
+         */
+        eachLayer(fn: (layer: Layer) => void, context?: Object): this;
+
+        /**
+         * Returns the layer with the given internal ID.
+         */
+        getLayer(id: number): Layer;
+
+        /**
+         * Returns an array of all the layers added to the group.
+         */
+        getLayers(): Array<Layer>;
+
+        /**
+         * Calls setZIndex on every layer contained in this group, passing the z-index.
+         */
+        setZIndex(zIndex: number): this;
+
+        /**
+         * Returns the internal ID for a layer
+         */
+        getLayerId(layer: Layer): number;
+    }
+
+    /**
+     * Create a layer group, optionally given an initial set of layers.
+     */
+    export function layerGroup(layers: Array<Layer>): LayerGroup;
+
+    /**
+     * Extended LayerGroup that also has mouse events (propagated from
+     * members of the group) and a shared bindPopup method.
+     */
+    export interface FeatureGroup extends LayerGroup {
+        /**
+         * Sets the given path options to each layer of the group that has a setStyle method.
+         */
+        setStyle(style: PathOptions): this;
+
+        /**
+         * Brings the layer group to the top of all other layers
+         */
+        bringToFront(): this;
+
+        /**
+         * Brings the layer group to the top [sic] of all other layers
+         */
+        bringToBack(): this;
+
+        /**
+         * Returns the LatLngBounds of the Feature Group (created from
+         * bounds and coordinates of its children).
+         */
+        getBounds(): LatLngBounds;
+    }
+
+    /**
+     * Create a feature group, optionally given an initial set of layers.
+     */
+    export function featureGroup(layers?: Array<Layer>): FeatureGroup;
+
+    type StyleFunction = (feature: any) => PathOptions;
+
+    export interface GeoJSONOptions extends LayerOptions {
+        /**
+         * A Function defining how GeoJSON points spawn Leaflet layers.
+         * It is internally called when data is added, passing the GeoJSON point
+         * feature and its LatLng.
+         *
+         * The default is to spawn a default Marker:
+         *
+         * ```
+         * function(geoJsonPoint, latlng) {
+         *     return L.marker(latlng);
+         * }
+         * ```
+         */
+        pointToLayer?: (geoJsonPoint: Object, latlng: LatLng) => Layer; // should import GeoJSON typings
+
+        /**
+         * A Function defining the Path options for styling GeoJSON lines and polygons,
+         * called internally when data is added.
+         *
+         * The default value is to not override any defaults:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return {}
+         * }
+         * ```
+         */
+        style?: (geoJsonFeature: Object) => PathOptions;
+
+        /**
+         * A Function that will be called once for each created Feature, after it
+         * has been created and styled. Useful for attaching events and popups to features.
+         *
+         * The default is to do nothing with the newly created layers:
+         *
+         * ```
+         * function (feature, layer) {}
+         * ```
+         */
+        onEachFeature?: (feature: Object, layer: Layer) => void;
+
+        /**
+         * A Function that will be used to decide whether to show a feature or not.
+         *
+         * The default is to show all features:
+         *
+         * ```
+         * function (geoJsonFeature) {
+         *     return true;
+         * }
+         * ```
+         */
+        filter?: (geoJsonFeature: Object) => boolean;
+
+        /**
+         * A Function that will be used for converting GeoJSON coordinates to LatLngs.
+         * The default is the coordsToLatLng static method.
+         */
+        coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
+    }
+
+    /**
+     * Represents a GeoJSON object or an array of GeoJSON objects.
+     * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
+     */
+    export interface GeoJSON extends FeatureGroup {}
+
+    export namespace GeoJSON {
+        /**
+         * Adds a GeoJSON object to the layer.
+         */
+        export function addData(data: Object): Layer;
+
+        /**
+         * Resets the given vector layer's style to the original GeoJSON style,
+         * useful for resetting style after hover events.
+         */
+        export function resetStyle(layer: Layer): Layer;
+
+        /**
+         * Changes styles of GeoJSON vector layers with the given style function.
+         */
+        export function setStyle(style: PathOptions | StyleFunction): Layer;
+
+        /**
+         * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
+         * and/or coordsToLatLng functions if provided as options.
+         */
+        export function geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
+
+        /**
+         * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
+         * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
+         */
+        export function coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
+
+        /**
+         * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
+         * levelsDeep specifies the nesting level (0 is for an array of points, 1 for an array of
+         * arrays of points, etc., 0 by default).
+         * Can use a custom coordsToLatLng function.
+         */
+        export function coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
+
+        /**
+         * Reverse of coordsToLatLng
+         */
+        export function latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
+
+        /**
+         * Reverse of coordsToLatLngs closed determines whether the first point should be
+         * appended to the end of the array to close the feature, only used when levelsDeep is 0.
+         * False by default.
+         */
+        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
+
+        /**
+         * Normalize GeoJSON geometries/features into GeoJSON features.
+         */
+        export function asFeature(geojson: Object): Object;
+    }
+
+    /**
+     * Creates a GeoJSON layer.
+     *
+     * Optionally accepts an object in GeoJSON format to display on the
+     * map (you can alternatively add it later with addData method) and
+     * an options object.
+     */
+    export function geoJSON(geojson?: Object, options?: GeoJSONOptions): GeoJSON;
+
     type Zoom = boolean | 'center';
 
     export interface MapOptions {
@@ -544,8 +940,78 @@ declare namespace L {
         bounceAtZoomLimits?: boolean;
     }
 
-    export interface Control {
+    export type ControlPosition = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 
+    export interface ControlOptions {
+        position?: ControlPosition;
+    }
+
+    export interface Control {
+        getPosition(): ControlPosition;
+        setPosition(position: ControlPosition): this;
+        getContainer(): HTMLElement;
+        addTo(map: Map): this;
+        remove(): this;
+
+        // Extension methods
+        onAdd(map: Map): HTMLElement;
+        onRemove(map: Map): void;
+    }
+
+    export namespace Control {
+        export interface ZoomOptions extends ControlOptions {
+            zoomInText?: string;
+            zoomInTitle?: string;
+            zoomOutText?: string;
+            zoomOutTitle?: string;
+        }
+
+        export interface Zoom extends Control {}
+
+        export interface AttributionOptions extends ControlOptions {
+            prefix?: string | boolean;
+        }
+
+        export interface Attribution extends Control {
+            setPrefix(prefix: string): this;
+            addAttribution(text: string): this;
+            removeAttribution(text: string): this;
+        }
+
+        export interface LayersOptions extends ControlOptions {
+            collapsed?: boolean;
+            autoZIndex?: boolean;
+            hideSingleBase?: boolean;
+        }
+
+        export interface Layers extends Control {
+            addBaseLayer(layer: Layer, name: string): this;
+            addOverlay(layer: Layer, name: string): this;
+            removeLayer(layer: Layer): this;
+            expand(): this;
+            collapse(): this;
+        }
+
+        export interface ScaleOptions extends ControlOptions {
+            maxWidth?: number;
+            metric?: boolean;
+            imperial?: boolean;
+            updateWhenIdle?: boolean;
+        }
+
+        export interface Scale extends Control {}
+    }
+
+    export namespace control {
+        export function zoom(options: Control.ZoomOptions): Control.Zoom;
+
+        export function attribution(options: Control.AttributionOptions): Control.Attribution;
+
+        type LayersObject = {[name: string]: Layer};
+
+        export function layers(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions): Control.Layers;
+
+        export function scale(options?: Control.ScaleOptions): Control.Scale;
     }
 
     interface DivOverlayOptions {
@@ -920,8 +1386,58 @@ declare namespace L {
     export function marker(latlng: LatLngLiteral, options?: MarkerOptions): Marker;
 
     export function marker(latlng: LatLngTuple, options?: MarkerOptions): Marker;
+
+    export namespace Browser {
+        export const ie: boolean;
+        export const ielt9: boolean;
+        export const edge: boolean;
+        export const webkit: boolean;
+        export const gecko: boolean;
+        export const android: boolean;
+        export const android23: boolean;
+
+        export const chrome: boolean;
+
+        export const safari: boolean;
+
+        export const win: boolean;
+
+        export const ie3d: boolean;
+
+        export const webkit3d: boolean;
+
+        export const gecko3d: boolean;
+
+        export const opera12: boolean;
+
+        export const any3d: boolean;
+
+        export const mobile: boolean;
+
+        export const mobileWebkit: boolean;
+
+        export const mobiWebkit3d: boolean;
+
+        export const mobileOpera: boolean;
+
+        export const mobileGecko: boolean;
+
+        export const touch: boolean;
+
+        export const msPointer: boolean;
+
+        export const pointer: boolean;
+
+        export const retina: boolean;
+
+        export const canvas: boolean;
+
+        export const vml: boolean;
+
+        export const svg: boolean;
+    }
 }
 
 declare module 'leaflet' {
-	export = L;
+    export = L;
 }
