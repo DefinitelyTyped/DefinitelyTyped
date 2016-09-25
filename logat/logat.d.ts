@@ -3,15 +3,17 @@
 // Definitions by: Vikash <https://github.com/krvikash35/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference path="../node/node.d.ts" />
+
 declare module 'logat'{
-  import events = require('events');
+
   interface LogOptionsI {
     logLevel?: number,
     logMethod?: number,
     logFileName?: string
   }
 
-  class Logger extends events.EventEmitter {
+  class Logger extends NodeJS.EventEmitter {
     error(...args: any[]): void;
     warn(...args: any[]): void;
     info(...args: any[]): void;
