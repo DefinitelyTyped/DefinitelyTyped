@@ -19,7 +19,7 @@ declare module 'logat'{
     info(...args: any[]): void;
     debug(...args: any[]): void;
     getOptions(): LogOptionsI;
-    setOptions(options: LogOptionsI);
+    setOptions(options: LogOptionsI): void;
   }
 
   export = new Logger();
