@@ -1,11 +1,11 @@
-// Type definitions for TypeScript-STL v1.0.8
+// Type definitions for TypeScript-STL v1.1.0
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "typescript-stl"
 {
-        export = std;
+	export = std;
 }
 
 /**
@@ -129,10 +129,21 @@ declare namespace std {
      *			  <i>first</i> but not the element pointed by <i>last</i>.
      * @param fn Unary function that accepts an element in the range as argument. This can either be a function p
      *			 ointer or a move constructible function object. Its return value, if any, is ignored.
-     *
-     * @return Returns <i>fn</i>.
      */
     function for_each<T, InputIterator extends Iterator<T>, Func extends (val: T) => any>(first: InputIterator, last: InputIterator, fn: Func): Func;
+    /**
+     * Apply function to range.
+     *
+     * Applies function *fn* to each of the elements in the range [*first*, *first + n*).
+     *
+     * @param first An {@link Iterator} to the initial position in a sequence.
+     * @param n the number of elements to apply the function to
+     * @param fn Unary function that accepts an element in the range as argument. This can either be a function p
+     *			 ointer or a move constructible function object. Its return value, if any, is ignored.
+     *
+     * @return first + n
+     */
+    function for_each_n<T, InputIterator extends Iterator<T>>(first: InputIterator, n: number, fn: (val: T) => any): InputIterator;
     /**
      * <p> Test condition on all elements in range. </p>
      *
@@ -210,7 +221,7 @@ declare namespace std {
      * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
      *		   of the range starting at <i>first2</i>, and <code>false</code> otherwise.
      */
-    function equal<T, Iterator1 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator<T>): boolean;
+    function equal<T, InputIterator extends Iterator<T>>(first1: InputIterator, last1: InputIterator, first2: Iterator<T>): boolean;
     /**
      * <p> Test whether the elements in two ranges are equal. </p>
      *
@@ -230,7 +241,7 @@ declare namespace std {
      * @return <code>true</code> if all the elements in the range [<i>first1</i>, <i>last1</i>) compare equal to those
      *		   of the range starting at <i>first2</i>, and <code>false</code> otherwise.
      */
-    function equal<T, Iterator1 extends Iterator<T>>(first1: Iterator1, last1: Iterator1, first2: Iterator<T>, pred: (x: T, y: T) => boolean): boolean;
+    function equal<T, InputIterator extends Iterator<T>>(first1: InputIterator, last1: InputIterator, first2: Iterator<T>, pred: (x: T, y: T) => boolean): boolean;
     /**
      * <p> Test whether range is permutation of another. </p>
      *
@@ -4434,8 +4445,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -4580,7 +4591,6 @@ declare namespace std.base {
          * Return the number of elements in the map.
          */
         size(): number;
-        protected _Get_data(): List<Pair<Key, T>>;
         /**
          * @inheritdoc
          */
@@ -4590,13 +4600,93 @@ declare namespace std.base {
          */
         push<L extends Key, U extends T>(...args: [Key, T][]): number;
         /**
+         * Construct and insert element with hint
+         *
+         * Inserts a new element in the {@link MapContainer map container}. This new element is constructed in
+         * place using *args* as the arguments for the element's constructor. *hint* points to a location in the
+         * container suggested as a hint on where to start the search for its insertion point (the container may or
+         * may not use this suggestion to optimize the insertion operation).
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves an existing object into
+         * the container, and may also take a position *hint*.
+         *
+         * @param hint Hint for the position where the element can be inserted.
+         * @param key The key used both to look up and to insert if not found.
+         * @param value Value, the item.
+         *
+         * @return An iterator pointing to either the newly inserted element or to the element that already had an
+         *		   equivalent key in the {@link MapContainer}.
+         */
+        emplace_hint(hint: MapIterator<Key, T>, key: Key, val: T): MapIterator<Key, T>;
+        /**
+         * Construct and insert element with hint
+         *
+         * Inserts a new element in the {@link MapContainer map container}. This new element is constructed in
+         * place using *args* as the arguments for the element's constructor. *hint* points to a location in the
+         * container suggested as a hint on where to start the search for its insertion point (the container may or
+         * may not use this suggestion to optimize the insertion operation).
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves an existing object into
+         * the container, and may also take a position *hint*.
+         *
+         * @param hint Hint for the position where the element can be inserted.
+         * @param key The key used both to look up and to insert if not found.
+         * @param value Value, the item.
+         *
+         * @return An {@link MapIterator iterator} pointing to either the newly inserted element or to the element
+         *		   that already had an equivalent key in the {@link MapContainer}.
+         */
+        emplace_hint(hint: MapReverseIterator<Key, T>, key: Key, val: T): MapReverseIterator<Key, T>;
+        /**
+         * Construct and insert element with hint
+         *
+         * Inserts a new element in the {@link MapContainer map container}. This new element is constructed in
+         * place using *args* as the arguments for the element's constructor. *hint* points to a location in the
+         * container suggested as a hint on where to start the search for its insertion point (the container may or
+         * may not use this suggestion to optimize the insertion operation).
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves an existing object into
+         * the container, and may also take a position *hint*.
+         *
+         * @param hint Hint for the position where the element can be inserted.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
+         *
+         * @return An iterator pointing to either the newly inserted element or to the element that already had an
+         *		   equivalent key in the {@link MapContainer}.
+         */
+        emplace_hint(hint: MapIterator<Key, T>, pair: Pair<Key, T>): MapIterator<Key, T>;
+        /**
+         * Construct and insert element with hint
+         *
+         * Inserts a new element in the {@link MapContainer map container}. This new element is constructed in
+         * place using *args* as the arguments for the element's constructor. *hint* points to a location in the
+         * container suggested as a hint on where to start the search for its insertion point (the container may or
+         * may not use this suggestion to optimize the insertion operation).
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves an existing object into
+         * the container, and may also take a position *hint*.
+         *
+         * @param hint Hint for the position where the element can be inserted.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
+         *
+         * @return An {@link MapIterator iterator} pointing to either the newly inserted element or to the element
+         *		   that already had an equivalent key in the {@link MapContainer}.
+         */
+        emplace_hint(hint: MapReverseIterator<Key, T>, pair: Pair<Key, T>): MapReverseIterator<Key, T>;
+        /**
          * <p> Insert an element. </p>
          *
          * <p> Extends the container by inserting a new element, effectively increasing the container {@link size}
          * by the number of element inserted (zero or one). </p>
          *
          * @param hint Hint for the position where the element can be inserted.
-         * @param pair {@link Pair} to be inserted as an element.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
          *
          * @return An iterator pointing to either the newly inserted element or to the element that already had an
          *		   equivalent key in the {@link MapContainer}.
@@ -4609,7 +4699,9 @@ declare namespace std.base {
          * by the number of element inserted (zero or one). </p>
          *
          * @param hint Hint for the position where the element can be inserted.
-         * @param pair {@link Pair} to be inserted as an element.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
          *
          * @return An iterator pointing to either the newly inserted element or to the element that already had an
          *		   equivalent key in the {@link MapContainer}.
@@ -4753,12 +4845,12 @@ declare namespace std.base {
         /**
          * <p> Abstract method handling insertions for indexing. </p>
          *
-         * <p> This method, {@link handle_insert} is designed to register the <i>first to last</i> to somewhere storing
+         * <p> This method, {@link _Handle_insert} is designed to register the <i>first to last</i> to somewhere storing
          * those {@link MapIterator iterators} for indexing, fast accessment and retrievalance. </p>
          *
          * <p> When {@link insert} is called, new elements will be inserted into the {@link data_ list container} and new
          * {@link MapIterator iterators} <i>first to last</i>, pointing the inserted elements, will be created and the
-         * newly created iterators <i>first to last</i> will be shifted into this method {@link handle_insert} after the
+         * newly created iterators <i>first to last</i> will be shifted into this method {@link _Handle_insert} after the
          * insertions. </p>
          *
          * <p> If the derived one is {@link RBTree tree-based} like {@link TreeSet}, the {@link MapIterator iterators}
@@ -4775,11 +4867,11 @@ declare namespace std.base {
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
-         * <p> This method, {@link handle_insert} is designed to unregister the <i>first to last</i> to somewhere storing
+         * <p> This method, {@link _Handle_erase} is designed to unregister the <i>first to last</i> to somewhere storing
          * those {@link MapIterator iterators} for indexing, fast accessment and retrievalance. </p>
          *
          * <p> When {@link erase} is called with <i>first to last</i>, {@link MapIterator iterators} positioning somewhere
-         * place to be deleted, is memorized and shifted to this method {@link handle_erase} after the deletion process is
+         * place to be deleted, is memorized and shifted to this method {@link _Handle_erase} after the deletion process is
          * terminated. </p>
          *
          * <p> If the derived one is {@link RBTree tree-based} like {@link TreeSet}, the {@link MapIterator iterators}
@@ -4803,8 +4895,8 @@ declare namespace std {
     /**
      * <p> An iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4874,8 +4966,8 @@ declare namespace std {
     /**
      * <p> A reverse-iterator of {@link MapContainer map container}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /></a> </p>
      *
      * @author Jeongho Nam <http://samchon.org>
      */
@@ -4922,8 +5014,8 @@ declare namespace std.base {
      * {@link List} and registering {@link ListIterator iterators} of the {@link data_ list container} to an index
      * table like {@link RBTree tree} or {@link HashBuckets hash-table}. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /></a> </p>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /></a> </p>
      *
      * <h3> Container properties </h3>
      * <dl>
@@ -5020,6 +5112,55 @@ declare namespace std.base {
          */
         private extract_by_reverse_iterator(it);
         /**
+         * Construct and insert element.
+         *
+         * Inserts a new element in the {@link UniqueMap} if its *key* is unique. This new element is constructed in
+         * place using args as the arguments for the construction of a *value_type* (which is an  object of a
+         * {@link Pair} type).
+         *
+         * The insertion only takes place if no other element in the container has a *key equivalent* to the one
+         * being emplaced (*keys* in a {@link UniqueMap} container are unique).
+         *
+         * If inserted, this effectively increases the container {@link size} by one.
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves existing objects into the
+         * container.
+         *
+         * @param key The key used both to look up and to insert if not found.
+         * @param value Value, the item.
+         *
+         * @return If the function successfully inserts the element (because no equivalent element existed already in
+         *		   the {@link UniqueMap}), the function returns a {@link Pair} of an {@link MapIterator iterator} to
+         *		   the newly inserted element and a value of true. Otherwise, it returns an
+         *		   {@link MapIterator iterator} to the equivalent element within the container and a value of false.
+         */
+        emplace(key: Key, value: T): Pair<MapIterator<Key, T>, boolean>;
+        /**
+         * Construct and insert element.
+         *
+         * Inserts a new element in the {@link UniqueMap} if its *key* is unique. This new element is constructed in
+         * place using args as the arguments for the construction of a *value_type* (which is an  object of a
+         * {@link Pair} type).
+         *
+         * The insertion only takes place if no other element in the container has a *key equivalent* to the one
+         * being emplaced (*keys* in a {@link UniqueMap} container are unique).
+         *
+         * If inserted, this effectively increases the container {@link size} by one.
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves existing objects into the
+         * container.
+         *
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
+         *
+         * @return If the function successfully inserts the element (because no equivalent element existed already in
+         *		   the {@link UniqueMap}), the function returns a {@link Pair} of an {@link MapIterator iterator} to
+         *		   the newly inserted element and a value of true. Otherwise, it returns an
+         *		   {@link MapIterator iterator} to the equivalent element within the container and a value of false.
+         */
+        emplace(pair: Pair<Key, T>): Pair<MapIterator<Key, T>, boolean>;
+        /**
          * <p> Insert an element. </p>
          *
          * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
@@ -5032,7 +5173,9 @@ declare namespace std.base {
          *
          * <p> For a similar container allowing for duplicate elements, see {@link MultiMap}. </p>
          *
-         * @param pair {@link Pair} to be inserted as an element.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
          *
          * @return A {@link Pair}, with its member {@link Pair.first} set to an iterator pointing to either the newly
          *		   inserted element or to the element with an equivalent key in the {@link UniqueMap}. The
@@ -5199,12 +5342,48 @@ declare namespace std.base {
      */
     abstract class MultiMap<Key, T> extends MapContainer<Key, T> {
         /**
+         * Construct and insert element.
+         *
+         * Inserts a new element in the {@link MultiMap}. This new element is constructed in place using <i>args</i>
+         * as the arguments for the element's constructor.
+         *
+         * This effectively increases the container {@link size} by one.
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves existing objects into the
+         * container.
+         *
+         * @param key The key used both to look up and to insert if not found.
+         * @param value Value, the item.
+         *
+         * @return An {@link MapIterator iterator} to the newly inserted element.
+         */
+        emplace(key: Key, value: T): MapIterator<Key, T>;
+        /**
+         * Construct and insert element.
+         *
+         * Inserts a new element in the {@link MultiMap}. This new element is constructed in place using <i>args</i>
+         * as the arguments for the element's constructor.
+         *
+         * This effectively increases the container {@link size} by one.
+         *
+         * A similar member function exists, {@link insert}, which either copies or moves existing objects into the
+         * container.
+         *
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
+         * @return An {@link MapIterator iterator} to the newly inserted element.
+         */
+        emplace(pair: Pair<Key, T>): MapIterator<Key, T>;
+        /**
          * <p> Insert elements. </p>
          *
          * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
          * the number of elements inserted. </p>
          *
-         * @param pair {@link Pair} to be inserted as an element.
+         * @param pair A single argument of a {@link Pair} type with a value for the *key* as
+         *			   {@link Pair.first first} member, and a *value* for the mapped value as
+         *			   {@link Pair.second second}.
          *
          * @return An iterator pointing to the newly inserted element.
          */
@@ -5459,8 +5638,8 @@ declare namespace std {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5745,10 +5924,6 @@ declare namespace std.base {
          */
         size(): number;
         /**
-         * @hidden
-         */
-        _Get_data(): List<T>;
-        /**
          * @inheritdoc
          */
         push<U extends T>(...args: U[]): number;
@@ -5854,12 +6029,12 @@ declare namespace std.base {
         /**
          * <p> Abstract method handling insertions for indexing. </p>
          *
-         * <p> This method, {@link handle_insert} is designed to register the <i>first to last</i> to somewhere storing
+         * <p> This method, {@link _Handle_insert} is designed to register the <i>first to last</i> to somewhere storing
          * those {@link SetIterator iterators} for indexing, fast accessment and retrievalance. </p>
          *
          * <p> When {@link insert} is called, new elements will be inserted into the {@link data_ list container} and new
          * {@link SetIterator iterators} <i>first to last</i>, pointing the inserted elements, will be created and the
-         * newly created iterators <i>first to last</i> will be shifted into this method {@link handle_insert} after the
+         * newly created iterators <i>first to last</i> will be shifted into this method {@link _Handle_insert} after the
          * insertions. </p>
          *
          * <p> If the derived one is {@link RBTree tree-based} like {@link TreeSet}, the {@link SetIterator iterators}
@@ -5876,11 +6051,11 @@ declare namespace std.base {
         /**
          * <p> Abstract method handling deletions for indexing. </p>
          *
-         * <p> This method, {@link handle_insert} is designed to unregister the <i>first to last</i> to somewhere storing
+         * <p> This method, {@link _Handle_erase} is designed to unregister the <i>first to last</i> to somewhere storing
          * those {@link SetIterator iterators} for indexing, fast accessment and retrievalance. </p>
          *
          * <p> When {@link erase} is called with <i>first to last</i>, {@link SetIterator iterators} positioning somewhere
-         * place to be deleted, is memorized and shifted to this method {@link handle_erase} after the deletion process is
+         * place to be deleted, is memorized and shifted to this method {@link _Handle_erase} after the deletion process is
          * terminated. </p>
          *
          * <p> If the derived one is {@link RBTree tree-based} like {@link TreeSet}, the {@link SetIterator iterators}
@@ -7166,8 +7341,17 @@ declare namespace std {
      * @author Jeongho Nam <http://samchon.org>
      */
     class ListIterator<T> extends Iterator<T> {
+        /**
+         * @hidden
+         */
         private prev_;
+        /**
+         * @hidden
+         */
         private next_;
+        /**
+         * @hidden
+         */
         private value_;
         /**
          * <p> Construct from the source {@link List container}. </p>
@@ -7204,14 +7388,6 @@ declare namespace std {
          * @param val Value to set.
          */
         value: T;
-        /**
-         * @hidden
-         */
-        _Set_prev(it: ListIterator<T>): void;
-        /**
-         * @hidden
-         */
-        _Set_next(it: ListIterator<T>): void;
         /**
          * @inheritdoc
          */
@@ -8615,10 +8791,6 @@ declare namespace std {
          * @inheritdoc
          */
         equal_range(val: T): Pair<SetIterator<T>, SetIterator<T>>;
-        /**
-         * @hidden
-         */
-        _Get_tree(): base.AtomicTree<T>;
         /**
          * @hidden
          */
@@ -11440,7 +11612,6 @@ declare namespace std.base {
          * Default Constructor.
          */
         constructor(map: TreeMap<Key, T> | TreeMultiMap<Key, T>, compare?: (x: Key, y: Key) => boolean);
-        _Set_compare(val: (x: Key, y: Key) => boolean): void;
         find(key: Key): XTreeNode<MapIterator<Key, T>>;
         find(it: MapIterator<Key, T>): XTreeNode<MapIterator<Key, T>>;
         /**
@@ -11741,7 +11912,6 @@ declare namespace std.base {
          * Default Constructor.
          */
         constructor(set: TreeSet<T> | TreeMultiSet<T>, compare?: (x: T, y: T) => boolean);
-        _Set_compare(val: (x: T, y: T) => boolean): void;
         find(val: T): XTreeNode<SetIterator<T>>;
         find(it: SetIterator<T>): XTreeNode<SetIterator<T>>;
         /**
