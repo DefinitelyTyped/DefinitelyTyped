@@ -14,29 +14,34 @@ interface Thing {
 function test_store() {
   const store = new Store();
 
-  store.sync({ any: 'thing' });
+  store.sync('some string').toString();
+  store.sync(1234).toString();
+  store.sync({ any: 'thing' }).toString();
 
   store.find('mytype', '1234').toString();
-  <Thing> store.find<Thing>('mytype', '1234');
-
-  store.findAll('mytype').length;
-  <Thing[]> store.findAll<Thing>('mytype');
+  <[]> store.findAll('mytype');
 
   store.remove('mytype', '1234');
   store.remove('mytype');
 
   store.reset();
 
-  store.records.length;
-  <{ [type: string]: any }> store.relations;
+  <Yayson.Record[]> store.records;
+  store.records[0].attributes.toString();
+  store.records[0].id.toString();
+  store.records[0].relationships.toString();
+  <string> store.records[0].type;
+
+  store.relations['something'];
 }
 
 function test_presenter_static() {
+  Presenter.render('something').toString();
   Presenter.render({}).toString();
   Presenter.render({}, { meta: {} }).toString();
 
-  Presenter.render([]).length;
-  Presenter.render([], { meta: {} }).length;
+  <[]> Presenter.render([]);
+  <[]> Presenter.render([], { meta: {} });
 
   const promiseNum: PromiseLike<number> = null;
 
@@ -53,8 +58,8 @@ function test_presenter_instance() {
   presenter.render({}).toString();
   presenter.render({}, { meta: {} }).toString();
 
-  presenter.render([]).length;
-  presenter.render([], { meta: {} }).length;
+  <[]> presenter.render([]);
+  <[]> presenter.render([], { meta: {} });
 
   const promiseNum: PromiseLike<number> = null;
 
@@ -105,10 +110,7 @@ function test_presenter_inheritance() {
 
 function test_adapter() {
   Adapter.get({ name: 'Abraham' }).toString();
-  <string> Adapter.get<string>({ name: 'Abraham' });
-
-  <any> Adapter.get({ name: 'Abraham' }, 'name');
-  name = Adapter.get<string>({ name: 'Abraham' }, 'name');
+  Adapter.get({ name: 'Abraham' }, 'name').toString();
 
   <string> Adapter.id({ id: 5 });
 }
