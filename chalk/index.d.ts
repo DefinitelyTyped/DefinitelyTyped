@@ -6,7 +6,6 @@
 export = Chalk;
 
 declare namespace Chalk {
-
     export var enabled: boolean;
     export var supportsColor: boolean;
     export var styles: ChalkStyleMap;
@@ -15,6 +14,7 @@ declare namespace Chalk {
     export function hasColor(str: string): boolean;
 
     export interface ChalkChain extends ChalkStyle {
+        (): false;
         (...text: string[]): string;
     }
 
@@ -26,9 +26,11 @@ declare namespace Chalk {
     // General
     export var reset: ChalkChain;
     export var bold: ChalkChain;
+    export var dim: ChalkChain;
     export var italic: ChalkChain;
     export var underline: ChalkChain;
     export var inverse: ChalkChain;
+    export var hidden: ChalkChain;
     export var strikethrough: ChalkChain;
 
     // Text colors
@@ -58,9 +60,11 @@ declare namespace Chalk {
         // General
         reset: ChalkChain;
         bold: ChalkChain;
+        dim: ChalkChain;
         italic: ChalkChain;
         underline: ChalkChain;
         inverse: ChalkChain;
+        hidden: ChalkChain;
         strikethrough: ChalkChain;
 
         // Text colors
@@ -90,9 +94,11 @@ declare namespace Chalk {
         // General
         reset: ChalkStyleElement;
         bold: ChalkStyleElement;
+        dim: ChalkStyleElement;
         italic: ChalkStyleElement;
         underline: ChalkStyleElement;
         inverse: ChalkStyleElement;
+        hidden: ChalkStyleElement;
         strikethrough: ChalkStyleElement;
 
         // Text colors
@@ -116,5 +122,12 @@ declare namespace Chalk {
         bgCyan: ChalkStyleElement;
         bgWhite: ChalkStyleElement;
     }
-}
 
+    export const constructor: {
+        new (options: {enabled: boolean}): Chalk;
+    }
+
+    export interface Chalk extends ChalkStyle {
+        enabled: boolean;
+    }
+}
