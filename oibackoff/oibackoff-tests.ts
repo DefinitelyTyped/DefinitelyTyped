@@ -12,7 +12,14 @@ var backoff = oibackoff.backoff({
     maxTries   : 5,
 });
 
-backoff(dns.resolve, 'chilts.org', function(err: any, addresses: any, priorErrors: any) {
+
+backoff(dns.resolve, function(err, tries, delay): boolean {
+    return true;
+}, function(err, addresses) {
+    // Do something
+});
+
+backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
     if (err) {
         // do something to recover from this error
         return;
@@ -24,14 +31,26 @@ backoff(dns.resolve, 'chilts.org', function(err: any, addresses: any, priorError
 
 
 // Example 2
-var intermediate = function(err: any, tries: number, delay: number): boolean {
+var intermediate = function(err: Error, tries: number, delay: number): boolean {
     console.log(err);   // last error
     console.log(tries); // total number of tries performed thus far
     console.log(delay); // the delay for the next attempt
     return false;       // this will cancel additional tries
 };
 
-backoff(dns.resolve, 'chilts.org', intermediate, function(err: any, addresses: any, priorErrors: any) {
+backoff(dns.resolve, 'chilts.org', intermediate, function(err, addresses, priorErrors) {
+    if (err) {
+        // do something to recover from this error
+        return;
+    }
+
+    // do something with addresses
+    console.log(addresses);
+});
+
+backoff(dns.resolve, 'chilts.org', function(err, tries, delay): boolean {
+    return true;
+}, function(err, addresses) {
     if (err) {
         // do something to recover from this error
         return;

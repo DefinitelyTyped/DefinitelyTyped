@@ -1,4 +1,4 @@
-// Type definitions for oibackoff
+// Type definitions for oibackoff v1.0
 // Project: https://github.com/chilts/oibackoff
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,32 +13,90 @@ export declare interface BackoffOptions {
 }
 
 export declare interface BackoffInstance {
-    (fn: Function, callback: Function): void;
-    (fn: Function, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, callback: Function): void;
-    (fn: Function, data0: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, data9: any, callback: Function): void;
-    (fn: Function, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, data9: any, intermediate: BackoffIntermediate | Function, callback: Function): void;
+    <A>(fn: (callback: (a: A) => any) => any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, intermediate: BackoffIntermediate<A>, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A>(fn: (data0: any, callback: (a: A) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, callback: (a: A, data: null, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, intermediate: BackoffIntermediate<A>, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
+    <A,B>(fn: (data0: any, callback: (a: A, b: B) => any) => any, data0: any, data1: any, data2: any, data3: any, data4: any, data5: any, data6: any, data7: any, data8: any, callback: (a: A, b: B, priorErrors?: A[]) => void): void;
 }
 
-export declare interface BackoffIntermediate {
-    (err: any, tries: number, delay: number): boolean;
+export declare interface BackoffIntermediate<A> {
+    (err: A, tries: number, delay: number): boolean;
 }
 
 export declare function incremental(n: number): number;
