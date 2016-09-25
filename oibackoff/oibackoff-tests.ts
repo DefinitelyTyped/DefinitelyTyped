@@ -19,6 +19,17 @@ backoff(dns.resolve, function(err, tries, delay): boolean {
     // Do something
 });
 
+let fn = function(callback: (err: number) => any){}
+backoff(fn, function(err, addresses, priorErrors) {
+    if (err) {
+        // do something to recover from this error
+        return;
+    }
+
+    // do something with addresses
+    console.log(addresses);
+});
+
 backoff(dns.resolve, 'chilts.org', function(err, addresses, priorErrors) {
     if (err) {
         // do something to recover from this error
