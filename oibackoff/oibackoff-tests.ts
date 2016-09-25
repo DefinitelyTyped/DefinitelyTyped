@@ -13,7 +13,7 @@ var backoff = oibackoff.backoff({
 });
 
 
-backoff(dns.resolve, function(err, tries, delay): boolean {
+backoff(dns.resolve, 'example.com', function(err, tries, delay): boolean {
     return true;
 }, function(err, addresses) {
     // Do something
