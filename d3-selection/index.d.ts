@@ -151,7 +151,12 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
 
 
 /**
- * A D3 Selection of elements
+ * A D3 Selection of elements.
+ *
+ * The first generic "GElement" refers to the type of the selected element(s).
+ * The second generic "Datum" refers to the type of the datum of a selected element(s).
+ * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
+ * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
 interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
 
@@ -268,7 +273,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element.  A null value will clear the attribute.
      */
-    attr(name: string, value: ValueFn<GElement, Datum, string | number | boolean>): this;
+    attr(name: string, value: ValueFn<GElement, Datum, string | number | boolean | null>): this;
 
     /**
      * Returns true if and only if the first (non-null) selected element has the specified classes.
@@ -321,6 +326,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      *
      * @param name Name of the style
      * @param value Constant value for the style
+     * @param priority An optional priority flag, either null or the string important (without the exclamation point)
      */
     style(name: string, value: string | number | boolean, priority?: null | 'important'): this;
     /**
@@ -330,8 +336,9 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * @param name Name of the style
      * @param value A value function which is evaluated for each selected element, in order, being passed the current datum (d),
      * the current index (i), and the current group (nodes), with this as the current DOM element.  A null value will clear the style.
+     * @param priority An optional priority flag, either null or the string important (without the exclamation point)
      */
-    style(name: string, value: ValueFn<GElement, Datum, string | number | boolean>, priority?: null | 'important'): this;
+    style(name: string, value: ValueFn<GElement, Datum, string | number | boolean | null>, priority?: null | 'important'): this;
 
     /**
      * Return the current value of the specified property for the first (non-null) element in the selection.
@@ -414,7 +421,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * the current index (i), and the current group (nodes), with this as the current DOM element.
      * The function’s return value is then used to set each element’s text content. A null value will clear the content.
      */
-    text(value: ValueFn<GElement, Datum, string | number | boolean>): this;
+    text(value: ValueFn<GElement, Datum, string | number | boolean | null>): this;
 
     /**
      * Returns a string representation of the inner HTML for the first (non-null) element in the selection.
@@ -440,7 +447,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * datum (d), the current index (i), and the current group (nodes), with this as the current DOM element.
      * The function’s return value is then used to set each element’s inner HTML. A null value will clear the content.
      */
-    html(value: ValueFn<GElement, Datum, string>): this;
+    html(value: ValueFn<GElement, Datum, string | null>): this;
 
     /**
      * Appends a new element of the specified type (tag name) as the last child of each selected element, or the next
@@ -783,7 +790,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
      * The type may be optionally followed by a period (.) and a name; the optional name allows multiple callbacks to be registered
      * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
      * such as "input change"" or "click.foo click.bar".
-     * @param listener An listener function which will be evaluated for each selected element, being passed the current datum (d), the current index (i),
+     * @param listener A listener function which will be evaluated for each selected element, being passed the current datum (d), the current index (i),
      * and the current group (nodes), with this as the current DOM element. Listeners always see the latest datum for their element,
      * but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener.
      * To access the current event within a listener, use d3.event.
@@ -813,7 +820,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     // Control Flow ----------------------
 
     /**
-     * Invoke the specified function for each selected element, passing in passed the current datum (d),
+     * Invoke the specified function for each selected element, passing in the current datum (d),
      * the current index (i), and the current group (nodes), with this of the current DOM element.
      * This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously.
      *
@@ -838,7 +845,7 @@ interface Selection<GElement extends BaseType, Datum, PElement extends BaseType,
     /**
      * Return the first (non-null) element in this selection. If the selection is empty, returns null.
      */
-    node(): GElement;
+    node(): GElement | null;
 
     /**
      * Return an array of all (non-null) elements in this selection.

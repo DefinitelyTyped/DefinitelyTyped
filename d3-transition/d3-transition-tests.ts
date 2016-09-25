@@ -16,7 +16,7 @@ import {
 
 import * as d3Transition from 'd3-transition';
 import {
-    interpolateNumber,
+    interpolateString,
     interpolateRgb
 } from 'd3-interpolate';
 
@@ -243,7 +243,7 @@ select<HTMLBodyElement, { test: string }>('body')
 
 enterTransition = enterTransition.attrTween('r', function (d, i, group) {
     console.log(this.r.baseVal.value); // this type is SVGCircleElement
-    return interpolateNumber(0, d.r); // datum type is CircleDatum
+    return interpolateString(0, d.r); // datum type is CircleDatum
 });
 
 exitTransition = exitTransition.styleTween('fill', function (d, i, group) {
