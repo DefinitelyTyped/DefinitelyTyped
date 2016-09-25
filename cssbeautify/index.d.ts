@@ -20,7 +20,6 @@ interface Options {
    */
   autosemicolon?: boolean;
 }
-declare namespace beautify {}
 declare function beautify(cssText: string, options?: Options): string;
 
 export = beautify;
