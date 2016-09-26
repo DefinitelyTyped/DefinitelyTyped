@@ -1855,8 +1855,8 @@ declare module "dgram" {
 
     interface RemoteInfo {
         address: string;
+        family: string;
         port: number;
-        size: number;
     }
 
     interface AddressInfo {
