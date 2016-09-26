@@ -13,15 +13,13 @@ declare module 'through2' {
 	type TransformFunction = (chunk: any, enc: string, callback: TransformCallback) => void;
 	type FlushCallback = (flushCallback: () => void) => void;
 
-	function through2(transform?: TransformFunction, flush?: FlushCallback): NodeJS.ReadWriteStream;
+	function through2(transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
-	function through2(opts?: stream.DuplexOptions, transform?: TransformFunction, flush?: FlushCallback): NodeJS.ReadWriteStream;
+	function through2(opts?: stream.DuplexOptions, transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
 	namespace through2 {
 
-		export function obj(transform?: TransformFunction, flush?: FlushCallback): NodeJS.ReadWriteStream;
-
-		export function push(data: any): void;
+		export function obj(transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
 	}
 
