@@ -1783,7 +1783,13 @@ declare namespace dojo {
      * @param errback       OptionalCallback to be invoked when the promise is rejected.
      * @param progback       OptionalCallback to be invoked when the promise emits a progress update.
      */
-    interface when { <T, U>(value: T|dojo.promise.Promise<T>, callback: dojo.promise.Callback<T, U>, errback?: any, progback?: any): U|dojo.promise.Promise<U> }
+    interface when {
+		<T>(value: T): dojo.promise.Promise<T>
+		<T, U>(value: T, callback: (arg: T, ...args: any[]) => U): U
+		<T, U>(value: T, callback: (...args: any[]) => U): U
+		<T, U>(value: dojo.promise.Promise<T>, callback?: dojo.promise.Callback<T, U>, errback?: Function, progback?: Function): dojo.promise.Promise<U>
+		<T, U>(value: T, callback?: dojo.promise.Callback<T, U>, errback?: Function, progback?: Function): U
+	}
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/DeferredList.html
      *
@@ -1833,7 +1839,7 @@ declare namespace dojo {
          * @param reason A message that may be sent to the deferred's canceler,explaining why it's being canceled.
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be canceled.
          */
-        cancel(reason: any, strict?: boolean): any;
+        cancel(reason?: any, strict?: boolean): any;
         /**
          * Checks whether the deferred has been canceled.
          *
@@ -1863,7 +1869,7 @@ declare namespace dojo {
          * @param update The progress update. Passed to progbacks.
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently no progress can be emitted.
          */
-        progress(update: any, strict?: boolean): dojo.promise.Promise<any>;
+        progress<T>(update?: any, strict?: boolean): dojo.promise.Promise<T>;
         /**
          * Reject the deferred.
          * Reject the deferred, putting it in an error state.
@@ -1871,7 +1877,7 @@ declare namespace dojo {
          * @param error The error result of the deferred. Passed to errbacks.
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be rejected.
          */
-        reject(error: any, strict?: boolean): any;
+        reject(error?: any, strict?: boolean): any;
         /**
          * Resolve the deferred.
          * Resolve the deferred, putting it in a success state.
@@ -1879,7 +1885,7 @@ declare namespace dojo {
          * @param value The result of the deferred. Passed to callbacks.
          * @param strict               OptionalIf strict, will throw an error if the deferred has alreadybeen fulfilled and consequently cannot be resolved.
          */
-        resolve(value: any, strict?: boolean): dojo.promise.Promise<any>;
+        resolve<T>(value?: T, strict?: boolean): dojo.promise.Promise<T>;
         /**
          * Add new callbacks to the deferred.
          * Add new callbacks to the deferred. Callbacks can be added
@@ -1889,7 +1895,7 @@ declare namespace dojo {
          * @param errback               OptionalCallback to be invoked when the promise is rejected.Receives the rejection error.
          * @param progback               OptionalCallback to be invoked when the promise emits a progressupdate. Receives the progress update.
          */
-        then(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<any>;
+        then<T>(callback?: Function, errback?: Function, progback?: Function): dojo.promise.Promise<T>;
         /**
          *
          */
@@ -5712,17 +5718,7 @@ declare namespace dojo {
              *
              * @param method The function to "wrap"
              */
-            partial(method: Function): any;
-            /**
-             * similar to hitch() except that the scope object is left to be
-             * whatever the execution context eventually becomes.
-             * Calling lang.partial is the functional equivalent of calling:
-             *
-             * lang.hitch(null, funcName, ...);
-             *
-             * @param method The function to "wrap"
-             */
-            partial(method: String): any;
+            partial(method: string | Function, ...args: any[]): Function;
             /**
              * Performs parameterized substitutions on a string. Throws an
              * exception if any parameter is unmatched.
@@ -5731,16 +5727,7 @@ declare namespace dojo {
              * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).
              * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".
              */
-            replace(tmpl: String, map: Object, pattern?: RegExp): String;
-            /**
-             * Performs parameterized substitutions on a string. Throws an
-             * exception if any parameter is unmatched.
-             *
-             * @param tmpl String to be used as a template.
-             * @param map If an object, it is used as a dictionary to look up substitutions.If a function, it is called for every substitution with following parameters:a whole match, a name, an offset, and the whole templatestring (see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/replacefor more details).
-             * @param pattern               OptionalOptional regular expression objects that overrides the default pattern.Must be global and match one item. The default is: /{([^}]+)}/g,which matches patterns like that: "{xxx}", where "xxx" is any sequenceof characters, which doesn't include "}".
-             */
-            replace(tmpl: String, map: Function, pattern?: RegExp): String;
+            replace(tmpl: string, map: Object | Function, pattern?: RegExp): string;
             /**
              * Set a property from a dot-separated string, such as "A.B.C"
              * Useful for longer api chains where you have to test each object in
@@ -5752,7 +5739,7 @@ declare namespace dojo {
              * @param value value or object to place at location given by name
              * @param context               OptionalOptional. Object to use as root of path. Defaults todojo.global.
              */
-            setObject(name: String, value: any, context?: Object): any;
+            setObject(name: string, value: any, context?: Object): any;
             /**
              * Trims whitespace from both sides of the string
              * This version of trim() was selected for inclusion into the base due
@@ -5764,7 +5751,7 @@ declare namespace dojo {
              *
              * @param str String to be trimmed
              */
-            trim(str: String): String;
+            trim(str: string): string;
         }
         /**
          * Permalink: http://dojotoolkit.org/api/1.9/dojo/_base/unload.html
@@ -20089,9 +20076,8 @@ declare namespace dojo {
          * @param str a string literal of a JSON item, for instance:'{ "foo": [ "bar", 1, { "baz": "thud" } ] }'
          * @param strict When set to true, this will ensure that only valid, secure JSON is ever parsed.Make sure this is set to true for untrusted content. Note that on browsers/engineswithout native JSON support, setting this to true will run slower.
          */
-        parse(str: any, strict: any): void;
+        parse(str: string, strict?: boolean): any;
         /**
-         * Returns a JSON serialization of an object.
          * Returns a JSON serialization of an object.
          * This function follows native JSON API
          * Note that this doesn't check for infinite recursion, so don't do that!
@@ -20100,7 +20086,8 @@ declare namespace dojo {
          * @param replacer A replacer function that is called for each value and can return a replacement
          * @param spacer A spacer string to be used for pretty printing of JSON
          */
-        stringify(value: any, replacer: any, spacer: any): void;
+        stringify(value: any, spacer?: string): string;
+        stringify(value: any, replacer?: Function, spacer?: string): string;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/loadInit.html
