@@ -12,4 +12,4 @@ declare module 'murmurhash3js' {
     export module x64 {
         function hash128(val: string, seed?: number): string;
     }
-} 
+}
