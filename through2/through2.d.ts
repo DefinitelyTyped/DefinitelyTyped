@@ -18,9 +18,14 @@ declare module 'through2' {
 	function through2(opts?: stream.DuplexOptions, transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
 	namespace through2 {
+		export interface Through2Constructor extends stream.Transform {
+			new(opts?: stream.DuplexOptions): stream.Transform;
+			(opts?: stream.DuplexOptions): stream.Transform;
+		}
 
 		export function obj(transform?: TransformFunction, flush?: FlushCallback): stream.Transform;
 
+		export function ctor(opts?: stream.DuplexOptions, transfrom?: TransformFunction, flush?: FlushCallback): Through2Constructor;
 	}
 
 	export = through2;
