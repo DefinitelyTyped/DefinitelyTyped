@@ -558,17 +558,155 @@ namespace crypto_tests {
 //////////////////////////////////////////////////
 
 namespace tls_tests {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-        key: "NOT REALLY A KEY",
-        cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+    {
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-        host: "127.0.0.1",
-        port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
+    }
+
+    {
+        let _server: tls.Server;
+        let _boolean: boolean;
+        let _func1 = function(err: Error, resp: Buffer){};
+        let _func2 = function(err: Error, sessionData: any){};
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+
+        _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.addListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.addListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        let _err: Error;
+        let _tlsSocket: tls.TLSSocket;
+        let _any: any;
+        let _func: Function;
+        let _buffer: Buffer;
+        _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
+        _boolean = _server.emit("newSession", _any, _any, _func1);
+        _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
+        _boolean = _server.emit("resumeSession", _any, _func2);
+        _boolean = _server.emit("secureConnection", _tlsSocket);
+
+        _server = _server.on("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.on("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.on("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.once("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.once("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.once("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+    }
 }
 
 ////////////////////////////////////////////////////
