@@ -524,15 +524,19 @@ export interface Transition<GElement extends BaseType, Datum, PElement extends B
  * Returns a new transition with the specified name. If a name is not specified, null is used.
  * The new transition is only exclusive with other transitions of the same name.
  *
+ * The generic "OldDatum" refers to the type of a previously-set datum of the selected HTML element in the Transition.
+ *
  * @param name Name of the transition.
  */
-export function transition(name: string): Transition<HTMLElement, any, null, undefined>;
+export function transition<OldDatum>(name: string): Transition<HTMLElement, OldDatum, null, undefined>;
 
 /**
  * Returns a new transition from an existing transition.
  *
  * When using a transition instance, the returned transition has the same id and name as the specified transition.
  *
+ * The generic "OldDatum" refers to the type of a previously-set datum of the selected HTML element in the Transition.
+ *
  * @param transition A transition instance.
  */
-export function transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum>(transition: Transition<GElement, Datum, PElement, PDatum>): Transition<GElement, Datum, PElement, PDatum>;
+export function transition<OldDatum>(transition: Transition<BaseType, any, BaseType, any>): Transition<HTMLElement, OldDatum, null, undefined>;

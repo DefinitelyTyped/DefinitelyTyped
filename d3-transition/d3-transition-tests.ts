@@ -375,10 +375,14 @@ topTransition = d3Transition.transition('top');
 
 // test creation from existing transition
 
-newEnterTransition = d3Transition.transition(enterTransition);
-// newEnterTransition = d3Transition.transition(wrongElementTypeTransition);// fails, wrong group element type
-// newEnterTransition = d3Transition.transition(wrongDatumTypeTransition);// fails, wrong datum type
+topTransition = d3Transition.transition(enterTransition);
 
+// tests with pre-existing datum (typed as string)
+// set datum with a type of string
+select('html').datum('test');
+let topTransition2: d3Transition.Transition<HTMLElement, string, null, undefined>;
+topTransition2 = d3Transition.transition<string>('top');
+topTransition2 = d3Transition.transition<string>(enterTransition);
 
 // active(...) ----------------------------------------------------------
 
