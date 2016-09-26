@@ -163,6 +163,8 @@ declare namespace Chai {
 
     interface Deep {
         equal: Equal;
+        equals: Equal;
+        eq: Equal;
         include: Include;
         property: Property;
         members: Members;
