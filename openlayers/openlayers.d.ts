@@ -121,15 +121,15 @@ declare namespace olx {
         className?: string;
         /*** experimental Text label to use for the button. Default is ⤢ (NORTH EAST AND SOUTH WEST ARROW). Instead of text, also a Node (e.g. a span element) can be used.*/
         label?: string | Element;
-        /*** Text label to use for the button when full-screen is active. Default is × (a cross). Instead of text, also a Node (e.g. a span element) can be used.*/
+        /*** experimental Text label to use for the button when full-screen is active. Default is × (a cross). Instead of text, also a Node (e.g. a span element) can be used.*/
         labelActive?: string | Element;
-        /*** Text label to use for the button tip. Default is Toggle full-screen*/
+        /*** experimental Text label to use for the button tip. Default is Toggle full-screen*/
         tipLabel?: string;
-        /*** Full keyboard access.*/
+        /*** experimental Full keyboard access.*/
         keys?: boolean;
-        /*** Target.*/
+        /*** experimental Target.*/
         target?: Element;
-        /*** The element to be displayed fullscreen. When not provided, the element containing the map viewport will be displayed fullscreen.*/
+        /*** experimental The element to be displayed fullscreen. When not provided, the element containing the map viewport will be displayed fullscreen.*/
         source?: Element | string;
     }
     
