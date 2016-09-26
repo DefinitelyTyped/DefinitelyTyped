@@ -717,6 +717,82 @@ interface HighchartsAxisOptions {
      */
     showLastLabel?: boolean;
     /**
+     * Show the total value for each bar in a stacked column or bar chart.
+     * The label will be placed on top of positive columns and below negative columns.
+     * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
+     * Only used for yAxis
+     */
+    stackLabels?: {
+        /**
+         * Defines the horizontal alignment of the stack total label. Can be one of "left", "center" or "right".
+         * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+         * @since 2.1.5
+         */
+        align?: string;
+        /**
+         * Enable or disable the stack total labels.
+         * @default false
+         * @since 2.1.5
+         */
+        enabled?: boolean;
+        /**
+         * A format string for the data label. Available variables are the same as for formatter.
+         * @default {total}
+         * @since 3.0.2
+         */
+        format?: string;
+        /**
+         * Callback JavaScript function to format the label. The value is given by this.total.
+         * @default function() { return this.total; }
+         * @since 2.1.5
+         */
+        formatter?: Function;
+        /**
+         * Rotation of the labels in degrees.
+         * @default 0
+         * @since 2.1.5
+         */
+        rotation?: number;
+        /**
+         * CSS styles for the label.
+         * @default { "color": "#000000", "fontSize": "11px", "fontWeight": "bold", "textShadow": "0 0 6px contrast, 00 3px contrast" }
+         * @since 2.1.5
+         */
+        style?: Object;
+        /**
+         * The text alignment for the label.
+         * While align determines where the texts anchor point is placed with regards to the stack, textAlign determines how the text is aligned against its anchor point.
+         * Possible values are "left", "center" and "right".
+         * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+         * @since 2.1.5
+         */
+        textAlign?: string;
+        /**
+         * Whether to use HTML to render the labels. 
+         * @default false
+         * @since 3.0
+         */
+        useHTML?: boolean;
+        /**
+         * Defines the vertical alignment of the stack total label. Can be one of "top", "middle" or "bottom".
+         * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+         * @since 2.1.5
+         */
+        verticalAlign?: string;
+        /**
+         * The x position offset of the label relative to the left of the stacked bar.
+         * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+         * @since 2.1.5
+         */
+        x?: number;
+        /**
+         * The y position offset of the label relative to the tick position on the axis.
+         * @default calculated at runtime and depends on orientation and whether the stack is positive or negative.
+         * @since 2.1.5
+         */
+        y?: number;
+    }
+    /**
      * For datetime axes, this decides where to put the tick between weeks. 0 = Sunday, 1 = Monday.
      * @default 1
      */
