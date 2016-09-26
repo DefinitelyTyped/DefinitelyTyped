@@ -2585,6 +2585,35 @@ declare module "tls" {
          * @returns {boolean} - Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
+
+        /**
+         * events.EventEmitter
+         * 1. OCSPResponse
+         * 2. secureConnect
+         **/
+        addListener(event: string, listener: Function): this;
+        addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        addListener(event: "secureConnect", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "OCSPResponse", response: Buffer): boolean;
+        emit(event: "secureConnect"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        on(event: "secureConnect", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        once(event: "secureConnect", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependListener(event: "secureConnect", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
     export interface TlsOptions {
