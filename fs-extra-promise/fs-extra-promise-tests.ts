@@ -177,7 +177,7 @@ fs.readFile(filename, (err: Error, data: NodeBuffer) => {
 });
 buffer = fs.readFileSync(filename);
 str = fs.readFileSync(filename, encoding);
-bug = fs.readFileSync(filename, openOpts);
+buf = fs.readFileSync(filename, openOpts);
 
 fs.writeFile(filename, data, errorCallback);
 fs.writeFile(filename, data, encoding, errorCallback);
