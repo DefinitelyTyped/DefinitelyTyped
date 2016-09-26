@@ -2643,6 +2643,56 @@ declare module "tls" {
         }): void;
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+        addListener(event: string, listener: Function): this;
+        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        addListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
+        emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
+        emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
+        emit(event: "resumeSession", sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
+        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        on(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        on(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        on(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        once(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        once(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        once(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        prependListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependOnceListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        prependOnceListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
     }
 
     export interface ClearTextStream extends stream.Duplex {
