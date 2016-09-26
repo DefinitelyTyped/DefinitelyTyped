@@ -197,7 +197,7 @@ declare namespace DataTables {
         *
         * @returns Resulting internationalised string.
         */
-        i18n(token: string, def: Object | string, numeric?: number): string;
+        i18n(token: string, def: any | string, numeric?: number): string;
 
         /*
         * Get the initialisation options used for the table. Since: DataTables 1.10.6
