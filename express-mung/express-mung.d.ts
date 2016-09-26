@@ -10,8 +10,8 @@ declare module "express-mung" {
     import { Request, Response } from "express";
     import * as http from "http";
 
-    type Transform = (body: Object, request: Request, response: Response) => Object;
-    type TransformHeader = (body: http.IncomingMessage, request: Request, response: Response) => Object;
+    type Transform = (body: {}, request: Request, response: Response) => {};
+    type TransformHeader = (body: http.IncomingMessage, request: Request, response: Response) => {};
 
     /**
      * Transform the JSON body of the response.
