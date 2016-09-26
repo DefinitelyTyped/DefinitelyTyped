@@ -707,6 +707,47 @@ namespace tls_tests {
             let _tlsSocket: tls.TLSSocket = tlsSocket;
         })
     }
+
+    {
+        let _TLSSocket: tls.TLSSocket;
+        let _boolean: boolean;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
+
+        let _buffer: Buffer;
+        _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
+        _boolean = _TLSSocket.emit("secureConnect");
+
+        _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.on("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.once("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
+    } 
 }
 
 ////////////////////////////////////////////////////
