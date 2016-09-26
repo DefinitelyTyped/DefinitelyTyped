@@ -673,6 +673,9 @@ namespace dgram_tests {
     {
         let _socket: dgram.Socket;
         let _boolean: boolean;
+        let _err: Error;
+        let _str: string;
+        let _rinfo: dgram.AddressInfo;
         /**
          * events.EventEmitter
          * 1. close
@@ -691,10 +694,10 @@ namespace dgram_tests {
             let _rinfo: dgram.AddressInfo = rinfo;
         })
 
-        _boolean = _socket.emit("close", () => {});
-        _boolean = _socket.emit("error", () => {});
-        _boolean = _socket.emit("listening", () => {});
-        _boolean = _socket.emit("message", () => {});
+        _boolean = _socket.emit("close")
+        _boolean = _socket.emit("error", _err);
+        _boolean = _socket.emit("listening");
+        _boolean = _socket.emit("message", _str, _rinfo);
 
         _socket = _socket.on("close", () => {});
         _socket = _socket.on("error", (err) => {
