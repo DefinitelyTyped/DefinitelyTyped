@@ -1908,11 +1908,11 @@ declare module "dgram" {
         addListener(event: "listening", listener: () => void): this;
         addListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
 
-        emit(event: string, listener: Function): boolean;
-        emit(event: "close", listener: () => void): boolean;
-        emit(event: "error", listener: (err: Error) => void): boolean;
-        emit(event: "listening", listener: () => void): boolean;
-        emit(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): boolean;
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "message", msg: string, rinfo: AddressInfo): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "close", listener: () => void): this;
