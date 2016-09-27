@@ -3,7 +3,7 @@
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare function backoff(opts: BackoffOptions): BackoffInstance;
+export declare function backoff(opts?: BackoffOptions): BackoffInstance;
 
 export declare interface BackoffOptions {
     maxTries?: number;
