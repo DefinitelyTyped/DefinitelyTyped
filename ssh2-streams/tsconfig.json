@@ -13,6 +13,6 @@
     },
     "files": [
         "index.d.ts",
-        "ssh2-tests.ts"
+        "ssh2-streams-tests.ts"
     ]
 }
