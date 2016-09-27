@@ -470,12 +470,12 @@ declare module "restify" {
   }
 
   interface Client {
-    get: (path: string, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    head: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
-    post: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    put: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    patch: (path: string, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
-    del: (path: string, callback?: (err: any, req: Request, res: Response) => any) => any;
+    get: (opts: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    head: (opts: any, callback?: (err: any, req: Request, res: Response) => any) => any;
+    post: (opts: any, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    put: (opts: any, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    patch: (opts: any, object: any, callback?: (err: any, req: Request, res: Response, obj: any) => any) => any;
+    del: (opts: any, callback?: (err: any, req: Request, res: Response) => any) => any;
     basicAuth: (username: string, password: string) => any;
   }
 
