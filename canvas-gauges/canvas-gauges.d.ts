@@ -30,6 +30,7 @@ declare namespace CanvasGauges {
         minorTicks?: number,
         strokeTicks?: boolean,
         animatedValue?: boolean,
+        animateOnInit?: boolean,
         title?: string|boolean,
         borders?: boolean,
         valueInt?: number,

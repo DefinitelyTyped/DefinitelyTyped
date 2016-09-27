@@ -1,6 +1,6 @@
 // Type definitions for elasticsearch
 // Project: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/index.html
-// Definitions by: Casper Skydt <https://github.com/CasperSkydt/DefinitelyTyped>, Blake Smith <https://github.com/bfsmith/DefinitelyTyped>
+// Definitions by: Casper Skydt <https://github.com/CasperSkydt>, Blake Smith <https://github.com/bfsmith>, Dave Dunkin <https://github.com/ddunkin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module Elasticsearch {
@@ -15,14 +15,14 @@ declare module Elasticsearch {
         create(params: CreateDocumentParams, callback: (err: any, response: any, status: any) => void): void;
         delete(params: DeleteDocumentParams): PromiseLike<any>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: any) => void): void;
-        get(params: GetParams, callback: (error: any, response: any) => void): void;
+        get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
         get<T>(params: GetParams): PromiseLike<GetResponse<T>>;
         index<T>(params: IndexDocumentParams<T>): PromiseLike<any>;
         index<T>(params: IndexDocumentParams<T>, callback: (error: any, response: any) => void): void;
-        mget(params: MGetParams, callback: (error: any, response: any) => void): void;
-        mget<T>(params: MGetParams): PromiseLike<GetResponse<T>>;
-        msearch(params: MSearchParams, callback: (error: any, response: any) => void): void;
-        msearch<T>(params: MSearchParams): PromiseLike<GetResponse<T>>;
+        mget<T>(params: MGetParams, callback: (error: any, response: MGetResponse<T>) => void): void;
+        mget<T>(params: MGetParams): PromiseLike<MGetResponse<T>>;
+        msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
+        msearch<T>(params: MSearchParams): PromiseLike<MSearchResponse<T>>;
         ping(params: PingParams): PromiseLike<any>;
         ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
         scroll(params: ScrollParams): PromiseLike<any>;
@@ -109,7 +109,7 @@ declare module Elasticsearch {
     export interface CreateDocumentParams extends GenericParams {
         consistency?: "one" | "quorum" | "all";
         parent?: string;
-        refressh?: boolean;
+        refresh?: boolean;
         routing?: string;
         timeout?: number | Date;
         timestamp?: number | Date;
@@ -196,7 +196,8 @@ declare module Elasticsearch {
         versionType?: string;
     }
 
-    export interface GetResponse<T> extends GenericParams {
+    export interface GetResponse<T> {
+        _index: string;
         _type: string;
         _id: string;
         _version: number;
@@ -279,6 +280,10 @@ declare module Elasticsearch {
         search_type?: string;
     }
 
+    export interface MSearchResponse<T> {
+        responses?: SearchResponse<T>[];
+    }
+
     export interface MGetParams extends GenericParams {
         fields?: string | string[] | Boolean;
         preference?: string;
@@ -288,6 +293,10 @@ declare module Elasticsearch {
         _sourceInclude?: string | string[] | boolean;
         index?: string;
         type?: string;
+    }
+
+    export interface MGetResponse<T> {
+        docs?: GetResponse<T>[];
     }
 
     export interface IndicesIndexExitsParams extends GenericParams {
@@ -304,6 +313,7 @@ declare module Elasticsearch {
         index: string;
         type: string;
         id: string;
+        parent?: string;
         refresh?: boolean;
     }
 

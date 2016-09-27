@@ -619,7 +619,7 @@ interface ASPxClientDashboardDesigner extends ASPxClientControl {
      */
     DashboardStateChanged: ASPxClientEvent<ASPxClientDashboardStateChangedEventHandler<ASPxClientDashboardDesigner>>;
     /**
-     * Occurs after a dashboard displayed in the ASPxClientDashboardDesigner is changed.
+     * Occurs after another dashboard is loaded to the ASPxClientDashboardDesigner.
      */
     DashboardChanged: ASPxClientEvent<ASPxClientDashboardChangedEventHandler<ASPxClientDashboardDesigner>>;
     /**
@@ -1670,9 +1670,9 @@ interface ASPxClientBinaryImage extends ASPxClientEdit {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that contains any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -3407,9 +3407,9 @@ interface ASPxClientGaugeControl extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -8023,9 +8023,9 @@ interface ASPxClientPivotGrid extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
@@ -8304,9 +8304,9 @@ interface ASPxClientRichEdit extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -9358,6 +9358,8 @@ interface AbstractNumberingList {
  * Exposes the settings providing the information about the essential document functionality.
  */
 interface SubDocument {
+    id: number;
+    type: any;
     /**
      * Provides information about paragraphs contained in the document.
      * Value: An array of Paragraph objects storing information about document paragraphs.
@@ -9645,6 +9647,12 @@ declare enum HeaderFooterType {
     Primary=1,
     Even=2
 }
+declare enum SubDocumentType {
+    Main=0,
+    Header=1,
+    Footer=2,
+    TextBox=3
+}
 /**
  * Contains a set of methods and properties to work with the document selection.
  */
@@ -9825,6 +9833,9 @@ interface RichEditSelection {
      * Selects the editor's entire content.
      */
     selectAll(): void;
+    setMainSubDocumentAsActive(): void;
+    setFooterSubDocumentAsActiveByPageIndex(pageIndex: number): void;
+    setHeaderSubDocumentAsActiveByPageIndex(pageIndex: number): void;
 }
 /**
  * Defines a document's interval.
@@ -10199,11 +10210,6 @@ interface FileSaveCommand extends CommandWithSimpleStateBase {
      * Executes the FileSaveCommand command by imitating the corresponding end-user action made in the RichEdit's UI.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
      */
     execute(): boolean;
-    /**
-     * Executes the FileSaveCommand command by applying the specified setting.  May result in taking no action if the command's state does not allow command execution. Use the object's getState method to check the command state.
-     * @param path A string value specifying path to the saving file.
-     */
-    execute(path: string): boolean;
 }
 /**
  * A command to invoke the Save As dialog that prompts for a file name and saves the current document in a file with the specified path.
@@ -10657,7 +10663,7 @@ declare enum ListLevelFormat {
     DecimalEnclosedCircle=12,
     DecimalEnclosedCircleChinese=13,
     DecimalEnclosedFullstop=14,
-    DecimalEnclosedParenthses=15,
+    DecimalEnclosedParentheses=15,
     DecimalFullWidth=16,
     DecimalFullWidth2=17,
     DecimalHalfWidth=18,
@@ -12125,6 +12131,170 @@ declare enum BorderLineStyle {
     ThreeDEngrave=23,
     Outset=24,
     Inset=25,
+    Apples=26,
+    ArchedScallops=27,
+    BabyPacifier=28,
+    BabyRattle=29,
+    Balloons3Colors=30,
+    BalloonsHotAir=31,
+    BasicBlackDashes=32,
+    BasicBlackDots=33,
+    BasicBlackSquares=34,
+    BasicThinLines=35,
+    BasicWhiteDashes=36,
+    BasicWhiteDots=37,
+    BasicWhiteSquares=38,
+    BasicWideInline=39,
+    BasicWideMidline=40,
+    BasicWideOutline=41,
+    Bats=42,
+    Birds=43,
+    BirdsFlight=44,
+    Cabins=45,
+    CakeSlice=46,
+    CandyCorn=47,
+    CelticKnotwork=48,
+    CertificateBanner=49,
+    ChainLink=50,
+    ChampagneBottle=51,
+    CheckedBarBlack=52,
+    CheckedBarColor=53,
+    Checkered=54,
+    ChristmasTree=55,
+    CirclesLines=56,
+    CirclesRectangles=57,
+    ClassicalWave=58,
+    Clocks=59,
+    Compass=60,
+    Confetti=61,
+    ConfettiGrays=62,
+    ConfettiOutline=63,
+    ConfettiStreamers=64,
+    ConfettiWhite=65,
+    CornerTriangles=66,
+    CouponCutoutDashes=67,
+    CouponCutoutDots=68,
+    CrazyMaze=69,
+    CreaturesButterfly=70,
+    CreaturesFish=71,
+    CreaturesInsects=72,
+    CreaturesLadyBug=73,
+    CrossStitch=74,
+    Cup=75,
+    DecoArch=76,
+    DecoArchColor=77,
+    DecoBlocks=78,
+    DiamondsGray=79,
+    DoubleD=80,
+    DoubleDiamonds=81,
+    Earth1=82,
+    Earth2=83,
+    EclipsingSquares1=84,
+    EclipsingSquares2=85,
+    EggsBlack=86,
+    Fans=87,
+    Film=88,
+    Firecrackers=89,
+    FlowersBlockPrint=90,
+    FlowersDaisies=91,
+    FlowersModern1=92,
+    FlowersModern2=93,
+    FlowersPansy=94,
+    FlowersRedRose=95,
+    FlowersRoses=96,
+    FlowersTeacup=97,
+    FlowersTiny=98,
+    Gems=99,
+    GingerbreadMan=100,
+    Gradient=101,
+    Handmade1=102,
+    Handmade2=103,
+    HeartBalloon=104,
+    HeartGray=105,
+    Hearts=106,
+    HeebieJeebies=107,
+    Holly=108,
+    HouseFunky=109,
+    Hypnotic=110,
+    IceCreamCones=111,
+    LightBulb=112,
+    Lightning1=113,
+    Lightning2=114,
+    MapleLeaf=115,
+    MapleMuffins=116,
+    MapPins=117,
+    Marquee=118,
+    MarqueeToothed=119,
+    Moons=120,
+    Mosaic=121,
+    MusicNotes=122,
+    Northwest=123,
+    Ovals=124,
+    Packages=125,
+    PalmsBlack=126,
+    PalmsColor=127,
+    PaperClips=128,
+    Papyrus=129,
+    PartyFavor=130,
+    PartyGlass=131,
+    Pencils=132,
+    People=133,
+    PeopleHats=134,
+    PeopleWaving=135,
+    Poinsettias=136,
+    PostageStamp=137,
+    Pumpkin1=138,
+    PushPinNote1=139,
+    PushPinNote2=140,
+    Pyramids=141,
+    PyramidsAbove=142,
+    Quadrants=143,
+    Rings=144,
+    Safari=145,
+    Sawtooth=146,
+    SawtoothGray=147,
+    ScaredCat=148,
+    Seattle=149,
+    ShadowedSquares=150,
+    SharksTeeth=151,
+    ShorebirdTracks=152,
+    Skyrocket=153,
+    SnowflakeFancy=154,
+    Snowflakes=155,
+    Sombrero=156,
+    Southwest=157,
+    Stars=158,
+    Stars3d=159,
+    StarsBlack=160,
+    StarsShadowed=161,
+    StarsTop=162,
+    Sun=163,
+    Swirligig=164,
+    TornPaper=165,
+    TornPaperBlack=166,
+    Trees=167,
+    TriangleParty=168,
+    Triangles=169,
+    Tribal1=170,
+    Tribal2=171,
+    Tribal3=172,
+    Tribal4=173,
+    Tribal5=174,
+    Tribal6=175,
+    TwistedLines1=176,
+    TwistedLines2=177,
+    Vine=178,
+    Waveline=179,
+    WeavingAngles=180,
+    WeavingBraid=181,
+    WeavingRibbon=182,
+    WeavingStrips=183,
+    WhiteFlowers=184,
+    Woodwork=185,
+    XIllusions=186,
+    ZanyTriangles=187,
+    ZigZag=188,
+    ZigZagStitch=189,
     Nil=-1
 }
 /**
@@ -14070,6 +14240,11 @@ interface ASPxClientAppointmentDragEventArgs extends ASPxClientEventArgs {
      * Value: An ASPxClientAppointmentOperation object providing methods to perform the required operation.
      */
     operation: ASPxClientAppointmentOperation;
+    /**
+     * Provides information about dragged appointments.
+     * Value: An array of ASPxClientAppointmentDragInfo objects storing information about dragged appointments.
+     */
+    dragInformation: ASPxClientAppointmentDragInfo[];
 }
 interface AppointmentResizeEventHandler<S> {
     /**
@@ -14093,6 +14268,51 @@ interface ASPxClientAppointmentResizeEventArgs extends ASPxClientEventArgs {
      * Value: An ASPxClientAppointmentOperation object providing methods to perform the required operation.
      */
     operation: ASPxClientAppointmentOperation;
+    /**
+     * Gets the resized appointment's identifier.
+     * Value: A string containing an appointment identifier.
+     */
+    appointmentId: string;
+    /**
+     * Gets the appointment's interval before resizing.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    oldInterval: ASPxClientTimeInterval;
+    /**
+     * Gets the appointment's interval after resizing.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    newInterval: ASPxClientTimeInterval;
+}
+/**
+ * Stores information about an appointment drag operation.
+ */
+interface ASPxClientAppointmentDragInfo {
+    /**
+     * Gets the dragged appointment's identifier.
+     * Value: A string containing an appointment identifier.
+     */
+    appointmentId: string;
+    /**
+     * Gets the appointment's interval before the drag operation.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    oldInterval: ASPxClientTimeInterval;
+    /**
+     * Gets resources that were associated with the appointment before the drag operation.
+     * Value: A array of strings containing resource identifiers.
+     */
+    oldResources: string[];
+    /**
+     * Gets the appointment's interval after the drag operation.
+     * Value: An <see cref="ASPxClientTimeInterval" /> object representing the interval assigned to the appointment.
+     */
+    newInterval: ASPxClientTimeInterval;
+    /**
+     * Gets resources associated with the appointment after the drag operation.
+     * Value: An array of strings containing resource identifiers.
+     */
+    newResources: string[];
 }
 /**
  * Contains information about a client tooltip.
@@ -14429,9 +14649,9 @@ interface ASPxClientSpreadsheet extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -14580,6 +14800,9 @@ interface ASPxClientTreeList extends ASPxClientControl {
      * Sets input focus to the ASPxTreeList.
      */
     Focus(): void;
+    /**
+     * Gets the Popup Edit Form.
+     */
     GetPopupEditForm(): ASPxClientPopupControl;
     /**
      * Returns the focused node's key value.
@@ -14638,9 +14861,9 @@ interface ASPxClientTreeList extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -15219,9 +15442,9 @@ interface MVCxClientCallbackPanel extends ASPxClientCallbackPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the Callback Panel by processing the passed information on the server, in an Action specified by the Callback Panel's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15230,9 +15453,9 @@ interface MVCxClientCallbackPanel extends ASPxClientCallbackPanel {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15250,9 +15473,9 @@ interface MVCxClientCardView extends ASPxClientCardView {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the CardView by processing the passed information on the server, in an Action specified via the CardView's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CardView's CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15287,9 +15510,9 @@ interface MVCxClientChart extends ASPxClientWebChartControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update a Chart by processing the passed information on the server, in an Action specified via the Chart's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15298,9 +15521,9 @@ interface MVCxClientChart extends ASPxClientWebChartControl {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15318,9 +15541,9 @@ interface MVCxClientComboBox extends ASPxClientComboBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the ComboBox by processing the passed information on the server, in an Action specified by the ComboBox's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15343,9 +15566,9 @@ interface MVCxClientDataView extends ASPxClientDataView {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the DataView by processing the passed information on the server, in an Action specified via the DataView's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15354,9 +15577,9 @@ interface MVCxClientDataView extends ASPxClientDataView {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15375,9 +15598,9 @@ interface MVCxClientDockManager extends ASPxClientDockManager {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the DockManager by processing the passed information on the server, in an Action specified by the DockManager's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15386,9 +15609,9 @@ interface MVCxClientDockManager extends ASPxClientDockManager {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that contains any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15406,9 +15629,9 @@ interface MVCxClientDockPanel extends ASPxClientDockPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the DockPanel by processing the passed information on the server, in an Action specified by the DockPanel's DockPanelSettings.CallbackRouteValues) property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15431,9 +15654,9 @@ interface MVCxClientFileManager extends ASPxClientFileManager {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param data A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15442,9 +15665,9 @@ interface MVCxClientFileManager extends ASPxClientFileManager {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15462,9 +15685,9 @@ interface MVCxClientGridView extends ASPxClientGridView {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the GridView by processing the passed information on the server, in an Action specified via the grid's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15525,9 +15748,9 @@ interface MVCxClientImageGallery extends ASPxClientImageGallery {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the ImageGallery by processing the passed information on the server, in an Action specified via the ImageGallery's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15536,9 +15759,9 @@ interface MVCxClientImageGallery extends ASPxClientImageGallery {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15556,9 +15779,9 @@ interface MVCxClientListBox extends ASPxClientListBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the ListBox by processing the passed information on the server, in an Action specified by the ListBox's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15590,9 +15813,9 @@ interface MVCxClientPivotGrid extends ASPxClientPivotGrid {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the PivotGrid by processing the passed information on the server, in an Action specified via the grid's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15606,9 +15829,9 @@ interface MVCxClientPivotGrid extends ASPxClientPivotGrid {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15626,9 +15849,9 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the PopupControl by processing the passed information on the server, in an Action specified via the PopupControl's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15644,10 +15867,10 @@ interface MVCxClientPopupControl extends ASPxClientPopupControl {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
-     * 
-     * @param window 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback with parameters to update the popup window by processing the related popup window and the passed information on the server.
+     * @param window A ASPxClientPopupWindow object identifying the processed popup window.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -15721,9 +15944,9 @@ interface MVCxClientReportDesigner extends ASPxClientReportDesigner {
      */
     PerformCallback(arg: Object): void;
     /**
-     * 
-     * @param arg 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(arg: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15732,9 +15955,9 @@ interface MVCxClientReportDesigner extends ASPxClientReportDesigner {
      */
     PerformCallback(arg: string): void;
     /**
-     * 
-     * @param arg 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15773,9 +15996,9 @@ interface MVCxClientRichEdit extends ASPxClientRichEdit {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the RichEdit by processing the passed information on the server, in an Action specified via the CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15784,9 +16007,9 @@ interface MVCxClientRichEdit extends ASPxClientRichEdit {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15804,9 +16027,9 @@ interface MVCxClientRoundPanel extends ASPxClientRoundPanel {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the Round Panel by processing the passed information on the server, in an Action specified by the Round Panel's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15815,9 +16038,9 @@ interface MVCxClientRoundPanel extends ASPxClientRoundPanel {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side ContentCallback event, passing it the specified argument.
+     * @param parameter A string value that is any information that needs to be sent to the server-side ContentCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15836,9 +16059,9 @@ interface MVCxClientScheduler extends ASPxClientScheduler {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the Scheduler by processing the passed information on the server, in an Action specified via the Scheduler's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15890,9 +16113,9 @@ interface MVCxClientSpreadsheet extends ASPxClientSpreadsheet {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the Spreadsheet by processing the passed information on the server, in an Action specified via the CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15901,9 +16124,9 @@ interface MVCxClientSpreadsheet extends ASPxClientSpreadsheet {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15921,9 +16144,9 @@ interface MVCxClientPageControl extends ASPxClientPageControl {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the PageControl by processing the passed information on the server, in an Action specified by the PageControl's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15932,9 +16155,9 @@ interface MVCxClientPageControl extends ASPxClientPageControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -15952,9 +16175,9 @@ interface MVCxClientTokenBox extends ASPxClientTokenBox {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the TokenBox by processing the passed information on the server, in an Action specified by the TokenBox's CallbackRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified by the CallbackRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15977,9 +16200,9 @@ interface MVCxClientTreeList extends ASPxClientTreeList {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the TreeList by processing the passed information on the server, in an Action specified via the TreeList's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -15993,9 +16216,9 @@ interface MVCxClientTreeList extends ASPxClientTreeList {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -16095,9 +16318,9 @@ interface MVCxClientVerticalGrid extends ASPxClientVerticalGrid {
      */
     PerformCallback(data: Object): void;
     /**
-     * 
-     * @param data 
-     * @param onSuccess 
+     * Sends a callback with a parameter to update the VerticalGrid by processing the passed information on the server in an Action specified via the grid's CustomActionRouteValues property.
+     * @param data An object containing any information that needs to be passed to a handling Action specified via the grid's CustomActionRouteValues property.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(data: Object, onSuccess: (arg1: string) => void): void;
     /**
@@ -16221,9 +16444,9 @@ interface ASPxClientCallback extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -16280,9 +16503,9 @@ interface ASPxClientCallbackPanel extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -16788,9 +17011,9 @@ interface ASPxClientDataView extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -16858,9 +17081,9 @@ interface ASPxClientDockManager extends ASPxClientControl {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that contains any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -17604,9 +17827,9 @@ interface ASPxClientFileManager extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side CustomCallback event, passing it the specified argument.
+     * @param args A string value that specifies any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
 }
@@ -18889,6 +19112,9 @@ interface ASPxClientMenuBase extends ASPxClientControl {
  * Represents a client collection that maintains client menu objects.
  */
 interface ASPxClientMenuCollection extends ASPxClientControlCollection {
+    /**
+     * Recalculates the position of visible sub menus.
+     */
     RecalculateAll(): void;
     /**
      * Hides all menus maitained by the collection.
@@ -19589,10 +19815,10 @@ interface ASPxClientPopupControl extends ASPxClientPopupControlBase {
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string): void;
     /**
-     * 
-     * @param window 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback with parameters to update the popup window by processing the related popup window and the passed information on the server.
+     * @param window A ASPxClientPopupWindow object identifying the processed popup window.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side CustomCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformWindowCallback(window: ASPxClientPopupWindow, parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -20479,9 +20705,9 @@ interface ASPxClientRoundPanel extends ASPxClientPanelBase {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side ContentCallback event, passing it the specified argument.
+     * @param parameter A string value that is any information that needs to be sent to the server-side ContentCallback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -20854,9 +21080,9 @@ interface ASPxClientPageControl extends ASPxClientTabControlBase {
      */
     PerformCallback(parameter: string): void;
     /**
-     * 
-     * @param parameter 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side Callback event, passing it the specified argument.
+     * @param parameter A string value that represents any information that needs to be sent to the server-side Callback event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(parameter: string, onSuccess: (arg1: string) => void): void;
 }
@@ -21712,9 +21938,9 @@ interface ASPxClientChartDesigner extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * 
-     * @param arg 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -21871,9 +22097,9 @@ interface ASPxClientWebChartControl extends ASPxClientControl {
      */
     PerformCallback(args: string): void;
     /**
-     * 
-     * @param args 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param args A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(args: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -22103,7 +22329,7 @@ interface ASPxClientWebChartHitInfo {
      */
     inChartTitle: boolean;
     /**
-     * Gets a value indicating whether the test point is within the axis.
+     * Gets a value indicating whether the test point is within the .
      * Value: true if the test point is within an axis; otherwise, false.
      */
     inAxis: boolean;
@@ -22333,17 +22559,17 @@ interface ASPxClientDiagramCoordinates {
      */
     dateTimeValue: Date;
     /**
-     * Gets the X-axis of the diagram point.
+     * Gets the X- of the diagram point.
      * Value: An ASPxClientAxisBase descendant, representing the axis of arguments (X-axis).
      */
     axisX: ASPxClientAxisBase;
     /**
-     * Gets the Y-axis of the diagram point.
+     * Gets the Y- of the diagram point.
      * Value: An ASPxClientAxisBase descendant, representing the axis of values (Y-axis).
      */
     axisY: ASPxClientAxisBase;
     /**
-     * Gets the pane of the diagram point.
+     * Gets the  of the diagram point.
      * Value: An ASPxClientXYDiagramPane descendant, representing the pane.
      */
     pane: ASPxClientXYDiagramPane;
@@ -22562,12 +22788,12 @@ interface ASPxClientXYDiagram2D extends ASPxClientXYDiagramBase {
      */
     secondaryAxesY: ASPxClientAxis[];
     /**
-     * Provides access to a default pane object.
+     * Provides access to a default  object.
      * Value: An ASPxClientXYDiagramPane object which represents the default pane of a chart.
      */
     defaultPane: ASPxClientXYDiagramPane;
     /**
-     * Provides access to an array of a diagram's panes.
+     * Provides access to an array of a diagram's .
      * Value: An array of ASPxClientXYDiagramPane objects.
      */
     panes: ASPxClientXYDiagramPane[];
@@ -22699,7 +22925,7 @@ interface ASPxClientRadarAxis extends ASPxClientAxisBase {
  */
 interface ASPxClientAxisTitle extends ASPxClientWebChartRequiredElement {
     /**
-     * Gets the axis to which the axis title belongs.
+     * Gets the  to which the axis title belongs.
      * Value: An ASPxClientAxisBase descendant, which identifies the axis.
      */
     axis: ASPxClientAxisBase;
@@ -22714,7 +22940,7 @@ interface ASPxClientAxisTitle extends ASPxClientWebChartRequiredElement {
  */
 interface ASPxClientAxisLabelItem extends ASPxClientWebChartRequiredElement {
     /**
-     * Gets the axis to which an axis label item belongs.
+     * Gets the  to which an axis label item belongs.
      * Value: An ASPxClientAxisBase descendant, which identifies the axis.
      */
     axis: ASPxClientAxisBase;
@@ -23875,9 +24101,9 @@ interface ASPxClientQueryBuilder extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * 
-     * @param arg 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -24036,9 +24262,9 @@ interface ASPxClientReportDesigner extends ASPxClientControl {
      */
     PerformCallback(arg: string): void;
     /**
-     * 
-     * @param arg 
-     * @param onSuccess 
+     * Sends a callback to the server and generates the server-side event, passing it the specified argument.
+     * @param arg A string value that represents any information that needs to be sent to the server-side event.
+     * @param onSuccess A client action to perform if the server round-trip completed successfully.
      */
     PerformCallback(arg: string, onSuccess: (arg1: string) => void): void;
     /**
@@ -25128,6 +25354,7 @@ interface ASPxClientButtonEditStatic extends ASPxClientButtonEditBaseStatic {
     Cast(obj: Object): ASPxClientButtonEdit;
 }
 interface ASPxClientTokenBoxStatic extends ASPxClientComboBoxStatic {
+    Cast(obj: Object): ASPxClientTokenBox;
 }
 interface ASPxClientTrackBarStatic extends ASPxClientEditStatic {
     /**
@@ -25909,6 +26136,7 @@ interface ASPxClientPivotGridStatic extends ASPxClientControlStatic {
 interface ASPxClientPivotCustomizationStatic extends ASPxClientControlStatic {
 }
 interface ASPxClientRichEditStatic extends ASPxClientControlStatic {
+    Cast(obj: Object): ASPxClientRichEdit;
 }
 interface ASPxSchedulerDateTimeHelperStatic {
     /**
@@ -25922,10 +26150,11 @@ interface ASPxSchedulerDateTimeHelperStatic {
      */
     ToDayTime(date: Date): any;
     /**
-     * Adds the specified number of days to a DateTime object and returns the result.
-     * @param date A DateTime object to which to add days.
+     * 
+     * @param date 
+     * @param dayCount 
      */
-    AddDays(date: Date): Date;
+    AddDays(date: Date, dayCount: number): Date;
     /**
      * Adds the specified timespan to a DateTime object and returns the result.
      * @param date A DateTime object to which to add a timespan.
@@ -25978,6 +26207,7 @@ interface ASPxClientSpellCheckerStatic extends ASPxClientControlStatic {
     Cast(obj: Object): ASPxClientSpellChecker;
 }
 interface ASPxClientSpreadsheetStatic extends ASPxClientControlStatic {
+    Cast(obj: Object): ASPxClientSpreadsheet;
 }
 interface ASPxClientTreeListStatic extends ASPxClientControlStatic {
     /**
@@ -26393,6 +26623,11 @@ interface ASPxClientFileManagerErrorConstsStatic {
     AlreadyExists: number;
 }
 interface ASPxClientFormLayoutStatic extends ASPxClientControlStatic {
+    /**
+     * Converts the specified object to the current object's type. This method is effective when you utilize the Client API IntelliSense feature provided by DevExpress.
+     * @param obj The client object to be type cast. Represents an instance of a DevExpress web control's client object.
+     */
+    Cast(obj: Object): ASPxClientFormLayout;
 }
 interface ASPxClientHiddenFieldStatic extends ASPxClientControlStatic {
     /**
