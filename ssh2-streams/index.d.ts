@@ -24,100 +24,589 @@ declare module "ssh2-streams" {
          */
         constructor(config?: SSH2StreamConfig);
 
-        /** (Client/Server) */ ping(): boolean;
-        /** (Client/Server) */ disconnect(reasonCode?: number): boolean;
-        /** (Client/Server) */ rekey(): boolean;
-        /** (Client/Server) */ requestSuccess(data?: Buffer): boolean;
-        /** (Client/Server) */ requestFailure(): boolean;
-        /** (Client/Server) */ channelSuccess(channel: number): boolean;
-        /** (Client/Server) */ channelFailure(channel: number): boolean;
-        /** (Client/Server) */ channelEOF(channel: number): boolean;
-        /** (Client/Server) */ channelClose(channel: number): boolean;
-        /** (Client/Server) */ channelWindowAdjust(channel: number, amount: number): boolean;
-        /** (Client/Server) */ channelData(channel: number, data: string | Buffer): boolean;
-        /** (Client/Server) */ channelExtData(channel: number, data: string | Buffer, type: number): boolean;
-        /** (Client/Server) */ channelOpenConfirm(remoteChannel: number, localChannel: number, initWindow: number, maxPacket: number): boolean;
-        /** (Client/Server) */ channelOpenFail(remoteChannel: number, reasonCode: number, description?: string, lang?: string): boolean;
+        /**
+         * (Client/Server)
+         * Writes a dummy GLOBAL_REQUEST packet (specifically "keepalive@openssh.com") that requests a reply.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        ping(): boolean;
 
-        /** (Client-only) */ service(serviceName: string): boolean;
-        /** (Client-only) */ tcpipForward(bindAddr: string, bindPort: number, wantReply?: boolean): boolean;
-        /** (Client-only) */ cancelTcpipForward(bindAddr: string, bindPort: number, wantReply?: boolean): boolean;
-        /** (Client-only) */ authPassword(username: string, password: string): boolean;
-        /** (Client-only) */ authPK(username: string, pubKey: ParsedKey, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
-        /** (Client-only) */ authHostBased(username: string, pubKey: ParsedKey, localHostname: string, localUsername: string, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
-        /** (Client-only) */ authKeyboard(username: string): boolean;
-        /** (Client-only) */ authNone(username: string): boolean;
-        /** (Client-only) */ authInfoRes(responses?: string[]): boolean;
-        /** (Client-only) */ directTcpip(channel: number, initWindow: number, maxPacket: number, config: TcpipForwardingConfig): boolean;
-        /** (Client-only) */ session(channel: number, initWindow: number, maxPacket: number): boolean;
-        /** (Client-only) */ openssh_agentForward(channel: number, wantReply?: boolean): boolean;
-        /** (Client-only) */ windowChange(channel: number, rows: number, cols: number, height: number, width: number): boolean;
-        /** (Client-only) */ pty(channel: number, rows: number, cols: number, height: number, width: number, terminalType?: string, terminalModes?: any, wantReply?: boolean): boolean;
-        /** (Client-only) */ env(channel: number, key: string, value: string | Buffer, wantReply?: boolean): boolean;
-        /** (Client-only) */ shell(channel: number, wantReply?: boolean): boolean;
-        /** (Client-only) */ exec(channel: number, command: string, wantReply?: boolean): boolean;
-        /** (Client-only) */ signal(channel: number, signalName: string): boolean;
-        /** (Client-only) */ x11Forward(channel: number, config: X11ForwardingConfig, wantReply?: boolean): boolean;
-        /** (Client-only) */ subsystem(channel: number, name: string, wantReply?: boolean): boolean;
-        /** (Client-only) */ openssh_noMoreSessions(wantReply?: boolean): boolean;
-        /** (Client-only) */ openssh_streamLocalForward(socketPath: string, wantReply?: boolean): boolean;
-        /** (Client-only) */ openssh_cancelStreamLocalForward(socketPath: string, wantReply?: boolean): boolean;
-        /** (Client-only) */ openssh_directStreamLocal(channel: number, initWindow: number, maxPacket: number, config: SocketForwardingConfig): boolean;
+        /**
+         * (Client/Server)
+         * Writes a disconnect packet and closes the stream.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        disconnect(reasonCode?: number): boolean;
 
-        /** (Server-only) */ serviceAccept(serviceName: string): boolean;
-        /** (Server-only) */ authFailure(authMethods?: string[], partialSuccess?: boolean): boolean;
-        /** (Server-only) */ authSuccess(): boolean;
-        /** (Server-only) */ authPKOK(keyAlgorithm: string, keyData: Buffer): boolean;
-        /** (Server-only) */ authInfoReq(name: string, instructions: string, prompts: Prompt[]): boolean;
-        /** (Server-only) */ forwardedTcpip(channel: number, initWindow: number, maxPacket: number, info: ForwardedTcpip): boolean;
-        /** (Server-only) */ x11(channel: number, initWindow: number, maxPacket: number, info: ForwardedX11): boolean;
-        /** (Server-only) */ openssh_forwardedStreamLocal(channel: number, initWindow: number, maxPacket: number, info: ForwardedSocket): boolean;
-        /** (Server-only) */ exitStatus(channel: number, exitCode: number): boolean;
-        /** (Server-only) */ exitSignal(channel: number, signalName: string, coreDumped: boolean, errorMessage: string): boolean;
+        /**
+         * (Client/Server)
+         * Starts the re-keying process. Incoming/Outgoing packets are buffered until the re-keying
+         * process has finished. Returns `false` to indicate that no more packets should be written
+         * until the `NEWKEYS` event is seen.
+         */
+        rekey(): boolean;
 
-        /** (Client/Server) */ on(event: "header", listener: (header: Header) => void): this;
-        /** (Client/Server) */ on(event: "GLOBAL_REQUEST", listener: (reqName: string, wantReply: boolean, request: GlobalRequest | Buffer | undefined) => void): this;
-        /** (Client/Server) */ on(event: "DISCONNECT", listener: (reason: string, reasonCode: number, description: string) => void): this;
-        /** (Client/Server) */ on(event: "DEBUG", listener: (message: string) => void): this;
-        /** (Client/Server) */ on(event: "NEWKEYS", listener: () => void): this;
-        /** (Client/Server) */ on(event: "REQUEST_SUCCESS", listener: (resData: Buffer) => void): this;
-        /** (Client/Server) */ on(event: "REQUEST_FAILURE", listener: () => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_OPEN", listener: (channelInfo: ChannelOpenInfo) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_OPEN_CONFIRMATION:0", listener: (channelInfo: ChannelOpenConfirmationInfo) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_OPEN_FAILURE:0", listener: (failInfo: ChannelOpenFailureInfo) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_REQUEST:0", listener: (request: ChannelRequest) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_DATA:0", listener: (data: Buffer) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_EXTENDED_DATA:0", listener: (type: number, data: Buffer) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_WINDOW_ADJUST:0", listener: (bytesToAdd: number) => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_SUCCESS:0", listener: () => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_FAILURE:0", listener: () => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_EOF:0", listener: () => void): this;
-        /** (Client/Server) */ on(event: "CHANNEL_CLOSE:0", listener: () => void): this;
+        /**
+         * (Client/Server)
+         * Writes a request success packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        requestSuccess(data?: Buffer): boolean;
 
-        /** (Client-only) */ on(event: "fingerprint", listener: (hostKey: Buffer, callback: (success: boolean) => void) => void): this;
-        /** (Client-only) */ on(event: "SERVICE_ACCEPT", listener: (serviceName: string) => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_PASSWD_CHANGEREQ", listener: (message: string) => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_INFO_REQUEST", listener: (name: string, instructions: string, lang: string, prompts: Prompt[]) => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_PK_OK", listener: () => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_SUCCESS", listener: () => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_FAILURE", listener: (methodsContinue: string[], partialSuccess: boolean) => void): this;
-        /** (Client-only) */ on(event: "USERAUTH_BANNER", listener: (message: string) => void): this;
+        /**
+         * (Client/Server)
+         * Writes a request failure packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        requestFailure(): boolean;
 
-        /** (Server-only) */ on(event: "SERVICE_REQUEST", listener: (serviceName: string) => void): this;
-        /** (Server-only) */ on(event: "USERAUTH_REQUEST", listener: (username: string, serviceName: string, authMethod: string, authMethodData: AuthMethodData) => void): this;
-        /** (Server-only) */ on(event: "USERAUTH_INFO_RESPONSE", listener: (responses: string[]) => void): this;
+        /**
+         * (Client/Server)
+         * Writes a channel success packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelSuccess(channel: number): boolean;
 
-        on(event: "end", listener: () => void): this;
-        on(event: "close", listener: () => void): this;
-        on(event: "drain", listener: () => void): this;
-        on(event: "error", listener: (err: any) => void): this;
-        on(event: "finish", listener: () => void): this;
-        on(event: "pipe", listener: (src: stream.Readable) => void): this;
-        on(event: "unpipe", listener: (src: stream.Readable) => void): this;
-        on(event: "data", listener: (chunk: string | Buffer) => void): this;
-        on(event: "readable", listener: () => void): this;
-        on(event: "continue", listener: () => void): this;
+        /**
+         * (Client/Server)
+         * Writes a channel failure packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelFailure(channel: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel EOF packet for the given `channel`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelEOF(channel: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel close packet for the given `channel`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelClose(channel: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel window adjust packet for the given `channel` where `amount` is the
+         * number of bytes to add to the channel window.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelWindowAdjust(channel: number, amount: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel data packet for the given `channel` where `data` is a _Buffer_ or _string_.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelData(channel: number, data: string | Buffer): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel extended data packet for the given `channel` where `data is a _Buffer_
+         * or _string_.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelExtData(channel: number, data: string | Buffer, type: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel open confirmation packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelOpenConfirm(remoteChannel: number, localChannel: number, initWindow: number, maxPacket: number): boolean;
+
+        /**
+         * (Client/Server)
+         * Writes a channel open failure packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        channelOpenFail(remoteChannel: number, reasonCode: number, description?: string, lang?: string): boolean;
+
+
+        /**
+         * (Client-only)
+         * Writes a service request packet for `serviceName`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        service(serviceName: string): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a tcpip forward global request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        tcpipForward(bindAddr: string, bindPort: number, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a cancel tcpip forward global request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        cancelTcpipForward(bindAddr: string, bindPort: number, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a password userauth request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authPassword(username: string, password: string): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a publickey userauth request packet. `pubKey` is the object returned from using
+         * `utils.parseKey()` on a private or public key. If `cbSign` is not present, a pubkey
+         * check userauth packet is written. Otherwise `cbSign` is called with `(blob, callback)`,
+         * where `blob` is the data to sign with the private key and the resulting signature
+         * _Buffer_ is passed to `callback` as the first argument.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authPK(username: string, pubKey: ParsedKey, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a hostbased userauth request packet. `pubKey` is the object returned from using
+         * `utils.parseKey()` on a private or public key. `cbSign` is called with `(blob, callback)`,
+         * where `blob` is the data to sign with the private key and the resulting signature
+         * _Buffer_ is passed to `callback` as the first argument.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authHostBased(username: string, pubKey: ParsedKey, localHostname: string, localUsername: string, cbSign?: (blob: Buffer, callback: (signedBlob: Buffer) => void) => void): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a keyboard-interactive userauth request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authKeyboard(username: string): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a "none" userauth request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authNone(username: string): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a userauth info response packet. `responses` is an _array_ of zero or more strings
+         * corresponding to responses to prompts previously sent by the server.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authInfoRes(responses?: string[]): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a direct tcpip channel open packet. `config` must contain `srcIP`, `srcPort`,
+         * `dstIP`, and `dstPort`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        directTcpip(channel: number, initWindow: number, maxPacket: number, config: TcpipForwardingConfig): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a session channel open packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        session(channel: number, initWindow: number, maxPacket: number): boolean;
+
+        /**
+         * (Client-only)
+         * Writes an `auth-agent-req@openssh.com` channel request packet. `wantReply` defaults to
+         * `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_agentForward(channel: number, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a window change channel request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        windowChange(channel: number, rows: number, cols: number, height: number, width: number): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a pty channel request packet. If `terminalType` is falsey, `vt100` is used.
+         * `terminalModes` can be the raw bytes, an _object_ of the terminal modes to set, or a falsey value for no modes. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        pty(channel: number, rows: number, cols: number, height: number, width: number, terminalType?: string, terminalModes?: any, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes an env channel request packet. `value` can be a _string_ or _Buffer_. `wantReply`
+         * defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        env(channel: number, key: string, value: string | Buffer, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a shell channel request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        shell(channel: number, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes an exec channel request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        exec(channel: number, command: string, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a signal channel request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        signal(channel: number, signalName: string): boolean;
+
+        /**
+         * (Client-only)
+         * Writes an X11 forward channel request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        x11Forward(channel: number, config: X11ForwardingConfig, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a subsystem channel request packet. `name` is the name of the subsystem (e.g.
+         * `sftp` or `netconf`). `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        subsystem(channel: number, name: string, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a no-more-sessions@openssh.com request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_noMoreSessions(wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a streamlocal-forward@openssh.com request packet. `wantReply` defaults to `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_streamLocalForward(socketPath: string, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a cancel-streamlocal-forward@openssh.com request packet. `wantReply` defaults to
+         * `true`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_cancelStreamLocalForward(socketPath: string, wantReply?: boolean): boolean;
+
+        /**
+         * (Client-only)
+         * Writes a direct-streamlocal@openssh.com channel open packet. `config` must contain
+         * `socketPath`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_directStreamLocal(channel: number, initWindow: number, maxPacket: number, config: SocketForwardingConfig): boolean;
+
+
+        /**
+         * (Server-only)
+         * Writes a service accept packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        serviceAccept(serviceName: string): boolean;
+
+        /**
+         * (Server-only)
+         * Writes a userauth failure packet. `authMethods` is an _array_ of authentication methods
+         * that can continue.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authFailure(authMethods?: string[], partialSuccess?: boolean): boolean;
+
+        /**
+         * (Server-only)
+         * Writes a userauth success packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authSuccess(): boolean;
+
+        /**
+         * (Server-only)
+         * Writes a userauth PK OK packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authPKOK(keyAlgorithm: string, keyData: Buffer): boolean;
+
+        /**
+         * (Server-only)
+         * Writes a userauth info request packet. `prompts` is an array of `Prompt` objects.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        authInfoReq(name: string, instructions: string, prompts: Prompt[]): boolean;
+
+        /**
+         * (Server-only)
+         * Writes a forwarded tcpip channel open packet. `info` must contain `boundAddr`,
+         * `boundPort`, `remoteAddr`, and `remotePort`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        forwardedTcpip(channel: number, initWindow: number, maxPacket: number, info: ForwardedTcpip): boolean;
+
+        /**
+         * (Server-only)
+         * Writes an X11 channel open packet. `info` must contain `originAddr` and `originPort`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        x11(channel: number, initWindow: number, maxPacket: number, info: ForwardedX11): boolean;
+
+        /**
+         * (Server-only)
+         * Writes an forwarded-streamlocal@openssh.com channel open packet. `info` must contain
+         * `socketPath`.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        openssh_forwardedStreamLocal(channel: number, initWindow: number, maxPacket: number, info: ForwardedSocket): boolean;
+
+        /**
+         * (Server-only)
+         * Writes an exit status channel request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        exitStatus(channel: number, exitCode: number): boolean;
+
+        /**
+         * (Server-only)
+         * Writes an exit signal channel request packet.
+         *
+         * Returns `false` if you should wait for the `continue` event before sending any more traffic.
+         */
+        exitSignal(channel: number, signalName: string, coreDumped: boolean, errorMessage: string): boolean;
+
+
+        /**
+         * (Client/Server)
+         * Emitted when the protocol header is seen.
+         */
+        on(event: "header", listener: (header: Header) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "GLOBAL_REQUEST", listener: (reqName: string, wantReply: boolean, request: GlobalRequest | Buffer | undefined) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "DISCONNECT", listener: (reason: string, reasonCode: number, description: string) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "DEBUG", listener: (message: string) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "NEWKEYS", listener: () => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "REQUEST_SUCCESS", listener: (resData: Buffer) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "REQUEST_FAILURE", listener: () => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_OPEN", listener: (channelInfo: ChannelOpenInfo) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_OPEN_CONFIRMATION:0", listener: (channelInfo: ChannelOpenConfirmationInfo) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_OPEN_FAILURE:0", listener: (failInfo: ChannelOpenFailureInfo) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_REQUEST:0", listener: (request: ChannelRequest) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_DATA:0", listener: (data: Buffer) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_EXTENDED_DATA:0", listener: (type: number, data: Buffer) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_WINDOW_ADJUST:0", listener: (bytesToAdd: number) => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_SUCCESS:0", listener: () => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_FAILURE:0", listener: () => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_EOF:0", listener: () => void): this;
+
+        /**
+         * (Client/Server)
+         */
+        on(event: "CHANNEL_CLOSE:0", listener: () => void): this;
+
+
+        /**
+         * (Client-only)
+         * This event allows you to verify a host's key. If `callback` is called with `true`, the
+         * handshake continues. Otherwise a disconnection will occur if `callback` is called with
+         * `false`. The default behavior is to auto-allow any host key if there are no handlers
+         * for this event.
+         */
+        on(event: "fingerprint", listener: (hostKey: Buffer, callback: (success: boolean) => void) => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "SERVICE_ACCEPT", listener: (serviceName: string) => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_PASSWD_CHANGEREQ", listener: (message: string) => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_INFO_REQUEST", listener: (name: string, instructions: string, lang: string, prompts: Prompt[]) => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_PK_OK", listener: () => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_SUCCESS", listener: () => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_FAILURE", listener: (methodsContinue: string[], partialSuccess: boolean) => void): this;
+
+        /**
+         * (Client-only)
+         */
+        on(event: "USERAUTH_BANNER", listener: (message: string) => void): this;
+
+        /**
+         * (Server-only)
+         */
+        on(event: "SERVICE_REQUEST", listener: (serviceName: string) => void): this;
+
+        /**
+         * (Server-only)
+         */
+        on(event: "USERAUTH_REQUEST", listener: (username: string, serviceName: string, authMethod: string, authMethodData: AuthMethodData) => void): this;
+
+        /**
+         * (Server-only)
+         */
+        on(event: "USERAUTH_INFO_RESPONSE", listener: (responses: string[]) => void): this;
+
+        /**
+         * Emitted when the connection has authenticated.
+         */
         on(event: "ready", listener: () => void): this;
+
+        /**
+         * Emitted when the socket has disconnected.
+         */
+        on(event: "end", listener: () => void): this;
+
+        /**
+         * Emitted when the client socket was closed.
+         */
+        on(event: "close", listener: () => void): this;
+
+        /**
+         * Emitted when more requests/data can be sent to the stream.
+         */
+        on(event: "continue", listener: () => void): this;
+
+        /**
+         * Emitted when an error occurred.
+         */
+        on(event: "error", listener: (err: any) => void): this;
+
         on(event: string | symbol, listener: Function): this;
     }
 
