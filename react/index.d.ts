@@ -272,7 +272,7 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
-        currentTarget: EventTarget & T;
+        currentTarget: EventTarget;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -283,7 +283,7 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        target: EventTarget;
+        target: EventTarget & T;
         timeStamp: Date;
         type: string;
     }
