@@ -492,7 +492,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * end (after an active pointer becomes inactive [such as on mouseup].)
      * @param listener Use null to remove the listener.
      */
-    on(typenames: string, callback: null): this;
+    on(typenames: string, listener: null): this;
     /**
      * Set the event listener for the specified typenames and return the zoom behavior.
      * If an event listener was already registered for the same type and name,
@@ -509,7 +509,7 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element.
      */
-    on(typenames: string, callback: ValueFn<ZoomRefElement, Datum, void>): this;
+    on(typenames: string, listener: ValueFn<ZoomRefElement, Datum, void>): this;
 }
 
 /**
