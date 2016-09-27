@@ -36,10 +36,15 @@ declare module "rethinkdb" {
     export class Cursor {
         hasNext(): boolean;
         each(cb: (err: Error, row: any) => void, done?: () => void): void;
+        each<T>(cb: (err: Error, row: T) => void, done?: () => void): void;
         each(cb: (err: Error, row: any) => boolean, done?: () => void): void; // returning false stops iteration
+        each<T>(cb: (err: Error, row: T) => boolean, done?: () => void): void; // returning false stops iteration
         next(cb: (err: Error, row: any) => void): void;
+        next<T>(cb: (err: Error, row: T) => void): void;
         toArray(cb: (err: Error, rows: any[]) => void): void;
+        toArray<T>(cb: (err: Error, rows: T[]) => void): void;
         toArray(): Promise<any[]>;
+        toArray<T>(): Promise<T[]>;
         close(cb: (err: Error) => void): void;
         close(): Promise<void>;
     }
