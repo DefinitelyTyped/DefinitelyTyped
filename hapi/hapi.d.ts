@@ -1872,8 +1872,9 @@ declare module "hapi" {
 			}
 			}
 			});*/
-			strategy(name: string, scheme: any, mode?: boolean | string, options?: any): void;
-			strategy(name: string, scheme: any, modeOrOptions: any): void;
+			strategy(name: string, scheme: string, mode?: boolean | string, options?: any): void;
+			strategy(name: string, scheme: string, mode?: boolean | string): void;
+			strategy(name: string, scheme: string, options?:any): void;
 
 			/** server.auth.test(strategy, request, next)
 			 Tests a request against an authentication strategy where:
