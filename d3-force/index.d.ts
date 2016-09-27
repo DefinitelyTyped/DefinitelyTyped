@@ -126,8 +126,8 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
      * - vx (the node’s current x-velocity)
      * - vy (the node’s current y-velocity)
      *
-     * The position ⟨x,y⟩ and velocity ⟨vx,vy⟩ may be subsequently modified by forces and by the simulation.
-     * If either vx or vy is NaN, the velocity is initialized to ⟨0,0⟩. If either x or y is NaN, the position is initialized in a phyllotaxis arrangement,
+     * The position [x,y] and velocity [vx,vy] may be subsequently modified by forces and by the simulation.
+     * If either vx or vy is NaN, the velocity is initialized to [0,0]. If either x or y is NaN, the position is initialized in a phyllotaxis arrangement,
      * so chosen to ensure a deterministic, uniform distribution around the origin.
      *
      * To fix a node in a given position, you may specify two additional properties:
@@ -243,7 +243,7 @@ export interface Simulation<NodeDatum extends SimulationNodeDatum, LinkDatum ext
     force(name: string, force: Force<NodeDatum, LinkDatum>): this;
 
     /**
-     * Return the node closest to the position ⟨x,y⟩ with the given search radius.
+     * Return the node closest to the position [x,y] with the given search radius.
      * If radius is not specified, it defaults to infinity.
      * If there is no node within the search area, returns undefined.
      *
@@ -331,8 +331,8 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum
  * A force is simply a function that modifies nodes’ positions or velocities; in this context, a force can apply a classical physical force such as electrical charge or gravity,
  * or it can resolve a geometric constraint, such as keeping nodes within a bounding box or keeping linked nodes a fixed distance apart.
  *
- * Forces typically read the node’s current position ⟨x,y⟩ and then add to (or subtract from) the node’s velocity ⟨vx,vy⟩.
- * However, forces may also “peek ahead” to the anticipated next position of the node, ⟨x + vx,y + vy⟩; this is necessary for resolving geometric constraints through iterative relaxation.
+ * Forces typically read the node’s current position [x,y] and then add to (or subtract from) the node’s velocity [vx,vy].
+ * However, forces may also “peek ahead” to the anticipated next position of the node, [x + vx,y + vy]; this is necessary for resolving geometric constraints through iterative relaxation.
  * Forces may also modify the position directly, which is sometimes useful to avoid adding energy to the simulation, such as when recentering the simulation in the viewport.
  *
  * Forces may optionally implement force.initialize to receive the simulation’s array of nodes.
@@ -359,7 +359,7 @@ export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends 
 
 /**
  * The centering force translates nodes uniformly so that the mean position of all nodes
- * (the center of mass if all nodes have equal weight) is at the given position ⟨x,y⟩.
+ * (the center of mass if all nodes have equal weight) is at the given position [x,y].
  * This force modifies the positions of nodes on each application; it does not modify velocities,
  * as doing so would typically cause the nodes to overshoot and oscillate around the desired center.
  * This force helps keeps nodes in the center of the viewport, and unlike the positioning force,
@@ -392,10 +392,10 @@ export interface ForceCenter<NodeDatum extends SimulationNodeDatum> extends Forc
 
 /**
  * Create a new centering force with the specified x- and y- coordinates.
- * If x and y are not specified, they default to ⟨0,0⟩.
+ * If x and y are not specified, they default to [0,0].
  *
  * The centering force translates nodes uniformly so that the mean position of all nodes
- * (the center of mass if all nodes have equal weight) is at the given position ⟨x,y⟩.
+ * (the center of mass if all nodes have equal weight) is at the given position [x,y].
  * This force modifies the positions of nodes on each application; it does not modify velocities,
  * as doing so would typically cause the nodes to overshoot and oscillate around the desired center.
  * This force helps keeps nodes in the center of the viewport, and unlike the positioning force,
@@ -425,9 +425,9 @@ export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends For
     /**
      * Set the radius used in collision detection to a constant number for each node.
      *
-     * The constant is internally wrapped into radius accessor function.
+     * The constant is internally wrapped into a radius accessor function.
      *
-     * The radius accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The radius accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the radius of each node is only recomputed
      * when the force is initialized or when this method is called with a new radius, and not on every application of the force.
      *
@@ -437,11 +437,11 @@ export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends For
     /**
      * Set the radius accessor function determining the radius for each node in collision detection.
      *
-     * The radius accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The radius accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the radius of each node is only recomputed
      * when the force is initialized or when this method is called with a new radius, and not on every application of the force.
      *
-     * @param radius A radius accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param radius A radius accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns a radius.
      */
     radius(radius: (node: NodeDatum, i: number, nodes: Array<NodeDatum>) => number): this;
@@ -455,7 +455,7 @@ export interface ForceCollide<NodeDatum extends SimulationNodeDatum> extends For
      * The default strength is 0.7.
      *
      * Overlapping nodes are resolved through iterative relaxation.
-     * For each node, the other nodes that are anticipated to overlap at the next tick (using the anticipated positions ⟨x + vx,y + vy⟩) are determined;
+     * For each node, the other nodes that are anticipated to overlap at the next tick (using the anticipated positions [x + vx,y + vy]) are determined;
      * the node’s velocity is then modified to push the node out of each overlapping node.
      * The change in velocity is dampened by the force’s strength such that the resolution of simultaneous overlaps can be blended together to find a stable solution.
      *
@@ -507,11 +507,11 @@ export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: numb
  * More formally, two nodes a and b are separated so that the distance between a and b is at least radius(a) + radius(b).
  * To reduce jitter, this is by default a “soft” constraint with a configurable strength and iteration count.
  *
- * The radius accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+ * The radius accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
  * The resulting number is then stored internally, such that the radius of each node is only recomputed
  * when the force is initialized or when this method is called with a new radius, and not on every application of the force.
  *
- * @param radius A radius accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+ * @param radius A radius accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
  * The function returns a radius.
  */
 export function forceCollide<NodeDatum extends SimulationNodeDatum>(radius: (node: NodeDatum, i: number, nodes: Array<NodeDatum>) => number): ForceCollide<NodeDatum>;
@@ -562,7 +562,7 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * as when the nodes or links change, being passed the node and its zero-based index.
      *
      * @param id A node id accessor function which is invoked for each node in the simulation,
-     * being passed the node and its zero-based index. It returns a string to represent the node id which can be used
+     * being passed the node, its zero-based index and the complete array of nodes. It returns a string to represent the node id which can be used
      * for matching link source and link target strings during the ForceLink initialization.
      */
     id(id: (node: NodeDatum, i: number, nodesData: Array<NodeDatum>) => string): this;
@@ -575,7 +575,9 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * Set the distance accessor to use the specified constant number for all links,
      * re-evaluates the distance accessor for each link, and returns this force.
      *
-     * The distance accessor is invoked for each link, being passed the link and its zero-based index.
+     * The constant is internally wrapped into a distance accessor function.
+     *
+     * The distance accessor is invoked for each link, being passed the link, its zero-based index and the complete array of links.
      * The resulting number is then stored internally, such that the distance of each link is only recomputed when the force is initialized or
      * when this method is called with a new distance, and not on every application of the force.
      *
@@ -586,12 +588,12 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * Set the distance accessor to use the specified function,
      * re-evaluates the distance accessor for each link, and returns this force.
      *
-     * The distance accessor is invoked for each link, being passed the link and its zero-based index.
+     * The distance accessor is invoked for each link, being passed the link, its zero-based index and the complete array of links.
      * The resulting number is then stored internally, such that the distance of each link is only recomputed when the force is initialized or
      * when this method is called with a new distance, and not on every application of the force.
      *
      * @param distance A distance accessor function which is invoked for each link being passed the link,
-     * its zero-based index and the entire array of links. It returns the distance.
+     * its zero-based index and the complete array of links. It returns the distance.
      */
     distance(distance: (link: LinkDatum, i: number, links: Array<LinkDatum>) => number): this;
 
@@ -604,7 +606,9 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * Set the strenght accessor to use the specified constant number for all links,
      * re-evaluates the strength accessor for each link, and returns this force.
      *
-     * The strength accessor is invoked for each link, being passed the link and its zero-based index.
+     * The constant is internally wrapped into a strength accessor function.
+     *
+     * The strength accessor is invoked for each link, being passed the link, its zero-based index and the complete array of links.
      * The resulting number is then stored internally, such that the strength of each link is only recomputed
      * when the force is initialized or when this method is called with a new strength, and not on every application of the force.
      *
@@ -615,12 +619,12 @@ export interface ForceLink<NodeDatum extends SimulationNodeDatum, LinkDatum exte
      * Set the strenght accessor to use the specified function,
      * re-evaluates the strength accessor for each link, and returns this force.
      *
-     * The strength accessor is invoked for each link, being passed the link and its zero-based index.
+     * The strength accessor is invoked for each link, being passed the link, its zero-based index and the complete array of links.
      * The resulting number is then stored internally, such that the strength of each link is only recomputed
      * when the force is initialized or when this method is called with a new strength, and not on every application of the force.
      *
      * @param strength A distance accessor function which is invoked for each link being passed the link,
-     * its zero-based index and the entire array of links. It returns the strength.
+     * its zero-based index and the complete array of links. It returns the strength.
      */
     strength(strength: (link: LinkDatum, i: number, links: Array<LinkDatum>) => number): this;
 
@@ -658,6 +662,8 @@ export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum exte
  *
  * The first generic refers to the type of data for a node.
  * The second generic refers to the type of data for a link.
+ *
+ * @param links An array of link data.
  */
 export function forceLink<NodeDatum extends SimulationNodeDatum, LinksDatum extends SimulationLinkDatum<NodeDatum>>(links: Array<LinksDatum>): ForceLink<NodeDatum, LinksDatum>;
 
@@ -688,7 +694,9 @@ export interface ForceManyBody<NodeDatum extends SimulationNodeDatum> extends Fo
      *
      * The default represents a constant value of -30.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The constant is internally wrapped into a strength accessor function.
+     *
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
@@ -704,11 +712,11 @@ export interface ForceManyBody<NodeDatum extends SimulationNodeDatum> extends Fo
      *
      * The default represents a constant value of -30.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
-     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns the strength.
      */
     strength(strength: (d: NodeDatum, i: number, data: Array<NodeDatum>) => number): this;
@@ -804,7 +812,9 @@ export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      *
      * A value outside the range [0,1] is not recommended.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The constant is internally wrapped into a strength accessor function.
+     *
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
@@ -821,11 +831,11 @@ export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      *
      * A value outside the range [0,1] is not recommended.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
-     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns the strength.
      */
     strength(strength: (d: NodeDatum, i: number, data: Array<NodeDatum>) => number): this;
@@ -838,7 +848,9 @@ export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      * Set the x-coordinate accessor to the specified number, re-evaluates the x-accessor for each node,
      * and returns this force.
      *
-     * The x-accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The constant is internally wrapped into an x-coordinate accessor function.
+     *
+     * The x-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the target x-coordinate of each node is only recomputed when the force is initialized or
      * when this method is called with a new x, and not on every application of the force.
      *
@@ -849,11 +861,11 @@ export interface ForceX<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      * Set the x-coordinate accessor to the specified function, re-evaluates the x-accessor for each node,
      * and returns this force.
      *
-     * The x-accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The x-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the target x-coordinate of each node is only recomputed when the force is initialized or
      * when this method is called with a new x, and not on every application of the force.
      *
-     * @param x A x-coordinate accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param x A x-coordinate accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns the x-coordinate.
      */
     x(x: (d: NodeDatum, i: number, data: Array<NodeDatum>) => number): this;
@@ -918,7 +930,9 @@ export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      *
      * A value outside the range [0,1] is not recommended.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The constant is internally wrapped into a strength accessor function.
+     *
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
@@ -935,11 +949,11 @@ export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      *
      * A value outside the range [0,1] is not recommended.
      *
-     * The strength accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The strength accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the strength of each node is only recomputed when the force is initialized or
      * when this method is called with a new strength, and not on every application of the force.
      *
-     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param strength A strength accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns the strength.
      */
     strength(strength: (d: NodeDatum, i: number, data: Array<NodeDatum>) => number): this;
@@ -952,7 +966,9 @@ export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      * Set the y-coordinate accessor to the specified number, re-evaluates the y-accessor for each node,
      * and returns this force.
      *
-     * The y-accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The constant is internally wrapped into a y-coordinate accessor function.
+     *
+     * The y-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the target y-coordinate of each node is only recomputed when the force is initialized or
      * when this method is called with a new y, and not on every application of the force.
      *
@@ -963,11 +979,11 @@ export interface ForceY<NodeDatum extends SimulationNodeDatum> extends Force<Nod
      * Set the y-coordinate accessor to the specified function, re-evaluates the y-accessor for each node,
      * and returns this force.
      *
-     * The y-accessor is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * The y-accessor is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The resulting number is then stored internally, such that the target y-coordinate of each node is only recomputed when the force is initialized or
      * when this method is called with a new y, and not on every application of the force.
      *
-     * @param y A y-coordinate accessor function which is invoked for each node in the simulation, being passed the node and its zero-based index.
+     * @param y A y-coordinate accessor function which is invoked for each node in the simulation, being passed the node, its zero-based index and the complete array of nodes.
      * The function returns the y-coordinate.
      */
     y(y: (d: NodeDatum, i: number, data: Array<NodeDatum>) => number): this;
