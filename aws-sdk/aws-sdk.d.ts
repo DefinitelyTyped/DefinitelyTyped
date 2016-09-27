@@ -22,6 +22,27 @@ declare module "aws-sdk" {
     constructor(profile: string);
   }
 
+  export module CognitoIdentity {
+    export interface CognitoIdentityCredentialsParams {
+      IdentityPoolId?: string;
+      AccountId?: string;
+      Logins?: {[k: string]: any};
+
+      RoleArn?: string;
+      RoleSessionName?: string;
+      WebIdentityToken?: string;
+      ProviderId?: string;
+      Policy?: string;
+      DurationSeconds?: number;
+
+      IdentityId?: string;
+    }
+  }
+
+  export class CognitoIdentityCredentials extends Credentials {
+    constructor(params: CognitoIdentity.CognitoIdentityCredentialsParams);
+  }
+
   export interface Logger {
     write?: (chunk: any, encoding?: string, callback?: () => void) => void;
     log?: (...messages: any[]) => void;
