@@ -35,11 +35,13 @@ declare module "rethinkdb" {
 
   export class Cursor {
     hasNext():boolean;
-    each(cb:(err:Error, row:any)=>void, done?:()=>void);
-    each(cb:(err:Error, row:any)=>boolean, done?:()=>void); // returning false stops iteration
-    next(cb:(err:Error, row:any) => void);
-    toArray(cb:(err:Error, rows:any[]) => void);
-    close();
+    each(cb:(err:Error, row:any)=>void, done?:()=>void): void;
+    each(cb:(err:Error, row:any)=>boolean, done?:()=>void): void; // returning false stops iteration
+    next(cb:(err:Error, row:any) => void): void;
+    toArray(cb:(err:Error, rows:any[]) => void): void;
+    toArray(): Promise<any[]>;
+    close(cb: (err: Error) => void): void;
+    close(): Promise<void>;
   }
 
   interface ConnectionOptions {
@@ -50,11 +52,14 @@ declare module "rethinkdb" {
   }
 
   interface Connection {
-    close();
+    close(cb: (err: Error) => void): void;
+    close(opts: { noreplyWait: boolean }, cb: (err: Error) => void): void;
+    close(): Promise<void>;
+    close(opts: { noreplyWait: boolean }): Promise<void>;
     reconnect(cb?:(err:Error, conn:Connection)=>void):Promise<Connection>;
-    use(dbName:string);
-    addListener(event:string, cb:Function);
-    on(event:string, cb:Function);
+    use(dbName:string): void;
+    addListener(event:string, cb:Function): void;
+    on(event:string, cb:Function): void;
   }
 
   interface Db {
