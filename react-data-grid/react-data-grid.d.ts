@@ -8,7 +8,10 @@
 
 declare namespace AdazzleReactDataGrid {
     import React = __React;
-
+    interface __SelectionParams {
+        rowIdx: number, 
+        row: any
+    }
     interface GridProps {
         /**
          * Gets the data to render in each row. Required.
@@ -179,10 +182,12 @@ declare namespace AdazzleReactDataGrid {
         rowSelection?: {
             showCheckbox?: boolean
             enableShiftSelect?: boolean
-            onRowsSelected?: (rows: Array<Object>) => void,
-            onRowsDeselected?: (rows: Array<Object>) => void,
+            onRowsSelected?: (rows: Array<__SelectionParams>) => void,
+            onRowsDeselected?: (rows: Array<__SelectionParams>) => void,
             selectBy?: {
               indexes?: Array<number>
+              keys: Array<number>
+              isSelectedKey: boolean
             }
         }
     }
