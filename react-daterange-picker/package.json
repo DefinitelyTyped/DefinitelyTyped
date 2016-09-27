@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "postinstall": "cd ../moment-range && npm install"
-  }
-}
