@@ -28,36 +28,36 @@ import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer
 /// Assert Tests : https://nodejs.org/api/assert.html ///
 //////////////////////////////////////////////////////////
 
-namespace assert_tests{
+namespace assert_tests {
     {
         assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
-        
+
         assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
-        
+
         assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
-        
+
         assert.doesNotThrow(() => {
             const b = false;
             if (b) { throw "a hammer at your face"; }
         }, undefined, "What the...*crunch*");
-        
+
         assert.equal(3, "3", "uses == comparator");
 
         assert.fail(1, 2, undefined, '>');
-        
+
         assert.ifError(0);
-        
+
         assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
-        
+
         assert.notEqual(1, 2, "uses != comparator");
-        
+
         assert.notStrictEqual(2, "2", "uses === comparator");
-        
+
         assert.ok(true);
         assert.ok(1);
-        
-        assert.strictEqual(1, 1,  "uses === comparator");
-        
+
+        assert.strictEqual(1, 1, "uses === comparator");
+
         assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
     }
 }
@@ -108,7 +108,7 @@ namespace events_tests {
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
     }
-    
+
     {
         class Networker extends events.EventEmitter {
             constructor() {
@@ -145,13 +145,13 @@ namespace fs_tests {
         var buffer: Buffer;
 
         content = fs.readFileSync('testfile', 'utf8');
-        content = fs.readFileSync('testfile', {encoding : 'utf8'});
+        content = fs.readFileSync('testfile', { encoding: 'utf8' });
         buffer = fs.readFileSync('testfile');
-        buffer = fs.readFileSync('testfile', {flag : 'r'});
+        buffer = fs.readFileSync('testfile', { flag: 'r' });
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
-        fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+        fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
         fs.readFile('testfile', (err, data) => buffer = data);
-        fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+        fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
     {
@@ -183,7 +183,7 @@ namespace fs_tests {
 
 function bufferTests() {
     var utf8Buffer = new Buffer('test');
-    var base64Buffer = new Buffer('','base64');
+    var base64Buffer = new Buffer('', 'base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
     var sharedBuffer = new Buffer(octets.buffer);
@@ -197,7 +197,7 @@ function bufferTests() {
 
     // Class Method: Buffer.from(array)
     {
-        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -262,8 +262,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-      let buffer = new Buffer('123');
-      let octets = new Uint8Array(buffer.buffer);
+        let buffer = new Buffer('123');
+        let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -275,14 +275,14 @@ function bufferTests() {
 namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
-        
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
             host: "google.com",
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
-        });   
+        });
     }
 
     {
@@ -299,7 +299,7 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
     }
 }
 
@@ -324,17 +324,17 @@ namespace crypto_tests {
     {
         var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
     }
-    
+
     {
         let hmac: crypto.Hmac;
         (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
             let hash: Buffer | string = hmac.read();
         });
     }
-    
+
     {
         //crypto_cipher_decipher_string_test
-        let key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
@@ -369,21 +369,23 @@ namespace crypto_tests {
     }
 }
 
-////////////////////////////////////////////////////
-/// TLS tests : http://nodejs.org/api/tls.html
-////////////////////////////////////////////////////
+//////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html ///
+//////////////////////////////////////////////////
 
-var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-});
-var blah = ctx.context;
+namespace tls_tests {
+    var ctx: tls.SecureContext = tls.createSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
+    });
+    var blah = ctx.context;
 
-var tlsOpts: tls.TlsOptions = {
-	host: "127.0.0.1",
-	port: 55
-};
-var tlsSocket = tls.connect(tlsOpts);
+    var connOpts: tls.ConnectionOptions = {
+        host: "127.0.0.1",
+        port: 55
+    };
+    var tlsSocket = tls.connect(connOpts);
+}
 
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html ///
@@ -397,26 +399,26 @@ namespace http_tests {
     }
 
     {
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+        var agent: http.Agent = new http.Agent({
+            keepAlive: true,
+            keepAliveMsecs: 10000,
+            maxSockets: Infinity,
+            maxFreeSockets: 256
+        });
 
-	var agent: http.Agent = http.globalAgent;
+        var agent: http.Agent = http.globalAgent;
 
-	http.request({agent: false});
-	http.request({agent: agent});
-	http.request({agent: undefined});
+        http.request({ agent: false });
+        http.request({ agent: agent });
+        http.request({ agent: undefined });
     }
-    
+
     {
         // Make sure .listen() and .close() retuern a Server instance
         http.createServer().listen(0).close().address();
         net.createServer().listen(0).close().address();
     }
-    
+
     {
         var request = http.request('http://0.0.0.0');
         request.once('error', function() { });
@@ -485,7 +487,7 @@ namespace dgram_tests {
 ////////////////////////////////////////////////////
 
 namespace querystring_tests {
-    type SampleObject = {a: string; b: number;}
+    type SampleObject = { a: string; b: number; }
 
     {
         let obj: SampleObject;
@@ -538,7 +540,7 @@ namespace path_tests {
     try {
         path.join('foo', {}, 'bar');
     }
-    catch(error) {
+    catch (error) {
 
     }
 
@@ -652,11 +654,11 @@ namespace path_tests {
     //    }
 
     path.format({
-        root : "/",
-        dir : "/home/user/dir",
-        base : "file.txt",
-        ext : ".txt",
-        name : "file"
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
     });
     // returns
     //    '/home/user/dir/file.txt'
@@ -722,7 +724,7 @@ namespace readline_tests {
     }
 
     {
-        let data: string|Buffer;
+        let data: string | Buffer;
         let key: readline.Key;
 
         rl.write(data);
@@ -739,8 +741,8 @@ namespace readline_tests {
 
     {
         let stream: NodeJS.WritableStream;
-        let dx: number|string;
-        let dy: number|string;
+        let dx: number | string;
+        let dy: number | string;
 
         readline.moveCursor(stream, dx, dy);
     }
@@ -778,7 +780,7 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
-        childProcess.spawnSync("echo test");    
+        childProcess.spawnSync("echo test");
     }
 }
 
@@ -786,7 +788,7 @@ namespace child_process_tests {
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-namespace cluster_tests　{
+namespace cluster_tests 　{
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
@@ -838,7 +840,7 @@ namespace os_tests {
     }
 
     {
-        let result: {[index: string]: os.NetworkInterfaceInfo[]};
+        let result: { [index: string]: os.NetworkInterfaceInfo[] };
 
         result = os.networkInterfaces();
     }
@@ -916,7 +918,7 @@ namespace process_tests {
     {
         var eventEmitter: events.EventEmitter;
         eventEmitter = process;                // Test that process implements EventEmitter...
-        
+
         var _p: NodeJS.Process = process;
         _p = p;
     }

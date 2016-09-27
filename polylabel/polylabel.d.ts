@@ -15,7 +15,7 @@
  * - guarantees finding global optimum within the given precision
  * - is many times faster (10-40x)
  */
-declare module 'polylabel' {
+declare module "polylabel" {
     /**
      * Polylabel returns the pole of inaccessibility coordinate in [x, y] format.
      * 
@@ -28,6 +28,7 @@ declare module 'polylabel' {
      * @example
      * var p = polylabel(polygon, 1.0);
      */
-    function polylabel (polygon: number[][][], precision?: number, debug?: boolean): number[];
+    function polylabel(polygon: number[][][], precision?: number, debug?: boolean): number[];
+    namespace polylabel {}
     export = polylabel;
 }

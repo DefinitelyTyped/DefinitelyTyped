@@ -123,6 +123,7 @@ resultStr = faker.internet.mac();
 resultStr = faker.internet.password();
 resultStr = faker.internet.password(0, false, '#', 'foo');
 
+resultStr = faker.lorem.word();
 resultStr = faker.lorem.words();
 resultStr = faker.lorem.words(0);
 resultStr = faker.lorem.sentence();

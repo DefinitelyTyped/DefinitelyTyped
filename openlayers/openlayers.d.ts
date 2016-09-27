@@ -88,6 +88,34 @@ declare namespace olx {
         target?: Element;
     }
 
+    interface AttributionControlOptions {
+        /*** CSS class name. Default is ol-attribution.*/
+        className?: string;
+        /*** Target.*/
+        target?: Element;
+        /**
+         * Specify if attributions can be collapsed. If you use an OSM source,
+         * should be set to false — see OSM Copyright — Default is true.
+         */
+        collapsible?: boolean;
+        /*** Specify if attributions should be collapsed at startup. Default is true.*/
+        collapsed?: boolean;
+        /*** Text label to use for the button tip. Default is "Attributions".*/
+        tipLabel?: Array<ol.layer.Layer> | ol.Collection<ol.layer.Layer>;
+        /**
+         * Text label to use for the collapsed attributions button. Default is i.
+         * Instead of text, also a Node (e.g. a span element) can be used.
+         */
+        label?: string | Node;
+        /**
+         * Text label to use for the expanded attributions button. Default is ».
+         * Instead of text, also a Node (e.g. a span element) can be used.
+         */
+        collapseLabel?: string | Node;
+        /*** Function called when the control should be re-rendered. This is called in a requestAnimationFrame callback.*/
+        render?: Function;
+    }
+
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -1227,6 +1255,7 @@ declare namespace olx {
             fill?: ol.style.Fill;
             image?: ol.style.Image;
             stroke?: ol.style.Stroke;
+            circle?: ol.style.Circle;
             text?: ol.style.Text;
             zIndex?: number;
         }
@@ -2841,7 +2870,41 @@ declare namespace ol {
 
         }
 
+        /**
+         * Control to show all the attributions associated with the layer sources in the map.
+         * This control is one of the default controls included in maps. By default it will show in the bottom right portion of the map,
+         * but this can be changed by using a css selector for .ol-attribution.
+         */
         class Attribution extends Control {
+            constructor(opt_options?: olx.AttributionControlOptions);
+            /**
+             * Update the attribution element.
+             * @param mapEvent
+             */
+            render(mapEvent: ol.MapEvent): void;
+
+            /**
+             * Return true when the attribution is currently collapsed or false otherwise.
+             */
+            getCollapsed(): boolean;
+
+            /**
+             * Return true if the attribution is collapsible, false otherwise.
+             */
+            getCollapsible(): boolean;
+
+            /**
+             * Collapse or expand the attribution according to the passed parameter. Will not do anything if the attribution isn't
+             * collapsible or if the current collapsed state is already the one requested.
+             * @param collapsed
+             */
+            setCollapsed(collapsed: boolean): void;
+
+            /**
+             * Set whether the attribution should be collapsible.
+             * @param collapsible
+             */
+            setCollapsible(collapsible: boolean): void;
         }
 
         class FullScreen extends Control {
@@ -3029,6 +3092,13 @@ declare namespace ol {
           type: string;
           preventDefault(): void;
           stopPropagation(): void;
+        }
+        class SelectEvent extends Event {
+            mapBrowserEvent: ol.MapBrowserEvent;
+        }
+        class DrawEvent extends Event {
+            feature: ol.Feature;
+            coordinate: ol.Coordinate;
         }
     }
 
@@ -3304,16 +3374,17 @@ declare namespace ol {
             writeGeometryObject(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): JSON;
         }
 
-        class GML {
+        class GML extends GMLBase {
         }
 
-        class GML2 {
+        class GML2 extends GMLBase {
         }
 
-        class GML3 {
+        class GML3 extends GMLBase{
         }
 
-        class GMLBase {
+        class GMLBase extends ol.format.XMLFeature {
+            readFeatures(source: ol.source.Source, options?: olx.format.ReadOptions): Array<ol.Feature>;
         }
 
         class GPX {
@@ -4027,6 +4098,8 @@ declare namespace ol {
              * @param layout Layout.
              */
             setCoordinates(coordinates: Array<Array<ol.Coordinate>>, layout?: ol.geom.GeometryLayout): void;
+
+            static fromCircle(circle: ol.geom.Circle, sides?: number, angle?: number): ol.geom.Polygon;
         }
         /**
          * Abstract base class; only used for creating subclasses; do not instantiate
@@ -4145,6 +4218,8 @@ declare namespace ol {
          */
         class Draw extends ol.interaction.Pointer {
             constructor(opt_options?: olx.interaction.DrawOptions);
+
+            static createRegularPolygon(sides?: number, angle?: number): ol.interaction.DrawGeometryFunctionType;
         }
         /**
          * Events emitted by ol.interaction.Draw instances are instances of this type.
@@ -4950,10 +5025,22 @@ declare namespace ol {
              * @param Skip dispatching of removefeature events.
              */
             clear(fast?: boolean): void;
+
             /**
              * Get the extent of the features currently in the source.
              */
             getExtent(): ol.Extent;
+
+            /**
+             * Get all features whose geometry intersects the provided coordinate.
+             */
+            getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Get a feature by its identifier (the value returned by feature.getId()). Note that the index treats 
+             * string and numeric identifiers as the same.
+             */
+            getFeatureById(id: string | number): ol.Feature;
 
             /**
              * Get all features in the provided extent. Note that this returns all features whose bounding boxes
@@ -4971,6 +5058,12 @@ declare namespace ol {
              * Get all features whose geometry intersects the provided coordinate.
              */
             getFeaturesAtCoordinate(coordinate: ol.Coordinate): ol.Feature[];
+
+            /**
+             * Remove a single feature from the source. If you want to remove all features at once, use the source.clear() 
+             * method instead.
+             */
+            removeFeature(feature: ol.Feature): void;
         }
 
         class VectorEvent extends ol.events.Event {

@@ -42,7 +42,7 @@ declare module 'jspdf' {
             'getPageInfo'(pageNumberOneBased:number):any;
             'getCurrentPageInfo'():any;
         };
-        addPage():jsPDF;
+        addPage(sizes?: number[]):jsPDF;
         setPage(n:number):jsPDF;
         insertPage(beforePage:number):jsPDF;
         movePage(targetPage:number, beforePage:number):jsPDF;
