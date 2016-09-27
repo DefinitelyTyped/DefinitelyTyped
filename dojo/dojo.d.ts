@@ -2465,7 +2465,7 @@ declare namespace dojo {
          * @param callback
          * @param thisObj
          */
-        forEach(callback: any, thisObj: any): Function;
+        forEach(callback: any, thisObj?: any): Function;
         /**
          * allows setting the innerHTML of each node in the NodeList,
          * if there is a value passed in, otherwise, reads the innerHTML value of the first node.
@@ -3591,7 +3591,7 @@ declare namespace dojo {
          *
          *
          */
-        interface url{(): void}
+        interface url { (url?: string): void }
         interface url {
             /**
              *
@@ -5566,7 +5566,7 @@ declare namespace dojo {
              *
              * @param src The object to clone
              */
-            clone(src: any): any;
+            clone<T>(src: T): T;
             /**
              * Returns a new object which "looks" to obj for properties which it
              * does not have a value for. Optionally takes a bag of properties to
@@ -5578,19 +5578,19 @@ declare namespace dojo {
              * This can be thought of similarly to ES4's "wrap", save that it does
              * not act on types but rather on pure objects.
              *
-             * @param obj The object to delegate to for properties not found directly on thereturn object or in props.
+             * @param obj The object to delegate to for properties not found directly on the returned object or in props.
              * @param props an object containing properties to assign to the returned object
              */
-            delegate(obj: Object, props: Object[]): any;
+            delegate<T, U>(obj: T, props: U): T & U;
             /**
              * determine if an object supports a given method
              * useful for longer api chains where you have to test each object in
              * the chain. Useful for object and method detection.
              *
              * @param name Path to an object, in the form "A.B.C".
-             * @param obj               OptionalObject to use as root of path. Defaults to'dojo.global'. Null may be passed.
+             * @param obj Optional Object to use as root of path. Defaults to'dojo.global'. Null may be passed.
              */
-            exists(name: String, obj?: Object): boolean;
+            exists<T>(name: String, obj?: T): boolean;
             /**
              * Adds all properties and methods of props to constructor's
              * prototype, making them available to all instances created with
@@ -5599,15 +5599,15 @@ declare namespace dojo {
              * @param ctor Target constructor to extend.
              * @param props One or more objects to mix into ctor.prototype
              */
-            extend(ctor: Object, props: Object): Object;
+            extend<T extends Object, U extends Object>(ctor: T, props: U): T & U;
             /**
              * Get a property from a dot-separated string, such as "A.B.C"
              * Useful for longer api chains where you have to test each object in
              * the chain, or when you have an object reference in string format.
              *
              * @param name Path to an property, in the form "A.B.C".
-             * @param create               OptionalOptional. Defaults to false. If true, Objects will becreated at any point along the 'path' that is undefined.
-             * @param context               OptionalOptional. Object to use as root of path. Defaults to'dojo.global'. Null may be passed.
+             * @param create Optional. Defaults to false. If true, Objects will be created at any point along the 'path' that is undefined.
+             * @param context Optional. Object to use as root of path. Defaults to 'dojo.global'. Null may be passed.
              */
             getObject(name: String, create?: boolean, context?: Object): any;
             /**
@@ -5620,10 +5620,10 @@ declare namespace dojo {
              * Each of these values will be used to "placehold" (similar to curry)
              * for the hitched function.
              *
-             * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
+             * @param scope The scope to use when method executes. If method is a string, scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: (...args: any[]) => any, ...args: any[]): any;
+            hitch<T>(scope: Object, method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => T;
             /**
              * Returns a function that will only ever execute in the a given scope.
              * This allows for easy use of object member functions
@@ -5637,7 +5637,7 @@ declare namespace dojo {
              * @param scope The scope to use when method executes. If method is a string,scope is also the object containing method.
              * @param method A function to be hitched to scope, or the name of the method inscope to be hitched.
              */
-            hitch(scope: Object, method: string, ...args: any[]): any;
+            hitch<T>(scope: Object, method: string, ...args: any[]): (...args: any[]) => T;
             /**
              * Returns true if it is a built-in function or some other kind of
              * oddball that should report as a function but doesn't
@@ -5718,7 +5718,8 @@ declare namespace dojo {
              *
              * @param method The function to "wrap"
              */
-            partial(method: string | Function, ...args: any[]): Function;
+            partial<T>(method: string, ...args: any[]): (...args: any[]) => T;
+            partial<T>(method: (...args: any[]) => T, ...args: any[]): (...args: any[]) => T;
             /**
              * Performs parameterized substitutions on a string. Throws an
              * exception if any parameter is unmatched.
@@ -16897,23 +16898,23 @@ declare namespace dojo {
          * @param options This provides any configuration information that will be mixed into the store.This should generally include the data property to provide the starting set of data.
          */
         class Memory extends dojo.store.api.Store {
-            constructor(options: dojo.store.Memory);
+            constructor(options?: dojo.store.Memory);
             /**
              * The array of all the objects in the memory store
              *
              */
-            "data": any[];
+            data: any[];
             /**
              * Indicates the property to use as the identity property. The values of this
              * property should be unique.
              *
              */
-            "idProperty": string;
+            idProperty: string;
             /**
              * An index of data indices into the data array by id
              *
              */
-            "index": Object;
+            index: Object;
             /**
              * Creates an object, throws an error if the object already exists
              *
@@ -19049,7 +19050,7 @@ declare namespace dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.
          */
-        create(tag: HTMLElement, attrs: Object, refNode?: HTMLElement, pos?: String): any;
+        create(tag: HTMLElement, attrs?: Object, refNode?: HTMLElement, pos?: String): HTMLElement;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19068,7 +19069,7 @@ declare namespace dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.
          */
-        create(tag: String, attrs: Object, refNode?: HTMLElement, pos?: String): any;
+        create(tag: String, attrs?: Object, refNode?: HTMLElement, pos?: String): HTMLElement;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19087,7 +19088,7 @@ declare namespace dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.
          */
-        create(tag: HTMLElement, attrs: Object, refNode?: String, pos?: String): any;
+        create(tag: HTMLElement, attrs?: Object, refNode?: String, pos?: String): HTMLElement;
         /**
          * Create an element, allowing for optional attribute decoration
          * and placement.
@@ -19106,7 +19107,7 @@ declare namespace dojo {
          * @param refNode               OptionalOptional reference node. Used by dojo.place to place the newly creatednode somewhere in the dom relative to refNode. Can be a DomNode referenceor String ID of a node.
          * @param pos               OptionalOptional positional reference. Defaults to "last" by way of dojo.place,though can be set to "first","after","before","last", "replace" or "only"to further control the placement of the new node relative to the refNode.'refNode' is required if a 'pos' is specified.
          */
-        create(tag: String, attrs: Object, refNode?: String, pos?: String): any;
+        create(tag: String, attrs?: Object, refNode?: String, pos?: String): HTMLElement;
         /**
          * Removes a node from its parent, clobbering it and all of its
          * children.
@@ -27096,7 +27097,7 @@ declare namespace dojo {
          * @param topic The name of the topic to publish to
          * @param event An event to distribute to the topic listeners
          */
-        publish(topic: String, event: Object): any;
+        publish(topic: String, ...data: any[]): any;
         /**
          * Subscribes to a topic on the pub/sub hub
          *
@@ -27134,20 +27135,25 @@ declare namespace dojo {
          *
          * @param doc The document to get the associated window for.
          */
-        get(doc: HTMLDocument): any;
+        get(doc: HTMLDocument): Window;
         /**
          * Returns the dimensions and scroll position of the viewable area of a browser window
          *
-         * @param doc               Optional
+         * @param doc Optional
          */
-        getBox(doc?: HTMLDocument): Object;
+        getBox(doc?: HTMLDocument): {
+            h: number
+            l: number
+            t: number
+            w: number
+        };
         /**
          * Scroll the passed node into view using minimal movement, if it is not already.
          *
          * @param node
-         * @param pos               Optional
+         * @param pos Optional
          */
-        scrollIntoView(node: HTMLElement, pos: Object): void;
+        scrollIntoView(node: HTMLElement, pos?: Object): void;
     }
     /**
      * Permalink: http://dojotoolkit.org/api/1.9/dojo/touch.html
