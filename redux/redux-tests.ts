@@ -193,7 +193,10 @@ namespace EnumTypeAction {
       multiArgFn)('bar', 42, true);
 
     const t11: number = R.compose(stringToNumber, numberToString, stringToNumber,
-      multiArgFn)('bar', 42, true); 
+      multiArgFn)('bar', 42, true);
+
+    const funcs = [stringToNumber, numberToString, stringToNumber];
+    const t12 = R.compose(...funcs)('bar', 42, true);
 }());
 
 // dispatch.ts
