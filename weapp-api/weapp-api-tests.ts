@@ -1,4 +1,4 @@
-/// <reference path="./weapp.d.ts" />
+/// <reference path="weapp-api.d.ts" />
 
 
 App({
