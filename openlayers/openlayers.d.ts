@@ -1622,7 +1622,7 @@ declare namespace ol {
 
         /**
          * Insert the provided element at the end of the collection.
-         * @param Element.
+         * @param elem
          * @returns Length.
          */
         push(elem: T): number;
@@ -1726,7 +1726,7 @@ declare namespace ol {
 
         /**
          * @constructor
-         * @param geometry Geometry.
+         * @param geometryOrProperties Geometry.
          */
         // TODO: replace any with Object <string, *>
         constructor(geometryOrProperties?: ol.geom.Geometry | any);
@@ -1788,19 +1788,7 @@ declare namespace ol {
          * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
          * @param style Style for this feature.
          */
-        setStyle(style: ol.style.Style): void;
-
-        /**
-         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
-         * @param style Style for this feature.
-         */
-        setStyle(style: Array<ol.style.Style>): void;
-
-        /**
-         * Set the style for the feature. This can be a single style object, an array of styles, or a function that takes a resolution and returns an array of styles. If it is null the feature has no style (a null style).
-         * @param style Style for this feature.
-         */
-        setStyle(style: ol.FeatureStyleFunction): void;
+        setStyle(style: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction): void;
     }
 
     /**
@@ -1866,19 +1854,7 @@ declare namespace ol {
          * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
          * @param style Overlay style
          */
-        setStyle(style: ol.style.Style): void;
-
-        /**
-         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
-         * @param style Overlay style
-         */
-        setStyle(style: Array<ol.style.Style>): void;
-
-        /**
-         * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles.
-         * @param style Overlay style
-         */
-        setStyle(style: ol.style.StyleFunction): void;
+        setStyle(style: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction): void;
     }
 
     /**
@@ -1966,7 +1942,7 @@ declare namespace ol {
 
         /**
          * Set the tracking options.
-         * @param PositionOptions as defined by the HTML5 Geolocation spec.
+         * @param options as defined by the HTML5 Geolocation spec.
          */
         setTrackingOptions(options: PositionOptions): void;
     }
@@ -2075,8 +2051,8 @@ declare namespace ol {
         /**
          * @constructor
          * @param decay Rate of decay (must be negative).
-         * @param Minimum velocity (pixels/millisecond).
-         * @param Delay to consider to calculate the kinetic initial values (milliseconds).
+         * @param minVelocity velocity (pixels/millisecond).
+         * @param delay to consider to calculate the kinetic initial values (milliseconds).
          */
         constructor(decay: number, minVelocity: number, delay: number);
     }
@@ -2106,7 +2082,7 @@ declare namespace ol {
 
         /**
          * Adds the given layer to the top of this map. If you want to add a layer elsewhere in the stack, use getLayers() and the methods available on ol.Collection.
-         * @param Layer.
+         * @param layer
          */
         addLayer(layer: ol.layer.Base): void;
 
@@ -2243,7 +2219,7 @@ declare namespace ol {
 
         /**
          * Remove the given control from the map.
-         * @param Control.
+         * @param control
          * @returns The removed control (or undefined if the control was not found).
          */
         removeControl(control: ol.control.Control): ol.control.Control;
@@ -2257,14 +2233,14 @@ declare namespace ol {
 
         /**
          * Removes the given layer from the map.
-         * @param Layer.
+         * @param layer
          * @returns The removed layer (or undefined if the layer was not found).
          */
         removeLayer(layer: ol.layer.Base): ol.layer.Base;
 
         /**
          * Remove the given overlay from the map.
-         * @param Overlay.
+         * @param overlay
          * @returns The removed overlay (or undefined if the overlay was not found).
          */
         removeOverlay(overlay: ol.Overlay): ol.Overlay;
@@ -2424,7 +2400,7 @@ declare namespace ol {
 
         /**
          * Sets a collection of key-value pairs. Note that this changes any existing properties and adds new ones (it does not remove any existing properties).
-         * @param Values.
+         * @param values
          */
         setProperties(values: Object): void;
 
@@ -2589,7 +2565,7 @@ declare namespace ol {
 
         /**
          * Set the positioning for this overlay.
-         * @param How the overlay is positioned relative to its point on the map.
+         * @param positioning How the overlay is positioned relative to its point on the map.
          */
         setPositioning(positioning: ol.OverlayPositioning): void;
     }
@@ -2698,11 +2674,11 @@ declare namespace ol {
 
         /**
           * Fit the map view to the passed extent and size. The size is pixel dimensions of the box to fit the extent into. In most cases you will want to use the map size, that is map.getSize().
-          * @param extent Extent.
+          * @param geometry Extent or geometry
           * @param size Box pixel size.
           * @param options Options
           */
-        fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, opt_options?: olx.view.FitGeometryOptions): void;
+        fit(geometry: ol.geom.SimpleGeometry | ol.Extent, size: ol.Size, options?: olx.view.FitGeometryOptions): void;
 
         /**
          * Get the view center.
@@ -3036,35 +3012,35 @@ declare namespace ol {
 
         /**
          * Start slow and speed up.
-         * @param number Input between 0 and 1
+         * @param t number Input between 0 and 1
          * @returns Output between 0 and 1
          */
         function easeIn(t: number): number;
 
         /**
          * Start fast and slow down.
-         * @param number Input between 0 and 1
+         * @param t number Input between 0 and 1
          * @returns Output between 0 and 1
          */
         function easeOut(t: number): number;
 
         /**
         * Start slow, speed up, and then slow down again.
-        * @param number Input between 0 and 1
+        * @param t number Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function inAndOut(t: number): number;
 
         /**
         * Maintain a constant speed over time.
-        * @param number Input between 0 and 1
+        * @param t number Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function linear(t: number): number;
 
         /**
         * Start slow, speed up, and at the very end slow down again. This has the same general behavior as ol.easing.inAndOut, but the final slowdown is delayed.
-        * @param number Input between 0 and 1
+        * @param t number Input between 0 and 1
         * @returns Output between 0 and 1
         */
         function upAndDown(t: number): number;
@@ -3290,7 +3266,7 @@ declare namespace ol {
 
             /**
              * @constructor
-             * @param Options
+             * @param options
              */
             constructor(options?: olx.format.GeoJSONOptions);
 
@@ -3320,7 +3296,7 @@ declare namespace ol {
 
             /**
              * Read the projection from a GeoJSON source.
-             * @param Source
+             * @param source
              * @returns Projection
              */
             readProjection(source: Document | Node | JSON | string): ol.proj.Projection;
@@ -3368,7 +3344,7 @@ declare namespace ol {
             /**
              * Encode a geometry as a GeoJSON object.
              * @param geometry Geometry
-             * @options Write options
+             * @param options Write options
              * @returns GeoJSON object
              */
             writeGeometryObject(geometry: ol.geom.Geometry, options?: olx.format.WriteOptions): JSON;
@@ -3424,7 +3400,7 @@ declare namespace ol {
              * @param options Read options
              * @returns Feature
              */
-            readFeature(source: Document | Node | JSON | string, opt_options?: olx.format.ReadOptions): ol.Feature;
+            readFeature(source: Document | Node | JSON | string, options?: olx.format.ReadOptions): ol.Feature;
 
             /**
              * Read all features from a WKT source.
@@ -3536,7 +3512,7 @@ declare namespace ol {
 
             /**
              * Get the extent of the geometry.
-             * @param Extent
+             * @param extent
              * @returns Extent
              */
             getExtent(extent?: ol.Extent): ol.Extent;
@@ -4473,7 +4449,7 @@ declare namespace ol {
              * Adjust the layer brightness. A value of -1 will render the layer completely black. A value of 0 will leave the brightness unchanged. A value of 1 will render the layer completely white. Other values are linear multipliers on the effect (values are clamped between -1 and 1).
              * @param brightness The brightness of the layer
              */
-            setBrightness(brigthness: number): void;
+            setBrightness(brightness: number): void;
 
             /**
              * Adjust the layer contrast. A value of 0 will render the layer completely grey. A value of 1 will leave the contrast unchanged. Other values are linear multipliers on the effect (and values over 1 are permitted).
@@ -4507,7 +4483,7 @@ declare namespace ol {
 
             /**
              * Set the opacity of the layer, allowed values range from 0 to 1.
-             * @param opactity The opacity of the layer.
+             * @param opacity The opacity of the layer.
              */
             setOpacity(opacity: number): void;
 
@@ -4710,26 +4686,9 @@ declare namespace ol {
 
             /**
              * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
+             * @param style Layer style
              */
-            setStyle(): void;
-
-            /**
-             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param layer Layer style
-             */
-            setStyle(style: ol.style.Style): void;
-
-            /**
-             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param layer Layer style
-             */
-            setStyle(style: Array<ol.style.Style>): void;
-
-            /**
-             * Set the style for features. This can be a single style object, an array of styles, or a function that takes a feature and resolution and returns an array of styles. If it is undefined the default style is used. If it is null the layer has no style (a null style), so only features that have their own styles will be rendered in the layer. See ol.style for information on the default style.
-             * @param Layer style
-             */
-            setStyle(style: ol.style.StyleFunction): void;
+            setStyle(style: ol.style.Style | Array<ol.style.Style> | ol.style.StyleFunction): void;
 
             /**
              * Sets the layer to be rendered on top of other layers on a map. The map will not manage this layer
@@ -4767,7 +4726,7 @@ declare namespace ol {
 
         /**
          * Creates a strategy function for loading features based on a tile grid.
-         * @param tilegrid Tile grid
+         * @param tileGrid Tile grid
          * @returns Loading strategy
          */
         function tile(tileGrid: ol.tilegrid.TileGrid): ol.LoadingStrategy;
@@ -4811,7 +4770,7 @@ declare namespace ol {
         /**
          * Transforms a coordinate from longitude/latitude to a different projection.
          * @param coordinate Coordinate as longitude and latitude, i.e. an array with longitude as 1st and latitude as 2nd element.
-         * @param projection Target projection. The default is Web Mercator, i.e. 'EPSG:3857'.
+         * @param opt_projection Target projection. The default is Web Mercator, i.e. 'EPSG:3857'.
          */
         function fromLonLat(coordinate: Coordinate, opt_projection: ProjectionLike): Coordinate;
 
@@ -4994,7 +4953,7 @@ declare namespace ol {
              * constructed.
              * @param coordinate Coordinate.
              * @param resolution Resolution.
-             * @param rojection Projection.
+             * @param projection Projection.
              * @param params GetFeatureInfo params. `INFO_FORMAT` at least should
              *     be provided. If `QUERY_LAYERS` is not provided then the layers specified
              *     in the `LAYERS` parameter will be used. `VERSION` should not be
@@ -5022,7 +4981,7 @@ declare namespace ol {
 
             /**
              * Remove all features from the source.
-             * @param Skip dispatching of removefeature events.
+             * @param fast dispatching of removefeature events.
              */
             clear(fast?: boolean): void;
 
