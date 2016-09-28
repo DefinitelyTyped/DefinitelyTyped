@@ -428,8 +428,9 @@ declare namespace Redux {
     ): Func3<T1, T2, T3, R>;
 
     /* rest */
-    function compose<A, B, C, R>(
-        f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B,
-        ...funcs: Function[]
+    function compose<R>(
+      f1: (b: any) => R, ...funcs: Function[]
     ): (...args: any[]) => R;
+
+    function compose<R>(...funcs: Function[]): (...args: any[]) => R;
 }
