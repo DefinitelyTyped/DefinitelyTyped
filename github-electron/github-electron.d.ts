@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.3.6
+// Type definitions for Electron v1.4.1
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -176,7 +176,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when the gpu process crashes.
 		 */
-		on(event: 'gpu-process-crashed', listener: Function): this;
+		on(event: 'gpu-process-crashed', listener: (event: Event, killed: boolean) => void): this;
 		/**
 		 * Emitted when Chrome's accessibility support changes.
 		 *
@@ -841,6 +841,11 @@ declare namespace Electron {
 		 * Note: This is only implemented on macOS.
 		 */
 		on(event: 'scroll-touch-end', listener: Function): this;
+		/**
+		 * Emitted when scroll wheel event phase filed upon reaching the edge of element.
+		 * Note: This is only implemented on macOS.
+		 */
+		on(event: 'scroll-touch-edge', listener: Function): this;
 		/**
 		 * Emitted on 3-finger swipe.
 		 * Note: This is only implemented on macOS.
@@ -2589,6 +2594,7 @@ declare namespace Electron {
 		static createEmpty(): NativeImage;
 		/**
 		 * Creates a new NativeImage instance from file located at path.
+		 * This method returns an empty image if the path does not exist, cannot be read, or is not a valid image.
 		 */
 		static createFromPath(path: string): NativeImage;
 		/**
@@ -2769,8 +2775,18 @@ declare namespace Electron {
 		referrer: string;
 		method: string;
 		uploadData?: {
+			/**
+			 * Content being sent.
+			 */
 			bytes: Buffer,
-			file: string
+			/**
+			 * Path of file being uploaded.
+			 */
+			file: string,
+			/**
+			 * UUID of blob data. Use session.getBlobData method to retrieve the data.
+			 */
+			blobUUID: string;
 		}[];
 	}
 
@@ -3016,6 +3032,10 @@ declare namespace Electron {
 		 * @returns The user agent for this session.
 		 */
 		getUserAgent(): string;
+		/**
+		 * Returns the blob data associated with the identifier.
+		 */
+		getBlobData(identifier: string, callback: (result: Buffer) => void): void;
 		/**
 		 * The webRequest API set allows to intercept and modify contents of a request at various stages of its lifetime.
 		 */
@@ -3317,6 +3337,10 @@ declare namespace Electron {
 			 * Path of file being uploaded.
 			 */
 			file: string;
+			/**
+			 * UUID of blob data. Use session.getBlobData method to retrieve the data.
+			 */
+			blobUUID: string;
 		}
 
 		interface BeforeRequestDetails extends Details {
@@ -3496,6 +3520,11 @@ declare namespace Electron {
 	 */
 	interface SystemPreferences {
 		/**
+		 * Note: This is only implemented on Windows.
+		 */
+		on(event: 'accent-color-changed', listener: (event: Event, newColor: string) => void): this;
+		on(event: string, listener: Function): this;
+		/**
 		 * @returns If the system is in Dark Mode.
 		 *
 		 * Note: This is only implemented on macOS.
@@ -3549,13 +3578,17 @@ declare namespace Electron {
 		 */
 		getUserDefault(key: string, type: 'string' | 'boolean' | 'integer' | 'float' | 'double' | 'url' | 'array' | 'dictionary'): any;
 		/**
-		 * This method returns true if DWM composition (Aero Glass) is enabled,
-		 * and false otherwise. You can use it to determine if you should create
-		 * a transparent window or not (transparent windows won’t work correctly when DWM composition is disabled).
+		 * @returns Whether DWM composition (Aero Glass) is enabled.
 		 *
 		 * Note: This is only implemented on Windows.
 		 */
 		isAeroGlassEnabled(): boolean;
+		/**
+		 * @returns The users current system wide color preference in the form of an RGBA hexadecimal string.
+		 *
+		 * Note: This is only implemented on Windows.
+		 */
+		getAccentColor(): string;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/tray.md
@@ -3822,7 +3855,7 @@ declare namespace Electron {
 		/**
 		 * Emitted when the renderer process has crashed.
 		 */
-		on(event: 'crashed', listener: Function): this;
+		on(event: 'crashed', listener: (event: Event, killed: boolean) => void): this;
 		/**
 		 * Emitted when a plugin process has crashed.
 		 */
@@ -4238,6 +4271,10 @@ declare namespace Electron {
 		 */
 		getFrameRate(): number;
 		/**
+		 * If offscreen rendering is enabled invalidates the frame and generates a new one through the 'paint' event.
+		 */
+		invalidate(): void;
+		/**
 		 * Sets the item as dragging item for current drag-drop operation.
 		 */
 		startDrag(item: DragItem): void;
@@ -4438,7 +4475,7 @@ declare namespace Electron {
 		[key: string]: string;
 	}
 
-	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'other';
+	type NewWindowDisposition = 'default' | 'foreground-tab' | 'background-tab' | 'new-window' | 'save-to-disk' | 'other';
 
 	/**
 	 * Specifies the action to take place when ending webContents.findInPage request.
@@ -4881,6 +4918,15 @@ declare namespace Electron {
 		 * A list of strings which specifies the blink features to be disabled separated by ,.
 		 */
 		disableblinkfeatures: string;
+		/**
+		 * A value that links the webview to a specific webContents.
+		 * When a webview first loads a new webContents is created and this attribute is set
+		 * to its instance identifier. Setting this attribute on a new or existing webview connects
+		 * it to the existing webContents that currently renders in a different webview.
+		 *
+		 * The existing webview will see the destroy event and will then create a new webContents when a new url is loaded.
+		 */
+		guestinstance: string;
 		/**
 		 * Loads the url in the webview, the url must contain the protocol prefix, e.g. the http:// or file://.
 		 */
