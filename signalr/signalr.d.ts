@@ -363,3 +363,7 @@ interface JQueryStatic {
     connection: SignalR;
     hubConnection: SignalR.Hub.HubCreator;
 }
+
+declare module "signalr" {
+    export = SignalR;
+}
