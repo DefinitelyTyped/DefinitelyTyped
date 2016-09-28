@@ -35,7 +35,7 @@ declare module "restify" {
       }
   }
 
-  interface Request extends http.ServerRequest {
+  interface Request extends http.IncomingMessage {
     /**
      * builds an absolute URI for the request.
      * @private
@@ -452,6 +452,7 @@ declare module "restify" {
     responseTimeFormatter ?: (durationInMilliseconds: number) => any;
     handleUpgrades ?: boolean;
     router ?: Router;
+    httpsServerOptions?: any;
   }
 
   interface ClientOptions {
