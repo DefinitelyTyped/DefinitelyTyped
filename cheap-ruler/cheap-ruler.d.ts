@@ -218,7 +218,7 @@ declare module "cheap-ruler" {
          * var ruler = cheapRuler.fromTile(1567, 12);
          * //=ruler
          */
-        function fromTile(y: number, z: number, units?: string)
+        function fromTile(y: number, z: number, units?: string): CheapRuler;
     }
     export = cheapRuler
 }
