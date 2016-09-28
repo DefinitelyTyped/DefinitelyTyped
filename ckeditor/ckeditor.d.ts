@@ -796,7 +796,7 @@ declare namespace CKEDITOR {
         templates_files?: Object;
         templates_replaceContent?: boolean;
         title?: string | boolean;
-        toolbar?: string | (string[])[];
+        toolbar?: string | (string | string[])[];
         toolbarCanCollapse?: boolean;
         toolbarGroupCycling?: boolean;
         toolbarGroups?: toolbarGroups[];
