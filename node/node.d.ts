@@ -2321,6 +2321,8 @@ declare module "fs" {
         encoding?: string;
         fd?: number;
         mode?: number;
+        autoClose?: boolean;
+        start?: number;
     }): WriteStream;
     export function fdatasync(fd: number, callback: Function): void;
     export function fdatasyncSync(fd: number): void;
