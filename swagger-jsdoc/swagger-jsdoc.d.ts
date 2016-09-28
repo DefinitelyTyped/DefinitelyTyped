@@ -5,11 +5,11 @@
 
 /* =================== USAGE ===================
 
-    import * as Express from "express"
-    import swaggerJsdoc = require('./swagger-jsdoc');
-    const app = new Express()
+    import * as express from "express"
+    import swaggerJSDoc = require('swagger-jsdoc');
+    const app = express()
 
-    let spec = SwaggerJSDoc({
+    let options = {
         swaggerDefinition: {
           info: {
             title: 'Hello World',
@@ -25,6 +25,8 @@
         ]
       }
     };
+
+    var spec = swaggerJSDoc(options);
 
     app.get('/api-docs.json', function(req, res) {
       res.setHeader('Content-Type', 'application/json');
