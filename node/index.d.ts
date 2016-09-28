@@ -1349,10 +1349,7 @@ declare module "readline" {
         (line: string, callback: (err: any, result: CompleterResult) => void): any;
     }
 
-    export interface CompleterResult {
-        completions: string[];
-        line: string;
-    }
+    export type CompleterResult = [string[], string];
 
     export interface ReadLineOptions {
         input: NodeJS.ReadableStream;
