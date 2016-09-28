@@ -3,7 +3,13 @@
 // Definitions by: Adam Santaniello <https://github.com/AdamSantaniello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path='../angularjs/angular.d.ts' />
 /// <reference path='../signalr/signalr.d.ts' />
+
+declare module "angular-signalr-hub" {
+    let _: string;
+    export = _;
+}
 
 declare namespace ngSignalr {
     interface HubFactory {
