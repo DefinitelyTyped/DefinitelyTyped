@@ -35,7 +35,7 @@ declare module "restify" {
       }
   }
 
-  interface Request extends http.ServerRequest {
+  interface Request extends http.IncomingMessage {
     /**
      * builds an absolute URI for the request.
      * @private

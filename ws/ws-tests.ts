@@ -66,7 +66,7 @@ var WebSocketServer = WebSocket.Server;
       info: {
         origin: string
         secure: boolean
-        req: http.ServerRequest
+        req: http.IncomingMessage
       }
       , callback: (res: boolean) => void
     ): void {
