@@ -18,7 +18,7 @@ declare module "fs-extra" {
 	export function copySync(src: string, dest: string, filter: CopyFilter): void;
 	export function copySync(src: string, dest: string, options: CopyOptions): void;
 
-	export function move(src: string, dest: string, callback?: (err: Error) => void);
+	export function move(src: string, dest: string, callback?: (err: Error) => void): void;
 	export function move(src: string, dest: string, options: MoveOptions, callback?: (err: Error) => void): void;
 	
 	export function createFile(file: string, callback?: (err: Error) => void): void;
