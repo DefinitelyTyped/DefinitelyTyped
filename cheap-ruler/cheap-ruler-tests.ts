@@ -4,7 +4,7 @@ import * as cheapRuler from 'cheap-ruler'
 
 // -- Fixtures --
 const unit = 'miles'
-const lineString: GeoJSON.Feature<GeoJSON.LineString> = {
+const lineString = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -44,9 +44,9 @@ cheapRuler.units.kilometers
 50 * cheapRuler.units.yards / cheapRuler.units.meters
 
 // -- Test cheapRuler --
-const ruler = cheapRuler(35.05, 'kilometers')
+const ruler = cheapRuler(35.05)
 
-console.log(ruler.distance([30.5, 50.5], [30.51, 50.49]))
+ruler.distance([30.5, 50.5], [30.51, 50.49])
 ruler.bearing([30.5, 50.5], [30.51, 50.49])
 ruler.destination([30.5, 50.5], 0.1, 90)
 ruler.lineDistance(points)
