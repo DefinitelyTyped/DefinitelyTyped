@@ -217,7 +217,7 @@ declare module turf {
      * Reduce properties in any GeoJSON object into a single value, similar to how Array.reduce works. However, in this case we lazily run the reduction, so an array of all properties is unnecessary.
      *
      * @name propReduce
-     * @param {Object} layer any GeoJSON object
+     * @param {GeoJSON} layer any GeoJSON object
      * @param {Function} callback a method that takes (memo, coord) and returns a new memo
      * @param {*} memo the starting value of memo: can be any type.
      * @return {*} combined value
@@ -228,7 +228,7 @@ declare module turf {
      * Get all coordinates from any GeoJSON object, returning an array of coordinate arrays.
      *
      * @name coordAll
-     * @param {Object} layer any GeoJSON object
+     * @param {GeoJSON} layer any GeoJSON object
      * @returns {Array<Array<Number>>} coordinate position array
      */
     coordAll(layer: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<Array<number>>
