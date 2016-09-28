@@ -551,6 +551,16 @@ let any: any;
   result = validator.whitelist('sample', 'abc');
 }
 
+{
+  let str: string;
+  str = validator.toString([123, 456, '123', '456', true, false]);
+}
+
+{
+  let ver: string;
+  ver = validator.version;
+}
+
 // **************
 // * Extensions *
 // **************
