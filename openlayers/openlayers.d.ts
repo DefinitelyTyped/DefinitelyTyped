@@ -2131,7 +2131,7 @@ declare namespace ol {
          * @param ref2 Value to use as this when executing layerFilter.
          * @returns Callback result, i.e. the return value of last callback execution, or the first truthy callback return value.
          */
-        forEachFeatureAtPixel(pixel: ol.Pixel, callback: (feature: ol.Feature, layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): void;
+        forEachFeatureAtPixel(pixel: ol.Pixel, callback: (feature: ol.Feature, layer: ol.layer.Layer) => any, ref?: any, layerFilter?: (layerCandidate: ol.layer.Layer) => boolean, ref2?: any): any;
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and execute a callback with each matching layer. Layers included in the detection can be configured through opt_layerFilter. Feature overlays will always be included in the detection.
