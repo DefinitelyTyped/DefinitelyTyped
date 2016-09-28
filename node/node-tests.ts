@@ -659,14 +659,86 @@ namespace tty_tests {
 ////////////////////////////////////////////////////
 
 namespace dgram_tests {
-    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-    });
-    ds.bind();
-    ds.bind(41234);
-    var ai: dgram.AddressInfo = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-    });
-    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    {
+        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        });
+        ds.bind();
+        ds.bind(41234);
+        var ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        });
+        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    }
+
+    {
+        let _socket: dgram.Socket;
+        let _boolean: boolean;
+        let _err: Error;
+        let _str: string;
+        let _rinfo: dgram.AddressInfo;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _socket = _socket.addListener("close", () => {});
+        _socket = _socket.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.addListener("listening", () => {});
+        _socket = _socket.addListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _boolean = _socket.emit("close")
+        _boolean = _socket.emit("error", _err);
+        _boolean = _socket.emit("listening");
+        _boolean = _socket.emit("message", _str, _rinfo);
+
+        _socket = _socket.on("close", () => {});
+        _socket = _socket.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.on("listening", () => {});
+        _socket = _socket.on("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.once("close", () => {});
+        _socket = _socket.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.once("listening", () => {});
+        _socket = _socket.once("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependListener("close", () => {});
+        _socket = _socket.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependListener("listening", () => {});
+        _socket = _socket.prependListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependOnceListener("close", () => {});
+        _socket = _socket.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependOnceListener("listening", () => {});
+        _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+    }
 }
 
 ////////////////////////////////////////////////////
