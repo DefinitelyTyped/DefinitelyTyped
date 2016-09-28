@@ -1,4 +1,4 @@
-﻿// Type definitions for Angular File Upload 11.1.1
+﻿// Type definitions for Angular File Upload 12.2.12
 // Project: https://github.com/danialfarid/ng-file-upload
 // Definitions by: John Reilly <https://github.com/johnnyreilly>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -92,6 +92,20 @@ declare namespace angular.angularFileUpload  {
         ngfValidateForce?: boolean;
     }
 
+    interface ResizeIfFunction {
+        (width: number, height: number): boolean;
+    }
+
+    interface FileResizeOptions {
+        centerCrop?: boolean;
+        height?: number;
+        ratio?: number;
+        resizeIf?: ResizeIfFunction;
+        restoreExif?: boolean;
+        quality?: number;
+        width?: number;
+    }
+
     interface IUploadService {
         /**
          * Convert a single file or array of files to a single or array of
@@ -166,7 +180,7 @@ declare namespace angular.angularFileUpload  {
          * @param  {string} newName
          * @return {File}
          */
-        rename(file: File, newName: string): File;
+        rename(file: File, newName: string): Blob;
         /**
          * Resizes an image. Returns a promise
          *
@@ -179,8 +193,7 @@ declare namespace angular.angularFileUpload  {
          * @param  {boolean} [centerCrop]
          * @return {angular.IPromise<string>}
          */
-        resize(file: File, width?: number, height?: number, quality?: number, type?: string,
-            ratio?: number | string, centerCrop?: boolean): angular.IPromise<string>;
+        resize(file: File, options: FileResizeOptions): angular.IPromise<File>;
         /**
          * Set the default values for ngf-select and ngf-drop directives
          *
