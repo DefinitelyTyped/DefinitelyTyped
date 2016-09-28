@@ -17,8 +17,8 @@ classNames(['foo', 'bar', 'baz']); // => 'foo bar baz'
 classNames([1, 2, 3]); // => '1 2 3'
 classNames([{ foo: true, bar: false }, { baz: true }]); // => 'foo baz'
 
-classNames(["foo", ["bar", {baz: true}]]); // => 'foo bar baz'
+classNames(["foo", ["bar", { baz: true }]]); // => 'foo bar baz'
 
 // other falsy values are just ignored
 // NOTE: We don't really want to allow this kind of thing with Typescript (otherwise what's the point!)
-//classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
+classNames(null, false, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
