@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import configureStore, {IStore} from 'redux-mock-store';
+import configureStore, { IStore } from 'redux-mock-store';
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -41,3 +41,6 @@ store.dispatch({ type: 'INCREMENT' });
 var actions: Array<any> = store.getActions();
 
 store.clearActions();
+
+// Get actions with any payload without casting
+store.getActions()[2].payload.myProp;
