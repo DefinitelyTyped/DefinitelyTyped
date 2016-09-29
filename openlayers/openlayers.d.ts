@@ -116,6 +116,23 @@ declare namespace olx {
         render?: Function;
     }
 
+    interface FullScreenOptions {
+        /*** experimental CSS class name. Default is ol-full-screen.*/
+        className?: string;
+        /*** experimental Text label to use for the button. Default is ⤢ (NORTH EAST AND SOUTH WEST ARROW). Instead of text, also a Node (e.g. a span element) can be used.*/
+        label?: string | Element;
+        /*** experimental Text label to use for the button when full-screen is active. Default is × (a cross). Instead of text, also a Node (e.g. a span element) can be used.*/
+        labelActive?: string | Element;
+        /*** experimental Text label to use for the button tip. Default is Toggle full-screen*/
+        tipLabel?: string;
+        /*** experimental Full keyboard access.*/
+        keys?: boolean;
+        /*** experimental Target.*/
+        target?: Element;
+        /*** experimental The element to be displayed fullscreen. When not provided, the element containing the map viewport will be displayed fullscreen.*/
+        source?: Element | string;
+    }
+    
     interface AttributionOptions {
 
         /** HTML markup for this attribution. */
@@ -2908,6 +2925,7 @@ declare namespace ol {
         }
 
         class FullScreen extends Control {
+            constructor(options?: olx.FullScreenOptions);
         }
 
         class MousePosition extends Control {
