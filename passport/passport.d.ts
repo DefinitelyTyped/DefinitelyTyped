@@ -91,8 +91,8 @@ declare module 'passport' {
     }
 
     interface Framework {
-        initialize(): Function;
-        authenticate(passport: Passport, name: string, options?: Object):Function;
-        authorize(passport: Passport, name: string, options?: Object):Function;
+        initialize(passport: Passport, options?: Object): Function;
+        authenticate(passport: Passport, name: string, options?: Object): Function;
+        authorize(passport: Passport, name: string, options?: Object): Function;
     }
 }
