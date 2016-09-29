@@ -782,49 +782,859 @@ declare module "graphql/language/visitor" {
 // graphql/type          //
 ///////////////////////////
 declare module "graphql/type" {
-
+    export * from "graphql/type/index";
 }
 
 declare module "graphql/type/index" {
+    // GraphQL Schema definition
+    export { GraphQLSchema } from 'graphql/type/schema';
+
+    export {
+        // Predicates
+        isType,
+        isInputType,
+        isOutputType,
+        isLeafType,
+        isCompositeType,
+        isAbstractType,
+
+        // Un-modifiers
+        getNullableType,
+        getNamedType,
+
+        // Definitions
+        GraphQLScalarType,
+        GraphQLObjectType,
+        GraphQLInterfaceType,
+        GraphQLUnionType,
+        GraphQLEnumType,
+        GraphQLInputObjectType,
+        GraphQLList,
+        GraphQLNonNull,
+    } from 'graphql/type/definition';
+
+    export {
+        // "Enum" of Directive Locations
+        DirectiveLocation,
+
+        // Directives Definition
+        GraphQLDirective,
+
+        // Built-in Directives defined by the Spec
+        specifiedDirectives,
+        GraphQLIncludeDirective,
+        GraphQLSkipDirective,
+        GraphQLDeprecatedDirective,
+
+        // Constant Deprecation Reason
+        DEFAULT_DEPRECATION_REASON,
+    } from 'graphql/type/directives';
+
+    // Common built-in scalar instances.
+    export {
+        GraphQLInt,
+        GraphQLFloat,
+        GraphQLString,
+        GraphQLBoolean,
+        GraphQLID,
+    } from 'graphql/type/scalars';
+
+    export {
+        // "Enum" of Type Kinds
+        TypeKind,
+
+        // GraphQL Types for introspection.
+        __Schema,
+        __Directive,
+        __DirectiveLocation,
+        __Type,
+        __Field,
+        __InputValue,
+        __EnumValue,
+        __TypeKind,
+
+        // Meta-field definitions.
+        SchemaMetaFieldDef,
+        TypeMetaFieldDef,
+        TypeNameMetaFieldDef,
+    } from 'graphql/type/introspection';
 
 }
 
 declare module "graphql/type/definition" {
+    import {
+        OperationDefinition,
+        Field,
+        FragmentDefinition,
+        Value,
+    } from 'graphql/language/ast';
+    import { GraphQLSchema } from 'graphql/type/schema';
 
+    /**
+     * These are all of the possible kinds of types.
+     */
+    type GraphQLType =
+        GraphQLScalarType |
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType |
+        GraphQLEnumType |
+        GraphQLInputObjectType |
+        GraphQLList<any> |
+        GraphQLNonNull<any>;
+
+    function isType(type: any): boolean;
+
+    /**
+     * These types may be used as input types for arguments and directives.
+     */
+    type GraphQLInputType =
+        GraphQLScalarType |
+        GraphQLEnumType |
+        GraphQLInputObjectType |
+        GraphQLList<any> |
+        GraphQLNonNull<
+        GraphQLScalarType |
+        GraphQLEnumType |
+        GraphQLInputObjectType |
+        GraphQLList<any>
+        >;
+
+    function isInputType(type: GraphQLType): boolean;
+
+    /**
+     * These types may be used as output types as the result of fields.
+     */
+    type GraphQLOutputType =
+        GraphQLScalarType |
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType |
+        GraphQLEnumType |
+        GraphQLList<any> |
+        GraphQLNonNull<
+        GraphQLScalarType |
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType |
+        GraphQLEnumType |
+        GraphQLList<any>
+        >;
+
+    function isOutputType(type: GraphQLType): boolean;
+
+    /**
+     * These types may describe types which may be leaf values.
+     */
+    type GraphQLLeafType =
+        GraphQLScalarType |
+        GraphQLEnumType;
+
+    function isLeafType(type: GraphQLType): boolean;
+
+    /**
+     * These types may describe the parent context of a selection set.
+     */
+    type GraphQLCompositeType =
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType;
+
+    function isCompositeType(type: GraphQLType): boolean;
+
+    /**
+     * These types may describe the parent context of a selection set.
+     */
+    type GraphQLAbstractType =
+        GraphQLInterfaceType |
+        GraphQLUnionType;
+
+    function isAbstractType(type: GraphQLType): boolean;
+
+    /**
+     * These types can all accept null as a value.
+     */
+    type GraphQLNullableType =
+        GraphQLScalarType |
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType |
+        GraphQLEnumType |
+        GraphQLInputObjectType |
+        GraphQLList<any>;
+
+    function getNullableType<T extends GraphQLType>(
+        type: T
+    ): (T & GraphQLNullableType);
+
+    /**
+     * These named types do not include modifiers like List or NonNull.
+     */
+    type GraphQLNamedType =
+        GraphQLScalarType |
+        GraphQLObjectType |
+        GraphQLInterfaceType |
+        GraphQLUnionType |
+        GraphQLEnumType |
+        GraphQLInputObjectType;
+
+    function getNamedType(type: GraphQLType): GraphQLNamedType
+
+    /**
+     * Used while defining GraphQL types to allow for circular references in
+     * otherwise immutable type definitions.
+     */
+    type Thunk<T> = (() => T) | T;
+
+    /**
+     * Scalar Type Definition
+     *
+     * The leaf values of any request and input values to arguments are
+     * Scalars (or Enums) and are defined with a name and a series of functions
+     * used to parse input from ast or variables and to ensure validity.
+     *
+     * Example:
+     *
+     *     const OddType = new GraphQLScalarType({
+     *       name: 'Odd',
+     *       serialize(value) {
+     *         return value % 2 === 1 ? value : null;
+     *       }
+     *     });
+     *
+     */
+    class GraphQLScalarType {
+        name: string;
+        description: string;
+        constructor(config: GraphQLScalarTypeConfig<any, any>);
+
+        // Serializes an internal value to include in a response.
+        serialize(value: any): any;
+
+        // Parses an externally provided value to use as an input.
+        parseValue(value: any): any;
+
+        // Parses an externally provided literal value to use as an input.
+        parseLiteral(valueAST: Value): any;
+
+        toString(): string;
+    }
+
+    interface GraphQLScalarTypeConfig<TInternal, TExternal> {
+        name: string;
+        description?: string;
+        serialize: (value: any) => TInternal;
+        parseValue?: (value: any) => TExternal;
+        parseLiteral?: (valueAST: Value) => TInternal;
+    }
+
+    /**
+     * Object Type Definition
+     *
+     * Almost all of the GraphQL types you define will be object types. Object types
+     * have a name, but most importantly describe their fields.
+     *
+     * Example:
+     *
+     *     const AddressType = new GraphQLObjectType({
+     *       name: 'Address',
+     *       fields: {
+     *         street: { type: GraphQLString },
+     *         number: { type: GraphQLInt },
+     *         formatted: {
+     *           type: GraphQLString,
+     *           resolve(obj) {
+     *             return obj.number + ' ' + obj.street
+     *           }
+     *         }
+     *       }
+     *     });
+     *
+     * When two types need to refer to each other, or a type needs to refer to
+     * itself in a field, you can use a function expression (aka a closure or a
+     * thunk) to supply the fields lazily.
+     *
+     * Example:
+     *
+     *     const PersonType = new GraphQLObjectType({
+     *       name: 'Person',
+     *       fields: () => ({
+     *         name: { type: GraphQLString },
+     *         bestFriend: { type: PersonType },
+     *       })
+     *     });
+     *
+     */
+    class GraphQLObjectType {
+        name: string;
+        description: string;
+        isTypeOf: GraphQLIsTypeOfFn;
+
+        constructor(config: GraphQLObjectTypeConfig<any>);
+        getFields(): GraphQLFieldDefinitionMap;
+        getInterfaces(): Array<GraphQLInterfaceType>;
+        toString(): string;
+    }
+
+    //
+
+    interface GraphQLObjectTypeConfig<TSource> {
+        name: string;
+        interfaces?: Thunk<Array<GraphQLInterfaceType>>;
+        fields: Thunk<GraphQLFieldConfigMap<TSource>>;
+        isTypeOf?: GraphQLIsTypeOfFn;
+        description?: string
+    }
+
+    type GraphQLTypeResolveFn = (
+        value: any,
+        context: any,
+        info: GraphQLResolveInfo
+    ) => GraphQLObjectType;
+
+    type GraphQLIsTypeOfFn = (
+        source: any,
+        context: any,
+        info: GraphQLResolveInfo
+    ) => boolean;
+
+    type GraphQLFieldResolveFn<TSource> = (
+        source: TSource,
+        args: { [argName: string]: any },
+        context: any,
+        info: GraphQLResolveInfo
+    ) => any;
+
+    interface GraphQLResolveInfo {
+        fieldName: string;
+        fieldASTs: Array<Field>;
+        returnType: GraphQLOutputType;
+        parentType: GraphQLCompositeType;
+        path: Array<string | number>;
+        schema: GraphQLSchema;
+        fragments: { [fragmentName: string]: FragmentDefinition };
+        rootValue: any;
+        operation: OperationDefinition;
+        variableValues: { [variableName: string]: any };
+    }
+
+    interface GraphQLFieldConfig<TSource> {
+        type: GraphQLOutputType;
+        args?: GraphQLFieldConfigArgumentMap;
+        resolve?: GraphQLFieldResolveFn<TSource>;
+        deprecationReason?: string;
+        description?: string;
+    }
+
+    interface GraphQLFieldConfigArgumentMap {
+        [argName: string]: GraphQLArgumentConfig;
+    }
+
+    interface GraphQLArgumentConfig {
+        type: GraphQLInputType;
+        defaultValue?: any;
+        description?: string;
+    }
+
+    interface GraphQLFieldConfigMap<TSource> {
+        [fieldName: string]: GraphQLFieldConfig<TSource>;
+    }
+
+    interface GraphQLFieldDefinition {
+        name: string;
+        description: string;
+        type: GraphQLOutputType;
+        args: Array<GraphQLArgument>;
+        resolve: GraphQLFieldResolveFn<any>;
+        isDeprecated: boolean;
+        deprecationReason: string;
+    }
+
+    interface GraphQLArgument {
+        name: string;
+        type: GraphQLInputType;
+        defaultValue?: any;
+        description?: string;
+    }
+
+    interface GraphQLFieldDefinitionMap {
+        [fieldName: string]: GraphQLFieldDefinition;
+    }
+
+    /**
+     * Interface Type Definition
+     *
+     * When a field can return one of a heterogeneous set of types, a Interface type
+     * is used to describe what types are possible, what fields are in common across
+     * all types, as well as a function to determine which type is actually used
+     * when the field is resolved.
+     *
+     * Example:
+     *
+     *     const EntityType = new GraphQLInterfaceType({
+     *       name: 'Entity',
+     *       fields: {
+     *         name: { type: GraphQLString }
+     *       }
+     *     });
+     *
+     */
+    class GraphQLInterfaceType {
+        name: string;
+        description: string;
+        resolveType: GraphQLTypeResolveFn;
+
+        constructor(config: GraphQLInterfaceTypeConfig);
+
+        getFields(): GraphQLFieldDefinitionMap;
+
+        toString(): string;
+    }
+
+    interface GraphQLInterfaceTypeConfig {
+        name: string,
+        fields: Thunk<GraphQLFieldConfigMap<any>>,
+        /**
+         * Optionally provide a custom type resolver function. If one is not provided,
+         * the default implementation will call `isTypeOf` on each implementing
+         * Object type.
+         */
+        resolveType?: GraphQLTypeResolveFn,
+        description?: string
+    }
+
+    /**
+     * Union Type Definition
+     *
+     * When a field can return one of a heterogeneous set of types, a Union type
+     * is used to describe what types are possible as well as providing a function
+     * to determine which type is actually used when the field is resolved.
+     *
+     * Example:
+     *
+     *     const PetType = new GraphQLUnionType({
+     *       name: 'Pet',
+     *       types: [ DogType, CatType ],
+     *       resolveType(value) {
+     *         if (value instanceof Dog) {
+     *           return DogType;
+     *         }
+     *         if (value instanceof Cat) {
+     *           return CatType;
+     *         }
+     *       }
+     *     });
+     *
+     */
+    class GraphQLUnionType {
+        name: string;
+        description: string;
+        resolveType: GraphQLTypeResolveFn;
+
+        constructor(config: GraphQLUnionTypeConfig);
+
+        getTypes(): Array<GraphQLObjectType>;
+
+        toString(): string;
+    }
+
+    interface GraphQLUnionTypeConfig {
+        name: string,
+        types: Thunk<Array<GraphQLObjectType>>,
+        /**
+         * Optionally provide a custom type resolver function. If one is not provided,
+         * the default implementation will call `isTypeOf` on each implementing
+         * Object type.
+         */
+        resolveType?: GraphQLTypeResolveFn;
+        description?: string;
+    }
+
+    /**
+     * Enum Type Definition
+     *
+     * Some leaf values of requests and input values are Enums. GraphQL serializes
+     * Enum values as strings, however internally Enums can be represented by any
+     * kind of type, often integers.
+     *
+     * Example:
+     *
+     *     const RGBType = new GraphQLEnumType({
+     *       name: 'RGB',
+     *       values: {
+     *         RED: { value: 0 },
+     *         GREEN: { value: 1 },
+     *         BLUE: { value: 2 }
+     *       }
+     *     });
+     *
+     * Note: If a value is not provided in a definition, the name of the enum value
+     * will be used as its internal value.
+     */
+    class GraphQLEnumType {
+        name: string;
+        description: string;
+
+        constructor(config: GraphQLEnumTypeConfig);
+        getValues(): Array<GraphQLEnumValueDefinition>;
+        serialize(value: any): string;
+        parseValue(value: any): any;
+        parseLiteral(valueAST: Value): any;
+        toString(): string;
+    }
+
+    interface GraphQLEnumTypeConfig {
+        name: string;
+        values: GraphQLEnumValueConfigMap;
+        description?: string;
+    }
+
+    interface GraphQLEnumValueConfigMap {
+        [valueName: string]: GraphQLEnumValueConfig;
+    }
+
+    interface GraphQLEnumValueConfig {
+        value?: any;
+        deprecationReason?: string;
+        description?: string;
+    }
+
+    interface GraphQLEnumValueDefinition {
+        name: string;
+        description: string;
+        deprecationReason: string;
+        value: any;
+    }
+
+    /**
+     * Input Object Type Definition
+     *
+     * An input object defines a structured collection of fields which may be
+     * supplied to a field argument.
+     *
+     * Using `NonNull` will ensure that a value must be provided by the query
+     *
+     * Example:
+     *
+     *     const GeoPoint = new GraphQLInputObjectType({
+     *       name: 'GeoPoint',
+     *       fields: {
+     *         lat: { type: new GraphQLNonNull(GraphQLFloat) },
+     *         lon: { type: new GraphQLNonNull(GraphQLFloat) },
+     *         alt: { type: GraphQLFloat, defaultValue: 0 },
+     *       }
+     *     });
+     *
+     */
+    class GraphQLInputObjectType {
+        name: string;
+        description: string;
+        constructor(config: InputObjectConfig);
+        getFields(): InputObjectFieldMap;
+        toString(): string;
+    }
+
+    interface InputObjectConfig {
+        name: string;
+        fields: Thunk<InputObjectConfigFieldMap>;
+        description?: string;
+    }
+
+    interface InputObjectFieldConfig {
+        type: GraphQLInputType;
+        defaultValue?: any;
+        description?: string;
+    }
+
+    interface InputObjectConfigFieldMap {
+        [fieldName: string]: InputObjectFieldConfig;
+    }
+
+    interface InputObjectField {
+        name: string;
+        type: GraphQLInputType;
+        defaultValue?: any;
+        description?: string;
+    }
+
+    interface InputObjectFieldMap {
+        [fieldName: string]: InputObjectField;
+    }
+
+    /**
+     * List Modifier
+     *
+     * A list is a kind of type marker, a wrapping type which points to another
+     * type. Lists are often created within the context of defining the fields of
+     * an object type.
+     *
+     * Example:
+     *
+     *     const PersonType = new GraphQLObjectType({
+     *       name: 'Person',
+     *       fields: () => ({
+     *         parents: { type: new GraphQLList(Person) },
+     *         children: { type: new GraphQLList(Person) },
+     *       })
+     *     })
+     *
+     */
+    class GraphQLList<T extends GraphQLType> {
+        ofType: T;
+        constructor(type: T);
+        toString(): string;
+    }
+
+    /**
+     * Non-Null Modifier
+     *
+     * A non-null is a kind of type marker, a wrapping type which points to another
+     * type. Non-null types enforce that their values are never null and can ensure
+     * an error is raised if this ever occurs during a request. It is useful for
+     * fields which you can make a strong guarantee on non-nullability, for example
+     * usually the id field of a database row will never be null.
+     *
+     * Example:
+     *
+     *     const RowType = new GraphQLObjectType({
+     *       name: 'Row',
+     *       fields: () => ({
+     *         id: { type: new GraphQLNonNull(GraphQLString) },
+     *       })
+     *     })
+     *
+     * Note: the enforcement of non-nullability occurs within the executor.
+     */
+    class GraphQLNonNull<T extends GraphQLNullableType> {
+        ofType: T;
+
+        constructor(type: T);
+
+        toString(): string;
+    }
 }
 
 declare module "graphql/type/directives" {
+    import {
+        GraphQLFieldConfigArgumentMap,
+        GraphQLArgument
+    } from 'graphql/type/definition';
 
+    const DirectiveLocation: {
+        // Operations
+        QUERY: 'QUERY',
+        MUTATION: 'MUTATION',
+        SUBSCRIPTION: 'SUBSCRIPTION',
+        FIELD: 'FIELD',
+        FRAGMENT_DEFINITION: 'FRAGMENT_DEFINITION',
+        FRAGMENT_SPREAD: 'FRAGMENT_SPREAD',
+        INLINE_FRAGMENT: 'INLINE_FRAGMENT',
+        // Schema Definitions
+        SCHEMA: 'SCHEMA',
+        SCALAR: 'SCALAR',
+        OBJECT: 'OBJECT',
+        FIELD_DEFINITION: 'FIELD_DEFINITION',
+        ARGUMENT_DEFINITION: 'ARGUMENT_DEFINITION',
+        INTERFACE: 'INTERFACE',
+        UNION: 'UNION',
+        ENUM: 'ENUM',
+        ENUM_VALUE: 'ENUM_VALUE',
+        INPUT_OBJECT: 'INPUT_OBJECT',
+        INPUT_FIELD_DEFINITION: 'INPUT_FIELD_DEFINITION',
+    };
+
+    type DirectiveLocationEnum = any //$Keys<typeof DirectiveLocation>
+
+    /**
+     * Directives are used by the GraphQL runtime as a way of modifying execution
+     * behavior. Type system creators will usually not create these directly.
+     */
+    class GraphQLDirective {
+        name: string;
+        description: string;
+        locations: Array<DirectiveLocationEnum>;
+        args: Array<GraphQLArgument>;
+
+        constructor(config: GraphQLDirectiveConfig);
+    }
+
+    interface GraphQLDirectiveConfig {
+        name: string;
+        description?: string;
+        locations: Array<DirectiveLocationEnum>;
+        args?: GraphQLFieldConfigArgumentMap;
+    }
+
+    /**
+     * Used to conditionally include fields or fragments.
+     */
+    const GraphQLIncludeDirective: GraphQLDirective;
+
+    /**
+     * Used to conditionally skip (exclude) fields or fragments.
+     */
+    const GraphQLSkipDirective: GraphQLDirective;
+
+    /**
+     * Constant string used for default reason for a deprecation.
+     */
+    const DEFAULT_DEPRECATION_REASON: 'No longer supported';
+
+    /**
+     * Used to declare element of a GraphQL schema as deprecated.
+     */
+    const GraphQLDeprecatedDirective: GraphQLDirective;
+
+    /**
+     * The full list of specified directives.
+     */
+    export const specifiedDirectives: Array<GraphQLDirective>;
 }
 
 declare module "graphql/type/introspection" {
+    import {
+        GraphQLScalarType,
+        GraphQLObjectType,
+        GraphQLInterfaceType,
+        GraphQLUnionType,
+        GraphQLEnumType,
+        GraphQLInputObjectType,
+        GraphQLList,
+        GraphQLNonNull,
+    } from 'graphql/type/definition';
+    import { GraphQLFieldDefinition } from 'graphql/type/definition';
 
+    const __Schema: GraphQLObjectType;
+    const __Directive: GraphQLObjectType;
+    const __DirectiveLocation: GraphQLEnumType;
+    const __Type: GraphQLObjectType;
+    const __Field: GraphQLObjectType;
+    const __InputValue: GraphQLObjectType;
+    const __EnumValue: GraphQLObjectType;
+
+    const TypeKind: {
+        SCALAR: 'SCALAR',
+        OBJECT: 'OBJECT',
+        INTERFACE: 'INTERFACE',
+        UNION: 'UNION',
+        ENUM: 'ENUM',
+        INPUT_OBJECT: 'INPUT_OBJECT',
+        LIST: 'LIST',
+        NON_NULL: 'NON_NULL',
+    }
+
+    const __TypeKind: GraphQLEnumType;
+
+    /**
+     * Note that these are GraphQLFieldDefinition and not GraphQLFieldConfig,
+     * so the format for args is different.
+     */
+    const SchemaMetaFieldDef: GraphQLFieldDefinition;
+    const TypeMetaFieldDef: GraphQLFieldDefinition;
+    const TypeNameMetaFieldDef: GraphQLFieldDefinition;
 }
 
 declare module "graphql/type/scalars" {
+    import { GraphQLScalarType } from 'graphql/type/definition';
 
+    const GraphQLInt: GraphQLScalarType;
+    const GraphQLFloat: GraphQLScalarType;
+    const GraphQLString: GraphQLScalarType;
+    const GraphQLBoolean: GraphQLScalarType;
+    const GraphQLID: GraphQLScalarType;
 }
 
 declare module "graphql/type/schema" {
+    import {
+        GraphQLObjectType,
+    } from 'graphql/type/definition';
+    import {
+        GraphQLType,
+        GraphQLNamedType,
+        GraphQLAbstractType
+    } from 'graphql/type/definition';
+    import {
+        GraphQLDirective,
+    } from 'graphql/type/directives';
 
+    /**
+     * Schema Definition
+     *
+     * A Schema is created by supplying the root types of each type of operation,
+     * query and mutation (optional). A schema definition is then supplied to the
+     * validator and executor.
+     *
+     * Example:
+     *
+     *     const MyAppSchema = new GraphQLSchema({
+     *       query: MyAppQueryRootType,
+     *       mutation: MyAppMutationRootType,
+     *     })
+     *
+     * Note: If an array of `directives` are provided to GraphQLSchema, that will be
+     * the exact list of directives represented and allowed. If `directives` is not
+     * provided then a default set of the specified directives (e.g. @include and
+     * @skip) will be used. If you wish to provide *additional* directives to these
+     * specified directives, you must explicitly declare them. Example:
+     *
+     *     const MyAppSchema = new GraphQLSchema({
+     *       ...
+     *       directives: specifiedDirectives.concat([ myCustomDirective ]),
+     *     })
+     *
+     */
+    class GraphQLSchema {
+        // private _queryType: GraphQLObjectType;
+        // private _mutationType: GraphQLObjectType;
+        // private _subscriptionType: GraphQLObjectType;
+        // private _directives: Array<GraphQLDirective>;
+        // private _typeMap: TypeMap;
+        // private _implementations: { [interfaceName: string]: Array<GraphQLObjectType> };
+        // private _possibleTypeMap: { [abstractName: string]: { [possibleName: string]: boolean } };
+
+        constructor(config: GraphQLSchemaConfig)
+
+        getQueryType(): GraphQLObjectType;
+        getMutationType(): GraphQLObjectType;
+        getSubscriptionType(): GraphQLObjectType;
+        getTypeMap(): GraphQLNamedType;
+        getType(name: string): GraphQLType;
+        getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
+
+        isPossibleType(
+            abstractType: GraphQLAbstractType,
+            possibleType: GraphQLObjectType
+        ): boolean;
+
+        getDirectives(): Array<GraphQLDirective>;
+        getDirective(name: string): GraphQLDirective;
+    }
+
+    interface GraphQLSchemaConfig {
+        query: GraphQLObjectType;
+        mutation?: GraphQLObjectType;
+        subscription?: GraphQLObjectType;
+        types?: Array<GraphQLNamedType>;
+        directives?: Array<GraphQLDirective>;
+    }
 }
 
 ///////////////////////////
 // graphql/validation    //
 ///////////////////////////
-declare module "graphql/validation" { 
+declare module "graphql/validation" {
 
 }
 
-declare module "graphql/validation/index" { 
+declare module "graphql/validation/index" {
 
 }
 
-declare module "graphql/validation/specifiedRules" { 
+declare module "graphql/validation/specifiedRules" {
 
 }
 
-declare module "graphql/validation/validate" { 
+declare module "graphql/validation/validate" {
 
 }
 
