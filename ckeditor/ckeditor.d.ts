@@ -1803,6 +1803,16 @@ declare namespace CKEDITOR {
 
     }
 
+    class htmlWriter extends htmlParser.basicWriter {
+        indentationChars: string;
+        lineBreakChars: string;
+        selfClosingEnd: string;
+
+        indentation(): void;
+        lineBreak(): void;
+        setRules(tagName: string, rules: Object): void;
+    }
+
 
     namespace tools {
         var callFunction: Function;
