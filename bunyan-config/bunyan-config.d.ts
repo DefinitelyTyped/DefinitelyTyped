@@ -17,7 +17,7 @@ declare module "bunyan-config" {
         streams?: bunyan.Stream[];
         level?: string | number;
         stream?: NodeJS.WritableStream;
-        serializers?: Object;
+        serializers?: {};
         src?: boolean;
     }
 
