@@ -10,13 +10,12 @@ declare namespace Express {
 
   export interface Request {
     session?: Session;
-    readonly sessionId: string;
+    sessionId?: string;
   }
 
   export interface Session {
     [key: string]: any;
-
-    readonly id: string;
+    id: string;
 
     regenerate: (callback: (err: any) => void) => void;
     destroy: (callback: (err: any) => void) => void;
