@@ -1,5 +1,6 @@
 // Type definitions for Google Analytics API
 
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../gapi/gapi.d.ts" />
 
 declare namespace gapi.client.analytics {}
@@ -34,24 +35,23 @@ declare namespace gapi.client.analytics.data.realtime {
     export function get(data ?: DataQuery) : Promise<any>;
 }
 
-interface AnalyticsParameter {
-    "type"              ?: string;
-    "description"       ?: string;
-    "default"           ?: string;
-    "enum"              ?: string[];
-    "enumDescriptions"  ?: string[];
-    "location"          ?: string;
-} 
-declare namespace gapi.client.analytics.kB {
-    export class parameters {
-        alt: AnalyticsParameter;
-        fields: AnalyticsParameter;
-        key: AnalyticsParameter;
-        oauth_token: AnalyticsParameter;
-        prettyPrint: AnalyticsParameter;
-        quotaUser: AnalyticsParameter;
-        userIP: AnalyticsParameter;
-    }
+declare namespace gapi.client.analytics.kB {}
+declare namespace gapi.client.analytics.kB.parameters {
+	export interface AnalyticsParameter {
+		"type"              ?: string;
+		"description"       ?: string;
+		"default"           ?: string;
+		"enum"              ?: string[];
+		"enumDescriptions"  ?: string[];
+		"location"          ?: string;
+	}
+	export class alt implements AnalyticsParameter {}
+	export class fields implements AnalyticsParameter {}
+	export class key implements AnalyticsParameter {}
+	export class oauth_token implements AnalyticsParameter {}
+	export class prettyPrint implements AnalyticsParameter {}
+	export class quotaUser implements AnalyticsParameter {}
+	export class userIP implements AnalyticsParameter {}
 }
 
 interface View {
@@ -60,10 +60,10 @@ interface View {
     webViewId       ?: string;
 }
 declare namespace gapi.client.analytics.management {}
-declare namespace gapi.client.analytics.managementaccountSummaries {
+declare namespace gapi.client.analytics.management.accountSummaries {
     export function list(view ?: View) : Promise<any>;
 }
-declare namespace gapi.client.analytics.managementaccountUserLinks {
+declare namespace gapi.client.analytics.management.accountUserLinks {
     export function list(view ?: View) : Promise<any>;
 }
 declare namespace gapi.client.analytics.management.accounts {
