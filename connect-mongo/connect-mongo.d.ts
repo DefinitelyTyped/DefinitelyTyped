@@ -78,6 +78,12 @@ declare module "connect-mongo" {
              * (Default: 10)
              */
             autoRemoveInterval?: number;
+        
+        
+            /**
+             * don't save session if unmodified
+             */
+            touchAfter?: number;
         }
 
         export interface MongoUrlOptions extends DefaultOptions {
