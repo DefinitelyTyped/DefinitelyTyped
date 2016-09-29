@@ -13,7 +13,7 @@ declare module "urlrouter" {
 	namespace UrlRouterInternal {
 
 
-		interface ServerRequest extends http.ServerRequest {
+		interface ServerRequest extends http.IncomingMessage {
 			params: any;
 		}
 
