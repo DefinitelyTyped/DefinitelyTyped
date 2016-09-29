@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "cheap-ruler" {
+    type BBox = [number, number, number, number] | number[]
+    type Point = [number, number] | number[]
+    type Line = Array<Point>
+    type Points = Array<Point>
+    type Polygon = Array<Array<Point>>
+
     interface TemplateUnits {
         kilometers: number
         miles: number
@@ -15,7 +21,7 @@ declare module "cheap-ruler" {
         inches: number
     }
     interface InterfacePointOnLine {
-        point: Array<number>
+        point: Point
         index: number
         t: number
     }
@@ -23,44 +29,44 @@ declare module "cheap-ruler" {
         /**
          * Given two points of the form [longitude, latitude], returns the distance.
          *
-         * @param {Array<number>} a point [longitude, latitude]
-         * @param {Array<number>} b point [longitude, latitude]
+         * @param {Point} a point [longitude, latitude]
+         * @param {Point} b point [longitude, latitude]
          * @returns {number} distance
          * @example
          * var distance = ruler.distance([30.5, 50.5], [30.51, 50.49]);
          * //=distance
          */
-        distance(a: Array<number>, b: Array<number>): number;
+        distance(a: Point, b: Point): number;
 
         /**
          * Returns the bearing between two points in angles.
          *
-         * @param {Array<number>} a point [longitude, latitude]
-         * @param {Array<number>} b point [longitude, latitude]
+         * @param {Point} a point [longitude, latitude]
+         * @param {Point} b point [longitude, latitude]
          * @returns {number} bearing
          * @example
          * var bearing = ruler.bearing([30.5, 50.5], [30.51, 50.49]);
          * //=bearing
          */
-        bearing(a: Array<number>, b: Array<number>): number;
+        bearing(a: Point, b: Point): number;
 
         /**
          * Returns a new point given distance and bearing from the starting point.
          *
-         * @param {Array<number>} p point [longitude, latitude]
+         * @param {Point} p point [longitude, latitude]
          * @param {number} dist distance
          * @param {number} bearing
-         * @returns {Array<number>} point [longitude, latitude]
+         * @returns {Point} point [longitude, latitude]
          * @example
          * var point = ruler.destination([30.5, 50.5], 0.1, 90);
          * //=point
          */
-        destination(p: Array<number>, dist: number, bearing: number): Array<number>;
+        destination(p: Point, dist: number, bearing: number): Point;
 
         /**
          * Given a line (an array of points), returns the total line distance.
          *
-         * @param {Array<Array<number>>} points [longitude, latitude]
+         * @param {Points} points [longitude, latitude]
          * @returns {number} total line distance
          * @example
          * var length = ruler.lineDistance([
@@ -69,12 +75,12 @@ declare module "cheap-ruler" {
          * ]);
          * //=length
          */
-        lineDistance(points: Array<Array<number>>): number;
+        lineDistance(points: Points): number;
 
         /**
          * Given a polygon (an array of rings, where each ring is an array of points), returns the area.
          *
-         * @param {Array<Array<Array<number>>>} polygon
+         * @param {Polygon} polygon
          * @returns {number} area value in the specified units (square kilometers by default)
          * @example
          * var area = ruler.area([[
@@ -83,94 +89,94 @@ declare module "cheap-ruler" {
          * ]]);
          * //=area
          */
-        area(polygon: Array<Array<Array<number>>>): number;
+        area(polygon: Polygon): number;
 
         /**
          * Returns the point at a specified distance along the line.
          *
-         * @param {Array<Array<number>>} line
+         * @param {Line} line
          * @param {number} dist distance
-         * @returns {Array<number>} point [longitude, latitude]
+         * @returns {Point} point [longitude, latitude]
          * @example
          * var point = ruler.along(line, 2.5);
          * //=point
          */
-        along(line: Array<Array<number>>, dist: number): Array<number>
+        along(line: Line, dist: number): Point
 
         /**
          * Returns an object of the form {point, index} where point is closest point on the line from the given point, and index is the start index of the segment with the closest point.
          *
          * @pointOnLine
-         * @param {Array<Array<number>>} line
-         * @param {Array<number>} p point [longitude, latitude]
+         * @param {Line} line
+         * @param {Point} p point [longitude, latitude]
          * @returns {Object} {point, index}
          * @example
          * var point = ruler.pointOnLine(line, [-67.04, 50.5]).point;
          * //=point
          */
-        pointOnLine(line: Array<Array<number>>, p: Array<number>): InterfacePointOnLine
+        pointOnLine(line: Line, p: Point): InterfacePointOnLine
 
         /**
          * Returns a part of the given line between the start and the stop points (or their closest points on the line).
          *
-         * @param {Array<number>} start point [longitude, latitude]
-         * @param {Array<number>} stop point [longitude, latitude]
-         * @param {Array<Array<number>>} line
-         * @returns {Array<Array<number>>} line part of a line
+         * @param {Point} start point [longitude, latitude]
+         * @param {Point} stop point [longitude, latitude]
+         * @param {Line} line
+         * @returns {Line} line part of a line
          * @example
          * var line2 = ruler.lineSlice([-67.04, 50.5], [-67.05, 50.56], line1);
          * //=line2
          */
-        lineSlice(start: Array<number>, stop: Array<number>, line: Array<Array<number>>): Array<Array<number>>
+        lineSlice(start: Point, stop: Point, line: Line): Line
 
         /**
          * Returns a part of the given line between the start and the stop points indicated by distance along the line.
          *
          * @param {number} start distance
          * @param {number} stop distance
-         * @param {Array<Array<number>>} line
-         * @returns {Array<Array<number>>} line part of a line
+         * @param {Line} line
+         * @returns {Line} line part of a line
          * @example
          * var line2 = ruler.lineSliceAlong(10, 20, line1);
          * //=line2
          */
-        lineSliceAlong(start: number, stop: number, line: Array<Array<number>>): Array<Array<number>>
+        lineSliceAlong(start: number, stop: number, line: Line): Line
 
         /**
          * Given a point, returns a bounding box object ([w, s, e, n]) created from the given point buffered by a given distance.
          *
-         * @param {Array<number>} p point [longitude, latitude]
+         * @param {Point} p point [longitude, latitude]
          * @param {number} buffer
-         * @returns {Array<number>} box object ([w, s, e, n])
+         * @returns {BBox} box object ([w, s, e, n])
          * @example
          * var bbox = ruler.bufferPoint([30.5, 50.5], 0.01);
          * //=bbox
          */
-        bufferPoint(p: Array<number>, buffer: number): Array<number>
+        bufferPoint(p: Point, buffer: number): BBox
 
         /**
          * Given a bounding box, returns the box buffered by a given distance.
          *
-         * @param {Array<number>} box object ([w, s, e, n])
+         * @param {BBox} box object ([w, s, e, n])
          * @param {number} buffer
-         * @returns {Array<number>} box object ([w, s, e, n])
+         * @returns {BBox} box object ([w, s, e, n])
          * @example
          * var bbox = ruler.bufferBBox([30.5, 50.5, 31, 51], 0.2);
          * //=bbox
          */
-        bufferBBox(bbox: Array<number>, buffer: number): Array<number>
+        bufferBBox(bbox: BBox, buffer: number): BBox
 
         /**
          * Returns true if the given point is inside in the given bounding box, otherwise false.
          *
-         * @param {Array<number>} p point [longitude, latitude]
-         * @param {Array<number>} box object ([w, s, e, n])
+         * @param {Point} p point [longitude, latitude]
+         * @param {Point} box object ([w, s, e, n])
          * @returns {boolean}
          * @example
          * var inside = ruler.insideBBox([30.5, 50.5], [30, 50, 31, 51]);
          * //=inside
          */
-        insideBBox(p: Array<number>, bbox: Array<number>): boolean
+        insideBBox(p: Point, bbox: BBox): boolean
     }
     /**
      * A collection of very fast approximations to common geodesic measurements. Useful for performance-sensitive code that measures things on a city scale.
