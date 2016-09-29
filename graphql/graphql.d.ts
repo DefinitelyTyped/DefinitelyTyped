@@ -2063,7 +2063,7 @@ declare module "graphql/execution/values" {
     function getArgumentValues(
         argDefs: Array<GraphQLArgument>,
         argASTs: Array<Argument>,
-        variableValues?: { [key: string]: any },
+        variableValues?: { [key: string]: any }
     ): { [key: string]: any };
 }
 
