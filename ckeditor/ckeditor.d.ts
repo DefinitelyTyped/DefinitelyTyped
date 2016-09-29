@@ -1270,6 +1270,16 @@ declare namespace CKEDITOR {
         toHtml(data: string, fixForBody?: string): void;
     }
 
+    class htmlDataProcessor {
+        dataFilter: htmlParser.filter;
+        htmlFilter: htmlParser.filter;
+        writer: htmlParser.basicWriter;
+
+        constructor(editor: editor);
+        toDataFormat(html: string, options?: Object): string;
+        toHtml(data: string, options?: Object): string;
+    }
+
 
     class event {
         constructor();
