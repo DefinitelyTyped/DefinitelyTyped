@@ -3,20 +3,32 @@
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/********************
- *                  *
- * graphql/language *
- *                  *
- * Including:       *
- *   ast            *
- *   kinds          *
- *   lexer          *
- *   location       *
- *   parser         *
- *   printer        *
- *   source         *
- *   visitor        *
- ********************/
+/*************************************
+ *                                   * 
+ *               MODULES             * 
+ *                                   *
+ *************************************/
+declare module "t" {
+    import * as obj from "graphql/language/visitor";
+}
+
+///////////////////////////
+// graphql               //
+///////////////////////////
+declare module "graphql" {
+}
+
+///////////////////////////
+// graphql/type          //
+//   - ast               //
+//   - kinds             //
+//   - lexer             //
+//   - location          //
+//   - parser            //
+//   - printer           //
+//   - source            //
+//   - visitor           //
+///////////////////////////
 
 declare module "graphql/language" {
     export * from "graphql/language/index";
@@ -40,7 +52,7 @@ declare module "graphql/language/ast" {
      * Contains a range of UTF-8 character offsets and token references that
      * identify the region of the source from which the AST derived.
      */
-    export type Location = {
+    type Location = {
 
         /**
          * The character offset at which this Node begins.
@@ -72,7 +84,7 @@ declare module "graphql/language/ast" {
      * Represents a range of characters represented by a lexical token
      * within a Source.
      */
-    export type Token = {
+    type Token = {
 
         /**
          * The kind of Token.
@@ -135,7 +147,7 @@ declare module "graphql/language/ast" {
     /**
      * The list of all possible AST node types.
      */
-    export type Node = Name
+    type Node = Name
         | Document
         | OperationDefinition
         | VariableDefinition
@@ -174,7 +186,7 @@ declare module "graphql/language/ast" {
 
     // Name
 
-    export type Name = {
+    type Name = {
         kind: 'Name';
         loc?: Location;
         value: string;
@@ -182,17 +194,17 @@ declare module "graphql/language/ast" {
 
     // Document
 
-    export type Document = {
+    type Document = {
         kind: 'Document';
         loc?: Location;
         definitions: Array<Definition>;
     }
 
-    export type Definition = OperationDefinition
+    type Definition = OperationDefinition
         | FragmentDefinition
         | TypeSystemDefinition // experimental non-spec addition.
 
-    export type OperationDefinition = {
+    type OperationDefinition = {
         kind: 'OperationDefinition';
         loc?: Location;
         operation: OperationType;
@@ -203,9 +215,9 @@ declare module "graphql/language/ast" {
     }
 
     // Note: subscription is an experimental non-spec addition.
-    export type OperationType = 'query' | 'mutation' | 'subscription';
+    type OperationType = 'query' | 'mutation' | 'subscription';
 
-    export type VariableDefinition = {
+    type VariableDefinition = {
         kind: 'VariableDefinition';
         loc?: Location;
         variable: Variable;
@@ -213,23 +225,23 @@ declare module "graphql/language/ast" {
         defaultValue?: Value;
     }
 
-    export type Variable = {
+    type Variable = {
         kind: 'Variable';
         loc?: Location;
         name: Name;
     }
 
-    export type SelectionSet = {
+    type SelectionSet = {
         kind: 'SelectionSet';
         loc?: Location;
         selections: Array<Selection>;
     }
 
-    export type Selection = Field
+    type Selection = Field
         | FragmentSpread
         | InlineFragment
 
-    export type Field = {
+    type Field = {
         kind: 'Field';
         loc?: Location;
         alias?: Name;
@@ -239,7 +251,7 @@ declare module "graphql/language/ast" {
         selectionSet?: SelectionSet;
     }
 
-    export type Argument = {
+    type Argument = {
         kind: 'Argument';
         loc?: Location;
         name: Name;
@@ -249,14 +261,14 @@ declare module "graphql/language/ast" {
 
     // Fragments
 
-    export type FragmentSpread = {
+    type FragmentSpread = {
         kind: 'FragmentSpread';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    export type InlineFragment = {
+    type InlineFragment = {
         kind: 'InlineFragment';
         loc?: Location;
         typeCondition?: NamedType;
@@ -264,7 +276,7 @@ declare module "graphql/language/ast" {
         selectionSet: SelectionSet;
     }
 
-    export type FragmentDefinition = {
+    type FragmentDefinition = {
         kind: 'FragmentDefinition';
         loc?: Location;
         name: Name;
@@ -276,7 +288,7 @@ declare module "graphql/language/ast" {
 
     // Values
 
-    export type Value = Variable
+    type Value = Variable
         | IntValue
         | FloatValue
         | StringValue
@@ -285,49 +297,49 @@ declare module "graphql/language/ast" {
         | ListValue
         | ObjectValue
 
-    export type IntValue = {
+    type IntValue = {
         kind: 'IntValue';
         loc?: Location;
         value: string;
     }
 
-    export type FloatValue = {
+    type FloatValue = {
         kind: 'FloatValue';
         loc?: Location;
         value: string;
     }
 
-    export type StringValue = {
+    type StringValue = {
         kind: 'StringValue';
         loc?: Location;
         value: string;
     }
 
-    export type BooleanValue = {
+    type BooleanValue = {
         kind: 'BooleanValue';
         loc?: Location;
         value: boolean;
     }
 
-    export type EnumValue = {
+    type EnumValue = {
         kind: 'EnumValue';
         loc?: Location;
         value: string;
     }
 
-    export type ListValue = {
+    type ListValue = {
         kind: 'ListValue';
         loc?: Location;
         values: Array<Value>;
     }
 
-    export type ObjectValue = {
+    type ObjectValue = {
         kind: 'ObjectValue';
         loc?: Location;
         fields: Array<ObjectField>;
     }
 
-    export type ObjectField = {
+    type ObjectField = {
         kind: 'ObjectField';
         loc?: Location;
         name: Name;
@@ -337,7 +349,7 @@ declare module "graphql/language/ast" {
 
     // Directives
 
-    export type Directive = {
+    type Directive = {
         kind: 'Directive';
         loc?: Location;
         name: Name;
@@ -347,23 +359,23 @@ declare module "graphql/language/ast" {
 
     // Type Reference
 
-    export type Type = NamedType
+    type Type = NamedType
         | ListType
         | NonNullType
 
-    export type NamedType = {
+    type NamedType = {
         kind: 'NamedType';
         loc?: Location;
         name: Name;
     };
 
-    export type ListType = {
+    type ListType = {
         kind: 'ListType';
         loc?: Location;
         type: Type;
     }
 
-    export type NonNullType = {
+    type NonNullType = {
         kind: 'NonNullType';
         loc?: Location;
         type: NamedType | ListType;
@@ -371,40 +383,40 @@ declare module "graphql/language/ast" {
 
     // Type System Definition
 
-    export type TypeSystemDefinition = SchemaDefinition
+    type TypeSystemDefinition = SchemaDefinition
         | TypeDefinition
         | TypeExtensionDefinition
         | DirectiveDefinition
 
-    export type SchemaDefinition = {
+    type SchemaDefinition = {
         kind: 'SchemaDefinition';
         loc?: Location;
         directives: Array<Directive>;
         operationTypes: Array<OperationTypeDefinition>;
     }
 
-    export type OperationTypeDefinition = {
+    type OperationTypeDefinition = {
         kind: 'OperationTypeDefinition';
         loc?: Location;
         operation: OperationType;
         type: NamedType;
     }
 
-    export type TypeDefinition = ScalarTypeDefinition
+    type TypeDefinition = ScalarTypeDefinition
         | ObjectTypeDefinition
         | InterfaceTypeDefinition
         | UnionTypeDefinition
         | EnumTypeDefinition
         | InputObjectTypeDefinition
 
-    export type ScalarTypeDefinition = {
+    type ScalarTypeDefinition = {
         kind: 'ScalarTypeDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    export type ObjectTypeDefinition = {
+    type ObjectTypeDefinition = {
         kind: 'ObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -413,7 +425,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    export type FieldDefinition = {
+    type FieldDefinition = {
         kind: 'FieldDefinition';
         loc?: Location;
         name: Name;
@@ -422,7 +434,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    export type InputValueDefinition = {
+    type InputValueDefinition = {
         kind: 'InputValueDefinition';
         loc?: Location;
         name: Name;
@@ -431,7 +443,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    export type InterfaceTypeDefinition = {
+    type InterfaceTypeDefinition = {
         kind: 'InterfaceTypeDefinition';
         loc?: Location;
         name: Name;
@@ -439,7 +451,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    export type UnionTypeDefinition = {
+    type UnionTypeDefinition = {
         kind: 'UnionTypeDefinition';
         loc?: Location;
         name: Name;
@@ -447,7 +459,7 @@ declare module "graphql/language/ast" {
         types: Array<NamedType>;
     }
 
-    export type EnumTypeDefinition = {
+    type EnumTypeDefinition = {
         kind: 'EnumTypeDefinition';
         loc?: Location;
         name: Name;
@@ -455,14 +467,14 @@ declare module "graphql/language/ast" {
         values: Array<EnumValueDefinition>;
     }
 
-    export type EnumValueDefinition = {
+    type EnumValueDefinition = {
         kind: 'EnumValueDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive> | null;
     }
 
-    export type InputObjectTypeDefinition = {
+    type InputObjectTypeDefinition = {
         kind: 'InputObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -470,13 +482,13 @@ declare module "graphql/language/ast" {
         fields: Array<InputValueDefinition>;
     }
 
-    export type TypeExtensionDefinition = {
+    type TypeExtensionDefinition = {
         kind: 'TypeExtensionDefinition';
         loc?: Location;
         definition: ObjectTypeDefinition;
     }
 
-    export type DirectiveDefinition = {
+    type DirectiveDefinition = {
         kind: 'DirectiveDefinition';
         loc?: Location;
         name: Name;
@@ -657,7 +669,7 @@ declare module "graphql/language/parser" {
     /**
      * Configuration options to control parser behavior
      */
-    export type ParseOptions = {
+    type ParseOptions = {
         /**
          * By default, the parser creates AST nodes that know the location
          * in the source that they correspond to. This configuration flag
@@ -670,7 +682,7 @@ declare module "graphql/language/parser" {
      * Given a GraphQL source, parses it into a Document.
      * Throws GraphQLError if a syntax error is encountered.
      */
-    export function parse(
+    function parse(
         source: string | Source,
         options?: ParseOptions
     ): Document;
@@ -720,8 +732,7 @@ declare module "graphql/language/source" {
 }
 
 declare module "graphql/language/visitor" {
-    const QueryDocumentKeys: QueryDocumentKeys;
-    interface QueryDocumentKeys {
+    const QueryDocumentKeys: {
         Name: any[];
         Document: string[];
         OperationDefinition: string[];
@@ -770,3 +781,146 @@ declare module "graphql/language/visitor" {
 
     function visitWithTypeInfo(typeInfo: any, visitor: any): any;
 }
+
+///////////////////////////
+// graphql/type          //
+///////////////////////////
+
+///////////////////////////
+// graphql/validation    //
+///////////////////////////
+
+///////////////////////////
+// graphql/execution     //
+///////////////////////////
+
+///////////////////////////
+// graphql/error         //
+///////////////////////////
+declare module "graphql/error" {
+    export * from 'graphql/error/index'; 
+}
+
+declare module "graphql/error/index" {
+    export { GraphQLError } from 'graphql/error/GraphQLError';
+    export { syntaxError } from 'graphql/error/syntaxError';
+    export { locatedError } from 'graphql/error/locatedError';
+    export { formatError } from 'graphql/error/formatError';
+}
+
+declare module "graphql/error/formatError" {
+    import { GraphQLError } from 'graphql/error/GraphQLError';
+
+    /**
+     * Given a GraphQLError, format it according to the rules described by the
+     * Response Format, Errors section of the GraphQL Specification.
+     */
+    function formatError(error: GraphQLError): GraphQLFormattedError;
+
+    type GraphQLFormattedError = {
+        message: string,
+        locations: Array<GraphQLErrorLocation>
+    };
+
+    type GraphQLErrorLocation = {
+        line: number,
+        column: number
+    };
+}
+
+declare module "graphql/error/GraphQLError" {
+    import { getLocation } from 'graphql/language';
+    import { Node } from 'graphql/language/ast';
+    import { Source } from 'graphql/language/source';
+
+    /**
+     * A GraphQLError describes an Error found during the parse, validate, or
+     * execute phases of performing a GraphQL operation. In addition to a message
+     * and stack trace, it also includes information about the locations in a
+     * GraphQL document and/or execution result that correspond to the Error.
+     */
+    class GraphQLError extends Error {
+
+        /**
+         * A message describing the Error for debugging purposes.
+         *
+         * Enumerable, and appears in the result of JSON.stringify().
+         */
+        message: string;
+
+        /**
+         * An array of { line, column } locations within the source GraphQL document
+         * which correspond to this error.
+         *
+         * Errors during validation often contain multiple locations, for example to
+         * point out two things with the same name. Errors during execution include a
+         * single location, the field which produced the error.
+         *
+         * Enumerable, and appears in the result of JSON.stringify().
+         */
+        locations: Array<{ line: number, column: number }> | void;
+
+        /**
+         * An array describing the JSON-path into the execution response which
+         * corresponds to this error. Only included for errors during execution.
+         *
+         * Enumerable, and appears in the result of JSON.stringify().
+         */
+        path: Array<string | number> | void;
+
+        /**
+         * An array of GraphQL AST Nodes corresponding to this error.
+         */
+        nodes: Array<Node> | void;
+
+        /**
+         * The source GraphQL document corresponding to this error.
+         */
+        source: Source | void;
+
+        /**
+         * An array of character offsets within the source GraphQL document
+         * which correspond to this error.
+         */
+        positions: Array<number> | void;
+
+        /**
+         * The original error thrown from a field resolver during execution.
+         */
+        originalError: Error;
+    }
+}
+
+declare module "graphql/error/locatedError" {
+    import { GraphQLError } from 'graphql/error/GraphQLError';
+
+    /**
+     * Given an arbitrary Error, presumably thrown while attempting to execute a
+     * GraphQL operation, produce a new GraphQLError aware of the location in the
+     * document responsible for the original Error.
+     */
+    function locatedError<T>(
+        originalError: Error,
+        nodes: Array<T>,
+        path: Array<string | number>
+    ): GraphQLError;
+}
+
+declare module "graphql/error/syntaxError" {
+    import { Source } from 'graphql/language/source';
+    import { GraphQLError } from 'graphql/error/GraphQLError';
+
+    /**
+     * Produces a GraphQLError representing a syntax error, containing useful
+     * descriptive information about the syntax error's position in the source.
+     */
+    function syntaxError(
+        source: Source,
+        position: number,
+        description: string
+    ): GraphQLError;
+}
+
+///////////////////////////
+// graphql/utilities     //
+///////////////////////////
