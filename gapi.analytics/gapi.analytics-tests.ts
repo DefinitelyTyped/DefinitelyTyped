@@ -1,6 +1,5 @@
 // Type definitions for Google Analytics API
 
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../gapi/gapi.d.ts" />
 /// <reference path="./gapi.analytics.d.ts" />
 
