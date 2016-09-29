@@ -5941,7 +5941,10 @@ interface richselect extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	/**
+	* returns list view of the control
+	*/
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;
