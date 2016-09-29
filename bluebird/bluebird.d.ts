@@ -318,6 +318,13 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
   cancel(): void;
 
   /**
+   * Basically sugar for doing: somePromise.catch(function(){});
+   * 
+   * Which is needed in case error handlers are attached asynchronously to the promise later, which would otherwise result in premature unhandled rejection reporting.
+   */
+  suppressUnhandledRejections(): void;
+
+  /**
    * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.
    *
    * Note about second argument: if it's specifically a true array, its values become respective arguments for the function call. Otherwise it is passed as is as the first argument for the function call.
