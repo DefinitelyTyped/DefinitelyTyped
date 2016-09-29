@@ -676,7 +676,7 @@ declare module "graphql/language/ast" {
         kind: 'UnionTypeDefinition';
         loc?: Location;
         name: Name;
-        directives?: Array<Directive> | null;
+        directives?: Array<Directive>;
         types: Array<NamedType>;
     }
 
@@ -684,7 +684,7 @@ declare module "graphql/language/ast" {
         kind: 'EnumTypeDefinition';
         loc?: Location;
         name: Name;
-        directives?: Array<Directive> | null;
+        directives?: Array<Directive>;
         values: Array<EnumValueDefinition>;
     }
 
@@ -692,14 +692,14 @@ declare module "graphql/language/ast" {
         kind: 'EnumValueDefinition';
         loc?: Location;
         name: Name;
-        directives?: Array<Directive> | null;
+        directives?: Array<Directive>;
     }
 
     type InputObjectTypeDefinition = {
         kind: 'InputObjectTypeDefinition';
         loc?: Location;
         name: Name;
-        directives?: Array<Directive> | null;
+        directives?: Array<Directive>;
         fields: Array<InputValueDefinition>;
     }
 
@@ -713,7 +713,7 @@ declare module "graphql/language/ast" {
         kind: 'DirectiveDefinition';
         loc?: Location;
         name: Name;
-        arguments?: Array<InputValueDefinition> | null;
+        arguments?: Array<InputValueDefinition>;
         locations: Array<Name>;
     }
 
