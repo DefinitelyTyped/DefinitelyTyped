@@ -12,6 +12,231 @@
 // graphql               //
 ///////////////////////////
 declare module "graphql" {
+    // The primary entry point into fulfilling a GraphQL request.
+    export {
+        graphql
+    } from 'graphql/graphql';
+
+
+    // Create and operate on GraphQL type definitions and schema.
+    export {
+        GraphQLSchema,
+
+        // Definitions
+        GraphQLScalarType,
+        GraphQLObjectType,
+        GraphQLInterfaceType,
+        GraphQLUnionType,
+        GraphQLEnumType,
+        GraphQLInputObjectType,
+        GraphQLList,
+        GraphQLNonNull,
+        GraphQLDirective,
+
+        // "Enum" of Type Kinds
+        TypeKind,
+
+        // "Enum" of Directive Locations
+        DirectiveLocation,
+
+        // Scalars
+        GraphQLInt,
+        GraphQLFloat,
+        GraphQLString,
+        GraphQLBoolean,
+        GraphQLID,
+
+        // Built-in Directives defined by the Spec
+        specifiedDirectives,
+        GraphQLIncludeDirective,
+        GraphQLSkipDirective,
+        GraphQLDeprecatedDirective,
+
+        // Constant Deprecation Reason
+        DEFAULT_DEPRECATION_REASON,
+
+        // Meta-field definitions.
+        SchemaMetaFieldDef,
+        TypeMetaFieldDef,
+        TypeNameMetaFieldDef,
+
+        // GraphQL Types for introspection.
+        __Schema,
+        __Directive,
+        __DirectiveLocation,
+        __Type,
+        __Field,
+        __InputValue,
+        __EnumValue,
+        __TypeKind,
+
+        // Predicates
+        isType,
+        isInputType,
+        isOutputType,
+        isLeafType,
+        isCompositeType,
+        isAbstractType,
+
+        // Un-modifiers
+        getNullableType,
+        getNamedType,
+    } from 'graphql/type';
+
+
+    // Parse and operate on GraphQL language source files.
+    export {
+        Source,
+        getLocation,
+
+        // Parse
+        parse,
+        parseValue,
+        parseType,
+
+        // Print
+        print,
+
+        // Visit
+        visit,
+        visitInParallel,
+        visitWithTypeInfo,
+        Kind,
+        TokenKind,
+        BREAK,
+    } from 'graphql/language';
+
+
+    // Execute GraphQL queries.
+    export {
+        execute,
+    } from 'graphql/execution';
+
+
+    // Validate GraphQL queries.
+    export {
+        validate,
+        specifiedRules,
+    } from 'graphql/validation';
+
+
+    // Create and format GraphQL errors.
+    export {
+        GraphQLError,
+        formatError,
+    } from 'graphql/error';
+
+
+    // Utilities for operating on GraphQL type schema and parsed sources.
+    /*
+    export {
+        // The GraphQL query recommended for a full schema introspection.
+        introspectionQuery,
+
+        // Gets the target Operation from a Document
+        getOperationAST,
+
+        // Build a GraphQLSchema from an introspection result.
+        buildClientSchema,
+
+        // Build a GraphQLSchema from a parsed GraphQL Schema language AST.
+        buildASTSchema,
+
+        // Build a GraphQLSchema from a GraphQL schema language document.
+        buildSchema,
+
+        // Extends an existing GraphQLSchema from a parsed GraphQL Schema
+        // language AST.
+        extendSchema,
+
+        // Print a GraphQLSchema to GraphQL Schema language.
+        printSchema,
+
+        // Create a GraphQLType from a GraphQL language AST.
+        typeFromAST,
+
+        // Create a JavaScript value from a GraphQL language AST.
+        valueFromAST,
+
+        // Create a GraphQL language AST from a JavaScript value.
+        astFromValue,
+
+        // A helper to use within recursive-descent visitors which need to be aware of
+        // the GraphQL type system.
+        TypeInfo,
+
+        // Determine if JavaScript values adhere to a GraphQL type.
+        isValidJSValue,
+
+        // Determine if AST values adhere to a GraphQL type.
+        isValidLiteralValue,
+
+        // Concatenates multiple AST together.
+        concatAST,
+
+        // Separates an AST into an AST per Operation.
+        separateOperations,
+
+        // Comparators for types
+        isEqualType,
+        isTypeSubTypeOf,
+        doTypesOverlap,
+
+        // Asserts a string is a valid GraphQL name.
+        assertValidName,
+    } from 'graphql/utilities';
+    */
+}
+
+declare module "graphql/graphql" {
+    import { GraphQLError } from 'graphql/error/GraphQLError';
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    /**
+     * This is the primary entry point function for fulfilling GraphQL operations
+     * by parsing, validating, and executing a GraphQL document along side a
+     * GraphQL schema.
+     *
+     * More sophisticated GraphQL servers, such as those which persist queries,
+     * may wish to separate the validation and execution phases to a static time
+     * tooling step, and a server runtime step.
+     *
+     * schema:
+     *    The GraphQL type system to use when validating and executing a query.
+     * requestString:
+     *    A GraphQL language formatted string representing the requested operation.
+     * rootValue:
+     *    The value provided as the first argument to resolver functions on the top
+     *    level type (e.g. the query object type).
+     * variableValues:
+     *    A mapping of variable name to runtime value to use for all variables
+     *    defined in the requestString.
+     * operationName:
+     *    The name of the operation to use if requestString contains multiple
+     *    possible operations. Can be omitted if requestString contains only
+     *    one operation.
+     */
+    function graphql(
+        schema: GraphQLSchema,
+        requestString: string,
+        rootValue?: any,
+        contextValue?: any,
+        variableValues?: {
+            [key: string]: any
+        },
+        operationName?: string
+    ): Promise<GraphQLResult>;
+
+    /**
+     * The result of a GraphQL parse, validation and execution.
+     *
+     * `data` is the result of a successful execution of the query.
+     * `errors` is included when any errors occurred as a non-empty array.
+     */
+    type GraphQLResult = {
+        data?: Object;
+        errors?: Array<GraphQLError>;
+    }
 }
 
 ///////////////////////////
@@ -35,7 +260,7 @@ declare module "graphql/language/index" {
     import * as Kind from 'graphql/language/kinds';
     export { Kind };
     export { createLexer, TokenKind } from 'graphql/language/lexer';
-    export { parse, parseValue } from 'graphql/language/parser';
+    export { parse, parseValue, parseType } from 'graphql/language/parser';
     export { print } from 'graphql/language/printer';
     export { Source } from 'graphql/language/source';
     export { visit, visitInParallel, visitWithTypeInfo, BREAK } from 'graphql/language/visitor';
@@ -1623,18 +1848,127 @@ declare module "graphql/type/schema" {
 // graphql/validation    //
 ///////////////////////////
 declare module "graphql/validation" {
-
+    export * from "graphql/validation/index";
 }
 
 declare module "graphql/validation/index" {
-
+    export { validate } from 'graphql/validation/validate';
+    export { specifiedRules } from 'graphql/validation/specifiedRules';
 }
 
 declare module "graphql/validation/specifiedRules" {
+    import { ValidationContext } from 'graphql/validation/validate'; // It needs to check.
+
+    /**
+     * This set includes all validation rules defined by the GraphQL spec.
+     */
+    const specifiedRules: Array<(context: ValidationContext) => any>;
 
 }
 
 declare module "graphql/validation/validate" {
+    import { GraphQLError } from 'graphql/error';
+    import {
+        Document,
+        OperationDefinition,
+        Variable,
+        SelectionSet,
+        FragmentSpread,
+        FragmentDefinition,
+    } from 'graphql/language/ast';
+    import { GraphQLSchema } from 'graphql/type/schema';
+    import {
+        GraphQLInputType,
+        GraphQLOutputType,
+        GraphQLCompositeType,
+        GraphQLFieldDefinition,
+        GraphQLArgument
+    } from 'graphql/type/definition';
+    import { GraphQLDirective } from 'graphql/type/directives';
+    import { TypeInfo } from 'graphql/utilities/TypeInfo';
+    import { specifiedRules } from 'graphql/validation/specifiedRules';
+
+    //type ValidationRule = (context: ValidationContext) => any;
+
+    /**
+     * Implements the "Validation" section of the spec.
+     *
+     * Validation runs synchronously, returning an array of encountered errors, or
+     * an empty array if no errors were encountered and the document is valid.
+     *
+     * A list of specific validation rules may be provided. If not provided, the
+     * default list of rules defined by the GraphQL specification will be used.
+     *
+     * Each validation rules is a function which returns a visitor
+     * (see the language/visitor API). Visitor methods are expected to return
+     * GraphQLErrors, or Arrays of GraphQLErrors when invalid.
+     */
+    function validate(
+        schema: GraphQLSchema,
+        ast: Document,
+        rules?: Array<any>
+    ): Array<GraphQLError>;
+
+    /**
+     * This uses a specialized visitor which runs multiple visitors in parallel,
+     * while maintaining the visitor skip and break API.
+     *
+     * @internal
+     */
+    function visitUsingRules(
+        schema: GraphQLSchema,
+        typeInfo: TypeInfo,
+        documentAST: Document,
+        rules: Array<any>
+    ): Array<GraphQLError>;
+
+    type HasSelectionSet = OperationDefinition | FragmentDefinition;
+    interface VariableUsage {
+        node: Variable,
+        type: GraphQLInputType
+    }
+
+    /**
+     * An instance of this class is passed as the "this" context to all validators,
+     * allowing access to commonly useful contextual information from within a
+     * validation rule.
+     */
+    export class ValidationContext {
+        constructor(schema: GraphQLSchema, ast: Document, typeInfo: TypeInfo);
+        reportError(error: GraphQLError): void;
+
+        getErrors(): Array<GraphQLError>;
+
+        getSchema(): GraphQLSchema;
+
+        getDocument(): Document;
+
+        getFragment(name: string): FragmentDefinition;
+
+        getFragmentSpreads(node: SelectionSet): Array<FragmentSpread>;
+
+        getRecursivelyReferencedFragments(
+            operation: OperationDefinition
+        ): Array<FragmentDefinition>;
+
+        getVariableUsages(node: HasSelectionSet): Array<VariableUsage>;
+
+        getRecursiveVariableUsages(
+            operation: OperationDefinition
+        ): Array<VariableUsage>;
+
+        getType(): GraphQLOutputType;
+
+        getParentType(): GraphQLCompositeType;
+
+        getInputType(): GraphQLInputType;
+
+        getFieldDef(): GraphQLFieldDefinition;
+
+        getDirective(): GraphQLDirective;
+
+        getArgument(): GraphQLArgument;
+    }
 
 }
 
@@ -1643,19 +1977,94 @@ declare module "graphql/validation/validate" {
 // graphql/execution     //
 ///////////////////////////
 declare module "graphql/execution" {
-    // TODOS
+    export * from "graphql/execution/index";
 }
 
 declare module "graphql/execution/index" {
-    // TODOS
+    export { execute } from 'graphql/execution/execute';
 }
 
 declare module "graphql/execution/execute" {
-    // TODOS
+    import { GraphQLError, locatedError } from 'graphql/error';
+    import { GraphQLSchema } from 'graphql/type/schema';
+    import {
+        Directive,
+        Document,
+        OperationDefinition,
+        SelectionSet,
+        Field,
+        InlineFragment,
+        FragmentDefinition
+    } from 'graphql/language/ast';
+    /**
+     * Data that must be available at all points during query execution.
+     *
+     * Namely, schema of the type system that is currently executing,
+     * and the fragments defined in the query document
+     */
+    interface ExecutionContext {
+        schema: GraphQLSchema;
+        fragments: { [key: string]: FragmentDefinition };
+        rootValue: any;
+        operation: OperationDefinition;
+        variableValues: { [key: string]: any };
+        errors: Array<GraphQLError>;
+    }
+
+    /**
+     * The result of execution. `data` is the result of executing the
+     * query, `errors` is null if no errors occurred, and is a
+     * non-empty array if an error occurred.
+     */
+    interface ExecutionResult {
+        data: Object;
+        errors?: Array<GraphQLError>;
+    }
+
+    /**
+     * Implements the "Evaluating requests" section of the GraphQL specification.
+     *
+     * Returns a Promise that will eventually be resolved and never rejected.
+     *
+     * If the arguments to this function do not result in a legal execution context,
+     * a GraphQLError will be thrown immediately explaining the invalid input.
+     */
+    function execute(
+        schema: GraphQLSchema,
+        documentAST: Document,
+        rootValue?: any,
+        contextValue?: any,
+        variableValues?: {
+            [key: string]: any
+        },
+        operationName?: string
+    ): Promise<ExecutionResult>
 }
 
 declare module "graphql/execution/values" {
-    // TODOS
+    import { GraphQLInputType, GraphQLArgument } from 'graphql/type/definition';
+    import { GraphQLSchema } from 'graphql/type/schema';
+    import { Argument, VariableDefinition } from 'graphql/language/ast';
+    /**
+     * Prepares an object map of variableValues of the correct type based on the
+     * provided variable definitions and arbitrary input. If the input cannot be
+     * parsed to match the variable definitions, a GraphQLError will be thrown.
+     */
+    function getVariableValues(
+        schema: GraphQLSchema,
+        definitionASTs: Array<VariableDefinition>,
+        inputs: { [key: string]: any }
+    ): { [key: string]: any }
+
+    /**
+     * Prepares an object map of argument values given a list of argument
+     * definitions and list of argument AST nodes.
+     */
+    function getArgumentValues(
+        argDefs: Array<GraphQLArgument>,
+        argASTs: Array<Argument>,
+        variableValues?: { [key: string]: any },
+    ): { [key: string]: any };
 }
 
 ///////////////////////////
@@ -1971,6 +2380,10 @@ declare module "graphql/error/syntaxError" {
 // declare module "graphql/utilities/typeFromAST" {
 
 // }
+
+declare module "graphql/utilities/TypeInfo" {
+    class TypeInfo { }
+}
 
 // declare module "graphql/utilities/valueFromAST" {
 
