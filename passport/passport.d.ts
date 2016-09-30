@@ -30,7 +30,7 @@ declare module 'passport' {
     function use(strategy: Strategy): Passport;
     function use(name: string, strategy: Strategy): Passport;
     function unuse(name: string): Passport;
-    function framework(fw: string): Passport;
+    function framework(fw: Framework): Passport;
     function initialize(options?: { userProperty: string; }): express.Handler;
     function session(options?: { pauseStream: boolean; }): express.Handler;
 
@@ -50,7 +50,7 @@ declare module 'passport' {
         use(strategy: Strategy): Passport;
         use(name: string, strategy: Strategy): Passport;
         unuse(name: string): Passport;
-        framework(fw: string): Passport;
+        framework(fw: Framework): Passport;
         initialize(options?: { userProperty: string; }): express.Handler;
         session(options?: { pauseStream: boolean; }): express.Handler;
 
@@ -76,7 +76,7 @@ declare module 'passport' {
         provider: string;
         id: string;
         displayName: string;
-        name? : {
+        name?: {
             familyName: string;
             givenName: string;
             middleName?: string;
@@ -88,5 +88,11 @@ declare module 'passport' {
         photos?: {
             value: string;
         }[];
+    }
+
+    interface Framework {
+        initialize(passport: Passport, options?: Object): Function;
+        authenticate(passport: Passport, name: string, options?: Object, callback?: Function): Function;
+        authorize?(passport: Passport, name: string, options?: Object, callback?: Function): Function;
     }
 }

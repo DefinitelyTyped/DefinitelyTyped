@@ -11,7 +11,7 @@ declare module "angular-touchspin" {
     export = _;
 }
 
-declare namespace angularTouchSpin {
+declare namespace angular.touchspin {
     interface ITouchSpinOptions {
         min?: number;
         max?: number;
