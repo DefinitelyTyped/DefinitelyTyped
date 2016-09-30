@@ -356,25 +356,25 @@ declare module _ {
         set(key: string, value: any): _.Dictionary<any>;
     }
 
-    interface LoDashWrapperBase<T, TWrapper> { }
+    interface LoDashWrapperBase<T> { }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> extends LoDashWrapperBase<T, TWrapper> { }
+    interface LoDashImplicitWrapperBase<T> extends LoDashWrapperBase<T> { }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> extends LoDashWrapperBase<T, TWrapper> { }
+    interface LoDashExplicitWrapperBase<T> extends LoDashWrapperBase<T> { }
 
-    interface LoDashImplicitWrapper<T> extends LoDashImplicitWrapperBase<T, LoDashImplicitWrapper<T>> { }
+    interface LoDashImplicitWrapper<T> extends LoDashImplicitWrapperBase<T> { }
 
-    interface LoDashExplicitWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitWrapper<T>> { }
+    interface LoDashExplicitWrapper<T> extends LoDashExplicitWrapperBase<T> { }
 
     interface LoDashImplicitStringWrapper extends LoDashImplicitWrapper<string> { }
 
     interface LoDashExplicitStringWrapper extends LoDashExplicitWrapper<string> { }
 
-    interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitWrapperBase<T, LoDashImplicitObjectWrapper<T>> { }
+    interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitWrapperBase<T> { }
 
-    interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T, LoDashExplicitObjectWrapper<T>> { }
+    interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitWrapperBase<T> { }
 
-    interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[], LoDashImplicitArrayWrapper<T>> {
+    interface LoDashImplicitArrayWrapper<T> extends LoDashImplicitWrapperBase<T[]> {
         pop(): T;
         push(...items: T[]): LoDashImplicitArrayWrapper<T>;
         shift(): T;
@@ -384,7 +384,15 @@ declare module _ {
         unshift(...items: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> { }
+    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[]> {
+        pop(): LoDashExplicitWrapper<T>;
+        push(...items: T[]): LoDashExplicitArrayWrapper<T>;
+        shift(): LoDashExplicitWrapper<T>;
+        sort(compareFn?: (a: T, b: T) => number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number, deleteCount: number, ...items: any[]): LoDashExplicitArrayWrapper<T>;
+        unshift(...items: T[]): LoDashExplicitArrayWrapper<T>;
+    }
 
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
@@ -5742,11 +5750,11 @@ declare module _ {
         chain(): LoDashExplicitObjectWrapper<T>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.chain
          */
-        chain(): TWrapper;
+        chain(): this;
     }
 
     //_.tap
@@ -5767,22 +5775,13 @@ declare module _ {
         ): T;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * @see _.tap
          */
         tap(
             interceptor: (value: T) => void
-        ): TWrapper;
-    }
-
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
-        /**
-         * @see _.tap
-         */
-        tap(
-            interceptor: (value: T) => void
-        ): TWrapper;
+        ): this;
     }
 
     //_.thru
@@ -5801,7 +5800,7 @@ declare module _ {
         ): TResult;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.thru
          */
@@ -5833,7 +5832,7 @@ declare module _ {
             interceptor: (value: T) => TResult[]): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.thru
          */
@@ -5871,24 +5870,17 @@ declare module _ {
     }
 
     //_.prototype.commit
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * Executes the chained sequence and returns the wrapped result.
          *
          * @return Returns the new lodash wrapper instance.
          */
-        commit(): TWrapper;
-    }
-
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
-        /**
-         * @see _.commit
-         */
-        commit(): TWrapper;
+        commit(): this;
     }
 
     //_.prototype.concat
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * Creates a new array joining a wrapped array with any additional arrays and/or values.
          *
@@ -5903,7 +5895,7 @@ declare module _ {
         concat(...items: Array<T|Array<T>>): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.concat
          */
@@ -5916,7 +5908,7 @@ declare module _ {
     }
 
     //_.prototype.plant
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * Creates a clone of the chained sequence planting value as the wrapped value.
          * @param value The value to plant as the wrapped value.
@@ -5955,7 +5947,7 @@ declare module _ {
         plant(value: any): LoDashImplicitWrapper<any>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.plant
          */
@@ -6013,7 +6005,7 @@ declare module _ {
     }
 
     //_.prototype.toJSON
-    interface LoDashWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * @see _.value
          */
@@ -6021,7 +6013,7 @@ declare module _ {
     }
 
     //_.prototype.toString
-    interface LoDashWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * Produces the result of coercing the unwrapped value to a string.
          *
@@ -6031,7 +6023,7 @@ declare module _ {
     }
 
     //_.prototype.value
-    interface LoDashWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * Executes the chained sequence to extract the unwrapped value.
          *
@@ -6043,7 +6035,7 @@ declare module _ {
     }
 
     //_.valueOf
-    interface LoDashWrapperBase<T, TWrapper> {
+    interface LoDashWrapperBase<T> {
         /**
          * @see _.value
          */
@@ -9675,14 +9667,14 @@ declare module _ {
         now(): number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.now
          */
         now(): number;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.now
          */
@@ -11414,7 +11406,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isEqual
          */
@@ -11423,7 +11415,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isEqual
          */
@@ -11447,14 +11439,14 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.gt
          */
         gt(other: any): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.gt
          */
@@ -11476,14 +11468,14 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.gte
          */
         gte(other: any): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.gte
          */
@@ -11501,14 +11493,14 @@ declare module _ {
         isArguments(value?: any): value is IArguments;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isArguments
          */
         isArguments(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isArguments
          */
@@ -11526,14 +11518,14 @@ declare module _ {
         isArray<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isArray
          */
         isArray(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isArray
          */
@@ -11551,14 +11543,14 @@ declare module _ {
         isArrayBuffer(value?: any): value is ArrayBuffer;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isArrayBuffer
          */
         isArrayBuffer(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isArrayBuffer
          */
@@ -11595,14 +11587,14 @@ declare module _ {
         isArrayLike<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isArrayLike
          */
         isArrayLike(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isArrayLike
          */
@@ -11638,14 +11630,14 @@ declare module _ {
         isArrayLikeObject<T>(value?: any): value is T[];
     }
 
-    interface LoDashImplicitWrapperBase<T,TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isArrayLikeObject
          */
         isArrayLikeObject(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T,TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isArrayLikeObject
          */
@@ -11663,14 +11655,14 @@ declare module _ {
         isBoolean(value?: any): value is boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isBoolean
          */
         isBoolean(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isBoolean
          */
@@ -11688,14 +11680,14 @@ declare module _ {
         isBuffer(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isBuffer
          */
         isBuffer(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isBuffer
          */
@@ -11713,14 +11705,14 @@ declare module _ {
         isDate(value?: any): value is Date;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isDate
          */
         isDate(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isDate
          */
@@ -11738,14 +11730,14 @@ declare module _ {
         isElement(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isElement
          */
         isElement(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isElement
          */
@@ -11764,14 +11756,14 @@ declare module _ {
         isEmpty(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isEmpty
          */
         isEmpty(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isEmpty
          */
@@ -11813,7 +11805,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isEqual
          */
@@ -11822,7 +11814,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isEqual
          */
@@ -11875,7 +11867,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isEqualWith
          */
@@ -11885,7 +11877,7 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isEqualWith
          */
@@ -11907,14 +11899,14 @@ declare module _ {
         isError(value: any): value is Error;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isError
          */
         isError(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isError
          */
@@ -11934,14 +11926,14 @@ declare module _ {
         isFinite(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isFinite
          */
         isFinite(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isFinite
          */
@@ -11959,14 +11951,14 @@ declare module _ {
         isFunction(value?: any): value is Function;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isFunction
          */
         isFunction(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isFunction
          */
@@ -12002,14 +11994,14 @@ declare module _ {
         isInteger(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isInteger
          */
         isInteger(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isInteger
          */
@@ -12045,14 +12037,14 @@ declare module _ {
         isLength(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isLength
          */
         isLength(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isLength
          */
@@ -12070,14 +12062,14 @@ declare module _ {
         isMap<K, V>(value?: any): value is Map<K, V>;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isMap
          */
         isMap(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isMap
          */
@@ -12182,14 +12174,14 @@ declare module _ {
         isNaN(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isNaN
          */
         isNaN(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isNaN
          */
@@ -12207,14 +12199,14 @@ declare module _ {
         isNative(value: any): value is Function;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isNative
          */
         isNative(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isNative
          */
@@ -12245,14 +12237,14 @@ declare module _ {
         isNil(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isNil
          */
         isNil(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isNil
          */
@@ -12270,14 +12262,14 @@ declare module _ {
         isNull(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isNull
          */
         isNull(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isNull
          */
@@ -12297,14 +12289,14 @@ declare module _ {
         isNumber(value?: any): value is number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isNumber
          */
         isNumber(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isNumber
          */
@@ -12323,14 +12315,14 @@ declare module _ {
         isObject(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isObject
          */
         isObject(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isObject
          */
@@ -12365,14 +12357,14 @@ declare module _ {
         isObjectLike(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isObjectLike
          */
         isObjectLike(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isObjectLike
          */
@@ -12393,14 +12385,14 @@ declare module _ {
         isPlainObject(value?: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isPlainObject
          */
         isPlainObject(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isPlainObject
          */
@@ -12418,14 +12410,14 @@ declare module _ {
         isRegExp(value?: any): value is RegExp;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isRegExp
          */
         isRegExp(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isRegExp
          */
@@ -12462,14 +12454,14 @@ declare module _ {
         isSafeInteger(value: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isSafeInteger
          */
         isSafeInteger(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isSafeInteger
          */
@@ -12487,14 +12479,14 @@ declare module _ {
         isSet<T>(value?: any): value is Set<T>;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isSet
          */
         isSet(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isSet
          */
@@ -12512,14 +12504,14 @@ declare module _ {
         isString(value?: any): value is string;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isString
          */
         isString(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isString
          */
@@ -12547,14 +12539,14 @@ declare module _ {
         isSymbol(value: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isSymbol
          */
         isSymbol(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isSymbol
          */
@@ -12572,14 +12564,14 @@ declare module _ {
         isTypedArray(value: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isTypedArray
          */
         isTypedArray(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isTypedArray
          */
@@ -12597,14 +12589,14 @@ declare module _ {
         isUndefined(value: any): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * see _.isUndefined
          */
         isUndefined(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * see _.isUndefined
          */
@@ -12622,14 +12614,14 @@ declare module _ {
         isWeakMap<K, V>(value?: any): value is WeakMap<K, V>;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isSet
          */
         isWeakMap(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isSet
          */
@@ -12647,14 +12639,14 @@ declare module _ {
         isWeakSet<T>(value?: any): value is WeakSet<T>;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.isWeakSet
          */
         isWeakSet(): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.isWeakSet
          */
@@ -12676,14 +12668,14 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.lt
          */
         lt(other: any): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.lt
          */
@@ -12705,14 +12697,14 @@ declare module _ {
         ): boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.lte
          */
         lte(other: any): boolean;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.lte
          */
@@ -12794,7 +12786,7 @@ declare module _ {
         toPlainObject<TResult extends {}>(value?: any): TResult;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toPlainObject
          */
@@ -12830,14 +12822,14 @@ declare module _ {
         toInteger(value: any): number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toInteger
          */
         toInteger(): LoDashImplicitWrapper<number>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.toInteger
          */
@@ -12874,14 +12866,14 @@ declare module _ {
         toLength(value: any): number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toLength
          */
         toLength(): LoDashImplicitWrapper<number>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.toLength
          */
@@ -12915,14 +12907,14 @@ declare module _ {
         toNumber(value: any): number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toNumber
          */
         toNumber(): LoDashImplicitWrapper<number>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.toNumber
          */
@@ -12957,14 +12949,14 @@ declare module _ {
         toSafeInteger(value: any): number;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toSafeInteger
          */
         toSafeInteger(): LoDashImplicitWrapper<number>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.toSafeInteger
          */
@@ -15575,30 +15567,30 @@ declare module _ {
         /**
          * @see _.get
          */
-        get<TResultWrapper>(
+        get<TResult>(
             path: StringRepresentable|StringRepresentable[],
             defaultValue?: any
-        ): TResultWrapper;
+        ): LoDashExplicitWrapper<TResult>;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
         /**
          * @see _.get
          */
-        get<TResultWrapper>(
+        get<TResult>(
             path: StringRepresentable|StringRepresentable[],
             defaultValue?: any
-        ): TResultWrapper;
+        ): LoDashExplicitWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.get
          */
-        get<TResultWrapper>(
+        get<TResult>(
             path: StringRepresentable|StringRepresentable[],
             defaultValue?: any
-        ): TResultWrapper;
+        ): LoDashExplicitWrapper<TResult>;
     }
 
     //_.has
@@ -18181,14 +18173,14 @@ declare module _ {
         constant<T>(value: T): () => T;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.constant
          */
         constant<TResult>(): LoDashImplicitObjectWrapper<() => TResult>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.constant
          */
@@ -18362,14 +18354,14 @@ declare module _ {
         matches<T, V>(source: T): (value: V) => boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.matches
          */
         matches<V>(): LoDashImplicitObjectWrapper<(value: V) => boolean>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.matches
          */
@@ -18402,7 +18394,7 @@ declare module _ {
         ): (value: V) => boolean;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.matchesProperty
          */
@@ -18418,7 +18410,7 @@ declare module _ {
         ): LoDashImplicitObjectWrapper<(value: Value) => boolean>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.matchesProperty
          */
@@ -18626,14 +18618,14 @@ declare module _ {
         noConflict(): typeof _;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.noConflict
          */
         noConflict(): typeof _;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.noConflict
          */
@@ -18650,14 +18642,14 @@ declare module _ {
         noop(...args: any[]): void;
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.noop
          */
         noop(...args: any[]): void;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.noop
          */
@@ -19089,14 +19081,14 @@ declare module _ {
         toPath(value: any): string[];
     }
 
-    interface LoDashImplicitWrapperBase<T, TWrapper> {
+    interface LoDashImplicitWrapperBase<T> {
         /**
          * @see _.toPath
          */
         toPath(): LoDashImplicitWrapper<string[]>;
     }
 
-    interface LoDashExplicitWrapperBase<T, TWrapper> {
+    interface LoDashExplicitWrapperBase<T> {
         /**
          * @see _.toPath
          */

@@ -141,6 +141,22 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
+namespace TestExplicitArrayWrapper {
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+        result = _.chain([1, 2, 3, 4]).pop();
+        result = _.chain([1, 2, 3, 4]).shift();
+    }
+    {
+        let result: _.LoDashExplicitArrayWrapper<number>;
+        result = _.chain([1, 2, 3, 4]).push(5, 6, 7);
+        result = _.chain([1, 2, 3, 4]).sort((a, b) => 1);
+        result = _.chain([1, 2, 3, 4]).splice(1);
+        result = _.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
+        result = _.chain([1, 2, 3, 4]).unshift(5, 6);
+    }
+}
+
 /*********
  * Array *
  *********/
@@ -9332,28 +9348,28 @@ namespace TestGet {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>('0');
-        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>('0', '_');
-        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>(['0']);
-        result = _('abc').chain().get<_.LoDashExplicitWrapper<string>>(['0'], '_');
+        result = _('abc').chain().get<string>('0');
+        result = _('abc').chain().get<string>('0', '_');
+        result = _('abc').chain().get<string>(['0']);
+        result = _('abc').chain().get<string>(['0'], '_');
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
-        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>('0');
-        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>('0', -1);
-        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>(['0']);
-        result = _([42]).chain().get<_.LoDashExplicitWrapper<number>>(['0'], -1);
+        result = _([42]).chain().get<number>('0');
+        result = _([42]).chain().get<number>('0', -1);
+        result = _([42]).chain().get<number>(['0']);
+        result = _([42]).chain().get<number>(['0'], -1);
     }
 
     {
         let result: _.LoDashExplicitWrapper<boolean>;
 
-        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>('a');
-        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>('a', false);
-        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>(['a']);
-        result = _({a: true}).chain().get<_.LoDashExplicitWrapper<boolean>>(['a'], false);
+        result = _({a: true}).chain().get<boolean>('a');
+        result = _({a: true}).chain().get<boolean>('a', false);
+        result = _({a: true}).chain().get<boolean>(['a']);
+        result = _({a: true}).chain().get<boolean>(['a'], false);
     }
 }
 
