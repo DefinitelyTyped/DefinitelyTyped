@@ -327,14 +327,11 @@ declare namespace JQueryUI {
         /**
          * The name of the day hover marker class
          */
-        _dayOverClass: string
+        _dayOverClass?: string
         /**
         * The name of the current day marker class
         */
-        _currentClass: string
-        
-
-
+        _currentClass?: string
     }
 
     interface DatepickerFormatDateOptions {
