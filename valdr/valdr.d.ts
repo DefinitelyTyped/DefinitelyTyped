@@ -1,9 +1,56 @@
-﻿// Type definitions for valdr.js v1.1.5
+﻿// Type definitions for valdr.js v1.1.5+
 // Project: https://github.com/netceteragroup/valdr
 // Definitions by: Kai Ilbertz <https://github.com/ilbertz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace valdr {
+
+    /**
+     * Custom validators must implement this interface to provide custom validation logic.
+     */
+    interface ValdrValidator {
+
+        /**
+         *  Custom validator's name, that will be set in the violation's validator field.
+         */
+        name: string;
+
+        /**
+         * Method to be called to perform custom validation over given value.
+         */
+        validate(value: any, validationArguments?: {[argumentName:string]: any}): boolean;
+    }
+
+    interface ValdrConstraintValidator {
+        [argumentName:string]: any;
+        message: string;
+    }
+
+    interface ValdrConstraintFieldName {
+        [validatorName:string]: ValdrConstraintValidator;
+    }
+
+    interface ValdrConstraintTypeName {
+        [fieldName:string]: ValdrConstraintFieldName;
+    }
+
+    interface ValdrConstraints {
+        [typeName:string]: ValdrConstraintTypeName;
+    }
+
+    interface ValdrViolation extends ValdrConstraintValidator {
+        valid: boolean;
+        value: string;
+        field: string;
+        type: string;
+        validator: string;
+    }
+
+    interface ValdrValidationResult {
+        valid: boolean;
+        violations: ValdrViolation[]|undefined;
+        validationResults: ValdrViolation[]|undefined;
+    }
 
     interface Valdr {
         /**
@@ -11,15 +58,15 @@ declare namespace valdr {
          * @param typeName the type name.
          * @param fieldName the field name.
          * @param value the value to validate.
-         * @returns {*} the validation result.
+         * @returns {ValdrValidationResult} the validation result.
          */
-        validate(typeName: string, fieldName: string, value: string): any;
+        validate(typeName: string, fieldName: string, value: string): ValdrValidationResult;
 
         /**
          * Adds a new list of constraints (JSON Object).
          * @param newConstraints the list of constraints (JSON Object).
          */
-        addConstraints(newConstraints: any): void;
+        addConstraints(newConstraints: ValdrConstraints): void;
 
         /**
          * Removes one or many contraints.
@@ -31,7 +78,7 @@ declare namespace valdr {
          * Gets the list of constraints (JSON Object).
          * @returns the list of constraints.
          */
-        getConstraints(): any;
+        getConstraints(): ValdrConstraints;
 
         /**
          * Sets custom classes on the surrounding elements.
@@ -45,7 +92,7 @@ declare namespace valdr {
          * Adds a new list of constraints (JSON Object).
          * @param newConstraints the list of constraints (JSON Object).
          */
-        addConstraints(newConstraints: any): void;
+        addConstraints(newConstraints: ValdrConstraints): void;
 
         /**
          * Removes one or many contraints.
