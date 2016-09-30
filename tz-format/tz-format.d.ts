@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "tz-format" {
-	function format(date?: Date);
+	function format(date?: Date): string;
 	namespace format { }
 	export = format;
 }
