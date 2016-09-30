@@ -922,6 +922,7 @@ declare namespace google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
+        place_id: string;
         postcode_localities: string[];
         types: string[];
     }
@@ -984,10 +985,11 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|LatLngLiteral|string;
-        durationInTraffic?: boolean;
+        destination?: string|LatLng|Place;
+        durationInTraffic?: boolean; /* Deprecated. Use drivingOptions field instead */
+        drivingOptions?: DrivingOptions;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|LatLngLiteral|string;
+        origin?: string|LatLng|Place;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
@@ -1030,6 +1032,18 @@ declare namespace google.maps {
     }
 
     export interface TransitFare { }
+
+    export interface DrivingOptions {
+        departureTime: Date;
+        trafficModel: TrafficModel
+    }
+
+    export enum TrafficModel
+    {
+        BEST_GUESS,
+        OPTIMISTIC,
+        PESSIMISTIC
+    }
 
     export interface DirectionsWaypoint {
         location: LatLng|LatLngLiteral|string;
@@ -1215,9 +1229,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: LatLng[]|string[];
+        destinations?: string[]|LatLng[]|Place[];
+        drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: LatLng[]|string[];
+        origins?: string[]|LatLng|Place;
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
@@ -1237,6 +1252,7 @@ declare namespace google.maps {
     export interface DistanceMatrixResponseElement {
         distance: Distance;
         duration: Duration;
+        duration_in_traffic: Duration;
         fare: TransitFare;
         status: DistanceMatrixElementStatus;
     }
