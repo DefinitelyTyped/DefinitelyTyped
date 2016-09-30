@@ -223,7 +223,7 @@ function test_pnotify() {
     });
 
     var type = "error";
-    var stack_bottomright = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
+    var stack_bottomright = { "dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25 };
 
     var opts = {
         title: "Over Here",
@@ -233,8 +233,8 @@ function test_pnotify() {
         width: "100%",
         stack: stack_bottomright,
         type: "error"
+    } as PNotifyOptions;
 
-    };
     new PNotify(opts);
 
     new PNotify({
