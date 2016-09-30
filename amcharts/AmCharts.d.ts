@@ -23,6 +23,9 @@ declare namespace AmCharts {
 
     /** Set it to true if you want UTC time to be used instead of local time. */
     var useUTC: boolean;
+    
+    /** Object with themes */
+    var themes: any;
 
     /** Clears all the charts on page, removes listeners and intervals. */
     function clear();
