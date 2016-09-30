@@ -32,10 +32,10 @@ function ValdrTests() {
         }
     });
     var constraints = valdr.getConstraints();
-    var constraintTypeName = constraints["person"];
-    var constraintFieldName = constraintTypeName["lastName"];
-    var constraintValidatorName = constraintFieldName["test"];
-    var validationMessage = constraintValidatorName.message;
+    var constraintType = constraints["person"];
+    var constraintField = constraintType["lastName"];
+    var constraintValidator = constraintField["test"];
+    var validationMessage = constraintValidator.message;
     valdr.removeConstraints('person');
     valdr.setClasses({
         valid: 'demo-is-valid',
