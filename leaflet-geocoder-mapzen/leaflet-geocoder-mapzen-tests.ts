@@ -1,4 +1,4 @@
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 /// <reference path="leaflet-geocoder-mapzen.d.ts" />
 
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

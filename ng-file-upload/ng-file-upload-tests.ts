@@ -78,7 +78,17 @@ class UploadController {
 			fileWithNewName = this.Upload.rename(files[0], "newName.jpg");
 
 		this.Upload
-			.resize(files[0], 1024, 1024, 0.7, 'image/jpeg', 0.9, true)
+			.resize(files[0], { 
+				height: 1024,
+				width: 1024,
+				quality: 0.7, 
+				ratio: 0.9,
+				centerCrop: true,
+				restoreExif: true,
+				resizeIf: (width, height) => {
+					return true;
+				}
+			})
 			.then((resizedFile) => {
 				console.log(resizedFile);
 			});

@@ -183,6 +183,8 @@ interface RavenStatic {
 
     /** If you need to conditionally check if raven needs to be initialized or not, you can use the isSetup function. It will return true if Raven is already initialized. */
     isSetup(): boolean;
+
+    showReportDialog(options: RavenOptions): void;
 }
 
 interface RavenTransportOptions {
