@@ -48,8 +48,8 @@ declare namespace valdr {
 
     interface ValdrValidationResult {
         valid: boolean;
-        violations: ValdrViolation[]|undefined;
-        validationResults: ValdrViolation[]|undefined;
+        violations: ValdrViolation[];
+        validationResults: ValdrViolation[];
     }
 
     interface Valdr {
