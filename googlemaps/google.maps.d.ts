@@ -2060,7 +2060,7 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];
+            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
@@ -2103,7 +2103,8 @@ declare namespace google.maps {
             openNow?: boolean;
             radius?: number;
             rankBy?: RankBy;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export class PlacesService {
@@ -2144,7 +2145,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             name?: string;
             radius?: number;
-            types?: string[];
+            types?: string[];  /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export enum RankBy {
@@ -2168,7 +2170,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             query: string;
             radius?: number;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
     }
 
