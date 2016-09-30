@@ -16,10 +16,15 @@ declare namespace __reactGA {
         debug?: boolean;
     }
 
+    export interface FieldsObject {
+        [i: string]: any;
+    }
+
     export function initialize(trackingCode: string, options?: InitializeOptions): void;
     export function pageview(path: string): void;
     export function modalview(name: string): void;
     export function event(args: EventArgs): void;
+    export function set(fieldsObject: FieldsObject): void;
 }
 
 declare module 'react-ga' {
