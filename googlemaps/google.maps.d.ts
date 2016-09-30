@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.20
+// Type definitions for Google Maps JavaScript API 3.25
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
