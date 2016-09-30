@@ -5,7 +5,7 @@ function ValdrTests() {
     var validation = valdr.validate('person', 'lastName', 'test');
     var isValid = validation.valid;
     var violations = validation.violations;
-    violations.forEach(function(violation) {
+    violations.forEach(function(violation:ValdrViolation) {
         var valid = violation.valid;
         var value = violation.value;
         var field = violation.field;
@@ -14,7 +14,7 @@ function ValdrTests() {
         var message = violation.message;
     });
     var results = validation.validationResults;
-    results.forEach(function(violation) {
+    results.forEach(function(violation:ValdrViolation) {
         var valid = violation.valid;
         var value = violation.value;
         var field = violation.field;
