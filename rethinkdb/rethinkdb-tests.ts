@@ -1,6 +1,4 @@
-/// <reference path="rethinkdb.d.ts" />
-
-import r = require("rethinkdb");
+import * as r from "rethinkdb";
 
 r.connect({ host: "localhost", port: 28015 }, function(err, conn) {
     console.log("HI", err, conn);
@@ -19,10 +17,18 @@ r.connect({ host: "localhost", port: 28015 }, function(err, conn) {
         .between("james", "beth")
         .limit(4)
         .run(conn, function(err, cursor) {
-          cursor.toArray().then(rows => {
-            console.log(rows);
+          cursor.toArray<string>((err, strings) => {
+            console.log(strings);
           });
         });
+    });
+
+    r.js("'str1' + 'str2'").run(conn, function (err, value) {});
+    r.uuid().run(conn, function (err, uuid) {});
+    r.uuid("input value").run(conn, function (err, uuid) {});
+
+    r.table("games").changes().run(conn, function(err, cursor) {
+      cursor.each(console.log);
     });
 });
 
@@ -43,6 +49,11 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn) {
         })
         .between("james", "beth")
         .limit(4)
-        .run(conn);
+        .run(conn)
+        .then(cursor => {
+          cursor.toArray().then(rows => {
+            console.log(rows);
+          });
+        });
     });
 });
