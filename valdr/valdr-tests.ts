@@ -12,7 +12,7 @@ function ValdrTests() {
         var type = violation.type;
         var validator = violation.validator;
         var message = violation.message;
-	});
+    });
     var results = validation.validationResults;
     results.forEach(function(violation) {
         var valid = violation.valid;
@@ -31,12 +31,12 @@ function ValdrTests() {
             }
         }
     });
-    valdr.removeConstraints('person');
     var constraints = valdr.getConstraints();
     var constraintTypeName = constraints["person"];
     var constraintFieldName = constraintTypeName["lastName"];
     var constraintValidatorName = constraintFieldName["test"];
     var validationMessage = constraintValidatorName.message;
+    valdr.removeConstraints('person');
     valdr.setClasses({
         valid: 'demo-is-valid',
         invalid: 'demo-is-invalid'
