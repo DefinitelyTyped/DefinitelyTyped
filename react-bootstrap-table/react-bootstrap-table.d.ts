@@ -125,6 +125,7 @@ declare module "react-bootstrap-table" {
 		containerStyle?: any;
 		headerStyle?: any;
 		bodyStyle?: any;
+		ignoreSinglePage?: boolean;
 
 	}
 	
