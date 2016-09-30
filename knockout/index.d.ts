@@ -87,7 +87,7 @@ interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFun
 interface KnockoutObservableArrayStatic {
     fn: KnockoutObservableArrayFunctions<any>;
 
-    <T>(value?: T[]): KnockoutObservableArray<T>;
+    <T>(value?: T[] | null): KnockoutObservableArray<T>;
 }
 
 interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutObservableArrayFunctions<T> {
@@ -97,12 +97,12 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutOb
 interface KnockoutObservableStatic {
     fn: KnockoutObservableFunctions<any>;
 
-    <T>(value?: T): KnockoutObservable<T>;
+    <T>(value?: T | null): KnockoutObservable<T>;
 }
 
 interface KnockoutObservable<T> extends KnockoutSubscribable<T>, KnockoutObservableFunctions<T> {
 	(): T;
-	(value: T): void;
+	(value: T | null): void;
 
 	peek(): T;
 	valueHasMutated?:{(): void;};
@@ -506,7 +506,7 @@ interface KnockoutStatic {
     // templating.js
     //////////////////////////////////
 
-    setTemplateEngine(templateEngine: KnockoutNativeTemplateEngine): void;
+    setTemplateEngine(templateEngine: KnockoutNativeTemplateEngine | undefined): void;
 
     renderTemplate(template: Function, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
     renderTemplate(template: any, dataOrBindingContext: KnockoutBindingContext, options: Object, targetNodeOrNodeArray: Node, renderMode: string): any;
@@ -526,7 +526,7 @@ interface KnockoutStatic {
         bindingRewriteValidators: any[];
         twoWayBindings: any;
         parseObjectLiteral: (objectLiteralString: string) => any[];
-        
+
         /**
         Internal, private KO utility for updating model properties from within bindings
         property:            If the property being updated is (or might be) an observable, pass it here
@@ -538,7 +538,7 @@ interface KnockoutStatic {
         value:               The value to be written
         checkIfDifferent:    If true, and if the property being written is a writable observable, the value will only be written if
                              it is !== existing value on that writable observable
-                             
+
         Note that if you need to write to the viewModel without an observable property,
         you need to set ko.expressionRewriting.twoWayBindings[key] = true; *before* the binding evaluation.
         */
@@ -564,21 +564,21 @@ interface KnockoutStatic {
     };
 
     components: KnockoutComponents;
-    
+
     /////////////////////////////////
     // options.js
     /////////////////////////////////
-    
+
     options: {
         deferUpdates: boolean,
-        
+
         useOnlyNativeEvents: boolean
     };
-    
+
     /////////////////////////////////
     // tasks.js
     /////////////////////////////////
-    
+
     tasks: KnockoutTasks;
 }
 

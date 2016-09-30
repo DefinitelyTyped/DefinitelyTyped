@@ -216,11 +216,15 @@ describe('Templating', function() {
         var myData = ko.observable({ childProp: 123 });
         ko.applyBindings({ someProp: myData }, testNode);
         expect(testNode.childNodes[0].innerHTML).toEqual("result = 123");
-
+        expect(myData).toBeDefined();
         // Now mutate and notify
-        myData().childProp = 456;
-        myData.valueHasMutated();
-        expect(testNode.childNodes[0].innerHTML).toEqual("result = 456");
+        if (myData) {
+            myData().childProp = 456;
+            if (myData.valueHasMutated) {
+                myData.valueHasMutated();
+            }
+            expect(testNode.childNodes[0].innerHTML).toEqual("result = 456");
+        }
     });
 
     it('Should stop tracking inner observables immediately when the container node is removed from the document', function() {
@@ -300,7 +304,11 @@ describe('Templating', function() {
         ko.applyBindings({ someProp: { childProp: innerObservable} }, testNode);
 
         expect(innerObservable.getSubscriptionsCount()).toEqual(1);
-        ko.removeNode(document.getElementById('innerTemplateOutput'));
+        let innerTemplateOutputEl = document.getElementById('innerTemplateOutput');
+        expect(innerTemplateOutputEl).not.toBeNull();
+        if (innerTemplateOutputEl) {
+            ko.removeNode(innerTemplateOutputEl);
+        }
         expect(innerObservable.getSubscriptionsCount()).toEqual(0);
     });
 
