@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+/// <reference path='../angularjs/angular.d.ts' />
+/// <reference path='angular-signalr-hub.d.ts' />
+
+>>>>>>> master
 angular
     .module('app', ['SignalR'])
     .factory('Employees', ngSignalrTest.EmployeesFactory);
