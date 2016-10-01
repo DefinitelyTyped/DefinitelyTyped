@@ -177,7 +177,7 @@ interface FBSDK{
 
     /* This method lets you make calls to the Graph API. */
     api(path : string, method : string, callback : (fbResponseObject : Object) => any) :  Object;
-    api(path : string, params : Object, callback : (fbResponseObject : Object) => any) : Object;
+    api(path : string, params : Object, callback : (fbResponseObject : FBResponseObject) => any) : Object;
     api(path : string, method : string, params : Object, callback : (fbResponseObject : Object) => any) : Object;
 
     /* This method is used to trigger different forms of Facebook created UI dialogs. */
