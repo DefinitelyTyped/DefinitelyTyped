@@ -191,7 +191,7 @@ interface UnderscoreStatic {
 	reduce<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
 
 	reduce<T, TResult>(
@@ -202,12 +202,31 @@ interface UnderscoreStatic {
 
 	/**
 	* @see _.reduce
+	* @param memo Initial reduce state. If memo is omitted, the first value of list is used instead and iteration begins with the second.
+	**/
+	reduce<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
+
+	/**
+	* @see _.reduce
 	**/
 	inject<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	inject<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* @see _.reduce
@@ -215,8 +234,17 @@ interface UnderscoreStatic {
 	foldl<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* The right-associative version of reduce. Delegates to the JavaScript 1.8 version of
@@ -231,8 +259,18 @@ interface UnderscoreStatic {
 	reduceRight<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	* @param memo Initial reduce state. If memo is omitted, the first value of list is used instead and iteration begins with the second.
+	**/
+	reduceRight<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* @see _.reduceRight
@@ -240,8 +278,17 @@ interface UnderscoreStatic {
 	foldr<T, TResult>(
 		list: _.Collection<T>,
 		iterator: _.MemoIterator<T, TResult>,
-		memo?: TResult,
+		memo: TResult,
 		context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	**/
+	foldr<T>(
+		list: _.Collection<T>,
+		iterator: _.MemoIterator<T, T>,
+		memo?: T,
+		context?: any): T;
 
 	/**
 	* Looks through each value in the list, returning the first one that passes a truth
@@ -353,9 +400,9 @@ interface UnderscoreStatic {
 	* @param properties The properties to check for on each element within `list`.
 	* @return The elements within `list` that contain the required `properties`.
 	**/
-	where<T, U extends {}>(
+	where<T>(
 		list: _.List<T>,
-		properties: U): T[];
+		properties: {}): T[];
 
 	/**
 	* Looks through the list and returns the first value that matches all of the key-value pairs listed in properties.
@@ -363,9 +410,9 @@ interface UnderscoreStatic {
 	* @param properties Properties to look for on the elements within `list`.
 	* @return The first element in `list` that has all `properties`.
 	**/
-	findWhere<T, U extends {}>(
+	findWhere<T>(
 		list: _.List<T>,
-		properties: U): T;
+		properties: {}): T;
 
 	/**
 	* Returns the values in list without the elements that the truth test (iterator) passes.
@@ -4136,28 +4183,55 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.reduce
 	**/
-	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	reduce<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduce
+	**/
+	reduce(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* @see _.reduce
 	**/
-	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	inject<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
 
 	/**
 	* @see _.reduce
 	**/
-	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	inject(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* @see _.reduce
+	**/
+	foldl(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.reduceRight
 	**/
-	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	reduceRight<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* Wrapped type `any[]`.
+	* @see _.reduceRight
+	**/
+	reduceRight(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* @see _.reduceRight
 	**/
-	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo?: TResult, context?: any): TResult;
+	foldr<TResult>(iterator: _.MemoIterator<T, TResult>, memo: TResult, context?: any): TResult;
+
+	/**
+	* @see _.reduceRight
+	**/
+	foldr(iterator: _.MemoIterator<T, T>, memo?: T, context?: any): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -4205,13 +4279,13 @@ interface Underscore<T> {
 	* Wrapped type `any[]`.
 	* @see _.where
 	**/
-	where<U extends {}>(properties: U): T[];
+	where(properties: {}): T[];
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): T;
+	findWhere(properties: {}): T;
 
 	/**
 	* Wrapped type `any[]`.
@@ -5165,13 +5239,13 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.where
 	**/
-	where<U extends {}>(properties: U): _Chain<T>;
+	where(properties: {}): _Chain<T>;
 
 	/**
 	* Wrapped type `any[]`.
 	* @see _.findWhere
 	**/
-	findWhere<U extends {}>(properties: U): _ChainSingle<T>;
+	findWhere(properties: {}): _ChainSingle<T>;
 
 	/**
 	* Wrapped type `any[]`.
