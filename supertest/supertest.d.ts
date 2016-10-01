@@ -7,10 +7,22 @@
 
 declare module "supertest" {
   import * as superagent from "superagent"
+  import * as http from 'http';
 
-  function supertest(app: any): supertest.SuperTest<supertest.Test>;
+  function supertest(app: supertest.App): supertest.SuperTest<supertest.Test>;
 
   namespace supertest {
+    interface ServerLike {
+      address: { port: number; family: string; address: string; };
+      listen(port: number): http.Server;
+    }
+
+    interface RequestListener { // Like the `requestListener` argument for http.createServer()
+      (request: http.IncomingMessage, response: http.ServerResponse): void;
+    }
+
+    type App = string | supertest.RequestListener | supertest.ServerLike;
+
     interface Response extends superagent.Response {
     }
 
@@ -33,13 +45,12 @@ declare module "supertest" {
       end(callback?: CallbackHandler): this;
     }
 
-    function agent(app?: any): SuperTest<Test>;
+    function agent(app?: App): SuperTest<Test>;
 
     interface SuperTest<T> extends superagent.SuperAgent<T> {
     }
 
   }
-
 
   export = supertest;
 }
