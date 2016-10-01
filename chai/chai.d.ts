@@ -412,3 +412,7 @@ declare module "chai" {
 interface Object {
     should: Chai.Assertion;
 }
+
+declare module "chai" { 
+     export = chai;
+}
