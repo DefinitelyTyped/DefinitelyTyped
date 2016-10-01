@@ -127,3 +127,9 @@ function test_fail() {
     expect().fail();
     expect().fail('Custom failure message');
 }
+
+function test_withArgs() {
+    var fn = () => {};
+    expect(fn).withArgs().to.be.ok();
+    expect(fn).withArgs(true, 1, 'a').to.be.ok();
+}

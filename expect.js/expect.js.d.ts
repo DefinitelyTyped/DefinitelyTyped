@@ -166,6 +166,14 @@ declare namespace Expect {
         only: Only;
         have: Have;
         be: Be;
+        withArgs: WithArgs;
+    }
+
+    interface WithArgs extends Assertion {
+        /**
+         * Creates anonymous function to call fn with arguments
+         */
+        (...args: any[]): Root;
     }
 
     interface Be extends Assertion {
