@@ -5,7 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'xregexp' {
+	let xRegExport: string;
+	export = xRegExport;
+}
 
+declare module xregexp {
 	function OuterXRegExp(pattern: string, flags?: string): RegExp;
 	function OuterXRegExp(pattern: RegExp): RegExp;
 
@@ -33,17 +37,17 @@ declare module 'xregexp' {
 
 		/* Since xregexp 3.0.0 can be used either via
 
-				import X = require('xregexp');
-				X();
+		 import X = require('xregexp');
+		 X();
 
-			or via
+		 or via
 
-				import XRegExp = X.XRegExp;
-				XRegExp()
+		 import XRegExp = X.XRegExp;
+		 XRegExp()
 
-			I had to duplicate the function declarations. I could simply not
-			find another way to accomplish this with TypeScript.
-		*/
+		 I had to duplicate the function declarations. I could simply not
+		 find another way to accomplish this with TypeScript.
+		 */
 
 		// begin API definitions
 		function addToken(regex: RegExp, handler: (matchArr: RegExpExecArray, scope: string) => string, options?: TokenOpts): void;
@@ -132,5 +136,4 @@ declare module 'xregexp' {
 		}
 	}
 
-	export = OuterXRegExp;
 }
