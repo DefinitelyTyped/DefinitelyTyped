@@ -534,6 +534,46 @@ declare namespace __React {
         itemScope?: boolean;
         itemType?: string;
         unselectable?: boolean;
+
+        // ARIA Attributes
+        ariaAutocomplete?: string;
+        ariaChecked?: string;
+        ariaDisabled?: boolean;
+        ariaExpanded?: boolean;
+        ariaHaspopup?: string;
+        ariaHidden?: boolean;
+        ariaInvalid?: string;
+        ariaLabel?: string;
+        ariaLevel?: number;
+        ariaMultiline?: boolean;
+        ariaMultiselectable?: boolean;
+        ariaOrientation?: string;
+        ariaPressed?: boolean;
+        ariaReadonly?: boolean;
+        ariaRequired?: boolean;
+        ariaSelected?: boolean;
+        ariaSort?: string;
+        ariaValuemax?: number;
+        ariaValuemin?: number;
+        ariaValuenow?: number;
+        ariaValuetext?: string;
+
+        ariaAtomic?: boolean;
+        ariaBusy?: boolean;
+        ariaLive?: string;
+        ariaRelevant?: string;
+
+        ariaDropeffect?: string;
+        ariaGrabbed?: boolean;
+
+        ariaActivedescendant?: string;
+        ariaControls?: string;
+        ariaDescribedby?: string;
+        ariaFlowto?: string;
+        ariaLabelledby?: string;
+        ariaOwns?: string;
+        ariaPosinset?: number;
+        ariaSetsize?: number;
     }
 
     interface HTMLAttributes extends HTMLAttributesBase<HTMLComponent> {
