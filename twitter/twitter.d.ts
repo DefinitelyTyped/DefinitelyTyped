@@ -38,7 +38,7 @@ interface TwitterWidgets {
     /**
      * Initialize Twitter for Websites widgets contained within children of the elements.
      */
-    load(elements: HTMLElement[]): void;
+    load(elements: HTMLElement[]): crevoid;
     /**
      * Create a share button for a URL.
      *
@@ -87,6 +87,14 @@ interface TwitterWidgets {
      * @param options An object hash of additional options to configure the widget.
      */
     createTweet(tweetId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): any;
+    /**
+     * Create an Collection Timeline
+     *
+     * @param collectionId The ID of a Collection to be rendered.
+     * @param target The element in which to render the widget.
+     * @param options An object hash of additional options to configure the widget.
+     */
+    createTweet(collectionId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): any;
 }
 
 /**
