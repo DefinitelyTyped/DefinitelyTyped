@@ -11593,15 +11593,15 @@ declare namespace Srch
         set_useSimplifiedQueryBuilder(value: boolean): boolean;
         get_preloadedItemTemplateIds(): string[];
         set_preloadedItemTemplateIds(value: string[]): string[];
-        processResultReady(resultTableCollection: Microsoft.SharePoint.Client.Search.Query.ResultTableCollection);
-        render();
-        scriptApplication_PreLoad(sender, e);
-        sortOrRank(sortRankName: string);
-        sort(sortName: string);
-        changeQueryLanguage(queryLanguage: number);
-        page(startAt: number);
-        changeQueryTerm(queryTerm);
-        viewDuplicates(docId: number);
+        processResultReady(resultTableCollection: Microsoft.SharePoint.Client.Search.Query.ResultTableCollection): void;
+        render(): void;
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        sortOrRank(sortRankName: string): void;
+        sort(sortName: string): void;
+        changeQueryLanguage(queryLanguage: number): void;
+        page(startAt: number): void;
+        changeQueryTerm(queryTerm: any): void;
+        viewDuplicates(docId: number): void;
         /** Returns true if the specified table has results and is enabled to be shown by this control */
         shouldShowTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
     }
@@ -11868,8 +11868,8 @@ declare namespace Srch
         /** Returns true if the URL is a relative URL, but not a server-relative URL */
         static isUrlPagelRelative(url: string): boolean;
 
-        static logClick(e, clickType);
-        static fillKeywordQuery(query, dp);
+        static logClick(e: any, clickType: any): void;
+        static fillKeywordQuery(query: any, dp: any): void;
         
         /** Parses username out from SharePoint user field value */
         static getUsernameFromAuthorField(authorField: string): string;
@@ -11894,43 +11894,43 @@ declare namespace Srch
         /** Returns human-readable size in kilobytes/megabytes etc. (the captions are localized) */
         static toFileSizeDisplay(numberOfBytes: number, showDecimalPart: boolean): string;
 
-        static getVideoImageWithFallbackSource(valueObject, width: number, height: number): string;
-        static getImageSourceWithRendition(imageInfo, width: number, height: number): string;
+        static getVideoImageWithFallbackSource(valueObject: any, width: number, height: number): string;
+        static getImageSourceWithRendition(imageInfo: any, width: number, height: number): string;
         static parseTypedRangeToken(rangeFilterToken: string, objToStoreFilterTokenType: any): any;
-        static modifyMediaDurationRefinementName(resultRow: any);
+        static modifyMediaDurationRefinementName(resultRow: any): void;
         static getDeepLinks(deeplinks: string, maxRows: number): string;
         static truncateUrl(url: string, maxChars: number): string;
         static truncateHighlightedUrl(url: string, maxChars: number): string;
 
         /** Copies the specified string to clipboard, if possible */
-        static copyLink(link: string);
+        static copyLink(link: string): void;
         
         /** Registers display template function in the system.
          *  @param name Identifier of the template. Usually template is registered twice: by URL and by name.
          *  @param template The display template. It can be either string, or function, that gets the CSR context object and returns HTML string
           */
-        static registerRenderTemplateByName(name: string, templateFunction: string | { (ctx: any): string });
+        static registerRenderTemplateByName(name: string, templateFunction: string | { (ctx: any): string }): void;
         /** Returns display template registered (can be either string or function) */
-        static getRenderTemplateByName(name: string, renderCtx): string | { (ctx: any): string };
+        static getRenderTemplateByName(name: string, renderCtx: any): string | { (ctx: any): string };
 
-        static addRenderContextCallback(renderCtx, callbackType, callbackFunction, enforceUnique, templateFunction);
-        static setItemRenderWrapper(renderCtx, itemRenderWrapperFunction, templateFunction): any;
-        static logRenderingErrorMessageToContext(renderCtx, messageText, operationName);
+        static addRenderContextCallback(renderCtx: any, callbackType: any, callbackFunction: any, enforceUnique: any, templateFunction: any): void;
+        static setItemRenderWrapper(renderCtx: any, itemRenderWrapperFunction: any, templateFunction: any): any;
+        static logRenderingErrorMessageToContext(renderCtx: any, messageText: any, operationName: any): void;
         /** Gets the URL of template based on display template function or the rendering context */
         static getTemplateUrlFromFunctionOrRenderCtx(templateFunctionOrRenderCtx: any): string;
-        static createErrorObjectWithExecContext(messageText, operationName, templateFuncOrRenderCtx): any;
+        static createErrorObjectWithExecContext(messageText: any, operationName: any, templateFuncOrRenderCtx: any): any;
         /** Returns the CSR template that was previously registered using 'registerRenderTemplateByName' based on CSR template level */
         static resolveRenderTemplate(renderCtx: any, component: ClientControl, level: 'Item' | 'Group' | 'View' | 'Body'): string | { (ctx: any): string };
 
         /** Returns formatted time string from seconds string, which contains a number that represents amount of seconds passed since 00:00:00 today */
         static getFormattedTimeFromSeconds(secondsStr: string): string;
         /** Returns true if the keyCode is \n or \r */
-        static isEnterKey(keyCode): boolean;
+        static isEnterKey(keyCode: any): boolean;
 
         /** Prevents default event action and stops further propagation of the event in the DOM */
-        static cancelEvent(e: Event);
+        static cancelEvent(e: Event): void;
         /** Prevents default event action or/and stops further propagation of the event in the DOM */
-        static cancelEventEx(e, preventDefault, stopPropagation);
+        static cancelEventEx(e: Event, preventDefault: boolean, stopPropagation: boolean): void;
         /** Gets a value from 'Properties' field object of the specified parent object */
         static getTableProperty(parent: any, propName: string): any;
         /** Concatenates two URL fragments and returns resulting URL */
@@ -11949,14 +11949,14 @@ declare namespace Srch
         /** Returns string that contains safe call to HP.Hide */
         static getHideHoverPanelCallback(): string;
         
-        static getHighlightedProperty(key: string, result: any, property: string);
+        static getHighlightedProperty(key: string, result: any, property: string): any;
         static processHHXML(pre: string): string;
         static createXMLDocument(xml: string): XMLDocument;
         static getUnEncodedMultiValuedResults(multiValue: string, maxItems: number, rawDelimiter: string): string;
         static getTrimmedString(value: string, cutOff: number): string;
-        static trimTitle(title: string, maximumLengthInChars: number, numberOfTermsToUse: number);
-        static extractReplyTitleFromSummary(hitHighlightedSummary: string, titleLength: number);
-        static getTrimmedProcessedHHXMLString(value: string, cutOff: number);
+        static trimTitle(title: string, maximumLengthInChars: number, numberOfTermsToUse: number): string;
+        static extractReplyTitleFromSummary(hitHighlightedSummary: string, titleLength: number): string;
+        static getTrimmedProcessedHHXMLString(value: string, cutOff: number): string;
         static getMultipleHHXMLNodeValues(xmlDoc: XMLDocument, nodeName: string, numItems: number, rawDelimiter: string): string;
         static getSingleHHXMLNodeValue(xmlDoc: XMLDocument, nodeName: string): string;
         static isTableTypeof(resultTable: any, tableTypeName: string): boolean;
@@ -11965,20 +11965,20 @@ declare namespace Srch
         static isFirstPromotedBlock(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
         static isFirstRankedBlock(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
         static isIntentTable(resultTable: Microsoft.SharePoint.Client.Search.Query.ResultTable): boolean;
-        static createBehavior(id: string, type, properties, targetElementId: string): any;
+        static createBehavior(id: string, type: any, properties: any, targetElementId: string): any;
         
         /** Uses SPAnimation to animate an element */
-        static animate(element: Element, animationID, finishFunc);
-        static hideElement(element: Element);
-        static showElement(element: Element);
-        static positionElement(element: Element, offset: string);
-        static resetElement(element: Element);
+        static animate(element: Element, animationID: any, finishFunc: any): void;
+        static hideElement(element: Element): void;
+        static showElement(element: Element): void;
+        static positionElement(element: Element, offset: string): void;
+        static resetElement(element: Element): void;
         static shouldAnimate(dp: any): boolean;
-        static animateResults(result: Result, userAction: any);
+        static animateResults(result: Result, userAction: any): void;
         
-        static loadScripts(scriptReferences: string[], success, failure, timeout: number);
-        static appendScriptsToLoad(scripts: string[], script: string);
-        static registerLoadedScripts(scripts: string[]);
+        static loadScripts(scriptReferences: string[], success: any, failure: any, timeout: number): void;
+        static appendScriptsToLoad(scripts: string[], script: string): void;
+        static registerLoadedScripts(scripts: string[]): void;
         
         /** Returns HTML for collapsible refiner title */
         static collapsibleRefinerTitle(propertyName: string, idPrefix: string, title: string, iconClass: string, customOnClick: string): string;
@@ -11989,9 +11989,9 @@ declare namespace Srch
         /** Adds ctag parameter to the URL and replaces URL tokens */
         static urlTokenExpansion(jsLink: string): string;
         
-        static includeCSS(templateLink: string, relativeLink: string);
-        static includeScript(templateLink: string, scriptLink: string);
-        static includeLanguageScript(templateLink: string, scriptLink: string);
+        static includeCSS(templateLink: string, relativeLink: string): void;
+        static includeScript(templateLink: string, scriptLink: string): void;
+        static includeLanguageScript(templateLink: string, scriptLink: string): void;
 
         static isSPFSKU(): boolean;
         /** Retrieves localized string with the specified id */
@@ -11999,20 +11999,20 @@ declare namespace Srch
         /** Retrieves localized string with the specified id */
         static loadResourceForTemplate(id: string, templateFunc: {(ctx: any): string}): string;
         /** Registers in system resources defined by the dictionary object */
-        static registerResourceDictionary(locale:string, dict: {[key: string]: string});
+        static registerResourceDictionary(locale:string, dict: {[key: string]: string}): void;
 
-        static restorePath(el: Element, originalText: string, selectText: string);
-        static selectPath(text: string, el: Element);
-        static setPath(e: Event, el: Element, text: string, originalText: string);
-        static restoreText(el: Element, originalText: string, selectText: string);
-        static selectText(text: string, el: Element);
+        static restorePath(el: Element, originalText: string, selectText: string): void;
+        static selectPath(text: string, el: Element): void;
+        static setPath(e: Event, el: Element, text: string, originalText: string): void;
+        static restoreText(el: Element, originalText: string, selectText: string): void;
+        static selectText(text: string, el: Element): void;
 
         /** Renders datetime value in friendly format into element specified by targetElementID */
-        static renderFriendlyTimeIntervalString(dateTimeSinceUTC: Date, targetElementID: string, calendarType?: number);
+        static renderFriendlyTimeIntervalString(dateTimeSinceUTC: Date, targetElementID: string, calendarType?: number): void;
         /** Returns human-friendly representation of the datetime value, e.g. "A few seconds ago"" */
         static getFriendlyTimeInterval(dateTimeSince: Date, calendarType: number): string;
         /** Gets calendar type according to the current regional settings */
-        static getCalendarType();
+        static getCalendarType(): any;
 
         static htmlEncodeNonBase64ImageUrl(url: string): string;
 
@@ -12112,37 +12112,37 @@ declare namespace Srch
         /** Removes handler for the preload event */
         remove_preLoad(handlerFunction: Function): void;
         /** Raises the preload event */
-        raisePreLoadEvent();
+        raisePreLoadEvent(): void;
 
         /** Adds handler for the load event */
         add_load(handlerFunction: Function): void;
         /** Removes handler for the load event */
         remove_load(handlerFunction: Function): void;
         /** Raises the load event */
-        raiseLoadEvent();
+        raiseLoadEvent(): void;
 
         /** Adds handler for the postload event */
         add_postLoad(handlerFunction: Function): void;
         /** Removes handler for the postload event */
         remove_postLoad(handlerFunction: Function): void;
         /** Raises the postload event */
-        raisePostLoadEvent();
+        raisePostLoadEvent(): void;
 
-        initialize();
-        dispose();
+        initialize(): void;
+        dispose(): void;
 
         /** Registers DisplayControl, DataProvider or SearchBox in the system.
          * After registration the controls will be correctly processed in the page search context.
          */
-        registerClientControl(clientControl: DisplayControl | DataProvider | SearchBox);
+        registerClientControl(clientControl: DisplayControl | DataProvider | SearchBox): void;
         
         /** Puts specified hash-key address into the current page location.
          * @param url The hash-key, e.g. '#k=test'
          */
-        navigateTo(url: string);
+        navigateTo(url: string): void;
 
         /** Gets the current search session ID from the cookies (if session ID does not exist in the cookies yet - it will be added) */
-        get_searchSessionID();
+        get_searchSessionID(): void;
     }
 
     export class Res
@@ -12813,26 +12813,26 @@ declare function $getClientControl(e: Element): Srch.ClientControl;
 /** (alias for Srch.U.getResultObject) */
 declare function $getResultItem(id: string): any;
 /** (alias for Srch.U.setResultObject) */
-declare function $setResultItem(id: string, resultObject: any);
+declare function $setResultItem(id: string, resultObject: any): void;
 /** (alias for Srch.U.getResultObject) */
 declare function $getResultObject(id: string): any;
 /** (alias for Srch.U.setResultObject) */
-declare function $setResultObject(id: string, resultObject: any);
+declare function $setResultObject(id: string, resultObject: any): void;
 /** (alias for Srch.U.findResultObjectFromDOM) */
-declare function $findResultObjectFromDOM(e: Element, type: string);
+declare function $findResultObjectFromDOM(e: Element, type: string): void;
 
 declare function $getItemValue(ctx: any, nameToLookup: string): any;
 declare function $getCachedItemValue(ctx: any, nameToLookup: string): any;
 
-declare function $includeScript(templateLink: string, relativeLink: string);
-declare function $includeCSS(templateLink: string, scriptLink: string);
-declare function $includeLanguageScript(templateLink: string, scriptLink: string);
+declare function $includeScript(templateLink: string, relativeLink: string): void;
+declare function $includeCSS(templateLink: string, scriptLink: string): void;
+declare function $includeLanguageScript(templateLink: string, scriptLink: string): any;
 /** Registers in system resources defined by the dictionary object (alias for Srch.U.registerResourceDictionary) */
-declare function $registerResourceDictionary(locale:string, dict: {[key: string]: string});
+declare function $registerResourceDictionary(locale:string, dict: {[key: string]: string}): void;
 /** Retrieves localized string with the specified id */
-declare function $resource(id: string);
+declare function $resource(id: string): string;
 /** (calls Srch.U.setItemRenderWrapper) */
-declare function $setItemWrapperCallback(renderCtx, itemWrapperFunction);
+declare function $setItemWrapperCallback(renderCtx: any, itemWrapperFunction: any): void;
 /** (calls Srch.U.addRenderContextCallback) */
-declare function $addRenderContextCallback(renderCtx, itemWrapperFunction);
+declare function $addRenderContextCallback(renderCtx: any, itemWrapperFunction: any): void;
 
