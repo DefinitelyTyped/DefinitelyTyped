@@ -39,11 +39,11 @@ declare module DDS {
 		/**
 		 * KeepAll - KEEP_ALL qos policy
 		 */
-		KeepAll:any;
+		static KeepAll:any;
 		/**
 		 * KeepLast - KEEP_LAST qos policy
 		 */
-		KeepLast:any;
+		static KeepLast:any;
 	}
 
 	/**
@@ -62,51 +62,37 @@ declare module DDS {
 		/**
 		 * Reliable - 'Reliable' reliability policy
 		 */
-		Reliable:any;
+		static Reliable:any;
 		/**
 		 * BestEffort - 'BestEffort' reliability policy
 		 */
-		BestEffort:any;
+		static BestEffort:any;
 	}
 
 	/**
-	 * Partition policy
+	 * Create new partition policy
+	 *
+	 * @param policies - partition names
+	 * @example var qos = Partition('p1', 'p2')
 	 */
-	export class Partition implements Policy {
-		/**
-		 * Create new partition policy
-		 *
-		 * @param policies - partition names
-		 * @example var qos = Partition('p1', 'p2')
-		 */
-		constructor(...policies:string[]);
-	}
+	export function Partition(...policies:string[]):Policy;
 
 	/**
-	 * Content Filter policy
+	 * Create new content filter policy
+	 *
+	 * @param expr - filter expression
+	 * @example var filter = ContentFilter("x>10 AND y<50")
 	 */
-	export class ContentFilter implements Policy {
-		/**
-		 * Create new content filter policy
-		 *
-		 * @param expr - filter expression
-		 * @example var filter = ContentFilter("x>10 AND y<50")
-		 */
-		constructor(expr:string);
-	}
+	export function ContentFilter(expr:string):Policy;
+
 
 	/**
-	 * Time Filter policy
+	 * Create new time filter policy
+	 *
+	 * @param period - time duration (unit ?)
+	 * @example var filter = TimeFilter(100)
 	 */
-	export class TimeFilter implements Policy {
-		/**
-		 * Create new content filter policy
-		 *
-		 * @param period - time duration (unit ?)
-		 * @example var filter = TimeFilter(100)
-		 */
-		constructor(period:number);
-	}
+	export function TimeFilter(period:number):Policy;
 
 	/**
 	 * Durability Policy
@@ -125,19 +111,19 @@ declare module DDS {
 		/**
 		 * Volatile - Volatile durability policy
 		 */
-		Volatile:any;
+		static Volatile:any;
 		/**
 		 * TransientLocal - TransientLocal durability policy
 		 */
-		TransientLocal:any;
+		static TransientLocal:any;
 		/**
 		 * Transient - Transient durability policy
 		 */
-		Transient:any;
+		static Transient:any;
 		/**
 		 * Persistent - Persistent durability policy
 		 */
-		Persistent:any;
+		static Persistent:any;
 	}
 
 
@@ -473,7 +459,7 @@ declare module DDS {
 
 	export var runtime:{
 		Runtime : Runtime;
-	}
+	};
 
 	export var VERSION:string;
 }
@@ -482,7 +468,4 @@ declare module DDS {
  * Defines the core Vortex-Web-Client javascript library. It includes the JavaScript API for DDS. This API allows
  * web applications to share data among them as well as with native DDS applications.
  */
-declare
-var dds:typeof DDS;
-
-
+declare var dds:typeof DDS;

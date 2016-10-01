@@ -1,3 +1,5 @@
+/// <reference path="./source-map.d.ts" />
+
 ﻿import SourceMap = require('source-map');
 
 function testSourceMapConsumer() {

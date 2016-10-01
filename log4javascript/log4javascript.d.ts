@@ -253,6 +253,8 @@ declare module log4javascript {
 		 * Asserts the given expression is true or evaluates to true. If so, nothing is logged. If not, an error is logged at the ERROR level.
 		 */
 		assert(expr: any): void;
+
+		name: string;
 	}
 
 	// #endregion
@@ -262,7 +264,20 @@ declare module log4javascript {
 	/**
 	 * Logging event.
 	 */
-	export class LoggingEvent { }
+	export class LoggingEvent {
+		logger: Logger;
+		timeStamp: Date;
+		timeStampInMilliseconds: number;
+		timeStampInSeconds: number;
+		milliseconds: number;
+		level: Level;
+		messages: any[];
+		exception: Error;
+
+		getThrowableStrRep: () => string;
+		getCombinedMessages: () => string;
+		toString: () => string;
+	}
 
 	/**
 	 * There are methods common to all appenders, as listed below.
@@ -920,6 +935,8 @@ declare module log4javascript {
 		 * Returns whether the layout has any custom fields.
 		 */
 		hasCustomFields(): boolean;
+
+		formatWithException(loggingEvent: LoggingEvent): string;
 	}
 
 	/**

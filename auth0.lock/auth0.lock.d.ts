@@ -27,6 +27,7 @@ interface Auth0LockOptions {
     forceJSONP?: boolean;
     gravatar?: boolean;
     integratedWindowsLogin?: boolean;
+    icon?: string;
     loginAfterSignup?: boolean;
     popup?: boolean;
     popupOptions?: Auth0LockPopupOptions;

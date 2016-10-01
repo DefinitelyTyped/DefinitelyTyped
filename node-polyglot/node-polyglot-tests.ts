@@ -1,3 +1,5 @@
+/// <reference path="./node-polyglot.d.ts" />
+
 import Polyglot = require("node-polyglot");
 
 function instantiatePolyglot(): void {

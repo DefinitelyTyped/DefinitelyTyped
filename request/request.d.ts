@@ -12,6 +12,7 @@ declare module 'request' {
 	import stream = require('stream');
 	import http = require('http');
 	import FormData = require('form-data');
+	import url = require('url');
 
 	export = RequestAPI;
 
@@ -85,6 +86,7 @@ declare module 'request' {
 			timeout?: number;
 			proxy?: any;
 			strictSSL?: boolean;
+			gzip?: boolean;
 		}
 
 		export interface RequestPart {
@@ -160,9 +162,9 @@ declare module 'request' {
 		}
 
 		export interface CookieJar {
-			add(cookie: Cookie): void;
-			get(req: Request): Cookie;
-			cookieString(req: Request): string;
+			setCookie(cookie: Cookie, uri: string|url.Url, options?: any): void
+			getCookieString(uri: string|url.Url): string
+			getCookies(uri: string|url.Url): Cookie[]
 		}
 
 		export interface CookieValue {

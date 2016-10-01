@@ -312,12 +312,18 @@ class RunTest {
         var v2: Router.Router = Router.run(React.createElement(Router.Route, null), Router.HistoryLocation, (Handler, state) => {
             React.render(React.createElement(Handler, null), document.body);
         });
-
-        // React.createFactory() version
-        var v3: Router.Router = Router.run(React.createFactory(Router.Route)(), (Handler) => {
+        var v3: Router.Router = Router.run(React.createElement(Router.Route, null), '/foo/bar', (Handler, state) => {
             React.render(React.createElement(Handler, null), document.body);
         });
-        var v4: Router.Router = Router.run(React.createFactory(Router.Route)(), Router.HistoryLocation, (Handler, state) => {
+
+        // React.createFactory() version
+        var v4: Router.Router = Router.run(React.createFactory(Router.Route)(), (Handler) => {
+            React.render(React.createElement(Handler, null), document.body);
+        });
+        var v5: Router.Router = Router.run(React.createFactory(Router.Route)(), Router.HistoryLocation, (Handler, state) => {
+            React.render(React.createElement(Handler, null), document.body);
+        });
+        var v6: Router.Router = Router.run(React.createFactory(Router.Route)(), '/foo/bar', (Handler, state) => {
             React.render(React.createElement(Handler, null), document.body);
         });
     }

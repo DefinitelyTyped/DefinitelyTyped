@@ -18,7 +18,9 @@ declare module AceAjax {
 
         bindKey:any;
 
-        exec:Function;
+        exec: Function;
+
+        readOnly?: boolean;
     }
 
     export interface CommandManager {

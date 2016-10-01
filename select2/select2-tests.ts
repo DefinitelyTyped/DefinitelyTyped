@@ -56,6 +56,7 @@ $("#e6").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
+        cache: false,
         data: function (term, page) {
             return {
                 q: term,

@@ -44,7 +44,6 @@ declare module L.mapbox {
 		legendControl : L.mapbox.LegendControl;
 		shareControl  : L.mapbox.ShareControl;
 
-		addLayer(layer: any): any;
 		getTileJSON(): any;
 
 	}

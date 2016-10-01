@@ -1,6 +1,6 @@
 // Type definitions for gulp-typescript
 // Project: https://github.com/ivogabe/gulp-typescript
-// Definitions by: Asana <https://asana.com>
+// Definitions by: Asana <https://asana.com>, Thomas Corbière <https://github.com/tomc974>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
@@ -9,7 +9,8 @@ declare module "gulp-typescript" {
     function GulpTypescript(params: GulpTypescript.Params, filters?: GulpTypescript.FilterSettings, reporter?: GulpTypescript.Reporter): GulpTypescript.CompilationStream;
 
     module GulpTypescript {
-        export function createProject(params: Params): Params;
+        export function createProject(params: Params): Project;
+        export function createProject(file: string, params: Params): Project;
         export function filter(filters: FilterSettings): CompilationStream;
         interface Params {
             declarationFiles?: boolean;
@@ -22,6 +23,10 @@ declare module "gulp-typescript" {
             sourceRoot?: string;
             sortOutput?: boolean;
             target?: string;
+        }
+
+        interface Project {
+            src(): NodeJS.ReadWriteStream
         }
 
         interface FilterSettings {

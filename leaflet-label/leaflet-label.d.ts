@@ -6,9 +6,13 @@
 /// <reference path="../leaflet/leaflet.d.ts" />
 
 declare module L {
-	export interface IconOptions {
-		labelAnchor?: Point;
-	}
+    export interface IconOptions {
+        labelAnchor?: Point;
+    }
+
+    export interface PathOptions {
+        labelAnchor?: Point;
+    }
 
 	export interface CircleMarkerOptions {
 		labelAnchor?: Point;

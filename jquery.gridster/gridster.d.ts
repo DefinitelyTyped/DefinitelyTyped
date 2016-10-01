@@ -185,6 +185,11 @@ interface Gridster {
 	add_widget(html: HTMLElement, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
 
 	/**
+	* @see add_widget
+	**/
+	add_widget(html: JQuery, size_x?: number, size_y?: number, col?: number, row?: number): JQuery;
+
+	/**
 	* Change the size of a widget.
 	* @param $widget The jQuery wrapped HTMLElement that represents the widget is going to be resized.
 	* @param size_x The number of rows that the widget is going to span.  Defaults to current size_x.
@@ -207,6 +212,16 @@ interface Gridster {
 	* @see remove_widget
 	**/
 	remove_widget(el: HTMLElement, callback: (el: HTMLElement) => void): Gridster;
+
+	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, silent?: boolean, callback?: (el: HTMLElement) => void): Gridster;
+
+	/**
+	* @see remove_widget
+	**/
+	remove_widget(el: JQuery, callback: (el: HTMLElement) => void): Gridster;
 
 	/**
 	* Returns a serialized array of the widgets in the grid.

@@ -10,10 +10,10 @@ declare module Backgrid {
     interface GridOptions {
         columns: Column[];
         collection: Backbone.Collection<Backbone.Model>;
-        header: Header;
-        body: Body;
-        row: Row;
-        footer: Footer;
+        header?: Header;
+        body?: Body;
+        row?: Row;
+        footer?: Footer;
     }
 
     class Header extends Backbone.View<Backbone.Model> {
@@ -108,6 +108,8 @@ declare module Backgrid {
         footer: any;
         header: any;
         tagName: string;
+
+        constructor(options: GridOptions);
 
         initialize(options: any);
         getSelectedModels(): Backbone.Model[];

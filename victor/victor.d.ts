@@ -353,3 +353,7 @@ declare class Victor
     verticalAngleDeg():number;
 
 }
+
+declare module "victor" {
+	export = Victor;
+}

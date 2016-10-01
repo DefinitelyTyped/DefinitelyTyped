@@ -15,51 +15,51 @@ function testProtoBufJs() {
     assert.ok("loadProto" in ProtoBuf, "ProtoBuf should contain property loadProto");
     assert.ok("loadProtoFile" in ProtoBuf, "ProtoBuf should contain property loadProtoFile");
     assert.ok("newBuilder" in ProtoBuf, "ProtoBuf should contain property newBuilder");
-    
+
     var jsonProto: ProtoBuf.ProtoBuilder = ProtoBuf.loadJson(readFileSync("test.json",
         {"encoding": "utf8"}));
     assertIsProtoBuilder(jsonProto, "loadJson");
-    
+
     var jsonFileProto: ProtoBuf.ProtoBuilder = ProtoBuf.loadJsonFile("test.json");
     assertIsProtoBuilder(jsonFileProto, "loadJsonFile");
-    
+
     ProtoBuf.loadJsonFile("test.json", (error: any, builder: ProtoBuf.ProtoBuilder) => {
         assertIsProtoBuilder(builder, "loadJsonFile callback");
       });
-      
+
     var proto: ProtoBuf.ProtoBuilder = ProtoBuf.loadProto(readFileSync("test.proto",
         {"encoding": "utf8"}));
     assertIsProtoBuilder(proto, "loadProto");
-    
+
     var protoFile: ProtoBuf.ProtoBuilder = ProtoBuf.loadProtoFile("test.proto");
     assertIsProtoBuilder(protoFile, "loadProtoFile");
-    
+
     ProtoBuf.loadProtoFile("test.proto", (error: any, builder: ProtoBuf.ProtoBuilder) => {
         assertIsProtoBuilder(builder, "loadProtoFile callback");
       });
-      
+
      var newBuilder: ProtoBuf.ProtoBuilder = ProtoBuf.newBuilder();
      assertIsProtoBuilder(newBuilder, "newBuilder");
-     
+
      assertIsNamespace(protoFile.ns, "protoFile.ns");
      assertIsNamespace(protoFile.ptr, "protoFile.ptr");
-     
+
      assertIsProtoBuf(protoFile.build(), "protoFile.build()");
      assertIsProtoBuf(protoFile.result, "protoFile.result");
-     
+
      assertIsProtoBuilder(protoFile.create(), "protoFile.create()");
      assertIsProtoBuilder(protoFile.define("js"), "protoFile.define()");
-     
+
      assertIsT(protoFile.lookup(), "protoFile.lookup()");
 }
 
 function testBuilderJs() {
     var Builder: ProtoBuf.Builder = ProtoBuf.Builder;
     assertIsBuilder(Builder, "Builder");
-    
+
     var newBuilder: ProtoBuf.ProtoBuilder = new ProtoBuf.Builder();
     assertIsProtoBuilder(newBuilder, "new Builder()");
-    
+
     var Message: ProtoBuf.Message = Builder.Message;
     var Service: ProtoBuf.Service = Builder.Service;
 }
@@ -104,13 +104,13 @@ function assertIsBuilder(b: ProtoBuf.Builder, name: string) {
 }
 
 function assertIsProtoBuf(pb: ProtoBuf.ProtoBuf, name: string) {
-    for (var package in pb) {
-        if (pb.hasOwnProperty(package)) {
-            for (var property in pb[package]) {
-                if (typeof pb[package][property] == typeof Object
-                      && pb[package].hasOwnProperty(property)) {
-                    assertIsMetaMessage(pb[package][property],
-                        name + "." + package + "." + property);
+    for (var pkg in pb) {
+        if (pb.hasOwnProperty(pkg)) {
+            for (var property in pb[pkg]) {
+                if (typeof pb[pkg][property] == typeof Object
+                      && pb[pkg].hasOwnProperty(property)) {
+                    assertIsMetaMessage(pb[pkg][property],
+                        name + "." + pkg + "." + property);
                 }
             }
         }
@@ -127,7 +127,7 @@ function assertIsMetaMessage(mm: ProtoBuf.MetaMessage, name: string) {
 function assertIsDotProto(dp: ProtoBuf.DotProto, name: string) {
     assert.ok("Parser" in dp, name + " should contain property Parser");
     assert.ok("Tokenizer" in dp, name + " should contain property Tokenizer");
-    
+
     assertIsParser(new dp.Parser(readFileSync("test.proto", {"encoding": "utf8"})),
         name + ".Parser");
     assertIsTokenizer(new dp.Tokenizer(readFileSync("test.proto", {"encoding": "utf8"})),
@@ -138,7 +138,7 @@ function assertIsParser(p: ProtoBuf.Parser, name: string) {
     assert.ok("tn" in p, name + " should contain property tn");
     assert.ok("parse" in p, name + " should contain property parse");
     assert.ok("toString" in p, name + " should contain property toString");
-    
+
     assertIsTokenizer(p.tn, name + ".tn");
     assertIsMetaProto(p.parse(), name + ".parse()");
 }
@@ -162,7 +162,7 @@ function assertIsMetaProto(mp: ProtoBuf.MetaProto, name: string) {
     assert.ok("imports" in mp, name + " should contain proeprty imports");
     assert.ok("options" in mp, name + " should contain proeprty options");
     assert.ok("services" in mp, name + " should contain proeprty services");
-    
+
     for (var message in mp.messages) {
         assertIsProtoMessage(mp.messages[message], name + ".messages." + message);
     }
@@ -178,7 +178,7 @@ function assertIsProtoEnum(pe: ProtoBuf.ProtoEnum, name: string) {
     assert.ok("name" in pe, name + " should contain property name");
     assert.ok("values" in pe, name + " should contain property values");
     assert.ok("options" in pe, name + " should contain property options");
-    
+
     assertIsProtoEnumValue(pe.values, name + ".values");
 }
 
@@ -202,7 +202,7 @@ function assertIsProtoMessage(pm: ProtoBuf.ProtoMessage, name: string) {
     assert.ok("messages" in pm, name + " should contain property messages");
     assert.ok("options" in pm, name + " should contain property options");
     assert.ok("oneofs" in pm, name + " should contain property oneofs");
-    
+
     for (var f in pm.fields) {
         assertIsProtoField(pm.fields[f], name + ".fields." + f);
     }
@@ -224,7 +224,7 @@ function assertIsProtoService(ps: ProtoBuf.ProtoService, name: string) {
     assert.ok("name" in ps, name + " should contain property name");
     assert.ok("rpc" in ps, name + " should contain property rpc");
     assert.ok("options" in ps, name + " should contain property options");
-    
+
     for (var rpc in ps.rpc) {
       assertIsProtoRpcService(ps.rpc[rpc], name + ".rpc." + rpc);
     }
@@ -237,14 +237,14 @@ function assertIsReflect(r: ProtoBuf.Reflect, name: string) {
     assert.ok("Enum" in r, name + " should contain property Enum");
     assert.ok("Extension" in r, name + " should contain property Extension");
     assert.ok("Service" in r, name + " should contain property Service");
-    
+
     assertIsT(new ProtoBuf.Reflect.T(), "new ProtoBuf.Reflect.T()");
     assertIsNamespace(new ProtoBuf.Reflect.Namespace(), "new ProtoBuf.Reflect.Namespace()");
     assertIsMessage(new ProtoBuf.Reflect.Message(), "new ProtoBuf.Reflect.Message()");
     assertIsEnum(new ProtoBuf.Reflect.Enum(), "new ProtoBuf.Reflect.Enum()");
     assertIsExtension(new ProtoBuf.Reflect.Extension(), "new ProtoBuf.Reflect.Extension()");
     assertIsService(new ProtoBuf.Reflect.Service(), "new ProtoBuf.Reflect.Service()");
-    
+
     assertIsValue(new ProtoBuf.Reflect.Enum.Value(), "new ProtoBuf.Reflect.Enum.Value()");
     assertIsOneOf(new ProtoBuf.Reflect.Message.OneOf(), "new ProtoBuf.Reflect.Message.OneOf()");
     assertIsMethod(new ProtoBuf.Reflect.Service.Method(), "new ProtoBuf.Reflect.Service.Method()");
@@ -255,7 +255,7 @@ function assertIsReflect(r: ProtoBuf.Reflect, name: string) {
 function assertIsT(t: ProtoBuf.ReflectT, name: string) {
     if (t != null && t != undefined) {
         assertIsTNoRecursion(t, name);
-    
+
         assertIsProtoBuilder(t.builder, name + ".builder");
         assertIsTNoRecursion(t.parent, name + ".parent");
     }
@@ -273,9 +273,9 @@ function assertIsTNoRecursion(t: ProtoBuf.ReflectT, name: string) {
 
 function assertIsNamespace(ns: ProtoBuf.ReflectNamespace, name: string) {
     assertIsNamespaceNoRecursion(ns, name);
-    
+
     assertIsT(ns, name);
-    
+
     for (var child in ns.children) {
         assertIsT(ns.children[child], name + ".children." + child);
     }
@@ -308,7 +308,7 @@ function assertIsMessage(m: ProtoBuf.ReflectMessage, name: string) {
         assert.ok("encode" in m, name + " should contain property encode");
         assert.ok("calculate" in m, name + " should contain property calculate");
         assert.ok("decode" in m, name + " should contain property decode");
-        
+
         assertIsNamespace(m, name);
     }
 }
@@ -316,22 +316,22 @@ function assertIsMessage(m: ProtoBuf.ReflectMessage, name: string) {
 function assertIsEnum(e: ProtoBuf.ReflectEnum, name: string) {
     assert.ok("object" in e, name + " should contain property object");
     assert.ok("build" in e, name + " should contain property build");
-    
+
     assertIsNamespace(e, name);
 }
 
 function assertIsExtension(e: ProtoBuf.ReflectExtension, name: string) {
     assert.ok("field" in e, name + " should contain property field");
-    
+
     assertIsT(e, name);
-    
+
     assertIsField(e.field, name + ".field");
 }
 
 function assertIsService(s: ProtoBuf.ReflectService, name: string) {
     assert.ok("clazz" in s, name + " should contain property clazz");
     assert.ok("build" in s, name + " should contain property build");
-    
+
     assertIsNamespace(s, name);
 }
 
@@ -355,9 +355,9 @@ function assertIsField(f: ProtoBuf.ReflectField, name: string) {
         assert.ok("calculate" in f, name + " should contain property calculate");
         assert.ok("calculateValue" in f, name + " should contain property calculateValue");
         assert.ok("decode" in f, name + " should contain property decode");
-        
+
         assertIsT(f, name);
-        
+
         assertIsT(f.resolvedType, name + ".resolvedType");
         assertIsOneOf(f.oneof, name + ".oneof");
     }
@@ -370,15 +370,15 @@ function assertIsWireTuple(wt: ProtoBuf.WireTuple, name: string) {
 
 function assertIsExtensionField(ef: ProtoBuf.ReflectExtensionField, name: string) {
     assert.ok("extension" in ef, name + " should contain property extension");
-    
+
     assertIsField(ef, name);
-    
+
     assertIsExtension(ef.extension, name + ".extension");
 }
 
 function assertIsOneOf(oo: ProtoBuf.ReflectOneOf, name: string) {
     assert.ok("fields" in oo, name + " should contain property fields");
-    
+
     for (var f in oo.fields) {
         assertIsField(oo.fields[f], name + ".fields." + f);
     }
@@ -387,7 +387,7 @@ function assertIsOneOf(oo: ProtoBuf.ReflectOneOf, name: string) {
 function assertIsValue(v: ProtoBuf.ReflectValue, name: string) {
     assert.ok("className" in v, name + " should contain property className");
     assert.ok("id" in v, name + " should contain property id");
-    
+
     assertIsT(v, name);
 }
 
@@ -395,7 +395,7 @@ function assertIsMethod(m: ProtoBuf.ReflectMethod, name: string) {
     assert.ok("className" in m, name + " should contain property className");
     assert.ok("options" in m, name + " should contain property options");
     assert.ok("buildOpt" in m, name + " should contain property buildOpt");
-    
+
     assertIsT(m, name);
 }
 
@@ -405,9 +405,9 @@ function assertIsRPCMethod(rpc: ProtoBuf.ReflectRPCMethod, name: string) {
     assert.ok("resolvedRequestType" in rpc, name + " should contain property resolvedRequestType");
     assert.ok("resolvedResponseType" in rpc,
         name + " should contain property resolvedResponseType");
-        
+
     assertIsMethod(rpc, name);
-        
+
     assertIsMessage(rpc.resolvedRequestType, name + ".resolvedRequestType");
     assertIsMessage(rpc.resolveResponseType, name + ".resolvedResponsetype");
 }

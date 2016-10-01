@@ -24,7 +24,7 @@ declare module Slick {
         tooltip?: string;
     }
 
-    export interface OnCommandEventData<T extends SlickData> {
+    export interface OnCommandEventArgs<T extends SlickData> {
         grid: Grid<T>;
         column: Column<T>;
         command: string;
@@ -35,7 +35,7 @@ declare module Slick {
 
         export class HeaderButtons<T extends SlickData> extends Plugin<T> {
             constructor();
-            public onCommand: Event<OnCommandEventData<T>>;
+            public onCommand: Event<OnCommandEventArgs<T>>;
         }
     }
 }

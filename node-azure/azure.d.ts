@@ -1627,6 +1627,7 @@ declare module "azure" {
         RowKey: string;
         Timestamp?: Date;
         etag?: string;
+        [property: string]: string | number | boolean | Date;
     }
     //#endregion
     //#region BlobService Interfaces

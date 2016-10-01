@@ -1,4 +1,4 @@
-// Type definitions for polymer v1.0
+// Type definitions for polymer v1.1.2
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -11,15 +11,17 @@ declare module polymer {
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?:boolean|number|string|Function;
-    reflectToAttributes?:boolean;
-    notify?:boolean;
-    readOnly?:boolean;
-    observer?:string;
-    computed?:string;
+    value?: boolean | number | string | Function;
+    reflectToAttribute?: boolean;
+    readOnly?: boolean;
+    notify?: boolean;
+    computed?: string;
+    observer?: string;
   }
 
   interface Base {
+    /** Need to allow all properties for callback methods. */
+    [prop: string]: any;
 
     /* polymer-micro */
 
@@ -199,6 +201,8 @@ declare module polymer {
 
     observers?: string[];
 
+    registered?(): void;
+
     created?(): void;
 
     attached?(): void;
@@ -297,9 +301,9 @@ declare module polymer {
 
     dom:DomApiStatic;
 
-    (prototype: Base):webcomponents.CustomElementConstructor;
+    (prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
 
-    Class(prototype: Base):webcomponents.CustomElementConstructor;
+    Class(prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
   }
 }
 

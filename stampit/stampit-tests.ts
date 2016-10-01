@@ -1,5 +1,6 @@
 /// <reference path="stampit.d.ts" />
-import stampit = require('./stampit.d');
+
+import stampit = require('stampit');
 
 var a = stampit().init((options) => {
     var a = options.args[0];

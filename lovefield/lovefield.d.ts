@@ -1,4 +1,4 @@
-// Type definitions for Lovefield v2.0.56
+// Type definitions for Lovefield v2.0.62
 // Project: http://google.github.io/lovefield/
 // Definitions by: freshp86 <https://github.com/freshp86>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -16,6 +16,16 @@ declare module lf {
     NUMBER,
     OBJECT,
     STRING
+  }
+
+  export enum ConstraintAction {
+    RESTRICT,
+    CASCADE
+  }
+
+  export enum ConstraintTiming {
+    IMMEDIATE,
+    DEFERRABLE
   }
 
   export interface Binder {
@@ -56,7 +66,9 @@ declare module lf {
     close(): void
     createTransaction(type?: TransactionType): Transaction
     delete(): query.Delete
+    export(): Promise<Object>
     getSchema(): schema.Database
+    import(data: Object): Promise<void>
     insertOrReplace(): query.Insert
     insert(): query.Insert
     observe(query: query.Select, callback: Function): void
@@ -174,9 +186,16 @@ declare module lf {
       order: Order
     }
 
+    type RawForeignKeySpec = {
+      local: string
+      ref: string
+      action: lf.ConstraintAction
+      timing: lf.ConstraintAction
+    }
+
     export interface TableBuilder {
       addColumn(name: string, type: lf.Type): TableBuilder
-      addForeignKey(): TableBuilder
+      addForeignKey(name: string, spec: RawForeignKeySpec): TableBuilder
       addIndex(
           name: string, columns: Array<string>|Array<IndexedColumn>,
           unique?: boolean, order?: Order): TableBuilder

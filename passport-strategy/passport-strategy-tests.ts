@@ -1,3 +1,4 @@
+/// <reference path="./passport-strategy.d.ts" />
 
 import express = require('express');
 import passport = require('passport-strategy');

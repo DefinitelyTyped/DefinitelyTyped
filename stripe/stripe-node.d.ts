@@ -2802,7 +2802,7 @@ declare module StripeNode {
      * A set of key/value pairs that you can attach to a reversal. It can be useful for storing 
      * additional information about the reversal in a structured format.
      */
-    interface IMetadata extends Object { }
+    interface IMetadata { }
 
     interface IShippingInformation {
         /**

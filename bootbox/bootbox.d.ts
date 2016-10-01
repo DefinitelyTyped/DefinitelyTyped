@@ -1,6 +1,6 @@
 // Type definitions for Bootbox 4.4.0
 // Project: https://github.com/makeusabrew/bootbox
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>, Kon Pik <https://github.com/konpikwastaken/>, Anup Kattel <https://github.com/kanup/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone/>, Kon Pik <https://github.com/konpikwastaken/>, Anup Kattel <https://github.com/kanup/>, Dominik Schroeter <https://github.com/icereed/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
@@ -28,6 +28,10 @@ interface BootboxButton {
 	callback?: () => any;
 }
 
+interface BootboxButtonMap {
+  [key: string]: BootboxButton | Function;
+}
+
 interface BootboxDialogOptions {
 	message: string | Element;
 	title?: string | Element;
@@ -40,7 +44,7 @@ interface BootboxDialogOptions {
 	animate?: boolean;
 	className?: string;
 	size?: string;
-	buttons?: Object; // complex object where each key is of type BootboxButton
+	buttons?: BootboxButtonMap; // complex object where each key is of type BootboxButton
 }
 
 interface BootboxDefaultOptions {
@@ -69,7 +73,7 @@ interface BootboxStatic {
 	dialog(options: BootboxDialogOptions): JQuery;
 	setDefaults(options: BootboxDefaultOptions): void;
 	hideAll(): void;
-	
+
 	addLocale(name: string, values: BootboxLocaleValues): void;
 	removeLocale(name: string): void;
 	setLocale(name: string): void;

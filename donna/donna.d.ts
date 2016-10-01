@@ -25,6 +25,7 @@ declare module DonnaTypes {
         type: string;
         name: string;
         bindingType: string;
+        paramNames?: string[];
         classProperties?: any[];
         prototypeProperties?: number[][];
         doc?: string;

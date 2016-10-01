@@ -27,14 +27,12 @@ bootbox.prompt("Enter 'ok' to pass test", function (result) {
 	console.log(result);
 });
 bootbox.prompt({
-	title: "Wassup?",
 	message: "Enter 'ok' to pass test", callback: function (result) {
 		console.log(result);
 	}
 });
 bootbox.prompt({
 	size: "large",
-	title: "Wassup?",
 	message: "Enter 'ok' to pass test", callback: function (result) {
 		console.log(result);
 	}
@@ -42,6 +40,7 @@ bootbox.prompt({
 
 
 bootbox.dialog({
+	title: "Wassup?",
 	message: "Test Dialog",
 	callback: function (result) { }
 });

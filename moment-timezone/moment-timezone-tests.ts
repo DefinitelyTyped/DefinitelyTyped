@@ -75,3 +75,5 @@ moment.tz.load({
 });
 
 moment.tz.names();
+
+moment.tz.setDefault('America/Los_Angeles');

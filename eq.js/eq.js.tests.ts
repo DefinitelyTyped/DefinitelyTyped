@@ -1,4 +1,4 @@
-/// <reference path="eqjs.d.ts" />
+/// <reference path="eq.js.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
 var nodes = document.getElementsByClassName(".test-container");

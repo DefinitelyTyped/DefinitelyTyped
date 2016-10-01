@@ -5,8 +5,8 @@
 
 /* =================== USAGE ===================
 
-    import serveStatic = require('serve-static');
-    app.use(serveStatic('public/ftp', {'index': ['default.html', 'default.htm']}))
+    import * as serveStatic from "serve-static";
+    app.use(serveStatic("public/ftp", {"index": ["default.html", "default.htm"]}))
 
  =============================================== */
 
@@ -14,7 +14,7 @@
 /// <reference path="../mime/mime.d.ts" />
 
 declare module "serve-static" {
-    import express = require('express');
+    import * as express from "express";
     
     /**
      * Create a new middleware function to serve files from within a given root directory. 
@@ -76,7 +76,7 @@ declare module "serve-static" {
         setHeaders?: (res: express.Response, path: string, stat: any) => any;
     }): express.Handler;
 
-    import m = require('mime');
+    import * as m from "mime";
 
     module serveStatic {
         var mime: typeof m;

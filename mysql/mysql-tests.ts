@@ -109,6 +109,10 @@ var sql = "SELECT * FROM ?? WHERE ?? = ?";
 var inserts = ['users', 'id', userId];
 sql = mysql.format(sql, inserts);
 
+var sql = "INSERT INTO posts SET ?";
+var post = { id: 1, title: 'Hello MySQL' };
+sql = mysql.format(sql, post);
+
 connection.config.queryFormat = function (query, values) {
     if (!values) return query;
     return query.replace(/\:(\w+)/g, function (txt: string, key: string) {

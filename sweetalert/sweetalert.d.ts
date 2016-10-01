@@ -1,4 +1,4 @@
-// Type definitions for SweetAlert 1.0.1
+// Type definitions for SweetAlert 1.1.0
 // Project: https://github.com/t4t5/sweetalert/
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -62,7 +62,7 @@ declare module SweetAlert {
 
         /**
          * Use this to change the background color of the "Confirm"-button (must be a HEX value).
-         * Default: "#AEDEF4"
+         * Default: "#8CD4F5"
          */
         confirmButtonColor?: string;
 
@@ -131,6 +131,12 @@ declare module SweetAlert {
          * Default: null
          */
         inputValue?: string;
+
+        /**
+         * Set to true to disable the buttons and show that something is loading.
+         * Default: false
+         */
+        showLoaderOnConfirm?: boolean;
     }
 
     interface Settings extends SettingsBase {
@@ -195,5 +201,15 @@ declare module SweetAlert {
          * Show an error message after validating the input field, if the user's data is bad.
          */
         showInputError(errorMessage: string): void;
+
+        /**
+         * Enable the user to click on the cancel and confirm buttons.
+         */
+        enableButtons(): void;
+
+        /**
+         * Disable the user to click on the cancel and confirm buttons.
+         */
+        disableButtons(): void;
     }
 }

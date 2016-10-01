@@ -18,7 +18,7 @@ declare module "smoothie"
 
     export interface ITimeSeriesPresentationOptions
     {
-        stokeStyle?: string;
+        strokeStyle?: string;
         fillStyle?: string;
         lineWidth?: number;
     }
@@ -73,7 +73,7 @@ declare module "smoothie"
         /** The pixel width of grid lines. */
         lineWidth?: number;
         /** Colour of grid lines. */
-        stokeStyle?: string;
+        strokeStyle?: string;
         /** Distance between vertical grid lines. */
         millisPerLine?: number;
         /** Controls whether grid lines are 1px sharp, or softened. */

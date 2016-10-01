@@ -161,7 +161,7 @@ interface CheckboxRadioOptions {
 }
 
 interface CheckboxRadioEvents {
-    createp?: JQueryMobileEvent;
+    create?: JQueryMobileEvent;
 }
 
 interface SelectMenuOptions {
@@ -184,7 +184,11 @@ interface SelectMenuEvents {
 }
 
 interface ListViewOptions {
+    autodividers?: boolean;
+    autodividersSelector?: (jq?: JQuery) => string;
     countTheme?: string;
+    defaults?: boolean;
+    disabled?: boolean;
     dividerTheme?: string;
     filter?: boolean;
     filterCallback?: Function;

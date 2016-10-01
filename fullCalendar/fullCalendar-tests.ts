@@ -67,7 +67,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar('option', 'aspectRatio', 1.8);
 
 $('#calendar').fullCalendar({
-    viewDisplay: function (view) {
+    viewRender: function(view) {
         alert('The new title of the view is ' + view.title);
     }
 });

@@ -36,7 +36,28 @@ interface PjaxSettings extends JQueryAjaxSettings {
     /**
      * How many requests to cache. Defaults to 20.
      */
-     maxCacheLength?: number;
+    maxCacheLength?: number;
+
+    /**
+     * A string or function returning the current pjax version
+     */
+    version?: string | (() => string);
+
+    /**
+     * Vertical position to scroll to after navigation.
+     * To avoid changing scroll position, pass false.
+     */
+    scrollTo?: number | boolean;
+
+    /**
+     * Eventually the relatedTarget value for pjax events.
+     */
+    target?: EventTarget;
+
+    /**
+     * CSS selector for the fragment to extract from ajax response.
+     */
+    fragment?: string;
 }
 
 interface JQuery {

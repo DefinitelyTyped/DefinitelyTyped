@@ -33,6 +33,8 @@ var featureFormat: ol.format.Feature;
 var geometry: ol.geom.Geometry;
 var loadingstrategy: ol.LoadingStrategy;
 var tilegrid: ol.tilegrid.TileGrid;
+var vector: ol.source.Vector;
+var projection: ol.proj.Projection;
 
 //
 // ol.Attribution
@@ -113,6 +115,13 @@ extent = geometryResult.getExtent();
 geometryResult.getExtent(extent);
 
 //
+// ol.source
+//
+vector = new ol.source.Vector({
+  features: [feature]
+});
+
+//
 // ol.Feature
 //
 feature = new ol.Feature();
@@ -153,7 +162,9 @@ var tileLayer: ol.layer.Tile = new ol.layer.Tile({
 //
 // ol.proj
 //
-var projection: ol.proj.Projection;
+projection = new ol.proj.Projection({
+    code:stringValue,    
+});
 
 //
 // ol.Map 
@@ -165,6 +176,21 @@ var map: ol.Map = new ol.Map({
     target: stringValue
 });
 map.beforeRender(preRenderFunction);
+
+//
+// ol.source.ImageWMS
+//
+var imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
+    serverType: stringValue,
+    url:stringValue
+});
+//
+// ol.source.TileWMS
+//
+var tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
+    serverType: stringValue,
+    url:stringValue
+});
 
 //
 // ol.animation

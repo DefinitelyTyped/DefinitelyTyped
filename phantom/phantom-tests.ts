@@ -117,7 +117,7 @@ phantom.create((ph) => {
       var finishedFunc = (result: any) => {
         ph.exit();
       };
-      page.evaluate(someFunc, finishedFunc, 'div', {wahtt: 111});
+      page.evaluate<string, {wahtt: number;}, void>(someFunc, finishedFunc, 'div', {wahtt: 111});
     });
   });
 
@@ -164,5 +164,3 @@ phantom.create((ph) => {
     });
   });
 });
-
-

@@ -390,7 +390,8 @@ declare module "hapi" {
 			'try'same as 'optional' but allows for invalid authentication. */
 			mode: string;
 			/**  a string array of strategy names in order they should be attempted.If only one strategy is used, strategy can be used instead with the single string value.Defaults to the default authentication strategy which is available only when a single strategy is configured.  */
-			strategies: string | Array<string>;
+			strategies?: string | Array<string>;
+			strategy?: string;
 			/**  if set, the payload (in requests other than 'GET' and 'HEAD') is authenticated after it is processed.Requires a strategy with payload authentication support (e.g.Hawk).Cannot be set to a value other than 'required' when the scheme sets the options.payload to true.Available values:
 			falseno payload authentication.This is the default value.
 			'required'payload authentication required.This is the default value when the scheme sets options.payload to true.

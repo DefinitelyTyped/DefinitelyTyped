@@ -30,11 +30,11 @@ declare module angular.animate {
         /**
         * Globally enables / disables animations.
         *
-        * @param value If provided then set the animation on or off.
         * @param element If provided then the element will be used to represent the enable/disable operation.
+        * @param value If provided then set the animation on or off.
         * @returns current animation state
         */
-        enabled(value?: boolean, element?: JQuery): boolean;
+        enabled(element?: JQuery, value?: boolean): boolean;
 
         /**
          * Performs an inline animation on the element.

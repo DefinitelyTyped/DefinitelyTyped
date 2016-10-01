@@ -7,7 +7,7 @@ function testFramework(): NodeJS.ReadWriteStream {
     return null;
 }
 
-gulp.task('test', function (cb) {
+gulp.task('test', function (cb: Function) {
     gulp.src(['lib/**/*.js', 'main.js'])
         .pipe(istanbul()) // Covering files
         .pipe(gulp.dest('test-tmp/'))
@@ -19,7 +19,7 @@ gulp.task('test', function (cb) {
         });
 });
 
-gulp.task('test', function (cb) {
+gulp.task('test', function (cb: Function) {
     gulp.src(['lib/**/*.js', 'main.js'])
         .pipe(istanbul({includeUntested: true})) // Covering files
         .pipe(istanbul.hookRequire())
@@ -31,7 +31,7 @@ gulp.task('test', function (cb) {
         });
 });
 
-gulp.task('test', function (cb) {
+gulp.task('test', function (cb: Function) {
     gulp.src(['lib/**/*.js', 'main.js'])
         .pipe(istanbul({includeUntested: true})) // Covering files
         .pipe(istanbul.hookRequire())

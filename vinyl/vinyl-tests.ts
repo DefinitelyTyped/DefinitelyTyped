@@ -73,7 +73,7 @@ describe('File', () => {
 
 		it('should set stat to given value', done => {
 			var val = {};
-			var file = new File({stat: val});
+			var file = new File(<fs.Stats><any>{stat: val});
 			file.stat.should.equal(val);
 			done();
 		});
@@ -150,8 +150,8 @@ describe('File', () => {
 	});
 
 	describe('isDirectory()', () => {
-		var fakeStat = {
-			isDirectory: () => {
+		var fakeStat = <fs.Stats>{
+			isDirectory() {
 				return true;
 			}
 		};
@@ -191,8 +191,20 @@ describe('File', () => {
 			file2.cwd.should.equal(file.cwd);
 			file2.base.should.equal(file.base);
 			file2.path.should.equal(file.path);
-			file2.contents.should.not.equal(file.contents, 'buffer ref should be different');
-			file2.contents.toString('utf8').should.equal(file.contents.toString('utf8'));
+
+			let fileContents = file.contents;
+			let file2Contents = file2.contents;
+
+			file2Contents.should.not.equal(fileContents, 'buffer ref should be different');
+
+			let fileUtf8Contents = fileContents instanceof Buffer ?
+				fileContents.toString('utf8') :
+				(<NodeJS.ReadableStream>fileContents).toString();
+			let file2Utf8Contents = file2Contents instanceof Buffer ?
+				file2Contents.toString('utf8') :
+				(<NodeJS.ReadableStream>file2Contents).toString();
+
+			file2Utf8Contents.should.equal(fileUtf8Contents);
 			done();
 		});
 
@@ -294,7 +306,10 @@ describe('File', () => {
 			var ret = file.pipe(stream);
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
 		it('should do nothing with null', done => {
@@ -360,7 +375,10 @@ describe('File', () => {
 			var ret = file.pipe(stream, {end: false});
 			ret.should.equal(stream, 'should return the stream');
 
-			file.contents.write(testChunk);
+			let fileContents = file.contents;
+			if (fileContents instanceof Buffer) {
+				fileContents.write(testChunk.toString());
+			}
 		});
 
 		it('should do nothing with null', done => {
@@ -475,7 +493,7 @@ describe('File', () => {
 			var val = "test";
 			var file = new File();
 			try {
-				file.contents = val;
+				file.contents = new Buffer(val);
 			} catch (err) {
 				should.exist(err);
 				done();
