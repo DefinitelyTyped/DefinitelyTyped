@@ -8,6 +8,7 @@ declare module 'uri-templates' {
 
 	namespace utpl {
 		export interface URITemplate {
+			new(template: string): URITemplate;
 			fillFromObject(vars: Object): string;
 			fill(callback: (varName: string) => string): string;
 			fromUri(uri: string): Object;

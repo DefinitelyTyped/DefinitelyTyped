@@ -8,6 +8,7 @@ var u: URITemplate;
 var obj: Object;
 
 u = utmpl(str);
+u = new URITemplate(str);
 
 str = u.fillFromObject(obj);
 str = u.fill((key) => {
