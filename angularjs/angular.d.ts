@@ -13,8 +13,6 @@ interface Function {
     $inject?: string[];
 }
 
-// Collapse angular into ng
-import ng = angular;
 // Support AMD require
 declare module 'angular' {
     export = angular;
