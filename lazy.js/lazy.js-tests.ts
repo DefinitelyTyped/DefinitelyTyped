@@ -116,7 +116,7 @@ fooSequence = fooSequence.first(num);
 
 fooSequence = fooSequence.flatten();
 fooObjectSeq = fooSequence.groupBy(fnGetKeyCallback);
-fooSequence = fooSequence.indexOf(x);
+num = fooSequence.indexOf(x);
 fooSequence = fooSequence.initial();
 fooSequence = fooSequence.initial(num);
 fooSequence = fooSequence.intersection(arr);
@@ -128,7 +128,7 @@ str = fooSequence.join(str);
 foo = fooSequence.last();
 fooSequence = fooSequence.last(num);
 
-fooSequence = fooSequence.lastIndexOf(foo);
+num = fooSequence.lastIndexOf(foo);
 barSequence = fooSequence.map(fnMapCallback);
 foo = fooSequence.max();
 foo = fooSequence.max(fnNumberCallback);
