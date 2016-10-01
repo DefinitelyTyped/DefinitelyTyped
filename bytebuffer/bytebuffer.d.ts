@@ -5,6 +5,7 @@
 // Definitions by: SINTEF-9012 <http://github.com/SINTEF-9012>
 
 /// <reference path="../long/long.d.ts" />
+/// <reference path="../node/node.d.ts"/>
 
 declare class ByteBuffer
 {
@@ -175,7 +176,7 @@ declare class ByteBuffer
      * @param littleEndian Whether to use little or big endian byte order. Defaults to ByteBuffer.DEFAULT_ENDIAN.
      * @param noAssert Whether to skip assertions of offsets and values. Defaults to ByteBuffer.DEFAULT_NOASSERT.
      */
-    static wrap( buffer: ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
+    static wrap( buffer: Buffer | ByteBuffer | ArrayBuffer | Uint8Array | string, enc?: string | boolean, littleEndian?: boolean, noAssert?: boolean ): ByteBuffer;
 
     /**
      * Decodes a zigzag encoded signed 32bit integer.
