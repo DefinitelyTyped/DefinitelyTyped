@@ -174,6 +174,7 @@ declare namespace __React {
         props: P & { children?: ReactNode };
         state: S;
         context: {};
+        isMounted(): boolean;
         refs: {
             [key: string]: ReactInstance
         };
