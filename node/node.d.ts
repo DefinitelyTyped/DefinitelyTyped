@@ -1406,6 +1406,7 @@ declare module "vm" {
     export function runInDebugContext(code: string): any;
     export function runInNewContext(code: string, sandbox?: Context, options?: RunningScriptOptions): any;
     export function runInThisContext(code: string, options?: RunningScriptOptions): any;
+    export function createScript(code: string, filename?: string): Script;
 }
 
 declare module "child_process" {
