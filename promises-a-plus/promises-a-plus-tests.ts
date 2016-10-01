@@ -2,7 +2,6 @@
 /// <reference types="q"/>
 /// <reference types="when"/>
 
-var thenNum: PromisesAPlus.Thenable<number>;
 var thenStr: PromisesAPlus.Thenable<string>;
 var thenBool: PromisesAPlus.Thenable<boolean>;
 
