@@ -179,6 +179,10 @@ declare namespace Chai {
     interface Property {
         (name: string, value?: any, message?: string): Assertion;
     }
+    
+    interface Object {
+    should: chai.Expect;
+    }
 
     interface OwnProperty {
         (name: string, message?: string): Assertion;
