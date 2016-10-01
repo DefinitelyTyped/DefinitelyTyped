@@ -1270,6 +1270,8 @@ declare module "esri" {
     id?: string;
     /** Display mode for the label layer. */
     mode?: string;
+    /** Visibility of the layer. */
+      visible?: boolean;
   }
   export interface LayerListOptions {
     /** An array of operational layers. */
@@ -1338,6 +1340,8 @@ declare module "esri" {
     highlightLocation?: boolean;
     /** The infoTemplate used for the highlight graphic. */
     infoTemplate?: InfoTemplate;
+    /** Goes to the users extent. */
+    locate?: () => any;  
     /** Map object that this dijit is associated with. */
     map: Map;
     /** The scale to zoom to when a users location has been found. */
