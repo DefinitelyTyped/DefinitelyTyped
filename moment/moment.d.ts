@@ -693,3 +693,4 @@ declare module 'moment/moment' {
 }
 
 declare var moment: moment.MomentStatic;
+export = moment;
