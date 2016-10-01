@@ -16,12 +16,12 @@ function defaultDemo() {
 
     $('.arrow-left').on('click', function (e) {
         e.preventDefault();
-        mySwiper.swipePrev();
+        mySwiper.slidePrev();
     });
 
     $('.arrow-right').on('click', function (e) {
         e.preventDefault();
-        mySwiper.swipeNext();
+        mySwiper.slideNext();
     });
 }
 
@@ -178,7 +178,7 @@ function tabs() {
         e.preventDefault();
         $(".tabs .active").removeClass('active');
         $(this).addClass('active');
-        tabsSwiper.swipeTo($(this).index());
+        tabsSwiper.slideTo($(this).index());
     });
 
     $(".tabs a").click(function (e) {
@@ -200,7 +200,7 @@ function tabsFeedback() {
         e.preventDefault();
         $(".tabs .active").removeClass('active');
         $(this).addClass('active');
-        tabsSwiper.swipeTo($(this).index());
+        tabsSwiper.slideTo($(this).index());
     });
 
     $(".tabs a").click(function (e) {
