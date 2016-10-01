@@ -1272,7 +1272,7 @@ declare namespace chrome.cookies {
  * Availability: Since Chrome 18.
  * Permissions:  "debugger"
  */
-declare module "chrome.debugger" {
+declare module chrome.debugger {
 	/** Debuggee identifier. Either tabId or extensionId must be specified */
     interface Debuggee {
 		/** Optional. The id of the tab which you intend to debug.  */
