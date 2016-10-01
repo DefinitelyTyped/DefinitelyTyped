@@ -20,9 +20,8 @@ declare module "oauth2-server" {
 
     namespace o {
         interface OAuth2Server {
-            grant() : RequestHandler;
-            authorise() : any;
-            errorHandler() : any;
+            token() : RequestHandler;
+            authenticate() : any;
         }
 
         interface Config {
