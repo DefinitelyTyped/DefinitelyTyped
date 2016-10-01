@@ -138,7 +138,13 @@ declare module 'parsimmon' {
 		/**
 		 * accepts a variable number of parsers that it expects to find in order, yielding an array of the results.
 		 */
-		export function seq<U>(...parsers: Parser<U>[]): Parser<U[]>;
+		export function seq<T>(p1: Parser<T>): Parser<[T]>;
+		export function seq<T, U>(p1: Parser<T>, p2: Parser<U>): Parser<[T, U]>;
+		export function seq<T, U, V>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>): Parser<[T, U, V]>;
+		export function seq<T, U, V, W>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>): Parser<[T, U, V, W]>;
+		export function seq<T, U, V, W, X>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>): Parser<[T, U, V, W, X]>;
+		export function seq<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>): Parser<[T, U, V, W, X, Y]>;
+		export function seq<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>): Parser<[T, U, V, W, X, Y, Z]>;
 		export function seq(...parsers: Parser<any>[]): Parser<any[]>;
 
 		/**

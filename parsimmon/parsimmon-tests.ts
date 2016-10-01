@@ -108,7 +108,8 @@ strPar = P.regex(regex);
 fooPar = P.succeed(foo);
 
 fooArrPar = P.seq(fooPar, fooPar);
-anyArrPar = P.seq(barPar, fooPar, numPar);
+var par: Parser<[Bar, Foo, number]> = P.seq(barPar, fooPar, numPar);
+var par2: Parser<number> = P.seq(barPar, fooPar, numPar).map(([a, b, c]: [Bar, Foo, number]) => 42);
 
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => { str = stream; num = i; return success(num, foo); });
 fooPar = P.custom<Foo>((success, failure) => (stream, i) => failure(num, str));
