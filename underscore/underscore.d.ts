@@ -6078,8 +6078,8 @@ interface _ChainOfArrays<T> extends _Chain<T[]> {
 	mapObject(fn: _.ListIterator<T, any>): _ChainOfArrays<T>;
 }
 
-declare var _: UnderscoreStatic;
+declare var underscore: UnderscoreStatic;
 
 declare module "underscore" {
-	export = _;
+	export = underscore;
 }
