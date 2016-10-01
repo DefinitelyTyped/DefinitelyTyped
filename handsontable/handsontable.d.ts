@@ -292,7 +292,7 @@ declare var Handsontable: {
 };
 
 declare module "handsontable" {
-    export var Handsontable: {
-      new (element: Element, options: ht.Options): ht.Methods;
+    export = {
+      Handsontable: Handsontable
     };
 }
