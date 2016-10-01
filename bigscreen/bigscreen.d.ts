@@ -19,7 +19,7 @@ interface BigScreenStatic {
     videoEnabled(video: HTMLVideoElement): boolean;
 }
 
-declare var bigscreen: BigScreenStatic;
+declare var BigScreen: BigScreenStatic;
 
 declare module "bigscreen" {
     export = bigscreen;
