@@ -3,7 +3,7 @@
 // Definitions by: Matteo Antony Mistretta <https://github.com/IceOnFire>, Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../q/Q.d.ts" />
+/// <reference path="../q/index.d.ts" />
 
 declare module 'o.js' {
     interface Options {
