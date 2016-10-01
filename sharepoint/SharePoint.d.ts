@@ -11209,7 +11209,9 @@ declare namespace SP {
 }
 
 
-declare module Srch
+// ------- Srch namespace -------
+
+declare namespace Srch
 {
     export enum EventType
     {
@@ -11255,7 +11257,7 @@ declare module Srch
         constructor(elem: Element);
 
         /** toggles visibility of children controls of the messageContainer */
-        static toggleMessageDetails(messageContainer: Element);
+        static toggleMessageDetails(messageContainer: Element): void;
         alternateRenderer: any;
         alternateRenderContext: any;
         loaded: boolean;
@@ -11281,26 +11283,26 @@ declare module Srch
         set_alternateErrorMessage(value: string): string;
         /** returns true if control has already been loaded at least once */
         get_isInitialLoad(): boolean;
-        initialize();
-        dispose();
-        renderControl(listData, dataProvider);
-        processDataProviderErrors(dataProviderToProcess);
-        scriptApplication_PreLoad(sender, e);
-        scriptApplication_Load(sender, e);
-        scriptApplication_PostLoad(sender, e);
-        loadServerTemplateScripts();
+        initialize(): void;
+        dispose(): void;
+        renderControl(listData: any, dataProvider: any): void;
+        processDataProviderErrors(dataProviderToProcess: any): void;
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        scriptApplication_Load(sender: any, e: any): void;
+        scriptApplication_PostLoad(sender: any, e: any): void;
+        loadServerTemplateScripts():void;
         serverTemplateScriptsToLoad: any[];
-        serverTemplateScriptsCallback();
-        loadRenderTemplateScripts(scriptReferences, success, failure, timeout, loadStandAloneCustomScripts);
-        invokeAlternateRender(callback, container, ctx);
-        invokeClientRenderer(node, ctx);
-        processDataErrorMessages(dataErrorsList);
-        processRenderingErrorMessages(ctx);
-        hasMessages();
-        updateDisplayControlWithNewMessages();
+        serverTemplateScriptsCallback(): void;
+        loadRenderTemplateScripts(scriptReferences: any, success: any, failure: any, timeout: any, loadStandAloneCustomScripts: any): boolean;
+        invokeAlternateRender(callback: any, container: any, ctx: any): any;
+        invokeClientRenderer(node: any, ctx: any): any;
+        processDataErrorMessages(dataErrorsList: any): any;
+        processRenderingErrorMessages(ctx: any): any;
+        hasMessages(): any;
+        updateDisplayControlWithNewMessages(): any;
         /** show/hide the DOM element associated with control */
-        setControlElementVisibility(showElement: boolean);
-        clickHandler(e: Event);
+        setControlElementVisibility(showElement: boolean): any;
+        clickHandler(e: Event): any;
     }
 
     export class DataProvider extends ClientControl
@@ -11408,31 +11410,30 @@ declare module Srch
         set_desiredSnippetLength(value: number): number;
         get_personalizedQuery(): boolean;
         set_personalizedQuery(value: boolean): boolean;
-        initialize();
-        dispose();
-        scriptApplication_PreLoad(sender, e);
-        scriptApplication_Load(sender, e);
-        scriptApplication_PostLoad(sender, e);
-        serverTemplateScriptsCallback();
-        add_queryIssuing(value);
-        remove_queryIssuing(value);
-        raiseQueryIssuingEvent(arg);
-        add_resultReady(value);
-        remove_resultReady(value);
-        raiseResultReadyEvent(arg);
-        add_queryStateChanged(value);
-        queryStateChanged(value);
-        raiseQueryStateChangedEvent(arg);
-        displayControl_QueryReady(sender, e);
-        searchBox_QueryReady(sender, e);
-        searchBox_BatchQueryIssuing(sender, e);
-        searchBox_BatchResultReady(sender, e);
-        processInitial();
-        issueQuery();
-        displayControlMessages();
-        raiseEmptyResultReadyEvent();
-        getSortRankName();
-        getSortName();
+        initialize(): void;
+        dispose(): void;
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        scriptApplication_Load(sender: any, e: any): void;
+        scriptApplication_PostLoad(sender: any, e: any): void;
+        serverTemplateScriptsCallback(): void;
+        add_queryIssuing(value: any): void;
+        remove_queryIssuing(value: any): void;
+        raiseQueryIssuingEvent(arg: any): void;
+        add_resultReady(value: any): void;
+        remove_resultReady(value: any): void;
+        raiseResultReadyEvent(arg: any): void;
+        add_queryStateChanged(value: any): void;
+        raiseQueryStateChangedEvent(arg: any): void;
+        displayControl_QueryReady(sender: any, e: any): void;
+        searchBox_QueryReady(sender: any, e: any): void;
+        searchBox_BatchQueryIssuing(sender: any, e: any): void;
+        searchBox_BatchResultReady(sender: any, e: any): void;
+        processInitial(): void;
+        issueQuery(): void;
+        displayControlMessages(): void;
+        raiseEmptyResultReadyEvent(): void;
+        getSortRankName(): string;
+        getSortName(): string;
     }
 
     export class DisplayControl extends ClientControl
@@ -11448,38 +11449,38 @@ declare module Srch
         set_currentResultTableCollection(value: any): any;
         get_emptyMessage(): string;
         set_emptyMessage(value: string): string;
-        scriptApplication_PreLoad(sender, e);
-        scriptApplication_PostLoad(sender, e);
-        serverTemplateScriptsCallback();
-        add_queryReady(value);
-        remove_queryReady(value);
-        raiseQueryReadyEvent(arg);
-        add_resultRendered(value);
-        remove_resultRendered(value);
-        raiseResultRenderedEvent(arg);
-        add_oneTimeResultRendered(value);
-        remove_oneTimeResultRendered(value);
-        raiseOneTimeResultRenderedEvent(arg);
-        refresh(queryState);
-        dataProvider_QueryIssuing(sender, e);
-        dataProvider_ResultReady(sender, e);
-        processQueryIssuing(queryState);
-        processResultReady(resultTableCollection);
-        render();
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        scriptApplication_PostLoad(sender: any, e: any): void;
+        serverTemplateScriptsCallback(): void;
+        add_queryReady(value: any): void;
+        remove_queryReady(value: any): void;
+        raiseQueryReadyEvent(arg: any): void;
+        add_resultRendered(value: any): void;
+        remove_resultRendered(value: any): void;
+        raiseResultRenderedEvent(arg: any): void;
+        add_oneTimeResultRendered(value: any): void;
+        remove_oneTimeResultRendered(value: any): void;
+        raiseOneTimeResultRenderedEvent(arg: any): void;
+        refresh(queryState: any): void;
+        dataProvider_QueryIssuing(sender: any, e: any): void;
+        dataProvider_ResultReady(sender: any, e: any): void;
+        processQueryIssuing(queryState: any): void;
+        processResultReady(resultTableCollection: any): void;
+        render(): void;
     }
 
     export class Refinement extends DisplayControl
     {
-        static createRefinementTextbox(name: string);
-        static submitMultiRefinement(name: string, control: Refinement, useContains: boolean, useKQL: boolean);
+        static createRefinementTextbox(name: string): Element;
+        static submitMultiRefinement(name: string, control: Refinement, useContains: boolean, useKQL: boolean): void;
         static ensureUserSpecifiedRefinerValueHasWhiteSpaceQuotes(inputText: string): string;
         static getRefinementLocalizedTitle(propertyName: string): string;
         static getRefinementTitle(currentRefinemntControl: Refinement): string;
         /** Gets expanded state of the specified filter from cookie */
         static getExpanded(filterName: string): string;
         /** Save expanded state of the specified filter to cookie */
-        static setExpanded(filterName: string, value: string);
-        static multiRefinerSpecifyOtherFilterValue(refinerName: string, clientControl: Refinement, useContains: boolean, useKQL: boolean)
+        static setExpanded(filterName: string, value: string): void;
+        static multiRefinerSpecifyOtherFilterValue(refinerName: string, clientControl: Refinement, useContains: boolean, useKQL: boolean): void;
         
         constructor(elem: Element);
 
@@ -11490,30 +11491,30 @@ declare module Srch
         get_emptyRefinementMessageId(): string;
         set_emptyRefinementMessageId(value: string): string;
         
-        scriptApplication_PreLoad(sender, e);
-        render();
-        addRefinementFilter(filterName: string, filterToken);
-        addRefinementFiltersJSON(refinersJSON: string);
-        addRefinementFiltersJSONWithOr(refinersJSON: string);
-        addRefinementFilters(refiners: any[]);
-        addRefinementFiltersWithOp(refiners: any[], op: string);
-        removeRefinementFilter(filterName: string, filterToken: string);
-        removeRefinementFiltersJSON(refinersJSON: string);
-        updateRefinementFilters(filterName: string, filterTokens: string[], op: string, useKQL: boolean, tokenToDisplayValueMap: any);
-        updateRefinersJSON(refinersJSON: string);
-        updateRefiners(refiners: any[], op: string, useKQL: boolean, tokenToDisplayValueMap: any);
-        removeRefinementCategory(rcs: any, filterName: string);
-        replaceRefinementFilter(oldRefinementFilter, newRefinementFilter);
-        hasRefinementFilter(filterName: string, filterToken: string);
-        hasAllRefinementFilters(filterName: string, filterTokens: string[]);
-        hasRefinementCategory(refinementName: string);
-        getCurrentRefinementCategory(refinementName: string);
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        render(): void;
+        addRefinementFilter(filterName: string, filterToken: any): void;
+        addRefinementFiltersJSON(refinersJSON: string): void;
+        addRefinementFiltersJSONWithOr(refinersJSON: string): void;
+        addRefinementFilters(refiners: any[]): void;
+        addRefinementFiltersWithOp(refiners: any[], op: string): void;
+        removeRefinementFilter(filterName: string, filterToken: string): void;
+        removeRefinementFiltersJSON(refinersJSON: string): void;
+        updateRefinementFilters(filterName: string, filterTokens: string[], op: string, useKQL: boolean, tokenToDisplayValueMap: any): void;
+        updateRefinersJSON(refinersJSON: string): void;
+        updateRefiners(refiners: any[], op: string, useKQL: boolean, tokenToDisplayValueMap: any): void;
+        removeRefinementCategory(rcs: any, filterName: string): void;
+        replaceRefinementFilter(oldRefinementFilter: any, newRefinementFilter: any): void;
+        hasRefinementFilter(filterName: string, filterToken: string): boolean;
+        hasAllRefinementFilters(filterName: string, filterTokens: string[]): boolean;
+        hasRefinementCategory(refinementName: string): boolean;
+        getCurrentRefinementCategory(refinementName: string): any;
         /** Gets refinement control with the specified propertyName */
         getRefinementControl(refinerName: string): RefinementControl;
         /** Returns true if selected refinement controls collection contains a control with the specified propertyName */
         hasRefiner(refinerName: string): boolean;
         /** Replaces the refinement controls */
-        updateRefinementControls(newControls: RefinementControl[]);
+        updateRefinementControls(newControls: RefinementControl[]): void;
     }
 
     export class RefinementControl
@@ -11534,9 +11535,9 @@ declare module Srch
 
     export class Result extends DisplayControl
     {
-        static parsePropertyMappingWithSlotDisplayNames(mappings);
-        static parsePropertyMappingsString(mappings);
-        static getSelectedPropertiesFromMappingDictionary(propMappings);
+        static parsePropertyMappingWithSlotDisplayNames(mappings: any): { [key: string]: any };
+        static parsePropertyMappingsString(mappings: any): { [key: string]: any };
+        static getSelectedPropertiesFromMappingDictionary(propMappings: any): any[];
 
         constructor(elem: Element);
 
@@ -11741,35 +11742,35 @@ declare module Srch
         get_querySuggestionsSourceID(): string;
         set_querySuggestionsSourceID(value: string): string;
         
-        scriptApplication_PreLoad(sender, e);
-        scriptApplication_PostLoad(sender, e);
-        serverTemplateScriptsCallback();
+        scriptApplication_PreLoad(sender: any, e: any): void;
+        scriptApplication_PostLoad(sender: any, e: any): void;
+        serverTemplateScriptsCallback(): any;
 
-        add_queryReady(value);
-        remove_queryReady(value);
-        raiseQueryReadyEvent(arg);
+        add_queryReady(value: any): void;
+        remove_queryReady(value: any): void;
+        raiseQueryReadyEvent(arg: any): void;
 
-        add_batchQueryIssuing(value);
-        remove_batchQueryIssuing(value);
-        raiseBatchQueryIssuingEvent(arg);
+        add_batchQueryIssuing(value: any): void;
+        remove_batchQueryIssuing(value: any): void;
+        raiseBatchQueryIssuingEvent(arg: any): void;
 
-        add_batchResultReady(value);
-        remove_batchResultReady(value);
-        raiseBatchResultReadyEvent(arg);
+        add_batchResultReady(value: any): void;
+        remove_batchResultReady(value: any): void;
+        raiseBatchResultReadyEvent(arg: any): void;
 
-        dataProvider_QueryStateChanged(sender, e);
-        dataProvider_QueryIssuing(sender, e);
-        dataProvider_ResultReady(sender, e);
+        dataProvider_QueryStateChanged(sender: any, e: any): void;
+        dataProvider_QueryIssuing(sender: any, e: any): void;
+        dataProvider_ResultReady(sender: any, e: any): void;
 
-        search(term);
-        hidePrompt();
-        showPrompt();
-        focus();
-        setBorder(focused: boolean);
+        search(term: string): void;
+        hidePrompt(): void;
+        showPrompt(): void;
+        focus(): void;
+        setBorder(focused: boolean): void;
 
-        activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string);
-        activateDefaultNavigationBehavior();
-        activateDefaultQuerySuggestionBehavior();
+        activate(prompt: string, searchBoxInputId: string, searchBoxContainerId: string, navigationButtonId: string, suggestionsListId: string, navigationListId: string, searchBoxLinkId: string, searchBoxProgressClass: string, searchBoxPromptClass: string): void;
+        activateDefaultNavigationBehavior(): void;
+        activateDefaultQuerySuggestionBehavior(): void;
 
     }
 
@@ -11790,8 +11791,10 @@ declare module Srch
         /** Returns true if the current page uses right-to-left mode (RTL) */
         static isRTL(): boolean;
 
-        static ensureNotNullOrUndefined(value, context, methodName, paraName);
-        static ensureNotNullOrEmptyString(value, context, methodName, paraName);
+        /** Ensures that the given value is not null or undefined; throws an exception otherwise. */
+        static ensureNotNullOrUndefined(value: any, context: any, methodName: string, paraName: string): void;
+        /** Ensures that the given value is not null, undefined or empty; throws an exception otherwise. */
+        static ensureNotNullOrEmptyString(value: string, context: any, methodName: string, paraName: string): void;
         /** Returns copy of the passed source dictionary */
         static copyDictionary(source: { [key: string]: any }): { [key: string]: any };
         /** Returns true if the obj parameter is null, undefined, number or string */
@@ -11799,15 +11802,15 @@ declare module Srch
         /** Returns true if the obj parameter is array */
         static isArray(obj: any): boolean;
         /** Safely pushes item to array (does nothing if the array is null or undefined) */
-        static appendArray(array: any[], item: any);
+        static appendArray(array: any[], item: any): void;
         /** Safely sets field of an object (does nothing if either object or fieldName is null/empty); returns true if value was set */
-        static setFieldOnObject(targetObject, fieldName, fieldValue): boolean;
+        static setFieldOnObject(targetObject: any, fieldName: string, fieldValue: any): boolean;
         /** Safely gets field of an object (returns null if object is null or undefined) */
-        static getFieldOnObject(targetObject, fieldName): any;
+        static getFieldOnObject(targetObject: any, fieldName: string): any;
         /** Safely gets field of an object or creates it if it is null or undefined */
-        static getOrCreateFieldOnObject(targetObject, fieldName, defaultValue): any;
+        static getOrCreateFieldOnObject(targetObject: any, fieldName: string, defaultValue: any): any;
         /** Safely gets field of an object (returns empty string instead of null as "getFieldOnObject") */
-        static getStringFieldOnObject(targetObject, fieldName): string;
+        static getStringFieldOnObject(targetObject: any, fieldName: string): string;
         /** Returns true if the specified item is found in the specified array (uses '===' for comparing) */
         static isInArray(array: any[], item: any): boolean;
         /** Removes the specified item from the specified array and returns array that has the deleted item */
@@ -11815,25 +11818,25 @@ declare module Srch
         /** Removes trailing spaces and also replaces double spaces inside string to single spaces */
         static trimExtraSpaces(value: string): string;
         /** Adds the specified CSS class to element (if not there already) */
-        static ensureCSSClassNameExist(e: Element, className: string);
+        static ensureCSSClassNameExist(e: Element, className: string): void;
         /** Removes the specified CSS class from the element */
-        static ensureCSSClassNameNotExist(e: Element, className: string);
+        static ensureCSSClassNameNotExist(e: Element, className: string): void;
         /** Adds cookie with specified parameters */
-        static setCookie(name: string, value: string, expires?: Date, domain?: string, path?: string);
+        static setCookie(name: string, value: string, expires?: Date, domain?: string, path?: string): void;
         /** Gets cookie by name */
-        static getCookie(name: string);
+        static getCookie(name: string): string;
         /** Returns true if the specified URL belongs to the specified host name */
         static isSameHost(url: string, hostName: string): boolean;
         /** Returns the hostname of current page */
         static getHostName(): string;
 
-        static trace(c: Srch.ClientControl, method: string, message: string);
-        static traceFormatted(c: Srch.ClientControl, method: string, format: string, ...values: string[]);
+        static trace(c: Srch.ClientControl, method: string, message: string): void;
+        static traceFormatted(c: Srch.ClientControl, method: string, format: string, ...values: string[]): void;
 
         /** Same as $addHandler with safety checks */
-        static addHandler(element: Element, eventName: string, handler);
+        static addHandler(element: Element, eventName: string, handler: Function): void;
         /** Same as $removeHandler with safety checks */
-        static removeHandler(element: Element, eventName: string, handler)
+        static removeHandler(element: Element, eventName: string, handler: Function): void
 
         /** Returns true if the specified element is a descendant of the container element */
         static isDescendant(element: Element, container: Element): boolean;
@@ -11847,14 +11850,16 @@ declare module Srch
         static getClientComponent(e: Element): ClientControl;
 
         static getResultObject(id: string): any;
-        static setResultObject(id: string, resultObject: any);
-        static findResultObjectFromDOM(e: Element, type: string);
+        static setResultObject(id: string, resultObject: any): any;
+        static findResultObjectFromDOM(e: Element, type: string): any;
 
         /** Appends specified parameter key and value string to the specified URL */
-        static appendUrlParameter(url: string, keyAndValue: string)
+        static appendUrlParameter(url: string, keyAndValue: string): string
 
-        static ensureAllowedProtocol(value);
-        static isProtocolAllowed(value, allowRelativeUrl: boolean);
+        /** Ensures that the given URL protocol value is allowed. Returns the specified URL value if the protocol is allowed; empty string otherwise. */
+        static ensureAllowedProtocol(value: string): string;
+        /** Indicates whether the specified protocol is allowed. */
+        static isProtocolAllowed(value: string, allowRelativeUrl: boolean): boolean;
         
         /** Returns true if the URL is a relative URL */
         static isUrlRelative(url: string): boolean;
