@@ -139,3 +139,31 @@ strPar = P.any;
 strPar = P.all;
 voidPar = P.eof;
 numPar = P.index;
+
+// --  --  --  --  --  --  --  --  --  --  --  --  --
+
+P.isParser(numPar);
+P.isParser(null);
+P.isParser(42);
+
+P.oneOf('a');
+P.noneOf('a');
+
+P.regex(/foo/);
+P.regex(/foo/, 3);
+
+P.of(foo);
+
+P.formatError('foo', strPar.parse('bar'));
+
+P.seqMap(P.digit, (a: string) => 'foo').parse('foo');
+P.seqMap(P.digit, P.digits, (a: string, b: string) => 'foo').parse('foo');
+P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo').parse('foo');
+P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo').parse('foo');
+
+P.sepBy(P.string('foo'), P.string('bar')).parse('foo');
+P.sepBy1(P.string('foo'), P.string('bar')).parse('foo');
+
+P.test((a: string) => false).parse('foo');
+
+P.takeWhile((a: string) => true).parse('foo');
