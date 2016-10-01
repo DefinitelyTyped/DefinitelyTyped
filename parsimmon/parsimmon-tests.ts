@@ -143,28 +143,30 @@ numPar = P.index;
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
 
-P.isParser(numPar);
-P.isParser(null);
-P.isParser(42);
+bool = P.isParser(numPar);
+bool = P.isParser(null);
+bool = P.isParser(42);
 
-P.oneOf('a');
-P.noneOf('a');
+strPar = P.oneOf('a');
+strPar = P.noneOf('a');
 
-P.regex(/foo/);
-P.regex(/foo/, 3);
+strPar = P.regex(/foo/);
+strPar = P.regex(/foo/, 3);
+strPar = P.regexp(/bar/);
+strPar = P.regexp(/bar/, 3);
 
-P.of(foo);
+fooPar = P.of(foo);
 
-P.formatError('foo', strPar.parse('bar'));
+str = P.formatError('foo', strPar.parse('bar'));
 
-P.seqMap(P.digit, (a: string) => 'foo').parse('foo');
-P.seqMap(P.digit, P.digits, (a: string, b: string) => 'foo').parse('foo');
-P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo').parse('foo');
-P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo').parse('foo');
+strPar = P.seqMap(P.digit, (a: string) => 'foo');
+numPar = P.seqMap(P.digit, P.digits, (a: string, b: string) => 42);
+strPar = P.seqMap(P.digit, P.digits, P.letter, (a: string, b: string, c: string) => 'foo');
+strPar = P.seqMap(P.digit, P.digits, P.letter, P.letters.map(Number), (a: string, b: string, c: string, d: number) => 'foo');
 
-P.sepBy(P.string('foo'), P.string('bar')).parse('foo');
-P.sepBy1(P.string('foo'), P.string('bar')).parse('foo');
+strPar = P.sepBy(P.string('foo'), P.string('bar'));
+strPar = P.sepBy1(P.string('foo'), P.string('bar'));
 
-P.test((a: string) => false).parse('foo');
+strPar = P.test((a: string) => false);
 
-P.takeWhile((a: string) => true).parse('foo');
+strPar = P.takeWhile((a: string) => true);

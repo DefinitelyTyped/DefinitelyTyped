@@ -95,7 +95,7 @@ declare module 'parsimmon' {
 		/**
 		 * Returns true if obj is a Parsimmon parser, otherwise false.
 		 */
-		export function isParser<T>(obj: T): boolean;
+		export function isParser(obj: any): boolean;
 
 		/**
 		 * is a parser that expects to find "my-string", and will yield the same.
@@ -145,6 +145,7 @@ declare module 'parsimmon' {
 		export function seq<T, U, V, W, X>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>): Parser<[T, U, V, W, X]>;
 		export function seq<T, U, V, W, X, Y>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>): Parser<[T, U, V, W, X, Y]>;
 		export function seq<T, U, V, W, X, Y, Z>(p1: Parser<T>, p2: Parser<U>, p3: Parser<V>, p4: Parser<W>, p5: Parser<X>, p6: Parser<Y>, p7: Parser<Z>): Parser<[T, U, V, W, X, Y, Z]>;
+		export function seq<T>(...parsers: Parser<T>[]): Parser<T[]>;
 		export function seq(...parsers: Parser<any>[]): Parser<any[]>;
 
 		/**
