@@ -14,8 +14,9 @@ declare namespace Express {
     export interface Application { }
 }
 
-declare module "express-serve-static-core" {
-    import * as http from "http";
+import * as http from "http";
+
+declare namespace m {
 
     interface NextFunction {
         (err?: any): void;
@@ -1090,3 +1091,5 @@ declare module "express-serve-static-core" {
         response: Response;
     }
 }
+
+export = m;
