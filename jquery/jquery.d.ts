@@ -456,7 +456,7 @@ interface BaseJQueryEventObject extends Event {
     isImmediatePropagationStopped(): boolean;
     isPropagationStopped(): boolean;
     namespace: string;
-    originalEvent: Event;
+    originalEvent: Event & TouchEvent;
     preventDefault(): any;
     relatedTarget: Element;
     result: any;
