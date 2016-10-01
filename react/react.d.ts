@@ -86,11 +86,12 @@ declare namespace __React {
     // ----------------------------------------------------------------------
 
     type ReactText = string | number;
+    type ReactEmpty = null | undefined | boolean;
     type ReactChild = ReactElement<any> | ReactText;
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
-    type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean;
+    type ReactFragment = {} | Array<ReactChild | any[] | ReactEmpty>;
+    type ReactNode = ReactChild | ReactFragment | ReactEmpty;
 
     //
     // Top Level API
@@ -164,7 +165,7 @@ declare namespace __React {
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
         forceUpdate(callback?: () => any): void;
-        render(): JSX.Element;
+        render(): React.ReactElement<any> | ReactEmpty;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -197,7 +198,7 @@ declare namespace __React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any> | ReactEmpty;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
