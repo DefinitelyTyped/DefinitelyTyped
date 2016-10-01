@@ -508,6 +508,12 @@ interface NodeBuffer extends Uint8Array {
     writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
     writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    utf8Slice(start?: number, end?: number): Buffer;
+    binarySlice(start?: number, end?: number): Buffer;
+    asciiSlice(start?: number, end?: number): Buffer;
+    utf8write(string: string, offset?: number): Buffer;
+    binaryWrite(string: string, offset?: number): Buffer;
+    asciiWrite(string: string, offset?: number): Buffer;
     fill(value: any, offset?: number, end?: number): this;
     indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
     lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
