@@ -428,6 +428,11 @@ declare namespace angular {
     interface OnReuse {
         $routerOnReuse(next?: angular.ComponentInstruction, prev?: angular.ComponentInstruction): any;
     }
+    
+    interface IRouterComponentOptions extends IComponentOptions {
+        $canActivate?: () => boolean;
+        $routeConfig?: RouteDefinition[];
+	}
 
     /**
      * Runtime representation a type that a Component or other object is instances of.
