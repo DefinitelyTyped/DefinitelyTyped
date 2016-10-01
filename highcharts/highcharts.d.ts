@@ -5534,6 +5534,14 @@ interface HighchartsGlobalOptions extends HighchartsOptions {
     lang?: HighchartsLangObject;
 }
 
+interface HighchartsThemeOptions extends HighchartsGlobalOptions {
+    legendBackgroundColor?: string;
+    background2?: string | HighchartsGradient;
+    dataLabelsColor?: string;
+    textColor?: string;
+    maskColor?: string;
+}
+
 interface HighchartsDateFormatSpecifiers
 {
     [index: string]: (timestamp: number) => string;
@@ -6119,6 +6127,11 @@ interface HighchartsStatic {
     getOptions(): HighchartsOptions;
 
     map(array: any[], fn: Function): any[];
+	
+	/**
+     * Use this object to set the theme globally for all charts
+     */
+	theme: HighchartsThemeOptions;
 }
 
 declare var Highcharts: HighchartsStatic;
