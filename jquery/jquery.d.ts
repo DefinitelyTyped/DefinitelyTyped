@@ -1312,6 +1312,7 @@ interface JQuery {
      *
      * @param func A function returning the HTML content to set. Receives the index position of the element in the set and the old HTML value as arguments. jQuery empties the element before calling the function; use the oldhtml argument to reference the previous content. Within the function, this refers to the current element in the set.
      */
+    html(func: JQuery): JQuery;
 
     /**
      * Get the value of a property for the first element in the set of matched elements.
