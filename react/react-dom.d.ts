@@ -58,8 +58,8 @@ declare namespace __React {
     }
 
     namespace __DOMServer {
-        function renderToString(element: ReactElement<any>): string;
-        function renderToStaticMarkup(element: ReactElement<any>): string;
+        export function renderToString(element: ReactElement<any>): string;
+        export function renderToStaticMarkup(element: ReactElement<any>): string;
         var version: string;
     }
 }
