@@ -8,7 +8,6 @@ declare namespace autosize {
     interface AutosizeStatic {
         (el: Element): void;
         (el: NodeList): void;
-        (el: JQuery): void;
     }
 }
 
