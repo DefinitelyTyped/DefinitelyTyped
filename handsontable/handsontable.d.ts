@@ -290,3 +290,9 @@ declare namespace ht {
 declare var Handsontable: {
   new (element: Element, options: ht.Options): ht.Methods;
 };
+
+declare module "handsontable" {
+    export var Handsontable: {
+      new (element: Element, options: ht.Options): ht.Methods;
+    };
+}
