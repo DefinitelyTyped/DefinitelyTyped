@@ -12,6 +12,7 @@ interface HelloJSLoginOptions {
     oauth_proxy?: string;
     timeout?: number;
     default_service?: string;
+    popup: any;
 }
 
 interface HelloJSLogoutOptions {
