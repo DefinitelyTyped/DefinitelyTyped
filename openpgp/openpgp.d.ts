@@ -498,6 +498,34 @@ declare namespace openpgp.packet {
         encrypt(passphrase:string): void;
     }
 
+    interface PublicKey {
+        algorithm: enums.publicKey;
+        created: Date;
+        fingerprint: string;
+
+        getBitSize(): number;
+        getFingerprint(): string;
+        getKeyId(): string;
+        read(input: string): any;
+        write(): any;
+    }
+
+    // SecretKey extends PublicKey
+    interface SecretKey {
+        algorithm: enums.publicKey;
+        created: Date;
+        fingerprint: string;
+
+        getBitSize(): number;
+        getFingerprint(): string;
+        getKeyId(): string;
+        read(bytes:string): void;
+        write(): string;
+
+        clearPrivateMPIs(str_passphrase: string): boolean;
+        encrypt(passphrase:string): void;
+    }
+
     /** Allocate a new packet from structured packet clone
         @param packetClone packet clone
      */
