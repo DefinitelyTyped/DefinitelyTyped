@@ -946,3 +946,11 @@ namespace net_tests {
         net.createServer().listen(0).close().address();
     }
 }
+
+/*****************************************************************************
+ *                                                                           *
+ * The following tests are the modules not mentioned in document but existed *
+ *                                                                           *
+ *****************************************************************************/
+ 
+// Do something
