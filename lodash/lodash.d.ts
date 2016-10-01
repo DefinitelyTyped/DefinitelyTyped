@@ -1851,13 +1851,6 @@ declare module _ {
         first(): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.head
-         */
-        first<T>(): T;
-    }
-
     interface LoDashExplicitWrapper<T> {
         /**
          * @see _.head
@@ -1869,14 +1862,7 @@ declare module _ {
         /**
          * @see _.head
          */
-        first<T>(): T;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.head
-         */
-        first<T>(): T;
+        first(): LoDashExplicitWrapper<T>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -2083,13 +2069,6 @@ declare module _ {
         head(): T;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
-        /**
-         * @see _.head
-         */
-        head<T>(): T;
-    }
-
     interface LoDashExplicitWrapper<T> {
         /**
          * @see _.head
@@ -2101,14 +2080,7 @@ declare module _ {
         /**
          * @see _.head
          */
-        head<T>(): T;
-    }
-
-    interface LoDashExplicitObjectWrapper<T> {
-        /**
-         * @see _.head
-         */
-        head<T>(): T;
+        head(): LoDashExplicitWrapper<T>;
     }
 
     //_.indexOf
@@ -8599,6 +8571,40 @@ declare module _ {
             callback: MemoIterator<T, TResult>): LoDashExplicitWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+       * @see _.reduce
+       **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            thisArg?: any): LoDashExplicitWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+       * @see _.reduce
+       **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            accumulator: TResult,
+            thisArg?: any): LoDashExplicitWrapper<TResult>;
+
+        /**
+        * @see _.reduce
+        **/
+        reduce<TValue, TResult>(
+            callback: MemoIterator<TValue, TResult>,
+            thisArg?: any): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
@@ -13118,6 +13124,20 @@ declare module _ {
         max<T>(): T;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.max
+         */
+        max<T>(): LoDashExplicitWrapper<T>;
+    }
+
     //_.maxBy
     interface LoDashStatic {
         /**
@@ -13279,6 +13299,20 @@ declare module _ {
          * @see _.min
          */
         min<T>(): T;
+    }
+
+    interface LoDashExplicitArrayWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min(): LoDashExplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.min
+         */
+        min<T>(): LoDashExplicitWrapper<T>;
     }
 
     //_.minBy

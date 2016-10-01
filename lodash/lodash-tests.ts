@@ -788,10 +788,10 @@ namespace TestFirst {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
+        let result: _.LoDashExplicitWrapper<TResult>;
 
-        result = _(array).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
-        result = _(list).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _(array).chain().first<TResult>();
+        result = _(list).chain().first<TResult>();
     }
 }
 
@@ -1025,10 +1025,10 @@ namespace TestHead {
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
+        let result: _.LoDashExplicitWrapper<TResult>;
 
-        result = _(array).chain().head<_.LoDashExplicitObjectWrapper<TResult>>();
-        result = _(list).chain().head<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _(array).chain().head<TResult>();
+        result = _(list).chain().head<TResult>();
     }
 }
 
