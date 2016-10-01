@@ -144,7 +144,7 @@ interface Async {
     parallelLimit<T>(tasks: Array<AsyncFunction<T>>, limit: number, callback?: AsyncResultArrayCallback<T>): void;
     parallelLimit<T>(tasks: Dictionary<AsyncFunction<T>>, limit: number, callback?: AsyncResultObjectCallback<T>): void;
     whilst(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
-    doWhilst(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
+    doWhilst(fn: (Function), test: (data: any) => boolean, callback: (err: any) => void): void;
     until(test: () => boolean, fn: AsyncVoidFunction, callback: (err: any) => void): void;
     doUntil(fn: AsyncVoidFunction, test: () => boolean, callback: (err: any) => void): void;
     during(test: (testCallback : (error: Error, truth: boolean) => void) => void, fn: AsyncVoidFunction, callback: (err: any) => void): void;
