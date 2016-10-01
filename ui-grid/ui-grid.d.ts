@@ -609,6 +609,13 @@ declare namespace uiGrid {
          * @default false
          */
         enableFiltering?: boolean;
+         /**
+         * False by default. When enabled, this adds a settings icon in the top right of the grid, 
+         * which floats above the column header. The menu by default gives access to show/hide columns, 
+         * but can be customized to show additional actions.
+         * @default false
+         */
+         enableGridMenu?: boolean;
         /**
         * False by default. When enabled, this adds a settings icon in the top right of the grid,
         * which floats above the column header. The menu by default gives access to show/hide columns,
@@ -2367,6 +2374,12 @@ declare namespace uiGrid {
              * @default false
              */
             useExternalPagination?: boolean;
+            /**
+             * Disables client side filtering. When true, handle the filterChanged event and set data,
+             * defaults to false
+             * @default false
+             */
+            useExternalFiltering?: boolean;
         }
         export interface IGridPaginationApi {
             // Methods
