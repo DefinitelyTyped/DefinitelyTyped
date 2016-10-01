@@ -3,7 +3,7 @@
 // Definitions by: yuichi david pichsenmeister <https://github.com/3x14159265>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface LocalForageOptions {
+export interface LocalForageOptions {
     driver?: string | LocalForageDriver | LocalForageDriver[];
 
     name?: string;
@@ -17,7 +17,7 @@ interface LocalForageOptions {
     description?: string;
 }
 
-interface LocalForageDriver {
+export interface LocalForageDriver {
     _driver: string;
 
     _initStorage(options: LocalForageOptions): void;
@@ -39,7 +39,7 @@ interface LocalForageDriver {
     setItem(key: string, value: any, callback: (err: any, value: any) => void): void;
 }
 
-interface LocalForage {
+export interface LocalForage {
     LOCALSTORAGE: string;
     WEBSQL: string;
     INDEXEDDB: string;
