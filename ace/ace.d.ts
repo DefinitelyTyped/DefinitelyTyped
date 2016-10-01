@@ -2172,7 +2172,7 @@ declare namespace AceAjax {
 
         fromOrientedRange(range: Range): void;
 
-        setSelectionRange(match: any): void;
+        setSelectionRange(match: Range, reverse: boolean): void;
 
         getAllRanges(): Range[];
 
