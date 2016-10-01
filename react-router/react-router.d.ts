@@ -73,6 +73,7 @@ declare namespace ReactRouter {
         routes: PlainRoute[]
         params: Params
         components: RouteComponent[]
+        router: Router
     }
 
 
@@ -131,7 +132,7 @@ declare namespace ReactRouter {
     interface RouterContextProps extends React.Props<RouterContext> {
         history?: H.History
         router: Router
-        createElement: (component: RouteComponent, props: Object) => any
+        createElement?: (component: RouteComponent, props: Object) => any
         location: H.Location
         routes: RouteConfig
         params: Params
