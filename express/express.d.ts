@@ -51,5 +51,5 @@ declare module "express" {
         interface Send extends core.Send { }
     }
 
-    export = e;
+    export default e;
 }
