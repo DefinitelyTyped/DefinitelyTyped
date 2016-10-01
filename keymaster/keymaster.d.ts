@@ -17,13 +17,8 @@ interface KeyHandler {
     (keyboardEvent: KeyboardEvent, keymasterEvent: KeymasterEvent) : void;
 }
 
-interface FilterEvent {
-    target?: {
-        tagName?: string;
-    }
-    srcElement?: {
-        tagName?: string;
-    }
+interface FilterEvent extends KeyboardEvent {
+    target: Element
 }
 
 interface Keymaster {
