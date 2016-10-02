@@ -4,7 +4,43 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Riot {
-    export interface Observable {
+    /**
+     * Current version number as string
+     */
+    const version: string;
+
+    /**
+     * Riot settings
+     */
+    interface Settings {
+        /**
+         * Setting used to customize the start and end tokens of the expression
+         */
+        brackets: string;
+    }
+
+    const settings: Settings;
+
+    interface TemplateError extends Error {
+        riotData: {
+            tagName: string;
+        }
+    }
+
+    interface Util {
+        tmpl: {
+            errorHandler(error: TemplateError): void;
+        }
+    }
+
+    const util: Util;
+
+    /**
+     * Internal riot tags cache
+     */
+    const vdom: Tag[];
+
+    interface Observable {
         /**
          * Register callback for specified events.
          * Callback is executed each time event is triggered
@@ -92,7 +128,7 @@ declare namespace Riot {
         /**
          * @deprecated
          */
-        exec(callback): void;
+        exec(callback: Function): void;
 
         /**
          * Extract query from the url
@@ -120,7 +156,7 @@ declare namespace Riot {
      */
     function observable(el?: any): Observable;
 
-    export const route: Route;
+    const route: Route;
 
     /**
      * Mount custom tags with specified tag name. Returns an array of mounted tag instances.
@@ -346,7 +382,7 @@ declare namespace Riot {
      * When it gets mixed in it has access to all tag properties.
      * It should not override any built in tag properties
      */
-    export interface TagMixin extends TagInterface {
+    interface TagMixin extends TagInterface {
         /**
          * Special method which can initialize
          * the mixin when it's loaded to the tag and is not
@@ -354,6 +390,34 @@ declare namespace Riot {
          */
         init?(): void;
     }
+
+    /**
+     * Compile all tags defined with <script type="riot/tag"> to JavaScript.
+     * @param callback Function that is called after all scripts are compiled
+     */
+    function compile(callback: Function): void;
+
+    /**
+     * Compiles and executes the given tag.
+     * @param tag Tag definition
+     * @return {string} Compiled JavaScript as string
+     */
+    function compile(tag: string): string;
+
+    /**
+     * Compiles the given tag but doesn't execute it, if `skipExecution` parameter is `true`
+     * @param tag Tag definition
+     * @param skipExecution If `true` tag is not executed after compilation
+     * @return {string} Compiled JavaScript as string
+     */
+    function compile(tag: string, skipExecution: boolean): string;
+
+    /**
+     * Loads the given URL and compiles all tags after which the callback is called
+     * @param url URL to load
+     * @param callback Function that is called after all tags are compiled
+     */
+    function compile(url: string, callback: Function): void;
 }
 
 declare module 'riot' {

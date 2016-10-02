@@ -2,6 +2,20 @@
 
 import * as riot from 'riot';
 
+// Version
+console.log(riot.version.charAt(0));
+
+// Settings
+riot.settings.brackets = '[% %]';
+
+// errorHandler
+riot.util.tmpl.errorHandler = function (err: riot.TemplateError) {
+    console.error(err.message + ' in ' + err.riotData.tagName);
+};
+
+// vdom
+console.log(riot.vdom[0].opts);
+
 const mockOpts: any = {
     foo: true,
     bar: 1,
@@ -170,14 +184,12 @@ riot.route.exec(cb);
 // base
 riot.route.base('/app');
 // parser
-const firstParser = function(path) {
-    var raw = path.slice(2).split('?');
-    var uri = raw[0].split('/');
-
-    return uri;
+const firstParser = function first(path: string): string[] {
+    const raw = path.slice(2).split('?');
+    return raw[0].split('/');
 };
 riot.route.parser(firstParser);
-const secondParser = function second(path, filter) {
+const secondParser = function second(path: string, filter: string): string[] {
     const re = new RegExp('^' + filter.replace(/\*/g, '([^/?#]+?)').replace(/\.\./, '.*') + '$');
     const args = path.match(re);
     if (args) {
@@ -186,4 +198,18 @@ const secondParser = function second(path, filter) {
 };
 riot.route.parser(firstParser, secondParser);
 
-
+// Compile
+// compiling all tags
+riot.compile(function() {
+    riot.mount('*')
+});
+// compiling url
+riot.compile('my/tags.tag', function() {
+    // the loaded tags are ready to be used
+});
+// compiling tag definition
+let compiled = riot.compile(`<my-tag><p>Hello, World!</p></my-tag>`);
+console.log(compiled.charAt(0));
+// compiling without execution
+compiled = riot.compile(`<my-tag><p>Hello, World!</p></my-tag>`, true);
+console.log(compiled.charAt(0));
