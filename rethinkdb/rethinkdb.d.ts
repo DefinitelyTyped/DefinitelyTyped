@@ -41,7 +41,7 @@ declare module "rethinkdb" {
     export function sum(prop: string): Aggregator;
     export function avg(prop: string): Aggregator;
 
-    export function row(name: string): Expression<any>;
+    export const row: Row;
     export function expr(stuff: any): Expression<any>;
 
     export function now(): Expression<Time>;
@@ -77,6 +77,10 @@ declare module "rethinkdb" {
         toArray<T>(): Promise<T[]>;
         close(cb: (err: Error) => void): void;
         close(): Promise<void>;
+    }
+
+    interface Row extends Expression<any> {
+      (name: string): Expression<any>;
     }
 
     /**
@@ -199,7 +203,27 @@ declare module "rethinkdb" {
         includeTypes: boolean;
     }
 
-    interface Table extends Sequence {
+    interface HasFields<T> {
+        /**
+         * Test if an object has one or more fields. An object has a field if it has that key and the key has a non-null value.
+         *
+         * `hasFields` lets you test for nested fields in objects. If the value of a field is itself a set of key/value pairs, you can test for the presence of specific keys.
+         *
+         * See: https://rethinkdb.com/api/javascript/has_fields/
+         */
+        hasFields(selector: BooleanMap): T;
+
+        /**
+         * Test if an object has one or more fields. An object has a field if it has that key and the key has a non-null value. For instance, the object `{'a': 1,'b': 2,'c': null}` has the fields `a` and `b`.
+         *
+         * When applied to a single object, `hasFields` returns `true` if the object has the fields and `false` if it does not. When applied to a sequence, it will return a new sequence (an array or stream) containing the elements that have the specified fields.
+         *
+         * See: https://rethinkdb.com/api/javascript/has_fields/
+         */
+        hasFields(...fields: string[]): T;
+    }
+
+    interface Table extends Sequence, HasFields<Sequence> {
         indexCreate(name: string, index?: ExpressionFunction<any>): Operation<CreateResult>;
         indexDrop(name: string): Operation<DropResult>;
         indexList(): Operation<string[]>;
@@ -321,7 +345,11 @@ declare module "rethinkdb" {
         right_bound?: string; // 'open'
     }
 
-    interface Expression<T> extends Writeable, Operation<T> {
+    interface BooleanMap {
+      [ key: string ]: Boolean | BooleanMap;
+    }
+
+    interface Expression<T> extends Writeable, Operation<T>, HasFields<Expression<number>> {
         (prop: string): Expression<any>;
         merge(query: Expression<Object>): Expression<Object>;
         append(prop: string): Expression<Object>;
@@ -365,8 +393,6 @@ declare module "rethinkdb" {
         mul(n: number): Expression<number>;
         div(n: number): Expression<number>;
         mod(n: number): Expression<number>;
-
-        hasFields(...fields: string[]): Expression<boolean>;
 
         default(value: T): Expression<T>;
     }
