@@ -15,6 +15,13 @@ r.connect({ host: "localhost", port: 28015 }, function(err: Error, conn: r.Conne
     r.table("players").filter(r.row.hasFields("games_won").not()).run(conn, errorAndCursorCallback);
     r.table("players").filter(r.row.hasFields({ "games_won": { "championships": true } }).not()).run(conn, errorAndCursorCallback);
 
+    r.table("players").filter(
+      r.row.hasFields("games_won").not()
+      .or(r.row("games_won").not().eq(true))
+      .and(true)
+    )
+    .run(conn, errorAndCursorCallback);
+
     testDb.tableCreate("users").run(conn, function(err, stuff) {
         const users = testDb.table("users");
 

@@ -355,10 +355,10 @@ declare module "rethinkdb" {
         append(prop: string): Expression<Object>;
         contains(prop: string): Expression<boolean>;
 
-        and(b: boolean): Expression<boolean>;
-        or(b: boolean): Expression<boolean>;
-        eq(v: any): Expression<boolean>;
-        ne(v: any): Expression<boolean>;
+        and(b: boolean | Expression<boolean>): Expression<boolean>;
+        or(b: boolean | Expression<boolean>): Expression<boolean>;
+        eq(v: any | Expression<any>): Expression<boolean>;
+        ne(v: any | Expression<any>): Expression<boolean>;
         not(): Expression<boolean>;
 
         gt(value: T): Expression<boolean>;
