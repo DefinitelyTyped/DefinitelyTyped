@@ -339,7 +339,29 @@ declare module "rethinkdb" {
         le(value: T): Expression<boolean>;
 
         add(n: number): Expression<number>;
-        sub(n: number): Expression<number>;
+
+        /**
+         * Subtract two numbers.
+         *
+         * See: https://rethinkdb.com/api/javascript/sub/
+         *
+         * Example:
+         *
+         *     r.expr(2).sub(2).run(conn, callback)
+         */
+        sub(n: number, ...numbers: number[]): Expression<number>;
+
+        /**
+         * Retrieve how many seconds elapsed between today and `date`.
+         *
+         * See: https://rethinkdb.com/api/javascript/sub/
+         *
+         * Example:
+         *
+         *     r.now().sub(365 * 24 * 60 * 60)
+         */
+        sub(date: Time): Expression<number>;
+
         mul(n: number): Expression<number>;
         div(n: number): Expression<number>;
         mod(n: number): Expression<number>;
