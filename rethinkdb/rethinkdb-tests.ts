@@ -14,6 +14,7 @@ r.connect({ host: "localhost", port: 28015 }, function(err, conn) {
         users.filter(function(doc?) {
             return doc("henry").eq("bob");
         })
+        .filter(r.row("updatedAt").default(0).lt(r.now().sub(1000)))
         .between("james", "beth")
         .limit(4)
         .run(conn, function(err, cursor) {

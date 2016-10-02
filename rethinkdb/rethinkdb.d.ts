@@ -47,7 +47,7 @@ declare module "rethinkdb" {
     export function row(name: string): Expression<any>;
     export function expr(stuff: any): Expression<any>;
 
-    export function now(): Time;
+    export function now(): Expression<Time>;
 
     // Control Structures
     export function branch(test: Expression<boolean>, trueBranch: Expression<any>, falseBranch: Expression<any>): Expression<any>;
