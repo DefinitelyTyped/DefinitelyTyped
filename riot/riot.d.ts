@@ -3,7 +3,7 @@
 // Definitions by: Boriss Nazarovs <https://github.com/Stubb0rn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Riot {
+declare namespace riot {
     /**
      * Current version number as string
      */
@@ -421,5 +421,5 @@ declare namespace Riot {
 }
 
 declare module 'riot' {
-    export = Riot;
+    export = riot;
 }
