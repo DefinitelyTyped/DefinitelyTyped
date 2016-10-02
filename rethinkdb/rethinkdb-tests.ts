@@ -1,3 +1,5 @@
+/// <reference path="./rethinkdb.d.ts"/>
+
 import * as r from "rethinkdb";
 
 r.connect({ host: "localhost", port: 28015 }, function(err, conn) {
