@@ -137,6 +137,7 @@ declare module "apn" {
 	}
 	export interface NotificationAlertOptions {
 		title?:string;
+		subtitle?:string;
 		body:string;
 		"title-loc-key"?:string;
 		"title-loc-args"?:string[];
