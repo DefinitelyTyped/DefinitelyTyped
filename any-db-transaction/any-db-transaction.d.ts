@@ -1,7 +1,7 @@
 // Type definitions for any-db-transaction 2.2.1
 // Project: https://github.com/grncdr/node-any-db-transaction
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../any-db/any-db.d.ts" />
@@ -9,7 +9,7 @@
 declare module "any-db-transaction" {
     import anyDB = require("any-db");
 
-	module begin {
+	namespace begin {
 		/**
 		 * Transaction objects are are simple wrappers around a Connection that also implement the Queryable API,
 		 * but guarantee that all queries take place within a single database transaction or not at all. Note that

@@ -1,7 +1,7 @@
 ﻿// Type definitions for GSAP v1.16.0
 // Project: http://greensock.com/
 // Definitions by: VILIC VANE <https://vilic.github.io/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Core.d.ts" />
 /// <reference path="Ease.d.ts" />

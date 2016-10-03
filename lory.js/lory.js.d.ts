@@ -1,7 +1,7 @@
 // Type definitions for lory 0.4.3
 // Project: https://github.com/meandmax/lory/
 // Definitions by: kubosho <https://github.com/kubosho/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var lory: LoryStatic;
 

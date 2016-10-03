@@ -1,7 +1,7 @@
 ﻿// Type definitions for Docopt v0.6.2
 // Project: http://docopt.org/
 // Definitions by: Giovanni Bassi <https://github.com/giggio/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface DocoptOption {
     /** is an optional argument vector. It defaults to the arguments passed to your program (process.argv[2..]). You can also supply it with an array of strings, as with process.argv. For example: ['--verbose', '-o', 'hai.txt'] */

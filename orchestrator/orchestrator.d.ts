@@ -1,7 +1,7 @@
 // Type definitions for Orchestrator
 // Project: https://github.com/orchestrator/orchestrator
 // Definitions by: Qubo <https://github.com/tkQubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 

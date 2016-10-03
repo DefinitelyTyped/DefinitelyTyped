@@ -1,10 +1,10 @@
 // Type definitions for big.js
 // Project: https://github.com/MikeMcl/big.js/
 // Definitions by: Steve Ognibene <https://github.com/nycdotnet/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-declare module BigJsLibrary {
+declare namespace BigJsLibrary {
 
     export const enum RoundingMode {
         RoundTowardsZero = 0,
@@ -15,7 +15,7 @@ declare module BigJsLibrary {
 
     interface BigJS extends BigJS_Constructors {
         /** The maximum number of decimal places of the results of operations involving division.
-            It is relevant only to the div and sqrt methods, and the pow method when the exponent is negative. 
+            It is relevant only to the div and sqrt methods, and the pow method when the exponent is negative.
             @default 40 */
         DP: number;
 
@@ -25,24 +25,12 @@ declare module BigJsLibrary {
         RM: RoundingMode;
     }
 
+    type BigNumberInputType = number | string | BigJS;
+
     interface BigJS_Constructors {
-        /** A decimal value.  */
-        new (value: number): BigJS;
-        /** A decimal value.
-            String values may be in exponential, as well as normal (non-exponential) notation. There is no limit to the number of digits of a string value (other than that of Javascript's maximum array size), but the largest recommended exponent magnitude is 1e+6. Infinity, NaN and hexadecimal literal strings, e.g. '0xff', are not valid.
-            String values in octal literal form will be interpreted as decimals, e.g. '011' is 11, not 9. */
-        new (value: string): BigJS;
-        /** A decimal value.  */
-        new (value: BigJS): BigJS;
-        /** A decimal value.  */
-        (value: number): BigJS;
-        /** A decimal value.
-            String values may be in exponential, as well as normal (non-exponential) notation. There is no limit to the number of digits of a string value (other than that of Javascript's maximum array size), but the largest recommended exponent magnitude is 1e+6. Infinity, NaN and hexadecimal literal strings, e.g. '0xff', are not valid.
-            String values in octal literal form will be interpreted as decimals, e.g. '011' is 11, not 9. */
-        (value: string): BigJS;
-        /** A decimal value.  */
-        (value: BigJS): BigJS;
-		
+        new (value: BigNumberInputType): BigJS;
+        (value: BigNumberInputType): BigJS;
+
 		/** A decimal value.  */
         (): BigJS;
     }
@@ -55,89 +43,39 @@ declare module BigJsLibrary {
         /** Compare
             @returns {Number}
              1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
+            -1 = If the value of this Big number is less than the value of n
              0 = If this Big number and n have the same value */
-        cmp(n: number): number;
-        /** Compare
-            @returns {Number}
-             1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
-             0 = If this Big number and n have the same value */
-        cmp(n: string): number;
-        /** Compare
-            @returns {Number}
-             1 = If the value of this Big number is greater than the value of n
-            -1 = If the value of this Big number is less than the value of n 
-             0 = If this Big number and n have the same value */
-        cmp(n: BigJS): number;
+        cmp(n: BigNumberInputType): number;
 
         /** Returns a Big number whose value is the value of this Big number divided by n.  */
-        div(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number divided by n.  */
-        div(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number divided by n.  */
-        div(n: BigJS): BigJS;
+        div(n: BigNumberInputType): BigJS;
 
         /** Returns true if the value of this Big equals the value of n, otherwise returns false.  */
-        eq(n: number): boolean;
-        /** Returns true if the value of this Big equals the value of n, otherwise returns false.  */
-        eq(n: string): boolean;
-        /** Returns true if the value of this Big equals the value of n, otherwise returns false.  */
-        eq(n: BigJS): boolean;
+        eq(n: BigNumberInputType): boolean;
 
         /** Returns true if the value of this Big is greater than the value of n, otherwise returns false.  */
-        gt(n: number): boolean;
-        /** Returns true if the value of this Big is greater than the value of n, otherwise returns false.  */
-        gt(n: string): boolean;
-        /** Returns true if the value of this Big is greater than the value of n, otherwise returns false.  */
-        gt(n: BigJS): boolean;
+        gt(n: BigNumberInputType): boolean;
 
         /** Returns true if the value of this Big is greater than or equal to the value of n, otherwise returns false.  */
-        gte(n: number): boolean;
-        /** Returns true if the value of this Big is greater than or equal to the value of n, otherwise returns false.  */
-        gte(n: string): boolean;
-        /** Returns true if the value of this Big is greater than or equal to the value of n, otherwise returns false.  */
-        gte(n: BigJS): boolean;
+        gte(n: BigNumberInputType): boolean;
 
         /** Returns true if the value of this Big is less than the value of n, otherwise returns false.  */
-        lt(n: number): boolean;
-        /** Returns true if the value of this Big is less than the value of n, otherwise returns false.  */
-        lt(n: string): boolean;
-        /** Returns true if the value of this Big is less than the value of n, otherwise returns false.  */
-        lt(n: BigJS): boolean;
+        lt(n: BigNumberInputType): boolean;
 
         /** Returns true if the value of this Big is less than or equal to the value of n, otherwise returns false.  */
-        lte(n: number): boolean;
-        /** Returns true if the value of this Big is less than or equal to the value of n, otherwise returns false.  */
-        lte(n: string): boolean;
-        /** Returns true if the value of this Big is less than or equal to the value of n, otherwise returns false.  */
-        lte(n: BigJS): boolean;
+        lte(n: BigNumberInputType): boolean;
 
         /** Returns a Big number whose value is the value of this Big number minus n.  */
-        minus(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number minus n.  */
-        minus(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number minus n.  */
-        minus(n: BigJS): BigJS;
+        minus(n: BigNumberInputType): BigJS;
 
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
-            The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
-        mod(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
-            The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
-        mod(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n. 
-            The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
-        mod(n: BigJS): BigJS;
+        /** Returns a Big number whose value is the value of this Big number modulo n, i.e. the integer remainder of dividing this Big number by n.
+         The result will have the same sign as this Big number, and it will match that of Javascript's % operator (within the limits of its precision) and BigDecimal's remainder method. */
+        mod(n: BigNumberInputType): BigJS;
 
         /** Returns a Big number whose value is the value of this Big number plus n.  */
-        plus(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number plus n.  */
-        plus(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number plus n.  */
-        plus(n: BigJS): BigJS;
+        plus(n: BigNumberInputType): BigJS;
 
-        /** Returns a Big number whose value is the value of this Big number raised to the power exp. 
+        /** Returns a Big number whose value is the value of this Big number raised to the power exp.
             If exp is negative and the result has more fraction digits than is specified by Big.DP, it will be rounded to Big.DP decimal places using rounding mode Big.RM.
             @param exp integer, -1e+6 to 1e+6 inclusive */
         pow(exp: number): BigJS;
@@ -156,11 +94,7 @@ declare module BigJsLibrary {
         sqrt(): BigJS;
 
         /** Returns a Big number whose value is the value of this Big number times n.  */
-        times(n: number): BigJS;
-        /** Returns a Big number whose value is the value of this Big number times n.  */
-        times(n: string): BigJS;
-        /** Returns a Big number whose value is the value of this Big number times n.  */
-        times(n: BigJS): BigJS;
+        times(n: BigNumberInputType): BigJS;
 
         /** Returns a string representing the value of this Big number in exponential notation to a fixed number of decimal places dp.    */
         toExponential(): string;
@@ -198,6 +132,11 @@ declare module BigJsLibrary {
         /** sign (-1 or 1) */
         s: number;
     }
+}
+
+declare module "big.js" {
+    var bigjs : BigJsLibrary.BigJS;
+    export = bigjs;
 }
 
 declare var Big: BigJsLibrary.BigJS;

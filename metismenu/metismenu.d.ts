@@ -1,7 +1,7 @@
 // Type definitions for metisMenu 2.0.3
 // Project: http://github.com/onokumus/metisMenu
 // Definitions by: onokums <https://github.com/onokumus/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

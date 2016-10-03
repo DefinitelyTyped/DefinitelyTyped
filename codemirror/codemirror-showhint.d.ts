@@ -1,11 +1,11 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: jacqt <https://github.com/jacqt>, basarat <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
 
-declare module CodeMirror {
+declare namespace CodeMirror {
     var commands: any;
 
     /** Provides a framework for showing autocompletion hints. Defines editor.showHint, which takes an optional
@@ -41,9 +41,7 @@ declare module CodeMirror {
         off(eventName: string, handler: (doc: CodeMirror.Doc, event: any) => void): void;
     }
 
-    /** Extend CodeMirror.Doc with a state object, so that the Doc.state.completionActive property is reachable*/
     interface Doc {
-        state: any;
         showHint: (options: ShowHintOptions) => void;
     }
 

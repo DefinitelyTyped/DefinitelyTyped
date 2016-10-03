@@ -1,11 +1,11 @@
 ﻿// Type definitions for q-retry
 // Project: https://github.com/vilic/q-retry
 // Definitions by: VILIC VANE <https://github.com/vilic>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 
-declare module Q {
+declare namespace Q {
     export interface IRetryOptions {
         limit?: number;
         interval?: number;

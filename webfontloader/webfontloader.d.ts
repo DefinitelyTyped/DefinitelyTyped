@@ -1,9 +1,9 @@
 // Type definitions for typekit-webfontloader 1.6.4
 // Project: https://github.com/typekit/webfontloader
 // Definitions by: doskallemaskin <https://github.com/doskallemaskin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module WebFont {
+declare namespace WebFont {
 	export function load(config:WebFont.Config):void;
 	export interface Config {
 		/** Setting this to false will disable html classes (defaults to true) */
@@ -24,10 +24,10 @@ declare module WebFont {
 		fontactive?(familyName:string, fvd:string):void;
 		/** This event is triggered if the font can't be loaded. */
 		fontinactive?(familyName:string, fvd:string):void;
-		
+
 		/** Child window or iframes to manage fonts for */
 		context?:Array<string>;
-		
+
 		custom?:Custom;
 		google?:Google;
 		typekit?:Typekit;
@@ -35,8 +35,8 @@ declare module WebFont {
 		monotype?:Monotype;
 	}
 	export interface Google {
-		families?:Array<string>;	
-		text: string;
+		families:Array<string>;
+		text?: string;
 	}
 	export interface Typekit {
 		id?:Array<string>;
@@ -53,7 +53,7 @@ declare module WebFont {
 		projectId?:string;
 		version?:number;
 	}
-	
+
 }
 declare module "webfontloader" {
     export = WebFont;

@@ -1,7 +1,7 @@
 // Type definitions for File System API
 // Project: http://www.w3.org/TR/file-system-api/
 // Definitions by: Kon <http://phyzkit.net/> 
-// Definitions: https://github.com/borisyankov/DefinitelyTyped 
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /// <reference path="../filewriter/filewriter.d.ts" />
 
@@ -161,7 +161,7 @@ interface Entry {
      * A move of a file on top of an existing file must attempt to delete and replace that file.
      * A move of a directory on top of an existing empty directory must attempt to delete and replace that directory.
      */
-    moveTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):string;
+    moveTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Copy an entry to a different location on the file system. It is an error to try to:
@@ -178,7 +178,7 @@ interface Entry {
      *
      * Directory copies are always recursive--that is, they copy all contents of the directory.
      */
-    copyTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):string;
+    copyTo(parent:DirectoryEntry, newName?:string, successCallback?:EntryCallback, errorCallback?:ErrorCallback):void;
     
     /**
      * Returns a URL that can be used to identify this entry. Unlike the URN defined in [FILE-API-ED], it has no specific expiration; as it describes a location on disk, it should be valid at least as long as that location exists.

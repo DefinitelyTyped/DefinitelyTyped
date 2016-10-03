@@ -1,7 +1,7 @@
 // Type definitions for connect-modrewrite
 // Project: https://github.com/tinganho/connect-modrewrite
 // Definitions by: Tingan Ho <https://github.com/tinganho/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

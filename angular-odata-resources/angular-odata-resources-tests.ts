@@ -174,6 +174,7 @@ var user = odataResourceClass.odata()
 	.skip(10)
 	.take(20)
 	.orderBy("Name", "desc")
+	.transformUrl((s)=>s)
 	.single();
 user.$save();
 

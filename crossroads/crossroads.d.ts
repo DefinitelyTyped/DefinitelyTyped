@@ -1,11 +1,11 @@
 // Type definitions for Crossroads.js
 // Project: http://millermedeiros.github.io/crossroads.js/
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../js-signals/js-signals.d.ts" />
 
-declare module CrossroadsJs {
+declare namespace CrossroadsJs {
 
     export interface Route {
         matched: Signal;

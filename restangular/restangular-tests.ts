@@ -50,7 +50,7 @@ myApp.config((RestangularProvider: restangular.IProvider) => {
 });
 
 
-interface MyAppScope extends ng.IScope {
+interface MyAppScope extends angular.IScope {
 	accounts: string[];
   allAccounts: any[];
   account: any;

@@ -1,11 +1,11 @@
 // Type definitions for IxJS 1.0.6 / ix.js
 // Project: https://github.com/Reactive-Extensions/IxJS
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="l2o.d.ts"/>
 
-declare module Ix {
+declare namespace Ix {
 
 	export interface Observer<T> {
 		onNext? (value: T): void;

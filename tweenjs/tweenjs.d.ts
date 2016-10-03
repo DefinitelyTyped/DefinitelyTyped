@@ -1,7 +1,7 @@
 // Type definitions for TweenJS 0.6.0
 // Project: http://www.createjs.com/#!/TweenJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -14,7 +14,7 @@
 
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 
-declare module createjs {
+declare namespace createjs {
     export class CSSPlugin {
         constructor();
 
@@ -67,7 +67,7 @@ declare module createjs {
         static sineInOut: (amount: number) => number;
         static sineOut: (amount: number) => number;
     }
-    
+
     export class MotionGuidePlugin {
         constructor();
 

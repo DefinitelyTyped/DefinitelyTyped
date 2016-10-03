@@ -1,7 +1,7 @@
 // Type definitions for CreateJS
 // Project: http://www.createjs.com/
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Chris Smith <https://github.com/evilangelist>, Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -16,7 +16,7 @@
 // Library documentation : http://www.createjs.com/Docs/TweenJS/modules/TweenJS.html
 
 
-declare module createjs {
+declare namespace createjs {
     export class Event {
         constructor(type: string, bubbles: boolean, cancelable: boolean);
 

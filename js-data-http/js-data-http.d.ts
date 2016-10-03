@@ -1,11 +1,11 @@
 // Type definitions for JSData Http Adapter v1.2.0
 // Project: https://github.com/js-data/js-data-http
 // Definitions by: Stefan Steinhart <https://github.com/reppners>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../js-data/js-data.d.ts" />
 
-declare module JSData {
+declare namespace JSData {
 
     interface DSHttpAdapterOptions {
         serialize?: (resourceName:string, data:any)=>any;
@@ -15,6 +15,8 @@ declare module JSData {
         forceTrailingSlash?: boolean;
         log?: boolean | ((message?:any, ...optionalParams:any[])=> void);
         error?: boolean | ((message?:any, ...optionalParams:any[])=> void);
+        basePath?: string;
+        verbsUseBasePath?: string;
     }
 
     interface DSHttpAdapterPromiseResolveType {
@@ -27,6 +29,9 @@ declare module JSData {
     interface DSHttpAdapter extends IDSAdapter {
 
         new(options?:DSHttpAdapterOptions):DSHttpAdapter;
+
+        defaults: DSHttpAdapterOptions;
+        http: any;
 
         // DSHttpAdapter uses axios so options are axios config objects.
         HTTP(options?:Object):JSDataPromise<DSHttpAdapterPromiseResolveType>;

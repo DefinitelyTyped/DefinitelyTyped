@@ -1,17 +1,18 @@
 // Type definitions for Incremetal DOM
 // Project: https://github.com/google/incremental-dom
-// Definitions by: Basarat Ali Syed <https://github.com/basarat>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Basarat Ali Syed <https://github.com/basarat>, Markus Lanthaler <https://github.com/lanthaler>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "incremental-dom" {
     /**
      * Patches the document starting at el with the provided function. This function
      * may be called during an existing patch operation.
      * @param {!Element} el the element to patch
-     * @param {!function} fn A function containing elementOpen/elementClose/etc.
+     * @param {!function(T)} fn A function containing elementOpen/elementClose/etc.
      *     calls that describe the DOM.
+     * @param {?T} data An argument passed to fn to represent DOM state.
      */
-    export var patch: (el: Node, fn: Function) => void;
+    export var patch: <T>(el: Node, fn: (data: T) => void, data?: T) => void;
 
     /**
      * Declares a virtual Element at the current location in the document. This
@@ -26,7 +27,7 @@ declare module "incremental-dom" {
      * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
      *     for the Element.
      */
-    export var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => void;
+    export var elementOpen: (tag: string, key?: string, statics?: any[], ...var_args: any[]) => HTMLElement;
     /**
      * Declares a virtual Element at the current location in the document. This
      * corresponds to an opening tag and a elementClose tag is required. This is
@@ -53,11 +54,11 @@ declare module "incremental-dom" {
     /**
      * Closes an open tag started with elementOpenStart.
      */
-    export var elementOpenEnd: () => void;
+    export var elementOpenEnd: () => HTMLElement;
     /**
      * Closes an open virtual Element.
      */
-    export var elementClose: () => void;
+    export var elementClose: (tag: string) => HTMLElement;
     /**
      * Declares a virtual Element at the current location in the document that has
      * no children.
@@ -71,11 +72,11 @@ declare module "incremental-dom" {
      * @param {...*} var_args Attribute name/value pairs of the dynamic attributes
      *     for the Element.
      */
-    export var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => void;
+    export var elementVoid: (tag: string, key?: string, statics?: any, ...var_args: any[]) => HTMLElement;
     /**
      * Declares a virtual Text at this point in the document.
      *
      * @param {string} value The text of the Text.
      */
-    export var text: (value: string) => void;
+    export var text: (value: string) => Text;
 }

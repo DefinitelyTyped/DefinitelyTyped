@@ -1,28 +1,31 @@
 // Type definitions for bookshelfjs v0.8.2
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../knex/knex.d.ts" />
+/// <reference path="../create-error/create-error.d.ts" />
 
 declare module 'bookshelf' {
-	import knex = require('knex');
-	import Promise = require('bluebird');
-	import Lodash = require('lodash');
-	
+	import * as Knex from 'knex';
+	import * as Promise from 'bluebird';
+	import * as Lodash from 'lodash';
+	import * as createError from 'create-error';
+
 	interface Bookshelf extends Bookshelf.Events<any> {
 		VERSION : string;
-		knex : knex;
+		knex : Knex;
 		Model : typeof Bookshelf.Model;
 		Collection : typeof Bookshelf.Collection;
 
-		transaction<T>(callback : (transaction : knex.Transaction) => T) : Promise<T>;
+		plugin(name: string | string[] | Function, options?: any) : Bookshelf;
+		transaction<T>(callback : (transaction : Knex.Transaction) => T) : T;
 	}
-	
-	function Bookshelf(knex : knex) : Bookshelf;
-	
+
+	function Bookshelf(knex : Knex) : Bookshelf;
+
 	namespace Bookshelf {
 		abstract class Events<T> {
 			on(event? : string, callback? : EventFunction<T>, context? : any) : void;
@@ -31,20 +34,27 @@ declare module 'bookshelf' {
 			triggerThen(name : string, ...args : any[]) : Promise<any>;
 			once(event : string, callback : EventFunction<T>, context? : any) : void;
 		}
-		
+
 		interface IModelBase {
 			/** Should be declared as a getter instead of a plain property. */
 			hasTimestamps? : boolean|string[];
 			/** Should be declared as a getter instead of a plain property. Should be required, but cannot have abstract properties yet. */
 			tableName? : string;
 		}
-		
+
 		abstract class ModelBase<T extends Model<any>> extends Events<T|Collection<T>> implements IModelBase {
 			/** If overriding, must use a getter instead of a plain property. */
 			idAttribute : string;
-			
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L178
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L213
+			id : any;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/model.js#L28
+			attributes : any;
+
 			constructor(attributes? : any, options? : ModelOptions);
-			
+
 			clear() : T;
 			clone() : T;
 			escape(attribute : string) : string;
@@ -53,7 +63,7 @@ declare module 'bookshelf' {
 			has(attribute : string) : boolean;
 			hasChanged(attribute? : string) : boolean;
 			isNew() : boolean;
-			parse(response : any) : any;
+			parse(response : Object) : Object;
 			previousAttributes() : any;
 			previous(attribute : string) : any;
 			related<R extends Model<any>>(relation : string) : R | Collection<R>;
@@ -63,7 +73,7 @@ declare module 'bookshelf' {
 			timestamp(options? : TimestampOptions) : any;
 			toJSON(options? : SerializeOptions) : any;
 			unset(attribute : string) : T;
-			
+
 			// lodash methods
 			invert<R extends {}>() : R;
 			keys() : string[];
@@ -74,7 +84,7 @@ declare module 'bookshelf' {
 			pick<R extends {}>(...attributes : string[]) : R;
 			values() : any[];
 		}
-		
+
 		class Model<T extends Model<any>> extends ModelBase<T> {
 			static collection<T extends Model<any>>(models? : T[], options? : CollectionOptions<T>) : Collection<T>;
 			static count(column? : string, options? : SyncOptions) : Promise<number>;
@@ -83,11 +93,13 @@ declare module 'bookshelf' {
 			static fetchAll<T extends Model<any>>() : Promise<Collection<T>>;
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
-			
+			static where<T>(properties: { [key: string]: any }): T;
+			static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
+
 			belongsTo<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : R;
 			belongsToMany<R extends Model<any>>(target : {new(...args : any[]) : R}, table? : string, foreignKey? : string, otherKey? : string) : Collection<R>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
-			destroy(options : SyncOptions) : void;
+			destroy(options? : DestroyOptions) : Promise<T>;
 			fetch(options? : FetchOptions) : Promise<T>;
 			fetchAll(options? : FetchAllOptions) : Promise<Collection<T>>;
 			hasMany<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : Collection<R>;
@@ -97,20 +109,35 @@ declare module 'bookshelf' {
 			morphOne<R extends Model<any>>(target : {new(...args : any[]) : R}, name? : string, columnNames? : string[], morphValue? : string) : R;
 			morphTo(name : string, columnNames? : string[], ...target : typeof Model[]) : T;
 			morphTo(name : string, ...target : typeof Model[]) : T;
+
+			// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
+			query() : Knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : T;
 			query(...query : string[]) : T;
 			query(query : {[key : string] : any}) : T;
-			query(callback : (qb : knex.QueryBuilder) => void) : T;
-			query() : knex.QueryBuilder;
+
 			refresh(options? : FetchOptions) : Promise<T>;
 			resetQuery() : T;
-			save(key? : string, val? : string, options? : SaveOptions) : Promise<T>;
+			save(key? : string, val? : any, options? : SaveOptions) : Promise<T>;
 			save(attrs? : {[key : string] : any}, options? : SaveOptions) : Promise<T>;
-			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
+			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R;
 			where(properties : {[key : string] : any}) : T;
 			where(key : string, operatorOrValue : string|number|boolean, valueIfOperator? : string|number|boolean) : T;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/errors.js
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/model.js#L1280
+			static NotFoundError: createError.Error<Error>;
+			static NoRowsUpdatedError: createError.Error<Error>;
+			static NoRowsDeletedError: createError.Error<Error>;
 		}
-		
+
 		abstract class CollectionBase<T extends Model<any>> extends Events<T> {
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L573
+			length : number;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/base/collection.js#L21
+			constructor(models? : T[], options? : CollectionOptions<T>);
+
 			add(models : T[]|{[key : string] : any}[], options? : CollectionAddOptions) : Collection<T>;
 			at(index : number) : T;
 			clone() : Collection<T>;
@@ -126,14 +153,14 @@ declare module 'bookshelf' {
 			remove(model : T, options? : EventOptions) : T;
 			remove(model : T[], options? : EventOptions) : T[];
 			reset(model : any[], options? : CollectionAddOptions) : T[];
-			serialize(options? : SerializeOptions) : any;
+			serialize(options? : SerializeOptions) : any[];
 			set(models : T[]|{[key : string] : any}[], options? : CollectionSetOptions) : Collection<T>;
 			shift(options? : EventOptions) : void;
 			slice(begin? : number, end? : number) : void;
-			toJSON(options? : SerializeOptions) : any;
+			toJSON(options? : SerializeOptions) : any[];
 			unshift(model : any, options? : CollectionAddOptions) : void;
 			where(match : {[key : string] : any}, firstOnly : boolean) : T|Collection<T>;
-			
+
 			// lodash methods
 			all(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : boolean;
 			all<R extends {}>(predicate? : R) : boolean;
@@ -176,8 +203,13 @@ declare module 'bookshelf' {
 			keys() : string[];
 			last() : T;
 			lastIndexOf(value : any, fromIndex? : number) : number;
-			map(predicate? : Lodash.ListIterator<T, boolean>|Lodash.DictionaryIterator<T, boolean>|string, thisArg? : any) : T[];
-			map<R extends {}>(predicate? : R) : T[];
+
+			// See https://github.com/DefinitelyTyped/DefinitelyTyped/blob/1ec3d51/lodash/lodash-3.10.d.ts#L7119
+			// See https://github.com/Microsoft/TypeScript/blob/v1.8.10/lib/lib.core.es7.d.ts#L1122
+			map<U>(predicate? : Lodash.ListIterator<T, U>|string, thisArg? : any) : U[];
+			map<U>(predicate? : Lodash.DictionaryIterator<T, U>|string, thisArg? : any) : U[];
+			map<U>(predicate? : string) : U[];
+
 			max(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
 			max<R extends {}>(predicate? : R) : T;
 			min(predicate? : Lodash.ListIterator<T, boolean>|string, thisArg? : any) : T;
@@ -200,114 +232,129 @@ declare module 'bookshelf' {
 			toArray() : T[];
 			without(...values : any[]) : T[];
 		}
-		
+
 		class Collection<T extends Model<any>> extends CollectionBase<T> {
 			/** @deprecated use Typescript classes */
 			static extend<T>(prototypeProperties? : any, classProperties? : any) : Function;
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
-			
-			attach(ids : any[], options? : SyncOptions) : Promise<Collection<T>>;
+
+			attach(ids : any|any[], options? : SyncOptions) : Promise<Collection<T>>;
 			count(column? : string, options? : SyncOptions) : Promise<number>;
 			create(model : {[key : string] : any}, options? : CollectionCreateOptions) : Promise<T>;
 			detach(ids : any[], options? : SyncOptions) : Promise<any>;
+			detach(options? : SyncOptions) : Promise<any>;
 			fetchOne(options? : CollectionFetchOneOptions) : Promise<T>;
 			load(relations : string|string[], options? : SyncOptions) : Promise<Collection<T>>;
+
+			// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
+			query() : Knex.QueryBuilder;
+			query(callback : (qb : Knex.QueryBuilder) => void) : Collection<T>;
 			query(...query : string[]) : Collection<T>;
 			query(query : {[key : string] : any}) : Collection<T>;
-			query(callback : (qb : knex.QueryBuilder) => void) : Collection<T>;
-			query() : knex.QueryBuilder;
+
 			resetQuery() : Collection<T>;
-			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : R | Collection<R>;
+			through<R extends Model<any>>(interim : typeof Model, throughForeignKey? : string, otherKey? : string) : Collection<R>;
 			updatePivot(attributes : any, options? : PivotOptions) : Promise<number>;
 			withPivot(columns : string[]) : Collection<T>;
+
+			// See https://github.com/tgriesser/bookshelf/blob/0.9.4/src/collection.js#L389
+			static EmptyError: createError.Error<Error>;
 		}
-		
+
 		interface ModelOptions {
 			tableName? : string;
 			hasTimestamps? : boolean;
 			parse? : boolean;
 		}
-		
+
 		interface LoadOptions extends SyncOptions {
-			withRelated: string|any|any[];
+			withRelated : (string|WithRelatedQuery)[];
 		}
-		
+
 		interface FetchOptions extends SyncOptions {
 			require? : boolean;
 			columns? : string|string[];
-			withRelated? : string|any|any[];
+			withRelated? : (string|WithRelatedQuery)[];
 		}
-		
+
+		interface WithRelatedQuery {
+			[index : string] : (query : Knex.QueryBuilder) => Knex.QueryBuilder;
+		}
+
 		interface FetchAllOptions extends SyncOptions {
 			require? : boolean;
 		}
-		
+
 		interface SaveOptions extends SyncOptions {
 			method? : string;
 			defaults? : string;
 			patch? : boolean;
 			require? : boolean;
 		}
-		
+
+		interface DestroyOptions extends SyncOptions {
+			require? : boolean;
+		}
+
 		interface SerializeOptions {
 			shallow? : boolean;
 			omitPivot? : boolean;
 		}
-		
+
 		interface SetOptions {
 			unset? : boolean;
 		}
-		
+
 		interface TimestampOptions {
 			method? : string;
 		}
-		
+
 		interface SyncOptions {
-			transacting? : knex.Transaction;
+			transacting? : Knex.Transaction;
 			debug? : boolean;
 		}
-		
+
 		interface CollectionOptions<T> {
 			comparator? : boolean|string|((a : T, b : T) => number);
 		}
-		
+
 		interface CollectionAddOptions extends EventOptions {
 			at? : number;
 			merge? : boolean;
 		}
-		
+
 		interface CollectionFetchOptions {
 			require? : boolean;
 			withRelated? : string|string[];
 		}
-		
+
 		interface CollectionFetchOneOptions {
 			require? : boolean;
 			columns? : string|string[];
 		}
-		
+
 		interface CollectionSetOptions extends EventOptions {
 			add? : boolean;
 			remove? : boolean;
 			merge?: boolean;
 		}
-		
+
 		interface PivotOptions {
 			query? : Function|any;
 			require? : boolean;
 		}
-		
+
 		interface EventOptions {
 			silent? : boolean;
 		}
-		
+
 		interface EventFunction<T> {
 			(model: T, attrs: any, options: any) : Promise<any>|void;
 		}
-		
+
 		interface CollectionCreateOptions extends ModelOptions, SyncOptions, CollectionAddOptions, SaveOptions {}
 	}
-	
+
 	export = Bookshelf;
 }

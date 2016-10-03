@@ -1,7 +1,8 @@
 /// <reference path="errorhandler.d.ts" />
 
-import express = require('express');
-import errorhandler = require('errorhandler');
+import * as express from 'express';
+import * as errorhandler from 'errorhandler';
+
 var app = express();
 
 app.use(errorhandler());

@@ -17,7 +17,7 @@ var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-module TestFind {
+namespace TestFind {
 	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
 	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
 	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
@@ -166,6 +166,8 @@ _.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
 _.contains([1, 2, 3], 3);
 
+_.contains([1, 2, 3], 3, 1);
+
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
@@ -173,6 +175,10 @@ _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
 _.min(stooges, (stooge) => stooge.age);
+_.max({ a: 1, b: 2 });
+_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+_.min({ a: 1, b: 2 });
+_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
 var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
@@ -236,6 +242,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);
@@ -270,10 +280,12 @@ _.defer(function () { alert('deferred'); });
 var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
+throttled.cancel();
 
 var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
+lazyLayout.cancel();
 
 var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
@@ -294,6 +306,10 @@ var greet = function (name) { return "hi: " + name; };
 var exclaim = function (statement) { return statement + "!"; };
 var welcome = _.compose(exclaim, greet);
 welcome('moe');
+
+var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -382,6 +398,34 @@ _.isNull(undefined);
 
 _.isUndefined((<any>window).missingVariable);
 
+//////////////////////////////////// User Defined Guard tests
+
+function useElement(arg: Element) {};
+function useArguments(arg: IArguments) {};
+function useFunction(arg: Function) {};
+function useError(arg: Error) {};
+function useString(arg: String) {};
+function useNumber(arg: Number) {};
+function useBoolean(arg: Boolean) {};
+function useDate(arg: Date) {};
+function useRegExp(arg: RegExp) {};
+function useArray<T>(arg: T[]) {};
+function useSymbol(arg: symbol) {};
+
+var guardedType: {};
+if(_.isElement(guardedType)) useElement(guardedType);
+if(_.isArray(guardedType)) useArray(guardedType);
+if(_.isArray<String>(guardedType)) useArray(guardedType);
+if(_.isArguments(guardedType)) useArguments(guardedType);
+if(_.isFunction(guardedType)) useFunction(guardedType);
+if(_.isError(guardedType)) useError(guardedType);
+if(_.isString(guardedType)) useString(guardedType);
+if(_.isNumber(guardedType)) useNumber(guardedType);
+if(_.isBoolean(guardedType)) useBoolean(guardedType);
+if(_.isDate(guardedType)) useDate(guardedType);
+if(_.isRegExp(guardedType)) useRegExp(guardedType);
+if(_.isSymbol(guardedType)) useSymbol(guardedType);
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
@@ -432,6 +476,7 @@ var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
 _.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
@@ -462,10 +507,16 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
-		
+
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let evenAndOddGroupedNumbers = _.chain(numberObjects)
+        .groupBy('property')
+        .mapObject((objects: any) => _.pluck(objects, 'value'))
+        .value(); // { odd: [1], even: [0, 2] }
 }
 
 var obj: { [k: string] : number } = {
@@ -479,3 +530,25 @@ _.chain(obj).map(function (value, key) {
     empty[key] = value;
     console.log("vk", value, key);
 });
+
+function strong_typed_values_tests() {
+    var dictionaryLike: { [k: string] : {title: string, value: number} } = {
+        'test' : { title: 'item1', value: 5 },
+        'another' : { title: 'item2', value: 8 },
+        'third' : { title: 'item3', value: 10 }
+    };
+
+    _.chain(dictionaryLike).values().filter((r) => {
+        return r.value >= 8;
+    }).map((r) => {
+        return [r.title, true];
+    }).object().value();
+
+    var x: number = _(dictionaryLike).chain().filter((x) => {
+        console.log(x.title);
+        console.log(x.value.toFixed());
+        return x.title == 'item1';
+    }).size().value();
+
+    _.values<{title: string, value: number}>(dictionaryLike);
+}

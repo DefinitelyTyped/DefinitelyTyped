@@ -1,4 +1,3 @@
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
 /// <reference path="freedom.d.ts" />
 
 var freedomModule :freedom.FreedomInModuleEnv;

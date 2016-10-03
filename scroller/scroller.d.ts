@@ -1,7 +1,7 @@
 // Type definitions for Zynga Scroller
 // Project: https://github.com/zynga/scroller
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface ScrollerOptions {

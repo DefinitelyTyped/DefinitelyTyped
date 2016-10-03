@@ -1,7 +1,7 @@
 // Type definitions for Handlebars 1.0
 // Project: http://handlebarsjs.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 // Use either HandlebarsStatic or HandlebarsRuntimeStatic
@@ -47,13 +47,13 @@ interface HandlebarsRuntimeStatic extends HandlebarsCommon {
     templates: HandlebarsTemplates;
 }
 
-declare module hbs {
+declare namespace hbs {
     class SafeString {
         constructor(str: string);
         static toString(): string;
     }
 
-    module Utils {
+    namespace Utils {
         function escapeExpression(str: string): string;
     }
 }
@@ -70,8 +70,8 @@ interface Logger {
     log(level: number, obj: string): void;
 }
 
-declare module hbs {
-    module AST {
+declare namespace hbs {
+    namespace AST {
         interface IStripInfo {
             left?: boolean;
             right?: boolean;

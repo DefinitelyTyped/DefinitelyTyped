@@ -1,7 +1,7 @@
 // Type definitions for redis 0.12.1
 // Project: https://github.com/mranney/node_redis
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Peter Harris <https://github.com/CodeAnimal>, TANAKA Koichi <https://github.com/MugeSo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/redis.d.ts
 
@@ -34,6 +34,17 @@ declare module "redis" {
         versions: number[];
     }
 
+    export interface RetryStrategyOptions {
+        error: Error;
+        total_retry_time: number;
+        times_connected: number;
+        attempt: number;
+    }
+
+    export interface RetryStrategy {
+        (options: RetryStrategyOptions): number | Error;
+    }
+
     export interface ClientOpts {
         parser?: string;
         return_buffers?: boolean;
@@ -46,9 +57,11 @@ declare module "redis" {
         connect_timeout?: number;
         max_attempts?: number;
         auth_pass?: string;
+        password?: string;
         family?: string;
         command_queue_high_water?: number;
         command_queue_low_water?: number;
+        retry_strategy?: RetryStrategy;
     }
 
     export interface RedisClient extends NodeJS.EventEmitter {
@@ -96,7 +109,7 @@ declare module "redis" {
          "lset", "lrange", "ltrim", "lrem", "rpoplpush", "sadd", "srem", "smove", "sismember", "scard", "spop", "srandmember", "sinter", "sinterstore",
          "sunion", "sunionstore", "sdiff", "sdiffstore", "smembers", "zadd", "zincrby", "zrem", "zremrangebyscore", "zremrangebyrank", "zunionstore",
          "zinterstore", "zrange", "zrangebyscore", "zrevrangebyscore", "zcount", "zrevrange", "zcard", "zscore", "zrank", "zrevrank", "hset", "hsetnx",
-         "hget", "hmset", "hmget", "hincrby", "hdel", "hlen", "hkeys", "hvals", "hgetall", "hexists", "incrby", "decrby", "getset", "mset", "msetnx",
+         "hget", "hmset", "hmget", "hincrby", "hincrbyfloat", "hdel", "hlen", "hkeys", "hvals", "hgetall", "hexists", "incrby", "decrby", "getset", "mset", "msetnx",
          "randomkey", "select", "move", "rename", "renamenx", "expire", "expireat", "keys", "dbsize", "auth", "ping", "echo", "save", "bgsave",
          "bgrewriteaof", "shutdown", "lastsave", "type", "multi", "exec", "discard", "sync", "flushdb", "flushall", "sort", "info", "monitor", "ttl",
          "persist", "slaveof", "debug", "config", "subscribe", "unsubscribe", "psubscribe", "punsubscribe", "publish", "watch", "unwatch", "cluster",
@@ -241,6 +254,8 @@ declare module "redis" {
         hmget(...args:any[]): boolean;
         hincrby(args:any[], callback?:ResCallbackT<any>): boolean;
         hincrby(...args:any[]): boolean;
+        hincrbyfloat(args:any[], callback?:ResCallbackT<any>): boolean;
+        hincrbyfloat(...args:any[]): boolean;
         hdel(args:any[], callback?:ResCallbackT<any>): boolean;
         hdel(...args:any[]): boolean;
         hlen(args:any[], callback?:ResCallbackT<any>): boolean;
@@ -358,8 +373,19 @@ declare module "redis" {
         eval(...args:any[]): boolean;
         evalsha(args:any[], callback?:ResCallbackT<any>): boolean;
         evalsha(...args:any[]): boolean;
+        script(args:any[], callback?:ResCallbackT<any>): boolean;
+        script(...args: any[]): boolean;
+        script(key: string, callback?: ResCallbackT<any>): boolean;
         quit(args:any[], callback?:ResCallbackT<any>): boolean;
         quit(...args:any[]): boolean;
+        sscan(...args:any[]): boolean;
+        sscan(args:any[], callback?:ResCallbackT<any>): boolean;
+        scan(...args:any[]): boolean;
+        scan(args:any[], callback?:ResCallbackT<any>): boolean;
+        hscan(...args:any[]): boolean;
+        hscan(args:any[], callback?:ResCallbackT<any>): boolean;
+        zscan(...args:any[]): boolean;
+        zscan(args:any[], callback?:ResCallbackT<any>): boolean;
     }
 
     export interface Multi {
@@ -622,5 +648,11 @@ declare module "redis" {
         evalsha(...args:any[]): Multi;
         quit(args:any[], callback?:ResCallbackT<any>): Multi;
         quit(...args:any[]): Multi;
+        scan(...args:any[]): Multi;
+        scan(args:any[], callback?:ResCallbackT<any>): Multi;
+        hscan(...args:any[]): Multi;
+        hscan(args:any[], callback?:ResCallbackT<any>): Multi;
+        zscan(...args:any[]): Multi;
+        zscan(args:any[], callback?:ResCallbackT<any>): Multi;
     }
 }

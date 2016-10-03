@@ -1,131 +1,196 @@
 // Type definitions for Web MIDI API
 // Project: http://www.w3.org/TR/webmidi/
-// Definitions by: Toshiya Nakakura <https://github.com/nakakura>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+// Definitions by: six a <https://github.com/lostfictions>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Navigator {
-    /**
-     * When invoked, returns a Promise object representing a request for access to MIDI devices on the user's system.
-     * @param options settings that may be provided to the requestMIDIAccess request.
-     */
-    requestMIDIAccess (options?: WebMidi.MidiOptions): Promise<WebMidi.MIDIAccess>;
+  /**
+   * When invoked, returns a Promise object representing a request for access to MIDI
+   * devices on the user's system.
+   */
+  requestMIDIAccess(options?: WebMidi.MIDIOptions) : Promise<WebMidi.MIDIAccess>;
 }
 
-declare module WebMidi{
+declare namespace WebMidi {
+  export interface MIDIOptions {
     /**
-     * optional settings that may be provided to the requestMIDIAccess request.
+     * This member informs the system whether the ability to send and receive system
+     * exclusive messages is requested or allowed on a given MIDIAccess object.
      */
-    export interface MidiOptions{
-        sysex: boolean;
-    }
+    sysex : boolean;
+  }
 
-    export interface IteratorItem<S>{
-        value: S;
-        done: boolean;
-    }
+  /**
+   * This is a maplike interface whose value is a MIDIInput instance and key is its
+   * ID.
+   */
+  export type MIDIInputMap = Map<string, MIDIInput>;
 
-    export interface Iterator<S>{
-        next(): IteratorItem<S>;
-    }
+  /**
+   * This is a maplike interface whose value is a MIDIOutput instance and key is its
+   * ID.
+   */
+  export type MIDIOutputMap = Map<string, MIDIOutput>;
 
-    interface Tuple2<A,B> {
-        fst: A
-        snd: B
-    }
-
+  export interface MIDIAccess extends EventTarget {
     /**
-     * This type is used to represent all the currently available MIDI input ports as a MapClass-like interface
+     * The MIDI input ports available to the system.
      */
-    export interface MIDIInputMap{
-        size: number;
-        keys: ()=>Iterator<string>;
-        entries: ()=>Iterator<Tuple2<string, MIDIInput>>;
-        values(): Iterator<MIDIInput>;
-        get(key: string): MIDIInput;
-        has(key: string): boolean;
-    }
+    inputs : MIDIInputMap;
 
     /**
-     * This type is used to represent all the currently available MIDI output ports as a MapClass-like interface.
+     * The MIDI output ports available to the system.
      */
-    export interface MIDIOutputMap{
-        size: number;
-        keys: ()=>Iterator<string>;
-        entries: ()=>Iterator<Tuple2<string, MIDIOutput>>;
-        values(): Iterator<MIDIOutput>;
-        get(key: string): MIDIOutput;
-        has(key: string): boolean;
-    }
+    outputs : MIDIOutputMap;
 
     /**
-     * This interface provides the methods to list MIDI input and output devices, and obtain access to an individual device.
+     * The handler called when a new port is connected or an existing port changes the
+     * state attribute.
      */
-    export interface MIDIAccess extends EventTarget{
-        inputs: MIDIInputMap;
-        outputs: MIDIOutputMap;
-        onconnect: (event: MIDIConnectionEvent)=>void;
-        ondisconnect: (event: MIDIConnectionEvent)=>void;
-        sysexEnabled: boolean;
-    }
+    onstatechange : (e : MIDIConnectionEvent) => void;
 
     /**
-     * This interface represents a MIDI input or output port.
+     * This attribute informs the user whether system exclusive support is enabled on
+     * this MIDIAccess.
      */
-    export enum MIDIPortType{
-        input,
-        output
-    }
+    sysexEnabled : boolean;
+  }
+
+  export type MIDIPortType = "input" | "output";
+
+  export type MIDIPortDeviceState = "disconnected" | "connected";
+
+  export type MIDIPortConnectionState = "open" | "closed" | "pending";
+
+  export interface MIDIPort extends EventTarget {
+    /**
+     * A unique ID of the port. This can be used by developers to remember ports the
+     * user has chosen for their application.
+     */
+    id : string;
 
     /**
-     * This interface represents a MIDI input or output port.
+     * The manufacturer of the port.
      */
-    export interface MIDIPort extends EventTarget {
-        id: string;
-        manufacture?: string;
-        name?: string;
-        type: MIDIPortType;
-        version?: string;
-        ondisconnect: Function;
-    }
+    manufacturer? : string;
 
     /**
-     * Interface for midi inputs
+     * The system name of the port.
      */
-    export interface MIDIInput{
-        onmidimessage: (event: MIDIMessageEvent)=>void;
-    }
+    name? : string;
 
     /**
-     * Interface for midi outputs
+     * A descriptor property to distinguish whether the port is an input or an output
+     * port.
      */
-    export interface MIDIOutput{
-        send(data: Array<number>, timestamp?: number): void;
-    }
+    type : MIDIPortType;
 
     /**
-     * An event object implementing this interface is passed to a MIDIInput's onmidimessage handler when MIDI messages are received.
+     * The version of the port.
      */
-    export interface MIDIMessageEvent extends Event{
-        receivedTime: number;
-        data: Uint8Array;
-    }
-
-    export interface MIDIMessageEventInit{
-        receivedTime: number;
-        data: Uint8Array;
-    }
+    version? : string;
 
     /**
-     * An event object implementing this interface is passed to a MIDIAccess' ondisconnect handler
+     * The state of the device.
      */
-    export interface MIDIConnectionEvent extends Event{
-        port: MIDIPort;
-    }
+    state : MIDIPortDeviceState;
 
-    export interface MIDIConnectionEventInit{
-        port: MIDIPort;
-    }
+    /**
+     * The state of the connection to the device.
+     */
+    connection : MIDIPortConnectionState;
+
+    /**
+     * The handler called when an existing port changes its state or connection
+     * attributes.
+     */
+    onstatechange : (e : MIDIConnectionEvent) => void;
+
+    /**
+     * Makes the MIDI device corresponding to the MIDIPort explicitly available. Note
+     * that this call is NOT required in order to use the MIDIPort - calling send() on
+     * a MIDIOutput or attaching a MIDIMessageEvent handler on a MIDIInputPort will
+     * cause an implicit open().
+     *
+     * When invoked, this method returns a Promise object representing a request for
+     * access to the given MIDI port on the user's system.
+     */
+    open() : Promise<MIDIPort>;
+
+    /**
+     * Makes the MIDI device corresponding to the MIDIPort
+     * explicitly unavailable (subsequently changing the state from "open" to
+     * "connected"). Note that successful invocation of this method will result in MIDI
+     * messages no longer being delivered to MIDIMessageEvent handlers on a
+     * MIDIInputPort (although setting a new handler will cause an implicit open()).
+     *
+     * When invoked, this method returns a Promise object representing a request for
+     * access to the given MIDI port on the user's system. When the port has been
+     * closed (and therefore, in exclusive access systems, the port is available to
+     * other applications), the vended Promise is resolved. If the port is
+     * disconnected, the Promise is rejected.
+     */
+    close() : Promise<MIDIPort>;
+  }
+
+  export interface MIDIInput extends MIDIPort {
+    onmidimessage : (e : MIDIMessageEvent) => void;
+  }
+
+  export interface MIDIOutput extends MIDIPort {
+    /**
+     * Enqueues the message to be sent to the corresponding MIDI port.
+     * @param data The data to be enqueued, with each sequence entry representing a single byte of data.
+     * @param timestamp The time at which to begin sending the data to the port. If timestamp is set
+     * to zero (or another time in the past), the data is to be sent as soon as
+     * possible.
+     */
+    send(data : number[], timestamp? : number) : void;
+
+    /**
+     * Clears any pending send data that has not yet been sent from the MIDIOutput 's
+     * queue. The implementation will need to ensure the MIDI stream is left in a good
+     * state, so if the output port is in the middle of a sysex message, a sysex
+     * termination byte (0xf7) should be sent.
+     */
+    clear() : void;
+  }
+
+  export interface MIDIMessageEvent extends Event {
+    /**
+     * A timestamp specifying when the event occurred.
+     */
+    receivedTime : number;
+
+    /**
+     * A Uint8Array containing the MIDI data bytes of a single MIDI message.
+     */
+    data : Uint8Array;
+  }
+
+  export interface MIDIMessageEventInit extends EventInit {
+    /**
+     * A timestamp specifying when the event occurred.
+     */
+    receivedTime : number;
+
+    /**
+     * A Uint8Array containing the MIDI data bytes of a single MIDI message.
+     */
+    data : Uint8Array;
+  }
+
+  export interface MIDIConnectionEvent extends Event {
+    /**
+     * The port that has been connected or disconnected.
+     */
+    port : MIDIPort;
+  }
+
+  export interface MIDIConnectionEventInit extends EventInit {
+    /**
+     * The port that has been connected or disconnected.
+     */
+    port : MIDIPort;
+  }
 }
-

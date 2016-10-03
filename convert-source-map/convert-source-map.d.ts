@@ -1,7 +1,7 @@
 // Type definitions for convert-source-map
 // Project: https://github.com/thlorenz/convert-source-map
 // Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "convert-source-map" {
 	export interface SourceMapConverter {

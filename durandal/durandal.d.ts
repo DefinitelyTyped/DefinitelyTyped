@@ -1,7 +1,7 @@
 ﻿// Type definitions for Durandal 2.1.0
 // Project: http://durandaljs.com
 // Definitions by: Blue Spire <https://github.com/BlueSpire>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Durandal 2.1.0 Copyright (c) 2012 Blue Spire Consulting, Inc. All Rights Reserved.
@@ -690,9 +690,15 @@ declare module 'plugins/dialog' {
          * @param {object} context The composition context.
         */
         compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext): void;
+
+        /**
+         * Opacity of the blockout. The default is 0.6.
+         */
+        blockoutOpacity?: number;
     }
 
     interface Dialog {
+        host: HTMLElement;
         owner: any;
         context: DialogContext;
         activator: DurandalActivator<any>;
@@ -727,7 +733,7 @@ declare module 'plugins/dialog' {
      * @param {string} [name] The name of the context to retrieve.
      * @returns {DialogContext} True context.
     */
-    export function getContext(name: string): DialogContext;
+    export function getContext(name?: string): DialogContext;
 
     /**
      * Adds (or replaces) a dialog context.
@@ -953,7 +959,7 @@ declare module 'plugins/http' {
 declare module 'plugins/observable' {
     function observable(obj: any, property: string): KnockoutObservable<any>;
 
-    module observable {
+    namespace observable {
         /**
          * Converts an entire object into an observable object by re-writing its attributes using ES5 getters and setters. Attributes beginning with '_' or '$' are ignored.
          * @param {object} obj The target object to convert.

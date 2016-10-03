@@ -12,6 +12,10 @@ declare module "lwip" {
 	interface ImageCallback {
 		(err: any, image: Image): void;
 	}
+    
+    interface BufferCallback {
+		(err: any, buffer: Buffer): void;
+	}
 
 	/**
 	 * Open an image
@@ -386,7 +390,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: "jpg", callback: ImageCallback): void;
+		toBuffer(format: "jpg", callback: BufferCallback): void;
 
 		/**
 		 * Get encoded binary image data as a NodeJS Buffer.
@@ -396,7 +400,7 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: "jpg", params: JpegBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "jpg", params: JpegBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Get encoded binary image data as a NodeJS Buffer.
@@ -405,26 +409,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: "png", callback: ImageCallback): void;
-
-		/**
-		 * Get encoded binary image data as a NodeJS Buffer.
-		 * 
-		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
-		 * 
-		 * @param format Encoding format.
-		 * @param params Format-specific parameters.
-		 */
-		toBuffer(format: "png", params: PngBufferParams, callback: ImageCallback): void;
-
-		/**
-		 * Get encoded binary image data as a NodeJS Buffer.
-		 * 
-		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
-		 * 
-		 * @param format Encoding format.
-		 */
-		toBuffer(format: "gif", callback: ImageCallback): void;
+		toBuffer(format: "png", callback: BufferCallback): void;
 
 		/**
 		 * Get encoded binary image data as a NodeJS Buffer.
@@ -434,7 +419,7 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: "gif", params: GifBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "png", params: PngBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Get encoded binary image data as a NodeJS Buffer.
@@ -443,7 +428,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: string, callback: ImageCallback): void;
+		toBuffer(format: "gif", callback: BufferCallback): void;
 
 		/**
 		 * Get encoded binary image data as a NodeJS Buffer.
@@ -453,7 +438,26 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: string, params: JpegBufferParams | PngBufferParams | GifBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "gif", params: GifBufferParams, callback: BufferCallback): void;
+
+		/**
+		 * Get encoded binary image data as a NodeJS Buffer.
+		 * 
+		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
+		 * 
+		 * @param format Encoding format.
+		 */
+		toBuffer(format: string, callback: BufferCallback): void;
+
+		/**
+		 * Get encoded binary image data as a NodeJS Buffer.
+		 * 
+		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
+		 * 
+		 * @param format Encoding format.
+		 * @param params Format-specific parameters.
+		 */
+		toBuffer(format: string, params: JpegBufferParams | PngBufferParams | GifBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Write encoded binary image data directly to a file.
@@ -848,7 +852,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: "jpg", callback: ImageCallback): void;
+		toBuffer(format: "jpg", callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and obtain a Buffer object
@@ -858,7 +862,7 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: "jpg", params: JpegBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "jpg", params: JpegBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and obtain a Buffer object
@@ -867,26 +871,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: "png", callback: ImageCallback): void;
-
-		/**
-		 * Execute batch and obtain a Buffer object
-		 * 
-		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
-		 * 
-		 * @param format Encoding format.
-		 * @param params Format-specific parameters.
-		 */
-		toBuffer(format: "png", params: PngBufferParams, callback: ImageCallback): void;
-
-		/**
-		 * Execute batch and obtain a Buffer object
-		 * 
-		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
-		 * 
-		 * @param format Encoding format.
-		 */
-		toBuffer(format: "gif", callback: ImageCallback): void;
+		toBuffer(format: "png", callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and obtain a Buffer object
@@ -896,7 +881,7 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: "gif", params: GifBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "png", params: PngBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and obtain a Buffer object
@@ -905,7 +890,7 @@ declare module "lwip" {
 		 * 
 		 * @param format Encoding format.
 		 */
-		toBuffer(format: string, callback: ImageCallback): void;
+		toBuffer(format: "gif", callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and obtain a Buffer object
@@ -915,7 +900,26 @@ declare module "lwip" {
 		 * @param format Encoding format.
 		 * @param params Format-specific parameters.
 		 */
-		toBuffer(format: string, params: JpegBufferParams | PngBufferParams | GifBufferParams, callback: ImageCallback): void;
+		toBuffer(format: "gif", params: GifBufferParams, callback: BufferCallback): void;
+
+		/**
+		 * Execute batch and obtain a Buffer object
+		 * 
+		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
+		 * 
+		 * @param format Encoding format.
+		 */
+		toBuffer(format: string, callback: BufferCallback): void;
+
+		/**
+		 * Execute batch and obtain a Buffer object
+		 * 
+		 * When opening an image, it is decoded and stored in memory as an uncompressed image. All manipulations are done on the uncompressed data in memory. This method allows to encode the image to one of the specified formats and get the encoded data as a NodeJS Buffer object.
+		 * 
+		 * @param format Encoding format.
+		 * @param params Format-specific parameters.
+		 */
+		toBuffer(format: string, params: JpegBufferParams | PngBufferParams | GifBufferParams, callback: BufferCallback): void;
 
 		/**
 		 * Execute batch and write to file

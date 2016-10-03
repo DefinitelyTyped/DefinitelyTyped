@@ -3,12 +3,31 @@
 import yaml = require('js-yaml');
 import LoadOptions = yaml.LoadOptions;
 import DumpOptions = yaml.DumpOptions;
+import TypeConstructorOptions = yaml.TypeConstructorOptions;
+import SchemaDefinition = yaml.SchemaDefinition;
 
 var bool: boolean;
 var num: number;
 var str: string;
 var obj: Object;
 var value: any;
+var array: any[];
+var fn: Function;
+var schemaDefinition: SchemaDefinition = {
+	implicit: array,
+	explicit: array,
+	include: array
+};
+var typeConstructorOptions: TypeConstructorOptions = {
+	kind: str,
+	resolve: fn,
+	construct: fn,
+	instanceOf: obj,
+	predicate: str,
+	represent: fn,
+	defaultStyle: str,
+	styleAliases: obj
+};
 
 var loadOpts: LoadOptions;
 var dumpOpts: DumpOptions;
@@ -20,6 +39,8 @@ yaml.JSON_SCHEMA;
 yaml.CORE_SCHEMA;
 yaml.DEFAULT_SAFE_SCHEMA;
 yaml.DEFAULT_FULL_SCHEMA;
+yaml.MINIMAL_SCHEMA;
+yaml.SAFE_SCHEMA;
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -82,3 +103,7 @@ value = yaml.safeDump(str, dumpOpts);
 
 value = yaml.dump(str);
 value = yaml.dump(str, dumpOpts);
+
+value = new yaml.YAMLException();
+value = new yaml.Type(str, typeConstructorOptions);
+value = yaml.Schema.create([schemaDefinition]);

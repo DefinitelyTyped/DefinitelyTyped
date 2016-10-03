@@ -1,12 +1,12 @@
 // Type definitions for chai-jquery 1.1.1
 // Project: https://github.com/chaijs/chai-jquery
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
     interface Assertion {
         attr: (name: string, value?: string) => Assertion;
@@ -17,7 +17,7 @@ declare module Chai {
         html(html: string): Assertion;
         text(text: string): Assertion;
         value(text: string): Assertion;
-        (selector: string): Assertion;
+        descendants(selector: string): Assertion;
         visible: Assertion;
         hidden: Assertion;
         selected: Assertion;

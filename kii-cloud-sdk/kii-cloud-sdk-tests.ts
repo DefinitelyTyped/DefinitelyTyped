@@ -21,6 +21,19 @@ function main() {
         .then(function (user: KiiUser) {
         });
 
+    user.pushInstallation().getMqttEndpoint("")
+        .then(function (endpoint: KiiCloud.KiiMqttEndpoint) {
+            endpoint.installationID;
+        });
+
+    user.setLocale("en");
+    var locale: string = user.getLocale();
+
+    var anotherUser: KiiUser = KiiUserBuilder
+        .builderWithIdentifier("id", "password")
+        .setEmailAddress("mail@example.org")
+        .build();
+
     var bucket = Kii.bucketWithName("foo");
     var clause1 = KiiClause.lessThan("x", 1);
     var clause2 = KiiClause.greaterThan("y", 1);
@@ -46,4 +59,41 @@ function main() {
     object.set("foo", 1);
 
     object.save();
+
+    KiiGroup.registerGroupWithID("Group ID", "Group Name", [user], {
+        success: function(theSavedGroup: KiiGroup) {
+            theSavedGroup.saveWithOwner("user ID");
+        },
+        failure: function(theGroup: KiiGroup,
+                          anErrorString: String,
+                          addMembersArray: KiiUser[],
+                          removeMembersArray: KiiUser[]) {
+        }
+    });
+
+    Kii.authenticateAsThing("thing id", "password", {
+        success: function (thingAuthContext: KiiThingContext) {
+            thingAuthContext.bucketWithName("");
+        },
+        failure: function (error) {
+        }
+    })
+        .then(function (thingAuthContext: KiiThingContext) {
+        });
+
+    Kii.authenticateAsThingWithToken("thing id", "token", {
+        success: function (thingAuthContext: KiiThingContext) {
+            thingAuthContext.bucketWithName("");
+        },
+        failure: function (error) {
+        }
+    })
+        .then(function (thingAuthContext: KiiThingContext) {
+        });
+
+    KiiThing.loadWithVendorThingID("thing ID")
+        .then(function (thing) {
+            var isOnline: boolean = thing.isOnline();
+            var onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
+        });
 }

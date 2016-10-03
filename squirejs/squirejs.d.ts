@@ -1,7 +1,7 @@
 // Type definitions for Squire 0.2.1
 // Project: https://github.com/iammerrick/Squire.js
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'Squire' {
     class Squire {
@@ -17,8 +17,8 @@ declare module 'Squire' {
         run(dependencies: string[], test: Function): (done: Function) => void;
     }
 
-    module Squire {
-        module Helpers {
+    namespace Squire {
+        namespace Helpers {
             export function returns<T>(what: T): () => T;
             export function constructs<T>(what: T): () => (() => T);
         }

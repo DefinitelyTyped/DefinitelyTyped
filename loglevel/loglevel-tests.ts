@@ -16,6 +16,11 @@ log.setLevel("error", false);
 log.setLevel(LogLevel.WARN);
 log.setLevel(LogLevel.WARN, false);
 
+log.enableAll(false);
+log.enableAll();
+log.disableAll(true);
+log.disableAll();
+
 var logLevel = log.getLevel();
 
 var testLogger = log.getLogger("TestLogger");
@@ -26,3 +31,8 @@ testLogger.warn("logging test");
 var logging = log.noConflict();
 
 logging.error("still pretty easy");
+
+log.methodFactory = function(methodName: string, level: LogLevel, loggerName :string) {
+    return function(...messages: any[]) {
+    };
+};

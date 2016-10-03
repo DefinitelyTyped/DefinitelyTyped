@@ -1,7 +1,7 @@
 // Type definitions for Sinon-Chrome v0.2.1
 // Project: https://github.com/vitalets/sinon-chrome
 // Definitions by: Tim Perry <https://github.com/pimterry>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chrome/chrome.d.ts"/>
 /// <reference path="../sinon/sinon.d.ts"/>
@@ -14,7 +14,7 @@
  * var chrome = <typeof SinonChrome> <any> window.chrome;
  * chrome.storage.onChanged.trigger(...);
  */
-declare module SinonChrome {
+declare namespace SinonChrome {
     /**
      * Flush cache
      */
@@ -30,8 +30,8 @@ declare module SinonChrome {
     export var loadTimes: Sinon.SinonSpy;
 }
 
-declare module SinonChrome.events {
-    interface Event extends chrome.events.Event {
+declare namespace SinonChrome.events {
+    interface Event extends chrome.events.Event<Function> {
         trigger(...args: any[]): void;
         triggerAsync(...args: any[]): void;
 
@@ -45,7 +45,7 @@ declare module SinonChrome.events {
     }
 }
 
-declare module SinonChrome.alarms {
+declare namespace SinonChrome.alarms {
     export var clear: Sinon.SinonSpy;
     export var clearAll: Sinon.SinonSpy;
     export var create: Sinon.SinonSpy;
@@ -54,7 +54,7 @@ declare module SinonChrome.alarms {
     export var onAlarm: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.app {
+declare namespace SinonChrome.app {
     export var getDetails: Sinon.SinonStub;
     export var getDetailsForFrame: Sinon.SinonStub;
     export var getDetails: Sinon.SinonStub;
@@ -64,7 +64,7 @@ declare module SinonChrome.app {
     export var runningState: Sinon.SinonStub;
 }
 
-declare module SinonChrome.bookmarks {
+declare namespace SinonChrome.bookmarks {
     export var create: Sinon.SinonStub;
     export var get: Sinon.SinonStub;
     export var getChildren: Sinon.SinonStub;
@@ -86,7 +86,7 @@ declare module SinonChrome.bookmarks {
     export var onRemoved: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.browserAction {
+declare namespace SinonChrome.browserAction {
     export var disable: Sinon.SinonStub;
     export var enable: Sinon.SinonStub;
     export var getBadgeBackgroundColor: Sinon.SinonStub;
@@ -102,7 +102,7 @@ declare module SinonChrome.browserAction {
     export var onClicked: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.browsingData {
+declare namespace SinonChrome.browsingData {
     export var remove: Sinon.SinonStub;
     export var removeAppcache: Sinon.SinonStub;
     export var removeCache: Sinon.SinonStub;
@@ -119,7 +119,7 @@ declare module SinonChrome.browsingData {
     export var settings: Sinon.SinonStub;
 }
 
-declare module SinonChrome.contentSettings {
+declare namespace SinonChrome.contentSettings {
     interface StubbedContentSetting {
       clear: Sinon.SinonStub;
       get: Sinon.SinonStub;
@@ -135,7 +135,7 @@ declare module SinonChrome.contentSettings {
     export var popups: StubbedContentSetting;
 }
 
-declare module SinonChrome.contextMenus {
+declare namespace SinonChrome.contextMenus {
     export var create: Sinon.SinonStub;
     export var remove: Sinon.SinonStub;
     export var removeAll: Sinon.SinonStub;
@@ -144,7 +144,7 @@ declare module SinonChrome.contextMenus {
     export var onClicked: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.omnibox {
+declare namespace SinonChrome.omnibox {
     export var setDefaultSuggestion: Sinon.SinonStub;
     export var onInputStarted: SinonChrome.events.Event;
     export var onInputChanged: SinonChrome.events.Event;
@@ -152,7 +152,7 @@ declare module SinonChrome.omnibox {
     export var onInputCancelled: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.cookies {
+declare namespace SinonChrome.cookies {
     export var get: Sinon.SinonStub;
     export var getAll: Sinon.SinonStub;
     export var getAllCookieStores: Sinon.SinonStub;
@@ -171,7 +171,7 @@ declare module "SinonChrome.debugger" {
     export var onEvent: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.declarativeContent {
+declare namespace SinonChrome.declarativeContent {
     export var PageStateMatcher: Sinon.SinonStub;
     export var RequestContentScript: Sinon.SinonStub;
     export var ShowPageAction: Sinon.SinonStub;
@@ -179,12 +179,12 @@ declare module SinonChrome.declarativeContent {
     export var onPageChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome. desktopCapture {
+declare namespace SinonChrome. desktopCapture {
     export var cancelChooseDesktopMedia: Sinon.SinonStub;
     export var chooseDesktopMedia: Sinon.SinonStub;
 }
 
-declare module SinonChrome.downloads {
+declare namespace SinonChrome.downloads {
     export var acceptDanger: Sinon.SinonStub;
     export var cancel: Sinon.SinonStub;
     export var download: Sinon.SinonStub;
@@ -206,7 +206,7 @@ declare module SinonChrome.downloads {
     export var onErased: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.extension {
+declare namespace SinonChrome.extension {
     export var connect: Sinon.SinonStub;
     export var connectNative: Sinon.SinonStub;
     export var getBackgroundPage: Sinon.SinonStub;
@@ -227,7 +227,7 @@ declare module SinonChrome.extension {
     export var onRequestExternal: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.fontSettings {
+declare namespace SinonChrome.fontSettings {
     export var clearDefaultFixedFontSize: Sinon.SinonStub;
     export var clearDefaultFontSize: Sinon.SinonStub;
     export var clearFont: Sinon.SinonStub;
@@ -248,7 +248,7 @@ declare module SinonChrome.fontSettings {
     export var onMinimumFontSizeChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.gcm {
+declare namespace SinonChrome.gcm {
     export var onMessage: SinonChrome.events.Event;
     export var onMessagesDeleted: SinonChrome.events.Event;
     export var onSendError: SinonChrome.events.Event;
@@ -258,7 +258,7 @@ declare module SinonChrome.gcm {
     export var unregister: Sinon.SinonStub;
 }
 
-declare module SinonChrome.history {
+declare namespace SinonChrome.history {
     export var addUrl: Sinon.SinonStub;
     export var deleteAll: Sinon.SinonStub;
     export var deleteRange: Sinon.SinonStub;
@@ -270,13 +270,13 @@ declare module SinonChrome.history {
     export var onVisited: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.i18n {
+declare namespace SinonChrome.i18n {
     export var getAcceptLanguages: Sinon.SinonStub;
     export var getMessage: Sinon.SinonStub;
     export var getUILanguage: Sinon.SinonStub;
 }
 
-declare module SinonChrome.identity {
+declare namespace SinonChrome.identity {
     export var getAuthToken: Sinon.SinonStub;
     export var getProfileUserInfo: Sinon.SinonStub;
     export var getRedirectURL: Sinon.SinonStub;
@@ -286,14 +286,14 @@ declare module SinonChrome.identity {
     export var onSignInChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.idle {
+declare namespace SinonChrome.idle {
     export var onStateChanged: SinonChrome.events.Event;
 
     export var queryState: Sinon.SinonStub;
     export var setDetectionInterval: Sinon.SinonStub;
 }
 
-declare module SinonChrome.management {
+declare namespace SinonChrome.management {
     export var createAppShortcut: Sinon.SinonStub;
     export var generateAppForLink: Sinon.SinonStub;
     export var get: Sinon.SinonStub;
@@ -312,7 +312,7 @@ declare module SinonChrome.management {
     export var onUninstalled: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.notifications {
+declare namespace SinonChrome.notifications {
     export var clear: Sinon.SinonStub;
     export var create: Sinon.SinonStub;
     export var getAll: Sinon.SinonStub;
@@ -326,11 +326,11 @@ declare module SinonChrome.notifications {
     export var onShowSettings: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.pageCapture {
+declare namespace SinonChrome.pageCapture {
     export var saveAsMHTML: Sinon.SinonStub;
 }
 
-declare module SinonChrome.permissions {
+declare namespace SinonChrome.permissions {
     export var contains: Sinon.SinonStub;
     export var getAll: Sinon.SinonStub;
     export var onAdded: SinonChrome.events.Event;
@@ -339,12 +339,12 @@ declare module SinonChrome.permissions {
     export var request: Sinon.SinonStub;
 }
 
-declare module SinonChrome.power {
+declare namespace SinonChrome.power {
     export var releaseKeepAwake: Sinon.SinonStub;
     export var requestKeepAwake: Sinon.SinonStub;
 }
 
-declare module SinonChrome.types {
+declare namespace SinonChrome.types {
     interface StubbedChromeSetting {
         clear: Sinon.SinonStub;
         get: Sinon.SinonStub;
@@ -354,7 +354,7 @@ declare module SinonChrome.types {
     }
 }
 
-declare module SinonChrome.privacy {
+declare namespace SinonChrome.privacy {
     export var network: {
         networkPredictionEnabled: SinonChrome.types.StubbedChromeSetting;
     };
@@ -374,17 +374,17 @@ declare module SinonChrome.privacy {
     };
 }
 
-declare module SinonChrome.proxy {
+declare namespace SinonChrome.proxy {
     export var onProxyError: SinonChrome.events.Event;
     export var settings: SinonChrome.types.StubbedChromeSetting;
 }
 
-declare module SinonChrome.pushMessaging {
+declare namespace SinonChrome.pushMessaging {
     export var getChannelId: Sinon.SinonStub;
     export var onMessage: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.runtime {
+declare namespace SinonChrome.runtime {
     export var connect: Sinon.SinonStub;
     export var connectNative: Sinon.SinonStub;
     export var getBackgroundPage: Sinon.SinonStub;
@@ -414,7 +414,7 @@ declare module SinonChrome.runtime {
     export var lastError: { message?: string };
 }
 
-declare module SinonChrome.sessions {
+declare namespace SinonChrome.sessions {
     export var getDevices: Sinon.SinonStub;
     export var getRecentlyClosed: Sinon.SinonStub;
     export var restore: Sinon.SinonStub;
@@ -422,7 +422,7 @@ declare module SinonChrome.sessions {
     export var onChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.storage {
+declare namespace SinonChrome.storage {
     interface StubbedStorageArea {
       clear: Sinon.SinonStub;
       get: Sinon.SinonStub;
@@ -438,14 +438,14 @@ declare module SinonChrome.storage {
     export var onChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.tabCapture {
+declare namespace SinonChrome.tabCapture {
     export var capture: Sinon.SinonStub;
     export var getCapturedTabs: Sinon.SinonStub;
 
     export var onStatusChanged: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.tabs {
+declare namespace SinonChrome.tabs {
     export var captureVisibleTab: Sinon.SinonStub;
     export var connect: Sinon.SinonStub;
     export var create: Sinon.SinonStub;
@@ -481,11 +481,11 @@ declare module SinonChrome.tabs {
     export var onZoomChange: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.topSites {
+declare namespace SinonChrome.topSites {
     export var get: Sinon.SinonStub;
 }
 
-declare module SinonChrome.tts {
+declare namespace SinonChrome.tts {
     export var getVoices: Sinon.SinonStub;
     export var isSpeaking: Sinon.SinonStub;
     export var pause: Sinon.SinonStub;
@@ -496,7 +496,7 @@ declare module SinonChrome.tts {
     export var onEvent: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.ttsEngine {
+declare namespace SinonChrome.ttsEngine {
     export var onPause: SinonChrome.events.Event;
     export var onResume: SinonChrome.events.Event;
     export var onSpeak: SinonChrome.events.Event;
@@ -505,7 +505,7 @@ declare module SinonChrome.ttsEngine {
     export var sendTtsEvent: Sinon.SinonStub;
 }
 
-declare module SinonChrome.webNavigation {
+declare namespace SinonChrome.webNavigation {
     export var getAllFrames: Sinon.SinonStub;
     export var getFrame: Sinon.SinonStub;
 
@@ -520,7 +520,7 @@ declare module SinonChrome.webNavigation {
     export var onTabReplaced: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.webRequest {
+declare namespace SinonChrome.webRequest {
     export var handlerBehaviorChanged: Sinon.SinonStub;
 
     export var onAuthRequired: SinonChrome.events.Event;
@@ -534,7 +534,7 @@ declare module SinonChrome.webRequest {
     export var onSendHeaders: SinonChrome.events.Event;
 }
 
-declare module SinonChrome.windows {
+declare namespace SinonChrome.windows {
     export var create: Sinon.SinonStub;
     export var get: Sinon.SinonStub;
     export var getAll: Sinon.SinonStub;
