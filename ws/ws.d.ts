@@ -96,6 +96,14 @@ declare module "ws" {
             ciphers?: string;
             rejectUnauthorized?: boolean;
         }
+
+        export interface IPerMessageDeflateOptions {
+            serverNoContextTakeover?: boolean;
+            clientNoContextTakeover?: boolean;
+            serverMaxWindowBits?: number;
+            clientMaxWindowBits?: number;
+            memLevel?: number;
+        }
         
         export interface IServerOptions {
             host?: string;
@@ -107,6 +115,7 @@ declare module "ws" {
             noServer?: boolean;
             disableHixie?: boolean;
             clientTracking?: boolean;
+            perMessageDeflate?: boolean | IPerMessageDeflateOptions;
         }
 
         export class Server extends events.EventEmitter {
