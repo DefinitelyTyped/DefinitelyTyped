@@ -210,45 +210,45 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E, F>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>, IPromise<F>]): Promise<[A, B, C, D, E, F]>;
+    export function all<A, B, C, D, E, F>(promises: [IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>, IWhenable<F>]): Promise<[A, B, C, D, E, F]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D, E>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>, IPromise<E>]): Promise<[A, B, C, D, E]>;
+    export function all<A, B, C, D, E>(promises: [IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>, IWhenable<E>]): Promise<[A, B, C, D, E]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C, D>(promises: [IPromise<A>, IPromise<B>, IPromise<C>, IPromise<D>]): Promise<[A, B, C, D]>;
+    export function all<A, B, C, D>(promises: [IWhenable<A>, IWhenable<B>, IWhenable<C>, IWhenable<D>]): Promise<[A, B, C, D]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B, C>(promises: [IPromise<A>, IPromise<B>, IPromise<C>]): Promise<[A, B, C]>;
+    export function all<A, B, C>(promises: [IWhenable<A>, IWhenable<B>, IWhenable<C>]): Promise<[A, B, C]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B>(promises: [IPromise<A>, IPromise<B>]): Promise<[A, B]>;
+    export function all<A, B>(promises: [IWhenable<A>, IWhenable<B>]): Promise<[A, B]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<T>(promises: IPromise<T>[]): Promise<T[]>;
+    export function all<T>(promises: IWhenable<T>[]): Promise<T[]>;
 
     /**
     * Returns a promise for the first of an array of promises to become settled.
     */
-    export function race<T>(promises: IPromise<T>[]): Promise<T>;
+    export function race<T>(promises: IWhenable<T>[]): Promise<T>;
 
     /**
      * Returns a promise that is fulfilled with an array of promise state snapshots, but only after all the original promises have settled, i.e. become either fulfilled or rejected.
      */
-    export function allSettled<T>(promises: IPromise<T>[]): Promise<PromiseState<T>[]>;
+    export function allSettled<T>(promises: IWhenable<T>[]): Promise<PromiseState<T>[]>;
 
-    export function allResolved<T>(promises: IPromise<T>[]): Promise<Promise<T>[]>;
+    export function allResolved<T>(promises: IWhenable<T>[]): Promise<Promise<T>[]>;
 
     /**
      * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection reason.
      * This is especially useful in conjunction with all.
      */
-    export function spread<T, U>(promises: IPromise<T>[], onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
+    export function spread<T, U>(promises: IWhenable<T>[], onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
 
     /**
      * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
@@ -346,14 +346,7 @@ declare namespace Q {
      * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
      * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
      */
-    export function resolve<T>(object: IPromise<T>): Promise<T>;
-    /**
-     * Calling resolve with a pending promise causes promise to wait on the passed promise, becoming fulfilled with its fulfillment value or rejected with its rejection reason (or staying pending forever, if the passed promise does).
-     * Calling resolve with a rejected promise causes promise to be rejected with the passed promise's rejection reason.
-     * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
-     * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
-     */
-    export function resolve<T>(object: T): Promise<T>;
+    export function resolve<T>(object: IWhenable<T>): Promise<T>;
 
 	/**
 	 * Resets the global "Q" variable to the value it has before Q was loaded.
