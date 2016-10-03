@@ -182,7 +182,7 @@ declare namespace jasmine {
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
         throwOnExpectationFailure(value: boolean): void;
-        seed(seed: string): string;
+        seed(seed: string | number): string | number;
         provideFallbackReporter(reporter: Reporter): void;
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
