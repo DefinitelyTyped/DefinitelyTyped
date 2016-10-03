@@ -903,12 +903,12 @@ declare namespace DataTables {
         */
         data(d: any[] | Object): DataTable;
         
-		/**
-		* Get the id of the selected row.
-		*
-		* @param hash	Set to true to append a hash (#) to the start of the row id.
-		*/
-		id(hash?: boolean): string;
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
+        */
+        id(hash?: boolean): string;
 
         /**
         * Get the row index of the row column.
