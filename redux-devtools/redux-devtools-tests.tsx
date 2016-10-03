@@ -2,7 +2,7 @@
 /// <reference types="redux" />
 
 import * as React from 'react'
-import { createStore, compose, Reducer, Store } from 'redux'
+import { compose, createStore, Reducer, Store } from 'redux'
 import { Provider } from 'react-redux'
 import { createDevTools, persistState } from 'redux-devtools'
 
