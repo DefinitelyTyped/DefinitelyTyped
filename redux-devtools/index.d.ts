@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="react" />
+/// <reference types="redux" />
 
 
   export interface IDevTools {
@@ -12,7 +13,7 @@
   }
 
 export declare function createDevTools(el: React.ReactElement<any>): IDevTools;
-export declare function persistState(debugSessionKey: string): Function;
+export declare function persistState(debugSessionKey: string): GenericStoreEnhancer;
 
   var factory: { instrument(): (opts: any) => any }
 
