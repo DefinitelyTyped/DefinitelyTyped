@@ -9,8 +9,8 @@
 
 import stream = require('stream');
 
-type TransfofmCallback = (err?: any, data?: any) => void;
-type TransformFunction = (chunk: any, enc: string, callback: TransfofmCallback) => void;
+type TransformCallback = (err?: any, data?: any) => void;
+type TransformFunction = (chunk: any, enc: string, callback: TransformCallback) => void;
 type FlashCallback = (flushCallback: () => void) => void;
 
 declare function through2(transform?: TransformFunction, flush?: FlashCallback): NodeJS.ReadWriteStream;
