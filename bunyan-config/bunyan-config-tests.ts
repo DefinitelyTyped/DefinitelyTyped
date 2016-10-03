@@ -1,7 +1,7 @@
 /// <reference path="bunyan-config.d.ts"/>
 
 import * as bunyan from "bunyan";
-import bunyanConfig from "bunyan-config";
+import bunyanConfig = require("bunyan-config");
 
 var jsonConfig = {
     name: "myLogger",

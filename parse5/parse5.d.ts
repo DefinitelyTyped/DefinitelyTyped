@@ -56,6 +56,7 @@ declare module 'parse5' {
     export interface ASTNode {
         attrs: ASTAttribute[];
         childNodes?: ASTNode[];
+        data?: string;
         namespaceURI?: string;
         parentNode?: ASTNode;
         nodeName: string;

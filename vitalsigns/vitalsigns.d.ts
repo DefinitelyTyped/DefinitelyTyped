@@ -3,7 +3,11 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference path="../express/express.d.ts"/>
+
 declare module "vitalsigns" {
+    import { RequestHandler } from "express";
+
     namespace vitalsigns {
         /**
          * Contraint.
@@ -149,6 +153,12 @@ declare module "vitalsigns" {
         destroy(): void;
 
         /**
+         * Gets a request handler.
+         * @type {RequestHandler}
+         */
+        express: RequestHandler;
+
+        /**
          * Retrieves an array of human-readable messages that define the specific health constraints that failed when running the last health check.
          * @returns {Array<string>} An array of failure messages.
          */
@@ -160,7 +170,7 @@ declare module "vitalsigns" {
          * @param {ReportOptions} [options] A mapping of options to customize this report.
          * @return {Object} The full health report.
          */
-        getReport(options?: vitalsigns.ReportOptions): Object;
+        getReport(options?: vitalsigns.ReportOptions): {};
 
         /**
          * Generates a health report and checks each health constraint against it. Any constraints that fail will be added to the 'failed' array in the form of
@@ -168,14 +178,14 @@ declare module "vitalsigns" {
          * @param {Object} [report] A report object on which to run the health constraints. If omitted, this function will generate a health report automatically.
          * @return {boolean} true if all health constraints passed; false otherwise.
          */
-        isHealthy(report?: Object): boolean;
+        isHealthy(report?: {}): boolean;
 
         /**
          * Registers monitor.
          * @param {string} monitorName A monitor name.
          * @param {MonitorField} [field] Options.
          */
-        monitor(monitor: string | vitalsigns.Monitor | Object, field?: vitalsigns.MonitorField): void;
+        monitor(monitor: string | vitalsigns.Monitor | {}, field?: vitalsigns.MonitorField): void;
 
         /**
          * Defines a new health constraint in a chainable, more easily readable format.
