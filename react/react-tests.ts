@@ -214,8 +214,8 @@ var component: ModernComponent =
 var componentNullContainer: ModernComponent =
     ReactDOM.render(element, null);
 
-var componentElementOrNull: ModernComponent = 
-    ReactDOM.render(element, document.getElementById("anelement"));    
+var componentElementOrNull: ModernComponent =
+    ReactDOM.render(element, document.getElementById("anelement"));
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
 var componentNoStateElementOrNull: ModernComponentNoState =
@@ -623,4 +623,18 @@ let newObj2 = update(obj, {b: {$set: obj.b * 2}});
 
 let objShallow = {a: 5, b: 3};
 let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}
+
+//
+// React Component classes super spread arguments
+// --------------------------------------------------------------------------
+class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
+}
+class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
 }
