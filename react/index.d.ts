@@ -2081,6 +2081,7 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        fillRule?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
@@ -2090,6 +2091,7 @@ declare namespace React {
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
+        mask?: string;
         offset?: number | string;
         opacity?: number | string;
         patternContentUnits?: string;
