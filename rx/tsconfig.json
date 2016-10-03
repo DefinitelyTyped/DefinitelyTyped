@@ -14,6 +14,26 @@
     },
     "files": [
         "index.d.ts",
-        "rx-lite-tests.ts"
+        "rx-lite-tests.ts",
+        "rx-lite.d.ts",
+        "rx.aggregates.d.ts",
+        "rx.all.d.ts",
+        "rx.async-lite.d.ts",
+        "rx.async-tests.ts",
+        "rx.async.d.ts",
+        "rx.backpressure-lite.d.ts",
+        "rx.backpressure-tests.ts",
+        "rx.backpressure.d.ts",
+        "rx.binding-lite.d",
+        "rx.binding.d.ts",
+        "rx.conincidence-lite.d.ts",
+        "rx.conincidence.d.ts",
+        "rx.experimental.d.ts",
+        "rx.joinpatterns.d.ts",
+        "rx.lite.d.ts",
+        "rx.testing.d.ts",
+        "rx.time-lite.d.ts",
+        "rx.time.d.ts",
+        "rx.virtualtime.d.ts"
     ]
 }
