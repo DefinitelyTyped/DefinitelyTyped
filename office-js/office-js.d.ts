@@ -76,10 +76,6 @@ declare namespace Office {
         */
         displayDialogAsync(startAddress: string, options?: DialogOptions, callback?: (result: AsyncResult) => void): void;
         /**
-         * When called from an active add-in dialog, asynchronously closes the dialog.
-         */
-        close(): void;
-        /**
          * Synchronously delivers a message from the dialog to its parent add-in.
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
@@ -95,13 +91,24 @@ declare namespace Office {
          */
         width?: number,
         /**
-         * Optional. Specifies whether the dialog can only display pages that have HTTPS URLs.
-         */
-        requireHTTPS?: boolean,
-        /**
          * Optional. Determines whether the dialog is safe to display within a Web frame.
          */
         xFrameDenySafe?: boolean,
+    }
+
+    /**
+     * Dialog object returned as part of the displayDialogAsync callback. The object exposes methods for registering event handlers and closing the dialog
+     */
+    export interface DialogHandler {
+        /**
+         * When called from an active add-in dialog, asynchronously closes the dialog.
+         */
+        close(): void;
+        /**
+         * Adds an event handler for DialogMessageReceived or DialogEventReceived
+         */
+        addEventHandler(eventType: Office.EventType, handler: Function): void;
+
     }
 }
 
@@ -130,7 +137,7 @@ declare module OfficeExtension {
         load(object: ClientObject, option?: string | string[] | LoadOption): void;
         /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
         trace(message: string): void;
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
+        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
         sync<T>(passThroughValue?: T): IPromise<T>;
     }
 }
@@ -258,7 +265,7 @@ declare module OfficeExtension {
         /**
          * Creates a new promise based on a function that accepts resolve and reject handlers.
          */
-        constructor(func: (resolve : (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
+        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
 
         /**
          * Creates a promise that resolves when all of the child promises resolve.
@@ -462,6 +469,14 @@ declare namespace Office {
          *  Triggers when a binding level selection happens
          */
         BindingSelectionChanged,
+        /**
+         * Triggers when Dialog sends a message via MessageParent.
+         */
+        DialogMessageReceived,
+        /**
+         * Triggers when Dialog has a event, such as dialog closed, dialog navigation failed.
+         */
+        DialogEventReceived,
         /**
          * Triggers when a document level selection happens
          */
