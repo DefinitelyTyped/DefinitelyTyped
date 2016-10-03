@@ -27,5 +27,5 @@ declare module "bunyan-config" {
      * @return {LoggerOptions} A logger options.
      */
     function bunyanConfig(jsonConfig?: Configuration): bunyan.LoggerOptions;
-    export default bunyanConfig;
+    export = bunyanConfig;
 }
