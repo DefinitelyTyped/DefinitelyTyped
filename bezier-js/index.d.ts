@@ -200,3 +200,7 @@ declare namespace BezierJs {
         offset(d: number): PolyBezier;
     }
 }
+
+declare module "bezier-js" {
+  export = BezierJs;
+}
