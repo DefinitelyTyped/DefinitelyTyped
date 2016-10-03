@@ -1,6 +1,6 @@
 // Type definitions for KineticJS
 // Project: http://kineticjs.com/
-// Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>
+// Definitions by: Basarat Ali Syed <http://www.github.com/basarat>, Ralph de Ruijter <http://www.superdopey.nl/techblog/>, Todd Dukart <http://www.github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Kinetic {
@@ -113,7 +113,7 @@ declare namespace Kinetic {
     }
 
     var Container: {
-        new (config: any): IContainer;
+        new (config: ContainerConfig): IContainer;
     }
 
     interface IContainer extends INode {
@@ -182,7 +182,7 @@ declare namespace Kinetic {
     }
 
     var Shape: {
-        new (config: any): IShape;
+        new (config: ShapeConfig): IShape;
     }
 
     interface IShape extends INode {
@@ -276,6 +276,7 @@ declare namespace Kinetic {
         setHeight(height: number): any;
         setImage(image: IImage): any;
         setWidth(width: number): any;
+        position(x?, y?):any;
     }
 
     var Line: {
@@ -411,6 +412,21 @@ declare namespace Kinetic {
         height: number;
     }
 
+    interface ContainerConfig extends ObjectOptionsConfig {
+        clip: ClipConfig;
+        clipX: number;
+        clipY: number;
+        clipWidth: number;
+        clipHeight: number;
+    }
+
+    interface ClipConfig {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    }
+
     interface StageConfig extends ObjectOptionsConfig {
         container: string;
         width: number;
@@ -422,6 +438,39 @@ declare namespace Kinetic {
     }
 
     //shape configs class
+    interface ShapeConfig extends DrawOptionsConfig, ObjectOptionsConfig {
+        fill?: string;
+        fillRed?: number;
+        fillGreen?: number;
+        fillBlue?: number;
+        fillAlpha?: number;
+        fillPatternImage?: any; //Image
+        fillPatternX?: number;
+        fillPatternY?: number;
+        fillPatternScale?: Vector2d;
+        fillPatternScaleX?: number;
+        fillPatternScaleY?: number;
+        fillPatternRotation?: number;
+        fillPatternRepeat?: string;
+        fillLinearGradientStartPoint?: Vector2d;
+        fillLinearGradientStartPointX?: number;
+        fillLinearGradientStartPointY?: number;
+        fillLinearGradientEndPoint?: Vector2d;
+        fillLinearGradientEndPointX?: number;
+        fillLinearGradientEndPointY?: number;
+        fillRadialGradientStartPoint?: Vector2d;
+        fillRadialGradientStartPointX?: number;
+        fillRadialGradientStartPointY?: number;
+        fillRadialGradientEndPoint?: Vector2d;
+        fillRadialGradientEndPointX?: number;
+        fillRadialGradientEndPointY?: number;
+        fillRadialGradientStartRadius?: number;
+        fillRadialGradientEndRadius?: number;
+        fillRadialGradientColorSops?: Array<any>; //color stops
+        fillEnabled?: boolean;
+        fillPriority?: string;
+    }
+
     interface RectConfig extends DrawOptionsConfig, ObjectOptionsConfig {
         width?: number;
         height?: number;
@@ -490,9 +539,29 @@ declare namespace Kinetic {
     interface DrawOptionsConfig {
         fill?: string;
         stroke?: string;
+        strokeRed?: number;
+        strokeGreen?: number;
+        strokeBlue?: number;
+        strokeAlpha?: number;
         strokeWidth?: number;
+        strokeScaleEnabled?: boolean;
+        strokeEnabled?: boolean;
         lineJoin?: string;
+        lineCap?: string;
         shadow?: any;
+        shadowColor?: string;
+        shadowRed?: number;
+        shadowGreen?: number;
+        shadowBlue?: number;
+        shadowAlpha?: number;
+        shadowBlur?: number;
+        shadowOffset?: Vector2d;
+        shadowOffsetX?: number;
+        shadowOffsetY?: number;
+        shadowEnabled?: boolean;
+        dash?: Array<any>;
+        dashEnabled?: boolean;
+        drawFunc?: (context: ICanvas) => void;
     }
 
     interface Vector2d {
@@ -509,12 +578,16 @@ declare namespace Kinetic {
         name?: string;
         opacity?: any;
         scale?: Vector2d;
+        scaleX?: number;
+        scaleY?: number;
         rotation?: number;
-        rotationDeg?: number;
         offset?: Vector2d;
+        offsetX?: number;
+        offsetY?: number;
         draggable?: boolean;
-        dragConstraint?: string;
-        dragBounds?: any;
+        //dragConstraint?: string;
+        dragDistance?: number;
+        //dragBounds?: any;
         dragBoundFunc?: (pos: Vector2d) => Vector2d;
         width?: number;
         height?: number;
@@ -523,5 +596,33 @@ declare namespace Kinetic {
     interface ISize {
         width: number;
         height: number;
+    }
+
+    var Tween:{
+        new (config:TweenConfig): ITween;
+    }
+    interface ITween {
+        play():any
+    }
+    interface TweenConfig {
+    }
+
+    var Easings:{
+        BackEaseIn(t:number, b:number, c:number, d:number):number;
+        BackEaseOut(t:number, b:number, c:number, d:number):number;
+        BackEaseInOut(t:number, b:number, c:number, d:number):number;
+        ElasticEaseIn(t:number, b:number, c:number, d:number):number;
+        ElasticEaseOut(t:number, b:number, c:number, d:number):number;
+        ElasticEaseInOut(t:number, b:number, c:number, d:number):number;
+        BounceEaseIn(t:number, b:number, c:number, d:number):number;
+        BounceEaseOut(t:number, b:number, c:number, d:number):number;
+        BounceEaseInOut(t:number, b:number, c:number, d:number):number;
+        EaseIn(t:number, b:number, c:number, d:number):number;
+        EaseOut(t:number, b:number, c:number, d:number):number;
+        EaseInOut(t:number, b:number, c:number, d:number):number;
+        StrongEaseIn(t:number, b:number, c:number, d:number):number;
+        StrongEaseOut(t:number, b:number, c:number, d:number):number;
+        StrongEaseInOut(t:number, b:number, c:number, d:number):number;
+        Linear(t:number, b:number, c:number, d:number):number;
     }
 }
