@@ -1,4 +1,4 @@
-// Type definitions for Jasmine 2.2
+// Type definitions for Jasmine 2.4.1
 // Project: http://jasmine.github.io/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -180,6 +180,9 @@ declare namespace jasmine {
         addMatchers(matchers: CustomMatcherFactories): void;
         specFilter(spec: Spec): boolean;
         throwOnExpectationFailure(value: boolean): void;
+        seed: (s: number) => number;
+        randomTests: () => boolean;
+        randomizeTests: (b: boolean) => void;
     }
 
     interface FakeTimer {
