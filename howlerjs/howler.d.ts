@@ -27,7 +27,7 @@ interface IHowlProperties {
     format?: string;
     loop?: boolean;
     sprite?: IHowlSoundSpriteDefinition;
-    src?: string;
+    src?: string|string[];
     pos3d?: HowlPos3d;
     volume?: number;
     urls?: string[];
