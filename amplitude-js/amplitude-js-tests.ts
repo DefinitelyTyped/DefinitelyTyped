@@ -1,7 +1,5 @@
 // Tests for Amplitude SDK TypeScript definitions
 
-/// <reference path="amplitude-js.d.ts" />
-
 module Amplitude.Tests {
     function all() {
         amplitude.init('YOUR_API_KEY_HERE', null, {
