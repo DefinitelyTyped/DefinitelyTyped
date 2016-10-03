@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.1
+// Type definitions for Electron v1.4.2
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,6 +40,17 @@ declare namespace Electron {
 		y: number;
 		width: number;
 		height: number;
+	}
+
+	interface Destroyable {
+		/**
+		 * Destroys the object.
+		 */
+		destroy(): void;
+		/**
+		 * @returns Whether the object is destroyed.
+		 */
+		isDestroyed(): boolean;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/app.md
@@ -740,7 +751,7 @@ declare namespace Electron {
 	 * The BrowserWindow class gives you ability to create a browser window.
 	 * You can also create a window without chrome by using Frameless Window API.
 	 */
-	class BrowserWindow extends EventEmitter {
+	class BrowserWindow extends EventEmitter implements Destroyable {
 		/**
 		 * Emitted when the document changed its title,
 		 * calling event.preventDefault() would prevent the native window’s title to change.
@@ -1104,7 +1115,7 @@ declare namespace Electron {
 		 * setting this, the window is still a normal window, not a toolbox window
 		 * which can not be focused on.
 		 */
-		setAlwaysOnTop(flag: boolean): void;
+		setAlwaysOnTop(flag: boolean, level?: WindowLevel): void;
 		/**
 		 * @returns Whether the window is always on top of other windows.
 		 */
@@ -1357,8 +1368,8 @@ declare namespace Electron {
 		getChildWindows(): BrowserWindow[];
 	}
 
+	type WindowLevel = 'normal' | 'floating' | 'torn-off-menu' | 'modal-panel' | 'main-menu' | 'status' | 'pop-up-menu' | 'screen-saver' | 'dock';
 	type SwipeDirection = 'up' | 'right' | 'down' | 'left';
-
 	type ThumbarButtonFlags = 'enabled' | 'disabled' | 'dismissonclick' | 'nobackground' | 'hidden' | 'noninteractive';
 
 	interface ThumbarButton {
@@ -1538,6 +1549,11 @@ declare namespace Electron {
 		 * Default: false.
 		 */
 		offscreen?: boolean;
+		/**
+		 * Whether to enable Chromium OS-level sandbox.
+		 * Default: false.
+		 */
+		sandbox?: boolean;
 	}
 
 	interface BrowserWindowOptions {
@@ -2627,7 +2643,7 @@ declare namespace Electron {
 		 */
 		getBitmap(): Buffer;
 		/**
-		 * @returns string The data URL of the image.
+		 * @returns The data URL of the image.
 		 */
 		toDataURL(): string;
 		/**
@@ -2637,11 +2653,11 @@ declare namespace Electron {
 		 */
 		getNativeHandle(): Buffer;
 		/**
-		 * @returns boolean Whether the image is empty.
+		 * @returns Whether the image is empty.
 		 */
 		isEmpty(): boolean;
 		/**
-		 * @returns {} The size of the image.
+		 * @returns The size of the image.
 		 */
 		getSize(): Size;
 		/**
@@ -2689,7 +2705,7 @@ declare namespace Electron {
 	interface PowerSaveBlocker {
 		/**
 		 * Starts preventing the system from entering lower-power mode.
-		 * @returns an integer identifying the power save blocker.
+		 * @returns The blocker ID that is assigned to this power blocker.
 		 * Note: prevent-display-sleep has higher has precedence over prevent-app-suspension.
 		 */
 		start(type: 'prevent-app-suspension' | 'prevent-display-sleep'): number;
@@ -2700,7 +2716,7 @@ declare namespace Electron {
 		stop(id: number): void;
 		/**
 		 * @param id The power save blocker id returned by powerSaveBlocker.start.
-		 * @returns a boolean whether the corresponding powerSaveBlocker has started.
+		 * @returns Whether the corresponding powerSaveBlocker has started.
 		 */
 		isStarted(id: number): boolean;
 	}
@@ -3137,6 +3153,11 @@ declare namespace Electron {
 
 	interface Cookie {
 		/**
+		 * Emitted when a cookie is changed because it was added, edited, removed, or expired.
+		 */
+		on(event: 'changed', listener: (event: Event, cookie: Cookie, cause: CookieChangedCause) => void): this;
+		on(event: string, listener: Function): this;
+		/**
 		 * The name of the cookie.
 		 */
 		name: string;
@@ -3174,6 +3195,8 @@ declare namespace Electron {
 		 */
 		expirationDate?: number;
 	}
+
+	type CookieChangedCause = 'explicit' | 'overwrite' | 'expired' | 'evicted' | 'expired-overwrite';
 
 	interface CookieDetails {
 		/**
@@ -3525,13 +3548,13 @@ declare namespace Electron {
 		on(event: 'accent-color-changed', listener: (event: Event, newColor: string) => void): this;
 		on(event: string, listener: Function): this;
 		/**
-		 * @returns If the system is in Dark Mode.
+		 * @returns Whether the system is in Dark Mode.
 		 *
 		 * Note: This is only implemented on macOS.
 		 */
 		isDarkMode(): boolean;
 		/**
-		 * @returns If the Swipe between pages setting is on.
+		 * @returns Whether the Swipe between pages setting is on.
 		 *
 		 * Note: This is only implemented on macOS.
 		 */
@@ -3596,7 +3619,7 @@ declare namespace Electron {
 	/**
 	 * A Tray represents an icon in an operating system's notification area.
 	 */
-	interface Tray extends NodeJS.EventEmitter {
+	class Tray extends EventEmitter implements Destroyable {
 		/**
 		 * Emitted when the tray icon is clicked.
 		 * Note: The bounds payload is only implemented on macOS and Windows.
@@ -3661,7 +3684,7 @@ declare namespace Electron {
 		/**
 		 * Creates a new tray icon associated with the image.
 		 */
-		new(image: NativeImage|string): Tray;
+		constructor(image: NativeImage|string);
 		/**
 		 * Destroys the tray icon immediately.
 		 */
@@ -3712,6 +3735,10 @@ declare namespace Electron {
 		 * @returns The bounds of this tray icon.
 		 */
 		getBounds(): Rectangle;
+		/**
+		 * @returns Whether the tray icon is destroyed.
+		 */
+		isDestroyed(): boolean;
 	}
 
 	interface Modifiers {
@@ -5465,7 +5492,7 @@ declare namespace Electron {
 		screen: Electron.Screen;
 		session: typeof Electron.Session;
 		systemPreferences: Electron.SystemPreferences;
-		Tray: Electron.Tray;
+		Tray: typeof Electron.Tray;
 		webContents: Electron.WebContentsStatic;
 	}
 
