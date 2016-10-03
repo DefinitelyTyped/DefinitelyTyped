@@ -1,132 +1,157 @@
-
-
-import { createHistory, createLocation, useBeforeUnload, useQueries, useBasename } from 'history'
-import { getUserConfirmation } from 'history/lib/DOMUtils'
-
-interface Promise<T> {
-    then<TResult>(onfulfilled?: (value: T) => TResult): Promise<TResult>;
-}
-
-let doSomethingAsync: () => Promise<Function>;
-let input = { value: "" };
+import createHistory from 'history/createBrowserHistory'
+import { createBrowserHistory, createHashHistory, createMemoryHistory } from 'history'
 
 {
-    let history = createHistory()
+  const history = createHistory()
 
-    // Listen for changes to the current location. The
-    // listener is called once immediately.
-    let unlisten = history.listen(function(location) {
-        console.log(location.pathname)
-    })
+  // Get the current location.
+  const location = history.location
 
-    // When you're finished, stop the listener.
-    unlisten()
+  // Listen for changes to the current location.
+  const unlisten = history.listen((location, action) => {
+    // location is an object like window.location
+    console.log(action, location.pathname, location.state)
+  })
 
-    // Push a new entry onto the history stack.
-    history.push('/home')
+  // Use push, replace, and go to navigate around.
+  history.push('/home', { some: 'state' })
 
-    // Replace the current entry on the history stack.
-    history.replace('/profile')
-
-    // Push a new entry with state onto the history stack.
-    history.push({
-        pathname: '/about',
-        search: '?the=search',
-        state: { some: 'state' }
-    });
-
-    // Change just the search on an existing location.
-    //history.push({ ...location, search: '?the=other+search' })
-
-    // Go back to the previous history entry. The following
-    // two lines are synonymous.
-    history.go(-1)
-    history.goBack()
-
-    let href = history.createHref('/the/path')
+  // To stop listening, call the function returned from listen().
+  unlisten()
 }
 
 {
-    let history = createHistory()
+  createBrowserHistory({
+    basename: '',             // The base URL of the app (see below)
+    forceRefresh: false,      // Set true to force full page refreshes
+    keyLength: 6,             // The length of location.key
+    // A function to use to confirm navigation with the user (see below)
+    getUserConfirmation: (message, callback) => callback(window.confirm(message))
+  })
 
-    // Pushing a path string.
-    history.push('/the/path')
+  createMemoryHistory({
+    initialEntries: [ '/' ],  // The initial URLs in the history stack
+    initialIndex: 0,          // The starting index in the history stack
+    keyLength: 6,             // The length of location.key
+    // A function to use to confirm navigation with the user. Required
+    // if you return string prompts from transition hooks (see below)
+    getUserConfirmation: undefined
+  })
 
-    // Omitting location state when pushing a location descriptor.
-    history.push({ pathname: '/the/path', search: '?the=search' })
-
-    // Extending an existing location object.
-    //history.push({ ...location, search: '?other=search' })
-
-    let location = createLocation('/a/path?a=query', { the: 'state' })
-
-    location = history.createLocation('/a/path?a=query', { the: 'state' })
+  createHashHistory({
+    basename: '',             // The base URL of the app (see below)
+    hashType: 'slash',        // The hash type to use (see below)
+    // A function to use to confirm navigation with the user (see below)
+    getUserConfirmation: (message, callback) => callback(window.confirm(message))
+  })
 }
 
 {
-    let history = createHistory()
-    history.listenBefore(function(location) {
-        if (input.value !== '')
-            return 'Are you sure you want to leave this page?'
-    })
+  const history = createHistory()
 
-    history.listenBefore(function(location, callback) {
-        doSomethingAsync().then(callback)
-    })
+  history.listen((location, action) => {
+    console.log(`The current URL is ${location.pathname}${location.search}${location.hash}`)
+    console.log(`The last navigation action was ${action}`)
+  })
 }
 
 {
-    let history = createHistory({
-        getUserConfirmation(message, callback) {
-            callback(window.confirm(message)) // The default behavior
-        }
-    })
+  const history = createHistory()
+
+  // Push a new entry onto the history stack.
+  history.push('/home')
+
+  // Push a new entry onto the history stack with a query string
+  // and some state. Location state does not appear in the URL.
+  history.push('/home?the=query', { some: 'state' })
+
+  // If you prefer, use a single location-like object to specify both
+  // the URL and state. This is equivalent to the example above.
+  history.push({
+    pathname: '/home',
+    search: '?the=query',
+    state: { some: 'state' }
+  })
+
+  // Go back to the previous history entry. The following
+  // two lines are synonymous.
+  history.go(-1)
+  history.goBack()
 }
 
 {
-    let history = useBeforeUnload(createHistory)()
+  const history = createHistory()
+  const input = { value: '' }
 
-    history.listenBeforeUnload(function() {
-        return 'Are you sure you want to leave this page?'
-    })
+  // Register a simple prompt message that will be shown the
+  // user before they navigate away from the current page.
+  const unblock = history.block('Are you sure you want to leave this page?')
+
+  // Or use a function that returns the message when it's needed.
+  history.block((location, action) => {
+    // The location and action arguments indicate the location
+    // we're transitioning to and how we're getting there.
+
+    // A common use case is to prevent the user from leaving the
+    // page if there's a form they haven't submitted yet.
+    if (input.value !== '')
+      return 'Are you sure you want to leave this page?'
+  })
+
+  // To stop blocking transitions, call the function returned from block().
+  unblock()
 }
 
 {
-    let history = useQueries(createHistory)()
-
-    history.listen(function(location) {
-        console.log(location.query)
-    })
+  const history = createHistory({
+    getUserConfirmation(message, callback) {
+      // Show some custom dialog to the user and call
+      // callback(true) to continue the transiton, or
+      // callback(false) to abort it.
+      callback(true)
+      callback(false)
+    }
+  })
 }
 
 {
-    let history = useQueries(createHistory)({
-        parseQueryString: function(queryString) {
-            // TODO: return a parsed version of queryString
-            return {};
-        },
-        stringifyQuery: function(query) {
-            // TODO: return a query string created from query
-            return "";
-        }
-    })
+  const history = createHistory({
+    basename: '/the/base'
+  })
 
-    history.createPath({ pathname: '/the/path', query: { the: 'query' } })
-    history.push({ pathname: '/the/path', query: { the: 'query' } })
+  history.listen(location => {
+    console.log(location.pathname) // /home
+  })
+
+  history.push('/home') // URL is now /the/base/home
 }
 
 {
-    // Run our app under the /base URL.
-    let history = useBasename(createHistory)({
-        basename: '/base'
-    })
+  const history = createBrowserHistory({
+    forceRefresh: true
+  })
+}
 
-    // At the /base/hello/world URL:
-    history.listen(function(location) {
-        console.log(location.pathname) // /hello/world
-        console.log(location.basename) // /base
-    })
+{
+  const history = createHashHistory({
+    hashType: 'slash' // the default
+  })
 
-    history.createPath('/the/path') // /base/the/path
-    history.push('/the/path') // push /base/the/path
+  history.push('/home') // window.location.hash is #/home
+}
+
+{
+  const history = createHashHistory({
+    hashType: 'noslash' // Omit the leading slash
+  })
+
+  history.push('/home') // window.location.hash is #home
+}
+
+{
+  const history = createHashHistory({
+    hashType: 'hashbang' // Google's legacy AJAX URL format
+  })
+
+  history.push('/home') // window.location.hash is #!/home
 }
