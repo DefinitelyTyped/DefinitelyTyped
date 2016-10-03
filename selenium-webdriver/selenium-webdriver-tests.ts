@@ -242,7 +242,7 @@ function TestBrowser() {
 }
 
 function TestButton() {
-    var button: number;
+    var button: string;
 
     button = webdriver.Button.LEFT;
     button = webdriver.Button.MIDDLE;
@@ -457,7 +457,7 @@ function TestEventEmitter() {
 }
 
 function TestKey() {
-    var key: webdriver.Key;
+    var key: string;
 
     key = webdriver.Key.ADD;
     key = webdriver.Key.ALT;
@@ -852,7 +852,7 @@ function TestLogging() {
     var name: string = level.name();
     var value: number = level.value();
 
-    var type: webdriver.logging.Type;
+    var type: string;
     type = webdriver.logging.Type.BROWSER;
     type = webdriver.logging.Type.CLIENT;
     type = webdriver.logging.Type.DRIVER;
