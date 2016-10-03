@@ -1,73 +1,69 @@
-// Type definitions for howler.js v1.1.29
+// Type definitions for howler.js v2.0.0
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments/>
+// Definitions by: Pedro Casaubon <https://github.com/xperiments/>, Todd Dukart <https://github.com/tdukart/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class HowlerGlobal {
-    mute(muted: boolean): HowlerGlobal;
-    volume(): number;
-    volume(volume: number): HowlerGlobal;
-    codecs(extension: string): boolean;
-    iOSAutoEnable: boolean;
+interface HowlerGlobal {
+    mute(muted: boolean): void;
+    volume(volume?: number): number;
+    codecs(ext: string): boolean;
+    unload(): void;
+    usingWebAudio: boolean;
+    noAudio: boolean;
+    mobileAudioEnable: boolean;
+    autoSuspend: boolean;
+    ctx: boolean;
+    masterGain: boolean;
 }
 
-declare var Howler: HowlerGlobal;
+declare let Howler: HowlerGlobal;
 
 interface IHowlSoundSpriteDefinition {
-    [name: string]: number[];
+    [name: string]: [number, number]|[number, number, boolean]
 }
 
-declare type HowlPos3d = [number, number, number]|[number, number, number, number];
-
 interface IHowlProperties {
-    autoplay?: boolean;
-    buffer?: boolean;
-    duration?: number;
-    format?: string;
-    loop?: boolean;
-    sprite?: IHowlSoundSpriteDefinition;
-    src?: string;
-    pos3d?: HowlPos3d;
+    src: string|string[];
     volume?: number;
-    urls?: string[];
+    html5?: boolean;
+    loop?: boolean;
+    preload?: boolean;
+    autoplay?: boolean;
+    mute?: boolean;
+    sprite?: IHowlSoundSpriteDefinition;
     rate?: number;
-    model?: 'equalpower'|'HRTF';
-    onend?: Function;
+    pool?: number;
+    format?: string[];
     onload?: Function;
     onloaderror?: Function;
-    onpause?: Function;
     onplay?: Function;
+    onend?: Function;
+    onpause?: Function;
+    onstop?: Function;
+    onmute?: Function;
+    onvolume?: Function;
+    onrate?: Function;
+    onseek?: Function;
+    onfade?: Function;
 }
 
 interface Howl {
-    autoplay: Boolean;
-    buffer: Boolean;
-    format: string;
-    rate: number;
-    model: string;
-    onend: Function;
-    onload: Function;
-    onloaderror: Function;
-    onpause: Function;
-    onplay: Function;
-    load(): Howl;
-    play(sprite?: string, callback?: (soundId: string) => void): Howl;
-    play(callback?: (soundId: string) => void): Howl;
-    pause(soundId?: string): Howl;
-    stop(soundId?: string): Howl;
-    mute(muted?: boolean, soundId?: string): Howl;
-    fade(from: number, to: number, duration: number, callback?: Function, soundId?: string): Howl;
-    loop(): boolean;
-    loop(loop: boolean): Howl;
-    pos(position?: number, soundId?: string): number;
-    pos3d(x: number, y: number, z: number, soundId?: string): any;
-    sprite(definition?: IHowlSoundSpriteDefinition): IHowlSoundSpriteDefinition;
-    volume(): number;
-    volume(volume?: number, soundId?: string): Howl;
-    urls(): string[];
-    urls(urls: string[]): Howl;
-    on(event: string, listener?: Function): Howl;
-    off(event: string, listener?: Function): Howl;
+    play(spriteOrId?: string|number): number; // .play() is not chainable; the other methods are
+    pause(id?: number): Howl;
+    stop(id?: number): Howl;
+    mute(muted?: boolean, id?: number): Howl;
+    volume(volume?: number, id?: number): Howl;
+    fade(from: number, to: number, duration: number, id?: number): Howl;
+    rate(rate?: number, id?: number): Howl;
+    seek(seek?: number, id?: number): Howl;
+    loop(loop?: boolean, id?: number): Howl;
+    state(): string;
+    playing(id?: number): boolean;
+    duration(id?: number): number;
+    on(event: string, callback: Function, id?: number): Howl;
+    once(event: string, callback: Function, id?: number): Howl;
+    off(event: string, callback?: Function, id?: number): Howl;
+    load(): void;
     unload(): void;
 }
 
