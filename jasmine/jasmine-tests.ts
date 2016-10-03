@@ -904,6 +904,23 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     });
 });
 
+describe("Randomize Tests", function() {
+	it("should allow randomization of the order of tests", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			return env.randomizeTests(true);
+		}).not.toThrow();
+	});
+
+	it("should allow a seed to be passed in for randomization", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			env.randomizeTests(true);
+			return env.seed(1234);
+		}).not.toThrow();
+	});
+});
+
 (() => {
     // from boot.js
     var env = jasmine.getEnv();
