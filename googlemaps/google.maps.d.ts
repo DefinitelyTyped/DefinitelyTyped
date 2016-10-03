@@ -1232,7 +1232,7 @@ declare namespace google.maps {
         destinations?: string[]|LatLng[]|Place[];
         drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: string[]|LatLng|Place;
+        origins?: string[]|LatLng[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
