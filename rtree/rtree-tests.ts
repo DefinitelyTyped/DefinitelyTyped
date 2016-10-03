@@ -1,3 +1,5 @@
+/// <reference path="rtree.d.ts"/>
+
 var myRTree = RTree(5);
 var el = "test";
 

@@ -1,4 +1,5 @@
-/// <reference types="easeljs"/>
+///<reference path="./tweenjs.d.ts"/>
+///<reference path="../easeljs/easeljs.d.ts"/>
 
 var target = new createjs.DisplayObject();
 

@@ -1,7 +1,7 @@
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="sql.js.d.ts" />
 
-
-import fs = require("fs");
+import * as fs from "fs";
 import * as SQL from "sql.js";
 
 var DB_PATH = "data.db";

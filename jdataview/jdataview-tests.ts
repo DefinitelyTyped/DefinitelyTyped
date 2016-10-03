@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="jdataview.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface TARMetaData {
 	name: string;

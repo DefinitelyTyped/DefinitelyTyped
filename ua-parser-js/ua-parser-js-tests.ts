@@ -1,3 +1,5 @@
+/// <reference path='ua-parser-js.d.ts' />
+
 import {UAParser} from 'ua-parser-js';
 
 function test_parser() {

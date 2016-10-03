@@ -1,6 +1,7 @@
-/// <reference types="rx"/>
-/// <reference types="q"/>
-/// <reference types="when"/>
+/// <reference path="promises-a-plus.d.ts"/>
+/// <reference path="../rx/rx.async.d.ts"/>
+/// <reference path="../q/Q.d.ts"/>
+/// <reference path="../when/when"/>
 
 var thenNum: PromisesAPlus.Thenable<number>;
 var thenStr: PromisesAPlus.Thenable<string>;

@@ -1,8 +1,11 @@
-/*
+/// <reference path="enzyme.d.ts" />
+/// <reference path="../react/react.d.ts"/>
+
 import { shallow, mount, render, describeWithDOM, spyLifecycle } from "enzyme";
 import * as React from "react";
 import {Component, ReactElement, HTMLAttributes} from "react";
 import {ShallowWrapper, ReactWrapper, CheerioWrapper} from "enzyme";
+
 
 // Help classes/interfaces
 interface MyComponentProps {
@@ -797,4 +800,4 @@ namespace CheerioWrapperTest {
     function test_everyWhere() {
         boolVal = cheerioWrapper.everyWhere((aCheerioWrapper: CheerioWrapper<MyComponentProps, MyComponentState>) => true);
     }
-}*/
+}

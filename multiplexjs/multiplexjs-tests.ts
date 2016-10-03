@@ -1,5 +1,5 @@
-﻿
-/// <reference types="qunit"/>
+﻿/// <reference path="multiplexjs.d.ts" />
+/// <reference path='../qunit/qunit.d.ts'/>
 
 
 namespace MxTests {

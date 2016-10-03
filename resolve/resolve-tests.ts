@@ -1,4 +1,4 @@
-/// <reference types="resolve" />
+/// <reference path="resolve.d.ts" />
 
 import * as fs from 'fs';
 import * as resolve from 'resolve';

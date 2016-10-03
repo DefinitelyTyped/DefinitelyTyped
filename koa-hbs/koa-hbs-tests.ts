@@ -1,3 +1,6 @@
+/// <reference path="./koa-hbs.d.ts" />
+/// <reference path="../koa/koa.d.ts" />
+
 import * as Hbs from 'koa-hbs';
 import * as Koa from 'koa';
 import * as Path from 'path';

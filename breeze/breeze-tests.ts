@@ -1,4 +1,4 @@
-
+/// <reference path="breeze.d.ts" />
 
 import core = breeze.core;
 import config = breeze.config;
@@ -133,7 +133,7 @@ function test_entityManager() {
         metadataStore: metadataStore
     });
 
-    new breeze.QueryOptions({
+    return new breeze.QueryOptions({
         mergeStrategy: null,
         fetchStrategy: this.fetchStrategy
     });
@@ -415,25 +415,25 @@ function test_entityQuery() {
 function test_entityState() {
     var anEntity: breeze.Entity;
     var es = anEntity.entityAspect.entityState;
-    es.isAdded();
-    es === breeze.EntityState.Added;
+    return es.isAdded();
+    return es === breeze.EntityState.Added;
     var es = anEntity.entityAspect.entityState;
-    es.isAddedModifiedOrDeleted();
-    es === breeze.EntityState.Added || es === breeze.EntityState.Modified || es === breeze.EntityState.Deleted;
+    return es.isAddedModifiedOrDeleted();
+    return es === breeze.EntityState.Added || es === breeze.EntityState.Modified || es === breeze.EntityState.Deleted;
     var es = anEntity.entityAspect.entityState;
-    es.isDeleted();
-    es === breeze.EntityState.Deleted;
+    return es.isDeleted();
+    return es === breeze.EntityState.Deleted;
     var es = anEntity.entityAspect.entityState;
-    es.isDetached();
-    es === breeze.EntityState.Detached;
+    return es.isDetached();
+    return es === breeze.EntityState.Detached;
     var es = anEntity.entityAspect.entityState;
-    es.isModified();
-    es === breeze.EntityState.Modified;
+    return es.isModified();
+    return es === breeze.EntityState.Modified;
     var es = anEntity.entityAspect.entityState;
-    es.isUnchanged();
-    es === breeze.EntityState.Unchanged;
+    return es.isUnchanged();
+    return es === breeze.EntityState.Unchanged;
     var es = anEntity.entityAspect.entityState;
-    es.isUnchangedOrModified();
+    return es.isUnchangedOrModified();
 
     return es === breeze.EntityState.Unchanged || es === breeze.EntityState.Modified;
 }

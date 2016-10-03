@@ -1,3 +1,4 @@
+/// <reference path="parsimmon.d.ts" />
 
 import P = require('parsimmon');
 import Parser = P.Parser;

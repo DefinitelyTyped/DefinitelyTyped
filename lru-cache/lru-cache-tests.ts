@@ -1,3 +1,4 @@
+/// <reference path="lru-cache.d.ts" />
 
 import lru = require('lru-cache');
 

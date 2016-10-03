@@ -1,4 +1,5 @@
-/// <reference types="cordova"  />
+/// <reference path='../cordova/cordova.d.ts'  />
+/// <reference path='./cordova-plugin-background-mode.d.ts' />
 
 cordova.plugins.backgroundMode.setDefaults({ silent: true });
 

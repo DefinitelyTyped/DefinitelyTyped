@@ -1,3 +1,5 @@
+/// <reference path="./express-validator.d.ts"/>
+
 /* Usage Example from https://github.com/ctavan/express-validator */
 
 import util = require('util')

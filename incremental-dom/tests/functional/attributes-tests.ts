@@ -1,4 +1,4 @@
-/// <reference types="all-tests.ts"/>
+/// <reference path="../../all-tests.ts"/>
 
 import id = require('incremental-dom');
 var patch = id.patch;

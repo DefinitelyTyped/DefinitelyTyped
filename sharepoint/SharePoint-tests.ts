@@ -1,8 +1,9 @@
-﻿///<reference types="knockout" />
-///<reference types="jquery" />
+﻿///<reference path="SharePoint.d.ts" />
+///<reference path="../angularjs/angular.d.ts" />
+///<reference path="../knockout/knockout.d.ts" />
+///<reference path="../jquery/jquery.d.ts" />
 
-import * as angular from 'angular';
-import * as ng from 'angular';
+
 //code from http://sptypescript.codeplex.com/
 //BasicTasksJSOM.ts
 // Website tasks
@@ -1977,7 +1978,7 @@ module _ {
 }
 
 //taxonomy
-namespace MySP {
+namespace SP {
 
     // Class
     export class ClientContextPromise extends SP.ClientContext {
@@ -2008,7 +2009,7 @@ namespace MySP {
 SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("CSOMPromise.ts");
 
 module _ {
-    var context: MySP.ClientContextPromise;
+    var context: SP.ClientContextPromise;
     var web: SP.Web;
     var site: SP.Site;
     var session: SP.Taxonomy.TaxonomySession;
@@ -2019,7 +2020,7 @@ module _ {
     // which is needed to use the SharePoint object model.
     // It also wires up the click handlers for the two HTML buttons in Default.aspx.
     $(document).ready(function () {
-        context = MySP.ClientContextPromise.get_current();
+        context = SP.ClientContextPromise.get_current();
         site = context.get_site();
         web = context.get_web();
         $('#listExisting').click(function () { listGroups(); });

@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.com/package/busboy
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare namespace busboy {
     interface Options {

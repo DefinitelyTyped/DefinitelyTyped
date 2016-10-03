@@ -1,3 +1,4 @@
+/// <reference path="wrench.d.ts" />
 
 import wrench = require('wrench');
 

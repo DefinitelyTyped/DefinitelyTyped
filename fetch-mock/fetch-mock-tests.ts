@@ -1,3 +1,5 @@
+/// <reference path="./fetch-mock.d.ts" />
+
 import * as fetchMock from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);

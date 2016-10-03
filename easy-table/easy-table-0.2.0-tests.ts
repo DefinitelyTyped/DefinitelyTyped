@@ -1,3 +1,4 @@
+/// <reference path="easy-table.d.ts" />
 
 import EasyTable = require('easy-table');
 

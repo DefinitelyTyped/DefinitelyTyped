@@ -2,6 +2,9 @@
  * Created by Bruno Grieder
  */
 
+///<reference path="./bull.d.ts" />
+
+
 import * as Queue from "bull"
 
 var videoQueue = Queue( 'video transcoding', 6379, '127.0.0.1' );
@@ -84,17 +87,16 @@ interface VideoJob extends Queue.Job {
 
 videoQueue.process( ( job: VideoJob ) => { // don't forget to remove the done callback!
     // Simply return a promise
-    fetchVideo( job.data.url ).then( transcodeVideo );
+    return fetchVideo( job.data.url ).then( transcodeVideo );
 
     // Handles promise rejection
-    Promise.reject( new Error( 'error transcoding' ) );
+    return Promise.reject( new Error( 'error transcoding' ) );
 
     // Passes the value the promise is resolved with to the "completed" event
-    Promise.resolve( { framerate: 29.5 /* etc... */ } );
-
-    // same as
-    Promise.reject( new Error( 'some unexpected error' ) );
+    return Promise.resolve( { framerate: 29.5 /* etc... */ } );
 
     // If the job throws an unhandled exception it is also handled correctly
     throw new Error( 'some unexpected error' );
+    // same as
+    return Promise.reject( new Error( 'some unexpected error' ) );
 } );

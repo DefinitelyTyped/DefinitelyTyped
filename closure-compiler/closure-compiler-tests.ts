@@ -1,3 +1,4 @@
+/// <reference path="closure-compiler.d.ts"/>
 import {compile} from 'closure-compiler';
 
 compile('some.source()', {'check-only': null},

@@ -3,6 +3,8 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts" />
+
 declare module "react-measure" {
     import * as React from "react";
 

@@ -1,5 +1,5 @@
-
-/// <reference types="mocha"" />
+/// <reference path="./expect.d.ts" />
+/// <reference path="../mocha/mocha.d.ts"" />
 
 import expect,
       {Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies}

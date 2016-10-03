@@ -1,10 +1,10 @@
-
+/// <reference path="webcomponents.js.d.ts" />
 
 /*
  * Custom Elements
  */
 var fooProto = Object.create(HTMLElement.prototype, {
-    createdCallback(this: HTMLElement) {
+    createdCallback() {
         // `this` should be the created element
         this.getElementsByTagName("a");
     }

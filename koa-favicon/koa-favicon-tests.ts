@@ -1,3 +1,6 @@
+/// <reference path="../koa/koa.d.ts" />
+/// <reference path="koa-favicon.d.ts" />
+
 import * as Koa from "koa";
 import favicon = require("koa-favicon");
 

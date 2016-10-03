@@ -1,3 +1,4 @@
+/// <reference path="./stream-series.d.ts" />
 
 import stream = require("stream");
 import Stream = stream.Duplex;

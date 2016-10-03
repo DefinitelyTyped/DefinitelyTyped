@@ -1,3 +1,4 @@
+/// <reference path="rest-io.d.ts" />
 
 import express = require('express');
 import restIO = require('rest-io');

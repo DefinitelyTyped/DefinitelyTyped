@@ -1,3 +1,6 @@
+/// <reference path="geojson2osm.d.ts" />
+/// <reference path="../geojson/geojson.d.ts" />
+
 import { geojson2osm } from 'geojson2osm'
 
 const features: GeoJSON.FeatureCollection<any> = {

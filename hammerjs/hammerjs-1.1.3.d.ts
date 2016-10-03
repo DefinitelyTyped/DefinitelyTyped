@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 declare var Hammer: HammerStatic;
 

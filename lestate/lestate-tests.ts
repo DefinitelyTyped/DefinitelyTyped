@@ -1,4 +1,5 @@
-import LeState = require("lestate");
+/// <reference path="./lestate.d.ts"/>
+
 let State = LeState.createState()
 
 State.set({

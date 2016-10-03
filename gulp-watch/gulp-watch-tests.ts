@@ -1,3 +1,6 @@
+/// <reference path="gulp-watch.d.ts" />
+/// <reference path="../gulp/gulp.d.ts" />
+
 import * as gulp from 'gulp';
 import * as watch from 'gulp-watch';
 

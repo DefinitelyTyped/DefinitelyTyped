@@ -3,9 +3,11 @@
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// <reference types="react" />
+/// <reference path="../react/react.d.ts" />
 
 declare namespace __ReactFlexr {
+    export import React = __React;
+
     interface GridProps extends React.Props<Grid> {
         /**
          * Vertical Align Sub Cells: top, center, bottom

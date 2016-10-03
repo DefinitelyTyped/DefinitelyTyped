@@ -1,3 +1,4 @@
+/// <reference path="nodeunit.d.ts" />
 
 import nodeunit = require('nodeunit');
 

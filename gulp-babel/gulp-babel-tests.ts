@@ -1,4 +1,5 @@
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="./gulp-babel.d.ts" />
 
 import babel = require('gulp-babel');
 

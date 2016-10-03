@@ -1,6 +1,6 @@
-/// <reference types="jquery"/>
-/// <reference types="jquery.form"/>
-
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../jquery.form/jquery.form.d.ts"/>
+/// <reference path="jquery.validation.d.ts" />
 
 function test_validate() {
     $("#commentForm").validate();

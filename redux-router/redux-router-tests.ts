@@ -1,3 +1,4 @@
+///<reference path="redux-router.d.ts" />
 import { reduxReactRouter, routerStateReducer, ReduxRouter, pushState } from 'redux-router';
 
 export function someAsyncReduxAction(someArg: Object) {

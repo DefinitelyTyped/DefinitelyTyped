@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="wake_on_lan.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import wol = require('wake_on_lan');
 

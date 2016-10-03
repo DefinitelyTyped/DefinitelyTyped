@@ -1,9 +1,11 @@
-import * as pegjs from 'pegjs';
+/// <reference path="./pegjs.d.ts" />
 {
     let input: string;
-    let result = pegjs.PEG.parse(input);
+    let result = PEG.parse(input);
     console.log(result);
 }
+
+import * as pegjs from 'pegjs';
 
 {
     let pegparser: pegjs.Parser = pegjs.buildParser("start = ('a' / 'b')+");

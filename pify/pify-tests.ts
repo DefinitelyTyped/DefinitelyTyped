@@ -1,5 +1,5 @@
-
-/// <reference types="bluebird" />
+/// <reference path="pify.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 
 import * as pify from 'pify';
 import * as Bluebird from 'bluebird';

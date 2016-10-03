@@ -1,6 +1,8 @@
+/// <reference path='./connect-modrewrite.d.ts' />
+/// <reference path='../express/express.d.ts' />
 
 import modRewrite = require('connect-modrewrite');
-import express = require('../express');
+import express = require('express');
 
 var app = express();
 

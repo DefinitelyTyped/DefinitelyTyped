@@ -3,6 +3,7 @@
 // Definitions by: Nico Jansen <https://github.com/nicojs>, Meirion Hughes <https://github.com/MeirionHughes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="./parse5.d.ts" />
 
 import * as parse5 from 'parse5';
 

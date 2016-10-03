@@ -1,3 +1,9 @@
+///<reference path="draft-js.d.ts" />
+///<reference path="../react/react.d.ts" />
+///<reference path="../react/react-dom.d.ts"/>
+
+// Using Rich text editor example as a test: https://github.com/facebook/draft-js/tree/master/examples/rich
+
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {Map} from "immutable";
@@ -9,7 +15,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     super();
 
     this.state = { editorState: EditorState.createEmpty() };
-    }
+  }
 
   onChange: (editorState: EditorState) => void = (editorState: EditorState) => this.setState({ editorState });
 
@@ -19,14 +25,14 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
     if (newState) {
       this.onChange(newState);
       return true;
-        }
+    }
 
     return false;
-    }
+  }
 
   toggleBlockType: (blockType: string) => void = (blockType: string) => {
     this.onChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
-    }
+  }
 
   toggleInlineStyle: (inlineStyle: string) => void = (inlineStyle: string) => {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, inlineStyle));
@@ -43,7 +49,7 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
       }
     }
 
-            return (
+    return (
       <div className="RichEditor-root">
         <BlockStyleControls
           editorState={this.state.editorState}
@@ -65,9 +71,9 @@ class RichEditorExample extends React.Component<{}, { editorState: EditorState }
             spellCheck={true}
             />
         </div>
-                </div>
-            );
-        }
+      </div>
+    );
+  }
 }
 
 // Custom overrides for "code" style.
@@ -105,7 +111,7 @@ class StyleButton extends React.Component<{key: string, active: boolean, label: 
     }
 
     return (
-      <span className={className} onMouseDown={e => this.onToggle(e as any)}>
+      <span className={className} onMouseDown={this.onToggle}>
         {this.props.label}
       </span>
     );
@@ -145,7 +151,7 @@ const BlockStyleControls = (props: {editorState: EditorState, onToggle: (blockTy
           />
       ) }
     </div>
-    );
+  );
 };
 
 var INLINE_STYLES = [
@@ -157,7 +163,7 @@ var INLINE_STYLES = [
 
 const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockType: string) => void}) => {
   var currentStyle = props.editorState.getCurrentInlineStyle();
-        return (
+  return (
     <div className="RichEditor-controls">
       {INLINE_STYLES.map(type =>
         <StyleButton
@@ -166,7 +172,7 @@ const InlineStyleControls = (props: {editorState: EditorState, onToggle: (blockT
           label={type.label}
           onToggle={props.onToggle}
           style={type.style}
-                       />
+          />
       ) }
     </div>
   );

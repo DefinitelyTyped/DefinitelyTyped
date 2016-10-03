@@ -1,3 +1,4 @@
+/// <reference path="./cropperjs.d.ts"/>
 import * as Cropper from 'cropperjs';
 
 var image = <HTMLImageElement>document.getElementById('image');

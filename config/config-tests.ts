@@ -1,3 +1,4 @@
+/// <reference path="config.d.ts" />
 
 import * as config from "config";
 

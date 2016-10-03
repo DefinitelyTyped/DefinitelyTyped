@@ -1,3 +1,4 @@
+/// <reference path="./mobservable.d.ts"/>
 import mobservable = require('mobservable');
 import {observable} from "mobservable";
 

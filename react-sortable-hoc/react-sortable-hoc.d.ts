@@ -3,6 +3,8 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../react/react.d.ts" />
+
 declare module 'react-sortable-hoc' {
     import React = require('react');
 
@@ -16,7 +18,7 @@ declare module 'react-sortable-hoc' {
         collection: Offset;
     }
 
-    export type SortEvent = React.MouseEvent<any> | React.TouchEvent<any>;
+    export type SortEvent = React.MouseEvent | React.TouchEvent;
 
     export type SortStartHandler = (sort: SortStart, event: SortEvent) => void;
 

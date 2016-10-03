@@ -3,7 +3,7 @@
 // Definitions by: delphinus <https://github.com/delphinus35/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="jquery" />
+///<reference path="../jquery/jquery.d.ts" />
 
 declare namespace ImageMapster {
 

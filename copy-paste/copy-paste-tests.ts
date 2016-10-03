@@ -1,4 +1,5 @@
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="copy-paste.d.ts" />
 
 import * as CopyPaste from 'copy-paste';
 

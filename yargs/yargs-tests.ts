@@ -3,6 +3,8 @@
 // Definitions by: Martin Poelstra <https://github.com/poelstra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="yargs.d.ts" />
+
 import yargs = require('yargs');
 
 // Examples taken from yargs website
@@ -65,14 +67,14 @@ function default_singles() {
 		.default('x', 10)
 		.default('y', 10)
 		.argv
-	;
+		;
 	console.log(argv.x + argv.y);
 }
 function default_hash() {
 	var argv = yargs
 		.default({ x: 10, y: 10 })
 		.argv
-	;
+		;
 	console.log(argv.x + argv.y);
 }
 
@@ -81,7 +83,7 @@ function boolean_single() {
 	var argv = yargs
 		.boolean('v')
 		.argv
-	;
+		;
 	console.dir(argv.v);
 	console.dir(argv._);
 }
@@ -89,7 +91,7 @@ function boolean_double() {
 	var argv = yargs
 		.boolean(['x', 'y', 'z'])
 		.argv
-	;
+		;
 	console.dir([argv.x, argv.y, argv.z]);
 	console.dir(argv._);
 }
@@ -103,7 +105,7 @@ function line_count() {
 		.alias('f', 'file')
 		.describe('f', 'Load a file')
 		.argv
-	;
+		;
 }
 
 // Below are tests for individual methods.
@@ -129,13 +131,13 @@ function Argv$options() {
 			nargs: 3
 		})
 		.argv
-	;
+		;
 
 	var argv2 = yargs
 		.alias('f', 'file')
 		.default('f', '/etc/passwd')
 		.argv
-	;
+		;
 }
 
 function Argv$global() {
@@ -172,11 +174,11 @@ function Argv$nargs() {
 function Argv$choices() {
 	// example from documentation
 	var argv = yargs
-	  .alias('i', 'ingredient')
-	  .describe('i', 'choose your sandwich ingredients')
-	  .choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
-	  .help('help')
-	  .argv
+		.alias('i', 'ingredient')
+		.describe('i', 'choose your sandwich ingredients')
+		.choices('i', ['peanut-butter', 'jelly', 'banana', 'pickles'])
+		.help('help')
+		.argv
 }
 
 function command() {
@@ -188,8 +190,8 @@ function command() {
 				alias: 'force',
 				description: 'yar, it usually be a bad idea'
 			})
-			.help('help')
-			.argv;
+				.help('help')
+				.argv;
 		})
 		.command("build", "arghh, build it mate", {
 			tag: {
@@ -274,9 +276,9 @@ function Argv$locale() {
 	var argv = yargs
 		.usage('./$0 - follow ye instructions true')
 		.option('option', {
-		alias: 'o',
-		describe: "'tis a mighty fine option",
-		demand: true
+			alias: 'o',
+			describe: "'tis a mighty fine option",
+			demand: true
 		})
 		.command('run', "Arrr, ya best be knowin' what yer doin'")
 		.example('$0 run foo', "shiver me timbers, here's an example for ye")

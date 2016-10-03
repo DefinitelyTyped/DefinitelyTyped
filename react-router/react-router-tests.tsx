@@ -1,11 +1,19 @@
+
+/// <reference path="../react/react.d.ts" />
+/// <reference path="../react/react-dom.d.ts" />
+/// <reference path="./history.d.ts" />
+/// <reference path="./react-router.d.ts" />
+
+
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {renderToString} from "react-dom/server";
 
-import { browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
+import { browserHistory, hashHistory, createMemoryHistory, match, withRouter, Router, RouterContext, Route, IndexRoute, Link} from "react-router"
+import { routerShape, locationShape } from "react-router/lib/PropTypes"
 
 interface MasterContext {
-	router: RouterOnContext;
+	router: ReactRouter.RouterOnContext;
 }
 
 class Master extends React.Component<React.Props<{}>, {}> {
@@ -36,7 +44,7 @@ class Master extends React.Component<React.Props<{}>, {}> {
 }
 
 interface DashboardProps {
-	router: InjectedRouter
+	router: ReactRouter.InjectedRouter
 };
 
 class Dashboard extends React.Component<DashboardProps, {}> {

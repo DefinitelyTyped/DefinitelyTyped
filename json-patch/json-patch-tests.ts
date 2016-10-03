@@ -1,4 +1,5 @@
-import jsonpatch = require("json-patch");
+/// <reference path="./json-patch.d.ts" />
+
 import jp = require("json-patch");
 
 // Add property, result: {foo: 'bar'}

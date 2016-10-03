@@ -1,3 +1,4 @@
+/// <reference path="./express-unless.d.ts" />
 
 import express = require('express');
 import unless = require('express-unless');

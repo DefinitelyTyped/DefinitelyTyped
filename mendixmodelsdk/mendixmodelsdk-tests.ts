@@ -1,4 +1,7 @@
+/// <reference path="./mendixmodelsdk.d.ts"/>
+
 import {domainmodels, IModel, ModelSdkClient} from "mendixmodelsdk";
+
 
 // This doesn't do anything useful, just for testing typings...
 

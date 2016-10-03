@@ -1,3 +1,5 @@
+/// <reference path="./gulp-rename.d.ts"/>
+/// <reference path="../gulp/gulp.d.ts"/>
 import gulp = require("gulp");
 import rename = require("gulp-rename");
 

@@ -1,3 +1,6 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="react-swipeable.d.ts" />
+
 import Swipeable = require('react-swipeable');
 import React = require('react');
 

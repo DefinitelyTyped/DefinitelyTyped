@@ -1,7 +1,10 @@
+/// <reference path="./mailparser.d.ts" />
+
 import mailparser_mod = require("mailparser");
 import MailParser = mailparser_mod.MailParser;
 import ParsedMail = mailparser_mod.ParsedMail;
 import Attachment = mailparser_mod.Attachment;
+
 
 var mailparser = new MailParser();
 

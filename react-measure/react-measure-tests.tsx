@@ -1,3 +1,6 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./react-measure.d.ts" />
+
 import * as React from "react";
 import * as Measure from "react-measure";
 

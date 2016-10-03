@@ -1,6 +1,8 @@
-/// <reference types="q" />
-import * as Validators from './node-validators';
-import Validation = require("business-rules-engine");
+/// <reference path="business-rules-engine.d.ts" />
+/// <reference path="BasicValidators.d.ts" />
+/// <reference path="../underscore/underscore.d.ts" />
+/// <reference path="../q/Q.d.ts" />
+/// <reference path="../moment/moment.d.ts" />
 
 export interface IPerson{
     Checked:boolean;

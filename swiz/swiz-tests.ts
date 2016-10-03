@@ -1,3 +1,4 @@
+/// <reference path="swiz.d.ts" />
 
 import swiz = require('swiz');
 

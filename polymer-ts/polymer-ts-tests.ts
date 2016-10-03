@@ -1,4 +1,7 @@
+/// <reference path="./polymer-ts.d.ts"/>
+
 namespace Components {
+
 	export class TestComponent extends polymer.Base {
 
 		public field: string = 'foo';

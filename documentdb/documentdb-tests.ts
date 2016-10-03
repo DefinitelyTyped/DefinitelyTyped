@@ -1,3 +1,4 @@
+/// <reference path="documentdb.d.ts" />
 
 import docDB = require('documentdb');
 var docDBClient = new docDB.DocumentClient('host', { masterKey: 'masterKey' });

@@ -1,9 +1,9 @@
-// Type definitions for jQuery-truncate-html.js
+// Type definitions for jQuery-truncate-html.js 
 // Project: https://github.com/kbwood/timeentry
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 interface TruncateOptions{
     length?: number;

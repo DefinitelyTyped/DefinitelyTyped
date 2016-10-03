@@ -3,6 +3,8 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+///<reference path='./react-dnd.d.ts' />
+
 declare module "react-dnd-html5-backend" {
     export namespace NativeTypes {
         export const FILE: string;

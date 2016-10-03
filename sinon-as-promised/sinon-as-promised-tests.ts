@@ -1,11 +1,10 @@
-/// <reference types="sinon"/>
-
+/// <reference path="sinon-as-promised.d.ts"/>
 function testResolve() {
-    Sinon.stub().resolves('test val');
+    sinon.stub().resolves('test val');
 }
 
 function testReject() {
-    Sinon.stub().rejects('test val');
+    sinon.stub().rejects('test val');
 }
 
 testResolve();

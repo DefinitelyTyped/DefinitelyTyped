@@ -1,4 +1,5 @@
-﻿/// <reference types="jquery"/>
+﻿/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="magicsuggest.d.ts"/>
 
 function basicTest() {
     $('#magicSuggest').magicSuggest();

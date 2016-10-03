@@ -1,3 +1,4 @@
+/// <reference path="./mess.d.ts" />
 
 import mess = require('mess');
 

@@ -1,6 +1,7 @@
-/// <reference types="node" />
+/// <reference path="uglify-js.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
-import * as UglifyJS from './';
+import * as UglifyJS from 'uglify-js';
 import * as fs from 'fs';
 
 var result = UglifyJS.minify("/path/to/file.js");

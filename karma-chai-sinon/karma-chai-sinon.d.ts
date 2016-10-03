@@ -3,12 +3,10 @@
 // Definitions by: Václav Ostrožlík <https://github.com/vasek17>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="chai" />
-import Sinon = require("sinon");
+/// <reference path="../chai/chai.d.ts" />
+/// <reference path="../sinon/sinon.d.ts" />
 
-declare global {
-    var should: Chai.Should;
-    var expect: Chai.ExpectStatic;
-    var assert: Chai.AssertStatic;
-    var sinon: Sinon.SinonStatic;
-}
+declare var should: Chai.Should;
+declare var expect: Chai.ExpectStatic;
+declare var assert: Chai.AssertStatic;
+declare var sinon: Sinon.SinonStatic;

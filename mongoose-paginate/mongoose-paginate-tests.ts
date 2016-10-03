@@ -1,4 +1,6 @@
-/// <reference types="express" />
+/// <reference path="./mongoose-paginate.d.ts" />
+/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference path="../express/express.d.ts" />
 
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.

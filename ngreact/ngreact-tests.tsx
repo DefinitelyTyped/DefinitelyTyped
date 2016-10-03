@@ -1,4 +1,6 @@
-import * as angular from "angular";
+/// <reference path="../react/react.d.ts" />
+/// <reference path="ngreact.d.ts"/>
+
 import * as React from "react";
 import { ReactDirective } from "ngreact";
 
@@ -20,7 +22,7 @@ app.directive('hello', function(reactDirective: ReactDirective) {
   return reactDirective(HelloComponent, undefined, {restrict: 'C'});
 });
 
-app.directive('helloComponent', function(reactDirective: ReactDirective, $location: angular.ILocationService) {
+app.directive('helloComponent', function(reactDirective: ReactDirective, $location: ng.ILocationService) {
   return reactDirective(HelloComponent, undefined, {}, { $location });
 });
 

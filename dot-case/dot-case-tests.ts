@@ -1,3 +1,4 @@
+/// <reference path="dot-case.d.ts" />
 
 import dotCase = require('dot-case');
 

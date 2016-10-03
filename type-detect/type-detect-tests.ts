@@ -1,3 +1,4 @@
+/// <reference path="type-detect.d.ts" />
 
 import td = require('type-detect');
 

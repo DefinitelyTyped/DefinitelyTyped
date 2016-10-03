@@ -1,5 +1,5 @@
-
-/// <reference types="react" />
+/// <reference path="react-mixin.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 import reactMixin = require('react-mixin');
 import * as React from 'react';

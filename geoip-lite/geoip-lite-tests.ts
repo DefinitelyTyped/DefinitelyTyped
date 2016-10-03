@@ -1,3 +1,5 @@
+/// <reference path="geoip-lite.d.ts"/>
+
 // require geoip-lite
 import geoip = require('geoip-lite');
 

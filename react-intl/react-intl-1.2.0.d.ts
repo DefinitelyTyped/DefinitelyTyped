@@ -3,7 +3,7 @@
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react" />
+///<reference path='../react/react.d.ts' />
 
 declare module "react-intl" {
 

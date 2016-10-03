@@ -1,3 +1,5 @@
+/// <reference path="babelify.d.ts" />
+
 import babelify = require("babelify");
 
 module BabelifyTest {

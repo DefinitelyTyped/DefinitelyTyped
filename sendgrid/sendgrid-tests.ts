@@ -2,7 +2,8 @@
  * Created by using code samples from https://github.com/sendgrid/sendgrid-nodejs#usage
  */
 
-/// <reference types="node" />
+///<reference path="../node/node.d.ts" />
+///<reference path="sendgrid.d.ts" />
 
 import sg = require('sendgrid');
 var sendgrid  = sg('YOUR_SENDGRID_API_KEY');

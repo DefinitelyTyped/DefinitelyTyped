@@ -3,7 +3,7 @@
 // Definitions by: Roman Viskin <https://github.com/viskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="googlemaps" />
+/// <reference path="../googlemaps/google.maps.d.ts" />
 
 declare namespace jQuery.easing {
     type IEasingType =

@@ -1,3 +1,4 @@
+/// <reference path="checksum.d.ts" />
 
 import checksum = require("checksum");
 

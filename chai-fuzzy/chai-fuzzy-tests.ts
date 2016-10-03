@@ -1,3 +1,4 @@
+/// <reference path="chai-fuzzy.d.ts" />
 
 // tests taken from http://chaijs.com/plugins/chai-fuzzy
 

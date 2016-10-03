@@ -1,3 +1,5 @@
+///<reference path='fontoxml.d.ts' />
+
 var workflow:com.fontoxml.IWorkflowInfo = {
 	id:"1",
 	displayName:"workflow"

@@ -1,8 +1,6 @@
-
+/// <reference path="./protractor-helpers.d.ts" />
 
 import helpers = require('protractor-helpers');
-
-declare var $$: any, $: any, by: any, element: any; // ??
 
 function testElementArrayFinder() {
 

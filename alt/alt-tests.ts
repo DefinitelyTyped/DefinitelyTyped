@@ -1,6 +1,8 @@
 /**
  * Created by shearerbeard on 6/28/15.
  */
+///<reference path="alt.d.ts"/>
+
 import Alt = require("alt");
 
 //New alt instance
@@ -72,7 +74,7 @@ var testSource:AltJS.Source = {
             remote() {
                 return new Promise<string>((res:any, rej:any) => {
                     setTimeout(() => {
-                        if(!!true) {
+                        if(true) {
                             res("stuff");
                         } else {
                             rej("Things have broken");

@@ -1,3 +1,4 @@
+/// <reference path="./custom-error-generator.d.ts" />
 
 import createCustomError = require('custom-error-generator');
 var HTTPError = createCustomError('HTTPError', { 'code' : 500, 'status' : 'Server Error' });

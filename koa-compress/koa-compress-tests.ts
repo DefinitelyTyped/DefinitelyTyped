@@ -1,3 +1,6 @@
+/// <reference path="../koa/koa.d.ts" />
+/// <reference path="koa-compress.d.ts" />
+
 import * as Koa from "koa";
 import compress = require("koa-compress");
 

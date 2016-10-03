@@ -1,4 +1,6 @@
-/// <reference types="stats" />
+/// <reference path="../../stats/stats.d.ts" />
+/// <reference path="../physijs.d.ts" />
+/// <reference path="../../threejs/three-projector.d.ts" />
 
 var TWEEN: any;
 var SimplexNoise: any;

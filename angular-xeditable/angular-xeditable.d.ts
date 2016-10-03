@@ -3,96 +3,96 @@
 // Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as angular from "angular";
+/// <reference path="../angularjs/angular.d.ts" />
 
-declare module "angular" {
-    namespace xeditable {
-        interface IEditableOptions {
+declare namespace angular.xeditable {
 
-            /**
-              * Theme. Possible values `bs3`, `bs2`, `default`
-              */
-            theme: string;
+    interface IEditableOptions {
 
-            /**
-              * Icon Set. Possible values `font-awesome`, `default`.
-              */
-            icon_set: string;
+        /**
+          * Theme. Possible values `bs3`, `bs2`, `default`
+          */
+        theme: string;
 
-            /**
-              * Whether to show buttons for single editalbe element.
-              * Possible values `right` (default), `no`.
-              */
-            buttons: string;
+        /**
+          * Icon Set. Possible values `font-awesome`, `default`.
+          */
+        icon_set: string;
 
-            /**
-              * Default value for `blur` attribute of single editable element.
-              * Can be `cancel|submit|ignore`.
-              */
-            blurElem: string;
+        /**
+          * Whether to show buttons for single editalbe element.  
+          * Possible values `right` (default), `no`.
+          */
+        buttons: string;
 
-            /**
-              * Default value for `blur` attribute of editable form.
-              * Can be `cancel|submit|ignore`.
-              */
-            blurForm: string;
+        /**
+          * Default value for `blur` attribute of single editable element.  
+          * Can be `cancel|submit|ignore`.
+          */
+        blurElem: string;
 
-            /**
-              * How input elements get activated. Possible values: `focus|select|none`.
-              */
-            activate: string;
+        /**
+          * Default value for `blur` attribute of editable form.  
+          * Can be `cancel|submit|ignore`.
+          */
+        blurForm: string;
 
-            /**
-              * Whether to disable x-editable. Can be overloaded on each element.
-            */
-            isDisabled: boolean;
+        /**
+          * How input elements get activated. Possible values: `focus|select|none`.
+          */
+        activate: string;
 
-            /*
-            * Event, on which the edit mode gets activated.
-            * Can be any event.
-            */
-            activationEvent: string;
-        }
+        /**
+          * Whether to disable x-editable. Can be overloaded on each element.
+         */
+        isDisabled: boolean;
 
-        interface IEditableFormController extends angular.IFormController {
-
-            /**
-             * Shows form with editable controls.
-             */
-            $show(): void;
-
-            /**
-             * Hides form with editable controls without saving.
-             */
-            $hide(): void;
-
-            /**
-             * Sets focus on form field specified by `name`.<br/>
-             * When trying to set the focus on a form field of a new row in the editable table, the `$activate` call needs to be wrapped in a `$timeout` call so that the form is rendered before the `$activate` function is called.
-             *
-             * @param name name of field
-             */
-            $activate(name: string): void;
-
-            /**
-             * Triggers `oncancel` event and calls `$hide()`.
-             */
-            $cancel(): void;
-
-            $setWaiting(value: boolean): void;
-
-            /**
-             * Shows error message for particular field.
-             *
-             * @param name name of field
-             * @param msg error message
-             */
-            $setError(name: string, msg: string): void;
-
-            $submit(): void;
-
-            $save(): void;
-
-        }
+        /*
+         * Event, on which the edit mode gets activated. 
+         * Can be any event.
+         */
+        activationEvent: string;
     }
+    
+    interface IEditableFormController extends angular.IFormController {
+
+        /**
+         * Shows form with editable controls.
+         */
+        $show(): void;
+
+        /**
+         * Hides form with editable controls without saving.
+         */
+        $hide(): void;
+
+        /**
+         * Sets focus on form field specified by `name`.<br/>
+         * When trying to set the focus on a form field of a new row in the editable table, the `$activate` call needs to be wrapped in a `$timeout` call so that the form is rendered before the `$activate` function is called.
+         * 
+         * @param name name of field
+         */
+        $activate(name: string): void;
+
+        /**
+         * Triggers `oncancel` event and calls `$hide()`.
+         */
+        $cancel(): void;
+
+        $setWaiting(value: boolean): void;
+
+        /**
+         * Shows error message for particular field.
+         * 
+         * @param name name of field
+         * @param msg error message
+         */
+        $setError(name: string, msg: string): void;
+
+        $submit(): void;
+
+        $save(): void;
+
+    }
+    
 }

@@ -3,7 +3,7 @@
 // Definitions by: Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react" />
+///<reference path='../react/react.d.ts' />
 
 declare namespace ReactRouter {
     import React = __React;

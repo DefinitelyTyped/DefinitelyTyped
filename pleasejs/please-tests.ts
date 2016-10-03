@@ -1,3 +1,5 @@
+///<reference path="please.d.ts" />
+
 Please.make_color();
 
 Please.make_color({

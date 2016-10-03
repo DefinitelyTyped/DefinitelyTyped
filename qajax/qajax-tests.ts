@@ -1,5 +1,4 @@
-import Qajax = require("qajax");
-import * as Q from 'q';
+/// <reference path="qajax.d.ts" />
 
 // Based on https://github.com/gre/qajax/blob/master/test/qajax.js
 

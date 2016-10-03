@@ -1,3 +1,4 @@
+/// <reference path="serve-favicon.d.ts" />
 
 import express = require('express');
 import favicon = require('serve-favicon');

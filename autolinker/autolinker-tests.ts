@@ -1,3 +1,5 @@
+///<reference path="./autolinker.d.ts"/>
+
 import AutolinkerCJS = require('autolinker');
 
 () => {

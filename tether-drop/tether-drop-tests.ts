@@ -1,5 +1,7 @@
-///<reference types="tether" />
-import Drop = require("tether-drop");
+///<reference path="../tether/tether.d.ts" />
+///<reference path="tether-drop.d.ts" />
+
+import 'tether-drop';
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");

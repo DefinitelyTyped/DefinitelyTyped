@@ -1,3 +1,4 @@
+/// <reference path="relateurl.d.ts" />
 
 import * as RelateUrl from 'relateurl';
 

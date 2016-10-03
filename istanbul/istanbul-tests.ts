@@ -1,3 +1,4 @@
+/// <reference path="istanbul.d.ts" />
 
 import * as istanbul from 'istanbul';
 

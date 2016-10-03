@@ -1,5 +1,5 @@
-///<reference types="jquery" />
-import Tether = require("tether");
+///<reference path="../jquery/jquery.d.ts" />
+///<reference path="tether.d.ts" />
 
 var yellowBox = document.querySelector(".yellow");
 var greenBox = document.querySelector(".green");

@@ -1,3 +1,4 @@
+/// <reference path="./encoding-japanese.d.ts" />
 
 import * as Encoding from 'encoding-japanese';
 

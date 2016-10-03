@@ -3,7 +3,7 @@
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>, Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+/// <reference path="../react/react.d.ts"/>
 
 declare module "react-datepicker" {
     interface ReactDatePicker {
@@ -41,6 +41,6 @@ declare module "react-datepicker" {
         todayButton?: string;
         fixedHeight?: boolean;
     }
-    let ReactDatePicker: React.ClassicComponentClass<ReactDatePicker>;
+    let ReactDatePicker: __React.ClassicComponentClass<ReactDatePicker>;
     export = ReactDatePicker;
 }

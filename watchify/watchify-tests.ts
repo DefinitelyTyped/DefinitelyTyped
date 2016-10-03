@@ -1,3 +1,5 @@
+/// <reference path="watchify.d.ts" />
+
 import browserify = require("browserify");
 import watchify = require("watchify");
 

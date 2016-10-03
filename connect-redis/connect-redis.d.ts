@@ -3,9 +3,9 @@
 // Definitions by: Xavier Stouder <https://github.com/xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express" />
-/// <reference types="express-session" />
-/// <reference types="redis" />
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../express-session/express-session.d.ts" />
+/// <reference path="../redis/redis.d.ts" />
 
 declare module "connect-redis" {
     import * as express from "express";

@@ -1,3 +1,4 @@
+/// <reference path="./utils-merge.d.ts" />
 
 import merge from "utils-merge";
 

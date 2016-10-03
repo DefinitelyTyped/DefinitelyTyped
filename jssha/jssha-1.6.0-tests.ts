@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="jssha-1.6.0.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 var imported = require("jssha");
 

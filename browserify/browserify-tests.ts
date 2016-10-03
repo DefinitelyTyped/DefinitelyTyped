@@ -1,3 +1,5 @@
+/// <reference path="browserify.d.ts"/>
+
 import browserify = require("browserify");
 import fs = require("fs");
 import stream = require('stream');

@@ -1,3 +1,6 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./react-motion-slider.d.ts" />
+
 import * as React from "react";
 import Slider from "react-motion-slider";
 

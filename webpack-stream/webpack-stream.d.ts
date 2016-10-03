@@ -3,8 +3,8 @@
 // Definitions by: Ian Clanton-Thuon <https://github.com/iclanton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="webpack" />
-///<reference types="node" />
+///<reference path="./../webpack/webpack.d.ts" />
+///<reference path="./../node/node.d.ts" />
 
 declare module "webpack-stream" {
   import webpack = require("webpack");

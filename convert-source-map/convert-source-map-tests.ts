@@ -1,3 +1,4 @@
+/// <reference path="./convert-source-map.d.ts" />
 
 import convert = require("convert-source-map");
 

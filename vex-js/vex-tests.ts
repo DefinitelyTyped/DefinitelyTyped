@@ -1,5 +1,5 @@
-///<reference types="jquery" />
-import vex = require("vex-js");
+///<reference path="../jquery/jquery.d.ts" />
+///<reference path="vex-js.d.ts" />
 
 var vexContent = vex.open({
   afterClose: (() => null),

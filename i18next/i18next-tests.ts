@@ -1,9 +1,11 @@
-/// <reference types="sinon" />
-/// <reference types="mocha" />
-/// <reference types="expect.js" />
-/// <reference types="jquery" />
+/// <reference path="../sinon/sinon.d.ts" />
+/// <reference path="../mocha/mocha.d.ts" />
+/// <reference path="../expect.js/expect.js.d.ts" />
+/// <reference path="../js-fixtures/fixtures.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="i18next.d.ts" />
 
-import i18n = require("i18next");
+import * as i18n from 'i18next';
 
 i18n.init({
     debug: true,
@@ -48,15 +50,15 @@ i18n.init({
     },
     joinArrays: '\n',
     overloadTranslationOptionHandler: (args:any[]) => {
-        return <i18n.TranslationOptions>{}
+        return <I18next.TranslationOptions>{}
     },
-    interpolation: <i18n.InterpolationOptions>{},
+    interpolation: <I18next.InterpolationOptions>{},
     detection: null,
     backend: null,
     cache: null
 });
 
-i18n.t('helloWorld', <i18n.TranslationOptions> {
+i18n.t('helloWorld', <I18next.TranslationOptions> {
     defaultValue: 'default',
     count: 10
 });

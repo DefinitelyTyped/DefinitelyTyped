@@ -1,3 +1,5 @@
+/// <reference path='meteor.d.ts'/>
+
 /**
  * All code below was copied from the examples at http://docs.meteor.com/.
  * When necessary, code was added to make the examples work (e.g. declaring a variable

@@ -1,4 +1,6 @@
-import EventEmitter = require("wolfy87-eventemitter");
+/// <reference path="./wolfy87-eventemitter.d.ts" />
+
+import * as EventEmitter from 'wolfy87-eventemitter';
 
 var emitter = new EventEmitter();
 
@@ -21,39 +23,39 @@ function testGetListenersAsObject() {
 }
 
 function testAddListener() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .addListener("foo", listener)
         .addListener(/^foo/, listener);
 }
 
 function testOn() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .on("foo", listener)
         .on(/^foo/, listener);
 }
 
 function testAddOnceListener() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .addOnceListener("foo", listener)
         .addOnceListener(/^foo/, listener);
 }
 
 function testOnce() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .once("foo", listener)
         .once(/^foo/, listener);
 }
 
 function testDefineEvent() {
-    var e = emitter.defineEvent("foo");
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.defineEvent("foo");
 }
 
 function testDefineEvents() {
-    var e = emitter.defineEvents(["foo", "bar"]);
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.defineEvents(["foo", "bar"]);
 }
 
 function testAddListeners() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .addListeners("foo", [listener])
         .addListeners({
             "foo": listener,
@@ -62,7 +64,7 @@ function testAddListeners() {
 }
 
 function testRemoveListeners() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .removeListeners("foo", [listener])
         .removeListeners({
             "foo": listener,
@@ -71,11 +73,11 @@ function testRemoveListeners() {
 }
 
 function testRemoveListener() {
-    var e = emitter.removeListener("foo", listener);
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.removeListener("foo", listener);
 }
 
 function testManipulateListeners() {
-    var e = emitter
+    var e: Wolfy87EventEmitter.EventEmitter = emitter
         .manipulateListeners(true, "foo", [listener])
         .manipulateListeners(true, {
             "foo": listener
@@ -83,26 +85,26 @@ function testManipulateListeners() {
 }
 
 function testRemoveEvent() {
-    var e = emitter.removeEvent("foo").removeEvent();
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.removeEvent("foo").removeEvent();
 }
 
 function testEmitEvent() {
-    var e = emitter.emitEvent("foo", ["arg1", "arg2"]).emitEvent("foo");
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.emitEvent("foo", ["arg1", "arg2"]).emitEvent("foo");
 }
 
 function testTrigger() {
-    var e = emitter.trigger("foo", ["arg1", "arg2"]).trigger("foo");
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.trigger("foo", ["arg1", "arg2"]).trigger("foo");
 }
 
 function testEmit() {
-    var e = emitter.emit("foo", ["arg1", "arg2"]).emit("foo");
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.emit("foo", ["arg1", "arg2"]).emit("foo");
 }
 
 function testSetOnceReturnValue() {
-    var e = emitter.setOnceReturnValue(false);
+    var e: Wolfy87EventEmitter.EventEmitter = emitter.setOnceReturnValue(false);
 }
 
 function testNoConflict() {
     var NoConflictEventEmitter = EventEmitter.noConflict();
-    var e = new NoConflictEventEmitter();
+    var e: Wolfy87EventEmitter.EventEmitter = new NoConflictEventEmitter();
 }

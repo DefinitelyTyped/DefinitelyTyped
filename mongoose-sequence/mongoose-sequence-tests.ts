@@ -1,4 +1,6 @@
-/// <reference types="express" />
+/// <reference path="./mongoose-sequence.d.ts" />
+/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference path="../express/express.d.ts" />
 
 /**
  * Based on the examples on: https://github.com/ramiel/mongoose-sequence

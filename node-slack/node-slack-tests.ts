@@ -1,4 +1,5 @@
-
+/// <reference path="../express/express.d.ts" />
+/// <reference path="node-slack.d.ts" />
 
 import express = require('express');
 import Slack = require('node-slack');

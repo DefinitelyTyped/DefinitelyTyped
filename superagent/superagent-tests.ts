@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="superagent.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 // via: http://visionmedia.github.io/superagent/
 
@@ -303,7 +303,8 @@ request
 request
   .get('/search')
   .then((response) => {})
-  .catch((error) => {}); 
+  .catch((error) => {});
+
 // Requesting binary data.
 // adapted from: https://github.com/visionmedia/superagent/blob/v2.0.0/test/client/request.js#L110
 request

@@ -1,3 +1,6 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./react-textarea-autosize.d.ts" />
+
 import * as React from "react";
 import Textarea from "react-textarea-autosize";
 

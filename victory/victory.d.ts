@@ -3,8 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
-
+/// <reference path="../react/react.d.ts"/>
 declare module "victory" {
     import * as React from "react";
     /**
@@ -109,7 +108,7 @@ declare module "victory" {
          * The events prop attaches arbitrary event handlers to the label component.
          * Event handlers are currently only called with their corresponding events.
          */
-        events?: React.DOMAttributes<any>;
+        events?: React.DOMAttributes;
         /**
          * All Victory components will pass a text prop to their label component.
          * This defines the content of the label when child nodes are absent. It will be ignored if children are provided.
@@ -200,7 +199,7 @@ declare module "victory" {
          * data. `scale.x.invert(evt.offsetX)`.
          * @examples {{ onClick: (evt) => alert(`x: ${evt.clientX}, y: ${evt.clientY}`)}}
          */
-        events?: React.DOMAttributes<any>;
+        events?: React.DOMAttributes;
         /**
          * The title prop specifies the title to be applied to the SVG to assist
          * accessibility for screen readers. The more descriptive this title is, the more
@@ -340,8 +339,8 @@ declare module "victory" {
          */
         eventHandlers: {
             [key: string]: {
-                (event: React.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey> } |
-                { (event: React.SyntheticEvent<any>): EventCallbackInterface<TTarget, TEventKey>[]
+                (event: React.SyntheticEvent): EventCallbackInterface<TTarget, TEventKey> } |
+                { (event: React.SyntheticEvent): EventCallbackInterface<TTarget, TEventKey>[]
             }
         };
     }

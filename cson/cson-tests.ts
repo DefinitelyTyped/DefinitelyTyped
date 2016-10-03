@@ -1,3 +1,4 @@
+/// <reference path="cson.d.ts" />
 
 import cson = require('cson');
 

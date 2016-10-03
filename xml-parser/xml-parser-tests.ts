@@ -1,4 +1,5 @@
-/// <reference types="node"/>
+/// <reference path="../node/node.d.ts"/>
+/// <reference path="xml-parser.d.ts"/>
 
 import assert = require('assert');
 import parse = require('xml-parser');

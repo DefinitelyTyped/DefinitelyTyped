@@ -1,6 +1,5 @@
-/// <reference types="axios" />
-import * as JSData from 'js-data';
-import DSHttpAdapter = require("js-data-http");
+/// <reference path="./../axios/axios.d.ts" />
+/// <reference path="js-data-http.d.ts" />
 
 import * as axios from 'axios';
 

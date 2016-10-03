@@ -1,3 +1,5 @@
+/// <reference path="./complex.d.ts" />
+
 import Complex from 'complex';
 
 var z: Complex = new Complex(2, 3);

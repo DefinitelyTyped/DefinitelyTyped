@@ -1,4 +1,5 @@
-﻿import tmp = require('tmp');
+﻿/// <reference path="tmp.d.ts" />
+import tmp = require('tmp');
 
 tmp.file((err, path, fd, cleanupCallback) => {
 	if (err) throw err;

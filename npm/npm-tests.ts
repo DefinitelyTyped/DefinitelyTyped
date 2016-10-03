@@ -4,8 +4,8 @@
 * Created by using code samples from https://github.com/npm/npm#using-npm-programmatically.
 */
 
-/// <reference types="node" />
-
+/// <reference path="../node/node.d.ts" />
+/// <reference path="npm.d.ts" />
 
 import npm = require("npm");
 

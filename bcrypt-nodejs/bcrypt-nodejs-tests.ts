@@ -1,3 +1,4 @@
+/// <reference path="bcrypt-nodejs.d.ts" />
 
 import bCrypt = require("bcrypt-nodejs");
 

@@ -1,3 +1,4 @@
+/// <reference path="ag-grid" />
 
 checkGridOptions(<ag.grid.GridOptions>{});
 checkColDef(<ag.grid.ColDef>{});

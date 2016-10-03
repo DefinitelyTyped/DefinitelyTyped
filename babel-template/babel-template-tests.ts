@@ -1,6 +1,6 @@
-
-/// <reference types="babel-generator" />
-/// <reference types="babel-types" />
+/// <reference path="babel-template.d.ts" />
+/// <reference path="../babel-generator/babel-generator.d.ts" />
+/// <reference path="../babel-types/babel-types.d.ts" />
 
 
 // Example from https://github.com/babel/babel/tree/master/packages/babel-template

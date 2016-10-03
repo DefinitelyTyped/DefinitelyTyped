@@ -1,3 +1,4 @@
+/// <reference path="deep-extend.d.ts" />
 
 import deepExtend = require('deep-extend');
 var obj1 = {

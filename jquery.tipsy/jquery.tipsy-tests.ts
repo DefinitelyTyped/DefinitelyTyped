@@ -1,4 +1,5 @@
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery.tipsy.d.ts"/>
 
 // basic
 $('#example-1').tipsy();

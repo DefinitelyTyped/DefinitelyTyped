@@ -1,3 +1,4 @@
+/// <reference path="./browser-sync.d.ts"/>
 import * as browserSync from "browser-sync";
 
 (() => {

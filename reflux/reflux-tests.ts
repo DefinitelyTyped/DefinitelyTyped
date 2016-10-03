@@ -1,5 +1,5 @@
-
-/// <reference types="react" />
+/// <reference path="reflux.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 import Reflux = require("reflux");
 import React = require("react");

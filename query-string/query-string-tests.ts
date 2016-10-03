@@ -1,3 +1,4 @@
+/// <reference path="./query-string.d.ts" />
 
 import qs = require('query-string');
 

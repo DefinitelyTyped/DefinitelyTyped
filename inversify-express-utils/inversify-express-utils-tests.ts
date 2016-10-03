@@ -1,3 +1,5 @@
+/// <reference path="./inversify-express-utils.d.ts" />
+
 import { InversifyExpressServer, Controller, Get, All, Delete, Head, Put, Patch, Post, Method, TYPE } from "inversify-express-utils";
 import * as express from "express";
 import { Kernel } from "inversify";

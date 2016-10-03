@@ -1,3 +1,7 @@
+/// <reference path="gulp-help-doc.d.ts" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../gulp/gulp.d.ts" />
+
 import gulp = require('gulp');
 import usage = require('gulp-help-doc');
 

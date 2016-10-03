@@ -1,4 +1,7 @@
-﻿window.plugins.insomnia.allowSleepAgain(
+﻿/// <reference path="../cordova/plugins/Push.d.ts" />
+/// <reference path="./cordova-plugin-insomnia.d.ts" />
+
+window.plugins.insomnia.allowSleepAgain(
 	() => { console.log("success"); },
 	() => { console.log("fail"); }
 );

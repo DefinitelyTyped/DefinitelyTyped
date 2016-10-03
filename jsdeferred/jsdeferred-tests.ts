@@ -1,3 +1,5 @@
+/// <reference path="jsdeferred.d.ts"/>
+
 declare function alert(a: any): void;
 
 interface IHttp {

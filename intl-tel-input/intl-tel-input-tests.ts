@@ -1,3 +1,6 @@
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="intl-tel-input.d.ts" />
+
 $('#phone').intlTelInput();
 
 $('#phone').intlTelInput({

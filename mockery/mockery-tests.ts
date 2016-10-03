@@ -1,3 +1,4 @@
+/// <reference path="mockery.d.ts" />
 
 import mockery = require('mockery');
 

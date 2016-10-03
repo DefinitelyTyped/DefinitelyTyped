@@ -1,4 +1,5 @@
-/// <reference types="angular" />
+/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="ng-stomp.d.ts" />
 
 namespace ngStompTesting {
 

@@ -1,3 +1,4 @@
+/// <reference path="websocket.d.ts" />
 
 import websocket = require('websocket');
 import http = require('http');

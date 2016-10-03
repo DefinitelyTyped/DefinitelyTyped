@@ -1,3 +1,5 @@
+/// <reference path="mock-require.d.ts" />
+
 import mock = require('mock-require');
 
 function testMock() {

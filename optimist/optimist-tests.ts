@@ -1,3 +1,4 @@
+/// <reference path="optimist.d.ts" />
 
 import optimist = require('optimist');
 

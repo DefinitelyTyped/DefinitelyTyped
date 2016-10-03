@@ -8,7 +8,7 @@
     profiler.startProfiling();
  =============================================== */
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare module "v8-profiler" {
     import * as fs from "fs";

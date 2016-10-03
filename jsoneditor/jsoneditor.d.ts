@@ -3,7 +3,7 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="ace" />
+/// <reference path="../ace/ace.d.ts" />
 
 declare module 'jsoneditor' {
     export interface JSONEditorNode {

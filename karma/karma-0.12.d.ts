@@ -3,21 +3,22 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module 'karma' {
+    // See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html
 
-// See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html
+    interface IKarmaServer {
+        start(options?: any, callback?: (exitCode: number) => void): void;
+    }
 
-interface IKarmaServer {
-    start(options?: any, callback?: (exitCode: number) => void): void;
+    interface IKarmaRunner {
+        run(options?: any, callback?: (exitCode: number) => void): void;
+    }
+
+    interface IKarma {
+        server: IKarmaServer;
+        runner: IKarmaRunner;
+    }
+
+    var karma: IKarma;
+    export = karma;
 }
-
-interface IKarmaRunner {
-    run(options?: any, callback?: (exitCode: number) => void): void;
-}
-
-interface IKarma {
-    server: IKarmaServer;
-    runner: IKarmaRunner;
-}
-
-declare var karma: IKarma;
-export = karma;

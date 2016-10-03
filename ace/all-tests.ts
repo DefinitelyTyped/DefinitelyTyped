@@ -1,9 +1,9 @@
-
+/// <reference path="ace.d.ts" />
 
 var exports: any;
 var assert: any;
-var MockRenderer: any = null;
-var JavaScriptMode: any = null;
+var MockRenderer = null;
+var JavaScriptMode = null;
 
 /// <reference path="tests/ace-default-tests.ts" />
 /// <reference path="tests/ace-background_tokenizer-tests.ts" />

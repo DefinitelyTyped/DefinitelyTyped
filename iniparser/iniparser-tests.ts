@@ -1,3 +1,4 @@
+/// <reference path="iniparser.d.ts" />
 
 import * as iniparser from 'iniparser';
 

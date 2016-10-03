@@ -1,4 +1,4 @@
-import UUID = require("uuid");
+/// <reference path="UUID.d.ts" />
 
 const uuid1: string = UUID.generate()
 const uuid2: UUID.UUID = UUID.genV4()

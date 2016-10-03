@@ -1,4 +1,5 @@
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery.timepicker.d.ts"/>
 
 var beforeShowCallback, onSelectCallback, onCloseCallback, onHourShow, onMinuteShow;
 $('#timepicker').timepicker({

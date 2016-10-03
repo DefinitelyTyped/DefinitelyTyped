@@ -1,3 +1,6 @@
+/// <reference path="lodash-decorators.d.ts" />
+/// <reference path='../lodash/lodash-3.10.d.ts' />
+
 //
 // With Arguments
 //

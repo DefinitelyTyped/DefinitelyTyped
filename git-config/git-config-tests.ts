@@ -1,3 +1,4 @@
+/// <reference path="git-config.d.ts" />
 
 import gitConfig = require('git-config');
 

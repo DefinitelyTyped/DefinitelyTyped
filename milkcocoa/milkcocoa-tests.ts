@@ -1,3 +1,4 @@
+///<reference path="./milkcocoa.d.ts"/>
 var mk = new MilkCocoa("hostAddress");
 mk.addAccount("sample@test.com", "password", null, (err: MilkCocoa.Error.AddAccount, user: milkcocoa.User) => {
   

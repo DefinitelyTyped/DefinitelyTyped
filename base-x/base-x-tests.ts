@@ -1,7 +1,8 @@
+/// <reference path="./base-x.d.ts" />
 
 import * as basex from 'base-x';
 
-let bs16 = basex('0123456789ABCDEF');
+let bs16: BaseX.BaseConverter = basex('0123456789ABCDEF');
 
 {
 	let encoded: string;

@@ -1,3 +1,5 @@
+/// <reference path="./css.d.ts" />
+
 import css = require("css");
 
 // Check that user can parse, modify and persist CSS content

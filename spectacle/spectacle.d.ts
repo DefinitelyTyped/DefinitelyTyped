@@ -3,8 +3,7 @@
 // Definitions by: Zachary Maybury <https://github.com/zmaybury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
-
+/// <reference path="../react/react.d.ts"/>
 declare module "spectacle" {
 	import * as React from "react";
 

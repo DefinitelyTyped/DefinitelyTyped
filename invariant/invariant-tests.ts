@@ -1,4 +1,4 @@
-import invariant = require("invariant");
+/// <reference path="./invariant.d.ts" />
 
 // will throw in dev mode (process.env.NODE_ENV !== 'production')
 invariant(true);

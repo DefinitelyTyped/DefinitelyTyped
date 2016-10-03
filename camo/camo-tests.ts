@@ -1,3 +1,4 @@
+/// <reference path="./camo.d.ts" />
 
 import {
 	connect,

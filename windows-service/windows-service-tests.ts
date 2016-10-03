@@ -1,3 +1,4 @@
+/// <reference path="windows-service.d.ts" />
 
 import stream = require("stream");
 import service = require("windows-service");

@@ -1,3 +1,4 @@
+/// <reference path="./cradle.d.ts" />
 
 import cradle = require("cradle");
 

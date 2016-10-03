@@ -1,3 +1,4 @@
+/// <reference path="cron.d.ts" />
 
 import cron = require('cron');
 var CronJob = cron.CronJob;

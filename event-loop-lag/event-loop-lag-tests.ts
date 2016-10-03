@@ -1,3 +1,4 @@
+/// <reference path="event-loop-lag.d.ts" />
 
 import lag = require("event-loop-lag");
 

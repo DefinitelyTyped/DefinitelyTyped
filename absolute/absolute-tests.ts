@@ -1,3 +1,4 @@
+/// <reference path="./absolute.d.ts" />
 
 import absolute from 'absolute';
 

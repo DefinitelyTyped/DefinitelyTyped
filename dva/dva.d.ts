@@ -3,7 +3,7 @@
 // Definitions by: nikogu <https://github.com/nikogu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+/// <reference path="../react/react.d.ts" />
 declare module 'dva' {
     /** connecting Container Components */
     export function connect(maps:Object):Function;
@@ -28,6 +28,8 @@ declare module 'dva' {
  * https://github.com/reactjs/react-router
  */
 declare module 'dva/router' {
+    import React = __React;
+
     interface RouterProps {
         history?: Object
     }

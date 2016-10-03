@@ -1,4 +1,6 @@
-﻿import parser = require("http-string-parser");
+﻿/// <reference path="http-string-parser.d.ts" />
+
+import parser = require("http-string-parser");
 
 function test_request(): void {
     var result = parser.parseRequest("HTTP/1.1 GET /\r\nHost: www.example.com\r\n\r\n");

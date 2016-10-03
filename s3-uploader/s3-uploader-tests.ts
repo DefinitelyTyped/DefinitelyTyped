@@ -1,22 +1,22 @@
-/// <reference types="node" />
-
+/// <reference path="../node/node.d.ts" />
+/// <reference path="s3-uploader.d.ts" />
 
 //NOTE: Does require GM (https://github.com/aheckmann/gm) thus requires GraphicsMagick (http://www.graphicsmagick.org/) or ImageMagick (http://www.imagemagick.org/)
 
 import Upload = require('s3-uploader');
 
-var s3VersionOriginal = {
+var s3VersionOriginal: S3UploaderVersion = {
     original: true
 };
 
-var s3VersionHeader = {
+var s3VersionHeader: S3UploaderVersion = {
     suffix: '-header',
     quality: 100,
     maxHeight: 300,
     maxWidth: 600
 }
 
-var s3Config = {
+var s3Config: S3UploaderOptions = {
     awsAccessKeyId: 'awsKeyId',
     awsSecretAccessKey: 'awsSecretAccessKey',
     awsBucketPath: '',

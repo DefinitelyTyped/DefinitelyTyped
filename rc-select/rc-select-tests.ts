@@ -1,8 +1,8 @@
-
-/// <reference types="react" />
+/// <reference path="rc-select.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 import React = require('react');
-import RcSelect = require('rc-select');
+import Select = require('rc-select');
 
 class Component extends React.Component<any, any> {    
 
@@ -19,7 +19,7 @@ class Component extends React.Component<any, any> {
         console.log('input changed');
     }
 
-    private defaultSelectProps = {
+    private defaultSelectProps: RcSelect.SelectProps = {
         className: "my-select",
         prefixCls: "prefix",
         animation: "slide-up",
@@ -44,28 +44,28 @@ class Component extends React.Component<any, any> {
         defaultActiveFirstOption: false
     };
 
-    private defaultOptGroupProps = {
+    private defaultOptGroupProps: RcSelect.OptGroupProps = {
         label: "Option group",
         key: "option-group-0",
         value: "option-group-0"
     };
 
-    private defaultOptionProps = {
+    private defaultOptionProps: RcSelect.OptionProps = {
         className: "option",
         disabled: true,
         key: "option-0",
         value: "option-0"        
     };
 
-    private createOptions(count: number) {
-        let options : any = [];
+    private createOptions(count: number): React.ReactElement<RcSelect.OptionProps>[] {
+        let options: React.ReactElement<RcSelect.OptionProps>[] = [];
 
         for (let i = 0; i < count; i++) {
             let props = this.defaultOptionProps;
             props.key = `option-${i}`;
             props.value = `option-${i}`;
 
-            options.push(React.createElement(RcSelect.Option, props));
+            options.push(React.createElement(Select.Option, props));
         }
 
         return options;
@@ -73,11 +73,11 @@ class Component extends React.Component<any, any> {
 
     render() {
 
-        let options = this.createOptions(10);
+        let options: React.ReactElement<RcSelect.OptionProps>[] = this.createOptions(10);
 
-        let optionGroup = React.createElement(RcSelect.OptGroup, this.defaultOptGroupProps, options);        
+        let optionGroup: React.ReactElement<RcSelect.OptGroupProps> = React.createElement(Select.OptGroup, this.defaultOptGroupProps, options);        
 
-        let select = React.createElement(RcSelect.default, this.defaultSelectProps, optionGroup);
+        let select: React.ReactElement<RcSelect.SelectProps> = React.createElement(Select.default, this.defaultSelectProps, optionGroup);
 
         return select;
     }

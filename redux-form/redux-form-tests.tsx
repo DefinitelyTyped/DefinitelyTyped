@@ -1,3 +1,4 @@
+/// <reference path="redux-form.d.ts" />
 
 import * as React from 'react';
 import {Component, PropTypes} from 'react';
@@ -8,7 +9,7 @@ import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form
 namespace SimpleForm {
   export const fields = ['firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes'];
 
-  class SimpleForm extends Component<ReduxFormProps<SimpleForm & HTMLFormElement>, void> {
+  class SimpleForm extends Component<ReduxFormProps, void> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -123,7 +124,7 @@ namespace SynchronousValidation {
     return errors;
   };
 
-  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>, any> {
+  class SynchronousValidationForm extends Component<ReduxFormProps, any> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -193,7 +194,7 @@ namespace SumbitValidation {
     });
   };
 
-  class SubmitValidationForm extends Component<ReduxFormProps<SubmitValidationForm>, any> {
+  class SubmitValidationForm extends Component<ReduxFormProps, any> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -204,7 +205,7 @@ namespace SumbitValidation {
 
     render() {
       const {fields: {username, password}, error, resetForm, handleSubmit, submitting} = this.props;
-      return (<form onSubmit={submit => handleSubmit(submit as any)}>
+      return (<form onSubmit={handleSubmit(submit)}>
           <div>
             <label>Username</label>
             <div>
@@ -251,11 +252,11 @@ namespace InitializingFromState {
     bio: 'Born to write amazing Redux code.'
   };
 
-  interface Props<T> extends ReduxFormProps<T> {
+  interface Props extends ReduxFormProps {
     load: Function;
   }
 
-  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm & HTMLFormElement>, any> {
+  class InitializingFromStateForm extends Component<Props, any> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,

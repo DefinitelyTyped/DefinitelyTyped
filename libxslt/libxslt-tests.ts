@@ -1,3 +1,6 @@
+/// <reference path="libxslt.d.ts" />
+/// <reference path="../libxmljs/libxmljs.d.ts" />
+
 import * as libxslt from 'libxslt';
 import * as libxmljs from 'libxmljs';
 

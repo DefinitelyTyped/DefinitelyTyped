@@ -1,3 +1,4 @@
+/// <reference path="recursive-readdir.d.ts" />
 
 import recursiveReaddir = require("recursive-readdir");
 

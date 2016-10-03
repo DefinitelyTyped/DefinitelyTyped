@@ -1,3 +1,7 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="../react/react-dom.d.ts" />
+/// <reference path="./react-slick.d.ts" />
+
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import * as Slider from "react-slick"

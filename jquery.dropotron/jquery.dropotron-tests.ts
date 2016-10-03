@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="jquery.dropotron.d.ts" />
 
 /**
  * @summary Test for "dropotron" without configurations.

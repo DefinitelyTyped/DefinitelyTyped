@@ -3,7 +3,7 @@
 // Definitions by: Roman Samec <https://github.com/rsamec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 declare namespace Utils {
     class StringFce {
         static format(s: string, args: any): string;

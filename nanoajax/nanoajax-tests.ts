@@ -1,3 +1,4 @@
+/// <reference path="./nanoajax.d.ts" />
 
 import * as nanoajax from 'nanoajax';
 

@@ -1,10 +1,11 @@
-/// <reference types="node-fetch" />
-
+/// <reference path="form-data.d.ts" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../request/request.d.ts" />
+/// <reference path="../isomorphic-fetch/isomorphic-fetch.d.ts" />
 import FormData = require('form-data');
 import fs = require('fs');
 import http = require('http');
 import request = require('request');
-import fetch = require('node-fetch');
 
 import * as ImportUsingES6Syntax from 'form-data';
 

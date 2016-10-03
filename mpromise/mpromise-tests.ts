@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="mpromise.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 var assert = require('assert');
 import Promise = require('mpromise');

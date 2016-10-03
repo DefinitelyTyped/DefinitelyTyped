@@ -1,3 +1,6 @@
+/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="./angular-deferred-bootstrap.d.ts" />
+
 deferredBootstrapper.bootstrap(
     {
         element: window.document,

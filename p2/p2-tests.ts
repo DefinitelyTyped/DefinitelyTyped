@@ -1,4 +1,5 @@
-import p2 = require("p2");
+/// <reference path="p2.d.ts"/>
+
 // Create a physics world, where bodies and constraints live
 var world = new p2.World({
     gravity:[0, -9.82]

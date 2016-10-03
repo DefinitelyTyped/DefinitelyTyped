@@ -1,3 +1,4 @@
+/// <reference path="uri-templates.d.ts" />
 
 import utmpl = require('uri-templates');
 import URITemplate = utmpl.URITemplate;

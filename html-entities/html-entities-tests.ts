@@ -1,3 +1,5 @@
+/// <reference path="html-entities.d.ts" />
+
 import * as htmlEntities from "html-entities";
  
 let entities = new htmlEntities.AllHtmlEntities();

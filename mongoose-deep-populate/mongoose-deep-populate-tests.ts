@@ -1,3 +1,6 @@
+/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference path="./mongoose-deep-populate.d.ts" />
+
 import mongooseDeepPopulate from 'mongoose-deep-populate';
 import * as mongoose from 'mongoose';
 import { Schema } from 'mongoose';

@@ -1,3 +1,5 @@
+/// <reference path='acl.d.ts'/>
+
 // Sample code from
 // https://github.com/OptimalBits/node_acl/blob/master/Readme.md
 import Acl = require('acl');

@@ -3,7 +3,7 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference types="redux" />
+///<reference path="../redux/redux.d.ts" />
 
 declare module 'redux-mock-store' {
     import * as Redux from 'redux'

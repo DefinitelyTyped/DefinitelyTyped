@@ -1,4 +1,6 @@
-/// <reference types="mocha" />
+/// <reference path='../mocha/mocha.d.ts' />
+
+/// <reference path='expectations.d.ts' />
 
 // transplant from https://github.com/spmason/expectations/blob/695c25bd35bb1751533a8082a5aa378e3e1b381f/test/expect.tests.js
 

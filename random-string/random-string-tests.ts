@@ -1,3 +1,4 @@
+/// <reference path="random-string.d.ts" />
 
 import randomString = require('random-string');
 

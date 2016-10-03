@@ -2,8 +2,9 @@
  * Created by karl on 14/07/15.
  */
 
-
-/// <reference types="easy-xapi" />
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../easy-xapi/easy-xapi.d.ts" />
+/// <reference path="./easy-xapi-utils.d.ts" />
 
 import express = require('express');
 import eXapi = require('easy-xapi');

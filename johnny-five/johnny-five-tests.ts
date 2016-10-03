@@ -1,3 +1,5 @@
+///<reference path="./johnny-five.d.ts"/>
+
 import five = require('johnny-five');
 var board = new five.Board();
 

@@ -1,3 +1,5 @@
+///<reference path="mongodb.d.ts"/>
+
 // Test source : https://github.com/mongodb/node-mongodb-native
 import mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;

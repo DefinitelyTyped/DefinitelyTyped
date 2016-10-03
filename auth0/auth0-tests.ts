@@ -1,4 +1,4 @@
-/// <reference types="auth0" />
+/// <reference path="auth0.d.ts" />
 
 import * as auth0 from 'auth0';
 

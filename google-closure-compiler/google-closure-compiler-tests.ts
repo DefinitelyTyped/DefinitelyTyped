@@ -1,3 +1,4 @@
+/// <reference path="google-closure-compiler.d.ts" />
 
 import * as GoogleClosureCompiler from 'google-closure-compiler';
 

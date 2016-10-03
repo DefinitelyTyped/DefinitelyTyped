@@ -1,5 +1,6 @@
-
-/// <reference types="jasmine" />
+/// <reference path="supertest-as-promised.d.ts" />
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../jasmine/jasmine.d.ts" />
 
 import * as request from 'supertest-as-promised';
 import * as express from 'express';

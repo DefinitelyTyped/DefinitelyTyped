@@ -1,3 +1,4 @@
+/// <reference path="./benchmark.d.ts"/>
 import Benchmark = require("benchmark");
 
 var suite = new Benchmark.Suite;

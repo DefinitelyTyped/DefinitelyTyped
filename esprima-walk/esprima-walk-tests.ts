@@ -1,5 +1,7 @@
-import * as ESTree from "estree";
-import walk = require("esprima-walk");
+/// <reference path="../estree/estree.d.ts" />
+/// <reference path="esprima-walk.d.ts" />
+
+import * as walk from 'esprima-walk'
 
 var program: ESTree.Program
 var string: string

@@ -1,3 +1,4 @@
+/// <reference path="statuses.d.ts" />
 
 import status = require('statuses');
 

@@ -1,4 +1,4 @@
-import * as sinon from 'sinon';
+/// <reference path="sinon-stub-promise.d.ts"/>
 function testResolve() {
     var promise = sinon.stub().returnsPromise();
     promise.resolves('test val');

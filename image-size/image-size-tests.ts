@@ -1,3 +1,4 @@
+/// <reference path="image-size.d.ts" />
 
 import * as url from "url";
 import * as http from "http";

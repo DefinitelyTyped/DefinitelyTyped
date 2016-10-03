@@ -3,17 +3,18 @@
 // Definitions by: jKey Lu <https://github.com/jkeylu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare module "koa-compose" {
+    function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
 
-declare function compose(middleware: compose.Middleware[]): compose.ComposedMiddleware;
+    namespace compose {
+        interface Middleware {
+            (next?: void): IterableIterator<any>;
+        }
 
-declare namespace compose {
-    interface Middleware {
-        (next?: void): IterableIterator<any>;
+        interface ComposedMiddleware {
+            (): IterableIterator<any>;
+        }
     }
 
-    interface ComposedMiddleware {
-        (): IterableIterator<any>;
-    }
+    export = compose;
 }
-
-export = compose;

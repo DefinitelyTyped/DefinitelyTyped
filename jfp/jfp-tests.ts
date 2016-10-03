@@ -1,4 +1,4 @@
-import j = require("jfp");
+/// <reference path="jfp.d.ts" />
 
 function testFn () {};
 

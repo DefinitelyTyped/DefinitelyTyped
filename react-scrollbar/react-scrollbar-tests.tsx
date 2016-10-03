@@ -1,3 +1,6 @@
+/// <reference path="react-scrollbar.d.ts" />
+/// <reference path="../react/react.d.ts" />
+
 import ScrollArea = require('react-scrollbar');
 import * as React from 'react';
 

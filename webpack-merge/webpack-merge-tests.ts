@@ -1,3 +1,5 @@
+///<reference path="webpack-merge.d.ts" />
+
 import merge = require("webpack-merge");
 import {Configuration} from "webpack";
 

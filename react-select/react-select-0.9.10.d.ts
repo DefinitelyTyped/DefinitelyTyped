@@ -3,7 +3,7 @@
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react"/>
+///<reference path="../react/react.d.ts"/>
 
 // Typings for https://github.com/JedWatson/react-select
 //***Usage***

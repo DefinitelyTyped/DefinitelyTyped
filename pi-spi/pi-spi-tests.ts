@@ -1,3 +1,4 @@
+/// <reference path="pi-spi" />
 
 import * as piSPI from 'pi-spi';
 

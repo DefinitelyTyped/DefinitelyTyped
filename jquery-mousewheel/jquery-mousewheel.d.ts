@@ -3,7 +3,7 @@
 // Definitions by: Brian Surowiec <https://github.com/xt0rted/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
 
 declare namespace JQueryMousewheel {
     interface JQueryMousewheelEventObject extends JQueryEventObject {

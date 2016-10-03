@@ -1,3 +1,4 @@
+/// <reference path="pusher-js.d.ts" />
 
 import Pusher = require('pusher-js');
 import { PresenceChannel } from "pusher-js";

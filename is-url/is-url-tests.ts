@@ -1,3 +1,4 @@
+/// <reference path="./is-url.d.ts" />
 
 import isUrl = require('is-url');
 

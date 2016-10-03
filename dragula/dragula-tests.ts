@@ -1,4 +1,4 @@
-import dragula = require("dragula");
+/// <reference path="dragula.d.ts" />
 
 var d1 = dragula([document.querySelector('#left'), document.querySelector('#right')]);
 

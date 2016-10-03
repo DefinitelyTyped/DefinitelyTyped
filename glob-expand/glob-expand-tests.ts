@@ -1,3 +1,4 @@
+/// <reference path="./glob-expand.d.ts" />
 
 import * as expand from "glob-expand";
 

@@ -1,3 +1,4 @@
+/// <reference path="sentence-case.d.ts" />
 
 import sentenceCase = require('sentence-case');
 

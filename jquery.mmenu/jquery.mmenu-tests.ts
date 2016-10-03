@@ -1,5 +1,5 @@
-///<reference types="jquery" />
-///<reference types="jquery.mmenu" />
+///<reference path="../jquery/jquery.d.ts" />
+///<reference path="../jquery.mmenu/jquery.mmenu.d.ts" />
 
 
 // --------------------------------------------------------

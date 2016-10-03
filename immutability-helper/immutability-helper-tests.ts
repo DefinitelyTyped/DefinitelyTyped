@@ -1,3 +1,5 @@
+/// <reference path="immutability-helper.d.ts"/>
+
 import * as update from 'immutability-helper';
 import { newContext } from 'immutability-helper';
 

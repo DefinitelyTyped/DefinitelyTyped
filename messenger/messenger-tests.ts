@@ -1,3 +1,5 @@
+/// <reference path="messenger.d.ts"/>
+
 var message = Messenger().post({
     message: "message",
     hideAfter: 5,

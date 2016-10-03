@@ -1,4 +1,4 @@
-/// <reference types="browser-resolve" />
+/// <reference path="./browser-resolve.d.ts" />
 
 import * as browserResolve from 'browser-resolve';
 

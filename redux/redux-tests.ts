@@ -1,4 +1,4 @@
-import Redux = require("redux");
+/// <reference path="./redux.d.ts" />
 
 // Simple counter test using the global Redux var
 
@@ -6,24 +6,24 @@ import Redux = require("redux");
     type State = number;
 
     function counter(state: State, action: R.Action) {
-    if (!state) {
-        state = 0;
-    }
-    switch (action.type) {
-        case 'INCREMENT':
-            return state + 1;
-        case 'DECREMENT':
-            return state - 1;
-        default:
-            return state;
-    }
+        if (!state) {
+            state = 0;
+        }
+        switch (action.type) {
+            case 'INCREMENT':
+                return state + 1;
+            case 'DECREMENT':
+                return state - 1;
+            default:
+                return state;
+        }
     }
 
     function loggingMiddleware() {
         return (next: Redux.Dispatch<State>) => (action: any) => {
-        console.log(action.type);
-        next(action);
-    };
+            console.log(action.type);
+            next(action);
+        };
     }
 
     let createStoreWithMiddleware = Redux.applyMiddleware(loggingMiddleware)(Redux.createStore);
@@ -31,7 +31,7 @@ import Redux = require("redux");
 
 
     store.subscribe(() =>
-    console.log(store.getState())
+        console.log(store.getState())
     );
 
     store.dispatch({ type: 'INCREMENT' });
@@ -173,7 +173,7 @@ namespace EnumTypeAction {
     const t2: string = R.compose(numberToString, numberToNumber)(5);
     const t3: string = R.compose(numberToString, stringToNumber)("f");
     const t4: (a: string) => number = R.compose(
-      (f: (a: string) => number) => ((p: string): number => 5),
+      (f: (a: string) => number) => ((p: string) => 5),
       (f: (a: number) => string) => ((p: string) => 4)
     )(numberToString);
 

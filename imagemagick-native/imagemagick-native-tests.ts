@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="imagemagick-native.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import imagemagick = require('imagemagick-native');
 import fs = require('fs');

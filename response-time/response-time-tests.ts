@@ -1,3 +1,4 @@
+/// <reference path="response-time.d.ts" />
 
 import express = require('express');
 import responseTime = require('response-time');

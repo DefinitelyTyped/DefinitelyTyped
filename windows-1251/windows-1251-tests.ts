@@ -1,3 +1,5 @@
+/// <reference path='windows-1251.d.ts' />
+
 import * as windows1251 from 'windows-1251';
 
 var text:string = "some text", byteString:string, decodedText:string;

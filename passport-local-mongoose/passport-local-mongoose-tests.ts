@@ -1,4 +1,8 @@
-/// <reference types="express" />
+/// <reference path="./passport-local-mongoose.d.ts" />
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../passport/passport.d.ts" />
+/// <reference path="../passport-local/passport-local.d.ts" />
+/// <reference path="../mongoose/mongoose.d.ts" />
 
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.

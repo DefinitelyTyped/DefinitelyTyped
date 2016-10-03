@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="redux" />
+/// <reference path="../redux/redux.d.ts" />
 
 declare module "redux-storage" {
     import { Reducer, Store, Middleware } from "redux";

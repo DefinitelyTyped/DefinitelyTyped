@@ -4,7 +4,8 @@
  * Created by using code samples from https://github.com/auth0/node-jsonwebtoken.
  */ 
  
-/// <reference types="node" /> 
+/// <reference path="../node/node.d.ts" /> 
+/// <reference path="jsonwebtoken.d.ts" />
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");

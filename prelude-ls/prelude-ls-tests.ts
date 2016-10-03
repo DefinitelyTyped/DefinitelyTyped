@@ -1,3 +1,4 @@
+/// <reference path="./prelude-ls.d.ts" />
 
 import prelude = require("prelude-ls");
 

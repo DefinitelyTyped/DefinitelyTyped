@@ -3,9 +3,11 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+/// <reference path="../react/react.d.ts" />
 
 declare namespace Tooltip {
+	import React = __React;
+
 	export type Trigger = "hover" | "click" | "focus";
 	export type Placement =
 		"left" | "right" | "top" | "bottom" |
@@ -32,7 +34,7 @@ declare namespace Tooltip {
 	}
 }
 
-declare class Tooltip extends React.Component<Tooltip.Props, {}> {}
+declare class Tooltip extends __React.Component<Tooltip.Props, {}> {}
 
 declare module "rc-tooltip" {
 	export = Tooltip

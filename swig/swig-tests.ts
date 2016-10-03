@@ -1,4 +1,6 @@
-import swig = require('./');
+/// <reference path="swig.d.ts" />
+
+import swig = require('swig');
 
 var swigObj: swig.Swig;
 var value: any;

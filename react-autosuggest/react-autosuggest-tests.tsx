@@ -1,3 +1,9 @@
+// React-Autosuggest Test
+// ================================================================================
+///<reference path="react-autosuggest.d.ts"/>
+///<reference path="../react/react.d.ts"/>
+///<reference path="../react/react-dom.d.ts"/>
+
 //region Imports
 import React = require('react');
 import ReactDOM = require('react-dom');
@@ -63,7 +69,7 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             inputProps={inputProps}/>;
     }
 
-    protected onSuggestionsSelected(event: React.FormEvent<any>, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
+    protected onSuggestionsSelected(event: React.FormEvent, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
         alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
@@ -73,13 +79,13 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent, {newValue, method}): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsUpdateRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -188,7 +194,7 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected onSuggestionSelected(event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData): void {
+    protected onSuggestionSelected(event: React.FormEvent, data: ReactAutosuggest.SuggestionSelectedEventData): void {
         const language = data.suggestion as Language;
 
         alert(`Selected language is ${language.name} (${language.year}).`);
@@ -204,13 +210,13 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent<any>, { newValue, method }: any): void {
+    protected onChange(event: React.FormEvent, { newValue, method }): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsUpdateRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -292,7 +298,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected renderSuggestion(suggestion: IPerson, { value, valueBeforeUpDown }: any): JSX.Element {
+    protected renderSuggestion(suggestion: IPerson, { value, valueBeforeUpDown }): JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
         const query = (valueBeforeUpDown || value).trim();
         const parts =  suggestionText.split(' ').map((part: string) => {
@@ -317,13 +323,13 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
+    protected onChange(event: React.FormEvent, {newValue, method}): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }: any): void {
+    protected onSuggestionsUpdateRequested({ value }): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });

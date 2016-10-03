@@ -3,7 +3,7 @@
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="hapi" />
+/// <reference path="../hapi/hapi.d.ts" />
 
 declare module 'nes' {
     import Hapi = require('hapi');

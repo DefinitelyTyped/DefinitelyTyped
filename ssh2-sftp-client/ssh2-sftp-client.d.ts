@@ -3,7 +3,7 @@
 // Definitions by: igrayson <https://github.com/igrayson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="ssh2"/>
+/// <reference path="../ssh2/ssh2.d.ts"/>
 
 declare module "ssh2-sftp-client" {
   import * as ssh2 from 'ssh2';

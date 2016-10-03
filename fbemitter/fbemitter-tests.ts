@@ -1,7 +1,7 @@
-
-///<reference types="node" />
-///<reference types="mocha" />
-///<reference types="assert" />
+///<reference path="fbemitter.d.ts" />
+///<reference path="../node/node.d.ts" />
+///<reference path="../mocha/mocha.d.ts" />
+///<reference path="../assert/assert.d.ts" />
 'use strict';
 
 /**

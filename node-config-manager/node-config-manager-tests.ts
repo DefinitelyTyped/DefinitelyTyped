@@ -1,3 +1,4 @@
+/// <reference path="node-config-manager.d.ts" />
 
 import cfgManager = require('node-config-manager');
 var options = {

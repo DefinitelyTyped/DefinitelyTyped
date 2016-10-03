@@ -3,8 +3,8 @@
 // Definitions by: Shant Marouti <https://github.com/shantmarouti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
-/// <reference types="vinyl"/>
+/// <reference path="../node/node.d.ts"/>
+/// <reference path="../vinyl/vinyl.d.ts"/>
 
 declare module 'gulp-insert' {
 

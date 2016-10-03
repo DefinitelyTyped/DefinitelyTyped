@@ -1,6 +1,7 @@
 /**
  * Created by Roland on 6/15/2014.
  */
+///<reference path='timelinejs.d.ts'/>
 
 var timelineSource:knightlab.ITimelineModel = {
     timeline: {

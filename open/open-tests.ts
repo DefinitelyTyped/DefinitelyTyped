@@ -1,3 +1,4 @@
+/// <reference path="open.d.ts" />
 
 import open = require('open');
 

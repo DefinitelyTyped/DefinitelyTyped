@@ -1,3 +1,5 @@
+/// <reference path="speakeasy.d.ts"/>
+
 import speakeasy = require('speakeasy');
 
 speakeasy.generate_key({length: 20, google_auth_qr: true});

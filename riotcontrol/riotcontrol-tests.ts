@@ -1,9 +1,9 @@
-
+/// <reference path="./riotcontrol.d.ts" />
 
 import riotcontrol = require('riotcontrol');
 
 {
-	let store: riotcontrol.Store;
+	let store: RiotControl.Store;
 	let result: void;
 	result = riotcontrol.addStore(store);
 }

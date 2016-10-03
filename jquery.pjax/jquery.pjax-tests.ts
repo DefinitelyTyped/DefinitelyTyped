@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="jquery.pjax.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 function test_fn_pjax() {
     $(document).pjax("a");

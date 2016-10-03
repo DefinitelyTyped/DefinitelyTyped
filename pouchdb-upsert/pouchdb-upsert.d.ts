@@ -3,7 +3,7 @@
 // Definitions by: Keith D. Moore <https://github.com/keithdmoore>, Andrew Mitchell <https://github.com/hotforfeature>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="pouchdb-core" />
+/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
 
 declare namespace PouchDB {
 

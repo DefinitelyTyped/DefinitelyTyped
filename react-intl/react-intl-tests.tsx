@@ -2,11 +2,14 @@
  * Created by Bruno Grieder and Christian Droulers
  */
 
-///<reference types="react" />
+///<reference path="../react/react.d.ts" />
+///<reference path="../react-mixin/react-mixin.d.ts" />
+///<reference path="./react-intl.d.ts" />
+
 
 import * as React from "react"
-import * as reactMixin from "react-mixin"
 
+import * as reactMixin from "react-mixin"
 import {
 IntlProvider,
 InjectedIntlProps,
@@ -23,7 +26,6 @@ FormattedPlural,
 FormattedDate,
 FormattedTime
 } from "react-intl"
-
 import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);

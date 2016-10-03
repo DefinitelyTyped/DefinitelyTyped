@@ -1,5 +1,5 @@
-﻿/// <reference types="cordova" />
-
+﻿/// <reference path="../cordova/cordova.d.ts" />
+/// <reference path="./cordova-plugin-ibeacon.d.ts" />
 
 function registerDelegates() {
 	cordova.plugins.locationManager.enableDebugLogs();

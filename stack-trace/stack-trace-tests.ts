@@ -1,3 +1,4 @@
+/// <reference path="./stack-trace.d.ts" />
 
 import stackTrace = require('stack-trace');
 

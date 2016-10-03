@@ -1,3 +1,5 @@
+///<reference path="eventemitter2.d.ts"/>
+
 // Example for CommonJS/AMD
 /*
 import eventemitter2 = require("eventemitter2");

@@ -1,3 +1,5 @@
+/// <reference path="rpio.d.ts"/>
+
 rpio.init({gpiomem: false});    /* Use /dev/mem for i²c/PWM/SPI */
 rpio.init({mapping: 'gpio'});   /* Use the GPIOxx numbering */
 

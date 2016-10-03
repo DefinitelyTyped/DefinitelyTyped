@@ -3,7 +3,7 @@
 // Definitions by: TeamworkGuy2 <https://github.com/TeamworkGuy2>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="through" />
+/// <reference path="../through/through.d.ts" />
 
 declare module 'exorcist' {
     import through = require("through");

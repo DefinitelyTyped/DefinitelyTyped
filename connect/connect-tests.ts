@@ -1,3 +1,4 @@
+/// <reference path="./connect.d.ts" />
 
 import * as http from "http";
 import * as connect from "connect";

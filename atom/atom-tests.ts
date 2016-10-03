@@ -1,11 +1,12 @@
-/// <reference types="node" />
-/// <reference types="pathwatcher" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="./atom.d.ts" />
+/// <reference path="../pathwatcher/pathwatcher.d.ts" />
 
 import path = require("path");
 import _atom = require("atom");
 
-import PathWatcher = require("pathwatcher");
-var File = PathWatcher.File;
+import pathwatcher = require("pathwatcher");
+var File = pathwatcher.File;
 
 class SampleView extends _atom.ScrollView {
 

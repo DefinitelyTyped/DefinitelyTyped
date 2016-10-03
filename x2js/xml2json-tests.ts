@@ -1,3 +1,5 @@
+///<reference path="xml2json.d.ts" />
+
 // Create x2js instance with default config
 var x2js = new X2JS();
 

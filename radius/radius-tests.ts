@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="radius.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import radius = require('radius');
 

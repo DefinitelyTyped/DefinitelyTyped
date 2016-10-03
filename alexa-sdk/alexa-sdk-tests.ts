@@ -1,4 +1,5 @@
-/// <reference types="node"/>
+/// <reference path="../node/node.d.ts"/>
+/// <reference path="./alexa-sdk.d.ts" />
 
 import * as Alexa from "alexa-sdk";
 

@@ -1,8 +1,7 @@
-
 /// <reference path="device.d.ts" />
-/// <reference path="../angular/index.d.ts" />
-/// <reference path="../cordova/index.d.ts" />
-/// <reference path="../ionic/index.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../ionic/ionic.d.ts" />
+
 // For the full application demo please see following repo :
 // https://github.com/ksachdeva/ngCordova-typescript-demo
 

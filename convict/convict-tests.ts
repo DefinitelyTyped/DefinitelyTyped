@@ -1,5 +1,5 @@
-
-/// <reference types="validator" />
+/// <reference path='convict.d.ts' />
+/// <reference path='../validator/validator.d.ts' />
 
 import convict = require('convict');
 import validator = require('validator');

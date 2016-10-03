@@ -1,3 +1,5 @@
+/// <reference path="../node/node.d.ts"/>   // only for require()
+/// <reference path="pino.d.ts"/>
 // This contains all of the code from the docs on https://www.npmjs.com/package/pino
 
 import PINO = require('pino')

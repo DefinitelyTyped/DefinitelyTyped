@@ -1,5 +1,5 @@
-import * as sinon from 'sinon';
-import SinonChrome = require("sinon-chrome");
+/// <reference path="sinon-chrome.d.ts"/>
+
 var chromeStub = <typeof SinonChrome> <any> window.chrome;
 
 // Examples taken from https://github.com/vitalets/sinon-chrome:

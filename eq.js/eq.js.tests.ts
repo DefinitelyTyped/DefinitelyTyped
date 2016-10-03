@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="eq.js.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 var nodes = document.getElementsByClassName(".test-container");
 var node = document.getElementById("#test-container");

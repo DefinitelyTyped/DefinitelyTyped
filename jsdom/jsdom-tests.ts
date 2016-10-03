@@ -1,3 +1,4 @@
+/// <reference path="./jsdom.d.ts" />
 
 import jsdom = require("jsdom");
 

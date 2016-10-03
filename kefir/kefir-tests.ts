@@ -1,3 +1,4 @@
+/// <reference path="./kefir.d.ts" />
 
 import * as Kefir from 'kefir';
 import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'kefir';

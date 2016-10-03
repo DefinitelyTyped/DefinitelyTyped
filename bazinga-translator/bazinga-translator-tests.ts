@@ -1,4 +1,4 @@
-/// <reference types="bazinga-translator" />
+/// <reference path="bazinga-translator.d.ts" />
 
 Translator.fallback = 'en';
 Translator.defaultDomain = 'messages';

@@ -2,8 +2,8 @@
 // Project: https://github.com/leongersen/noUiSlider
 // Definitions by: Corey Jepperson <https://github.com/acoreyj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="jquery"/>
-/// <reference types="wnumb"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../wnumb/wnumb.d.ts"/>
 
 
 interface noUiSliderInstance extends JQuery{

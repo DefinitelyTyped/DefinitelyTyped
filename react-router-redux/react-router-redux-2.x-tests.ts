@@ -1,6 +1,6 @@
-
-/// <reference types="redux" />
-/// <reference types="react-router" />
+/// <reference path="./react-router-redux-2.x.d.ts" />
+/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../react-router/react-router.d.ts" />
 
 
 

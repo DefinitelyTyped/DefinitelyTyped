@@ -1,4 +1,4 @@
-import rewire = require("rewire");
+/// <reference path="rewire.d.ts" />
 
 var myModule = rewire("../lib/myModule.js");
 

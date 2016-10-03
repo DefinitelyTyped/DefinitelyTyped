@@ -1,3 +1,4 @@
+/// <reference path="json-pointer.d.ts" />
 
 import JsonPointer = require('json-pointer');
 

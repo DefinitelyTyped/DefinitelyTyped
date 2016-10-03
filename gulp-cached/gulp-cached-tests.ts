@@ -1,3 +1,6 @@
+/// <reference path="../gulp/gulp.d.ts" />
+/// <reference path="./gulp-cached.d.ts" />
+
 import * as gulp from "gulp";
 import cached = require("gulp-cached");
 

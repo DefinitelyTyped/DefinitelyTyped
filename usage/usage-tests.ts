@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="usage.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import usage = require('usage');
 

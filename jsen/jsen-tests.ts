@@ -1,5 +1,7 @@
+/// <reference path="jsen.d.ts"/>
+
 import jsen = require("jsen");
-import JsenSettings = jsen.JsenSettings;
+import JsenSettings = Jsen.JsenSettings;
 
 // any
 {

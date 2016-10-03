@@ -1,3 +1,4 @@
+/// <reference path="path-case.d.ts" />
 
 import pathCase = require('path-case');
 

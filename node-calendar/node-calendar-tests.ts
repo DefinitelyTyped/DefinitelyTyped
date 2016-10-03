@@ -1,3 +1,4 @@
+/// <reference path="node-calendar" />
 
 import node_calendar = require('node-calendar');
 

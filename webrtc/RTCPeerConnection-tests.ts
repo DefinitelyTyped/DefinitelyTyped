@@ -1,5 +1,5 @@
-
-
+/// <reference path="MediaStream.d.ts" />
+/// <reference path="RTCPeerConnection.d.ts" />
 
 let voidpromise: Promise<void>;
 
@@ -22,23 +22,23 @@ var config: RTCConfiguration = {
     bundlePolicy: "max-compat",
     rtcpMuxPolicy: "negotiate",
     peerIdentity: "dude",
-    certificates: [{ expires: 1337 }],
+    certificates: [{expires: 1337}],
     iceCandidatePoolSize: 5
 };
 var constraints: RTCMediaConstraints =
-    { mandatory: { OfferToReceiveAudio: true, OfferToReceiveVideo: true } };
+    { mandatory: { offerToReceiveAudio: true, offerToReceiveVideo: true } };
 
 var peerConnection: RTCPeerConnection =
     new RTCPeerConnection(config, constraints);
 
 navigator.getUserMedia({ audio: true, video: true },
-    stream => {
-        peerConnection.addStream(stream);
-    },
-    error => {
-        console.log('Error message: ' + error.message);
-        console.log('Error name: ' + error.name);
-    });
+  stream => {
+    peerConnection.addStream(stream);
+  },
+  error => {
+    console.log('Error message: ' + error.message);
+    console.log('Error name: ' + error.name);
+  });
 
 peerConnection.onaddstream = ev => console.log(ev.type);
 peerConnection.ondatachannel = ev => console.log(ev.channel);
@@ -71,18 +71,18 @@ voidpromise = peerConnection.setLocalDescription(webkitSessionDescription);
 
 // Legacy syntax
 peerConnection.setRemoteDescription(webkitSessionDescription, () => {
-    peerConnection.createAnswer(
-        answer => {
-            peerConnection.setLocalDescription(answer,
-                () => console.log('Set local description'),
-                error => console.log(
-                    "Error setting local description from created answer: " + error +
-                    "; answer.sdp=" + answer.sdp));
-        },
-        error => console.log("Error creating answer: " + error));
+  peerConnection.createAnswer(
+    answer => {
+      peerConnection.setLocalDescription(answer,
+        () => console.log('Set local description'),
+      error => console.log(
+         "Error setting local description from created answer: " + error +
+         "; answer.sdp=" + answer.sdp));
+    },
+  error => console.log("Error creating answer: " + error));
 },
-    error => console.log('Error setting remote description: ' + error +
-        "; offer.sdp=" + offer.sdp));
+error => console.log('Error setting remote description: ' + error +
+    "; offer.sdp=" + offer.sdp));
 
 var mozSessionDescription = new mozRTCSessionDescription(offer);
 
@@ -91,24 +91,5 @@ peerConnection.setRemoteDescription(mozSessionDescription);
 var wkPeerConnection: webkitRTCPeerConnection =
     new webkitRTCPeerConnection(config, constraints);
 
-let candidate: RTCIceCandidate = { 'candidate': 'foobar' };
+let candidate: RTCIceCandidate = {'candidate': 'foobar'};
 voidpromise = peerConnection.addIceCandidate(candidate);
-
-var mediaTrackConstraintSet: MediaTrackConstraintSet = {};
-var mediaTrackConstraints: MediaTrackConstraints = mediaTrackConstraintSet;
-
-wkPeerConnection.getStats(null);
-
-let mediaStreamTrack: MediaStreamTrack = {
-    enabled: true, id:
-        'id', kind: 'kind', label: 'label', muted: true, onended: () => { }, onmute: () => { },
-    onoverconstrained: () => { }, onunmute: () => { }, readonly: true, readyState: 'string',
-    remote: true, applyConstraints: (): Promise<void> => { return new Promise<void>(() => { }) },
-    clone: ():MediaStreamTrack => { return this;}, 
-    getCapabilities: ():MediaTrackCapabilities => { return {latency:0};},
-    getConstraints: ():MediaTrackConstraints => { return {}},
-    getSettings: ():MediaTrackSettings => { return { latency: 0}},
-    stop: () => {}, addEventListener: () => {}, dispatchEvent: (evt:Event):boolean => { return false;},
-    removeEventListener: () => {}
-};
-wkPeerConnection.getStats(mediaStreamTrack);

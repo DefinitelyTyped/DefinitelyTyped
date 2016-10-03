@@ -1,4 +1,6 @@
-/// <reference types="jquery" />
+/// <reference path="umbraco.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../underscore/underscore.d.ts" />
 
 var navigationService: umb.services.INavigationService;
 var notificationsService: umb.services.INotificationsService;
@@ -58,7 +60,7 @@ var getCurrentNode = () => {
 var isPublishedNode = () => {
 
     // check that we have an active node
-    if (editorState.current) {
+    if (_.isUndefined(editorState.current)) {
         return false;
     }
     return editorState.current.published;
@@ -73,7 +75,7 @@ var isPublishedNode = () => {
 var getActiveNodeId = () => {
 
     // check that we have an active node
-    if (editorState.current) {
+    if (_.isUndefined(editorState.current)) {
         return 0;
     }
     // get the parent id of the current node - we get parent because if we create a new module then the current node will be unpublished and this "id" will be 0

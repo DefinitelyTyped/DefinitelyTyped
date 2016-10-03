@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference types="enzyme" />
-/// <reference types="chai" />
-/// <reference types="react" />
+/// <reference path="../enzyme/enzyme.d.ts" />
+/// <reference path="../chai/chai.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 declare namespace Chai {
-    type EnzymeSelector = string | React.StatelessComponent<any> | React.ComponentClass<any> | { [key: string]: any };
+    type EnzymeSelector = string | __React.StatelessComponent<any> | __React.ComponentClass<any> | { [key: string]: any };
 
     interface Match {
         /**

@@ -3,7 +3,7 @@
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="index.d.ts"/>
+/// <reference path="rx.d.ts"/>
 
 declare namespace Rx {
 

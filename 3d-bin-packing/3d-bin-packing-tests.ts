@@ -1,3 +1,5 @@
+/// <reference path="3d-bin-packing.d.ts" />
+
 import packer = require("3d-bin-packing");
 import samchon = require("samchon-framework");
 

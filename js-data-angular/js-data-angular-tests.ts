@@ -1,6 +1,4 @@
-import * as JSData from 'js-data';
-import * as ng from 'angular';
-import * as angular from 'angular';
+/// <reference path="js-data-angular.d.ts" />
 
 interface IUser {
 

@@ -1,3 +1,4 @@
+/// <reference path="tea-merge.d.ts" />
 
 import merge = require('tea-merge');
 

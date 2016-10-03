@@ -1,4 +1,5 @@
 
+///<reference path="netmask.d.ts" />
 
 import netmask = require('netmask');
 

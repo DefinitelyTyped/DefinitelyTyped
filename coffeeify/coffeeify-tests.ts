@@ -1,3 +1,4 @@
+/// <reference path="coffeeify.d.ts" />
 
 import coffeeify = require('coffeeify');
 

@@ -1,3 +1,6 @@
+/// <reference path="../redis/redis.d.ts" />
+/// <reference path="redis-scripto.d.ts" />
+
 import * as redis from 'redis';
 import * as Scripto from 'redis-scripto';
 

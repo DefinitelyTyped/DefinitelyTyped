@@ -1,3 +1,5 @@
+/// <reference path="twit.d.ts" />
+
 import * as Twit from 'twit';
 
 const t = new Twit( {

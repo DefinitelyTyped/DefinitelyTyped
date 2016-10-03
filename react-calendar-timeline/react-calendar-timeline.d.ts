@@ -3,18 +3,18 @@
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+/// <reference path="../react/react.d.ts"/>
 
 declare module "react-calendar-timeline" {
     interface ReactCalendarTimeline {
         groups: {
             id: number;
-            title: any; // string | Element (React.ClassicComponentClass<any>);
+            title: any; // string | Element (__React.ClassicComponentClass<any>);
         }[];
         items:{
             id: number;
             group: number;
-            title?: any; // string | Element (React.ClassicComponentClass<any>);
+            title?: any; // string | Element (__React.ClassicComponentClass<any>);
             start_time: any;
             end_time: any;
             canMove?: boolean;
@@ -65,6 +65,6 @@ declare module "react-calendar-timeline" {
         onBoundsChange?(canvasTimeStart:any, canvasTimeEnd:any): any;
         children?: any;
     }
-    let ReactCalendarTimeline : React.ClassicComponentClass<ReactCalendarTimeline>;
+    let ReactCalendarTimeline : __React.ClassicComponentClass<ReactCalendarTimeline>;
     export default ReactCalendarTimeline;
 }

@@ -1,9 +1,9 @@
+/// <reference path="../backbone/backbone.d.ts" />
+/// <reference path="backbone-associations.d.ts" />
+
 // borrowed from the Backbone.Associations tutorials
 // separated out into modules to avoid namespace clashes
-
-import * as Backbone from 'backbone';
-
-namespace BackboneAssociationsTests {
+namespace Backbone.Associations.Tests {
     namespace OneToOne {
         class EmployeeWithManager extends Backbone.AssociatedModel {
             constructor(options?) {

@@ -1,4 +1,5 @@
-/// <reference types="node"/>
+/// <reference path="random-js.d.ts"/>
+/// <reference path="../node/node.d.ts"/>
 
 // Examples taken from the documentation at https://github.com/ckknight/random-js
 // create a Mersenne Twister-19937 that is auto-seeded based on time and other random values

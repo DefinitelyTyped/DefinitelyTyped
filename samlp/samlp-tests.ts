@@ -1,3 +1,7 @@
+/// <reference path="samlp.d.ts" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../express/express.d.ts" />
+
 import * as fs from 'fs';
 import * as path from 'path';
 import * as express from 'express';

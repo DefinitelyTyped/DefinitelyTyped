@@ -1,3 +1,5 @@
+///<reference path="SharedWorker.d.ts" />
+
 var worker_with_name = new SharedWorker('worker.js', "worker");
 
 var worker = new SharedWorker('worker.js');

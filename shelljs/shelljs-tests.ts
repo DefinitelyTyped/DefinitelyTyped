@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
-///<reference types="node" />
+///<reference path="../node/node.d.ts" />
+///<reference path="../shelljs/shelljs.d.ts" />
 
 import shell = require("shelljs");
 

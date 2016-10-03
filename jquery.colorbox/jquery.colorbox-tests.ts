@@ -1,4 +1,5 @@
-﻿/// <reference types="jquery"/>
+﻿/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jquery.colorbox.d.ts"/>
 
 //Image gallery
 var gallery : JQuery = $('a.gallery').colorbox({ rel: 'gal' });

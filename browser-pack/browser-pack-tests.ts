@@ -1,9 +1,11 @@
+/// <reference path="browser-pack.d.ts" />
+
 import browserPack = require("browser-pack");
 
 module BrowserPackTest {
 
-    export function packIt(opts?: browserPack.Options) {
-        var packOpts: browserPack.Options = {
+    export function packIt(opts?: BrowserPack.Options) {
+        var packOpts: BrowserPack.Options = {
             basedir: opts.basedir || "./",
             externalRequireName: opts.externalRequireName || "require",
             hasExports: opts.hasExports || false,

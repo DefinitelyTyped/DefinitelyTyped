@@ -1,3 +1,4 @@
+/// <reference path="xmlbuilder.d.ts" />
 
 import xmlbuilder = require('xmlbuilder');
 var xml = xmlbuilder.create;

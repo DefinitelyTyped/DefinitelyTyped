@@ -1,3 +1,5 @@
+/// <reference path="jquery.soap.d.ts"/>
+
 $.soap({
     url: 'http://my.server.com/soapservices/',
     method: 'helloWorld',

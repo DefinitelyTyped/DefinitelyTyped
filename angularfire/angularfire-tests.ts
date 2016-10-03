@@ -1,3 +1,5 @@
+/// <reference path="angularfire.d.ts"/>
+
 var myapp = angular.module("myapp", ["firebase"]);
 
 interface AngularFireScope extends ng.IScope {

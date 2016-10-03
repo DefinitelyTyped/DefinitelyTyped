@@ -1,3 +1,6 @@
+/// <reference path="../requirejs/require.d.ts" />
+/// <reference path="orchestrator.d.ts" />
+
 'use strict';
 
 import Orchestrator = require('orchestrator');
@@ -27,7 +30,7 @@ orchestrator.add('thing2', function(callback: any){
 });
 
 
-import Q = require('q');
+var Q = require('q');
 
 orchestrator.add('thing3', function(){
     var deferred = Q.defer();

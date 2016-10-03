@@ -3,6 +3,8 @@
 // Definitions by: Andy Shu Xin <https://github.com/andyshuxin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../redux/redux.d.ts"/>
+
 declare module "redux-ui" {
 
   import * as Redux from 'redux';

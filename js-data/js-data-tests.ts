@@ -1,4 +1,4 @@
-import JSData = require("js-data");
+/// <reference path="js-data.d.ts" />
 
 interface IUser {
     id?: number;
@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-namespace MyJSData {
+namespace JSData {
 
     interface DS {
 

@@ -1,4 +1,5 @@
-import * as RedisSMQ from 'rsmq';
+/// <reference path="./rsmq-worker.d.ts" />
+
 import RSMQWorker = require('rsmq-worker');
 
 var worker: RSMQWorker.Client;

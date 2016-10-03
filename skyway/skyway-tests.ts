@@ -1,3 +1,6 @@
+/// <reference path="./skyway.d.ts" />
+/// <reference path="../webrtc/RTCPeerConnection.d.ts" />
+
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,

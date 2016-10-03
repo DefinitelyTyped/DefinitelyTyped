@@ -1,3 +1,4 @@
+/// <reference path="less-middleware.d.ts" />
 
 import express = require('express');
 import lessMiddleware = require('less-middleware');

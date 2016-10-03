@@ -1,3 +1,4 @@
+/// <reference path="freeport.d.ts" />
 
 import freeport = require('freeport');
 

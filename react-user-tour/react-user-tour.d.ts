@@ -3,7 +3,7 @@
 // Definitions by: Carlo Cancellieri <https://github.com/ccancellieri>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types='react' />
+/// <reference path='../react/react.d.ts' />
 
 declare module 'react-user-tour' {
 
@@ -22,11 +22,11 @@ declare module 'react-user-tour' {
         /**
         a react element representing the header of the current step
         */
-        title: string | JSX.Element;
+        title: string;
         /**
         a react element representing the main body message of the tour step
         */
-        body: string | JSX.Element;
+        body: string;
         /**
         Optional properties horizontalOffset and verticalOffset values allow to move tooltip around pointed element.
         */
@@ -41,7 +41,7 @@ declare module 'react-user-tour' {
         position?: 'left' | 'right' | 'top' | 'topLeft' | 'bottom' | 'bottomLeft';
     }
 
-    interface TourProps extends HTMLAttributes<any> {
+    interface TourProps extends HTMLAttributes {
         /**
         A boolean value representing whether or not the tour should currently be displayed
         */

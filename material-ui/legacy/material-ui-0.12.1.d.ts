@@ -3,7 +3,7 @@
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="react-0.13.3" />
+///<reference path='../../react/react-0.13.3.d.ts' />
 
 declare module "material-ui" {
     export import AppBar = __MaterialUI.AppBar; // require('material-ui/lib/app-bar');

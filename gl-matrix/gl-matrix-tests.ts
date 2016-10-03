@@ -1,7 +1,7 @@
-
+/// <reference path="gl-matrix.d.ts" />
 
 // common
-import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "gl-matrix";
+import {vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat} from "./gl-matrix";
 
 var outVal: number;
 var outBool: boolean;

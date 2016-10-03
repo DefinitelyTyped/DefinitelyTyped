@@ -1,5 +1,6 @@
-/// <reference types="jquery" />
-/// <reference types="knockout" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../knockout/knockout.d.ts" />
+/// <reference path="kolite.d.ts" />
 
 function test_activityDefaults() {
     ko.bindingHandlers.activity.defaultOptions = {
@@ -128,7 +129,7 @@ function test_full() {
             };
             return self;
         };
-    })(ko as any);
+    })(ko);
     (function (ko) {
         ko.utils.wrapAccessor = function (accessor) {
             return function () {
@@ -189,7 +190,7 @@ function test_full() {
                 ko.bindingHandlers.enable.update(element, canExecute, allBindingsAccessor, viewModel);
             }
         };
-    })(ko as any);
+    })(ko);
 
     var my: any = {};
     my.TwitterService = function () {

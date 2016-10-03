@@ -1,3 +1,4 @@
+/// <reference path="eyes.d.ts" />
 
 import eyes = require('eyes');
 

@@ -1,3 +1,7 @@
+/// <reference path="redux-thunk.d.ts" />
+/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../express/express.d.ts" />
+
 import { createStore, applyMiddleware, Store, Dispatch, ThunkAction } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -54,6 +58,7 @@ store.dispatch(withdrawMoney(100));
 // This is a thunk.
 
 function makeASandwichWithSecretSauce(forPerson: any): ThunkAction<any, any, any> {
+
     // Invert control!
     // Return a function that accepts `dispatch` so we can dispatch later.
     // Thunk middleware knows how to turn thunk async actions into actions.

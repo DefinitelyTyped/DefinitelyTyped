@@ -1,3 +1,4 @@
+/// <reference path="nunjucks.d.ts" />
 
 import nunjucks = require("nunjucks");
 

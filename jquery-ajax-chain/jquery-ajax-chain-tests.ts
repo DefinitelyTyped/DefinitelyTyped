@@ -1,5 +1,5 @@
-/// <reference types="jquery-ajax-chain" />
-/// <reference types="jquery" />
+/// <reference path="../jquery-ajax-chain/jquery-ajax-chain.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 function test_public_methods(): void {
 

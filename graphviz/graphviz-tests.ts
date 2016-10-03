@@ -1,3 +1,5 @@
+///<reference path="graphviz.d.ts"/>
+
 import graphviz = require('graphviz');
 
 // Create digraph G

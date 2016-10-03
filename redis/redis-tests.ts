@@ -1,3 +1,4 @@
+/// <reference path="redis.d.ts" />
 
 import redis = require('redis');
 

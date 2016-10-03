@@ -1,3 +1,5 @@
+///<reference path="./i18next-sprintf-postprocessor.d.ts"/>
+
 import * as i18next from "i18next";
 import * as sprintfA from "i18next-sprintf-postprocessor";
 import sprintfB from "i18next-sprintf-postprocessor/dist/commonjs";

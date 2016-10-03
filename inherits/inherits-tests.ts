@@ -1,3 +1,4 @@
+/// <reference path="./inherits.d.ts" />
 
 import inherits = require('inherits');
 

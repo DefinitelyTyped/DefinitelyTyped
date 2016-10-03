@@ -3,7 +3,7 @@
 // Definitions by: Petar Paar <https://github.com/pepaar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react"/>
+/// <reference path="../react/react.d.ts"/>
 
 declare namespace FixedDataTable {
     export var version: string;

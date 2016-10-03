@@ -1,3 +1,5 @@
+///<reference path="mqtt.d.ts"/>
+
 import mqtt = require('mqtt');
 
 var client: mqtt.Client = mqtt.connect('mqtt://test.mosquitto.org');

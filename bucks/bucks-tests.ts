@@ -1,3 +1,5 @@
+/// <reference path="bucks.d.ts"/>
+
 function add_and_end() {
   //
   // new Bucks object
@@ -96,6 +98,7 @@ function error() {
   var b = new Bucks();
   b.then(function start() {
     throw new Error('error in start');
+    return 'start';
   }).error(function onError(e, next) {
     // e => 'error in start'
     return next();

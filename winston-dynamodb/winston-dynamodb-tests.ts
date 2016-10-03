@@ -1,3 +1,6 @@
+/// <reference path="../winston/winston.d.ts" />
+/// <reference path="winston-dynamodb.d.ts" />
+
 import winston = require('winston');
 require('winston-dynamodb').DynamoDB;
 

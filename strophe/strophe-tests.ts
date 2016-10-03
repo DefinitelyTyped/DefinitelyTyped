@@ -1,4 +1,6 @@
-﻿function log(msg: string): void {
+﻿/// <reference path="strophe.d.ts"/> 
+
+function log(msg: string): void {
     console.log(msg);
 }
 

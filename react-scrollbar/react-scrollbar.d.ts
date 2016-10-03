@@ -3,21 +3,21 @@
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="react" />
+/// <reference path="../react/react.d.ts" />
 
 declare module "react-scrollbar" {
-  interface ScrollAreaProps extends React.Props<ScrollArea> {
+  interface ScrollAreaProps extends __React.Props<ScrollArea> {
       className?: string,
-      style?: React.CSSProperties,
+      style?: __React.CSSProperties,
       speed?: number,
       contentClassName?: string,
-      contentStyle?: React.CSSProperties,
+      contentStyle?: __React.CSSProperties,
       vertical?: boolean,
-      verticalContainerStyle?: React.CSSProperties,
-      verticalScrollbarStyle?: React.CSSProperties,
+      verticalContainerStyle?: __React.CSSProperties,
+      verticalScrollbarStyle?: __React.CSSProperties,
       horizontal?: boolean,
-      horizontalContainerStyle?: React.CSSProperties,
-      horizontalScrollbarStyle?: React.CSSProperties,
+      horizontalContainerStyle?: __React.CSSProperties,
+      horizontalScrollbarStyle?: __React.CSSProperties,
       onScroll?: (value: {leftPosition: number, topPosition: number, containerHeight: number, containerWidth: number, realHeight: number, realWidth: number}) => void,
       contentWindow?: any,
       ownerDocument?: any,
@@ -26,7 +26,7 @@ declare module "react-scrollbar" {
       swapWheelAxes?: boolean
   }
 
-  class ScrollArea extends React.Component<ScrollAreaProps, {}> {}
+  class ScrollArea extends __React.Component<ScrollAreaProps, {}> {}
 
   export = ScrollArea;
 }

@@ -1,3 +1,6 @@
+/// <reference path="../angularjs/angular.d.ts"/>
+/// <reference path="./angular-strap.d.ts"/>
+
 namespace angularStrapTests {
 
     import ngStrap = mgcrea.ngStrap;

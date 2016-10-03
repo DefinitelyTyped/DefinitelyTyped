@@ -1,6 +1,6 @@
-
-/// <reference types="babel-types" />
-/// <reference types="babylon" />
+/// <reference path="babel-traverse.d.ts" />
+/// <reference path="../babel-types/babel-types.d.ts" />
+/// <reference path="../babylon/babylon.d.ts" />
 
 
 import * as babylon from "babylon";

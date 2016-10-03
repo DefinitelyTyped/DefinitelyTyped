@@ -1,4 +1,6 @@
-﻿import stackMapper = require("stack-mapper");
+﻿/// <reference path="stack-mapper.d.ts" />
+
+import stackMapper = require("stack-mapper");
 
 var map: any = {};
 var sm: stackMapper.StackMapper = stackMapper(map);

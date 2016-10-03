@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="bootstrap-slider.d.ts" />
 
 $(function() {
     // examples from http://seiyria.github.io/bootstrap-slider/
@@ -54,7 +54,7 @@ $(function() {
     $("#ex7").slider();
 
     $("#ex7-enabled").click(function() {
-        if((this as HTMLInputElement).checked) {
+        if(this.checked) {
             // With JQuery
             $("#ex7").slider("enable");
         }

@@ -1,4 +1,5 @@
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jqrangeslider.d.ts"/>
 
 // Arrows
 $("#arrowsExample").rangeSlider({ arrows: false });
@@ -70,7 +71,7 @@ $("#formatterExample").dateRangeSlider({
     formatter: function (val) {
         var days = val.getDay(),
         month = val.getMonth() + 1,
-        year = val.getFullYear();
+        year = val.getYear();
         return days + "/" + month + "/" + year;
     }
 });

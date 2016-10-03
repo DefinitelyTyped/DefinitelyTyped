@@ -1,5 +1,5 @@
-/// <reference types="stats" />
-
+/// <reference path="../../stats/stats.d.ts" />
+/// <reference path="../physijs.d.ts" />
 
 
 var TWEEN: any;

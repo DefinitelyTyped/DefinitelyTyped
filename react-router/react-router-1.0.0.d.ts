@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference types="react" />
+/// <reference path="../react/react.d.ts" />
 /// <reference path="./history.d.ts"/>
 
 
@@ -31,10 +31,10 @@ declare namespace ReactRouter {
     type RouteComponent = Component
 
     // use the following interface in an app code to get access to route param values, history, location...
-    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: string }> {}
+    // interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: number }> {}
     // somewhere in MyComponent
     // ...
-    //   let id = parseInt(this.props.routeParams.id, 10);
+    //   let id = this.props.routeParams.id
     // ...
     //   this.props.history. ...
     // ...

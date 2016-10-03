@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node"/>
+/// <reference path="../node/node.d.ts"/>
 
 declare module "restler" {
     import * as http from "http";

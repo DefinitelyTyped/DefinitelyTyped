@@ -3,8 +3,8 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="mongoose" />
-/// <reference types="passport-local" />
+/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference path="../passport-local/passport-local.d.ts" />
 
 declare module 'mongoose' {
   import passportLocal = require('passport-local');
@@ -20,7 +20,7 @@ declare module 'mongoose' {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any) => void) => void;
-    register(user: T, password: string, cb: (err: any) => void): void;
+    register(user: PassportLocalModel<T>, password: string, cb: (err: any) => void): void;
     findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any) => void): any;
     createStrategy(): passportLocal.Strategy;
   }

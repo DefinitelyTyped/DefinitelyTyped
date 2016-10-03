@@ -1,3 +1,4 @@
+/// <reference path="nodemailer.d.ts" />
 
 import * as nodemailer from 'nodemailer'
 
@@ -42,6 +43,7 @@ transporter.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInf
 transporter
   .sendMail(mailOptions)
   .then(info => info.messageId)
+
 // create template based sender function
 var sendPwdReset = transporter.templateSender({
     subject: 'Password reset for {{username}}!',

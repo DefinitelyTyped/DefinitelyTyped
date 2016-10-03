@@ -1,3 +1,4 @@
+/// <reference path="jsesc.d.ts" />
 
 import jsesc = require('jsesc');
 import Opts = jsesc.Opts;

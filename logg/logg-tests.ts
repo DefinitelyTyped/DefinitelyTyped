@@ -1,3 +1,5 @@
+///<reference path="logg.d.ts"/>
+
 import logging = require("logg");
 
 var logger = logging.getLogger('my.class');

@@ -1,3 +1,5 @@
+/// <reference path="node-validator.d.ts"/>
+
 import { run, isObject, isString, isIsoDate, isArray } from 'node-validator';
 
 let checkChild = isObject()

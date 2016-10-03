@@ -1,3 +1,4 @@
+/// <reference path="shortid.d.ts" />
 
 import shortid = require('shortid');
 

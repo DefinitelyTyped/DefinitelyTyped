@@ -3,6 +3,7 @@
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="natural.d.ts" />
 
 import natural = require('natural');
 

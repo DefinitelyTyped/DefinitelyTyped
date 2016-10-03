@@ -1,3 +1,5 @@
+///<reference path="email-templates.d.ts"/>
+
 import EmailTemplates = require('email-templates');
 
 var EmailTemplate = EmailTemplates.EmailTemplate;

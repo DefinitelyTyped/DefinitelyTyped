@@ -3,8 +3,8 @@
 // Definitions by: Mikhus <https://github.com/Mikhus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
-/// <reference types="gulp" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../gulp/gulp.d.ts" />
 
 declare module "gulp-help-doc" {
 

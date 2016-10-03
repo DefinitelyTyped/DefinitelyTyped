@@ -1,4 +1,6 @@
-﻿$("#tree").fancytree({
+﻿///<reference path="jquery.fancytree.d.ts" />
+
+$("#tree").fancytree({
 	source: [
 		{ title: "Node 1", key: "1" },
 		{

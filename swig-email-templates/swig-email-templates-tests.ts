@@ -1,3 +1,4 @@
+/// <reference path="swig-email-templates.d.ts" />
 
 import emailTemplates = require('swig-email-templates');
 

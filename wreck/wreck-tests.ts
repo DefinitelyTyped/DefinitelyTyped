@@ -1,3 +1,4 @@
+/// <reference path="wreck.d.ts" />
 
 import Wreck = require('wreck');
 

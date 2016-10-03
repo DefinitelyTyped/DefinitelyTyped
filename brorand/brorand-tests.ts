@@ -1,3 +1,4 @@
+/// <reference path="./brorand.d.ts" />
 
 import * as brorand from 'brorand';
 

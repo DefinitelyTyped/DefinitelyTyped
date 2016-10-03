@@ -1,3 +1,4 @@
+/// <reference path="s3rver.d.ts" />
 
 import S3rver = require('s3rver');
 

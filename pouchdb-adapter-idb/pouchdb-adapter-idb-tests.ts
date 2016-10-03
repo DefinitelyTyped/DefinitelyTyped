@@ -1,3 +1,6 @@
+/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
+/// <reference path="./pouchdb-adapter-idb.d.ts" />
+
 function testIdbDbCreation() {
     const basicDB = new PouchDB('basic', {
         adapter: 'idb'

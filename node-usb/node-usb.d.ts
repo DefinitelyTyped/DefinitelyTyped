@@ -3,7 +3,7 @@
 // Definitions by: Eric Brody <https://github.com/underscorebrody>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare module "usb" {
 

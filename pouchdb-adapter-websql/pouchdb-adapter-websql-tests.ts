@@ -1,3 +1,6 @@
+/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
+/// <reference path="./pouchdb-adapter-websql.d.ts" />
+
 namespace PouchDBAdapterWebSQLTests {
     function isBoolean(someBoolean: boolean) {
     }

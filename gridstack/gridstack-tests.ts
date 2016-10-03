@@ -1,5 +1,5 @@
-﻿/// <reference types="jquery"/>
-
+﻿/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="gridstack.d.ts" />
 
 
 // Type definitions for Gridstack

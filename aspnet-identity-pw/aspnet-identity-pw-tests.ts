@@ -1,3 +1,4 @@
+/// <reference path="aspnet-identity-pw.d.ts" />
 
 import passwordHasher = require('aspnet-identity-pw');
 

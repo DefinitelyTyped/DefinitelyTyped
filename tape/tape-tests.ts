@@ -1,5 +1,6 @@
+/// <reference path="tape.d.ts" />
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 import tape = require("tape");
 

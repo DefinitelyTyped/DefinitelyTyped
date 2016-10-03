@@ -1,3 +1,4 @@
+/// <reference path="./twitter-text.d.ts" />
 
 import * as twitter from "twitter-text";
 

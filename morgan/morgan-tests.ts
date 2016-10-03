@@ -1,3 +1,4 @@
+/// <reference path="morgan.d.ts"/>
 /**
  * Created by staticfunction on 8/3/14.
  */
@@ -14,6 +15,11 @@ morgan('tiny')
 // a format string
 morgan(':remote-addr :method :url')
 
+// a custom function
+morgan(function (tokens, req, res) {
+    return req.method + ' ' + req.url + ' ' + tokens['date'](req, res, 'iso'); // use predefined :date[iso] token with format argument
+})
+
 morgan('combined', {
     buffer: true,
     immediate: true,
@@ -27,6 +33,7 @@ morgan('combined', {
 
 
 // test interface definition for morgan
+var morgan2 : morgan.Morgan = morgan;
 
 // a named custom format defined as string (example: extend 'tiny' format with user-agent token)
 morgan.format('tiny-extended', ':method :url :status :res[content-length] - :response-time ms :user-agent');

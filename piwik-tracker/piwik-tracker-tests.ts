@@ -1,4 +1,5 @@
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="piwik-tracker.d.ts" />
 
 // Example code taken from https://www.npmjs.com/package/piwik-tracker
 

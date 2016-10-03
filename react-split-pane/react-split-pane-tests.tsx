@@ -1,3 +1,6 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./react-split-pane.d.ts"/>
+
 import * as React from "react";
 import * as SplitPane from "react-split-pane";
 

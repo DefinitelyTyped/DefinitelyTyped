@@ -50,7 +50,7 @@ type RTCIceCredentialType = 'password' | 'token';
 
 // https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 interface RTCIceServer {
-  urls?: any;
+  urls: string | string[];
   username?: string;
   credential?: string;
   credentialType?: RTCIceCredentialType; // default = 'password'
@@ -94,8 +94,8 @@ interface RTCMediaConstraints {
 }
 
 interface RTCMediaOfferConstraints {
-  OfferToReceiveAudio: boolean;
-  OfferToReceiveVideo: boolean;
+  offerToReceiveAudio: boolean;
+  offerToReceiveVideo: boolean;
 }
 
 interface RTCSessionDescriptionInit {
@@ -324,8 +324,8 @@ interface RTCPeerConnection {
   onicecandidate: (event: RTCIceCandidateEvent) => void;
   onidentityresult: (event: Event) => void;
   onsignalingstatechange: (event: Event) => void;
-  getStats(selector: MediaStreamTrack | null): Promise<RTCStatsReport>;
-  getStats(selector: MediaStreamTrack | null,
+  getStats(selector: MediaStreamTrack): Promise<RTCStatsReport>;
+  getStats(selector: MediaStreamTrack, // nullable
            successCallback: RTCStatsCallback,
            failureCallback: RTCPeerConnectionErrorCallback): void;
 }

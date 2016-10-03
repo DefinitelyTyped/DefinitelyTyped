@@ -1,3 +1,8 @@
+// react-holder test
+
+///<reference path="react-holder.d.ts"/>
+///<reference path="../react/react.d.ts"/>
+
 import * as React from "react";
 import Holder from "react-holder";
 

@@ -1,3 +1,4 @@
+/// <reference path="element-resize-event.d.ts" />
 
 import ere = require("element-resize-event");
 

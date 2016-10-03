@@ -1,3 +1,4 @@
+/// <reference path="sigmajs.d.ts"/>
 namespace SigmaJsTests {
     var container = document.createElement("sigma");
     var s = new sigma({

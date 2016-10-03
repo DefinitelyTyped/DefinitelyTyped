@@ -1,3 +1,4 @@
+/// <reference path="clean-css.d.ts" />
 
 import * as CleanCSS from 'clean-css';
 

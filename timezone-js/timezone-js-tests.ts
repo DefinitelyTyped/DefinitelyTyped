@@ -1,3 +1,4 @@
+/// <reference path="timezone-js.d.ts" />
 
 import timezone = require('timezone-js');
 var tz = timezone.timezone;

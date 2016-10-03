@@ -1,3 +1,5 @@
+/// <reference path="quill.d.ts" />
+
 function test_quill() {
     var quillEditor = new Quill('#editor', {
         modules:

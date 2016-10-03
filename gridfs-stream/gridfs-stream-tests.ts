@@ -1,6 +1,6 @@
-
-
-/// <reference types="node" />
+/// <reference path="gridfs-stream.d.ts" />
+/// <reference path="../mongodb/mongodb.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 // Samples from:
 // https://github.com/aheckmann/gridfs-stream

@@ -1,9 +1,11 @@
+/// <reference path="../redis/redis.d.ts" />
+/// <reference path="./ratelimiter.d.ts" />
 
 import * as redis from 'redis';
 import * as Limiter from 'ratelimiter';
 
-declare let id: string;
-declare let db: redis.RedisClient;
+let id: string;
+let db: redis.RedisClient;
 let limit = new Limiter({ id: id, db: db });
 
 const str: string = limit.inspect();

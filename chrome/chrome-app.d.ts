@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="chrome.d.ts"/>
-/// <reference types="filesystem"/>
+/// <reference path='../filesystem/filesystem.d.ts'/>
 
 ////////////////////
 // App

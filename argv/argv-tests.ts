@@ -1,3 +1,4 @@
+/// <reference path="argv.d.ts" />
 import argv = require('argv');
 argv.version( 'v1.0' );
 argv.info( 'Special script info' );

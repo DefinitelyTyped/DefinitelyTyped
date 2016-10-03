@@ -1,3 +1,4 @@
+///<reference path="apn.d.ts"/>
 import apn = require("apn");
 
 //Hand made TypeScript tests

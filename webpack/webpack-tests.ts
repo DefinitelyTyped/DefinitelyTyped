@@ -1,3 +1,4 @@
+/// <reference path="webpack.d.ts" />
 
 import * as webpack from 'webpack';
 

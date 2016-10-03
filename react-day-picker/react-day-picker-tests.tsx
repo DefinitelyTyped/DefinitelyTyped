@@ -1,4 +1,6 @@
-import * as React from 'react';
+/// <reference path="react-day-picker.d.ts" />
+/// <reference path="../react/react-global.d.ts" />
+
 import * as DayPicker2 from "react-day-picker";
 
 function isSunday(day: Date) {

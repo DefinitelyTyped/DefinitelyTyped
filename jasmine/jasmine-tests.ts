@@ -1,3 +1,5 @@
+/// <reference path="jasmine.d.ts" />
+
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
@@ -917,7 +919,7 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     var currentWindowOnload = window.onload;
     window.onload = function () {
         if (currentWindowOnload) {
-            (<any>currentWindowOnload)(null);
+            currentWindowOnload(null);
         }
         htmlReporter.initialize();
         env.execute();

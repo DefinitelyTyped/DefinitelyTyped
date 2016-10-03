@@ -3,7 +3,7 @@
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 declare module "split2" {
     import { Transform, TransformOptions } from 'stream';
 

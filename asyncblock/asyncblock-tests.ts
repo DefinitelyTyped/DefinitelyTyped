@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="asyncblock.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import asyncblock = require('asyncblock');
 import fs = require('fs');

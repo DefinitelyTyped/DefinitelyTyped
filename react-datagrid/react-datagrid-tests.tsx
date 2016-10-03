@@ -1,20 +1,20 @@
-
-/// <reference types="react" />
+/// <reference path="./react-datagrid.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 import * as React from "react";
 import ReactDataGrid = require("react-datagrid");
 
 var data: any[] = [];
 
-var columns = [
+var columns: ReactDataGrid.Column[] = [
   { name: 'index', title: '#', width: 50 },
 	{ name: 'firstName', style: { color: 'red' }, visible: true},
-	{ name: 'lastName', render: (v: any) => {return v + " Phd"}},
+	{ name: 'lastName', render: (v) => {return v + " Phd"}},
 	{ name: 'city', textAlign: 'right', defaultVisible: true},
 	{ name: 'email', defaultHidden: true }
 ];
 var selected = {};
-var sortInfo = [ { name: 'country', dir: 'asc'}]
+var sortInfo: ReactDataGrid.SortInfo[] = [ { name: 'country', dir: 'asc'}]
 
 export module X {
 export class ExampleBasic extends React.Component<{},{}> {
@@ -69,12 +69,12 @@ class ExampleFull extends React.Component<{},{}> {
               page={1}
 				      pageSize={100}
               onPageChange={(page: number) => {}}
-              onPageSizeChange={(pageSize: number, props: any) => {}}
+              onPageSizeChange={(pageSize: number, props: ReactDataGrid.DataGridProps) => {}}
               onColumnOrderChange={(index: number, dropIndex: number) => {}}
-              onColumnResize={(firstCol: any, firstSize: number, secondCol: any, secondSize: number) => {}}
+              onColumnResize={(firstCol: ReactDataGrid.Column, firstSize: number, secondCol: ReactDataGrid.Column, secondSize: number) => {}}
               onSelectionChange={(newSelectedId: string, data: any) => {}}
-              onSortChange={(sortInfo: any) => {}}
-              onFilter={(column: any, value: any, allFilterValues: any[]) => {} }
+              onSortChange={(sortInfo: ReactDataGrid.SortInfo[]) => {}}
+              onFilter={(column: ReactDataGrid.Column, value: any, allFilterValues: any[]) => {} }
               />
             );
    }

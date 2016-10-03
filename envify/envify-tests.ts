@@ -1,4 +1,5 @@
-
+/// <reference path="envify.d.ts" />
+/// <reference path="../browserify/browserify.d.ts" />
 
 import browserify = require('browserify');
 import envify = require('envify/custom');

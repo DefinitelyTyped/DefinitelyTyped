@@ -1,3 +1,4 @@
+/// <reference path="./which.d.ts" />
 
 import which = require("which");
 

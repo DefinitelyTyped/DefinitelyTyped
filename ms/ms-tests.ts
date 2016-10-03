@@ -1,3 +1,5 @@
+/// <reference path="./ms.d.ts"/>
+
 import ms = require('ms');
 
 ms('2 days')  // 172800000 

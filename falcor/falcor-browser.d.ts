@@ -3,8 +3,8 @@
 // Definitions by: Quramy <https://github.com/Quramy/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-
-/// <reference types="falcor-http-datasource" />
+/// <reference path="falcor.d.ts" />
+/// <reference path="../falcor-http-datasource/falcor-http-datasource.d.ts" />
 
 declare interface FalcorStatic {
     Model: typeof FalcorModel.Model;

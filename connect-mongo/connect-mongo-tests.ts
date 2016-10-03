@@ -1,3 +1,4 @@
+/// <reference path="connect-mongo.d.ts" />
 
 import * as express from 'express';
 import * as mongoose from 'mongoose';

@@ -1,6 +1,6 @@
-/// <reference types="jasmine" />
-/// <reference types="jquery" />
-
+/// <reference path="../jasmine/jasmine.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="jasmine-jquery.d.ts" />
 
 describe("Jasmine jQuery extension", () => {
     it("Adds jQuery matchers", () => {
@@ -100,6 +100,7 @@ describe("Jasmine jQuery extension", () => {
 
         var data = getJSONFixture('myjsonfixture.json');
         var fixtures = loadJSONFixtures('myjsonfixture.json');
+        var data = fixtures['myjsonfixture.json'];
     });
 
     describe("Event Spies", () => {

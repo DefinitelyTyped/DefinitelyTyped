@@ -1,5 +1,5 @@
-/// <reference types="node" />
-
+/// <reference path="../node/node.d.ts" />
+/// <reference path="./sax.d.ts" />
 import sax = require("sax");
 import fs = require("fs");
 

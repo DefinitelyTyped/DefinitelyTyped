@@ -1,5 +1,5 @@
-﻿
-/// <reference types="jasmine" />
+﻿/// <reference path="jasmine-data_driven_tests.d.ts" />
+/// <reference path="../jasmine/jasmine.d.ts" />
 
 all("A data driven test is a suite with multiple specs",
     ['a', 'b', 'c'],

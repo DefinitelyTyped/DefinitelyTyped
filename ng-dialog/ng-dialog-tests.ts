@@ -1,5 +1,5 @@
-/// <reference types="angular" />
-import * as angular from 'angular';
+/// <reference path="ng-dialog.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 var app = angular.module('testModule', ['ngDialog']);
 

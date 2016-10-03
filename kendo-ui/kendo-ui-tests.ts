@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="kendo-ui.d.ts" />
 
 var is = {
     string: (msg: string) => {

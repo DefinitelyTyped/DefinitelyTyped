@@ -1,4 +1,6 @@
-/// <reference types="jquery" />
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="angular-modal.d.ts" />
 
 var btfModal: angularModal.AngularModalFactory;
 

@@ -1,3 +1,5 @@
+/// <reference path="./bcryptjs.d.ts"/>
+
 import bcryptjs = require("bcryptjs");
 
 let str: string;

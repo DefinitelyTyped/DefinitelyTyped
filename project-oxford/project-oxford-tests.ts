@@ -1,7 +1,7 @@
-
-/// <reference types="bluebird" />
-/// <reference types="node" />
-/// <reference types="mocha" />
+///<reference path='project-oxford.d.ts' />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../mocha/mocha.d.ts" />
 
 import oxford = require("project-oxford");
 

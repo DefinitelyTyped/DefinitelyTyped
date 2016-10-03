@@ -1,3 +1,6 @@
+/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
+/// <reference path="./pouchdb-adapter-fruitdown.d.ts" />
+
 namespace PouchDBAdapterFruitdownTests {
     function testConstructor() {
         type MyModel = { numericProperty: number };

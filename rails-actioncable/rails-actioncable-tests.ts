@@ -1,3 +1,5 @@
+/// <reference path="./rails-actioncable.d.ts" />
+
 interface HelloChannel extends ActionCable.Channel {
   hello(world: string, name?: string): void;
 }

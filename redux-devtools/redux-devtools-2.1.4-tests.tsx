@@ -1,9 +1,10 @@
-/// <reference types="redux" />
-/// <reference types="react" />
+/// <reference path="redux-devtools-2.1.4.d.ts" />
+/// <reference path="../redux/redux.d.ts" />
+/// <reference path="../react/react.d.ts" />
 
 import { compose, createStore, applyMiddleware, Middleware, Reducer } from 'redux';
-import { createDevTools as devTools, persistState } from 'redux-devtools';
-import LogMonitor from 'redux-devtools-log-monitor';
+import { devTools, persistState } from 'redux-devtools';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import * as React from 'react';
 import { Component } from 'react';
 
@@ -18,9 +19,9 @@ const finalCreateStore = compose(
     // Enables your middleware:
     applyMiddleware(m1, m2, m3), // any Redux middleware, e.g. redux-thunk
     // Provides support for DevTools:
-    devTools(null),
+    devTools(),
     // Lets you write ?debug_session=<name> in address bar to persist debug sessions
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)[0])
+    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(createStore);
 const store = finalCreateStore(reducer);
 
@@ -31,6 +32,9 @@ class Root extends Component<any, any> {
                 <Provider store={store}>
                     {() => <CounterApp />}
                 </Provider>
+                <DebugPanel top right bottom>
+                    <DevTools store={store} monitor={LogMonitor} />
+                </DebugPanel>
             </div>
         );
     }
@@ -47,6 +51,11 @@ class App extends Component<any, any> {
                 <Provider store={store}>
                     {() => <CounterApp />}
                 </Provider>
+                <DebugPanel top right bottom>
+                    <DevTools store={store}
+                        monitor={LogMonitor}
+                        visibleOnLoad={true} />
+                </DebugPanel>
             </div>
         );
     }

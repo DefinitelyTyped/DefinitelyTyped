@@ -1,8 +1,10 @@
-import AnalyticsNode = require("analytics-node");
+/// <reference path="./analytics-node.d.ts" />
+
 var analytics: AnalyticsNode.Analytics;
+import Analytics = require("analytics-node");
 
 function testConfig(): void {
-  analytics = new AnalyticsNode.Analytics('YOUR_WRITE_KEY', {
+  analytics = new Analytics('YOUR_WRITE_KEY', {
     flushAt: 20,
     flushAfter: 10000
   });

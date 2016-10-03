@@ -1,3 +1,5 @@
+/// <reference path="scroller.d.ts"/>
+
 var clientWidth: any;
 var clientHeight: any;
 var render: any;

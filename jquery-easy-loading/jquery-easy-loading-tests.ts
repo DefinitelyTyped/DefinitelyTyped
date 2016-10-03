@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="jquery-easy-loading.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 function test_options() {
 

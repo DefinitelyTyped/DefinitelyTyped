@@ -1,7 +1,8 @@
 // React-Router-Bootstrap Test
 // ================================================================================
-///<reference types="react"/>
-///<reference types="react-bootstrap"/>
+///<reference path="../react/react.d.ts"/>
+///<reference path="../react-bootstrap/react-bootstrap.d.ts"/>
+///<reference path="react-router-bootstrap.d.ts"/>
 
 // Imports
 // --------------------------------------------------------------------------------

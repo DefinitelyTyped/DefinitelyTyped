@@ -1,5 +1,6 @@
+/// <reference path="squirejs.d.ts" />
 
-import Squire = require('squirejs');
+import Squire = require('Squire');
 
 // Default Configuration
 var injector = new Squire();

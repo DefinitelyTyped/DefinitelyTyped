@@ -1,3 +1,4 @@
+/// <reference path="kafka-node.d.ts" />
 
 import kafka = require('kafka-node');
 

@@ -3,7 +3,7 @@
 // Definitions by: Ché Coxshall <https://github.com/CheCoxshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface JQuery {
     fileinput: (options?: BootstrapFileInput.FileInputOptions) => JQuery;

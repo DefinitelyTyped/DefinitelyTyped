@@ -1,3 +1,5 @@
+/// <reference path="../yandex-money-sdk/yandex-money-sdk.d.ts" />
+
 import * as ymsdk from 'yandex-money-sdk';
 
 let wallet: ymsdk.Wallet;

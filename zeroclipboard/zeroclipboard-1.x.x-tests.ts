@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="zeroclipboard-1.x.x.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 // main.js
 var client = new ZeroClipboard( document.getElementById("copy-button"), {

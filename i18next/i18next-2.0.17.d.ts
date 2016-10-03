@@ -5,7 +5,7 @@
 
 // Sources: https://github.com/jamuhl/i18next/
 
-/// <reference types="jquery" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 declare namespace I18next {
     export interface I18nextStatic {}

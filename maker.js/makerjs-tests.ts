@@ -1,4 +1,4 @@
-
+/// <reference path="./makerjs.d.ts" />
 
 function test() {
 	
@@ -184,7 +184,7 @@ function test() {
 
 		new makerjs.paths.Chord(paths.arc);
 		new makerjs.paths.Parallel(paths.line, 4, [1,1]);
-		
+
 		//paths.line.layer = "0";
 		
 		var x: MakerJs.IPathLine = { 
@@ -197,7 +197,7 @@ function test() {
 		return paths;
 	}
 	
-	function testPoint() {	
+	function testPoint() {
 		makerjs.point.add(p1, p2);
 		makerjs.point.average(p1, p2);
 		makerjs.point.clone(p1);

@@ -3,8 +3,8 @@
 // Definitions by: Daniel Ferreira Monteiro Alves <https://github.com/danfma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="purl.d.ts" />
 
 interface JQueryStatic {
 

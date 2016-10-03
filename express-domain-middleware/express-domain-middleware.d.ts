@@ -3,7 +3,7 @@
 // Definitions by: Hookclaw <https://github.com/hookclaw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express" />
+/// <reference path="../express/express.d.ts" />
 
 declare module "express-domain-middleware" {
     import express = require('express');

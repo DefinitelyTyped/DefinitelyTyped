@@ -1,4 +1,4 @@
-/// <reference types="ajv" />
+/// <reference path="ajv.d.ts" />
 
 import * as Ajv from 'ajv';
 var ajv = new Ajv(); // options can be passed, e.g. {allErrors: true}

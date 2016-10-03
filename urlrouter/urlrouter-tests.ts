@@ -1,3 +1,4 @@
+/// <reference path="urlrouter.d.ts" />
 
 import http = require("http");
 import urlrouter = require("urlrouter");

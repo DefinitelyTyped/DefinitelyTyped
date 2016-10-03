@@ -2,7 +2,8 @@
 * Maintained by: jbondc <https://github.com/jbondc>
 */
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="nopt.d.ts" />
 
 import nopt = require("nopt");
 

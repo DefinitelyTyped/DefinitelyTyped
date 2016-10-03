@@ -1,3 +1,4 @@
+/// <reference path="./dot-prop.d.ts" />
 
 import * as dotProp from 'dot-prop';
 

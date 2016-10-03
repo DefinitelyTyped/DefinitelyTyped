@@ -1,3 +1,4 @@
+/// <reference path="bunyan.d.ts" />
 
 import * as bunyan from 'bunyan';
 

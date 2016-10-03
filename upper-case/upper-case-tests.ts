@@ -1,3 +1,4 @@
+/// <reference path="upper-case.d.ts" />
 
 import upperCase = require('upper-case');
 

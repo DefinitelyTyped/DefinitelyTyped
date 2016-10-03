@@ -1,3 +1,4 @@
+/// <reference path="buffer-equal.d.ts" />
 
 import bufferEqual = require('buffer-equal');
 

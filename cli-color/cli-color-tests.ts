@@ -1,5 +1,5 @@
-﻿
-/// <reference types="node" />
+﻿/// <reference path="cli-color.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import clc = require('cli-color');
 import ansiTrim = require('cli-color/trim');

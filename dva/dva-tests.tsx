@@ -1,7 +1,11 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="./dva.d.ts" />
+
+import React = __React;
+
 import dva from 'dva';
 import { connect } from 'dva';
 import { Router, Route } from 'dva/router';
-import * as React from "react";
 
 // 1. Initialize
 const app = dva();
@@ -21,9 +25,9 @@ app.model({
 });
 
 // 3. View
-const App = connect(({ count }: any) => ({
+const App = connect(({ count }) => ({
     count
-}))(function ({ count, dispatch }: any) {
+}))(function ({ count, dispatch }) {
     return (
         <div>
             <h2>{ count }</h2>
@@ -34,7 +38,7 @@ const App = connect(({ count }: any) => ({
 });
 
 // 4. Router
-app.router(({ history }: any) =>
+app.router(({ history }) =>
     <Router history={history}>
         <Route path="/" component={App}/>
     </Router>

@@ -1,4 +1,8 @@
 // test file for masonry-layout.d.ts
+
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="./masonry-layout.d.ts" />
+
 //import {Masonry} from "./masonry-layout.d.ts";
 
 // responsive layouts
@@ -40,5 +44,5 @@ function testExtendedOptions() {
         transitionDuration: '0.4s',
         resize: true,
         initLayout: true
-    });
-}
+    }); 
+} 

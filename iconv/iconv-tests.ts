@@ -1,4 +1,6 @@
-import Iconv = require("iconv");
+///<reference path="./iconv.d.ts" />
+
+import {Iconv} from "iconv";
 import {Writable} from "stream";
 
 const iconv: Iconv.Iconv = new Iconv("utf-8", "cp932");

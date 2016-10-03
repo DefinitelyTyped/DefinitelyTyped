@@ -3,6 +3,8 @@
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+///<reference path='./react-dnd.d.ts' />
+
 declare module "react-dnd-test-backend" {
     class TestBackend {
         setup(): void;

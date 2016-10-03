@@ -1,3 +1,6 @@
+/// <reference path="./inversify-inject-decorators.d.ts" />
+/// <reference path="../inversify/inversify.d.ts" />
+
 import getDecorators from "inversify-inject-decorators";
 import { Kernel, injectable, tagged, named } from "inversify";
 

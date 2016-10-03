@@ -1,3 +1,4 @@
+/// <reference path="slate-irc.d.ts" />
 
 import * as net from "net";
 import * as SlateIRC from "slate-irc";

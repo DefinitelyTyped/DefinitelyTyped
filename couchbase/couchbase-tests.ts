@@ -1,3 +1,5 @@
+/// <reference path="couchbase.d.ts"/>
+
 import couchbase = require('couchbase');
 var cluster = new couchbase.Cluster('couchbase://127.0.0.1');
 var bucket = cluster.openBucket('default');

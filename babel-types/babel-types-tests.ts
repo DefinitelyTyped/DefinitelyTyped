@@ -1,5 +1,5 @@
-
-/// <reference types="babel-traverse" />
+/// <reference path="babel-types.d.ts" />
+/// <reference path="../babel-traverse/babel-traverse.d.ts" />
 
 
 // Examples from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-types

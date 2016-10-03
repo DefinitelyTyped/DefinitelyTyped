@@ -3,7 +3,7 @@
 // Definitions by: Xavier Stouder <https://github.com/Xstoudi>
 // Definitions: https://github.com/DefinitelyTyped/
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare module "musicmetadata" {
     import {Readable} from "stream";

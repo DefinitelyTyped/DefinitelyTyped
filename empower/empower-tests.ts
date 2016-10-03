@@ -1,4 +1,4 @@
-import empower = require("empower");
+/// <reference path="./empower.d.ts" />
 
 var baseAssert:any;
 var fakeFormatter:any;

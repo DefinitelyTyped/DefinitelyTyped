@@ -1,7 +1,6 @@
-import * as fs from "fs";
-import * as crypto from "crypto";
+/// <reference path="ssh2.d.ts" />
+
 import * as ssh2 from 'ssh2';
-import * as ssh2_streams from 'ssh2-streams';
 
 declare var inspect: any;
 
@@ -16,7 +15,7 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.exec('uptime', (err: Error, stream: ssh2.ClientChannel) => {
+    conn.exec('uptime', (err: Error, stream: ssh2.Channel) => {
         if (err) throw err;
         stream
             .on('close', (code: any, signal: any) => {
@@ -42,7 +41,7 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.shell( (err: Error, stream: ssh2.ClientChannel) => {
+    conn.shell( (err: Error, stream: ssh2.Channel) => {
         if (err) throw err;
         stream.on('close', () => {
             console.log('Stream :: close');
@@ -68,7 +67,7 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.forwardOut('192.168.100.102', 8000, '127.0.0.1', 80, (err: Error, stream: ssh2.ClientChannel) => {
+    conn.forwardOut('192.168.100.102', 8000, '127.0.0.1', 80, (err: Error, stream: ssh2.Channel) => {
         if (err) throw err;
         stream.on('close', () => {
             console.log('TCP :: CLOSED');
@@ -133,9 +132,9 @@ var Client = require('ssh2').Client;
 var conn = new Client();
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.sftp( (err: Error, sftp: ssh2.SFTPWrapper) => {
+    conn.sftp( (err: Error, sftp: ssh2.Sftp.Wrapper) => {
         if (err) throw err;
-        sftp.readdir('foo', (err: Error, list: ssh2_streams.FileEntry[]) => {
+        sftp.readdir('foo', (err: Error, list: ssh2.Sftp.ReadDirItem[]) => {
             if (err) throw err;
             console.dir(list);
             conn.end();
@@ -157,7 +156,7 @@ var conn1 = new Client(),
 
 conn1.on('ready', () => {
     console.log('FIRST :: connection ready');
-    conn1.exec('nc 192.168.1.2 22', (err: Error, stream: ssh2.ClientChannel) => {
+    conn1.exec('nc 192.168.1.2 22', (err: Error, stream: ssh2.Channel) => {
         if (err) {
             console.log('FIRST :: exec error: ' + err);
             return conn1.end();
@@ -176,7 +175,7 @@ conn1.on('ready', () => {
 
 conn2.on('ready', () => {
     console.log('SECOND :: connection ready');
-    conn2.exec('uptime', (err: Error, stream: ssh2.ClientChannel) => {
+    conn2.exec('uptime', (err: Error, stream: ssh2.Channel) => {
         if (err) {
             console.log('SECOND :: exec error: ' + err);
             return conn1.end();
@@ -207,7 +206,7 @@ conn.on('x11', (info: any, accept: any, reject: any) => {
 });
 
 conn.on('ready', () => {
-    conn.exec('xeyes', { x11: true }, (err: Error, stream: ssh2.ClientChannel) => {
+    conn.exec('xeyes', { x11: true }, (err: Error, stream: ssh2.Channel) => {
         if (err) throw err;
         var code = 0;
         stream.on('end', () => {
@@ -246,7 +245,7 @@ socks.createServer( (info: any, accept: any, deny: any) => {
             info.srcPort,
             info.dstAddr,
             info.dstPort,
-             (err: Error, stream: ssh2.ClientChannel) => {
+             (err: Error, stream: ssh2.Channel) => {
                 if (err) {
                     conn.end();
                     return deny();
@@ -281,7 +280,7 @@ var conn = new Client();
 
 conn.on('ready', () => {
     console.log('Client :: ready');
-    conn.subsys('netconf', (err: Error, stream: ssh2.ClientChannel) => {
+    conn.subsys('netconf', (err: Error, stream: ssh2.Channel) => {
         if (err) throw err;
         stream.on('data', (data: any) => {
             console.log(data);
@@ -309,18 +308,20 @@ const sshconfig: ssh2.ConnectConfig = {
 
 // Only allow password and public key authentication and command execution:
 
+var fs = require('fs'),
+    crypto = require('crypto');
 var buffersEqual = require('buffer-equal-constant-time'),
     //ssh2 = require('ssh2'),
     utils = ssh2.utils;
 
-var pubKey = utils.genPublicKey(<ssh2_streams.ParsedKey>utils.parseKey(fs.readFileSync('user.pub')));
+var pubKey = utils.genPublicKey(utils.parseKey(fs.readFileSync('user.pub')));
 
 new ssh2.Server({
-    hostKeys: [fs.readFileSync('host.key')]
-}, (client: ssh2.Connection) => {
+    privateKey: fs.readFileSync('host.key')
+}, (client: any) => {
     console.log('Client connected!');
 
-    client.on('authentication', ctx => {
+    client.on('authentication', (ctx: any) => {
         if (ctx.method === 'password'
             && ctx.username === 'foo'
             && ctx.password === 'bar')
@@ -331,7 +332,7 @@ new ssh2.Server({
             if (ctx.signature) {
                 var verifier = crypto.createVerify(ctx.sigAlgo);
                 verifier.update(ctx.blob);
-                if (verifier.verify(pubKey.publicOrig.toString("utf8"), ctx.signature))
+                if (verifier.verify(pubKey.publicOrig, ctx.signature, 'binary'))
                     ctx.accept();
                 else
                     ctx.reject();
@@ -365,12 +366,13 @@ new ssh2.Server({
 
 // SFTP only server:
 
+var fs = require('fs');
 //var ssh2 = require('ssh2');
 var OPEN_MODE = ssh2.SFTP_OPEN_MODE,
     STATUS_CODE = ssh2.SFTP_STATUS_CODE;
 
 new ssh2.Server({
-    hostKeys: [fs.readFileSync('host.key')]
+    privateKey: fs.readFileSync('host.key')
 }, (client: any) => {
     console.log('Client connected!');
 

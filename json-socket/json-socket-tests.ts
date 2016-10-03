@@ -1,3 +1,4 @@
+/// <reference path="./json-socket" />
 
 import JsonSocket = require("json-socket");
 import {Socket} from "net";

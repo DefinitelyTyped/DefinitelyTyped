@@ -1,6 +1,6 @@
-
-/// <reference types="react" />
-/// <reference types="react-dom" />
+/// <reference path="react-tabs.d.ts" />
+/// <reference path="../react/react.d.ts" />
+/// <reference path="../react/react-dom.d.ts" />
 
 import React = require("react");
 import ReactDOM = require("react-dom");

@@ -1,5 +1,6 @@
-/// <reference types="node" />
-/// <reference types="bluebird" />
+/// <reference path="../node/node.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference path="blue-tape.d.ts" />
 
 import tape = require('blue-tape');
 import P = require('bluebird');

@@ -1,4 +1,5 @@
-/// <reference types="angular" />
+/// <reference path="ng-command.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 var app = angular.module('testModule', ['ng-command']);
 

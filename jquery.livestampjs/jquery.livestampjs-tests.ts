@@ -1,5 +1,7 @@
-/// <reference types="jquery"/>
-import * as moment from 'moment';
+// Tests for Livestamp.js type definitions
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="../moment/moment.d.ts"/>
+/// <reference path="jquery.livestampjs.d.ts"/>
 
 $('#test1').livestamp(new Date('June 18, 1987'));
 $('#test2').livestamp(1362282933);

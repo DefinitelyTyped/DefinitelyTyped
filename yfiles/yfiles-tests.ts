@@ -1,3 +1,5 @@
+/// <reference path="yfiles.d.ts"/>
+
 namespace yfilesTest {
 
     export class BasicTest {

@@ -1,3 +1,4 @@
+/// <reference path="./inflected.d.ts" />
 
 import * as Inflector from "inflected";
 

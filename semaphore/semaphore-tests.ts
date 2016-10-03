@@ -1,3 +1,5 @@
+/// <reference path="semaphore.d.ts"/>
+
 import semaphore = require('semaphore');
 
 var sem: semaphore.Semaphore = semaphore(10);

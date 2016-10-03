@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="denodeify.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import denodeify = require("denodeify");
 import fs = require('fs');

@@ -1,7 +1,10 @@
+/// <reference path="../react/react.d.ts" />
+/// <reference path="../moment/moment.d.ts" />
+/// <reference path="./react-calendar-timeline.d.ts"/>
+
 import * as React from "react";
+import * as moment from 'moment';
 import ReactCalendarTimeline from 'react-calendar-timeline';
-// Don't want to add this as a dependency, because it is only used for tests.
-declare const moment: any;
 
 const groups = [
   {id: 1, title: 'group 1'},
@@ -26,5 +29,5 @@ class ExampleOfUsingReactCalendarTimeline extends React.Component<{}, {}> {
                           />
             </div>
          );
-    }
+    }      
 };

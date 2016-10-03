@@ -1,4 +1,4 @@
-import * as angular from 'angular';
+/// <reference path="angular-meteor.d.ts" />
 
 interface ITodo {
 	_id?: string;

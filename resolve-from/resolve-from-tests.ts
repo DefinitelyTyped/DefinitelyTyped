@@ -1,4 +1,4 @@
-import resolveFrom = require("resolve-from");
+/// <reference path="resolve-from.d.ts" />
 
 import resolveFrom1 = require('resolve-from');
 import * as resolveFrom2 from 'resolve-from';

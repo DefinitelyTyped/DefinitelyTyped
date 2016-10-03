@@ -3,7 +3,7 @@
 // Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare module "fluent-ffmpeg" {
     import * as events from "events"

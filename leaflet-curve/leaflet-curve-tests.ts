@@ -1,4 +1,6 @@
-/// <reference types="leaflet" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
+/// <reference path="leaflet-curve.d.ts" />
+
 
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',

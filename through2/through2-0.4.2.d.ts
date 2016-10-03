@@ -3,22 +3,24 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, jedmao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
+declare module 'through2' {
 
+	import stream = require('stream');
 
-import stream = require('stream');
+	function through2(transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
 
-declare function through2(transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
+	function through2(opts?: stream.DuplexOptions, transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
 
-declare function through2(opts?: stream.DuplexOptions, transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
+	namespace through2 {
 
-declare namespace through2 {
+		export function obj(transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
 
-    export function obj(transform?: (chunk: any, enc: string, callback: () => void) => void, flush?: () => void): NodeJS.ReadWriteStream;
+		export function push(data: any): void;
 
-    export function push(data: any): void;
+	}
+
+	export = through2;
 
 }
-
-export = through2;

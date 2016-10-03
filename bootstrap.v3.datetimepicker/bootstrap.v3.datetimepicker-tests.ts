@@ -1,6 +1,5 @@
-/// <reference types="jquery"/>
-
-import * as moment from 'moment';
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="bootstrap.v3.datetimepicker.d.ts" />
 
 function test_cases() {
     $('#datetimepicker').datetimepicker();

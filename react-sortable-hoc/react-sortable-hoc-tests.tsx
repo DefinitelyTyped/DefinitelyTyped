@@ -1,3 +1,6 @@
+/// <reference path="../react/react-dom.d.ts" />
+/// <reference path="./react-sortable-hoc.d.ts" />
+
 import React = require('react');
 import ReactDOM = require('react-dom');
 import ReactSortableHOC = require('react-sortable-hoc');

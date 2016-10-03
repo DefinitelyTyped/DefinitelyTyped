@@ -1,4 +1,5 @@
-import Cookies = require("js-cookie");
+///<reference path="js-cookie.d.ts" />
+
 // Create a cookie, valid across the entire site
 Cookies.set('name', 'value');
 

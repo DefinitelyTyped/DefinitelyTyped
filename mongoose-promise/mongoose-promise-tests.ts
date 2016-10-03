@@ -1,3 +1,5 @@
+/// <reference path="mongoose-promise.d.ts" />
+
 import * as mongoose from 'mongoose';
 
 var cb = function () {};

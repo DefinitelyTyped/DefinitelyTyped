@@ -1,5 +1,6 @@
-
-/// <reference types="express-session" />
+/// <reference path="./easy-session.d.ts" />
+/// <reference path="../express-session/express-session.d.ts" />
+/// <reference path="../cookie-parser/cookie-parser.d.ts" />
 
 import express = require('express');
 import session = require('express-session');

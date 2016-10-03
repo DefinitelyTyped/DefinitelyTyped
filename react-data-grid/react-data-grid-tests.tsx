@@ -1,7 +1,11 @@
+/// <reference path="./react-data-grid.d.ts" />
+/// <reference path="../react/react.d.ts" />
+/// <reference path="../faker/faker.d.ts" />
+
 import * as React from 'react';
 import * as ReactDataGrid from 'react-data-grid';
 import * as ReactDataGridPlugins from 'react-data-grid/addons';
-import faker = require('faker');
+import * as faker from 'faker';
 
 var Editors = ReactDataGridPlugins.Editors;
 var Toolbar = ReactDataGridPlugins.Toolbar;
@@ -198,7 +202,7 @@ class Example extends React.Component<any, any> {
     getColumns() {
         var clonedColumns = columns.slice();
         clonedColumns[2].events = {
-            onClick: function (ev:React.SyntheticEvent<any>, args:{idx:number, rowIdx:number}) {
+            onClick: function (ev:React.SyntheticEvent, args:{idx:number, rowIdx:number}) {
                 var idx = args.idx;
                 var rowIdx = args.rowIdx;
                 this.refs.grid.openCellEditor(rowIdx, idx);

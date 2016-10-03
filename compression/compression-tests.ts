@@ -1,3 +1,4 @@
+/// <reference path="compression.d.ts" />
 
 import express = require('express');
 import compress = require('compression');

@@ -1,4 +1,5 @@
-/// <reference types="angular" />
+/// <reference path="highcharts-ng.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 var app = angular.module('app', ['highcharts-ng']);
 

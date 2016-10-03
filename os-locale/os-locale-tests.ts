@@ -1,3 +1,4 @@
+/// <reference path="./os-locale.d.ts" />
 
 import osLocale, { sync } from 'os-locale';
 

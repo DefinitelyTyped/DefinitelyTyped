@@ -3,8 +3,8 @@
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-/// <reference types="angular" />
+/// <reference path="umbraco.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 declare namespace umbraco.services {
 

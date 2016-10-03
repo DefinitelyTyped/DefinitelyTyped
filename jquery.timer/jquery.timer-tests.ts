@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="jquery.timer.d.ts" />
 
     // Create the timer
     $("body").timer(

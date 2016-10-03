@@ -1,3 +1,4 @@
+/// <reference path="data-driven.d.ts" />
 
 import data_driven = require('data-driven');
 

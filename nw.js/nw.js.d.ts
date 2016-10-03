@@ -3,7 +3,7 @@
 // Definitions by: Alireza Dabiri Nejad <https://github.com/alirdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 /**
  * Helpers class and interfaces defined here, to make `nw` module cleaner.

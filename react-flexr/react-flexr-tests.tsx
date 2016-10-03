@@ -1,4 +1,5 @@
-/// <reference types="react-dom"/>
+/// <reference path="react-flexr.d.ts"/>
+/// <reference path="../react/react-dom.d.ts"/>
 
 import * as React from "react";
 import * as ReactDOMServer from "react-dom/server";

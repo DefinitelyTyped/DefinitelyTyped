@@ -1,5 +1,7 @@
 // Author: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 
+/// <reference path="temp.d.ts" />
+
 import * as temp from "temp";
 
 function testCleanup() {

@@ -3,9 +3,9 @@
 // Definitions by: Phil McCloghry-Laing <https://github.com/pmccloghrylaing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
-/// <reference types="cordova" />
-/// <reference types="cordova-plugin-file-transfer" />
+/// <reference path="../angularjs/angular.d.ts" />
+/// <reference path="../cordova/plugins/FileTransfer.d.ts" />
+/// <reference path="../cordova/plugins/FileSystem.d.ts" />
 
 declare namespace ngCordova {
     export interface IFileTransferService {

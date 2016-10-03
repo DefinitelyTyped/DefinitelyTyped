@@ -1,4 +1,4 @@
-import microgears = require("microgears");
+/// <reference path="microgears.d.ts" />
 
 
 function verify_module_file() {

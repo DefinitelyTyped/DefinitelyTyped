@@ -1,4 +1,5 @@
-/// <reference types="webrtc" />
+/// <reference path="./peerjs.d.ts" />
+/// <reference path="../webrtc/RTCPeerConnection.d.ts" />
 
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',

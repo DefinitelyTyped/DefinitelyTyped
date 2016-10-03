@@ -3,7 +3,7 @@
 // Definitions by: Garth Kidd <https://github.com/garthk/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../xpath/xpath.d.ts" />
 
 declare module XmlPoke { // ghost module
 	interface Transform {

@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="webcl.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 class CLHException {
     constructor(

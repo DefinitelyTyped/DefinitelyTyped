@@ -3,7 +3,7 @@
 // Definitions by: Jacques Kang <https://www.linkedin.com/in/jacqueskang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="angular" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 declare namespace ngCordova {
 

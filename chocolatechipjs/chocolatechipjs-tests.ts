@@ -1,4 +1,4 @@
-/// <reference types="chocolatechipjs" />
+/// <reference path="../chocolatechipjs/chocolatechipjs.d.ts" />
 // ChocolateChipStatic -- DOM creation, etc.
 $(function() {
     alert('Ready to do stuff!');

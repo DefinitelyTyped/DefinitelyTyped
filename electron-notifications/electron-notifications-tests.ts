@@ -1,6 +1,8 @@
+/// <reference path="./electron-notifications.d.ts" />
+
 import * as notifier from 'electron-notifications';
 
-const data: notifier.NotifierOptions = {
+const data: ElectronNotifications.NotifierOptions = {
   message: 'message',
   icon: 'icon',
   buttons: ['ok', 'cancel']

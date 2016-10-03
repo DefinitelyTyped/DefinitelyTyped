@@ -1,3 +1,4 @@
+/// <reference path="memory-cache.d.ts" />
 
 import memoryCache = require('memory-cache');
 

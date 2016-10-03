@@ -1,4 +1,5 @@
-import tv4 = require("tv4");
+///<reference path="tv4.d.ts" />
+
 var str:string;
 var strArr:string[];
 var bool:boolean;

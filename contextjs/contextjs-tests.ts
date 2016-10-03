@@ -1,3 +1,4 @@
+/// <reference path="./contextjs.d.ts" />
 
 import context = require("contextjs");
 

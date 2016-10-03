@@ -1,5 +1,5 @@
-
-/// <reference types="node" />
+/// <reference path="fs-extra.d.ts" />
+/// <reference path="../node/node.d.ts" />
 
 import fs = require('fs-extra');
 

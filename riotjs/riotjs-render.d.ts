@@ -3,7 +3,7 @@
 // Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 interface JQueryStatic {
     render(template?:string, data?:any):string;

@@ -1,3 +1,4 @@
+/// <reference path="./lolex.d.ts" />
 
 import lolex = require("lolex");
 

@@ -1,5 +1,5 @@
-import * as ng from 'angular';
-import uiGrid = require("ui-grid");
+/// <reference path="ui-grid.d.ts" />
+/// <reference path="../angularjs/angular.d.ts" />
 
 interface IMyEntity {
     name: string;

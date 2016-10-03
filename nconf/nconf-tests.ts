@@ -1,3 +1,4 @@
+/// <reference path="nconf.d.ts" />
 
 import nconf = require('nconf');
 

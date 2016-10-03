@@ -1,3 +1,6 @@
+///<reference path="./soundjs.d.ts"/>
+
+
 // Sample from : http://www.createjs.com/Docs/SoundJS/modules/SoundJS.html 
 // Feature set example: 
 createjs.Sound.addEventListener("fileload", createjs.proxy(this.loadHandler, this));

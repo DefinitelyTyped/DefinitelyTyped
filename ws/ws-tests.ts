@@ -1,3 +1,4 @@
+/// <reference path="ws.d.ts" />
 
 import * as WebSocket from 'ws';
 import * as http from'http';
@@ -65,7 +66,7 @@ var WebSocketServer = WebSocket.Server;
       info: {
         origin: string
         secure: boolean
-        req: http.ServerRequest
+        req: http.IncomingMessage
       }
       , callback: (res: boolean) => void
     ): void {

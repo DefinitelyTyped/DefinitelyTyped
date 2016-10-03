@@ -1,4 +1,6 @@
-﻿var client: raygun.RaygunStatic = Raygun.noConflict();
+﻿/// <reference path="raygun4js.d.ts"/>
+
+var client: raygun.RaygunStatic = Raygun.noConflict();
 
 var newClient: raygun.RaygunStatic = client.constructNewRaygun();
 

@@ -1,4 +1,5 @@
-import lf = require("lovefield");
+/// <reference path="./lovefield.d.ts"/>
+
 function main(): void {
   var schemaBuilder: lf.schema.Builder = lf.schema.create('todo', 1);
 

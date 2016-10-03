@@ -1,3 +1,4 @@
+/// <reference path="core-decorators.d.ts" />
 
 //
 // @autobind

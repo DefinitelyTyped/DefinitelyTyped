@@ -1,4 +1,4 @@
-import ROSLIB = require("roslib");
+/// <reference path="roslib.d.ts" />
 
 var ros = new ROSLIB.Ros({
 	url: 'ws://localhost:9090'

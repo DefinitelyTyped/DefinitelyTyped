@@ -1,3 +1,6 @@
+/// <reference path="../redux/redux.d.ts" />
+/// <reference path="./redux-optimistic-ui.d.ts" />
+
 import { Action } from "redux";
 import { OptimisticState, OptimisticAction, BEGIN, optimistic, ensureState } from "redux-optimistic-ui";
 

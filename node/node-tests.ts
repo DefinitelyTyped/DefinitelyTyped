@@ -1,3 +1,4 @@
+/// <reference path="node.d.ts" />
 import * as assert from "assert";
 import * as fs from "fs";
 import * as events from "events";
@@ -18,7 +19,6 @@ import * as childProcess from "child_process";
 import * as cluster from "cluster";
 import * as os from "os";
 import * as vm from "vm";
-import * as console2 from "console";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
@@ -33,33 +33,33 @@ import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer
 namespace assert_tests {
     {
         assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
-        
+
         assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
-        
+
         assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
-        
+
         assert.doesNotThrow(() => {
             const b = false;
             if (b) { throw "a hammer at your face"; }
         }, undefined, "What the...*crunch*");
-        
+
         assert.equal(3, "3", "uses == comparator");
 
         assert.fail(1, 2, undefined, '>');
-        
+
         assert.ifError(0);
-        
+
         assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
-        
+
         assert.notEqual(1, 2, "uses != comparator");
-        
+
         assert.notStrictEqual(2, "2", "uses === comparator");
-        
+
         assert.ok(true);
         assert.ok(1);
-        
-        assert.strictEqual(1, 1,  "uses === comparator");
-        
+
+        assert.strictEqual(1, 1, "uses === comparator");
+
         assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
     }
 }
@@ -139,21 +139,21 @@ namespace fs_tests {
         fs.writeFile("thebible.txt",
             "Do unto others as you would have them do unto you.",
             assert.ifError);
-        
+
         fs.write(1234, "test");
-        
+
         fs.writeFile("Harry Potter",
             "\"You be wizzing, Harry,\" jived Dumbledore.",
             {
                 encoding: "ascii"
             },
-            assert.ifError);	
+            assert.ifError);
     }
 
     {
         var content: string;
         var buffer: Buffer;
-        
+
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
         buffer = fs.readFileSync('testfile');
@@ -163,7 +163,7 @@ namespace fs_tests {
         fs.readFile('testfile', (err, data) => buffer = data);
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
-    
+
     {
         var errno: string;
         fs.readFile('testfile', (err, data) => {
@@ -172,52 +172,52 @@ namespace fs_tests {
             }
         });
     }
-    
+
     {
         fs.mkdtemp('/tmp/foo-', (err, folder) => {
             console.log(folder);
             // Prints: /tmp/foo-itXde2
         });
     }
-    
+
     {
         var tempDir: string;
         tempDir = fs.mkdtempSync('/tmp/foo-');
     }
-    
+
     {
         fs.watch('/tmp/foo-', (event, filename) => {
-          console.log(event, filename);
+            console.log(event, filename);
         });
-        
+
         fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-          console.log(event, filename);
+            console.log(event, filename);
         });
-        
+
         fs.watch('/tmp/foo-', {
-          recursive: true,
-          persistent: true,
-          encoding: 'utf8'
+            recursive: true,
+            persistent: true,
+            encoding: 'utf8'
         }, (event, filename) => {
-          console.log(event, filename);
+            console.log(event, filename);
         });
     }
-    
+
     {
         fs.access('/path/to/folder', (err) => { });
-        
+
         fs.access(Buffer.from(''), (err) => { });
-        
+
         fs.access('/path/to/folder', fs.constants.F_OK | fs.constants.R_OK, (err) => { });
-        
+
         fs.access(Buffer.from(''), fs.constants.F_OK | fs.constants.R_OK, (err) => { });
-        
+
         fs.accessSync('/path/to/folder');
-        
+
         fs.accessSync(Buffer.from(''));
-        
+
         fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
-        
+
         fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
     }
 }
@@ -373,8 +373,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-      let buffer = new Buffer('123');
-      let octets = new Uint8Array(buffer.buffer);
+        let buffer = new Buffer('123');
+        let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -386,14 +386,14 @@ function bufferTests() {
 namespace url_tests {
     {
         url.format(url.parse('http://www.example.com/xyz'));
-        
+
         // https://google.com/search?q=you're%20a%20lizard%2C%20gary
         url.format({
             protocol: 'https',
             host: "google.com",
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
-        });   
+        });
     }
 
     {
@@ -410,7 +410,7 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
     }
 }
 
@@ -501,10 +501,10 @@ namespace crypto_tests {
     }
 
     {
-    let hmac: crypto.Hmac;
-    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hmac: crypto.Hmac;
+        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
             let hash: Buffer | string = hmac.read();
-    });
+        });
     }
 
     {
@@ -513,13 +513,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
+        cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
+        clearText2 += decipher.final("utf8");
 
-	assert.equal(clearText2, clearText);
+        assert.equal(clearText2, clearText);
     }
 
     {
@@ -528,19 +528,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-	assert.deepEqual(clearText2, clearText);
+        assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -558,17 +558,196 @@ namespace crypto_tests {
 //////////////////////////////////////////////////
 
 namespace tls_tests {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+    {
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
+    }
+
+    {
+        let _server: tls.Server;
+        let _boolean: boolean;
+        let _func1 = function(err: Error, resp: Buffer){};
+        let _func2 = function(err: Error, sessionData: any){};
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+
+        _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.addListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.addListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        let _err: Error;
+        let _tlsSocket: tls.TLSSocket;
+        let _any: any;
+        let _func: Function;
+        let _buffer: Buffer;
+        _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
+        _boolean = _server.emit("newSession", _any, _any, _func1);
+        _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
+        _boolean = _server.emit("resumeSession", _any, _func2);
+        _boolean = _server.emit("secureConnection", _tlsSocket);
+
+        _server = _server.on("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.on("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.on("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.once("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.once("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.once("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+    }
+
+    {
+        let _TLSSocket: tls.TLSSocket;
+        let _boolean: boolean;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
+
+        let _buffer: Buffer;
+        _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
+        _boolean = _TLSSocket.emit("secureConnect");
+
+        _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.on("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.once("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
+    } 
 }
 
 ////////////////////////////////////////////////////
@@ -577,20 +756,20 @@ namespace tls_tests {
 
 namespace http_tests {
     {
-    // Status codes
-    var codeMessage = http.STATUS_CODES['400'];
-    var codeMessage = http.STATUS_CODES[400];
+        // Status codes
+        var codeMessage = http.STATUS_CODES['400'];
+        var codeMessage = http.STATUS_CODES[400];
     }
 
     {
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+        var agent: http.Agent = new http.Agent({
+            keepAlive: true,
+            keepAliveMsecs: 10000,
+            maxSockets: Infinity,
+            maxFreeSockets: 256
+        });
 
-	var agent: http.Agent = http.globalAgent;
+        var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -659,14 +838,86 @@ namespace tty_tests {
 ////////////////////////////////////////////////////
 
 namespace dgram_tests {
-    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-    });
-    ds.bind();
-    ds.bind(41234);
-    var ai: dgram.AddressInfo = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-    });
-    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    {
+        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        });
+        ds.bind();
+        ds.bind(41234);
+        var ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        });
+        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    }
+
+    {
+        let _socket: dgram.Socket;
+        let _boolean: boolean;
+        let _err: Error;
+        let _str: string;
+        let _rinfo: dgram.AddressInfo;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _socket = _socket.addListener("close", () => {});
+        _socket = _socket.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.addListener("listening", () => {});
+        _socket = _socket.addListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _boolean = _socket.emit("close")
+        _boolean = _socket.emit("error", _err);
+        _boolean = _socket.emit("listening");
+        _boolean = _socket.emit("message", _str, _rinfo);
+
+        _socket = _socket.on("close", () => {});
+        _socket = _socket.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.on("listening", () => {});
+        _socket = _socket.on("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.once("close", () => {});
+        _socket = _socket.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.once("listening", () => {});
+        _socket = _socket.once("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependListener("close", () => {});
+        _socket = _socket.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependListener("listening", () => {});
+        _socket = _socket.prependListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependOnceListener("close", () => {});
+        _socket = _socket.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependOnceListener("listening", () => {});
+        _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -970,7 +1221,7 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
-        childProcess.spawnSync("echo test");    
+        childProcess.spawnSync("echo test");
     }
 }
 
@@ -1133,7 +1384,7 @@ namespace process_tests {
     {
         var eventEmitter: events.EventEmitter;
         eventEmitter = process;                // Test that process implements EventEmitter...
-        
+
         var _p: NodeJS.Process = process;
         _p = p;
     }

@@ -1,3 +1,6 @@
+/// <reference path="../koa/koa.d.ts" />
+/// <reference path="koa-router.d.ts" />
+
 import * as Koa from "koa";
 import * as Router from "koa-router";
 

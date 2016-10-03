@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="packery.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 import Packery = require('packery');
 

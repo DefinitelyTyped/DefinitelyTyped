@@ -1,11 +1,10 @@
-/// <reference types="estree" />
-
+/// <reference path="../estree/estree.d.ts" />
+/// <reference path="esprima.d.ts" />
 
 import esprima = require('esprima');
-import * as ESTree from 'estree';
 
 var token: esprima.Token;
-var comment: ESTree.Comment;
+var comment: esprima.Comment;
 var program: ESTree.Program;
 var string: string;
 
@@ -23,9 +22,3 @@ string = token.value;
 
 // Comment
 string = comment.value;
-
-// Type narrowing
-var node: ESTree.Node;
-if(node.type === esprima.Syntax.IfStatement){
-    node.consequent = node;
-}

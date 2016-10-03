@@ -1,5 +1,5 @@
-
-/// <reference types="jquery" />
+/// <reference path="swiper.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 //
 // Main demos

@@ -1,3 +1,5 @@
+///<reference path="js-schema.d.ts" />
+
 import {default as schema} from 'js-schema';
 
 var Duck = schema({              // A duck

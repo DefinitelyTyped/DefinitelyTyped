@@ -1,3 +1,4 @@
+/// <reference path="rimraf.d.ts" />
 
 import rimraf = require('rimraf');
 

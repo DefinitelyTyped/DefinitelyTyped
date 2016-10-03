@@ -1,3 +1,6 @@
+/// <reference path="spectacle.d.ts" />
+/// <reference path="../react/react-global.d.ts" />
+
 /**
  * Spectacle Test Examples
  *

@@ -1,3 +1,5 @@
+/// <reference path="jquery.fullscreen.d.ts"/>
+
 //
 // Examples from https://github.com/kayahr/jquery-fullscreen-plugin
 //

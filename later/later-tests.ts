@@ -1,4 +1,7 @@
-﻿namespace LaterTest_DefineSchedule {
+﻿/// <reference path="./later.d.ts"/>
+
+
+namespace LaterTest_DefineSchedule {
 
     // define a new schedule
     var textSched = later.parse.text('at 10:15am every weekday');

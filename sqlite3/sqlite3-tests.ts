@@ -1,3 +1,4 @@
+/// <reference path="sqlite3.d.ts" />
 
 import sqlite3 = require('sqlite3');
 sqlite3.verbose();

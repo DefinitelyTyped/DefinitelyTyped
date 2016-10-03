@@ -1,5 +1,5 @@
-/// <reference types="jquery" />
-
+/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="bootstrap.d.ts" />
 
 $('body').off('.data-api');
 $('body').off('.alert.data-api');
@@ -48,4 +48,4 @@ $('#navbar').affix();
 $('.item').emulateTransitionEnd(2000);
 
 $.support.transition = false;
-console.log(($.support.transition as any as TransitionEventNames).end === "transitionend");
+console.log(($.support.transition as TransitionEventNames).end === "transitionend");

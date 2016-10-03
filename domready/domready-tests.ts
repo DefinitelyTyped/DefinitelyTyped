@@ -1,4 +1,4 @@
-import domready = require("domready");
+/// <reference path="domready.d.ts" />
 
 domready(function () {
   // dom is loaded!

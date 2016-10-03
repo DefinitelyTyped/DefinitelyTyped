@@ -1,4 +1,5 @@
-/// <reference types="jquery"/>
+/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference path="jsrender.d.ts"/>
 
 $.views.converters("upper", function(val) {
   return val.toUpperCase();

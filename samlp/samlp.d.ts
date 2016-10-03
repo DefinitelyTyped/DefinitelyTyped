@@ -3,8 +3,8 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="express" />
-/// <reference types="passport" />
+/// <reference path="../express/express.d.ts" />
+/// <reference path="../passport/passport.d.ts" />
 
 declare module "samlp" {
 

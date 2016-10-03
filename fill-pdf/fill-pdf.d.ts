@@ -3,7 +3,7 @@
 // Definitions by: Seth Westphal <https://github.com/westy92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="node" />
+/// <reference path="../node/node.d.ts" />
 
 declare module 'fill-pdf' {
 

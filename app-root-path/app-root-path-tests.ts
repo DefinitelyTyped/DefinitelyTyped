@@ -1,3 +1,4 @@
+/// <reference path="app-root-path.d.ts" />
 import * as root from 'app-root-path';
 
 let resolvedPath: string;

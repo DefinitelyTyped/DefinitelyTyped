@@ -1,7 +1,5 @@
-﻿
-/// <reference types="jquery" />
-
-import * as Backbone from 'backbone';
+﻿/// <reference path="backbone.radio.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 class MyCommands extends Backbone.Radio.Commands {
 
@@ -104,6 +102,7 @@ function TestGlobalApiAndChannels() {
     Backbone.Radio.reply('auth', 'authenticate', onStart);
     Backbone.Radio.request('auth', 'authenticate', 'pelle', 42);
 }
+
 import Radio = require('backbone.radio');
 function TestImport() {
     var channel: Backbone.Radio.Channel = Radio.channel('channel-name');
