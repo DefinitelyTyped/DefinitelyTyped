@@ -1,6 +1,6 @@
-// Type definitions for Selectize 0.11.2
+// Type definitions for Selectize 0.12.13
 // Project: https://github.com/brianreavis/selectize.js
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>
+// Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -562,6 +562,11 @@ declare namespace Selectize {
          * Clears the render cache. Takes an optional template argument (e.g. "option", "item") to clear only that cache.
          */
         clearCache(template?: string): void;
+
+        /**
+         * When the `settings.placeholder` value is changed, the new placeholder will be displayed.
+         */
+        updatePlaceholder(): void;
     }
 
     interface ISearchToken {
@@ -609,4 +614,3 @@ interface JQuery {
 interface HTMLElement {
     selectize: Selectize.IApi<any, any>;
 }
-

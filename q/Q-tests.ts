@@ -4,6 +4,7 @@
 import q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
+Q().then(() => console.log("nothing"));
 
 var delay = function (delay: number) {
     var d = Q.defer<void>();

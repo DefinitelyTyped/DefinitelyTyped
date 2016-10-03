@@ -13,10 +13,10 @@ declare module 'serialport' {
         pause(): void;
         resume(): void;
         disconnected(err: Error): void;
-        close(callback?: () => void): void;
-        flush(callback?: () => void): void;
+        close(callback?: (err:any) => void): void;
+        flush(callback?: (err:any) => void): void;
         set(options: SerialPort.setOptions, callback: () => void): void;
-        drain(callback?: () => void): void;
+        drain(callback?: (err:any) => void): void;
         update(options: SerialPort.updateOptions, callback?: () => void): void;
         static list(callback: (err: string, ports: SerialPort.portConfig[]) => void): void;
         static parsers: {

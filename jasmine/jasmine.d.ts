@@ -187,7 +187,7 @@ declare namespace jasmine {
         throwingExpectationFailures(): boolean;
         allowRespy(allow: boolean): void;
         randomTests(): boolean;
-        randomizeTests(value: boolean): boolean;
+        randomizeTests(b: boolean): void;
     }
 
     interface FakeTimer {

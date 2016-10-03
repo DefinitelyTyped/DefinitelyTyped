@@ -384,7 +384,15 @@ declare module _ {
         unshift(...items: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> { }
+    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> {
+        pop(): LoDashExplicitObjectWrapper<T>;
+        push(...items: T[]): LoDashExplicitArrayWrapper<T>;
+        shift(): LoDashExplicitObjectWrapper<T>;
+        sort(compareFn?: (a: T, b: T) => number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number, deleteCount: number, ...items: any[]): LoDashExplicitArrayWrapper<T>;
+        unshift(...items: T[]): LoDashExplicitArrayWrapper<T>;
+    }
 
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
@@ -501,7 +509,7 @@ declare module _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(...values: (T[]|List<T>)[]) : T[];
+         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]) : T[];
     }
 
     //_.difference
