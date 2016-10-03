@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps.Traffic {
     /** Options that can be customized in the Traffic manager. */
     export interface ITrafficOptions {

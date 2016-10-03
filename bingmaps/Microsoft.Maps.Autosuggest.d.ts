@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps {
     /** Options used to customize the autosuggest functionality. */
     export interface IAutosuggestOptions {

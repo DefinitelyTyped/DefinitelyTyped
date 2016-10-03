@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps.DrawingTools {
     /**
    * The different drawing modes that the drawing manager can be set to.

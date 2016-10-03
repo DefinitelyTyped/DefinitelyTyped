@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps.SpatialDataService {
     //////////////////////////////////////////////
     /// GeoData API

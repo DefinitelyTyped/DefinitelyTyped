@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps {
     /**
      * Class responsible for readon/writing geo data in well known text format

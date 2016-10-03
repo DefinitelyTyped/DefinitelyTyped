@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps {
     /** The options used to customize how the ClusterLayer functions. */
     export interface IClusterLayerOptions {

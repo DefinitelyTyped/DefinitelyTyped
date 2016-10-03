@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps.Search {
     /** 
      * Defines the match precision of a geocdoed result.

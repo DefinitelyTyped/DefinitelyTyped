@@ -1,4 +1,6 @@
-﻿declare namespace Microsoft.Maps.SpatialMath {
+﻿/// <reference path="Microsoft.Maps.d.ts"/>
+
+declare namespace Microsoft.Maps.SpatialMath {
     /**
      * Distance Unit enumerator
      * @requires The Microsoft.Maps.SpatialMath module.

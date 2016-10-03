@@ -1,3 +1,5 @@
+/// <reference path="Microsoft.Maps.d.ts"/>
+
 declare namespace Microsoft.Maps {
     /** A standard dictionary object (associative array). */
     export interface IDictionary<T> {
