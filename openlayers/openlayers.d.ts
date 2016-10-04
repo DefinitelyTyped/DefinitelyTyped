@@ -6361,6 +6361,13 @@ declare module ol {
             constructor(opt_options?: olx.layer.VectorOptions);
 
             /**
+             * Return the associated {@link ol.source.Vector vectorsource} of the layer.
+             * @return {ol.source.Vector} Source.
+             * @api stable
+             */
+            getSource(): ol.source.Vector;
+       
+            /**
              * Get the style for features.  This returns whatever was passed to the `style`
              * option at construction or to the `setStyle` method.
              * @return {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction}
