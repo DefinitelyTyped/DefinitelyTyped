@@ -219,6 +219,7 @@ $(document).ready(function () {
             pagingType: "simple",
             retrieve: true,
             renderer: "bootstrap",
+            rowId: "custId",
             scrollCollapse: true,
             search: true,
             searchCols: [{ "search": "", "smart": true, "regex": false, "caseInsensitive": true }],
@@ -261,7 +262,7 @@ $(document).ready(function () {
         {
             ajax: {
                 data: ajaxDataFunc,
-                dataSrc: function (data) { },
+                dataSrc: function (data: any) { },
             },
         };
 
@@ -305,8 +306,9 @@ $(document).ready(function () {
     destroy = dt.destroy(true);
     destroy.$("");
 
-    var draw = dt.draw();
+    var draw: DataTables.DataTable = dt.draw();
     draw = dt.draw(true);
+    draw = dt.draw("page");
     draw.$("");
 
     var initSettings = dt.init();
@@ -343,7 +345,8 @@ $(document).ready(function () {
         "end": 20,
         "length": 10,
         "recordsTotal": 57,
-        "recordsDisplay": 57
+        "recordsDisplay": 57,
+        "serverSide": false
     };
 
     var page_len_get = dt.page.len();
@@ -401,7 +404,7 @@ $(document).ready(function () {
         .cache('search')
         .sort()
         .unique()
-        .each(function (d) {
+        .each(function (d: any) {
             select.append($('<option value="' + d + '">' + d + '</option>'));
         });
 
@@ -520,7 +523,7 @@ $(document).ready(function () {
     columns = dt.columns("selector", modifier);
 
     var columns_cache = columns.cache("order");
-    dt.columns('.select-filter').eq(0).each(function (colIdx) {
+    dt.columns('.select-filter').eq(0).each(function (colIdx: any) {
         // Create the select list and search operation
         var select = $('<select />')
             .appendTo(
@@ -539,7 +542,7 @@ $(document).ready(function () {
             .cache('search')
             .sort()
             .unique()
-            .each(function (d) {
+            .each(function (d: any) {
                 select.append($('<option value="' + d + '">' + d + '</option>'));
             });
     });
@@ -623,7 +626,7 @@ $(document).ready(function () {
         .cache('search')
         .sort()
         .unique()
-        .each(function (d) {
+        .each(function (d: any) {
             select.append($('<option value="' + d + '">' + d + '</option>'));
         });
 
@@ -632,7 +635,7 @@ $(document).ready(function () {
         dt
             .column(4)
             .data()
-            .reduce(function (a, b) {
+            .reduce(function (a: any, b: any) {
                 return a + b;
             })
     );
@@ -688,7 +691,7 @@ $(document).ready(function () {
             .draw();
     });
 
-    dt.columns('.select-filter').eq(0).each(function (colIdx) {
+    dt.columns('.select-filter').eq(0).each(function (colIdx: any) {
         // Create the select list and search operation
         var select = $('<select />')
             .appendTo(
@@ -707,7 +710,7 @@ $(document).ready(function () {
             .cache('search')
             .sort()
             .unique()
-            .each(function (d) {
+            .each(function (d: any) {
                 select.append($('<option value="' + d + '">' + d + '</option>'));
             });
     });
@@ -751,6 +754,8 @@ $(document).ready(function () {
     var row_19 = dt.row("selector").index();
     var row_20 = dt.row("selector").node();
     var row_21 = dt.row("selector").remove();
+    var row_22: string = dt.row("selector").id();
+    var row_23: string = dt.row("selector").id(false);
 
     var rows_1 = dt.rows();
     var rows_2 = dt.rows().remove();
@@ -767,6 +772,8 @@ $(document).ready(function () {
     var rows_13 = dt.rows.add([{}, {}]);
     dt.rows().every(function () { });
     dt.rows().every(function (rowIdx, tableLoop, rowLoop) { });
+    var rows_14: DataTables.DataTable = dt.rows("selector").ids();
+    var rows_15: DataTables.DataTable = dt.rows("selector").ids(false);
 
     var table3 = $('#example').DataTable();
     table3.row.add({
@@ -831,7 +838,7 @@ $(document).ready(function () {
     ])
         .show();
 
-    dt.rows().eq(0).each(function (rowIdx) {
+    dt.rows().eq(0).each(function (rowIdx: any) {
         dt
             .row(rowIdx)
             .child(
@@ -881,6 +888,20 @@ $(document).ready(function () {
 
     //#endregion "Methods-Row"
 
+    //#region "Methods-Static"
+
+    // Variable is a stand-in for $.fn.dataTable. See extension of JQueryStatic at the top of jquery.dataTables.d.ts.
+    var staticFn: DataTables.StaticFunctions;
+
+    // With boolean parameter type, always returns DataTables.DataTable[].
+    var static_1: DataTables.DataTable[] = <DataTables.DataTable[]>staticFn.tables(true);
+    // With object parameter type, returns DataTables.DataTable[] when "api" property is false.
+    static_1 = <DataTables.DataTable[]>staticFn.tables({ "visible": true, "api": false });
+    // With object parameter type, returns DataTables.DataTable when "api" property is true.
+    var static_2: DataTables.DataTable = <DataTables.DataTable>staticFn.tables({ "visible": true, "api": true });
+
+    //#endregion "Methods-Static"
+
     //#region "Methods-Table"
 
     var tables = dt.tables();
@@ -905,6 +926,7 @@ $(document).ready(function () {
     //#region "Methods-Util"
 
     var util_1: boolean = dt.any();
+    var util_2: number = dt.count();
 
     //#endregion "Methods-Util"
 });
