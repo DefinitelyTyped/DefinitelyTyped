@@ -45,12 +45,12 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Component: (component: iComponent) => ngESDecorator;
+    function Component(component: iComponent): ngESDecorator;
 
     /**
      * Register config block
      */
-    var Config: () => ngESDecorator;
+    function Config(): ngESDecorator;
 
     /**
      * Register constant
@@ -59,7 +59,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Constant: (name: string) => ngESDecorator;
+    function Constant(name: string): ngESDecorator;
 
     /**
      * Register controller
@@ -68,7 +68,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Controller: (name: string) => ngESDecorator;
+    function Controller(name: string): ngESDecorator;
 
     /**
      * Register decorator
@@ -77,7 +77,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Decorator: (name: string) => ngESDecorator;
+    function Decorator(name: string): ngESDecorator;
 
     /**
      * Register directive
@@ -86,7 +86,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Directive: (name: string) => ngESDecorator;
+    function Directive(name: string): ngESDecorator;
 
     /**
      * Register factory
@@ -95,7 +95,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Factory: (name: string) => ngESDecorator;
+    function Factory(name: string): ngESDecorator;
 
     /**
      * Register filter
@@ -104,7 +104,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Filter: (name: string) => ngESDecorator;
+    function Filter(name: string): ngESDecorator;
 
     /**
      * Add $inject property to target
@@ -113,7 +113,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Inject: (...dependencies: Array<string>) => ngESDecorator;
+    function Inject(...dependencies: Array<string>): ngESDecorator;
 
     /**
      * Inject dependencies as properties to target
@@ -122,7 +122,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var InjectAsProperty: (...dependencies: Array<string>) => ngESDecorator;
+    function InjectAsProperty(...dependencies: Array<string>): ngESDecorator;
 
     /**
      * Attach target to the specified module
@@ -131,7 +131,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Module: (name: string) => ngESDecorator;
+    function Module(name: string): ngESDecorator;
 
     /**
      * Register provider
@@ -140,14 +140,14 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Provider: (name: string) => ngESDecorator;
+    function Provider(name: string): ngESDecorator;
 
     /**
      * Register run block
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Run: () => ngESDecorator;
+    function Run(): ngESDecorator;
 
     /**
      * Register service
@@ -156,7 +156,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Service: (name: string) => ngESDecorator;
+    function Service(name: string): ngESDecorator;
 
     /**
      * Register value
@@ -165,7 +165,7 @@ declare module 'angular-es' {
      *
      * @returns {ngESDecorator} - decorated class
      */
-    var Value: (name: string) => ngESDecorator;
+    function Value(name: string): ngESDecorator;
 
     export {
         Component,

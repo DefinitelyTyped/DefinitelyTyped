@@ -207,7 +207,7 @@ declare namespace jake{
 	 *
 	 * @event complete
 	 */
-	export class Task implements NodeJS.EventEmitter {
+	export class Task extends NodeJS.EventEmitter {
 		/**
 		 * @name name The name of the Task
 		 * @param prereqs Prerequisites to be run before this task

@@ -197,6 +197,8 @@ declare module IORedis {
         hmget(...args: any[]): any;
         hincrby(args: any[], callback?: ResCallbackT<any>): any;
         hincrby(...args: any[]): any;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): any;
+        hincrbyfloat(...args: any[]): any;
         hdel(args: any[], callback?: ResCallbackT<any>): any;
         hdel(...args: any[]): any;
         hlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -478,6 +480,8 @@ declare module IORedis {
         hmget(...args: any[]): Pipeline;
         hincrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hincrby(...args: any[]): Pipeline;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        hincrbyfloat(...args: any[]): Pipeline;
         hdel(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hdel(...args: any[]): Pipeline;
         hlen(args: any[], callback?: ResCallbackT<any>): Pipeline;

@@ -40,10 +40,11 @@ declare module "restler" {
         /**
          * Send json data via GET method.
          * @param {string}          url     A url address.
+         * @param {any}             data    JSON body
          * @param {RestlerOptions}  options Options.
          * @return {RestlerResult}  Result.
          */
-        json(url: string, options?: RestlerOptions): RestlerResult;
+        json(url: string, data?: any, options?: RestlerOptions, method?: string): RestlerResult;
 
         /**
          * Create a PATCH request.
@@ -56,10 +57,11 @@ declare module "restler" {
         /**
          * Send json  data  via PATCH method.
          * @param {string}          url     A url address.
+         * @param {any}             data    JSON body
          * @param {RestlerOptions}  options Options.
          * @return {RestlerResult}  Result.
          */
-        patchJson(url: string, options?: RestlerOptions): RestlerResult;
+        patchJson(url: string, data?: any, options?: RestlerOptions): RestlerResult;
 
         /**
          * Create a POST request.
@@ -72,10 +74,11 @@ declare module "restler" {
         /**
          * Send json data via POST method.
          * @param {string}          url     A url address.
+         * @param {any}             data    JSON body
          * @param {RestlerOptions}  options Options.
          * @return {RestlerResult}  Result.
          */
-        postJson(url: string, options?: RestlerOptions): RestlerResult;
+        postJson(url: string, data?: any, options?: RestlerOptions): RestlerResult;
 
         /**
          * Create a PUT request.
@@ -88,10 +91,11 @@ declare module "restler" {
         /**
          * Send json data via PUT method.
          * @param {string}          url     A url address.
+         * @param {any}             data    JSON body
          * @param {RestlerOptions}  options Options.
          * @return {RestlerResult}  Result.
          */
-        putJson(url: string, options?: RestlerOptions): RestlerResult;
+        putJson(url: string, data?: any, options?: RestlerOptions): RestlerResult;
 
         /**
          * Create a PUT request.

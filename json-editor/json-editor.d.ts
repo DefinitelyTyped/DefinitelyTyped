@@ -39,7 +39,7 @@ type JSONEditorOptions<TValue> = {
     /**
      * The icon library to use for the editor.
      */
-    iconlib?: boolean;
+    iconlib?: "bootstrap2" | "bootstrap3" | "foundation2" | "foundation3" | "jqueryui" | "fontawesome3" | "fontawesome4";
     /**
      * If true, objects can only contain properties defined with the properties keyword.
      */
@@ -75,7 +75,7 @@ type JSONEditorOptions<TValue> = {
     /**
      * The CSS theme to use.
      */
-    theme?: string;
+    theme?: "barebones" | "html" | "bootstrap2" | "bootstrap3" | "foundation3" | "foundation4" | "foundation5" | "foundation6" | "jqueryui";
     /**
      * If true, only required properties will be included by default.
      */
