@@ -40,6 +40,11 @@ declare namespace angular.local.storage {
      * @param removeItem default: false
      */
     setNotify(setItem: boolean, removeItem: boolean):ILocalStorageServiceProvider;
+    /**
+     * Set fallback for storage when unavailable
+     * @param isCookie
+     */
+    setDefaultToCookie(isCookieFallback?: boolean);
   }
 
   interface ICookie {
