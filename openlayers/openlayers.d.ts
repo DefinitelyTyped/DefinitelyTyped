@@ -4812,6 +4812,11 @@ declare namespace ol {
              * @param extent The new extent of the projection.
              */
             setExtent(extent: Extent): void;
+
+            /**
+             * Get the string representation of the EPSG code
+             */
+            getCode(): string;
         }
     }
 
