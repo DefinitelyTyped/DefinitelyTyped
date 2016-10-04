@@ -131,6 +131,14 @@ declare namespace FullCalendar {
         eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
         eventAfterAllRender?: (view: ViewObject) => void;
         eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
+
+	//scheduler options
+	resourceAreaWidth?:number,
+        schedulerLicenseKey?:string,
+        customButtons?:any,
+        resourceLabelText?:any,
+        resourceColumns?:any,
+        displayEventTime?:any,
     }
 
     /**
