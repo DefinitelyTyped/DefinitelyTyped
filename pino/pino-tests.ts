@@ -1,11 +1,11 @@
-/// <reference path="../node/node.d.ts"/>   // only for require()
+/// <reference path="../node/index.d.ts"/>   // only for require()
 /// <reference path="pino.d.ts"/>
 // This contains all of the code from the docs on https://www.npmjs.com/package/pino
 
-import PINO = require('pino')
-var pino = PINO()
-var info = pino.info
-var error = pino.error
+import * as pino from 'pino';
+const logger: pino.Logger = pino();
+const info = logger.info
+const error = logger.error
 
 info('hello world')
 error('this is at error level')
@@ -17,7 +17,7 @@ setImmediate(info, 'after setImmediate')
 error(new Error('an error'))
 
 
-var instance = PINO({
+const instance = pino({
   name: 'myapp',
   safe: true,
   serializers: {
@@ -26,6 +26,12 @@ var instance = PINO({
   }
 })
 
+const pretty = pino.pretty()
+const instance2 = pino({
+  name: 'app',
+  safe: true
+}, pretty)
 
-var logger = instance
+
+const log = instance
 logger.child({ a: 'property' }).info('hello child!')
