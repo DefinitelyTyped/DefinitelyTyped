@@ -106,11 +106,15 @@ declare module "csv-parse/types" {
        new (options: options): Parser;
     }
 
+    interface ParserStream extends NodeJS.ReadWriteStream {
+        read(size?: number): any & string[];
+    }
+
     interface parse {
         (input: string, options?: options, callback?: callbackFn): any;
         (options: options, callback: callbackFn): any;
         (callback: callbackFn): any;
-        (options?: options): NodeJS.ReadWriteStream;
+        (options?: options): ParserStream;
         Parser: ParserConstructor;
     }
 }
