@@ -10975,7 +10975,7 @@ declare module ol {
      * An array of numbers representing an xy coordinate. Example: `[16, 48]`.
      * @typedef {Array.<number>}
      */
-    type Coordinate = number[];
+    type Coordinate = [number, number];
 
     /**
      * A function that takes a {@link ol.Coordinate} and transforms it into a
@@ -11029,7 +11029,7 @@ declare module ol {
      * An array of numbers representing an extent: `[minx, miny, maxx, maxy]`.
      * @typedef {Array.<number>}
      */
-    type Extent = number[];
+    type Extent = [number, number, number, number];
 
     /**
      * {@link ol.source.Vector} sources use a function of this type to load
@@ -11103,7 +11103,7 @@ declare module ol {
      * x-coordinate, the second the y-coordinate of the pixel.
      * @typedef {Array.<number>}
      */
-    type Pixel = number[];
+    type Pixel = [number, number];
 
     /**
      * Function to perform manipulations before rendering. This function is called
@@ -11153,7 +11153,7 @@ declare module ol {
      * An array of numbers representing a size: `[width, height]`.
      * @typedef {Array.<number>}
      */
-    type Size = number[];
+    type Size = [number, number];
 
     /**
      * @typedef {{attributions: (ol.AttributionLike|undefined),
@@ -11284,7 +11284,7 @@ declare module ol {
      * grid. The order is `z`, `x`, and `y`. `z` is the zoom level.
      * @typedef {Array.<number>} ol.TileCoord
      */
-    type TileCoord = number[];
+    type TileCoord = [number, number, number];
 
     /**
      * A function that takes an {@link ol.Tile} for the tile and a `{string}` for
