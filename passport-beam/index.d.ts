@@ -29,4 +29,4 @@ declare namespace Strategy {
 	}
 }
 
-export Strategy;
+export = Strategy;
