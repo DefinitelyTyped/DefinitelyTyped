@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - GeoJSON module
+// Project: https://msdn.microsoft.com/en-us/library/mt712806.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps {
@@ -39,7 +44,6 @@ declare namespace Microsoft.Maps {
 
     /**
      * Class responsible for reading/writing geo data in GeoJson format
-     * @requires The Microsoft.Maps.GeoJSON module.
      */
     export module GeoJSON {
         /**
@@ -49,7 +53,10 @@ declare namespace Microsoft.Maps {
         * @param jsonpQueryParam The name of the url query param to make a jsonp request.
         * @param styles Styles that needs to be applied.
         */
-        export function readFromUrl(url: string, callback: (data: IPrimitive | IPrimitive[]) => void, jsonpQueryParam?: string, styles?: IStylesOptions): void;
+        export function readFromUrl(url: string,
+            callback: (data: IPrimitive | IPrimitive[]) => void,
+            jsonpQueryParam?: string,
+            styles?: IStylesOptions): void;
 
         /**
          * Reads the data in geoJson format and returns the shapes.

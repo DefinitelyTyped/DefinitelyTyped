@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK
+// Project: https://msdn.microsoft.com/en-us/library/mt712552.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace Microsoft.Maps {
     //////////////////////////////////////////////
     /// Enumerations

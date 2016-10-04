@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - Traffic module
+// Project: https://msdn.microsoft.com/en-us/library/mt712860.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.Traffic {
@@ -22,12 +27,10 @@ declare namespace Microsoft.Maps.Traffic {
     /**
      * The TrafficManager class provides the ability to show traffic flow and incident data on top of the map. When creating an
      * instance of the TrafficManager class the map must be passed as an argument to the constructor.
-     * @requires The Microsoft.Maps.Traffic module.
      */
     export class TrafficManager {
         /**
         * @constructor
-        * @requires The Microsoft.Maps.Traffic module.
         * @param map A map instnce to attach the traffic manager to.
         */
         constructor(map: Map);

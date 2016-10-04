@@ -1,9 +1,13 @@
+// Type definitions for Bing Maps V8 SDK - Well known text module
+// Project: https://msdn.microsoft.com/en-us/library/mt712880.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps {
     /**
      * Class responsible for readon/writing geo data in well known text format
-     * @requires The Microsoft.Maps.WellKnownText module.
      */
     export module WellKnownText {
         /**

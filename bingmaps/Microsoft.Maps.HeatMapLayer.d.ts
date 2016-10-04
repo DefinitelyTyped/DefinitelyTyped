@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - Heat map module
+// Project: https://msdn.microsoft.com/en-us/library/mt712868.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps {
@@ -52,12 +57,10 @@ declare namespace Microsoft.Maps {
 
     /**
      * Class for rendering data as a heat map layer.
-     * @requires The Microsoft.Maps.Heatmap module.
      */
     export class HeatMapLayer implements IDataLayer {
         /**
          * @constructor
-         * @requires The Microsoft.Maps.Heatmap module.
          * @param locations Set of locations to visualize as a heat map.
          * @param options Options for customizing how the heat map is rendered.
          */

@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - Autosuggest module
+// Project: https://msdn.microsoft.com/en-us/library/mt712650.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps {
@@ -75,12 +80,10 @@ declare namespace Microsoft.Maps {
 
     /**
      * The AutosuggestManager is the primary class in the Autosuggest module that powers the autosuggest functionality.
-     * @requires The Microsoft.Maps.Autosuggest module.
      */
     export class AutosuggestManager {
         /**
         * @constructor
-        * @requires The Microsoft.Maps.Autosuggest module.
         * @param options The options to use with the autosuggest manager.
         */
         constructor(options?: IAutosuggestOptions);

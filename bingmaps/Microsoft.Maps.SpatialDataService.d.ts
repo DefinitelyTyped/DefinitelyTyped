@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - Spatial data service module
+// Project: https://msdn.microsoft.com/en-us/library/mt712849.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.SpatialDataService {
@@ -161,13 +166,11 @@ declare namespace Microsoft.Maps.SpatialDataService {
      * This is a static class that provides the ability to request polygons that describe the boundaries of a geographic entities, such as an AdminDivision1
      * (such as a state or province) or a Postcode1 (such as a zip code) that contain a given point (latitude and longitude) or address. This uses the GeoData
      * API in the Bing Spatial Data Services.
-     * @requires The Microsoft.Maps.SpatialDataService module.
      */
     export module GeoDataAPIManager {
         /**
          * Gets a boundary for the specified request. If the specified location value is a string, it will be geocoded and the coordinates of the result will
          * be used to find a boundary of the specified entityType that intersects with this coordinate.
-         * @requires The Microsoft.Maps.SpatialDataService module.
          * @param locations The locations to retrieve boundaries for. If the specified location value is a string, it will be geocoded and the coordinates of
          * the result will be used to find a boundary of the specified entityType that intersects with this coordinate.
          * @param request The request options for retrieving a boundary.
@@ -187,7 +190,6 @@ declare namespace Microsoft.Maps.SpatialDataService {
 
     /**
     * An enumeration that defines how to compare the filters value against the corresponding property value.
-    * @requires The Microsoft.Maps.SpatialDataService module.
     */
     export enum FilterCompareOperator {
         /** Determines if a string value ends with a specified string value. */
@@ -226,7 +228,6 @@ declare namespace Microsoft.Maps.SpatialDataService {
 
     /**
     * An enumeration that defines how two or more filters are linked together.
-    * @requires The Microsoft.Maps.SpatialDataService module.
     */
     export enum FilterLogicalOperator {
         /** Connects two or more filters that both must be true. */
@@ -257,12 +258,10 @@ declare namespace Microsoft.Maps.SpatialDataService {
     /**
      * The Fitler class defines the logic behind a filter expression that can be executed against a JSON object or generate
      * a filter string that can be used with the Bing Spatial Data Services.
-     * @requires The Microsoft.Maps.SpatialDataService module.
      */
     export class Filter implements IFilter {
         /**
          * @constructor
-         * @requires The Microsoft.Maps.SpatialDataService module.
          * @param propertyName The name of the property in the object to test against. Can also provide child properties i.e. 'root.child'.
          * @param operator The operator to use when comparing the specified property to value to the provided value.
          * @param value A value to compare against.
@@ -285,12 +284,10 @@ declare namespace Microsoft.Maps.SpatialDataService {
     /**
      * A class that groups two or more logical filters or filter groups together. It can be executed against a JSON or generate
      * a filter string that can be used with the Bing Spatial Data Services.
-     * @requires The Microsoft.Maps.SpatialDataService module.
      */
     export class FilterGroup implements IFilter {
         /**
         * @constructor
-        * @requires The Microsoft.Maps.SpatialDataService module.
         * @param filters An array consisting of Filter or FilterGroup objects to combine.
         * @param operator The logical operator for combining the filters together.
         * @param not A boolean is the logical inverse should of the filter should be used.
@@ -421,12 +418,10 @@ declare namespace Microsoft.Maps.SpatialDataService {
 
     /**
      * This is a static class that provides that ability to query data sources that are hosted by the Bing Spatial Data Services using the Query API.
-     * @requires The Microsoft.Maps.SpatialDataService module.
      */
     export module QueryAPIManager {
         /**
          * Perform a search
-         * @requires The Microsoft.Maps.SpatialDataService module.
          * @param queryOptions - Options for the query
          * @param credentials - Credentials for the query
          * @param callback - The function to call once the results are retrieved

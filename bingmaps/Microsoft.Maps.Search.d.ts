@@ -1,10 +1,12 @@
+// Type definitions for Bing Maps V8 SDK - Search module
+// Project: https://msdn.microsoft.com/en-us/library/mt712846.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.Search {
-    /** 
-     * Defines the match precision of a geocdoed result.
-     * @requires The Microsoft.Maps.Search module.
-     */
+    /** Defines the match precision of a geocdoed result. */
     export enum LocationPrecision {
         /** The geocode result was matched to a point on a road using interpolation. */
         interpolated,
@@ -24,7 +26,6 @@ declare namespace Microsoft.Maps.Search {
 
     /** 
      * Defines the geocoding level of the location match found by the geocoder.
-     * @requires The Microsoft.Maps.Search module.
      */
     export enum MatchCode {
         /** No match was found. */
@@ -45,7 +46,6 @@ declare namespace Microsoft.Maps.Search {
 
     /** 
      * Defines the confidence of the location match found by the geocoding service.
-     * @requires The Microsoft.Maps.Search module.
      */
     export enum MatchConfidence {
         /** The confidence of the match is high. */
@@ -198,12 +198,10 @@ declare namespace Microsoft.Maps.Search {
 
     /**
     * A class that contains methods for returning search and location results.
-    * @requires The Microsoft.Maps.Search module.
     */
     export class SearchManager {
         /**
          * @constructor
-         * @requires The Microsoft.Maps.Search module.
          * @param map A Map object
          */
         constructor(map: Map);

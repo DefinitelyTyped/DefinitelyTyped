@@ -1,9 +1,13 @@
+// Type definitions for Bing Maps V8 SDK - Drawing tools module
+// Project: https://msdn.microsoft.com/en-us/library/mt750543.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.DrawingTools {
     /**
    * The different drawing modes that the drawing manager can be set to.
-   * @requires The Microsoft.Maps.DrawingTools module.
    */
     export enum DrawingMode {
         /** Edit an existing shape. Click on a shape to edit it. */
@@ -27,7 +31,6 @@ declare namespace Microsoft.Maps.DrawingTools {
 
     /**
     * The different types of shapes that are created or edited by the drawing tools.
-    * @requires The Microsoft.Maps.DrawingTools module.
     */
     export enum ShapeType {
         /** A polygon shape type. */
@@ -121,12 +124,10 @@ declare namespace Microsoft.Maps {
 
     /**
     * Provides a set of tools for drawing and editing shapes on top of the map.
-    * @requires The Microsoft.Maps.DrawingTools module.
     */
     export class DrawingTools {
         /**
          * @constructor
-         * @requires The Microsoft.Maps.DrawingTools module.
          * @param map A map instanct to attach the drawing tools to.
          */
         constructor(map: Map);

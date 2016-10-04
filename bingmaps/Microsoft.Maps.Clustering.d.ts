@@ -1,3 +1,8 @@
+// Type definitions for Bing Maps V8 SDK - Clustering module
+// Project: https://msdn.microsoft.com/en-us/library/mt712807.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps {
@@ -48,7 +53,6 @@ declare namespace Microsoft.Maps {
 
     /**
     * Used to specify how a clustered pushpin should be positioned relative to the pushpins it contains.
-    * @requires The Microsoft.Maps.Clustering module.
     */
     export enum ClusterPlacementType {
         /**
@@ -66,7 +70,6 @@ declare namespace Microsoft.Maps {
 
     /**
      * This class extends the Pushpin class and has all the same methods and properties plus the following properties.
-     * @requires The Microsoft.Maps.Clustering module.
      */
     export class ClusterPushpin extends Pushpin {
         /** An array of all the pushpins that are in the cluster. */
@@ -83,12 +86,10 @@ declare namespace Microsoft.Maps {
      * This class allows you to easily add in client side clustering to your application. Client Side Clustering is a method where pushpins that are close
      * together are grouped and represented as a single pushpin, often using a different icon to indicate the cluster. This is a great way to improve both
      * the user experience and performance of the map.
-     * @requires The Microsoft.Maps.Clustering module.
      */
     export class ClusterLayer implements IDataLayer {
         /**
         * @constructor
-        * @requires The Microsoft.Maps.Clustering module.
         * @param pushpins An array of pushpins to cluster in the layer.
         * @param options The options used to customize how the ClusterLayer functions.
         */

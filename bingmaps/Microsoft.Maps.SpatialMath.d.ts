@@ -1,9 +1,13 @@
-﻿/// <reference path="Microsoft.Maps.d.ts"/>
+﻿// Type definitions for Bing Maps V8 SDK - Spatial math module
+// Project: https://msdn.microsoft.com/en-us/library/mt712834.aspx
+// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 declare namespace Microsoft.Maps.SpatialMath {
     /**
      * Distance Unit enumerator
-     * @requires The Microsoft.Maps.SpatialMath module.
      **/
     export enum DistanceUnits {
         /** A distance in meters */
@@ -27,7 +31,6 @@ declare namespace Microsoft.Maps.SpatialMath {
 
     /**
      * Area units enumerator
-     * @requires The Microsoft.Maps.SpatialMath module.
      **/
     export enum AreaUnits {
         /** Area in square meters */
