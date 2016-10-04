@@ -300,3 +300,22 @@ function test_adding_widget() {
         });
     }
 }
+
+function test_focusManager() {
+    var textarea = document.createElement('textarea');
+    var instance = CKEDITOR.replace(textarea);
+    var element = CKEDITOR.document.getById('myElement');
+
+    instance.focusManager.focus();
+    instance.focusManager.focus(element);
+    instance.focusManager.lock();
+    instance.focusManager.unlock();
+    instance.focusManager.blur();
+    instance.focusManager.blur(true);
+    instance.focusManager.add(element, true);
+    instance.focusManager.remove(element);
+
+    var focusManager = new CKEDITOR.focusManager(instance);
+    var object: CKEDITOR.dom.domObject = focusManager.currentActive;
+    var bool: boolean = focusManager.hasFocus;
+}

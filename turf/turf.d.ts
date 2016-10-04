@@ -80,16 +80,22 @@ ASSERTIONS
 - [ ] featureOf
 - [ ] collectionOf
 - [x] bbox
-- [ ] circle
-- [ ] geojsonType
-- [ ] propReduce
-- [ ] coordAll
-- [ ] tesselate
+- [x] circle
+- [x] geojsonType
+- [x] propReduce
+- [x] coordAll
+- [x] tesselate
  */
 
 declare const turf: turf.TurfStatic;
 declare const TemplateUnits: 'miles' | 'nauticalmiles' | 'degrees' | 'radians' | 'inches' | 'yards' | 'meters' | 'metres' | 'kilometers' | 'kilometres'
 declare const TemplateType: 'point'| 'points' | 'polygon' | 'polygons'
+declare interface OptionsRandom {
+    bbox?: Array<number>
+    num_vertices?: number
+    max_radial_length?: number
+}
+declare type PropReduceCallback = (memo: any, coord: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>) => any
 declare module turf {
   interface TurfStatic {
     //////////////////////////////////////////////////////
@@ -169,10 +175,78 @@ declare module turf {
      * var bboxPolygon = turf.bboxPolygon(bbox);
      *
      * //=bbox
-     * 
+     *
      * //=bboxPolygon
      */
     bbox(bbox: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<number>;
+
+    /**
+     * Takes a {@link Point} and calculates the circle polygon given a radius in degrees, radians, miles, or kilometers; and steps for precision.
+     *
+     * @name circle
+     * @param {Feature<Point>} center center point
+     * @param {number} radius radius of the circle
+     * @param {number} [steps=64] number of steps
+     * @param {string} [units=kilometers] miles, kilometers, degrees, or radians
+     * @returns {Feature<Polygon>} circle polygon
+     * @example
+     * var center = point([-75.343, 39.984]);
+     * var radius = 5;
+     * var steps = 10;
+     * var units = 'kilometers';
+     *
+     * var circle = turf.circle(center, radius, steps, units);
+     *
+     * //=circle
+     */
+    circle(center: GeoJSON.Feature<GeoJSON.Point>, radius: number, steps?: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Polygon>;
+
+
+    /**
+     * Enforce expectations about types of GeoJSON objects for Turf.
+     *
+     * @name geojsonType
+     * @param {GeoJSON} value any GeoJSON object
+     * @param {string} type expected GeoJSON type
+     * @param {string} name name of calling function
+     * @throws {Error} if value is not the expected type.
+     */
+    geojsonType(value: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>, type: string, name: string): void
+
+    /**
+     * Reduce properties in any GeoJSON object into a single value, similar to how Array.reduce works. However, in this case we lazily run the reduction, so an array of all properties is unnecessary.
+     *
+     * @name propReduce
+     * @param {GeoJSON} layer any GeoJSON object
+     * @param {Function} callback a method that takes (memo, coord) and returns a new memo
+     * @param {*} memo the starting value of memo: can be any type.
+     * @return {*} combined value
+     */
+    propReduce(layer: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>, callback: PropReduceCallback, memo: any): any
+
+    /**
+     * Get all coordinates from any GeoJSON object, returning an array of coordinate arrays.
+     *
+     * @name coordAll
+     * @param {GeoJSON} layer any GeoJSON object
+     * @returns {Array<Array<Number>>} coordinate position array
+     */
+    coordAll(layer: GeoJSON.Feature<any> | GeoJSON.FeatureCollection<any>): Array<Array<number>>
+
+    /**
+     * Tesselates a {@link Feature<Polygon>} into a {@link FeatureCollection<Polygon>} of triangles using [earcut](https://github.com/mapbox/earcut).
+     *
+     * @name tesselate
+     * @param {Feature<Polygon>} polygon the polygon to tesselate
+     * @returns {FeatureCollection<Polygon>} a geometrycollection feature
+     * @example
+     * var polygon = turf.random('polygon').features[0];
+     *
+     * var triangles = turf.tesselate(polygon);
+     *
+     * //=triangles
+     */
+    tesselate(poly: GeoJSON.Feature<GeoJSON.Polygon>): GeoJSON.FeatureCollection<GeoJSON.Polygon>
 
     /**
     * Takes a bbox and returns an equivalent polygon.
@@ -298,7 +372,7 @@ declare module turf {
     */
     buffer(feature: GeoJSON.Feature<GeoJSON.Polygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Polygon>;
     buffer(feature: GeoJSON.Feature<GeoJSON.MultiPolygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.MultiPolygon>;
-    buffer(feature: GeoJSON.Feature<GeoJSON.Point>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Point>;        
+    buffer(feature: GeoJSON.Feature<GeoJSON.Point>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<GeoJSON.Point>;
     buffer(feature: GeoJSON.Feature<any>, distance: number, units?: typeof TemplateUnits): GeoJSON.Feature<any>;
     buffer(feature: GeoJSON.FeatureCollection<GeoJSON.Polygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
     buffer(feature: GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>, distance: number, units?: typeof TemplateUnits): GeoJSON.FeatureCollection<GeoJSON.MultiPolygon>;
@@ -343,7 +417,7 @@ declare module turf {
      * If they share a border, returns the border if they don't intersect, returns undefined.
      *
      * @name [intersect](http://turfjs.org/docs/#intersect)
-     * @param {Feature<Polygon>} poly1 
+     * @param {Feature<Polygon>} poly1
      * @param {Feature<Polygon>} poly2
      * @returns {Feature|undefined} A feature representing the point(s) they share (in case of a {Point}  or {MultiPoint}), the borders they share (in case of a {LineString} or a {MultiLineString}), the area they share (in case of {Polygon} or {MultiPolygon}). If they do not share any point, returns `undefined`.
      * @example
@@ -456,7 +530,7 @@ declare module turf {
 
     /**
      * Takes one or more {@link Feature|Features} and creates a {@link FeatureCollection}.
-     * 
+     *
      * @name [featureCollection](http://turfjs.org/docs/#featurecollection)
      * @param {Feature[]} features input features
      * @returns {FeatureCollection} a FeatureCollection of input features
@@ -497,7 +571,7 @@ declare module turf {
 
     /**
      * Creates a {@link LineString} based on a coordinate array. Properties can be added optionally.
-     * 
+     *
      * @name [lineString](http://turfjs.org/docs/#linestring)
      * @param {Array<Array<number>>} coordinates an array of Positions
      * @param {Object=} properties an Object of key-value pairs to add as properties
@@ -525,7 +599,7 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiLineString>} based on a coordinate array. Properties can be added optionally.
-     * 
+     *
      * @name [multiLineString](http://turfjs.org/docs/#multilinestring)
      * @param {Array<Array<Array<number>>>} coordinates an array of LineStrings
      * @param {Object=} properties an Object of key-value pairs to add as properties
@@ -541,7 +615,7 @@ declare module turf {
 
     /**
      * Takes coordinates and properties (optional) and returns a new {@link Point} feature.
-     * 
+     *
      * @name [point](http://turfjs.org/docs/#point)
      * @param {Array<number>} coordinates longitude, latitude position (each in decimal degrees)
      * @param {Object=} properties an Object that is used as the {@link Feature}'s
@@ -556,7 +630,7 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiPoint>} based on a coordinate array. Properties can be added optionally.
-     * 
+     *
      * @name [multiPoint](http://turfjs.org/docs/#multipoint)
      * @param {Array<Array<number>>} coordinates an array of Positions
      * @param {Object=} properties an Object of key-value pairs to add as properties
@@ -572,7 +646,7 @@ declare module turf {
 
     /**
      * Takes an array of LinearRings and optionally an {@link Object} with properties and returns a {@link Polygon} feature.
-     * 
+     *
      * @name [polygon](http://turfjs.org/docs/#polygon)
      * @param {Array<Array<Array<number>>>} coordinates an array of LinearRings
      * @param {Object=} properties a properties object
@@ -595,7 +669,7 @@ declare module turf {
 
     /**
      * Creates a {@link Feature<MultiPolygon>} based on a coordinate array. Properties can be added optionally.
-     * 
+     *
      * @name [multiPolygon](http://turfjs.org/docs/#multipolygon)
      * @param {Array<Array<Array<Array<number>>>>} coordinates an array of Polygons
      * @param {Object=} properties an Object of key-value pairs to add as properties
@@ -664,15 +738,15 @@ declare module turf {
      *
      * //=polygons
      */
-    random(type?: typeof TemplateType, count?: number, options?: {
-      bbox?: Array<number>
-      num_vertices?: number
-      max_radial_length?: number
-    }): GeoJSON.FeatureCollection<any>;
+    random(type?: 'point', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    random(type?: 'points', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Point>;
+    random(type?: 'polygon', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+    random(type?: 'polygons', count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<GeoJSON.Polygon>;
+    random(type?: typeof TemplateType, count?: number, options?: OptionsRandom): GeoJSON.FeatureCollection<any>;
 
     /**
      * Takes a {@link FeatureCollection} and returns a FeatureCollection with given number of {@link Feature|features} at random.
-     * 
+     *
      * @name [sample](http://turfjs.org/docs/#sample)
      * @param {FeatureCollection} featurecollection set of input features
      * @param {number} num number of features to select
@@ -694,7 +768,7 @@ declare module turf {
 
     /**
      * Takes a bounding box and a cell size in degrees and returns a {@link FeatureCollection} of flat-topped hexagons ({@link Polygon} features) aligned in an "odd-q" vertical grid as described in [Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/).
-     * 
+     *
      * @name [hexGrid](http://turfjs.org/docs/#hexgrid)
      * @param {Array<number>} bbox bounding box in [minX, minY, maxX, maxY] order
      * @param {number} cellSize dimension of cell in specified units
@@ -737,7 +811,7 @@ declare module turf {
     pointGrid(
       bbox: Array<number>,
       cellSize: number,
-      units?: typeof TemplateUnits 
+      units?: typeof TemplateUnits
     ): GeoJSON.FeatureCollection<GeoJSON.Point>;
 
     /**
@@ -835,7 +909,7 @@ declare module turf {
      * var poly = polygon([[[-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]]])
      *
      * var isInside = turf.inside(pt, poly)
-     * 
+     *
      * //=isInside
      */
     inside(
@@ -857,10 +931,10 @@ declare module turf {
      * var pt2 = point([-77, 38])
      * var poly1 = polygon([[[-81, 41], [-81, 47], [-72, 47], [-72, 41], [-81, 41]]], {pop: 1000})
      * var poly2 = polygon([[[-81, 35], [-81, 41], [-72, 41], [-72, 35], [-81, 35]]], {pop: 3000})
-     * 
+     *
      * var points = featureCollection([pt1, pt2])
      * var polygons = featureCollection([poly1, poly2])
-     * 
+     *
      * var tagged = turf.tag(points, polygons, 'pop', 'population')
      * //=tagged
      */
@@ -1181,27 +1255,27 @@ declare module "@turf/bbox" {
    export = bbox;
 }
 
-// declare module "@turf/circle" {
-//    const circle: typeof turf.circle;
-//    export = circle;
-// }
+declare module "@turf/circle" {
+   const circle: typeof turf.circle;
+   export = circle;
+}
 
-// declare module "@turf/geojsonType" {
-//    const geojsonType: typeof turf.geojsonType;
-//    export = geojsonType;
-// }
+declare module "@turf/geojsonType" {
+   const geojsonType: typeof turf.geojsonType;
+   export = geojsonType;
+}
 
-// declare module "@turf/propReduce" {
-//    const propReduce: typeof turf.propReduce;
-//    export = propReduce;
-// }
+declare module "@turf/propReduce" {
+   const propReduce: typeof turf.propReduce;
+   export = propReduce;
+}
 
-// declare module "@turf/coordAll" {
-//    const coordAll: typeof turf.coordAll;
-//    export = coordAll;
-// }
+declare module "@turf/coordAll" {
+   const coordAll: typeof turf.coordAll;
+   export = coordAll;
+}
 
-// declare module "@turf/tesselate" {
-//    const tesselate: typeof turf.tesselate;
-//    export = tesselate;
-// }
+declare module "@turf/tesselate" {
+   const tesselate: typeof turf.tesselate;
+   export = tesselate;
+}

@@ -815,36 +815,34 @@ declare namespace L {
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
      */
-    export interface GeoJSON extends FeatureGroup {}
-
-    export namespace GeoJSON {
+    export interface GeoJSON extends FeatureGroup {
         /**
          * Adds a GeoJSON object to the layer.
          */
-        export function addData(data: Object): Layer;
+        addData(data: Object): Layer;
 
         /**
          * Resets the given vector layer's style to the original GeoJSON style,
          * useful for resetting style after hover events.
          */
-        export function resetStyle(layer: Layer): Layer;
+        resetStyle(layer: Layer): Layer;
 
         /**
          * Changes styles of GeoJSON vector layers with the given style function.
          */
-        export function setStyle(style: PathOptions | StyleFunction): Layer;
+        setStyle(style: PathOptions | StyleFunction): this;
 
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
          */
-        export function geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
+        geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
 
         /**
          * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
          * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
          */
-        export function coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
+        coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
 
         /**
          * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
@@ -852,24 +850,24 @@ declare namespace L {
          * arrays of points, etc., 0 by default).
          * Can use a custom coordsToLatLng function.
          */
-        export function coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
+        coordsToLatLngs(coords: Array<number>, levelsDeep?: number, coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng): LatLng[]; // Not entirely sure how to define arbitrarily nested arrays
 
         /**
          * Reverse of coordsToLatLng
          */
-        export function latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
+        latLngToCoords(latlng: LatLng): [number, number] | [number, number, number];
 
         /**
          * Reverse of coordsToLatLngs closed determines whether the first point should be
          * appended to the end of the array to close the feature, only used when levelsDeep is 0.
          * False by default.
          */
-        export function latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
+        latLngsToCoords(latlngs: Array<LatLng>, levelsDeep?: number, closed?: boolean): [number, number] | [number, number, number];
 
         /**
          * Normalize GeoJSON geometries/features into GeoJSON features.
          */
-        export function asFeature(geojson: Object): Object;
+        asFeature(geojson: Object): Object;
     }
 
     /**
