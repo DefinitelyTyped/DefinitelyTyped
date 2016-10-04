@@ -4,11 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="passport"/>
+///<reference types="express"/>
 
 import * as passport from 'passport';
+import * as express from  'express';
 
 declare class Strategy<T> implements passport.Strategy {
 	constructor(options: Strategy.IStrategyOption, verify: (accessToken: string, refreshToken: string, profile: Strategy.Profile, done: (error: any, user?: any) => void) => void);
+	name: string;
+	authenticate: (req: express.Request, options?: Object) => void;
 }
 
 declare namespace Strategy {
