@@ -2987,7 +2987,7 @@ declare module "stream" {
         export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
             readable: boolean;
             constructor(opts?: ReadableOptions);
-            _read(size: number): void;
+            protected _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
             pause(): Readable;
@@ -3069,7 +3069,7 @@ declare module "stream" {
         export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            protected _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             end(): void;
@@ -3157,7 +3157,7 @@ declare module "stream" {
             // Writeable
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            protected _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             end(): void;
@@ -3175,8 +3175,8 @@ declare module "stream" {
             readable: boolean;
             writable: boolean;
             constructor(opts?: TransformOptions);
-            _transform(chunk: any, encoding: string, callback: Function): void;
-            _flush(callback: Function): void;
+            protected _transform(chunk: any, encoding: string, callback: Function): void;
+            protected _flush(callback: Function): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
             pause(): Transform;
