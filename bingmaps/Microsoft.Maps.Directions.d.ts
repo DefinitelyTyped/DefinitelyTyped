@@ -1,6 +1,6 @@
-// Type definitions for Bing Maps V8 SDK - Directions module
+// Type definitions for Bing Maps V8 SDK - Directions module (ported from Bing Maps Typescript reference)
 // Project: https://msdn.microsoft.com/en-us/library/mt748655.aspx
-// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions by: James Croft <https://github.com/jamesmcroft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>

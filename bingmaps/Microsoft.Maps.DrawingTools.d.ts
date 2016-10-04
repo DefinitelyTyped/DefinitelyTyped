@@ -1,6 +1,6 @@
-// Type definitions for Bing Maps V8 SDK - Drawing tools module
+// Type definitions for Bing Maps V8 SDK - Drawing tools module (ported from Bing Maps Typescript reference)
 // Project: https://msdn.microsoft.com/en-us/library/mt750543.aspx
-// Definitions by: James Croft <https://github.com/jamesmcroft> ported from Bing Maps Typescript reference
+// Definitions by: James Croft <https://github.com/jamesmcroft>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="Microsoft.Maps.d.ts"/>
