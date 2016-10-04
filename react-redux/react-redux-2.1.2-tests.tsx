@@ -233,8 +233,8 @@ connect(mapStateToProps3)(TodoApp);
 //    return { todos: state.todos };
 //}
 
-function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState {
-    return objectAssign({}, ownProps, {
+function mergeProps(stateProps: TodoState, dispatchProps: DispatchProps, ownProps: TodoProps): DispatchProps & TodoState & TodoProps {
+    return objectAssign({}, ownProps, dispatchProps, {
         todos: stateProps.todos[ownProps.userId],
         addTodo: (text: string) => dispatchProps.addTodo(ownProps.userId, text)
     });

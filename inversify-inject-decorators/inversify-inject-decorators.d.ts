@@ -1,4 +1,4 @@
-// Type definitions for inversify-inject-decorators 1.0.0-beta.1
+// Type definitions for inversify-inject-decorators 1.0.0
 // Project: https://github.com/inversify/inversify-inject-decorators
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -7,26 +7,25 @@
 
 declare namespace inversifyInjectDecorators {
 
-  interface InjectDecorators {
+  export interface InjectDecorators {
 
-    lazyInject: (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) =>
+    lazyInject: (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) =>
                 (proto: any, key: string) => void;
 
-    lazyInjectNamed: (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>), named: string) =>
+    lazyInjectNamed: (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>, named: string) =>
                      (proto: any, key: string) => void;
 
-    lazyInjectTagged: (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>), key: string, value: any) =>
+    lazyInjectTagged: (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>, key: string, value: any) =>
                       (proto: any, propertyName: string) => void;
 
-    lazyMultiInject: (serviceIdentifier: (string|Symbol|inversify.interfaces.Newable<any>)) =>
+    lazyMultiInject: (serviceIdentifier: inversify.interfaces.ServiceIdentifier<any>) =>
                      (proto: any, key: string) => void;
 
   }
 
-  export function getDecorators(kernel: inversify.interfaces.Kernel): InjectDecorators;
-
 }
 
 declare module "inversify-inject-decorators" {
-  export default inversifyInjectDecorators.getDecorators;
+  let getDecorators: (kernel: inversify.interfaces.Kernel) => inversifyInjectDecorators.InjectDecorators;
+  export default getDecorators;
 }

@@ -7,8 +7,9 @@
 
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import {renderToString} from "react-dom/server";
 
-import { browserHistory, hashHistory, createMemoryHistory, withRouter, Router, Route, IndexRoute, Link} from "react-router"
+import { browserHistory, hashHistory, createMemoryHistory, match, withRouter, Router, RouterContext, Route, IndexRoute, Link} from "react-router"
 import { routerShape, locationShape } from "react-router/lib/PropTypes"
 
 interface MasterContext {
@@ -99,3 +100,16 @@ ReactDOM.render((
 		</Route>
 	</Router>
 ), document.body)
+
+
+const history = createMemoryHistory("baseurl");
+const routes = (
+	<Route path="/" component={Master}>
+		<IndexRoute component={DashboardWithRouter} />
+		<Route path="users" component={Users}/>
+	</Route>
+);
+
+match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});

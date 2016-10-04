@@ -1,6 +1,11 @@
 /// <reference path="resolve-from.d.ts" />
 
-// Much better testing in https://github.com/typed-typings/typed-resolve-from
-if (typeof resolveFrom !== 'function') {
-  throw new Error('resolveFrom is not a function');
-}
+import resolveFrom1 = require('resolve-from');
+import * as resolveFrom2 from 'resolve-from';
+
+let from: string;
+let moduleId: string;
+let result: string;
+
+result = resolveFrom1(from, moduleId);
+result = resolveFrom2(from, moduleId);
