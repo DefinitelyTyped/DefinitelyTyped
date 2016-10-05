@@ -4,9 +4,6 @@
 // Apache Cordova core
 //----------------------------------------------------------------------
 
-/// <reference types="cordova-plugin-vibration"/>
-/// <reference types="cordova-plugin-websql"/>
-
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
 
 console.log(typeof window.cordova);
