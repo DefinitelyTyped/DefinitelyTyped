@@ -3,16 +3,16 @@
 window.fbAsyncInit = function() {
     FB.init(
         {
-            appId      : '{your-app-id}',
+            appId      : "{your-app-id}",
             xfbml      : true,
-            version    : 'v2.0'
+            version    : "v2.0"
         }
     );
 
     FB.ui(
         {
-            method: 'share',
-            href: 'https://developers.facebook.com/docs/dialogs/'
+            method: "share",
+            href: "https://developers.facebook.com/docs/dialogs/"
         },
         function(response) {
             console.log(response);
@@ -21,9 +21,24 @@ window.fbAsyncInit = function() {
 
     FB.api(
         "/me",
-        "POST",
-        function (fbResponse){
+        "post",
+        function (fbResponse) {
             console.log(fbResponse);
         }
     );
+
+    function checkAuth(response: FB.LoginStatusResponse): void {
+        if (response.status === "connected") {
+            console.log(response.authResponse.accessToken);
+            console.log(response.authResponse.expiresIn);
+            console.log(response.authResponse.signedRequest);
+            console.log(response.authResponse.userID);
+        } else if (response.status === "unknown") {
+            console.log("not logged in");
+        }
+    }
+
+    FB.login(checkAuth);
+
+    FB.getLoginStatus(checkAuth);
 };
