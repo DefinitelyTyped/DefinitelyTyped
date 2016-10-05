@@ -15,7 +15,7 @@ const DevTools = createDevTools(
   <DevToolsMonitor />
 )
 
-const finalCreateStore = compose(
+const finalCreateStore = compose<Redux.StoreEnhancerStoreCreator<{}>>(
   DevTools.instrument(),
   persistState('test-session')
 )(createStore)
