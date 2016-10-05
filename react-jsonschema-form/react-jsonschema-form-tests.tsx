@@ -74,7 +74,7 @@ export class Example extends React.Component<any, IExampleState> {
               {   <Form schema={schema}
                         uiSchema={uiSchema}
                         formData={this.state}
-                        onChange={(formData) => this.setState({formData})} /> }
+                        onChange={(formData) => { this.setState({formData})} } /> }
           </div>
       );
     }
