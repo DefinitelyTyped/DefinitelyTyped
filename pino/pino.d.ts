@@ -3,7 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/index.d.ts"/>   // only for require()
+/// <reference types="node"/>   // only for require()
 
 declare module 'pino' {
     import stream = require('stream');
