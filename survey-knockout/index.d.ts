@@ -1117,8 +1117,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../surveyWindow.d.ts" />
-/// <reference path="kosurvey.d.ts" />
 declare module Survey {
     class SurveyWindowBase extends SurveyWindowModel {
         koExpanded: any;
@@ -1156,8 +1154,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../koSurveyWindow.d.ts" />
-/// <reference path="koSurveybootstrap.d.ts" />
 declare module Survey {
     class SurveyWindow extends SurveyWindowBase {
         koExpanded: any;

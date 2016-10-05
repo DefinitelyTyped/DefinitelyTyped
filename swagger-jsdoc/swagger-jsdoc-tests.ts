@@ -1,5 +1,5 @@
-/// <reference path="../express/express.d.ts" />
-/// <reference path="./swagger-jsdoc.d.ts" />
+/// <reference types="express" />
+/// <reference path="./index.d.ts" />
 
 import * as express from 'express';
 import swaggerJSDoc = require('swagger-jsdoc');

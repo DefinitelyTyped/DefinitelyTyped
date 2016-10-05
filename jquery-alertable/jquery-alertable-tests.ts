@@ -1,5 +1,5 @@
-/// <reference path="jquery-alertable.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery-alertable" />
+/// <reference types="jquery" />
 
 //
 // Examples from https://github.com/claviska/jquery-alertable

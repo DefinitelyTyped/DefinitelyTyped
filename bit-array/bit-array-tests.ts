@@ -1,4 +1,3 @@
-/// <reference path="bit-array.d.ts" />
 
 import BitArray = require("bit-array");
 

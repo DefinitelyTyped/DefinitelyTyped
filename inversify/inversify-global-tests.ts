@@ -1,5 +1,5 @@
-/// <reference path="./inversify.d.ts" />
-/// <reference path="../harmony-proxy/harmony-proxy.d.ts" />
+/// <reference types="inversify" />
+/// <reference types="harmony-proxy" />
 
 import * as Proxy from "harmony-proxy";
 

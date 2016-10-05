@@ -1,4 +1,3 @@
-/// <reference path="./meteor-accounts-phone.d.ts" />
 
 let booleanResult: boolean;
 const options = {};

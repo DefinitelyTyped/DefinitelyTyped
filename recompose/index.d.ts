@@ -3,7 +3,7 @@
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts" />
+///<reference types="react" />
 
 declare module 'recompose' {
 

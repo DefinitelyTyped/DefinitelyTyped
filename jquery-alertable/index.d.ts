@@ -3,7 +3,7 @@
 // Definitions by: Steven Robertson <https://github.com/stever>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
+/// <reference types="jquery"/>
 
 interface JQueryStatic {
     alertable: Alertable;

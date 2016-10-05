@@ -1,6 +1,5 @@
-/// <reference path="transducers-js.d.ts" />
-/// <reference path="../lodash/lodash.d.ts" />
-/// <reference path="../immutable/immutable.d.ts" />
+/// <reference types="lodash" />
+/// <reference types="immutable" />
 
 // tests taken from https://github.com/cognitect-labs/transducers-js
 
@@ -148,20 +147,20 @@ function unreducedExample () {
 }
 
 function catExample () {
-  var reverse = function(arr: number[]) { 
+  var reverse = function(arr: number[]) {
     var arr: number[] = Array.prototype.slice.call(arr, 0);
     arr.reverse();
-    return arr; 
+    return arr;
   };
   var xf = t.comp(t.map(reverse), t.cat);
   t.into([], xf, [[3,2,1],[6,5,4]]); // [1,2,3,4,5,6]
 }
 
 function mapcatExample () {
-  var reverse = function(arr: number[]) { 
+  var reverse = function(arr: number[]) {
     var arr: number[] = Array.prototype.slice.call(arr, 0);
     arr.reverse();
-    return arr; 
+    return arr;
   };
   var xf = t.mapcat(reverse);
   t.into([], xf, [[3,2,1],[6,5,4]]); // [1,2,3,4,5,6]

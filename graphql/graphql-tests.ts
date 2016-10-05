@@ -1,12 +1,10 @@
-/// <reference path="graphql.d.ts" />
-
 import * as graphql from 'graphql';
 
 ///////////////////////////
 // graphql               //
 ///////////////////////////
 namespace graphql_tests {
-    // TODO    
+    // TODO
 }
 
 ///////////////////////////
@@ -74,11 +72,11 @@ namespace type_schema_tests {
 ///////////////////////////
 // graphql/validation    //
 ///////////////////////////
-namespace validation_specifiedRules_tests { 
+namespace validation_specifiedRules_tests {
 
 }
 
-namespace validation_validate_tests { 
+namespace validation_validate_tests {
 
 }
 

@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bunyan/bunyan.d.ts"/>
+/// <reference types="bunyan"/>
 
 declare module "bunyan-config" {
     import * as bunyan from "bunyan";

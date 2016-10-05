@@ -3,7 +3,7 @@
 // Definitions by: Ken Howard <http://github.com/kenhowardpdx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../hapi/hapi.d.ts" />
+/// <reference types="hapi"/>
 
 declare module 'hapi-decorators' {
     import * as hapi from 'hapi';

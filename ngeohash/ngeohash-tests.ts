@@ -1,5 +1,3 @@
-///<reference path="ngeohash.d.ts"/>
-
 import geohash = require('ngeohash');
 
 console.log(geohash.encode(37.8324, 112.5584));

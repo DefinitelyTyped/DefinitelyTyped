@@ -1,5 +1,3 @@
-/// <reference path="spdy.d.ts" />
-
 // copied unit tests from https://github.com/indutny/node-spdy/tree/a583cf6/test
 
 import * as spdy from 'spdy';

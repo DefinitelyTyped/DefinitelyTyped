@@ -1,5 +1,3 @@
-/// <reference path="./riot.d.ts"/>
-
 import * as riot from 'riot';
 
 // Version

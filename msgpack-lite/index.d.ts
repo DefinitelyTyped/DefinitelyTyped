@@ -3,7 +3,7 @@
 // Definitions by: Endel Dreyer <https://github.com/endel/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 declare module "msgpack-lite" {
   import { Transform } from "stream";
 

@@ -3,7 +3,7 @@
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../localForage/localForage.d.ts" />
+/// <reference types="localForage" />
 
 declare module "localforage-cordovasqlitedriver" {
     var cordovaSQLiteDriver: LocalForageDriver;

@@ -1,5 +1,3 @@
-/// <reference path="shallowequal.d.ts" />
-
 import shallowEqual = require('shallowequal');
 
 const a = {}, b = {};

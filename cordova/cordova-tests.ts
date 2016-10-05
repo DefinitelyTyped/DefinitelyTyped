@@ -4,8 +4,8 @@
 // Apache Cordova core
 //----------------------------------------------------------------------
 
-/// <reference path="../cordova-plugin-vibration/index.d.ts"/>
-/// <reference path="../cordova-plugin-websql/index.d.ts"/>
+/// <reference types="cordova-plugin-vibration"/>
+/// <reference types="cordova-plugin-websql"/>
 
 console.log('cordova.version: ' + cordova.version + ', cordova.platformId: ' + cordova.platformId);
 

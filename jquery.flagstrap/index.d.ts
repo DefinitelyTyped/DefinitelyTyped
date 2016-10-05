@@ -3,7 +3,7 @@
 // Definitions by: Felipe de Sena Garcia <https://github.com/felipedgarcia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../jquery/jquery.d.ts" />
+///<reference types="jquery" />
 
 declare module jQueryFlagStrap {
     interface FlagStrapOptions {

@@ -1,4 +1,3 @@
-/// <reference path="tilebelt.d.ts"/>
 import * as tilebelt from 'tilebelt'
 
 const lon = 30.5

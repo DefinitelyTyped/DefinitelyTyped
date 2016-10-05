@@ -3,7 +3,7 @@
 // Definitions by: Antoine LUCAS <https://github.com/a-lucas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../redis/redis.d.ts" />
+/// <reference types="redis" />
 
 declare module 'simple-url-cache' {
     import redis = require("redis");

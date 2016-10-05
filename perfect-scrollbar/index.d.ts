@@ -3,7 +3,7 @@
 // Definitions by: Kombu <https://github.com/aicest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 /**
  * https://github.com/noraesae/perfect-scrollbar/blob/master/src/js/plugin/default-setting.js#L3

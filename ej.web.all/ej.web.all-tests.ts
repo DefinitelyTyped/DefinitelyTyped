@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="ej.web.all.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="ej.web.all" />
 
  
 
@@ -2587,7 +2587,8 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
+        });
+
     });
 }
 

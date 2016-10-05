@@ -1,4 +1,4 @@
-/// <reference path="../gregorian-calendar/gregorian-calendar.d.ts" />
+/// <reference types="gregorian-calendar" />
 
 import GregorianCalendar = require('gregorian-calendar');
 import GregorianCalendarFormat = require('gregorian-calendar-format');

@@ -1,4 +1,3 @@
-/// <reference path="terminal-menu.d.ts" />
 import * as tty from "tty"; // For typing
 
 let stdin = (<tty.ReadStream> process.stdin);

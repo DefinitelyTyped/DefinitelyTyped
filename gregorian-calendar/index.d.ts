@@ -261,7 +261,7 @@ declare module 'gregorian-calendar-format' {
          * parse a dateString to an instance of GregorianCalendar according to pattern, it's better to specify calendarLocale, such as
          *  `df.parse('2013-11-12', {locale: require('gregorian-calendar/lib/locale/zh_CN'}));`
          */
-        parse(dateString: String, {locale: Object}): GregorianCalendar;
+        parse(dateString: String, {locale}: { locale: Object }): GregorianCalendar;
 
         /**
          * get a predefine GregorianCalendarFormat instance

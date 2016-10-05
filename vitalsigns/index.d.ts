@@ -3,7 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../express/express.d.ts"/>
+///<reference types="express"/>
 
 declare module "vitalsigns" {
     import { RequestHandler } from "express";

@@ -1,4 +1,4 @@
-/// <reference path="../rx/rx.all.d.ts" />
+
 import * as autobahn from "autobahn";
 import {IWampEvent} from "rx.wamp";
 

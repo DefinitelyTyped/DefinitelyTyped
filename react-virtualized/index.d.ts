@@ -3,7 +3,7 @@
 // Definitions by: Ian Ker-Seymer <https://github.com/ianks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./../react/react.d.ts" />
+/// <reference types="react" />
 
 declare module "react-virtualized" {
     import * as React from "react";

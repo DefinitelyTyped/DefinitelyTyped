@@ -1,5 +1,3 @@
-/// <reference path="./pathfinding.d.ts" />
-
 import * as PF from "pathfinding";
 
 var matrix = [

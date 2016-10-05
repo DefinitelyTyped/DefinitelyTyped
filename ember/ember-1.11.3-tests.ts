@@ -1,5 +1,5 @@
 /// <reference path="ember-1.11.3.d.ts" />
-/// <reference path="../handlebars/handlebars-1.0.0.d.ts" />
+/// <reference types="handlebars" />
 
 
 var App : any;

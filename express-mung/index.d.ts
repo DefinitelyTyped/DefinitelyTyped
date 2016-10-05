@@ -3,8 +3,8 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts"/>
-/// <reference path="../node/node.d.ts"/>
+/// <reference types="express"/>
+/// <reference types="node"/>
 
 declare module "express-mung" {
     import { Request, Response } from "express";

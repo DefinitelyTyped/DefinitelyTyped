@@ -3,7 +3,7 @@
 // Definitions by: Arun Aravind <https://github.com/aravindarun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module "terminal-menu" {
     import * as stream from "stream";
