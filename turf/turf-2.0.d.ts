@@ -3,7 +3,7 @@
 // Definitions by: Guillaume Croteau <https://github.com/gcroteau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="geojson" />
 
 declare module turf {
     //////////////////////////////////////////////////////

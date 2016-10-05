@@ -1,5 +1,3 @@
-/// <reference path='dot-object.d.ts' />
-
 var obj = {
   'first_name': 'John',
   'last_name': 'Doe'

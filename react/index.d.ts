@@ -1,6 +1,6 @@
 // Type definitions for React v0.14
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = React;
@@ -163,6 +163,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
+        constructor(...args: any[]);
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -2081,6 +2082,7 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        fillRule?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
@@ -2090,6 +2092,7 @@ declare namespace React {
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
+        mask?: string;
         offset?: number | string;
         opacity?: number | string;
         patternContentUnits?: string;

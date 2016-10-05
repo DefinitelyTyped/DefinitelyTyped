@@ -238,8 +238,8 @@ export interface IServerViewsConfiguration extends IServerViewsAdditionalOptions
     /**  defines the default filename extension to append to template names when multiple engines are configured and not explicit extension is provided for a given template. No default value.*/
     defaultExtension?: string;
 }
-	
-	
+
+
 interface IReplyMethods {
 	/** Returns control back to the framework without setting a response. If called in the handler, the response defaults to an empty payload with status code 200.
 	 * The data argument is only used for passing back authentication data and is ignored elsewhere. */
@@ -303,12 +303,12 @@ interface IReplyMethods {
 	FLOW CONTROL:
 	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 export interface IReply extends IReplyMethods {
-	<T>(err: Error,
-		result?: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T,
-		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-		credentialData?: any): IBoom;
-	/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-	<T>(result: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T): Response;
+    <T>(err: Error,
+        result?: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T,
+        /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+        credentialData?: any): IBoom;
+    /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+    <T>(result: string | number | boolean | Buffer | stream.Stream | IPromise<T> | T): Response;
 }
 
 /**  Concludes the handler activity by setting a response and returning control over to the framework where:
@@ -318,16 +318,19 @@ export interface IReply extends IReplyMethods {
 	FLOW CONTROL:
 	When calling reply(), the framework waits until process.nextTick() to continue processing the request and transmit the response. This enables making changes to the returned response object before the response is sent. This means the framework will resume as soon as the handler method exits. To suspend this behavior, the returned response object supports the following methods: hold(), send() */
 export interface IStrictReply<T> extends IReplyMethods {
-	(err: Error,
-		result?: IPromise<T> | T,
-		/**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
-		credentialData?: any): IBoom;
-	/**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
-	(result: IPromise<T> | T): Response;
+    (err: Error,
+        result?: IPromise<T> | T,
+        /**  Note that when used to return both an error and credentials in the authentication methods, reply() must be called with three arguments function(err, null, data) where data is the additional authentication information. */
+        credentialData?: any): IBoom;
+    /**  Note that if result is a Stream with a statusCode property, that status code will be used as the default response code.  */
+    (result: IPromise<T> | T): Response;
 }
 
 export interface ISessionHandler {
     (request: Request, reply: IReply): void;
+}
+
+export interface IStrictSessionHandler {
     <T>(request: Request, reply: IStrictReply<T>): void;
 }
 export interface IRequestHandler<T> {
@@ -493,7 +496,7 @@ export interface IRouteAdditionalConfigurationOptions {
     };
 
     /**  an alternative location for the route handler option. */
-    handler?: ISessionHandler | string | IRouteHandlerConfig;
+    handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** an optional unique identifier used to look up the route using server.lookup(). */
     id?: number;
     /** optional arguments passed to JSON.stringify() when converting an object or error response to a string payload.Supports the following: */
@@ -892,7 +895,7 @@ export interface IRouteConfiguration {
     /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
     vhost?: string;
     /**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-    handler?: ISessionHandler | string | IRouteHandlerConfig;
+    handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** - additional route options.*/
     config?: IRouteAdditionalConfigurationOptions;
 }
@@ -1870,7 +1873,9 @@ export class Server extends Events.EventEmitter {
 		}
 		}
 		});*/
-        strategy(name: string, scheme: any, mode?: boolean | string, options?: any): void;
+        strategy(name: string, scheme: string, mode?: boolean | string, options?: any): void;
+        strategy(name: string, scheme: string, mode?: boolean | string): void;
+        strategy(name: string, scheme: string, options?: any): void;
 
 		/** server.auth.test(strategy, request, next)
 		 Tests a request against an authentication strategy where:
@@ -2040,10 +2045,10 @@ export class Server extends Events.EventEmitter {
 	 server.route({ method: 'GET', path: '/test', handler: handler });
 	 server.start();
 	 // All requests will get routed to '/test'*/
-     ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-     ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
-     ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
- 
+    ext(event: RequestExtPoints, method: (request: Request, reply: IReply, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+    ext<T>(event: RequestExtPoints, method: (request: Request, reply: IStrictReply<T>, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+    ext(event: ServerExtPoints, method: (server: Server, next: (err?: any) => void, bind?: any) => void, options?: { before: string | string[]; after: string | string[]; bind?: any }): void;
+
 	/** server.handler(name, method)
 	 Registers a new handler type to be used in routes where:
 	 name - string name for the handler being registered. Cannot override the built-in handler types (directory, file, proxy, and view) or any previously registered type.

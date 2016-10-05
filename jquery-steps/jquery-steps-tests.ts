@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jquery-steps.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="jquery-steps" />
 
 var labels: JQuerySteps.LabelSettings = {
     cancel: 'Cancel',

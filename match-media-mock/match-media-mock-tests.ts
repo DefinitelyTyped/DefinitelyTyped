@@ -1,5 +1,3 @@
-/// <reference path="./match-media-mock.d.ts" />
-
 import { create } from "match-media-mock";
 
 const matchMediaMock = create();

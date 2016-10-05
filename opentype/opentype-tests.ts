@@ -1,5 +1,3 @@
-/// <reference path="./opentype.d.ts" />
-
 var x = 0;
 var y = 0;
 var fontSize = 72;

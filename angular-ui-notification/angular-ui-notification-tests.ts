@@ -1,4 +1,3 @@
-/// <reference path="angular-ui-notification.d.ts" />
 
 function TestNotifications(NotificationProvider: angular.uiNotification.INotificationProvider, Notification: angular.uiNotification.INotificationService) {
     NotificationProvider.setOptions({

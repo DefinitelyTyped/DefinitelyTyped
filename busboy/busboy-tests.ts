@@ -1,11 +1,8 @@
-/// <reference path="busboy.d.ts"/>
-/// <reference path="../node/node.d.ts" />
-
 import * as Busboy from 'busboy';
 import * as http from 'http';
 import * as util from 'util';
 
-function serverFn(req: http.ServerRequest, res: http.ServerResponse) {
+function serverFn(req: http.IncomingMessage, res: http.ServerResponse) {
   if (req.method === 'POST') {
     var busboy = new Busboy({ headers: req.headers });
     busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
