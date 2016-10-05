@@ -1,4 +1,4 @@
-/// <reference path="../node/index.d.ts"/>   // only for require()
+/// <reference types="node"/>   // only for require()
 /// <reference path="pino.d.ts"/>
 // This contains all of the code from the docs on https://www.npmjs.com/package/pino
 
