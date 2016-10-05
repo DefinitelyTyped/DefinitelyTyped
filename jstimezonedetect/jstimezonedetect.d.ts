@@ -5,12 +5,12 @@
 
 interface JsTimezoneDetect {
     determine: ()=> {
-      name: ()=> string
+        name: ()=> string;
     }
 }
 
-declare var jstz: JsTimezoneDetect;
+declare var jstimezonedetect: JsTimezoneDetect;
 
-declare module "jstz" {
-    export = jstz;
+declare module "jstimezonedetect" {
+    export = jstimezonedetect;
 }
