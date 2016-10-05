@@ -435,7 +435,7 @@ namespace util_tests {
 // http://nodejs.org/api/stream.html#stream_readable_pipe_destination_options
 function stream_readable_pipe_test() {
     var r = fs.createReadStream('file.txt');
-    var z = zlib.createGzip();
+    var z = zlib.createGzip({ finishFlush: zlib.Z_FINISH });
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();

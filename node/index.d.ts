@@ -1019,7 +1019,7 @@ declare module "cluster" {
 
 declare module "zlib" {
     import * as stream from "stream";
-    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; }
+    export interface ZlibOptions { chunkSize?: number; windowBits?: number; level?: number; memLevel?: number; strategy?: number; dictionary?: any; finishFlush?: number }
 
     export interface Gzip extends stream.Transform { }
     export interface Gunzip extends stream.Transform { }
