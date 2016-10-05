@@ -1,6 +1,6 @@
 // Type definitions for quoted-printable v0.2.1
 // Project: https://github.com/mathiasbynens/quoted-printable
-// Definitions by: Jeffery Grajkowsi <https://github.com/pushplay>
+// Definitions by: Jeffery Grajkowski <https://github.com/pushplay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "quoted-printable" {
