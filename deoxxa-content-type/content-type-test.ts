@@ -1,5 +1,3 @@
-/// <reference path="content-type.d.ts" />
-
 import MediaType = require('content-type');
 
 // https://github.com/deoxxa/content-type/blob/master/README.md

@@ -1,5 +1,3 @@
-/// <reference path="tinycopy.d.ts" />
-
 import TinyCopy from 'tinycopy';
 
 TinyCopy.exec('test', (err, data) => {});

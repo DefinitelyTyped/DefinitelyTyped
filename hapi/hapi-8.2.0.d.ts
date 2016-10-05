@@ -300,12 +300,15 @@ export interface IStrictReply<T> extends IReplyMethods {
 
 export interface ISessionHandler {
     (request: Request, reply: IReply): void;
+}
+
+export interface IStrictSessionHandler {
     <T>(request: Request, reply: IStrictReply<T>): void;
 }
+
 export interface IRequestHandler<T> {
     (request: Request): T;
 }
-
 
 export interface IFailAction {
     (source: string, error: any, next: () => void): void
@@ -464,7 +467,7 @@ export interface IRouteAdditionalConfigurationOptions {
     };
 
     /**  an alternative location for the route handler option. */
-    handler?: ISessionHandler | string | IRouteHandlerConfig;
+		handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** an optional unique identifier used to look up the route using server.lookup(). */
     id?: number;
     /** optional arguments passed to JSON.stringify() when converting an object or error response to a string payload.Supports the following: */
@@ -834,7 +837,7 @@ export interface IRouteConfiguration {
     /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
     vhost?: string;
     /**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-    handler: ISessionHandler | string | IRouteHandlerConfig;
+		handler: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** - additional route options.*/
     config?: IRouteAdditionalConfigurationOptions;
 }

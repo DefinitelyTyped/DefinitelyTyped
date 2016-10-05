@@ -1,6 +1,6 @@
 /// <reference path="highcharts-modules-no-data-to-display.d.ts" />
 /// <reference path="highcharts.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 function test_NoDataToDisplay() {
     var chart = $("#container").highcharts();

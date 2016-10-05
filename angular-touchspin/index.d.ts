@@ -8,33 +8,35 @@
 declare let angularTouchSpin: string;
 export = angularTouchSpin;
 
-declare namespace angularTouchSpin {
-    interface ITouchSpinOptions {
-        min?: number;
-        max?: number;
-        step?: number;
-        decimals?: number;
-        stepInterval?: number;
-        forceStepDivisibility?: string; // none | floor | round | ceil
-        stepIntervalDelay?: number;
-        verticalButtons?: boolean;
-        verticalUpClass?: string;
-        verticalDownClass?: string;
-        initVal?: number;
-        prefix?: string;
-        postfix?: string;
-        prefixExtraClass?: string;
-        postfixExtraClass?: string;
-        mousewheel?: boolean;
-        buttonDownClass?: string;
-        buttonUpClass?: string;
-        buttonDownTxt?: string;
-        buttonUpTxt?: string;
-    }
+declare module "angular" {
+    namespace touchspin {
+        interface ITouchSpinOptions {
+            min?: number;
+            max?: number;
+            step?: number;
+            decimals?: number;
+            stepInterval?: number;
+            forceStepDivisibility?: string; // none | floor | round | ceil
+            stepIntervalDelay?: number;
+            verticalButtons?: boolean;
+            verticalUpClass?: string;
+            verticalDownClass?: string;
+            initVal?: number;
+            prefix?: string;
+            postfix?: string;
+            prefixExtraClass?: string;
+            postfixExtraClass?: string;
+            mousewheel?: boolean;
+            buttonDownClass?: string;
+            buttonUpClass?: string;
+            buttonDownTxt?: string;
+            buttonUpTxt?: string;
+        }
 
-    interface ITouchSpinConfig extends ITouchSpinOptions { }
+        interface ITouchSpinConfig extends ITouchSpinOptions { }
 
-    interface ITouchSpinConfigProvider {
-        defaults(touchSpinOptions: ITouchSpinOptions): void;
+        interface ITouchSpinConfigProvider {
+            defaults(touchSpinOptions: ITouchSpinOptions): void;
+        }
     }
 }

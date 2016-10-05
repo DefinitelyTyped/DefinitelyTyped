@@ -1,5 +1,3 @@
-/// <reference path="nunjucks-date.d.ts"/>
-
 // Import the plugin
 import nunjucksDate = require('nunjucks-date');
 
