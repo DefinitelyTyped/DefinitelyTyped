@@ -3967,6 +3967,14 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
+		 * @returns Whether the web page is destroyed.
+		 */
+		isDestroyed(): boolean;
+		/**
+		 * @returns Whether the web page is focused.
+		 */
+		isFocused(): boolean;
+		/**
 		 * @returns Whether web page is still loading resources.
 		 */
 		isLoading(): boolean;
