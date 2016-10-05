@@ -6366,7 +6366,7 @@ declare module ol {
              * @api stable
              */
             getSource(): ol.source.Vector;
-       
+
             /**
              * Get the style for features.  This returns whatever was passed to the `style`
              * option at construction or to the `setStyle` method.
@@ -7767,19 +7767,19 @@ declare module ol {
 
         }
 
-        //  /**
-        //   * Register proj4. If not explicitly registered, it will be assumed that
-        //   * proj4js will be loaded in the global namespace. For example in a
-        //   * browserify ES6 environment you could use:
-        //   *
-        //   *     import ol from 'openlayers';
-        //   *     import proj4 from 'proj4';
-        //   *     ol.proj.setProj4(proj4);
-        //   *
-        //   * @param {proj4} proj4 Proj4.
-        //   * @api
-        //   */
-        //  function setProj4(proj4: proj4): void;
+         /**
+          * Register proj4. If not explicitly registered, it will be assumed that
+          * proj4js will be loaded in the global namespace. For example in a
+          * browserify ES6 environment you could use:
+          *
+          *     import ol from 'openlayers';
+          *     import proj4 from 'proj4';
+          *     ol.proj.setProj4(proj4);
+          *
+          * @param {any} proj4 Proj4.
+          * @api
+          */
+        function setProj4(proj4: any): void;
 
         /**
          * Registers transformation functions that don't alter coordinates. Those allow
@@ -7888,8 +7888,6 @@ declare module ol {
          * @param {ol.Coordinate} coordinate Coordinate.
          * @param {ol.ProjectionLike} source Source projection-like.
          * @param {ol.ProjectionLike} destination Destination projection-like.
-         * @return {ol.Coordinate} Coordinate.
-         * @api stable
          */
         function transform(coordinate: ol.Coordinate, source: ol.ProjectionLike, destination: ol.ProjectionLike): ol.Coordinate;
 
