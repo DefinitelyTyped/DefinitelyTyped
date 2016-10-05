@@ -14,7 +14,7 @@ declare module "kue" {
 
 import events = require('events');
 import express = require('express');
-export import redis = require('redis');
+export import redisClientFactory = require('redis');
 
 export declare class Queue extends events.EventEmitter {
     name: string;

@@ -177,5 +177,5 @@ declare module "helmet" {
   export = helmet;
 }
 
-declare var helmet: Helmet;
+declare var helmet: helmet.Helmet;
 export = helmet;

@@ -757,7 +757,7 @@ declare class client extends events.EventEmitter {
     url: url.Url;
     secure: boolean;
     socket: net.Socket;
-    response: http.ClientResponse;
+    response: http.IncomingMessage;
 
     constructor(clientConfig?: IClientConfig);
 

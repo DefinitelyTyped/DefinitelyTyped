@@ -437,6 +437,47 @@ voidValue = observable.unByKey(eventKey);
 voidValue = observable.unByKey(eventKeyArray);
 
 //
+// ol.Object
+//
+var olObject: ol.Object = new ol.Object({
+    a: numberValue,
+    b: stringValue,
+    c: booleanValue,
+    d: voidValue,
+    e: object,
+    f: fn
+});
+anyValue = olObject.get(stringValue);
+stringArray = olObject.getKeys();
+object = olObject.getProperties();
+voidValue = olObject.set(stringValue, anyValue);
+voidValue = olObject.set(stringValue, anyValue, booleanValue);
+voidValue = olObject.setProperties(object, booleanValue);
+voidValue = olObject.unset(stringValue, booleanValue);
+
+//
+// ol.Observable
+//
+ol.Observable.unByKey(eventKey);
+var observable: ol.Observable = new ol.Observable();
+voidValue = observable.changed();
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: domEventTarget});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: eventTarget});
+voidOrBooleanValue = observable.dispatchEvent({type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {}});
+voidOrBooleanValue = observable.dispatchEvent(olEvent);
+voidOrBooleanValue = observable.dispatchEvent(stringValue);
+numberValue = observable.getRevision();
+eventKeyMixed = observable.on(stringValue, fn);
+eventKeyMixed = observable.on([stringValue, stringValue], fn, {});
+eventKeyMixed = observable.once(stringValue, fn);
+eventKeyMixed = observable.once([stringValue, stringValue], fn, {});
+voidValue = observable.un(stringValue, fn);
+voidValue = observable.un([stringValue, stringValue], fn, {});
+voidValue = observable.unByKey(eventKey);
+voidValue = observable.unByKey(eventKeyArray);
+
+//
 // ol.proj
 //
 let getPointResolutionFn: (n: number, c: ol.Coordinate) => number;

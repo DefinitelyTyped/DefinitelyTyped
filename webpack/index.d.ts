@@ -542,7 +542,7 @@ declare namespace webpack {
     }
 
     interface HotModuleReplacementPluginStatic {
-        new (): Plugin;
+        new (options?: any): Plugin;
     }
 
         interface HotModuleReplacementPluginStatic {

@@ -12,6 +12,11 @@ declare module "angular-signalr-hub" {
     export = _;
 }
 
+declare module "angular-signalr-hub" {
+    let _: string;
+    export = _;
+}
+
 declare namespace ngSignalr {
     interface HubFactory {
         /**

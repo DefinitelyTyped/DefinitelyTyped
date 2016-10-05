@@ -1,4 +1,3 @@
-/// <reference path="./striptags.d.ts" />
 import striptags from 'striptags';
 
     function testStriptags() {

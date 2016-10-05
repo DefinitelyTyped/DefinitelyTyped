@@ -1,5 +1,3 @@
-/// <reference path="solution-center-communicator.d.ts" />
-
 import * as ScCommunicator from 'solution-center-communicator';
 
 var environment: ScCommunicator.Environment = {

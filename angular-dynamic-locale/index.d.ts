@@ -8,12 +8,12 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-	export namespace dynamicLocale {
+    export namespace dynamicLocale {
 
-		interface tmhDynamicLocaleService {
-			set(locale: string): void;
-			get(): string;
-		}
+        interface tmhDynamicLocaleService {
+            set(locale: string): void;
+            get(): string;
+        }
 
 	interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
 		localeLocationPattern(location: string): tmhDynamicLocaleProvider;
@@ -23,5 +23,3 @@ declare module 'angular' {
 		useCookieStorage(): void;
 	}
 }
-
-

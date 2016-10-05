@@ -16,7 +16,7 @@ declare namespace UrlRouterInternal {
 			params: any;
 		}
 
-    interface ServerRequest extends http.ServerRequest {
+    interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 

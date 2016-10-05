@@ -1,5 +1,3 @@
-/// <reference path="humps.d.ts" />
-
 // Tests evaluated from:
 // https://github.com/domchristie/humps/blob/master/README.md
 

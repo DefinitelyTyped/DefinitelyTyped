@@ -32,9 +32,10 @@ declare namespace angular.touchspin {
         buttonUpTxt?: string;
     }
 
-    interface ITouchSpinConfig extends ITouchSpinOptions { }
+        interface ITouchSpinConfig extends ITouchSpinOptions { }
 
-    interface ITouchSpinConfigProvider {
-        defaults(touchSpinOptions: ITouchSpinOptions): void;
+        interface ITouchSpinConfigProvider {
+            defaults(touchSpinOptions: ITouchSpinOptions): void;
+        }
     }
 }

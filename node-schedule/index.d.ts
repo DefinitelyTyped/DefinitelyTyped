@@ -422,7 +422,7 @@ export class Invocation {
  * @param {RecurrenceRule|Date|string} rule     either the scheduling info or the JobCallback
  * @param {JobCallback}                callback The callback to be executed on each invocation.
  */
-export function scheduleJob(name:string|RecurrenceRule|Date, rule: RecurrenceRule|Date|string|JobCallback, callback?: JobCallback): Job;
+export function scheduleJob(name: string | RecurrenceRule | Date, rule: RecurrenceRule | Date | string | JobCallback, callback?: JobCallback): Job;
 
 /**
  * Changes the timing of a Job, canceling all pending invocations.
@@ -431,12 +431,12 @@ export function scheduleJob(name:string|RecurrenceRule|Date, rule: RecurrenceRul
  * @param spec {JobCallback} the new timing for this Job
  * @return {Job} if the job could be rescheduled, {null} otherwise.
  */
-export function rescheduleJob(job:Job|string, spec:RecurrenceRule|Date|string):Job;
+export function rescheduleJob(job: Job | string, spec: RecurrenceRule | Date | string): Job;
 
 /**
  * Dictionary of all Jobs, accessible by name.
  */
-export let scheduledJobs:{[jobName:string]:Job};
+export let scheduledJobs: { [jobName: string]: Job };
 
 /**
  * Cancels the job.
@@ -444,4 +444,4 @@ export let scheduledJobs:{[jobName:string]:Job};
  * @param {Job} job The job.
  * @returns {boolean} {true} if the job has been cancelled with success, otherwise, {false}.
  */
-export function cancelJob(job: Job|string): boolean;
+export function cancelJob(job: Job | string): boolean;

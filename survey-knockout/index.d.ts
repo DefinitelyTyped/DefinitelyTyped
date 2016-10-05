@@ -915,11 +915,9 @@ declare module Survey {
 declare module Survey {
 }
 
-/// <reference path="../surveyStrings.d.ts" />
 declare module Survey {
 }
 
-/// <reference path="../page.d.ts" />
 declare module Survey {
     class Page extends PageModel {
         koNo: any;
@@ -1033,7 +1031,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../question_radiogroup.d.ts" />
 declare module Survey {
     class QuestionRadiogroup extends QuestionRadiogroupModel {
         name: string;
@@ -1041,7 +1038,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../question_text.d.ts" />
 declare module Survey {
     class QuestionText extends QuestionTextModel {
         name: string;
@@ -1049,17 +1045,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../question_matrixdropdown.d.ts" />
-/// <reference path="../question_dropdown.d.ts" />
-/// <reference path="../question_checkbox.d.ts" />
-/// <reference path="../question_radiogroup.d.ts" />
-/// <reference path="../question_text.d.ts" />
-/// <reference path="../question_comment.d.ts" />
-/// <reference path="koquestion_dropdown.d.ts" />
-/// <reference path="koquestion_checkbox.d.ts" />
-/// <reference path="koquestion_radiogroup.d.ts" />
-/// <reference path="koquestion_text.d.ts" />
-/// <reference path="koquestion_comment.d.ts" />
 declare module Survey {
     class MatrixDropdownCell extends MatrixDropdownCellModel {
         column: MatrixDropdownColumn;
@@ -1105,7 +1090,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../question_rating.d.ts" />
 declare module Survey {
     class QuestionRating extends QuestionRatingModel {
         name: string;
@@ -1186,8 +1170,6 @@ declare module Survey {
     }
 }
 
-/// <reference path="../koSurveyWindow.d.ts" />
-/// <reference path="koSurveybootstrap.d.ts" />
 declare module Survey {
     class SurveyWindow extends SurveyWindowBase {
         koExpanded: any;

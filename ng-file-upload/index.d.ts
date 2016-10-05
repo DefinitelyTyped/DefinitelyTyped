@@ -10,7 +10,7 @@ declare var angularFileUploadDefaultExport: string;
 export = angularFileUploadDefaultExport;
 
 declare module 'angular' {
-    export namespace angularFileUpload  {
+    export namespace angularFileUpload {
         interface ImageDimensions {
             height: number;
             width: number;

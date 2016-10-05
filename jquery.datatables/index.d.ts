@@ -200,6 +200,17 @@ declare namespace DataTables {
         i18n(token: string, def: any | string, numeric?: number): string;
 
         /*
+        * Look up a language token that was defined in the DataTables' language initialisation object.
+        *
+        * @param token The language token to lookup from the language object.
+        * @param def The default value to use if the DataTables initialisation has not specified a value.
+        * @param numeric If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+        *
+        * @returns Resulting internationalised string.
+        */
+        i18n(token: string, def: any | string, numeric?: number): string;
+
+        /*
         * Get the initialisation options used for the table. Since: DataTables 1.10.6
         */
         init(): Settings;
@@ -922,6 +933,13 @@ declare namespace DataTables {
         * @param hash true - Append a hash (#) to the start of the row id. This can be useful for then using the id as a selector
         * false - Do not modify the id value.
         * @returns Row id. If the row does not have an id available 'undefined' will be returned.
+        */
+        id(hash?: boolean): string;
+
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
         */
         id(hash?: boolean): string;
 

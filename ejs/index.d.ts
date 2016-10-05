@@ -33,9 +33,8 @@
             parseTemplateText(): string[];
             scanLine(line: string): any;
 
-    function TemplateFunction(data: Data): any;
     interface TemplateFunction {
-        dependencies: Dependencies;
+        (data: Data): any;
     }
     interface Options {
         cache?: any;

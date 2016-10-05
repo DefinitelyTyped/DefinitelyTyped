@@ -1,5 +1,3 @@
-/// <reference path="is-plain-object.d.ts" />
-
 import * as isPlainObject from 'is-plain-object';
 
 isPlainObject(Object.create({}));

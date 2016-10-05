@@ -660,6 +660,11 @@ interface CommonWrapper<P, S> {
     is(selector: EnzymeSelector): Boolean;
 
     /**
+     * Returns whether or not the current node is empty.
+     */
+    isEmpty(): boolean;
+
+    /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
      * This method is effectively the negation or inverse of filter.
      * @param selector

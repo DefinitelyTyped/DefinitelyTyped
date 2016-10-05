@@ -1,7 +1,5 @@
-/// <reference path="../node/node.d.ts" />
-///<reference path="./algoliasearch-client-js.d.ts"/>
 
-var algoliasearch = require('algoliasearch');
+import algoliasearch = require('algoliasearch');
 
 var _clientOptions: ClientOptions = {
     timeout : 12,

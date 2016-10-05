@@ -3895,8 +3895,8 @@ declare namespace sequelize {
          * Find a row that matches the query, or build (but don't save) the row if none is found.
          * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
          */
-        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
-        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
          * Find a row that matches the query, or build and save the row if none is found
@@ -3909,7 +3909,7 @@ declare namespace sequelize {
          * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
          * will be created instead, and any unique constraint violation will be handled internally.
          */
-        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
          * Insert or update a single row. An update will be executed if a row which matches the supplied values on

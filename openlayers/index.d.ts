@@ -6030,6 +6030,18 @@ declare module ol {
 
         }
 
+        }
+
+        /**
+         * @classdesc
+         * Abstract base class; normally only used for creating subclasses and not
+         * instantiated in apps.
+         * Base class for text feature formats.
+         *
+         * @constructor
+         * @extends {ol.format.Feature}
+         */
+        class TextFeature extends ol.format.Feature {
         /**
          * @classdesc
          * A {@link ol.Collection} of layers that are handled together.
@@ -13605,6 +13617,7 @@ declare module olx {
     }
 
 
+    module view {
     /**
      * Object literal with config options for the map.
      * @typedef {{controls: (ol.Collection.<ol.control.Control>|Array.<ol.control.Control>|undefined),

@@ -19,8 +19,8 @@ interface HeadroomOptions {
 	onUnpin?: () => void;
 	onTop?: () => void;
 	onNotTop?: () => void;
-	onNotBottom?:()=>void;
-	onBottom?:()=>void;
+	onNotBottom?: () => void;
+	onBottom?: () => void;
 }
 
 declare class Headroom {

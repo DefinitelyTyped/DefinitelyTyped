@@ -527,7 +527,7 @@ declare namespace browserSync {
         }
 
     interface MiddlewareHandler {
-        (req: http.ServerRequest, res: http.ServerResponse, next: Function): any;
+        (req: http.IncomingMessage, res: http.ServerResponse, next: Function): any;
     }
 
     interface GhostOptions {

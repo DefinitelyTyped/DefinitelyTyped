@@ -191,6 +191,8 @@ declare namespace uri {
     
         joinPaths(...paths: (string | URI)[]): URI;
 
+        joinPaths(...paths: (string | URI)[]): URI;
+
         parse(url: string): {
             protocol: string;
             username: string;
