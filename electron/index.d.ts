@@ -3967,10 +3967,6 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
-		 * @returns The favicon of the web page.
-		 */
-		getFavicon(): NativeImage;
-		/**
 		 * @returns Whether web page is still loading resources.
 		 */
 		isLoading(): boolean;
