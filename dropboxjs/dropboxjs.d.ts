@@ -506,3 +506,7 @@ declare namespace Dropbox {
 
     }
 }
+
+declare module "dropboxjs" {
+	export = Dropbox;
+}
