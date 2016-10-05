@@ -395,7 +395,7 @@ declare namespace NodeJS {
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
         uptime(): number;
-        hrtime(time?: number[]): number[];
+        hrtime(time?: [number, number]): [number, number];
         domain: Domain;
 
         // Worker
@@ -799,7 +799,7 @@ declare module "cluster" {
         isConnected(): boolean;
         isDead(): boolean;
         exitedAfterDisconnect: boolean;
-        
+
         /**
          * events.EventEmitter
          *   1. disconnect
@@ -816,7 +816,7 @@ declare module "cluster" {
         addListener(event: "listening", listener: (address: Address) => void): this;
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
-        
+
         emit(event: string, listener: Function): boolean
         emit(event: "disconnect", listener: () => void): boolean
         emit(event: "error", listener: (code: number, signal: string) => void): boolean
@@ -832,7 +832,7 @@ declare module "cluster" {
         on(event: "listening", listener: (address: Address) => void): this;
         on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         on(event: "online", listener: () => void): this;
-        
+
         once(event: string, listener: Function): this;
         once(event: "disconnect", listener: () => void): this;
         once(event: "error", listener: (code: number, signal: string) => void): this;
@@ -840,7 +840,7 @@ declare module "cluster" {
         once(event: "listening", listener: (address: Address) => void): this;
         once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         once(event: "online", listener: () => void): this;
-        
+
         prependListener(event: string, listener: Function): this;
         prependListener(event: "disconnect", listener: () => void): this;
         prependListener(event: "error", listener: (code: number, signal: string) => void): this;
@@ -848,7 +848,7 @@ declare module "cluster" {
         prependListener(event: "listening", listener: (address: Address) => void): this;
         prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependListener(event: "online", listener: () => void): this;
-        
+
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
         prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
@@ -1987,7 +1987,7 @@ declare module "fs" {
 
     interface FSWatcher extends events.EventEmitter {
         close(): void;
-        
+
         /**
          * events.EventEmitter
          *   1. change
@@ -1996,19 +1996,19 @@ declare module "fs" {
         addListener(event: string, listener: Function): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         addListener(event: "error", listener: (code: number, signal: string) => void): this;
-        
+
         on(event: string, listener: Function): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         on(event: "error", listener: (code: number, signal: string) => void): this;
-        
+
         once(event: string, listener: Function): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         once(event: "error", listener: (code: number, signal: string) => void): this;
-        
+
         prependListener(event: string, listener: Function): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependListener(event: "error", listener: (code: number, signal: string) => void): this;
-        
+
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
@@ -2017,7 +2017,7 @@ declare module "fs" {
     export interface ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
-        
+
         /**
          * events.EventEmitter
          *   1. open
@@ -2026,19 +2026,19 @@ declare module "fs" {
         addListener(event: string, listener: Function): this;
         addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
-        
+
         on(event: string, listener: Function): this;
         on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
-        
+
         once(event: string, listener: Function): this;
         once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
-        
+
         prependListener(event: string, listener: Function): this;
         prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
-        
+
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -2048,7 +2048,7 @@ declare module "fs" {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
-        
+
         /**
          * events.EventEmitter
          *   1. open
@@ -2057,19 +2057,19 @@ declare module "fs" {
         addListener(event: string, listener: Function): this;
         addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
-        
+
         on(event: string, listener: Function): this;
         on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
-        
+
         once(event: string, listener: Function): this;
         once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
-        
+
         prependListener(event: string, listener: Function): this;
         prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
-        
+
         prependOnceListener(event: string, listener: Function): this;
         prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -2318,7 +2318,7 @@ declare module "fs" {
     }
 
     export const constants: Constants;
-    
+
     /** Tests a user's permissions for the file specified by path. */
     export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
