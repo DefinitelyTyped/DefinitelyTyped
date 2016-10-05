@@ -237,8 +237,8 @@ map = map
 	.panTo(latLngTuple, panOptions)
 	.panBy(point)
 	.panBy(pointTuple)
-	.setMaxBounds(bounds) // investigate if this really receives Bounds instead of LatLngBounds
-	.setMaxBounds(boundsLiteral)
+	.setMaxBounds(latLngBounds)
+	.setMaxBounds(latLngBoundsLiteral)
 	.setMinZoom(5)
 	.setMaxZoom(10)
 	.panInsideBounds(latLngBounds)
