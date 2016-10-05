@@ -286,11 +286,11 @@ declare namespace browserSync {
         middleware?: MiddlewareHandler;
         ws: boolean;
         reqHeaders: (config: any) => Hash<any>;
-        proxyRes: (res: http.ServerResponse, req: http.ServerRequest, next: Function) => any;
+        proxyRes: (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
     }
 
     interface MiddlewareHandler {
-        (req: http.ServerRequest, res: http.ServerResponse, next: Function): any;
+        (req: http.IncomingMessage, res: http.ServerResponse, next: Function): any;
     }
 
     interface PerRouteMiddleware {

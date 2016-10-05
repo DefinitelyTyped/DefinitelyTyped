@@ -817,6 +817,14 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
         
+        emit(event: string, listener: Function): boolean
+        emit(event: "disconnect", listener: () => void): boolean
+        emit(event: "error", listener: (code: number, signal: string) => void): boolean
+        emit(event: "exit", listener: (code: number, signal: string) => void): boolean
+        emit(event: "listening", listener: (address: Address) => void): boolean
+        emit(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): boolean
+        emit(event: "online", listener: () => void): boolean
+
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: () => void): this;
         on(event: "error", listener: (code: number, signal: string) => void): this;
@@ -882,6 +890,15 @@ declare module "cluster" {
         addListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
+
+        emit(event: string, listener: Function): boolean;
+        emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
+        emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
+        emit(event: "fork", listener: (worker: Worker) => void): boolean;
+        emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
+        emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
+        emit(event: "online", listener: (worker: Worker) => void): boolean;
+        emit(event: "setup", listener: (settings: any) => void): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -952,6 +969,15 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
+    export function emit(event: string, listener: Function): boolean;
+    export function emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
+    export function emit(event: "fork", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
+    export function emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
+    export function emit(event: "online", listener: (worker: Worker) => void): boolean;
+    export function emit(event: "setup", listener: (settings: any) => void): boolean;
+
     export function on(event: string, listener: Function): Cluster;
     export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
@@ -975,7 +1001,6 @@ declare module "cluster" {
     export function setMaxListeners(n: number): Cluster;
     export function getMaxListeners(): number;
     export function listeners(event: string): Function[];
-    export function emit(event: string, ...args: any[]): boolean;
     export function listenerCount(type: string): number;
 
     export function prependListener(event: string, listener: Function): Cluster;
@@ -1847,8 +1872,8 @@ declare module "dgram" {
 
     interface RemoteInfo {
         address: string;
+        family: string;
         port: number;
-        size: number;
     }
 
     interface AddressInfo {
@@ -1886,6 +1911,49 @@ declare module "dgram" {
         dropMembership(multicastAddress: string, multicastInterface?: string): void;
         ref(): void;
         unref(): void;
+
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+        addListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+        emit(event: "message", msg: string, rinfo: AddressInfo): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+        on(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+        once(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+        prependListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
+        prependOnceListener(event: "message", listener: (msg: string, rinfo: AddressInfo) => void): this;
     }
 }
 
@@ -2270,6 +2338,8 @@ declare module "fs" {
         encoding?: string;
         fd?: number;
         mode?: number;
+        autoClose?: boolean;
+        start?: number;
     }): WriteStream;
     export function fdatasync(fd: number, callback: Function): void;
     export function fdatasyncSync(fd: number): void;
@@ -2577,6 +2647,35 @@ declare module "tls" {
          * @returns {boolean} - Returns true on success, false otherwise.
          */
         setMaxSendFragment(size: number): boolean;
+
+        /**
+         * events.EventEmitter
+         * 1. OCSPResponse
+         * 2. secureConnect
+         **/
+        addListener(event: string, listener: Function): this;
+        addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        addListener(event: "secureConnect", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "OCSPResponse", response: Buffer): boolean;
+        emit(event: "secureConnect"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        on(event: "secureConnect", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        once(event: "secureConnect", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependListener(event: "secureConnect", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
+        prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
 
     export interface TlsOptions {
@@ -2635,6 +2734,56 @@ declare module "tls" {
         }): void;
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+        addListener(event: string, listener: Function): this;
+        addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        addListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
+        emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
+        emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
+        emit(event: "resumeSession", sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
+        emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        on(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        on(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        on(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        once(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        once(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        once(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        prependListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
+        prependOnceListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
+        prependOnceListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
+        prependOnceListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
+        prependOnceListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
     }
 
     export interface ClearTextStream extends stream.Duplex {

@@ -1,6 +1,6 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path='../lodash/lodash-3.10.d.ts' />
-/// <reference path="./backbone-global.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="lodash" />
+/// <reference types="index.d.ts" />
 
 function test_events() {
 

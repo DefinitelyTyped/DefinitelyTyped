@@ -1,13 +1,12 @@
-/// <reference path="../cordova/cordova.d.ts"/>
-/// <reference path="phonegap-plugin-barcodescanner.d.ts" />
-   
+/// <reference types="cordova"/>
+
 cordova.plugins.barcodeScanner.scan(
     function (result) {
         alert("We got a barcode\n" +
             "Result: " + result.text + "\n" +
             "Format: " + result.format + "\n" +
             "Cancelled: " + result.cancelled);
-    }, 
+    },
     function (error) {
         alert("Scanning failed: " + error);
     },

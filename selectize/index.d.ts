@@ -614,4 +614,3 @@ interface JQuery {
 interface HTMLElement {
     selectize: Selectize.IApi<any, any>;
 }
-

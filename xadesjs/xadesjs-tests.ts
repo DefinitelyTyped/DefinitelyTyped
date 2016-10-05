@@ -1,5 +1,3 @@
-/// <reference path="./xadesjs.d.ts" />
-
 let xmlString = "<root><child1/><child2/><child3/></root>";
 let xmlDoc = new DOMParser().parseFromString(xmlString, "application/xml");
 let signedXml = new xadesjs.SignedXml(xmlDoc);
@@ -42,6 +40,6 @@ xadesjs.Application.crypto.subtle.generateKey(
     .then((doc: string) => {
         console.log("Signed document:", doc);
     })
-    .catch((e: any) => {
-        console.error("Error", e);
-    });
+    // .catch((e: any) => {
+    //     console.error("Error", e);
+    // });

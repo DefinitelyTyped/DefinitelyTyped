@@ -1529,6 +1529,15 @@ declare namespace kendo.drawing.pdf {
 }
 
 declare namespace kendo.ui {
+    class AgendaView implements kendo.ui.SchedulerView {
+        static fn: AgendaView;
+
+        startDate(): Date;
+        endDate(): Date;
+
+        static extend(proto: Object): AgendaView;
+    }
+
     class Alert extends kendo.ui.Widget {
 
         static fn: Alert;

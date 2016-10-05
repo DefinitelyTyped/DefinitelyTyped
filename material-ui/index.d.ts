@@ -134,6 +134,7 @@ declare namespace __MaterialUI {
             clockCircleColor?: string;
             shadowColor?: string;
         }
+        export var ThemePalette: ThemePalette;
         interface MuiTheme {
             spacing?: Spacing;
             fontFamily?: string;
@@ -758,6 +759,7 @@ declare namespace __MaterialUI {
     namespace Card {
 
         interface CardProps extends React.Props<Card> {
+            className?: string;
             actAsExpander?: boolean;
             containerStyle?: React.CSSProperties;
             expandable?: boolean;

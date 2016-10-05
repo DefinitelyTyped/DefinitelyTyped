@@ -1,5 +1,3 @@
-/// <reference path="strftime.d.ts"/>
-
 import * as strftime from "strftime";
 
 strftime('%B %d, %Y %H:%M:%S');

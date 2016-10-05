@@ -3361,8 +3361,6 @@ declare namespace samchon.protocol {
      * an example specifying and managing the {@link CommunicatorBase.listener listener} objects. </p>
      *
      * <code>
-    /// <reference path="../typings/typescript-stl/typescript-stl.d.ts" />
-    /// <reference path="../typings/samchon-framework/samchon-framework.d.ts" />
 
     // IMPORTS
     import std = require("typescript-stl");
@@ -4040,8 +4038,6 @@ declare namespace samchon.protocol {
      * </a> </p>
      *
      * <code>
-    /// <reference path="../typings/typescript-stl/typescript-stl.d.ts" />
-    /// <reference path="../typings/samchon-framework/samchon-framework.d.ts" />
 
     // IMPORTS
     import std = require("typescript-stl");

@@ -5,7 +5,7 @@
 //
 // W3 Spec: https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 
-/// <reference path='MediaStream.d.ts' />
+/// <reference path="MediaStream.d.ts" />
 
 // TODO(1): Get Typescript to have string-enum types as WebRtc is full of string
 // enums.

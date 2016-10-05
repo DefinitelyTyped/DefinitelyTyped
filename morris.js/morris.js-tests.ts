@@ -1,5 +1,3 @@
-/// <reference path="./morris.js.d.ts" />
-
 let data = [{
     label: "2010-5-1",
     value: 15

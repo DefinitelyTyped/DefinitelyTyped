@@ -1,5 +1,3 @@
-/// <reference path='phone-formatter.d.ts' />
-
 import * as phoneFormatter from 'phone-formatter';
 
 phoneFormatter.normalize('212.555.1212');

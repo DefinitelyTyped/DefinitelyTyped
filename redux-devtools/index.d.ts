@@ -17,6 +17,6 @@ interface IDevTools {
 export declare function createDevTools(el: React.ReactElement<any>): IDevTools;
 export declare function persistState(debugSessionKey: string): GenericStoreEnhancer;
 
-declare const factory: { instrument(): Function };
+declare const factory: { instrument(): (opts: any) => any };
 
 export default factory;

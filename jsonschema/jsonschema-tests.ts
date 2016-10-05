@@ -1,4 +1,3 @@
-/// <reference path="jsonschema.d.ts" />
 import { Validator, IJSONSchemaValidationError } from "jsonschema";
 
 const v: Validator = new Validator();
