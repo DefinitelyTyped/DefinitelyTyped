@@ -268,6 +268,12 @@ declare namespace PouchDB {
         allDocs(options?: Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content>>;
 
+        bulkDocs(docs: Core.Document<Content>[],
+                 options: Core.PutOptions | void,
+                 callback: Core.Callback<Core.Error, Core.Response[]>): void;
+        bulkDocs(docs: Core.Document<Content>[],
+                 options?: Core.PutOptions): Promise<Core.Response[]>;
+
         /** Compact the database */
         compact(options?: Core.CompactOptions): Promise<Core.Response>;
         compact(options: Core.CompactOptions,

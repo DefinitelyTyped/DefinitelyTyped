@@ -9,6 +9,11 @@ declare namespace BabyParse {
          * Parse a csv string or a csv file
          */
         parse(csvString: string, config?: ParseConfig): ParseResult;
+        
+        /**
+         * Parse single file or multiple files
+         */
+        parseFiles(input: string | string[] | FileObject | FileObject[], config?: ParseConfig): ParseResult;
 
         /**
          * Unparses javascript data objects and returns a csv string
@@ -84,6 +89,11 @@ declare namespace BabyParse {
     interface UnparseObject {
         fields: Array<any>;
         data: string | Array<any>;
+    }
+
+    interface FileObject {
+        file: string
+        config?: ParseConfig
     }
 
     interface ParseError {
