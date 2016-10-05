@@ -8,7 +8,7 @@
 declare let angularTouchSpin: string;
 export = angularTouchSpin;
 
-declare namespace angularTouchSpin {
+declare namespace angular.touchspin {
     interface ITouchSpinOptions {
         min?: number;
         max?: number;

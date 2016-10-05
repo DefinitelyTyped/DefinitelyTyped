@@ -213,7 +213,7 @@ declare namespace autobahn {
         retry_delay_jitter?: number;
         url?: string;
         protocols?: string[];
-        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+        onchallenge?: OnChallengeHandler;
         realm?: string;
         authmethods?: string[];
         authid?: string;

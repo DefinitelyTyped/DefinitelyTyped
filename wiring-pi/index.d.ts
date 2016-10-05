@@ -29,7 +29,7 @@ declare module 'wiring-pi' {
     // Interrupts
     export function wiringPiISR(pin: number, edgeType: number, callback: (delta: number) => void): void;
     export function wiringPiISRCancel(pin: number): void;
-    export const INST_EDGE_FALLING: number;
+    export const INT_EDGE_FALLING: number;
     export const INT_EDGE_RISING: number;
     export const INT_EDGE_BOTH: number;
     export const INT_EDGE_SETUP: number;

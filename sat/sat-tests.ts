@@ -1,3 +1,4 @@
+import SAT = require("sat");
 
 class SatTest{
 	public vectorTest(){
@@ -15,7 +16,7 @@ class SatTest{
 		console.log("perp: v3 - " + v3.x.toString() + v3.y.toString());
 
 	}
-	
+
 }
 
 let test = new SatTest;

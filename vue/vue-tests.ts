@@ -88,6 +88,11 @@ namespace TestGlobalAPI {
     },
     init: function() {}
   });
+  Vue.component("component", {
+    activate: function(callback: Function) {
+      callback();
+    }
+  });
   var transition = Vue.transition("transition");
   Vue.transition("transition", transition);
   Vue.transition("transition", {
