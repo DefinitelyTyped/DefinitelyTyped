@@ -71,14 +71,19 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    */
   catch(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  
   catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  catch(ErrorClass: Function, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(ErrorClass: Function, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  catch<U>(ErrorClass: Function, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(ErrorClass: Function, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  
+  catch<E>(ErrorClass: new () => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  caught<E>(ErrorClass: new () => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+
+  catch<E, U>(ErrorClass: new () => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  caught<E, U>(ErrorClass: new () => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  
   catch(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
   caught(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  
   catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
   caught<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
 
