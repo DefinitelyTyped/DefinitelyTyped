@@ -1114,6 +1114,10 @@ function TestErrorCode() {
     errorCode = new webdriver.error.UnknownMethodError().code();
     errorCode = new webdriver.error.UnsupportedOperationError().code();
 }
+async function TestAsyncAwaitable() {
+    var thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>();
+    var str: string = await thenable;
+}
 
 function TestTestingModule() {
     testing.before(function () {
