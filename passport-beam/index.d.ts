@@ -24,7 +24,7 @@ declare namespace Strategy {
 
 	interface Profile extends passport.Profile {
 		profileUrl: string;
-		id: number
+		id: number|string;
 		username: string;
 		provider: string;
 		email: string;
