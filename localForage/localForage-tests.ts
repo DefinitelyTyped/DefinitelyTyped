@@ -18,6 +18,10 @@ namespace LocalForageTest {
         let newNumber: number = num;
     });
 
+    localForage.length().then((num: number) => {
+        var newNumber: number = num;
+    });
+
     localForage.key(0, (err: any, value: string) => {
         let newError: any = err;
         let newValue: string = value;
@@ -26,6 +30,10 @@ namespace LocalForageTest {
     localForage.keys((err: any, keys: Array<string>) => {
         let newError: any = err;
         let newArray: Array<string> = keys;
+    });
+
+    localForage.keys().then((keys: Array<string>) => {
+        var newArray: Array<string> = keys;
     });
 
     localForage.getItem("key",(err: any, str: string) => {
