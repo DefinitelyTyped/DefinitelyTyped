@@ -155,7 +155,7 @@ declare namespace TL {
         /*
          * A string for presenting the date. Useful if Timeline's date formatting doesn't fit your needs.
          */
-        display_date?: number;
+        display_date?: string;
     }
 
     export interface ITimelineText {
