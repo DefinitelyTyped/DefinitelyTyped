@@ -7,8 +7,9 @@
 import fs = require( 'fs' );
 import byline = require( 'byline' );
 
-//TODO can this be typed in an ambient way?
-//var stream = byline( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
+var stream = byline();
+
+var stream = byline( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
 
 var stream = byline.createStream( fs.createReadStream( 'sample.txt', {encoding: 'utf8'} ) );
 
