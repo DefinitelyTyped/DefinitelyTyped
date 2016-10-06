@@ -2,10 +2,9 @@
 
 // Examples taken from the documentation at https://github.com/ckknight/random-js
 // create a Mersenne Twister-19937 that is auto-seeded based on time and other random values
-import Engine = random.Engine;
-import Random = random.Random;
+import Random = require("random-js");
 
-var engine: Engine = Random.engines.mt19937().autoSeed();
+var engine: Random.Engine = Random.engines.mt19937().autoSeed();
 // create a distribution that will consistently produce integers within inclusive range [0, 99].
 var distribution: Function = Random.integer(0, 99);
 // generate a number that is guaranteed to be within [0, 99] without any particular bias.
@@ -14,7 +13,7 @@ function generateNaturalLessThan100(): number {
 }
 
 // using essentially Math.random()
-var engine2: Engine = Random.engines.nativeMath;
+var engine2: Random.Engine = Random.engines.nativeMath;
 // lower-case Hex string distribution
 var distribution2: Function = Random.hex(false);
 // generate a 40-character hex string
