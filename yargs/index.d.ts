@@ -23,6 +23,8 @@ declare namespace yargs {
 			array(key: string): Argv;
 			array(keys: string[]): Argv;
 
+        terminalWidth(): number;
+
         alias(shortName: string, longName: string): Argv;
         alias(aliases: { [shortName: string]: string }): Argv;
         alias(aliases: { [shortName: string]: string[] }): Argv;
