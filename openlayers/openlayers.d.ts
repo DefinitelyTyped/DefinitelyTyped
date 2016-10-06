@@ -203,7 +203,7 @@ declare module ol {
          * @template S
          * @api stable
          */
-        forEach<S, T>(f: ((item: T, index: number, array: T[]) => any), opt_this?: S): void;
+        forEach<S>(f: ((item: T, index: number, array: T[]) => any), opt_this?: S): void;
 
         /**
          * Get a reference to the underlying Array object. Warning: if the array
