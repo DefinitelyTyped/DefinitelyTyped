@@ -5,7 +5,7 @@
 
 /// <reference path="yargs.d.ts" />
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
