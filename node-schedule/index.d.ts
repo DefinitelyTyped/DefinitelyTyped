@@ -200,13 +200,13 @@ export class RecurrenceRule {
      */
     year: number;
 
-    constructor(year: number,
-        month: number,
-        date: number,
-        dayOfWeek: number | Array<number | Range>,
-        hour: number,
-        minute: number,
-        second: number);
+    constructor(year?: number,
+        month?: number,
+        date?: number,
+        dayOfWeek?: number | Array<number | Range>,
+        hour?: number,
+        minute?: number,
+        second?: number);
 
     nextInvocationDate(base: Date): Date;
 }
