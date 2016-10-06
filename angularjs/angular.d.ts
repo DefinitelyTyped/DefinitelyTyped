@@ -648,13 +648,13 @@ declare namespace angular {
     }
 
     interface IFilterFilterPatternObject {
-        value: any;
-        type: any;
-        index: any;
+        [name: string]: any;
     }
 
     interface IFilterOrderByObject {
-
+        value: any;
+        type: any;
+        index: any;
     }
 
     interface IFilterFilterPredicateFunc<T> {
@@ -666,7 +666,7 @@ declare namespace angular {
     }
 
     interface IFilterOrderByComparatorFunc {
-        (value1: IFilterFilterPatternObject, value2: IFilterFilterPatternObject): number;
+        (value1: IFilterOrderByObject, value2: IFilterOrderByObject): number;
     }
 
     interface IFilterCurrency {
