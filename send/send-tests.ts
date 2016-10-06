@@ -6,6 +6,11 @@ import * as send from 'send';
 
 var app = express();
 
+send.mime.default_type = 'text/plain';
+send.mime.define({
+  'application/x-my-type': ['x-mt', 'x-mtt']
+});
+
 app.get('/test.html', (req, res) => {
     send(req, '/test.html', {
         maxAge: 0,
