@@ -1,4 +1,4 @@
-/// <reference path="seamless.d.ts" />
+/// <reference path="seamless-immutable.d.ts" />
 import SI = require("seamless-immutable");
 
 // Immutable instance method test
@@ -10,10 +10,10 @@ const siArray: SI.ImmutableArray<number> = SI.from([0, 1, 2]);
 
 const mutableArray: Array<number> = siArray.asMutable();
 const mutableArray2: Array<number> = siArray.asMutable({ deep: true });
-const arrayToObject: SI.ImmutableObject<number> = siArray.asObject(value =>
+const arrayToObject: SI.ImmutableObject<number> = siArray.asObject((value: number) =>
   [value.toString(), value]
 );
-const flatMappedArray: SI.ImmutableArray<number> = siArray.flatMap(value =>
+const flatMappedArray: SI.ImmutableArray<number> = siArray.flatMap((value: number) =>
   [value, value]
 );
 
@@ -43,10 +43,10 @@ const updatedAddress: SI.ImmutableObject<ExtendedUser> = extUser.setIn(["address
 const mutableUser: ExtendedUser = updatedAddress.asMutable();
 const mutableUser2: ExtendedUser = updatedAddress.asMutable({ deep: true });
 const mergedUser: SI.ImmutableObject<User> = siObject.merge({ lastName: "hello" });
-const updatedUser: SI.ImmutableObject<ExtendedUser> = extUser.update("firstName", firstName =>
+const updatedUser: SI.ImmutableObject<ExtendedUser> = extUser.update("firstName", (firstName): string =>
   firstName + "hehe"
 );
-const updatedInUser: SI.ImmutableObject<ExtendedUser> = extUser.updateIn(["address", "line1"], line =>
+const updatedInUser: SI.ImmutableObject<ExtendedUser> = extUser.updateIn(["address", "line1"], (line): string =>
   line + "new address"
 );
 const userWithoutAddress: SI.ImmutableObject<User> = extUser.without("address");
