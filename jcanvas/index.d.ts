@@ -1,5 +1,5 @@
 ﻿// Type definitions for jCanvas 15.02.07
-// Project: https://www.google.nl/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCEQFjAA&url=http%3A%2F%2Fcalebevans.me%2Fprojects%2Fjcanvas%2F&ei=zd_uVKK0OcyBaePtgeAC&usg=AFQjCNEGUxTcQgVFpMNj5XRIM9TV7BGLKA&bvm=bv.86956481,d.d2s
+// Project: http://projects.calebevans.me/jcanvas/
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
