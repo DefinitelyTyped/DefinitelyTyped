@@ -61,6 +61,20 @@ namespace LocalForageTest {
     localForage.removeItem("key").then(() => {
     });
 
+    localForage.getDriver("CustomDriver").then((result: LocalForageDriver) => {
+        var driver: LocalForageDriver = result;
+        // we need to use a variable for proper type guards before TS 2.0
+        var _support = driver._support;
+        if (typeof _support === "function") {
+            // _support = _support.bind(driver);
+            _support().then((result: boolean) => {
+                let doesSupport: boolean = result;
+            });
+        } else if (typeof _support === "boolean") {
+            let doesSupport: boolean = _support;
+        }
+    });
+
     {
         let config: boolean;
 

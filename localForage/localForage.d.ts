@@ -44,12 +44,16 @@ interface LocalForageDbMethods {
             callback: (err: any, result: any) => void): void;
 }
 
+interface LocalForageDriverSupportFunc {
+    (): Promise<boolean>;
+}
+
 interface LocalForageDriver extends LocalForageDbMethods {
     _driver: string;
 
     _initStorage(options: LocalForageOptions): void;
 
-    _support: boolean | Promise<boolean>;
+    _support: boolean | LocalForageDriverSupportFunc;
 }
 
 interface LocalForageSerializer {
@@ -90,6 +94,11 @@ interface LocalForage extends LocalForageDbMethods {
     setDriver(driver: string | string[], callback: () => void, errorCallback: (error: any) => void): void;
     defineDriver(driver: LocalForageDriver): Promise<void>;
     defineDriver(driver: LocalForageDriver, callback: () => void, errorCallback: (error: any) => void): void;
+    /**
+    * Return a particular driver
+    * @param {string} driver
+    */
+    getDriver(driver: string): Promise<LocalForageDriver>;
 
     getSerializer(): Promise<LocalForageSerializer>;
     getSerializer(callback: (serializer: LocalForageSerializer) => void): void;
