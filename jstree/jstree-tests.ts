@@ -99,7 +99,7 @@ var treeWithNewCoreProperties = $('#treeWithNewCoreProperties').jstree({
 // tree with new checkbox properties
 var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
     checkbox: {
-        cascade: true,
+        cascade: '',
         tie_selection: true
     }
 });
