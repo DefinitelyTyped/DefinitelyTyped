@@ -2174,7 +2174,7 @@ declare namespace webdriver {
          *     {@code fn}.
          * @template TYPE, SELF
          */
-        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: any[]) => any, opt_self?: any): Promise<T[]>
+        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: T[]) => any, opt_self?: any): Promise<any[]>
 
         /**
          * Creates a promise that has been rejected with the given reason.
@@ -2250,7 +2250,7 @@ declare namespace webdriver {
          *     rejected.
          * @return {!ManagedPromise} A new promise.
          */
-        function when<T,R>(value: T|Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+        function when<T>(value: T|Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<any>;
 
         /**
          * Returns a promise that will be resolved with the input value in a
