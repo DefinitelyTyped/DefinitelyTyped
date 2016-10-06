@@ -1,4 +1,4 @@
-// Type definitions for Samchon Collection v0.0.4
+// Type definitions for Samchon Collection v0.0.2
 // Project: https://github.com/samchon/framework
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@
 
 declare module "samchon-collection"
 {
-	import collections = samchon.collections;
-	export = collections;
+	import collection = samchon.collection;
+	export = collection;
 }
 
