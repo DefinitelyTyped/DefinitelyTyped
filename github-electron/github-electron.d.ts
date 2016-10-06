@@ -7,22 +7,9 @@
 
 declare namespace Electron {
 
-	class EventEmitter extends NodeJS.EventEmitter {
-		addListener(event: string, listener: Function): this;
-		on(event: string, listener: Function): this;
-		once(event: string, listener: Function): this;
-		removeListener(event: string, listener: Function): this;
-		removeAllListeners(event?: string): this;
-		setMaxListeners(n: number): this;
-		getMaxListeners(): number;
-		listeners(event: string): Function[];
-		emit(event: string, ...args: any[]): boolean;
-		listenerCount(type: string): number;
-	}
-
 	interface Event {
 		preventDefault: Function;
-		sender: EventEmitter;
+		sender: NodeJS.EventEmitter;
 	}
 
 	type Point = {
@@ -751,7 +738,7 @@ declare namespace Electron {
 	 * The BrowserWindow class gives you ability to create a browser window.
 	 * You can also create a window without chrome by using Frameless Window API.
 	 */
-	class BrowserWindow extends EventEmitter implements Destroyable {
+	class BrowserWindow extends NodeJS.EventEmitter implements Destroyable {
 		/**
 		 * Emitted when the document changed its title,
 		 * calling event.preventDefault() would prevent the native window’s title to change.
@@ -2548,7 +2535,7 @@ declare namespace Electron {
 	 *
 	 * Each menu consists of multiple menu items, and each menu item can have a submenu.
 	 */
-	class Menu extends EventEmitter {
+	class Menu extends NodeJS.EventEmitter {
 		/**
 		 * Creates a new menu.
 		 */
@@ -2956,7 +2943,7 @@ declare namespace Electron {
 	 * You can also access the session of existing pages by using
 	 * the session property of webContents which is a property of BrowserWindow.
 	 */
-	class Session extends EventEmitter {
+	class Session extends NodeJS.EventEmitter {
 		/**
 		 * @returns a new Session instance from partition string.
 		 */
@@ -3619,7 +3606,7 @@ declare namespace Electron {
 	/**
 	 * A Tray represents an icon in an operating system's notification area.
 	 */
-	class Tray extends EventEmitter implements Destroyable {
+	class Tray extends NodeJS.EventEmitter implements Destroyable {
 		/**
 		 * Emitted when the tray icon is clicked.
 		 * Note: The bounds payload is only implemented on macOS and Windows.
