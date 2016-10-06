@@ -13251,7 +13251,7 @@ declare module olx {
             crossOrigin?: (string);
             logo?: (string | olx.LogoOptions);
             opaque?: boolean;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             maxZoom?: number;
             minZoom?: number;
