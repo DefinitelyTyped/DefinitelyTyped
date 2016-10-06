@@ -19,37 +19,36 @@ add methods:
 - [ ] noConflict
  */
 
-declare namespace Base64 {
-    const Base64: Base64Static
-    interface Base64Static {
-        /**
-         * .encode
-         * @param {String} string
-         * @return {String}
-         */
-        encode(base64: string): string;
-
-        /**
-         * .encodeURI
-         * @param {String} string
-         * @return {String}
-         */
-        encodeURI(base64: string): string
-
-        /**
-         * .decode
-         * @param {String} string
-         * @return {String}
-         */
-        decode(base64: string): string
-
-        /**
-         * Library version
-         */
-        VERSION:string
-    }
-}
-
 declare module 'js-base64' {
+    namespace Base64 {
+        const Base64: Base64Static
+        interface Base64Static {
+            /**
+             * .encode
+             * @param {String} string
+             * @return {String}
+             */
+            encode(base64: string): string;
+
+            /**
+             * .encodeURI
+             * @param {String} string
+             * @return {String}
+             */
+            encodeURI(base64: string): string
+
+            /**
+             * .decode
+             * @param {String} string
+             * @return {String}
+             */
+            decode(base64: string): string
+
+            /**
+             * Library version
+             */
+            VERSION:string
+        }
+    }
     export = Base64
 }
