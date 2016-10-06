@@ -10966,7 +10966,7 @@ declare module ol {
      * given then `1` will be used.
      * @typedef {Array.<number>|Uint8Array|Uint8ClampedArray}
      */
-    type Color = (number[] | Uint8Array | Uint8ClampedArray);
+    type Color = ([number, number, number, number] | Uint8Array | Uint8ClampedArray);
 
     /**
      * A type accepted by CanvasRenderingContext2D.fillStyle.
