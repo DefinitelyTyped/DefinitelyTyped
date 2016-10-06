@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "uuid-tests.ts"
+        "UUID-tests.ts"
     ]
 }
