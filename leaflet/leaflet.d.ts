@@ -1231,7 +1231,8 @@ declare namespace L {
         panTo(latlng: LatLngTuple, options?: PanOptions): this;
         panBy(offset: Point): this;
         panBy(offset: PointTuple): this;
-        setMaxBounds(bounds: LatLngBoundsExpression): this; // is this really bounds and not lanlngbounds?
+        setMaxBounds(bounds: LatLngBounds): this;
+        setMaxBounds(bounds: LatLngBoundsLiteral): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
         panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;
