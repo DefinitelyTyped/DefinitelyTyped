@@ -95,3 +95,7 @@ declare namespace Resemble {
 }
 
 declare var resemble: Resemble.ResembleStatic;
+
+declare module "resemblejs" {
+  export = resemble;
+}
