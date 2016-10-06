@@ -1,4 +1,4 @@
-import UUID = require("uuid");
+import UUID = require("uuidjs");
 
 const uuid1: string = UUID.generate()
 const uuid2: UUID.UUID = UUID.genV4()
