@@ -12732,7 +12732,7 @@ declare module olx {
             geometryFunction?: ((feature: ol.Feature) => ol.geom.Point);
             format?: ol.format.Feature;
             logo?: string;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             source: ol.source.Vector;
             wrapX?: boolean;
         }
