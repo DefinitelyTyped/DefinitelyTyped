@@ -8,12 +8,12 @@
 interface JQueryColorpickerOptions {
     // Events
     // TODO: Figure out actual types.
-    cancel?: any,
-    close?: any,
-    init?: any,
-    select?: any,
-    ok?: any,
-    open?: any,
+    cancel?: Function,
+    close?: Function,
+    init?: Function,
+    select?: Function,
+    ok?: Function,
+    open?: Function,
 
     alpha?: boolean;
     altAlpha?: boolean;
