@@ -1,9 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "leadfoot-tests.ts",
-		"../node/index.d.ts",
-		"../dojo/index.d.ts"
+        "leadfoot-tests.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

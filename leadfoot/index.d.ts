@@ -3,6 +3,9 @@
 // Definitions by: theintern <https://github.com/theintern>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
+/// <reference types="dojo" />
+/// <reference types="node" />
+
 declare module leadfoot {
 
 	/**
