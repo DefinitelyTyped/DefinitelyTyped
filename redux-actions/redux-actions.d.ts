@@ -54,20 +54,34 @@ declare namespace ReduxActions {
         metaCreator: MetaCreator<Input, Meta>
     ): (...args: Input[]) => ActionMeta<Payload, Meta>;
 
+    export function handleAction<StateAndPayload>(
+        actionType: { toString: () => string },
+        reducer: Reducer<StateAndPayload, StateAndPayload> | ReducerMap<StateAndPayload, StateAndPayload>
+    ): Reducer<StateAndPayload, StateAndPayload>;
+
     export function handleAction<State, Payload>(
-        actionType: string,
+        actionType: { toString: () => string },
         reducer: Reducer<State, Payload> | ReducerMap<State, Payload>
     ): Reducer<State, Payload>;
 
     export function handleAction<State, Payload, Meta>(
-        actionType: string,
+        actionType: { toString: () => string },
         reducer: ReducerMeta<State, Payload, Meta> | ReducerMap<State, Payload>
     ): Reducer<State, Payload>;
+
+    export function handleActions<StateAndPayload>(
+        reducerMap: ReducerMap<StateAndPayload, StateAndPayload>,
+        initialState?: StateAndPayload
+    ): Reducer<StateAndPayload, StateAndPayload>;
 
     export function handleActions<State, Payload>(
         reducerMap: ReducerMap<State, Payload>,
         initialState?: State
     ): Reducer<State, Payload>;
+
+    export function combineActions(
+        ...actionTypes: { toString: () => string }[]
+    ): { toString: () => string };
 }
 
 declare module 'redux-actions' {
