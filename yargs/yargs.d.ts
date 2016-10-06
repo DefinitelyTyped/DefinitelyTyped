@@ -18,6 +18,8 @@ declare module "yargs" {
 
 			detectLocale(detect:boolean): Argv;
 
+			terminalWidth(): number;
+
 			alias(shortName: string, longName: string): Argv;
 			alias(aliases: { [shortName: string]: string }): Argv;
 			alias(aliases: { [shortName: string]: string[] }): Argv;

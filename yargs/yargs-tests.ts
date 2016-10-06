@@ -273,6 +273,14 @@ function Argv$version() {
 		.version(function () { return '1.0.0'; }, '--version', 'description');
 }
 
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
+}
+
 function Argv$locale() {
 	var argv = yargs
 		.usage('./$0 - follow ye instructions true')
