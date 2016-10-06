@@ -135,7 +135,7 @@ declare module "yargs" {
 			count(key: string): Argv;
 			count(keys: string[]): Argv;
 
-			fail(func: (msg: string) => any): void;
+			fail(func: (msg: string, err: Error) => any): Argv;
 		}
 
 		interface RequireDirectoryOptions {

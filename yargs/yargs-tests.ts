@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="yargs.d.ts" />
+/// <reference path="../node/node.d.ts"/>
 
 import * as yargs from 'yargs';
 
@@ -340,6 +341,18 @@ function Argv$commandDirWithOptions() {
 			visit: (commandObject: any, pathToFile: string, filename: string) => { },
 			include: /.*\.js$/,
 			exclude: /.*\.spec.js$/,
+		})
+		.argv
+}
+
+// http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var argv = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
 		})
 		.argv
 }
