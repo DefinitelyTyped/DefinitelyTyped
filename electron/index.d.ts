@@ -3967,9 +3967,13 @@ declare namespace Electron {
 		 */
 		getTitle(): string;
 		/**
-		 * @returns The favicon of the web page.
+		 * @returns Whether the web page is destroyed.
 		 */
-		getFavicon(): NativeImage;
+		isDestroyed(): boolean;
+		/**
+		 * @returns Whether the web page is focused.
+		 */
+		isFocused(): boolean;
 		/**
 		 * @returns Whether web page is still loading resources.
 		 */
