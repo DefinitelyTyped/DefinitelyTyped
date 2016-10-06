@@ -2174,7 +2174,7 @@ declare namespace webdriver {
          *     {@code fn}.
          * @template TYPE, SELF
          */
-        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: any[]) => any, opt_self?: any): Promise<T[]>
+        function map<T,R>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: T[]) => any, opt_self?: any): Promise<R[]>
 
         /**
          * Creates a promise that has been rejected with the given reason.
