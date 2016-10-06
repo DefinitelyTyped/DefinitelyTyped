@@ -5,21 +5,68 @@
 
 declare namespace valdr {
 
+    /**
+     * Custom validators must implement this interface to provide custom validation logic.
+     */
+    interface ValdrValidator {
+
+        /**
+         *  Custom validator's name, that will be set in the violation's validator field.
+         */
+        name: string;
+
+        /**
+         * Method to be called to perform custom validation over given value.
+         */
+        validate(value: any, validationArguments?: {[argumentName:string]: any}): boolean;
+    }
+
+    interface ValdrConstraintValidator {
+        [argumentName:string]: any;
+        message: string;
+    }
+
+    interface ValdrConstraintFieldName {
+        [validatorName:string]: ValdrConstraintValidator;
+    }
+
+    interface ValdrConstraintTypeName {
+        [fieldName:string]: ValdrConstraintFieldName;
+    }
+
+    interface ValdrConstraints {
+        [typeName:string]: ValdrConstraintTypeName;
+    }
+
+    interface ValdrViolation extends ValdrConstraintValidator {
+        valid: boolean;
+        value: string;
+        field: string;
+        type: string;
+        validator: string;
+    }
+
+    interface ValdrValidationResult {
+        valid: boolean;
+        violations: ValdrViolation[];
+        validationResults: ValdrViolation[];
+    }
+
     interface Valdr {
         /**
          * Validates the value of the given type with the constraints for the given field name.
          * @param typeName the type name.
          * @param fieldName the field name.
          * @param value the value to validate.
-         * @returns {*} the validation result.
+         * @returns {ValdrValidationResult} the validation result.
          */
-        validate(typeName: string, fieldName: string, value: string): any;
+        validate(typeName: string, fieldName: string, value: string): ValdrValidationResult;
 
         /**
          * Adds a new list of constraints (JSON Object).
          * @param newConstraints the list of constraints (JSON Object).
          */
-        addConstraints(newConstraints: any): void;
+        addConstraints(newConstraints: ValdrConstraints): void;
 
         /**
          * Removes one or many contraints.
@@ -31,7 +78,7 @@ declare namespace valdr {
          * Gets the list of constraints (JSON Object).
          * @returns the list of constraints.
          */
-        getConstraints(): any;
+        getConstraints(): ValdrConstraints;
 
         /**
          * Sets custom classes on the surrounding elements.
@@ -45,7 +92,7 @@ declare namespace valdr {
          * Adds a new list of constraints (JSON Object).
          * @param newConstraints the list of constraints (JSON Object).
          */
-        addConstraints(newConstraints: any): void;
+        addConstraints(newConstraints: ValdrConstraints): void;
 
         /**
          * Removes one or many contraints.
