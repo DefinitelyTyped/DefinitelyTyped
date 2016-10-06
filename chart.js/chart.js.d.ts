@@ -379,7 +379,7 @@ interface TimeScale extends ChartScales {
     parser?: string | ((arg: any) => any);
     round?: string;
     tooltipFormat?: string;
-    unit?: TimeUnit;
+    unit?: string | TimeUnit;
     unitStepSize?: number;
 }
 
@@ -390,11 +390,12 @@ interface RadialLinearScale {
     ticks?: TickOptions;
 }
 
-declare var Chart: {
-    new (context: CanvasRenderingContext2D, options: ChartConfiguration): {};
+declare class Chart {
+    constructor (context: CanvasRenderingContext2D, options: ChartConfiguration);
+    config: ChartConfiguration;
     destroy: () => {};
-    update: (duration: any, lazy: any) => {};
-    render: (duration: any, lazy: any) => {};
+    update: (duration?: any, lazy?: any) => {};
+    render: (duration?: any, lazy?: any) => {};
     stop: () => {};
     resize: () => {};
     clear: () => {};
@@ -407,4 +408,4 @@ declare var Chart: {
     defaults: {
         global: ChartOptions;
     }
-};
+}
