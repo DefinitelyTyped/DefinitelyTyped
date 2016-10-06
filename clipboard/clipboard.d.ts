@@ -3,8 +3,8 @@
 // Definitions by: Andrei Kurosh <https://github.com/impworks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Clipboard {
-    constructor(selector: (string | Element | NodeListOf<Element>), options?: ClipboardOptions);
+interface ClipboardStatic {
+    new(selector: (string | Element | NodeListOf<Element>), options?: ClipboardOptions): ClipboardStatic;
 
     /**
      * Subscribes to events that indicate the result of a copy/cut operation.
@@ -52,5 +52,8 @@ interface ClipboardEvent {
 }
 
 declare module 'clipboard' {
+    var Clipboard: ClipboardStatic;
     export = Clipboard;
 }
+
+declare var Clipboard: ClipboardStatic;
