@@ -344,6 +344,13 @@ interface JQueryPromise<T> extends JQueryGenericPromise<T> {
 
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
+    
+    /**
+     * Return a Deferred's Promise object.
+     * 
+     * @param target Object onto which the promise methods have to be attached
+     */
+    promise(target?: any): JQueryPromise<T>;
 }
 
 /**

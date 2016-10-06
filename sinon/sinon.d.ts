@@ -3,6 +3,12 @@
 // Definitions by: William Sears <https://github.com/mrbigdog2u>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// sinon uses DOM dependencies which are absent in browserless envoronment like node.js
+// to avoid compiler errors this monkey patch is used
+// see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11351
+interface Event { }
+interface Document { }
+
 declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
