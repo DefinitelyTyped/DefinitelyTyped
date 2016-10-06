@@ -203,7 +203,7 @@ declare module ol {
          * @template S
          * @api stable
          */
-        forEach<S>(f: ((self: S, item: T, index: number, array: T[]) => any), opt_this?: S): void;
+        forEach<S>(f: ((item: T, index: number, array: T[]) => any), opt_this?: S): void;
 
         /**
          * Get a reference to the underlying Array object. Warning: if the array
@@ -6676,7 +6676,7 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((self: S, feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachFeatureAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -6701,7 +6701,7 @@ declare module ol {
          * @template S,T,U
          * @api stable
          */
-        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((self: S, layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
+        forEachLayerAtPixel<S, T, U>(pixel: ol.Pixel, callback: ((layer: ol.layer.Layer, color: ol.Color) => T), opt_this?: S, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this2?: U): (T);
 
         /**
          * Detect if features intersect a pixel on the viewport. Layers included in the
@@ -6718,7 +6718,7 @@ declare module ol {
          * @template U
          * @api
          */
-        hasFeatureAtPixel<U>(pixel: ol.Pixel, opt_layerFilter?: ((self: U, layer: ol.layer.Layer) => boolean), opt_this?: U): boolean;
+        hasFeatureAtPixel<U>(pixel: ol.Pixel, opt_layerFilter?: ((layer: ol.layer.Layer) => boolean), opt_this?: U): boolean;
 
         /**
          * Returns the geographical coordinate for a browser event.
@@ -9181,7 +9181,7 @@ declare module ol {
              * @template T
              * @api
              */
-            forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((self: T, d: any) => any), opt_this?: T, opt_request?: boolean): void;
+            forDataAtCoordinateAndResolution<T>(coordinate: ol.Coordinate, resolution: number, callback: ((d: any) => any), opt_this?: T, opt_request?: boolean): void;
 
         }
 
@@ -9376,7 +9376,7 @@ declare module ol {
              * @template T,S
              * @api stable
              */
-            forEachFeature<T, S>(callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeature<T, S>(callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose bounding box intersects the provided
@@ -9399,7 +9399,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureInExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Iterate through all features whose geometry intersects the provided extent,
@@ -9418,7 +9418,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((self: T, feature: ol.Feature) => S), opt_this?: T): (S);
+            forEachFeatureIntersectingExtent<T, S>(extent: ol.Extent, callback: ((feature: ol.Feature) => S), opt_this?: T): (S);
 
             /**
              * Get the features collection associated with this source. Will be `null`
@@ -12617,7 +12617,7 @@ declare module olx {
          *     visible: (boolean|undefined)}}
          */
         interface VectorOptions {
-            renderOrder: (feature1: ol.Feature, feature2: ol.Feature) => number;
+            renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
             map?: ol.Map;
             extent?: ol.Extent;
             minResolution?: number;
@@ -13085,7 +13085,7 @@ declare module olx {
             params?: { [k: string]: any };
             logo?: (string | olx.LogoOptions);
             tileGrid?: ol.tilegrid.TileGrid;
-            projection: ol.ProjectionLike;
+            projection?: ol.ProjectionLike;
             reprojectionErrorThreshold?: number;
             tileLoadFunction?: ol.TileLoadFunctionType;
             url?: string;
