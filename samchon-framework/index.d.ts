@@ -249,7 +249,7 @@ declare namespace samchon.library {
         /**
          * @inheritdoc
          */
-        type: string;
+        readonly type: string;
         /**
          * @inheritdoc
          */
@@ -257,43 +257,43 @@ declare namespace samchon.library {
         /**
          * @inheritdoc
          */
-        currentTarget: IEventDispatcher;
+        readonly currentTarget: IEventDispatcher;
         /**
          * @inheritdoc
          */
-        isTrusted: boolean;
+        readonly isTrusted: boolean;
         /**
          * @inheritdoc
          */
-        bubbles: boolean;
+        readonly bubbles: boolean;
         /**
          * @inheritdoc
          */
-        cancelable: boolean;
+        readonly cancelable: boolean;
         /**
          * @inheritdoc
          */
-        eventPhase: number;
+        readonly eventPhase: number;
         /**
          * @inheritdoc
          */
-        defaultPrevented: boolean;
+        readonly defaultPrevented: boolean;
         /**
          * @inheritdoc
          */
-        srcElement: Element;
+        readonly srcElement: Element;
         /**
          * @inheritdoc
          */
-        cancelBubble: boolean;
+        readonly cancelBubble: boolean;
         /**
          * @inheritdoc
          */
-        timeStamp: number;
+        readonly timeStamp: number;
         /**
          * Don't know what it is.
          */
-        returnValue: boolean;
+        readonly returnValue: boolean;
     }
 }
 declare namespace samchon.collections {
@@ -340,15 +340,15 @@ declare namespace samchon.collections {
         /**
          * Associative target, the {@link ICollection collection}.
          */
-        target: ICollection<T>;
+        readonly target: ICollection<T>;
         /**
          * An {@link Iterator} to the initial position in this {@link CollectionEvent}.
          */
-        first: std.Iterator<T>;
+        readonly first: std.Iterator<T>;
         /**
          * An {@link Iterator} to the final position in this {@link CollectionEvent}.
          */
-        last: std.Iterator<T>;
+        readonly last: std.Iterator<T>;
         /**
          * @inheritdoc
          */
@@ -1314,11 +1314,11 @@ declare namespace samchon.collections {
         /**
          * @inheritdoc
          */
-        first: std.MapIterator<Key, T>;
+        readonly first: std.MapIterator<Key, T>;
         /**
          * @inheritdoc
          */
-        last: std.MapIterator<Key, T>;
+        readonly last: std.MapIterator<Key, T>;
     }
 }
 declare namespace samchon.collections {
@@ -2235,7 +2235,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        data: any;
+        readonly data: any;
         /**
          * The name of the file on the local disk.
          *
@@ -2245,7 +2245,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        name: string;
+        readonly name: string;
         /**
          * The filename extension.
          *
@@ -2258,7 +2258,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        extension: string;
+        readonly extension: string;
         /**
          * The file type, metadata of the {@link extension}.
          *
@@ -2268,7 +2268,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        type: string;
+        readonly type: string;
         /**
          * The size of the file on the local disk in bytes.
          *
@@ -2278,7 +2278,7 @@ declare namespace samchon.library {
          * All the properties of a {@link FileReference} object are populated by calling the {@link browse browse()}.
          *
          */
-        size: number;
+        readonly size: number;
         /**
          * The date that the file on the local disk was last modified.
          *
@@ -2417,7 +2417,7 @@ declare namespace samchon.library {
          * The {@link fileList} property is populated anew each time {@link browse browse()} is called on that
          * {@link FileReferenceList} object.
          */
-        fileList: std.Vector<FileReference>;
+        readonly fileList: std.Vector<FileReference>;
         /**
          * Displays a file-browsing dialog box that lets the user select one or more local files to upload. The
          * dialog box is native to the user's browser system.
@@ -3886,7 +3886,27 @@ declare namespace samchon.templates.distributed {
          */
         protected _Normalize_performance(): void;
         /**
-         * @inheritdoc
+         * Factory method creating a {@link MediatorSystem} object.
+         *
+         * The {@link createMediator createMediator()} is an abstract method creating the {@link MediatorSystem} object.
+         *
+         * You know what? this {@link DistributedSystemArrayMediator} class be a master for its slave systems, and be a
+         * slave to its master system at the same time. The {@link MediatorSystem} object makes it possible; be a slave
+         * system. This {@link createMediator} determines specific type of the {@link MediatorSystem}.
+         *
+         * Overrides the {@link createMediator createMediator()} method to create and return one of them following which
+         * protocol and which type of remote connection (server or client) will be used:
+         *
+         * - A client slave connecting to master server:
+         *   - {@link MediatorClient}
+         *   - {@link MediatorWebClient}
+         *   - {@link MediatorSharedWorkerClient}
+         * - A server slave accepting master client:
+         *   - {@link MediatorServer}
+         *   - {@link MediatorWebServer}
+         *   - {@link MediatorSharedWorkerServer}
+         *
+         * @return A newly created {@link MediatorSystem} object.
          */
         toXML(): library.XML;
     }
@@ -4150,7 +4170,7 @@ declare namespace samchon.protocol {
          */
         protected listener_: IProtocol;
         /**
-         * @inheritdoc
+         * Default Constructor.
          */
         onClose: Function;
         /**
@@ -4180,7 +4200,7 @@ declare namespace samchon.protocol {
          */
         constructor(listener: IProtocol);
         /**
-         * @inheritdoc
+         * @hidden
          */
         abstract close(): void;
         /**
@@ -4196,7 +4216,7 @@ declare namespace samchon.protocol {
          */
         abstract sendData(invoke: Invoke): void;
         /**
-         * @inheritdoc
+         * @hidden
          */
         replyData(invoke: Invoke): void;
         /**
@@ -5100,7 +5120,7 @@ declare namespace samchon.protocol {
         setValue(value: library.XML): void;
         setValue(value: Uint8Array): void;
         /**
-         * @inheritdoc
+         * @hidden
          */
         key(): any;
         /**
@@ -7219,7 +7239,7 @@ declare namespace samchon.templates.distributed {
          */
         protected abstract createServerConnector(): protocol.IServerConnector;
         /**
-         * @inheritdoc
+         * @hidden
          */
         connect(): void;
     }
@@ -7801,7 +7821,10 @@ declare namespace samchon.templates.external {
          */
         protected abstract createExternalClient(driver: protocol.IClientDriver): ExternalSystem;
         /**
-         * @inheritdoc
+         * Factory method creating an {@link IDistributedServer} object.
+         *
+         * @param xml An {@link XML} object represents child element, so that can identify the type of child to create.
+         * @return A newly created {@link IDistributedServer} object.
          */
         open(port: number): void;
         /**
@@ -8296,7 +8319,11 @@ declare namespace samchon.templates.parallel {
          */
         private system_array_;
         /**
-         * @hidden
+         * A name, represents and identifies this {@link ExternalSystemRole role}.
+         *
+         * This {@link name} is an identifier represents this {@link ExternalSystemRole role}. This {@link name} is
+         * used in {@link ExternalSystemArray.getRole} and {@link ExternalSystem.get}, as a key elements. Thus, this
+         * {@link name} should be unique in an {@link ExternalSystemArray}.
          */
         private progress_list_;
         /**
@@ -8429,13 +8456,21 @@ declare namespace samchon.templates.parallel {
          */
         start(): void;
         /**
-         * @inheritdoc
+         * Handle replied {@link Invoke} message.
+         *
+         * {@link ExternalSystemRole.replyData ExternalSystemRole.replyData()} is an abstract method handling a replied
+         * {@link Invoke message} gotten from remote system via parent {@link ExternalSystem} object. Overrides this
+         * method and defines the *WHAT TO DO* with the {@link Invoke message}.
+         *
+         * @param invoke An {@link Invoke} message received from the {@link ExternalSystem external system}.
          */
-        open(port: number): void;
+        abstract replyData(invoke: protocol.Invoke): void;
         /**
-         * @inheritdoc
+         * Tag name of the {@link ExternalSytemRole} in {@link XML}.
+         *
+         * @return *role*.
          */
-        close(): void;
+        TAG(): string;
     }
     /**
      * A mediator server, driver for the master client.
@@ -8734,7 +8769,9 @@ declare namespace samchon.templates.parallel {
          */
         private first;
         /**
-         * @hidden
+         * Construct from parent {@link ParallelSystemArrayMediator} object.
+         *
+         * @param systemArray The parent {@link ParallelSystemArrayMediator} object.
          */
         private last;
         /**
@@ -9576,7 +9613,9 @@ declare namespace samchon.templates.parallel {
          */
         protected abstract createExternalServer(xml: library.XML): IParallelServer;
         /**
-         * @inheritdoc
+         * Get child {@link Service} object.
+         *
+         * @return The child {@link Service} object.
          */
         connect(): void;
     }
@@ -9676,7 +9715,12 @@ declare namespace samchon.templates.parallel {
      */
     abstract class ParallelServerClientArrayMediator extends ParallelClientArrayMediator implements external.IExternalServerClientArray {
         /**
-         * Default Constructor.
+         * Get sequence number.
+         *
+         * Get sequence number of this {@link Client} object in the parent {@link User} object. This sequence number also
+         * be a *key* in the parent {@link User} object, who extended the ```std.HashMap<number, Client>```.
+         *
+         * @return Sequence number.
          */
         constructor();
         /**
@@ -9696,7 +9740,9 @@ declare namespace samchon.templates.parallel {
          */
         protected abstract createExternalServer(xml: library.XML): IParallelServer;
         /**
-         * @inheritdoc
+         * Change {@link Service} to another.
+         *
+         * @param service {@link service} object to newly assigned.
          */
         connect(): void;
     }
