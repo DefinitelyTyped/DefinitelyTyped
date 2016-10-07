@@ -40,6 +40,18 @@
             "typingsPackageName": "linqsharp",
             "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "TypeScript",
+            "typingsPackageName": "typescript-services",
+            "sourceRepoURL": "https://github.com/Microsoft/TypeScript",
+            "asOfVersion": "2.0.0"
         }
     ]
 }
