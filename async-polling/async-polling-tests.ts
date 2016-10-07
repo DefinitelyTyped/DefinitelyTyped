@@ -22,8 +22,8 @@ let polling = AsyncPolling(end => {
         end(null, response);
     });
 }, 3000);
-polling.on("error", function (error) {});
-polling.on("result", function (result) {});
+polling.on("error", (error: Error) => {});
+polling.on("result", (result: any) => {});
 polling.run();
 polling.stop();
 
@@ -53,11 +53,11 @@ eventNames.forEach(eventName => {
     });
 });
 
-polling.on("result", result => {
+polling.on("result", (result: any) => {
     console.log("result:", result);
 });
 
-polling.on("error", error => {
+polling.on("error", (error: Error) => {
     console.error("error:", error);
 });
 
