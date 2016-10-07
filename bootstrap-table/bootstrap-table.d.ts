@@ -3,6 +3,7 @@
 // Definitions by: Talat Baig <https://github.com/talatbaig/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../jquery/index.d.ts" />
 
 interface JQuery {
     bootstrapTable(options?: any): JQuery;
