@@ -73,23 +73,20 @@
 
         material = new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 1, linewidth: 3, vertexColors: THREE.VertexColors });
 
-        var line, p, scale = 0.3, d = 225;
-        var parameters = [
+        var line, scale = 0.3, d = 225;
+        var parameters : [THREE.LineBasicMaterial, number, [number, number, number], THREE.Geometry][] = [
             [material, scale * 1.5, [-d, 0, 0], geometry],
             [material, scale * 1.5, [0, 0, 0], geometry2],
             [material, scale * 1.5, [d, 0, 0], geometry3]
         ];
 
-        for (i = 0; i < parameters.length; ++i) {
-
-            p = parameters[i];
+        for (const p of parameters) {
             line = new THREE.Line(p[3], p[0]);
             line.scale.x = line.scale.y = line.scale.z = p[1];
             line.position.x = p[2][0];
             line.position.y = p[2][1];
             line.position.z = p[2][2];
             scene.add(line);
-
         }
 
         //
