@@ -34,6 +34,12 @@
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "LinqSharp",
+            "typingsPackageName": "linqsharp",
+            "sourceRepoURL": "https://github.com/brunolm/LinqSharp",
+            "asOfVersion": "1.0.0"
         }
     ]
 }
