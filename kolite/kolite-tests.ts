@@ -8,11 +8,11 @@ function test_activityDefaults() {
         container: 'i',
         inactiveClass: ''
     };
-    
+
     ko.bindingHandlers.activity.defaultOptions = {
         activityClass: 'some Value'
     };
-    
+
     ko.bindingHandlers.activity.defaultOptions = {
     };
 }
@@ -61,12 +61,12 @@ function test_asyncCommand_isExecuting() {
 }
 
 function test_dirtyFlag() {
-    var viewModel;
+    var viewModel: any;
     viewModel.dirtyFlag = new ko.DirtyFlag(viewModel.model);
     viewModel.dirtyFlag().isDirty();
     viewModel.dirtyFlag().reset();
 
-    var self;
+    var self: any;
     this.dirtyFlag = new ko.DirtyFlag(
        self.firstName,
        self.lastName);

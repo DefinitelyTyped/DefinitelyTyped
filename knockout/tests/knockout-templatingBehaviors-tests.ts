@@ -120,7 +120,7 @@ describe('Templating', function() {
     });
 
     it('Should be able to access newly rendered/inserted elements in \'afterRender\' callaback', function () {
-        var passedElement, passedDataItem;
+        var passedElement:any, passedDataItem;
         var myCallback = function(elementsArray, dataItem) {
             expect(elementsArray.length).toEqual(1);
             passedElement = elementsArray[0];
