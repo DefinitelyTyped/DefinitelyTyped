@@ -1,6 +1,6 @@
 /// <reference path="js-base64.d.ts" />
 
-import { Base64 } from 'js-base64'
+import { Base64 } from './js-base64'
 
 Base64.encode('dankogai');  // ZGFua29nYWk=
 Base64.encode('小飼弾');    // 5bCP6aO85by+
