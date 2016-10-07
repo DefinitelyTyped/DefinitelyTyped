@@ -22,7 +22,7 @@ export interface EntOpts {
 	/**
 	 * If opts.special is set to an Object, the key names will be forced to be encoded (defaults to forcing: <>'"&)
 	 */
-	special?: Object;
+	special?: any;
 }
 
 /**
