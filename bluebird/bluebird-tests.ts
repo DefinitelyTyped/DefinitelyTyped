@@ -347,6 +347,18 @@ fooOrBarProm = fooProm.caught(Promise.CancellationError, (reason: any) => {
 	})
 }
 
+{
+	class CustomErrorWithConstructor extends Error {
+		constructor(public arg1: boolean, public arg2: number) {
+			super();
+		};
+	}
+	fooProm = fooProm.catch(CustomErrorWithConstructor, reason => {
+		let a: boolean = reason.arg1;
+		let b: number = reason.arg2;
+	})
+}
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 barProm = fooProm.error((reason: any) => {
