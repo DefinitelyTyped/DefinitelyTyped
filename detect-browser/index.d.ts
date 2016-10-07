@@ -3,15 +3,12 @@
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "detect-browser" {
+/**
+ * Browser name
+ */
+export const name: string;
 
-	/**
-	 * Browser name
-	 */
-	export const name: string;
-	
-	/**
-	 * Browser version
-	 */
-	export const version: string;
-}
+/**
+ * Browser version
+ */
+export const version: string;
