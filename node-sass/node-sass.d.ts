@@ -28,7 +28,7 @@ declare module "node-sass" {
         sourceMap?: boolean | string;
         sourceMapContents?: boolean;
         sourceMapEmbed?: boolean;
-        sourceMapRoot?: boolean;
+        sourceMapRoot?: string;
     }
 
     interface SassError extends Error {
