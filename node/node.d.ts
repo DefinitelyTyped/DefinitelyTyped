@@ -3165,7 +3165,7 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
         }
 
-        export interface TransformOptions extends ReadableOptions, WritableOptions {
+        export interface TransformOptions extends DuplexOptions {
             transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             flush?: (callback: Function) => any;
         }
