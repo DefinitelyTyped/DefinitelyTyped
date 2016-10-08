@@ -1,6 +1,3 @@
-/// <reference path="activex-data-objects.d.ts" />
-
-
 //open connection to an Excel file
 var pathToExcelFile = 'C:\\path\\to\\excel\\file.xlsx';
 var conn = new ActiveXObject('ADODB.Connection');

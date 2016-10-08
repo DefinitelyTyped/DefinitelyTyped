@@ -1,5 +1,3 @@
-/// <reference path="windows-image-acquisition.d.ts" />
-
 //source -- https://msdn.microsoft.com/en-us/library/windows/desktop/ms630826(v=vs.85).aspx
 
 
