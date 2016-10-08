@@ -1,5 +1,5 @@
 /// <reference path="node-sass.d.ts" />
-import sass = require('node-sass');
+import * as sass from 'node-sass';
 sass.render({
   file: '/path/to/myFile.scss',
   data: 'body{background:blue; a{color:black;}}',
