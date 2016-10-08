@@ -1064,8 +1064,6 @@ declare module "express-serve-static-core" {
     }
 
     interface Express extends Application {
-        (): Application;
-
         request: Request;
 
         response: Response;
