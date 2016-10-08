@@ -22,7 +22,7 @@ declare module "node-sass" {
         linefeed?: string;
         omitSourceMapUrl?: boolean;
         outFile?: string;
-        outputStyle?: string;
+        outputStyle?: "compact" | "compressed" | "expanded" | "nested";
         precision?: number;
         sourceComments?: boolean;
         sourceMap?: boolean | string;
