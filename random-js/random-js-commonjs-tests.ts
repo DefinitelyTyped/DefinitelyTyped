@@ -1,9 +1,10 @@
 /// <reference types="node"/>
 
+import Random = require('random-js');
+
 // Examples taken from the documentation at https://github.com/ckknight/random-js
 // create a Mersenne Twister-19937 that is auto-seeded based on time and other random values
-import Engine = random.Engine;
-import Random = random.Random;
+import Engine = Random.Engine;
 
 var engine: Engine = Random.engines.mt19937().autoSeed();
 // create a distribution that will consistently produce integers within inclusive range [0, 99].
