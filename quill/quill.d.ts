@@ -38,7 +38,7 @@ declare namespace QuillJS {
     type formatsType = { [key: string]: any };
 
     export interface QuillStatic {
-        new (selector: string, options?: QuillOptionsStatic): QuillStatic;
+        new (container: string | Element, options?: QuillOptionsStatic): QuillStatic;
         deleteText(start: number, end: number, source?: sourceType): void;
         disable(): void;
         enable(enabled?: boolean): void;
