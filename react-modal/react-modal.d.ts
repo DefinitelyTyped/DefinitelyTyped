@@ -22,8 +22,8 @@ declare module "react-modal" {
         closeTimeoutMS?: number,
         ariaHideApp?: boolean,
         shouldCloseOnOverlayClick?: boolean,
-	    overlayClassName?: string,
-	    className?: string
+        overlayClassName?: string,
+        className?: string
     }
     let ReactModal: __React.ClassicComponentClass<ReactModal>;
     export = ReactModal;
