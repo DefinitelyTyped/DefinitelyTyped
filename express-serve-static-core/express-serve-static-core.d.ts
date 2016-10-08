@@ -101,7 +101,7 @@ declare module "express-serve-static-core" {
         mkactivity: IRouterMatcher<this>;
         mkcol: IRouterMatcher<this>;
         move: IRouterMatcher<this>;
-        m-search: IRouterMatcher<this>;
+        "m-search": IRouterMatcher<this>;
         notify: IRouterMatcher<this>;
         purge: IRouterMatcher<this>;
         report: IRouterMatcher<this>;
@@ -139,7 +139,7 @@ declare module "express-serve-static-core" {
         mkactivity: IRouterHandler<this>;
         mkcol: IRouterHandler<this>;
         move: IRouterHandler<this>;
-        m-search: IRouterHandler<this>;
+        "m-search": IRouterHandler<this>;
         notify: IRouterHandler<this>;
         purge: IRouterHandler<this>;
         report: IRouterHandler<this>;
