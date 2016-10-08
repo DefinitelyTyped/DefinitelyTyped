@@ -91,6 +91,6 @@ declare namespace QuillJS {
 
 declare var Quill: QuillJS.QuillStatic;
 
-declare module "Quill" {
+declare module "quill" {
     export = Quill;
 }
