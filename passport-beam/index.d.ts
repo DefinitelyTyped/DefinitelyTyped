@@ -1,6 +1,6 @@
 // Type definitions for passport-beam 1.0.4
 // Project: https://github.com/alfw/passport-beam
-// Definitions by: AtlasDev <https://github.com/AtlasDev>		
+// Definitions by: AtlasDev <https://github.com/AtlasDev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference types="passport"/>
@@ -9,13 +9,13 @@
 import * as passport from 'passport';
 import * as express from  'express';
 
-declare class Strategy implements passport.Strategy {
+export class Strategy implements passport.Strategy {
 	constructor(options: Strategy.IStrategyOption, verify: (accessToken: string, refreshToken: string, profile: Strategy.Profile, done: (error: any, user?: any) => void) => void);
 	name: string;
 	authenticate: (req: express.Request, options?: Object) => void;
 }
 
-declare namespace Strategy {
+export namespace Strategy {
 	interface IStrategyOption {
 		clientID: string;
 		clientSecret: string;
@@ -28,9 +28,7 @@ declare namespace Strategy {
 		username: string;
 		provider: string;
 		email: string;
-		_raw: string;
+		_raw: any;
 		_json: any;
 	}
 }
-
-export = Strategy;
