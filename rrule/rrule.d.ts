@@ -169,7 +169,7 @@ declare namespace RRule {
       rrule(rrule: RRule): void;
       rdate(date: Date): void;
       exrule(rrule: RRule): void;
-      exdate(date: Date): RRuleSet;
+      exdate(date: Date): void;
       valueOf(): string[];
       /**
       * to generate recurrence field sush as:
