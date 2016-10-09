@@ -166,9 +166,9 @@ declare namespace RRule {
       * @constructor
       */
       constructor(noCache?: boolean);
-      rrule(rrule: RRule): undefined;
-      rdate(date: Date): undefined;
-      exrule(rrule: RRule): undefined;
+      rrule(rrule: RRule): void;
+      rdate(date: Date): void;
+      exrule(rrule: RRule): void;
       exdate(date: Date): RRuleSet;
       valueOf(): string[];
       /**
