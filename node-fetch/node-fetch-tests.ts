@@ -1,6 +1,4 @@
-﻿/// <reference path="node-fetch.d.ts" />
-
-import * as fetch from 'node-fetch';
+﻿import * as fetch from 'node-fetch';
 
 function test_fetchUrlWithOptions() {
 	var headers = new _fetch.Headers();

@@ -1,5 +1,3 @@
-/// <reference path='opentok.d.ts'' />
-
 import * as OpenTok from 'opentok';
 
 const client = new OpenTok('API_KEY', 'API_SECRET');

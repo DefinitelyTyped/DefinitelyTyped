@@ -1,5 +1,3 @@
-/// <reference path="uglifycss.d.ts" />
-
 import * as UglifyCSS from 'uglifycss';
 
 var test1 = UglifyCSS.processString('some css string');

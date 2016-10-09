@@ -1,4 +1,3 @@
-/// <reference path="proj4.d.ts"/>
 import * as proj4 from 'proj4'
 
 ///////////////////////////////////////////

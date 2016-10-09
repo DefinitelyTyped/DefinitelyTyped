@@ -1685,6 +1685,10 @@ declare module "react" {
 
 
     export interface NavigatorIOSProperties extends React.Props<NavigatorIOSStatic> {
+        /**
+         * The background color of the navigation bar
+         */
+        barTintColor?: string
 
         /**
          * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.

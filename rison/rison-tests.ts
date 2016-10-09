@@ -1,5 +1,3 @@
-/// <reference path="rison.d.ts" />
-
 rison.encode({hello: "world"});
 
 rison.encode_object({hello: "1", world: 2});

@@ -1,4 +1,3 @@
-/// <reference path="karma-fixture.d.ts" />
 
 fixture.setBase('fixtures/base/path');
 fixture.load('test1.html', 'test1.json', false);

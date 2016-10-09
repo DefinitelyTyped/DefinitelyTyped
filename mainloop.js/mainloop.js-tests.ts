@@ -1,5 +1,3 @@
-/// <reference path="mainloop.js.d.ts" />
-
 // To see what this test does, create an HTML file with these contents and open it:
 /*
 <!DOCTYPE html>

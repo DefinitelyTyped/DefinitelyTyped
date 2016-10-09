@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="mongodb" />
-/// <reference types="mpromise" />
 /// <reference types="node" />
-/// <reference types="mongoose-promise" />
 
 /*
  * Guidelines for maintaining these definitions:
@@ -698,7 +696,7 @@ declare module "mongoose" {
     /** defaults to true */
     validateBeforeSave?: boolean;
     /** defaults to "__v" */
-    versionKey?: boolean;
+    versionKey?: string;
     /**
      * skipVersioning allows excluding paths from
      * versioning (the internal revision will not be
@@ -717,7 +715,7 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument {
+  class MongooseDocument implements MongooseDocumentOptionals {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
@@ -872,14 +870,17 @@ declare module "mongoose" {
 
     /** Hash containing current validation errors. */
     errors: Object;
-    /** The string version of this documents _id. */
-    id: string;
     /** This documents _id. */
     _id: any;
     /** Boolean flag specifying if the document is new. */
     isNew: boolean;
     /** The documents schema. */
     schema: Schema;
+  }
+
+  interface MongooseDocumentOptionals {
+    /** The string version of this documents _id. */
+    id?: string;
   }
 
   interface DocumentToObjectOptions {

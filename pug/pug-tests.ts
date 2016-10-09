@@ -1,4 +1,3 @@
-/// <reference path="pug.d.ts"/>
 import * as pug from 'pug';
 
 

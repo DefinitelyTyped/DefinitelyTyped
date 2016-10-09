@@ -1,5 +1,3 @@
-/// <reference path="canvas-gauges.d.ts" />
-
 import {
     LinearGaugeOptions,
     RadialGaugeOptions,

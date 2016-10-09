@@ -3,7 +3,7 @@
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery"/>
 
 declare module DevExpress {
     /** A mixin that provides a capability to fire and subscribe to events. */

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-/// <reference path="../aws-sdk/index.d.ts" />
+/// <reference types="aws-sdk" />
 
 import * as fs from 'fs';
 import * as S3Stream from 's3-upload-stream';
