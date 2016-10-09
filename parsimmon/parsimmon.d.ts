@@ -1,6 +1,6 @@
 // Type definitions for Parsimmon 0.9.2
 // Project: https://github.com/jneen/parsimmon
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mizunashi Mana <https://github.com/mizunashi-mana>, Boris Cherny <https://github.com/bcherny>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Mizunashi Mana <https://github.com/mizunashi-mana>, Boris Cherny <https://github.com/bcherny>, Benny van Reeven <https://github.com/bvanreeven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO convert to generics
@@ -10,9 +10,18 @@ declare module 'parsimmon' {
 
 		export type StreamType = string;
 
+		export interface Index {
+			/** zero-based character offset */
+			offset: number;
+			/** one-based line offset */
+			line: number;
+			/** one-based column offset */
+			column: number;
+		}
+
 		export interface Mark<T> {
-			start: number;
-			end: number;
+			start: Index;
+			end: Index;
 			value: T;
 		}
 
@@ -20,7 +29,7 @@ declare module 'parsimmon' {
 			status: boolean;
 			value?: T;
 			expected?: string;
-			index?: number;
+			index?: Index;
 		}
 
 		export interface Parser<T> {
@@ -243,7 +252,7 @@ declare module 'parsimmon' {
 		/**
 		 * is a parser that yields the current index of the parse.
 		 */
-		export var index: Parser<number>;
+		export var index: Parser<Index>;
 		/**
 		 * Returns a parser that yield a single character if it passes the predicate
 		 */
