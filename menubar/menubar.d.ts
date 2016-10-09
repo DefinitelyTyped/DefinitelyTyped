@@ -49,8 +49,8 @@ declare namespace Menubar {
 		preloadWindow?: boolean;
 		width?: number;
 		height?: number;
-		x?: number | null;
-		y?: number | null;
+		x?: number;
+		y?: number;
 		alwaysOnTop?: boolean;
 		showOnAllWorkspaces?: boolean;
 		windowPosition?: Position;
