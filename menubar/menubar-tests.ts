@@ -1,4 +1,3 @@
-/// <reference path="../github-electron/github-electron.d.ts" />
 /// <reference path="./menubar.d.ts" />
 
 import * as menubar from "menubar";

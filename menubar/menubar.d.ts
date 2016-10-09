@@ -3,6 +3,9 @@
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../node/node.d.ts" />
+
 declare namespace Menubar {
 	type Position
 		= "trayLeft"
