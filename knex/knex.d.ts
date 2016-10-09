@@ -382,6 +382,8 @@ declare module "knex" {
       foreign(column: string): ForeignConstraintBuilder;
       foreign(columns: string[]): MultikeyForeignConstraintBuilder;
       dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
+      dropUnique(columnNames: string[], indexName?: string): TableBuilder;
+      dropPrimary(constraintName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
