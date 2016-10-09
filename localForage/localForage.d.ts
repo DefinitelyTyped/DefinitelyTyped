@@ -12,7 +12,7 @@ interface LocalForageOptions {
 
     storeName?: string;
 
-    version?: string;
+    version?: number;
 
     description?: string;
 }
