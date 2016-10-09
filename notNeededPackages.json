@@ -10,6 +10,12 @@
             "typingsPackageName": "moment",
             "sourceRepoURL": "https://github.com/moment/moment",
             "asOfVersion": "2.13.0"
+        },
+        {
+            "libraryName": "ng-table",
+            "typingsPackageName": "ng-table",
+            "sourceRepoURL": "https://github.com/esvit/ng-table",
+            "asOfVersion": "2.0.1"
         }
     ]
 }
