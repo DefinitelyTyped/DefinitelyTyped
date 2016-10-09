@@ -1,4 +1,4 @@
-/// <reference path="locutus.d.ts" />
+
 import locutus_c_math_abs = require('locutus/c/math/abs');
 import locutus_golang_strings_Contains = require('locutus/golang/strings/Contains');
 import locutus_golang_strings_Count = require('locutus/golang/strings/Count');

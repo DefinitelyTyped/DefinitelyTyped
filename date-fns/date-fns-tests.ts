@@ -1,5 +1,3 @@
-/// <reference path="date-fns.d.ts" />
-
 import {addDays, closestIndexTo, differenceInCalendarWeeks, max, isDate} from 'date-fns';
 import * as addHours from 'date-fns/add_hours';
 

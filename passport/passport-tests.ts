@@ -7,19 +7,34 @@ import passport = require('passport');
 
 class TestStrategy implements passport.Strategy {
   public name: string = 'test';
-  constructor() {}
-  authenticate(req: express.Request) {}
+  constructor() { }
+  authenticate(req: express.Request) { }
 }
 
+const newFramework:passport.Framework = {
+  initialize: function () {
+    return function () { };
+  },
+  authenticate: function (passport, name, options) {
+    return function () {
+      return 'authenticate(): ' + name + ' ' + options;
+    };
+  },
+  authorize: function (passport, name, options) {
+    return function () {
+      return 'authorize(): ' + name + ' ' + options;
+    }
+  }
+};
 passport.use(new TestStrategy());
-passport.framework('test');
-passport.serializeUser((user, done) => {});
-passport.deserializeUser((id, done) => {});
+passport.framework(newFramework);
+passport.serializeUser((user, done) => { });
+passport.deserializeUser((id, done) => { });
 
 passport.use(new TestStrategy())
   .unuse('test')
   .use(new TestStrategy())
-  .framework('test-fw');
+  .framework(newFramework);
 
 
 var app = express();
@@ -30,25 +45,25 @@ app.configure(() => {
 
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-  function(req, res) {
+  function (req, res) {
     res.redirect('/');
   });
 
-app.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err: any, user: { username: string; }, info: { message: string; }) {
+app.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err: any, user: { username: string; }, info: { message: string; }) {
     if (err) { return next(err) }
     if (!user) {
       req.session['error'] = info.message;
       return res.redirect('/login')
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, function (err) {
       if (err) { return next(err); }
       return res.redirect('/users/' + user.username);
     });
   })(req, res, next);
 });
 
-app.get('/logout', function(req, res) {
+app.get('/logout', function (req, res) {
   req.logout();
   res.redirect('/');
 });
@@ -76,8 +91,10 @@ function authSetting(): void {
       passport.authenticate('twitter', authOption));
 
   app.get('/auth/google',
-      passport.authenticate('google', { scope:
-        [ 'https://www.googleapis.com/auth/userinfo.profile' ] }));
+    passport.authenticate('google', {
+      scope:
+      ['https://www.googleapis.com/auth/userinfo.profile']
+    }));
   app.get('/auth/google/callback',
       passport.authenticate('google', authOption), successCallback);
 

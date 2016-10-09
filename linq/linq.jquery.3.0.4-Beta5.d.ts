@@ -3,8 +3,8 @@
 // Definitions by: neuecc <https://www.codeplex.com/site/users/view/neuecc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="linq.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference path="index.d.ts"/>
 
 declare module linqjs {
     interface IEnumerable<T> {

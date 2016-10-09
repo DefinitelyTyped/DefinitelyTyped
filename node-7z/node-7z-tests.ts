@@ -1,5 +1,3 @@
-/// <reference path="node-7z.d.ts" />
-
 import Zip = require('node-7z'); // Name the class as you want!
 var myTask = new Zip();
 myTask.extractFull('myArchive.7z', 'destination', { p: 'myPassword' })

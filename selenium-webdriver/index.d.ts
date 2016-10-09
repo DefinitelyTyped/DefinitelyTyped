@@ -2319,7 +2319,7 @@ declare namespace webdriver {
              *     resolved with the result of the invoked callback.
              * @template R
              */
-            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => R|IThenable<R>): Promise<R>;
+            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
@@ -2526,7 +2526,7 @@ declare namespace webdriver {
              * @return A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then(opt_callback?: Function, opt_errback?: Function): Promise<any>;
+            then<R>(opt_callback?: (value: T) => IThenable<R>|R, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous

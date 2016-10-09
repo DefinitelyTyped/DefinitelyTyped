@@ -13,7 +13,7 @@ declare function UrlRouterInternal(handler: (app: UrlRouterInternal.App) => void
 declare namespace UrlRouterInternal {
 
 
-    interface ServerRequest extends http.ServerRequest {
+    interface ServerRequest extends http.IncomingMessage {
         params: any;
     }
 

@@ -1,4 +1,4 @@
-/// <reference path="elasticsearch.d.ts"/>
+
 import elasticsearch = require("elasticsearch");
 
 var client = new elasticsearch.Client({
