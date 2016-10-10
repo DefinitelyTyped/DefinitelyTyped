@@ -332,7 +332,7 @@ declare namespace moment {
         locales() : string[];
         localeData(language: string): Moment;
         localeData(reset: boolean): Moment;
-        localeData(): MomentLanguage;
+        localeData(): MomentLanguageData;
 
         /**
          * @deprecated since version 2.7.0

@@ -8,10 +8,11 @@ interface HeadroomOptions {
 	tolerance?: any;
 	classes?: {
 		initial?: string;
-		pinned?: string;
-		unpinned?: string;
-		top?: string;
+		notBottom?:string;
 		notTop?: string;
+		pinned?: string;
+		top?: string;
+		unpinned?: string;
 	};
 	scroller?: Element;
 	onPin?: () => void;

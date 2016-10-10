@@ -39,7 +39,9 @@ interface Body {
 }
 
 declare type RequestInfo = Request | string;
-interface Request extends Body {
+declare class Request {
+	constructor(input: RequestInfo, init?: RequestInit);
+	
     method: string;
     url: string;
     headers: Headers;
@@ -56,6 +58,7 @@ interface Request extends Body {
 
     clone(): Request;
 }
+interface Request extends Body {}
 interface RequestInit {
     method?: string;
     headers?: HeadersInit;
@@ -69,10 +72,6 @@ interface RequestInit {
     integrity?: string;
     window?: any;
 }
-interface RequestConstructor {
-    new (input: RequestInfo, init?: RequestInit): Request;
-}
-declare var Request: RequestConstructor;
 
 type RequestType = "" | "audio" | "font" | "image" | "script" | "style" | "track" | "video";
 type RequestDestination = "" | "document" | "embed" | "font" | "image" | "manifest" | "media" | "object" | "report" | "script" | "serviceworker" | "sharedworker" | "style" | "worker" | "xslt";
@@ -82,7 +81,12 @@ type RequestCache = "default" | "no-store" | "reload" | "no-cache" | "force-cach
 type RequestRedirect = "follow" | "error" | "manual";
 type ReferrerPolicy = "" | "no-referrer" | "no-referrer-when-downgrade" | "same-origin" | "origin" | "strict-origin" | "origin-when-cross-origin" | "strict-origin-when-cross-origin" | "unsafe-url";
 
-interface Response extends Body {
+declare class Response {
+    constructor(body?: BodyInit, init?: ResponseInit);
+
+    static error(): Response;
+    static redirect(url: string, status?: number): Response;
+
     type: ResponseType;
     url: string;
     redirected: boolean;
@@ -95,17 +99,11 @@ interface Response extends Body {
 
     clone(): Response;
 }
+interface Response extends Body {}
 interface ResponseInit {
     status?: number;
     statusText?: string;
     headers?: HeadersInit;
 }
-interface ResponseConstructor {
-    new (body?: BodyInit, init?: ResponseInit): Response;
-
-    error(): Response;
-    redirect(url: string, status?: number): Response;
-}
-declare var Response: ResponseConstructor;
 
 type ResponseType = "basic" | "cors" | "default" | "error" | "opaque" | "opaqueredirect";
