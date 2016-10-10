@@ -1,6 +1,3 @@
-/// <reference path="microsoft-scripting-runtime.d.ts" />
-
-
 //source -- https://msdn.microsoft.com/en-us/library/ebkhfaaz.aspx
 
 

@@ -7,8 +7,13 @@
     var SCREEN_WIDTH = window.innerWidth;
     var SCREEN_HEIGHT = window.innerHeight;
 
-    var container, stats;
-    var camera, scene, renderer, mesh;
+    var container: HTMLElement;
+    var stats: Stats;
+    var camera: THREE.PerspectiveCamera;
+    var scene: THREE.Scene;
+    var renderer: THREE.WebGLRenderer;
+    var mesh: THREE.Mesh;
+
     var cameraRig, activeCamera, activeHelper;
     var cameraPerspective, cameraOrtho;
     var cameraPerspectiveHelper, cameraOrthoHelper;
@@ -112,7 +117,7 @@
         //
 
         stats = new Stats();
-        container.appendChild( stats.domElement );
+        container.appendChild( stats.dom );
 
         //
 
