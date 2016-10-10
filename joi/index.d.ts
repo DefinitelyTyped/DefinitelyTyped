@@ -121,17 +121,17 @@ export interface IPOptions {
 }
 
 export interface ValidationError extends Error {
-    message: string;
+    isJoi: boolean;
     details: ValidationErrorItem[];
-    simple(): string;
-    annotated(): string;
+    annotate(): string;
+    _object: any;
 }
 
 export interface ValidationErrorItem {
     message: string;
     type: string;
     path: string;
-    options?: ValidationOptions;
+    context?: any;
 }
 
 export interface ValidationResult<T> {
