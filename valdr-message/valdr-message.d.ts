@@ -31,7 +31,7 @@ declare namespace valdr.message {
          * Adds messages for AngularJS build-in validators (eg "required" and "number") or for specific fields (eg "Person.lastName.required").
          * @param messages the list of key/value pairs.
          */
-        addMessages(messages: any): void;
+        addMessages(messages: {[key:string]: string}): void;
 
         /**
          * Gets the validator message.
@@ -51,7 +51,7 @@ declare namespace valdr.message {
         setTemplate(template: string): void;
 
         /**
-         * Sets the URL for the default message template (eg "/partials/valdrMesssageTemplate.html").
+         * Sets the URL for the default message template (eg "/partials/valdrMessageTemplate.html").
          * @param url the URL of the default message template.
          */
         setTemplateUrl(url: string): void;
@@ -60,7 +60,7 @@ declare namespace valdr.message {
          * Adds messages for AngularJS build-in validators (eg "required" and "number") or for specific fields (eg "Person.lastName.required").
          * @param messages the list of key/value pairs.
          */
-        addMessages(messages: any): void;
+        addMessages(messages: {[key:string]: string}): void;
 
         /**
          * Gets the validator message.

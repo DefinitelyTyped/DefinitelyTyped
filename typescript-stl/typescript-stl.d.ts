@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.1.0
+// Type definitions for TypeScript-STL v1.1.2
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,93 +22,6 @@ declare module "typescript-stl"
  * @author Jeongho Nam <http://samchon.org>
  */
 declare namespace std {
-    /**
-     * Type definition of {@link Vector} and it's the original name used in C++.
-     */
-    export import vector = Vector;
-    /**
-     * Type definition of {@link List} and it's the original name used in C++.
-     */
-    export import list = List;
-    /**
-     * Type definition of {@link Deque} and it's the original name used in C++.
-     */
-    export import deque = Deque;
-    /**
-     * Type definition of {@link Stack} and it's the original name used in C++.
-     */
-    type stack<T> = Stack<T>;
-    /**
-     * Type definition of {@link Queue} and it's the original name used in C++.
-     */
-    type queue<T> = Queue<T>;
-    /**
-     * Type definition of {@link PriorityQueue} and it's the original name used in C++.
-     */
-    type priority_queue<T> = PriorityQueue<T>;
-    var stack: typeof Stack;
-    var queue: typeof Queue;
-    var priority_queue: typeof PriorityQueue;
-    /**
-     * Type definition of {@link TreeSet} and it's the original name used in C++.
-     */
-    export import set = TreeSet;
-    /**
-     * Type definition of {@link TreeMultiSet} and it's the original name used in C++.
-     */
-    export import multiset = TreeMultiSet;
-    /**
-     * Type definition of {@link HashSet} and it's the original name used in C++.
-     */
-    export import unordered_set = HashSet;
-    /**
-     * Type definition of {@link HashMultiSet} and it's the original name used in C++.
-     */
-    export import unordered_multiset = HashMultiSet;
-    /**
-     * Type definition of {@link TreeMap} and it's the original name used in C++.
-     */
-    export import map = TreeMap;
-    /**
-     * Type definition of {@link TreeMultiMap} and it's the original name used in C++.
-     */
-    export import multimap = TreeMultiMap;
-    /**
-     * Type definition of {@link HashMap} and it's the original name used in C++.
-     */
-    export import unordered_map = HashMap;
-    /**
-     * Type definition of {@link HashMultiMap} and it's the original name used in C++.
-     */
-    export import unordered_multimap = HashMultiMap;
-    type exception = Exception;
-    type logic_error = LogicError;
-    type domain_error = DomainError;
-    type invalid_argument = InvalidArgument;
-    type length_error = LengthError;
-    type out_of_range = OutOfRange;
-    type runtime_error = RuntimeError;
-    type overflow_error = OverflowError;
-    type underflow_error = UnderflowError;
-    type range_error = RangeError;
-    type system_error = SystemError;
-    type error_category = ErrorCategory;
-    type error_condition = ErrorCondition;
-    type error_code = ErrorCode;
-    var exception: typeof Exception;
-    var logic_error: typeof LogicError;
-    var domain_error: typeof DomainError;
-    var invalid_argument: typeof InvalidArgument;
-    var length_error: typeof LengthError;
-    var out_of_range: typeof OutOfRange;
-    var runtime_error: typeof RuntimeError;
-    var overflow_error: typeof OverflowError;
-    var underflow_error: typeof UnderflowError;
-    var range_error: typeof RangeError;
-    var system_error: typeof SystemError;
-    var error_category: typeof ErrorCategory;
-    var error_condition: typeof ErrorCondition;
-    var error_code: typeof ErrorCode;
 }
 /**
  * Base classes composing STL in background.
@@ -738,7 +651,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the destination range where elements have been copied.
      */
-    function copy<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator): OutputIterator;
+    function copy<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator): OutputIterator;
     /**
      * <p> Copy elements. </p>
      *
@@ -762,7 +675,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the destination range where elements have been copied.
      */
-    function copy_n<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, n: number, result: OutputIterator): OutputIterator;
+    function copy_n<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, n: number, result: OutputIterator): OutputIterator;
     /**
      * <p> Copy certain elements of range. </p>
      *
@@ -781,7 +694,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the destination range where elements have been copied.
      */
-    function copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (x: T) => boolean): OutputIterator;
+    function copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (x: T) => boolean): OutputIterator;
     /**
      * <p> Copy range of elements backward. </p>
      *
@@ -808,7 +721,7 @@ declare namespace std {
      *
      * @return An iterator to the first element of the destination sequence where elements have been copied.
      */
-    function copy_backward<T, BidirectionalIterator1 extends Iterator<T>, BidirectionalIterator2 extends Iterator<T>>(first: BidirectionalIterator1, last: BidirectionalIterator1, result: BidirectionalIterator2): BidirectionalIterator2;
+    function copy_backward<T, BidirectionalIterator1 extends Iterator<T>, BidirectionalIterator2 extends base.ILinearIterator<T>>(first: BidirectionalIterator1, last: BidirectionalIterator1, result: BidirectionalIterator2): BidirectionalIterator2;
     /**
      * <p> Fill range with value. </p>
      *
@@ -822,7 +735,7 @@ declare namespace std {
      *				but not the element pointed by <i>last</i>.
      * @param val Value to assign to the elements in the filled range.
      */
-    function fill<T, ForwardIterator extends Iterator<T>>(first: ForwardIterator, last: ForwardIterator, val: T): void;
+    function fill<T, ForwardIterator extends base.ILinearIterator<T>>(first: ForwardIterator, last: ForwardIterator, val: T): void;
     /**
      * <p> Fill sequence with value. </p>
      *
@@ -835,7 +748,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element filled.
      */
-    function fill_n<T, OutputIterator extends Iterator<T>>(first: OutputIterator, n: number, val: T): OutputIterator;
+    function fill_n<T, OutputIterator extends base.ILinearIterator<T>>(first: OutputIterator, n: number, val: T): OutputIterator;
     /**
      * <p> Transform range. </p>
      *
@@ -853,7 +766,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element written in the <i>result</i> sequence.
      */
-    function transform<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, op: (val: T) => T): OutputIterator;
+    function transform<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, op: (val: T) => T): OutputIterator;
     /**
      * <p> Transform range. </p>
      *
@@ -874,7 +787,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element written in the <i>result</i> sequence.
      */
-    function transform<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, result: OutputIterator, binary_op: (x: T, y: T) => T): OutputIterator;
+    function transform<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, result: OutputIterator, binary_op: (x: T, y: T) => T): OutputIterator;
     /**
      * <p> Generate values for range with function. </p>
      *
@@ -888,7 +801,7 @@ declare namespace std {
      * @param gen Generator function that is called with no arguments and returns some value of a type convertible to
      *			  those pointed by the iterators.
      */
-    function generate<T, ForwardIterator extends Iterator<T>>(first: ForwardIterator, last: ForwardIterator, gen: () => T): void;
+    function generate<T, ForwardIterator extends base.ILinearIterator<T>>(first: ForwardIterator, last: ForwardIterator, gen: () => T): void;
     /**
      * <p> Generate values for sequence with function. </p>
      *
@@ -903,7 +816,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element whose value has been generated.
      */
-    function generate_n<T, ForwardIterator extends Iterator<T>>(first: ForwardIterator, n: number, gen: () => T): ForwardIterator;
+    function generate_n<T, ForwardIterator extends base.ILinearIterator<T>>(first: ForwardIterator, n: number, gen: () => T): ForwardIterator;
     /**
      * <p> Remove consecutive duplicates in range. </p>
      *
@@ -975,7 +888,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the end of the copied range, which contains no consecutive duplicates.
      */
-    function unique_copy<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator): OutputIterator;
+    function unique_copy<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator): OutputIterator;
     /**
      * <p> Copy range removing duplicates. </p>
      *
@@ -1001,7 +914,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the end of the copied range, which contains no consecutive duplicates.
      */
-    function unique_copy<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (x: T, y: T) => boolean): OutputIterator;
+    function unique_copy<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (x: T, y: T) => boolean): OutputIterator;
     /**
      * <p> Remove value from range. </p>
      *
@@ -1069,7 +982,7 @@ declare namespace std {
      * @return An iterator pointing to the end of the copied range, which includes all the elements in
      *		   [<i>first</i>, <i>last</i>) except those that compare equal to <i>val</i>.
      */
-    function remove_copy<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, val: T): OutputIterator;
+    function remove_copy<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, val: T): OutputIterator;
     /**
      * <p> Copy range removing values. </p>
      *
@@ -1093,7 +1006,7 @@ declare namespace std {
      * @return An iterator pointing to the end of the copied range, which includes all the elements in
      *		   [<i>first</i>, <i>last</i>) except those for which <i>pred</i> returns <code>true</code>.
      */
-    function remove_copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (val: T) => boolean): OutputIterator;
+    function remove_copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (val: T) => boolean): OutputIterator;
     /**
      * <p> Replace value in range. </p>
      *
@@ -1109,7 +1022,7 @@ declare namespace std {
      * @param old_val Value to be replaced.
      * @param new_val Replacement value.
      */
-    function replace<T, InputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, old_val: T, new_val: T): void;
+    function replace<T, InputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, old_val: T, new_val: T): void;
     /**
      * <p> Replace value in range. </p>
      *
@@ -1125,7 +1038,7 @@ declare namespace std {
      *			   <code>true</code>, it is replaced). The function shall not modify its argument.
      * @param new_val Value to assign to replaced elements.
      */
-    function replace_if<T, InputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, pred: (val: T) => boolean, new_val: T): void;
+    function replace_if<T, InputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, pred: (val: T) => boolean, new_val: T): void;
     /**
      * <p> Copy range replacing value. </p>
      *
@@ -1149,7 +1062,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element written in the result sequence.
      */
-    function replace_copy<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, old_val: T, new_val: T): OutputIterator;
+    function replace_copy<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, old_val: T, new_val: T): OutputIterator;
     /**
      * <p> Copy range replacing value. </p>
      *
@@ -1170,7 +1083,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the element that follows the last element written in the result sequence.
      */
-    function replace_copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (val: T) => boolean, new_val: T): OutputIterator;
+    function replace_copy_if<T, InputIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result: OutputIterator, pred: (val: T) => boolean, new_val: T): OutputIterator;
     /**
      * <p> Exchange values of objects pointed to by two iterators. </p>
      *
@@ -1230,7 +1143,7 @@ declare namespace std {
      * @return An output iterator pointing to the end of the copied range, which contains the same elements in reverse
      *		   order.
      */
-    function reverse_copy<T, BidirectionalIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator, result: OutputIterator): OutputIterator;
+    function reverse_copy<T, BidirectionalIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: BidirectionalIterator, last: BidirectionalIterator, result: OutputIterator): OutputIterator;
     /**
      * <p> Rotate left the elements in range. </p>
      *
@@ -1266,7 +1179,7 @@ declare namespace std {
      *
      * @return An output iterator pointing to the end of the copied range.
      */
-    function rotate_copy<T, ForwardIterator extends Iterator<T>, OutputIterator extends Iterator<T>>(first: ForwardIterator, middle: ForwardIterator, last: ForwardIterator, result: OutputIterator): OutputIterator;
+    function rotate_copy<T, ForwardIterator extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first: ForwardIterator, middle: ForwardIterator, last: ForwardIterator, result: OutputIterator): OutputIterator;
     /**
      * <p> Randomly rearrange elements in range. </p>
      *
@@ -2147,7 +2060,7 @@ declare namespace std {
      *		   member {@link Pair.second second} points to the element that follows the last element copied to the sequence
      *		   of elements for which <i>pred</i> returned <code>false</code>.
      */
-    function partition_copy<T, InputIterator extends Iterator<T>, OutputIterator1 extends Iterator<T>, OutputIterator2 extends Iterator<T>>(first: InputIterator, last: InputIterator, result_true: OutputIterator1, result_false: OutputIterator2, pred: (val: T) => T): Pair<OutputIterator1, OutputIterator2>;
+    function partition_copy<T, InputIterator extends Iterator<T>, OutputIterator1 extends base.ILinearIterator<T>, OutputIterator2 extends base.ILinearIterator<T>>(first: InputIterator, last: InputIterator, result_true: OutputIterator1, result_false: OutputIterator2, pred: (val: T) => T): Pair<OutputIterator1, OutputIterator2>;
     /**
      * <p> Get partition point. </p>
      *
@@ -2196,7 +2109,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the past-the-end element in the resulting sequence.
      */
-    function merge<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
+    function merge<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
     /**
      * <p> Merge sorted ranges. </p>
      *
@@ -2222,7 +2135,7 @@ declare namespace std {
      *
      * @return An iterator pointing to the past-the-end element in the resulting sequence.
      */
-    function merge<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
+    function merge<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
     /**
      * <p> Merge consecutive sorted ranges. </p>
      *
@@ -2353,7 +2266,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_union<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
+    function set_union<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
     /**
      * <p> Union of two sorted ranges. </p>
      *
@@ -2386,7 +2299,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_union<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
+    function set_union<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
     /**
      * <p> Intersection of two sorted ranges. </p>
      *
@@ -2414,7 +2327,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_intersection<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
+    function set_intersection<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
     /**
      * <p> Intersection of two sorted ranges. </p>
      *
@@ -2446,7 +2359,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_intersection<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
+    function set_intersection<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
     /**
      * <p> Difference of two sorted ranges. </p>
      *
@@ -2480,7 +2393,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
+    function set_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
     /**
      * <p> Difference of two sorted ranges. </p>
      *
@@ -2518,7 +2431,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
+    function set_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
     /**
      * <p> Symmetric difference of two sorted ranges. </p>
      *
@@ -2552,7 +2465,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_symmetric_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
+    function set_symmetric_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator): OutputIterator;
     /**
      * <p> Symmetric difference of two sorted ranges. </p>
      *
@@ -2586,7 +2499,7 @@ declare namespace std {
      *
      * @return An iterator to the end of the constructed range.
      */
-    function set_symmetric_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends Iterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
+    function set_symmetric_difference<T, InputIterator1 extends Iterator<T>, InputIterator2 extends Iterator<T>, OutputIterator extends base.ILinearIterator<T>>(first1: InputIterator1, last1: InputIterator1, first2: InputIterator2, last2: InputIterator2, result: OutputIterator, compare: (x: T, y: T) => boolean): OutputIterator;
 }
 declare namespace std {
     /**
@@ -2844,7 +2757,7 @@ declare namespace std.base {
         /**
          * @inheritdoc
          */
-        abstract push<U extends T>(...items: U[]): number;
+        abstract push(...items: T[]): number;
         /**
          * @inheritdoc
          */
@@ -4594,11 +4507,11 @@ declare namespace std.base {
         /**
          * @inheritdoc
          */
-        push<L extends Key, U extends T>(...args: Pair<L, U>[]): number;
+        push(...args: Pair<Key, T>[]): number;
         /**
          * @inheritdoc
          */
-        push<L extends Key, U extends T>(...args: [Key, T][]): number;
+        push(...args: [Key, T][]): number;
         /**
          * Construct and insert element with hint
          *
@@ -4843,6 +4756,18 @@ declare namespace std.base {
          */
         private erase_by_range(begin, end);
         /**
+         * @hidden
+         */
+        protected _Swap(obj: MapContainer<Key, T>): void;
+        /**
+         * Merge two maps.
+         *
+         * Extracts and transfers elements from *source* to this container.
+         *
+         * @param source A {@link MapContainer map container} to transfer the elements from.
+         */
+        abstract merge<L extends Key, U extends T>(source: MapContainer<L, U>): void;
+        /**
          * <p> Abstract method handling insertions for indexing. </p>
          *
          * <p> This method, {@link _Handle_insert} is designed to register the <i>first to last</i> to somewhere storing
@@ -4885,10 +4810,6 @@ declare namespace std.base {
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
         protected abstract _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
-        /**
-         * @hidden
-         */
-        protected _Swap(obj: MapContainer<Key, T>): void;
     }
 }
 declare namespace std {
@@ -5067,50 +4988,6 @@ declare namespace std.base {
          * @param val Value, the item.
          */
         set(key: Key, val: T): void;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
-         *
-         * @param key Key value of the element whose mapped value is accessed.
-         *
-         * @return A {@link Pair} containing the value pointed to by <i>key</i>.
-         */
-        extract(key: Key): Pair<Key, T>;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
-         *
-         * @param it An iterator pointing an element to extract.
-         *
-         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
-         *		   erased. If no such element exists,returns {@link end end()}.
-         */
-        extract(it: MapIterator<Key, T>): MapIterator<Key, T>;
-        /**
-         * <p> Extract an element. </p>
-         *
-         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
-         *
-         * @param it An iterator pointing an element to extract.
-         *
-         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
-         *		   erased. If no such element exists,returns {@link end end()}.
-         */
-        extract(it: MapReverseIterator<Key, T>): MapReverseIterator<Key, T>;
-        /**
-         * @hidden
-         */
-        private extract_by_key(key);
-        /**
-         * @hidden
-         */
-        private extract_by_iterator(it);
-        /**
-         * @hidden
-         */
-        private extract_by_reverse_iterator(it);
         /**
          * Construct and insert element.
          *
@@ -5293,6 +5170,61 @@ declare namespace std.base {
          * @hidden
          */
         private insert_or_assign_with_hint(hint, key, value);
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
+         *
+         * @param key Key value of the element whose mapped value is accessed.
+         *
+         * @return A {@link Pair} containing the value pointed to by <i>key</i>.
+         */
+        extract(key: Key): Pair<Key, T>;
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
+         *
+         * @param it An iterator pointing an element to extract.
+         *
+         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
+         *		   erased. If no such element exists,returns {@link end end()}.
+         */
+        extract(it: MapIterator<Key, T>): MapIterator<Key, T>;
+        /**
+         * <p> Extract an element. </p>
+         *
+         * <p> Extracts the element pointed to by <i>key</i> and erases it from the {@link UniqueMap}. </p>
+         *
+         * @param it An iterator pointing an element to extract.
+         *
+         * @return An iterator pointing to the element immediately following <i>it</i> prior to the element being
+         *		   erased. If no such element exists,returns {@link end end()}.
+         */
+        extract(it: MapReverseIterator<Key, T>): MapReverseIterator<Key, T>;
+        /**
+         * @hidden
+         */
+        private extract_by_key(key);
+        /**
+         * @hidden
+         */
+        private extract_by_iterator(it);
+        /**
+         * @hidden
+         */
+        private extract_by_reverse_iterator(it);
+        /**
+         * Merge two maps.
+         *
+         * Attempts to extract each element in *source* and insert it into this container. If there's an element in this
+         * container with key equivalent to the key of an element from *source*, tnen that element is not extracted from
+         * the *source*. Otherwise, no element with same key exists in this container, then that element will be
+         * transfered from the *source* to this container.
+         *
+         * @param source A {@link MapContainer map container} to transfer the elements from.
+         */
+        merge<L extends Key, U extends T>(source: MapContainer<L, U>): void;
     }
 }
 declare namespace std.base {
@@ -5419,6 +5351,10 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<L extends Key, U extends T, InputIterator extends Iterator<Pair<L, U>>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        merge<L extends Key, U extends T>(source: MapContainer<L, U>): void;
     }
 }
 declare namespace std.HashMap {
@@ -5638,8 +5574,8 @@ declare namespace std {
      * <p> Elements with equivalent <i>keys</i> are grouped together in the same bucket and in such a way that
      * an iterator can iterate through all of them. Iterators in the container are doubly linked iterators. </p>
      *
-     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram" target="_blank">
-     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram" style="max-width: 100%" /> </a>
+     * <p> <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" target="_blank">
+     * <img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/map_containers.png" style="max-width: 100%" /> </a>
      * </p>
      *
      * <h3> Container properties </h3>
@@ -5926,7 +5862,7 @@ declare namespace std.base {
         /**
          * @inheritdoc
          */
-        push<U extends T>(...args: U[]): number;
+        push(...args: T[]): number;
         /**
          * <p> Insert an element with hint. </p>
          *
@@ -6027,6 +5963,18 @@ declare namespace std.base {
          */
         private erase_by_range(begin, end);
         /**
+         * @hidden
+         */
+        protected _Swap(obj: SetContainer<T>): void;
+        /**
+         * Merge two sets.
+         *
+         * Extracts and transfers elements from *source* to this container.
+         *
+         * @param source A {@link SetContainer set container} to transfer the elements from.
+         */
+        abstract merge<U extends T>(source: SetContainer<U>): void;
+        /**
          * <p> Abstract method handling insertions for indexing. </p>
          *
          * <p> This method, {@link _Handle_insert} is designed to register the <i>first to last</i> to somewhere storing
@@ -6069,10 +6017,6 @@ declare namespace std.base {
          *			   including the element pointed by <i>first</i> but not the element pointed by <i>last</i>.
          */
         protected abstract _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
-        /**
-         * @hidden
-         */
-        protected _Swap(obj: SetContainer<T>): void;
     }
 }
 declare namespace std {
@@ -6220,6 +6164,10 @@ declare namespace std.base {
          * @inheritdoc
          */
         insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        merge<U extends T>(source: SetContainer<U>): void;
     }
 }
 declare namespace std.HashMultiSet {
@@ -6452,6 +6400,38 @@ declare namespace std.base {
          */
         count(key: T): number;
         /**
+         * <p> Insert an element. </p>
+         *
+         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
+         * the number of element inserted (zero or one). </p>
+         *
+         * <p> Because elements in a {@link UniqueSet UniqueSets} are unique, the insertion operation checks whether
+         * each inserted element is equivalent to an element already in the container, and if so, the element is not
+         * inserted, returning an iterator to this existing element (if the function returns a value). </p>
+         *
+         * <p> For a similar container allowing for duplicate elements, see {@link MultiSet}. </p>
+         *
+         * @param key Value to be inserted as an element.
+         *
+         * @return A {@link Pair}, with its member {@link Pair.first} set to an iterator pointing to either the newly
+         *		   inserted element or to the equivalent element already in the {@link UniqueSet}. The
+         *		   {@link Pair.second} element in the {@link Pair} is set to true if a new element was inserted or
+         *		   false if an equivalent element already existed.
+         */
+        insert(val: T): Pair<SetIterator<T>, boolean>;
+        /**
+         * @inheritdoc
+         */
+        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        /**
          * <p> Extract an element. </p>
          *
          * <p> Extracts the element pointed to by <i>val</i> and erases it from the {@link UniqueSet}. </p>
@@ -6496,37 +6476,16 @@ declare namespace std.base {
          */
         private extract_by_reverse_iterator(it);
         /**
-         * <p> Insert an element. </p>
+         * Merge two sets.
          *
-         * <p> Extends the container by inserting new elements, effectively increasing the container {@link size} by
-         * the number of element inserted (zero or one). </p>
+         * Attempts to extract each element in *source* and insert it into this container. If there's an element in this
+         * container with key equivalent to the key of an element from *source*, tnen that element is not extracted from
+         * the *source*. Otherwise, no element with same key exists in this container, then that element will be
+         * transfered from the *source* to this container.
          *
-         * <p> Because elements in a {@link UniqueSet UniqueSets} are unique, the insertion operation checks whether
-         * each inserted element is equivalent to an element already in the container, and if so, the element is not
-         * inserted, returning an iterator to this existing element (if the function returns a value). </p>
-         *
-         * <p> For a similar container allowing for duplicate elements, see {@link MultiSet}. </p>
-         *
-         * @param key Value to be inserted as an element.
-         *
-         * @return A {@link Pair}, with its member {@link Pair.first} set to an iterator pointing to either the newly
-         *		   inserted element or to the equivalent element already in the {@link UniqueSet}. The
-         *		   {@link Pair.second} element in the {@link Pair} is set to true if a new element was inserted or
-         *		   false if an equivalent element already existed.
+         * @param source A {@link SetContainer set container} to transfer the elements from.
          */
-        insert(val: T): Pair<SetIterator<T>, boolean>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetIterator<T>, val: T): SetIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert(hint: SetReverseIterator<T>, val: T): SetReverseIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        insert<U extends T, InputIterator extends Iterator<U>>(begin: InputIterator, end: InputIterator): void;
+        merge<U extends T>(source: SetContainer<U>): void;
     }
 }
 declare namespace std.HashSet {
@@ -6859,7 +6818,7 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        push<U extends T>(...items: U[]): number;
+        push(...items: T[]): number;
         /**
          * @inheritdoc
          */
@@ -7410,7 +7369,7 @@ declare namespace std {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class ListReverseIterator<T> extends ReverseIterator<T, ListIterator<T>, ListReverseIterator<T>> {
+    class ListReverseIterator<T> extends ReverseIterator<T, ListIterator<T>, ListReverseIterator<T>> implements base.ILinearIterator<T> {
         /**
          * Construct from base iterator.
          *
@@ -8664,7 +8623,7 @@ declare namespace std {
      * <p> In a {@link TreeMultiSet}, the value of an element also identifies it (the value is itself
      * the <i>key</i>, of type <i>T</i>). The value of the elements in a {@link TreeMultiSet} cannot
      * be modified once in the container (the elements are always const), but they can be inserted or removed
-     * from the  </p>
+     * from the container. </p>
      *
      * <p> Internally, the elements in a {@link TreeMultiSet TreeMultiSets} are always sorted following a strict
      * weak ordering criterion indicated by its internal comparison method (of {@link IComparable.less less}). </p>
@@ -8848,7 +8807,7 @@ declare namespace std {
      * <p> In a {@link TreeSet}, the value of an element also identifies it (the value is itself the
      * <i>key</i>, of type <i>T</i>), and each value must be unique. The value of the elements in a
      * {@link TreeSet} cannot be modified once in the container (the elements are always const), but they
-     * can be inserted or removed from the  </p>
+     * can be inserted or removed from the container. </p>
      *
      * <p> Internally, the elements in a {@link TreeSet} are always sorted following a specific strict weak
      * ordering criterion indicated by its internal comparison method (of {@link less}). </p>
@@ -9096,12 +9055,12 @@ declare namespace std {
      * <p> Just like arrays, {@link Vector}s use contiguous storage locations for their elements, which means that
      * their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently
      * as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled
-     * automatically by the  </p>
+     * automatically by the container. </p>
      *
      * <p> Internally, {@link Vector}s use a dynamically allocated array to store their elements. This array may need
      * to be reallocated in order to grow in size when new elements are inserted, which implies allocating a new
      * array and moving all elements to it. This is a relatively expensive task in terms of processing time, and
-     * thus, {@link Vector}s do not reallocate each time an element is added to the  </p>
+     * thus, {@link Vector}s do not reallocate each time an element is added to the container. </p>
      *
      * <p> Instead, {@link Vector} containers may allocate some extra storage to accommodate for possible growth, and
      * thus the container may have an actual {@link capacity} greater than the storage strictly needed to contain its
@@ -9508,7 +9467,7 @@ declare namespace std {
          *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
          *			  {@link container Vector}.
          */
-        obj(obj: Vector<T>): void;
+        swap(obj: Vector<T>): void;
         /**
          * @inheritdoc
          */
@@ -10429,8 +10388,6 @@ declare namespace std.base {
          */
         set(index: number, val: T): void;
     }
-}
-declare namespace std.base {
     /**
      * <p> Random-access iterator. </p>
      *
@@ -10451,7 +10408,7 @@ declare namespace std.base {
      * @reference http://www.cplusplus.com/reference/iterator/RandomAccessIterator
      * @author Jeongho Nam <http://samchon.org>
      */
-    interface IArrayIterator<T> extends Iterator<T> {
+    interface IArrayIterator<T> extends ILinearIterator<T> {
         /**
          * Get index, sequence number of the iterator in the source {@link IArray array}.
          *
@@ -10596,7 +10553,7 @@ declare namespace std.base {
          *
          * @return New size of the Container.
          */
-        push<U extends T>(...items: U[]): number;
+        push(...items: T[]): number;
         /**
          * <p> Insert an element. </p>
          *
@@ -10806,6 +10763,29 @@ declare namespace std.base {
          * @return An iterator that points to the first of the newly inserted elements.
          */
         insert<U extends T, InputIterator extends Iterator<U>>(position: Iterator<T>, begin: InputIterator, end: InputIterator): Iterator<T>;
+    }
+    /**
+     * An interface for iterators from linear containers.
+     *
+     * {@link ILieanerIterator} is an bi-directional iterator which is created from the related
+     * {@link ILinearContainer linear containers}. Not only accessing to {@link value} of the pointed element from
+     * this {@link ILieanerIterator}, but also modifying the {@link value} is possible.
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    interface ILinearIterator<T> extends Iterator<T> {
+        /**
+         * @inheritdoc
+         */
+        value: T;
+        /**
+         * @inheritdoc
+         */
+        prev(): ILinearIterator<T>;
+        /**
+         * @inheritdoc
+         */
+        next(): ILinearIterator<T>;
     }
 }
 declare namespace std.base {
@@ -12086,4 +12066,93 @@ declare namespace std.base {
          */
         uncle: XTreeNode<T>;
     }
+}
+declare namespace std {
+    /**
+     * Type definition of {@link Vector} and it's the original name used in C++.
+     */
+    export import vector = Vector;
+    /**
+     * Type definition of {@link List} and it's the original name used in C++.
+     */
+    export import list = List;
+    /**
+     * Type definition of {@link Deque} and it's the original name used in C++.
+     */
+    export import deque = Deque;
+    /**
+     * Type definition of {@link Stack} and it's the original name used in C++.
+     */
+    type stack<T> = Stack<T>;
+    /**
+     * Type definition of {@link Queue} and it's the original name used in C++.
+     */
+    type queue<T> = Queue<T>;
+    /**
+     * Type definition of {@link PriorityQueue} and it's the original name used in C++.
+     */
+    type priority_queue<T> = PriorityQueue<T>;
+    var stack: typeof Stack;
+    var queue: typeof Queue;
+    var priority_queue: typeof PriorityQueue;
+    /**
+     * Type definition of {@link TreeSet} and it's the original name used in C++.
+     */
+    export import set = TreeSet;
+    /**
+     * Type definition of {@link TreeMultiSet} and it's the original name used in C++.
+     */
+    export import multiset = TreeMultiSet;
+    /**
+     * Type definition of {@link HashSet} and it's the original name used in C++.
+     */
+    export import unordered_set = HashSet;
+    /**
+     * Type definition of {@link HashMultiSet} and it's the original name used in C++.
+     */
+    export import unordered_multiset = HashMultiSet;
+    /**
+     * Type definition of {@link TreeMap} and it's the original name used in C++.
+     */
+    export import map = TreeMap;
+    /**
+     * Type definition of {@link TreeMultiMap} and it's the original name used in C++.
+     */
+    export import multimap = TreeMultiMap;
+    /**
+     * Type definition of {@link HashMap} and it's the original name used in C++.
+     */
+    export import unordered_map = HashMap;
+    /**
+     * Type definition of {@link HashMultiMap} and it's the original name used in C++.
+     */
+    export import unordered_multimap = HashMultiMap;
+    type exception = Exception;
+    type logic_error = LogicError;
+    type domain_error = DomainError;
+    type invalid_argument = InvalidArgument;
+    type length_error = LengthError;
+    type out_of_range = OutOfRange;
+    type runtime_error = RuntimeError;
+    type overflow_error = OverflowError;
+    type underflow_error = UnderflowError;
+    type range_error = RangeError;
+    type system_error = SystemError;
+    type error_category = ErrorCategory;
+    type error_condition = ErrorCondition;
+    type error_code = ErrorCode;
+    var exception: typeof Exception;
+    var logic_error: typeof LogicError;
+    var domain_error: typeof DomainError;
+    var invalid_argument: typeof InvalidArgument;
+    var length_error: typeof LengthError;
+    var out_of_range: typeof OutOfRange;
+    var runtime_error: typeof RuntimeError;
+    var overflow_error: typeof OverflowError;
+    var underflow_error: typeof UnderflowError;
+    var range_error: typeof RangeError;
+    var system_error: typeof SystemError;
+    var error_category: typeof ErrorCategory;
+    var error_condition: typeof ErrorCondition;
+    var error_code: typeof ErrorCode;
 }
