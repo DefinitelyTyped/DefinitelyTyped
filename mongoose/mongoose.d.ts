@@ -1045,13 +1045,13 @@ declare module "mongoose" {
        * This is the same subdocument constructor used for casting.
        * @param obj the value to cast to this arrays SubDocument schema
        */
-      create(obj: Object): Subdocument;
+      create(obj: Object): T;
 
       /**
        * Searches array items for the first document with a matching _id.
        * @returns the subdocument or null if not found.
        */
-      id(id: ObjectId | string | number | NativeBuffer): Embedded;
+      id(id: ObjectId | string | number | NativeBuffer): T;
 
       /** Helper for console.log */
       inspect(): T[];
@@ -2014,12 +2014,6 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | Object, errorMsg?: string,
       type?: string): this;
-
-    /**
-     * http://mongoosejs.com/docs/api.html#schematype_SchemaType
-     * Options for this schema type (required, index, etc.)
-     */
-    options: any;
   }
 
   /*
