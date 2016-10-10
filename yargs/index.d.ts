@@ -1,6 +1,6 @@
 // Type definitions for yargs
 // Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
+// Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace yargs {
@@ -15,6 +15,8 @@ declare namespace yargs {
         locale(loc: string): Argv;
 
         detectLocale(detect: boolean): Argv;
+
+        terminalWidth(): number;
 
         alias(shortName: string, longName: string): Argv;
         alias(aliases: { [shortName: string]: string }): Argv;
@@ -122,8 +124,6 @@ declare namespace yargs {
         nargs(key: string, count: number): Argv;
         nargs(nargs: { [key: string]: number }): Argv;
 
-        /* Undocumented */
-
         normalize(key: string): Argv;
         normalize(keys: string[]): Argv;
 
@@ -133,7 +133,10 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string) => any): void;
+        fail(func: (msg: string, err?: Error) => any): Argv;
+
+        coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
+        coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
     }
 
     interface RequireDirectoryOptions {
