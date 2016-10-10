@@ -1,5 +1,5 @@
 // Type definitions for bonjour v3.5.0
-// Project: [https://github.com/watson/bonjour]    
+// Project: https://github.com/watson/bonjour
 // Definitions by: Quentin Lampin <https://github.com/quentin-ol/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
