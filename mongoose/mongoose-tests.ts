@@ -492,6 +492,16 @@ documentArray.toObject({}).length;
 documentArray.$shift();
 /* inherited from Native Array */
 documentArray.concat();
+/* practical example */
+interface MySubEntity1 extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity1 extends mongoose.Document {
+  sub: mongoose.Types.DocumentArray<MySubEntity>
+}
+var newEnt: MyEntity1;
+var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
  * section types/buffer.js
