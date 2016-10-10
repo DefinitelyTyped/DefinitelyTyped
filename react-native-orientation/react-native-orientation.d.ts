@@ -13,7 +13,7 @@ declare module 'react-native-orientation' {
         export function removeOrientationListener(callback: (orientation: orientation) => void): void;
         export function removeSpecificOrientationListener(callback: (orientation: specificOrientation) => void): void;
 
-
+        export function getInitialOrientation(): orientation;
         export function lockToPortrait(): void;
         export function lockToLandscape(): void;
         export function lockToLandscapeLeft(): void;
