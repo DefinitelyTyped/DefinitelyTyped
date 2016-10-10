@@ -971,7 +971,6 @@ schematype.unique(true).unique(true);
 schematype.validate(/re/)
   .validate({}, 'error')
   .validate(cb, 'try', 'tri');
-schematype.options.required;
 
 /*
  * section promise.js
