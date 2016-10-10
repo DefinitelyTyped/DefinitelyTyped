@@ -12,5 +12,5 @@ Orientation.lockToLandscape();
 Orientation.lockToLandscapeLeft();
 Orientation.lockToLandscapeRight();
 Orientation.unlockAllOrientations();
-Orientation.getOrientation((err,orientation)=>{}));
-Orientation.getSpecificOrientation((err,orientation)=>{}));
+Orientation.getOrientation((err,orientation)=>{});
+Orientation.getSpecificOrientation((err,orientation)=>{});
