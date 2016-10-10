@@ -1,31 +1,12 @@
 // Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
-// Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
+// Definitions by: Microsoft Open Technologies Inc <http://msopentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
-// Copyright (c) Microsoft Open Technologies, Inc.
+// Copyright (c) Microsoft Open Technologies Inc
 // Licensed under the MIT license.
 
-/// <reference path="plugins/BatteryStatus.d.ts"/>
-/// <reference path="plugins/Camera.d.ts"/>
-/// <reference path="plugins/Contacts.d.ts"/>
-/// <reference path="plugins/Device.d.ts"/>
-/// <reference path="plugins/DeviceMotion.d.ts"/>
-/// <reference path="plugins/DeviceOrientation.d.ts"/>
-/// <reference path="plugins/Dialogs.d.ts"/>
-/// <reference path="plugins/FileSystem.d.ts"/>
-/// <reference path="plugins/FileTransfer.d.ts"/>
-/// <reference path="plugins/Globalization.d.ts"/>
-/// <reference path="plugins/InAppBrowser.d.ts"/>
-/// <reference path="plugins/Media.d.ts"/>
-/// <reference path="plugins/MediaCapture.d.ts"/>
-/// <reference path="plugins/NetworkInformation.d.ts"/>
-/// <reference path="plugins/Push.d.ts"/>
-/// <reference path="plugins/Splashscreen.d.ts"/>
-/// <reference path="plugins/StatusBar.d.ts"/>
-/// <reference path="plugins/Vibration.d.ts"/>
-/// <reference path="plugins/WebSQL.d.ts"/>
-/// <reference path="plugins/Keyboard.d.ts"/>
+
 
 interface Cordova {
     /** Invokes native functionality by specifying corresponding service name, action and optional parameters.
@@ -35,7 +16,7 @@ interface Cordova {
      * @param action The action name to call on the native side (generally corresponds to the native class method).
      * @param args An array of arguments to pass into the native environment.
      */
-    exec(success: () => any, fail: () => any, service: string, action: string, args?: string[]): void;
+    exec(success: (data: any) => any, fail: (err: any) => any, service: string, action: string, args?: any[]): void;
     /** Gets the operating system name. */
     platformId: string;
     /** Gets Cordova framework version */

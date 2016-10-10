@@ -1,7 +1,7 @@
 /// <reference types="jquery" />
 
 import * as Pikaday from "./";
-import * as moment from "../moment";
+import * as moment from "moment";
 
 new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});

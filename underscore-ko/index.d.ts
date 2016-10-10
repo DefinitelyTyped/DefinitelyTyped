@@ -9,7 +9,7 @@ import * as _ from 'underscore';
 
 interface KnockoutObservableArrayFunctions<T> {
 
-  /****
+  /* **
    Collections
   *****/
     each<TResult>(iterator: _.ListIterator<T, TResult>, context?: any): TResult[];
@@ -71,7 +71,7 @@ interface KnockoutObservableArrayFunctions<T> {
     shuffle_(): T[];
     size(): number;
 
-    /****
+    /* **
      Arrays
     *****/
     first(): T;
@@ -121,7 +121,7 @@ interface KnockoutObservableArrayFunctions<T> {
     range(stop: number): any[];
     range(start: number, stop: number, step?: number): any[];
 
-    /****
+    /* **
      Chaining
     *****/
     chain(object: any): any;

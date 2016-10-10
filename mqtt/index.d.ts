@@ -5,8 +5,6 @@
 
 /// <reference types="node" />
 
-
-
 declare namespace mqtt {
 
     import ReadableStream = NodeJS.ReadableStream;
@@ -343,7 +341,7 @@ declare namespace mqtt {
         /**
          * the 'clean start' flag.
          */
-        clean?: boolean;
+        clean?:  boolean;
         /**
          * username for protocol v3.1.
          */

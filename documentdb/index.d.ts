@@ -78,7 +78,7 @@ interface QueryError {
     code: number;
 
     /** A string representing the error information. */
-    body: string; //{ code: string; message: string; };
+    body: string; // { code: string; message: string; };
 }
 
 /**
@@ -93,8 +93,13 @@ interface RequestCallback<TResult> {
 
 /** Represents the result returned from a query. */
 interface QueryIterator<TResultRow> {
-
-    toArray(callback: (error: QueryError, result: TResultRow[]) => void): void;
+    current(): TResultRow;
+    executeNext(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void;
+    forEach(iteratorFunction : (error: QueryError, element: TResultRow, responseHeaders? : any) => void): void;
+    hasMoreResults(): boolean;
+    nextItem(callback: (error: QueryError, item: TResultRow, responseHeaders? : any) => void): void;
+    reset(): void;
+    toArray(callback: (error: QueryError, result: TResultRow[], responseHeaders? : any) => void): void
 }
 
 /** Reprents an object with a unique identifier. */
@@ -126,7 +131,7 @@ interface NewDocument<TContent> extends UniqueId {
       * Define a custom property in order to disambiguate the JSON document from the metadata added by Azure.
       * This property is optional and the name is application-specific.
       */
-    //doc: TContent;
+    // doc: TContent;
 }
 
 /** Represents a document retrieved from storage. 

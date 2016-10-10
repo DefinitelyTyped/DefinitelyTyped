@@ -16,21 +16,24 @@ export = Helmet;
 
 declare namespace ReactHelmet {
     interface HelmetProps {
-        title?: string;
-        titleTemplate?: string;
         base?: any;
+        defaultTitle?: string;
+        htmlAttributes?: any;
         link?: Array<any>;
         meta?: Array<any>;
         script?: Array<any>;
+        title?: string;
+        titleTemplate?: string;
         onChangeClientState?: (newState: any) => void;
     }
 
     interface HelmetData {
-        title: HelmetDatum;
         base: HelmetDatum;
+        htmlAttributes: HelmetDatum;
         link: HelmetDatum;
         meta: HelmetDatum;
         script: HelmetDatum;
+        title: HelmetDatum;
     }
 
     interface HelmetDatum {

@@ -1,3 +1,4 @@
+/// <reference path="app-version.d.ts" />
 
 
 namespace ngCordova {

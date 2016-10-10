@@ -9,7 +9,7 @@ export function ncp(source: string, destination: string, callback: (err: Error) 
 export function ncp(source: string, destination: string, options: Options, callback: (err: Error) => void): void;
 
 interface Options {
-    filter?: RegExp;
+    filter?: RegExp | ((filename: string) => boolean);
     transform?: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => void;
     clobber?: boolean;
     stopOnErr?: boolean;

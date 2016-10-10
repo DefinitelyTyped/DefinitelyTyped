@@ -6,10 +6,10 @@
 /// <reference types="chokidar"/>
 /// <reference types="node" />
 
-import chokidar = require("chokidar");
-import fs = require("fs");
-import http = require("http");
-import mm = require("micromatch");
+import * as chokidar from "chokidar";
+import * as fs from "fs";
+import * as http from "http";
+import * as mm from "micromatch";
 
 declare namespace browserSync {
     interface Options {
@@ -21,14 +21,14 @@ declare namespace browserSync {
          * weinre.port - Default: 8080
          * Note: requires at least version 2.0.0
          */
-        ui?: UIOptions;
+        ui?: UIOptions | boolean;
         /**
          * Browsersync can watch your files as you work. Changes you make will either be injected into the page (CSS
          * & images) or will cause all browsers to do a full-page refresh. See anymatch for more information on glob
          * patterns.
          * Default: false
          */
-        files?: string | string[];
+        files?: string | (string | FileCallback)[];
         /**
          * File watching options that get passed along to Chokidar. Check their docs for available options
          * Default: undefined
@@ -243,7 +243,7 @@ declare namespace browserSync {
          * Note: requires at least version 1.6.2
          */
         socket?: SocketOptions;
-        middleware?: MiddlewareHandler | MiddlewareHandler[];
+        middleware?: MiddlewareHandler | PerRouteMiddleware | (MiddlewareHandler | PerRouteMiddleware)[];
     }
 
     interface Hash<T> {
@@ -259,6 +259,12 @@ declare namespace browserSync {
         };
     }
 
+    interface FileCallback {
+        match?: string | string[];
+        fn: (event: string, file: string) => any;
+        options?: chokidar.WatchOptions;
+    }
+
     interface ServerOptions {
         /** set base directory */
         baseDir?: string | string[];
@@ -272,7 +278,7 @@ declare namespace browserSync {
          */
         routes?: Hash<string>;
         /** configure custom middleware */
-        middleware?: MiddlewareHandler[];
+        middleware?: (MiddlewareHandler | PerRouteMiddleware)[];
     }
 
     interface ProxyOptions {
@@ -280,11 +286,16 @@ declare namespace browserSync {
         middleware?: MiddlewareHandler;
         ws: boolean;
         reqHeaders: (config: any) => Hash<any>;
-        proxyRes: (res: http.ServerResponse, req: http.ServerRequest, next: Function) => any;
+        proxyRes: (res: http.ServerResponse, req: http.IncomingMessage, next: Function) => any;
     }
 
     interface MiddlewareHandler {
-        (req: http.ServerRequest, res: http.ServerResponse, next: Function): any;
+        (req: http.IncomingMessage, res: http.ServerResponse, next: Function): any;
+    }
+
+    interface PerRouteMiddleware {
+        route: string;
+        handle: MiddlewareHandler;
     }
 
     interface GhostOptions {

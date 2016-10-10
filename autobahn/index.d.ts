@@ -47,7 +47,7 @@ declare namespace autobahn {
 
     interface IInvocation {
         caller?: number;
-        progress?: boolean;
+        progress?: (args : any[], kwargs : any) => void;
         procedure: string;
     }
 
@@ -165,6 +165,7 @@ declare namespace autobahn {
     }
 
     interface IPublishOptions {
+        acknowledge?: boolean;
         exclude?: number[];
         eligible?: number[];
         disclose_me?: Boolean;
@@ -183,7 +184,7 @@ declare namespace autobahn {
 
         open(): void;
 
-        close(reason: string, message: string): void;
+        close(reason?: string, message?: string): void;
 
         onopen: (session: Session, details: any) => void;
         onclose: (reason: string, details: any) => boolean;
@@ -212,7 +213,7 @@ declare namespace autobahn {
         retry_delay_jitter?: number;
         url?: string;
         protocols?: string[];
-        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+        onchallenge?: OnChallengeHandler;
         realm?: string;
         authmethods?: string[];
         authid?: string;

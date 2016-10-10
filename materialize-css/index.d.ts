@@ -319,6 +319,11 @@ declare namespace Materialize {
          * @name selector the selector for the image to fade in
          */
         fadeInImage(selector:string): void;
+
+        /**
+         * Update all text field to reinitialize all the Materialize labels on the page if dynamically adding inputs
+         */
+        updateTextFields(): void;
     }
 }
 

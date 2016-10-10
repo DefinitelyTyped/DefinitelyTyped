@@ -839,6 +839,11 @@ declare namespace uiGrid {
          */
         useExternalFiltering?: boolean;
         /**
+         * Disables client side sorting. When true, handle the sortChanged event and do the sorting there
+         * @default false
+         */
+        useExternalSorting?: boolean;
+        /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
          */
@@ -932,6 +937,12 @@ declare namespace uiGrid {
          *        us which refreshes to fire.
          */
         notifyDataChange(type: string): void;
+        /**
+         * Refresh the rendered grid on screen.
+         *
+         * @param {boolean} [rowsAltered] Optional flag for refreshing when the number of rows has changed.
+         */
+        refresh(rowsAltered?: boolean): ng.IPromise<any>;
         /**
          * Refresh the rendered rows on screen?  Note: not functional at present
          * @returns {ng.IPromise<any>} promise that is resolved when render completes?
@@ -2831,7 +2842,7 @@ declare namespace uiGrid {
              * Makes it possible to specify a method that evaluates for each row and sets its "enableSelection"
              * property.
              */
-            isRowSelectable?: boolean;
+            isRowSelectable?: (row: IGridRow) => boolean;
             /**
              * Enable multiple row selection only when using the ctrlKey or shiftKey. Requires multiSelect to be true.
              * Defaults to false
@@ -3554,8 +3565,13 @@ declare namespace uiGrid {
         name?: string;
         /** Sort on this column */
         sort?: ISortInfo;
-        /** Algorithm to use for sorting this column. Takes 'a' and 'b' parameters like any normal sorting function. */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively.
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /** Column width */
         width: number;
         /**
@@ -3784,8 +3800,13 @@ declare namespace uiGrid {
          * not appear in the list more than once (e.g. [ASC, DESC, DESC] is not allowed), and the list may not be empty.*
          */
         sortDirectionCycle?: Array<IUiGridConstants>;
-        /** Algorithm to use for sorting this column */
-        sortingAlgorithm?: (a: any, b: any) => number;
+        /**
+         * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
+         * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
+         * parameters that are the row objects and the current direction of the sort
+         * respectively.
+         */
+        sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /**
          * When enabled, this setting hides the removeSort option in the menu,
          * and prevents users from manually removing the sort
@@ -3862,6 +3883,10 @@ declare namespace uiGrid {
         /** String that will be set to the <input>.placeholder attribute */
         placeholder?: string;
         /**
+         * String that will be set to the <input>.ariaLabel attribute. This is what is read as a label to screen reader users.
+         */
+        ariaLabel?: string;
+        /**
          * set this to true if you have defined a custom function in condition,
          * and your custom function doesn't require a term
          * (so it can run even when the term is null)
@@ -3885,7 +3910,7 @@ declare namespace uiGrid {
          * If set to true then the 'x' button that cancels/clears the filter will not be shown.
          * @default false
          */
-        disableCancelButton?: boolean;
+        disableCancelFilterButton?: boolean;
     }
     export interface ISelectOption {
         value: number | string;

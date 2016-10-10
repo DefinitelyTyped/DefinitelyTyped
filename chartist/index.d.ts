@@ -105,7 +105,7 @@ declare namespace Chartist {
     plugins?: Array<any>; // all of these plugins seem to be functions with options, but keeping type any for now
 
     update(data: Object, options?: T, override?: boolean): void;
-    detatch(): void;
+    detach(): void;
 
     /**
      * Use this function to register event handlers. The handler callbacks are synchronous and will run in the main thread rather than the event loop.

@@ -39,15 +39,20 @@ declare module 'angular' {
             (url: string, paramDefaults?: any,
                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                  where deleteDescriptor : IActionDescriptor */
-                actions?: any, options?: IResourceOptions): IResourceClass<IResource<any>>;
+                actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
             <T, U>(url: string, paramDefaults?: any,
                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                  where deleteDescriptor : IActionDescriptor */
-                actions?: any, options?: IResourceOptions): U;
+                actions?: IActionHash, options?: IResourceOptions): U;
             <T>(url: string, paramDefaults?: any,
                 /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
                  where deleteDescriptor : IActionDescriptor */
-                actions?: any, options?: IResourceOptions): IResourceClass<T>;
+                actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
+        }
+
+        // Hash of action descriptors allows custom action names
+        interface IActionHash {
+            [action: string]: IActionDescriptor
         }
 
         // Just a reference to facilitate describing new actions
@@ -110,7 +115,7 @@ declare module 'angular' {
         // Also, static calls always return the IResource (or IResourceArray) retrieved
         // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
         interface IResourceClass<T> {
-            new (dataOrParams?: any): T;
+            new(dataOrParams? : any) : T & IResource<T>;
             get: IResourceMethod<T>;
 
             query: IResourceArrayMethod<T>;
@@ -180,6 +185,12 @@ declare module 'angular' {
     interface IModule {
         /** creating a resource service factory */
         factory(name: string, resourceServiceFactoryFunction: angular.resource.IResourceServiceFactoryFunction<any>): IModule;
+    }
+
+    namespace auto {
+        interface IInjectorService {
+            get(name: '$resource'): ng.resource.IResourceService;
+        }
     }
 }
 

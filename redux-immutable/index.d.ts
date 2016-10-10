@@ -3,5 +3,6 @@
 // Definitions by: Pedro Pereira <https://github.com/oizie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import * as Redux from 'redux';
 
-export declare function combineReducers(reducers: Object): Object;
+export declare function combineReducers(reducers: Object): Redux.Reducer<any>;

@@ -7,7 +7,6 @@ export = Pako;
 export as namespace pako;
 
 declare namespace Pako {
-
 	/**
 	 * Compress data with deflate algorithm and options.
 	 */

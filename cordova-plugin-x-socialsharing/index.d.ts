@@ -3,11 +3,27 @@
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+interface Window {
+    plugins: Plugins;
+}
+
 interface Plugins {
 	socialsharing: SocialSharingPlugin.SocialSharing;
 }
 
 declare module SocialSharingPlugin {
+
+	interface ShareOptions {
+		message: string;
+		subject?: string;
+		files?: string | string[];
+		url?: string;
+	}
+
+	interface ShareResult {
+		completed: boolean;
+		app: any;
+	}
 
 	export interface SocialSharing {
 
@@ -22,6 +38,8 @@ declare module SocialSharingPlugin {
 		available(callback: (isAvailable: boolean) => void): void;
 
 		share(message: string, subject?: string, fileOrFileArray?: string | string[], url?: string, successCallback?: (succeeded: boolean) => void, errorCallback?: (errormsg: string) => void): void;
+
+		shareWithOptions(options: ShareOptions, successCallback?: (result: ShareResult) => void, errorCallback?: (errormsg: string) => void): void;
 
 		shareViaTwitter(message: string, file?: string, url?: string, successCallback?: (succeeded: boolean) => void, errorCallback?: (errormsg: string) => void): void;
 

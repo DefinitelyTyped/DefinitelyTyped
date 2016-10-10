@@ -5,6 +5,9 @@
 
 /// <reference types="node" />
 
+// Note: the types seen in the JSDoc are wrong:
+//   https://github.com/ChadKillingsworth/closure-compiler-npm/issues/21
+// Be careful to read the code when choosing types.
 
 import * as child_process from 'child_process';
 
@@ -26,10 +29,11 @@ interface Compiler {
 
     getFullCommand(): string;
 }
-type CompileOptions = { [key: string]: string };
-declare var compiler: {
-    new (opts: (CompileOptions | string[]),
-        extraCommandArgs?: string[]): Compiler;
+
+type CompileOption = string | boolean;
+type CompileOptions = string[] | {[key: string]: (CompileOption|CompileOption[])};
+export var compiler: {
+    new (opts: (CompileOptions | string[]), extraCommandArgs?: string[]): Compiler;
 
     JAR_PATH: string;
     COMPILER_PATH: string;

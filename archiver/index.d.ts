@@ -24,7 +24,7 @@ interface nameInterface {
 
 interface Archiver extends STREAM.Transform {
     pipe(writeStream: FS.WriteStream): void;
-    append(readStream: FS.ReadStream, name: nameInterface): void;
+        append(source: FS.ReadStream | Buffer | string, name: nameInterface): void;
     finalize(): void;
 }
 

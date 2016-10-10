@@ -1,4 +1,4 @@
-// Type definitions for Survey JavaScript library v0.9.3
+// Type definitions for Survey JavaScript library v0.9.7
 // Project: http://surveyjs.org/
 // Definitions by: Andrew Telnov <https://github.com/andrewtelnov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,7 +17,10 @@ declare module Survey {
         questionAdded(question: IQuestion, index: number): any;
         questionRemoved(question: IQuestion): any;
         validateQuestion(name: string): SurveyError;
+        processHtml(html: string): string;
+        processText(text: string): string;
         isDesignMode: boolean;
+        requiredText: string;
     }
     interface IQuestion {
         name: string;
@@ -80,6 +83,9 @@ declare module Survey {
         completeText: string;
         otherItemText: string;
         progressText: string;
+        emptySurvey: string;
+        completingSurvey: string;
+        loadingSurvey: string;
         optionsCaption: string;
         requiredError: string;
         numericError: string;
@@ -90,11 +96,12 @@ declare module Survey {
         numericMin: string;
         numericMax: string;
         invalidEmail: string;
+        otherRequiredError: string;
     };
 }
 
-
-
+/// <reference path="base.d.ts" />
+/// <reference path="surveyStrings.d.ts" />
 declare module Survey {
     class AnswerRequiredError extends SurveyError {
         constructor();
@@ -111,7 +118,7 @@ declare module Survey {
     }
 }
 
-
+/// <reference path="base.d.ts" />
 declare module Survey {
     class JsonObjectProperty {
         name: string;
@@ -223,8 +230,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="base.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionBase extends Base implements IQuestion {
         name: string;
@@ -249,8 +256,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionbase.d.ts" />
+/// <reference path="base.d.ts" />
 declare module Survey {
     class QuestionFactory {
         static Instance: QuestionFactory;
@@ -265,9 +272,9 @@ declare module Survey {
     }
 }
 
-
-
-
+/// <reference path="questionbase.d.ts" />
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class PageModel extends Base implements IPage {
         name: string;
@@ -278,6 +285,7 @@ declare module Survey {
         private numValue;
         private visibleValue;
         constructor(name?: string);
+        processedTitle: string;
         num: number;
         visible: boolean;
         getType(): string;
@@ -291,9 +299,9 @@ declare module Survey {
     }
 }
 
-
-
-
+/// <reference path="base.d.ts" />
+/// <reference path="error.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class ValidatorResult {
         value: any;
@@ -354,11 +362,11 @@ declare module Survey {
     }
 }
 
-
-
-
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="error.d.ts" />
+/// <reference path="validator.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+/// <reference path="questionbase.d.ts" />
 declare module Survey {
     class Question extends QuestionBase implements IValidatorOwner {
         name: string;
@@ -375,6 +383,7 @@ declare module Survey {
         constructor(name: string);
         hasTitle: boolean;
         title: string;
+        processedTitle: string;
         supportComment(): boolean;
         supportOther(): boolean;
         isRequired: boolean;
@@ -385,6 +394,7 @@ declare module Survey {
         comment: string;
         isEmpty(): boolean;
         hasErrors(): boolean;
+        requiredText: string;
         private checkForErrors();
         protected onCheckForErrors(errors: Array<SurveyError>): void;
         protected runValidators(): SurveyError;
@@ -397,8 +407,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="jsonobject.d.ts" />
+/// <reference path="surveyStrings.d.ts" />
 declare module Survey {
     class QuestionSelectBase extends Question {
         otherItem: ItemValue;
@@ -427,8 +437,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionCheckboxModel extends QuestionCheckboxBase {
         name: string;
@@ -438,8 +448,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionCommentModel extends Question {
         name: string;
@@ -451,8 +461,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionDropdownModel extends QuestionSelectBase {
         name: string;
@@ -463,8 +473,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionHtmlModel extends QuestionBase {
         name: string;
@@ -472,11 +482,12 @@ declare module Survey {
         constructor(name: string);
         getType(): string;
         html: string;
+        processedHtml: string;
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     interface IMatrixData {
         onMatrixRowChanged(row: MatrixRowModel): any;
@@ -509,8 +520,36 @@ declare module Survey {
     }
 }
 
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+declare module Survey {
+    class QuestionRadiogroupModel extends QuestionCheckboxBase {
+        name: string;
+        constructor(name: string);
+        getType(): string;
+    }
+}
 
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+declare module Survey {
+    class QuestionTextModel extends Question {
+        name: string;
+        size: number;
+        constructor(name: string);
+        getType(): string;
+        isEmpty(): boolean;
+    }
+}
 
+/// <reference path="question.d.ts" />
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+/// <reference path="question_dropdown.d.ts" />
+/// <reference path="question_checkbox.d.ts" />
+/// <reference path="question_radiogroup.d.ts" />
+/// <reference path="question_text.d.ts" />
+/// <reference path="question_comment.d.ts" />
 declare module Survey {
     interface IMatrixDropdownData {
         onCellChanged(cell: MatrixDropdownCellModel): any;
@@ -523,21 +562,36 @@ declare module Survey {
         private choicesValue;
         private titleValue;
         optionsCaption: string;
+        private cellTypeValue;
+        private colCountValue;
         constructor(name: string, title?: string);
         getType(): string;
         title: string;
         choices: Array<any>;
+        cellType: string;
+        colCount: number;
     }
     class MatrixDropdownCellModel {
         column: MatrixDropdownColumn;
         row: MatrixDropdownRowModel;
         private data;
-        private cellValue;
+        private questionValue;
         constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
         choices: Array<any>;
         optionsCaption: string;
+        question: Question;
         value: any;
         protected onValueChanged(): void;
+        protected createQuestion(): Question;
+        protected createDropdown(name: string): QuestionDropdownModel;
+        protected createCheckbox(name: string): QuestionCheckboxModel;
+        protected createRadiogroup(name: string): QuestionRadiogroupModel;
+        protected createText(name: string): QuestionTextModel;
+        protected createComment(name: string): QuestionCommentModel;
+        protected createDropdownCore(name: string): QuestionDropdownModel;
+        protected createCheckboxCore(name: string): QuestionCheckboxModel;
+        protected createRadiogroupCore(name: string): QuestionRadiogroupModel;
+        protected getQuestionName(): string;
     }
     class MatrixDropdownRowModel {
         name: any;
@@ -573,8 +627,8 @@ declare module Survey {
     }
 }
 
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     interface IMultipleTextData {
         getMultipleTextValue(name: string): any;
@@ -595,11 +649,16 @@ declare module Survey {
     }
     class QuestionMultipleTextModel extends Question implements IMultipleTextData {
         name: string;
+        private colCountValue;
+        colCountChangedCallback: () => void;
         itemSize: number;
-        items: Array<MultipleTextItemModel>;
+        private itemsValues;
         constructor(name: string);
         getType(): string;
+        items: Array<MultipleTextItemModel>;
         AddItem(name: string, title?: string): MultipleTextItemModel;
+        colCount: number;
+        getRows(): Array<any>;
         private isMultipleItemValueChanging;
         protected onValueChanged(): void;
         protected createTextItem(name: string, title: string): MultipleTextItemModel;
@@ -610,18 +669,8 @@ declare module Survey {
     }
 }
 
-
-
-declare module Survey {
-    class QuestionRadiogroupModel extends QuestionCheckboxBase {
-        name: string;
-        constructor(name: string);
-        getType(): string;
-    }
-}
-
-
-
+/// <reference path="questionfactory.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class QuestionRatingModel extends Question {
         name: string;
@@ -639,20 +688,8 @@ declare module Survey {
     }
 }
 
-
-
-declare module Survey {
-    class QuestionTextModel extends Question {
-        name: string;
-        size: number;
-        constructor(name: string);
-        getType(): string;
-        isEmpty(): boolean;
-    }
-}
-
-
-
+/// <reference path="base.d.ts" />
+/// <reference path="jsonobject.d.ts" />
 declare module Survey {
     class Trigger extends Base {
         static operatorsValue: HashTable<Function>;
@@ -667,56 +704,91 @@ declare module Survey {
     }
     interface ISurveyTriggerOwner {
         getObjects(pages: string[], questions: string[]): any[];
+        doComplete(): any;
+        setTriggerValue(name: string, value: any, isVariable: boolean): any;
     }
     class SurveyTrigger extends Trigger {
         name: string;
-        pages: string[];
-        questions: string[];
-        private owner;
+        protected owner: ISurveyTriggerOwner;
         constructor();
         setOwner(owner: ISurveyTriggerOwner): void;
+        isOnNextPage: boolean;
+    }
+    class SurveyTriggerVisible extends SurveyTrigger {
+        pages: string[];
+        questions: string[];
+        constructor();
+        getType(): string;
         protected onSuccess(): void;
         protected onFailure(): void;
-        onTrigger(func: Function): void;
+        private onTrigger(func);
         protected onItemSuccess(item: any): void;
         protected onItemFailure(item: any): void;
     }
-    class SurveyTriggerVisible extends SurveyTrigger {
+    class SurveyTriggerComplete extends SurveyTrigger {
         constructor();
         getType(): string;
-        protected onItemSuccess(item: any): void;
-        protected onItemFailure(item: any): void;
+        isOnNextPage: boolean;
+        protected onSuccess(): void;
+    }
+    class SurveyTriggerSetValue extends SurveyTrigger {
+        setToName: string;
+        setValue: any;
+        isVariable: boolean;
+        constructor();
+        getType(): string;
+        protected onSuccess(): void;
     }
 }
 
+declare module Survey {
+    class TextPreProcessor {
+        onProcess: (name: string) => any;
+        onHasValue: (name: string) => boolean;
+        constructor();
+        process(text: string): string;
+        private getItems(text);
+        private getName(name);
+        private canProcessName(name);
+    }
+}
 
-
-
-
-
+/// <reference path="base.d.ts" />
+/// <reference path="page.d.ts" />
+/// <reference path="trigger.d.ts" />
+/// <reference path="jsonobject.d.ts" />
+/// <reference path="dxSurveyService.d.ts" />
+/// <reference path="textPreProcessor.d.ts" />
 declare module Survey {
     class SurveyModel extends Base implements ISurvey, ISurveyTriggerOwner {
         surveyId: string;
         surveyPostId: string;
         clientId: string;
+        cookieName: string;
         sendResultOnPageNext: boolean;
         commentPrefix: string;
         title: string;
         showNavigationButtons: boolean;
         showTitle: boolean;
         showPageTitles: boolean;
+        completedHtml: string;
         requiredText: string;
         showProgressBar: string;
         pages: Array<PageModel>;
         triggers: Array<SurveyTrigger>;
         private currentPageValue;
         private valuesHash;
+        private variablesHash;
         private pagePrevTextValue;
         private pageNextTextValue;
         private completeTextValue;
         private showPageNumbersValue;
         private showQuestionNumbersValue;
         private localeValue;
+        private isCompleted;
+        private isLoading;
+        private processedTextValues;
+        private textPreProcessor;
         onComplete: Event<(sender: SurveyModel) => any, any>;
         onCurrentPageChanged: Event<(sender: SurveyModel, options: any) => any, any>;
         onValueChanged: Event<(sender: SurveyModel, options: any) => any, any>;
@@ -725,13 +797,16 @@ declare module Survey {
         onQuestionAdded: Event<(sender: SurveyModel, options: any) => any, any>;
         onQuestionRemoved: Event<(sender: SurveyModel, options: any) => any, any>;
         onValidateQuestion: Event<(sender: SurveyModel, options: any) => any, any>;
+        onProcessHtml: Event<(sender: SurveyModel, options: any) => any, any>;
         onSendResult: Event<(sender: SurveyModel, options: any) => any, any>;
         onGetResult: Event<(sender: SurveyModel, options: any) => any, any>;
         jsonErrors: Array<JsonError>;
         mode: string;
-        constructor(jsonObj?: any, renderedElement?: any);
+        constructor(jsonObj?: any);
         getType(): string;
         locale: string;
+        getLocString(str: string): any;
+        emptySurveyText: string;
         pagePrevText: string;
         pageNextText: string;
         completeText: string;
@@ -744,21 +819,32 @@ declare module Survey {
         PageCount: number;
         visiblePageCount: number;
         currentPage: PageModel;
+        state: string;
+        clear(): void;
+        protected mergeValues(src: any, dest: any): void;
         protected currentPageChanged(newValue: PageModel, oldValue: PageModel): void;
+        getProgress(): number;
         isDesignMode: boolean;
+        hasCookie: boolean;
+        setCookie(): void;
+        deleteCookie(): void;
         nextPage(): boolean;
         isCurrentPageHasErrors: boolean;
         prevPage(): boolean;
         completeLastPage(): boolean;
         isFirstPage: boolean;
         isLastPage: boolean;
+        doComplete(): void;
+        protected setCompleted(): void;
+        processedCompletedHtml: string;
+        processedLoadingHtml: string;
         progressText: string;
         getPage(index: number): PageModel;
         addPage(page: PageModel): void;
         addNewPage(name: string): PageModel;
         removePage(page: PageModel): void;
-        getQuestionByName(name: string): IQuestion;
-        getQuestionsByNames(names: string[]): IQuestion[];
+        getQuestionByName(name: string, caseInsensitive?: boolean): IQuestion;
+        getQuestionsByNames(names: string[], caseInsensitive?: boolean): IQuestion[];
         getPageByQuestion(question: IQuestion): PageModel;
         getPageByName(name: string): PageModel;
         getPagesByNames(names: string[]): PageModel[];
@@ -766,17 +852,25 @@ declare module Survey {
         protected createNewPage(name: string): PageModel;
         private notifyQuestionOnValueChanged(name, newValue);
         private notifyAllQuestionsOnValueChanged();
-        private checkTriggers(name, newValue);
+        protected doSurveyValueChanged(question: IQuestion, newValue: any): void;
+        private checkOnPageTriggers();
+        private checkTriggers(name, newValue, isOnNextPage);
         sendResult(postId?: string, clientId?: string, isPartialCompleted?: boolean): void;
         getResult(resultId: string, name: string): void;
-        loadSurveyFromService(surveyId?: string, element?: any): void;
-        protected onLoadSurveyFromService(element: any): void;
+        loadSurveyFromService(surveyId?: string): void;
+        protected onLoadingSurveyFromService(): void;
+        protected onLoadSurveyFromService(): void;
         private updateVisibleIndexes();
         private updatePageVisibleIndexes(showIndex);
         private updateQuestionVisibleIndexes(questions, showIndex);
         private setJsonObject(jsonObj);
         protected onBeforeCreating(): void;
         protected onCreating(): void;
+        private updateProcessedTextValues();
+        private addQuestionToProcessedTextValues(question);
+        private getProcessedTextValue(name);
+        getVariable(name: string): any;
+        setVariable(name: string, newValue: any): void;
         getValue(name: string): any;
         setValue(name: string, newValue: any): void;
         getComment(name: string): string;
@@ -786,7 +880,10 @@ declare module Survey {
         questionAdded(question: IQuestion, index: number): void;
         questionRemoved(question: IQuestion): void;
         validateQuestion(name: string): SurveyError;
+        processHtml(html: string): string;
+        processText(text: string): string;
         getObjects(pages: string[], questions: string[]): any[];
+        setTriggerValue(name: string, value: any, isVariable: boolean): void;
     }
 }
 
@@ -812,14 +909,14 @@ declare module Survey {
     }
 }
 
+declare module Survey {
+}
 
 declare module Survey {
 }
 
-
 declare module Survey {
 }
-
 
 declare module Survey {
     class Page extends PageModel {
@@ -829,7 +926,6 @@ declare module Survey {
         protected onNumChanged(value: number): void;
     }
 }
-
 
 declare module Survey {
     class QuestionImplementorBase {
@@ -843,8 +939,6 @@ declare module Survey {
         protected getNo(): string;
     }
 }
-
-
 
 declare module Survey {
     class QuestionImplementor extends QuestionImplementorBase {
@@ -866,7 +960,7 @@ declare module Survey {
     }
 }
 
-
+/// <reference path="koquestion.d.ts" />
 declare module Survey {
     class QuestionSelectBaseImplementor extends QuestionImplementor {
         koOtherVisible: any;
@@ -882,15 +976,12 @@ declare module Survey {
     }
 }
 
-
-
 declare module Survey {
     class QuestionCheckbox extends QuestionCheckboxModel {
         name: string;
         constructor(name: string);
     }
 }
-
 
 declare module Survey {
     class QuestionComment extends QuestionCommentModel {
@@ -899,7 +990,6 @@ declare module Survey {
     }
 }
 
-
 declare module Survey {
     class QuestionDropdown extends QuestionDropdownModel {
         name: string;
@@ -907,15 +997,12 @@ declare module Survey {
     }
 }
 
-
-
 declare module Survey {
     class QuestionHtml extends QuestionHtmlModel {
         name: string;
         constructor(name: string);
     }
 }
-
 
 declare module Survey {
     class MatrixRow extends MatrixRowModel {
@@ -934,15 +1021,30 @@ declare module Survey {
     }
 }
 
+declare module Survey {
+    class QuestionRadiogroup extends QuestionRadiogroupModel {
+        name: string;
+        constructor(name: string);
+    }
+}
+
+declare module Survey {
+    class QuestionText extends QuestionTextModel {
+        name: string;
+        constructor(name: string);
+    }
+}
 
 declare module Survey {
     class MatrixDropdownCell extends MatrixDropdownCellModel {
         column: MatrixDropdownColumn;
         row: MatrixDropdownRowModel;
-        private isValueUpdating;
-        koValue: any;
         constructor(column: MatrixDropdownColumn, row: MatrixDropdownRowModel, data: IMatrixDropdownData, value: any);
-        protected onValueChanged(): void;
+        protected createText(name: string): QuestionTextModel;
+        protected createComment(name: string): QuestionCommentModel;
+        protected createDropdownCore(name: string): QuestionDropdownModel;
+        protected createCheckboxCore(name: string): QuestionCheckboxModel;
+        protected createRadiogroupCore(name: string): QuestionRadiogroupModel;
     }
     class MatrixDropdownRow extends MatrixDropdownRowModel {
         name: any;
@@ -957,7 +1059,6 @@ declare module Survey {
     }
 }
 
-
 declare module Survey {
     class MultipleTextItem extends MultipleTextItemModel {
         name: any;
@@ -966,6 +1067,11 @@ declare module Survey {
         constructor(name?: any, title?: string);
         onValueChanged(newValue: any): void;
     }
+    class QuestionMultipleTextImplementor extends QuestionImplementor {
+        koRows: any;
+        constructor(question: Question);
+        protected onColCountChanged(): void;
+    }
     class QuestionMultipleText extends QuestionMultipleTextModel {
         name: string;
         constructor(name: string);
@@ -973,55 +1079,43 @@ declare module Survey {
     }
 }
 
-
-declare module Survey {
-    class QuestionRadiogroup extends QuestionRadiogroupModel {
-        name: string;
-        constructor(name: string);
-    }
-}
-
-
 declare module Survey {
     class QuestionRating extends QuestionRatingModel {
         name: string;
+        itemCss: string;
         constructor(name: string);
+        protected onSetData(): void;
     }
 }
-
-
-declare module Survey {
-    class QuestionText extends QuestionTextModel {
-        name: string;
-        constructor(name: string);
-    }
-}
-
 
 declare module Survey {
     class SurveyBase extends SurveyModel {
         private renderedElement;
+        private cssValue;
         onRendered: Event<(sender: SurveyModel) => any, any>;
         koCurrentPage: any;
         koIsFirstPage: any;
         koIsLastPage: any;
         dummyObservable: any;
+        koState: any;
         koProgress: any;
         koProgressText: any;
-        constructor(jsonObj?: any, renderedElement?: any);
+        constructor(jsonObj?: any, renderedElement?: any, css?: any);
+        css: any;
         render(element?: any): void;
+        loadSurveyFromService(surveyId?: string, renderedElement?: any): void;
+        protected setCompleted(): void;
         protected createNewPage(name: string): Page;
+        protected createCssObject(): any;
         protected getTemplate(): string;
         protected onBeforeCreating(): void;
         protected currentPageChanged(newValue: PageModel, oldValue: PageModel): void;
-        protected onLoadSurveyFromService(element: any): void;
+        protected onLoadSurveyFromService(): void;
+        protected onLoadingSurveyFromService(): void;
         private applyBinding();
         private updateKoCurrentPage();
-        private getProgress();
     }
 }
-
-
 
 declare module Survey {
     class SurveyWindowBase extends SurveyWindowModel {
@@ -1052,16 +1146,13 @@ declare module template.ko {
     var html: string;
 }
 
-
-
 declare module Survey {
     class Survey extends SurveyBase {
-        constructor(jsonObj?: any, renderedElement?: any);
+        constructor(jsonObj?: any, renderedElement?: any, css?: any);
         protected getTemplate(): string;
+        protected createCssObject(): any;
     }
 }
-
-
 
 declare module Survey {
     class SurveyWindow extends SurveyWindowBase {
@@ -1078,10 +1169,8 @@ declare module template.window.ko {
 }
 
 
-
 declare module Survey {
     class SurveyTemplateText extends SurveyTemplateTextBase {
         protected text: string;
     }
 }
-

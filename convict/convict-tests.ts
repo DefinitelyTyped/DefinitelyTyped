@@ -104,7 +104,7 @@ conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
 // perform validation
 
-conf.validate();
+conf.validate({ strict: true });
 
 var port: number = conf.default('port');
 

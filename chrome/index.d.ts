@@ -1242,7 +1242,7 @@ declare namespace chrome.cookies {
 	 * function( Cookie cookie) {...};
 	 * Optional parameter cookie: Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
 	 */
-    export function set(details: SetDetails, callback?: (cookie?: Cookie) => void): void;
+    export function set(details: SetDetails, callback?: (cookie: Cookie | null) => void): void;
 	/**
 	 * Deletes a cookie by name.
 	 * @param details Information to identify the cookie to remove.
@@ -1257,7 +1257,7 @@ declare namespace chrome.cookies {
 	 * function( Cookie cookie) {...};
 	 * Parameter cookie: Contains details about the cookie. This parameter is null if no such cookie was found.
 	 */
-    export function get(details: Details, callback: (cookie?: Cookie) => void): void;
+    export function get(details: Details, callback: (cookie: Cookie | null) => void): void;
 
 	/** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
     var onChanged: CookieChangedEvent;
@@ -1755,7 +1755,7 @@ declare namespace chrome.devtools.panels {
 		 * @param tooltipText Text shown as a tooltip when user hovers the mouse over the button.
 		 * @param disabled Whether the button is disabled.
 		 */
-        update(iconPath?: string, tooltipText?: string, disabled?: boolean): void;
+        update(iconPath?: string | null, tooltipText?: string | null, disabled?: boolean | null): void;
 		/** Fired when the button is clicked. */
         onClicked: ButtonClickedEvent;
     }
@@ -2458,7 +2458,7 @@ declare namespace chrome.extension {
     var lastError: LastError;
 
 	/** Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page. */
-    export function getBackgroundPage(): Window;
+    export function getBackgroundPage(): Window | null;
 	/**
 	 * Converts a relative path within an extension install directory to a fully-qualified URL.
 	 * @param path A path to a resource within an extension expressed relative to its install directory.
@@ -2545,7 +2545,7 @@ declare namespace chrome.fileBrowserHandler {
 
     interface SelectionResult {
 		/** Optional. Selected file entry. It will be null if a file hasn't been selected.  */
-        entry?: Object;
+        entry?: Object | null;
 		/** Whether the file has been selected. */
         success: boolean;
     }
@@ -4633,7 +4633,7 @@ declare namespace chrome.platformKeys {
 	 * function(object publicKey, object privateKey) {...};
 	 * Optional parameter privateKey: Might be null if this extension does not have access to it.
 	 */
-	export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey?: CryptoKey) => void): void;
+	export function getKeyPair(certificate: ArrayBuffer, parameters: Object, callback: (publicKey: CryptoKey, privateKey: CryptoKey | null) => void): void;
 	/** An implementation of WebCrypto's  SubtleCrypto that allows crypto operations on keys of client certificates that are available to this extension. */
 	export function subtleCrypto(): SubtleCrypto;
 	/**
@@ -5476,18 +5476,11 @@ declare namespace chrome.storage {
 		getBytesInUse(callback: (bytesInUse: number) => void): void;
 		/**
 		 * Gets the amount of space (in bytes) being used by one or more items.
-		 * @param key A single key to get the total usage for. Pass in null to get the total usage of all of storage.
+		 * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
 		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
 		 * Parameter bytesInUse: Amount of space being used in storage, in bytes.
 		 */
-		getBytesInUse(key: string, callback: (bytesInUse: number) => void): void;
-		/**
-		 * Gets the amount of space (in bytes) being used by one or more items.
-		 * @param keys A list of keys to get the total usage for. An empty list will return 0. Pass in null to get the total usage of all of storage.
-		 * @param callback Callback with the amount of space being used by storage, or on failure (in which case runtime.lastError will be set).
-		 * Parameter bytesInUse: Amount of space being used in storage, in bytes.
-		 */
-		getBytesInUse(keys: string[], callback: (bytesInUse: number) => void): void;
+		getBytesInUse(keys: string | string[] | null, callback: (bytesInUse: number) => void): void;
 		/**
 		 * Removes all items from storage.
 		 * @param callback Optional.
@@ -5524,25 +5517,12 @@ declare namespace chrome.storage {
 		get(callback: (items: { [key: string]: any }) => void): void;
 		/**
 		 * Gets one or more items from storage.
-		 * @param key A single key to get. Pass in null to get the entire contents of storage.
+		 * @param keys A single key to get, list of keys to get, or a dictionary specifying default values. 
+		 * An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
 		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
 		 * Parameter items: Object with items in their key-value mappings.
 		 */
-		get(key: string, callback: (items: { [key: string]: any }) => void): void;
-		/**
-		 * Gets one or more items from storage.
-		 * @param keys A list of keys to get. An empty list or object will return an empty result object. Pass in null to get the entire contents of storage.
-		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-		 * Parameter items: Object with items in their key-value mappings.
-		 */
-		get(keys: string[], callback: (items: { [key: string]: any }) => void): void;
-		/**
-		 * Gets one or more items from storage.
-		 * @param keys A dictionary specifying default values. Pass in null to get the entire contents of storage.
-		 * @param callback Callback with storage items, or on failure (in which case runtime.lastError will be set).
-		 * Parameter items: Object with items in their key-value mappings.
-		 */
-		get(keys: Object, callback: (items: { [key: string]: any }) => void): void;
+		get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void;
 	}
 
 	interface StorageChange {
@@ -5816,7 +5796,7 @@ declare namespace chrome.tabCapture {
 	 * @param options Configures the returned media stream.
 	 * @param callback Callback with either the tab capture stream or null.
 	 */
-    export function capture(options: CaptureOptions, callback: (stream: MediaStream) => void): void;
+    export function capture(options: CaptureOptions, callback: (stream: MediaStream | null) => void): void;
 	/**
 	 * Returns a list of tabs that have requested capture or are being captured, i.e. status != stopped and status != error. This allows extensions to inform the user that there is an existing tab capture that would prevent a new tab capture from succeeding (or to prevent redundant requests for the same tab).
 	 * @param callback Callback invoked with CaptureInfo[] for captured tabs.
@@ -6210,7 +6190,12 @@ declare namespace chrome.tabs {
 		 * The tab's new favicon URL.
 		 * @since Chrome 27.
 		 */
-		faviconUrl?: string;
+		favIconUrl?: string;
+		/**
+		 * The tab's new title.
+		 * @since Chrome 48.
+		 */
+		title?: string;
     }
 
     interface TabMoveInfo {
@@ -7102,14 +7087,14 @@ declare namespace chrome.webNavigation {
 	 * @param callback
 	 * Optional parameter details: Information about the requested frame, null if the specified frame ID and/or tab ID are invalid.
 	 */
-    export function getFrame(details: GetFrameDetails, callback: (details?: GetFrameResultDetails) => void): void;
+    export function getFrame(details: GetFrameDetails, callback: (details: GetFrameResultDetails | null) => void): void;
 	/**
 	 * Retrieves information about all frames of a given tab.
 	 * @param details Information about the tab to retrieve all frames from.
 	 * @param callback
 	 * Optional parameter details: A list of frames in the given tab, null if the specified tab ID is invalid.
 	 */
-    export function getAllFrames(details: GetAllFrameDetails, callback: (details?: GetAllFrameResultDetails[]) => void): void;
+    export function getAllFrames(details: GetAllFrameDetails, callback: (details: GetAllFrameResultDetails[] | null) => void): void;
 
 	/** Fired when the reference fragment of a frame was updated. All future events for that frame will use the updated URL. */
 	var onReferenceFragmentUpdated: WebNavigationTransitionalEvent;
@@ -7214,7 +7199,7 @@ declare namespace chrome.webRequest {
 		 * Optional.
 		 * If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}.
 		 */
-		formData?: Object;
+		formData?: { [key: string]: string[] };
 		/**
 		 * Optional.
 		 * If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array.
@@ -7228,6 +7213,7 @@ declare namespace chrome.webRequest {
 	}
 
 	interface ResourceRequest {
+		url: string;
 		/** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
         requestId: string;
 		/** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (type is main_frame or sub_frame), frameId indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
@@ -7246,7 +7232,6 @@ declare namespace chrome.webRequest {
     }
 
 	interface WebRequestDetails extends ResourceRequest {
-		url: string;
 		/** Standard HTTP method. */
 		method: string;
     }
@@ -7299,7 +7284,7 @@ declare namespace chrome.webRequest {
 
 	interface WebAuthenticationChallengeDetails extends WebResponseHeadersDetails {
 		/** The authentication scheme, e.g. Basic or Digest. */
-		schema: string;
+		scheme: string;
 		/** The authentication realm provided by the server, if there is one. */
 		realm?: string;
 		/** The server requesting authentication. */
@@ -7331,7 +7316,9 @@ declare namespace chrome.webRequest {
 
 	interface WebRedirectionResponseEvent extends _WebResponseHeadersEvent<WebRedirectionResponseDetails> {}
 
-	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {}
+	interface WebAuthenticationChallengeEvent extends chrome.events.Event<(details: WebAuthenticationChallengeDetails, callback?: (response: BlockingResponse) => void) => void> {
+		addListener(callback: (details: WebAuthenticationChallengeDetails) => void, filter?: RequestFilter, opt_extraInfoSpec?: string[]): void;
+    }
 
 	interface WebResponseErrorEvent extends _WebResponseHeadersEvent<WebResponseErrorDetails> {}
 

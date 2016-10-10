@@ -123,6 +123,7 @@ resultStr = faker.internet.mac();
 resultStr = faker.internet.password();
 resultStr = faker.internet.password(0, false, '#', 'foo');
 
+resultStr = faker.lorem.word();
 resultStr = faker.lorem.words();
 resultStr = faker.lorem.words(0);
 resultStr = faker.lorem.sentence();
@@ -168,6 +169,15 @@ resultStr = faker.random.objectElement();
 resultStr = faker.random.objectElement({foo: 'bar', field: 'foo'});
 resultStr = faker.random.uuid();
 resultBool = faker.random.boolean();
+
+resultStr = faker.system.fileName( "foo", "bar" );
+resultStr = faker.system.commonFileName( "foo", "bar" );
+resultStr = faker.system.mimeType();
+resultStr = faker.system.commonFileType();
+resultStr = faker.system.commonFileExt();
+resultStr = faker.system.fileType();
+resultStr = faker.system.fileExt( "foo" );
+resultStr = faker.system.semver();
 
 import fakerEn = require('faker/locale/en');
 resultStr = faker.name.firstName();

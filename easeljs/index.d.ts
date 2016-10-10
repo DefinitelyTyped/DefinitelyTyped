@@ -43,7 +43,7 @@ declare namespace createjs {
 
 
     export class Bitmap extends DisplayObject {
-        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | string);
+        constructor(imageOrUrl: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement | Object | string);
 
         // properties
         image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement;
@@ -650,6 +650,7 @@ declare namespace createjs {
         autoReset: boolean;
         static buildDate: string;
         currentFrame: number;
+        totalFrames: number;
         currentLabel: string;
         frameBounds: Rectangle[];
         framerate: number;
@@ -662,6 +663,7 @@ declare namespace createjs {
         startPosition: number;
         static SYNCHED: string;
         timeline: Timeline;
+        duration: number;
         static version: string;
 
         // methods

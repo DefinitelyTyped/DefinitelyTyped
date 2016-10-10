@@ -5,9 +5,9 @@
 
 import { Component } from 'react';
 
+export = shallowCompare;
+
 declare function shallowCompare<P, S>(
     component: Component<P, S>,
     nextProps: P,
     nextState: S): boolean;
-
-export = shallowCompare;

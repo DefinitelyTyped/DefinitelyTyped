@@ -68,9 +68,9 @@
         container.appendChild(renderer.domElement);
 
         stats = new Stats();
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.top = '0px';
-        container.appendChild(stats.domElement);
+        stats.dom.style.position = 'absolute';
+        stats.dom.style.top = '0px';
+        container.appendChild(stats.dom);
 
         //
 
@@ -104,16 +104,16 @@
 
         uniforms.amplitude.value = 2.5 * Math.sin(sphere.rotation.y * 0.125);
         uniforms.color.value.offsetHSL(0.0005, 0, 0);
-        
+
         for ( var i = 0; i < displacement.length; i ++ ) {
-        
+
             displacement[ i ] = Math.sin( 0.1 * i + time );
-            
+
             noise[ i ] += 0.5 * ( 0.5 - Math.random() );
             noise[ i ] = THREE.Math.clamp( noise[ i ], -5, 5 );
-            
+
             displacement[ i ] += noise[ i ];
-        
+
         }
 
         sphere.geometry.attributes.displacement.needsUpdate = true;

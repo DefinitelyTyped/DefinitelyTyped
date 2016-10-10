@@ -104,5 +104,35 @@ server.route([{
 	}
 }]);
 
+server.route([{
+	method: 'GET',
+	path: '/hello4',
+	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+		reply('hello world2');
+	}
+}]);
+
+interface IHello {
+	msg: string
+}
+
+server.route([{
+	method: 'GET',
+	path: '/hello5',
+	handler: function (request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
+		reply({ msg: 'hello world' })
+	}
+}]);
+
+// Implict handler
+server.route({
+	method: 'GET',
+	path: '/hello6',
+	handler: function (request, reply) {
+		request.log('info', { route: '/hello' }, Date.now());
+		reply('hello world');
+	}
+});
+
 // Start the server
 server.start();

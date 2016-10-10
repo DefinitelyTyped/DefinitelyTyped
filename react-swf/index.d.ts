@@ -108,7 +108,7 @@ declare namespace rswf {
         * Browsers support string sizes of up to 64 KB (65535 bytes) in length.
         * For more information on using flashvars, see Using FlashVars to pass variables to a SWF (tn_16417).
         */
-        flashvars?: Object | string
+        flashVars?: Object | string
     }
     export class ReactSWF extends React.Component<Props, State>{
         /**

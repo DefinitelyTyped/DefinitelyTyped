@@ -163,6 +163,8 @@ declare namespace Chai {
 
     interface Deep {
         equal: Equal;
+        equals: Equal;
+        eq: Equal;
         include: Include;
         property: Property;
         members: Members;
@@ -378,7 +380,20 @@ declare namespace Chai {
     }
 
     export interface Config {
+        /**
+         * Default: false
+         */
         includeStack: boolean;
+
+        /**
+         * Default: true
+         */
+        showDiff: boolean;
+
+        /**
+         * Default: 40
+         */
+        truncateThreshold: number;
     }
 
     export class AssertionError {

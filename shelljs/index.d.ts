@@ -463,7 +463,7 @@ export declare function exec(command: string, options: ExecOptions, callback: Ex
 export declare function exec(command: string, callback: ExecCallback): child.ChildProcess;
 
 export interface ExecCallback {
-    (code: number, output: string): any;
+    (code: number, output: string, error?: string): any;
 }
 
 export interface ExecOptions {
@@ -507,6 +507,26 @@ export declare function tempdir(): string;
  * @return {string} Returns null if no error occurred, otherwise returns string explaining the error
  */
 export declare function error(): string;
+
+
+export declare function touch(...files: string[]): void;
+export declare function touch(files: string[]): void;
+
+type TouchOptionsLiteral = "-a" | "-c" | "-m" | "-d" | "-r";
+
+export declare function touch(options: TouchOptionsLiteral, ...files: string[]): void;
+export declare function touch(options: TouchOptionsLiteral, files: string[]): void;
+
+/**
+* Update the access and modification times of each FILE to the current time. A FILE argument that does not exist is created empty, unless -c is supplied
+*/
+type touchOptionsArray = {
+    '-d'?: string;
+    '-r'?: string;
+};
+
+export declare function touch(options: touchOptionsArray, ...files: string[]): void;
+export declare function touch(options: touchOptionsArray, files: string[]): void;
 
 // Configuration
 

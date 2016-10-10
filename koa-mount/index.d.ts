@@ -16,5 +16,6 @@ declare function mount(prefix: string, app: Function): Function;
 
 declare function mount(prefix: string, app: Koa): Function;
 
-export = mount;
+declare namespace mount { }
 
+export = mount;

@@ -7,19 +7,52 @@ declare namespace Microsoft.WindowsAzure {
 
     // MobileServiceClient object based on Microsoft Azure documentation: http://msdn.microsoft.com/en-us/library/windowsazure/jj554219.aspx
     interface MobileServiceClient {
-        new (applicationUrl: string, applicationKey: string): MobileServiceClient;
+        new (applicationUrl: string, applicationKey?: string): MobileServiceClient;
         applicationUrl: string;
         applicationKey: string;
         currentUser: User;
+        push: Push;
         //for provider:string use one of ProviderEnum: 'microsoftaccount', 'facebook', 'twitter', 'google'
         login(provider: string, token: string, callback: (error: any, user: User) => void ): void;
         login(provider: string, token: string): asyncPromise;
         login(provider: string, callback: (error: any, user: User) => void ): void;
         login(provider: string): asyncPromise;
-        logout(): void;
+        logout(): asyncPromise;
         getTable(tableName: string): MobileServiceTable;
-        withFilter(serviceFilter: (request: any, next: (request: any, callback: (error:any, response: any) => void ) => void, callback: (error: any, response: any) => void ) => void ) : MobileServiceClient;
-        invokeApi(apiName: string, options?:InvokeApiOptions): asyncPromise;
+        withFilter(serviceFilter: (request: any, next: (request: any, callback: (error: any, response: any) => void) => void, callback: (error: any, response: any) => void) => void): MobileServiceClient;
+        /**
+         * Invokes the specified custom api and returns a response object.
+         *
+         * @param apiName The custom api to invoke.
+         * @param options Contains additional parameter information, valid values are:
+         *     body: The body of the HTTP request.
+         *     method: The HTTP method to use in the request, with the default being POST,
+         *     parameters: Any additional query string parameters, 
+         *     headers: HTTP request headers, specified as an object.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        invokeApi(apiName: string, options?: InvokeApiOptions, callback?: (error: any, results: any) => void): asyncPromise;
+    }
+
+    interface Push
+    {
+        /**
+         * Register a push channel with the Mobile Apps backend to start receiving notifications.
+         *
+         * @param platform The device platform being used - wns, gcm or apns.
+         * @param pushChannel The push channel identifier or URI.
+         * @param templates An object containing template definitions. Template objects should contain body, headers and tags properties.
+         * @param secondaryTiles An object containing template definitions to be used with secondary tiles when using WNS.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        register(platform: string, pushChannel: string, templates?: any, secondaryTiles?: any, callback?: (error: any, results: any) => void): void;
+        /**
+         * Invokes the specified custom api and returns a response object.
+         *
+         * @param pushChannel The push channel identifier or URI.
+         * @param callback Optional callback accepting (error, results) parameters.
+         */
+        unregister(pushChannel: string, callback?: (error: any, results: any) => void): void;
     }
 
     interface InvokeApiOptions
@@ -36,6 +69,7 @@ declare namespace Microsoft.WindowsAzure {
         accessTokens: any;   // { [providerName: string]: string; }
         level: string; //for level:string use one of LevelEnum: 'admin','anonymous','authenticated'
         userId: string;
+        mobileServiceAuthenticationToken: string;
     }
 
 
