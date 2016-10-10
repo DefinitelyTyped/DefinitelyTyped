@@ -57,7 +57,7 @@ export interface ITestGroup {
     setUp?: (callback: ICallbackFunction) => void;
     /** The tearDown function is run after each test calls test.done() */
     tearDown?: (callback: ICallbackFunction) => void;
-    [property: string]: ITestGroup | ITestBody | ((callback: ICallbackFunction) => void);
+    [property: string]: ITestGroup | ITestBody | ((callback: ICallbackFunction) => void) | undefined;
 }
 
 export interface ICallbackFunction {
