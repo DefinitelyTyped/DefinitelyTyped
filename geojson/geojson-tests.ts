@@ -72,6 +72,11 @@ var point: GeoJSON.Point = {
 	coordinates: [100.0, 0.0]
 };
 
+
+// This type is commonly used in the turf package
+var pointCoordinates: number[] = point.coordinates
+
+
 var lineString: GeoJSON.LineString = {
 	type: "LineString",
 	coordinates: [ [100.0, 0.0], [101.0, 1.0] ]

@@ -1,5 +1,8 @@
 
-/// <reference types="angularjs" />
+/// <reference types="appAvailability" />
+/// <reference path="device.d.ts" />
+/// <reference types="angular" />
+/// <reference types="cordova" />
 /// <reference types="ionic" />
 
 // For the full application demo please see following repo :

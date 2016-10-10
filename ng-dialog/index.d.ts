@@ -217,13 +217,18 @@ declare module 'angular' {
 			 */
 			ariaDescribedById?: string;
 
-			/**
-			 * Specifies the CSS selector for the element to be referenced by the aria-describedby attribute on the dialog element. Default value is null (unspecified)
-			 *
-			 * If specified, the first matching element is used.
-			 */
-			ariaDescribedBySelector?: string;
-		}
+		/**
+		 * Specifies the CSS selector for the element to be referenced by the aria-describedby attribute on the dialog element. Default value is null (unspecified)
+		 *
+		 * If specified, the first matching element is used.
+		 */
+		ariaDescribedBySelector?: string;
+
+		/**
+		 * Specifies the width of the dialog content element. Default value is null (unspecified)
+		 */
+		width?: string|number;
+	}
 
 		/**
 		 * Options which are provided to open a dialog.

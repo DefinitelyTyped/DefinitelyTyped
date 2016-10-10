@@ -312,7 +312,7 @@ declare namespace ROSLIB {
 			compression?: string,
 			throttle_rate?: number,
 			queue_size?: number,
-			latch?: number,
+			latch?: boolean,
 			queue_length?: number
 		});
 

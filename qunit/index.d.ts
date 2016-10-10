@@ -469,6 +469,18 @@ interface QUnitStatic extends QUnitAssert {
     * @depricated since version 1.16
     */
     expect(amount: number): any;
+    
+    /**
+    * Copy the properties defined by the mixin object into the target object.
+    * 
+    * This method will modify the target object to contain the "own" properties defined 
+    * by the mixin. If the mixin object specifies the value of any attribute as undefined, 
+    * this property will instead be removed from the target object.
+    *
+    * @param target An object whose properties are to be modified
+    * @param mixin An object describing which properties should be modified
+    */
+    extend(target: any, mixin: any): any;
 
     /**
     * Group related tests under a single label.

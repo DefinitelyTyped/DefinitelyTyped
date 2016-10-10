@@ -3,7 +3,8 @@
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference types="express" />
+/// <reference types="node" />
 
 declare namespace Express {
     interface Response extends ExpressMinifyInterfaces.ExpressMinifyResponse {}

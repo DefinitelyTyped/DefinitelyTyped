@@ -1930,6 +1930,24 @@ suite('assert', () => {
         }, 'expected 5 to be below 5');
     });
 
+    test('isAtLeast', () => {
+        assert.isAtLeast(5, 3);
+        assert.isAtLeast(5, 5);
+
+        err(() => {
+            assert.isAtLeast(3, 5);
+        }, 'expected 3 to be greater than or equal to 5');
+    });
+
+    test('isAtMost', () => {
+        assert.isAtMost(3, 5);
+        assert.isAtMost(5, 5);
+
+        err(() => {
+            assert.isAtMost(5, 3);
+        }, 'expected 5 to be less than or equal to 3');
+    });
+
     test('extensible', () => { assert.extensible({}); });
     test('isExtensible', () => { assert.isExtensible({}); });
     test('notExtensible', () => { assert.notExtensible(Object.preventExtensions({})); });

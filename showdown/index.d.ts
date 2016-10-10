@@ -60,8 +60,8 @@ declare namespace Showdown {
     }
 
     interface ConverterExtensions {
-      language: ShowdownExtension[];
-      output: ShowdownExtension[];
+        language: ShowdownExtension[];
+        output: ShowdownExtension[];
     }
 
     interface ShowdownOptions {
@@ -254,7 +254,7 @@ declare namespace Showdown {
          *
          * @param extensions
          */
-        removeExtension(extensions:  ShowdownExtension[] | ShowdownExtension): void;
+        removeExtension(extensions: ShowdownExtension[] | ShowdownExtension): void;
     }
 
     interface ConverterStatic {
@@ -262,7 +262,7 @@ declare namespace Showdown {
          * @constructor
          * @param converterOptions Configuration object, describes which extensions to apply
          */
-        new(converterOptions?: ConverterOptions): Converter;
+        new (converterOptions?: ConverterOptions): Converter;
     }
 
     /** Constructor function for a Converter */
@@ -294,8 +294,7 @@ declare namespace Showdown {
      */
     function getDefaultOptions(): ShowdownOptions;
 
-    /**
-     * Register an extension.
+    /** Registered extensions
      *
      * @prarm name
      * @param extenstion
@@ -303,19 +302,45 @@ declare namespace Showdown {
     function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
 
     /**
+     *
+     * @return The extensions array.
+     */
+    function getOption(optionKey: string): any;
+    var extensions: { [name: string]: ShowdownExtension };
+    /**
+     * Retrieve previous set global options.
+     */
+    function getOptions(): ShowdownOptions;
+
+    /**
+     *
+     * @return all extensions.
+     */
+
+    /**
+     * Retrieve the default options.
+     */
+    function getDefaultOptions(): ShowdownOptions;
+
+    /**
+     *
+     * @param obj An array of items
+     * @param extenstion
+     */
+    function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
+    /**
      * Get an extension.
      *
      * @param name
      * @return The extensions array.
      */
-    function extension(name: string): ShowdownExtension[];
 
+    function resetExtensions(): void;
     /**
-     * Get all extensions.
      *
      * @return all extensions.
      */
-    function getAllExtensions(): {[name: string]: ShowdownExtension[]};
+    function getAllExtensions(): { [name: string]: ShowdownExtension[] };
 
     /**
      * Remove an extension.

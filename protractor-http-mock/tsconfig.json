@@ -5,10 +5,7 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
+        "types": ["selenium-webdriver"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

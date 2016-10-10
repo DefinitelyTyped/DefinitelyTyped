@@ -21,6 +21,7 @@ declare var w2ui: W2UI.W2UI
 declare namespace W2UI {
 
     interface W2Event {
+        onComplete: () => void;
         target: string;
     }
 

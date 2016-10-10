@@ -18,3 +18,6 @@ declare class MobileDetect {
 	version(value: string): number;
 	versionStr(value: string): string;
 }
+	
+export = MobileDetect;
+export as namespace MobileDetect;

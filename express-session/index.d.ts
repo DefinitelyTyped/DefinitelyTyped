@@ -5,15 +5,18 @@
 
 
 /// <reference types="node" />
+/// <reference types="express" />
 
 declare namespace Express {
 
   export interface Request {
     session?: Session;
+    sessionID?: string;
   }
 
   export interface Session {
     [key: string]: any;
+    id: string;
 
     regenerate: (callback: (err: any) => void) => void;
     destroy: (callback: (err: any) => void) => void;
@@ -30,7 +33,7 @@ declare namespace Express {
     secure?: boolean;
     httpOnly: boolean;
     domain?: string;
-    expires: Date;
+    expires: Date | boolean;
     serialize: (name: string, value: string) => string;
   }
 }

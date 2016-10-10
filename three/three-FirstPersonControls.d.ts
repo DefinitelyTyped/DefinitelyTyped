@@ -10,7 +10,8 @@ declare namespace THREE {
         constructor(object: Camera, domElement?: HTMLElement);
         object: THREE.Object3D;
         target: THREE.Vector3;
-        domElement: HTMLCanvasElement;
+        domElement: HTMLCanvasElement | HTMLDocument;
+        enabled: boolean;
         movementSpeed: number;
         lookSpeed: number;
         noFly: boolean;
@@ -18,8 +19,9 @@ declare namespace THREE {
         autoForward: boolean;
         activeLook: boolean;
         heightSpeed: boolean;
-        heightCoef: boolean;
-        heightMin: boolean;
+        heightCoef: number;
+        heightMin: number;
+        heightMax: number;
         constrainVertical: boolean;
         verticalMin: number;
         verticalMax: number;
@@ -36,6 +38,7 @@ declare namespace THREE {
         moveRight: boolean;
         freeze: boolean;
         mouseDragOn: boolean;
-        update(delta?: number): void;
+        update(delta: number): void;
+        dispose(): void;
     }
 }

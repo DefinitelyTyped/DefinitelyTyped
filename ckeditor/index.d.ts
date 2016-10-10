@@ -57,6 +57,7 @@ declare namespace CKEDITOR {
     var basePath: string;
     var currentInstance: editor;
     var document: dom.document;
+    var env: environmentConfig;
     var instances: editor[];
     var loadFullCoreTimeout: number;
     var revision: string;
@@ -543,8 +544,19 @@ declare namespace CKEDITOR {
     }
 
 
-    interface focusManager {
+    class focusManager {
+        // Properties
+        currentActive: dom.domObject;
+        hasFocus: boolean;
 
+        // Methods
+        constructor(editor: editor);
+        focus(currentActive?: dom.element): void;
+        lock(): void;
+        unlock(): void;
+        blur(noDelay?: boolean): void;
+        add(element: dom.element, isCapture: boolean): void;
+        remove(element: dom.element): void;
     }
 
     interface keystrokeHandler {
@@ -641,7 +653,7 @@ declare namespace CKEDITOR {
         filebrowserImageBrowseLinkUrl?: string;
         filebrowserImageBrowseUrl?: string;
         filebrowserImageUploadUrl?: string;
-        filebrowserUploadUr?: string;
+        filebrowserUploadUrl?: string;
         filebrowserWindowFeatures?: string;
         filebrowserWindowHeight?: number | string;
         filebrowserWindowWidth?: number | string;
@@ -1029,6 +1041,12 @@ declare namespace CKEDITOR {
 
     }
 
+    interface IMenuItemDefinition {
+        label:string,
+        command:string,
+        group:string,
+        order:number
+    }
 
     class editor extends event {
         activeEnterMode: number;
@@ -1066,13 +1084,14 @@ declare namespace CKEDITOR {
         addCommand(commandName: string, commandDefinition: commandDefinition): void;
         addFeature(feature: feature): boolean;
         addMenuGroup(name: string, order?: number): void;
-        addMenuItem(name: string, definition?: any): void;
-        addMenuItems(definitions: any[]): void;
+        addMenuItem(name: string, definition?: IMenuItemDefinition): void;
+        addMenuItems(definitions: {[id:string]:IMenuItemDefinition}): void;
         addMode(mode: string, exec: () => void): void;
         addRemoveFormatFilter(func: Function): void;
         applyStyle(style: style): void;
         attachStyleStateChange(style: style, callback: Function): void;
         checkDirty(): boolean;
+        commands:any;
         createFakeElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createFakeParserElement(realElement: Object, className: Object, realElementType: Object, isResizable: Object): void;
         createRange(): dom.range;
@@ -1235,6 +1254,11 @@ declare namespace CKEDITOR {
 
     }
 
+    interface buttonDefinition {
+        label : string;
+        command : string;
+        toolbar : string;
+    }
 
     interface template {
 
@@ -1284,8 +1308,29 @@ declare namespace CKEDITOR {
     class ui extends event {
         constructor(editor: editor);
         add(name: string, type: Object, definition: Object): void;
-        addButton(name: string, definition: dialog.definition.button): void;
+        addButton(name: string, definition: buttonDefinition): void;
         addHandler(type: Object, handler: Object): void;
+    }
+
+    class environmentConfig  {
+        air : boolean;
+        chrome : boolean;
+        cssClass : string;
+        edge : boolean;
+        gecko : boolean;
+        hc : boolean;
+        hidpi : boolean;
+        iOS : boolean;
+        ie : boolean;
+        isCompatible : boolean;
+        mac : boolean;
+        needsBrFiller : boolean;
+        needsNbspFiller : boolean;
+        quirks : boolean;
+        safari : boolean;
+        version : number;
+        webkit : boolean;
+        secure( ) : boolean;
     }
 
     namespace ui {
@@ -1761,6 +1806,7 @@ declare namespace CKEDITOR {
 
     namespace tools {
         var callFunction: Function;
+        function enableHtml5Elements(doc: Object, withAppend? : Boolean) : void;
     }
 
 
@@ -1772,3 +1818,4 @@ declare namespace CKEDITOR {
         function detect(defaultLanguage: string, probeLanguage: string): string;
     }
 }
+

@@ -77,9 +77,6 @@ declare namespace AceAjax {
 
         onTextInput(text: any): void;
     }
-    var KeyBinding: {
-        new(editor: Editor): KeyBinding;
-    }
 
     export interface TextMode {
 
@@ -1036,6 +1033,8 @@ declare namespace AceAjax {
      * Event sessions dealing with the mouse and keyboard are bubbled up from `Document` to the `Editor`, which decides what to do with them.
     **/
     export interface Editor {
+
+        on(ev: string, callback: (e: any) => any): void;
 
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;

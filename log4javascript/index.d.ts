@@ -1,4 +1,4 @@
-﻿// Type definitions for log4javascript v1.4.10
+﻿// Type definitions for log4javascript v1.4.13
 // Project: http://log4javascript.org/
 // Definitions by: Markus Wagner <https://github.com/Ritzlgrmft/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -89,7 +89,22 @@ declare namespace log4javascript {
 	/**
 	 * Levels are available as static properties of the log4javascript.Level object.
 	 */
-	export enum Level { ALL, TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF }
+	export class Level {
+		static ALL: Level;
+		static TRACE: Level;
+		static DEBUG: Level;
+		static INFO: Level;
+		static WARN: Level;
+		static ERROR: Level;
+		static FATAL: Level;
+		static OFF: Level;
+
+		constructor(level: number, name: string);
+
+		toString(): string;
+		equals(level: Level): boolean;
+		isGreaterOrEqual(level: Level): boolean;
+	}
 
 	// #endregion
 
@@ -126,6 +141,11 @@ declare namespace log4javascript {
 		 */
 		removeAllAppenders(): void;
 
+		/**
+		 * Returns all appenders which will log a message.
+		 */
+		getEffectiveAppenders(): Appender[];
+	
 		/**
 		 * Sets the level. Log messages of a lower level than level will not be logged. Default value is DEBUG.
 		 */

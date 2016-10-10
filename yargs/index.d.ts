@@ -1,6 +1,6 @@
 // Type definitions for yargs
 // Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
+// Definitions by: Martin Poelstra <https://github.com/poelstra>, Mizunashi Mana <https://github.com/mizunashi-mana>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace yargs {
@@ -15,6 +15,8 @@ declare namespace yargs {
         locale(loc: string): Argv;
 
         detectLocale(detect: boolean): Argv;
+
+        terminalWidth(): number;
 
         alias(shortName: string, longName: string): Argv;
         alias(aliases: { [shortName: string]: string }): Argv;
@@ -62,7 +64,13 @@ declare namespace yargs {
         usage(options?: { [key: string]: Options }): Argv;
 
         command(command: string, description: string): Argv;
-        command(command: string, description: string, fn: (args: Argv) => void): Argv;
+        command(command: string, description: string, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Options): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
+
+        commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
         completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
@@ -89,7 +97,7 @@ declare namespace yargs {
 
         strict(): Argv;
 
-        help(): string;
+        help(): Argv;
         help(option: string, description?: string): Argv;
 
         env(prefix?: string): Argv;
@@ -116,8 +124,6 @@ declare namespace yargs {
         nargs(key: string, count: number): Argv;
         nargs(nargs: { [key: string]: number }): Argv;
 
-        /* Undocumented */
-
         normalize(key: string): Argv;
         normalize(keys: string[]): Argv;
 
@@ -127,7 +133,18 @@ declare namespace yargs {
         count(key: string): Argv;
         count(keys: string[]): Argv;
 
-        fail(func: (msg: string) => any): void;
+        fail(func: (msg: string, err?: Error) => any): Argv;
+
+        coerce<T, U>(key: string|string[], func: (arg: T) => U): Argv;
+        coerce<T, U>(opts: { [key: string]: (arg: T) => U; }): Argv;
+    }
+
+    interface RequireDirectoryOptions {
+        recurse?: boolean;
+        extensions?: string[];
+        visit?: (commandObject: any, pathToFile?: string, filename?: string) => any;
+        include?: RegExp | ((pathToFile: string)=>boolean);
+        exclude?: RegExp | ((pathToFile: string)=>boolean);
     }
 
     interface Options {

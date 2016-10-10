@@ -1,10 +1,9 @@
-// Type definitions for parse5 2.1.5
+// Type definitions for parse5 2.2.0
 // Project: https://github.com/inikulin/parse5
-// Definitions by: Nico Jansen <https://github.com/nicojs>
+// Definitions by: Nico Jansen <https://github.com/nicojs>, Meirion Hughes <https://github.com/MeirionHughes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 
 import * as stream from "stream";
 import * as events from "events";
@@ -45,6 +44,7 @@ export declare function serialize(node: ASTNode, options?: SerializerOptions): s
 export interface ASTAttribute {
     name: string;
     value: string;
+    prefix?: string;
 }
 
 export interface Attribute {
@@ -55,6 +55,7 @@ export interface Attribute {
 export interface ASTNode {
     attrs: ASTAttribute[];
     childNodes?: ASTNode[];
+    data?: string;
     namespaceURI?: string;
     parentNode?: ASTNode;
     nodeName: string;
@@ -126,10 +127,10 @@ export declare class SAXParser extends stream.Transform {
     /**
      * Raised when the parser encounters a start tag.
      * Listener function has 4 parameters:
-     * Tag name, List of attributes in the { key: String, value: String } form, selfClosing boolean 
+     * Tag name, List of attributes in the { name: String, value: String, prefix?: String } form, selfClosing boolean  
      * and start tag source code location info. Available if location info is enabled in SAXParserOptions.
      */
-    on(event: 'startTag', listener: (name: string, attrs: Attribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): this;
+    on(event: 'startTag', listener: (name: string, attrs: ASTAttribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): this;
     /**
      * Raised when parser encounters an end tag.
      * Listener function has 2 parameters:
@@ -181,7 +182,7 @@ export interface TreeAdapter {
     getFirstChild(node: ASTNode): ASTNode;
     getChildNodes(node: ASTNode): ASTNode[];
     getParentNode(node: ASTNode): ASTNode;
-    getAttrList(node: ASTNode): Attribute[];
+    getAttrList(node: ASTNode): ASTAttribute[];
     getTagName(element: ASTNode): string;
     getNamespaceURI(element: ASTNode): string;
     getTextNodeContent(textNode: ASTNode): string;

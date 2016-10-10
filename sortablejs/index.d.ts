@@ -3,6 +3,10 @@
 // Definitions by: Maw-Fox <http://github.com/Maw-Fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import Sortable = Sortablejs.Sortable;
+export = Sortable;
+export as namespace Sortable;
+
 declare namespace Sortablejs {
     interface SortableOptions {
         group?: any;
@@ -199,7 +203,3 @@ declare namespace Sortablejs {
         toArray(): string[];
     }
 }
-
-import Sortable = Sortablejs.Sortable;
-export = Sortable;
-export as namespace Sortable;

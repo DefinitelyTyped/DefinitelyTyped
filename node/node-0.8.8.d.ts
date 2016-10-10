@@ -545,6 +545,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle: any): void;
+        connected: boolean;
         disconnect(): void;
     }
 
@@ -772,7 +773,7 @@ declare module "fs" {
     export function write(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, written: number, buffer: Buffer) =>any): void;
     export function writeSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): void;
     export function read(fd: string, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: Error, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position: number): any[];
+    export function readSync(fd: string, buffer: Buffer, offset: number, length: number, position?: number): any[];
     export function readFile(filename: string, encoding: string, callback: (err: ErrnoException, data: string) => void ): void;
     export function readFile(filename: string, callback: (err: ErrnoException, data: Buffer) => void ): void;
     export function readFileSync(filename: string): Buffer;

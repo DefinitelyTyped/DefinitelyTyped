@@ -4,13 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
+/// <reference types="gulp" />
 /// <reference types="orchestrator" />
-
 
 import Orchestrator = require('orchestrator');
 import gulp = require('gulp');
-type HelpOption = string | boolean;
+type HelpOption = string|boolean;
 
 declare namespace gulpHelp {
     interface TaskMethod {

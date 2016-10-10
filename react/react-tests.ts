@@ -120,7 +120,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target.value)
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -159,7 +159,7 @@ var factoryElement: React.CElement<Props, ModernComponent> =
 
 var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.SFCElement<SCProps> =
+var statelessFactoryElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -214,8 +214,8 @@ var component: ModernComponent =
 var componentNullContainer: ModernComponent =
     ReactDOM.render(element, null);
 
-var componentElementOrNull: ModernComponent = 
-    ReactDOM.render(element, document.getElementById("anelement"));    
+var componentElementOrNull: ModernComponent =
+    ReactDOM.render(element, document.getElementById("anelement"));
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
 var componentNoStateElementOrNull: ModernComponentNoState =
@@ -484,7 +484,9 @@ React.createFactory(CSSTransitionGroup)({
     transitionName: "transition",
     transitionAppear: false,
     transitionEnter: true,
-    transitionLeave: true
+    transitionLeave: true,
+    id: "some-id",
+    className: "some-class"
 });
 
 React.createFactory(CSSTransitionGroup)({
@@ -532,7 +534,24 @@ var measurements = Perf.getLastMeasurements();
 Perf.printInclusive(measurements);
 Perf.printExclusive(measurements);
 Perf.printWasted(measurements);
+Perf.printOperations(measurements);
+Perf.printInclusive();
+Perf.printExclusive();
+Perf.printWasted();
+Perf.printOperations();
+
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
+
+// Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
+Perf.printDOM();
 
 //
 // PureRenderMixin addon
@@ -601,4 +620,18 @@ let newObj2 = update(obj, {b: {$set: obj.b * 2}});
 
 let objShallow = {a: 5, b: 3};
 let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}
+
+//
+// React Component classes super spread arguments
+// --------------------------------------------------------------------------
+class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
+}
+class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
 }

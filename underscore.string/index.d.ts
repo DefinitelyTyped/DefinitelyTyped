@@ -70,6 +70,13 @@ declare module 'underscore' {
         capitalize(str: string): string;
 
         /**
+         * Converts first letter of the string to lowercase.
+         * ('Foo Bar') => 'foo Bar'
+         * @param str
+         */
+        decapitalize(str: string): string;
+
+        /**
          * Chop a string into pieces.
          * ('whitespace', 3) => ['whi','tes','pac','e']
          * @param str String to chop
@@ -337,7 +344,7 @@ declare module 'underscore' {
          * @param padStr
          * @param type
          */
-        pad(str: string, length: number, padStr?:string, type?: string): string;
+        pad(str: string, length: number, padStr?: string, type?: string): string;
 
         /**
          * Left-pad a string.
@@ -535,7 +542,7 @@ declare module 'underscore' {
          * @param count
          * @param separator
          */
-        repeat(value: string, count: number, separator?:string): string;
+        repeat(value: string, count: number, separator?: string): string;
 
         /**
          * Naturally sort strings like humans would do.

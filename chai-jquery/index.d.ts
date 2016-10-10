@@ -17,7 +17,7 @@ declare namespace Chai {
         html(html: string): Assertion;
         text(text: string): Assertion;
         value(text: string): Assertion;
-        (selector: string): Assertion;
+        descendants(selector: string): Assertion;
         visible: Assertion;
         hidden: Assertion;
         selected: Assertion;

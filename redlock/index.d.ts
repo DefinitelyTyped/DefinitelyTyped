@@ -3,57 +3,56 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
+import * as redis from 'redis';
+import * as Promise from 'bluebird';
+
+export = Redlock;
 
 declare namespace Redlock {
-	interface LockError extends Error {}
+    interface Callback<T> {
+        (err: any, value?: T): void;
+    }
 
-	interface NodeifyCallback<T> {
-		(err: any, value?: T): void;
-	}
+    interface Lock {
 
-	interface Lock {
-		redlock: Redlock;
-		resource: string;
-		value: any;
-		expiration: number;
+        redlock: Redlock;
+        resource: string;
+        value: any;
+        expiration: number;
 
-		unlock(callback?: NodeifyCallback<void>): Promise<void>;
+        unlock(callback?: Callback<void>): Promise<void>;
 
-		extend(ttl: number, callback?: NodeifyCallback<Lock>): Promise<Lock>;
-	}
+        extend(ttl: number, callback?: Callback<Lock>): Promise<Lock>;
+    }
 
-	interface RedlockOptions {
-		driftFactor?: number;
-		retryCount?: number;
-		retryDelay?: number;
-	}
+    interface Options {
+        driftFactor?: number;
+        retryCount?: number;
+        retryDelay?: number;
+    }
+
+    interface LockError extends Error { }
 }
 
 declare class Redlock {
-	LockError: Redlock.LockError;
+    LockError: Redlock.LockError;
 
-	driftFactor: number;
-	retryCount: number;
-	retryDelay: number;
+    driftFactor: number;
+    retryCount: number;
+    retryDelay: number;
 
-	servers: any[]; // array of redis.RedisClient
+    servers: redis.RedisClient[];
 
-	constructor(clients: any[], options?: Redlock.RedlockOptions);
+    constructor(clients: any[], options?: Redlock.Options);
 
-	acquire(resource: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
-	lock(resource: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
+    acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-	disposer(resource: string, ttl: number): any; // return bluebird.Disposer
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
 
-	release(lock: Redlock.Lock, callback?: Redlock.NodeifyCallback<void>): Promise<void>;
-	unlock(lock: Redlock.Lock, callback?: Redlock.NodeifyCallback<void>): Promise<void>;
+    release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
+    unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
 
-	extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
-
-	_lock(resource: string, value: string, ttl: number, callback?: Redlock.NodeifyCallback<Redlock.Lock>): Promise<Redlock.Lock>;
-
-	_random(): string;
+    extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
+    _lock(resource: string, value: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 }
-
-export = Redlock;

@@ -1,6 +1,6 @@
-// Type definitions for joi v6.5.0
-// Project: https://github.com/spumko/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>
+// Type definitions for joi v9.0.0
+// Project: https://github.com/hapijs/joi
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <hhttps://github.com/GaelMagnan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
@@ -488,6 +488,13 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
     items(types: Schema[]): ArraySchema;
 
     /**
+     * Lists the types in sequence order for the array values where:
+     * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
+     * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
+     */
+    ordered(type: Schema, ...types: Schema[]): ArraySchema;
+
+    /**
      * Specifies the minimum number of items in the array.
      */
     min(limit: number): ArraySchema;
@@ -683,16 +690,75 @@ export interface DateSchema extends AnySchema<DateSchema> {
      * Requires the string value to be in valid ISO 8601 date format.
      */
     iso(): DateSchema;
+
+
+    /**
+     * Requires the value to be a timestamp interval from Unix Time.
+     * @param type - the type of timestamp (allowed values are unix or javascript [default])
+     */
+    timestamp(type?: 'javascript' | 'unix'): DateSchema;
 }
 
 export interface FunctionSchema extends AnySchema<FunctionSchema> {
 
+    /**
+     * Specifies the arity of the function where:
+     * @param n - the arity expected.
+     */
+    arity(n: number): FunctionSchema;
+
+
+    /**
+     * Specifies the minimal arity of the function where:
+     * @param n - the minimal arity expected.
+     */
+    minArity(n: number): FunctionSchema;
+
+
+    /**
+     * Specifies the minimal arity of the function where:
+     * @param n - the minimal arity expected.
+     */
+    maxArity(n: number): FunctionSchema;
+
+    /**
+     * Requires the function to be a Joi reference.
+     */
+    ref(): FunctionSchema;
 }
 
 export interface AlternativesSchema extends AnySchema<FunctionSchema> {
     try(schemas: Schema[]): AlternativesSchema;
+    try(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
     when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
     when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
+}
+
+export interface Terms {
+    value: any;
+    state: {
+        key: string,
+        path: string,
+        parent: any
+    };
+    options: ValidationOptions;
+}
+
+export interface Rules {
+    name: string;
+    params?: ObjectSchema | { [key: string]: Schema };
+    setup?: Function;
+    validate?: Function;
+    description: string | Function;
+}
+
+export interface Extension {
+    name: string;
+    base?: Schema;
+    pre?: Function;
+    language?: {};
+    describe?: Function;
+    rules?: Rules[];
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -747,8 +813,16 @@ export declare function string(): StringSchema;
 /**
  * Generates a type that will match one of the provided alternative schemas
  */
-export declare function alternatives(types: Schema[]): Schema;
-export declare function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): Schema;
+export function alternatives(): AlternativesSchema;
+export function alternatives(types: Schema[]): AlternativesSchema;
+export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
+
+/**
+ * Generates a placeholder schema for a schema that you would provide with the fn.
+ * Supports the same methods of the any() type.
+ * This is mostly useful for recursive schemas
+ */
+export declare function lazy(cb: () => Schema): Schema;
 
 /**
  * Validates a value using the given schema and options.
@@ -760,7 +834,7 @@ export declare function validate<T>(value: T, schema: Object, options?: Validati
 /**
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
-export declare function compile(schema: Object): Schema;
+export function compile(schema: Object): Schema;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -769,9 +843,38 @@ export declare function compile(schema: Object): Schema;
  * @param schema - the schema object.
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
-export declare function assert(value: any, schema: Schema, message?: string | Error): void;
+export function assert(value: any, schema: Schema, message?: string | Error): void;
+
+
+/**
+ * Validates a value against a schema, returns valid object, and throws if validation fails where:
+ *
+ * @param value - the value to validate.
+ * @param schema - the schema object.
+ * @param message - optional message string prefix added in front of the error message. may also be an Error object.
+ */
+export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
+
 
 /**
  * Generates a reference to the value of the named key.
  */
-export declare function ref(key: string, options?: ReferenceOptions): Reference;
+export function ref(key: string, options?: ReferenceOptions): Reference;
+
+
+/**
+ * Checks whether or not the provided argument is a reference. It's especially useful if you want to post-process error messages.
+ */
+export function isRef(ref: any): boolean;
+
+
+/**
+ * Get a sub-schema of an existing schema based on a path. Path separator is a dot (.).
+ */
+export function reach(schema: Schema, path: string): Schema;
+
+
+/**
+ * Creates a new Joi instance customized with the extension(s) you provide included.
+ */
+export function extend(extention: Extension): any;

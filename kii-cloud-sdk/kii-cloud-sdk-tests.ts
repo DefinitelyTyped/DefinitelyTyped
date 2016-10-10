@@ -26,6 +26,9 @@ function main() {
             endpoint.installationID;
         });
 
+    user.setLocale("en");
+    var locale: string = user.getLocale();
+
     var anotherUser: KiiUser = KiiUserBuilder
         .builderWithIdentifier("id", "password")
         .setEmailAddress("mail@example.org")
@@ -67,4 +70,30 @@ function main() {
                           removeMembersArray: KiiUser[]) {
         }
     });
+
+    Kii.authenticateAsThing("thing id", "password", {
+        success: function (thingAuthContext: KiiThingContext) {
+            thingAuthContext.bucketWithName("");
+        },
+        failure: function (error) {
+        }
+    })
+        .then(function (thingAuthContext: KiiThingContext) {
+        });
+
+    Kii.authenticateAsThingWithToken("thing id", "token", {
+        success: function (thingAuthContext: KiiThingContext) {
+            thingAuthContext.bucketWithName("");
+        },
+        failure: function (error) {
+        }
+    })
+        .then(function (thingAuthContext: KiiThingContext) {
+        });
+
+    KiiThing.loadWithVendorThingID("thing ID")
+        .then(function (thing) {
+            var isOnline: boolean = thing.isOnline();
+            var onlineStatusModifiedAt: Date = thing.getOnlineStatusModifiedAt();
+        });
 }
