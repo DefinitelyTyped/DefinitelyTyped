@@ -22,4 +22,6 @@ declare module 'react-native-orientation' {
         export function getOrientation(callback: (err: Error, orientation: orientation) => void): void;
         export function getSpecificOrientation(callback: (err: Error, orientation: specificOrientation) => void): void;
     }
+                
+    export = Orientation;
 }
