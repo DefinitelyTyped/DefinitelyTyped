@@ -6,6 +6,7 @@ Orientation.addOrientationListener((orientation)=>{});
 Orientation.removeOrientationListener((orientation)=>{});
 Orientation.removeSpecificOrientationListener((orientation)=>{});
 
+Orientation.getInitialOrientation();
 Orientation.lockToPortrait();
 Orientation.lockToPortrait();
 Orientation.lockToLandscape();
