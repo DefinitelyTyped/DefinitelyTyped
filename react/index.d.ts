@@ -2294,7 +2294,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface Validator<T> {
-        (object: T, key: string, componentName: string): Error;
+        (object: T, key: string, componentName: string, ...rest: any[]): Error;
     }
 
     interface Requireable<T> extends Validator<T> {

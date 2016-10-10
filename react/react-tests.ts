@@ -375,6 +375,17 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
                 return new Error("Validation failed!");
             }
             return null;
+        },
+        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
+        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error => {
+            const error = React.PropTypes.number(object, key, componentName, ...rest);
+            if (error) {
+                return error;
+            }
+            if (object[key] < 0 || object[key] > 100) {
+                return new Error(`prop ${key} must be between 0 and 100`);
+            }
+            return null;
         }
     },
     render: (): React.ReactElement<any> => {
