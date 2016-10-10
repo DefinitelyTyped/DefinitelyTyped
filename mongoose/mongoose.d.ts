@@ -2014,12 +2014,6 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | Object, errorMsg?: string,
       type?: string): this;
-
-    /**
-     * http://mongoosejs.com/docs/api.html#schematype_SchemaType
-     * Options for this schema type (required, index, etc.)
-     */
-    options: any;
   }
 
   /*
