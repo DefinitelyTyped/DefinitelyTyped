@@ -90,6 +90,15 @@ request
   .set('Accept', 'application/json')
   .end(callback);
 
+// Unsetting header fields
+request
+  .get('/search')
+  .set('API-Key', 'foobar')
+  .set('Accept', 'application/json')
+  .set('foo', 'bar')
+  .unset('foo')
+  .end(callback);
+
 request
   .get('/search')
   .set({ 'API-Key': 'foobar', Accept: 'application/json' })
