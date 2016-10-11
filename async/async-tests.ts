@@ -41,9 +41,9 @@ var openFilesObj = {
     file2: "fileTwo"
 }
 
-var saveFile = function () { }
-async.each(openFiles, saveFile, function (err) { });
-async.eachSeries(openFiles, saveFile, function (err) { });
+var saveFile = function (file:string,cb:(err:Error)=>void) { }
+async.each(openFiles, saveFile, function (err:Error) { });
+async.eachSeries(openFiles, saveFile, function (err:Error) { });
 
 var documents, requestApi;
 async.eachLimit(documents, 20, requestApi, function (err) { });
