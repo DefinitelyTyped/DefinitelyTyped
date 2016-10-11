@@ -25,7 +25,7 @@ declare namespace RRule {
         bymonthday?: number | number[];
         byyearday?: number | number[];
         byweekno?: number | number[];
-        byweekday?: weekDay | Weekday[] | number | number[];
+        byweekday?:  Weekday | Weekday[] | number | number[];
         byhour?: number | number[];
         byminute?: number | number[];
         bysecond?: number | number[];
