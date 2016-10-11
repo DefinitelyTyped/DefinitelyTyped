@@ -102,6 +102,7 @@ type CallbackHandler = (err: any, res: request.Response) => void;
       set(field: Object): this;
       timeout(ms: number): this;
       type(val: string): this;
+      unset(field: string): this;
       use(fn: Function): this;
       withCredentials(): this;
       write(data: string, encoding?: string): this;
