@@ -124,15 +124,15 @@ interface Async {
     detectLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<T>): any;
     findLimit: typeof async.detectLimit;
     sortBy<T, V>(arr: T[], iterator: AsyncResultIterator<T, V>, callback?: AsyncResultArrayCallback<T>): any;
-    some<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
-    someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
+    some<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
+    someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
     anyLimit: typeof async.someLimit;
-    someSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
+    someSeries<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
     anySeries: typeof async.someSeries;
-    any<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => void): any;
-    every<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => any): any;
-    everyLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => any): any;
-    all<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: (result: boolean) => any): any;
+    any<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
+    every<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
+    everyLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
+    all<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncResultCallback<boolean>): any;
     concat<T, R>(arr: T[], iterator: AsyncResultIterator<T, R[]>, callback?: AsyncResultArrayCallback<R>): any;
     concatSeries<T, R>(arr: T[], iterator: AsyncResultIterator<T, R[]>, callback?: AsyncResultArrayCallback<R>): any;
 
@@ -167,8 +167,8 @@ interface Async {
     nextTick(callback: Function, ...args: any[]): void;
     setImmediate: typeof async.nextTick;
 
-    allLimit<T>(arr: T[], limit: number, iteratee: AsyncBooleanIterator<T>, cb?: (result: boolean) => any) : any;
-    everySeries<T>(arr: T[], iteratee: AsyncBooleanIterator<T>, cb?: (result: boolean) => any) : any
+    allLimit<T>(arr: T[], limit: number, iteratee: AsyncBooleanIterator<T>, cb?: AsyncResultCallback<boolean>) : any;
+    everySeries<T>(arr: T[], iteratee: AsyncBooleanIterator<T>, cb?: AsyncResultCallback<boolean>) : any
     allSeries: typeof async.everySeries;
 
     reflect<T>(fn: AsyncFunction<T>) : (callback: (err: void, result: {error?: Error, value?: T}) => void) => void;
