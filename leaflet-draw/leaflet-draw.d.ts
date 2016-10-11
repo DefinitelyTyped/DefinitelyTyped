@@ -5,6 +5,8 @@
 
 /// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
+declare module 'leaflet-draw' {}
+
 declare namespace L {
 	export interface MapOptions {
 		drawControl?: boolean;
