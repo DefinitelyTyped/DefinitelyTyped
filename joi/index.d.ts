@@ -131,6 +131,7 @@ export interface ValidationErrorItem {
     message: string;
     type: string;
     path: string;
+    options?: ValidationOptions;
     context?: any;
 }
 
