@@ -1091,10 +1091,22 @@ declare module "mongoose" {
     }
 
     /*
-      * section types/objectid.js
-      * http://mongoosejs.com/docs/api.html#types-objectid-js
-      */
-    class ObjectId extends mongodb.ObjectID {}
+     * section types/objectid.js
+     * http://mongoosejs.com/docs/api.html#types-objectid-js
+     */
+    var ObjectId: ObjectIdConstructor;
+
+    // mongodb.ObjectID does not allow mongoose.Types.ObjectId(id). This is
+    //   commonly used in mongoose and is found in an example in the docs:
+    //   http://mongoosejs.com/docs/api.html#aggregate_Aggregate
+    // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
+    type ObjectIdConstructor = typeof mongodb.ObjectID & {
+      (s?: string | number): mongodb.ObjectID;
+    }
+
+    // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
+    //   the ObjectIdConstructor, so we add the interface below
+    interface ObjectId extends mongodb.ObjectID {}
 
     /*
       * section types/embedded.js

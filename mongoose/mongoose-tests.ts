@@ -525,6 +525,7 @@ mongoose.Types.Buffer.from([1, 2, 3]);
  */
 var objectId: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('0x1234');
 objectId = new mongoose.Types.ObjectId(12345);
+objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
 export interface IManagerSchema extends mongoose.MongooseDocument {
