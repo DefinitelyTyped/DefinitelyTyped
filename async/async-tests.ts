@@ -4,20 +4,20 @@ var fs, path;
 
 function callback() {}
 
-async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
-async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
-async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err, results) { });
+async.map(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
+async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
+async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err:Error, results:Array<fs.Stats>) { });
 
-async.filter(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.filterSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.filterLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
-async.select(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.selectSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.selectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
+async.filter(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.filterSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.filterLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
+async.select(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.selectSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.selectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
 
-async.reject(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.rejectSeries(['file1', 'file2', 'file3'], path.exists, function (results) { });
-async.rejectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (results) { });
+async.reject(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.rejectSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
+async.rejectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
 
 async.parallel([
     function () { },
@@ -83,13 +83,13 @@ async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     });
 }, function (err, results) { });
 
-async.some(['file1', 'file2', 'file3'], path.exists, function (result) { });
-async.someLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
-async.any(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.some(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
+async.someLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,result:boolean) { });
+async.any(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
 
-async.every(['file1', 'file2', 'file3'], path.exists, function (result) { });
-async.everyLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
-async.all(['file1', 'file2', 'file3'], path.exists, function (result) { });
+async.every(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
+async.everyLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,result:boolean) { });
+async.all(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
@@ -382,10 +382,10 @@ async.retry({ times: 3, interval: (retryCount) => { return 200 * retryCount; } }
 
 
 async.parallel([
-    function (callback) { },
+    function (callback: ( err:Error, val:string ) => void ) { },
     function (callback) { }
 ],
-function (results) {
+function (err:Error,results:Array<string>) {
     async.series([
         function (callback) { },
         function email_link(callback) { }
