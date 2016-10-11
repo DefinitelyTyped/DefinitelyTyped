@@ -242,7 +242,13 @@ function test_bindings() {
         }
     };
 
-    var node, containerElem, nodeToInsert, insertAfter, nodeToPrepend, arrayOfNodes;
+    var node: Node = <any>{};
+    var insertAfter: Node = <any>{};
+    var nodeToPrepend: Node = <any>{};
+    var arrayOfNodes: Node[] = <any>[];
+    var containerElem: KnockoutVirtualElement = <any>{};
+    var nodeToInsert: Node = <any>{}
+
     ko.virtualElements.emptyNode(containerElem);
     ko.virtualElements.firstChild(containerElem);
     ko.virtualElements.insertAfter(containerElem, nodeToInsert, insertAfter);
@@ -568,7 +574,7 @@ function test_misc() {
 
     var x = ko.observableArray([1, 2, 3]);
 
-    var element;
+    var element: Element = <any>{};
     ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
         $(element).datepicker("destroy");
     });

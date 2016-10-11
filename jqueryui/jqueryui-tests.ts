@@ -816,11 +816,7 @@ function test_autocomplete() {
                 }, response);
             },
             search: () => {
-                // custom minLength
-                var term = null
-                if (term.length < 2) {
-                    return false;
-                }
+                return false;
             },
             focus: () => {
                 return false;
