@@ -758,7 +758,7 @@ interface HighchartsAxisOptions {
          * @default { "color": "#000000", "fontSize": "11px", "fontWeight": "bold", "textShadow": "0 0 6px contrast, 00 3px contrast" }
          * @since 2.1.5
          */
-        style?: Object;
+        style?: HighchartsCSSObject;
         /**
          * The text alignment for the label.
          * While align determines where the texts anchor point is placed with regards to the stack, textAlign determines how the text is aligned against its anchor point.
