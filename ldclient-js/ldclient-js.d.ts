@@ -16,8 +16,10 @@ declare namespace LaunchDarkly {
 
     /**
      * The types of values a feature flag can have.
+     *
+     * Flags can have any JSON-serializable value.
      */
-    export type LDFlagValue = boolean | string;
+    export type LDFlagValue = any;
 
     /**
      * A map of feature flags from their keys to their values.
@@ -167,7 +169,7 @@ declare namespace LaunchDarkly {
          * @returns
          *   The flag's value.
          */
-        variation: (key: string, defaultValue?: boolean) => LDFlagValue;
+        variation: (key: string, defaultValue?: LDFlagValue) => LDFlagValue;
 
         /**
          * Registers an event listener.
