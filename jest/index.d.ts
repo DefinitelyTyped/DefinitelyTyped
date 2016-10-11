@@ -87,7 +87,7 @@ declare namespace jest {
     }
 
     interface ProvidesCallback {
-        (cb?: DoneCallback): any;
+        (cb: DoneCallback): any;
     }
 
     interface Lifecycle {
@@ -95,7 +95,7 @@ declare namespace jest {
     }
 
     interface It {
-        (name: string, fn: ProvidesCallback): void;
+        (name: string, fn?: ProvidesCallback): void;
         only: It;
         skip: It;
     }
