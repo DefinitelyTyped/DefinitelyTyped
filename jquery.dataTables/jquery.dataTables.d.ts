@@ -1685,6 +1685,7 @@ declare namespace DataTables {
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
+        url?: string;
     }
 
     interface LanguagePaginateSettings {
