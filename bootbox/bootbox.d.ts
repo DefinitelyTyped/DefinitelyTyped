@@ -40,6 +40,7 @@ interface BootboxConfirmOptions extends BootboxDialogOptions {
 interface BootboxPromptOptions extends BootboxBaseOptions {
 	title: string;
 	value?: string;
+	inputType?: string;
 	callback: (result: string) => any;
 	buttons?: BootboxConfirmPromptButtonMap;
 }
