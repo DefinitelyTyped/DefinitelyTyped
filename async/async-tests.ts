@@ -1,23 +1,25 @@
 /// <reference path="async.d.ts" />
-
-var fs, path;
+/// <reference path="../node/node.d.ts" />
+import * as fs from "fs";
+// var fs = require("fs");
 
 function callback() {}
+function funcStringCbErrBoolean(v:string, cb:(err:Error,res:boolean) => void) {}
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err:Error, results:Array<fs.Stats>) { });
 async.mapLimit(['file1', 'file2', 'file3'], 2, fs.stat, function (err:Error, results:Array<fs.Stats>) { });
 
-async.filter(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.filterSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.filterLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
-async.select(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.selectSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.selectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
+async.filter(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.filterSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.filterLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.select(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.selectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.selectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
 
-async.reject(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.rejectSeries(['file1', 'file2', 'file3'], path.exists, function (err:Error,results:Array<string>) { });
-async.rejectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,results:Array<string>) { });
+async.reject(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.rejectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
+async.rejectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,results:Array<string>) { });
 
 async.parallel([
     function () { },
@@ -73,9 +75,9 @@ async.foldl(numArray, 0, reducer, function (err, result) { });
 async.reduceRight(numArray, 0, reducer, function (err, result) { });
 async.foldr(numArray, 0, reducer, function (err, result) { });
 
-async.detect(['file1', 'file2', 'file3'], path.exists, function (result) { });
-async.detectSeries(['file1', 'file2', 'file3'], path.exists, function (result) { });
-async.detectLimit(['file1', 'file2', 'file3'], 2, path.exists, function (result) { });
+async.detect(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result:string) { });
+async.detectSeries(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err,result) { });
+async.detectLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err,result) { });
 
 async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     fs.stat(file, function (err, stats) {
@@ -83,13 +85,13 @@ async.sortBy(['file1', 'file2', 'file3'], function (file, callback) {
     });
 }, function (err, results) { });
 
-async.some(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
-async.someLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,result:boolean) { });
-async.any(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
+async.some(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.someLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.any(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
 
-async.every(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
-async.everyLimit(['file1', 'file2', 'file3'], 2, path.exists, function (err:Error,result:boolean) { });
-async.all(['file1', 'file2', 'file3'], path.exists, function (err:Error,result:boolean) { });
+async.every(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.everyLimit(['file1', 'file2', 'file3'], 2, funcStringCbErrBoolean, function (err:Error,result:boolean) { });
+async.all(['file1', 'file2', 'file3'], funcStringCbErrBoolean, function (err:Error,result:boolean) { });
 
 async.concat(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
 async.concatSeries(['dir1', 'dir2', 'dir3'], fs.readdir, function (err, files) { });
@@ -107,7 +109,7 @@ async.series([
 ],
 function (err, results) { });
 
-async.series<string>([
+async.series<string,Error>([
     function (callback) {
         callback(null, 'one');
     },
@@ -131,7 +133,7 @@ async.series({
 },
 function (err, results) { });
 
-async.series<number>({
+async.series<number,Error>({
     one: function (callback) {
         setTimeout(function () {
             callback(null, 1);
@@ -171,7 +173,7 @@ async.parallel([
 ],
 function (err, results) { });
 
-async.parallel<string>([
+async.parallel<string,Error>([
     function (callback) {
         setTimeout(function () {
             callback(null, 'one');
@@ -200,7 +202,7 @@ async.parallel({
 },
 function (err, results) { });
 
-async.parallel<number>({
+async.parallel<number,Error>({
     one: function (callback) {
         setTimeout(function () {
             callback(null, 1);
@@ -266,7 +268,7 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any>(function (task: any, callback) {
+var q = async.queue<any,Error>(function (task: any, callback) {
     console.log('hello ' + task.name);
     callback();
 }, 2);
@@ -319,7 +321,7 @@ q.resume();
 q.kill();
 
 // tests for strongly typed tasks
-var q2 = async.queue<string>(function (task: string, callback) {
+var q2 = async.queue<string,Error>(function (task: string, callback) {
     console.log('Task: ' + task);
     callback();
 }, 1);
