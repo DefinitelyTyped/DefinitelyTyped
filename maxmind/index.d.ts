@@ -1,9 +1,11 @@
-// Type definitions for maxmind v1.3
+// Type definitions for maxmind v2.0
 // Project: https://github.com/runk/node-maxmind
 // Definitions by: Joshua DeVinney <https://github.com/geoffreak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare function open(database: string, opts?: Options): Reader;
+export declare function open(database: string, cb: (err: Error, reader: Reader) => void): void;
+export declare function open(database: string, opts: Options, cb: (err: Error, reader: Reader) => void): void;
+export declare function openSync(database: string, opts?: Options): Reader;
 export declare function validate(ip: string): boolean;
 
 export declare interface Reader {
