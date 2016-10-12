@@ -27,81 +27,7 @@ declare namespace Xrm
         /**
          * Provides a container for useful functions not directly related to the current page.
          */
-        Utility: {
-            /**
-             * Displays an alert dialog, with an "OK" button.
-             *
-             * @param   {string}        message         The message.
-             * @param   {function()}    onCloseCallback The "OK" callback.
-             */
-            alertDialog( message: string, onCloseCallback: () => void ): void;
-
-            /**
-             * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
-             *
-             * @param   {string}        message             The message.
-             * @param   {function()}    yesCloseCallback    The "OK" callback.
-             * @param   {function()}    noCloseCallback     The "Cancel" callback.
-             */
-            confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
-
-            /**
-             * Query if 'entityType' is an Activity entity.
-             *
-             * @param   {string}    entityType  Type of the entity.
-             *
-             * @return  true if the entity is an Activity, false if not.
-             */
-            isActivityType( entityType: string ): boolean;
-
-            /**
-             * Opens quick create.
-             *
-             * @param   {string}    entityLogicalName           The logical name of the entity to create.
-             * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
-             *                                                  based on mapped attribute values.
-             * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
-             *                                                  parameters to the form. Invalid query string parameters will cause an
-             *                                                  error.
-             */
-            openQuickCreate(
-                entityLogicalName: string,
-                createFromEntity?: Page.LookupValue,
-                parameters?: Utility.OpenParameters ): Async.XrmPromise;
-
-            /**
-             * Opens an entity form.
-             *
-             * @param   {string}    name                The entity's logical name.
-             * @param   {string}    id                  (Optional) The unique identifier for the record.
-             * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
-             * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
-             */
-            openEntityForm( name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions ): void;
-
-            /**
-             * Opens an HTML Web Resource in a new browser window.
-             *
-             * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
-             *                                      parameters.  See Remarks.
-             * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
-             *                                                 It is advised to use encodeURIcomponent() to encode the value.
-             * @param   {number}    width           (Optional) The width of the new window.
-             * @param   {number}    height          (Optional) The height of the new window.
-             *
-             * @return  A Window reference, containing the opened Web Resource.
-             *
-             * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
-             *          Valid WebResource URL Parameters:   typename
-             *                                              type
-             *                                              id
-             *                                              orgname
-             *                                              userlcid
-             *                                              data (identical to this method's webResourceData parameter)
-             *                                              formid
-             */
-            openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
-        }
+        Utility: Utility
     }
 
     /**
@@ -223,6 +149,85 @@ declare namespace Xrm
          * @return  An array of control.
          */
         getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
+    }
+
+    /**
+     * Interface for Utility (Xrm.Utility).
+     */
+    export interface Utility {
+        /**
+         * Displays an alert dialog, with an "OK" button.
+         *
+         * @param   {string}        message         The message.
+         * @param   {function()}    onCloseCallback The "OK" callback.
+         */
+        alertDialog( message: string, onCloseCallback: () => void ): void;
+
+        /**
+         * Displays a confirmation dialog, with "OK" and "Cancel" buttons.
+         *
+         * @param   {string}        message             The message.
+         * @param   {function()}    yesCloseCallback    The "OK" callback.
+         * @param   {function()}    noCloseCallback     The "Cancel" callback.
+         */
+        confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
+
+        /**
+         * Query if 'entityType' is an Activity entity.
+         *
+         * @param   {string}    entityType  Type of the entity.
+         *
+         * @return  true if the entity is an Activity, false if not.
+         */
+        isActivityType( entityType: string ): boolean;
+
+        /**
+         * Opens quick create.
+         *
+         * @param   {string}    entityLogicalName           The logical name of the entity to create.
+         * @param   {Page.LookupValue}  createFromEntity    (Optional) Designates a record that will provide default values
+         *                                                  based on mapped attribute values.
+         * @param   {OpenParameters}    parameters          (Optional) A dictionary object that passes extra query string
+         *                                                  parameters to the form. Invalid query string parameters will cause an
+         *                                                  error.
+         */
+        openQuickCreate(
+            entityLogicalName: string,
+            createFromEntity?: Page.LookupValue,
+            parameters?: Utility.OpenParameters ): Async.XrmPromise;
+
+        /**
+         * Opens an entity form.
+         *
+         * @param   {string}    name                The entity's logical name.
+         * @param   {string}    id                  (Optional) The unique identifier for the record.
+         * @param   {FormParameters}    parameters  (Optional) A dictionary object that passes extra query string parameters to the form.
+         * @param   {WindowOptions} windowOptions   (Optional) Options for controlling the window.
+         */
+        openEntityForm( name: string, id?: string, parameters?: Utility.FormOpenParameters, windowOptions?: Utility.WindowOptions ): void;
+
+        /**
+         * Opens an HTML Web Resource in a new browser window.
+         *
+         * @param   {string}    webResourceName Name of the HTML web resource. Can be used to pass URL
+         *                                      parameters.  See Remarks.
+         * @param   {string}    webResourceData (Optional) Data to pass into the Web Resource's data parameter.
+         *                                                 It is advised to use encodeURIcomponent() to encode the value.
+         * @param   {number}    width           (Optional) The width of the new window.
+         * @param   {number}    height          (Optional) The height of the new window.
+         *
+         * @return  A Window reference, containing the opened Web Resource.
+         *
+         * @remarks This function will not work with Microsoft Dynamics CRM for tablets.
+         *          Valid WebResource URL Parameters:   typename
+         *                                              type
+         *                                              id
+         *                                              orgname
+         *                                              userlcid
+         *                                              data (identical to this method's webResourceData parameter)
+         *                                              formid
+         */
+        openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
     }
 
     /**
