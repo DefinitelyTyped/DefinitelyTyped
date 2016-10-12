@@ -5,7 +5,7 @@
 
 /// <reference path="highcharts.d.ts" />
 
-declare var HighchartsBoost: (H: HighchartsStatic) => HighchartsStatic;
+declare var HighchartsBoost: (H: __Highcharts.Static) => __Highcharts.Static;
 
 declare module "highcharts/modules/boost" {
     export = HighchartsBoost;
