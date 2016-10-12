@@ -22,110 +22,7 @@ declare namespace Xrm
         /**
          * Provides a namespace container for the context, data and ui objects.
          */
-        Page: {
-            /**
-             * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
-             */
-            context: Context;
-
-            /**
-             * Provides methods to work with the form.
-             */
-            data: Data;
-
-            /**
-             * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
-             */
-            ui: Ui;
-
-            /**
-             * Gets all attributes.
-             *
-             * @return  An array of attributes.
-             */
-            getAttribute(): Page.Attribute[];
-
-            /**
-             * Gets an attribute matching attributeName.
-             *
-             * @tparam  T   An Attribute type.
-             * @param   {string}    attributeName   Name of the attribute.
-             *
-             * @return  The attribute.
-             */
-            getAttribute<T extends Page.Attribute>( attributeName: string ): T;
-
-            /**
-             * Gets an attribute matching attributeName.
-             *
-             * @param   {string}    attributeName   Name of the attribute.
-             *
-             * @return  The attribute.
-             */
-            getAttribute( attributeName: string ): Page.Attribute;
-
-            /**
-             * Gets an attribute by index.
-             *
-             * @param   {number}    index   The attribute index.
-             *
-             * @return  The attribute.
-             */
-            getAttribute( index: number ): Page.Attribute;
-
-            /**
-             * Gets an attribute.
-             *
-             * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
-             *
-             * @return  An array of attribute.
-             */
-            getAttribute( delegateFunction: Collection.MatchingDelegate<Page.Attribute> ): Page.Attribute[];
-
-            /**
-             * Gets all controls.
-             *
-             * @return  An array of controls.
-             */
-            getControl(): Page.Control[];
-
-            /**
-             * Gets a control matching controlName.
-             *
-             * @tparam  T   A Control type
-             * @param   {string}    controlName Name of the control.
-             *
-             * @return  The control.
-             */
-            getControl<T extends Page.Control>( controlName: string ): T;
-
-            /**
-             * Gets a control matching controlName.
-             *
-             * @param   {string}    controlName Name of the control.
-             *
-             * @return  The control.
-             */
-            getControl( controlName: string ): Page.Control;
-
-            /**
-             * Gets a control by index.
-             *
-             * @param   {number}    index   The control index.
-             *
-             * @return  The control.
-             */
-            getControl( index: number ): Page.Control;
-
-            /**
-             * Gets a control.
-             *
-             * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
-             *
-             * @return  An array of control.
-             */
-            getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
-        }
+        Page: Page
 
         /**
          * Provides a container for useful functions not directly related to the current page.
@@ -219,6 +116,114 @@ declare namespace Xrm
      * Themes for Xrm.Page.context.getCurrentTheme().
      */
     export type Theme = "default" | "Office12Blue" | "Office14Silver";
+
+    /**
+     * Interface for the Page (Xrm.Page).
+     */
+    export interface Page {
+        /**
+         * Provides methods to retrieve information specific to an organization, a user, or parameters passed to a page.
+         */
+        context: Context;
+
+        /**
+         * Provides methods to work with the form.
+         */
+        data: Data;
+
+        /**
+         * Contains properties and methods to retrieve information about the user interface as well as collections for several subcomponents of the form.
+         */
+        ui: Ui;
+
+        /**
+         * Gets all attributes.
+         *
+         * @return  An array of attributes.
+         */
+        getAttribute(): Page.Attribute[];
+
+        /**
+         * Gets an attribute matching attributeName.
+         *
+         * @tparam  T   An Attribute type.
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
+        getAttribute<T extends Page.Attribute>( attributeName: string ): T;
+
+        /**
+         * Gets an attribute matching attributeName.
+         *
+         * @param   {string}    attributeName   Name of the attribute.
+         *
+         * @return  The attribute.
+         */
+        getAttribute( attributeName: string ): Page.Attribute;
+
+        /**
+         * Gets an attribute by index.
+         *
+         * @param   {number}    index   The attribute index.
+         *
+         * @return  The attribute.
+         */
+        getAttribute( index: number ): Page.Attribute;
+
+        /**
+         * Gets an attribute.
+         *
+         * @param   {Collection.MatchingDelegate{Attribute}}    delegateFunction    A matching delegate function
+         *
+         * @return  An array of attribute.
+         */
+        getAttribute( delegateFunction: Collection.MatchingDelegate<Page.Attribute> ): Page.Attribute[];
+
+        /**
+         * Gets all controls.
+         *
+         * @return  An array of controls.
+         */
+        getControl(): Page.Control[];
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @tparam  T   A Control type
+         * @param   {string}    controlName Name of the control.
+         *
+         * @return  The control.
+         */
+        getControl<T extends Page.Control>( controlName: string ): T;
+
+        /**
+         * Gets a control matching controlName.
+         *
+         * @param   {string}    controlName Name of the control.
+         *
+         * @return  The control.
+         */
+        getControl( controlName: string ): Page.Control;
+
+        /**
+         * Gets a control by index.
+         *
+         * @param   {number}    index   The control index.
+         *
+         * @return  The control.
+         */
+        getControl( index: number ): Page.Control;
+
+        /**
+         * Gets a control.
+         *
+         * @param   {Collection.MatchingDelegate{Control}}  delegateFunction    A matching delegate function.
+         *
+         * @return  An array of control.
+         */
+        getControl( delegateFunction: Collection.MatchingDelegate<Page.Control> ): Page.Control[];
+    }
 
     /**
      * Interface for the client context.
