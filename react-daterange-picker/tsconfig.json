@@ -8,6 +8,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "*": ["*", "react-daterange-picker/node_modules/*"]
+        },
         "types": ["moment-range", "react"],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,

@@ -1685,6 +1685,10 @@ declare module "react" {
 
 
     export interface NavigatorIOSProperties extends React.Props<NavigatorIOSStatic> {
+        /**
+         * The background color of the navigation bar
+         */
+        barTintColor?: string
 
         /**
          * NavigatorIOS uses "route" objects to identify child views, their props, and navigation bar configuration.
@@ -2024,6 +2028,14 @@ declare module "react" {
 
     export interface DrawerLayoutAndroidStatic extends React.ComponentClass<DrawerLayoutAndroidProperties> {
 
+        /**
+         * Specifies the side of the screen from which the drawer will slide in.
+         */
+        positions: { 
+            Left: number;
+            Right: number;
+        }
+        
         /**
          * Opens the drawer.
          */
@@ -3343,6 +3355,19 @@ declare module "react" {
     }
 
     /**
+   * Class that contains the info and methods for app navigation.
+   */
+    export interface NavigationContext { 
+        parent: NavigationContext;
+        top: NavigationContext;
+        currentRoute: any;
+        appendChild(childContext: NavigationContext): void;
+        addListener(eventType: string, listener: () => void, useCapture?: boolean): NativeEventSubscription;
+        emit(eventType: string, data: any, didEmitCallback?: () => void): void;
+        dispose(): void;
+    }
+
+    /**
      * Use Navigator to transition between different scenes in your app.
      * To accomplish this, provide route objects to the navigator to identify each scene,
      * and also a renderScene function that the navigator can use to render the scene for a given route.
@@ -3354,7 +3379,9 @@ declare module "react" {
     export interface NavigatorStatic extends React.ComponentClass<NavigatorProperties> {
         SceneConfigs: SceneConfigs;
         NavigationBar: NavigatorStatic.NavigationBarStatic;
-        BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic
+        BreadcrumbNavigationBar: NavigatorStatic.BreadcrumbNavigationBarStatic;
+
+	navigationContext: NavigationContext;
 
         getContext(self: any): NavigatorStatic;
 

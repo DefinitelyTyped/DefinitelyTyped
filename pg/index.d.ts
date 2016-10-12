@@ -1,4 +1,4 @@
-// Type definitions for pg
+// Type definitions for pg 6.1.0
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

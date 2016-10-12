@@ -41,3 +41,7 @@ store.dispatch({ type: 'INCREMENT' });
 var actions: Array<any> = store.getActions();
 
 store.clearActions();
+
+// actions access without the need to cast
+var actions2 = store.getActions();
+actions2[10].payload.id;

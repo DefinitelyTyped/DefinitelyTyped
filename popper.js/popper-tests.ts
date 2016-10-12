@@ -1,4 +1,3 @@
-/// <reference path="./popper.d.ts" />
 
 import * as Popper from 'popper.js';
 

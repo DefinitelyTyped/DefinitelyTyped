@@ -1,4 +1,3 @@
-/// <reference path="./polylabel.d.ts" />
 import * as polylabel from 'polylabel';
 
 const polygon = [[[3116,3071],[3118,3068],[3108,3102],[3751,927]]]

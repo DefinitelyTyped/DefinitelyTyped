@@ -1,15 +1,14 @@
-/// <reference path="./diff2html.d.ts" />
 
 import Diff2Html = require('diff2html');
 
 let d2h = Diff2Html.Diff2Html;
 
-class Diff2HtmlOptionsImpl implements Diff2Html.Options {  
+class Diff2HtmlOptionsImpl implements Diff2Html.Options {
     constructor (public inputFormat: string) {
     }
-} 
+}
 
-let strInput = 
+let strInput =
         'diff --git a/sample b/sample\n' +
         'index 0000001..0ddf2ba\n' +
         '--- a/sample\n' +

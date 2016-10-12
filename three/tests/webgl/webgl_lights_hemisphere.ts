@@ -151,7 +151,7 @@
         // STATS
 
         stats = new Stats();
-        container.appendChild( stats.domElement );
+        container.appendChild( stats.dom );
 
         //
 

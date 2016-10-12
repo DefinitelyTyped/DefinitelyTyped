@@ -16,6 +16,12 @@
 
 import * as Koa from "koa";
 
+declare module "koa" {
+    interface Request {
+        body: any;
+    }
+}
+
 declare function bodyParser(opts?: {
     /**
      * requested encoding. Default is utf-8 by co-body

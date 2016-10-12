@@ -71,6 +71,16 @@ declare module 'angular' {
             initialValue(initialValue: string): IPromptDialog;
         }
 
+        interface IColorExpression {
+            [cssPropertyName: string]: string;
+        }
+
+        interface IColorService {
+            applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+            getThemeColor(expression: string): string;
+            hasTheme(): boolean;
+        }
+
         interface IDialogOptions {
             templateUrl?: string;
             template?: string;
@@ -214,6 +224,12 @@ declare module 'angular' {
             hues: IThemeHues;
         }
 
+        interface IBrowserColors{
+            theme: string;
+            palette: string;
+            hue: string;
+        }
+
         interface IThemeColors {
             accent: IThemePalette;
             background: IThemePalette;
@@ -243,12 +259,13 @@ declare module 'angular' {
         }
 
         interface IThemingProvider {
-            theme(name: string, inheritFrom?: string): ITheme;
+            alwaysWatchTheme(alwaysWatch: boolean): void;
             definePalette(name: string, palette: IPalette): IThemingProvider;
+            enableBrowserColor(browserColors: IBrowserColors): Function;
             extendPalette(name: string, palette: IPalette): IPalette;
             setDefaultTheme(theme: string): void;
-            alwaysWatchTheme(alwaysWatch: boolean): void;
             setNonce(nonce: string): void;
+            theme(name: string, inheritFrom?: string): ITheme;
         }
 
         interface IDateLocaleProvider {
@@ -335,6 +352,9 @@ declare module 'angular' {
             removeClass(oldClass: string): void;
             toggleClass(toggleClass: string): void;
             updatePosition(position: IPanelPosition): void;
+            registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+            removeAllInterceptors(type?: string): IPanelRef;
         }
 
         interface IPanelPosition {
@@ -350,8 +370,8 @@ declare module 'angular' {
             centerVertically(): IPanelPosition;
             center(): IPanelPosition;
             addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
-            withOffsetX(offsetX: string): IPanelPosition;
-            withOffsetY(offsetY: string): IPanelPosition;
+            withOffsetX(offsetX: string | ((panel: IPanelPosition) => string)): IPanelPosition;
+            withOffsetY(offsetY: string | ((panel: IPanelPosition) => string)): IPanelPosition;
         }
 
         interface IPanelAnimation {
@@ -383,6 +403,9 @@ declare module 'angular' {
                 SLIDE: string,
                 SCALE: string,
                 FADE: string,
+            };
+            interceptorTypes: {
+                CLOSE: string,
             };
         }
     }

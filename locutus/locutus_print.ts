@@ -6,8 +6,6 @@
    node locutus_print.js define
  */
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="./locutus.d.ts" />
 
 var locutus = require('locutus');
 

@@ -17,10 +17,11 @@ export interface Timer {
      * Restart a timer with the specified callback and optional delay and time.
      * This is equivalent to stopping this timer and creating a new timer with the specified arguments,
      * although this timer retains the original invocation priority.
+     *
      * @param callback A callback function to be invoked and passed in the apparent
      * elapsed time since the timer became active in milliseconds.
-     * @param [delay] An optional numeric delay in milliseconds (default = 0) relative to time.
-     * @param [time] An optional time in milliseconds relative to which the delay is calculated (default = now).
+     * @param delay An optional numeric delay in milliseconds (default = 0) relative to time.
+     * @param time An optional time in milliseconds relative to which the delay is calculated (default = now).
      */
     restart(callbackFn: (elapsed: number) => void, delay?: number, time?: number): void;
 
@@ -36,8 +37,8 @@ export interface Timer {
  *
  * @param callback A callback function to be invoked and passed in the apparent
  * elapsed time since the timer became active in milliseconds.
- * @param [delay] An optional numeric delay in milliseconds (default = 0) relative to time.
- * @param [time] An optional time in milliseconds relative to which the delay is calculated (default = now).
+ * @param delay An optional numeric delay in milliseconds (default = 0) relative to time.
+ * @param time An optional time in milliseconds relative to which the delay is calculated (default = now).
  */
 export function timer(callback: (elapsed: number) => void, delay?: number, time?: number): Timer;
 
@@ -52,8 +53,8 @@ export function timerFlush(): void;
  *
  * @param callback A callback function to be invoked and passed in the apparent
  * elapsed time since the timer became active in milliseconds.
- * @param [delay] An optional numeric delay in milliseconds (default = 0) relative to time.
- * @param [time] An optional time in milliseconds relative to which the delay is calculated (default = now).
+ * @param delay An optional numeric delay in milliseconds (default = 0) relative to time.
+ * @param time An optional time in milliseconds relative to which the delay is calculated (default = now).
  */
 export function timeout(callback: (elapsed: number) => void, delay?: number, time?: number): Timer;
 
@@ -64,8 +65,8 @@ export function timeout(callback: (elapsed: number) => void, delay?: number, tim
  *
  * @param callback A callback function to be invoked and passed in the apparent
  * elapsed time since the timer became active in milliseconds.
- * @param [delay] An optional numeric delay in milliseconds between repeat invocations of the callback.
+ * @param delay An optional numeric delay in milliseconds between repeat invocations of the callback.
  * If not specified, the interval timer behaves like the regular timer.
- * @param [time] An optional time in milliseconds relative to which the initial delay is calculated (default = now).
+ * @param time An optional time in milliseconds relative to which the initial delay is calculated (default = now).
  */
 export function interval(callback: (elapsed: number) => void, delay?: number, time?: number): Timer;

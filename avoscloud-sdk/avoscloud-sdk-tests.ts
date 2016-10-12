@@ -1,4 +1,3 @@
-/// <reference path="avoscloud-sdk.d.ts" />
 import  * as AV from 'avoscloud-sdk'
 // 创建一个新的 TestObject 对象
 AV.initialize('uay57kigwe0b6f5n0e1d4z4xhydsml3dor24bzwvzr57wdap','kfgz7jjfsk55r5a8a3y4ttd3je1ko11bkibcikonk32oozww');
@@ -15,7 +14,7 @@ function avobject_Test() {
     testObject.set("testDate",  new Date());
     testObject.set("testArray", ["leancloud","is","great"]);
     testObject.set("testDictionary", {key:"value"});
-    
+
 
     testObject.increment("testInteger");
     testObject.addUnique("testArray", "service");
@@ -29,7 +28,7 @@ function test_query() {
     var todoObject = new TestObject();
 
     var query = new AV.Query(TestObject);
-    
+
     query.equalTo("testString", "leancloud");
     query.notEqualTo("testString", "aws");
     query.greaterThan("testInteger", 150);
@@ -67,7 +66,7 @@ function test_query() {
 
     // Finds objects that don't have the score set
     query.doesNotExist("testInteger");
-    
+
     query.select("testInteger", "leancloud");
 
     // Find objects where the array in arrayKey contains 2.
