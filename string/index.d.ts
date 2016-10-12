@@ -72,6 +72,10 @@ interface StringJS {
 	
 	strip(...strings: string[]): StringJS;
 	
+	stripLeft(...strings: string[]): StringJS;
+
+	stripRight(...strings: string[]): StringJS;
+	
 	right(n: number): StringJS;
 	
 	setValue(string: any): StringJS;
