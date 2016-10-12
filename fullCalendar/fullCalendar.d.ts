@@ -103,6 +103,7 @@ declare namespace FullCalendar {
          * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
          */
         events?: any;
+	eventLimit?: boolean;
 
         /**
          * An array, each element being one of the following types:
