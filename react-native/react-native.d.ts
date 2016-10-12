@@ -22,101 +22,6 @@ import React = __React;
 
 //react-native "extends" react
 declare namespace  __React {
-    /**
-     * Represents the completion of an asynchronous operation
-     * @see lib.es6.d.ts
-     */
-    export interface Promise<T> {
-        /**
-         * Attaches callbacks for the resolution and/or rejection of the Promise.
-         * @param onfulfilled The callback to execute when the Promise is resolved.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of which ever callback is executed.
-         */
-        then<TResult>( onfulfilled?: ( value: T ) => TResult | Promise<TResult>, onrejected?: ( reason: any ) => TResult | Promise<TResult> ): Promise<TResult>;
-
-        /**
-         * Attaches a callback for only the rejection of the Promise.
-         * @param onrejected The callback to execute when the Promise is rejected.
-         * @returns A Promise for the completion of the callback.
-         */
-        catch( onrejected?: ( reason: any ) => T | Promise<T> ): Promise<T>;
-
-
-        // not in lib.es6.d.ts but called by react-native
-        done( callback?: ( value: T ) => void ): void;
-    }
-
-    export interface PromiseConstructor {
-        /**
-         * A reference to the prototype.
-         */
-        prototype: Promise<any>;
-
-        /**
-         * Creates a new Promise.
-         * @param init A callback used to initialize the promise. This callback is passed two arguments:
-         * a resolve callback used resolve the promise with a value or the result of another promise,
-         * and a reject callback used to reject the promise with a provided reason or error.
-         */
-        new <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        <T>( init: ( resolve: ( value?: T | Promise<T> ) => void, reject: ( reason?: any ) => void ) => void ): Promise<T>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        all<T>( values: (T | Promise<T>)[] ): Promise<T[]>;
-
-        /**
-         * Creates a Promise that is resolved with an array of results when all of the provided Promises
-         * resolve, or rejected when any Promise is rejected.
-         * @param values An array of values.
-         * @returns A new Promise.
-         */
-        all( values: Promise<void>[] ): Promise<void>;
-
-        /**
-         * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-         * or rejected.
-         * @param values An array of Promises.
-         * @returns A new Promise.
-         */
-        race<T>( values: (T | Promise<T>)[] ): Promise<T>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject( reason: any ): Promise<void>;
-
-        /**
-         * Creates a new rejected promise for the provided reason.
-         * @param reason The reason the promise was rejected.
-         * @returns A new rejected Promise.
-         */
-        reject<T>( reason: any ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise for the provided value.
-         * @param value A promise.
-         * @returns A promise whose internal state matches the provided promise.
-         */
-        resolve<T>( value: T | Promise<T> ): Promise<T>;
-
-        /**
-         * Creates a new resolved promise .
-         * @returns A resolved promise.
-         */
-        resolve(): Promise<void>;
-    }
-
-    // @see lib.es6.d.ts
-    export var Promise: PromiseConstructor;
 
     export type MeasureOnSuccessCallback = (
         x: number,
@@ -4588,7 +4493,7 @@ declare namespace  __React {
         }
     }
 
-    export type RelayProfiler = {
+    export interface RelayProfiler {
         attachProfileHandler(
             name: string,
             handler: (name: string, state?: any) => () => void
@@ -6328,7 +6233,7 @@ declare namespace  __React {
         getInitialURL(callback: (url: string) => void):void
     }
 
-    export class LinkingStatic extends NativeEventEmitter {
+    export interface LinkingStatic extends NativeEventEmitter {
         /**
          * Add a handler to Linking changes by listening to the `url` event type
          * and providing the handler
@@ -6559,19 +6464,19 @@ declare namespace  __React {
         create( config: PanResponderCallbacks ): PanResponderInstance
     }
 
-    export type Rationale = {
+    export interface Rationale {
         title: string
         message: string
     }
 
     export type Permission = "android.permission.READ_CALENDAR" | "android.permission.WRITE_CALENDAR" | "android.permission.CAMERA" | "android.permission.READ_CONTACTS" | "android.permission.WRITE_CONTACTS" | "android.permission.GET_ACCOUNTS" | "android.permission.ACCESS_FINE_LOCATION" | "android.permission.ACCESS_COARSE_LOCATION" | "android.permission.RECORD_AUDIO" | "android.permission.READ_PHONE_STATE" | "android.permission.CALL_PHONE" | "android.permission.READ_CALL_LOG" | "android.permission.WRITE_CALL_LOG" | "com.android.voicemail.permission.ADD_VOICEMAIL" | "android.permission.USE_SIP" | "android.permission.PROCESS_OUTGOING_CALLS" | "android.permission.BODY_SENSORS" | "android.permission.SEND_SMS" | "android.permission.RECEIVE_SMS" | "android.permission.READ_SMS" | "android.permission.RECEIVE_WAP_PUSH" | "android.permission.RECEIVE_MMS" | "android.permission.READ_EXTERNAL_STORAGE" | "android.permission.WRITE_EXTERNAL_STORAGE"
 
-    export class PermissionsAndroidStatic {
+    export interface PermissionsAndroidStatic {
         /**
          * A list of specified "dangerous" permissions that require prompting the user
          */
         PERMISSIONS: {[key: string]: Permission}
-        constructor()
+        new(): PermissionsAndroidStatic
         /**
          * Returns a promise resolving to a boolean value as to whether the specified
          * permissions has been granted
@@ -6869,7 +6774,7 @@ declare namespace  __React {
      * StatusBarIOS is deprecated.
      * Use `StatusBar` for mutating the status bar.
      */
-    export class StatusBarIOSStatic extends NativeEventEmitter {
+    export interface StatusBarIOSStatic extends NativeEventEmitter {
     }
 
     type TimePickerAndroidOpenOptions = {
@@ -7449,11 +7354,6 @@ declare namespace  __React {
       export var Text: any;
     }
 
-    export type I18nManagerStatus = {
-        isRTL: boolean
-        allowRTL: (allowRTL: boolean) => {}
-        forceRTL: (forceRTL: boolean) => {}
-    }
     export interface I18nManagerStatic {
         isRTL: boolean
         allowRTL: (allowRTL: boolean) => {}
