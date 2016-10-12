@@ -8,13 +8,15 @@
 declare module "finalhandler" {
 	import {ServerRequest, ServerResponse} from "http";
 
-	export interface Options {
-		message?: boolean|((err: any, status: number) => string);
-		onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
-		stacktrace?: boolean;
+	function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;
+
+	namespace finalHandler {
+		export interface Options {
+			message?: boolean|((err: any, status: number) => string);
+			onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
+			stacktrace?: boolean;
+		}
 	}
 
-	function finalHandler(req: ServerRequest, res: ServerResponse, options?: Options): (err: any) => void;
-
-	export default finalHandler;
+	export = finalHandler;
 }

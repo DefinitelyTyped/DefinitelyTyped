@@ -135,6 +135,7 @@ declare namespace __MaterialUI {
             clockCircleColor?: string;
             shadowColor?: string;
         }
+        export var ThemePalette: ThemePalette;
         interface MuiTheme {
             spacing?: Spacing;
             fontFamily?: string;
@@ -344,6 +345,9 @@ declare namespace __MaterialUI {
                 disabledTextColor?: string;
                 connectorLineColor?: string;
             };
+            svgIcon?: {
+                color?: string,
+            };
             table?: {
                 backgroundColor?: string;
             };
@@ -513,8 +517,8 @@ declare namespace __MaterialUI {
         iconClassNameRight?: string;
         iconElementLeft?: React.ReactElement<any>;
         iconElementRight?: React.ReactElement<any>;
-        iconStyleRight?: string;
-        iconStyleLeft?: string;
+        iconStyleRight?: React.CSSProperties;
+        iconStyleLeft?: React.CSSProperties;
         onLeftIconButtonTouchTap?: TouchTapEventHandler;
         onRightIconButtonTouchTap?: TouchTapEventHandler;
         onTitleTouchTap?: TouchTapEventHandler;
@@ -536,7 +540,7 @@ declare namespace __MaterialUI {
         type horizontal = 'left' | 'middle' | 'right';
         type vertical = 'top' | 'center' | 'bottom';
         type direction = 'left' | 'right' | 'up' | 'down';
-        
+
         interface origin {
             horizontal: horizontal;
             vertical: vertical;
@@ -556,7 +560,7 @@ declare namespace __MaterialUI {
         errorStyle?: React.CSSProperties;
         errorText?: string;
         filter?: (searchText: string, key: string, item: AutoCompleteDataItem) => boolean;
-        floatingLabelText?: string;
+        floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
         hintText?: string;
         listStyle?: React.CSSProperties;
@@ -745,7 +749,7 @@ declare namespace __MaterialUI {
         onMouseLeave?: React.MouseEventHandler;
         onMouseOut?: React.MouseEventHandler;
         style?: React.CSSProperties;
-        tooltip?: string;
+        tooltip?: React.ReactNode | string;
         tooltipPosition?: propTypes.cornersAndCenter;
         tooltipStyles?: React.CSSProperties;
         touch?: boolean;
@@ -756,6 +760,7 @@ declare namespace __MaterialUI {
     namespace Card {
 
         interface CardProps extends React.Props<Card> {
+            className?: string;
             actAsExpander?: boolean;
             containerStyle?: React.CSSProperties;
             expandable?: boolean;

@@ -26,6 +26,12 @@ var instance = PINO({
   }
 })
 
+var pretty = PINO.pretty()
+var instance2 = PINO({
+  name: 'app',
+  safe: true
+}, pretty)
+
 
 var logger = instance
 logger.child({ a: 'property' }).info('hello child!')

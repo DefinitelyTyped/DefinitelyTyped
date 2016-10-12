@@ -7,19 +7,20 @@
 declare class CamlBuilder {
     constructor();
     /** Generate CAML Query, starting from <Where> tag */
-    public Where(): CamlBuilder.IFieldExpression;
+    Where(): CamlBuilder.IFieldExpression;
     /** Generate <View> tag for SP.CamlQuery
-    @param viewFields If omitted, default view fields are requested; otherwise, only values for the fields with the specified internal names are returned.
-    Specifying view fields is a good practice, as it decreases traffic between server and client. */
-    public View(viewFields?: string[]): CamlBuilder.IView;
+        @param viewFields If omitted, default view fields are requested; otherwise, only values for the fields with the specified internal names are returned.
+                          Specifying view fields is a good practice, as it decreases traffic between server and client. */
+    View(viewFields?: string[]): CamlBuilder.IView;
     /** Generate <ViewFields> tag for SPServices */
-    public ViewFields(viewFields: string[]): CamlBuilder.IFinalizableToString;
+    ViewFields(viewFields: string[]): CamlBuilder.IFinalizableToString;
     /** Use for:
-    1. SPServices CAMLQuery attribute
-    2. Creating partial expressions
-    3. In conjunction with Any & All clauses
-    */
+        1. SPServices CAMLQuery attribute
+        2. Creating partial expressions
+        3. In conjunction with Any & All clauses
+         */
     static Expression(): CamlBuilder.IFieldExpression;
+    static FromXml(xml: string): CamlBuilder.IRawQuery;
 }
 declare namespace CamlBuilder {
     interface IView extends IJoinable, IFinalizable {
@@ -29,24 +30,24 @@ declare namespace CamlBuilder {
     }
     interface IJoinable {
         /** Join the list you're querying with another list.
-        Joins are only allowed through a lookup field relation.
-        @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
-        @alias alias for the joined list */
+            Joins are only allowed through a lookup field relation.
+            @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
+            @alias alias for the joined list */
         InnerJoin(lookupFieldInternalName: string, alias: string): IJoin;
         /** Join the list you're querying with another list.
-        Joins are only allowed through a lookup field relation.
-        @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
-        @alias alias for the joined list */
+            Joins are only allowed through a lookup field relation.
+            @param lookupFieldInternalName Internal name of the lookup field, that points to the list you're going to join in.
+            @alias alias for the joined list */
         LeftJoin(lookupFieldInternalName: string, alias: string): IJoin;
     }
     interface IJoin extends IJoinable {
         /** Select projected field for using in the main Query body
-        @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
+            @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
         Select(remoteFieldInternalName: string, remoteFieldAlias: string): IProjectableView;
     }
     interface IProjectableView extends IView {
         /** Select projected field for using in the main Query body
-        @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
+            @param remoteFieldAlias By this alias, the field can be used in the main Query body. */
         Select(remoteFieldInternalName: string, remoteFieldAlias: string): IProjectableView;
     }
     enum ViewScope {
@@ -57,7 +58,7 @@ declare namespace CamlBuilder {
         /**  */
         FilesOnly = 2,
     }
-    interface IQuery {
+    interface IQuery extends IGroupable {
         Where(): IFieldExpression;
     }
     interface IFinalizableToString {
@@ -70,21 +71,21 @@ declare namespace CamlBuilder {
     }
     interface ISortable extends IFinalizable {
         /** Adds OrderBy clause to the query
-        @param fieldInternalName Internal field of the first field by that the data will be sorted (ascending)
-        @param override This is only necessary for large lists. DON'T use it unless you know what it is for!
-        @param useIndexForOrderBy This is only necessary for large lists. DON'T use it unless you know what it is for!
+            @param fieldInternalName Internal field of the first field by that the data will be sorted (ascending)
+            @param override This is only necessary for large lists. DON'T use it unless you know what it is for!
+            @param useIndexForOrderBy This is only necessary for large lists. DON'T use it unless you know what it is for!
         */
         OrderBy(fieldInternalName: string, override?: boolean, useIndexForOrderBy?: boolean): ISortedQuery;
         /** Adds OrderBy clause to the query (using descending order for the first field).
-        @param fieldInternalName Internal field of the first field by that the data will be sorted (descending)
-        @param override This is only necessary for large lists. DON'T use it unless you know what it is for!
-        @param useIndexForOrderBy This is only necessary for large lists. DON'T use it unless you know what it is for!
+            @param fieldInternalName Internal field of the first field by that the data will be sorted (descending)
+            @param override This is only necessary for large lists. DON'T use it unless you know what it is for!
+            @param useIndexForOrderBy This is only necessary for large lists. DON'T use it unless you know what it is for!
         */
         OrderByDesc(fieldInternalName: string, override?: boolean, useIndexForOrderBy?: boolean): ISortedQuery;
     }
     interface IGroupable extends ISortable {
         /** Adds GroupBy clause to the query.
-        @param collapse If true, only information about the groups is retrieved, otherwise items are also retrieved. */
+            @param collapse If true, only information about the groups is retrieved, otherwise items are also retrieved. */
         GroupBy(fieldInternalName: any): IGroupedQuery;
     }
     interface IExpression extends IGroupable {
@@ -134,17 +135,19 @@ declare namespace CamlBuilder {
         DateField(internalName: string): IDateTimeFieldExpression;
         /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is DateTime */
         DateTimeField(internalName: string): IDateTimeFieldExpression;
+        /** Specifies that a condition will be tested against the field with the specified internal name, and the type of this field is ModStat (moderation status) */
+        ModStatField(internalName: string): IModStatFieldExpression;
         /** Used in queries for retrieving recurring calendar events.
-        NOTICE: DateRangesOverlap with overlapType other than Now cannot be used with SP.CamlQuery, because it doesn't support
-        CalendarDate and ExpandRecurrence query options. Lists.asmx, however, supports them, so you can still use DateRangesOverlap
-        with SPServices.
-        @param overlapType Defines type of overlap: return all events for a day, for a week, for a month or for a year
-        @param calendarDate Defines date that will be used for determining events for which exactly day/week/month/year will be returned.
-        This value is ignored for overlapType=Now, but for the other overlap types it is mandatory.
-        @param eventDateField Internal name of "Start Time" field (default: "EventDate" - all OOTB Calendar lists use this name)
-        @param endDateField Internal name of "End Time" field (default: "EndDate" - all OOTB Calendar lists use this name)
-        @param recurrenceIDField Internal name of "Recurrence ID" field (default: "RecurrenceID" - all OOTB Calendar lists use this name)
-        */
+            NOTICE: DateRangesOverlap with overlapType other than Now cannot be used with SP.CamlQuery, because it doesn't support
+            CalendarDate and ExpandRecurrence query options. Lists.asmx, however, supports them, so you can still use DateRangesOverlap
+            with SPServices.
+            @param overlapType Defines type of overlap: return all events for a day, for a week, for a month or for a year
+            @param calendarDate Defines date that will be used for determining events for which exactly day/week/month/year will be returned.
+                                This value is ignored for overlapType=Now, but for the other overlap types it is mandatory.
+            @param eventDateField Internal name of "Start Time" field (default: "EventDate" - all OOTB Calendar lists use this name)
+            @param endDateField Internal name of "End Time" field (default: "EndDate" - all OOTB Calendar lists use this name)
+            @param recurrenceIDField Internal name of "Recurrence ID" field (default: "RecurrenceID" - all OOTB Calendar lists use this name)
+         */
         DateRangesOverlap(overlapType: DateRangesOverlapType, calendarDate: string, eventDateField?: string, endDateField?: string, recurrenceIDField?: string): IExpression;
     }
     interface IBooleanFieldExpression {
@@ -201,25 +204,25 @@ declare namespace CamlBuilder {
         /** Checks whether the value of the field is equal to one of the specified values */
         In(arrayOfValues: Date[]): IExpression;
         /** Checks whether the value of the field is equal to the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         EqualTo(value: string): IExpression;
         /** Checks whether the value of the field is not equal to the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         NotEqualTo(value: string): IExpression;
         /** Checks whether the value of the field is greater than the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         GreaterThan(value: string): IExpression;
         /** Checks whether the value of the field is less than the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         LessThan(value: string): IExpression;
         /** Checks whether the value of the field is greater than or equal to the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         GreaterThanOrEqualTo(value: string): IExpression;
         /** Checks whether the value of the field is less than or equal to the specified value.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         LessThanOrEqualTo(value: string): IExpression;
         /** Checks whether the value of the field is equal to one of the specified values.
-        The datetime value should be defined in ISO 8601 format! */
+            The datetime value should be defined in ISO 8601 format! */
         In(arrayOfValues: string[]): IExpression;
     }
     interface ITextFieldExpression {
@@ -322,6 +325,27 @@ declare namespace CamlBuilder {
         /** DEPRECATED: "Neq" operation in CAML works exactly the same as "NotIncludes". To avoid confusion, please use NotIncludes. */
         NotEqualTo(value: any): IExpression;
     }
+    interface IModStatFieldExpression {
+        /** Represents moderation status ID. */
+        ModStatId(): INumberFieldExpression;
+        /** Checks whether the value of the field is Approved - same as ModStatId.EqualTo(0) */
+        IsApproved(): IExpression;
+        /** Checks whether the value of the field is Rejected - same as ModStatId.EqualTo(1) */
+        IsRejected(): IExpression;
+        /** Checks whether the value of the field is Pending - same as ModStatId.EqualTo(2) */
+        IsPending(): IExpression;
+        /** Represents moderation status as localized text. In most cases it is better to use ModStatId in the queries instead of ValueAsText. */
+        ValueAsText(): ITextFieldExpression;
+    }
+    interface IRawQuery {
+        /** Change Where clause */
+        ReplaceWhere(): IFieldExpression;
+        ModifyWhere(): IRawQueryModify;
+    }
+    interface IRawQueryModify {
+        AppendOr(): IFieldExpression;
+        AppendAnd(): IFieldExpression;
+    }
     enum DateRangesOverlapType {
         /** Returns events for today */
         Now = 0,
@@ -330,7 +354,7 @@ declare namespace CamlBuilder {
         /** Returns events for one week, specified by CalendarDate in QueryOptions */
         Week = 2,
         /** Returns events for one month, specified by CalendarDate in QueryOptions.
-        Caution: usually also returns few days from previous and next months */
+            Caution: usually also returns few days from previous and next months */
         Month = 3,
         /** Returns events for one year, specified by CalendarDate in QueryOptions */
         Year = 4,
@@ -340,6 +364,7 @@ declare namespace CamlBuilder {
         static createViewFields(viewFields: string[]): IFinalizableToString;
         static createWhere(): IFieldExpression;
         static createExpression(): IFieldExpression;
+        static createRawQuery(xml: string): IRawQuery;
     }
     class CamlValues {
         /** Dynamic value that represents Id of the current user */

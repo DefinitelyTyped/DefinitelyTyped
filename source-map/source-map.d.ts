@@ -66,6 +66,7 @@ declare namespace SourceMap {
         public setSourceContent(sourceFile: string, sourceContent: string): void;
         public applySourceMap(sourceMapConsumer: SourceMapConsumer, sourceFile?: string, sourceMapPath?: string): void;
         public toString(): string;
+        public toJSON(): RawSourceMap;
     }
 
     class SourceNode {

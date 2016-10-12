@@ -56,12 +56,11 @@ declare namespace Qwest {
 	}
 
 	interface Promise {
-
 		/** Request is successful */
-		then(callback: (response: any) => any): Promise;
+		then(callback: (xhr: any, response?: any) => any): Promise;
 
 		/** Request has failed */
-		catch(callback: (e: any, response: any) => any): Promise;
+		catch(callback: (e: any, xhr? : any, response?: any) => any): Promise;
 
 		/** Always run */
 		complete(callback: () => any): Promise;

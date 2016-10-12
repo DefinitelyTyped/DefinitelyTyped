@@ -8,6 +8,7 @@
 declare module "ws" {
     import * as events from 'events';
     import * as http from 'http';
+    import * as https from 'https';
     import * as net from 'net';
 
     class WebSocket extends events.EventEmitter {
@@ -21,7 +22,7 @@ declare module "ws" {
         protocolVersion: string;
         url: string;
         supports: any;
-        upgradeReq: http.ServerRequest;
+        upgradeReq: http.IncomingMessage;
         protocol: string;
 
         CONNECTING: number;
@@ -76,8 +77,8 @@ declare module "ws" {
 
     namespace WebSocket {
                 
-        type VerifyClientCallbackSync = (info: {origin: string; secure: boolean; req: http.ServerRequest}) => boolean;
-        type VerifyClientCallbackAsync = (info: {origin: string; secure: boolean; req: http.ServerRequest}
+        type VerifyClientCallbackSync = (info: {origin: string; secure: boolean; req: http.IncomingMessage}) => boolean;
+        type VerifyClientCallbackAsync = (info: {origin: string; secure: boolean; req: http.IncomingMessage}
                                             , callback: (res: boolean) => void) => void;
         
         export interface IClientOptions {
@@ -95,17 +96,26 @@ declare module "ws" {
             ciphers?: string;
             rejectUnauthorized?: boolean;
         }
+
+        export interface IPerMessageDeflateOptions {
+            serverNoContextTakeover?: boolean;
+            clientNoContextTakeover?: boolean;
+            serverMaxWindowBits?: number;
+            clientMaxWindowBits?: number;
+            memLevel?: number;
+        }
         
         export interface IServerOptions {
             host?: string;
             port?: number;
-            server?: http.Server;
+            server?: http.Server | https.Server;
             verifyClient?: VerifyClientCallbackAsync | VerifyClientCallbackSync;
             handleProtocols?: any;
             path?: string;
             noServer?: boolean;
             disableHixie?: boolean;
             clientTracking?: boolean;
+            perMessageDeflate?: boolean | IPerMessageDeflateOptions;
         }
 
         export class Server extends events.EventEmitter {
@@ -116,7 +126,7 @@ declare module "ws" {
             constructor(options?: IServerOptions, callback?: Function);
 
             close(cb?: () => {}): void;
-            handleUpgrade(request: http.ServerRequest, socket: net.Socket,
+            handleUpgrade(request: http.IncomingMessage, socket: net.Socket,
                           upgradeHead: Buffer, callback: (client: WebSocket) => void): void;
 
             // Events

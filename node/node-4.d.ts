@@ -430,7 +430,7 @@ declare namespace NodeJS {
 interface NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): any;
+    toJSON(): {type: 'Buffer', data: any[]};
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -1036,6 +1036,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
+        connected: boolean;
         disconnect(): void;
         unref(): void;
     }
@@ -2007,7 +2008,7 @@ declare module "stream" {
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
+        protected _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2028,7 +2029,7 @@ declare module "stream" {
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2044,7 +2045,7 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2059,8 +2060,8 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: any, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
+        protected _transform(chunk: any, encoding: string, callback: Function): void;
+        protected _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2402,8 +2403,63 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var EDQUOT: number;
+    export var EMULTIHOP: number;
+    export var ESTALE: number;
+    export var O_DIRECT: number;
+    export var O_DIRECTORY: number;
+    export var O_NOCTTY: number;
+    export var O_NOFOLLOW: number;
+    export var O_NONBLOCK: number;
+    export var O_SYNC: number;
+    export var SIGALRM: number;
+    export var SIGBUS: number;
+    export var SIGCHLD: number;
+    export var SIGCONT: number;
+    export var SIGIO: number;
+    export var SIGIOT: number;
+    export var SIGPIPE: number;
+    export var SIGPOLL: number;
+    export var SIGPROF: number;
+    export var SIGPWR: number;
+    export var SIGQUIT: number;
+    export var SIGSTKFLT: number;
+    export var SIGSTOP: number;
+    export var SIGSYS: number;
+    export var SIGTRAP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGUNUSED: number;
+    export var SIGURG: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGVTALRM: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var S_IFBLK: number;
+    export var S_IFIFO: number;
+    export var S_IFSOCK: number;
+    export var S_IRGRP: number;
+    export var S_IROTH: number;
+    export var S_IRUSR: number;
+    export var S_IRWXG: number;
+    export var S_IRWXO: number;
+    export var S_IRWXU: number;
+    export var S_IWGRP: number;
+    export var S_IWOTH: number;
+    export var S_IWUSR: number;
+    export var S_IXGRP: number;
+    export var S_IXOTH: number;
+    export var S_IXUSR: number;
+    export var defaultCipherList: string;
+    export var defaultCoreCipherList: string;
 }
 
 declare module "process" {
     export = process;
+}
+
+declare module "console" {
+    export = console;
 }
