@@ -164,6 +164,13 @@ S('Yes it does!').replaceAll(' ', '').s; //'Yesitdoes!'
 S(' 1 2 3--__--4 5 6-7__8__9--0').strip(' ', '_', '-').s; //'1234567890'
 S('can words also be stripped out?').strip('words', 'also', 'be').s; //'can    stripped out?'
 
+S('  hello ').stripLeft().s; //'hello '
+S('abcz').stripLeft('a-z').s; //'bcz'
+S('www.example.com').stripLeft('w.').s; //'example.com'
+
+S('  hello ').stripRight().s; //'  hello'
+S('abcz').stripRight('a-z').s; //'abc'
+
 S('I AM CRAZY').right(2).s; //'ZY'
 S('Does it work?  ').right(4).s; //'k?  '
 S('Hi').right(0).s; //''
