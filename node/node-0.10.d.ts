@@ -1216,7 +1216,7 @@ declare module "stream" {
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
+        protected _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -1238,8 +1238,8 @@ declare module "stream" {
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
+        protected _write(data: Buffer, encoding: string, callback: Function): void;
+        protected _write(data: string, encoding: string, callback: Function): void;
         write(buffer: Buffer, cb?: Function): boolean;
         write(str: string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
@@ -1257,8 +1257,8 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(data: Buffer, encoding: string, callback: Function): void;
-        _write(data: string, encoding: string, callback: Function): void;
+        protected _write(data: Buffer, encoding: string, callback: Function): void;
+        protected _write(data: string, encoding: string, callback: Function): void;
         write(buffer: Buffer, cb?: Function): boolean;
         write(str: string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
@@ -1275,9 +1275,9 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: Buffer, encoding: string, callback: Function): void;
-        _transform(chunk: string, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
+        protected _transform(chunk: Buffer, encoding: string, callback: Function): void;
+        protected _transform(chunk: string, encoding: string, callback: Function): void;
+        protected _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;

@@ -46,7 +46,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createShareButton(url: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): any;
+    createShareButton(url: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
     /**
      * Create a follow button for a user.
      *
@@ -54,7 +54,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createFollowButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): any;
+    createFollowButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
     /**
      * Create a hashtag button for a hashtag.
      *
@@ -62,7 +62,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createHashtagButton(hashtag: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): any;
+    createHashtagButton(hashtag: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
     /**
      * Create a mention button for a user.
      *
@@ -70,7 +70,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createMentionButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): any;
+    createMentionButton(screen_name: string, target: HTMLElement, options?: TwitterButtonWidgetOptions): Promise<HTMLElement>;
     /**
      * Create a timeline widget.
      *
@@ -78,7 +78,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTimeline(widgetId: string, target: HTMLElement, options?: TwitterTimelineWidgetOptions): any;
+    createTimeline(widgetId: string, target: HTMLElement, options?: TwitterTimelineWidgetOptions): Promise<HTMLElement>;
     /**
      * Create an embedded Tweet for a Tweet.
      *
@@ -86,7 +86,7 @@ interface TwitterWidgets {
      * @param target The element in which to render the widget.
      * @param options An object hash of additional options to configure the widget.
      */
-    createTweet(tweetId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): any;
+    createTweet(tweetId: string, target: HTMLElement, options?: TwitterTweetWidgetOptions): Promise<HTMLElement>;
 }
 
 /**

@@ -240,7 +240,7 @@ interface HighchartsPlotBands {
      * Border color for the plot band. Also requires borderWidth to be set.
      * @default null
      */
-    borderColor?: string | HighchartsGradient;
+    borderColor?: Color;
     /**
      * Border width for the plot band. Also requires borderColor to be set.
      * @default 0
@@ -249,7 +249,7 @@ interface HighchartsPlotBands {
     /**
      * The color of the plot band.
      */
-    color?: string | HighchartsGradient;
+    color?: Color;
     /**
      * An object defining mouse events for the plot band. Supported properties are click, mouseover, mouseout,
      * mousemove.
@@ -1308,6 +1308,11 @@ interface HighchartsGradient {
      */
     setOpacity?(alpha: number): HighchartsGradient;
 }
+
+/**
+ * Type equivalent to the 'Color' type mentioned throughout the documentation.
+ */
+type Color = string | HighchartsGradient;
 
 interface HighchartsChartOptions3dFrame {
     /**
@@ -3249,10 +3254,18 @@ interface HighchartsLineStates {
 
 interface HighchartsBarStates {
     /**
+     * A specific border color for the hovered point. Defaults to inherit the normal state border color.
+     */
+    borderColor?: string | HighchartsGradient;
+    /**
      * How much to brighten the point on interaction. Requires the main color to be defined in hex or rgb(a) format.
      * @default 0.1
      */
     brightness?: number;
+    /**
+     *
+     */
+    color?: string | HighchartsGradient;
     /**
      * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
      * legend.

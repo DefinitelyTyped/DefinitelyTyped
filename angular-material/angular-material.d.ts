@@ -22,7 +22,7 @@ declare namespace angular.material {
         clickOutsideToClose?: boolean;
         disableBackdrop?: boolean;
         escapeToClose?: boolean;
-        resolve?: {[index: string]: angular.IPromise<any>};
+        resolve?: {[index: string]: () => angular.IPromise<any>};
         controllerAs?: string;
         parent?: Function|string|Object; // default: root node
         disableParentScroll?: boolean; // default: true
@@ -53,7 +53,7 @@ declare namespace angular.material {
         controller(controller?: string|Function): T;
         locals(locals?: {[index: string]: any}): T;
         bindToController(bindToController?: boolean): T; // default: false
-        resolve(resolve?: {[index: string]: angular.IPromise<any>}): T;
+        resolve(resolve?: {[index: string]: () => angular.IPromise<any>}): T;
         controllerAs(controllerAs?: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
         onComplete(onComplete?: Function): T;
@@ -73,6 +73,16 @@ declare namespace angular.material {
         initialValue(initialValue: string): IPromptDialog;
     }
 
+    interface IColorExpression {
+        [cssPropertyName: string]: string
+    }
+
+    interface IColorService {
+        applyThemeColors(element: Element|JQuery, colorExpression: IColorExpression): void;
+        getThemeColor(expression: string): string;
+        hasTheme(): boolean;
+    }    
+
     interface IDialogOptions {
         templateUrl?: string;
         template?: string;
@@ -91,7 +101,7 @@ declare namespace angular.material {
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
         onShowing?: Function;
@@ -132,6 +142,7 @@ declare namespace angular.material {
         close(): angular.IPromise<void>;
         isOpen(): boolean;
         isLockedOpen(): boolean;
+        onClose(onClose: Function): void;
     }
 
     interface ISidenavService {
@@ -162,10 +173,11 @@ declare namespace angular.material {
         preserveScope?: boolean; // default: false
         hideDelay?: number; // default (ms): 3000
         position?: string; // any combination of 'bottom'/'left'/'top'/'right'/'fit'; default: 'bottom left'
+        toastClass?: string;
         controller?: string|Function;
         locals?: {[index: string]: any};
         bindToController?: boolean; // default: false
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         controllerAs?: string;
         parent?: string|Element|JQuery; // default: root node
     }
@@ -175,7 +187,8 @@ declare namespace angular.material {
         showSimple(content: string): angular.IPromise<any>;
         simple(): ISimpleToastPreset;
         build(): IToastPreset<any>;
-        updateContent(): void;
+        updateContent(newContent: string): void;
+        updateTextContent(newContent: string): void
         hide(response?: any): void;
         cancel(response?: any): void;
     }
@@ -213,6 +226,12 @@ declare namespace angular.material {
         hues: IThemeHues;
     }
 
+    interface IBrowserColors{
+        theme: string;
+        palette: string;
+        hue: string;
+    }
+
     interface IThemeColors {
         accent: IThemePalette;
         background: IThemePalette;
@@ -242,12 +261,14 @@ declare namespace angular.material {
     }
 
     interface IThemingProvider {
-        theme(name: string, inheritFrom?: string): ITheme;
-        definePalette(name: string, palette: IPalette): IThemingProvider;
-        extendPalette(name: string, palette: IPalette): IPalette;
-        setDefaultTheme(theme: string): void;
         alwaysWatchTheme(alwaysWatch: boolean): void;
+        definePalette(name: string, palette: IPalette): IThemingProvider;
+        enableBrowserColor(browserColors: IBrowserColors): Function;
+        extendPalette(name: string, palette: IPalette): IPalette;
+        registerStyles(styles: String): void;
+        setDefaultTheme(theme: string): void;
         setNonce(nonce: string): void;
+        theme(name: string, inheritFrom?: string): ITheme;
     }
 
     interface IDateLocaleProvider {
@@ -291,13 +312,14 @@ declare namespace angular.material {
     }
 
     interface IPanelConfig {
+        id?: string;
         template?: string;
         templateUrl?: string;
         controller?: string|Function;
         controllerAs?: string;
         bindToController?: boolean; // default: true
         locals?: {[index: string]: any};
-        resolve?: {[index: string]: angular.IPromise<any>}
+        resolve?: {[index: string]: () => angular.IPromise<any>}
         attachTo?: string|JQuery|Element;
         propagateContainerEvents?: boolean;
         panelClass?: string;
@@ -333,6 +355,9 @@ declare namespace angular.material {
         removeClass(oldClass: string): void;
         toggleClass(toggleClass: string): void;
         updatePosition(position: IPanelPosition): void;
+        registerInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeInterceptor(type: string, callback: () => angular.IPromise<any>): IPanelRef;
+        removeAllInterceptors(type?: string): IPanelRef;
     }
 
     interface IPanelPosition {
@@ -348,8 +373,8 @@ declare namespace angular.material {
         centerVertically(): IPanelPosition;
         center(): IPanelPosition;
         addPanelPosition(xPosition: string, yPosition: string): IPanelPosition;
-        withOffsetX(offsetX: string): IPanelPosition;
-        withOffsetY(offsetY: string): IPanelPosition;
+        withOffsetX(offsetX: string|((panel: IPanelPosition) => string)): IPanelPosition;
+        withOffsetY(offsetY: string|((panel: IPanelPosition) => string)): IPanelPosition;
     }
 
     interface IPanelAnimation {
@@ -381,6 +406,9 @@ declare namespace angular.material {
           SLIDE: string,
           SCALE: string,
           FADE: string,
+        };
+        interceptorTypes: {
+          CLOSE: string,
         };
     }
 }

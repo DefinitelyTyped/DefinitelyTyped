@@ -1,4 +1,4 @@
-// Type definitions for Quill v1.0.0
+// Type definitions for Quill v1.0.3
 // Project: http://quilljs.com
 // Definitions by: Sumit <https://github.com/sumitkm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -38,7 +38,7 @@ declare namespace QuillJS {
     type formatsType = { [key: string]: any };
 
     export interface QuillStatic {
-        new (selector: string, options?: QuillOptionsStatic): QuillStatic;
+        new (container: string | Element, options?: QuillOptionsStatic): QuillStatic;
         deleteText(start: number, end: number, source?: sourceType): void;
         disable(): void;
         enable(enabled?: boolean): void;
@@ -49,7 +49,8 @@ declare namespace QuillJS {
         insertText(index: number, text: string, source?: sourceType): void;
         insertText(index: number, text: string, format: string, value: string, source?: sourceType): void;
         insertText(index: number, text: string, formats: formatsType, source?: sourceType): void;
-        pasteHTML(): string;
+        pasteHTML(index: number, html: string, source?:sourceType): string;
+        pasteHTML(html:string, source?: sourceType): string;
         setContents(delta: DeltaStatic, source?: sourceType): void;
         setText(text: string, source?: sourceType): void;
         update(source?: string): void;
@@ -90,6 +91,6 @@ declare namespace QuillJS {
 
 declare var Quill: QuillJS.QuillStatic;
 
-declare module "Quill" {
+declare module "quill" {
     export = Quill;
 }

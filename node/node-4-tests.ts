@@ -24,22 +24,43 @@ import * as string_decoder from "string_decoder";
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
-assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
+//////////////////////////////////////////////////////////
+/// Assert Tests : https://nodejs.org/api/assert.html ///
+//////////////////////////////////////////////////////////
 
-assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
+namespace assert_tests {
+    {
+        assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
-assert.equal(3, "3", "uses == comparator");
+        assert.deepEqual({ x: { y: 3 } }, { x: { y: 3 } }, "DEEP WENT DERP");
 
-assert.notStrictEqual(2, "2", "uses === comparator");
+        assert.deepStrictEqual({ a: 1 }, { a: 1 }, "uses === comparator");
 
-assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses === comparator");
+        assert.doesNotThrow(() => {
+            const b = false;
+            if (b) { throw "a hammer at your face"; }
+        }, undefined, "What the...*crunch*");
 
-assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
+        assert.equal(3, "3", "uses == comparator");
 
-assert.doesNotThrow(() => {
-    const b = false;
-    if (b) { throw "a hammer at your face"; }
-}, undefined, "What the...*crunch*");
+        assert.fail(1, 2, undefined, '>');
+
+        assert.ifError(0);
+
+        assert.notDeepStrictEqual({ x: { y: "3" } }, { x: { y: 3 } }, "uses !== comparator");
+
+        assert.notEqual(1, 2, "uses != comparator");
+
+        assert.notStrictEqual(2, "2", "uses === comparator");
+
+        assert.ok(true);
+        assert.ok(1);
+
+        assert.strictEqual(1, 1, "uses === comparator");
+
+        assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
+    }
+}
 
 ////////////////////////////////////////////////////
 /// Events tests : http://nodejs.org/api/events.html
@@ -87,6 +108,16 @@ namespace events_tests {
         result = emitter.emit(event, any, any);
         result = emitter.emit(event, any, any, any);
     }
+
+    {
+        class Networker extends events.EventEmitter {
+            constructor() {
+                super();
+
+                this.emit("mingling");
+            }
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -114,13 +145,13 @@ namespace fs_tests {
         var buffer: Buffer;
 
         content = fs.readFileSync('testfile', 'utf8');
-        content = fs.readFileSync('testfile', {encoding : 'utf8'});
+        content = fs.readFileSync('testfile', { encoding: 'utf8' });
         buffer = fs.readFileSync('testfile');
-        buffer = fs.readFileSync('testfile', {flag : 'r'});
+        buffer = fs.readFileSync('testfile', { flag: 'r' });
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
-        fs.readFile('testfile', {encoding : 'utf8'}, (err, data) => content = data);
+        fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
         fs.readFile('testfile', (err, data) => buffer = data);
-        fs.readFile('testfile', {flag : 'r'}, (err, data) => buffer = data);
+        fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
     {
@@ -146,21 +177,13 @@ namespace fs_tests {
 
 }
 
-class Networker extends events.EventEmitter {
-    constructor() {
-        super();
-
-        this.emit("mingling");
-    }
-}
-
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
 
 function bufferTests() {
     var utf8Buffer = new Buffer('test');
-    var base64Buffer = new Buffer('','base64');
+    var base64Buffer = new Buffer('', 'base64');
     var octets: Uint8Array = null;
     var octetBuffer = new Buffer(octets);
     var sharedBuffer = new Buffer(octets.buffer);
@@ -174,7 +197,7 @@ function bufferTests() {
 
     // Class Method: Buffer.from(array)
     {
-        const buf: Buffer = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
+        const buf: Buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
     }
 
     // Class Method: Buffer.from(arrayBuffer[, byteOffset[, length]])
@@ -239,8 +262,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-      let buffer = new Buffer('123');
-      let octets = new Uint8Array(buffer.buffer);
+        let buffer = new Buffer('123');
+        let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -249,18 +272,24 @@ function bufferTests() {
 /// Url tests : http://nodejs.org/api/url.html
 ////////////////////////////////////////////////////
 
-url.format(url.parse('http://www.example.com/xyz'));
+namespace url_tests {
+    {
+        url.format(url.parse('http://www.example.com/xyz'));
 
-// https://google.com/search?q=you're%20a%20lizard%2C%20gary
-url.format({
-    protocol: 'https',
-    host: "google.com",
-    pathname: 'search',
-    query: { q: "you're a lizard, gary" }
-});
+        // https://google.com/search?q=you're%20a%20lizard%2C%20gary
+        url.format({
+            protocol: 'https',
+            host: "google.com",
+            pathname: 'search',
+            query: { q: "you're a lizard, gary" }
+        });
+    }
 
-var helloUrl = url.parse('http://example.com/?hello=world', true)
-assert.equal(helloUrl.query.hello, 'world');
+    {
+        var helloUrl = url.parse('http://example.com/?hello=world', true)
+        assert.equal(helloUrl.query.hello, 'world');
+    }
+}
 
 /////////////////////////////////////////////////////
 /// util tests : https://nodejs.org/api/util.html ///
@@ -270,7 +299,7 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });    
+        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
     }
 }
 
@@ -287,113 +316,121 @@ function stream_readable_pipe_test() {
     r.close();
 }
 
-////////////////////////////////////////////////////
-/// Crypto tests : http://nodejs.org/api/crypto.html
-////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+/// Crypto tests : http://nodejs.org/api/crypto.html ///
+////////////////////////////////////////////////////////
 
-var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+namespace crypto_tests {
+    {
+        var hmacResult: string = crypto.createHmac('md5', 'hello').update('world').digest('hex');
+    }
 
-{
-    let hmac: crypto.Hmac;
-    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
-        let hash: Buffer|string = hmac.read();
+    {
+        let hmac: crypto.Hmac;
+        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+            let hash: Buffer | string = hmac.read();
+        });
+    }
+
+    {
+        //crypto_cipher_decipher_string_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: string = "This is the clear text.";
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherText: string = cipher.update(clearText, "utf8", "hex");
+        cipherText += cipher.final("hex");
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let clearText2: string = decipher.update(cipherText, "hex", "utf8");
+        clearText2 += decipher.final("utf8");
+
+        assert.equal(clearText2, clearText);
+    }
+
+    {
+        //crypto_cipher_decipher_buffer_test
+        let key: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
+        let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
+        let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
+        let cipherBuffers: Buffer[] = [];
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
+
+        let cipherText: Buffer = Buffer.concat(cipherBuffers);
+
+        let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
+        let decipherBuffers: Buffer[] = [];
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
+
+        let clearText2: Buffer = Buffer.concat(decipherBuffers);
+
+        assert.deepEqual(clearText2, clearText);
+    }
+}
+
+//////////////////////////////////////////////////
+/// TLS tests : http://nodejs.org/api/tls.html ///
+//////////////////////////////////////////////////
+
+namespace tls_tests {
+    var ctx: tls.SecureContext = tls.createSecureContext({
+        key: "NOT REALLY A KEY",
+        cert: "SOME CERTIFICATE",
     });
-}
+    var blah = ctx.context;
 
-function crypto_cipher_decipher_string_test() {
-	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-	var clearText:string = "This is the clear text.";
-	var cipher:crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-	var cipherText:string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
-
-	var decipher:crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-	var clearText2:string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
-
-	assert.equal(clearText2, clearText);
-}
-
-function crypto_cipher_decipher_buffer_test() {
-	var key:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7]);
-	var clearText:Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
-	var cipher:crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
-	var cipherBuffers:Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
-
-	var cipherText:Buffer = Buffer.concat(cipherBuffers);
-
-	var decipher:crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
-	var decipherBuffers:Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
-
-	var clearText2:Buffer = Buffer.concat(decipherBuffers);
-
-	assert.deepEqual(clearText2, clearText);
+    var connOpts: tls.ConnectionOptions = {
+        host: "127.0.0.1",
+        port: 55
+    };
+    var tlsSocket = tls.connect(connOpts);
 }
 
 ////////////////////////////////////////////////////
-/// TLS tests : http://nodejs.org/api/tls.html
+/// Http tests : http://nodejs.org/api/http.html ///
 ////////////////////////////////////////////////////
 
-var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-});
-var blah = ctx.context;
-
-var tlsOpts: tls.TlsOptions = {
-	host: "127.0.0.1",
-	port: 55
-};
-var tlsSocket = tls.connect(tlsOpts);
-
-
-////////////////////////////////////////////////////
-
-// Make sure .listen() and .close() retuern a Server instance
-http.createServer().listen(0).close().address();
-net.createServer().listen(0).close().address();
-
-var request = http.request('http://0.0.0.0');
-request.once('error', function () {});
-request.setNoDelay(true);
-request.abort();
-
-////////////////////////////////////////////////////
-/// Http tests : http://nodejs.org/api/http.html
-////////////////////////////////////////////////////
 namespace http_tests {
-    // Status codes
-    var code = 100;
-    var codeMessage = http.STATUS_CODES['400'];
-    var codeMessage = http.STATUS_CODES[400];
+    {
+        // Status codes
+        var codeMessage = http.STATUS_CODES['400'];
+        var codeMessage = http.STATUS_CODES[400];
+    }
 
-	var agent: http.Agent = new http.Agent({
-		keepAlive: true,
-		keepAliveMsecs: 10000,
-		maxSockets: Infinity,
-		maxFreeSockets: 256
-	});
+    {
+        var agent: http.Agent = new http.Agent({
+            keepAlive: true,
+            keepAliveMsecs: 10000,
+            maxSockets: Infinity,
+            maxFreeSockets: 256
+        });
 
-	var agent: http.Agent = http.globalAgent;
+        var agent: http.Agent = http.globalAgent;
 
-	http.request({
-		agent: false
-	});
-	http.request({
-		agent: agent
-	});
-	http.request({
-		agent: undefined
-	});
+        http.request({ agent: false });
+        http.request({ agent: agent });
+        http.request({ agent: undefined });
+    }
+
+    {
+        // Make sure .listen() and .close() retuern a Server instance
+        http.createServer().listen(0).close().address();
+        net.createServer().listen(0).close().address();
+    }
+
+    {
+        var request = http.request('http://0.0.0.0');
+        request.once('error', function() { });
+        request.setNoDelay(true);
+        request.abort();
+    }
 }
 
-////////////////////////////////////////////////////
-/// Https tests : http://nodejs.org/api/https.html
-////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+/// Https tests : http://nodejs.org/api/https.html ///
+//////////////////////////////////////////////////////
+
 namespace https_tests {
     var agent: https.Agent = new https.Agent({
         keepAlive: true,
@@ -450,7 +487,7 @@ namespace dgram_tests {
 ////////////////////////////////////////////////////
 
 namespace querystring_tests {
-    type SampleObject = {a: string; b: number;}
+    type SampleObject = { a: string; b: number; }
 
     {
         let obj: SampleObject;
@@ -503,7 +540,7 @@ namespace path_tests {
     try {
         path.join('foo', {}, 'bar');
     }
-    catch(error) {
+    catch (error) {
 
     }
 
@@ -617,11 +654,11 @@ namespace path_tests {
     //    }
 
     path.format({
-        root : "/",
-        dir : "/home/user/dir",
-        base : "file.txt",
-        ext : ".txt",
-        name : "file"
+        root: "/",
+        dir: "/home/user/dir",
+        base: "file.txt",
+        ext: ".txt",
+        name: "file"
     });
     // returns
     //    '/home/user/dir/file.txt'
@@ -687,7 +724,7 @@ namespace readline_tests {
     }
 
     {
-        let data: string|Buffer;
+        let data: string | Buffer;
         let key: readline.Key;
 
         rl.write(data);
@@ -704,8 +741,8 @@ namespace readline_tests {
 
     {
         let stream: NodeJS.WritableStream;
-        let dx: number|string;
-        let dy: number|string;
+        let dx: number | string;
+        let dy: number | string;
 
         readline.moveCursor(stream, dx, dy);
     }
@@ -743,7 +780,7 @@ namespace string_decoder_tests {
 namespace child_process_tests {
     {
         childProcess.exec("echo test");
-        childProcess.spawnSync("echo test");    
+        childProcess.spawnSync("echo test");
     }
 }
 
@@ -751,7 +788,7 @@ namespace child_process_tests {
 /// cluster tests: https://nodejs.org/api/cluster.html ///
 //////////////////////////////////////////////////////////////////////
 
-namespace cluster_tests　{
+namespace cluster_tests 　{
     {
         cluster.fork();
         Object.keys(cluster.workers).forEach(key => {
@@ -803,7 +840,7 @@ namespace os_tests {
     }
 
     {
-        let result: {[index: string]: os.NetworkInterfaceInfo[]};
+        let result: { [index: string]: os.NetworkInterfaceInfo[] };
 
         result = os.networkInterfaces();
     }
@@ -873,13 +910,39 @@ namespace errors_tests {
 }
 
 ///////////////////////////////////////////////////////////
+/// Process Tests : https://nodejs.org/api/process.html ///
+///////////////////////////////////////////////////////////
+
+import * as p from "process";
+namespace process_tests {
+    {
+        var eventEmitter: events.EventEmitter;
+        eventEmitter = process;                // Test that process implements EventEmitter...
+
+        var _p: NodeJS.Process = process;
+        _p = p;
+    }
+}
+
+///////////////////////////////////////////////////////////
 /// Console Tests : https://nodejs.org/api/console.html ///
 ///////////////////////////////////////////////////////////
 
 import * as c from "console";
-namespace console_tests{
+namespace console_tests {
     {
-        assert(c === console);
+        var _c: Console = console;
+        _c = c;
     }
 }
 
+///////////////////////////////////////////////////
+/// Net Tests : https://nodejs.org/api/net.html ///
+///////////////////////////////////////////////////
+
+namespace net_tests {
+    {
+        // Make sure .listen() and .close() retuern a Server instance
+        net.createServer().listen(0).close().address();
+    }
+}
