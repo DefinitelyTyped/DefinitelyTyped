@@ -3,7 +3,7 @@
 // Definitions by: Horiuchi_H <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../express/express.d.ts" />
+/// <reference types="express" />
 
 declare namespace Express {
     export interface Request {
@@ -27,6 +27,15 @@ declare namespace Express {
 declare module 'passport' {
     import express = require('express');
 
+    const passport: passport.Passport;
+    export = passport;
+
+    namespace passport {
+    interface Strategy {
+        name?: string;
+        authenticate(req: express.Request, options?: Object): void;
+    }
+
     interface Passport {
         use(strategy: passport.Strategy): Passport;
         use(name: string, strategy: passport.Strategy): Passport;
@@ -47,32 +56,24 @@ declare module 'passport' {
         deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
-    const passport: Passport;
-    export = passport;
 
-    namespace passport {
-        interface Strategy {
-            name?: string;
-            authenticate(req: express.Request, options?: Object): void;
-        }
-
-        interface Profile {
-            provider: string;
-            id: string;
-            displayName: string;
+    interface Profile {
+        provider: string;
+        id: string;
+        displayName: string;
             name?: {
-                familyName: string;
-                givenName: string;
-                middleName?: string;
-            };
-            emails?: {
-                value: string;
-                type?: string;
-            }[];
-            photos?: {
-                value: string;
-            }[];
-        }
+            familyName: string;
+            givenName: string;
+            middleName?: string;
+        };
+        emails?: {
+            value: string;
+            type?: string;
+        }[];
+        photos?: {
+            value: string;
+        }[];
+    }
 
         interface Framework {
             initialize(passport: Passport, options?: Object): Function;
