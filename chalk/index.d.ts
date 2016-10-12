@@ -14,7 +14,7 @@ declare namespace Chalk {
     export function hasColor(str: string): boolean;
 
     export interface ChalkChain extends ChalkStyle {
-        (): false;
+        (): boolean;
         (...text: string[]): string;
     }
 
