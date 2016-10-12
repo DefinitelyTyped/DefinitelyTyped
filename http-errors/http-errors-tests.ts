@@ -75,4 +75,11 @@ var err = new createError['404']();
 //createError['404'](); // TypeScript should fail with "Did you mean to include 'new'?"
 //new createError(); // TypeScript should fail with "Only a void function can be called with the 'new' keyword"
 
+// Error messages can have custom messages
+var err = new createError.NotFound('This might be a problem');
+
+// 1.5.0 supports 421 - Misdirected Request
+var err = new createError.MisdirectedRequest();
+var err = new createError.MisdirectedRequest('Where should this go?');
+
 let error: createError.HttpError;
