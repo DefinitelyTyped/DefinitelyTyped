@@ -7,16 +7,16 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../q/Q.d.ts" />
 
-import * as express from 'express';
+import * as Express from 'express';
 import * as Http from 'http';
 
 import q = require('q');
 
-export interface twilio {
+declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
 }
 
-export module twilio {
+declare namespace twilio {
 
   // Composite Classes:
   //==============================
@@ -166,7 +166,7 @@ export module twilio {
     clientName: string;
     outgoingScopeParams: any;
     scopeParams: any;
-    
+
     constructor(sid?: string, tkn?: string);
 
     allowClientIncoming(clientName: string): Capability;
@@ -319,7 +319,7 @@ export module twilio {
     allowWorkerActivityUpdates(): void;
     allowWorkerFetchAttributes(): void;
     allowTaskReservationUpdates(): void;
-    
+
     addPolicy(url: string, method: string, allowed?: boolean, queryFilter?: any, postFilter?: any): void;
     allow(url: string, method: string, queryFilter?: any, postFilter?: any): void;
     deny(url: string, method: string, queryFilter?: any, postFilter?: any): void;
@@ -379,9 +379,13 @@ export module twilio {
     legalNodes: Array<string>;
   }
 
-  export interface TwimlMethod { (arg1: any | string | TwimlCallback, arg2?: any | string | TwimlCallback): Node }
-  
-  export interface TwimlCallback { (node?: Node): void; }
+  export interface TwimlMethod {
+    (): Node;
+    (arg1: TwimlCallback | string, arg2?: any): Node;
+    (arg1: any, arg2?: TwimlCallback | string): Node;
+  }
+
+  export interface TwimlCallback { (node: Node): void; }
 
   export class Node implements NodeOptions {
     name: string;
@@ -425,7 +429,7 @@ export module twilio {
   export class TwimlResponse extends Node {}
 
   /// webhook.js
-  export interface webhookOptions {
+  export interface WebhookOptions {
     validate?: boolean;
     includeHelpers?: boolean;
     host?: string;
@@ -435,7 +439,7 @@ export module twilio {
   export interface WebhookExpressOptions {
     // The full URL (with query string) you used to configure the webhook with Twilio - overrides host/protocol options
     url?: string;
-    
+
     // manually specify the host name used by Twilio in a number's webhook config
     host?: string;
 
@@ -444,9 +448,10 @@ export module twilio {
   }
 
   // For interop with node middleware chains
-  export interface MiddlewareFunction { (request: Http.ClientRequest, response: Http.ClientResponse, next: MiddlewareFunction): void; }
+  export interface MiddlewareFunction { (request: Http.ServerRequest, response: Http.ServerResponse, next: Express.NextFunction): void; }
 
-  export function webhook(options?: string | webhookOptions): MiddlewareFunction;
+  export function webhook(authToken: string, options?: WebhookOptions): MiddlewareFunction;
+  export function webhook(options?: WebhookOptions): MiddlewareFunction;
 
   export function validateRequest(authToken: string, twilioHeader: string, url: string, params?: any): boolean;
   export function validateExpressRequest(request: Express.Request, authToken: string, options?: WebhookExpressOptions): boolean;
@@ -871,5 +876,6 @@ export module twilio {
     originationUrls: OriginationURLResource;
   }
   export interface TrunkResource extends ListMappedResource<TrunkInstance> {}
-
 }
+
+export = twilio;

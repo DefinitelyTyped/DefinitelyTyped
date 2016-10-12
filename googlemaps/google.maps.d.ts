@@ -1,4 +1,4 @@
-// Type definitions for Google Maps JavaScript API 3.20
+// Type definitions for Google Maps JavaScript API 3.25
 // Project: https://developers.google.com/maps/
 // Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -61,6 +61,7 @@ declare namespace google.maps {
         backgroundColor?: string;
         center?: LatLng|LatLngLiteral;
         disableDefaultUI?: boolean;
+        clickableIcons?: boolean;
         disableDoubleClickZoom?: boolean;
         draggable?: boolean;
         draggableCursor?: string;
@@ -427,7 +428,7 @@ declare namespace google.maps {
         /**
          * Marker position. Required.
          */
-        position: LatLng;
+        position: LatLng|LatLngLiteral;
         /** Image map region definition used for drag/click. */
         shape?: MarkerShape;
         /** Rollover text. */
@@ -755,7 +756,7 @@ declare namespace google.maps {
         zIndex?: number;
     }
 
-    export interface PolyMouseEvent {
+    export interface PolyMouseEvent extends MouseEvent {
         edge?: number;
         path?: number;
         vertex?: number;
@@ -921,6 +922,7 @@ declare namespace google.maps {
         formatted_address: string;
         geometry: GeocoderGeometry;
         partial_match: boolean;
+        place_id: string;
         postcode_localities: string[];
         types: string[];
     }
@@ -983,10 +985,11 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destination?: LatLng|LatLngLiteral|string;
-        durationInTraffic?: boolean;
+        destination?: string|LatLng|Place;
+        durationInTraffic?: boolean; /* Deprecated. Use drivingOptions field instead */
+        drivingOptions?: DrivingOptions;
         optimizeWaypoints?: boolean;
-        origin?: LatLng|LatLngLiteral|string;
+        origin?: string|LatLng|Place;
         provideRouteAlternatives?: boolean;
         region?: string;
         transitOptions?: TransitOptions;
@@ -1029,6 +1032,18 @@ declare namespace google.maps {
     }
 
     export interface TransitFare { }
+
+    export interface DrivingOptions {
+        departureTime: Date;
+        trafficModel: TrafficModel
+    }
+
+    export enum TrafficModel
+    {
+        BEST_GUESS,
+        OPTIMISTIC,
+        PESSIMISTIC
+    }
 
     export interface DirectionsWaypoint {
         location: LatLng|LatLngLiteral|string;
@@ -1214,9 +1229,10 @@ declare namespace google.maps {
         avoidFerries?: boolean;
         avoidHighways?: boolean;
         avoidTolls?: boolean;
-        destinations?: LatLng[]|string[];
+        destinations?: string[]|LatLng[]|Place[];
+        drivingOptions?: DrivingOptions;
         durationInTraffic?: boolean;
-        origins?: LatLng[]|string[];
+        origins?: string[]|LatLng[]|Place[];
         region?: string;
         transitOptions?: TransitOptions;
         travelMode?: TravelMode;
@@ -1236,6 +1252,7 @@ declare namespace google.maps {
     export interface DistanceMatrixResponseElement {
         distance: Distance;
         duration: Duration;
+        duration_in_traffic: Duration;
         fare: TransitFare;
         status: DistanceMatrixElementStatus;
     }
@@ -2059,7 +2076,7 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];
+            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
@@ -2102,7 +2119,8 @@ declare namespace google.maps {
             openNow?: boolean;
             radius?: number;
             rankBy?: RankBy;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export class PlacesService {
@@ -2143,7 +2161,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             name?: string;
             radius?: number;
-            types?: string[];
+            types?: string[];  /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
 
         export enum RankBy {
@@ -2167,7 +2186,8 @@ declare namespace google.maps {
             location?: LatLng|LatLngLiteral;
             query: string;
             radius?: number;
-            types?: string[];
+            types?: string[]; /* Deprecated. Will be removed February 16, 2017 */
+            type?: string;
         }
     }
 

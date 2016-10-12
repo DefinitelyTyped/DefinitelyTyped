@@ -47,8 +47,10 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
   /**
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>;
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => void | Bluebird.Thenable<void>): Bluebird<U>;
+  then<U1, U2>(onFulfill: (value: R) => U1 | Bluebird.Thenable<U1>, onReject: (error: any) => U2 | Bluebird.Thenable<U2>): Bluebird<U1 | U2>;
+  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>;
+  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>): Bluebird<U>;
+  then(): Bluebird<R>;
 
   /**
    * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
@@ -314,6 +316,13 @@ class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled
    */
   cancel(): void;
+
+  /**
+   * Basically sugar for doing: somePromise.catch(function(){});
+   * 
+   * Which is needed in case error handlers are attached asynchronously to the promise later, which would otherwise result in premature unhandled rejection reporting.
+   */
+  suppressUnhandledRejections(): void;
 
   /**
    * Start the chain of promises with `Promise.try`. Any synchronous exceptions will be turned into rejections on the returned promise.

@@ -9,7 +9,7 @@
 interface BootboxBaseOptions {
 	title?: string | Element;
 	callback?: (result: boolean | string) => any;
-	onEscape?: () => any | boolean;
+	onEscape?: (() => any) | boolean;
 	show?: boolean;
 	backdrop?: boolean;
 	closeButton?: boolean;
@@ -40,6 +40,7 @@ interface BootboxConfirmOptions extends BootboxDialogOptions {
 interface BootboxPromptOptions extends BootboxBaseOptions {
 	title: string;
 	value?: string;
+	inputType?: string;
 	callback: (result: string) => any;
 	buttons?: BootboxConfirmPromptButtonMap;
 }

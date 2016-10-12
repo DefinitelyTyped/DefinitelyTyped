@@ -103,6 +103,11 @@ declare module "enzyme" {
         is(selector: EnzymeSelector): boolean;
 
         /**
+         * Returns whether or not the current node is empty.
+         */
+        isEmpty(): boolean;
+
+        /**
          * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
          * This method is effectively the negation or inverse of filter.
          * @param selector
@@ -458,6 +463,7 @@ declare module "enzyme" {
     export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
         unmount(): ReactWrapper<any, any>;
         mount(): ReactWrapper<any, any>;
+        render(): CheerioWrapper<P, S>;
 
         /**
          * Returns a wrapper of the node that matches the provided reference name.
