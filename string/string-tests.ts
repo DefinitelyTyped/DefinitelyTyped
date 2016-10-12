@@ -209,6 +209,10 @@ console.log(S(str).template(values).s) //'Hello JP! How are you doing during the
 S(' ').times(5).s //'     '
 S('*').times(3).s //'***'
 
+S('Like ice in the sunshine').titleCase().s // 'Like Ice In The Sunshine'
+S('data_rate').titleCase().s // 'Data_Rate'
+S('background-color').titleCase().s // 'Background-Color'
+
 S('true').toBoolean() //true
 S('false').toBoolean() //false
 S('hello').toBoolean() //false
