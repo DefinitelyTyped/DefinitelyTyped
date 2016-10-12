@@ -1,6 +1,6 @@
 // Type definitions for Parse v1.2.19
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>
+// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
