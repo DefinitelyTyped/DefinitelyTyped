@@ -382,7 +382,7 @@ declare module "aws-sdk" {
     endpoint: Endpoint;
 
     getObject(params: s3.GetObjectRequest, callback?: (err: Error, data: any) => void): any;
-    putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
+    putObject(params: s3.PutObjectRequest, callback?: (err: Error, data: any) => void): any;
     deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
     headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
     getSignedUrl(operation: string, params: any): string;
