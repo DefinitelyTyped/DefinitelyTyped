@@ -3547,7 +3547,7 @@ declare module "sequelize" {
              * Sync this Model to the DB, that is create the table. Upon success, the callback will be called with the
              * model instance (this)
              */
-            sync( options? : SyncOptions ) : Promise<this>;
+            sync( options? : SyncOptions ) : Promise<Model<TInstance, TAttributes>>;
 
             /**
              * Drop the table represented by this Model
@@ -3565,7 +3565,7 @@ declare module "sequelize" {
              * @param schema The name of the schema
              * @param options
              */
-            schema( schema : string, options? : SchemaOptions ) : this;
+            schema( schema : string, options? : SchemaOptions ) : Model<TInstance, TAttributes>;
 
             /**
              * Get the tablename of the model, taking schema into account. The method will return The name as a string
@@ -3638,7 +3638,7 @@ declare module "sequelize" {
              * @return Model A reference to the model, with the scope(s) applied. Calling scope again on the returned
              *     model will clear the previous scope.
              */
-            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : this;
+            scope( options? : string | string[] | ScopeOptions | WhereOptions ) : Model<TInstance, TAttributes>;
 
             /**
              * Search for multiple instances.
@@ -3899,7 +3899,7 @@ declare module "sequelize" {
             /**
              * Unscope the model
              */
-            unscoped() : this;
+            unscoped() : Model<TInstance, TAttributes>;
 
         }
 
