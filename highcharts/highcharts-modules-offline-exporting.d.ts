@@ -5,7 +5,7 @@
 
 /// <reference path="highcharts.d.ts" />
 
-declare var HighchartsOfflineExporting: (H: HighchartsStatic) => HighchartsStatic;
+declare var HighchartsOfflineExporting: (H: __Highcharts.Static) => __Highcharts.Static;
 
 declare module "highcharts/modules/offline-exporting" {
     export = HighchartsOfflineExporting;
