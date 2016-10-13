@@ -92,7 +92,7 @@ class Users extends React.Component<{}, {}> {
 
 
 ReactDOM.render((
-	<Router history={hashHistory}>
+	<Router history={hashHistory} render={(props) => <RouterContext {...props} />}>
 		<Route path="/" component={Master}>
 			<IndexRoute component={DashboardWithRouter} />
 			<Route path="users" component={Users}/>

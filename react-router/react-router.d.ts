@@ -50,6 +50,7 @@ declare namespace ReactRouter {
         history?: History
         location?: H.Location
         params?: P
+        render?: (renderProps: React.Props<any>) => any;
         route?: PlainRoute
         routeParams?: R
         routes?: PlainRoute[]
