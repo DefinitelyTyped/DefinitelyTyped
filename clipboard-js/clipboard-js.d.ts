@@ -6,7 +6,7 @@
 declare namespace clipboard {
 
     interface IClipboardJsStatic {
-        copy(val: string | Element): Promise<void>;
+        copy(val: string | number | Element): Promise<void>;
         paste(): Promise<string>;
     }
 }
