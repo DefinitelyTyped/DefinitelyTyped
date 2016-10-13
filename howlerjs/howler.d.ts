@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HowlerGlobal {
-    mute(): HowlerGlobal;
-    unmute(): HowlerGlobal;
+    mute(muted: boolean): HowlerGlobal;
     volume(): number;
     volume(volume: number): HowlerGlobal;
     codecs(extension: string): boolean;
@@ -56,8 +55,7 @@ interface Howl {
     play(callback?: (soundId: string) => void): Howl;
     pause(soundId?: string): Howl;
     stop(soundId?: string): Howl;
-    mute(soundId?: string): Howl;
-    unmute(soundId?: string): Howl;
+    mute(muted?: boolean, soundId?: string): Howl;
     fade(from: number, to: number, duration: number, callback?: Function, soundId?: string): Howl;
     loop(): boolean;
     loop(loop: boolean): Howl;
