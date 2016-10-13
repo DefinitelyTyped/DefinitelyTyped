@@ -51,7 +51,7 @@ declare namespace webcrypto {
     function PrepareAlgorithm(alg: AlgorithmIdentifier | string): Algorithm;
     function PrepareData(data: BufferSource, paramName: string): Uint8Array;
     class BaseCrypto {
-        static checkAlgorithm(alg: AlgorithmIdentifier): void;
+        static checkAlgorithm(alg: Algorithm): void;
         static checkAlgorithmParams(alg: Algorithm): void;
         static checkKey(key: CryptoKey, alg?: string, type?: string | null, usage?: string | null): void;
         static checkWrappedKey(key: CryptoKey): void;
@@ -83,8 +83,8 @@ declare namespace webcrypto {
 declare namespace webcrypto.sha {
     const ShaAlgorithms: string;
     class Sha extends BaseCrypto {
-        static checkAlgorithm(alg: AlgorithmIdentifier): void;
-        static digest(algorithm: AlgorithmIdentifier, data: Uint8Array): PromiseLike<ArrayBuffer>;
+        static checkAlgorithm(alg: Algorithm): void;
+        static digest(algorithm: Algorithm, data: Uint8Array): PromiseLike<ArrayBuffer>;
     }
 }
 declare namespace webcrypto.rsa {
