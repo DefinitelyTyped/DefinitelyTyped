@@ -83,6 +83,7 @@ declare namespace YT {
     export class Player {
         // Constructor
         constructor(id: string, playerOptions: PlayerOptions);
+        constructor(element: HTMLElement, playerOptions: PlayerOptions);
 
         // Queueing functions
         loadVideoById(videoId: string, startSeconds?: number, suggestedQuality?: string): void;

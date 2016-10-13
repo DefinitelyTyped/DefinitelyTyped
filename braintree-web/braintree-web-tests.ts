@@ -50,7 +50,8 @@ braintree.client.create({
         selector: '#card-number'
       },
       cvv: {
-        selector: '#cvv'
+        selector: '#cvv',
+        type: 'password'
       },
       expirationDate: {
         selector: '#expiration-date'

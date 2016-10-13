@@ -1,9 +1,13 @@
-// Type definitions for canvas-gauges
+// Type definitions for canvas-gauges v2.0.8
 // Project: https://github.com/Mikhus/canvas-gauges
 // Definitions by: Mikhus <https://github.com/Mikhus>
 // Definitions: https://github.com/Mikhus/DefinitelyTyped
 
 declare namespace CanvasGauges {
+    export type FontStyle = 'normal' | 'italic' | 'oblique';
+    export type FontWeight = 'normal' | 'bold' | 'bolder' | 'lighter' |
+        '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+
     export type RenderTarget = string|HTMLElement;
 
     export interface AnimationRule {
@@ -74,11 +78,13 @@ declare namespace CanvasGauges {
         borderInnerWidth?: number,
         borderShadowWidth?: number,
         valueBox?: boolean,
+        valueBoxWidth?: number,
         valueBoxStroke?: number,
         valueText?: string,
         valueTextShadow?: boolean,
         valueBoxBorderRadius?: number,
         highlights?: Highlight[],
+        highlightsWidth?: number,
         fontNumbers?: string,
         fontTitle?: string,
         fontUnits?: string,
@@ -86,7 +92,15 @@ declare namespace CanvasGauges {
         fontTitleSize?: number,
         fontValueSize?: number,
         fontUnitsSize?: number,
-        fontNumbersSize?: number
+        fontNumbersSize?: number,
+        fontTitleStyle?: FontStyle,
+        fontValueStyle?: FontStyle,
+        fontUnitsStyle?: FontStyle,
+        fontNumbersStyle?: FontStyle,
+        fontTitleWeight?: FontWeight,
+        fontValueWeight?: FontWeight,
+        fontUnitsWeight?: FontWeight,
+        fontNumbersWeight?: FontWeight
     }
 
     export interface RadialGaugeOptions extends GenericOptions {

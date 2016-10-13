@@ -20,15 +20,15 @@ declare namespace RRule {
         wkst?: number | Weekday
         count?: number;
         until?: Date;
-        bysetpos?: number;
-        bymonth?: number;
-        bymonthday?: number;
-        byyearday?: number;
-        byweekno?: number;
-        byweekday?: Weekday[];
-        byhour?: number;
-        byminute?: number;
-        bysecond?: number;
+        bysetpos?: number | number[];
+        bymonth?: number | number[];
+        bymonthday?: number | number[];
+        byyearday?: number | number[];
+        byweekno?: number | number[];
+        byweekday?:  Weekday | Weekday[] | number | number[];
+        byhour?: number | number[];
+        byminute?: number | number[];
+        bysecond?: number | number[];
     }
 
     class Weekday {
@@ -39,7 +39,7 @@ declare namespace RRule {
         equals(other: Weekday): boolean;
 
         toString(): string;
-        
+
         getJsWeekday(): number;
     }
 
@@ -72,7 +72,7 @@ declare class RRule {
     *                   to stop the iteration.
     * @return Array containing all recurrences.
     */
-    all(iterator?: (date: Date) => void): Date[];
+    all(iterator?: (date: Date, index?: number) => void): Date[];
 
     /**
     * Returns all the occurrences of the rrule between after and before.
@@ -81,7 +81,7 @@ declare class RRule {
     * list, if they are found in the recurrence set.
     * @return Array
     */
-    between(a: Date, b: Date, iterator?: (date: Date) => void): Date[];
+    between(a: Date, b: Date, inc?: boolean, iterator?: (date: Date, index: number) => void): Date[];
 
     /**
     * Returns the last recurrence before the given datetime instance.
@@ -129,7 +129,7 @@ declare namespace RRule {
         MINUTELY    = 5,
         SECONDLY    = 6
     }
-    
+
     const YEARLY: Frequency;
     const MONTHLY: Frequency;
     const WEEKLY: Frequency;
@@ -158,4 +158,27 @@ declare namespace RRule {
 
     function fromString(value: string): RRule;
 
+    class RRuleSet extends RRule {
+      /**
+      *
+      * @param {Boolean?} noCache
+      *  The same stratagy as RRule on cache, default to false
+      * @constructor
+      */
+      constructor(noCache?: boolean);
+      rrule(rrule: RRule): void;
+      rdate(date: Date): void;
+      exrule(rrule: RRule): void;
+      exdate(date: Date): void;
+      valueOf(): string[];
+      /**
+      * to generate recurrence field sush as:
+      *   ["RRULE:FREQ=YEARLY;COUNT=2;BYDAY=TU;DTSTART=19970902T010000Z","RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TH;DTSTART=19970902T010000Z"]
+      */
+      toString(): string;
+      /**
+      * Create a new RRuleSet Object completely base on current instance
+      */
+      clone(): RRuleSet;
+    }
 }
