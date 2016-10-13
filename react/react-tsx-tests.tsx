@@ -4,7 +4,7 @@ interface SCProps {
     foo?: number;
 }
 
-var StatelessComponent: React.StatelessComponent<SCProps> = ({ foo }: SCProps) => {
+var StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
     return <div>{ foo }</div>;
 };
 StatelessComponent.displayName = "StatelessComponent3";

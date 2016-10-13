@@ -199,9 +199,7 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    interface SFC<P> extends StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any> | null;
-    }
+    type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
         (props: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
