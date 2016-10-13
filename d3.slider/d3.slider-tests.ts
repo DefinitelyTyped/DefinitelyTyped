@@ -1,5 +1,5 @@
 /// <reference path="../d3/d3.d.ts" />
-/// <reference path="d3-slider.d.ts" />
+/// <reference path="d3.slider.d.ts" />
 
 d3.select('#slider1').call(d3.slider());
 d3.select('#slider2').call(d3.slider().value( [ 10, 25 ] ));
