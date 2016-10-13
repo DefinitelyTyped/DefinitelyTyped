@@ -1829,8 +1829,8 @@ declare namespace protractor {
     function wrapDriver(webdriver: webdriver.WebDriver, opt_baseUrl?: string, opt_rootElement?: string): Protractor;
 }
 
-interface cssSelectorHelper {
-    (cssLocator: string): protractor.ElementFinder;
+interface selectorHelper {
+    (cssLocator: string | Function | HTMLElement | Document | Array<any>): protractor.ElementFinder;
 }
 
 interface cssArraySelectorHelper {
@@ -1841,7 +1841,7 @@ declare var browser: protractor.IBrowser;
 declare var by: protractor.IProtractorLocatorStrategy;
 declare var By: protractor.IProtractorLocatorStrategy;
 declare var element: protractor.Element;
-declare var $: cssSelectorHelper;
+declare var $: selectorHelper;
 declare var $$: cssArraySelectorHelper;
 
 declare module 'protractor' {
