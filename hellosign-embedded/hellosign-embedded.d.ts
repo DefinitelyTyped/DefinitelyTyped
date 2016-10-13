@@ -1,4 +1,4 @@
-﻿// Type definitions for hellosign-embedded v1.0.3
+﻿// Type definitions for hellosign-embedded v1.2.0
 // Project: https://github.com/HelloFax/hellosign-embedded
 // Definitions by: Brian Surowiec <https://github.com/xt0rted/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -154,6 +154,13 @@ declare module HelloSign {
          * @default signature_request_signed
          */
         EVENT_SIGNED: string;
+
+        /**
+         * The signature request was declined
+         *
+         * @default signature_request_declined
+         */
+        EVENT_DECLINED: string;
 
         /**
          * The user closed the iFrame before completing
