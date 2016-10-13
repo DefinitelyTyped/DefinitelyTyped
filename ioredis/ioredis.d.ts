@@ -278,6 +278,8 @@ declare module IORedis {
         sort(...args: any[]): any;
         info(args: any[], callback?: ResCallbackT<any>): any;
         info(...args: any[]): any;
+        time(args: any[], callback?: ResCallbackT<any>): any;
+        time(...args: any[]): any;
         monitor(args: any[], callback?: ResCallbackT<any>): any;
         monitor(...args: any[]): any;
         ttl(args: any[], callback?: ResCallbackT<any>): any;
@@ -561,6 +563,8 @@ declare module IORedis {
         sort(...args: any[]): Pipeline;
         info(args: any[], callback?: ResCallbackT<any>): Pipeline;
         info(...args: any[]): Pipeline;
+        time(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        time(...args: any[]): Pipeline;
         monitor(args: any[], callback?: ResCallbackT<any>): Pipeline;
         monitor(...args: any[]): Pipeline;
         ttl(args: any[], callback?: ResCallbackT<any>): Pipeline;
