@@ -70,6 +70,19 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	Kefir.sequentially(1000, [1, 2]).log('my stream');
 	Kefir.sequentially(1000, [1, 2]).offLog('my stream');
 	Kefir.sequentially(1000, [1, 2]).toPromise().then((x: number) => console.log('fulfilled with:', x));
+	Kefir.sequentially(1000, [1, 2]).observe({});
+	Kefir.sequentially(1000, [1, 2]).observe({
+		value: _ => {},
+		error: _ => {},
+		end: () => {},
+	});
+	Kefir.sequentially(1000, [1, 2]).observe();
+	const subscription = Kefir.sequentially(1000, [1, 2]).observe(
+		_ => {},
+		_ => {},
+		() => {}
+	);
+	if (!subscription.closed) subscription.unsubscribe();
 }
 
 // Modify an observable
