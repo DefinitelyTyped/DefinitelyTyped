@@ -4,6 +4,7 @@ import * as Orientation from 'react-native-orientation';
 
 Orientation.addOrientationListener((orientation)=>{});
 Orientation.removeOrientationListener((orientation)=>{});
+Orientation.addSpecificOrientationListener((orientation)=>{});
 Orientation.removeSpecificOrientationListener((orientation)=>{});
 
 Orientation.getInitialOrientation();
