@@ -447,6 +447,7 @@ declare namespace L {
         zoomReverse?: boolean;
         detectRetina?: boolean;
         crossOrigin?: boolean;
+        [name: string]: any;
     }
 
     export interface TileLayer extends GridLayer {
