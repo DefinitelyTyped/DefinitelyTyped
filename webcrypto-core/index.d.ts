@@ -4,12 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace webcrypto {
+
     class WebCryptoError extends Error {
         code: number;
         stack: string;
         constructor(template: string, ...args: any[]);
         static NOT_SUPPORTED: string;
     }
+
     class AlgorithmError extends WebCryptoError {
         code: number;
         static PARAM_REQUIRED: string;
@@ -18,6 +20,7 @@ declare namespace webcrypto {
         static WRONG_ALG_NAME: string;
         static UNSUPPORTED_ALGORITHM: string;
     }
+
     class CryptoKeyError extends WebCryptoError {
         code: number;
         static EMPTY_KEY: string;
@@ -29,7 +32,9 @@ declare namespace webcrypto {
         static UNKNOWN_FORMAT: string;
         static ALLOWED_FORMAT: string;
     }
+
 }
+
 declare namespace webcrypto {
     const AlgorithmNames: {
         RsaSSA: string;
