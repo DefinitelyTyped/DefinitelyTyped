@@ -5,11 +5,6 @@
 
 interface ParentNode {
     /**
-     * Returns the child elements.
-     */
-    children: HTMLCollection;
-
-    /**
      * Returns the first element that is a descendant of node that matches relativeSelectors.
      */
     query(relativeSelectors: string): Element;
