@@ -1284,7 +1284,6 @@ declare namespace __MaterialUI {
 
         // useful attributes passed to <DropDownMenu/>
         className?: string;
-        maxHeight?: number;
         menuStyle?: any;
         openImmediately?: boolean;
     }
