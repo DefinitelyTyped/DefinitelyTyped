@@ -79,7 +79,6 @@
         set(key: string, val: any): any;
         get(key: string): any;
     }
-    var cache: Cache;
     function resolve(from1: string, to: string): string;
     function resolve(from1: string, from2: string, to: string): string;
     function resolve(from1: string, from2: string, from3: string, to: string): string;
@@ -100,7 +99,6 @@
     function basename(path: string): string;
     function extname(path: string): string;
     function filter(xs: any, f: any): any; // TODO WHUT?
-
-
 }
+
 export = Ejs;
