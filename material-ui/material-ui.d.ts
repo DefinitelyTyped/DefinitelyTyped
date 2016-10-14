@@ -1076,6 +1076,7 @@ declare namespace __MaterialUI {
             onNestedListToggle?: (item: ListItem) => void;
             onTouchStart?: React.TouchEventHandler;
             onTouchTap?: TouchTapEventHandler;
+            open?: boolean;
             primaryText?: React.ReactNode;
             primaryTogglesNestedList?: boolean;
             rightAvatar?: React.ReactElement<any>;

@@ -1968,6 +1968,7 @@ const ListExampleNested = () => (
         primaryText="Inbox"
         leftIcon={<ContentInbox />}
         initiallyOpen={true}
+        open={true}
         primaryTogglesNestedList={true}
         nestedItems={[
           <ListItem
