@@ -424,6 +424,9 @@ export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: 
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Full width"
           fullWidth={true}
+          popoverProps={{
+            animated: true
+          }}
         />
       </div>
     );

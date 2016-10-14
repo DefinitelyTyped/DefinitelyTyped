@@ -552,6 +552,7 @@ declare namespace __MaterialUI {
         onUpdateInput?: (searchText: string, dataSource: AutoCompleteDataSource) => void;
         open?: boolean;
         openOnFocus?: boolean;
+        popoverProps?: Popover.PopoverProps;
         searchText?: string;
         style?: React.CSSProperties;
         targetOrigin?: propTypes.origin;
