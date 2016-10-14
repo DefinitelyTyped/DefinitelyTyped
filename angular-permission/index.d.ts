@@ -84,7 +84,7 @@ declare module 'angular' {
        *
        * @returns {Object} Permissions collection
        */
-      getStore(): {[permissionName: string]: Permission};
+      getStore(): { [permissionName: string]: Permission };
     }
 
     export interface RoleStore {
@@ -110,7 +110,7 @@ declare module 'angular' {
        * @param permissions {Array} Set of permission names
        */
       defineRole(
-        roleName: string, 
+        roleName: string,
         permissions: string[]
       ): void;
 
@@ -151,7 +151,7 @@ declare module 'angular' {
        *
        * @returns {Object} Defined roles collection
        */
-      getStore(): {[roleName: string]: Role};
+      getStore(): { [roleName: string]: Role };
     }
 
     export interface Role {
@@ -165,13 +165,15 @@ declare module 'angular' {
       validationFunction?: PermissionValidationFunction;
     }
 
-    export interface RoleValidationFunction {
-      (roleName?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
-    }
+    export type RoleValidationFunction = (
+      roleName?: string,
+      transitionProperties?: TransitionProperties
+    ) => boolean | angular.IPromise<any>;
 
-    export interface PermissionValidationFunction {
-      (permissionName?: string, transitionProperties?: TransitionProperties): boolean | angular.IPromise<any>;
-    }
+    export type PermissionValidationFunction = (
+      permissionName?: string,
+      transitionProperties?: TransitionProperties
+    ) => boolean | angular.IPromise<any>;
 
     export interface IPermissionState extends angular.ui.IState {
       data?: any | DataWithPermissions;
@@ -179,8 +181,8 @@ declare module 'angular' {
 
     export interface DataWithPermissions {
       permissions?: {
-        only?: (() => void) | Array<string> | angular.IPromise<any>;
-        except?: (() => void) | Array<string> | angular.IPromise<any>;
+        only?: (() => void) | string | string[] | angular.IPromise<any>;
+        except?: (() => void) | string | string[] | angular.IPromise<any>;
         redirectTo: string | (() => string) | (() => PermissionRedirectConfigation) | { [index: string]: PermissionRedirectConfigation }
       };
     }
