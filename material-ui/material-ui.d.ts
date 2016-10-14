@@ -1096,14 +1096,11 @@ declare namespace __MaterialUI {
             leftIcon?: React.ReactElement<any>;
             menuItems?: React.ReactNode;
             onTouchTap?: TouchTapEventHandler;
+            primaryText?: React.ReactNode;
             rightIcon?: React.ReactElement<any>;
             secondaryText?: React.ReactNode;
             style?: React.CSSProperties;
             value?: any;
-
-            // useful attributes passed to <ListItem/>
-            primaryText?: React.ReactNode;
-            secondaryTextLines?: number; // 1 or 2
         }
         export class MenuItem extends React.Component<MenuItemProps, {}>{
         }
@@ -1273,6 +1270,7 @@ declare namespace __MaterialUI {
         id?: string;
         labelStyle?: React.CSSProperties;
         maxHeight?: number;
+        menuStyle?: any;
         onBlur?: React.FocusEventHandler;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler;
@@ -1281,11 +1279,6 @@ declare namespace __MaterialUI {
         underlineFocusStyle?: React.CSSProperties;
         underlineStyle?: React.CSSProperties;
         value?: any;
-
-        // useful attributes passed to <DropDownMenu/>
-        className?: string;
-        menuStyle?: any;
-        openImmediately?: boolean;
     }
     export class SelectField extends React.Component<SelectFieldProps, {}> {
     }
