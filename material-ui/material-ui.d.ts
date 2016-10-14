@@ -865,6 +865,7 @@ declare namespace __MaterialUI {
             cancelLabel?: React.ReactNode;
             container?: "dialog" | "inline";
             defaultDate?: Date;
+            dialogContainerStyle?: React.CSSProperties;
             disableYearSelection?: boolean;
             disabled?: boolean;
             firstDayOfWeek?: number;
