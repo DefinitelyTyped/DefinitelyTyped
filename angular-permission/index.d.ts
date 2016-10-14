@@ -158,11 +158,13 @@ declare module 'angular' {
       roleName: string;
       permissionNames: string[];
       validationFunction?: RoleValidationFunction;
+      validateRole: () => angular.IPromise<any>;
     }
 
     export interface Permission {
       permissionName: string;
       validationFunction?: PermissionValidationFunction;
+      validatePermission: () => angular.IPromise<any>;
     }
 
     export type RoleValidationFunction = (
