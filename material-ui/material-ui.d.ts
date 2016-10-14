@@ -661,6 +661,7 @@ declare namespace __MaterialUI {
     interface RaisedButtonProps extends SharedEnhancedButtonProps<RaisedButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
+        buttonStyle?: React.CSSProperties;
         className?: string;
         disabled?: boolean;
         disabledBackgroundColor?: string;

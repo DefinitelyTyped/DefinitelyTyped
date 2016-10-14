@@ -744,11 +744,11 @@ const RaisedButtonExampleComplex = () => (
       <input type="file" style={styles.exampleImageInput} />
     </RaisedButton>
     <RaisedButton
+      buttonStyle={styles.button}
       label={<span>Label before</span>}
       labelPosition="before"
       primary={true}
       icon={<ActionAndroid />}
-      style={styles.button}
     />
     <RaisedButton
       label="Github Link"
