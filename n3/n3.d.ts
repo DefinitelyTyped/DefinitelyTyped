@@ -94,7 +94,7 @@ declare module "n3" {
         }
 
         interface N3StoreWriter extends N3Writer {
-            find(subject: string, predicate: string | null, object: string | null): Triple[];
+            find(subject: string, predicate: string, object: string): Triple[];
         }
         function Store(): N3StoreWriter;
 
