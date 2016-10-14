@@ -1447,7 +1447,7 @@ declare namespace __MaterialUI {
     }
 
     interface SnackbarProps extends React.Props<Snackbar> {
-        action?: string;
+        action?: React.ReactNode;
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
         className?: string;
