@@ -8,67 +8,65 @@ import * as validator from 'validator';
 *                  IMPORT TESTS                 *
 *                                               *
 ************************************************/
-import {
-    blacklist as blacklistFunc,
-    contains as containsFunc,
-    equals as equalsFunc,
-    escape as escapeFunc,
-    isAfter as isAfterFunc,
-    isAlpha as isAlphaFunc,
-    isAlphanumeric as isAlphanumericFunc,
-    isAscii as isAsciiFunc,
-    isBase64 as isBase64Func,
-    isBefore as isBeforeFunc,
-    isBoolean as isBooleanFunc,
-    isByteLength as isByteLengthFunc,
-    isCreditCard as isCreditCardFunc,
-    isCurrency as isCurrencyFunc,
-    isDataURI as isDataURIFunc,
-    isDate as isDateFunc,
-    isDecimal as isDecimalFunc,
-    isDivisibleBy as isDivisibleByFunc,
-    isEmail as isEmailFunc,
-    isFQDN as isFQDNFunc,
-    isFloat as isFloatFunc,
-    isFullWidth as isFullWidthFunc,
-    isHalfWidth as isHalfWidthFunc,
-    isHexColor as isHexColorFunc,
-    isHexadecimal as isHexadecimalFunc,
-    isIP as isIPFunc,
-    isISBN as isISBNFunc,
-    isISIN as isISINFunc,
-    isISO8601 as isISO8601Func,
-    isIn as isInFunc,
-    isInt as isIntFunc,
-    isJSON as isJSONFunc,
-    isLength as isLengthFunc,
-    isLowercase as isLowercaseFunc,
-    isMACAddress as isMACAddressFunc,
-    isMD5 as isMD5Func,
-    isMobilePhone as isMobilePhoneFunc,
-    isMongoId as isMongoIdFunc,
-    isMultibyte as isMultibyteFunc,
-    isNull as isNullFunc,
-    isNumeric as isNumericFunc,
-    isSurrogatePair as isSurrogatePairFunc,
-    isURL as isURLFunc,
-    isUUID as isUUIDFunc,
-    isUppercase as isUppercaseFunc,
-    isVariableWidth as isVariableWidthFunc,
-    isWhitelisted as isWhitelistedFunc,
-    ltrim as ltrimFunc,
-    matches as matchesFunc,
-    normalizeEmail as normalizeEmailFunc,
-    rtrim as rtrimFunc,
-    stripLow as stripLowFunc,
-    toBoolean as toBooleanFunc,
-    toDate as toDateFunc,
-    toFloat as toFloatFunc,
-    toInt as toIntFunc,
-    trim as trimFunc,
-    unescape as unescapeFunc,
-    whitelist as whitelistFunc,
-} from 'validator'
+import * as blacklistFunc from 'validator/lib/blacklist';
+import * as containsFunc from 'validator/lib/contains';
+import * as equalsFunc from 'validator/lib/equals';
+import * as escapeFunc from 'validator/lib/escape';
+import * as isAfterFunc from 'validator/lib/isAfter';
+import * as isAlphaFunc from 'validator/lib/isAlpha';
+import * as isAlphanumericFunc from 'validator/lib/isAlphanumeric';
+import * as isAsciiFunc from 'validator/lib/isAscii';
+import * as isBase64Func from 'validator/lib/isBase64';
+import * as isBeforeFunc from 'validator/lib/isBefore';
+import * as isBooleanFunc from 'validator/lib/isBoolean';
+import * as isByteLengthFunc from 'validator/lib/isByteLength';
+import * as isCreditCardFunc from 'validator/lib/isCreditCard';
+import * as isCurrencyFunc from 'validator/lib/isCurrency';
+import * as isDataURIFunc from 'validator/lib/isDataURI';
+import * as isDateFunc from 'validator/lib/isDate';
+import * as isDecimalFunc from 'validator/lib/isDecimal';
+import * as isDivisibleByFunc from 'validator/lib/isDivisibleBy';
+import * as isEmailFunc from 'validator/lib/isEmail';
+import * as isFQDNFunc from 'validator/lib/isFQDN';
+import * as isFloatFunc from 'validator/lib/isFloat';
+import * as isFullWidthFunc from 'validator/lib/isFullWidth';
+import * as isHalfWidthFunc from 'validator/lib/isHalfWidth';
+import * as isHexColorFunc from 'validator/lib/isHexColor';
+import * as isHexadecimalFunc from 'validator/lib/isHexadecimal';
+import * as isIPFunc from 'validator/lib/isIP';
+import * as isISBNFunc from 'validator/lib/isISBN';
+import * as isISINFunc from 'validator/lib/isISIN';
+import * as isISO8601Func from 'validator/lib/isISO8601';
+import * as isInFunc from 'validator/lib/isIn';
+import * as isIntFunc from 'validator/lib/isInt';
+import * as isJSONFunc from 'validator/lib/isJSON';
+import * as isLengthFunc from 'validator/lib/isLength';
+import * as isLowercaseFunc from 'validator/lib/isLowercase';
+import * as isMACAddressFunc from 'validator/lib/isMACAddress';
+import * as isMD5Func from 'validator/lib/isMD5';
+import * as isMobilePhoneFunc from 'validator/lib/isMobilePhone';
+import * as isMongoIdFunc from 'validator/lib/isMongoId';
+import * as isMultibyteFunc from 'validator/lib/isMultibyte';
+import * as isNullFunc from 'validator/lib/isNull';
+import * as isNumericFunc from 'validator/lib/isNumeric';
+import * as isSurrogatePairFunc from 'validator/lib/isSurrogatePair';
+import * as isURLFunc from 'validator/lib/isURL';
+import * as isUUIDFunc from 'validator/lib/isUUID';
+import * as isUppercaseFunc from 'validator/lib/isUppercase';
+import * as isVariableWidthFunc from 'validator/lib/isVariableWidth';
+import * as isWhitelistedFunc from 'validator/lib/isWhitelisted';
+import * as ltrimFunc from 'validator/lib/ltrim';
+import * as matchesFunc from 'validator/lib/matches';
+import * as normalizeEmailFunc from 'validator/lib/normalizeEmail';
+import * as rtrimFunc from 'validator/lib/rtrim';
+import * as stripLowFunc from 'validator/lib/stripLow';
+import * as toBooleanFunc from 'validator/lib/toBoolean';
+import * as toDateFunc from 'validator/lib/toDate';
+import * as toFloatFunc from 'validator/lib/toFloat';
+import * as toIntFunc from 'validator/lib/toInt';
+import * as trimFunc from 'validator/lib/trim';
+import * as unescapeFunc from 'validator/lib/unescape';
+import * as whitelistFunc from 'validator/lib/whitelist';
 
 namespace import_tests {
   let _blacklist = validator.blacklist;
