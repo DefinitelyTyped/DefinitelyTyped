@@ -1387,6 +1387,8 @@ declare namespace __MaterialUI {
             rippleStyle?: React.CSSProperties;
             style?: React.CSSProperties;
             thumbStyle?: React.CSSProperties;
+            thumbSwitchedStyle?: React.CSSProperties;
+            trackSwitchedStyle?: React.CSSProperties;
             toggled?: boolean;
             trackStyle?: React.CSSProperties;
             valueLink?: ReactLink<boolean>;
