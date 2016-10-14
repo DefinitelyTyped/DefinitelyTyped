@@ -1409,12 +1409,12 @@ declare namespace __MaterialUI {
 
         interface RadioButtonGroupProps extends React.Props<RadioButtonGroup> {
             className?: string;
-            defaultSelected?: string;
+            defaultSelected?: any;
             labelPosition?: "left" | "right";
             name: string;
             onChange?: (e: React.FormEvent, selected: string) => void;
             style?: React.CSSProperties;
-            valueSelected?: string;
+            valueSelected?: any;
         }
         export class RadioButtonGroup extends React.Component<RadioButtonGroupProps, {}> {
             clearValue(): void;
