@@ -1347,6 +1347,7 @@ declare namespace __MaterialUI {
         onDragStop?: React.MouseEventHandler;
         onFocus?: React.FocusEventHandler;
         required?: boolean;
+        sliderStyle?: React.CSSProperties,
         step?: number;
         style?: React.CSSProperties;
         value?: number;
