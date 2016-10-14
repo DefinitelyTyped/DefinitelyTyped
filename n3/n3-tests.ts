@@ -27,6 +27,11 @@ function test_serialize() {
     });
 }
 
+/** 
+The following tests are taken from ...
+https://github.com/RubenVerborgh/N3.js/blob/master/README.md
+*/
+
 function test_doc_rdf_to_triples_1() {
     var parser = N3.Parser();
     parser.parse('@prefix c: <http://example.org/cartoons#>.\n' +
