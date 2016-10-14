@@ -555,6 +555,7 @@ declare namespace __MaterialUI {
     interface AutoCompleteProps extends React.Props<AutoComplete> {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
+        animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
         dataSource: AutoCompleteDataSource;
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
@@ -915,6 +916,7 @@ declare namespace __MaterialUI {
         interface DatePickerDialogProps extends React.Props<DatePickerDialog> {
             // <Container/> is the element that get the 'other' properties
             DateTimeFormat?: Intl.DateTimeFormat;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoOk?: boolean;
             cancelLabel?: React.ReactNode;
             container?: "dialog" | "inline";
@@ -1130,6 +1132,7 @@ declare namespace __MaterialUI {
 
         interface MenuItemProps extends React.HTMLAttributes, React.Props<MenuItem> {
             // <ListItem/> is the element that get the 'other' properties
+            animation?:  React.ComponentClass<Popover.PopoverAnimationProps>;
             checked?: boolean;
             desktop?: boolean;
             disabled?: boolean;
@@ -1154,6 +1157,7 @@ declare namespace __MaterialUI {
         interface IconMenuProps extends React.Props<IconMenu> {
             // <Menu/> is the element that get the 'other' properties
             anchorOrigin?: propTypes.origin;
+            animation?:  React.ComponentClass<Popover.PopoverAnimationProps>;
             className?: string;
             iconButtonElement: React.ReactElement<IconButtonProps>;
             iconStyle?: React.CSSProperties;
@@ -1193,6 +1197,7 @@ declare namespace __MaterialUI {
         interface DropDownMenuProps extends React.Props<DropDownMenu> {
             // <div/> is the element that gets the 'other' properties
             animated?: boolean;
+            animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
