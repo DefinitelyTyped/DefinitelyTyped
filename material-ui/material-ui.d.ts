@@ -34,7 +34,7 @@ declare module "material-ui" {
     export import LinearProgress = __MaterialUI.LinearProgress;
     export import List = __MaterialUI.List.List;
     export import ListItem = __MaterialUI.List.ListItem;
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
+    export import makeSelectable = __MaterialUI.List.makeSelectable;
     export import Menu = __MaterialUI.Menus.Menu;
     export import MenuItem = __MaterialUI.Menus.MenuItem;
     export import Paper = __MaterialUI.Paper;
@@ -1056,7 +1056,7 @@ declare namespace __MaterialUI {
         }
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
-        export function MakeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
+        export function makeSelectable<P extends {}>(component: React.ComponentClass<P>): React.ComponentClass<P & SelectableProps>;
     }
 
     namespace Menus {
@@ -1958,7 +1958,7 @@ declare module 'material-ui/LinearProgress' {
 declare module 'material-ui/List' {
     export import List = __MaterialUI.List.List;
     export import ListItem = __MaterialUI.List.ListItem;
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
+    export import makeSelectable = __MaterialUI.List.makeSelectable;
     export default List;
 }
 
@@ -1972,9 +1972,9 @@ declare module 'material-ui/List/ListItem' {
     export default ListItem;
 }
 
-declare module 'material-ui/List/MakeSelectable' {
-    export import MakeSelectable = __MaterialUI.List.MakeSelectable;
-    export default MakeSelectable;
+declare module 'material-ui/List/makeSelectable' {
+    export import makeSelectable = __MaterialUI.List.makeSelectable;
+    export default makeSelectable;
 }
 
 declare module "material-ui/Menu" {

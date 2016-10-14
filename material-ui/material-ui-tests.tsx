@@ -47,7 +47,7 @@ import TimePicker from 'material-ui/TimePicker';
 import Toggle from 'material-ui/Toggle';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {GridList, GridTile} from 'material-ui/GridList';
-import {MakeSelectable} from 'material-ui/List';
+import {makeSelectable} from 'material-ui/List';
 import {Menu} from 'material-ui/Menu';
 import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
@@ -2268,7 +2268,7 @@ function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.Sel
   };
 }
 
-let SelectableList = wrapState(MakeSelectable(List));
+let SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
   <Paper>
