@@ -578,6 +578,7 @@ declare namespace __MaterialUI {
         searchText?: string;
         style?: React.CSSProperties;
         targetOrigin?: propTypes.origin;
+        textFieldStyle?: React.CSSProperties;
         /** @deprecated Instead, use openOnFocus */
         triggerUpdateOnFocus?: boolean;
     }
