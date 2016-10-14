@@ -343,28 +343,28 @@ declare namespace mapboxgl {
 	/**
 	 * Navigation
 	 */
-	export class Navigation extends Control {
+	export class NavigationControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Geolocate
 	 */
-	export class Geolocate extends Control {
+	export class GeolocateControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Attribution
 	 */
-	export class Attribution extends Control {
+	export class AttributionControl extends Control {
 		constructor(options?: mapboxgl.ControlOptions);
 	}
 
 	/**
 	 * Scale
 	 */
-	export class Scale extends Control {
+	export class ScaleControl extends Control {
 		constructor(options?: {position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left', maxWidth?: number, unit?: string})
 	}
 
