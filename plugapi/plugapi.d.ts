@@ -26,7 +26,7 @@ declare module "plugapi" {
 
     interface Media {
         author: string;
-        format: 1;
+        format: number;
         image: string;
         cid: string;
         duration: number;
@@ -112,115 +112,115 @@ declare module "plugapi" {
 
     namespace Enum {
         interface RoomRole {
-            NONE: 0,
-            RESIDENTDJ: 1,
-            BOUNCER: 2,
-            MANAGER: 3,
-            COHOST: 4,
-            HOST: 5
+            NONE: number;
+            RESIDENTDJ: number;
+            BOUNCER: number;
+            MANAGER: number;
+            COHOST: number;
+            HOST: number;
         }
 
         interface GlobalRole {
-            NONE: 0,
-            VOLUNTEER: 2,
-            AMBASSADOR: 3,
-            LEADER: 4,
-            ADMIN: 5
+            NONE: number;
+            VOLUNTEER: number;
+            AMBASSADOR: number;
+            LEADER: number;
+            ADMIN: number;
         }
 
         interface Status {
-            OFFLINE: 0,
-            ONLINE: 1
+            OFFLINE: number;
+            ONLINE: number;
         }
 
         interface Ban {
-            HOUR: "h",
-            DAY: "d",
-            PERMA: "f"
+            HOUR: "h";
+            DAY: "d";
+            PERMA: "f";
         }
 
         interface BanReason {
-            SPAMMING_TROLLING: 1,
-            VERBAL_ABUSE: 2,
-            OFFENSIVE_MEDIA: 3,
-            INAPPROPRIATE_GENRE: 4,
-            NEGATIVE_ATTITUDE: 5
+            SPAMMING_TROLLING: number;
+            VERBAL_ABUSE: number;
+            OFFENSIVE_MEDIA: number;
+            INAPPROPRIATE_GENRE: number;
+            NEGATIVE_ATTITUDE: number;
         }
 
         interface Mute {
-            SHORT: "s",
-            MEDIUM: "m",
-            LONG: "l"
+            SHORT: "s";
+            MEDIUM: "m";
+            LONG: "l";
         }
 
         interface MuteReason {
-            VIOLATING_COMMUNITY_RULES: 1,
-            VERBAL_ABUSE: 2,
-            SPAMMING_TROLLING: 3,
-            OFFENSIVE_LANGUAGE: 4,
-            NEGATIVE_ATTITUDE: 5
+            VIOLATING_COMMUNITY_RULES: number;
+            VERBAL_ABUSE: number;
+            SPAMMING_TROLLING: number;
+            OFFENSIVE_LANGUAGE: number;
+            NEGATIVE_ATTITUDE: number;
         }
 
         interface Events {
-            ADVANCE: "advance",
-            BAN: "ban",
-            BOOTH_LOCKED: "boothLocked",
-            CHAT: "chat",
-            CHAT_COMMAND: "command",
-            CHAT_DELETE: "chatDelete",
-            CHAT_LEVEL_UPDATE: "roomMinChatLevelUpdate",
-            COMMAND: "command",
-            DJ_LIST_CYCLE: "djListCycle",
-            DJ_LIST_UPDATE: "djListUpdate",
-            DJ_LIST_LOCKED: "djListLocked",
-            EARN: "earn",
-            FOLLOW_JOIN: "followJoin",
-            FLOOD_CHAT: "floodChat",
-            FRIEND_REQUEST: "friendRequest",
-            GIFTED: "gifted",
-            GRAB: "grab",
-            KILL_SESSION: "killSession",
-            MAINT_MODE: "plugMaintenance",
-            MAINT_MODE_ALERT: "plugMaintenanceAlert",
-            MODERATE_ADD_DJ: "modAddDJ",
-            MODERATE_ADD_WAITLIST: "modAddWaitList",
-            MODERATE_AMBASSADOR: "modAmbassador",
-            MODERATE_BAN: "modBan",
-            MODERATE_MOVE_DJ: "modMoveDJ",
-            MODERATE_MUTE: "modMute",
-            MODERATE_REMOVE_DJ: "modRemoveDJ",
-            MODERATE_REMOVE_WAITLIST: "modRemoveWaitList",
-            MODERATE_SKIP: "modSkip",
-            MODERATE_STAFF: "modStaff",
-            NOTIFY: "notify",
-            PDJ_MESSAGE: "pdjMessage",
-            PDJ_UPDATE: "pdjUpdate",
-            PING: "ping",
-            PLAYLIST_CYCLE: "playlistCycle",
-            REQUEST_DURATION: "requestDuration",
-            REQUEST_DURATION_RETRY: "requestDurationRetry",
-            ROOM_CHANGE: "roomChanged",
-            ROOM_DESCRIPTION_UPDATE: "roomDescriptionUpdate",
-            ROOM_JOIN: "roomJoin",
-            ROOM_NAME_UPDATE: "roomNameUpdate",
-            ROOM_VOTE_SKIP: "roomVoteSkip",
-            ROOM_WELCOME_UPDATE: "roomWelcomeUpdate",
-            SESSION_CLOSE: "sessionClose",
-            SKIP: "skip",
-            STROBE_TOGGLE: "strobeToggle",
-            USER_COUNTER_UPDATE: "userCounterUpdate",
-            USER_FOLLOW: "userFollow",
-            USER_JOIN: "userJoin",
-            USER_LEAVE: "userLeave",
-            USER_UPDATE: "userUpdate",
-            VOTE: "vote"
+            ADVANCE: "advance";
+            BAN: "ban";
+            BOOTH_LOCKED: "boothLocked";
+            CHAT: "chat";
+            CHAT_COMMAND: "command";
+            CHAT_DELETE: "chatDelete";
+            CHAT_LEVEL_UPDATE: "roomMinChatLevelUpdate";
+            COMMAND: "command";
+            DJ_LIST_CYCLE: "djListCycle";
+            DJ_LIST_UPDATE: "djListUpdate";
+            DJ_LIST_LOCKED: "djListLocked";
+            EARN: "earn";
+            FOLLOW_JOIN: "followJoin";
+            FLOOD_CHAT: "floodChat";
+            FRIEND_REQUEST: "friendRequest";
+            GIFTED: "gifted";
+            GRAB: "grab";
+            KILL_SESSION: "killSession";
+            MAINT_MODE: "plugMaintenance";
+            MAINT_MODE_ALERT: "plugMaintenanceAlert";
+            MODERATE_ADD_DJ: "modAddDJ";
+            MODERATE_ADD_WAITLIST: "modAddWaitList";
+            MODERATE_AMBASSADOR: "modAmbassador";
+            MODERATE_BAN: "modBan";
+            MODERATE_MOVE_DJ: "modMoveDJ";
+            MODERATE_MUTE: "modMute";
+            MODERATE_REMOVE_DJ: "modRemoveDJ";
+            MODERATE_REMOVE_WAITLIST: "modRemoveWaitList";
+            MODERATE_SKIP: "modSkip";
+            MODERATE_STAFF: "modStaff";
+            NOTIFY: "notify";
+            PDJ_MESSAGE: "pdjMessage";
+            PDJ_UPDATE: "pdjUpdate";
+            PING: "ping";
+            PLAYLIST_CYCLE: "playlistCycle";
+            REQUEST_DURATION: "requestDuration";
+            REQUEST_DURATION_RETRY: "requestDurationRetry";
+            ROOM_CHANGE: "roomChanged";
+            ROOM_DESCRIPTION_UPDATE: "roomDescriptionUpdate";
+            ROOM_JOIN: "roomJoin";
+            ROOM_NAME_UPDATE: "roomNameUpdate";
+            ROOM_VOTE_SKIP: "roomVoteSkip";
+            ROOM_WELCOME_UPDATE: "roomWelcomeUpdate";
+            SESSION_CLOSE: "sessionClose";
+            SKIP: "skip";
+            STROBE_TOGGLE: "strobeToggle";
+            USER_COUNTER_UPDATE: "userCounterUpdate";
+            USER_FOLLOW: "userFollow";
+            USER_JOIN: "userJoin";
+            USER_LEAVE: "userLeave";
+            USER_UPDATE: "userUpdate";
+            VOTE: "vote";
         }
     }
 
     namespace Event {
         interface BoothCycle {
             moderator: string;
-            cycle: true;
+            cycle: boolean;
         }
         
         interface BoothLocked {
