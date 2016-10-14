@@ -1404,6 +1404,7 @@ declare namespace __MaterialUI {
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
         className?: string;
+        contentStyle?: React.CSSProperties;
         message: React.ReactNode;
         onActionTouchTap?: React.TouchEventHandler;
         onRequestClose: (reason: string) => void;

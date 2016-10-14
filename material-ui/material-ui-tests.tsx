@@ -3640,6 +3640,7 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
           message="Event added to your calendar"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
+          contentStyle={{margin: 16}}
         />
       </div>
     );
