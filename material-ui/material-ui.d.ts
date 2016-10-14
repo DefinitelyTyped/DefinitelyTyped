@@ -452,9 +452,6 @@ declare namespace __MaterialUI {
 
         export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
 
-        //** @deprecated use MuiThemeProvider instead **/
-        export function themeDecorator(muiTheme: Styles.MuiTheme): <TFunction extends Function>(Component: TFunction) => TFunction;
-
         interface MuiThemeProviderProps extends React.Props<MuiThemeProvider> {
             muiTheme?: Styles.MuiTheme;
         }
@@ -462,21 +459,6 @@ declare namespace __MaterialUI {
         }
 
         export function getMuiTheme(...muiTheme: MuiTheme[]): MuiTheme;
-
-        interface ThemeManager {
-            //** @deprecated ThemeManager is deprecated. please import getMuiTheme directly from "material-ui/styles/getMuiTheme" **/
-            getMuiTheme(baseTheme: RawTheme, muiTheme?: MuiTheme): MuiTheme;
-
-            //** @deprecated modifyRawThemeSpacing is deprecated. please use getMuiTheme to modify your theme directly. http://www.material-ui.com/#/customization/themes **/
-            modifyRawThemeSpacing(muiTheme: MuiTheme, newSpacing: Spacing): MuiTheme;
-
-            //** @deprecated modifyRawThemePalette is deprecated. please use getMuiTheme to modify your theme directly. http://www.material-ui.com/#/customization/themes **/
-            modifyRawThemePalette(muiTheme: MuiTheme, newPaletteKeys: ThemePalette): MuiTheme;
-
-            //** @deprecated modifyRawThemeFontFamily is deprecated. please use getMuiTheme to modify your theme directly. http://www.material-ui.com/#/customization/themes **/
-            modifyRawThemeFontFamily(muiTheme: MuiTheme, newFontFamily: string): MuiTheme;
-        }
-        export var ThemeManager: ThemeManager;
 
         interface Transitions {
             easeOut(duration?: string, property?: string | string[], delay?: string, easeFunction?: string): string;
@@ -503,12 +485,6 @@ declare namespace __MaterialUI {
             fontStyleButtonFontSize: number;
         }
         export var Typography: Typography;
-
-        //** @deprecated use darkBaseTheme instead **/
-        export var DarkRawTheme: RawTheme;
-
-        //** @deprecated use lightBaseTheme instead **/
-        export var LightRawTheme: RawTheme;
     }
 
     interface AppBarProps extends React.Props<AppBar> {
@@ -580,8 +556,6 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         targetOrigin?: propTypes.origin;
         textFieldStyle?: React.CSSProperties;
-        /** @deprecated Instead, use openOnFocus */
-        triggerUpdateOnFocus?: boolean;
     }
     export class AutoComplete extends React.Component<AutoCompleteProps, {}> {
         static noFilter: () => boolean;
@@ -636,8 +610,8 @@ declare namespace __MaterialUI {
         disableTouchRipple?: boolean;
         focusRippleColor?: string;
         focusRippleOpacity?: number;
+        href?: string;
         keyboardFocused?: boolean;
-        linkButton?: boolean;
         onBlur?: React.FocusEventHandler;
         onFocus?: React.FocusEventHandler;
         onKeyboardFocus?: (e: React.FocusEvent, isKeyboardFocused: boolean) => void;
@@ -666,7 +640,6 @@ declare namespace __MaterialUI {
         backgroundColor?: string;
         disabled?: boolean;
         hoverColor?: string;
-        href?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
         labelPosition?: "before" | "after";
@@ -692,7 +665,6 @@ declare namespace __MaterialUI {
         disabledBackgroundColor?: string;
         disabledLabelColor?: string;
         fullWidth?: boolean;
-        href?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
         labelColor?: string;
@@ -719,10 +691,8 @@ declare namespace __MaterialUI {
         className?: string;
         disabled?: boolean;
         disabledColor?: string;
-        href?: string;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
-        linkButton?: boolean;
         mini?: boolean;
         onMouseDown?: React.MouseEventHandler;
         onMouseEnter?: React.MouseEventHandler;
@@ -886,8 +856,6 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
             value?: Date;
-            /** @deprecated use cancelLabel and okLabel instead */
-            wordings?: {ok: string, cancel: string};
 
             // From <TextField />
             className?: string;
@@ -933,7 +901,6 @@ declare namespace __MaterialUI {
             onShow?: () => void;
             shouldDisableDate?: (day: Date) => boolean;
             style?: React.CSSProperties;
-            wordings?: { ok: string, cancel: string };
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps, {}> {
         }
@@ -1043,15 +1010,7 @@ declare namespace __MaterialUI {
     namespace List {
         interface ListProps extends React.Props<List> {
             // <Paper/> is the element that get the 'other' properties
-            /** @deprecated nest the Subheader component directly inside the List instead */
-            insetSubheader?: boolean;
             style?: React.CSSProperties;
-            /** @deprecated nest the Subheader component directly inside the List instead */
-            subheader?: string;
-            /** @deprecated nest the Subheader component directly inside the List instead */
-            subheaderStyle?: React.CSSProperties;
-            /** @deprecated wrap it in `Paper` or another component that provides zDepth instead */
-            zDepth?: number;
         }
         export class List extends React.Component<ListProps, {}> {
         }
@@ -1094,8 +1053,6 @@ declare namespace __MaterialUI {
             onChange?: (e: TouchTapEvent, value: any) => void;
             selectedItemStyle?: React.CSSProperties;
             value?: any;
-            /** @deprecated use the value and onChange property instead */
-            valueLink?: { value: any; requestChange: (e: TouchTapEvent, value: any) => void };
         }
 
         // union types for higher order components in TypeScript 1.8: https://github.com/Microsoft/TypeScript/issues/4362
@@ -1105,8 +1062,6 @@ declare namespace __MaterialUI {
     namespace Menus {
         interface MenuProps extends React.Props<Menu> {
             // <List/> is the element that get the 'other' properties
-            /** @deprecated Instead, use a Popover */
-            animated?: boolean;
             autoWidth?: boolean;
             desktop?: boolean;
             disableAutoFocus?: boolean;
@@ -1118,15 +1073,11 @@ declare namespace __MaterialUI {
             onEscKeyDown?: React.KeyboardEventHandler;
             onItemTouchTap?: (e: TouchTapEvent, item: MenuItem) => void;
             onKeyDown?: React.KeyboardEventHandler;
-            /** @deprecated Instead, use a Popover */
-            openDirection?: propTypes.corners;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
             value?: any | any[];
             valueLink?: ReactLink<any | any[]>;
             width?: string | number;
-            /** @deprecated wrap it in `Paper` or another component that provides zDepth instead */
-            zDepth?: number;
         }
         export class Menu extends React.Component<MenuProps, {}>{
         }
@@ -1185,8 +1136,6 @@ declare namespace __MaterialUI {
             multiple?: boolean;
             onChange?: (e: TouchTapEvent, itemValue: any | any[]) => void;
             onKeyDown?: React.KeyboardEventHandler;
-            /** @deprecated Instead, use a Popover */
-            openDirection?: string;
             selectedMenuItemStyle?: React.CSSProperties;
             value?: any | any[];
             valueLink?: ReactLink<any | any[]>;
@@ -1381,8 +1330,6 @@ declare namespace __MaterialUI {
             labelStyle?: React.CSSProperties;
             onCheck?: (event: React.MouseEvent, checked: boolean) => void;
             style?: React.CSSProperties;
-            /** @deprecated Use uncheckedIcon instead */
-            unCheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             valueLink?: ReactLink<boolean>;
         }
@@ -1709,10 +1656,7 @@ declare namespace __MaterialUI {
         name?: string;
         onBlur?: React.FocusEventHandler;
         onChange?: React.FormEventHandler;
-        /** @deprecated Use onKeyDown and check for keycode instead. */
-        onEnterKeyDown?: React.KeyboardEventHandler;
         onFocus?: React.FocusEventHandler;
-        onKeyDown?: React.KeyboardEventHandler;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
@@ -1780,10 +1724,6 @@ declare namespace __MaterialUI {
         underlineStyle?: React.CSSProperties;
     }
     export class TimePicker extends React.Component<TimePickerProps, {}> {
-        /** @deprecated Use defaultTime instead. */
-        getTime(): Date;
-        /** @deprecated Use defaultTime instead. */
-        setTime(time: Date): void;
         focus(): void;
         openDialog(): void;
     }
@@ -6747,7 +6687,6 @@ declare module 'material-ui/styles' {
     export import LightRawTheme = __MaterialUI.Styles.lightBaseTheme;
     export import getMuiTheme = __MaterialUI.Styles.getMuiTheme;
     export import spacing = __MaterialUI.Styles.Spacing;
-    export import themeManager = __MaterialUI.Styles.ThemeManager;
     export import transitions = __MaterialUI.Styles.Transitions;
     export import typography = __MaterialUI.Styles.Typography;
     export import zIndex = __MaterialUI.Styles.zIndex;
@@ -6776,11 +6715,6 @@ declare module 'material-ui/styles/spacing' {
     export default Spacing;
 }
 
-declare module 'material-ui/styles/themeManager' {
-    export import ThemeManager = __MaterialUI.Styles.ThemeManager;
-    export default ThemeManager;
-}
-
 declare module 'material-ui/styles/transitions' {
     export import Transitions = __MaterialUI.Styles.Transitions;
     export default Transitions;
@@ -6796,26 +6730,9 @@ declare module 'material-ui/styles/baseThemes/lightBaseTheme' {
     export default lightBaseTheme;
 }
 
-//** @deprecated use lightBaseTheme instead **/
-declare module 'material-ui/styles/raw-themes/light-raw-theme' {
-    export import LightRawTheme = __MaterialUI.Styles.LightRawTheme;
-    export default LightRawTheme;
-}
-
 declare module 'material-ui/styles/baseThemes/darkBaseTheme' {
     export import darkBaseTheme = __MaterialUI.Styles.darkBaseTheme;
     export default darkBaseTheme;
-}
-
-//** @deprecated use darkBaseTheme instead **/
-declare module 'material-ui/styles/raw-themes/dark-raw-theme' {
-    export import DarkRawTheme = __MaterialUI.Styles.DarkRawTheme;
-    export default DarkRawTheme;
-}
-
-declare module 'material-ui/styles/themeDecorator' {
-    export import themeDecorator = __MaterialUI.Styles.themeDecorator;
-    export default themeDecorator;
 }
 
 declare module 'material-ui/styles/zIndex' {
