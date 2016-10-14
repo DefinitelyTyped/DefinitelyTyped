@@ -1333,6 +1333,7 @@ declare namespace __MaterialUI {
     }
 
     interface SliderProps extends React.Props<Slider> {
+        axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
         defaultValue?: number;
         description?: string;
         disableFocusRipple?: boolean;
