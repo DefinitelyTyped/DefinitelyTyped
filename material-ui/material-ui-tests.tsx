@@ -3105,7 +3105,7 @@ const CircularProgressExampleSimple = () => (
   <div>
     <CircularProgress />
     <CircularProgress size={1.5} />
-    <CircularProgress size={2} />
+    <CircularProgress size={2} thickness={1.5} />
   </div>
 );
 

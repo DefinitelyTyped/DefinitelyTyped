@@ -1276,6 +1276,7 @@ declare namespace __MaterialUI {
         mode?: "determinate" | "indeterminate";
         size?: number;
         style?: React.CSSProperties;
+        thickness?: number;
         value?: number;
     }
     export class CircularProgress extends React.Component<CircularProgressProps, {}> {
