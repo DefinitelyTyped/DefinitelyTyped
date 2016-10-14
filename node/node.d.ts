@@ -2643,6 +2643,10 @@ declare module "tls" {
 
     export class TLSSocket extends stream.Duplex {
         /**
+         * Construct a new tls.TLSSocket object from an existing TCP socket.
+         */
+        constructor(socket:net.Socket, options?: ConnectionOptions);
+        /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
          * the operating system.
          * @returns {any} - An object with three properties, e.g. { port: 12346, family: 'IPv4', address: '127.0.0.1' }.
