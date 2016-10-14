@@ -1391,7 +1391,7 @@ declare namespace __MaterialUI {
             labelStyle?: React.CSSProperties;
             style?: React.CSSProperties;
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
-            value?: string;
+            value?: any;
         }
         export class RadioButton extends React.Component<RadioButtonProps, {}> {
             isChecked(): boolean;
