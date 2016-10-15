@@ -7,7 +7,7 @@
 interface Window {
     /**
      * Indicates whether the current device is a tablet or a phone.
-     * @return {boolean} true if the device is a tablet; false if the device is a phone.
+     * True if the device is a tablet; false if the device is a phone.
      */
-	isTablet(): boolean;
+    isTablet: boolean;
 }
