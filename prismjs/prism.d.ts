@@ -2,8 +2,6 @@
 // Project: http://prismjs.com/
 // Definitions by: Erik Lieben <https://github.com/eriklieben>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-export = Prism;
-export as namespace Prism;
 
 declare namespace PrismJS {
 
@@ -162,4 +160,7 @@ declare namespace PrismJS {
 		stringify(o:string| Array<any>, language: LanguageDefinition, parent: HTMLPreElement): string; 
 	}
 }
+		
 declare var Prism : PrismJS.Prism; 
+export = Prism;
+export as namespace Prism;
