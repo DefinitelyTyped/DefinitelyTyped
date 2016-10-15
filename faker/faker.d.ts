@@ -173,6 +173,19 @@ declare namespace Faker {
 			boolean(): boolean;
 		};
 
+		system: {
+			fileName(ext: string, type: string): string;
+			commonFileName(ext: string, type: string): string;
+			mimeType(): string;
+			commonFileType(): string;
+			commonFileExt(): string;
+			fileType(): string;
+			fileExt(mimeType: string): string;
+			//directoryPath(): string;
+			//filePath(): string;
+			semver(): string;
+		};
+
 		seed(value: number): void;
 	}
 

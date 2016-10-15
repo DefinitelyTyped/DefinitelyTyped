@@ -902,6 +902,13 @@ declare namespace DataTables {
         * @param d Data to use for the row.
         */
         data(d: any[] | Object): DataTable;
+        
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
+        */
+        id(hash?: boolean): string;
 
         /**
         * Get the row index of the row column.
@@ -1636,7 +1643,7 @@ declare namespace DataTables {
     }
 
     interface FunctionRowCallback {
-        (row: Node, data: any[] | Object): void;
+        (row: Node, data: any[] | Object, index: number): void;
     }
 
     interface FunctionStateLoadCallback {
@@ -1678,6 +1685,7 @@ declare namespace DataTables {
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
+        url?: string;
     }
 
     interface LanguagePaginateSettings {

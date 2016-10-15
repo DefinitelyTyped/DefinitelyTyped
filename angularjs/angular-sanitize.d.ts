@@ -29,12 +29,25 @@ declare namespace angular.sanitize {
     // see https://github.com/angular/angular.js/tree/v1.2.0/src/ngSanitize/filter
     ///////////////////////////////////////////////////////////////////////////
     export module filter {
-
-        // Finds links in text input and turns them into html links.
-        // Supports http/https/ftp/mailto and plain email address links.
-        // see http://code.angularjs.org/1.2.0/docs/api/ngSanitize.filter:linky
+        /**
+         * Finds links in text input and turns them into html links. Supports http/https/ftp/mailto and plain email address links.
+         * @param text Input text.
+         * @param target ILinkyTargetType Window (_blank|_self|_parent|_top) or named frame to open links in.
+         * @param attributes Add custom attributes to the link element.
+         * @return Html-linkified and sanitized text.
+         * see https://docs.angularjs.org/api/ngSanitize/filter/linky
+         */
         interface ILinky {
-            (text: string, target?: string): string;
+            (text: string, target: string, attributes?: { [attribute: string]: string } | ((url: string) => { [attribute: string]: string })): string;
         }
+
+    }
+}
+///////////////////////////////////////////////////////////////////////////////
+// Extend angular $filter declarations to include filters from angular.sanitize module
+///////////////////////////////////////////////////////////////////////////////
+declare namespace angular {
+    interface IFilterService {
+        (name: 'linky'): angular.sanitize.filter.ILinky;
     }
 }

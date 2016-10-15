@@ -81,3 +81,17 @@ var WebSocketServer = WebSocket.Server;
         console.log(ws.protocol)
     })
 }
+
+{
+    new WebSocket.Server({ perMessageDeflate: false });
+    new WebSocket.Server({ perMessageDeflate: { } });
+    new WebSocket.Server({
+        perMessageDeflate: {
+            serverNoContextTakeover: true,
+            clientNoContextTakeover: true,
+            serverMaxWindowBits: 0,
+            clientMaxWindowBits: 0,
+            memLevel: 0
+        }
+    });
+}

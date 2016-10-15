@@ -224,7 +224,7 @@ declare namespace ProtoBuf {
 
     export interface ProtoEnum {
         name: string;
-        values: ProtoEnumValue;
+        values: ProtoEnumValue[];
         options: {[key: string]: any};
     }
 
