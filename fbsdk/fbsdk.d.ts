@@ -29,13 +29,13 @@ interface PageTabDialogParams {
 
 interface RequestsDialogParams {
     method: string; // "apprequests"
-    app_id: string;
+    app_id?: string;
     redirect_uri?: string;
     to?: string;
     message: string;
     action_type?: string; // "send" | "askfor" | "turn"
     object_id?: string;
-    filters: string /* "app_users" | "app_non_users" */ | {
+    filters: string[] | {
         name: string;
         user_ids: string[];
     };
