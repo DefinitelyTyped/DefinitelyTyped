@@ -1,14 +1,11 @@
 /// <reference path="redux-thunk.d.ts" />
 /// <reference path="../redux/redux.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 /// <reference path="../express/express.d.ts" />
 
-import { createStore, applyMiddleware, Store, Dispatch } from 'redux';
+import { createStore, applyMiddleware, Store, Dispatch, ThunkAction } from 'redux';
 import thunk from 'redux-thunk';
-import { ThunkInterface } from 'redux-thunk';
-import { Promise } from 'es6-promise';
 
-declare var rootReducer: Function;
+declare var rootReducer: (state: any, action: any) => any;
 declare var fetch: any;
 
 // create a store that has redux-thunk middleware enabled
@@ -16,7 +13,7 @@ const createStoreWithMiddleware = applyMiddleware(
     thunk
 )(createStore);
 
-const store: Store = createStoreWithMiddleware(rootReducer);
+const store: Store<any> = createStoreWithMiddleware(rootReducer);
 
 function fetchSecretSauce() {
     return fetch('https://www.google.com/search?q=secret+sauce');
@@ -60,13 +57,13 @@ store.dispatch(withdrawMoney(100));
 // A thunk is a function that returns a function.
 // This is a thunk.
 
-function makeASandwichWithSecretSauce(forPerson: any): ThunkInterface {
+function makeASandwichWithSecretSauce(forPerson: any): ThunkAction<any, any, any> {
 
     // Invert control!
     // Return a function that accepts `dispatch` so we can dispatch later.
     // Thunk middleware knows how to turn thunk async actions into actions.
 
-    return function (dispatch: Dispatch): any {
+    return function (dispatch: Dispatch<any>): any {
         return fetchSecretSauce().then(
             (sauce: any) => dispatch(makeASandwich(forPerson, sauce)),
             (error: any) => dispatch(apologize('The Sandwich Shop', forPerson, error))
@@ -94,8 +91,8 @@ store.dispatch(
 // actions and async actions from other action creators,
 // and I can build my control flow with Promises.
 
-function makeSandwichesForEverybody(): ThunkInterface {
-    return function (dispatch: Dispatch, getState: () => any): any {
+function makeSandwichesForEverybody(): ThunkAction<any, any, any> {
+    return function (dispatch: Dispatch<any>, getState: () => any): any {
         if (!getState().sandwiches.isShopOpen) {
 
             // You don’t have to return Promises, but it’s a handy convention
@@ -124,4 +121,3 @@ function makeSandwichesForEverybody(): ThunkInterface {
         );
     };
 }
-

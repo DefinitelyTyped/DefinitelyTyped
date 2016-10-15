@@ -1,30 +1,30 @@
 ﻿// Type definitions for Sugar 1.3.9
 // Project: http://sugarjs.com/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /*
 sugar-1.3.9.d.ts may be freely distributed under the MIT license.
 
 Copyright (c) 2013 Josh Baldwin https://github.com/jbaldwin/sugar.d.ts
 
 Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation 
-files (the "Software"), to deal in the Software without 
-restriction, including without limitation the rights to use, 
-copy, modify, merge, publish, distribute, sublicense, and/or sell 
-copies of the Software, and to permit persons to whom the 
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be 
+The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
@@ -263,7 +263,7 @@ interface String {
 	/**
 	* Escapes characters in a string to make a valid URL.
 	* @returns URL escaped string.
-	* @extra If [param] is true, it will also escape valid URL 
+	* @extra If [param] is true, it will also escape valid URL
 	*        characters for use as a URL parameter.
 	* @example
 	*   'http://foo.com/"bar"'.escapeURL()     -> 'http://foo.com/%22bar%22'
@@ -293,7 +293,7 @@ interface String {
 	* Converts full-width characters (zenkaku) to half-width (hankaku).
 	* @param mode default = 'all'
 	* @returns Converted string to hankaku.
-	* @extra [mode] accepts any combination of 
+	* @extra [mode] accepts any combination of
 	*        "a" (alphabet),
 	*        "n" (numbers),
 	*        "k" (katakana),
@@ -907,7 +907,7 @@ interface String {
 }
 
 // Todo: fix when TypeScript supports adding static functions to native types.
-interface NumberStatic {
+interface NumberConstructor {
 
 	/**
 	* Returns a random integer between [n1] and [n2].
@@ -1002,7 +1002,7 @@ interface Number {
 	* Takes the number as milliseconds and returns a unit-adjusted localized string.
 	* @param locale Locale to convert the ms to, default = currentLocale.
 	* @returns String representation of the duration in [locale].
-	* @extra This method is the same as %Date#relative% without 
+	* @extra This method is the same as %Date#relative% without
 	*        the localized equivalent of "from now" or "ago".
 	*        [locale] can be passed as the first (and only) parameter.
 	*        Note that this method is only available when the dates
@@ -1548,7 +1548,7 @@ interface Number {
 	* @extra Note that "months" is ambiguous as a unit of time.
 	*        If the target date falls on a day that does not exist
 	*        (ie. August 31 -> February 31), the date will be shifted
-	*        to the last day of the month. Be careful using %monthsAgo% 
+	*        to the last day of the month. Be careful using %monthsAgo%
 	*        if you need exact precision.
 	* @set
 	*   millisecondAgo
@@ -1963,8 +1963,8 @@ interface Number {
 	upto(num: number, fn?: Function, step?: number): number[];
 }
 
-// Todo: Fix when TypeScript supports static members on native types.
-interface ArrayStatic {
+//Static members on native types.
+interface ArrayConstructor {
 
 	/**
 	* Alternate array constructor.
@@ -2349,7 +2349,7 @@ interface Array<T> {
 	* Groups the array by <map>.
 	* @param map Property on the elements in the array.
 	* @param fn Optional callback for each group, default = No callback.
-	* @returns 
+	* @returns
 	* @extra Will return an object with keys equal to the grouped values.
 	*        <map> may be a mapping function, or a string acting as a shortcut.
 	*        Optionally calls [fn] for each group.
@@ -2608,7 +2608,7 @@ interface Array<T> {
 
 	/**
 	* Returns the elements in the array with the most commonly occuring value.
-	* @param map Property on each element in the array or 
+	* @param map Property on each element in the array or
 	* @returns Array of elements that have the most common property.
 	* @extra [map] may be a function mapping the value to be checked or a string
 	*              acting as a shortcut.
@@ -2815,7 +2815,7 @@ interface Array<T> {
 	*   ['a','b'].subtract('b','c') -> ['a']
 	**/
 	subtract(...args: T[]): T[];
-	
+
 	/**
 	* @see subtract
 	**/
@@ -2859,7 +2859,7 @@ interface Array<T> {
 	/**
 	* Returns an array containing all elements in all arrays with duplicates removed.
 	* @method union([a1], [a2], ...)
-	* @param array 
+	* @param array
 	* @returns Union between the original array and <array>.
 	* @extra This method will also correctly operate on arrays of objects.
 	* @example
@@ -2918,7 +2918,7 @@ interface Array<T> {
 	//zip(...arrays: T[]): T[][];
 }
 
-interface ObjectStatic {
+interface ObjectConstructor {
 
 	/**
 	* Creates a new object, equivalent to %new Object()% or %{}%, but with extended methods.
@@ -2944,7 +2944,7 @@ interface ObjectStatic {
 	*   Object.fromQueryString('foo[]=1&foo[]=2')     -> { foo: [1,2] }
 	**/
 	fromQueryString<T extends {}>(str: string, deep?: boolean): T;
-	
+
 	/**
 	* Returns true if <obj> is an object of that type.
 	* @method Object.is[Type](<obj>)
@@ -3075,6 +3075,11 @@ interface ObjectStatic {
 	* @see map
 	**/
 	map<T, U>(obj: T, map: (key: string, value: any) => any): U;
+
+	/**
+	* @see map
+	**/
+	each(obj: any, map: (key: string, value: any) => void): void;
 
 	/**
 	* @see map
@@ -3232,8 +3237,8 @@ interface ObjectStatic {
 	* @param key Property to check to see if it exists on <obj>.
 	* @returns True if <key> exists on <obj>, otherwise false.
 	* @extra This method is considered safer than %Object#hasOwnProperty% when
-	*        using objects as hashes. See 
-	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/ 
+	*        using objects as hashes. See
+	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/
 	*        for more.
 	* @example
 	*   Object.has({ foo: 'bar' }, 'foo') -> true
@@ -3405,7 +3410,7 @@ interface Object {
 	*   Object.extended({ happy:true, pappy:false }).keys() -> ['happy','pappy']
 	*   Object.extended({ happy:true, pappy:false }).values() -> [true, false]
 	**/
-	extended(): Object;
+	extended(obj?: any): Object;
 
 	/**
 	* Returns true if <obj> is an object of that type.
@@ -3689,8 +3694,8 @@ interface Object {
 	* @param key Property to check to see if it exists on <obj>.
 	* @returns True if <key> exists on <obj>, otherwise false.
 	* @extra This method is considered safer than %Object#hasOwnProperty% when
-	*        using objects as hashes. See 
-	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/ 
+	*        using objects as hashes. See
+	*        http://www.devthought.com/2012/01/18/an-object-is-not-a-hash/
 	*        for more.
 	* @example
 	*   Object.has({ foo: 'bar' }, 'foo') -> true
@@ -4003,7 +4008,7 @@ interface Function {
 	throttle(ms: number): Function;
 }
 
-interface RegExpStatic {
+interface RegExpConstructor {
 
 	/**
 	* Escapes all RegExp tokens in a string.
@@ -4080,7 +4085,7 @@ interface Locale {
 	timeParse: string[];
 }
 
-interface DateStatic {
+interface DateConstructor {
 
 	/**
 	* Adds a locale <set> to the locales understood by Sugar.
@@ -4127,6 +4132,11 @@ interface DateStatic {
 
 	/**
 	* @see create
+	* @param timestamp 	
+	create(timestamp?: number): Date;
+
+	/**
+	* @see create
 	* @param year Year YYYY
 	* @param month Month MM
 	* @param day Day DD
@@ -4169,7 +4179,7 @@ interface DateStatic {
 	* @example
 	*   Date.now() -> ex. 1311938296231
 	**/
-	now(): string;
+	now(): number;
 
 	/**
 	* Alternate form of %Date.create% with any ambiguity assumed to be the past.
@@ -4274,7 +4284,7 @@ interface Date {
 	* @see addMilliseconds
 	**/
 	addMonths(num: number, reset?: boolean): Date;
-	
+
 	/**
 	* @see addMilliseconds
 	**/
@@ -4386,7 +4396,7 @@ interface Date {
 	*        tokens. Locale-specific formats are %short%, %long%, and %full% which
 	*        have their own aliases and can be called with %date.short()%, etc.
 	*        If <format> is not specified the %long% format is assumed. [locale]
-	*        specifies a locale code to use (if not specified the current locale 
+	*        specifies a locale code to use (if not specified the current locale
 	*        is used). See @date_format for more details.
 	* @set
 	*   short
@@ -4484,7 +4494,7 @@ interface Date {
 	* Returns true if the date is before <d>.
 	* @method isBefore(<d>, [margin] = 0)
 	* @returns Boolean
-	* @extra [margin] is to allow extra margin of error (in ms). <d> will accept 
+	* @extra [margin] is to allow extra margin of error (in ms). <d> will accept
 	*        a date object, timestamp, or text format. If not specified, <d> is
 	*        assumed to be now. See @date_format for more.
 	* @example
@@ -4917,6 +4927,16 @@ interface DateRange {
 	end: Date;
 
 	/**
+	* Clamps <d> to be within the range if it falls outside.
+	* @param d Date to clamp
+	* @returns <d> or closest range limit
+	* @example
+	*   Date.range('2001', '2002').clamp(Date.create('2000')) -> Mon Jan 01 2001 00:00:00
+	*   Date.range('2001', '2002').clamp(Date.create('2002')) -> Mon Jan 01 2002 00:00:00
+	**/
+	clamp(d: Date): Date;
+
+	/**
 	* Returns true if <d> is contained inside the DateRange.
 	*        <d> may be a date or another DateRange.
 	* @param d Date to check if it is contained within this DateRange.
@@ -4930,70 +4950,6 @@ interface DateRange {
 	* @see contains
 	**/
 	contains(d: DateRange): boolean;
-
-	/**
-	* Return the duration of the DateRange in milliseconds.
-	* @returns Duration of the DateRange in milliseconds.
-	* @example
-	*   Date.range('2003', '2005').duration() -> 94694400000
-	**/
-	duration(): number;
-
-	/**
-	* Increments through the date range for each [unit], calling [fn] if it is passed.
-	*        Returns an array of each increment visited.
-	* @method each[Unit]([fn])
-	* @param fn Callback function for each date in the requested increments.
-	* @returns Array of Dates for each increment.
-	* @set
-	*   eachMillisecond
-	*   eachSecond
-	*   eachMinute
-	*   eachHour
-	*   eachDay
-	*   eachWeek
-	*   eachMonth
-	*   eachYear
-	* @example
-	*   Date.range('2003-01', '2003-02').eachMonth()     -> [...]
-	*   Date.range('2003-01-15', '2003-01-16').eachDay() -> [...]
-	**/
-	eachMillisecond(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachSecond(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachMinute(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachHour(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachDay(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachWeek(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachMonth(fn?: (d: Date) => void): Date[];
-
-	/**
-	* @see eachMillisecond
-	**/
-	eachYear(fn?: (d: Date) => void): Date[];
 
 	/**
 	* Iterates through the DateRange for every <increment>,
@@ -5038,6 +4994,15 @@ interface DateRange {
 	*   Date.range('2005', '2003').isValid() -> false
 	**/
 	isValid(): boolean;
+
+	/**
+	* Return the span of the DateRange in milliseconds. The span includes both the
+	* start and the end.
+	* @returns Duration of the DateRange in milliseconds.
+	* @example
+	*   Date.range('2003', '2005').span() -> 63158400001 # (731 day + 1 mcsec)
+	**/
+	span(): number;
 
 	/**
 	* Returns a string representation of the DateRange.

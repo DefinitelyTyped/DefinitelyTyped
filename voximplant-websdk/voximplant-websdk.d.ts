@@ -1,9 +1,9 @@
-// Type definitions for VoxImplant Web SDK 3.0.x 
+// Type definitions for VoxImplant Web SDK 3.0.x
 // Project: http://voximplant.com/
 // Definitions by: Alexey Aylarov <https://github.com/aylarov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace VoxImplant {	
+declare namespace VoxImplant {
 
 	/**
 	*	VoxImplant.Client general events
@@ -13,7 +13,6 @@ declare namespace VoxImplant {
 		ConnectionClosed,
 		ConnectionEstablished,
 		ConnectionFailed,
-		IMError,
 		IncomingCall,
 		MicAccessResult,
 		NetStatsReceived,
@@ -26,14 +25,40 @@ declare namespace VoxImplant {
 	*	VoxImplant.Client Instant Messaging and Presence events
 	*/
 	enum IMEvents {
+		ChatHistoryReceived,
+		ChatRoomBanList,
+		ChatRoomCreated,
+		ChatRoomError,
+		ChatRoomHistoryReceived,
+		ChatRoomInfo,
+		ChatRoomInvitation,
+		ChatRoomInviteDeclined,
+		ChatRoomMessageModified,
+		ChatRoomMessageNotModified,
+		ChatRoomMessageReceived,
+		ChatRoomMessageRemoved,
+		ChatRoomNewParticipant,
+		ChatRoomOperation,
+		ChatRoomParticipantExit,
+		ChatRoomParticipants,
+		ChatRoomPresenceUpdate,
+		ChatRoomStateUpdate,
+		ChatRoomSubjectChange,
+		ChatRoomsDataReceived,
 		ChatStateUpdate,
+		MessageModified,
+		MessageNotModified,
 		MessageReceived,
+		MessageRemoved,
 		MessageStatus,
 		PresenceUpdate,
 		RosterItemChange,
 		RosterPresenceUpdate,
 		RosterReceived,
-		SubscriptionRequest
+		SubscriptionRequest,
+		SystemError,
+		UCConnected,
+		UCDisconnected
 	}
 
 	/**
@@ -43,6 +68,7 @@ declare namespace VoxImplant {
 		Connected,
 		Disconnected,
 		Failed,
+		ICETimeout,
 		InfoReceived,
 		MessageReceived,
 		ProgressToneStart,
@@ -51,7 +77,7 @@ declare namespace VoxImplant {
 		TransferFailed
 	}
 
-	module Events {
+	namespace Events {
 
 		/**
 		*	Event dispatched after login , loginWithOneTimeKey, requestOneTimeLoginKey or loginWithCode function call
@@ -97,20 +123,6 @@ declare namespace VoxImplant {
 			*	Failure reason description
 			*/
 			message: string;
-		}
-
-		/**
-		*	Event dispatched in case of instant messaging subsystem error
-		*/
-		interface IMError {
-			/**
-			*	Error data object, contains the error details
-			*/
-			errorData: Object;
-			/**
-			*	Error type
-			*/
-			errorType: IMErrorType;
 		}
 
 		/**
@@ -169,7 +181,7 @@ declare namespace VoxImplant {
 
 	}
 
-	module CallEvents {
+	namespace CallEvents {
 
 		/**
 		*	Event dispatched after call was connected
@@ -184,7 +196,7 @@ declare namespace VoxImplant {
 			*/
 			headers?: Object;
 		}
-		
+
 		/**
 		*	Event dispatched after call was disconnected
 		*/
@@ -219,6 +231,16 @@ declare namespace VoxImplant {
 			*	Status message of call failure (i.e. Busy Here)
 			*/
 			reason: string;
+		}
+
+		/**
+		*	Event dispatched in case of network connection problem between 2 peers
+		*/
+		interface ICETimeout {
+			/**
+			*	Call that dispatched the event
+			*/
+			call: Call;
 		}
 
 		/**
@@ -298,7 +320,415 @@ declare namespace VoxImplant {
 		}
 	}
 
-	module IMEvents {
+	namespace IMEvents {
+
+		/**
+		*	Event dispatched when chat history received
+		*/
+		interface ChatHistoryReceived {
+			/**
+			* User id
+			*/
+			id: string;
+			/**
+			* Message id specified in getInstantMessagingHistory method
+			*/
+			message_id: string;
+			/**
+			* List of messages
+			*/
+			messages: IMHistoryMessage[];
+		}
+
+		/**
+		*	Event dispatched when info about banned chat room participants received
+		*/
+		interface ChatRoomBanList {
+			/**
+			* Participants list
+			*/
+			participants: ChatRoomParticipant[];
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		* Event dispatched if chat room was created successfully
+		*/
+		interface ChatRoomCreated {
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		* Event dispatched in case of error while chat room operation
+		*/
+		interface ChatRoomError {
+			/**
+			* Error code
+			*/
+			code: string;
+			/**
+			* Operation name
+			*/
+			operation: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Error description
+			*/
+			text: string;
+		}
+
+		/**
+		*	Event dispatched when chat room history received
+		*/
+		interface ChatRoomHistoryReceived {
+			/**
+			* Message id specified in getInstantMessagingHistory method
+			*/
+			message_id: string;
+			/**
+			* List of messages
+			*/
+			messages: VoxImplant.IMHistoryMessage[];
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when user joins chat room
+		*/
+		interface ChatRoomInfo {
+			/**
+			* Room features
+			*/
+			features: number;
+			/**
+			* Room info object
+			*/
+			info: ChatRoomInfo;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Room name
+			*/
+			room_name: string;
+		}
+
+		/**
+		*	Event dispatched when invitation to chat room received
+		*/
+		interface ChatRoomInvitation {
+			/**
+			* The body of the message
+			*/
+			body: string;
+			/**
+			* User id (inviter)
+			*/
+			from: string;
+			/**
+			* Password for the room
+			*/
+			password: string;
+			/**
+			* A reason of the invitation
+			*/
+			reason: string;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched if an invitation to chat room was declined by the invitee
+		*/
+		interface ChatRoomInviteDeclined {
+			/**
+			* User id (invitee)
+			*/
+			invitee: string;
+			/**
+			* A reason of the invitation
+			*/
+			reason: string;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when chat room message modified
+		*/
+		interface ChatRoomMessageModified {
+			/**
+			* New message content
+			*/
+			content: string;
+			/**
+			* User id
+			*/
+			from: string;
+			/**
+			* Modified message id
+			*/
+			message_id: string;
+			/**
+			* Private/public message flag
+			*/
+			private_message: string;
+			/**
+			* Resource name
+			*/
+			resource: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Message timestamp
+			*/
+			timestamp: string;
+		}
+
+		/**
+		*	Event dispatched in case of error during chat room message modification
+		*/
+		interface ChatRoomMessageNotModified {
+			/**
+			* Error code
+			*/
+			code: number;
+			/**
+			* Message id
+			*/
+			message_id: string;
+			/**
+			* Private/public message flag
+			*/
+			private_message: string;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when instant message was sent to chat room
+		*/
+		interface ChatRoomMessageReceived {
+			/**
+			* Message content
+			*/
+			content: string;
+			/**
+			* User id
+			*/
+			from: string;
+			/**
+			* Modified message id
+			*/
+			message_id: string;
+			/**
+			* Private/public message flag
+			*/
+			private_message: string;
+			/**
+			* Resource name
+			*/
+			resource: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Message timestamp
+			*/
+			timestamp: string;
+		}
+
+		/**
+		*	Event dispatched when chat room message removed
+		*/
+		interface ChatRoomMessageRemoved {
+			/**
+			* User id
+			*/
+			from: string;
+			/**
+			* Modified message id
+			*/
+			message_id: string;
+			/**
+			* Private/public message flag
+			*/
+			private_message: string;
+			/**
+			* Resource name
+			*/
+			resource: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Message timestamp
+			*/
+			timestamp: string;
+		}
+
+		/**
+		*	Event dispatched when new participant joined the chat room
+		*/
+		interface ChatRoomNewParticipant {
+			/**
+			* User display name
+			*/
+			displayName: string;
+			/**
+			* User id
+			*/
+			participant: string;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when chat room participant was banned/unbanned
+		*/
+		interface ChatRoomOperation {
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Operation type
+			*/
+			operation: ChatRoomOperationType;
+			/**
+			* Operation result: true/false - success/failure
+			*/
+			result: boolean;
+		}
+
+		/**
+		*	Event dispatched when participant left the chat room
+		*/
+		interface ChatRoomParticipantExit {
+			/**
+			* User id
+			*/
+			participant: string;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when info about chat room participants received
+		*/
+		interface ChatRoomParticipants {
+			/**
+			* Participants list
+			*/
+			participants: ChatRoomParticipant[];
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched if chat room participant presence status was updated
+		*/
+		interface ChatRoomPresenceUpdate {
+			/**
+			* Optional presence message
+			*/
+			message: string;
+			/**
+			* Participant info
+			*/
+			participant: ParticipantInfo;
+			/**
+			* Current presence status
+			*/
+			presence: UserStatuses;
+			/**
+			* Room id
+			*/
+			room: string;
+		}
+
+		/**
+		*	Event dispatched when chat session state updated
+		*/
+		interface ChatRoomStateUpdate {
+			/**
+			* User id
+			*/
+			from: string;
+			/**
+			* Resource name
+			*/
+			resource: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* Current chat session state
+			*/
+			state: ChatStateType;
+		}
+
+		/**
+		*	Event dispatched if chat room subject was changed
+		*/
+		interface ChatRoomSubjectChange {
+			/**
+			* User id who changed the subject
+			*/
+			id: string;
+			/**
+			* Resource name
+			*/
+			resource: string;
+			/**
+			* Room id
+			*/
+			room: string;
+			/**
+			* New subject
+			*/
+			subject: string;
+		}
+
+		/**
+		*	Event dispatched when information about chat rooms where user participates received
+		*/
+		interface ChatRoomsDataReceived {
+			/**
+			* Rooms list
+			*/
+			rooms: ChatRoom[];
+		}
 
 		/**
 		*	Event dispatched when chat session state updated
@@ -307,15 +737,55 @@ declare namespace VoxImplant {
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Resource name
 			*/
-			resource?: string,
+			resource?: string;
 			/**
 			*	Current chat session state. See VoxImplant.ChatStateType enum
 			*/
-			state: ChatStateType
+			state: ChatStateType;
+		}
+
+		/**
+		*	Event dispatched when instant message was modified by user
+		*/
+		interface MessageModified {
+			/**
+			*	Message new content
+			*/
+			content: string;
+			/**
+			*	User id (of the user who sent the message)
+			*/
+			id: string;
+			/**
+			*	Message id
+			*/
+			message_id: string;
+			/**
+			*	User id (of the user to whom the message was sent)
+			*/
+			to: string;
+		}
+
+		/**
+		*	Event dispatched if error happened during instant message modification
+		*/
+		interface MessageNotModified {
+			/**
+			*	Message new content
+			*/
+			code: number;
+			/**
+			*	Message id
+			*/
+			message_id: string;
+			/**
+			*	User id (of the user to whom the message was sent)
+			*/
+			to: string;
 		}
 
 		/**
@@ -325,19 +795,41 @@ declare namespace VoxImplant {
 			/**
 			*	Message content
 			*/
-			content: string,
+			content: string;
 			/**
-			*	User id
+			*	User id (of the user who sent the message)
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Message id
 			*/
-			message_id: string,
+			message_id: string;
 			/**
 			*	Resource name
 			*/
-			resource?: string
+			resource?: string;
+			/**
+			*	User id (of the user to whom the message was sent)
+			*/
+			to: string;
+		}
+
+		/**
+		*	Event dispatched when instant message was removed by user
+		*/
+		interface MessageRemoved {
+			/**
+			*	User id (of the user who sent the message)
+			*/
+			id: string;
+			/**
+			*	Message id
+			*/
+			message_id: string;
+			/**
+			*	User id (of the user to whom the message was sent)
+			*/
+			to: string;
 		}
 
 		/**
@@ -347,19 +839,19 @@ declare namespace VoxImplant {
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Message id
 			*/
-			message_id: string,
+			message_id: string;
 			/**
 			*	Resource name
 			*/
-			resource?: string,
+			resource?: string;
 			/**
 			*	Message event type. See VoxImplant.MessageEventType enum
 			*/
-			type: MessageEventType
+			type: MessageEventType;
 		}
 
 		/**
@@ -369,19 +861,19 @@ declare namespace VoxImplant {
 			/**
 			* User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Status message
 			*/
-			message: string,
+			message: string;
 			/**
 			*	Current presence status
 			*/
-			presence: UserStatuses,
+			presence: UserStatuses;
 			/**
 			*	Resource name
 			*/
-			resource?: string
+			resource?: string;
 		}
 
 		/**
@@ -391,19 +883,23 @@ declare namespace VoxImplant {
 			/**
 			*	User display name
 			*/
-			displayName: string,
+			displayName: string;
+			/**
+			*	Roster item groups
+			*/
+			groups: string[];
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Resource name
 			*/
-			resource?: string,
+			resource?: string;
 			/**
 			*	Roster item event type. See VoxImplant.RosterItemEvent enum
 			*/
-			type: RosterItemEvent
+			type: RosterItemEvent;
 		}
 
 		/**
@@ -413,19 +909,19 @@ declare namespace VoxImplant {
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Status message
 			*/
-			message?: string,
+			message?: string;
 			/**
 			*	Current presence status
 			*/
-			presence: UserStatuses,
+			presence: UserStatuses;
 			/**
 			*	Resource name
 			*/
-			resource?: string
+			resource?: string;
 		}
 
 		/**
@@ -435,11 +931,11 @@ declare namespace VoxImplant {
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Array contains VoxImplant.RosterItem elements
 			*/
-			roster: RosterItem[]
+			roster: RosterItem[];
 		}
 
 		/**
@@ -449,25 +945,49 @@ declare namespace VoxImplant {
 			/**
 			*	User id
 			*/
-			id: string,
+			id: string;
 			/**
 			*	Optional message
 			*/
-			message?: string,
+			message?: string;
 			/**
 			*	Resource name
 			*/
-			resource?: string,
+			resource?: string;
 			/**
 			*	Message event type. See VoxImplant.SubscriptionRequestType enum
 			*/
-			type: SubscriptionRequestType
+			type: SubscriptionRequestType;
 		}
+
+		/**
+		*	Event dispatched in case of instant messaging subsystem error
+		*/
+		interface SystemError {
+			/**
+			*	Error data object, contains the error details
+			*/
+			errorData: Object;
+			/**
+			*	Error type
+			*/
+			errorType: IMErrorType;
+		}
+
+		/**
+		*	Event dispatched when instant messaging and presence subsystems (UC) are online
+		*/
+		interface UCConnected {}
+
+		/**
+		*	Event dispatched when instant messaging and presence subsystems (UC) are offline
+		*/
+		interface UCDisconnected { }
 
 	}
 
 	type VoxImplantEvent = Events.AuthResult | Events.ConnectionClosed | Events.ConnectionEstablished |
-		Events.ConnectionFailed | Events.IMError | Events.IncomingCall | Events.MicAccessResult | 
+		Events.ConnectionFailed | Events.IncomingCall | Events.MicAccessResult |
 		Events.NetStatsReceived | Events.PlaybackFinished | Events.SDKReady | Events.SourcesInfoUpdated;
 
 
@@ -475,9 +995,18 @@ declare namespace VoxImplant {
 		CallEvents.InfoReceived | CallEvents.MessageReceived | CallEvents.ProgressToneStart |
 		CallEvents.ProgressToneStop | CallEvents.TransferComplete | CallEvents.TransferFailed;
 
-	type VoxImplantIMEvent = IMEvents.ChatStateUpdate | IMEvents.MessageReceived | IMEvents.MessageStatus |
+	type VoxImplantIMEvent = IMEvents.ChatHistoryReceived | IMEvents.ChatRoomBanList |
+		IMEvents.ChatRoomCreated | IMEvents.ChatRoomError | IMEvents.ChatRoomHistoryReceived |
+		IMEvents.ChatRoomInfo | IMEvents.ChatRoomInvitation | IMEvents.ChatRoomInviteDeclined |
+		IMEvents.ChatRoomMessageModified | IMEvents.ChatRoomMessageNotModified | IMEvents.ChatRoomMessageReceived |
+		IMEvents.ChatRoomMessageRemoved | IMEvents.ChatRoomNewParticipant | IMEvents.ChatRoomOperation |
+		IMEvents.ChatRoomParticipantExit | IMEvents.ChatRoomParticipants | IMEvents.ChatRoomPresenceUpdate |
+		IMEvents.ChatRoomStateUpdate | IMEvents.ChatRoomSubjectChange | IMEvents.ChatRoomsDataReceived |
+		IMEvents.ChatStateUpdate | IMEvents.MessageModified | IMEvents.MessageNotModified |
+		IMEvents.MessageReceived | IMEvents.MessageRemoved | IMEvents.MessageStatus |
 		IMEvents.PresenceUpdate | IMEvents.RosterItemChange | IMEvents.RosterPresenceUpdate |
-		IMEvents.RosterReceived | IMEvents.SubscriptionRequest;
+		IMEvents.RosterReceived | IMEvents.SubscriptionRequest | IMEvents.SystemError |
+		IMEvents.UCConnected | IMEvents.UCDisconnected;
 
 	/**
 	*	VoxImplant SDK Configuration
@@ -522,7 +1051,7 @@ declare namespace VoxImplant {
 		/**
 		*	Default constraints that will be applied while the next attachRecordingDevice function call or if micRequired set to true
 		*/
-		videoConstraints?: VideoSettings;
+		videoConstraints?: VideoSettings | boolean;
 		/**
 		*	Video support
 		*/
@@ -541,6 +1070,20 @@ declare namespace VoxImplant {
 		*	If set to true user presence will be changed automatically while a call
 		*/
 		serverPresenceControl?: boolean;
+	}
+
+	/**
+	*	Audio playback device info
+	*/
+	interface AudioOutputInfo {
+		/**
+		*	Device id that can be used to choose audio playback device
+		*/
+		id: number | string;
+		/**
+		*	Device name , in WebRTC mode populated with real data only when app has been opened using HTTPS protocol
+		*/
+		name: string;
 	}
 
 	/**
@@ -572,23 +1115,23 @@ declare namespace VoxImplant {
 	}
 
 	enum ChatStateType {
-		/** 
-		*	User is actively participating in the chat session 
+		/**
+		*	User is actively participating in the chat session
 		*/
 		Active,
-		/** 
+		/**
 		*	User is composing a message
 		*/
 		Composing,
-		/** 
+		/**
 		*	User has effectively ended their participation in the chat session
 		*/
 		Gone,
-		/** 
+		/**
 		*	User has not been actively participating in the chat session
 		*/
 		Inactive,
-		/** 
+		/**
 		*	Invalid type
 		*/
 		Invalid,
@@ -702,6 +1245,123 @@ declare namespace VoxImplant {
 		XA
 	}
 
+	enum ChatRoomOperationType {
+		/**
+		* Ban operation
+		*/
+		Ban,
+		/**
+		* Unban operation
+		*/
+		Unban
+	}
+
+	/**
+	*	Chat room
+	*/
+	interface ChatRoom {
+		/**
+		* Chat room id
+		*/
+		id: string;
+		/**
+		* Chat room password
+		*/
+		pass: string;
+	}
+
+	/**
+	*	Chat room info
+	*/
+	interface ChatRoomInfo {
+		/**
+		* Creation date
+		*/
+		creationdate: string;
+		/**
+		* Room description
+		*/
+		description: string;
+		/**
+		* Number of chat room participants
+		*/
+		occupants: number;
+		/**
+		* Room's name / subject
+		*/
+		subject: string;
+	}
+
+	/**
+	*	Chat room participant
+	*/
+	interface ChatRoomParticipant {
+		/**
+		* User id
+		*/
+		id: string;
+		/**
+		* User display name
+		*/
+		name: string;
+		/**
+		* True if the user is owner/admin of the room
+		*/
+		owner?: boolean;
+	}
+
+	/**
+	*	Message received from history
+	*/
+	interface IMHistoryMessage {
+		/**
+		* Message body
+		*/
+		body: string;
+		/**
+		* User id - author of the message
+		*/
+		from: string;
+		/**
+		* Message id
+		*/
+		id: string;
+		/**
+		* Message creation time
+		*/
+		time: string;
+	}
+
+	/**
+	*	Participant info
+	*/
+	interface ParticipantInfo {
+		/**
+		* The participant's affiliation with the room
+		*/
+		affiliation: number;
+		/**
+		* Indicate conditions like: user has been kicked or banned from the room
+		*/
+		flags: number;
+		/**
+		* User id
+		*/
+		id: string;
+		/**
+		* Reason
+		*/
+		reason: string;
+		/**
+		* Resource name
+		*/
+		resource: string;
+		/**
+		* The participant's role with the room
+		*/
+		role: number;
+	}
+
 	/**
 	*	Client class used to control platform functions. Can't be instantiatied directly (singleton), please use VoxImplant.getInstance to get the class instance
 	*/
@@ -736,9 +1396,21 @@ declare namespace VoxImplant {
 		*/
 		attachRecordingDevice(successCallback?: () => any, failedCallback?: () => any): void;
 		/**
+		*	Get a list of all currently available audio playback devices
+		*/
+		audioOutputs(): AudioOutputInfo[];
+		/**
 		*	Get a list of all currently available audio sources / microphones
 		*/
 		audioSources(): AudioSourceInfo[];
+		/**
+		*	Ban user from the chat room
+		*
+		*	@param room Room id
+		*	@param user_id User id
+		*	@param reason Ban reason
+		*/
+		banChatRoomUser(room: string, user_id: string, reason?: string): void;
 		/**
 		*	Create call
 		*
@@ -761,6 +1433,21 @@ declare namespace VoxImplant {
 		*/
 		connected(): boolean;
 		/**
+		*	Create multi-user chat room and join it
+		*
+		*	@param pass Password for room access
+		*	@param users User ids of the invited users to the chat room
+		*/
+		createChatRoom(pass?: string, users?: string[]): string;
+		/**
+		*	Decline invitation to join chat room
+		*
+		*	@param room Room id
+		*	@param user_id User id (inviter)
+		*	@param reason User-supplied decline reason
+		*/
+		declineChatRoomInvite(room: string, user_id: string, reason?: string): void;
+		/**
 		*	Disable microphone/camera if micRequired in VoxImplant.Config was set to false (WebRTC mode only)
 		*/
 		detachRecordingDevice(): void;
@@ -769,37 +1456,93 @@ declare namespace VoxImplant {
 		*/
 		disconnect(): void;
 		/**
+		*	Edit message in the chat room
+		*
+		*	@param room Room id
+		*	@param message_id Message id
+		*	@param msg New message content
+		*/
+		editChatRoomMessage(room: string, message_id: string, msg: string): void;
+		/**
+		*	Edit message sent to user
+		*
+		*	@param room Room id
+		*	@param message_id Message id
+		*	@param msg New message content
+		*/
+		editInstantMessage(room: string, message_id: string, msg: string): void;
+		/**
+		*	Get chat room history
+		*
+		*	@param room Room id
+		*	@param message_id Message id (to get messages sent before/after the message)
+		*	@param direction False/true to get messages older/newer than the message with specified id
+		*	@param count Number of messages
+		*/
+		getChatRoomHistory(room: string, message_id?: string, direction?: boolean, count?: number): void;
+		/**
+		*	Get messages in a conversation with particular use
+		*
+		*	@param user_id User id
+		*	@param message_id Message id (to get messages sent before/after the message)
+		*	@param direction False/true to get messages older/newer than the message with specified id
+		*	@param count Number of messages
+		*/
+		getInstantMessagingHistory(user_id: string, message_id?: string, direction?: boolean, count?: number): void;
+		/**
 		*	Initialize SDK. SDKReady event will be dispatched after succesful SDK initialization. SDK can't be used until it's initialized
 		*
 		*	@param config Client configuration options
 		*/
 		init(config?: Config): void;
 		/**
+		*	Invite user to join chat room
+		*
+		*	@param room Room id
+		*	@param user_id User id (invitee)
+		*	@param reason User-supplied reason for the invitation
+		*/
+		inviteToChatRoom(room: string, user_id: string, reason?: string): void;
+		/**
 		*	Check if WebRTC support is available
 		*/
 		isRTCsupported(): boolean;
 		/**
+		*	Join multi-user chat room
+		*
+		*	@param room Room id
+		*	@param pass Password for room access
+		*/
+		joinChatRoom(room: string, pass?: string): void;
+		/**
+		*	Leave multi-user chat room
+		*
+		*	@param room Room id
+		*	@param msg Message for other participants
+		*/
+		leaveChatRoom(room: string, msg?: string): void;
+		/**
 		*	Login into application
 		*
-		*	@param username 
+		*	@param username
 		*	@param password
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		login(username: string, password: string, options?: LoginOptions): void;
 		/**
 		*	Login into application using 'code' auth method
 		*
-		*	@param username 
+		*	@param username
 		*	@param code
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		loginWithCode(username: string, code: string, options?: LoginOptions): void;
 		/**
 		*	Login into application using 'onetimekey' auth method
 		*
-		*	@param username 
+		*	@param username
 		*	@param hash
-		*	@param options Login options 
+		*	@param options Login options
 		*/
 		loginWithOneTimeKey(username: string, hash: string, options?: LoginOptions): void;
 		/**
@@ -818,12 +1561,34 @@ declare namespace VoxImplant {
 		*/
 		playToneScript(script: string, loop?: boolean): void;
 		/**
+		*	Remove message in the chat room
+		*
+		*	@param room Room id
+		*	@param message_id Message id
+		*/
+		removeChatRoomMessage(room: string, message_id: string): void;
+		/**
+		*	Remove user from the chat room
+		*
+		*	@param room Room id
+		*	@param user_id User id
+		*	@param reason Reason
+		*/
+		removeChatRoomUser(room: string, user_id: string, reason?: string): void;
+		/**
 		*	Remove handler for specified event
 		*
 		*	@param eventName Event name
 		*	@param eventHandler Handler function
 		*/
 		removeEventListener(eventName: VoxImplant.Events | VoxImplant.IMEvents, eventHandler: () => any): void;
+		/**
+		*	Remove message sent to user
+		*
+		*	@param user_id User id
+		*	@param message_id Message id
+		*/
+		removeInstantMessage(user_id: string, message_id: string): void;
 		/**
 		*	Remove roster item (IM)
 		*
@@ -851,6 +1616,13 @@ declare namespace VoxImplant {
 		*/
 		requestOneTimeLoginKey(username: string): void;
 		/**
+		*	Send message to chat room
+		*
+		*	@param room Room id
+		*	@param msg Message for other participants
+		*/
+		sendChatRoomMessage(room: string, msg: string): string;
+		/**
 		*	Send message to user (IM)
 		*
 		*	@param user_id User id
@@ -870,6 +1642,20 @@ declare namespace VoxImplant {
 		*	@param active If true make call active, otherwise make call inactive
 		*/
 		setCallActive(call: Call, active: boolean): void;
+		/**
+		*	Set chat room session state info
+		*
+		*	@param room Room id
+		*	@param status Chat session status
+		*/
+		setChatRoomState(room: string, status: ChatStateType): void;
+		/**
+		*	Set new chat room subject
+		*
+		*	@param room Room id
+		*	@param subject New subject
+		*/
+		setChatRoomSubject(room: string, subject: string): void;
 		/**
 		*	Set chat session state info
 		*
@@ -914,7 +1700,7 @@ declare namespace VoxImplant {
 		setPresenceStatus(status: UserStatuses, msg: string): void;
 		/**
 		*	Set background color of flash app (only for Flash mode)
-		*	
+		*
 		*	@param color Color in web format (i.e. #000000 for black)
 		*/
 		setSwfColor(color: string): void;
@@ -934,7 +1720,7 @@ declare namespace VoxImplant {
 		setVideoSettings(settings: VideoSettings | FlashVideoSettings, successCallback?: () => any, failedCallback?: () => any): void;
 		/**
 		*	Show flash settings panel
-		*	
+		*
 		*	@param panel Settings type - default/microphone/camera/etc as described in SecurityPanel class
 		*/
 		showFlashSettingsPanel(panel?: string): void;
@@ -955,6 +1741,14 @@ declare namespace VoxImplant {
 		*	@param call2 Call where call1 will be transferred
 		*/
 		transferCall(call1: Call, call2: Call): void;
+		/**
+		*	Remove a ban on a user in the chat room
+		*
+		*	@param room Room id
+		*	@param user_id User id
+		*	@param reason Reason
+		*/
+		unbanChatRoomUser(room: string, user_id: string, reason?: string): void;
 		/**
 		*	Use specified audio source , use audioSources to get the list of available audio sources
 		*
@@ -988,18 +1782,18 @@ declare namespace VoxImplant {
 		*	@param eventName Event name
 		*	@param eventHandler Handler function. A single parameter is passed - object with the event information
 		*/
-		addEventListener(eventName: VoxImplant.CallEvents, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;	
+		addEventListener(eventName: VoxImplant.CallEvents, eventHandler: (eventObject: VoxImplantCallEvent) => any): void;
 		/**
 		*	Answer on incoming call
 		*
 		*	@param customData Set custom string associated with call session. It can be later obtained from Call History using HTTP API
-		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application 
+		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application
 		*/
 		answer(customData?: string, extraHeaders?: Object): void;
 		/**
 		*	Reject incoming call
 		*
-		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application 
+		*	@param extraHeaders Optional custom parameters (SIP headers) that should be sent after accepting incoming call. Parameter names must start with "X-" to be processed by application
 		*/
 		decline(extraHeaders?: Object): void;
 		/**
@@ -1116,13 +1910,41 @@ declare namespace VoxImplant {
 	*/
 	interface VideoSettings {
 		/**
+		* The width or width range, in pixels
+		*/
+		width?: number | any;
+		/**
+		* The height or height range, in pixels
+		*/
+		height?: number | any;
+		/**
+		* The exact aspect ratio (width in pixels divided by height in pixels, represented as a double rounded to the tenth decimal place) or aspect ratio range
+		*/
+		aspectRatio?: number | any;
+		/**
+		* The exact frame rate (frames per second) or frame rate range
+		*/
+		frameRate?: number | any;
+		/**
+		* This string (or each string, when a list) should be one of the members of VideoFacingModeEnum
+		*/
+		facingMode?: string | any;
+		/**
+		* The origin-unique identifier for the source of the MediaStreamTrack
+		*/
+		deviceId?: string;
+		/**
+		* The origin-unique group identifier for the source of the MediaStreamTrack. Two devices have the same group identifier if they belong to the same physical device
+		*/
+		groupId?: string;
+		/**
 		*	Mandatory constraints object
 		*/
-		mandatory: Object;
+		mandatory?: Object;
 		/**
 		*	Optional constraints object
 		*/
-		optional: Object; 
+		optional?: Object;
 	}
 
 	/**
@@ -1207,7 +2029,7 @@ declare namespace VoxImplant {
 	*	VoxImplant Web SDK lib version
 	*/
 	function version(): String;
-	
+
 }
 
 declare module "voximplant-websdk" {

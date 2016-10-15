@@ -1,7 +1,7 @@
 // Type definitions for seedrandom 2.4.2
 // Project: https://github.com/davidbau/seedrandom
 // Definitions by: Kern Handa <https://github.com/kernhanda>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type seedrandomStateType = boolean | (() => prng);
 

@@ -1,7 +1,7 @@
 // Type definitions for any-db 2.1.0
 // Project: https://github.com/grncdr/node-any-db
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -50,7 +50,7 @@ declare module "any-db" {
 		/**
 		 * Result rows
 		 */
-		rows: Object[];
+		rows: any[];
 		/**
 		 * Result field descriptions
 		 */

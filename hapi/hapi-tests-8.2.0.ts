@@ -22,10 +22,12 @@ plugin.register.attributes = {
 };
 
 // optional options parameter
-server.register({}, function (err) {});
+server.register({}, function (err) {
+});
 
-// optional options.routes.vhost parameter 
-server.register({}, { select: 'api', routes: { prefix: '/prefix' } }, function (err) {});
+// optional options.routes.vhost parameter
+server.register({}, {select: 'api', routes: {prefix: '/prefix'}}, function (err) {
+});
 
 //server.pack.register(plugin, (err: Object) => {
 //	if (err) { throw err; }
@@ -84,16 +86,53 @@ server.route([{
 
 // config.validate parameters should be optional
 server.route([{
-    method: 'GET',
-    path: '/hello2',
-    handler: function(request: Hapi.Request, reply: Function) {
-        reply('hello world2');
-    },
-    config: {
-        validate: {
-        }
-    }
+	method: 'GET',
+	path: '/hello2',
+	handler: function (request: Hapi.Request, reply: Function) {
+		reply('hello world2');
+	},
+	config: {
+		validate: {}
+	}
 }]);
+
+server.route([{
+	method: 'GET',
+	path: '/hello3',
+	handler: function (request: Hapi.Request, reply: Function) {
+		reply().code(201);
+	}
+}]);
+
+server.route([{
+	method: 'GET',
+	path: '/hello4',
+	handler: function (request: Hapi.Request, reply: Hapi.IReply) {
+		reply('hello world2');
+	}
+}]);
+
+interface IHello {
+	msg: string
+}
+
+server.route([{
+	method: 'GET',
+	path: '/hello5',
+	handler: function (request: Hapi.Request, reply: Hapi.IStrictReply<IHello>) {
+		reply({ msg: 'hello world' })
+	}
+}]);
+
+// Implict handler
+server.route({
+	method: 'GET',
+	path: '/hello6',
+	handler: function (request, reply) {
+		request.log('info', { route: '/hello' }, Date.now());
+		reply('hello world');
+	}
+});
 
 // Start the server
 server.start();

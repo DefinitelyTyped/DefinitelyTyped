@@ -1,6 +1,6 @@
 ﻿/// <reference path="canvasjs.d.ts" />
 
-module CanvasJS.Tests {
+namespace CanvasJS.Tests {
     // Column Chart
     var columnChart = new CanvasJS.Chart("chartContainer",
         {
@@ -56,7 +56,7 @@ module CanvasJS.Tests {
             data: [
                 {
                     type: "line",
-                    //lineThickness: 3,        
+                    //lineThickness: 3,
                     dataPoints: [
                         { x: new Date(2012, 0, 1), y: 450 },
                         { x: new Date(2012, 1, 1), y: 414 },
@@ -100,7 +100,7 @@ module CanvasJS.Tests {
                     type: "spline",
                     showInLegend: true,
                     name: "Season 2",
-                    // markerSize: 0,        
+                    // markerSize: 0,
                     // color: "rgba(54,158,173,.6)",
                     dataPoints: [
                         { label: "Ep. 1", y: 3858000 },

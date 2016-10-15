@@ -1,7 +1,7 @@
 // Type definitions for Google Realtime API
 // Project: https://developers.google.com/google-apps/realtime/
 // Definitions by: Dustin Wehr <http://cs.toronto.edu/~wehr>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This definition file is merge-compatible with ../gapi/gapi.d.ts
 
@@ -15,7 +15,7 @@
 // See section "Type Aliases" of http://www.typescriptlang.org/Content/TypeScript%20Language%20Specification.pdf
 
 // gapi is a global var introduced by https://apis.google.com/js/api.js
-declare module gapi.drive.realtime {
+declare namespace gapi.drive.realtime {
 
 	type GoogEventHandler = ((evt:ObjectChangedEvent) => void) | ((e:Event) => void) | EventListener;
 
@@ -430,6 +430,38 @@ declare module gapi.drive.realtime {
 		events : BaseModelEvent[];
 	}
 
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.ValuesAddedEvent
+	export interface ValuesAddedEvent<V> extends BaseModelEvent {
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
+		     isLocal:boolean, isUndo:boolean, isRedo:boolean, index:number,
+		     values:V[], movedFromList:CollaborativeList<V>, movedFromIndex:number):ValuesAddedEvent<V>;
+	
+		// The index of the first added value
+		index:number;
+
+		// The index in the source collaborative list that the values were moved from, or null if this insert is not the result of a move operation.
+		movedFromIndex:number;
+
+		// The collaborative list that the values were moved from, or null if this insertion is not the result of a move operation.
+		movedFromList:CollaborativeList<V>;
+	}
+
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.ValuesRemovedEvent
+	export interface ValuesRemovedEvent<V> extends BaseModelEvent {
+		new (target:CollaborativeObject, sessionId:string, userId:string, compoundOperationNames:string[],
+		     isLocal:boolean, isUndo:boolean, isRedo:boolean, index:number,
+		     values:V[], movedToList:CollaborativeList<V>, movedToIndex:number):ValuesRemovedEvent<V>;
+
+		// The index of the first removed value.
+		index:number;
+
+		// The index in the collaborative list that the values were moved to, or null if this delete is not the result of a move operation.
+		movedToIndex:number;
+
+		// The collaborative list that the values were moved to, or null if this delete is not the result of a move operation.
+		movedToList:CollaborativeList<V>;
+	}
+
 
 	// Complete
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Document
@@ -483,10 +515,146 @@ declare module gapi.drive.realtime {
 		saveAs(fileId:string)	: void;
 
 	}
+
+	// Complete
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.ErrorType
+	export type ErrorType =
+		"concurrent_creation" | "invalid_compound_operation" | "invalid_json_syntax" |
+		"missing_property" | "not_found" | "forbidden" | "server_error" | "client_error" |
+		"token_refresh_required" | "invalid_element_type" | "no_write_permission" |
+		"fatal_network_error" | "unexpected_element";
+	export var ErrorType : {
+		// Another user created the document's initial state after
+		// gapi.drive.realtime.load was called but before the local
+		// creation was saved.
+		CONCURRENT_CREATION: ErrorType,
+
+		// A compound operation was still open at the end of a
+		// synchronous block. Compound operations must always
+		// be ended in the same synchronous block that they
+		// are started.
+		INVALID_COMPOUND_OPERATION: ErrorType,
+
+		// The user tried to decode a brix model that
+		// contained invalid json.
+		INVALID_JSON_SYNTAX: ErrorType,
+
+		// The user tried to decode a brix model that was
+		// missing a neccessary property.
+		MISSING_PROPERTY: ErrorType,
+
+		// The provided document ID could not be found.
+		NOT_FOUND: ErrorType,
+
+		// The user associated with the provided OAuth token
+		// is not authorized to access the provided document
+		// ID.
+		FORBIDDEN: ErrorType,
+
+		// An internal error occurred in the Drive Realtime
+		// API server.
+		SERVER_ERROR: ErrorType,
+
+		// An internal error occurred in the Drive Realtime API client.
+		CLIENT_ERROR: ErrorType,
+
+		// The provided OAuth token is no longer valid and
+		// must be refreshed.
+		TOKEN_REFRESH_REQUIRED: ErrorType,
+
+		// The provided JSON element does not have the
+		// expected type.
+		INVALID_ELEMENT_TYPE: ErrorType,
+
+		// The user does not have permission to edit the
+		// document.
+		NO_WRITE_PERMISSION: ErrorType,
+
+		// A network error occurred on a request to the
+		// Realtime API server for a request which can not be
+		// retried. The document may no longer be used after
+		// this error has occurred. This error can only be
+		// corrected by reloading the document.
+		FATAL_NETWORK_ERROR: ErrorType,
+
+		// The provided JSON element has the correct JSON type
+		// but does not have the correct expected Realtime
+		// type.
+		UNEXPECTED_ELEMENT: ErrorType,
+	};
+
+	// Complete
+	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.Error
+	export class Error {
+		constructor (type: string, message: string, isFatal: boolean);
+
+		// The type of the error that occurred.
+		type: ErrorType;
+
+		// A message describing the error.
+	  	message: string;
+
+		// Whether the error is fatal. Fatal errors cannot be recovered
+		// from and require the document to be reloaded.
+	  	isFatal: boolean;
+
+		// Returns a string representation of the error object.
+		toString(): string;
+	}
+
+	// Complete
+	// Opens the debugger application on the current page. The debugger shows all realtime documents that the
+	// page has loaded and is able to view, edit and debug all aspects of each realtime document.
+	export function debug() : void;
+
+	/* Creates a new file with fake network communications. This file will not talk to the server and will only
+	   exist in memory for as long as the browser session persists.
+	   https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.newInMemoryDocument
+	 @Param opt_onLoaded {function(non-null gapi.drive.realtime.Document)}
+	 A callback that will be called when the realtime document is ready. The created or opened realtime document
+	 object will be passed to this function.
+
+	 @Param opt_initializerFn {function(non-null gapi.drive.realtime.Model)}
+	 An optional initialization function that will be called before onLoaded only the first time that the document
+	 is loaded. The document's gapi.drive.realtime.Model object will be passed to this function.
+
+	 @Param opt_errorFn {function(non-null gapi.drive.realtime.Error)}
+	 An optional error handling function that will be called if an error occurs while the document is being
+	 loaded or edited. A gapi.drive.realtime.Error object describing the error will be passed to this function.
+	*/
+	export function newInMemoryDocument(
+		opt_onLoaded? : (d:Document) => void,
+		opt_initializerFn? : (m:Model) => void,
+		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
+	) : Document;
+	
+	/* Loads an existing file by id.
+	https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime#.load
+	
+	 @Param fileId {string}  Id of the file to load.
+	 
+	 @Param onLoaded {function(non-null gapi.drive.realtime.Document)}
+	 A callback that will be called when the realtime document is ready. The created or opened realtime document
+	 object will be passed to this function.
+
+	 @Param opt_initializerFn {function(non-null gapi.drive.realtime.Model)}
+	 An optional initialization function that will be called before onLoaded only the first time that the document
+	 is loaded. The document's gapi.drive.realtime.Model object will be passed to this function.
+
+	 @Param opt_errorFn {function(non-null gapi.drive.realtime.Error)}
+	 An optional error handling function that will be called if an error occurs while the document is being
+	 loaded or edited. A gapi.drive.realtime.Error object describing the error will be passed to this function.
+	*/
+	export function load(
+		fileId:string,
+		onLoaded? : (d:Document) => void,
+		opt_initializerFn? : (m:Model) => void,
+		opt_errorFn? : (e:gapi.drive.realtime.Error) => void
+	):void;
 }
 
 
-declare module gapi.drive.realtime.databinding {
+declare namespace gapi.drive.realtime.databinding {
 	// COMPLETE
 	// https://developers.google.com/google-apps/realtime/reference/gapi.drive.realtime.databinding.Binding
 	export interface  Binding {
@@ -506,15 +674,19 @@ declare module gapi.drive.realtime.databinding {
 }
 
 
-declare module gapi.drive.realtime.EventType {
+declare namespace gapi.drive.realtime.EventType {
 	export var TEXT_INSERTED: string
 	export var TEXT_DELETED: string
 	export var OBJECT_CHANGED: string
+	// List
+	export var VALUES_ADDED:string;
+	export var VALUES_REMOVED:string;
+	export var VALUES_SET:string;
 }
 
 
 // rtclient is a global var introduced by realtime-client-utils.js
-declare module rtclient {
+declare namespace rtclient {
 	// INCOMPLETE
 	export interface RealtimeLoader {
 		start():void;
@@ -603,7 +775,7 @@ declare module rtclient {
 }
 
 // INCOMPLETE
-declare module rtclient.params {
+declare namespace rtclient.params {
 	// string containing one or more file ids separated by spaces.
 	export var fileIds:string
 }

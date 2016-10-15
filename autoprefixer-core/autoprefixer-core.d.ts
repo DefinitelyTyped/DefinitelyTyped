@@ -1,7 +1,7 @@
 // Type definitions for Autoprefixer Core 5.1.11
 // Project: https://github.com/postcss/autoprefixer-core
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "autoprefixer-core" {
     interface Config {

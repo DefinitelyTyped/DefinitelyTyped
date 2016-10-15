@@ -1,7 +1,7 @@
 // Type definitions for swig
 // Project: http://github.com/paularmstrong/swig
 // Definitions by: Peter Harris <https://github.com/CodeAnimal>, Carlos Ballesteros Velasco <https://github.com/soywiz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Documentation : http://paularmstrong.github.io/swig/docs/api/
 
@@ -28,7 +28,7 @@ declare module "swig" {
         compileFile(pathname: string, options?: SwigOptions): (locals?: any) => string;
         render(source: string, options?: SwigOptions): string;
         renderFile(pathName: string, locals: any, cb: (err: Error, output: string) => void): void;
-        renderFile(pathName: string, locals?: any): string
+        renderFile(pathName: string, locals?: any): string;
         run(templateFn: Function, locals?: any, filePath?: string): string;
         invalidateCache(): void;
 

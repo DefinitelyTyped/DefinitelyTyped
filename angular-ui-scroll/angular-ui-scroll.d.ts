@@ -1,11 +1,11 @@
 // Type definitions for Angular JS 1.3.1+ (ui.scroll module)
 // Project: https://github.com/angular-ui/ui-scroll
 // Definitions by: Mark Nadig <https://github.com/marknadig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.ui {
+declare namespace angular.ui {
     interface IScrollDatasource<T> {
         /**
          * The datasource object implements methods and properties to be used by the directive to access the data
@@ -42,9 +42,10 @@ declare module angular.ui {
          */
         topVisibleScope: ng.IRepeatScope;
         /**
-         * calling this method reinitializes and reloads the scroller content.
+         * calling this method reinitializes and reloads the scroller content. 
+         * @param startIndex is an integer indicating what item index the scroller will use to start the load process.
          */
-        reload(): void;
+        reload(startIndex?: number): void;
         /**
          * Replaces the item in the buffer at the given index with the new items.
          *

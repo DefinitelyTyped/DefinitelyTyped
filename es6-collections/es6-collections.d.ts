@@ -1,7 +1,7 @@
 // Type definitions for es6-collections v0.5.1
 // Project: https://github.com/WebReflection/es6-collections/
 // Definitions by: Ron Buckton <http://github.com/rbuckton>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

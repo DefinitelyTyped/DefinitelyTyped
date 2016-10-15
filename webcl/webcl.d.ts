@@ -1,7 +1,7 @@
 // Type definitions for WebCL 1.0
 // Project: https://www.khronos.org/registry/webcl/specs/1.0.0/
 // Definitions by: Ralph Brown <https://github.com/NCARalph>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Version 1.3 - Changed enums to static enums for TS 1.5
 // Version 1.2 - Fixed some more bugs, added WebCLEvent
@@ -14,7 +14,7 @@ interface Window {
 
 declare var WebCLEvent: { new (): WEBCL.WebCLEvent; };
 
-declare module WEBCL {
+declare namespace WEBCL {
     // 3.6.1
     interface WebCLBuffer extends WebCLMemoryObject {
         createSubBuffer(memFlags: MemFlagsBits, origin: number, sizeInBytes: number): WebCLBuffer;

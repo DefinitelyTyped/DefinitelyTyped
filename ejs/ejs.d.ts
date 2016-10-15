@@ -1,7 +1,7 @@
 ﻿// Type definitions for ejs.js v2.3.3
 // Project: http://ejs.co/
 // Definitions by: Ben Liddicott <https://github.com/benliddicott/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module "ejs" {
@@ -16,9 +16,8 @@ declare module "ejs" {
         function renderFile(path: string, data?: Data, opts?: Options, cb?: Function): any;// TODO RenderFileCallback return type
         function clearCache(): any;
 
-        function TemplateFunction(data: Data): any;
         interface TemplateFunction {
-            dependencies: Dependencies;
+            (data: Data): any;
         }
         interface Options {
             cache?: any;
@@ -46,7 +45,7 @@ declare module "ejs" {
             scanLine(line: string): any;
 
         }
-        module Template {
+        namespace Template {
             interface MODES {
                 EVAL: string;
                 ESCAPED: string;

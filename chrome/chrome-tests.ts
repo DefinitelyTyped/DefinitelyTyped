@@ -254,3 +254,11 @@ function testOptionsPage() {
   });
 }
 
+chrome.storage.sync.get("myKey", function (loadedData) {
+  var myValue: { x: number } = loadedData["myKey"];
+});
+
+chrome.storage.onChanged.addListener(function (changes) {
+  var myNewValue: { x: number } = changes["myKey"].newValue;
+  var myOldValue: { x: number } = changes["myKey"].oldValue;
+});

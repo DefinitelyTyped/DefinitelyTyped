@@ -1,7 +1,7 @@
 // Type definitions for Knockout.Mapping 2.0
 // Project: https://github.com/SteveSanderson/knockout.mapping
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
@@ -13,7 +13,8 @@ interface KnockoutMappingCreateOptions {
 interface KnockoutMappingUpdateOptions {
     data: any;
     parent: any;
-    observable: KnockoutObservable<any>;
+    target: any;
+    observable?: KnockoutObservable<any>;
 }
 
 interface KnockoutMappingOptions {

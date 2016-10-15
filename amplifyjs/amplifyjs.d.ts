@@ -1,7 +1,7 @@
 // Type definitions for AmplifyJs 1.1.0
 // Project: http://amplifyjs.com/
 // Definitions by: Jonas Eriksson <https://github.com/joeriks/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -179,4 +179,4 @@ interface amplifyStatic {
 }
 
 declare var amplify: amplifyStatic;
-
+declare module "amplify" { export =amplify; }

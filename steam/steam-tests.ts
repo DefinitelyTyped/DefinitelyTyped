@@ -1,7 +1,7 @@
 ﻿// Type definitions for steam
 // Project: https://github.com/seishun/node-steam
 // Definitions by: Andrey Kurdyumov <https://github.com/kant2002>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="steam.d.ts" />
 

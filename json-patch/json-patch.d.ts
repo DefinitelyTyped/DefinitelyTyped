@@ -1,9 +1,9 @@
 // Type definitions for json-patch
 // Project: https://github.com/bruth/jsonpatch-js
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module jsonpatch {
+declare namespace jsonpatch {
     type OpPatch = AddPath | RemovePath | ReplacePath | MovePath | CopyPath | TestPath;
     interface Patch {
         op: string;

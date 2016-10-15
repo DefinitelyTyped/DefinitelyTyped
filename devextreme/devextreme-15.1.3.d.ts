@@ -1,11 +1,11 @@
 // Type definitions for DevExtreme 15.1.3
 // Project: http://js.devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module DevExpress  {
+declare namespace DevExpress  {
     /** A mixin that provides a capability to fire and subscribe to events. */
     export interface EventsMixin<T> {
         /** Subscribes to a specified event. */
@@ -806,7 +806,7 @@ declare module DevExpress  {
         };
     }
 }
-declare module DevExpress.data  {
+declare namespace DevExpress.data  {
     export interface XmlaStoreOptions {
         /** The HTTP address to an XMLA OLAP server. */
         url?: string;
@@ -937,7 +937,7 @@ declare module DevExpress.data  {
         off(eventName: string, eventHandler: Function): PivotGridDataSource;
     }
 }
-declare module DevExpress.framework  {
+declare namespace DevExpress.framework  {
     /** An object used to store information on the views displayed in an application. */
     export class ViewCache {
         viewRemoved: JQueryCallback;
@@ -1204,7 +1204,7 @@ declare module DevExpress.framework  {
         }
     }
 }
-declare module DevExpress.ui  {
+declare namespace DevExpress.ui  {
     export interface dxValidatorOptions extends DOMComponentOptions {
         /** An array of validation rules to be checked for the editor with which the dxValidator object is associated. */
         validationRules?: Array<any>;
@@ -2225,7 +2225,7 @@ declare module DevExpress.ui  {
     /** A container widget used to arrange inner elements. */
     export class dxBox extends CollectionWidget {
         constructor(element: JQuery, options?: dxBoxOptions);
-        constructor(element: Element, options?: dxBoxOptions);    
+        constructor(element: Element, options?: dxBoxOptions);
     }
     export interface dxResponsiveBoxOptions extends CollectionWidgetOptions {
         /** Specifies the collection of rows for the grid used to position layout elements. */
@@ -2946,7 +2946,7 @@ declare module DevExpress.ui  {
         lookup?: {
             /** Specifies whether or not a user can nullify values of a lookup column. */
             allowClearing?: boolean;
-            /** 
+            /**
 Specifies the data source providing data for a lookup column.
  */
             dataSource?: any;
@@ -3076,7 +3076,7 @@ Specifies the data source providing data for a lookup column.
                 cancel?: string;
             }
         };
-        /** 
+        /**
 An array of grid columns.
  */
         columns?: Array<dxDataGridColumn>;
@@ -3176,7 +3176,7 @@ An array of grid columns.
             autoExpandAll?: boolean;
             /** Specifies the message displayed in a group row when the corresponding group is continued from the previous page. */
             groupContinuedMessage?: string;
-            /** 
+            /**
 Specifies the message displayed in a group row when the corresponding group continues on the next page.
  */
             groupContinuesMessage?: string;
@@ -3556,7 +3556,7 @@ Specifies the message displayed in a group row when the corresponding group cont
         removeRow(rowIndex: number): void;
         /** Saves changes made in a grid. */
         saveEditData(): void;
-        /** 
+        /**
 Searches grid records by a search string.
  */
         searchByText(text: string): void;
@@ -3716,7 +3716,7 @@ Searches grid records by a search string.
         updateDimensions(): void;
     }
 }
-declare module DevExpress.viz.charts  {
+declare namespace DevExpress.viz.charts  {
     /** This section describes the fields and methods that can be used in code to manipulate the Series object. */
     export interface BaseSeries {
         /** Provides information about the state of the series object. */
@@ -4743,7 +4743,7 @@ declare module DevExpress.viz.charts  {
         /** Specifies whether a single series or multiple series can be selected in the chart. */
         seriesSelectionMode?: string;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     export interface Legend extends AdvancedLegend {
         /** Specifies whether the legend is located outside or inside the chart's plot. */
@@ -4938,7 +4938,7 @@ declare module DevExpress.viz.charts  {
         onLegendClick?: any;
         legendClick?: any;
         /** Specifies how the chart must behave when series point labels overlap. */
-        resolveLabelOverlapping?: string; 
+        resolveLabelOverlapping?: string;
     }
     /** A circular chart widget for HTML JS applications. */
     export class dxPieChart extends BaseChart {
@@ -4948,7 +4948,7 @@ declare module DevExpress.viz.charts  {
         getSeries(): PieSeries;
     }
 }
-declare module DevExpress.viz.core  {
+declare namespace DevExpress.viz.core  {
     export interface Border {
         /** Sets a border color for a selected series. */
         color?: string;
@@ -5139,7 +5139,7 @@ declare module DevExpress.viz.core  {
         svg(): string;
     }
 }
-declare module DevExpress.viz.gauges  {
+declare namespace DevExpress.viz.gauges  {
     export interface BaseRangeContainer {
         /** Specifies a range container's background color. */
         backgroundColor?: string;
@@ -5447,7 +5447,7 @@ declare module DevExpress.viz.gauges  {
         values(values: Array<number>): void;
     }
 }
-declare module DevExpress.viz.map  {
+declare namespace DevExpress.viz.map  {
     /** This section describes the fields and methods that can be used in code to manipulate the Area object. */
     export interface Area {
         /** Contains the element type. */
@@ -5720,7 +5720,7 @@ declare module DevExpress.viz.map  {
         zoomFactor(zoomFactor: number): void;
     }
 }
-declare module DevExpress.viz.rangeSelector  {
+declare namespace DevExpress.viz.rangeSelector  {
     export interface dxRangeSelectorOptions extends viz.core.BaseWidgetOptions {
         /** Specifies the options for the range selector's background. */
         background?: {
@@ -5740,7 +5740,7 @@ declare module DevExpress.viz.rangeSelector  {
         behavior?: {
             /** Indicates whether or not you can swap sliders. */
             allowSlidersSwap?: boolean;
-            /** 
+            /**
 Indicates whether or not animation is enabled.
  */
             animationEnabled?: boolean;
@@ -5853,7 +5853,7 @@ Indicates whether or not animation is enabled.
             maxRange?: any;
             /** Specifies the number of minor ticks between neighboring major ticks. */
             minorTickCount?: number;
-            /** 
+            /**
 Specifies an interval between minor ticks.
  */
             minorTickInterval?: any;
@@ -5989,7 +5989,7 @@ Specifies an interval between minor ticks.
         setSelectedRange(selectedRange: { startValue: any; endValue: any; }): void;
     }
 }
-declare module DevExpress.viz.sparklines  {
+declare namespace DevExpress.viz.sparklines  {
     export interface SparklineTooltip extends viz.core.Tooltip {
         /**
          * Specifies how a tooltip is horizontally aligned relative to the graph.

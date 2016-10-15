@@ -1,3 +1,4 @@
+/// <reference path="angular.d.ts" />
 /// <reference path="angular-route.d.ts" />
 
 /**
@@ -28,6 +29,14 @@ $routeProvider
     })
     .when('/projects/:projectId/dashboard4', {
         controller: 'I am a string',
+        templateUrl: function ($routeParams?: ng.route.IRouteParamsService) {
+            return "I return a string"
+        }
+    })
+    .when('/projects/:projectId/dashboard5', {
+        controller: ['$log',function($log:ng.ILogService){
+            $log.info('I am array')
+        }],
         templateUrl: function ($routeParams?: ng.route.IRouteParamsService) {
             return "I return a string"
         }

@@ -1,7 +1,7 @@
 // Type definitions for NProgress
 // Project: https://github.com/rstacruz/nprogress
 // Definitions by: Judah Gabriel Himango <http://debuggerdotbreak.wordpress.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NProgressStatic {
     /**
@@ -69,14 +69,14 @@ interface NProgressStatic {
 interface NProgressConfigureOptions {
 
     /**
+     * CSS selector to change the parent DOM element of the progress. Default is body.
+     */
+    parent?: string
+
+    /**
      * The minimum progress percentage. Default is 0.08.
      */
     minimum?: number;
-
-    /**
-     * How much to increase per trickle. Example: .02. Default is true.
-     */
-    trickleRate?: number;
 
     /**
      * How often to trickle, in milliseconds. Default is 800.
@@ -94,9 +94,9 @@ interface NProgressConfigureOptions {
     trickle?: boolean;
 
     /**
-     * The CSS easing animation to use. Default is 'ease'.
+     * The CSS easing animation to use. Default is 'linear'.
      */
-    ease?: string;
+    easing?: string;
 
     /**
      * The animation speed in milliseconds. Default is 200.

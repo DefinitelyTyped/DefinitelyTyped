@@ -1,7 +1,7 @@
 // Type definitions for Nightmare 1.6.5
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "nightmare" {
 
@@ -62,7 +62,7 @@ declare module "nightmare" {
     headers(headers: Object): Nightmare;
   }
 
-  module Nightmare {
+  namespace Nightmare {
     export interface IConstructorOptions {
       timeout?: any;  // number | string;
       interval?: any; // number | string;

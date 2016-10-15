@@ -1,19 +1,19 @@
 // Type definitions for jQuery Colorpicker Plugin 1.4.3
 // Project: https://github.com/vanderlee/colorpicker
 // Definitions by: Jeffery Grajkowski <https://github.com/pushplay/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface JQueryColorpickerOptions {
     // Events
     // TODO: Figure out actual types.
-    cancel: Function,
-    close: Function,
-    init: Function,
-    select: Function,
-    ok: Function,
-    open: Function,
+    cancel?: Function,
+    close?: Function,
+    init?: Function,
+    select?: Function,
+    ok?: Function,
+    open?: Function,
 
     alpha?: boolean;
     altAlpha?: boolean;
@@ -32,6 +32,8 @@ interface JQueryColorpickerOptions {
     colorFormat?: string;
     draggable?: boolean;
     duration?: string;
+    format?: string;
+    horizontal?: boolean;
     hsv?: boolean;
     inline?: boolean;
     inlineFrame?: boolean;
@@ -67,7 +69,7 @@ interface JQueryColorpickerStatic {
     Color: { new (r?: number, g?: number, b?: number, a?: number): JQueryColorpickerStatic.Color; };
 }
 
-declare module JQueryColorpickerStatic {
+declare namespace JQueryColorpickerStatic {
     export interface CMYK {
         c: number;
         m: number;

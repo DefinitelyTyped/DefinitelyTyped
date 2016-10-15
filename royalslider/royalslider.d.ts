@@ -1,11 +1,11 @@
 // Type definitions for jQuery royal-slider v9.4.0
 // Project: http://dimsemenov.com/plugins/royal-slider/documentation/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module RoyalSlider {
+declare namespace RoyalSlider {
     export interface RoyalSliderThumbsOptions {
         /**
          * Thumbnails mouse drag. (default: true)
@@ -201,7 +201,7 @@ declare module RoyalSlider {
          */
         autoScaleSliderWidth?: number;
         /**
-         * 400 Base slider height 
+         * 400 Base slider height
          */
         autoScaleSliderHeight?: number;
         /**
@@ -331,7 +331,7 @@ declare module RoyalSlider {
         /**
          * Scales and animates height based on current slide. Please note: if you have images in slide that don't have rsImg class) or don't have fixed size, use $(window).load() instead of $(document).ready() before initializing slider. Also, autoHeight doesn't work with properties like autoScaleSlider, imageScaleMode and imageAlignCenter.  (default: false)
          */
-        autoHeight?: boolean;// false 
+        autoHeight?: boolean;// false
         /**
          * Overrides HTML of slides, used for creating of slides from HTML that is not attached to DOM. More info in knowledge base.  (default: null)
          */

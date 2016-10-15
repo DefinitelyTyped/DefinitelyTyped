@@ -2,45 +2,48 @@
 
 import optimist = require('optimist');
 
-var fn: Function;
+var checkFn: (argv: any) => any;
+var logFn: (message: string) => void;
 var str: string;
 var value: any;
 var num: number;
-var bool: boolean;
-var strArr: string[];
 
-var argv: optimist.Argv;
-var opt: optimist.Optimist;
+var argv: any;
+var opt: optimist.Opt;
+var parser: optimist.Parser;
 
-argv = opt.argv;
-argv = opt.argv;
-argv = optimist(strArr).argv;
+argv = parser.argv;
+argv = optimist([str]);
+argv = optimist.parse([str]);
 
-opt = optimist(strArr).default(str, value);
-opt = optimist(strArr).default({});
+parser = parser.alias(str, str);
+parser = parser.alias(str, [str]);
+parser = parser.alias({});
 
-opt = optimist(strArr).boolean(str);
-opt = optimist(strArr).boolean(strArr);
+parser = parser.default(str, value);
+parser = parser.default({});
 
-opt = optimist(strArr).string(str);
-opt = optimist(strArr).string(strArr);
+parser = parser.demand(str);
+parser = parser.demand(num);
+parser = parser.demand([str]);
 
-opt = opt.wrap(num);
+parser = parser.describe(str, str);
+parser = parser.describe({});
 
-opt.help();
-opt.showHelp(fn);
+parser = parser.options(str, opt);
+parser = parser.options({});
 
-opt = opt.usage(str);
+parser = parser.usage(str);
 
-opt = opt.demand(str);
-opt = opt.demand(num);
-opt = opt.demand(strArr);
+parser = parser.check(checkFn);
 
-opt = opt.alias(str, str);
+parser = parser.boolean(str);
+parser = parser.boolean([str]);
 
-opt = opt.describe(str, str);
+parser = parser.string(str);
+parser = parser.string([str]);
 
-opt = opt.options(str, Object);
+parser = parser.wrap(num);
 
-opt.check(fn);
-opt = opt.parse(strArr);
+parser.help();
+parser.showHelp(logFn);

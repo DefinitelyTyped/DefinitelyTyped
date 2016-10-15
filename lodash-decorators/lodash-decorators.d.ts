@@ -1,9 +1,9 @@
 // Type definitions for lodash-decorators 1.0.5
 // Project: https://github.com/steelsojka/lodash-decorators
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../lodash/lodash.d.ts"/>
+/// <reference path='../lodash/lodash-3.10.d.ts' />
 
 
 declare module "lodash-decorators" {

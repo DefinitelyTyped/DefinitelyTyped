@@ -3,19 +3,15 @@
 /// <reference path="../gulp-rev/gulp-rev.d.ts" />
 /// <reference path="../gulp-useref/gulp-useref.d.ts" />
 
-import gulp = require('gulp');
-import revReplace = require('gulp-rev-replace');
-import rev = require('gulp-rev');
-import useref = require('gulp-useref');
+import * as gulp from 'gulp';
+import * as revReplace from 'gulp-rev-replace';
+import * as rev from 'gulp-rev';
+import * as useref from 'gulp-useref';
 
 gulp.task("index", () => {
-    var userefAssets = useref.assets();
-
     return gulp.src("src/index.html")
-        .pipe(userefAssets)      // Concatenate with gulp-useref
+        .pipe(useref())             // Concatenate with gulp-useref
         .pipe(rev())                // Rename the concatenated files
-        .pipe(userefAssets.restore())
-        .pipe(useref())
         .pipe(revReplace())         // Substitute in new filenames
         .pipe(gulp.dest('public'));
 });

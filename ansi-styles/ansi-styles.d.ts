@@ -1,7 +1,7 @@
 // Type definitions for ansi-styles 2.0.1
 // Project: https://github.com/sindresorhus/ansi-styles
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module "ansi-styles"

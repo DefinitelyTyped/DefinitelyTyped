@@ -1,9 +1,9 @@
 // Type definitions for Gamepad API
 // Project: http://www.w3.org/TR/gamepad/
 // Definitions by: Kon <http://phyzkit.net/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Gamepad{
+declare namespace Gamepad{
     /**
      * This interface defines an individual gamepad device.
      */

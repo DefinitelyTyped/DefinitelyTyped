@@ -1,11 +1,11 @@
-// Type definitions for Pdfkit v0.7.1
+// Type definitions for Pdfkit v0.7.2
 // Project: http://pdfkit.org
 // Definitions by: Eric Hillah <https://github.com/erichillah>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module PDFKit {
+declare namespace PDFKit {
     interface PDFGradient {
         new(document: any): PDFGradient ;
         stop(pos: number, color?: string|PDFKit.PDFGradient, opacity?: number): PDFGradient;
@@ -26,7 +26,7 @@ declare module PDFKit {
     }
 }
 
-declare module PDFKit.Mixins {
+declare namespace PDFKit.Mixins {
 
     interface AnnotationOption {
         Type?: string;
@@ -84,12 +84,12 @@ declare module PDFKit.Mixins {
         fit?: number[];
     }
 
-    interface PDFImage {
-    /**
-     * Draw an image in PDFKit document.
-     * No need chainning capabilities
-     */
-        image(src: any, x: number, y: number, options: ImageOption): any;
+    interface PDFImage<TDocument> {
+        /**
+         * Draw an image in PDFKit document.
+         */
+        image(src: any, x?: number, y?: number, options?: ImageOption): TDocument;
+        image(src: any, options?: ImageOption): TDocument;
     }
 
     interface TextOptions {
@@ -127,6 +127,9 @@ declare module PDFKit.Mixins {
         strike?: boolean;
         /**whether the text segment will be followed immediately by another segment. Useful for changing styling in the middle of a paragraph. */
         continued?: boolean;
+
+        /** the alignment of the text (center, justify, left, right) */
+        align?: string;
     }
 
     interface PDFText<TDocument> {
@@ -173,7 +176,7 @@ declare module PDFKit.Mixins {
     }
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /**
     * PDFKit data
     */
@@ -212,7 +215,7 @@ declare module "pdfkit/js/data" {
     export = PDFKitData;
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     interface DocumentInfo {
         Producer?: string;
         Creator?: string;
@@ -227,14 +230,16 @@ declare module PDFKit {
         compress?: boolean;
         info?: DocumentInfo;
         autoFirstPage?: boolean;
-        sizes?: number[];
-        margin?: { top: number; left: number; bottom: number; right: number }|number;
+        size?: number[];
+        margin?: number;
+        margins?: { top: number; left: number; bottom: number; right: number };
+        layout?: "portrait" | "landscape";
 
         bufferPages?: boolean;
     }
 
     interface PDFDocument extends NodeJS.ReadableStream,
-        Mixins.PDFAnnotation<PDFDocument>, Mixins.PDFColor<PDFDocument>, Mixins.PDFImage,
+        Mixins.PDFAnnotation<PDFDocument>, Mixins.PDFColor<PDFDocument>, Mixins.PDFImage<PDFDocument>,
         Mixins.PDFText<PDFDocument>, Mixins.PDFVector<PDFDocument>, Mixins.PDFFont<PDFDocument> {
         /**
         * PDF Version
@@ -296,14 +301,14 @@ declare module "pdfkit/js/gradient" {
     export = gradient;
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /**
    * Represent a single page in the PDF document
    */
     interface PDFPage {
         size: string;
         layout: string;
-        margin: { top: number; left: number; bottom: number; right: number }|number;
+        margins: { top: number; left: number; bottom: number; right: number };
         width: number;
         height: number;
         document: PDFDocument;
@@ -332,7 +337,7 @@ declare module "pdfkit/js/page" {
     export = PDFKitPage
 }
 
-declare module PDFKit {
+declare namespace PDFKit {
     /** PDFReference - represents a reference to another object in the PDF object heirarchy */
     class PDFKitReference {
         id: number;
@@ -375,7 +380,7 @@ declare module "pdfkit/js/mixins/fonts" {
 }
 
 declare module "pdfkit/js/mixins/images" {
-    var PDFKitImage: PDFKit.Mixins.PDFImage;
+    var PDFKitImage: PDFKit.Mixins.PDFImage<void>;
     export = PDFKitImage;
 }
 

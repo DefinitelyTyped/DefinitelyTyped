@@ -1,7 +1,7 @@
-﻿// Type definitions for JQuery DataTables 1.10.5
+﻿// Type definitions for JQuery DataTables 1.10.7
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
@@ -19,7 +19,7 @@ interface JQuery {
 //    dataTable: DataTables.StaticFunctions;
 //}
 
-declare module DataTables {
+declare namespace DataTables {
     export interface DataTable extends DataTableCore {
         /**
         * Get the data for the whole table.
@@ -76,11 +76,11 @@ declare module DataTables {
         //#endregion "Cell/Cells"
 
         //#region "Column/Columns"
-        
+
         /**
         * Column Methods / Object
         */
-        column: ColumnMethodsModel;      
+        column: ColumnMethodsModel;
 
         /**
         * Columns Methods / Object
@@ -150,7 +150,7 @@ declare module DataTables {
         */
         page?: string;
     }
-    
+
     //#region "Namespaces"
 
     //#region "core-methods"
@@ -159,7 +159,7 @@ declare module DataTables {
         /**
         * Get jquery object
         */
-        $(selector: string | Node | Node[]| JQuery, modifier?: ObjectSelectorModifier): JQuery;
+        $(selector: string | Node | Node[] | JQuery, modifier?: ObjectSelectorModifier): JQuery;
 
         ///// Almost identical to $ in operation, but in this case returns the data for the matched rows.
         //_(selector: string | Node | Node[] | JQuery, modifier?: ObjectSelectorModifier): JQuery;
@@ -187,6 +187,22 @@ declare module DataTables {
         * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
         */
         draw(reset?: boolean): DataTable;
+
+        /*
+        * Look up a language token that was defined in the DataTables' language initialisation object.
+        *
+        * @param token The language token to lookup from the language object.
+        * @param def The default value to use if the DataTables initialisation has not specified a value.
+        * @param numeric If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+        *
+        * @returns Resulting internationalised string.
+        */
+        i18n(token: string, def: any | string, numeric?: number): string;
+
+        /*
+        * Get the initialisation options used for the table. Since: DataTables 1.10.6
+        */
+        init(): Settings;
 
         /**
         * Table events removal.
@@ -407,6 +423,11 @@ declare module DataTables {
     //#region "util-methods"
 
     interface UtilityMethods {
+        /*
+        * Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).
+        */
+        any(): boolean;
+
         /**
         * Concatenate two or more API instances together
         *
@@ -521,14 +542,14 @@ declare module DataTables {
 
         /**
         * Sort the elements of the API instance's result set.
-        * 
+        *
         * @param fn This is a standard Javascript sort comparison function. It accepts two parameters.
         */
         sort(fn?: Function): DataTable;
 
         /**
         * Modify the contents of an Api instance's result set, adding or removing items from it as required.
-        * 
+        *
         * @param index Index at which to start modifying the Api instance's result set.
         * @param howMany Number of elements to remove from the result set.
         * @param value_1 Item to add to the result set at the index specified by the first parameter.
@@ -557,7 +578,7 @@ declare module DataTables {
 
         /**
         * Add one or more items to the start of an API instance's result set.
-        * 
+        *
         * @param value_1 Item to add to the API instance's result set.
         */
         unshift(value_1: any | any[], ...value_2: any[]): number;
@@ -575,7 +596,7 @@ declare module DataTables {
     }
 
     //#region "cell-methods"
-    
+
     interface CommonCellMethods extends CommonSubMethods {
         /**
         * Invalidate the data held in DataTables for the selected cells
@@ -629,6 +650,13 @@ declare module DataTables {
         data(): DataTable;
 
         /**
+        * Iterate over each selected cell, with the function context set to be the cell in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every cell selected.
+        */
+        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): DataTable;
+
+        /**
         * Get index information about the selected cells
         */
         indexes(): DataTable;
@@ -655,7 +683,7 @@ declare module DataTables {
 
         /**
         * Order the table, in the direction specified, by the column selected by the column()DT selector.
-        * 
+        *
         * @param direction Direction of sort to apply to the selected column - desc (descending) or asc (ascending).
         */
         order(direction: string): DataTable;
@@ -667,7 +695,7 @@ declare module DataTables {
 
         /**
         * Set the visibility of the selected column.
-        * 
+        *
         * @param show Specify if the column should be visible (true) or not (false).
         * @param redrawCalculations Indicate if DataTables should recalculate the column layout (true - default) or not (false). Typically this would be left as the default value, but it can be useful to disable when using the method in a loop - so the calculations are performed on every call as they can hamper performance.
         */
@@ -685,7 +713,7 @@ declare module DataTables {
 
         /**
         * Convert from the input column index type to that required.
-        * 
+        *
         * @param t The type on conversion that should take place: 'fromVisible', 'toData', 'fromData', 'toVisible'
         * @param index The index to be converted
         */
@@ -705,7 +733,7 @@ declare module DataTables {
 
         /**
         * Get index information about the selected cell
-        * 
+        *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
         index(t?: string): DataTable;
@@ -750,8 +778,15 @@ declare module DataTables {
         dataSrc(): DataTable;
 
         /**
+        * Iterate over each selected column, with the function context set to be the column in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every column selected.
+        */
+        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): DataTable;
+
+        /**
         * Get the column indexes of the selected columns.
-        * 
+        *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
         */
         indexes(t?: string): DataTable;
@@ -768,7 +803,7 @@ declare module DataTables {
     interface CommonRowMethod extends CommonSubMethods {
         /**
         * Obtain the th / td nodes for the selected column
-        * 
+        *
         * @param source Data source to read the new data from. Values: 'auto', 'data', 'dom'
         */
         invalidate(source?: string): DataTable;
@@ -782,14 +817,14 @@ declare module DataTables {
 
         /**
         * Get the child row(s) that have been set for a parent row
-        * 
+        *
         * @param showRemove This parameter can be given as true or false
         */
         (showRemove: boolean): RowChildMethods;
 
         /**
         * Set the data to show in the child row(s). Note that calling this method will replace any child rows which are already attached to the parent row.
-        * 
+        *
         * @param data The data to be shown in the child row can be given in multiple different ways.
         * @param className Class name that is added to the td cell node(s) of the child row(s). As of 1.10.1 it is also added to the tr row node of the child row(s).
         */
@@ -847,7 +882,7 @@ declare module DataTables {
         *
         * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table
         */
-        add(data: any[]| Object): DataTable;
+        add(data: any[] | Object): DataTable;
     }
 
     interface RowMethods extends DataTableCore, CommonRowMethod {
@@ -859,14 +894,21 @@ declare module DataTables {
         /**
         * Get the data for the selected row
         */
-        data(): any[]| Object;
+        data(): any[] | Object;
 
         /**
         * Set the data for the selected row
-        * 
-        * @param d Data to use for the row. 
+        *
+        * @param d Data to use for the row.
         */
-        data(d: any[]| Object): DataTable;
+        data(d: any[] | Object): DataTable;
+        
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
+        */
+        id(hash?: boolean): string;
 
         /**
         * Get the row index of the row column.
@@ -916,10 +958,17 @@ declare module DataTables {
 
         /**
         * Set the data for the selected row
-        * 
-        * @param d Data to use for the row. 
+        *
+        * @param d Data to use for the row.
         */
-        data(d: any[]| Object): DataTable;
+        data(d: any[] | Object): DataTable;
+
+        /**
+        * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every row selected.
+        */
+        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): DataTable;
 
         /**
         * Get the row indexes of the selected rows.
@@ -1031,7 +1080,7 @@ declare module DataTables {
         *
         * @param table Selector string for table
         */
-        Api(selector: string | Node | Node[]| JQuery): DataTables.DataTable;
+        Api(selector: string | Node | Node[] | JQuery): DataTables.DataTable;
     }
 
     export interface StaticUtilFunctions {
@@ -1175,7 +1224,7 @@ declare module DataTables {
         /**
         * Change the options in the page length select list. Since: 1.10
         */
-        lengthMenu?: (number | string)[]| (number | string)[][];
+        lengthMenu?: (number | string)[] | (number | string)[][];
 
         /**
         * Control which cell the order event handler will be applied to in a column. Since: 1.10
@@ -1190,12 +1239,12 @@ declare module DataTables {
         /**
         * Initial order (sort) to apply to the table. Since: 1.10
         */
-        order?: (string | number)[]| (string | number)[][];
+        order?: (string | number)[] | (string | number)[][];
 
         /**
         * Ordering to always be applied to the table. Since: 1.10
         */
-        orderFixed?: (string | number)[]| (string | number)[][]| Object;
+        orderFixed?: (string | number)[] | (string | number)[][] | Object;
 
         /**
         * Multiple column ordering ability control. Since: 1.10
@@ -1395,7 +1444,11 @@ declare module DataTables {
     }
 
     interface FunctionAjaxData {
-        (data: Object): string | Object;
+        /*
+        * @param data Data that DataTables has constructed for the request.
+        * @param settings DataTables settings object. Since 1.10.6
+        */
+        (data: Object, settings: Settings): string | Object;
     }
 
     //#endregion "ajax-settings"
@@ -1558,7 +1611,7 @@ declare module DataTables {
     //#region "callback-functions"
 
     interface FunctionCreateRow {
-        (row: Node, data: any[]| Object, dataIndex: number): void;
+        (row: Node, data: any[] | Object, dataIndex: number): void;
     }
 
     interface FunctionDrawCallback {
@@ -1590,7 +1643,7 @@ declare module DataTables {
     }
 
     interface FunctionRowCallback {
-        (row: Node, data: any[]| Object): void;
+        (row: Node, data: any[] | Object, index: number): void;
     }
 
     interface FunctionStateLoadCallback {
@@ -1617,7 +1670,7 @@ declare module DataTables {
 
     //#region "language-settings"
 
-	// these are all optional
+    // these are all optional
     interface LanguageSettings {
         emptyTable?: string;
         info?: string;
@@ -1632,6 +1685,7 @@ declare module DataTables {
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
+        url?: string;
     }
 
     interface LanguagePaginateSettings {

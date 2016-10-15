@@ -1,7 +1,7 @@
 // Type definitions for PhantomJS v1.9.0 API
 // Project: https://github.com/ariya/phantomjs/wiki/API-Reference
 // Definitions by: Jed Hunsaker <https://github.com/jedhunsaker>, Mike Keesey <https://github.com/keesey>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function require(module: string): any;
 
@@ -89,7 +89,7 @@ interface WebPage {
 	deleteCookie(cookieName: string): boolean;
 	evaluate(fn: Function, ...args: any[]): any;
 	evaluateAsync(fn: Function): void;
-	evaluateJavascript(str: string): any; // :TODO: elaborate this when documentation improves
+	evaluateJavaScript(str: string): any; // :TODO: elaborate this when documentation improves
 	getPage(windowName: string): WebPage;
 	go(index: number): void;
 	goBack(): void;

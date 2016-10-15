@@ -1,7 +1,7 @@
 // Type definitions for rest-io 4.0
 // Project: https://github.com/EnoF/rest-io
 // Definitions by: Andy Tang <https://github.com/EnoF>, Stefan Schacherl <https://github.com/TheBay0r>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 /// <reference path="../mongoose/mongoose.d.ts" />

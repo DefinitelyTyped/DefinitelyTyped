@@ -1,7 +1,7 @@
 // Type definitions for bootstrap-notify v3.1.3
 // Project: http://bootstrap-notify.remabledesigns.com/
 // Definitions by: Blake Niemyjski <https://github.com/niemyjski/>, Robert McIntosh <https://github.com/mouse0270>, Robert Voica <https://github.com/robert-voica>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
@@ -36,7 +36,10 @@ interface NotifySettings {
 		from?: string;
 		align?: string;
 	};
-	offset?: number;
+	offset?: number | {
+		x?: number;
+		y?: number;
+	};
 	spacing?: number;
 	z_index?: number;
 	delay?: number;

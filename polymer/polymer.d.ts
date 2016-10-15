@@ -1,17 +1,17 @@
-// Type definitions for polymer v1.1.5
+// Type definitions for polymer v1.1.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../webcomponents.js/webcomponents.js.d.ts"/>
 
-declare module polymer {
+declare namespace polymer {
 
   type PropConstructorType = StringConstructor|ObjectConstructor|BooleanConstructor|NumberConstructor|DateConstructor|ArrayConstructor;
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?: boolean | number | string | Function;
+    value?: boolean | number | string | Function | Object;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     notify?: boolean;
@@ -127,15 +127,16 @@ declare module polymer {
 
     unlinkPaths?(path: string): void;
 
-    push?(path: string): number;
+    push?(path: string, ...item: any[]): number;
 
     pop?(path: string): any;
 
-    splice?(path: string, start: number, deleteCount: number): number;
+    splice?(path: string, index: number, removeCount: number, ...item: any[]):
+        number;
 
     shift?(path: string): any;
 
-    unshift?(path: string): number;
+    unshift?(path: string, ...item: any[]): number;
 
     // ResolveUrl
 

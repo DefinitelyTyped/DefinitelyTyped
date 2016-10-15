@@ -1,7 +1,7 @@
 // Type definitions for Numeral.js
 // Project: https://github.com/adamwdraper/Numeral-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NumeralJSLanguage {
 	delimiters: {
@@ -24,7 +24,7 @@ interface Numeral {
 	(value?: any): Numeral;
 	version: string;
 	isNumeral: boolean;
-	language(key: string, values?: NumeralJSLanguage): Numeral;
+	language(key?: string, values?: NumeralJSLanguage): Numeral | string;
 	zeroFormat(format: string): string;
 	clone(): Numeral;
 	format(inputString?: string): string;

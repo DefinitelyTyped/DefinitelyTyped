@@ -1,23 +1,23 @@
 // Type definitions for highcharts-ng 0.0.8
 // Project: https://github.com/pablojim/highcharts-ng
 // Definitions by: Scott Hatcher <https://github.com/scatcher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../highcharts/highcharts.d.ts" />
 
 interface HighChartsNGConfig {
-    options: HighchartsOptions;
+    options: __Highcharts.Options;
     //The below properties are watched separately for changes.
 
     //Series object (optional) - a list of series using normal highcharts series options.
-    series?: number[]|[number, number][]| HighchartsDataPoint[] | {data:number[];}[];
+    series?: __Highcharts.IndividualSeriesOptions[];
     //Title configuration (optional)
     title?: {
         text?: string;
     };
     //Boolean to control showng loading status on chart (optional)
     //Could be a string if you want to show specific loading text.
-    loading?: boolean;
+    loading?: boolean | string;
     //Configuration for the xAxis (optional). Currently only one x axis can be dynamically controlled.
     //properties currentMin and currentMax provied 2-way binding to the chart's maximimum and minimum
     xAxis?: {
@@ -33,11 +33,11 @@ interface HighChartsNGConfig {
         height?: number;
     };
     //function (optional) - setup some logic for the chart
-    func?: (chart: HighchartsChartObject) => void;
+    func?: (chart: __Highcharts.ChartObject) => void;
 }
 
 //Instantiated Chart
 interface HighChartsNGChart extends HighChartsNGConfig {
     //This is a simple way to access all the Highcharts API that is not currently managed by this directive.
-    getHighcharts(): HighchartsChartObject;
+    getHighcharts(): __Highcharts.ChartObject;
 }

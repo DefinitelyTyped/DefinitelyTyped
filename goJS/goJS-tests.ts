@@ -1,9 +1,86 @@
 // Test file for goJS.d.ts
-// This is taken from http://gojs.net/latest/samples/basic.html
+// This is taken and adapted from http://gojs.net/latest/samples/basic.html
 
-/*  Copyright (C) 1998-2015 by Northwoods Software Corporation. */
+/* Copyright (C) 1998-2016 by Northwoods Software Corporation. */
 
 /// <reference path="goJS.d.ts" />
+
+class CustomLink extends go.Link {
+    constructor() {
+        super();
+        this.routing = go.Link.Orthogonal;
+    }
+
+    hasCurviness(): boolean {
+        if (isNaN(this.curviness)) return true;
+        return super.hasCurviness();
+    }
+ 
+    computeCurviness(): number {
+        if (isNaN(this.curviness)) {
+            var links = this.fromNode.findLinksTo(this.toNode);
+            if (links.count < 2) return 0;
+            var i = 0;
+            while (links.next()) { if (links.value === this) break; i++; }
+            return 10 * (i - (links.count - 1) / 2);
+        }
+        return super.computeCurviness();
+    }
+}
+
+class CustomTreeLayout extends go.TreeLayout {
+    constructor() {
+        super();
+        this.extraProp = 3;
+    }
+
+    extraProp: number;
+
+    // override various methods
+
+    cloneProtected(copy: CustomTreeLayout): void {
+        super.cloneProtected(copy);
+        copy.extraProp = this.extraProp;
+    }
+
+    createNetwork(): CustomTreeNetwork {
+        return new CustomTreeNetwork();
+    }
+
+    assignTreeVertexValues(v: CustomTreeVertex): void {
+        super.assignTreeVertexValues(v);
+        v.someProp = Math.random() * 100;
+    }
+
+    commitNodes(): void {
+        super.commitNodes();
+        // ...
+    }
+
+    commitLinks(): void {
+        super.commitLinks();
+        this.network.edges.each(e => { e.link.path.strokeWidth = (<CustomTreeEdge>(e)).anotherProp; });
+    }
+}
+
+class CustomTreeNetwork extends go.TreeNetwork {
+    createVertex(): CustomTreeVertex {
+        return new CustomTreeVertex();
+    }
+
+    createEdge(): CustomTreeEdge {
+        return new CustomTreeEdge();
+    }
+}
+
+class CustomTreeVertex extends go.TreeVertex {
+    someProp: number = 17;
+}
+
+class CustomTreeEdge extends go.TreeEdge {
+    anotherProp: number = 1;
+}
+
 
 function init() {
     var $ = go.GraphObject.make;  // for conciseness in defining templates
@@ -20,6 +97,8 @@ function init() {
                 // allow Ctrl-G to call groupSelection()
                 "commandHandler.archetypeGroupData": { text: "Group", isGroup: true, color: "blue" },
 
+                layout: $(CustomTreeLayout, { angle: 90 }),
+
                 // enable undo & redo
                 "undoManager.isEnabled": true
             });
@@ -30,19 +109,19 @@ function init() {
 
     // To simplify this code we define a function for creating a context menu button:
     function makeButton(text: string, action: (e: go.InputEvent, obj: go.GraphObject) => void, visiblePredicate?: (obj: go.GraphObject) => boolean) {
-        if (visiblePredicate === undefined) visiblePredicate = function (o) { return true; };
+        if (visiblePredicate === undefined) visiblePredicate = o => true;
         return $("ContextMenuButton",
-            $(go.TextBlock, text),
-            { click: action },
-            // don't bother with binding GraphObject.visible if there's no predicate
-            visiblePredicate ? new go.Binding("visible", "", visiblePredicate).ofObject() : {});
+                    $(go.TextBlock, text),
+                    { click: action },
+                    // don't bother with binding GraphObject.visible if there's no predicate
+                    visiblePredicate ? new go.Binding("visible", "", visiblePredicate).ofObject() : {});
     }
 
     // a context menu is an Adornment with a bunch of buttons in them
     var partContextMenu =
         $(go.Adornment, "Vertical",
             makeButton("Properties",
-                function (e, obj) {  // the OBJ is this Button
+                (e, obj) => {  // the OBJ is this Button
                     var contextmenu = <go.Adornment>obj.part;  // the Button is in the context menu Adornment
                     var part = contextmenu.adornedPart;  // the adornedPart is the Part that the context menu adorns
                     // now can do something with PART, or with its data, or with the Adornment (the context menu)
@@ -51,29 +130,29 @@ function init() {
                     else alert(nodeInfo(part.data));
                 }),
             makeButton("Cut",
-                function (e, obj) { e.diagram.commandHandler.cutSelection(); },
-                function (o) { return o.diagram.commandHandler.canCutSelection(); }),
+                       (e, obj) => e.diagram.commandHandler.cutSelection(),
+                       o => o.diagram.commandHandler.canCutSelection()),
             makeButton("Copy",
-                function (e, obj) { e.diagram.commandHandler.copySelection(); },
-                function (o) { return o.diagram.commandHandler.canCopySelection(); }),
+                       (e, obj) => e.diagram.commandHandler.copySelection(),
+                       o => o.diagram.commandHandler.canCopySelection()),
             makeButton("Paste",
-                function (e, obj) { e.diagram.commandHandler.pasteSelection(e.diagram.lastInput.documentPoint); },
-                function (o) { return o.diagram.commandHandler.canPasteSelection(); }),
+                       (e, obj) => e.diagram.commandHandler.pasteSelection(e.diagram.lastInput.documentPoint),
+                       o => o.diagram.commandHandler.canPasteSelection()),
             makeButton("Delete",
-                function (e, obj) { e.diagram.commandHandler.deleteSelection(); },
-                function (o) { return o.diagram.commandHandler.canDeleteSelection(); }),
+                       (e, obj) => e.diagram.commandHandler.deleteSelection(),
+                       o => o.diagram.commandHandler.canDeleteSelection()),
             makeButton("Undo",
-                function (e, obj) { e.diagram.commandHandler.undo(); },
-                function (o) { return o.diagram.commandHandler.canUndo(); }),
+                       (e, obj) => e.diagram.commandHandler.undo(),
+                       o => o.diagram.commandHandler.canUndo()),
             makeButton("Redo",
-                function (e, obj) { e.diagram.commandHandler.redo(); },
-                function (o) { return o.diagram.commandHandler.canRedo(); }),
+                       (e, obj) => e.diagram.commandHandler.redo(),
+                       o => o.diagram.commandHandler.canRedo()),
             makeButton("Group",
-                function (e, obj) { e.diagram.commandHandler.groupSelection(); },
-                function (o) { return o.diagram.commandHandler.canGroupSelection(); }),
+                       (e, obj) => e.diagram.commandHandler.groupSelection(),
+                       o => o.diagram.commandHandler.canGroupSelection()),
             makeButton("Ungroup",
-                function (e, obj) { e.diagram.commandHandler.ungroupSelection(); },
-                function (o) { return o.diagram.commandHandler.canUngroupSelection(); })
+                       (e, obj) => e.diagram.commandHandler.ungroupSelection(),
+                       o => o.diagram.commandHandler.canUngroupSelection())
             );
 
     function nodeInfo(d) {  // Tooltip info for a node data object
@@ -120,7 +199,7 @@ function init() {
             // this context menu Adornment is shared by all nodes
             contextMenu: partContextMenu
         }
-        );
+    );
 
     // Define the appearance and behavior for Links:
 
@@ -130,7 +209,7 @@ function init() {
 
     // The link shape and arrowhead have their stroke brush data bound to the "color" property
     myDiagram.linkTemplate =
-    $(go.Link,
+    $(CustomLink,
         { relinkableFrom: true, relinkableTo: true },  // allow the user to relink existing links
         $(go.Shape,
             { strokeWidth: 2 },
@@ -148,17 +227,14 @@ function init() {
             // the same context menu Adornment is shared by all links
             contextMenu: partContextMenu
         }
-        );
+    );
 
     // Define the appearance and behavior for Groups:
 
     function groupInfo(adornment: go.Adornment) {  // takes the tooltip, not a group node data object
         var g = <go.Group>adornment.adornedPart;  // get the Group that the tooltip adorns
         var mems = g.memberParts.count;
-        var links = 0;
-        g.memberParts.each(function (part) {
-            if (part instanceof go.Link) links++;
-        });
+        var links = g.memberParts.filter(p => p instanceof go.Link).count;
         return "Group " + g.data.key + ": " + g.data.text + "\n" + mems + " members including " + links + " links";
     }
 
@@ -168,7 +244,8 @@ function init() {
     $(go.Group, "Vertical",
         {
             selectionObjectName: "PANEL",  // selection handle goes around shape, not label
-            ungroupable: true  // enable Ctrl-Shift-G to ungroup a selected Group
+            ungroupable: true,  // enable Ctrl-Shift-G to ungroup a selected Group
+            layoutConditions: go.Part.LayoutStandard & ~go.Part.LayoutNodeSized
         },
         $(go.TextBlock,
             {
@@ -195,7 +272,7 @@ function init() {
             // the same context menu Adornment is shared by all groups
             contextMenu: partContextMenu
         }
-        );
+    );
 
     // Define the behavior for the Diagram background:
 
@@ -209,21 +286,21 @@ function init() {
         $(go.Shape, { fill: "#FFFFCC" }),
         $(go.TextBlock, { margin: 4 },
             new go.Binding("text", "", diagramInfo))
-        );
+    );
 
     // provide a context menu for the background of the Diagram, when not over any Part
     myDiagram.contextMenu =
     $(go.Adornment, "Vertical",
         makeButton("Paste",
-            function (e, obj) { e.diagram.commandHandler.pasteSelection(e.diagram.lastInput.documentPoint); },
-            function (o) { return o.diagram.commandHandler.canPasteSelection(); }),
+                   (e, obj) => e.diagram.commandHandler.pasteSelection(e.diagram.lastInput.documentPoint),
+                   o => o.diagram.commandHandler.canPasteSelection()),
         makeButton("Undo",
-            function (e, obj) { e.diagram.commandHandler.undo(); },
-            function (o) { return o.diagram.commandHandler.canUndo(); }),
+                   (e, obj) => e.diagram.commandHandler.undo(),
+                   o => o.diagram.commandHandler.canUndo()),
         makeButton("Redo",
-            function (e, obj) { e.diagram.commandHandler.redo(); },
-            function (o) { return o.diagram.commandHandler.canRedo(); })
-        );
+                   (e, obj) => e.diagram.commandHandler.redo(),
+                   o => o.diagram.commandHandler.canRedo())
+    );
 
     // Create the Diagram's Model:
     var nodeDataArray = [
@@ -240,4 +317,8 @@ function init() {
         { from: 3, to: 1, color: "purple" }
     ];
     myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+
+    var img = myDiagram.makeImageData({
+      scale: 0.4, position: new go.Point(-10, -10)
+    });
 }

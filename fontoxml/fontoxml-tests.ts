@@ -26,3 +26,10 @@ var simpleinit:com.fontoxml.IInvocator = {
 	cmsBaseUrl: "/test/",
 	editSessionToken: "aa-bb-cc-dd-ee"
 }
+
+var eventData:com.fontoxml.IFontoMessageEventData = {
+	command: "test-command",
+	type: "test-type",
+	scope: init,
+	metadata: {}
+}

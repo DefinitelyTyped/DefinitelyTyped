@@ -54,7 +54,7 @@
         // Cubes
 
         var geometry2 = new THREE.BoxGeometry(50, 50, 50);
-        var material2 = new THREE.MeshLambertMaterial({ color: 0xffffff, shading: THREE.FlatShading, overdraw: 0.5 });
+        var material2 = new THREE.MeshLambertMaterial({ color: 0xffffff, overdraw: 0.5 });
 
         for (var i = 0; i < 100; i++) {
 

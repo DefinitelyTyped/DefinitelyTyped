@@ -6,17 +6,24 @@
 
 import { autobind } from 'core-decorators';
 
+@autobind
 class Person {
     @autobind
     getPerson() {
         return this;
     }
+
+    getPersonAgain() {
+        return this;
+    }
 }
 
 let person = new Person();
-let getPerson = person.getPerson;
+let { getPerson, getPersonAgain } = person;
 
 getPerson() === person;
+
+getPersonAgain() === person;
 
 //
 // @readonly
@@ -93,6 +100,7 @@ person2.facepalmHarder();
 // @debounce
 //
 
+
 import { debounce } from 'core-decorators';
 
 class Editor {
@@ -100,6 +108,22 @@ class Editor {
     content = '';
 
     @debounce(500)
+    updateContent(content: string) {
+        this.content = content;
+    }
+}
+
+//
+// @throttle
+//
+
+import { throttle } from 'core-decorators';
+
+class Editor2 {
+
+    content = '';
+
+    @throttle(500, {leading: false})
     updateContent(content: string) {
         this.content = content;
     }
@@ -165,5 +189,117 @@ Object.defineProperty(dinner3, 'entree', {
     enumerable: false
 });
 // Cannot redefine property: entree
+
+//
+// @decorate
+//
+
+declare function memoize<T extends Function>(func: T): T;
+import { decorate } from 'core-decorators';
+
+var count = 0;
+
+class Task {
+    @decorate(memoize)
+    doSomethingExpensive(data: any) {
+        count++;
+        // something expensive;
+        return data;
+    }
+}
+
+var task = new Task();
+var data = [1, 2, 3];
+
+task.doSomethingExpensive(data);
+task.doSomethingExpensive(data);
+
+count === 1;
+// true
+
+//
+// @lazyInitialize
+//
+
+import { lazyInitialize } from 'core-decorators';
+
+function createHugeBuffer() {
+    console.log('huge buffer created');
+    return new Array(1000000);
+}
+
+class Editor3 {
+    @lazyInitialize
+    hugeBuffer = createHugeBuffer();
+}
+
+var editor = new Editor3();
+// createHugeBuffer() has not been called yet
+
+editor.hugeBuffer;
+// logs 'huge buffer created', now it has been called
+
+editor.hugeBuffer;
+// already initialized and equals our buffer, so
+// createHugeBuffer() is not called again
+
+//TODO: For @mixin, I don't know how we can make it work for TypeScript...
+//
+// @mixin (alias: @mixins)
+//
+
+import { mixin } from 'core-decorators';
+
+const SingerMixin = {
+    sing(sound: string) {
+        alert(sound);
+    }
+};
+
+const FlyMixin = {
+    // All types of property descriptors are supported
+    get speed(): number { return 42; },
+    fly() {},
+    land() {}
+};
+
+@mixin(SingerMixin, FlyMixin)
+class Bird {
+    singMatingCall() {
+        //TODO: For @mixin, I don't know how we can make it work for TypeScript...
+        // this.sing('tweet tweet');
+    }
+}
+
+var bird = new Bird();
+bird.singMatingCall();
+// alerts "tweet tweet"
+
+//
+// @time
+//
+
+import { time } from 'core-decorators';
+
+let myConsole = {
+    time: function(label: string) { /* custom time() method */ },
+    timeEnd: function(label: string) { /* custom timeEnd method */ },
+    log: function(str: any) { /* custom log method */ }
+};
+
+class Bird2 {
+    @time('sing')
+    sing() {
+    }
+
+    @time('sing2', myConsole)
+    sing2() {
+
+    }
+}
+
+var bird2 = new Bird2();
+bird2.sing(); // console.time label will be 'sing-0'
+bird2.sing(); // console.time label will be 'sing-1'
 
 

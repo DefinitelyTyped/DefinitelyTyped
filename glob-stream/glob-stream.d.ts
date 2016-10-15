@@ -1,7 +1,7 @@
 // Type definitions for glob-stream v3.1.12
 // Project: http://github.com/wearefractal/glob-stream
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../glob/glob.d.ts" />

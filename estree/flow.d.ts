@@ -1,11 +1,11 @@
 // Type definitions for ESTree AST extensions for Facebook Flow
 // Project: https://github.com/estree/estree
 // Definitions by: RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./estree.d.ts" />
 
-declare module ESTree {
+declare namespace ESTree {
   interface FlowTypeAnnotation extends Node {}
 
   interface FlowBaseTypeAnnotation extends FlowTypeAnnotation {}

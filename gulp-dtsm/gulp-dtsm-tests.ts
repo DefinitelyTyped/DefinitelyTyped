@@ -2,10 +2,9 @@
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../gulp/gulp.d.ts" />
 
-import dtsm = require('gulp-dtsm');
-import gulp = require('gulp');
+import * as dtsm from 'gulp-dtsm';
+import * as gulp from 'gulp';
 
 var stream: NodeJS.WritableStream = dtsm();
 
 gulp.task('dtsm', () => gulp.src('./dtsm.json').pipe(dtsm()));
-

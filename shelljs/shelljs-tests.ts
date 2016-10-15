@@ -1,7 +1,7 @@
 // Tests for shelljs.d.ts
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from documentation samples.
 
 ///<reference path="../node/node.d.ts" />
@@ -118,6 +118,21 @@ shell.chmod("755", "/Users/brandon"); // same as above
 shell.chmod("u+x", "/Users/brandon");
 
 shell.exit(0);
+
+shell.touch('/Users/brandom/test1');
+shell.touch('/Users/brandom/test1', '/Users/brandom/test2');
+
+shell.touch(['/Users/brandom/test1']);
+shell.touch(['/Users/brandom/test1', '/Users/brandom/test2']);
+
+shell.touch('-c', '/Users/brandom/test1');
+shell.touch('-c', '/Users/brandom/test1', '/Users/brandom/test2');
+shell.touch('-c', ['/Users/brandom/test1', '/Users/brandom/test2']);
+
+shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
+shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
+shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
+
 
 var tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 

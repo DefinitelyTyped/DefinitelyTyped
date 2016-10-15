@@ -1,4 +1,5 @@
-﻿/// <reference path="highstock.d.ts" /> 
+/// <reference path="highstock.d.ts" />
+/// <reference path="../jquery/jquery.d.ts" />
 
 var someData = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -46,7 +47,7 @@ $(function () {
             inputBoxHeight: 18,
             inputStyle: {
                 color: '#039',
-                fontWeight: 'bold'                
+                fontWeight: 'bold'
             },
             labelStyle: {
                 color: 'silver',
@@ -54,11 +55,10 @@ $(function () {
             }
         },
 
-        series: [<HighchartsAreaRangeChartSeriesOptions>{
+        series: [<__Highcharts.AreaRangeChartSeriesOptions>{
             name: 'USD to EUR',
             data: someData,
             lineColor: "blue"
         }]
     });
 });
-

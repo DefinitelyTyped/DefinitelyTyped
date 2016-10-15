@@ -5,7 +5,7 @@
 
 ///<reference path="rx-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface TimeInterval<T> {
 		value: T;
 		interval: number;

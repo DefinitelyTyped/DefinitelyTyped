@@ -1,7 +1,7 @@
 // Type definitions for node-multiparty
 // Project: https://github.com/andrewrk/node-multiparty
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
 
@@ -18,7 +18,7 @@ declare module "multiparty" {
      * @param request
      * @param callback
      */
-    parse(request: http.ServerRequest, callback?: (error: Error, fields: any, files: any) => any): void;
+    parse(request: http.IncomingMessage, callback?: (error: Error, fields: any, files: any) => any): void;
   }
 
   export interface File {

@@ -1,12 +1,12 @@
 // Type definitions for Angular Dialog Service 5.2.8
 // Project: https://github.com/m-e-conroy/angular-dialog-service
 // Definitions by: William Comartin <https://github.com/wcomartin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts"/>
 /// <reference path="../angular-ui-bootstrap/angular-ui-bootstrap.d.ts"/>
 
-declare module angular.dialogservice {
+declare namespace angular.dialogservice {
 
   interface IDialogOptions {
     /**
