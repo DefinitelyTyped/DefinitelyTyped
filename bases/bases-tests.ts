@@ -1,5 +1,5 @@
 /// <reference path="./bases.d.ts" />
-import bases = require('bases');
+import * as bases from 'bases';
  
 let bs16String: string = bases.toBase(200, 16);                // => 'c8' 
 let bs62String: string = bases.toBase(99999, 62);              // => 'q0T' 
