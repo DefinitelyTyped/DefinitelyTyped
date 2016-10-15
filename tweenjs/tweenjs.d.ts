@@ -163,5 +163,4 @@ declare namespace createjs {
         static buildDate: string;
         static version: string;
     }
-    
 }
