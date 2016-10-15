@@ -29,7 +29,7 @@ declare module "archiver" {
         directory(dirpath: string, destpath: nameInterface | string): void;
         directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
 
-        bulk(mappings: any);
+        bulk(mappings: any): void;
         finalize(): void;
     }
     
