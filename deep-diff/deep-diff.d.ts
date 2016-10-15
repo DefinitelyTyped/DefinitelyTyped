@@ -1,6 +1,6 @@
 // Type definitions for deep-diff
 // Project: https://github.com/flitbit/diff/
-// Definitions by: forabi <https://github.com/forabi/>
+// Definitions by: ZauberNerd <https://github.com/ZauberNerd/>, forabi <https://github.com/forabi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'deep-diff' {
