@@ -1,4 +1,4 @@
-// Type definitions for The Spotify Web API v1.0
+// Type definitions for The Spotify Web API (including api changes March 29th, 2016)
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

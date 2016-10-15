@@ -2,6 +2,8 @@
  * This test file contains the sample output from The Spotify Web Api obtained from [The Web API Console](https://developer.spotify.com/web-api/console/)
  * The standard suggested values for input were used.
  * 
+ * Updated for the March 29th, 2016 changes to the Spotify Web Api.
+ * 
  * Combined with the typings it should compile without errors.
  * 
  * The order of tests is the same as on [The Spotify Web Api](https://developer.spotify.com/web-api/endpoint-reference/)
