@@ -97,7 +97,7 @@ declare namespace __MaterialUI {
     interface TouchTapEventHandler extends React.EventHandler<TouchTapEvent> {
     }
 
-    interface ThemeWrapperProps extends React.Props<ThemeWrapper> {
+    interface ThemeWrapperProps {
         theme: Styles.MuiTheme;
     }
     export class ThemeWrapper extends React.Component<ThemeWrapperProps, {}> {
@@ -453,7 +453,7 @@ declare namespace __MaterialUI {
 
         export function muiThemeable<TComponent extends React.Component<P, S>, P, S>(): (component: TComponent) => TComponent;
 
-        interface MuiThemeProviderProps extends React.Props<MuiThemeProvider> {
+        interface MuiThemeProviderProps {
             muiTheme?: Styles.MuiTheme;
         }
         export class MuiThemeProvider extends React.Component<MuiThemeProviderProps, {}> {
@@ -488,7 +488,7 @@ declare namespace __MaterialUI {
         export var Typography: Typography;
     }
 
-    interface AppBarProps extends React.Props<AppBar> {
+    interface AppBarProps {
         className?: string;
         iconClassNameLeft?: string;
         iconClassNameRight?: string;
@@ -508,7 +508,7 @@ declare namespace __MaterialUI {
     export class AppBar extends React.Component<AppBarProps, {}> {
     }
 
-    interface AppCanvasProps extends React.Props<AppCanvas> {
+    interface AppCanvasProps {
     }
     export class AppCanvas extends React.Component<AppCanvasProps, {}> {
     }
@@ -529,7 +529,7 @@ declare namespace __MaterialUI {
 
     type AutoCompleteDataItem = { text: string, value: React.ReactNode } | string;
     type AutoCompleteDataSource = { text: string, value: React.ReactNode }[] | string[];
-    interface AutoCompleteProps extends React.Props<AutoComplete> {
+    interface AutoCompleteProps {
         anchorOrigin?: propTypes.origin;
         animated?: boolean;
         animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
@@ -572,7 +572,7 @@ declare namespace __MaterialUI {
         static Divider: Divider;
     }
 
-    interface AvatarProps extends React.Props<Avatar> {
+    interface AvatarProps {
         backgroundColor?: string;
         className?: string;
         color?: string;
@@ -584,7 +584,7 @@ declare namespace __MaterialUI {
     export class Avatar extends React.Component<AvatarProps, {}> {
     }
 
-    interface BadgeProps extends React.Props<Badge> {
+    interface BadgeProps {
         badgeContent: React.ReactNode;
         badgeStyle?: React.CSSProperties;
         className?: string;
@@ -595,7 +595,7 @@ declare namespace __MaterialUI {
     export class Badge extends React.Component<BadgeProps, {}> {
     }
 
-    interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
+    interface BeforeAfterWrapperProps {
         afterElementType?: string;
         afterStyle?: React.CSSProperties;
         beforeElementType?: string;
@@ -607,7 +607,7 @@ declare namespace __MaterialUI {
     }
 
     // non generally overridden elements of EnhancedButton
-    interface SharedEnhancedButtonProps<T> extends React.Props<T> {
+    interface SharedEnhancedButtonProps<T> {
         centerRipple?: boolean;
         disableFocusRipple?: boolean;
         disableKeyboardFocus?: boolean;
@@ -736,7 +736,7 @@ declare namespace __MaterialUI {
 
     namespace Card {
 
-        interface CardProps extends React.Props<Card> {
+        interface CardProps {
             className?: string;
             actAsExpander?: boolean;
             containerStyle?: React.CSSProperties;
@@ -750,7 +750,7 @@ declare namespace __MaterialUI {
         export class Card extends React.Component<CardProps, {}> {
         }
 
-        interface CardActionsProps extends React.Props<CardActions> {
+        interface CardActionsProps {
             actAsExpander?: boolean;
             expandable?: boolean;
             showExpandableButton?: boolean;
@@ -759,7 +759,7 @@ declare namespace __MaterialUI {
         export class CardActions extends React.Component<CardActionsProps, {}> {
         }
 
-        interface CardExpandableProps extends React.Props<CardExpandable> {
+        interface CardExpandableProps {
             expanded?: boolean;
             onExpanding?: (isExpanded: boolean) => void;
             style?: React.CSSProperties;
@@ -767,7 +767,7 @@ declare namespace __MaterialUI {
         export class CardExpandable extends React.Component<CardExpandableProps, {}> {
         }
 
-        interface CardHeaderProps extends React.Props<CardHeader> {
+        interface CardHeaderProps {
             actAsExpander?: boolean;
             avatar?: React.ReactNode;
             expandable?: boolean;
@@ -784,7 +784,7 @@ declare namespace __MaterialUI {
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
 
-        interface CardMediaProps extends React.Props<CardMedia> {
+        interface CardMediaProps {
             actAsExpander?: boolean;
             expandable?: boolean;
             mediaStyle?: React.CSSProperties;
@@ -797,7 +797,7 @@ declare namespace __MaterialUI {
         export class CardMedia extends React.Component<CardMediaProps, {}> {
         }
 
-        interface CardTextProps extends React.Props<CardText> {
+        interface CardTextProps {
             actAsExpander?: boolean;
             color?: string;
             expandable?: boolean;
@@ -806,7 +806,7 @@ declare namespace __MaterialUI {
         export class CardText extends React.Component<CardTextProps, {}> {
         }
 
-        interface CardTitleProps extends React.Props<CardTitle> {
+        interface CardTitleProps {
             actAsExpander?: boolean;
             expandable?: boolean;
             showExpandableButton?: boolean;
@@ -822,7 +822,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface ChipProps extends React.Props<Chip> {
+    interface ChipProps {
         backgroundColor?: string;
         className?: string;
         labelColor?: string;
@@ -835,7 +835,7 @@ declare namespace __MaterialUI {
     }
 
     namespace DatePicker {
-        interface DatePickerProps extends React.Props<DatePicker> {
+        interface DatePickerProps {
             // <TextField/> is the element that get the 'other' properties
             DateTimeFormat?: Intl.DateTimeFormat;
             autoOk?: boolean;
@@ -886,7 +886,7 @@ declare namespace __MaterialUI {
         export class DatePicker extends React.Component<DatePickerProps, {}> {
         }
 
-        interface DatePickerDialogProps extends React.Props<DatePickerDialog> {
+        interface DatePickerDialogProps {
             // <Container/> is the element that get the 'other' properties
             DateTimeFormat?: Intl.DateTimeFormat;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
@@ -911,7 +911,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface DialogProps extends React.DOMAttributes, React.Props<Dialog> {
+    interface DialogProps extends React.DOMAttributes {
         actions?: React.ReactElement<any> | React.ReactElement<any>[];
         actionsContainerClassName?: string;
         actionsContainerStyle?: React.CSSProperties;
@@ -936,7 +936,7 @@ declare namespace __MaterialUI {
     export class Dialog extends React.Component<DialogProps, {}> {
     }
 
-    interface DividerProps extends React.Props<Divider> {
+    interface DividerProps {
         className?: string;
         inset?: boolean;
         style?: React.CSSProperties;
@@ -944,7 +944,7 @@ declare namespace __MaterialUI {
     export class Divider extends React.Component<DividerProps, {}> {
     }
 
-    interface DrawerProps extends React.Props<Drawer> {
+    interface DrawerProps {
         className?: string;
         containerClassName?: string;
         containerStyle?: React.CSSProperties;
@@ -964,7 +964,7 @@ declare namespace __MaterialUI {
     }
 
     namespace GridList {
-        interface GridListProps extends React.Props<GridList> {
+        interface GridListProps {
             cellHeight?: number;
             cols?: number;
             padding?: number;
@@ -973,7 +973,7 @@ declare namespace __MaterialUI {
         export class GridList extends React.Component<GridListProps, {}> {
         }
 
-        interface GridTileProps extends React.Props<GridTile> {
+        interface GridTileProps {
             actionIcon?: React.ReactElement<any>;
             actionPosition?: "left" | "right";
             cols?: number;
@@ -989,7 +989,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface FontIconProps extends React.HTMLAttributes, React.Props<FontIcon> {
+    interface FontIconProps extends React.HTMLAttributes {
         // <span/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
@@ -1000,7 +1000,7 @@ declare namespace __MaterialUI {
     export class FontIcon extends React.Component<FontIconProps, {}> {
     }
 
-    interface SvgIconProps extends React.SVGAttributes, React.Props<SvgIcon> {
+    interface SvgIconProps extends React.SVGAttributes {
         // <svg/> is the element that get the 'other' properties
         color?: string;
         hoverColor?: string;
@@ -1013,14 +1013,14 @@ declare namespace __MaterialUI {
     }
 
     namespace List {
-        interface ListProps extends React.Props<List> {
+        interface ListProps {
             // <Paper/> is the element that get the 'other' properties
             style?: React.CSSProperties;
         }
         export class List extends React.Component<ListProps, {}> {
         }
 
-        interface ListItemProps extends React.HTMLAttributes, React.Props<ListItem> {
+        interface ListItemProps extends React.HTMLAttributes {
             // <EnhancedButton/> is the element that get the 'other' properties
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
@@ -1065,7 +1065,7 @@ declare namespace __MaterialUI {
     }
 
     namespace Menus {
-        interface MenuProps extends React.Props<Menu> {
+        interface MenuProps {
             // <List/> is the element that get the 'other' properties
             autoWidth?: boolean;
             desktop?: boolean;
@@ -1087,7 +1087,7 @@ declare namespace __MaterialUI {
         export class Menu extends React.Component<MenuProps, {}> {
         }
 
-        interface MenuItemProps extends React.HTMLAttributes, React.Props<MenuItem> {
+        interface MenuItemProps extends React.HTMLAttributes {
             // <ListItem/> is the element that get the 'other' properties
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             checked?: boolean;
@@ -1108,7 +1108,7 @@ declare namespace __MaterialUI {
         export class MenuItem extends React.Component<MenuItemProps, {}> {
         }
 
-        interface IconMenuProps extends React.Props<IconMenu> {
+        interface IconMenuProps {
             // <Menu/> is the element that get the 'other' properties
             anchorOrigin?: propTypes.origin;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
@@ -1146,7 +1146,7 @@ declare namespace __MaterialUI {
         export class IconMenu extends React.Component<IconMenuProps, {}> {
         }
 
-        interface DropDownMenuProps extends React.Props<DropDownMenu> {
+        interface DropDownMenuProps {
             // <div/> is the element that gets the 'other' properties
             animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
@@ -1168,7 +1168,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface PaperProps extends React.HTMLAttributes, React.Props<Paper> {
+    interface PaperProps extends React.HTMLAttributes {
         circle?: boolean;
         rounded?: boolean;
         style?: React.CSSProperties;
@@ -1184,7 +1184,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
         }
 
-        interface PopoverProps extends React.Props<Popover> {
+        interface PopoverProps {
             anchorEl?: React.ReactInstance;
             anchorOrigin?: propTypes.origin;
             animated?: boolean;
@@ -1202,7 +1202,7 @@ declare namespace __MaterialUI {
         export class Popover extends React.Component<PopoverProps, {}> {
         }
 
-        interface PopoverAnimationVerticalProps extends PopoverAnimationProps, React.Props<PopoverAnimationVertical> {
+        interface PopoverAnimationVerticalProps extends PopoverAnimationProps {
             className?: string;
             targetOrigin?: propTypes.origin;
             zDepth?: number;
@@ -1210,7 +1210,7 @@ declare namespace __MaterialUI {
         export class PopoverAnimationVertical extends React.Component<PopoverAnimationVerticalProps, {}> {
         }
 
-        interface PopoverAnimationDefaultProps extends PopoverAnimationProps, React.Props<PopoverAnimationDefault> {
+        interface PopoverAnimationDefaultProps extends PopoverAnimationProps {
             className?: string;
             targetOrigin?: propTypes.origin;
             zDepth?: number;
@@ -1219,7 +1219,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface CircularProgressProps extends React.Props<CircularProgress> {
+    interface CircularProgressProps {
         color?: string;
         innerStyle?: React.CSSProperties;
         max?: number;
@@ -1233,7 +1233,7 @@ declare namespace __MaterialUI {
     export class CircularProgress extends React.Component<CircularProgressProps, {}> {
     }
 
-    interface LinearProgressProps extends React.Props<LinearProgress> {
+    interface LinearProgressProps {
         color?: string;
         max?: number;
         min?: number;
@@ -1244,7 +1244,7 @@ declare namespace __MaterialUI {
     export class LinearProgress extends React.Component<LinearProgressProps, {}> {
     }
 
-    interface RefreshIndicatorProps extends React.Props<RefreshIndicator> {
+    interface RefreshIndicatorProps {
         color?: string;
         left: number;
         loadingColor?: string;
@@ -1257,7 +1257,7 @@ declare namespace __MaterialUI {
     export class RefreshIndicator extends React.Component<RefreshIndicatorProps, {}> {
     }
 
-    interface SelectFieldProps extends React.Props<SelectField> {
+    interface SelectFieldProps {
         // <DropDownMenu/> is the element that get the 'other' properties
         autoWidth?: boolean;
         disabled?: boolean;
@@ -1286,7 +1286,7 @@ declare namespace __MaterialUI {
     export class SelectField extends React.Component<SelectFieldProps, {}> {
     }
 
-    interface SliderProps extends React.Props<Slider> {
+    interface SliderProps {
         axis?: 'x' | 'x-reverse' | 'y' | 'y-reverse';
         defaultValue?: number;
         description?: string;
@@ -1313,7 +1313,7 @@ declare namespace __MaterialUI {
     namespace Switches {
 
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-        interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
+        interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes {
         }
 
         interface CheckboxProps extends CommonEnhancedSwitchProps<Checkbox> {
@@ -1355,7 +1355,7 @@ declare namespace __MaterialUI {
             getValue(): string;
         }
 
-        interface RadioButtonGroupProps extends React.Props<RadioButtonGroup> {
+        interface RadioButtonGroupProps {
             className?: string;
             defaultSelected?: any;
             labelPosition?: "left" | "right";
@@ -1399,7 +1399,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface SnackbarProps extends React.Props<Snackbar> {
+    interface SnackbarProps {
         action?: React.ReactNode;
         autoHideDuration?: number;
         bodyStyle?: React.CSSProperties;
@@ -1415,7 +1415,7 @@ declare namespace __MaterialUI {
     }
 
     namespace Stepper {
-        interface StepProps extends React.Props<Step> {
+        interface StepProps {
             active?: boolean;
             completed?: boolean;
             disabled?: boolean;
@@ -1437,7 +1437,7 @@ declare namespace __MaterialUI {
         export class StepButton extends React.Component<StepButtonProps, {}> {
         }
 
-        interface StepContentProps extends React.Props<StepContent> {
+        interface StepContentProps {
             active?: boolean;
             last?: boolean;
             style?: React.CSSProperties;
@@ -1445,7 +1445,7 @@ declare namespace __MaterialUI {
         export class StepContent extends React.Component<StepContentProps, {}> {
         }
 
-        interface StepLabelProps extends React.Props<StepLabel> {
+        interface StepLabelProps {
             active?: boolean;
             completed?: boolean;
             disabled?: boolean;
@@ -1455,7 +1455,7 @@ declare namespace __MaterialUI {
         export class StepLabel extends React.Component<StepLabelProps, {}> {
         }
 
-        interface StepperProps extends React.Props<Stepper> {
+        interface StepperProps {
             activeStep?: number;
             linear?: boolean;
             orientation?: "horizontal" | "vertical";
@@ -1465,7 +1465,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface SubheaderProps extends React.Props<Subheader> {
+    interface SubheaderProps {
         inset?: boolean;
         style?: React.CSSProperties;
     }
@@ -1473,7 +1473,7 @@ declare namespace __MaterialUI {
     }
 
     namespace Table {
-        interface TableProps extends React.Props<Table> {
+        interface TableProps {
             allRowsSelected?: boolean;
             bodyStyle?: React.CSSProperties;
             className?: string;
@@ -1496,7 +1496,7 @@ declare namespace __MaterialUI {
         export class Table extends React.Component<TableProps, {}> {
         }
 
-        interface TableRowProps extends React.Props<TableRow> {
+        interface TableRowProps {
             // <tr/> is element that get the 'other' properties
             className?: string;
             displayBorder?: boolean;
@@ -1523,7 +1523,7 @@ declare namespace __MaterialUI {
         export class TableRow extends React.Component<TableRowProps, {}> {
         }
 
-        interface TableRowColumnProps extends React.Props<TableRowColumn> {
+        interface TableRowColumnProps {
             // <td/> is element that get the 'other' properties
             className?: string;
             columnNumber?: number;
@@ -1543,7 +1543,7 @@ declare namespace __MaterialUI {
         export class TableRowColumn extends React.Component<TableRowColumnProps, {}> {
         }
 
-        interface TableHeaderProps extends React.Props<TableHeader> {
+        interface TableHeaderProps {
             adjustForCheckbox?: boolean;
             className?: string;
             displaySelectAll?: boolean;
@@ -1557,7 +1557,7 @@ declare namespace __MaterialUI {
         export class TableHeader extends React.Component<TableHeaderProps, {}> {
         }
 
-        interface TableHeaderColumnProps extends React.Props<TableHeaderColumn> {
+        interface TableHeaderColumnProps {
             // <th/> is element that get the 'other' properties
             className?: string;
             columnNumber?: number;
@@ -1572,7 +1572,7 @@ declare namespace __MaterialUI {
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps, {}> {
         }
 
-        interface TableBodyProps extends React.Props<TableBody> {
+        interface TableBodyProps {
             /** @deprecated Instead, use property on Table */
             allRowsSelected?: boolean;
             className?: string;
@@ -1602,7 +1602,7 @@ declare namespace __MaterialUI {
         export class TableBody extends React.Component<TableBodyProps, {}> {
         }
 
-        interface TableFooterProps extends React.Props<TableFooter> {
+        interface TableFooterProps {
             // <tfoot/> is element that get the 'other' properties
             adjustForCheckbox?: boolean;
             className?: string;
@@ -1613,7 +1613,7 @@ declare namespace __MaterialUI {
     }
 
     namespace Tabs {
-        interface TabsProps extends React.Props<Tabs> {
+        interface TabsProps {
             className?: string;
             contentContainerClassName?: string;
             contentContainerStyle?: React.CSSProperties;
@@ -1642,7 +1642,7 @@ declare namespace __MaterialUI {
         }
     }
 
-    interface TextFieldProps extends React.Props<TextField> {
+    interface TextFieldProps {
         className?: string;
         defaultValue?: string | number;
         disabled?: boolean;
@@ -1685,7 +1685,7 @@ declare namespace __MaterialUI {
         getInputNode(): HTMLInputElement;
     }
 
-    interface TimePickerProps extends React.Props<TimePicker> {
+    interface TimePickerProps {
         // <TextField/> is element that get the 'other' properties
         autoOk?: boolean;
         cancelLabel?: React.ReactNode;
@@ -1739,7 +1739,7 @@ declare namespace __MaterialUI {
     }
 
     namespace Toolbar {
-        interface ToolbarProps extends React.Props<Toolbar> {
+        interface ToolbarProps {
             className?: string;
             noGutter?: boolean;
             style?: React.CSSProperties;
@@ -1747,7 +1747,7 @@ declare namespace __MaterialUI {
         export class Toolbar extends React.Component<ToolbarProps, {}> {
         }
 
-        interface ToolbarGroupProps extends React.Props<ToolbarGroup> {
+        interface ToolbarGroupProps {
             className?: string;
             firstChild?: boolean;
             float?: "left" | "right";
@@ -1757,14 +1757,14 @@ declare namespace __MaterialUI {
         export class ToolbarGroup extends React.Component<ToolbarGroupProps, {}> {
         }
 
-        interface ToolbarSeparatorProps extends React.Props<ToolbarSeparator> {
+        interface ToolbarSeparatorProps {
             className?: string;
             style?: React.CSSProperties;
         }
         export class ToolbarSeparator extends React.Component<ToolbarSeparatorProps, {}> {
         }
 
-        interface ToolbarTitleProps extends React.HTMLAttributes, React.Props<ToolbarTitle> {
+        interface ToolbarTitleProps extends React.HTMLAttributes {
             className?: string;
             style?: React.CSSProperties;
             text?: string;
@@ -8401,14 +8401,14 @@ declare module "material-ui/svg-icons" {
 
 
 declare module 'material-ui/internal/AppCanvas' {
-    interface AppCanvasProps extends __React.Props<AppCanvas> {
+    interface AppCanvasProps {
     }
     class AppCanvas extends __React.Component<AppCanvasProps, {}> {
     }
     export default AppCanvas;
 }
 declare module 'material-ui/internal/AutoLockScrolling' {
-    interface AutoLockScrollingProps extends __React.Props<AutoLockScrolling> {
+    interface AutoLockScrollingProps {
         lock: boolean;
     }
     class AutoLockScrolling extends __React.Component<AutoLockScrollingProps, {}> {
@@ -8416,7 +8416,7 @@ declare module 'material-ui/internal/AutoLockScrolling' {
     export default AutoLockScrolling;
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
-    interface BeforeAfterWrapperProps extends __React.Props<BeforeAfterWrapper> {
+    interface BeforeAfterWrapperProps {
         afterElementType?: string,
         afterStyle?: __React.CSSProperties,
         beforeElementType?: string,
@@ -8429,7 +8429,7 @@ declare module 'material-ui/internal/BeforeAfterWrapper' {
     export default BeforeAfterWrapper;
 }
 declare module 'material-ui/internal/CircleRipple' {
-    interface CircleRippleProps extends __React.Props<CircleRipple> {
+    interface CircleRippleProps {
         aborted?: boolean;
         color?: string;
         opacity?: number;
@@ -8440,7 +8440,7 @@ declare module 'material-ui/internal/CircleRipple' {
     export default CircleRipple;
 }
 declare module 'material-ui/internal/ClearFix' {
-    interface ClearFixProps extends __React.Props<ClearFix> {
+    interface ClearFixProps {
         style?: __React.CSSProperties;
     }
     class ClearFix extends __React.Component<ClearFixProps, {}> {
@@ -8448,7 +8448,7 @@ declare module 'material-ui/internal/ClearFix' {
     export default ClearFix;
 }
 declare module 'material-ui/internal/ClickAwayListener' {
-    interface ClickAwayListenerProps extends __React.Props<ClickAwayListener> {
+    interface ClickAwayListenerProps {
         onClickAway?: any,
     }
     class ClickAwayListener extends __React.Component<ClickAwayListenerProps, {}> {
@@ -8470,7 +8470,7 @@ declare module 'material-ui/internal/EnhancedSwitch' {
     export default EnhancedSwitch;
 }
 declare module 'material-ui/internal/ExpandTransition' {
-    interface ExpandTransitionProps extends __React.Props<ExpandTransition> {
+    interface ExpandTransitionProps {
         enterDelay?: number;
         loading?: boolean;
         open?: boolean;
@@ -8483,7 +8483,7 @@ declare module 'material-ui/internal/ExpandTransition' {
     export default ExpandTransition;
 }
 declare module 'material-ui/internal/ExpandTransitionChild' {
-    interface ExpandTransitionChildProps extends __React.Props<ExpandTransitionChild> {
+    interface ExpandTransitionChildProps {
         enterDelay?: number;
         style?: __React.CSSProperties;
         transitionDelay?: number;
@@ -8494,7 +8494,7 @@ declare module 'material-ui/internal/ExpandTransitionChild' {
     export default ExpandTransitionChild;
 }
 declare module 'material-ui/internal/FocusRipple' {
-    interface FocusRippleProps extends __React.Props<FocusRipple> {
+    interface FocusRippleProps {
         color?: string,
         innerStyle?: __React.CSSProperties,
         opacity?: number,
@@ -8506,7 +8506,7 @@ declare module 'material-ui/internal/FocusRipple' {
     export default FocusRipple;
 }
 declare module 'material-ui/internal/Overlay' {
-    interface OverlayProps extends __React.Props<Overlay> {
+    interface OverlayProps {
         autoLockScrolling?: boolean;
         show: boolean;
         style?: __React.CSSProperties;
@@ -8517,7 +8517,7 @@ declare module 'material-ui/internal/Overlay' {
     export default Overlay;
 }
 declare module 'material-ui/internal/RenderToLayer' {
-    interface RenderToLayerProps extends __React.Props<RenderToLayer> {
+    interface RenderToLayerProps {
         componentClickAway?: Function;
         open: boolean;
         render: Function;
@@ -8528,7 +8528,7 @@ declare module 'material-ui/internal/RenderToLayer' {
     export default RenderToLayer;
 }
 declare module 'material-ui/internal/ScaleIn' {
-    interface ScaleInProps extends __React.Props<ScaleIn> {
+    interface ScaleInProps {
         childStyle?: __React.CSSProperties;
         enterDelay?: number;
         maxScale?: number;
@@ -8539,7 +8539,7 @@ declare module 'material-ui/internal/ScaleIn' {
     export default ScaleIn;
 }
 declare module 'material-ui/internal/ScaleInChild' {
-    interface ScaleInChildProps extends __React.Props<ScaleInChild> {
+    interface ScaleInChildProps {
         enterDelay?: number;
         maxScale?: number;
         minScale?: number;
@@ -8550,7 +8550,7 @@ declare module 'material-ui/internal/ScaleInChild' {
     export default ScaleInChild;
 }
 declare module 'material-ui/internal/SlideIn' {
-    interface SlideInProps extends __React.Props<SlideIn> {
+    interface SlideInProps {
         childStyle?: __React.CSSProperties;
         direction?: __MaterialUI.propTypes.direction;
         enterDelay?: number;
@@ -8561,7 +8561,7 @@ declare module 'material-ui/internal/SlideIn' {
     export default SlideIn;
 }
 declare module 'material-ui/internal/SlideInChild' {
-    interface SlideInChildProps extends __React.Props<SlideInChild> {
+    interface SlideInChildProps {
         direction?: string,
         enterDelay?: number;
         getLeaveDirection: Function;
@@ -8572,7 +8572,7 @@ declare module 'material-ui/internal/SlideInChild' {
     export default SlideInChild;
 }
 declare module 'material-ui/internal/Tooltip' {
-    interface TooltipProps extends __React.Props<Tooltip> {
+    interface TooltipProps {
         className?: string;
         horizontalPosition?: __MaterialUI.propTypes.horizontal;
         label: any;
@@ -8586,7 +8586,7 @@ declare module 'material-ui/internal/Tooltip' {
     export default Tooltip;
 }
 declare module 'material-ui/internal/TouchRipple' {
-    interface TouchRippleProps extends __React.Props<TouchRipple> {
+    interface TouchRippleProps {
         abortOnScroll?: boolean,
         centerRipple?: boolean;
         color?: string;
