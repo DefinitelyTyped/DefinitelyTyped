@@ -1185,6 +1185,11 @@ declare namespace L {
         distance: number;
     }
 
+    export namespace DomEvent {
+        export function disableScrollPropagation(el: HTMLScriptElement): any;
+        export function disableClickPropagation(el: HTMLScriptElement): any;
+    }
+
     interface DefaultMapPanes {
         mapPane: HTMLElement;
         tilePane: HTMLElement;
