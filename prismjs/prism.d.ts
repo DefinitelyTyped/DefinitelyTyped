@@ -162,5 +162,4 @@ declare namespace PrismJS {
 		stringify(o:string| Array<any>, language: LanguageDefinition, parent: HTMLPreElement): string; 
 	}
 }
-
 declare var Prism : PrismJS.Prism; 
