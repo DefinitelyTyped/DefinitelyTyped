@@ -117,6 +117,20 @@ declare namespace SpotifyApi {
     }
 
     /**
+     * Get audio features for a track
+     * GET /v1/audio-features/{id}
+     */
+    interface AudioFeaturesResponse extends AudioFeaturesObject {}
+
+    /**
+     * Get audio features for several tracks
+     * GET /v1/audio-features
+     */
+    interface MultipleAudioFeaturesResponse {
+        "audio_features": AudioFeaturesObject[]
+    }
+
+    /**
      * Get a list of featured playlists
      * GET /v1/browse/featured-playlists
      */
@@ -465,6 +479,31 @@ declare namespace SpotifyApi {
         name: string,
         type: string,
         uri: string
+    }
+
+    /**
+     * Audio Features Object
+     * https://developer.spotify.com/web-api/object-model/#audio-features-object
+     */
+    interface AudioFeaturesObject {
+        acousticness: number,
+        analysis_url: string,
+        danceability: number,
+        duration_ms: number,
+        energy: number,
+        id: string,
+        instrumentalness: number,
+        key: number,
+        liveness: number,
+        loudness: number,
+        mode: number,
+        speechiness: number,
+        tempo: number,
+        time_signature: number,
+        track_href: string,
+        type: "audio_features",
+        uri: string,
+        valence: number
     }
 
     /**
