@@ -383,47 +383,8 @@ declare namespace SpotifyApi {
 
 
     //
-    // Objects from the Object Models of the Spotify Web Api
+    // Objects from the Object Models of the Spotify Web Api, ordered alphabetically.
     // [Object Model](https://developer.spotify.com/web-api/object-model)
-    //
-
-    //
-    // The Paging Object wrappers used for retrieving collections from the Spotify API.
-    //
-
-    /**
-     * BasePagingObject which the IPagingObject and ICursorBasedPagingObject extend from.
-     * Doesn't exist in itself in the spotify API.
-     */
-    interface BasePagingObject <T>{
-        href: string,
-        items: T[],
-        limit: number,
-        next: string,
-        total: number
-    }
-
-    /**
-     * Paging Object wrapper used for retrieving collections from the Spotify API.
-     * [](https://developer.spotify.com/web-api/object-model/#paging-object)
-     */
-    interface PagingObject<T> extends BasePagingObject<T> {
-        previous: string,
-        offset: number
-    }
-
-    /**
-     * Cursor Based Paging Object wrappers used for retrieving collections from the Spotify API.
-     * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
-     */
-    interface CursorBasedPagingObject<T> extends BasePagingObject<T> {
-        cursors: CursorObject
-    }
-
-
-
-    //
-    // All other objects of the Object Models from the Spotify Web Api, ordered alphabetically.
     //
 
     /**
@@ -582,6 +543,33 @@ declare namespace SpotifyApi {
         height?: number,
         url: string,
         width?: number
+    }
+
+    /**
+     * Paging Object wrapper used for retrieving collections from the Spotify API.
+     * [](https://developer.spotify.com/web-api/object-model/#paging-object)
+     */
+    interface PagingObject<T> {
+        href: string,
+        items: T[],
+        limit: number,
+        next: string,
+        offset: number,
+        previous: string,
+        total: number
+    }
+
+    /**
+     * Cursor Based Paging Object wrappers used for retrieving collections from the Spotify API.
+     * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
+     */
+    interface CursorBasedPagingObject<T> {
+        href: string,
+        items: T[],
+        limit: number,
+        next: string,
+        cursors: CursorObject,
+        total: number
     }
 
     /**
