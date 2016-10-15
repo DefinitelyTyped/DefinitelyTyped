@@ -263,6 +263,18 @@ declare namespace SpotifyApi {
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
 
     /**
+     * Get a User’s Top Artists and Tracks
+     * GET /v1/me/top/{type}
+     */
+    interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
+
+    /**
+     * Get a User’s Top Artists and Tracks
+     * GET /v1/me/top/{type}
+     */
+    interface UsersTopArtistsResponse extends PagingObject<ArtistObjectFull> {}
+
+    /**
      * Get recommendations based on seeds
      * GET /v1/recommendations
      */

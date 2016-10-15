@@ -5139,6 +5139,227 @@ const checkUsersSavedAlbums : SpotifyApi.CheckUserSavedAlbumsResponse = [ true, 
 
 
 /**
+ * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ */
+const usersTopArtists : SpotifyApi.UsersTopArtistsResponse = {
+    "items" : [ 
+      {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3qqhR4mOQZP2t2I6QmU8lE"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 3670
+      },
+      "genres" : [ "danish pop rock" ],
+      "href" : "https://api.spotify.com/v1/artists/3qqhR4mOQZP2t2I6QmU8lE",
+      "id" : "3qqhR4mOQZP2t2I6QmU8lE",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/8ec6329ea80912effd2a7788a932bd59ff5842ff",
+        "width" : 640
+      }, {
+        "height" : 320,
+        "url" : "https://i.scdn.co/image/cfc97d0e49529141efc22fb9aa766c2887d79ba2",
+        "width" : 320
+      }, {
+        "height" : 160,
+        "url" : "https://i.scdn.co/image/efb71bf852c51426bee57c42d1cfb9f46749df4e",
+        "width" : 160
+      } ],
+      "name" : "Folkeklubben",
+      "popularity" : 43,
+      "type" : "artist",
+      "uri" : "spotify:artist:3qqhR4mOQZP2t2I6QmU8lE"
+    }, 
+    {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5CuU6SRJjbbZL926nSGGxX"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 18429
+      },
+      "genres" : [ "abstract hip hop", "alternative hip hop", "escape room", "underground hip hop" ],
+      "href" : "https://api.spotify.com/v1/artists/5CuU6SRJjbbZL926nSGGxX",
+      "id" : "5CuU6SRJjbbZL926nSGGxX",
+      "images" : [ {
+        "height" : 714,
+        "url" : "https://i.scdn.co/image/7a79a4f7ef164f418034d6fe5e53be24123610bf",
+        "width" : 999
+      }, {
+        "height" : 457,
+        "url" : "https://i.scdn.co/image/9f1519e9e53a61d88655d9203f9524d363157b31",
+        "width" : 640
+      }, {
+        "height" : 143,
+        "url" : "https://i.scdn.co/image/3c1436cf75d5c7f2ba027a914e4970a100e9150a",
+        "width" : 200
+      }, {
+        "height" : 46,
+        "url" : "https://i.scdn.co/image/d1711c38b18f473e805a296755931c99b9c85671",
+        "width" : 64
+      } ],
+      "name" : "Open Mike Eagle",
+      "popularity" : 49,
+      "type" : "artist",
+      "uri" : "spotify:artist:5CuU6SRJjbbZL926nSGGxX"
+    }
+  ],
+  "total" : 50,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/artists",
+  "previous" : null,
+  "next" : "https://api.spotify.com/v1/me/top/artists?limit=20&offset=20"
+}
+
+
+
+
+/**
+ * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ */
+const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
+    "items" : [ 
+      {
+        "album" : {
+          "album_type" : "SINGLE",
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/40LbnfieVTWtHrK24WQeEB"
+          },
+          "href" : "https://api.spotify.com/v1/albums/40LbnfieVTWtHrK24WQeEB",
+          "id" : "40LbnfieVTWtHrK24WQeEB",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/d013904153a1c3771a7f851132b090254c39a51b",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/84b9940cb99bf1072d553158c6e23426cb13b789",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/65234ee4a5155e1e9848d73c9a5d4167640c5442",
+            "width" : 64
+          } ],
+          "name" : "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
+          "type" : "album",
+          "uri" : "spotify:album:40LbnfieVTWtHrK24WQeEB"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/31TPClRtHm23RisEBtV3X7"
+          },
+          "href" : "https://api.spotify.com/v1/artists/31TPClRtHm23RisEBtV3X7",
+          "id" : "31TPClRtHm23RisEBtV3X7",
+          "name" : "Justin Timberlake",
+          "type" : "artist",
+          "uri" : "spotify:artist:31TPClRtHm23RisEBtV3X7"
+        } ],
+        "disc_number" : 1,
+        "duration_ms" : 236001,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USRC11600876"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6JV2JOEocMgcZxYSZelKcc"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6JV2JOEocMgcZxYSZelKcc",
+        "id" : "6JV2JOEocMgcZxYSZelKcc",
+        "is_playable" : true,
+        "name" : "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
+        "popularity" : 89,
+        "preview_url" : "https://p.scdn.co/mp3-preview/9127f47e7e5265f51ab9e1a8d5d8edb9b7cb91a5",
+        "track_number" : 1,
+        "type" : "track",
+        "uri" : "spotify:track:6JV2JOEocMgcZxYSZelKcc"
+      }, {
+        "album" : {
+          "album_type" : "ALBUM",
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/7LWTCCUFJ0USkRscNJJrI5"
+          },
+          "href" : "https://api.spotify.com/v1/albums/7LWTCCUFJ0USkRscNJJrI5",
+          "id" : "7LWTCCUFJ0USkRscNJJrI5",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/5ba38a31cba7dad300b8e0faa9855831e56d5aa8",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/f2ff9436752a06bdbb37f932526d30d0d48faa62",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/bf9b129dcae3ff55d28c6cb637a31fda11bf19c4",
+            "width" : 64
+          } ],
+          "name" : "Hella Personal Film Festival",
+          "type" : "album",
+          "uri" : "spotify:album:7LWTCCUFJ0USkRscNJJrI5"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5CuU6SRJjbbZL926nSGGxX"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5CuU6SRJjbbZL926nSGGxX",
+          "id" : "5CuU6SRJjbbZL926nSGGxX",
+          "name" : "Open Mike Eagle",
+          "type" : "artist",
+          "uri" : "spotify:artist:5CuU6SRJjbbZL926nSGGxX"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5agXR9PXcQ3whCRLu8LeeN"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5agXR9PXcQ3whCRLu8LeeN",
+          "id" : "5agXR9PXcQ3whCRLu8LeeN",
+          "name" : "Paul White",
+          "type" : "artist",
+          "uri" : "spotify:artist:5agXR9PXcQ3whCRLu8LeeN"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/2fSaE6BXtQy0x7R7v9IOmZ"
+          },
+          "href" : "https://api.spotify.com/v1/artists/2fSaE6BXtQy0x7R7v9IOmZ",
+          "id" : "2fSaE6BXtQy0x7R7v9IOmZ",
+          "name" : "Aesop Rock",
+          "type" : "artist",
+          "uri" : "spotify:artist:2fSaE6BXtQy0x7R7v9IOmZ"
+        } ],
+        "disc_number" : 1,
+        "duration_ms" : 163607,
+        "explicit" : true,
+        "external_ids" : {
+          "isrc" : "QMDA61502901"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/27q05upTUtvQKCReZDy4PH"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/27q05upTUtvQKCReZDy4PH",
+        "id" : "27q05upTUtvQKCReZDy4PH",
+        "is_playable" : true,
+        "name" : "I Went Outside Today (feat. Aesop Rock)",
+        "popularity" : 30,
+        "preview_url" : "https://p.scdn.co/mp3-preview/715ab2ac2089a6fb99afe37cb7ea73c0a4788171",
+        "track_number" : 2,
+        "type" : "track",
+        "uri" : "spotify:track:27q05upTUtvQKCReZDy4PH"
+      }
+  ],
+  "total" : 50,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/tracks",
+  "previous" : null,
+  "next" : "https://api.spotify.com/v1/me/top/tracks?limit=20&offset=20"
+}
+
+
+
+
+/**
  * Tests 
  */
 const recommendationsBasedOnSeeds: SpotifyApi.RecommendationsFromSeedsResponse = {
