@@ -16,5 +16,7 @@ declare namespace THREE {
         zeroSensor(): void;
 
         scale: number;
+
+        setVRDisplay(display: VRDisplay);
     }
 }
