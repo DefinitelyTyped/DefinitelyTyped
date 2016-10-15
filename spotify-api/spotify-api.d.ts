@@ -263,6 +263,12 @@ declare namespace SpotifyApi {
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
 
     /**
+     * Get recommendations based on seeds
+     * GET /v1/recommendations
+     */
+    interface RecommendationsFromSeedsResponse extends RecommendationsObject {}
+
+    /**
      * Search for an album
      * GET /v1/search?type=album
      */
@@ -620,6 +626,28 @@ declare namespace SpotifyApi {
         added_by: UserObjectPublic,
         is_local: boolean,
         track: TrackObjectFull
+    }
+
+    /**
+     * Recommendations Object
+     * [](https://developer.spotify.com/web-api/object-model/#recommendations-object)
+     */
+    interface RecommendationsObject {
+        seeds: RecommendationsSeedObject[],
+        tracks: TrackObjectSimplified[]
+    }
+
+    /**
+     * Recommendations Seed Object
+     * [](https://developer.spotify.com/web-api/object-model/#recommendations-seed-object)
+     */
+    interface RecommendationsSeedObject {
+        afterFilteringSize: number,
+        afterRelinkingSize: number,
+        href: string,
+        id: string,
+        initialPoolSize: number,
+        type: "artist" | "track" | "genre"
     }
 
     /**
