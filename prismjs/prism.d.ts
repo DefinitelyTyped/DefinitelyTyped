@@ -162,4 +162,4 @@ declare namespace PrismJS {
 }
 		
 declare var Prism : PrismJS.Prism; 
-export = Prism;
+export as namespace Prism;
