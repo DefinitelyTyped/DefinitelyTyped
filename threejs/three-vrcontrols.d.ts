@@ -18,6 +18,6 @@ declare namespace THREE {
 
         scale: number;
 
-        setVRDisplay(display: VRDisplay);
+        setVRDisplay(display: VRDisplay): void;
     }
 }

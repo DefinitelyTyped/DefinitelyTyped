@@ -16,7 +16,7 @@ declare namespace THREE {
         FovToNDCScaleOffset(fov: VRFov): VREffectOffset;
         FovPortToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
         FovToProjection(fov: VRFov, rightHanded: boolean, zNear: number, zFar: number): Matrix4;
-        setVRDisplay(display: VRDisplay);
+        setVRDisplay(display: VRDisplay): void;
     }
 
     export interface VRFov{
