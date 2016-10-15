@@ -157,7 +157,7 @@ declare module "knex" {
 
     interface Table {
       (tableName: string): QueryBuilder;
-      (callback: Function): QueryBuilder;
+      (callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
     }
 
     interface Distinct extends ColumnNameQueryBuilder {
