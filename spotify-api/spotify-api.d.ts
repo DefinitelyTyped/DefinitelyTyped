@@ -432,7 +432,7 @@ declare namespace SpotifyApi {
         id: string,
         images: ImageObject[],
         name: string,
-        type: string,
+        type: "album",
         uri: string
     }
 
@@ -456,7 +456,7 @@ declare namespace SpotifyApi {
         href: string,
         id: string,
         name: string,
-        type: string,
+        type: "artist",
         uri: string
     }
 
@@ -502,7 +502,7 @@ declare namespace SpotifyApi {
      */
     interface CopyrightObject {
         text: string,
-        type: string
+        type: "C" | "P"
     }
 
     /**
@@ -604,7 +604,7 @@ declare namespace SpotifyApi {
         owner: UserObjectPublic,
         public: boolean,
         snapshot_id: string,
-        type: string,
+        type: "playlist",
         uri: string
     }
 
@@ -708,7 +708,7 @@ declare namespace SpotifyApi {
         name: string,
         preview_url: string,
         track_number: number,
-        type: string,
+        type: "track",
         uri: string
     }
 
@@ -720,7 +720,7 @@ declare namespace SpotifyApi {
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
-        type: string,
+        type: "track",
         uri: string
     }
 
@@ -746,7 +746,7 @@ declare namespace SpotifyApi {
         href: string,
         id: string,
         images?: ImageObject[],
-        type: string,
+        type: "user",
         uri: string
     }
 
