@@ -5,7 +5,7 @@
 
 declare module "random-seed" {
 
-  interface RandomSeed {
+  export interface RandomSeed {
     range (range: number): number;
     random (): number;
     floatBetween (min: number, max: number): number;
@@ -23,11 +23,6 @@ declare module "random-seed" {
     done (): void;
   }
 
-  function create (seed?: string): RandomSeed;
+  export function create (seed?: string): RandomSeed;
 
-  namespace create {
-    function create(seed?: string): RandomSeed;
-  }
-
-  export = create;
 }
