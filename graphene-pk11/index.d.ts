@@ -1047,7 +1047,7 @@ declare class X509Certificate extends Certificate {
 
 interface IAlgorithm {
     name: string;
-    params: Buffer | IParams | null;
+    params?: Buffer | IParams;
 }
 
 type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
@@ -1633,400 +1633,400 @@ interface ITemplate {
     /**
      * CKA_CLASS
      */
-    class?: number | null;
+    class?: number;
     /**
      * CKA_TOKEN
      */
-    token?: boolean | null;
+    token?: boolean;
     /**
      * CKA_PRIVATE
      */
-    private?: boolean | null;
+    private?: boolean;
     /**
      * CKA_LABEL
      */
-    label?: string | null;
+    label?: string;
     /**
      * CKA_APPLICATION
      */
-    application?: string | null;
+    application?: string;
     /**
      * CKA_VALUE
      */
-    value?: Buffer | null;
+    value?: Buffer;
     /**
      * CKA_OBJECT_ID
      */
-    objectId?: Buffer | null;
+    objectId?: Buffer;
     /**
      * CKA_CERTIFICATE_TYPE
      */
-    certType?: number | null;
+    certType?: number;
     /**
      * CKA_ISSUER
      */
-    issuer?: Buffer | null;
+    issuer?: Buffer;
     /**
      * CKA_SERIAL_NUMBER
      */
-    serial?: Buffer | null;
+    serial?: Buffer;
     /**
      * CKA_AC_ISSUER
      */
-    issuerAC?: Buffer | null;
+    issuerAC?: Buffer;
     /**
      * CKA_OWNER
      */
-    owner?: Buffer | null;
+    owner?: Buffer;
     /**
      * CKA_ATTR_TYPES
      */
-    attrTypes?: Buffer | null;
+    attrTypes?: Buffer;
     /**
      * CKA_TRUSTED
      */
-    trusted?: boolean | null;
+    trusted?: boolean;
     /**
      * CKA_CERTIFICATE_CATEGORY
      */
-    certCategory?: number | null;
+    certCategory?: number;
     /**
      * CKA_JAVA_MIDP_SECURITY_DOMAIN
      */
-    javaDomain?: number | null;
+    javaDomain?: number;
     /**
      * CKA_URL
      */
-    url?: string | null;
+    url?: string;
     /**
      * CKA_HASH_OF_SUBJECT_PUBLIC_KEY
      */
-    ski?: Buffer | null;
+    ski?: Buffer;
     /**
      * CKA_HASH_OF_ISSUER_PUBLIC_KEY
      */
-    aki?: Buffer | null;
+    aki?: Buffer;
     /**
      * CKA_NAME_HASH_ALGORITHM
      */
-    digestName?: number | null;
+    digestName?: number;
     /**
      * CKA_CHECK_VALUE
      */
-    checkValue?: Buffer | null;
+    checkValue?: Buffer;
     /**
      * CKA_KEY_TYPE
      */
-    keyType?: number | null;
+    keyType?: number;
     /**
      * CKA_SUBJECT
      */
-    subject?: Buffer | null;
+    subject?: Buffer;
     /**
      * CKA_ID
      */
-    id?: Buffer | null;
+    id?: Buffer;
     /**
      * CKA_SENSITIVE
      */
-    sensitive?: boolean | null;
+    sensitive?: boolean;
     /**
      * CKA_ENCRYPT
      */
-    encrypt?: boolean | null;
+    encrypt?: boolean;
     /**
      * CKA_DECRYPT
      */
-    decrypt?: boolean | null;
+    decrypt?: boolean;
     /**
      * CKA_WRAP
      */
-    wrap?: boolean | null;
+    wrap?: boolean;
     /**
      * CKA_UNWRAP
      */
-    unwrap?: boolean | null;
+    unwrap?: boolean;
     /**
      * CKA_SIGN
      */
-    sign?: boolean | null;
+    sign?: boolean;
     /**
      * CKA_SIGN_RECOVER
      */
-    signRecover?: boolean | null;
+    signRecover?: boolean;
     /**
      * CKA_VERIFY
      */
-    verify?: boolean | null;
+    verify?: boolean;
     /**
      * CKA_VERIFY_RECOVER
      */
-    verifyRecover?: boolean | null;
+    verifyRecover?: boolean;
     /**
      * CKA_DERIVE
      */
-    derive?: boolean | null;
+    derive?: boolean;
     /**
      * CKA_START_DATE
      */
-    startDate?: Date | null;
+    startDate?: Date;
     /**
      * CKA_END_DATE
      */
-    endDate?: Date | null;
+    endDate?: Date;
     /**
      * CKA_MODULUS
      */
-    modulus?: Buffer | null;
+    modulus?: Buffer;
     /**
      * CKA_MODULUS_BITS
      */
-    modulusBits?: number | null;
+    modulusBits?: number;
     /**
      * CKA_PUBLIC_EXPONENT
      */
-    publicExponent?: Buffer | null;
+    publicExponent?: Buffer;
     /**
      * CKA_PRIVATE_EXPONEN
      */
-    privateExponent?: Buffer | null;
+    privateExponent?: Buffer;
     /**
      * CKA_PRIME_1
      */
-    prime1?: Buffer | null;
+    prime1?: Buffer;
     /**
      * CKA_PRIME_2
      */
-    prime2?: Buffer | null;
+    prime2?: Buffer;
     /**
      * CKA_EXPONENT_1
      */
-    exp1?: Buffer | null;
+    exp1?: Buffer;
     /**
      * CKA_EXPONENT_2
      */
-    exp2?: Buffer | null;
+    exp2?: Buffer;
     /**
      * CKA_COEFFICIEN
      */
-    coefficient?: Buffer | null;
+    coefficient?: Buffer;
     /**
      * CKA_PRIME
      */
-    prime?: Buffer | null;
+    prime?: Buffer;
     /**
      * CKA_SUBPRIME
      */
-    subprime?: Buffer | null;
+    subprime?: Buffer;
     /**
      * CKA_BASE
      */
-    base?: Buffer | null;
+    base?: Buffer;
     /**
      * CKA_PRIME_BITS
      */
-    primeBits?: number | null;
+    primeBits?: number;
     /**
      * CKA_SUBPRIME_BITS
      */
-    subprimeBits?: number | null;
+    subprimeBits?: number;
     /**
      * CKA_VALUE_BITS
      */
-    valueBits?: number | null;
+    valueBits?: number;
     /**
      * CKA_VALUE_LEN
      */
-    valueLen?: number | null;
+    valueLen?: number;
     /**
      * CKA_EXTRACTABLE
      */
-    extractable?: boolean | null;
+    extractable?: boolean;
     /**
      * CKA_LOCAL
      */
-    local?: boolean | null;
+    local?: boolean;
     /**
      * CKA_NEVER_EXTRACTABLE
      */
-    neverExtractable?: boolean | null;
+    neverExtractable?: boolean;
     /**
      * CKA_ALWAYS_SENSITIVE
      */
-    alwaysSensitive?: boolean | null;
+    alwaysSensitive?: boolean;
     /**
      * CKA_KEY_GEN_MECHANISM
      */
-    keyGenMechanism?: number | null;
+    keyGenMechanism?: number;
     /**
      * CKA_MODIFIABLE
      */
-    modifiable?: boolean | null;
+    modifiable?: boolean;
     /**
      * CKA_COPYABLE
      */
-    copyable?: boolean | null;
+    copyable?: boolean;
     /**
      * CKA_ECDSA_PARAMS
      */
-    paramsECDSA?: Buffer | null;
-    paramsEC?: Buffer | null;
+    paramsECDSA?: Buffer;
+    paramsEC?: Buffer;
     /**
      * CKA_EC_POINT
      */
-    pointEC?: Buffer | null;
+    pointEC?: Buffer;
     /**
      * CKA_SECONDARY_AUTH
      */
-    secondaryAuth?: boolean | null;
+    secondaryAuth?: boolean;
     /**
      * CKA_AUTH_PIN_FLAGS
      */
-    authPinFlags?: Buffer | null;
+    authPinFlags?: Buffer;
     /**
      * CKA_ALWAYS_AUTHENTICATE
      */
-    alwaysAuth?: boolean | null;
+    alwaysAuth?: boolean;
     /**
      * CKA_WRAP_WITH_TRUSTED
      */
-    wrapWithTrusted?: boolean | null;
+    wrapWithTrusted?: boolean;
     /**
      * CKA_WRAP_TEMPLATE
      */
-    wrapTemplate?: any | null;
+    wrapTemplate?: any;
     /**
      * CKA_UNWRAP_TEMPLATE
      */
-    unwrapTemplate?: any | null;
+    unwrapTemplate?: any;
     /**
      * CKA_OTP_FORMAT
      */
-    otpFormat?: any | null;
+    otpFormat?: any;
     /**
      * CKA_OTP_LENGTH
      */
-    otpLength?: any | null;
+    otpLength?: any;
     /**
      * CKA_OTP_TIME_INTERVAL
      */
-    otpTimeInterval?: any | null;
+    otpTimeInterval?: any;
     /**
      * CKA_OTP_USER_FRIENDLY_MODE
      */
-    otpUserFriendlyMode?: any | null;
+    otpUserFriendlyMode?: any;
     /**
      * CKA_OTP_CHALLENGE_REQUIREMENT
      */
-    otpChallengeReq?: any | null;
+    otpChallengeReq?: any;
     /**
      * CKA_OTP_TIME_REQUIREMENT
      */
-    otpTimeReq?: any | null;
+    otpTimeReq?: any;
     /**
      * CKA_OTP_COUNTER_REQUIREMENT
      */
-    otpCounterReq?: any | null;
+    otpCounterReq?: any;
     /**
      * CKA_OTP_PIN_REQUIREMENT
      */
-    otppinReq?: any | null;
+    otppinReq?: any;
     /**
      * CKA_OTP_COUNTER
      */
-    otpCounter?: any | null;
+    otpCounter?: any;
     /**
      * CKA_OTP_TIME
      */
-    otpTime?: any | null;
+    otpTime?: any;
     /**
      * CKA_OTP_USER_IDENTIFIER
      */
-    otpUserId?: any | null;
+    otpUserId?: any;
     /**
      * CKA_OTP_SERVICE_IDENTIFIER
      */
-    otpServiceId?: any | null;
+    otpServiceId?: any;
     /**
      * CKA_OTP_SERVICE_LOGO
      */
-    otpServiceLogo?: any | null;
+    otpServiceLogo?: any;
     /**
      * CKA_OTP_SERVICE_LOGO_TYPE
      */
-    otpServiceLogoType?: any | null;
+    otpServiceLogoType?: any;
     /**
      * CKA_HW_FEATURE_TYPE
      */
-    hwFeatureType?: any | null;
+    hwFeatureType?: any;
     /**
      * CKA_RESET_ON_INIT
      */
-    resetOnInit?: any | null;
+    resetOnInit?: any;
     /**
      * CKA_HAS_RESET
      */
-    hasReset?: any | null;
+    hasReset?: any;
     /**
      * CKA_PIXEL_X
      */
-    pixelX?: any | null;
+    pixelX?: any;
     /**
      * CKA_PIXEL_Y
      */
-    pixelY?: any | null;
+    pixelY?: any;
     /**
      * CKA_RESOLUTION
      */
-    resolution?: any | null;
+    resolution?: any;
     /**
      * CKA_CHAR_ROWS
      */
-    charRows?: any | null;
+    charRows?: any;
     /**
      * CKA_CHAR_COLUMNS
      */
-    charCols?: any | null;
+    charCols?: any;
     /**
      * CKA_COLOR
      */
-    color?: any | null;
+    color?: any;
     /**
      * CKA_BITS_PER_PIXEL
      */
-    bitsPerPixel?: any | null;
+    bitsPerPixel?: any;
     /**
      * CKA_CHAR_SETS
      */
-    charSets?: any | null;
+    charSets?: any;
     /**
      * CKA_ENCODING_METHODS
      */
-    encMethod?: any | null;
+    encMethod?: any;
     /**
      * CKA_MIME_TYPES
      */
-    mimeTypes?: any | null;
+    mimeTypes?: any;
     /**
      * CKA_MECHANISM_TYPE
      */
-    mechanismType?: any | null;
+    mechanismType?: any;
     /**
      * CKA_REQUIRED_CMS_ATTRIBUTES
      */
-    requiredCmsAttrs?: any | null;
+    requiredCmsAttrs?: any;
     /**
      * CKA_DEFAULT_CMS_ATTRIBUTES
      */
-    defaultCmsAttrs?: any | null;
+    defaultCmsAttrs?: any;
     /**
      * CKA_SUPPORTED_CMS_ATTRIBUTES
      */
-    suportedCmsAttrs?: any | null;
+    suportedCmsAttrs?: any;
     /**
      * CKA_ALLOWED_MECHANISMS
      */
-    allowedMechanisms?: any | null;
+    allowedMechanisms?: any;
 }
 
 declare class Template {
