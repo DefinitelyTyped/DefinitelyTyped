@@ -19,7 +19,7 @@ declare namespace libphonenumber {
         static getInstance(): PhoneNumberUtil
         parse(number: string, region: string): PhoneNumber;
         isValidNumber(phoneNumber: PhoneNumber): boolean;
-        isPossbileNumber(phoneNumber: PhoneNumber): boolean;
+        isPossibleNumber(phoneNumber: PhoneNumber): boolean;
         isValidNumberForRegion(phoneNumber: PhoneNumber): boolean;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string;
         isNANPACountry(regionCode: string): boolean;
