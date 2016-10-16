@@ -21,29 +21,29 @@ declare module "express-serve-static-core" {
         (err?: any): void;
     }
 
-    interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
+    interface RequestHandler<TRequest extends Request<TResponse>, TResponse extends Response> {
+        (req: TRequest, res: TResponse, next: NextFunction): any;
     }
 
-    interface ErrorRequestHandler {
-        (err: any, req: Request, res: Response, next: NextFunction): any;
+    interface ErrorRequestHandler<TRequest extends Request<TResponse>, TResponse extends Response> {
+        (err: any, req: TRequest, res: TResponse, next: NextFunction): any;
     }
 
     type PathParams = string | RegExp | (string | RegExp)[];
 
-    type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
+    type RequestHandlerParams<TRequest extends Request<TResponse>, TResponse extends Response> = RequestHandler<TRequest, TResponse> | ErrorRequestHandler<TRequest, TResponse> | (RequestHandler<TRequest, TResponse> | ErrorRequestHandler<TRequest, TResponse>)[];
 
-    interface IRouterMatcher<T> {
-        (path: PathParams, ...handlers: RequestHandler[]): T;
-        (path: PathParams, ...handlers: RequestHandlerParams[]): T;
+    interface IRouterMatcher<T, TRequest extends Request<TResponse>, TResponse extends Response> {
+        (path: PathParams, ...handlers: RequestHandler<TRequest, TResponse>[]): T;
+        (path: PathParams, ...handlers: RequestHandlerParams<TRequest, TResponse>[]): T;
     }
 
-    interface IRouterHandler<T> {
-        (...handlers: RequestHandler[]): T;
-        (...handlers: RequestHandlerParams[]): T;
+    interface IRouterHandler<T, TRequest extends Request<TResponse>, TResponse extends Response> {
+        (...handlers: RequestHandler<TRequest, TResponse>[]): T;
+        (...handlers: RequestHandlerParams<TRequest, TResponse>[]): T;
     }
 
-    interface IRouter extends RequestHandler {
+    interface IRouter<TRequest extends Request<TResponse>, TResponse extends Response> extends RequestHandler<TRequest, TResponse> {
         /**
             * Map the given param placeholder `name`(s) to the given callback(s).
             *
@@ -73,10 +73,10 @@ declare module "express-serve-static-core" {
             * @param name
             * @param fn
             */
-        param(name: string, handler: RequestParamHandler): this;
+        param(name: string, handler: RequestParamHandler<TRequest, TResponse>): this;
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
         // deprecated since express 4.11.0
-        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler<TRequest, TResponse>): this;
 
         /**
             * Special-cased "all" method, applying the given route `path`,
@@ -85,72 +85,72 @@ declare module "express-serve-static-core" {
             * @param path
             * @param fn
             */
-        all: IRouterMatcher<this>;
-        get: IRouterMatcher<this>;
-        post: IRouterMatcher<this>;
-        put: IRouterMatcher<this>;
-        delete: IRouterMatcher<this>;
-        patch: IRouterMatcher<this>;
-        options: IRouterMatcher<this>;
-        head: IRouterMatcher<this>;
+        all: IRouterMatcher<this, TRequest, TResponse>;
+        get: IRouterMatcher<this, TRequest, TResponse>;
+        post: IRouterMatcher<this, TRequest, TResponse>;
+        put: IRouterMatcher<this, TRequest, TResponse>;
+        delete: IRouterMatcher<this, TRequest, TResponse>;
+        patch: IRouterMatcher<this, TRequest, TResponse>;
+        options: IRouterMatcher<this, TRequest, TResponse>;
+        head: IRouterMatcher<this, TRequest, TResponse>;
         
-        checkout: IRouterMatcher<this>;
-        copy: IRouterMatcher<this>;
-        lock: IRouterMatcher<this>;
-        merge: IRouterMatcher<this>;
-        mkactivity: IRouterMatcher<this>;
-        mkcol: IRouterMatcher<this>;
-        move: IRouterMatcher<this>;
-        "m-search": IRouterMatcher<this>;
-        notify: IRouterMatcher<this>;
-        purge: IRouterMatcher<this>;
-        report: IRouterMatcher<this>;
-        search: IRouterMatcher<this>;
-        subscribe: IRouterMatcher<this>;
-        trace: IRouterMatcher<this>;
-        unlock: IRouterMatcher<this>;
-        unsubscribe: IRouterMatcher<this>;
+        checkout: IRouterMatcher<this, TRequest, TResponse>;
+        copy: IRouterMatcher<this, TRequest, TResponse>;
+        lock: IRouterMatcher<this, TRequest, TResponse>;
+        merge: IRouterMatcher<this, TRequest, TResponse>;
+        mkactivity: IRouterMatcher<this, TRequest, TResponse>;
+        mkcol: IRouterMatcher<this, TRequest, TResponse>;
+        move: IRouterMatcher<this, TRequest, TResponse>;
+        "m-search": IRouterMatcher<this, TRequest, TResponse>;
+        notify: IRouterMatcher<this, TRequest, TResponse>;
+        purge: IRouterMatcher<this, TRequest, TResponse>;
+        report: IRouterMatcher<this, TRequest, TResponse>;
+        search: IRouterMatcher<this, TRequest, TResponse>;
+        subscribe: IRouterMatcher<this, TRequest, TResponse>;
+        trace: IRouterMatcher<this, TRequest, TResponse>;
+        unlock: IRouterMatcher<this, TRequest, TResponse>;
+        unsubscribe: IRouterMatcher<this, TRequest, TResponse>;
 
-        use: IRouterHandler<this> & IRouterMatcher<this>;
+        use: IRouterHandler<this, TRequest, TResponse> & IRouterMatcher<this, TRequest, TResponse>;
 
-        route(prefix: PathParams): IRoute;
+        route(prefix: PathParams): IRoute<TRequest, TResponse>;
         /**
          * Stack of configured routes
          */
         stack: any[];
     }
 
-    interface IRoute {
+    interface IRoute<TRequest extends Request<TResponse>, TResponse extends Response> {
         path: string;
         stack: any;
-        all: IRouterHandler<this>;
-        get: IRouterHandler<this>;
-        post: IRouterHandler<this>;
-        put: IRouterHandler<this>;
-        delete: IRouterHandler<this>;
-        patch: IRouterHandler<this>;
-        options: IRouterHandler<this>;
-        head: IRouterHandler<this>;
+        all: IRouterHandler<this, TRequest, TResponse>;
+        get: IRouterHandler<this, TRequest, TResponse>;
+        post: IRouterHandler<this, TRequest, TResponse>;
+        put: IRouterHandler<this, TRequest, TResponse>;
+        delete: IRouterHandler<this, TRequest, TResponse>;
+        patch: IRouterHandler<this, TRequest, TResponse>;
+        options: IRouterHandler<this, TRequest, TResponse>;
+        head: IRouterHandler<this, TRequest, TResponse>;
         
-        checkout: IRouterHandler<this>;
-        copy: IRouterHandler<this>;
-        lock: IRouterHandler<this>;
-        merge: IRouterHandler<this>;
-        mkactivity: IRouterHandler<this>;
-        mkcol: IRouterHandler<this>;
-        move: IRouterHandler<this>;
-        "m-search": IRouterHandler<this>;
-        notify: IRouterHandler<this>;
-        purge: IRouterHandler<this>;
-        report: IRouterHandler<this>;
-        search: IRouterHandler<this>;
-        subscribe: IRouterHandler<this>;
-        trace: IRouterHandler<this>;
-        unlock: IRouterHandler<this>;
-        unsubscribe: IRouterHandler<this>
+        checkout: IRouterHandler<this, TRequest, TResponse>;
+        copy: IRouterHandler<this, TRequest, TResponse>;
+        lock: IRouterHandler<this, TRequest, TResponse>;
+        merge: IRouterHandler<this, TRequest, TResponse>;
+        mkactivity: IRouterHandler<this, TRequest, TResponse>;
+        mkcol: IRouterHandler<this, TRequest, TResponse>;
+        move: IRouterHandler<this, TRequest, TResponse>;
+        "m-search": IRouterHandler<this, TRequest, TResponse>;
+        notify: IRouterHandler<this, TRequest, TResponse>;
+        purge: IRouterHandler<this, TRequest, TResponse>;
+        report: IRouterHandler<this, TRequest, TResponse>;
+        search: IRouterHandler<this, TRequest, TResponse>;
+        subscribe: IRouterHandler<this, TRequest, TResponse>;
+        trace: IRouterHandler<this, TRequest, TResponse>;
+        unlock: IRouterHandler<this, TRequest, TResponse>;
+        unsubscribe: IRouterHandler<this, TRequest, TResponse>
     }
 
-    export interface Router extends IRouter { }
+    export interface Router<TRequest extends Request<TResponse>, TResponse extends Response> extends IRouter<TRequest, TResponse> { }
 
     interface CookieOptions {
         maxAge?: number;
@@ -164,7 +164,7 @@ declare module "express-serve-static-core" {
 
     interface Errback { (err: Error): void; }
 
-    interface Request extends http.IncomingMessage, Express.Request {
+    interface Request<TResponse extends Response> extends http.IncomingMessage, Express.Request {
 
         /**
             * Return request header.
@@ -440,7 +440,7 @@ declare module "express-serve-static-core" {
             * @param name
             * @param options
             */
-        clearCookie(name: string, options?: any): Response;
+        clearCookie(name: string, options?: any): TResponse;
 
         query: any;
 
@@ -454,7 +454,7 @@ declare module "express-serve-static-core" {
 
         baseUrl: string;
 
-        app: Application;
+        app: Application<this, TResponse>;
     }
 
     interface MediaType {
@@ -464,9 +464,9 @@ declare module "express-serve-static-core" {
         subtype: string;
     }
 
-    interface Send {
-        (status: number, body?: any): Response;
-        (body?: any): Response;
+    interface Send<TResponse extends Response> {
+        (status: number, body?: any): TResponse;
+        (body?: any): TResponse;
     }
 
     interface Response extends http.ServerResponse, Express.Response {
@@ -475,7 +475,7 @@ declare module "express-serve-static-core" {
             *
             * @param code
             */
-        status(code: number): Response;
+        status(code: number): this;
 
         /**
             * Set the response HTTP status code to `statusCode` and send its string representation as the response body.
@@ -490,7 +490,7 @@ declare module "express-serve-static-core" {
             *
             * @param code
             */
-        sendStatus(code: number): Response;
+        sendStatus(code: number): this;
 
         /**
             * Set Link header field with the given `links`.
@@ -504,7 +504,7 @@ declare module "express-serve-static-core" {
             *
             * @param links
             */
-        links(links: any): Response;
+        links(links: any): this;
 
         /**
             * Send a response.
@@ -517,7 +517,7 @@ declare module "express-serve-static-core" {
             *     res.send(404, 'Sorry, cant find that');
             *     res.send(404);
             */
-        send: Send;
+        send: Send<this>;
 
         /**
             * Send JSON response.
@@ -529,7 +529,7 @@ declare module "express-serve-static-core" {
             *     res.json(500, 'oh noes!');
             *     res.json(404, 'I dont have that');
             */
-        json: Send;
+        json: Send<this>;
 
         /**
             * Send JSON response with JSONP callback support.
@@ -541,7 +541,7 @@ declare module "express-serve-static-core" {
             *     res.jsonp(500, 'oh noes!');
             *     res.jsonp(404, 'I dont have that');
             */
-        jsonp: Send;
+        jsonp: Send<this>;
 
         /**
             * Transfer the file at the given `path`.
@@ -634,7 +634,7 @@ declare module "express-serve-static-core" {
             *
             * @param type
             */
-        contentType(type: string): Response;
+        contentType(type: string): this;
 
         /**
             * Set _Content-Type_ response header with `type` through `mime.lookup()`
@@ -650,7 +650,7 @@ declare module "express-serve-static-core" {
             *
             * @param type
             */
-        type(type: string): Response;
+        type(type: string): this;
 
         /**
             * Respond to the Acceptable formats using an `obj`
@@ -706,14 +706,14 @@ declare module "express-serve-static-core" {
             *
             * @param obj
             */
-        format(obj: any): Response;
+        format(obj: any): this;
 
         /**
             * Set _Content-Disposition_ header to _attachment_ with optional `filename`.
             *
             * @param filename
             */
-        attachment(filename?: string): Response;
+        attachment(filename?: string): this;
 
         /**
             * Set header `field` to `val`, or pass
@@ -727,11 +727,11 @@ declare module "express-serve-static-core" {
             *
             * Aliased as `res.header()`.
             */
-        set(field: any): Response;
-        set(field: string, value?: string): Response;
+        set(field: any): this;
+        set(field: string, value?: string): this;
 
-        header(field: any): Response;
-        header(field: string, value?: string): Response;
+        header(field: any): this;
+        header(field: string, value?: string): this;
 
         // Property indicating if HTTP headers has been sent for the response.
         headersSent: boolean;
@@ -749,7 +749,7 @@ declare module "express-serve-static-core" {
             * @param name
             * @param options
             */
-        clearCookie(name: string, options?: any): Response;
+        clearCookie(name: string, options?: any): this;
 
         /**
             * Set cookie `name` to `val`, with the given `options`.
@@ -768,9 +768,9 @@ declare module "express-serve-static-core" {
             *    // save as above
             *    res.cookie('rememberme', '1', { maxAge: 900000, httpOnly: true })
             */
-        cookie(name: string, val: string, options: CookieOptions): Response;
-        cookie(name: string, val: any, options: CookieOptions): Response;
-        cookie(name: string, val: any): Response;
+        cookie(name: string, val: string, options: CookieOptions): this;
+        cookie(name: string, val: any, options: CookieOptions): this;
+        cookie(name: string, val: any): this;
 
         /**
             * Set the location header to `url`.
@@ -800,7 +800,7 @@ declare module "express-serve-static-core" {
             *
             * @param url
             */
-        location(url: string): Response;
+        location(url: string): this;
 
         /**
             * Redirect to the given `url` with optional response `status`
@@ -846,21 +846,21 @@ declare module "express-serve-static-core" {
          *     res.vary('User-Agent').render('docs');
          *
          */
-        vary(field: string): Response;
+        vary(field: string): this;
     }
 
-    interface Handler extends RequestHandler { }
+    interface Handler<TRequest extends Request<TResponse>, TResponse extends Response> extends RequestHandler<TRequest, TResponse> { }
 
-    interface RequestParamHandler {
-        (req: Request, res: Response, next: NextFunction, value: any, name: string): any;
+    interface RequestParamHandler<TRequest extends Request<TResponse>, TResponse extends Response> {
+        (req: TRequest, res: TResponse, next: NextFunction, value: any, name: string): any;
     }
 
-    interface Application extends IRouter, Express.Application {
+    interface Application<TRequest extends Request<TResponse>, TResponse extends Response> extends IRouter<TRequest, TResponse>, Express.Application {
         /**
          * Express instance itself is a request handler, which could be invoked without
          * third argument.
          */
-        (req: Request, res: Response): any;
+        (req: TRequest, res: TResponse): any;
         
         /**
             * Initialize the server.
@@ -904,7 +904,7 @@ declare module "express-serve-static-core" {
             * engines to follow this convention, thus allowing them to
             * work seamlessly within Express.
             */
-        engine(ext: string, fn: Function): Application;
+        engine(ext: string, fn: Function): Application<TRequest, TResponse>;
 
         /**
             * Assign `setting` to `val`, or return `setting`'s value.
@@ -921,12 +921,12 @@ declare module "express-serve-static-core" {
             * @param setting
             * @param val
             */
-        set(setting: string, val: any): Application;
-        get: {(name: string): any;} & IRouterMatcher<this>;
+        set(setting: string, val: any): Application<TRequest, TResponse>;
+        get: {(name: string): any;} & IRouterMatcher<this, TRequest, TResponse>;
 
-        param(name: string | string[], handler: RequestParamHandler): this;
+        param(name: string | string[], handler: RequestParamHandler<TRequest, TResponse>): this;
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler<TRequest, TResponse>): this;
 
         /**
             * Return the app's absolute pathname
@@ -971,14 +971,14 @@ declare module "express-serve-static-core" {
             *
             * @param setting
             */
-        enable(setting: string): Application;
+        enable(setting: string): Application<TRequest, TResponse>;
 
         /**
             * Disable `setting`.
             *
             * @param setting
             */
-        disable(setting: string): Application;
+        disable(setting: string): Application<TRequest, TResponse>;
 
         /**
             * Configure callback for zero or more envs,
@@ -1022,12 +1022,12 @@ declare module "express-serve-static-core" {
             * @param env
             * @param fn
             */
-        configure(fn: Function): Application;
-        configure(env0: string, fn: Function): Application;
-        configure(env0: string, env1: string, fn: Function): Application;
-        configure(env0: string, env1: string, env2: string, fn: Function): Application;
-        configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application;
-        configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application;
+        configure(fn: Function): Application<TRequest, TResponse>;
+        configure(env0: string, fn: Function): Application<TRequest, TResponse>;
+        configure(env0: string, env1: string, fn: Function): Application<TRequest, TResponse>;
+        configure(env0: string, env1: string, env2: string, fn: Function): Application<TRequest, TResponse>;
+        configure(env0: string, env1: string, env2: string, env3: string, fn: Function): Application<TRequest, TResponse>;
+        configure(env0: string, env1: string, env2: string, env3: string, env4: string, fn: Function): Application<TRequest, TResponse>;
 
         /**
             * Render the given view `name` name with `options`
@@ -1097,9 +1097,9 @@ declare module "express-serve-static-core" {
         _router: any;
     }
 
-    interface Express extends Application {
-        request: Request;
-
-        response: Response;
+    interface Express<TRequest extends Request<TResponse>, TResponse extends Response> extends Application<TRequest, TResponse> {
+        request: TRequest;
+        
+        response: TResponse;
     }
 }
