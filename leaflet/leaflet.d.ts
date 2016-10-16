@@ -1186,8 +1186,8 @@ declare namespace L {
     }
 
     export namespace DomEvent {
-        export function disableScrollPropagation(el: HTMLScriptElement): any;
-        export function disableClickPropagation(el: HTMLScriptElement): any;
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
