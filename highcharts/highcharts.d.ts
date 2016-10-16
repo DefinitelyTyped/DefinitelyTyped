@@ -769,7 +769,7 @@ declare namespace __Highcharts {
              */
             textAlign?: string;
             /**
-             * Whether to use HTML to render the labels. 
+             * Whether to use HTML to render the labels.
              * @default false
              * @since 3.0
              */
@@ -5751,7 +5751,7 @@ declare namespace __Highcharts {
          * @param [boolean] redraw
          * @since 1.2.0
          */
-        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): T;
+        addSeries<T extends IndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | Animation): SeriesObject;
         /**
          * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
          * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
