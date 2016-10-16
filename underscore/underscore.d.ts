@@ -162,7 +162,7 @@ interface UnderscoreStatic {
 	**/
 	map<T, TResult>(
 		object: _.Dictionary<T>,
-		iterator: _.ObjectIterator<T, TResult> ,
+		iterator: _.ObjectIterator<T, TResult>,
 		context?: any): TResult[];
 
 
