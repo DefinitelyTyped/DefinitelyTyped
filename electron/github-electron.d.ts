@@ -1,4 +1,4 @@
-// Type definitions for Electron v1.4.2
+// Type definitions for Electron v1.4.3
 // Project: http://electron.atom.io/
 // Definitions by: jedmao <https://github.com/jedmao/>, rhysd <https://rhysd.github.io>, Milan Burda <https://github.com/miniak/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2655,6 +2655,28 @@ declare namespace Electron {
 		 * Returns a boolean whether the image is a template image.
 		 */
 		isTemplateImage(): boolean;
+		/**
+		 * @param rect The area of the image to crop
+		 * @returns The cropped image.
+		 */
+		crop(rect: Rectangle): NativeImage;
+		/**
+		 * @returns The resized image.
+		 * If only the height or the width are specified then the current aspect ratio will be preserved in the resized image.
+		 */
+		resize(options: {
+			width?: number;
+			height?: number;
+			/**
+			 * The desired quality of the resized image.
+			 * Default: best.
+			 */
+			quality?: 'good' | 'better' | 'best';
+		}): NativeImage;
+		/**
+		 * @returns The image's aspect ratio.
+		 */
+		getAspectRatio(): number;
 	}
 
 	// https://github.com/electron/electron/blob/master/docs/api/power-monitor.md
@@ -3831,12 +3853,21 @@ declare namespace Electron {
 		 * By default a new BrowserWindow will be created for the url.
 		 *
 		 * Calling event.preventDefault() will prevent creating new windows.
+		 * In such case, the event.newGuest may be set with a reference
+		 * to a BrowserWindow instance to make it used by the Electron's runtime.
 		 */
-		on(event: 'new-window', listener: (event: Event,
+		on(event: 'new-window', listener: (event: WebContents.NewWindowEvent,
 			url: string,
 			frameName: string,
 			disposition: NewWindowDisposition,
-			options: BrowserWindowOptions
+			/**
+			 * The options which will be used for creating the new BrowserWindow.
+			 */
+			options: BrowserWindowOptions,
+			/**
+			 * The non-standard features (features not handled by Chromium or Electron) given to window.open().
+			 */
+			additionalFeatures: string[]
 		) => void): this;
 		/**
 		 * Emitted when a user or the page wants to start navigation.
@@ -4322,6 +4353,12 @@ declare namespace Electron {
 		 * @returns Debugger API
 		 */
 		debugger: Debugger;
+	}
+
+	namespace WebContents {
+		interface NewWindowEvent extends Event {
+			newGuest?: BrowserWindow;
+		}
 	}
 
 	interface BeginFrameSubscriptionCallback {

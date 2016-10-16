@@ -625,6 +625,7 @@ declare namespace __MaterialUI {
         onClick?: React.MouseEventHandler;
         style?: React.CSSProperties;
         tabIndex?: number;
+        target?: string;
         touchRippleColor?: string;
         touchRippleOpacity?: number;
         type?: string;

@@ -2,6 +2,8 @@
  * This test file contains the sample output from The Spotify Web Api obtained from [The Web API Console](https://developer.spotify.com/web-api/console/)
  * The standard suggested values for input were used.
  * 
+ * Updated for the March 29th, 2016 changes to the Spotify Web Api.
+ * 
  * Combined with the typings it should compile without errors.
  * 
  * The order of tests is the same as on [The Spotify Web Api](https://developer.spotify.com/web-api/endpoint-reference/)
@@ -16,7 +18,7 @@
 /**
  * Tests the response of https://developer.spotify.com/web-api/get-album/
  */
-var getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
+const getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
   "album_type" : "album",
   "artists" : [ {
     "external_urls" : {
@@ -403,7 +405,7 @@ var getSingleAlbum : SpotifyApi.SingleAlbumResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-several-albums/
  */
-var getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
+const getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
   "albums" : [ {
     "album_type" : "album",
     "artists" : [ {
@@ -2236,7 +2238,7 @@ var getMultipleAlbumsResponse : SpotifyApi.MultipleAlbumsResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-albums-tracks/
  */
-var getAlbumTracks : SpotifyApi.AlbumTracksResponse = {
+const getAlbumTracks : SpotifyApi.AlbumTracksResponse = {
   "href" : "https://api.spotify.com/v1/albums/6akEvsycLGftJxYudPjmqK/tracks?offset=0&limit=2",
   "items" : [ {
     "artists" : [ {
@@ -2302,7 +2304,7 @@ var getAlbumTracks : SpotifyApi.AlbumTracksResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-artist/
  */
-var getAnArtist : SpotifyApi.SingleArtistResponse = {
+const getAnArtist : SpotifyApi.SingleArtistResponse = {
   "external_urls" : {
     "spotify" : "https://open.spotify.com/artist/0OdUWJ0sBjDrqHygGUXeCF"
   },
@@ -2341,7 +2343,7 @@ var getAnArtist : SpotifyApi.SingleArtistResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-several-artists/
  */
-var getSeveralArtists : SpotifyApi.MultipleArtistsResponse = {
+const getSeveralArtists : SpotifyApi.MultipleArtistsResponse = {
   "artists" : [ {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/0oSGxfWSnnOXhD2fKuz2Gy"
@@ -2415,7 +2417,7 @@ var getSeveralArtists : SpotifyApi.MultipleArtistsResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-artists-albums/
  */
-var getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
+const getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
   "href" : "https://api.spotify.com/v1/artists/1vCWHaC5f2uS3yhpwWbIA6/albums?offset=0&limit=2&album_type=single",
   "items" : [ {
     "album_type" : "single",
@@ -2475,7 +2477,7 @@ var getArtistsAlbums : SpotifyApi.ArtistsAlbumsResponse = {
 
 
 
-var getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
+const getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
   "tracks" : [ {
     "album" : {
       "album_type" : "album",
@@ -3040,7 +3042,7 @@ var getArtistsTopTracks : SpotifyApi.ArtistsTopTracksResponse = {
 
 
 
-var getArtistRelatedArtists : SpotifyApi.ArtistsRelatedArtistsResponse = {
+const getArtistRelatedArtists : SpotifyApi.ArtistsRelatedArtistsResponse = {
   "artists" : [ {
     "external_urls" : {
       "spotify" : "https://open.spotify.com/artist/0JDkhL4rjiPNEp92jAgJnS"
@@ -3683,10 +3685,106 @@ var getArtistRelatedArtists : SpotifyApi.ArtistsRelatedArtistsResponse = {
 
 
 
+
+/**
+ * Tests https://developer.spotify.com/get-audio-features/
+ */
+const singleAudioFeaturesResponse : SpotifyApi.AudioFeaturesResponse = { 
+  "danceability": 0.281,
+  "energy": 0.402,
+  "key": 4,
+  "loudness": -17.921,
+  "mode": 1,
+  "speechiness": 0.0291,
+  "acousticness": 0.0734,
+  "instrumentalness": 0.83,
+  "liveness": 0.0593,
+  "valence": 0.0748,
+  "tempo": 115.7,
+  "type": "audio_features",
+  "id": "24JygzOLM0EmRQeGtFcIcG",
+  "uri": "spotify:track:24JygzOLM0EmRQeGtFcIcG",
+  "track_href": "https://api.spotify.com/v1/tracks/24JygzOLM0EmRQeGtFcIcG",
+  "analysis_url": "http://echonest-analysis.s3.amazonaws.com/TR/ehbkMg05Ck-FN7p3lV7vd8TUdBCvM6z5mgDiZRv6iSlw8P_b8GYBZ4PRAlOgTl3e5rS34_l3dZGDeYzH4=/3/full.json?AWSAccessKeyId=AKIAJRDFEY23UEVW42BQ&Expires=1458063189&Signature=bnTm0Hcb%2Bxo8ZCmuxm1mY0JY4Hs%3D",
+  "duration_ms": 497493,
+  "time_signature": 3 
+};
+
+
+
+
+
+/**
+ * Tests https://developer.spotify.com/web-api/get-several-audio-features/
+ */
+const severalAudioFeaturesResponse : SpotifyApi.MultipleAudioFeaturesResponse = { audio_features: 
+   [ { "danceability": 0.808,
+       "energy": 0.626,
+       "key": 7,
+       "loudness": -12.733,
+       "mode": 1,
+       "speechiness": 0.168,
+       "acousticness": 0.00187,
+       "instrumentalness": 0.159,
+       "liveness": 0.376,
+       "valence": 0.369,
+       "tempo": 123.99,
+       "type": "audio_features",
+       "id": "4JpKVNYnVcJ8tuMKjAj50A",
+       "uri": "spotify:track:4JpKVNYnVcJ8tuMKjAj50A",
+       "track_href": "https://api.spotify.com/v1/tracks/4JpKVNYnVcJ8tuMKjAj50A",
+       "analysis_url": "http://echonest-analysis.s3.amazonaws.com/TR/WhpYUARk1kNJ_qP0AdKGcDDFKOQTTgsOoINrqyPQjkUnbteuuBiyj_u94iFCSGzdxGiwqQ6d77f4QLL_8=/3/full.json?AWSAccessKeyId=AKIAJRDFEY23UEVW42BQ&Expires=1458063189&Signature=JRE8SDZStpNOdUsPN/PoS49FMtQ%3D",
+       "duration_ms": 535223,
+       "time_signature": 4 
+     },
+     { "danceability": 0.457,
+       "energy": 0.815,
+       "key": 1,
+       "loudness": -7.199,
+       "mode": 1,
+       "speechiness": 0.034,
+       "acousticness": 0.102,
+       "instrumentalness": 0.0319,
+       "liveness": 0.103,
+       "valence": 0.382,
+       "tempo": 96.083,
+       "type": "audio_features",
+       "id": "2NRANZE9UCmPAS5XVbXL40",
+       "uri": "spotify:track:2NRANZE9UCmPAS5XVbXL40",
+       "track_href": "https://api.spotify.com/v1/tracks/2NRANZE9UCmPAS5XVbXL40",
+       "analysis_url": "http://echonest-analysis.s3.amazonaws.com/TR/WhuQhwPDhmEg5TO4JjbJu0my-awIhk3eaXkRd1ofoJ7tXogPnMtbxkTyLOeHXu5Jke0FCIt52saKJyfPM=/3/full.json?AWSAccessKeyId=AKIAJRDFEY23UEVW42BQ&Expires=1458063189&Signature=qfclum7FwTaR/7aQbnBNO0daCsM%3D",
+       "duration_ms": 187800,
+       "time_signature": 4 
+     },
+     { "danceability": 0.281,
+       "energy": 0.402,
+       "key": 4,
+       "loudness": -17.921,
+       "mode": 1,
+       "speechiness": 0.0291,
+       "acousticness": 0.0734,
+       "instrumentalness": 0.83,
+       "liveness": 0.0593,
+       "valence": 0.0748,
+       "tempo": 115.7,
+       "type": "audio_features",
+       "id": "24JygzOLM0EmRQeGtFcIcG",
+       "uri": "spotify:track:24JygzOLM0EmRQeGtFcIcG",
+       "track_href": "https://api.spotify.com/v1/tracks/24JygzOLM0EmRQeGtFcIcG",
+       "analysis_url": "http://echonest-analysis.s3.amazonaws.com/TR/ehbkMg05Ck-FN7p3lV7vd8TUdBCvM6z5mgDiZRv6iSlw8P_b8GYBZ4PRAlOgTl3e5rS34_l3dZGDeYzH4=/3/full.json?AWSAccessKeyId=AKIAJRDFEY23UEVW42BQ&Expires=1458063189&Signature=bnTm0Hcb%2Bxo8ZCmuxm1mY0JY4Hs%3D",
+       "duration_ms": 497493,
+       "time_signature": 3 
+     } ] 
+};
+
+
+
+
+
 /**
  * Tests https://developer.spotify.com/web-api/get-list-featured-playlists/
  */
-var featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
+const featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
   "message" : "Enjoy a mellow afternoon.",
   "playlists" : {
     "href" : "https://api.spotify.com/v1/browse/featured-playlists?country=SE&timestamp=2015-12-25T15:10:15&offset=0&limit=2",
@@ -3765,7 +3863,7 @@ var featuredPlaylists : SpotifyApi.ListOfFeaturedPlaylistsResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-list-new-releases/
  */
-var newReleases : SpotifyApi.ListOfNewReleasesResponse = {
+const newReleases : SpotifyApi.ListOfNewReleasesResponse = {
   "albums" : {
     "href" : "https://api.spotify.com/v1/browse/new-releases?country=SE&offset=0&limit=20",
     "items" : [ {
@@ -4263,7 +4361,7 @@ var newReleases : SpotifyApi.ListOfNewReleasesResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-list-categories/
  */
-var listOfCategories : SpotifyApi.MultipleCategoriesResponse = {
+const listOfCategories : SpotifyApi.MultipleCategoriesResponse = {
   "categories" : {
     "href" : "https://api.spotify.com/v1/browse/categories?offset=0&limit=20",
     "items" : [ {
@@ -4461,7 +4559,7 @@ var listOfCategories : SpotifyApi.MultipleCategoriesResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-category/
  */
-var category : SpotifyApi.SingleCategoryResponse = {
+const category : SpotifyApi.SingleCategoryResponse = {
   "href" : "https://api.spotify.com/v1/browse/categories/rock",
   "icons" : [ {
     "height" : 274,
@@ -4478,7 +4576,7 @@ var category : SpotifyApi.SingleCategoryResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-categorys-playlists/
  */
-var categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
+const categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
   "playlists" : {
     "href" : "https://api.spotify.com/v1/browse/categories/party/playlists?country=BR&offset=0&limit=2",
     "items" : [ {
@@ -4556,7 +4654,7 @@ var categoryPlaylists : SpotifyApi.CategoryPlaylistsReponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-current-users-profile/
  */
-var userProfilePrivate : SpotifyApi.CurrentUsersProfileResponse = {
+const userProfilePrivate : SpotifyApi.CurrentUsersProfileResponse = {
   "birthdate" : "1982-06-29",
   "country" : "DK",
   "display_name" : null,
@@ -4582,7 +4680,7 @@ var userProfilePrivate : SpotifyApi.CurrentUsersProfileResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-followed-artists/
  */
-var followedArtists : SpotifyApi.UsersFollowedArtistsResponse = {
+const followedArtists : SpotifyApi.UsersFollowedArtistsResponse = {
   "artists" : {
     "items" : [ {
       "external_urls" : {
@@ -4661,7 +4759,7 @@ var followedArtists : SpotifyApi.UsersFollowedArtistsResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/follow-artists-users/
  */
-var followArtistsOrUsers : SpotifyApi.FollowArtistsOrUsersResponse = {}
+const followArtistsOrUsers : SpotifyApi.FollowArtistsOrUsersResponse = {}
 
 
 
@@ -4669,7 +4767,7 @@ var followArtistsOrUsers : SpotifyApi.FollowArtistsOrUsersResponse = {}
 /**
  * Tests https://developer.spotify.com/web-api/unfollow-artists-users/
  */
-var unfollowArtistsOrUsers : SpotifyApi.UnfollowArtistsOrUsersResponse = {}
+const unfollowArtistsOrUsers : SpotifyApi.UnfollowArtistsOrUsersResponse = {}
 
 
 
@@ -4677,7 +4775,7 @@ var unfollowArtistsOrUsers : SpotifyApi.UnfollowArtistsOrUsersResponse = {}
 /**
  * Tests https://developer.spotify.com/web-api/check-current-user-follows/
  */
-var checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [ true, true, false ];
+const checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [ true, true, false ];
 
 
 
@@ -4685,7 +4783,7 @@ var checkCurrentUserFollows : SpotifyApi.UserFollowsUsersOrArtistsResponse = [ t
 /**
  * Tests https://developer.spotify.com/web-api/follow-playlist/
  */
-var followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
+const followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
 
 
 
@@ -4693,7 +4791,7 @@ var followPlaylist : SpotifyApi.FollowPlaylistReponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/unfollow-playlist/
  */
-var unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
+const unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
 
 
 
@@ -4701,7 +4799,7 @@ var unfollowPlaylist : SpotifyApi.UnfollowPlaylistReponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/save-tracks-user/
  */
-var saveTracksForUser : SpotifyApi.SaveTracksForUserResponse = {};
+const saveTracksForUser : SpotifyApi.SaveTracksForUserResponse = {};
 
 
 
@@ -4709,7 +4807,7 @@ var saveTracksForUser : SpotifyApi.SaveTracksForUserResponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/console/get-current-user-saved-tracks
  */
-var getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
+const getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
   "href" : "https://api.spotify.com/v1/me/tracks?offset=0&limit=5&market=DK",
   "items" : [ {
     "added_at" : "2015-12-24T08:02:23Z",
@@ -5005,7 +5103,7 @@ var getSavedTracks : SpotifyApi.UsersSavedTracksResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/remove-tracks-user/
  */
-var removeUsersTracks : SpotifyApi.RemoveUsersSavedTracksResponse = {};
+const removeUsersTracks : SpotifyApi.RemoveUsersSavedTracksResponse = {};
 
 
 
@@ -5013,7 +5111,7 @@ var removeUsersTracks : SpotifyApi.RemoveUsersSavedTracksResponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/check-users-saved-tracks/
  */
-var checkUsersTracks : SpotifyApi.CheckUserSavedAlbumsResponse = [ false, false, true ];
+const checkUsersTracks : SpotifyApi.CheckUserSavedAlbumsResponse = [ false, false, true ];
 
 
 
@@ -5021,7 +5119,7 @@ var checkUsersTracks : SpotifyApi.CheckUserSavedAlbumsResponse = [ false, false,
 /**
  * Tests https://developer.spotify.com/web-api/save-albums-user/
  */
-var saveAlbumForUser : SpotifyApi.SaveAlbumsForUserResponse = {};
+const saveAlbumForUser : SpotifyApi.SaveAlbumsForUserResponse = {};
 
 
 
@@ -5029,7 +5127,7 @@ var saveAlbumForUser : SpotifyApi.SaveAlbumsForUserResponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/remove-albums-user/
  */
-var saveAlbumForUser : SpotifyApi.RemoveAlbumsForUserResponse = {};
+const removeAlbumForUser : SpotifyApi.RemoveAlbumsForUserResponse = {};
 
 
 
@@ -5038,15 +5136,322 @@ var saveAlbumForUser : SpotifyApi.RemoveAlbumsForUserResponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/check-users-saved-albums/
  */
-var checkUsersSavedAlbums : SpotifyApi.CheckUserSavedAlbumsResponse = [ true, false, false, true ];
+const checkUsersSavedAlbums : SpotifyApi.CheckUserSavedAlbumsResponse = [ true, false, false, true ];
 
+
+
+/**
+ * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ */
+const usersTopArtists : SpotifyApi.UsersTopArtistsResponse = {
+    "items" : [ 
+      {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3qqhR4mOQZP2t2I6QmU8lE"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 3670
+      },
+      "genres" : [ "danish pop rock" ],
+      "href" : "https://api.spotify.com/v1/artists/3qqhR4mOQZP2t2I6QmU8lE",
+      "id" : "3qqhR4mOQZP2t2I6QmU8lE",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/8ec6329ea80912effd2a7788a932bd59ff5842ff",
+        "width" : 640
+      }, {
+        "height" : 320,
+        "url" : "https://i.scdn.co/image/cfc97d0e49529141efc22fb9aa766c2887d79ba2",
+        "width" : 320
+      }, {
+        "height" : 160,
+        "url" : "https://i.scdn.co/image/efb71bf852c51426bee57c42d1cfb9f46749df4e",
+        "width" : 160
+      } ],
+      "name" : "Folkeklubben",
+      "popularity" : 43,
+      "type" : "artist",
+      "uri" : "spotify:artist:3qqhR4mOQZP2t2I6QmU8lE"
+    }, 
+    {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5CuU6SRJjbbZL926nSGGxX"
+      },
+      "followers" : {
+        "href" : null,
+        "total" : 18429
+      },
+      "genres" : [ "abstract hip hop", "alternative hip hop", "escape room", "underground hip hop" ],
+      "href" : "https://api.spotify.com/v1/artists/5CuU6SRJjbbZL926nSGGxX",
+      "id" : "5CuU6SRJjbbZL926nSGGxX",
+      "images" : [ {
+        "height" : 714,
+        "url" : "https://i.scdn.co/image/7a79a4f7ef164f418034d6fe5e53be24123610bf",
+        "width" : 999
+      }, {
+        "height" : 457,
+        "url" : "https://i.scdn.co/image/9f1519e9e53a61d88655d9203f9524d363157b31",
+        "width" : 640
+      }, {
+        "height" : 143,
+        "url" : "https://i.scdn.co/image/3c1436cf75d5c7f2ba027a914e4970a100e9150a",
+        "width" : 200
+      }, {
+        "height" : 46,
+        "url" : "https://i.scdn.co/image/d1711c38b18f473e805a296755931c99b9c85671",
+        "width" : 64
+      } ],
+      "name" : "Open Mike Eagle",
+      "popularity" : 49,
+      "type" : "artist",
+      "uri" : "spotify:artist:5CuU6SRJjbbZL926nSGGxX"
+    }
+  ],
+  "total" : 50,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/artists",
+  "previous" : null,
+  "next" : "https://api.spotify.com/v1/me/top/artists?limit=20&offset=20"
+}
+
+
+
+
+/**
+ * Tests https://developer.spotify.com/web-api/get-users-top-artists-and-tracks/
+ */
+const usersTopTracks : SpotifyApi.UsersTopTracksResponse = {
+    "items" : [ 
+      {
+        "album" : {
+          "album_type" : "SINGLE",
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/40LbnfieVTWtHrK24WQeEB"
+          },
+          "href" : "https://api.spotify.com/v1/albums/40LbnfieVTWtHrK24WQeEB",
+          "id" : "40LbnfieVTWtHrK24WQeEB",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/d013904153a1c3771a7f851132b090254c39a51b",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/84b9940cb99bf1072d553158c6e23426cb13b789",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/65234ee4a5155e1e9848d73c9a5d4167640c5442",
+            "width" : 64
+          } ],
+          "name" : "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
+          "type" : "album",
+          "uri" : "spotify:album:40LbnfieVTWtHrK24WQeEB"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/31TPClRtHm23RisEBtV3X7"
+          },
+          "href" : "https://api.spotify.com/v1/artists/31TPClRtHm23RisEBtV3X7",
+          "id" : "31TPClRtHm23RisEBtV3X7",
+          "name" : "Justin Timberlake",
+          "type" : "artist",
+          "uri" : "spotify:artist:31TPClRtHm23RisEBtV3X7"
+        } ],
+        "disc_number" : 1,
+        "duration_ms" : 236001,
+        "explicit" : false,
+        "external_ids" : {
+          "isrc" : "USRC11600876"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/6JV2JOEocMgcZxYSZelKcc"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/6JV2JOEocMgcZxYSZelKcc",
+        "id" : "6JV2JOEocMgcZxYSZelKcc",
+        "is_playable" : true,
+        "name" : "CAN'T STOP THE FEELING! (Original Song from DreamWorks Animation's \"TROLLS\")",
+        "popularity" : 89,
+        "preview_url" : "https://p.scdn.co/mp3-preview/9127f47e7e5265f51ab9e1a8d5d8edb9b7cb91a5",
+        "track_number" : 1,
+        "type" : "track",
+        "uri" : "spotify:track:6JV2JOEocMgcZxYSZelKcc"
+      }, {
+        "album" : {
+          "album_type" : "ALBUM",
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/album/7LWTCCUFJ0USkRscNJJrI5"
+          },
+          "href" : "https://api.spotify.com/v1/albums/7LWTCCUFJ0USkRscNJJrI5",
+          "id" : "7LWTCCUFJ0USkRscNJJrI5",
+          "images" : [ {
+            "height" : 640,
+            "url" : "https://i.scdn.co/image/5ba38a31cba7dad300b8e0faa9855831e56d5aa8",
+            "width" : 640
+          }, {
+            "height" : 300,
+            "url" : "https://i.scdn.co/image/f2ff9436752a06bdbb37f932526d30d0d48faa62",
+            "width" : 300
+          }, {
+            "height" : 64,
+            "url" : "https://i.scdn.co/image/bf9b129dcae3ff55d28c6cb637a31fda11bf19c4",
+            "width" : 64
+          } ],
+          "name" : "Hella Personal Film Festival",
+          "type" : "album",
+          "uri" : "spotify:album:7LWTCCUFJ0USkRscNJJrI5"
+        },
+        "artists" : [ {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5CuU6SRJjbbZL926nSGGxX"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5CuU6SRJjbbZL926nSGGxX",
+          "id" : "5CuU6SRJjbbZL926nSGGxX",
+          "name" : "Open Mike Eagle",
+          "type" : "artist",
+          "uri" : "spotify:artist:5CuU6SRJjbbZL926nSGGxX"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/5agXR9PXcQ3whCRLu8LeeN"
+          },
+          "href" : "https://api.spotify.com/v1/artists/5agXR9PXcQ3whCRLu8LeeN",
+          "id" : "5agXR9PXcQ3whCRLu8LeeN",
+          "name" : "Paul White",
+          "type" : "artist",
+          "uri" : "spotify:artist:5agXR9PXcQ3whCRLu8LeeN"
+        }, {
+          "external_urls" : {
+            "spotify" : "https://open.spotify.com/artist/2fSaE6BXtQy0x7R7v9IOmZ"
+          },
+          "href" : "https://api.spotify.com/v1/artists/2fSaE6BXtQy0x7R7v9IOmZ",
+          "id" : "2fSaE6BXtQy0x7R7v9IOmZ",
+          "name" : "Aesop Rock",
+          "type" : "artist",
+          "uri" : "spotify:artist:2fSaE6BXtQy0x7R7v9IOmZ"
+        } ],
+        "disc_number" : 1,
+        "duration_ms" : 163607,
+        "explicit" : true,
+        "external_ids" : {
+          "isrc" : "QMDA61502901"
+        },
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/27q05upTUtvQKCReZDy4PH"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/27q05upTUtvQKCReZDy4PH",
+        "id" : "27q05upTUtvQKCReZDy4PH",
+        "is_playable" : true,
+        "name" : "I Went Outside Today (feat. Aesop Rock)",
+        "popularity" : 30,
+        "preview_url" : "https://p.scdn.co/mp3-preview/715ab2ac2089a6fb99afe37cb7ea73c0a4788171",
+        "track_number" : 2,
+        "type" : "track",
+        "uri" : "spotify:track:27q05upTUtvQKCReZDy4PH"
+      }
+  ],
+  "total" : 50,
+  "limit" : 20,
+  "offset" : 0,
+  "href" : "https://api.spotify.com/v1/me/top/tracks",
+  "previous" : null,
+  "next" : "https://api.spotify.com/v1/me/top/tracks?limit=20&offset=20"
+}
+
+
+
+
+/**
+ * Tests 
+ */
+const recommendationsBasedOnSeeds: SpotifyApi.RecommendationsFromSeedsResponse = {
+  "tracks": [
+    {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/134GdR5tUtxJrf8cpsfpyY"
+        },
+          "href" : "https://api.spotify.com/v1/artists/134GdR5tUtxJrf8cpsfpyY",
+          "id" : "134GdR5tUtxJrf8cpsfpyY",
+          "name" : "Elliphant",
+          "type" : "artist",
+          "uri" : "spotify:artist:134GdR5tUtxJrf8cpsfpyY"
+      }, {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/1D2oK3cJRq97OXDzu77BFR"
+        },
+          "href" : "https://api.spotify.com/v1/artists/1D2oK3cJRq97OXDzu77BFR",
+          "id" : "1D2oK3cJRq97OXDzu77BFR",
+          "name" : "Ras Fraser Jr.",
+          "type" : "artist",
+          "uri" : "spotify:artist:1D2oK3cJRq97OXDzu77BFR"
+      } ],
+      "disc_number" : 1,
+      "duration_ms" : 199133,
+      "explicit" : false,
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/track/1TKYPzH66GwsqyJFKFkBHQ"
+      },
+      "href" : "https://api.spotify.com/v1/tracks/1TKYPzH66GwsqyJFKFkBHQ",
+      "id" : "1TKYPzH66GwsqyJFKFkBHQ",
+      "is_playable" : true,
+      "name" : "Music Is Life",
+      "preview_url" : "https://p.scdn.co/mp3-preview/546099103387186dfe16743a33edd77e52cec738",
+      "track_number" : 1,
+      "type" : "track",
+      "uri" : "spotify:track:1TKYPzH66GwsqyJFKFkBHQ"
+    }, {
+      "artists" : [ {
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/artist/1VBflYyxBhnDc9uVib98rw"
+        },
+          "href" : "https://api.spotify.com/v1/artists/1VBflYyxBhnDc9uVib98rw",
+          "id" : "1VBflYyxBhnDc9uVib98rw",
+          "name" : "Icona Pop",
+          "type" : "artist",
+          "uri" : "spotify:artist:1VBflYyxBhnDc9uVib98rw"
+      } ],
+        "disc_number" : 1,
+        "duration_ms" : 187026,
+        "explicit" : false,
+        "external_urls" : {
+          "spotify" : "https://open.spotify.com/track/15iosIuxC3C53BgsM5Uggs"
+        },
+        "href" : "https://api.spotify.com/v1/tracks/15iosIuxC3C53BgsM5Uggs",
+        "id" : "15iosIuxC3C53BgsM5Uggs",
+        "is_playable" : true,
+        "name" : "All Night",
+        "preview_url" : "https://p.scdn.co/mp3-preview/9ee589fa7fe4e96bad3483c20b3405fb59776424",
+        "track_number" : 2,
+        "type" : "track",
+        "uri" : "spotify:track:15iosIuxC3C53BgsM5Uggs"
+    }
+  ],
+  "seeds": [
+    {
+      "initialPoolSize": 500,
+      "afterFilteringSize": 380,
+      "afterRelinkingSize": 365,
+      "href": "https://api.spotify.com/v1/artists/4NHQUGzhtTLFvgF5SZesLK",
+      "id": "4NHQUGzhtTLFvgF5SZesLK",
+      "type": "artist"
+    }, {
+      "initialPoolSize": 250,
+      "afterFilteringSize": 172,
+      "afterRelinkingSize": 144,
+      "href": "https://api.spotify.com/v1/tracks/0c6xIDDpzE81m2q797ordA",
+      "id": "0c6xIDDpzE81m2q797ordA",
+      "type": "track"
+    }
+  ]
+};
 
 
 
 /**
  * Tests https://developer.spotify.com/web-api/search-item/?type=album
  */
-var searchAlbums : SpotifyApi.AlbumSearchResponse = {
+const searchAlbums : SpotifyApi.AlbumSearchResponse = {
   "albums" : {
     "href" : "https://api.spotify.com/v1/search?query=Californication&offset=20&limit=2&type=album",
     "items" : [ {
@@ -5112,7 +5517,7 @@ var searchAlbums : SpotifyApi.AlbumSearchResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/search-item/?type=artist
  */
-var searchArtists : SpotifyApi.ArtistSearchResponse = {
+const searchArtists : SpotifyApi.ArtistSearchResponse = {
   "artists" : {
     "href" : "https://api.spotify.com/v1/search?query=tania+bowra&offset=0&limit=20&type=artist",
     "items" : [ {
@@ -5158,7 +5563,7 @@ var searchArtists : SpotifyApi.ArtistSearchResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/search-item/?type=playlist
  */
-var searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
+const searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
   "playlists" : {
     "href" : "https://api.spotify.com/v1/search?query=Summer&offset=20&limit=2&type=playlist",
     "items" : [ {
@@ -5252,7 +5657,7 @@ var searchPlaylists : SpotifyApi.PlaylistSearchResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/search-item/?type=track
  */
-var searchTracks : SpotifyApi.TrackSearchResponse = {
+const searchTracks : SpotifyApi.TrackSearchResponse = {
   "tracks" : {
     "href" : "https://api.spotify.com/v1/search?query=Summer&offset=20&limit=2&type=track",
     "items" : [ {
@@ -5396,7 +5801,7 @@ var searchTracks : SpotifyApi.TrackSearchResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-track/
  */
-var track : SpotifyApi.SingleTrackResponse = {
+const track : SpotifyApi.SingleTrackResponse = {
   "album" : {
     "album_type" : "album",
     "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GR", "GT", "HK", "HN", "HU", "IE", "IS", "IT", "LI", "LT", "LU", "LV", "MC", "MT", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "RO", "SE", "SG", "SI", "SK", "SV", "TR", "TW", "UY" ],
@@ -5458,7 +5863,7 @@ var track : SpotifyApi.SingleTrackResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-several-tracks/
  */
-var tracks : SpotifyApi.MultipleTracksResponse = {
+const tracks : SpotifyApi.MultipleTracksResponse = {
   "tracks" : [ {
     "album" : {
       "album_type" : "album",
@@ -5576,7 +5981,7 @@ var tracks : SpotifyApi.MultipleTracksResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-users-profile/
  */
-var userProfile : SpotifyApi.UserProfileResponse = {
+const userProfile : SpotifyApi.UserProfileResponse = {
   "display_name" : "Ronald Pompa",
   "external_urls" : {
     "spotify" : "https://open.spotify.com/user/wizzler"
@@ -5602,7 +6007,7 @@ var userProfile : SpotifyApi.UserProfileResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-list-users-playlists/
  */
-var usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
+const usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
   "href" : "https://api.spotify.com/v1/users/wizzler/playlists?offset=0&limit=2",
   "items" : [ {
     "collaborative" : false,
@@ -5678,7 +6083,7 @@ var usersPlaylists : SpotifyApi.ListOfUsersPlaylistsResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/get-playlist/
  */
-var playlist : SpotifyApi.SinglePlaylistResponse = {
+const playlist : SpotifyApi.SinglePlaylistResponse = {
   "collaborative" : false,
   "description" : null,
   "external_urls" : {
@@ -5936,7 +6341,7 @@ var playlist : SpotifyApi.SinglePlaylistResponse = {
 /**
  * Tests 
  */
-var playlistTracks : SpotifyApi.PlaylistTrackResponse = {
+const playlistTracks : SpotifyApi.PlaylistTrackResponse = {
   "href" : "https://api.spotify.com/v1/users/spotify_espa%C3%B1a/playlists/21THa8j9TaSGuXYNBU5tsC/tracks?offset=0&limit=3",
   "items" : [ {
     "added_at" : "2015-12-09T23:12:56Z",
@@ -6180,7 +6585,7 @@ var playlistTracks : SpotifyApi.PlaylistTrackResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/create-playlist/
  */
-var newPlaylist : SpotifyApi.CreatePlaylistResponse = {
+const newPlaylist : SpotifyApi.CreatePlaylistResponse = {
   "collaborative" : false,
   "description" : null,
   "external_urls" : {
@@ -6224,7 +6629,7 @@ var newPlaylist : SpotifyApi.CreatePlaylistResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/change-playlist-details/
  */
-var changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
+const changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
 
 
 
@@ -6232,7 +6637,7 @@ var changePlaylistDetails : SpotifyApi.ChangePlaylistDetailsReponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/add-tracks-to-playlist/
  */
-var addTracksToPlaylist : SpotifyApi.AddTracksToPlaylistResponse = {
+const addTracksToPlaylist : SpotifyApi.AddTracksToPlaylistResponse = {
   "snapshot_id" : "4qQeMTnHV5LCL9w/lI9Mlu5shi2pk+iiIm6VEpmKdMPCE6adhRNTG9SXflxh8DTt"
 };
 
@@ -6242,7 +6647,7 @@ var addTracksToPlaylist : SpotifyApi.AddTracksToPlaylistResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/remove-tracks-playlist/
  */
-var removeTracksFromPlaylist : SpotifyApi.RemoveTracksFromPlaylistResponse = {
+const removeTracksFromPlaylist : SpotifyApi.RemoveTracksFromPlaylistResponse = {
   "snapshot_id" : "t3+4ZWOqedj+bmcHHu1HKNqYfIyYAfXKlSHHykvS4KAm7hoVhDoCpn+KIuFZebZp"
 };
 
@@ -6252,7 +6657,7 @@ var removeTracksFromPlaylist : SpotifyApi.RemoveTracksFromPlaylistResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/reorder-playlists-tracks/
  */
-var reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
+const reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
   "snapshot_id" : "t3+4ZWOqedj+bmcHHu1HKNqYfIyYAfXKlSHHykvS4KAm7hoVhDoCpn+KIuFZebZp"
 };
 
@@ -6262,7 +6667,7 @@ var reorderTracksInPlaylist : SpotifyApi.ReorderPlaylistTracksResponse = {
 /**
  * Tests https://developer.spotify.com/web-api/replace-playlists-tracks/
  */
-var replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
+const replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
 
 
 
@@ -6270,4 +6675,4 @@ var replacePlaylistTracks : SpotifyApi.ReplacePlaylistTracksResponse = {};
 /**
  * Tests https://developer.spotify.com/web-api/check-user-following-playlist/
  */
-var checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];
+const checkUserFollowsPlaylist : SpotifyApi.UsersFollowPlaylistReponse = [true, false, true];
