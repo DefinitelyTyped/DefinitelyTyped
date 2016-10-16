@@ -63,6 +63,8 @@ declare module "webpack" {
             recordsOutputPath?: string;
             /** Add additional plugins to the compiler. */
             plugins?: (Plugin|Function)[];
+            /** Configure Webpack stats (for logging) */
+            stats?: StatsToJsonOptions;
         }
 
         interface Entry {
