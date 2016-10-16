@@ -3,6 +3,8 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import IterateeMatcherShorthand = _.IterateeMatcherShorthand;
+import IterateePropertyShorthand = _.IterateePropertyShorthand;
 declare module _ {
 	/**
 	* underscore.js _.throttle options.
@@ -66,6 +68,10 @@ declare module _ {
 	interface ObjectIterator<T, TResult> {
 		(element: T, key: string, list: Dictionary<T>): TResult;
 	}
+
+	type IterateePropertyShorthand = string | number;
+
+	type IterateeMatcherShorthand<T> = Dictionary<T>;
 
 	interface MemoIterator<T, TResult> {
 		(prev: TResult, curr: T, index: number, list: List<T>): TResult;
@@ -146,7 +152,7 @@ interface UnderscoreStatic {
 	**/
 	map<T, TResult>(
 		list: _.List<T>,
-		iterator: _.ListIterator<T, TResult>,
+		iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
 		context?: any): TResult[];
 
 	/**
@@ -158,15 +164,16 @@ interface UnderscoreStatic {
 	**/
 	map<T, TResult>(
 		object: _.Dictionary<T>,
-		iterator: _.ObjectIterator<T, TResult>,
+		iterator: _.ObjectIterator<T, TResult> ,
 		context?: any): TResult[];
+
 
 	/**
 	* @see _.map
 	**/
 	collect<T, TResult>(
 		list: _.List<T>,
-		iterator: _.ListIterator<T, TResult>,
+		iterator: _.ListIterator<T, TResult> | _.IterateePropertyShorthand | _.IterateeMatcherShorthand<any>,
 		context?: any): TResult[];
 
 	/**
@@ -900,7 +907,7 @@ interface UnderscoreStatic {
 	uniq<T, TSort>(
 		array: _.List<T>,
 		isSorted?: boolean,
-		iterator?: _.ListIterator<T, TSort>,
+		iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
 		context?: any): T[];
 
 	/**
@@ -916,7 +923,7 @@ interface UnderscoreStatic {
 	**/
 	unique<T, TSort>(
 		array: _.List<T>,
-		iterator?: _.ListIterator<T, TSort>,
+		iterator?: _.ListIterator<T, TSort> | _.IterateePropertyShorthand,
 		context?: any): T[];
 
 	/**
