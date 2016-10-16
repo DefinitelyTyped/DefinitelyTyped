@@ -1,15 +1,13 @@
 /// <reference path="./random-seed.d.ts" />
-import * as gen from "random-seed";
+import { RandomSeed, create } from "random-seed";
 
 // these generators produce different numbers
-let rand1 = gen.create(); // method 1
-let rand2 = gen();        // method 3
+let rand1: RandomSeed = create(); // method 1
 
 // these generators will produce
 // the same sequence of numbers
 let seed = 'My Secret String Value';
-let rand3 = gen.create(seed);
-let rand4 = gen(seed);
+let rand2 = create(seed);
 
 // API
 rand1.addEntropy();
