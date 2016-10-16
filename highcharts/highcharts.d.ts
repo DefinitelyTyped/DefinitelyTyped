@@ -5662,7 +5662,7 @@ interface HighchartsChartObject {
      * @param [boolean] redraw
      * @since 1.2.0
      */
-    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | HighchartsAnimation): HighchartsSeriesObject;
+    addSeries<T extends HighchartsIndividualSeriesOptions>(options: T, redraw?: boolean, animation?: boolean | HighchartsAnimation): T;
     /**
      * Add a series to the chart as drilldown from a specific point in the parent series. This method is used for async
      * drilldown, when clicking a point in a series should result in loading and displaying a more high-resolution
