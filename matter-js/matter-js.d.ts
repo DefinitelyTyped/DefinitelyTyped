@@ -2130,7 +2130,7 @@ declare namespace Matter {
          * @param {} options
          * @return {MouseConstraint} A new MouseConstraint
          */
-        create(engine: Engine, options: IMouseConstraintDefinition): MouseConstraint;
+        static create(engine: Engine, options?: IMouseConstraintDefinition): MouseConstraint;
 
         /**
          * The `Constraint` object that is used to move the body during interaction.
