@@ -8,7 +8,7 @@
 *               Node.js v6.x API                *
 *                                               *
 ************************************************/
-
+    
 interface Error {
     stack?: string;
 }
@@ -257,7 +257,7 @@ declare namespace NodeJS {
         eventNames(): (string | symbol)[];
     }
 
-    export interface ReadableStream extends EventEmitter {
+    export class ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
         setEncoding(encoding: string): void;
@@ -270,7 +270,7 @@ declare namespace NodeJS {
         wrap(oldStream: ReadableStream): ReadableStream;
     }
 
-    export interface WritableStream extends EventEmitter {
+    export class WritableStream extends EventEmitter {
         writable: boolean;
         write(buffer: Buffer | string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
@@ -280,14 +280,14 @@ declare namespace NodeJS {
         end(str: string, encoding?: string, cb?: Function): void;
     }
 
-    export interface ReadWriteStream extends ReadableStream, WritableStream {
+    export class ReadWriteStream extends ReadableStream, WritableStream {
         pause(): ReadWriteStream;
         resume(): ReadWriteStream;
     }
 
     export interface Events extends EventEmitter { }
 
-    export interface Domain extends Events {
+    export class Domain extends Events {
         run(fn: Function): void;
         add(emitter: Events): void;
         remove(emitter: Events): void;
@@ -319,7 +319,7 @@ declare namespace NodeJS {
         openssl: string;
     }
 
-    export interface Process extends EventEmitter {
+    export class Process extends EventEmitter {
         stdout: WritableStream;
         stderr: WritableStream;
         stdin: ReadableStream;
@@ -461,7 +461,7 @@ interface IterableIterator<T> { }
 /**
  * @deprecated
  */
-interface NodeBuffer extends Uint8Array {
+class NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
     toJSON(): { type: 'Buffer', data: any[] };
@@ -588,7 +588,7 @@ declare module "http" {
         agent?: Agent | boolean;
     }
 
-    export interface Server extends net.Server {
+    export class Server extends net.Server {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
@@ -597,10 +597,10 @@ declare module "http" {
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ServerRequest extends IncomingMessage {
+    export class ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
-    export interface ServerResponse extends stream.Writable {
+    export class ServerResponse extends stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -630,7 +630,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends stream.Writable {
+    export class ClientRequest extends stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -656,7 +656,7 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface IncomingMessage extends stream.Readable {
+    export class IncomingMessage extends stream.Readable {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
@@ -838,7 +838,7 @@ declare module "cluster" {
         prependOnceListener(event: "online", listener: () => void): this;
     }
 
-    export interface Cluster extends events.EventEmitter {
+    export class Cluster extends events.EventEmitter {
         Worker: Worker;
         disconnect(callback?: Function): void;
         fork(env?: any): Worker;
@@ -1339,7 +1339,7 @@ declare module "readline" {
         shift?: boolean;
     }
 
-    export interface ReadLine extends events.EventEmitter {
+    export class ReadLine extends events.EventEmitter {
         setPrompt(prompt: string): void;
         prompt(preserveCursor?: boolean): void;
         question(query: string, callback: (answer: string) => void): void;
@@ -1412,7 +1412,7 @@ declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
 
-    export interface ChildProcess extends events.EventEmitter {
+    export class ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
         stderr: stream.Readable;
@@ -1654,7 +1654,7 @@ declare module "dns" {
 declare module "net" {
     import * as stream from "stream";
 
-    export interface Socket extends stream.Duplex {
+    export class Socket extends stream.Duplex {
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -1776,7 +1776,7 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export class Server extends Socket {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
@@ -1944,7 +1944,7 @@ declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
 
-    interface Stats {
+    class Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -1968,7 +1968,7 @@ declare module "fs" {
         birthtime: Date;
     }
 
-    interface FSWatcher extends events.EventEmitter {
+    class FSWatcher extends events.EventEmitter {
         close(): void;
 
         /**
@@ -1997,7 +1997,7 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
     }
 
-    export interface ReadStream extends stream.Readable {
+    export class ReadStream extends stream.Readable {
         close(): void;
         destroy(): void;
 
@@ -2027,7 +2027,7 @@ declare module "fs" {
         prependOnceListener(event: "close", listener: () => void): this;
     }
 
-    export interface WriteStream extends stream.Writable {
+    export class WriteStream extends stream.Writable {
         close(): void;
         bytesWritten: number;
         path: string | Buffer;
@@ -2881,7 +2881,7 @@ declare module "tls" {
         minDHSize?: number;
     }
 
-    export interface Server extends net.Server {
+    export class Server extends net.Server {
         close(): Server;
         address(): { port: number; family: string; address: string; };
         addContext(hostName: string, credentials: {
@@ -3460,12 +3460,12 @@ declare module "tty" {
     import * as net from "net";
 
     export function isatty(fd: number): boolean;
-    export interface ReadStream extends net.Socket {
+    export class ReadStream extends net.Socket {
         isRaw: boolean;
         setRawMode(mode: boolean): void;
         isTTY: boolean;
     }
-    export interface WriteStream extends net.Socket {
+    export class WriteStream extends net.Socket {
         columns: number;
         rows: number;
         isTTY: boolean;
