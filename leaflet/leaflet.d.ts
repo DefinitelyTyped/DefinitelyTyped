@@ -1188,13 +1188,8 @@ declare namespace L {
     export namespace DomEvent {
         export function on(el: HTMLElement, types: string | Object, fn: Function, context?: any): typeof DomEvent;
         export function off(el: HTMLElement, types: string | Object, fn: Function, context?: any): typeof DomEvent;
-        export function stopPropagation(e: DOMEvent): typeof DomEvent;
         export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
         export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
-        export function preventDefault(e: DOMEvent): typeof DomEvent;
-        export function stop(e: DOMEvent): typeof DomEvent;
-        export function getMousePosition(e: DOMEvent, container?: HTMLElement): Point;
-        export function getWheelDelta(e: DOMEvent): Number;
     }
 
     interface DefaultMapPanes {

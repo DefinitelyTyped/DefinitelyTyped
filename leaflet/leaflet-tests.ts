@@ -209,9 +209,9 @@ tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png?{foo}&{bar}&{ab
 
 let eventHandler = () => {};
 L.DomEvent.on(htmlElement, 'click', eventHandler);
-L.DomEvent.on(htmlElement, 'click', eventHandler);
+L.DomEvent.off(htmlElement, 'click', eventHandler);
 L.DomEvent.disableScrollPropagation(htmlElement);
-L.DomEvent.disableScrollPropagation(disableClickPropagation);
+L.DomEvent.disableClickPropagation(htmlElement);
 
 map = map
 	// addControl
