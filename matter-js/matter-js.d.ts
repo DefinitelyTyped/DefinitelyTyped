@@ -3309,7 +3309,7 @@ declare namespace Matter {
         * @param eventNames
         * @param event
         */
-        static trigger(object: any, eventNames: string, event: (e: any) => void): void;
+        static trigger(object: any, eventNames: string, event?: (e: any) => void): void;
 
     }
 }
