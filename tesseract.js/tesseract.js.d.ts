@@ -8,12 +8,12 @@
 declare module Tesseract {
     type ImageLike = string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
         | CanvasRenderingContext2D | File | Blob | ImageData | Buffer;
-    type Progress = {
+    interface Progress {
         status: string;
         progress: number;
         loaded?: number;
     }
-    type Block = {
+    interface Block {
         paragraphs: Paragraph;
         text: string;
         confidence: number;
@@ -26,20 +26,20 @@ declare module Tesseract {
         words: Word[];
         symbols: Symbol[];
     }
-    type Baseline = {
+    interface Baseline {
         x0: number;
         y0: number;
         x1: number;
         y1: number;
         has_baseline: boolean;
     }
-    type Bbox = {
+    interface Bbox {
         x0: number;
         y0: number;
         x1: number;
         y1: number;
-    };
-    type Line = {
+    }
+    interface Line {
         words: Word[];
         text: string;
         confidence: number;
@@ -50,7 +50,7 @@ declare module Tesseract {
         page: Page;
         symbols: Symbol[];
     }
-    type Paragraph = {
+    interface Paragraph {
         lines: Line[];
         text: string;
         confidence: number;
@@ -62,7 +62,7 @@ declare module Tesseract {
         words: Word[];
         symbols: Symbol[];
     }
-    type Symbol = {
+    interface Symbol {
         choices: Choice[];
         image: any;
         text: string;
@@ -78,11 +78,11 @@ declare module Tesseract {
         block: Block;
         page: Page;
     }
-    type Choice = {
+    interface Choice {
         text: string;
         confidence: number;
     }
-    type Word = {
+    interface Word {
         symbols: Symbol[];
         choices: Choice[];
         text: string;
@@ -107,7 +107,7 @@ declare module Tesseract {
         block: Block;
         page: Page;
     }
-    type Page = {
+    interface Page {
         blocks: Block[];
         confidence: number;
         html: string;
@@ -119,16 +119,16 @@ declare module Tesseract {
         text: string;
         version: string;
         words: Word[];
-    };
-    type TesseractJob = {
+    }
+    interface TesseractJob {
         then: (callback: (result: Page) => void) => TesseractJob;
         progress: (callback: (progress: Progress) => void) => TesseractJob;
         catch: (callback: (error: Error) => void) => TesseractJob;
         finally: (callback: (resultOrError: Error | Page) => void) => TesseractJob;
         error?: (error: Error) => TesseractJob;
-    };
+    }
 
-    type TesseractStatic = {
+    interface TesseractStatic {
         recognize(image: ImageLike): TesseractJob;
         recognize(image: ImageLike, options: any): TesseractJob;
         detect(image: ImageLike): TesseractJob;
