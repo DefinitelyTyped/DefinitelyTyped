@@ -3,8 +3,6 @@
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import IterateeMatcherShorthand = _.IterateeMatcherShorthand;
-import IterateePropertyShorthand = _.IterateePropertyShorthand;
 declare module _ {
 	/**
 	* underscore.js _.throttle options.
