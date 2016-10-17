@@ -50,7 +50,6 @@ declare namespace ReactRouter {
         history?: History
         location?: H.Location
         params?: P
-        render?: (renderProps: React.Props<any>) => any;
         route?: PlainRoute
         routeParams?: R
         routes?: PlainRoute[]
@@ -102,6 +101,7 @@ declare namespace ReactRouter {
         history?: H.History
         routes?: RouteConfig // alias for children
         createElement?: (component: RouteComponent, props: Object) => any
+        render?: (renderProps: React.Props<any>) => any;
         onError?: (error: any) => any
         onUpdate?: () => any
         parseQueryString?: ParseQueryString
