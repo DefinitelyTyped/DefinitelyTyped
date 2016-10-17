@@ -5,6 +5,18 @@
 
 /// <reference path="../node/index.d.ts" />
 
+/**
+### 0.8.1 Changelog (https://github.com/RubenVerborgh/N3)
+
+#### TODO:
+
+Match samples from README.md
+
+- [x] _.first as an alias of _.head
+
+*/
+
+
 declare module "n3" {
     import * as fs from "fs";
     import * as stream from "stream";
@@ -108,3 +120,4 @@ declare module "n3" {
 
     export = N3;
 }
+
