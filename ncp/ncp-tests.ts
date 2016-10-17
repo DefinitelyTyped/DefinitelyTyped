@@ -1,5 +1,3 @@
-/// <reference path="ncp.d.ts" />
-
 import ncp = require('ncp');
 import stream = require('stream');
 
@@ -7,6 +5,9 @@ var opts: ncp.Options;
 opts = {};
 opts = {
 	filter: /abc/
+};
+opts = {
+    filter: (filename: string) => true
 };
 opts = {
 	transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => {

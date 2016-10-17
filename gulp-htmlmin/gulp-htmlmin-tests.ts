@@ -1,5 +1,5 @@
-/// <reference path="gulp-htmlmin.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from 'gulp';
 import * as htmlmin from 'gulp-htmlmin';

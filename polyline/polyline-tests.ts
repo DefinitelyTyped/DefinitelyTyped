@@ -1,4 +1,4 @@
-/// <reference path="./polyline.d.ts" />
+
 
 // returns an array of lat, lon pairs
 polyline.decode('_p~iF~ps|U_ulLnnqC_mqNvxq`@');

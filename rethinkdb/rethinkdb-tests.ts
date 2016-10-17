@@ -1,4 +1,3 @@
-/// <reference path="rethinkdb.d.ts" />
 
 import r = require("rethinkdb")
 
@@ -15,8 +14,10 @@ r.connect({host:"localhost", port: 28015}, function(err, conn) {
         })
         .between("james", "beth")
         .limit(4)
-        .run(conn, function() {
-
+        .run(conn, function(err, cursor) {
+          cursor.toArray().then(rows => {
+            console.log(rows);
+          });
         })
 
     })

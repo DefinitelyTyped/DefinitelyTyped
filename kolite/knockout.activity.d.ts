@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+/// <reference types="jquery" />
+/// <reference types="knockout" />
 
 
 // Activity /////////////////////////////////////////////
@@ -28,8 +28,18 @@ interface KoLiteActivity {
     getOpacity(options: { steps?: number; segments?: number; opacity?: number; }, i: number): number;
 }
 
+interface KoLiteActivityDefaultOptions {
+    activityClass?: string,
+    container?: string,
+    inactiveClass?: string
+}
+
+interface KoLiteActivityBindingHandler extends KnockoutBindingHandler {
+    defaultOptions: KoLiteActivityDefaultOptions
+}
+
 interface KnockoutBindingHandlers {
-    activity: KnockoutBindingHandler;
+    activity: KoLiteActivityBindingHandler;
 }
 
 interface JQuery {

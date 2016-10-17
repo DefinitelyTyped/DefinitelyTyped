@@ -1,6 +1,6 @@
-/// <reference path="nodemailer-smtp-pool.d.ts" />
 
 import smtpPool = require('nodemailer-smtp-pool');
+import nodemailer = require('nodemailer');
 
 var opts: smtpPool.SmtpPoolOptions = {
 	maxConnections: 5,

@@ -1,4 +1,4 @@
-/// <reference path="./js-combinatorics-global.d.ts" />
+
 
 const p:number = Combinatorics.P(1, 2);
 const c:number = Combinatorics.C(1, 2);

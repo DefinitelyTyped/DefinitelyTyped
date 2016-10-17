@@ -1,4 +1,4 @@
-/// <reference path="dock-spawn.d.ts" />
+
 
 var dockManagerDiv = document.createElement('div'),
     panelDiv1 = document.createElement('div'),

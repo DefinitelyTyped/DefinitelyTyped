@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="mssql.d.ts" />
+/// <reference types="node" />
 
 import sql = require('mssql');
 

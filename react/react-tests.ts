@@ -1,15 +1,3 @@
-/// <reference path="react.d.ts" />
-/// <reference path="react-dom.d.ts" />
-/// <reference path="react-addons-create-fragment.d.ts" />
-/// <reference path="react-addons-css-transition-group.d.ts" />
-/// <reference path="react-addons-linked-state-mixin.d.ts" />
-/// <reference path="react-addons-perf.d.ts" />
-/// <reference path="react-addons-pure-render-mixin.d.ts" />
-/// <reference path="react-addons-shallow-compare.d.ts" />
-/// <reference path="react-addons-test-utils.d.ts" />
-/// <reference path="react-addons-transition-group.d.ts" />
-/// <reference path="react-addons-update.d.ts" />
-
 import React = require("react");
 import ReactDOM = require("react-dom");
 import ReactDOMServer = require("react-dom/server");
@@ -128,8 +116,11 @@ class ModernComponent extends React.Component<Props, State>
     render() {
         return React.DOM.div(null,
             React.DOM.input({
-                ref: input => this._input = <HTMLInputElement>input,
+                ref: input => this._input = input,
                 value: this.state.inputValue
+            }),
+            React.DOM.input({
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -137,6 +128,8 @@ class ModernComponent extends React.Component<Props, State>
         return shallowCompare(this, nextProps, nextState);
     }
 }
+
+class ModernComponentNoState extends React.Component<Props, void> {}
 
 interface SCProps {
     foo?: number;
@@ -166,7 +159,7 @@ var factoryElement: React.CElement<Props, ModernComponent> =
 
 var statelessFactory: React.SFCFactory<SCProps> =
     React.createFactory(StatelessComponent);
-var statelessElement: React.SFCElement<SCProps> =
+var statelessFactoryElement: React.SFCElement<SCProps> =
     statelessFactory(props);
 
 var classicFactory: React.ClassicFactory<Props> =
@@ -174,14 +167,16 @@ var classicFactory: React.ClassicFactory<Props> =
 var classicFactoryElement: React.ClassicElement<Props> =
     classicFactory(props);
 
-var domFactory: React.DOMFactory<React.DOMAttributes, Element> =
+var domFactory: React.DOMFactory<React.DOMAttributes<{}>, Element> =
     React.createFactory("foo");
-var domFactoryElement: React.DOMElement<React.DOMAttributes, Element> =
+var domFactoryElement: React.DOMElement<React.DOMAttributes<{}>, Element> =
     domFactory();
 
 // React.createElement
 var element: React.CElement<Props, ModernComponent> =
     React.createElement(ModernComponent, props);
+var elementNoState: React.CElement<Props, ModernComponentNoState> =
+    React.createElement(ModernComponentNoState, props);
 var statelessElement: React.SFCElement<SCProps> =
     React.createElement(StatelessComponent, props);
 var classicElement: React.ClassicElement<Props> =
@@ -216,6 +211,15 @@ var clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
 // React.render
 var component: ModernComponent =
     ReactDOM.render(element, container);
+var componentNullContainer: ModernComponent =
+    ReactDOM.render(element, null);
+
+var componentElementOrNull: ModernComponent =
+    ReactDOM.render(element, document.getElementById("anelement"));
+var componentNoState: ModernComponentNoState =
+    ReactDOM.render(elementNoState, container);
+var componentNoStateElementOrNull: ModernComponentNoState =
+    ReactDOM.render(elementNoState, document.getElementById("anelement"));
 var classicComponent: React.ClassicComponent<Props, any> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
@@ -307,7 +311,7 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
     children: children,
     className: "test-attr",
     style: divStyle,
-    onClick: (event: React.MouseEvent) => {
+    onClick: (event: React.MouseEvent<{}>) => {
         event.preventDefault();
         event.stopPropagation();
     },
@@ -366,6 +370,17 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         customProp: function(props: any, propName: string, componentName: string) {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
+            }
+            return null;
+        },
+        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
+        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error => {
+            const error = React.PropTypes.number(object, key, componentName, ...rest);
+            if (error) {
+                return error;
+            }
+            if (object[key] < 0 || object[key] > 100) {
+                return new Error(`prop ${key} must be between 0 and 100`);
             }
             return null;
         }
@@ -480,7 +495,9 @@ React.createFactory(CSSTransitionGroup)({
     transitionName: "transition",
     transitionAppear: false,
     transitionEnter: true,
-    transitionLeave: true
+    transitionLeave: true,
+    id: "some-id",
+    className: "some-class"
 });
 
 React.createFactory(CSSTransitionGroup)({
@@ -528,7 +545,24 @@ var measurements = Perf.getLastMeasurements();
 Perf.printInclusive(measurements);
 Perf.printExclusive(measurements);
 Perf.printWasted(measurements);
+Perf.printOperations(measurements);
+Perf.printInclusive();
+Perf.printExclusive();
+Perf.printWasted();
+Perf.printOperations();
+
+console.log(Perf.getExclusive());
+console.log(Perf.getInclusive());
+console.log(Perf.getWasted());
+console.log(Perf.getOperations());
+console.log(Perf.getExclusive(measurements));
+console.log(Perf.getInclusive(measurements));
+console.log(Perf.getWasted(measurements));
+console.log(Perf.getOperations(measurements));
+
+// Renamed to printOperations().  Please use it instead.
 Perf.printDOM(measurements);
+Perf.printDOM();
 
 //
 // PureRenderMixin addon
@@ -547,10 +581,9 @@ var node: Element = TestUtils.renderIntoDocument(React.DOM.div());
 
 TestUtils.Simulate.click(node);
 TestUtils.Simulate.change(node);
-TestUtils.Simulate.keyDown(node, { key: "Enter" });
+TestUtils.Simulate.keyDown(node, { key: "Enter", cancelable: false });
 
-var renderer: React.ShallowRenderer =
-    TestUtils.createRenderer();
+var renderer: TestUtils.ShallowRenderer = TestUtils.createRenderer();
 renderer.render(React.createElement(Timer));
 var output: React.ReactElement<React.Props<Timer>> =
     renderer.getRenderOutput();
@@ -598,4 +631,18 @@ let newObj2 = update(obj, {b: {$set: obj.b * 2}});
 
 let objShallow = {a: 5, b: 3};
 let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}
+
+//
+// React Component classes super spread arguments
+// --------------------------------------------------------------------------
+class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
+}
+class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
 }

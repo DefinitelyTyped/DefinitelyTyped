@@ -1,6 +1,6 @@
-/// <reference path="./webvr-api.d.ts" />
 
-function fieldOfViewToProjectionMatrix(fov: WebVRApi.VRFieldOfView, zNear: number, zFar: number) {
+
+function fieldOfViewToProjectionMatrix(fov: VRFieldOfView, zNear: number, zFar: number) {
     var upTan = Math.tan(fov.upDegrees * Math.PI/180.0);
     var downTan = Math.tan(fov.downDegrees * Math.PI/180.0);
     var leftTan = Math.tan(fov.leftDegrees * Math.PI/180.0);
@@ -29,34 +29,23 @@ function fieldOfViewToProjectionMatrix(fov: WebVRApi.VRFieldOfView, zNear: numbe
     return out;
 }
 
-var hmd: HMDVRDevice;
+var hmd: VRDisplay;
 var leftEyeParams = hmd.getEyeParameters("left");
 var rightEyeParams = hmd.getEyeParameters("right");
-var leftEyeRect = leftEyeParams.renderRect;
-var rightEyeRect = rightEyeParams.renderRect;
+var leftEyeRect = { width: leftEyeParams.renderWidth, height: leftEyeParams.renderHeight };
+var rightEyeRect = { width: rightEyeParams.renderWidth, height: rightEyeParams.renderHeight };
 
 var canvas: HTMLCanvasElement;
-canvas.width = rightEyeRect.x + rightEyeRect.width;
-canvas.height = Math.max(leftEyeRect.y + leftEyeRect.height, rightEyeRect.y + rightEyeRect.height);
+canvas.width = rightEyeParams.renderWidth * 2;
+canvas.height = Math.max(leftEyeRect.height, rightEyeRect.height);
 
-var gHMD: WebVRApi.VRDevice;
-var gPositionSensor: WebVRApi.VRDevice;
+var gHMD: VRDisplay;
 
-navigator.getVRDevices().then(function(devices) {
+navigator.getVRDisplays().then(function(devices) {
     for (var i = 0; i < devices.length; ++i) {
-        if (devices[i] instanceof HMDVRDevice) {
+        if (devices[i] instanceof VRDisplay) {
             gHMD = devices[i];
             break;
-        }
-    }
-
-    if (gHMD) {
-        for (var i = 0; i < devices.length; ++i) {
-            if (devices[i] instanceof PositionSensorVRDevice &&
-                devices[i].hardwareUnitId == gHMD.hardwareUnitId) {
-                gPositionSensor = devices[i];
-                break;
-            }
         }
     }
 });

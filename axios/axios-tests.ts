@@ -1,4 +1,4 @@
-/// <reference path="axios.d.ts" />
+
 
 enum HttpMethod { GET, PUT, POST, DELETE, CONNECT, HEAD, OPTIONS, TRACE, PATCH }
 enum ResponseType { arraybuffer, blob, document, json, text }
@@ -91,3 +91,9 @@ var repoSum = (repo1: Axios.AxiosXHR<Repository>, repo2: Axios.AxiosXHR<Reposito
 };
 
 axios.all<Repository, Repository>([getRepoDetails, getRepoDetails]).then(axios.spread(repoSum));
+
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = "AUTH_TOKEN";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+axiosInstance.defaults.headers.common['Authorization'] = "AUTH_TOKEN";

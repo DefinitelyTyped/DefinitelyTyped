@@ -1,5 +1,5 @@
-/// <reference path="valerie.d.ts" />
-/// <reference path="../knockout/knockout.d.ts" />
+
+/// <reference types="knockout" />
 
 // Tests for valerie.d.ts
 // Project: https://github.com/davewatts/valerie
@@ -303,7 +303,7 @@ function UtilsStaticTests() {
     var t2 = valerie.utils.asArray([1,2]);
 
     var t3 = valerie.utils.asFunction(1);
-    var t4 = valerie.utils.asFunction(() => { return 1; });
+    var t4 = valerie.utils.asFunction((): number => { return 1; });
 
     var t5 = valerie.utils.isArray([1, 2]);
     var t5 = valerie.utils.isArrayOrObject(1);

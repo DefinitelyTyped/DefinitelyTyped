@@ -1,4 +1,3 @@
-/// <reference path="fast-stats.d.ts" />
 
 import faststats = require("fast-stats");
 import Stats = faststats.Stats;

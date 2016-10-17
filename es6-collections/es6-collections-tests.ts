@@ -1,4 +1,4 @@
-/// <reference path="es6-collections.d.ts" />
+
 
 interface Point { x: number; y: number; }
 let a: any;

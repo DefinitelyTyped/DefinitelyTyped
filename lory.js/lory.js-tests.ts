@@ -1,4 +1,4 @@
-/// <reference path="./lory.js.d.ts" />
+
 
 (function() {
     var elm = document.querySelector('.js-foo');

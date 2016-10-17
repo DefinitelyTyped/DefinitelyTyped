@@ -1,4 +1,4 @@
-/// <reference path="gridster.d.ts" />
+
 
 interface SerializeData {
 	x?: number;

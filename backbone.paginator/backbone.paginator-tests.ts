@@ -1,6 +1,7 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="../backbone/backbone.d.ts" />
-/// <reference path="backbone.paginator.d.ts" />
+/// <reference types="jquery" />
+
+
+import * as Backbone from 'backbone';
 
 namespace BackbonePaginatorTests {
 

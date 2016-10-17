@@ -1,5 +1,4 @@
-/// <reference path="ini.d.ts" />
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 import fs = require("fs");
 import ini = require("ini");

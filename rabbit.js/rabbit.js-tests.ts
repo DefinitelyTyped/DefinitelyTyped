@@ -1,4 +1,3 @@
-/// <reference path="./rabbit.js.d.ts" />
 
 import rabbit = require('rabbit.js');
 var context = rabbit.createContext();

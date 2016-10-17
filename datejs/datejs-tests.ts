@@ -1,5 +1,5 @@
-/// <reference path="datejs.d.ts" />
-/// <reference path="sugarpak.d.ts" />
+
+
 
 function tests() {
     // What date is next thursday?

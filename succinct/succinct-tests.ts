@@ -1,4 +1,4 @@
-/// <reference path="succinct.d.ts" />
+
 
 // Call with no arguments (accepting defaults)
 $(".truncate").succinct();

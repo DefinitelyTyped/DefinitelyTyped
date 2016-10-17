@@ -1,4 +1,4 @@
-﻿/// <reference path="twitter.d.ts" />
+﻿
 
 function load() {
     twttr.widgets.load();

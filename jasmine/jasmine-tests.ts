@@ -1,5 +1,3 @@
-/// <reference path="jasmine.d.ts" />
-
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
 describe("A suite", function () {
@@ -355,6 +353,40 @@ describe("A spy, when configured to fake a return value", function () {
 
     it("when called returns the requested value", function () {
         expect(fetchedBar).toEqual(745);
+    });
+});
+
+describe("A spy, when configured to fake a series of return values", function() {
+    var foo: any, bar: any;
+
+    beforeEach(function() {
+        foo = {
+            setBar: function(value: any) {
+                bar = value;
+            },
+            getBar: function() {
+                return bar;
+            }
+        };
+
+        spyOn(foo, "getBar").and.returnValues("fetched first", "fetched second");
+
+        foo.setBar(123);
+    });
+
+    it("tracks that the spy was called", function() {
+        foo.getBar(123);
+        expect(foo.getBar).toHaveBeenCalled();
+    });
+
+    it("should not affect other functions", function() {
+        expect(bar).toEqual(123);
+    });
+
+    it("when called multiple times returns the requested values in order", function() {
+        expect(foo.getBar()).toEqual("fetched first");
+        expect(foo.getBar()).toEqual("fetched second");
+        expect(foo.getBar()).toBeUndefined();
     });
 });
 
@@ -747,31 +779,31 @@ describe("Manually ticking the Jasmine Clock", function () {
 
 describe("Asynchronous specs", function () {
     var value: number;
-    beforeEach(function (done) {
+    beforeEach(function (done: DoneFn) {
         setTimeout(function () {
             value = 0;
             done();
         }, 1);
     });
 
-    it("should support async execution of test preparation and expectations", function (done) {
+    it("should support async execution of test preparation and expectations", function (done: DoneFn) {
         value++;
         expect(value).toBeGreaterThan(0);
         done();
     });
 
     describe("long asynchronous specs", function() {
-        beforeEach(function(done) {
+        beforeEach(function(done: DoneFn) {
           done();
         }, 1000);
 
-        it("takes a long time", function(done) {
+        it("takes a long time", function(done: DoneFn) {
           setTimeout(function() {
             done();
           }, 9000);
         }, 10000);
 
-        afterEach(function(done) {
+        afterEach(function(done: DoneFn) {
           done();
         }, 1000);
     });
@@ -870,6 +902,23 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     });
 });
 
+describe("Randomize Tests", function() {
+	it("should allow randomization of the order of tests", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			return env.randomizeTests(true);
+		}).not.toThrow();
+	});
+
+	it("should allow a seed to be passed in for randomization", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			env.randomizeTests(true);
+			return env.seed(1234);
+		}).not.toThrow();
+	});
+});
+
 (() => {
     // from boot.js
     var env = jasmine.getEnv();
@@ -885,7 +934,7 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     var currentWindowOnload = window.onload;
     window.onload = function () {
         if (currentWindowOnload) {
-            currentWindowOnload(null);
+            (<any>currentWindowOnload)(null);
         }
         htmlReporter.initialize();
         env.execute();

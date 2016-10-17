@@ -1,4 +1,4 @@
-/// <reference path="bufferstream.d.ts" />
+
 
 import BufferStream = require('bufferstream')
 

@@ -1,4 +1,4 @@
-/// <reference path="google.visualization.d.ts" />
+
 
 function test_arrayToDataTable() {
     var array = [
@@ -487,4 +487,26 @@ function test_formatter_PatternFormat() {
     view.setColumns([0]); // Create a view with the first column only.
 
     table.draw(view, { allowHtml: true, showRowNumber: true, width: '100%', height: '100%' });
+}
+
+function test_ChartsLoad() {
+    google.charts.load('current', {packages: ['corechart', 'table', 'sankey']});
+
+    function drawChart() {
+        // Define the chart to be drawn.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Element');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            ['Nitrogen', 0.78],
+            ['Oxygen', 0.21],
+            ['Other', 0.01]
+        ]);
+
+        // Instantiate and draw the chart.
+        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+        chart.draw(data, null);
+    }
+
+    google.charts.setOnLoadCallback(drawChart);
 }

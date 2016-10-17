@@ -1,5 +1,3 @@
-///  <reference path="webix.d.ts" />
-
 //ajax operations
 webix.ready(function(){
     webix.ajax().get("te").then(function(){
@@ -63,4 +61,18 @@ data.config["test"]= 123;
 
 //mixins
 var t = webix.DataDriver.json;
+
+//each ui type has its own events and config options
+var tObj = <webix.ui.treetable> $$("table");
+tObj.attachEvent("onAfterOpen", () => false);
+tObj.config.threeState = false;
+
+var mObj = <webix.ui.submenu> $$("menu");
+mObj.attachEvent("onMenuItemClick", () => false);
+mObj.config.submenuConfig = {};
+
+//template cna be a function or a string
+mObj.config.template = "";
+mObj.config.template = (obj) => obj.str;
+
 

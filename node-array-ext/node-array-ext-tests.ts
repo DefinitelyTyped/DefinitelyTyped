@@ -1,4 +1,4 @@
-/// <reference path="./node-array-ext.d.ts" />
+
 import extensions = require("node-array-ext");
 
 var array: Array<string> = [ "hello", "world", "test" ];

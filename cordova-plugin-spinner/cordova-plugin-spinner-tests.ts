@@ -1,4 +1,4 @@
-/// <reference path="cordova-plugin-spinner.d.ts" />
+
 
 SpinnerPlugin.activityStart();
 SpinnerPlugin.activityStart("a");

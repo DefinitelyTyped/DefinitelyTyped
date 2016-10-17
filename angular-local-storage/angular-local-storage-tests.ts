@@ -1,6 +1,3 @@
-/// <reference path='../angularjs/angular.d.ts' />
-/// <reference path='angular-local-storage.d.ts' />
-
 interface TestScope extends ng.IScope {
   submit: (key: string, value: string) => boolean;
   getItem: (key: string) => string;
@@ -12,7 +9,7 @@ interface TestScope extends ng.IScope {
   property: string;
 }
 
-export class TestController {
+class TestController {
   constructor($scope: TestScope, localStorageService: ng.local.storage.ILocalStorageService) {
     // isSupported
     if (localStorageService.isSupported) {

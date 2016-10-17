@@ -1,4 +1,4 @@
-/// <reference path="rss.d.ts" />
+
 
 // this test is copied from https://github.com/dylang/node-rss
 //  it basically:

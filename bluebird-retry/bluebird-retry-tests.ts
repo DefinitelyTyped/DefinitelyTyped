@@ -1,5 +1,5 @@
-/// <reference path="bluebird-retry.d.ts" />
-/// <reference path="../bluebird/bluebird.d.ts" />
+
+/// <reference types="bluebird" />
 import Promise = require('bluebird');
 import retry = require('bluebird-retry');
 

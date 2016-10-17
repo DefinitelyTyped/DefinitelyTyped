@@ -1,5 +1,3 @@
-/// <reference path="obelisk.js.d.ts"/>
-
 function test_brick() {
     var canvas = <HTMLCanvasElement>document.getElementById('canvas-demo');
 

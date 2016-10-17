@@ -1,5 +1,5 @@
-/// <reference path="./gulp-flatten.d.ts" />
-/// <reference path="../gulp/gulp.d.ts" />
+
+
 
 import * as gulp from "gulp";
 import * as flatten from "gulp-flatten";

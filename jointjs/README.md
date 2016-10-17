@@ -6,4 +6,4 @@ Current version 0.6
 
 ## Referencing JointJS definition files in your code
 
-Add `/// <reference path="jointjs.d.ts" />` at the top of your code.
+Add `` at the top of your code.

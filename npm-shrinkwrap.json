@@ -32,14 +32,6 @@
       "from": "core-util-is@>=1.0.0 <1.1.0",
       "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.2.tgz"
     },
-    "definition-header": {
-      "version": "0.3.1",
-      "from": "definition-header@>=0.3.1 <0.4.0"
-    },
-    "definition-tester": {
-      "version": "0.5.2",
-      "from": "definition-tester@0.5.2"
-    },
     "findup-sync": {
       "version": "0.3.0",
       "from": "findup-sync@>=0.3.0 <0.4.0",
@@ -193,11 +185,6 @@
       "version": "0.1.2",
       "from": "type-detect@>=0.1.2 <0.2.0",
       "resolved": "https://registry.npmjs.org/type-detect/-/type-detect-0.1.2.tgz"
-    },
-    "typescript": {
-      "version": "1.8.7",
-      "from": "typescript@1.8.7",
-      "resolved": "https://registry.npmjs.org/typescript/-/typescript-1.8.7.tgz"
     },
     "wordwrap": {
       "version": "0.0.3",

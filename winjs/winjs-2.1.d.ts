@@ -4088,6 +4088,123 @@ declare namespace WinJS.UI {
     }
 
     /**
+     * Displays a lightweight popup that is used to temporarily show UI related to what the user is currently doing. It can be used to reveal a hidden control, show more details about an item, or ask the user to confirm an action. You should only show a flyout in response to a user tap or click. Unlike a MessageDialog, a flyout is always dismissed when the user taps or clicks outside of it.
+     */
+    class Flyout {
+       //#region Constructors
+       /**
+         * Creates a new FlipView.
+         * @constructor
+         * @param element The DOM element that hosts the control.
+         * @param options An object that contains one or more property/value pairs to apply to the new control. Each property corresponds to one of the control's properties or events. Event names must begin with "on". For example, to provide a handler for the pageselected event, add a property named "onpageselected" and set its value to the event handler.
+        **/
+       constructor(element?: HTMLElement, options?: any);
+       //#endregion Constructors
+
+       //#region Events
+       /**
+        * Occurs immediately after the Flyout is hidden.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onafterhide(eventInfo: Event): void;
+
+       /**
+        * Occurs immediately after the Flyout is displayed.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onaftershow(eventInfo: Event): void;
+
+       /**
+        * Occurs before the Flyout is hidden.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onbeforehide(eventInfo: Event): void;
+
+       /**
+        * Occurs immediately before a hidden Flyout is displayed.
+        * @param eventInfo An object that contains information about the event. The detail property of this object contains the following sub-properties: source.
+        */
+       onbeforeshow(eventInfo: Event): void;
+       //#endregion Events
+
+       //#region Methods
+       /**
+         * Registers an event handler for the specified event.
+         * @param eventName The name of the event to handle. For a list of events, see the Flyout object page.
+         * @param eventHandler The event handler function to associate with the event.
+         * @param useCapture Set to true to register the event handler for the capturing phase; set to false to register the event handler for the bubbling phase.
+        **/
+       addEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+       /**
+         * Unregisters an event handler for the specified event.
+         * @param eventName The name of the event.
+         * @param eventHandler The event handler function to remove.
+         * @param useCapture Set to true to unregister the event handler for the capturing phase; otherwise, set to false to unregister the event handler for the bubbling phase.
+        **/
+       removeEventListener(eventName: string, eventHandler: Function, useCapture?: boolean): void;
+
+       /**
+         * Releases resources held by this FlipView. Call this method when the FlipView is no longer needed. After calling this method, the FlipView becomes unusable.
+        **/
+       dispose(): void;
+
+       /**
+        * Hides the Flyout, if visible, regardless of other states.
+        */
+       hide(): void;
+
+       /**
+        * Shows the Flyout, if hidden, regardless of other states.
+        * @param anchor The DOM element to anchor the Flyout.
+        * @param placement The placement of the Flyout to the anchor: the string literal "top", "bottom", "left", or "right".
+        * @param alignment For "top" or "bottom" placement, the alignment of the Flyout to the anchor's edge: the string literal "center", "left", or "right".
+        */
+       show(anchor: HTMLElement, placement?: string, alignment?: string): void;
+
+       /**
+        * Shows the Flyout, if hidden, regardless of other states, top and left aligned at specified coordinates..
+        * @param x The x coordinate point where the top left corner of the Flyout will appear, relative to the top and left edge of the visual viewport.
+        * @param y The y coordinate point where the top left corner of the Flyout will appear, relative to the top and left edge of the visual viewport.
+        */
+       showat(x: number, y: number): void;
+       /**
+        * Shows the Flyout, if hidden, regardless of other states, top and left aligned at the location of the mouse event object.
+        * @param mouseEventObj The MouseEvent Object that specifies where to show the Flyout based on its location.
+        */
+       showat(mouseEventObj: MouseEvent): void;
+       //#endregion Methods
+
+       //#region Properties
+       /**
+        * Gets or sets the default alignment to be used for this Flyout relative to its anchor element.
+        */
+       public alignment: string;
+
+       /**
+        * Gets or sets the default anchor to be used for this Flyout.
+        */
+       public anchor: HTMLElement;
+
+       /**
+        * Gets the HTML element that hosts this FlipView.
+       **/
+       element: HTMLElement;
+
+       /**
+        * Gets a value that indicates whether the Flyout is hidden or in the process of becoming hidden.
+        */
+       hidden: boolean;
+
+       /**
+        * Gets or sets the placement to be used for this Flyout relative to the target object.
+        */
+       placement: string;
+
+       //#endregion Properties
+    }
+    
+    /**
      * Represents a grid layout for the ListView in which items are arranged in a horizontal grid.
     **/
     class GridLayout {

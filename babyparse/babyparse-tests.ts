@@ -1,4 +1,4 @@
-/// <reference path="babyparse.d.ts" />
+
 import * as Baby from "babyparse";
 
 var RECORD_SEP = String.fromCharCode(30);
@@ -1228,3 +1228,11 @@ var parser = new Baby.Parser({})
 parser.getCharIndex();
 parser.abort();
 parser.parse("");
+
+/**
+ * Parse Files
+ */
+Baby.parseFiles('example.csv')
+Baby.parseFiles('example.csv', {encoding: 'utf-8'})
+Baby.parseFiles(['example1.csv', 'example2.txt'])
+Baby.parseFiles(['example1.csv', 'example2.txt'], {encoding: 'utf-8'})

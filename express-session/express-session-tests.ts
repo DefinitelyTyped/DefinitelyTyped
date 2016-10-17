@@ -1,4 +1,4 @@
-/// <reference path="./express-session.d.ts" />
+
 
 import express = require('express');
 import session = require('express-session');
@@ -6,7 +6,8 @@ import session = require('express-session');
 var app = express();
 
 app.use(session({
-  secret: 'keyboard cat'
+  secret: 'keyboard cat',
+  cookie: { secure: 'auto' }
 }));
 app.use(session({
   secret: 'keyboard cat',

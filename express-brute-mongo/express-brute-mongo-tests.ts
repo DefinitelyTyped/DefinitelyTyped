@@ -1,8 +1,4 @@
-/// <reference path="../express-brute/express-brute.d.ts"/>
-/// <reference path="../mongodb/mongodb.d.ts"/>
-/// <reference path="express-brute-mongo.d.ts"/>
-
-import express = require("express");
+import express = require("../express");
 import ExpressBrute = require("express-brute");
 import MongoStore = require("express-brute-mongo");
 import mongodb = require("mongodb");

@@ -1,10 +1,9 @@
-/// <reference path="request.d.ts" />
 
 import request = require('request');
 import http = require('http');
 import stream = require('stream');
-import formData = require('form-data');
 import fs = require('fs');
+import FormData = require('form-data');
 
 var value: any;
 var str: string;
@@ -21,7 +20,7 @@ var headers: {[key: string]: string};
 var agent: http.Agent;
 var write: stream.Writable;
 var req: request.Request;
-var form1: formData.FormData;
+var form1: FormData;
 
 var bodyArr: request.RequestPart[] = [{
 	body: value

@@ -1,8 +1,12 @@
-/// <reference path="async.d.ts" />
+/// <reference types="node" />
 
-var fs, path;
+import fs = require("fs");
 
-function callback() {}
+var path: {
+    exists: (path: string, callback?: (err: string, exists: boolean) => any) => void;
+};
+
+function callback() { }
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
@@ -378,6 +382,7 @@ async.auto({
 
 async.retry(3, function (callback, results) { }, function (err, result) { });
 async.retry({ times: 3, interval: 200 }, function (callback, results) { }, function (err, result) { });
+async.retry({ times: 3, interval: (retryCount) => { return 200 * retryCount; } }, function (callback, results) { }, function (err, result) { });
 
 
 async.parallel([
@@ -390,13 +395,6 @@ function (results) {
         function email_link(callback) { }
     ]);
 });
-
-var sys;
-var iterator = async.iterator([
-    function () { sys.p('one'); },
-    function () { sys.p('two'); },
-    function () { sys.p('three'); }
-]);
 
 async.parallel([
     async.apply(fs.writeFile, 'testfile1', 'test1'),

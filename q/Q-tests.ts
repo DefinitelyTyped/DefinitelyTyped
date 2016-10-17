@@ -1,9 +1,10 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="Q.d.ts" />
+/// <reference types="jquery" />
 
-import q = require('q');
+
+import Q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
+Q().then(() => console.log("nothing"));
 
 var delay = function (delay: number) {
     var d = Q.defer<void>();
@@ -30,7 +31,7 @@ Q.delay("asdf", 1000).then(x => x.length);
 var eventualAdd = Q.promised((a?: number, b?: number) => a + b);
 eventualAdd(Q(1), Q(2)).then(x => x.toExponential());
 
-var eventually = function (eventually: any) {
+function eventually<T>(eventually: T) {
     return Q.delay(eventually, 1000);
 };
 
@@ -42,7 +43,15 @@ Q.when(x, function (x) {
 Q.all([
     eventually(10),
     eventually(20)
-]).spread(function (x: any, y: any) {
+]).spread(function (x: number, y: number) {
+    console.log(x, y);
+});
+
+Q.all([
+    eventually(10),
+    eventually(20)
+]).then(function (results) {
+    let [x, y] = results;
     console.log(x, y);
 });
 
@@ -198,4 +207,20 @@ namespace TestCanRethrowRejectedPromises {
 
 }
 
+// test Q.Promise.all
+var y1 = Q().then(() => {
+    var s = Q("hello");
+    var n = Q(1);
+    return <[typeof s, typeof n]>[s, n];
+});
 
+var y2 = Q().then(() => {
+    var s = "hello";
+    var n = Q(1);
+    return <[typeof s, typeof n]>[s, n];
+});
+
+var p2: Q.Promise<[string, number]> = y1.then(val => Q.all(val));
+var p3: Q.Promise<[string, number]> = Q.all(y1);
+var p5: Q.Promise<[string, number]> = y2.then(val => Q.all(val));
+var p6: Q.Promise<[string, number]> = Q.all(y2);

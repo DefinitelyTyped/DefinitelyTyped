@@ -1,4 +1,4 @@
-/// <reference path="marked.d.ts" />
+
 
 import * as marked from 'marked';
 

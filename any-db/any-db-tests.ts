@@ -1,5 +1,4 @@
 
-/// <reference path="any-db.d.ts" />
 
 "use strict";
 

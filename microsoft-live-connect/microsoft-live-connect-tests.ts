@@ -1,4 +1,4 @@
-/// <reference path="microsoft-live-connect.d.ts" />
+
 
 /**
  * From: http://msdn.microsoft.com/en-us/library/live/hh550838.aspx

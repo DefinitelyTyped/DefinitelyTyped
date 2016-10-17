@@ -1,5 +1,3 @@
-/// <reference path="./log4js.d.ts" />
-/// <reference path="../express/express.d.ts" />
 
 import log4js = require('log4js');
 
@@ -72,3 +70,30 @@ log4js.configure({
 });
 
 log4js.configure('file.json', { reloadSecs: 300 });
+
+class MyAppenderConfig implements log4js.CustomAppenderConfig {
+  public type: string;
+  public mycfg: string;
+}
+
+var myAppender: log4js.AppenderModule = {
+
+  appender: function (mycfg: string): log4js.Appender {
+
+    return function (event: log4js.LogEvent): void {
+      console.log(mycfg);
+      console.log(event);
+    }
+  },
+
+  shutdown: function (cb: (error: Error) => void): void {
+    return cb(null);
+  },
+
+  configure: function (config: MyAppenderConfig, options?: { [key: string]: any }): log4js.Appender {
+    var mycfg = config.mycfg;
+    return this.appender(mycfg);
+  }
+}
+
+log4js.loadAppender("my-log4js-appender", myAppender);

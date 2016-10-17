@@ -1,5 +1,4 @@
-///<reference path="matter-js.d.ts"/>
-
+import Matter = require("matter-js");
 var Engine = Matter.Engine, 
 	World = Matter.World,
 	Body = Matter.Body,

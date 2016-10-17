@@ -1,5 +1,3 @@
-///<reference path="./NProgress.d.ts"/>
-
 function test_basics() {
     NProgress.start();
     NProgress.inc();
@@ -21,13 +19,13 @@ function test_configuration() {
     });
 
     NProgress.configure({
-        ease: 'ease',
+        easing: 'ease',
         minimum: 0.09,
         showSpinner: false,
         speed: 420,
         template: "<div>blah</div>",
         trickle: false,
-        trickleRate: 0.42,
-        trickleSpeed: 42
+        trickleSpeed: 42,
+        parent: 'body',
     });
 }

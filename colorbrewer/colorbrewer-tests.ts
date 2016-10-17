@@ -1,4 +1,4 @@
-/// <reference path="./colorbrewer.d.ts" />
+
 
 var accent3: string[] = colorbrewer.Accent[3];
 var accent4: string[] = colorbrewer.Accent[4];

@@ -1,4 +1,3 @@
-/// <reference path="jsonpath.d.ts" />
 
 import jp = require('jsonpath');
 

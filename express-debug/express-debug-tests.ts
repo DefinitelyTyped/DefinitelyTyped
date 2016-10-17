@@ -1,4 +1,3 @@
-/// <reference path="express-debug.d.ts" />
 
 import express = require('express');
 import debug = require('express-debug');

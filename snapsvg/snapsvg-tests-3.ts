@@ -246,7 +246,7 @@ window.onload=()=>{
 
         function nextFrame ( el:Snap.Element, frameArray:any[],  whichFrame:number ) {
                 if( whichFrame >= frameArray.length ) { return }
-                el.animate( frameArray[ whichFrame ].animation, frameArray[ whichFrame ].dur, nextFrame.bind( null, el, frameArray, whichFrame + 1 ) );
+                el.animate( frameArray[ whichFrame ].animation, frameArray[ whichFrame ].dur, <any>nextFrame.bind( null, el, frameArray, whichFrame + 1 ) );
 
         }
 

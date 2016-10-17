@@ -1,4 +1,4 @@
-/// <reference path="./angular-httpi.d.ts" />
+
 
 (function() {
     'use strict';

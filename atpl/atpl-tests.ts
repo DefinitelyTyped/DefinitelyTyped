@@ -1,4 +1,3 @@
-/// <reference path="atpl.d.ts" />
 
 import atpl = require('atpl');
 
