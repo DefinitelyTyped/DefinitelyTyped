@@ -389,7 +389,7 @@ noUiSlider.create(testHtmlElement, {
 /**
  * Pipes: Steps
  */
-function filter500( value, type ){
+function filter500( value: any, type: any ){
     return value % 1000 ? 2 : 1;
 }
 noUiSlider.create(testHtmlElement, {
