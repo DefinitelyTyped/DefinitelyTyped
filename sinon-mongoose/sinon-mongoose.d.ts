@@ -16,4 +16,3 @@ declare namespace Sinon {
   }
 
 }
-
