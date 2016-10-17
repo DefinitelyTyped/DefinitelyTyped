@@ -1,4 +1,4 @@
-﻿/// <reference path="phonegap-launch-navigator.d.ts" />
+﻿/// <reference path="uk.co.workingedge.phonegap.plugin.launchnavigator.d.ts" />
 
 let app = launchnavigator.APP["GOOGLE_MAPS"];
 let platform = launchnavigator.PLATFORM["ANDROID"];
