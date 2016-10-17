@@ -1,4 +1,4 @@
-/// <reference path="mocha.d.ts" />
+
 
 function test_describe() {
     describe('something', () => { });
@@ -62,6 +62,21 @@ function test_test() {
     test.skip('does something', () => { });
 
     test('does something', function () {
+        this.timeout(2000);
+    });
+}
+
+function test_specify() {
+
+    specify('does something', () => { });
+
+    specify('does something', (done) => { done(); });
+
+    specify.only('does something', () => { });
+
+    specify.skip('does something', () => { });
+
+    specify('does something', function () {
         this.timeout(2000);
     });
 }

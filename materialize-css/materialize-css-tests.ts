@@ -1,4 +1,4 @@
-/// <reference path="materialize-css.d.ts" />
+
 
 // Buttons
 
@@ -238,3 +238,5 @@ var tabsHtml = '<div class="row">' +
 
 // Transitions
 Materialize.showStaggeredList('#staggered-test');
+
+Materialize.updateTextFields();

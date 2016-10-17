@@ -1,4 +1,4 @@
-/// <reference path="./proxyquire.d.ts" />
+
 
 import proxyquire = require('proxyquire');
 

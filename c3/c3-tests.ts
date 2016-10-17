@@ -1,4 +1,4 @@
-/// <reference path="c3.d.ts" />
+
 
 //////////////////
 // Doc Examples
@@ -290,7 +290,7 @@ function legend_examples() {
             },
             item: {
                 onclick: function(id) { /* code */ },
-                onmoouseover: function(id) { /* code */ },
+                onmouseover: function(id) { /* code */ },
                 onmouseout: function(id) { /* code */ },
             }
         }

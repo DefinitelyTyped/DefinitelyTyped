@@ -1,4 +1,4 @@
-/// <reference path="meshblu.d.ts" />
+
 
 import Meshblu = require('meshblu');
 

@@ -1,4 +1,4 @@
-/// <reference path="./q-retry.d.ts" />
+
 
 ﻿import Q = require('q-retry');
 

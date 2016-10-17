@@ -1,4 +1,4 @@
-/// <reference path="./firebase-simplelogin.d.ts" />
+
 
 var chatRef: Firebase = new Firebase('https://<YOUR-FIREBASE>.firebaseio.com');
 var auth: FirebaseSimpleLogin = new FirebaseSimpleLogin(chatRef, function(error, user) {

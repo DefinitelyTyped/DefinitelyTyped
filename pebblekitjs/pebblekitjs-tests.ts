@@ -1,4 +1,4 @@
-/// <reference path="./pebblekitjs.d.ts" />
+
 
 var transactionId = Pebble.sendAppMessage({'0': 42, '1': 'String value'},
     function (e) {
@@ -57,5 +57,20 @@ Pebble.timelineSubscriptions(
     },
     function (errorString) {
         console.log('Error getting subscriptions: ' + errorString);
+    }
+);
+
+Pebble.appGlanceReload(
+    [{
+        layout: {
+            'icon': 'system://images/HOTEL_RESERVATION',
+            'subtitleTemplateString': 'Nice Slice!'
+        }
+    }],
+    function (appGlanceSlices) {
+        console.log('AppGlanceReload is successful');
+    },
+    function (appGlanceSlices) {
+        console.log('AppGlanceReload has failed');
     }
 );

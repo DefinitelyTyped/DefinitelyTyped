@@ -1,10 +1,12 @@
-/// <reference path="./angular-permission.d.ts" />
 
-import * as permission from 'angular-permission';
+import * as angular from 'angular';
+
+import permissionNamespace = angular.permission;
+import { permission, ngPermission, uiPermission } from "angular-permission";
 
 angular
-  .module('fooModule', ['permission', 'user'])
-  .run(function (PermissionStore: permission.PermissionStore, User: any) {
+  .module('fooModule', [permission, ngPermission, uiPermission, 'user'])
+  .run(function (PermissionStore: permissionNamespace.PermissionStore, User: any) {
     // Define anonymous permission
     PermissionStore
       .definePermission('anonymous', function (stateParams) {
@@ -22,8 +24,8 @@ angular
     hasPermissionDefinition(permission: string) : angular.IPromise<any>;
   }
 
-  angular.module('barModule', ['permission', 'user'])
-  .run(function (PermissionStore: permission.PermissionStore, User: BackendUserService, $q: angular.IQService) {
+  angular.module('barModule', [permission, 'user'])
+  .run(function (PermissionStore: permissionNamespace.PermissionStore, User: BackendUserService, $q: angular.IQService) {
     PermissionStore
       // Define user permission calling back-end
       .definePermission('user', function (stateParams) {
@@ -36,7 +38,7 @@ angular
 
     PermissionStore
       // A different example for admin
-      .definePermission('admin', function (stateParams) {
+      .definePermission('admin', function (permission: string, stateParams: angular.permission.TransitionProperties) {
         var deferred = $q.defer();
 
         User.getAccessLevel()
@@ -56,7 +58,7 @@ angular
       });
 
     let arrayOfPermissionNames = ['p1', 'p2'];
-    PermissionStore.defineManyPermissions(arrayOfPermissionNames, function (stateParams: angular.ui.IStateParamsService, permissionName: string) {
+    PermissionStore.defineManyPermissions(arrayOfPermissionNames, function (permissionName: string, stateParams: angular.permission.TransitionProperties) {
       return User.hasPermissionDefinition(permissionName);
     });
 
@@ -64,14 +66,14 @@ angular
 
     PermissionStore.removePermissionDefinition('user');
 
-    let permissions: Array<permission.Permission> = PermissionStore.getStore();
+    let permissions: Array<permissionNamespace.Permission> = PermissionStore.getStore();
 
 
   });
 
 angular
-  .module('fooModule', ['permission', 'user'])
-  .run(function (RoleStore: permission.RoleStore, User: any) {
+  .module('fooModule', [permission, 'user'])
+  .run(function (RoleStore: permissionNamespace.RoleStore, User: any) {
     RoleStore
       // Permission array validated role
       // Library will internally validate if 'user' and 'editor' permissions are valid when checking if role is valid
@@ -79,7 +81,7 @@ angular
 
     RoleStore
       // Server side validated role
-      .defineRole('accountant', [], function (stateParams) {
+      .defineRole('accountant', [], function (permission, stateParams) {
         // Let's assume that we are making a request to server here and return response as promise
         return User.hasRole('accountant');
       });
@@ -88,5 +90,5 @@ angular
 
     RoleStore.removeRoleDefinition('user');
 
-    let roles: Array<permission.Role> = RoleStore.getStore();
+    let roles: Array<permissionNamespace.Role> = RoleStore.getStore();
   });

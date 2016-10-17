@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="bootstrap.d.ts" />
+/// <reference types="jquery" />
+
 
 $('body').off('.data-api');
 $('body').off('.alert.data-api');
@@ -44,3 +44,8 @@ $('.typeahead').typeahead({
 });
 
 $('#navbar').affix();
+
+$('.item').emulateTransitionEnd(2000);
+
+$.support.transition = false;
+console.log(($.support.transition as any as TransitionEventNames).end === "transitionend");

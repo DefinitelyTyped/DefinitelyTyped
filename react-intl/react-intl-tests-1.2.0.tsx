@@ -2,9 +2,9 @@
  * Created by Bruno Grieder
  */
 
-///<reference path='../react/react.d.ts' />
-///<reference path='../react-mixin/react-mixin.d.ts' />
-///<reference path='../react-intl/react-intl-1.2.0.d.ts' />
+///<reference types="react" />
+
+///<reference types="react-intl-1.2.0" />
 
 import * as React from 'react'
 

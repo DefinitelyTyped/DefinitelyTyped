@@ -1,4 +1,4 @@
-/// <reference path="leaflet-markercluster.d.ts" />
+
 
 var map: L.Map;
 var markerClusterGroup: L.MarkerClusterGroup;

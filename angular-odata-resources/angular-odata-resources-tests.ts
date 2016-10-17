@@ -1,4 +1,4 @@
-/// <reference path="angular-odata-resources.d.ts" />
+
 
 interface IMyResource extends OData.IResource<IMyResource> { };
 interface IMyResourceClass extends OData.IResourceClass<IMyResource> { };

@@ -1,4 +1,4 @@
-/// <reference path="./vue-resource.d.ts" />
+
 
 Vue.http.options.root = '/root';
 Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
@@ -29,6 +29,9 @@ class App extends Vue {
             response.headers('expires');
 
             this.$set('someData', response.data);
+            this.$set('someJsonData', response.json());
+            this.$set('someTextData', response.text());
+            this.$set('someBlobData', response.blob());
         });
 
         var resource = this.$resource('someItem/{id}');

@@ -1,4 +1,4 @@
-/// <reference path="pluralize.d.ts" />
+
 
 import pluralize = require('pluralize');
 

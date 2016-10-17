@@ -1,4 +1,4 @@
-﻿/// <reference path="jstree.d.ts" />
+﻿
 
 // gets version of lib
 var version: string = $.jstree.version;
@@ -108,4 +108,9 @@ var treeWithNewCheckboxProperties = $('#treeWithNewCheckboxProperties').jstree({
 var tree = $('a').jstree();
 tree.move_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
 tree.copy_node('a', 'b', 0, (node: any, new_par: any, pos: any) => { }, true, true);
+
+// #10271 jstree - get_path params not marked to be optional
+tree.get_path('nodeId');
+tree.get_path('nodeId', '/');
+tree.get_path('nodeId', '/', true);
 

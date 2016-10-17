@@ -1,5 +1,4 @@
-/// <reference path="../node/node.d.ts" />
-/// <reference path="batch-stream.d.ts" />
+/// <reference types="node" />
 
 import fs = require('fs');
 import BatchStream = require('batch-stream');

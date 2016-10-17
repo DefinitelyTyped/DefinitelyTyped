@@ -1,4 +1,4 @@
-/// <reference path="jquery.dynatree.d.ts" />
+
 
 var dynatree = $('element').dynatree();
 

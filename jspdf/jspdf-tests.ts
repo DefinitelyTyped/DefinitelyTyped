@@ -1,6 +1,8 @@
-/// <reference path="jspdf.d.ts" />
+
 
 // From: https://mrrio.github.io/jsPDF/examples/basic.html
+
+import * as jsPDF from 'jspdf';
 
 function test_simple_two_page_document() {
     var doc = new jsPDF();

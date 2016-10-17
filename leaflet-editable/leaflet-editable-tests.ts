@@ -1,4 +1,4 @@
-/// <reference path="leaflet-editable.d.ts" />
+
 
 var map: L.Map = L.map('div', {
     editable: true,

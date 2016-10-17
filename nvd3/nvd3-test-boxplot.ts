@@ -1,5 +1,5 @@
-/// <reference path="../d3/d3.d.ts" />
-/// <reference path="nvd3.d.ts" />
+/// <reference types="d3" />
+
 nv.addGraph(function() { 
       var chart = nv.models.boxPlotChart() 
           .x(function(d) { return d.label }) 

@@ -1,4 +1,4 @@
-/// <reference path="jquery.d.ts" />
+
 
 function test_add() {
     $("p").add("div").addClass("widget");
@@ -41,7 +41,7 @@ function test_addClass() {
 
 function test_after() {
     $('.inner').after('<p>Test</p>');
-    $('<div/>').after('<p></p>');
+    $('<div/>').after('<p></p>').after(document.createDocumentFragment());
     $('<div/>').after('<p></p>').addClass('foo')
       .filter('p').attr('id', 'bar').html('hello')
     .end()
@@ -88,7 +88,7 @@ function test_ajax() {
             alert('Load was performed.');
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert('Load failed. responseJSON=' + jqXHR.responseJSON); 
+            alert('Load failed. responseJSON=' + jqXHR.responseJSON);
         }
     });
     var _super = jQuery.ajaxSettings.xhr;
@@ -209,6 +209,50 @@ function test_ajax() {
         url: "test.js"
     });
     jqXHR.abort('aborting because I can');
+	
+    //Test the promise exposed by the jqXHR object
+	
+    // done method
+    $.ajax({
+        url: "test.js"
+    }).promise().done((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // fail method
+    $.ajax({
+        url: "test.js"
+    }).promise().fail((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // always method with successful request
+    $.ajax({
+        url: "test.js"
+    }).promise().always((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    });
+
+    // always method with failed request
+    $.ajax({
+        url: "test.js"
+    }).promise().always((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+	
+    // then method (as of 1.8)
+    $.ajax({
+        url: "test.js"
+    }).promise().then((data, textStatus, jqXHR) => {
+        console.log(data, textStatus, jqXHR);
+    }, (jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR, textStatus, errorThrown);
+    });
+
+    // generic then method
+    var p: JQueryPromise<number> = $.ajax({ url: "test.js" }).promise()
+        .then(() => "Hello")
+        .then((x) => x.length);	
 }
 
 function test_ajaxComplete() {
@@ -509,7 +553,7 @@ function test_toggle() {
 
 function test_append() {
     $('.inner').append('<p>Test</p>');
-    $('.container').append($('h2'));
+    $('.container').append($('h2')).append(document.createDocumentFragment());
 
     var $newdiv1 = $('<div id="object1"/>'),
     newdiv2 = document.createElement('div'),
@@ -559,7 +603,7 @@ function test_attributeSelectors() {
 
 function test_before() {
     $('.inner').before('<p>Test</p>');
-    $('.container').before($('h2'));
+    $('.container').before($('h2')).before(document.createDocumentFragment());
     $("<div/>").before("<p></p>");
     var $newdiv1 = $('<div id="object1"/>'),
         newdiv2 = document.createElement('div'),
@@ -946,6 +990,17 @@ function test_clone() {
           .clone());
 }
 
+function test_prepend() {
+    $('.inner').prepend('<p>Test</p>');
+    $('.container').prepend($('h2')).prepend(document.createDocumentFragment());
+
+    var $newdiv1 = $('<div id="object1"/>'),
+        newdiv2 = document.createElement('div'),
+        existingdiv1 = document.getElementById('foo');
+
+    $('body').prepend($newdiv1, [newdiv2, existingdiv1]);
+}
+
 function test_prependTo() {
     $("<p>Test</p>").prependTo(".inner");
     $("h2").prependTo($(".container"));
@@ -1039,7 +1094,6 @@ function test_css() {
 function test_cssHooks() {
     if (!$.cssHooks) {
         throw ("jQuery 1.4.3 or above is required for this plugin to work");
-        return;
     }
     $.cssHooks["someCSSProp"] = {
         get: function (elem, computed, extra) { },
@@ -1343,7 +1397,8 @@ function test_each() {
     });
     var arr = ["one", "two", "three", "four", "five"];
     var obj = { one: 1, two: 2, three: 3, four: 4, five: 5 };
-    jQuery.each(arr, function () {
+    // TODO: Should not need explicit type annotation https://github.com/Microsoft/TypeScript/issues/10072
+    jQuery.each<string>(arr, function () {
         $("#" + this).text("Mine is " + this + ".");
         return (this != "three");
     });
@@ -1513,6 +1568,9 @@ function test_eventParams() {
     });
     $(window).on('mousewheel', (e) => {
         var delta = (<WheelEvent>e.originalEvent).deltaY;
+    });
+    $( "p" ).click(function( event ) {
+      alert( event.currentTarget === this ); // true
     });
 }
 
@@ -2528,6 +2586,18 @@ function test_jQuery() {
     $.post('url.xml', function (data) {
         var $child = $(data).find('child');
     });
+    $.post({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
+    $.get({
+        url: "test.php",
+        success : () => {
+            console.log("successfull");
+        }
+    });
     var foo = { foo: 'bar', hello: 'world' };
     var $foo = $(foo);
     var test1 = $foo.prop('foo');
@@ -3237,7 +3307,7 @@ function test_not() {
     $("p").not("#selected");
 
     $("p").not($("div p.selected"));
-    
+
     var el1 = $("<div/>")[0];
     var el2 = $("<div/>")[0];
     $("p").not([el1, el2]);

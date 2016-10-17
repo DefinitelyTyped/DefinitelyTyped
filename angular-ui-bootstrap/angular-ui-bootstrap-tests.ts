@@ -1,4 +1,4 @@
-/// <reference path="angular-ui-bootstrap.d.ts" />
+
 
 var testApp = angular.module('testApp');
 
@@ -179,6 +179,10 @@ testApp.controller('TestCtrl', (
 
     modalInstance.rendered.then(() => {
         $log.log('modal rendered');
+    });
+
+    modalInstance.closed.then(()=> {
+        $log.log('modal closed');
     });
 
     modalInstance.result.then((closeResult:any)=> {

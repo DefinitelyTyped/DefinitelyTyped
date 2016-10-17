@@ -1,6 +1,8 @@
-/// <reference path="cookiejs.d.ts" />
+
 
 // Based on https://github.com/js-coder/cookie.js/blob/gh-pages/tests/spec.js
+
+import cookie = require("cookiejs");
 
 cookie.set({a: '1', b: '2', c: '3'});
 

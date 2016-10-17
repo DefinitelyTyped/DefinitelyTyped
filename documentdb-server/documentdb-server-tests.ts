@@ -1,4 +1,4 @@
-﻿/// <reference path="documentdb-server.d.ts" />
+﻿
 
 // Samples taken from http://dl.windowsazure.com/documentDB/jsserverdocs/Collection.html
 function chain() {

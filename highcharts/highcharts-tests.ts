@@ -1,5 +1,5 @@
-/// <reference path="highcharts.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
+
+/// <reference types="jquery" />
 
 function originalTests() {
     Highcharts.setOptions({
@@ -1849,11 +1849,6 @@ function test_SolidGauge() {
             enabled: false
         },
         yAxis: {
-            stops: [
-                [0.1, '#55BF3B'], // green
-                [0.5, '#DDDF0D'], // yellow
-                [0.9, '#DF5353'] // red
-            ],
             lineWidth: 0,
             minorTickInterval: null,
             tickPixelInterval: 400,
@@ -2187,6 +2182,7 @@ function test_ChartObject() {
     chart.destroy();
     chart.drillUp();
     chart.exportChart(<HighchartsExportingOptions>{}, <HighchartsOptions>{});
+    chart.exportChartLocal(<HighchartsExportingOptions>{}, <HighchartsOptions>{});
     var object = chart.get('axisIdOrSeriesIdOrPointId');
     var svg1 = chart.getSVG();
     var svg2 = chart.getSVG(<HighchartsOptions>{});
@@ -2257,6 +2253,7 @@ function test_PointObject() {
     var point = <HighchartsPointObject>$('#container').highcharts().get('point1');
     var category = point.category;
     var percentage = point.percentage;
+    point.index;
     point.remove();
     point.remove(false);
     point.remove(false, {duration: 50});

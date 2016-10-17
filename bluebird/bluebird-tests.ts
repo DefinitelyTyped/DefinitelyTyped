@@ -1,11 +1,11 @@
-///<reference path="bluebird.d.ts"/>
-
 // Tests by: Bart van der Schoor <https://github.com/Bartvds>
 
 // Note: replicate changes to all overloads in both definition and test file
 // Note: keep both static and instance members inline (so similar)
 
 // Note: try to maintain the ordering and separators, and keep to the pattern
+
+import Promise = require("bluebird");
 
 var obj: Object;
 var bool: boolean;
@@ -80,6 +80,7 @@ var voidProm: Promise<void>;
 
 var fooProm: Promise<Foo>;
 var barProm: Promise<Bar>;
+var barOrVoidProm: Promise<Bar | void>;
 var fooOrBarProm: Promise<Foo|Bar>;
 var bazProm: Promise<Baz>;
 
@@ -141,7 +142,7 @@ var fooResolver: Promise.Resolver<Foo>;
 var barResolver: Promise.Resolver<Bar>;
 
 var fooInspection: Promise.Inspection<Foo>;
-var barInspection: Promise.Inspection<Bar>;
+var fooInspectionPromise: Promise<Promise.Inspection<Foo>>;
 
 var fooInspectionArrProm: Promise<Promise.Inspection<Foo>[]>;
 var barInspectionArrProm: Promise<Promise.Inspection<Bar>[]>;
@@ -195,8 +196,6 @@ fooResolver.resolve(foo);
 
 fooResolver.reject(err);
 
-fooResolver.progress(bar);
-
 fooResolver.callback = (err: any, value: Foo) => {
 
 };
@@ -204,24 +203,13 @@ fooResolver.callback = (err: any, value: Foo) => {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 bool = fooInspection.isFulfilled();
-
 bool = fooInspection.isRejected();
-
 bool = fooInspection.isPending();
-
 foo = fooInspection.value();
-
 x = fooInspection.reason();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.then((value: Foo) => {
-	return bar;
-}, (reason: any) => {
-	return bar;
-}, (note: any) => {
-	return bar;
-});
 barProm = fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
@@ -232,12 +220,12 @@ barProm = fooProm.then((value: Foo) => {
 }, (reason: any) => {
 	return barProm;
 });
-barProm = fooProm.then((value: Foo) => {
+barOrVoidProm = fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return;
 });
-barProm = fooProm.then((value: Foo) => {
+barOrVoidProm = fooProm.then((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return voidProm;
@@ -388,13 +376,6 @@ voidVar = fooProm.done((value: Foo) => {
 	return bar;
 }, (reason: any) => {
 	return bar;
-}, (note: any) => {
-
-});
-voidVar = fooProm.done((value: Foo) => {
-	return bar;
-}, (reason: any) => {
-	return bar;
 });
 voidVar = fooProm.done((value: Foo) => {
 	return bar;
@@ -402,13 +383,6 @@ voidVar = fooProm.done((value: Foo) => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-voidVar = fooProm.done((value: Foo) => {
-	return barThen;
-}, (reason: any) => {
-	return barThen;
-}, (note: any) => {
-
-});
 voidVar = fooProm.done((value: Foo) => {
 	return barThen;
 }, (reason: any) => {
@@ -436,11 +410,6 @@ fooProm = fooProm.tap(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-fooProm = fooProm.progressed((note: any) => {
-	return foo;
-});
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 fooProm = fooProm.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -460,60 +429,17 @@ fooProm = fooProm.nodeify((err: any, foo?: Foo) => { }, { spread: true });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.fork((value: Foo) => {
-	return bar;
-}, (reason: any) => {
-	return bar;
-}, (note: any) => {
-
-});
-barProm = fooProm.fork((value: Foo) => {
-	return bar;
-}, (reason: any) => {
-	return bar;
-});
-barProm = fooProm.fork((value: Foo) => {
-	return bar;
-});
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-barProm = fooProm.fork((value: Foo) => {
-	return barThen;
-}, (reason: any) => {
-	return barThen;
-}, (note: any) => {
-
-});
-barProm = fooProm.fork((value: Foo) => {
-	return barThen;
-}, (reason: any) => {
-	return barThen;
-});
-barProm = fooProm.fork((value: Foo) => {
-	return barThen;
-});
+voidVar = fooProm.cancel();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooProm.cancel<Bar>();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooProm = fooProm.cancellable();
-fooProm = fooProm.uncancellable();
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-bool = fooProm.isCancellable();
+bool = fooProm.isCancelled();
 bool = fooProm.isFulfilled();
 bool = fooProm.isRejected();
 bool = fooProm.isPending();
 bool = fooProm.isResolved();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-fooInspection = fooProm.inspect();
 
 anyProm = fooProm.call(str);
 anyProm = fooProm.call(str, 1, 2, 3);
@@ -543,22 +469,12 @@ obj = fooProm.toJSON();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar) => {
-	return bar;
-}, (reason: any) => {
-	return bar;
-});
 barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 	return bar;
 });
 
 // - - - - - - - - - - - - - - - - -
 
-barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar) => {
-	return barThen;
-}, (reason: any) => {
-	return barThen;
-});
 barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 	return barThen;
 });
@@ -568,15 +484,10 @@ barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 //TODO fix collection inference
 
 barArrProm = fooProm.all<Bar>();
-
 objProm = fooProm.props();
-
-barInspectionArrProm = fooProm.settle<Bar>();
-
+fooInspectionPromise = fooProm.reflect();
 barProm = fooProm.any<Bar>();
-
 barArrProm = fooProm.some<Bar>(num);
-
 barProm = fooProm.race<Bar>();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -686,24 +597,12 @@ fooProm = Promise.try<Foo>(() => {
 fooProm = Promise.try(() => {
 	return foo;
 });
-fooProm = Promise.try(() => {
-	return foo;
-}, arr);
-fooProm = Promise.try(() => {
-	return foo;
-}, arr, x);
 
 // - - - - - - - - - - - - - - - - -
 
 fooProm = Promise.try(() => {
 	return fooThen;
 });
-fooProm = Promise.try(() => {
-	return fooThen;
-}, arr);
-fooProm = Promise.try(() => {
-	return fooThen;
-}, arr, x);
 
 // - - - - - - - - - - - - - - - - -
 
@@ -725,12 +624,6 @@ fooProm = Promise.attempt<Foo>(() => {
 fooProm = Promise.attempt(() => {
 	return foo;
 });
-fooProm = Promise.attempt(() => {
-	return foo;
-}, arr);
-fooProm = Promise.attempt(() => {
-	return foo;
-}, arr, x);
 
 // - - - - - - - - - - - - - - - - -
 
@@ -746,12 +639,6 @@ fooProm = Promise.attempt(() => {
 fooProm = Promise.attempt(() => {
 	return fooThen;
 });
-fooProm = Promise.attempt(() => {
-	return fooThen;
-}, arr);
-fooProm = Promise.attempt(() => {
-	return fooThen;
-}, arr, x);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -847,6 +734,7 @@ obj = Promise.promisifyAll(obj, {
  */
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+BlueBird = Promise.getNewLibraryCopy();
 BlueBird = Promise.noConflict();
 
 Promise.onPossiblyUnhandledRejection((reason: any) => {
@@ -869,14 +757,6 @@ objProm = Promise.props(obj);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 //TODO expand tests to overloads
-fooInspectionArrProm = Promise.settle(fooThenArrThen);
-fooInspectionArrProm = Promise.settle(fooArrProm);
-fooInspectionArrProm = Promise.settle(fooThenArr);
-fooInspectionArrProm = Promise.settle(fooArr);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-//TODO expand tests to overloads
 fooProm = Promise.any(fooThenArrThen);
 fooProm = Promise.any(fooArrProm);
 fooProm = Promise.any(fooThenArr);
@@ -894,7 +774,6 @@ fooProm = Promise.race(fooArr);
 
 //TODO expand tests to overloads
 fooArrProm = Promise.some(fooThenArrThen, num);
-fooArrProm = Promise.some(fooArrThen, num);
 fooArrProm = Promise.some(fooThenArr, num);
 fooArrProm = Promise.some(fooArr, num);
 

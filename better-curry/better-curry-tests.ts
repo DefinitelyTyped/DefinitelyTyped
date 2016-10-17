@@ -1,4 +1,4 @@
-/// <reference path="better-curry.d.ts" />
+
 
 import bc = require('better-curry');
 bc.flatten([1,2,3,[1,2],['a']]) === [];

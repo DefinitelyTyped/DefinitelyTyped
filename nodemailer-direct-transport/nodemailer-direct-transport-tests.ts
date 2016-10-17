@@ -1,6 +1,6 @@
-/// <reference path="nodemailer-direct-transport.d.ts" />
 
 import directTransport = require('nodemailer-direct-transport');
+import nodemailer = require('nodemailer');
 
 var opts: directTransport.DirectOptions = {
 	name: "harry"

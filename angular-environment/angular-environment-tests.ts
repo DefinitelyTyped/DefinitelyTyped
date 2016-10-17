@@ -1,4 +1,4 @@
-/// <reference path="angular-environment.d.ts" />
+
 var envServiceProvider: angular.environment.ServiceProvider;
 var envService: angular.environment.Service;
 

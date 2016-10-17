@@ -1,7 +1,5 @@
-
-/// <reference path="msportalfx-test.d.ts" />
-
-import testFx = require('MsPortalFx-Test');
+import * as Q from 'q';
+import testFx = require('msportalfx-test');
 
 var galleryPackageName = "My.Package";
 var bladeTitle = "A Service";

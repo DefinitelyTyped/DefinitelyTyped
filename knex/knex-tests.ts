@@ -1,8 +1,7 @@
-/// <reference path='knex.d.ts' />
-/// <reference path='../lodash/lodash-3.10.d.ts' />
-import Knex = require('knex');
-import _ = require('lodash');
-'use strict';
+"use strict";
+import * as Knex from 'knex';
+import * as _ from 'lodash';
+
 // Initializing the Library
 var knex = Knex({
   client: 'sqlite3',
@@ -55,12 +54,37 @@ var knex = Knex({
   }
 });
 
+// acquireConnectionTimeout
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    socketPath     : '/path/to/socket.sock',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    database : 'myapp_test'
+  },
+  acquireConnectionTimeout: 60000,
+});
+
 // Pure Query Builder without a connection
 var knex = Knex({});
 
 // Pure Query Builder without a connection, using a specific flavour of SQL
 var knex = Knex({
   client: 'pg'
+});
+
+// searchPath
+var knex = Knex({
+  client: 'pg',
+  searchPath: 'public',
+});
+
+// useNullAsDefault
+var knex = Knex({
+  client: 'sqlite',
+  useNullAsDefault: true,
 });
 
 knex('books').insert({title: 'Test'}).returning('*').toString();
@@ -154,11 +178,17 @@ knex('users')
   .join('contacts', 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
+knex('users')
+  .join(knex('contacts').select('user_id', 'phone').as('contacts'), 'users.id', 'contacts.user_id')
+  .select('users.id', 'contacts.phone');
+
 knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
 
 knex.select('*').from('users').join('accounts', 'accounts.type', knex.raw('?', ['admin']));
+
+knex.raw('select * from users where id = :user_id', { user_id: 1 });
 
 knex.from('users').innerJoin('accounts', 'users.id', 'accounts.user_id');
 
@@ -307,7 +337,7 @@ knex('accounts').where('userid', '=', 1).decrement('balance', 5);
 
 knex('accounts').truncate();
 
-knex.table('users').pluck('id').then(function(ids) {
+knex.table('users').first('id').then(function(ids) {
   console.log(ids);
 });
 
@@ -348,6 +378,8 @@ knex.transaction(function(trx) {
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
 
+  trx.raw('')
+
   var info: any;
   var books: any[] = [
     {title: 'Canterbury Tales'},
@@ -379,11 +411,14 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
+knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
+  table.timestamp('created_at').defaultTo(knex.fn.now());
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -457,7 +492,7 @@ knex.select('name').from('users')
   .limit(10)
   .offset(x)
   .then(function(rows: any) {
-    return _.pluck(rows, 'name');
+    return _.map(rows, 'name');
   })
   .then(function(names: any) {
     return knex.select('id').from('nicknames').whereIn('nickname', names);
@@ -536,7 +571,7 @@ knex.select('name').from('users')
   .offset(x)
   .exec(function(err: any, rows: any[]) {
     if (err) return console.error(err);
-    knex.select('id').from('nicknames').whereIn('nickname', _.pluck(rows, 'name'))
+    knex.select('id').from('nicknames').whereIn('nickname', _.map(rows, 'name') as any)
       .exec(function(err: any, rows: any[]) {
         if (err) return console.error(err);
         console.log(rows);
@@ -584,7 +619,12 @@ knex.select('*')
 //
 // Migrations
 //
-var config = { };
+var config = {
+  directory: "./migrations",
+  extension: "js",
+  tableName: "knex_migrations",
+  disableTransactions: false
+};
 knex.migrate.make(name, config);
 knex.migrate.make(name);
 
@@ -594,8 +634,8 @@ knex.migrate.latest();
 knex.migrate.rollback(config);
 knex.migrate.rollback();
 
-knex.migrate.currentversion(config);
-knex.migrate.currentversion();
+knex.migrate.currentVersion(config);
+knex.migrate.currentVersion();
 
 knex.seed.make(name, config);
 knex.seed.make(name);

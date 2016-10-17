@@ -1,5 +1,3 @@
-/// <reference path="./lwip.d.ts" />
-
 import * as lwip from 'lwip';
 
 lwip.open('lena.jpg', function(err, image) {

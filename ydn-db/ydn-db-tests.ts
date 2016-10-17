@@ -1,4 +1,4 @@
-/// <reference path="ydn-db.d.ts" />
+
 
 var schema = {
   stores: [{

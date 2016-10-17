@@ -4,8 +4,7 @@
  * Created by using code samples from https://github.com/auth0/node-jsonwebtoken.
  */ 
  
-/// <reference path="../node/node.d.ts" /> 
-/// <reference path="jsonwebtoken.d.ts" />
+/// <reference types="node" /> 
 
 import jwt = require("jsonwebtoken");
 import fs = require("fs");
@@ -25,7 +24,7 @@ cert = fs.readFileSync('private.key');  // get private key
 token = jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256'});
 
 // sign asynchronously
-jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(token: string) {
+jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err: Error, token: string) {
   console.log(token);
 });
 

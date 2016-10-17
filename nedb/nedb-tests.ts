@@ -2,9 +2,11 @@
  * Created by stefansteinhart on 31.01.15.
  */
 
-/// <reference path="../q/Q.d.ts" />
-/// <reference path="../node/node.d.ts" />
-/// <reference path="nedb.d.ts" />
+/// <reference types="q" />
+/// <reference types="node" />
+
+
+import * as es6styleimport from 'nedb';
 
 import Q = require('q');
 import nedb = require('nedb');
@@ -135,7 +137,16 @@ class BaseCollection<T> {
 
         var deferred = Q.defer<T>();
 
-        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, upsert:boolean) {
+        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, upsert: boolean) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                //deferred.resolve(newDoc);
+            }
+        });
+
+        this.dataStore.update(query, updateQuery, {upsert: true}, function (err:Error, numberOfUpdated:number, affectedDocs:any, upsert: boolean) {
             if (err) {
                 deferred.reject(err);
             }
@@ -147,7 +158,7 @@ class BaseCollection<T> {
         return deferred.promise;
     }
 
-    public update(query:Object, updateQuery:Object, options?:NeDB.UpdateOptions):Q.Promise<number> {
+    public update(query:Object, updateQuery:Object, options?:any):Q.Promise<number> {
 
         var deferred = Q.defer<number>();
 

@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "inversify-express-utils.d.ts",
+        "inversify-express-utils-tests.ts"
+    ]
+}

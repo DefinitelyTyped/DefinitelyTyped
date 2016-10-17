@@ -1,4 +1,4 @@
-/// <reference path="hasher.d.ts" />
+
 
 //handle hash changes
 function handleChanges(newHash: any, oldHash: any) {

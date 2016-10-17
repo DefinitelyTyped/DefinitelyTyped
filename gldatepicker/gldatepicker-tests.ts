@@ -1,5 +1,4 @@
-/// <reference path="../jquery/jquery.d.ts"/>
-/// <reference path="gldatepicker.d.ts"/>
+/// <reference types="jquery"/>
 
 $('input').glDatePicker();
 $('#example2').glDatePicker(
