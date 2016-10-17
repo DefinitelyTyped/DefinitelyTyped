@@ -6,221 +6,221 @@ var testHtmlElement = document.getElementById('test');
  * Basic
  */
 noUiSlider.create(testHtmlElement, {
-  start: 80,
-  range: {
-    'min': 0,
-    'max': 10000
-  }
+    start: 80,
+    range: {
+        'min': 0,
+        'max': 10000
+    }
 });
 
 /**
  * All options
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 20, 80 ],
-  step: 10,
-  margin: 20,
-  connect: true,
-  direction: 'rtl',
-  orientation: 'vertical',
+    start: [ 20, 80 ],
+    step: 10,
+    margin: 20,
+    connect: true,
+    direction: 'rtl',
+    orientation: 'vertical',
 
-  // Configure tapping, or make the selected range dragable.
-  behaviour: 'tap-drag',
+    // Configure tapping, or make the selected range dragable.
+    behaviour: 'tap-drag',
 
-  // Full number format support.
-  format: wNumb({
-    mark: ',',
-    decimals: 1
-  }),
+    // Full number format support.
+    format: wNumb({
+        mark: ',',
+        decimals: 1
+    }),
 
-  // Support for non-linear ranges by adding intervals.
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    // Support for non-linear ranges by adding intervals.
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
  * Start
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: [20, 80],
-  range: {
-    'min': [ 0 ],
-    'max': [ 100 ]
-  }
+    start: [20, 80],
+    range: {
+        'min': [ 0 ],
+        'max': [ 100 ]
+    }
 });
 
 /**
  * Handles
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 4000, 8000 ],
-  range: {
-    'min': [  2000 ],
-    'max': [ 10000 ]
-  }
+    start: [ 4000, 8000 ],
+    range: {
+        'min': [  2000 ],
+        'max': [ 10000 ]
+    }
 });
 
 /**
  * More than two handles
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 4000, 8000, 12000, 16000 ],
-  connect: [false, true, true, false, true],
-  range: {
-    'min': [  2000 ],
-    'max': [ 20000 ]
-  }
+    start: [ 4000, 8000, 12000, 16000 ],
+    connect: [false, true, true, false, true],
+    range: {
+        'min': [  2000 ],
+        'max': [ 20000 ]
+    }
 });
 
 /**
  * Range
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 4000 ],
-  range: {
-    'min': [  2000 ],
-    'max': [ 10000 ]
-  }
+    start: [ 4000 ],
+    range: {
+        'min': [  2000 ],
+        'max': [ 10000 ]
+    }
 });
 
 /**
  * Stepping and snapping to values
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: [ 4000 ],
-  step: 1000,
-  range: {
-    'min': [  2000 ],
-    'max': [ 10000 ]
-  }
+    start: [ 4000 ],
+    step: 1000,
+    range: {
+        'min': [  2000 ],
+        'max': [ 10000 ]
+    }
 });
 
 /**
  * Non-linear sliders
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: [ 4000 ],
-  range: {
-    'min': [  2000 ],
-    '30%': [  4000 ],
-    '70%': [  8000 ],
-    'max': [ 10000 ]
-  }
+    start: [ 4000 ],
+    range: {
+        'min': [  2000 ],
+        '30%': [  4000 ],
+        '70%': [  8000 ],
+        'max': [ 10000 ]
+    }
 });
 
 /**
  * Stepping in non-linear sliders
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: [ 500, 4000 ],
-  range: {
-    'min': [     0 ],
-    '10%': [   500,  500 ],
-    '50%': [  4000, 1000 ],
-    'max': [ 10000 ]
-  }
+    start: [ 500, 4000 ],
+    range: {
+        'min': [     0 ],
+        '10%': [   500,  500 ],
+        '50%': [  4000, 1000 ],
+        'max': [ 10000 ]
+    }
 });
 
 /**
  * Snapping between steps
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: [ 0, 500 ],
-  snap: true,
-  connect: true,
-  range: {
-    'min': 0,
-    '10%': 50,
-    '20%': 100,
-    '30%': 150,
-    '40%': 500,
-    '50%': 800,
-    'max': 1000
-  }
+    start: [ 0, 500 ],
+    snap: true,
+    connect: true,
+    range: {
+        'min': 0,
+        '10%': 50,
+        '20%': 100,
+        '30%': 150,
+        '40%': 500,
+        '50%': 800,
+        'max': 1000
+    }
 });
 
 /**
  * Connect
  */ 
 noUiSlider.create(testHtmlElement, {
-  start: 40,
-  connect: [true, false],
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: 40,
+    connect: [true, false],
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 noUiSlider.create(testHtmlElement, {
-  start: [20, 40, 60],
-  connect: [true, false, true, true],
-  range: {
-    'min': 0,
-    'max': 80
-  }
+    start: [20, 40, 60],
+    connect: [true, false, true, true],
+    range: {
+        'min': 0,
+        'max': 80
+    }
 });
 
 /**
  * Margin
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 20, 80 ],
-  margin: 30,
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: [ 20, 80 ],
+    margin: 30,
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
  * Limit
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 10, 120 ],
-  limit: 40,
-  behaviour: 'drag',
-  connect: true,
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: [ 10, 120 ],
+    limit: 40,
+    behaviour: 'drag',
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
  * Steps
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 20, 80 ],
-  step: 10,
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: [ 20, 80 ],
+    step: 10,
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
  * Orientation
  */
 noUiSlider.create(testHtmlElement, {
-  start: 40,
-  orientation: 'vertical',
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: 40,
+    orientation: 'vertical',
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
  * Direction
  */
 noUiSlider.create(testHtmlElement, {
-  start: 20,
-  direction: 'rtl',
-  range: {
-    'min': 0,
-    'max': 100
-  }
+    start: 20,
+    direction: 'rtl',
+    range: {
+        'min': 0,
+        'max': 100
+    }
 });
 
 /**
@@ -239,36 +239,36 @@ noUiSlider.create(testHtmlElement, {
  * Animate
  */
 noUiSlider.create(testHtmlElement, {
-  animate: true,
-  animationDuration: 300,
-  start: 20,
-  range: {
-    min: 0,
-    max: 100
-  }
+    animate: true,
+    animationDuration: 300,
+    start: 20,
+    range: {
+        min: 0,
+        max: 100
+    }
 });
 noUiSlider.create(testHtmlElement, {
-  animate: false,
-  start: 20,
-  range: {
-    min: 0,
-    max: 100
-  }
-});
+    animate: false,
+    start: 20,
+    range: {
+        min: 0,
+        max: 100
+    }
+    });
 
 /**
  * Behaviour
  */
 noUiSlider.create(testHtmlElement, {
-  start: [ 20, 40 ],
-  step: 10,
-  behaviour: 'drag',
-  connect: true,
-  range: {
-    'min':  20,
-    'max':  80
-  }
-});
+    start: [ 20, 40 ],
+    step: 10,
+    behaviour: 'drag',
+    connect: true,
+    range: {
+        'min':  20,
+        'max':  80
+    }
+    });
 noUiSlider.create(testHtmlElement, {
     start: 40,
     behaviour: 'tap',
