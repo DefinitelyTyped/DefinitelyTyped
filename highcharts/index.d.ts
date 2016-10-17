@@ -717,15 +717,11 @@ interface HighchartsAxisOptions {
      */
     showLastLabel?: boolean;
     /**
-     * For datetime axes, this decides where to put the tick between weeks. 0 = Sunday, 1 = Monday.
-     * @default 1
+     * Show the total value for each bar in a stacked column or bar chart.
+     * The label will be placed on top of positive columns and below negative columns.
+     * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
+     * Only used for yAxis
      */
-    /**
-  * Show the total value for each bar in a stacked column or bar chart.
-  * The label will be placed on top of positive columns and below negative columns.
-  * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.
-  * Only used for yAxis
-  */
     stackLabels?: {
         /**
          * Defines the horizontal alignment of the stack total label. Can be one of "left", "center" or "right".
@@ -796,6 +792,10 @@ interface HighchartsAxisOptions {
          */
         y?: number;
     }
+	/**
+     * For datetime axes, this decides where to put the tick between weeks. 0 = Sunday, 1 = Monday.
+     * @default 1
+     */
     startOfWeek?: number;
     /**
      * Whether to force the axis to start on a tick. Use this option with the minPadding option to control the axis
