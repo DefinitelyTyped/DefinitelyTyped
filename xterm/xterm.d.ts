@@ -26,9 +26,9 @@ interface Xterm {
 
   getOption(key: string): any;
 
-  on(event: string, callback: (arg: any) => void): void;
+  on(event: string, callback: (...args: any[]) => void): void;
 
-  off(event: string, callback: (arg: any) => void): void;
+  off(event: string, callback: (...args: any[]) => void): void;
 
   open(parent: HTMLElement): void;
 
