@@ -128,7 +128,7 @@ export class Vector {
      * @param {TypedArray} type
      * @returns {Vector} a new vector of the specified size and `type`
      **/
-    public static random (count: number, deviation: 1, mean: 0, type?: any): Vector;
+    public static random (count: number, deviation?: number, mean?: number, type?: any): Vector;
 
     /**
      * Static method. Performs dot multiplication with two vectors `a` and `b`.
@@ -251,7 +251,7 @@ export class Vector {
      * @param {Number} initialValue
      * @returns {Number} result of reduction
      **/
-    public reduce (callback: (element: number) => number, initialValue: number): number;
+    public reduce (callback: (memo: number, element: number) => number, initialValue?: number): number;
 
     /**
      * Converts current vector into a readable formatted string.
@@ -371,7 +371,7 @@ export class Matrix {
      * @param {TypedArray} type
      * @returns {Matrix} a matrix of the specified dimensions and `type`
      **/
-    public static random (i: number, j: number, deviation: 1, mean: 0, type?: any): Matrix;
+    public static random (i: number, j: number, deviation?: number, mean?: number, type?: any): Matrix;
 
     /**
      * Static method. Multiplies two matrices `a` and `b` of matching dimensions.
@@ -558,7 +558,7 @@ export class Matrix {
      * @param {Number} initialValue
      * @returns {Number} result of reduction
      **/
-    public reduce (callback: (element: number) => number, initialValue: number): number;
+    public reduce (callback: (memo: number, element: number) => number, initialValue?: number): number;
 
     /**
      * Finds the rank of the matrix using row echelon form
