@@ -46,6 +46,8 @@ You may need to add manual [references](http://www.typescriptlang.org/docs/handb
 
 ## How can I contribute?
 
+DefinitelyTyped only works because of contributions by users like you!
+
 ### Test
 
 Before you share your improvement with the world, use it yourself.
