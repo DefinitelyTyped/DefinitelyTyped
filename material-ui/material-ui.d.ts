@@ -634,6 +634,7 @@ declare namespace __MaterialUI {
         disableTouchRipple?: boolean;
         focusRippleColor?: string;
         focusRippleOpacity?: number;
+        href?: string;
         keyboardFocused?: boolean;
         linkButton?: boolean;
         onBlur?: React.FocusEventHandler;
@@ -645,6 +646,7 @@ declare namespace __MaterialUI {
         onClick?: React.MouseEventHandler;
         style?: React.CSSProperties;
         tabIndex?: number;
+        target?: string;
         touchRippleColor?: string;
         touchRippleOpacity?: number;
         type?: string;
@@ -664,7 +666,6 @@ declare namespace __MaterialUI {
         backgroundColor?: string;
         disabled?: boolean;
         hoverColor?: string;
-        href?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
         labelPosition?: "before" | "after";
@@ -690,7 +691,6 @@ declare namespace __MaterialUI {
         disabledBackgroundColor?: string;
         disabledLabelColor?: string;
         fullWidth?: boolean;
-        href?: string;
         icon?: React.ReactNode;
         label?: React.ReactNode;
         labelColor?: string;
@@ -717,7 +717,6 @@ declare namespace __MaterialUI {
         className?: string;
         disabled?: boolean;
         disabledColor?: string;
-        href?: string;
         iconClassName?: string;
         iconStyle?: React.CSSProperties;
         linkButton?: boolean;

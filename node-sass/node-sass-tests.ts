@@ -1,5 +1,5 @@
 /// <reference path="node-sass.d.ts" />
-import sass = require('node-sass');
+import * as sass from 'node-sass';
 sass.render({
   file: '/path/to/myFile.scss',
   data: 'body{background:blue; a{color:black;}}',
@@ -44,6 +44,7 @@ var result = sass.renderSync({
   outputStyle: 'compressed',
   outFile: '/to/my/output.css',
   sourceMap: true, // or an absolute or relative (to outFile) path
+  sourceMapRoot: '.',
   importer: function(url, prev, done) {
     // url is the path in import as is, which libsass encountered.
     // prev is the previously resolved path.

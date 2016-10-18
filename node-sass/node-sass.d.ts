@@ -1,4 +1,4 @@
-// Type definitions for Node Sass
+// Type definitions for Node Sass v3.10.1
 // Project: https://github.com/sass/node-sass
 // Definitions by: Asana <https://asana.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,13 +22,13 @@ declare module "node-sass" {
         linefeed?: string;
         omitSourceMapUrl?: boolean;
         outFile?: string;
-        outputStyle?: string;
+        outputStyle?: "compact" | "compressed" | "expanded" | "nested";
         precision?: number;
         sourceComments?: boolean;
         sourceMap?: boolean | string;
         sourceMapContents?: boolean;
         sourceMapEmbed?: boolean;
-        sourceMapRoot?: boolean;
+        sourceMapRoot?: string;
     }
 
     interface SassError extends Error {
