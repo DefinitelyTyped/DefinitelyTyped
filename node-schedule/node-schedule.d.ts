@@ -142,6 +142,9 @@ declare module 'node-schedule' {
         contains(value: number): boolean;
     }
 
+    type Recurrence = number | Range | string;
+    type RecurrenceSegment = Recurrence | Recurrence[];
+
     /**
      * Recurrence rules.
      */
@@ -150,65 +153,65 @@ declare module 'node-schedule' {
          * Day of the month.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        date: number;
+        date: RecurrenceSegment;
 
         /**
          * Day of the week.
          *
          * @public
-         * @type {number|Array<number|Range>}
+         * @type {RecurrenceSegment}
          */
-        dayOfWeek: number | Array<number | Range>;
+        dayOfWeek: RecurrenceSegment;
 
         /**
          * Hour.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        hour: number;
+        hour: RecurrenceSegment;
 
         /**
          * Minute.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        minute: number;
+        minute: RecurrenceSegment;
 
         /**
          * Month.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        month: number;
+        month: RecurrenceSegment;
 
         /**
          * Second.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        second: number;
+        second: RecurrenceSegment;
 
         /**
          * Year.
          *
          * @public
-         * @type {number}
+         * @type {RecurrenceSegment}
          */
-        year: number;
+        year: RecurrenceSegment;
 
-        constructor(year?: number,
-            month?: number,
-            date?: number,
-            dayOfWeek?: number | Array<number | Range>,
-            hour?: number,
-            minute?: number,
-            second?: number);
+        constructor(year?: RecurrenceSegment,
+            month?: RecurrenceSegment,
+            date?: RecurrenceSegment,
+            dayOfWeek?: RecurrenceSegment,
+            hour?: RecurrenceSegment,
+            minute?: RecurrenceSegment,
+            second?: RecurrenceSegment);
 
         nextInvocationDate(base: Date): Date;
     }
