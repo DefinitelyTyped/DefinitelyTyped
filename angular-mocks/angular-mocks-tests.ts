@@ -106,7 +106,7 @@ $componentController<{}, { test: boolean }>('Test controller', { $scope: <ng.ISc
 $componentController<{}, { test?: boolean }>('Test controller', { $scope: <ng.IScope>{} }, {});
 $componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{} }, {}, 'identity');
 $componentController<{ cb: () => void }, {}>('Test controller', { $scope: <ng.IScope>{} });
-$componentController<{}, {test:{name:string}}>('Test controller', { test: {name:'Test Local'} });
+$componentController<{}, { test: {name: string} }>('Test controller', { test: {name: 'Test Local'} });
 
 ///////////////////////////////////////
 // IHttpBackendService
@@ -452,11 +452,11 @@ requestHandler.passThrough().passThrough();
 requestHandler.respond((method, url, data, headers) => [404, 'data', { header: 'value' }, 'responseText']);
 requestHandler.respond((method, url, data, headers) => [404, 'data', { header: 'value' }, 'responseText']).respond({});
 requestHandler.respond((method, url, data, headers) => { return [404, { key: 'value' }, { header: 'value' }, 'responseText']; });
-requestHandler.respond((method, url, data, headers, params) => { 
+requestHandler.respond((method, url, data, headers, params) => {
     if(params.id === 1) {
         return [200, { key: 'value'}, { header: 'value'}, 'responseText'];
     } else {
-        return [404, { key: 'value' }, { header: 'value' }, 'responseText']; 
+        return [404, { key: 'value' }, { header: 'value' }, 'responseText'];
     }
 });
 requestHandler.respond('data');
