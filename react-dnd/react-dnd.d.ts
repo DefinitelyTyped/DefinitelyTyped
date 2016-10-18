@@ -11,13 +11,13 @@ declare module __ReactDnd {
     // Decorated React Components
     // ----------------------------------------------------------------------
 
-    class ContextComponent<P, S> extends React.Component<P, S> {
+    interface ContextComponent<P, S> extends React.Component<P, S> {
         getDecoratedComponentInstance(): React.Component<P, S>;
         // Note: getManager is not yet documented on the React DnD docs.
         getManager(): any;
     }
 
-    class DndComponent<P, S> extends React.Component<P, S> {
+    interface DndComponent<P, S> extends React.Component<P, S> {
         getDecoratedComponentInstance(): React.Component<P, S>;
         getHandlerId(): Identifier;
     }
@@ -40,23 +40,23 @@ declare module __ReactDnd {
         spec: DragSourceSpec<P>,
         collect: DragSourceCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     export function DropTarget<P>(
         types: Identifier | Identifier[] | ((props: P) => Identifier | Identifier[]),
         spec: DropTargetSpec<P>,
         collect: DropTargetCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     export function DragDropContext<P>(
         backend: Backend
-    ): <P>(componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => ContextComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & ContextComponentClass<P>;
 
     export function DragLayer<P>(
         collect: DragLayerCollector,
         options?: DndOptions<P>
-    ): (componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => DndComponentClass<P>;
+    ): <C extends React.ComponentClass<P> | React.StatelessComponent<P>>(componentClass: C) => C & DndComponentClass<P>;
 
     type DragSourceCollector = (connect: DragSourceConnector, monitor: DragSourceMonitor) => Object;
     type DropTargetCollector = (connect: DropTargetConnector, monitor: DropTargetMonitor) => Object;
