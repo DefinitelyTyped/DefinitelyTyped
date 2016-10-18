@@ -74,10 +74,10 @@ declare namespace ReactDayPicker {
         localeUtils?: LocaleUtils;
         locale?: string;
         captionElement?: React.ReactElement<CaptionElementProps>;
-        onDayClick?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
-        onDayTouchTap?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
-        onDayMouseEnter?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
-        onDayMouseLeave?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: string[]) => any;
+        onDayClick?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
+        onDayTouchTap?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseEnter?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
+        onDayMouseLeave?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayTouchEnd?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         onDayTouchStart?: (e: React.SyntheticEvent<{}>, day: Date, modifiers: DayModifiers) => any;
         navbarElement?: React.ReactElement<NavbarElementProps>;
