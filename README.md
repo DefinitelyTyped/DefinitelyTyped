@@ -28,7 +28,7 @@ See more in the [handbook](http://www.typescriptlang.org/docs/handbook/declarati
 For an NPM package "foo", typings for it will be at "@types/foo".
 If you can't find your package, look for it on [TypeSearch](https://microsoft.github.io/TypeSearch/).
 
-If you still can't find it, check if it provides its own typings.
+If you still can't find it, check if it [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own typings.
 This is usually provided in a `"types"` or `"typings"` field in the `package.json`,
 or just look for any ".d.ts" files in the package and manually include them with a `/// <reference path="" />`.
 
@@ -94,6 +94,8 @@ If it doesn't, you can do so yourself in the comment associated with the PR.
 
 
 #### Create a new package
+
+If you are the library author, or can make a pull request to the library, [bundle](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) types instead of publishing to DefinitelyTyped.
 
 If you are adding typings for an NPM package, create a directory with the same name.
 If the package you are adding typings for is not on NPM, make sure the name you choose for it does not conflict with the name of a package on NPM.
@@ -165,6 +167,20 @@ DefinitelyTyped members routinely monitor for new PRs, though keep in mind that 
     Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
+
+
+#### Removing a package
+
+When a package [bundles](http://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html) its own types, types should be removed from DefinitelyTyped to avoid confusion.
+Make a PR doing the following:
+* Delete the directory.
+* Add a new entry to `notNeededPackages.json`.
+    - `libraryName`: Descriptive name of the library, e.g. "Angular 2" instead of "angular2". (May be identical to "typingsPackageName".)
+    - `typingsPackageName`: This is the name of the directory you just deleted.
+    - `sourceRepoURL`: This should point to the repository that contains the typings.
+    - `asOfVersion`: A stub will be published to `@types/foo` with this version. Should be higher than any currently published version.
+* Any other packages in DefinitelyTyped that referenced the deleted package should be updated to reference the bundled types.
+    To do this, add a `package.json` with `"dependencies": { "foo": "x.y.z" }`.
 
 
 ## FAQ
