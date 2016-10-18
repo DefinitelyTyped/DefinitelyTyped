@@ -1,6 +1,6 @@
 // Type definitions for xterm.js 2.0.1
 // Project: https://github.com/sourcelair/xterm.js/
-// Definitions by: Steven Silvester steven.silvester@ieee.org
+// Definitions by: Steven Silvester <steven.silvester@ieee.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
