@@ -3,13 +3,13 @@
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace AnalyticsNode {
+declare module "analytics-node" {
 
   interface Integrations {
     [index: string]: boolean;
   }
 
-  export class Analytics {
+  export default class Analytics {
     constructor(writeKey: string, opts?: {
       flushAt?: number,
       flushAfter?: number
