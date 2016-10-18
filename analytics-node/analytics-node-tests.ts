@@ -1,7 +1,7 @@
 /// <reference path="./analytics-node.d.ts" />
 
-var analytics: AnalyticsNode.Analytics;
-import Analytics = require("analytics-node");
+import Analytics from "analytics-node";
+var analytics: Analytics;
 
 function testConfig(): void {
   analytics = new Analytics('YOUR_WRITE_KEY', {
