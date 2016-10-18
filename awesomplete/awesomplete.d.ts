@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Awesomplete {
-	constructor(input: HTMLElement | string, o?: AwesompleteOptions);
+	constructor(input: Element | HTMLElement | string, o?: AwesompleteOptions);
 	static all: Array<any>;
 	static $$: (expr: string | NodeSelector, con?: any) => NodeList;
 	static ITEM: (text: string, input: string) => HTMLElement;
@@ -41,6 +41,7 @@ interface AwesompleteOptions {
 	minChars?: Number;
 	maxItems?: Number;
 	autoFirst?: boolean;
+    data?: Function;
 	filter?: Function;
 	sort?: Function;
 	item?: Function;
