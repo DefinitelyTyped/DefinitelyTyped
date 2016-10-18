@@ -106,6 +106,7 @@ $componentController<{}, { test: boolean }>('Test controller', { $scope: <ng.ISc
 $componentController<{}, { test?: boolean }>('Test controller', { $scope: <ng.IScope>{} }, {});
 $componentController<{}, {}>('Test controller', { $scope: <ng.IScope>{} }, {}, 'identity');
 $componentController<{ cb: () => void }, {}>('Test controller', { $scope: <ng.IScope>{} });
+$componentController<{}, {test:{name:string}}>('Test controller', { test: {name:'Test Local'} });
 
 ///////////////////////////////////////
 // IHttpBackendService
