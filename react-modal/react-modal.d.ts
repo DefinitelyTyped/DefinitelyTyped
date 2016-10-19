@@ -9,10 +9,10 @@ declare module "react-modal" {
     interface ReactModal {
         isOpen: boolean;
         style?: {
-            content: {
+            content?: {
                 [key: string]: any;
             },
-            overlay: {
+            overlay?: {
                 [key: string]: any;
             }
         },
