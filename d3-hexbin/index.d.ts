@@ -53,7 +53,6 @@ export interface Hexbin {
      */
     x(_: any): Hexbin;
 
-
     /**
      * If x is not specified, returns the current x-coordinate accessor,
      *
@@ -78,10 +77,7 @@ export interface Hexbin {
      * of each point. The default value assumes each point is specified as
      * a two-element array of numbers [x, y].
      */
-    // y(_: any): (d: any) => Hexbin;
-    // y(): (d?: [number, number]) => number;
     y(_: any): Hexbin;
-
 
     /**
      * If y is not specified, returns the current y-coordinate accessor,
