@@ -16,28 +16,28 @@ declare module "knex" {
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
-  interface Knex extends Knex.QueryInterface {
-    (tableName?: string): Knex.QueryBuilder;
-    VERSION: string;
-    __knex__: string;
-
-    raw: Knex.RawBuilder;
-    transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
-    destroy(callback: Function): void;
-    destroy(): Promise<void>;
-
-    schema: Knex.SchemaBuilder;
-
-    client: any;
-    migrate: Knex.Migrator;
-    seed: any;
-    fn: Knex.FunctionHelper;
-    on(eventName: string, callback: Function): Knex.QueryBuilder;
-  }
-
-  function Knex(config: Knex.Config) : Knex;
+  function Knex(config: Knex.Config) : Knex.Knex;
 
   namespace Knex {
+    interface Knex extends Knex.QueryInterface {
+      (tableName?: string): Knex.QueryBuilder;
+      VERSION: string;
+      __knex__: string;
+
+      raw: Knex.RawBuilder;
+      transaction: <R>(transactionScope: ((trx: Knex.Transaction) => void)) => Promise<any>;
+      destroy(callback: Function): void;
+      destroy(): Promise<void>;
+
+      schema: Knex.SchemaBuilder;
+
+      client: any;
+      migrate: Knex.Migrator;
+      seed: any;
+      fn: Knex.FunctionHelper;
+      on(eventName: string, callback: Function): Knex.QueryBuilder;
+    }
+    
     //
     // QueryInterface
     //
