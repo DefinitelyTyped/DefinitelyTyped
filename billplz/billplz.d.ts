@@ -49,7 +49,7 @@ interface BillArguments {
 
 declare class Billplz {
     // constructor
-    constructor(options?: BillplzOptions);
+    constructor(options: (string | BillplzOptions));
 
     // create_collection 
     create_collection(title: CollectionArguments, callback?: any): void;
