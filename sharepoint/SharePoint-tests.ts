@@ -1198,7 +1198,7 @@ namespace CSR {
             return this.onPostRenderField(targetField, (schema, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
                 if (ctx.ControlMode == SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode == SPClientTemplates.ClientControlMode.NewForm) {
-                    var targetControl = CSR.getControl(schema);
+                    var targetControl = CSR.getControl(<SPClientTemplates.FieldSchema_InForm>schema);
                     sourceField.forEach((field) => {
                         CSR.addUpdatedValueCallback(ctx, field, v => {
                             dependentValues[field] = v;
