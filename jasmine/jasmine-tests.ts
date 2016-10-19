@@ -1,5 +1,4 @@
 /// <reference path="jasmine.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
