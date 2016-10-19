@@ -208,37 +208,11 @@ declare namespace Materialize {
      * The scroll spy options
      */
     interface ScrollSpyOptions {
-
-        /**
-         * Throttling in miliseconds.
-         * Default: 100
-         */
-        throttle?: number;
-
         /**
          * Offset from top.
-         * Default: 0
+         * Default: 200
          */
-        offsetTop?: number;
-
-        /**
-         * Offset from right.
-         * Default: 0
-         */
-        offsetRight?: number;
-
-        /**
-         * Offset from bottom.
-         * Default: 0
-         */
-        offsetBottom?: number;
-
-        /**
-         * Offset from left.
-         * Default: 0
-         */
-        offsetLeft?: number;
-
+        scrollOffset?: number;
     }
 
     /**
