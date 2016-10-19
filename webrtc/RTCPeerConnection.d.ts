@@ -403,7 +403,7 @@ interface RTCPeerConnection extends EventTarget {
     readonly currentLocalDescription: RTCSessionDescription | null;
     readonly pendingLocalDescription: RTCSessionDescription | null;
 
-    setRemoteDescription(description: RTCSessionDescription): Promise<void>;
+    setRemoteDescription(description: RTCSessionDescriptionInit): Promise<void>;
     readonly remoteDescription: RTCSessionDescription | null;
     readonly currentRemoteDescription: RTCSessionDescription | null;
     readonly pendingRemoteDescription: RTCSessionDescription | null;
