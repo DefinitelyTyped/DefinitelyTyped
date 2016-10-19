@@ -128,7 +128,7 @@ The `Project` link does not have to be to GitHub, but prefer linking to a source
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -208,6 +208,10 @@ Usually you won't need this. When publishing a package we will normally automati
 A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/types-2.0/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
+
+#### I notice some `tsconfig.json` are missing `"noImplicitAny": true` or `"strictNullChecks": true`.
+
+Then they are wrong. You can help by submitting a pull request to fix them.
 
 #### Definitions in types-2.0 seem written differently than in master.
 
