@@ -1663,6 +1663,7 @@ declare namespace __MaterialUI {
         onBlur?: React.FocusEventHandler;
         onChange?: React.FormEventHandler;
         onFocus?: React.FocusEventHandler;
+        onKeyDown?: React.KeyboardEventHandler;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
