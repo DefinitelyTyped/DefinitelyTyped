@@ -18,6 +18,11 @@ client.calls.get(function(err: any, response: any) {
     });
 });
 
+// Using the alias described above
+client.calls.list(function(err: any, response: any) {
+    response.calls.forEach(function(call: any) {});
+});
+
 //Get a list of calls made by this account, from this phone number
 // GET /2010-04-01/Accounts/ACCOUNT_SID/Calls?From=+16513334455
 client.calls.get({

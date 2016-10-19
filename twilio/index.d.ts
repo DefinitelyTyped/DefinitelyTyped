@@ -579,7 +579,7 @@ declare namespace twilio {
     post: RestMethod;
     create: RestMethod;
   }
-  export interface CallResource extends CreatableMappedResource<CallInstance> {
+  export interface CallResource extends CreatableMappedResource<CallInstance>, ListableResource {
     feedbackSummary: CallFeedbackSummaryResource;
   }
 
