@@ -324,6 +324,7 @@ declare namespace NodeJS {
         stderr: WritableStream;
         stdin: ReadableStream;
         argv: string[];
+        argv0: string;
         execArgv: string[];
         execPath: string;
         abort(): void;
