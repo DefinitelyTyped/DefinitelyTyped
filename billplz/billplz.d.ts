@@ -5,9 +5,9 @@
 
 // api options type
 interface BillplzOptions {
-    key: string;
-    endpoint: string;
-    sandbox: boolean;
+    key?: string;
+    endpoint?: string;
+    sandbox?: boolean;
 }
 
 // collection type
