@@ -44,10 +44,6 @@ declare module 'joi' {
 		 * when true, do not apply default values. Defaults to false.
 		 */
 		noDefaults?: boolean;
-		/**
-		 * overrides the default joi error as described in any.error(err). Defaults to no override.
-		 */
-		error?: Error;
 	}
 
 	export interface RenameOptions {
