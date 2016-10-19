@@ -59,7 +59,6 @@ validOpts = {language: bool};
 validOpts = {presence: str};
 validOpts = {context: obj};
 validOpts = {noDefaults: bool};
-validOpts = {error: err};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
