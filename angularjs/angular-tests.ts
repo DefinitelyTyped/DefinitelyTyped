@@ -279,8 +279,14 @@ namespace TestQ {
         b: string;
         c: boolean;
     }
+    interface TValue {
+        e: number;
+        f: boolean;
+    }
     var tResult: TResult;
     var promiseTResult: angular.IPromise<TResult>;
+    var tValue: TValue;
+    var promiseTValue: angular.IPromise<TValue>;
 
     var $q: angular.IQService;
     var promiseAny: angular.IPromise<any>;
@@ -349,6 +355,22 @@ namespace TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.when<TResult>(tResult);
         result = $q.when<TResult>(promiseTResult);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
     }
 }
 

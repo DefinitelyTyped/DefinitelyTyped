@@ -5872,12 +5872,18 @@ namespace TestMemoize {
         result = _(memoizeFn).chain().memoize(memoizeResolverFn);
     }
 
-    _.memoize.Cache = {
-        delete: key => false,
-        get: key => undefined,
-        has: key => false,
-        set(key, value) { return this; }
-    };
+    interface MemoizeCache<K, V> {
+        delete(key: K): boolean;
+        get(key: K): V;
+        has(key: K): boolean;
+        set(key: K, value: V): this;
+    }
+    interface MemoizeCacheConstructor {
+        new (): MemoizeCache<any, any>;
+    }
+    let MemoizeCache: MemoizeCacheConstructor
+
+    _.memoize.Cache = MemoizeCache;
 }
 
 // _.overArgs
