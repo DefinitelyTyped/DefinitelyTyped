@@ -53,8 +53,15 @@ braintree.client.create({
         selector: '#cvv',
         type: 'password'
       },
-      expirationDate: {
-        selector: '#expiration-date'
+      expirationMonth: {
+        selector: '#expiration-month',
+        select: {
+          options: ["01 - Jan", "02 - Feb", "03 - Mar", "04 - Apr", "05 - May", "06 - Jun", "07 - Jul", "08 - Aug", "09 - Sep", "10 - Oct", "11 - Nov", "12 - Dec"]
+        }
+      },
+      expirationYear: {
+        selector: '#expiration-year',
+        select: true
       }
     }
   }, function (hostedFieldsErr?: BraintreeError, hostedFieldsInstance?: any) {
