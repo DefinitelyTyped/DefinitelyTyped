@@ -112,7 +112,7 @@ declare module "inquirer" {
          * A key/value hash containing the client answers in each prompt.
          */
         interface Answers {
-            [key: string]: string|boolean;
+            [key: string]: any;
         }
 
         namespace ui {
