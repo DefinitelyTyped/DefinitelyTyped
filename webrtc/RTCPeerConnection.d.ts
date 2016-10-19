@@ -335,6 +335,9 @@ interface RTCDataChannelInit {
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelstate
 type RTCDataChannelState = 'connecting' | 'open' | 'closing' | 'closed';
 
+// https://www.w3.org/TR/websockets/#dom-websocket-binarytype
+type RTCBinaryType = 'blob' | 'arraybuffer';
+
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannel
 interface RTCDataChannel extends EventTarget {
     readonly label: string;
@@ -347,7 +350,7 @@ interface RTCDataChannel extends EventTarget {
     readonly readyState: RTCDataChannelState;
     readonly bufferedAmount: number;
     bufferedAmountLowThreshold: number;
-    binaryType: string;
+    binaryType: RTCBinaryType;
 
     close(): void;
     send(data: string | Blob | ArrayBuffer | ArrayBufferView);
