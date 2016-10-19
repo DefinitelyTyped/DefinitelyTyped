@@ -11109,6 +11109,125 @@ namespace TestConstant {
     }
 }
 
+// _.defaultTo
+namespace TestDefaultTo {
+    {
+        let result: number;
+        result = _.defaultTo<number>(42, 42);
+        result = _.defaultTo<number>(undefined, 42);
+        result = _.defaultTo<number>(null, 42);
+        result = _.defaultTo<number>(NaN, 42);
+    }
+
+    {
+        let result: string;
+        result = _.defaultTo<string>('a', 'default');
+        result = _.defaultTo<string>(undefined, 'default');
+        result = _.defaultTo<string>(null, 'default');
+    }
+
+    {
+        let result: boolean;
+        result = _.defaultTo<boolean>(true, true);
+        result = _.defaultTo<boolean>(undefined, true);
+        result = _.defaultTo<boolean>(null, true);
+    }
+
+    {
+        let result: string[];
+        result = _.defaultTo<string[]>(['a'], ['default']);
+        result = _.defaultTo<string[]>(undefined, ['default']);
+        result = _.defaultTo<string[]>(null, ['default']);
+    }
+
+    {
+        let result: {a: string};
+        result = _.defaultTo<{a: string}>({a: 'a'}, {a: 'a'});
+        result = _.defaultTo<{a: string}>(undefined, {a: 'a'});
+        result = _.defaultTo<{a: string}>(null, {a: 'a'});
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<number>;
+        result = _(42).defaultTo(42);
+        result = _(undefined).defaultTo(42);
+        result = _(null).defaultTo(42);
+        result = _(NaN).defaultTo(42);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<string>;
+        result = _('a').defaultTo('default');
+        result = _(null).defaultTo('default');
+        result = _(NaN).defaultTo('default');
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<boolean>;
+        result = _(true).defaultTo(true);
+        result = _(undefined).defaultTo(true);
+        result = _(null).defaultTo(true);
+        result = _(NaN).defaultTo(true);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<string[]>;
+        result = _(['a']).defaultTo(['default']);
+        result = _(undefined).defaultTo(['default']);
+        result = _(null).defaultTo(['default']);
+        result = _(NaN).defaultTo(['default']);
+    }
+
+    {
+        let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
+        result = _({ a: 'a' }).defaultTo({a : 'a'});
+        result = _(undefined).defaultTo({a : 'a'});
+        result = _(null).defaultTo({a : 'a'});
+        result = _(NaN).defaultTo({a : 'a'});
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<number>;
+        result = _(42).chain().defaultTo(42);
+        result = _(undefined).chain().defaultTo(42);
+        result = _(null).chain().defaultTo(42);
+        result = _(NaN).chain().defaultTo(42);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<string>;
+        result = _('a').chain().defaultTo('default');
+        result = _(undefined).chain().defaultTo('default');
+        result = _(null).chain().defaultTo('default');
+        result = _(NaN).chain().defaultTo('default');
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<boolean>;
+        result = _(true).chain().defaultTo(true);
+        result = _(undefined).chain().defaultTo(true);
+        result = _(null).chain().defaultTo(true);
+        result = _(NaN).chain().defaultTo(true);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<string[]>;
+        result = _(['a']).chain().defaultTo(['default']);
+        result = _(undefined).chain().defaultTo(['default']);
+        result = _(null).chain().defaultTo(['default']);
+        result = _(NaN).chain().defaultTo(['default']);
+    }
+
+    {
+        let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
+        result = _({ a: 'a' }).chain().defaultTo({a : 'a'});
+        result = _(undefined).chain().defaultTo({a : 'a'});
+        result = _(null).chain().defaultTo({a : 'a'});
+        result = _(NaN).chain().defaultTo({a : 'a'});
+    }
+
+}
+
 // _.identity
 namespace TestIdentity {
     {

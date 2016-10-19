@@ -18206,6 +18206,34 @@ declare module _ {
         constant<TResult>(): LoDashExplicitObjectWrapper<() => TResult>;
     }
 
+    //_.defaultTo
+    interface LoDashStatic {
+        /**
+         * Checks `value` to determine whether a default value should be returned in
+         * its place. The `defaultValue` is returned if `value` is `NaN`, `null`,
+         * or `undefined`.
+         * 
+         * @param value The value to check.
+         * @param defaultValue The default value.
+         * @returns Returns the resolved value.
+         */
+        defaultTo<T>(value: T, defaultValue: T): T;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.defaultTo
+         */
+        defaultTo<TResult>(value: TResult): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.defaultTo
+         */
+        defaultTo<TResult>(value: TResult): LoDashExplicitObjectWrapper<TResult>;
+    }
+
     //_.identity
     interface LoDashStatic {
         /**
