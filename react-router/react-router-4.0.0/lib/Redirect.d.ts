@@ -1,6 +1,6 @@
 import * as React from 'react'
 
- namespace RedirectModule{
+ declare namespace RedirectModule{
 
     interface RedirectProps extends React.Props<Redirect>{
         to:string|any,

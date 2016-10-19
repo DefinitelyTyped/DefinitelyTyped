@@ -1,6 +1,6 @@
 import * as React from 'react'
 
- namespace MissModule{
+ declare namespace MissModule{
 
     interface MissProps extends React.Props<Miss>{
         children?:any,

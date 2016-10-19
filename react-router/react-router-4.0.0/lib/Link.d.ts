@@ -1,6 +1,6 @@
 import * as React from 'react'
 
- namespace LinkModule{
+ declare namespace LinkModule{
 
     interface LinkProps extends React.HTMLAttributes<Link>,React.Props<Link>{
         to:string|any,
