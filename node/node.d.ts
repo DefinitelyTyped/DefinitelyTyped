@@ -1654,6 +1654,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1777,7 +1778,7 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
