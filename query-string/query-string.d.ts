@@ -9,14 +9,14 @@ declare module "query-string" {
      * Leading ? or # are ignored, so you can pass location.search or location.hash directly.
      * @param str
      */
-    export declare function parse(str: string): {[key: string]: string};
+    export function parse(str: string): {[key: string]: string};
 
     /**
      * Stringify an object into a query string, sorting the keys.
      *
      * @param obj
      */
-    export declare function stringify(obj: {[key: string]: string|number|boolean}, options?: { strict: boolean }): string;
+    export function stringify(obj: {[key: string]: string|number|boolean}, options?: { strict: boolean }): string;
 
     /**
      * Extract a query string from a URL that can be passed into .parse().
