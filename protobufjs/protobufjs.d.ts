@@ -15,6 +15,7 @@ declare namespace ProtoBuf {
     var DotProto: DotProto;
     var Reflect: Reflect;
     var Util: Util;
+    var convertFieldsToCamelCase: boolean;
 
     // var Lang: Lang; TODO: implement interface Lang
 
