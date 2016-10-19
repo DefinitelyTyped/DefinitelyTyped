@@ -6,11 +6,11 @@
 /// <reference path="../highcharts/highcharts.d.ts" />
 
 interface HighChartsNGConfig {
-    options: HighchartsOptions;
+    options: __Highcharts.Options;
     //The below properties are watched separately for changes.
 
     //Series object (optional) - a list of series using normal highcharts series options.
-    series?: HighchartsIndividualSeriesOptions[];
+    series?: __Highcharts.IndividualSeriesOptions[];
     //Title configuration (optional)
     title?: {
         text?: string;
@@ -33,11 +33,11 @@ interface HighChartsNGConfig {
         height?: number;
     };
     //function (optional) - setup some logic for the chart
-    func?: (chart: HighchartsChartObject) => void;
+    func?: (chart: __Highcharts.ChartObject) => void;
 }
 
 //Instantiated Chart
 interface HighChartsNGChart extends HighChartsNGConfig {
     //This is a simple way to access all the Highcharts API that is not currently managed by this directive.
-    getHighcharts(): HighchartsChartObject;
+    getHighcharts(): __Highcharts.ChartObject;
 }

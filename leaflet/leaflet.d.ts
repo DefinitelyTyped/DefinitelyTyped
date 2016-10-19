@@ -3,6 +3,8 @@
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../geojson/geojson.d.ts" />
+
 declare namespace L {
     export interface CRS {
         latLngToPoint(latlng: LatLng, zoom: number): Point;
@@ -445,6 +447,7 @@ declare namespace L {
         zoomReverse?: boolean;
         detectRetina?: boolean;
         crossOrigin?: boolean;
+        [name: string]: any;
     }
 
     export interface TileLayer extends GridLayer {
@@ -523,8 +526,7 @@ declare namespace L {
         noClip?: boolean;
     }
 
-    export interface Polyline extends Path {
-        toGeoJSON(): Object; // should import GeoJSON typings
+    interface InternalPolyline extends Path {
         getLatLngs(): Array<LatLng>;
         setLatLngs(latlngs: Array<LatLng>): this;
         setLatLngs(latlngs: Array<LatLngLiteral>): this;
@@ -540,6 +542,10 @@ declare namespace L {
         addLatLng(latlng: Array<LatLngTuple>): this;
     }
 
+    export interface Polyline extends InternalPolyline {
+        toGeoJSON(): GeoJSON.LineString | GeoJSON.MultiLineString;
+    }
+
     export function polyline(latlngs: Array<LatLng>, options?: PolylineOptions): Polyline;
 
     export function polyline(latlngs: Array<LatLngLiteral>, options?: PolylineOptions): Polyline;
@@ -552,8 +558,8 @@ declare namespace L {
 
     export function polyline(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polyline;
 
-    export interface Polygon extends Polyline {
-        toGeoJSON(): Object; // should import GeoJSON typings
+    export interface Polygon extends InternalPolyline {
+        toGeoJSON(): GeoJSON.Polygon | GeoJSON.MultiPolygon;
     }
 
     export function polygon(latlngs: Array<LatLng>, options?: PolylineOptions): Polygon;
@@ -582,7 +588,7 @@ declare namespace L {
     }
 
     export interface CircleMarker extends Path {
-        toGeoJSON(): Object; // should import GeoJSON typings
+        toGeoJSON(): GeoJSON.Point;
         setLatLng(latLng: LatLng): this;
         setLatLng(latLng: LatLngLiteral): this;
         setLatLng(latLng: LatLngTuple): this;
@@ -650,7 +656,7 @@ declare namespace L {
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
          */
-        toGeoJSON(): Object; // should import GeoJSON typings
+        toGeoJSON(): GeoJSON.GeometryCollection;
 
         /**
          * Adds the given layer to the group.
@@ -747,7 +753,7 @@ declare namespace L {
      */
     export function featureGroup(layers?: Array<Layer>): FeatureGroup;
 
-    type StyleFunction = (feature: any) => PathOptions;
+    type StyleFunction = (feature: GeoJSON.Feature<GeoJSON.GeometryObject>) => PathOptions;
 
     export interface GeoJSONOptions extends LayerOptions {
         /**
@@ -763,7 +769,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: Object, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?: (geoJsonPoint: GeoJSON.Point, latlng: LatLng) => Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -777,7 +783,7 @@ declare namespace L {
          * }
          * ```
          */
-        style?: (geoJsonFeature: Object) => PathOptions;
+        style?: StyleFunction;
 
         /**
          * A Function that will be called once for each created Feature, after it
@@ -789,7 +795,7 @@ declare namespace L {
          * function (feature, layer) {}
          * ```
          */
-        onEachFeature?: (feature: Object, layer: Layer) => void;
+        onEachFeature?: (feature: GeoJSON.Feature<GeoJSON.GeometryObject>, layer: Layer) => void;
 
         /**
          * A Function that will be used to decide whether to show a feature or not.
@@ -802,7 +808,7 @@ declare namespace L {
          * }
          * ```
          */
-        filter?: (geoJsonFeature: Object) => boolean;
+        filter?: (geoJsonFeature: GeoJSON.Feature<GeoJSON.GeometryObject>) => boolean;
 
         /**
          * A Function that will be used for converting GeoJSON coordinates to LatLngs.
@@ -819,7 +825,7 @@ declare namespace L {
         /**
          * Adds a GeoJSON object to the layer.
          */
-        addData(data: Object): Layer;
+        addData(data: GeoJSON.GeoJsonObject): Layer;
 
         /**
          * Resets the given vector layer's style to the original GeoJSON style,
@@ -830,19 +836,21 @@ declare namespace L {
         /**
          * Changes styles of GeoJSON vector layers with the given style function.
          */
-        setStyle(style: PathOptions | StyleFunction): this;
+        setStyle(style: StyleFunction): this;
 
         /**
          * Creates a Layer from a given GeoJSON feature. Can use a custom pointToLayer
          * and/or coordsToLatLng functions if provided as options.
          */
-        geometryToLayer(featureData: Object, options?: GeoJSONOptions): Layer;
+        geometryToLayer(featureData: GeoJSON.Feature<GeoJSON.GeometryObject>, options?: GeoJSONOptions): Layer;
 
         /**
          * Creates a LatLng object from an array of 2 numbers (longitude, latitude) or
          * 3 numbers (longitude, latitude, altitude) used in GeoJSON for points.
          */
-        coordsToLatLng(coords: [number, number] | [number, number, number]): LatLng;
+        coordsToLatLng(coords: [number, number]): LatLng;
+
+        coordsToLatLng(coords: [number, number, number]): LatLng;
 
         /**
          * Creates a multidimensional array of LatLngs from a GeoJSON coordinates array.
@@ -867,7 +875,9 @@ declare namespace L {
         /**
          * Normalize GeoJSON geometries/features into GeoJSON features.
          */
-        asFeature(geojson: Object): Object;
+        asFeature(geojson: GeoJSON.GeometryObject): GeoJSON.Feature<GeoJSON.GeometryObject>;
+
+        asFeature(geojson: GeoJSON.Feature<GeoJSON.GeometryObject>): GeoJSON.Feature<GeoJSON.GeometryObject>;
     }
 
     /**
@@ -877,7 +887,7 @@ declare namespace L {
      * map (you can alternatively add it later with addData method) and
      * an options object.
      */
-    export function geoJSON(geojson?: Object, options?: GeoJSONOptions): GeoJSON;
+    export function geoJSON(geojson?: GeoJSON.GeoJsonObject, options?: GeoJSONOptions): GeoJSON;
 
     type Zoom = boolean | 'center';
 
@@ -1231,8 +1241,8 @@ declare namespace L {
         panTo(latlng: LatLngTuple, options?: PanOptions): this;
         panBy(offset: Point): this;
         panBy(offset: PointTuple): this;
-        setMaxBounds(bounds: Bounds): this; // is this really bounds and not lanlngbounds?
-        setMaxBounds(bounds: BoundsLiteral): this;
+        setMaxBounds(bounds: LatLngBounds): this;
+        setMaxBounds(bounds: LatLngBoundsLiteral): this;
         setMinZoom(zoom: number): this;
         setMaxZoom(zoom: number): this;
         panInsideBounds(bounds: LatLngBounds, options?: PanOptions): this;

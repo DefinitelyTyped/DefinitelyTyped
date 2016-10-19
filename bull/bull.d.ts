@@ -1,4 +1,4 @@
-// Type definitions for bull 0.7.0
+// Type definitions for bull 1.0.0
 // Project: https://github.com/OptimalBits/bull
 // Definitions by: Bruno Grieder <https://github.com/bgrieder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,7 +24,7 @@ declare module "bull" {
 
         export interface Job {
 
-            id: string
+            jobId: string
 
             /**
             * The custom data passed when the job was created

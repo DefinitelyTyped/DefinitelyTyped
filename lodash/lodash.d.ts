@@ -355,6 +355,9 @@ declare module _ {
          */
         set(key: string, value: any): _.Dictionary<any>;
     }
+    interface MapCacheConstructor {
+        new (): MapCache;
+    }
 
     interface LoDashWrapperBase<T, TWrapper> { }
 
@@ -10411,7 +10414,7 @@ declare module _ {
          */
         memoize: {
             <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
-            Cache: MapCache;
+            Cache: MapCacheConstructor;
         }
     }
 
