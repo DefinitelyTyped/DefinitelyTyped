@@ -132,10 +132,10 @@ declare namespace Materialize {
         padding?: number;
 
         /**
-         * Set the duration between transitions in ms.
-         * Default: 6000
+         * Set the width of the carousel.
+         * Default: false
          */
-        full_width?: number;
+        full_width?: boolean;
     }
 
     /**
