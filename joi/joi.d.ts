@@ -40,6 +40,14 @@ declare module 'joi' {
 		 * provides an external data set to be used in references
 		 */
 		context?: Object;
+		/**
+		 * when true, do not apply default values. Defaults to false.
+		 */
+		noDefaults?: boolean;
+		/**
+		 * overrides the default joi error as described in any.error(err). Defaults to no override.
+		 */
+		error?: Error;
 	}
 
 	export interface RenameOptions {
@@ -287,6 +295,17 @@ declare module 'joi' {
 		 * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
 		 */
 		empty(schema?: any) : T;
+		
+		/**
+		 * Overrides the default joi error with a custom error if the rule fails where:
+		 * @param err - the override error.
+		 *
+		 * Note that the provided error will be returned as-is, unmodified and undecorated
+		 * with any of the normal joi error properties. If validation fails and another
+		 * error is found before the error override, that error will be returned and the
+		 * override will be ignored (unless the abortEarly option has been set to false).
+		 */
+		error?(err: Error): T;
 	}
 
 	export interface BooleanSchema extends AnySchema<BooleanSchema> {
