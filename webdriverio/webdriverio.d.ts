@@ -276,12 +276,7 @@ declare namespace WebdriverIO {
 
     // Property
     export interface Client<T> {
-        getAttribute(selector: string, attributeName: string): Client<string | string[]>;
-        getAttribute<P>(
-            selector: string,
-            attributeName: string,
-            callback: (err: any, attribute: string | string[]) => P
-        ): Client<P>;
+        getAttribute(selector: string, attributeName: string): string | string[];
 
         getCssProperty(selector: string, cssProperty: string): Client<CssProperty | CssProperty[]>;
         getCssProperty<P>(
