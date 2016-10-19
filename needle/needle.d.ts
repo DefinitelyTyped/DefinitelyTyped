@@ -4,13 +4,19 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+declare module Needle {
+    import {IncomingMessage} from 'http';
+    import {Buffer} from 'buffer';
 
-declare namespace Needle {
+    interface NeedleResponse extends IncomingMessage {
+        body: any;
+        raw: Buffer;
+    }
 	interface ReadableStream extends NodeJS.ReadableStream {
 	}
 
     interface Callback {
-        (error: Error, response: any, body: any): void;
+        (error: Error, response: NeedleResponse, body: any): void;
     }
 
     interface RequestOptions {

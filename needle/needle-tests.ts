@@ -1,12 +1,12 @@
 /// <reference path="needle.d.ts" />
-
-import needle = require("needle");
+import * as needle from "needle";
 
 function Usage() {
     // using callback
     needle.get('http://ifconfig.me/all.json', function (error, response) {
         if (!error)
             console.log(response.body.ip_addr); // JSON decoding magic. :)
+            console.log(response.statusCode);
     });
 
     // using streams
