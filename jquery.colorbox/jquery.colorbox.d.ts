@@ -252,7 +252,7 @@ interface ColorboxStatic {
     /**
     * This method allows you to call Colorbox without having to assign it to an element.
     */
-    (settings: ColorboxSettings);
+    (settings: ColorboxSettings): any;
     /**
     * This method moves to the next item in a group and are the same as pressing the 'next' or 'previous' buttons.
     */
