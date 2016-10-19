@@ -386,12 +386,12 @@ declare namespace jasmine {
     }
 
     interface CustomReporter {
-        jasmineStarted(suiteInfo: SuiteInfo): void;
-        suiteStarted(result: CustomReporterResult): void;
-        specStarted(result: CustomReporterResult): void;
-        specDone(result: CustomReporterResult): void;
-        suiteDone(result: CustomReporterResult): void;
-        jasmineDone(): void;
+        jasmineStarted?(suiteInfo: SuiteInfo): void;
+        suiteStarted?(result: CustomReporterResult): void;
+        specStarted?(result: CustomReporterResult): void;
+        specDone?(result: CustomReporterResult): void;
+        suiteDone?(result: CustomReporterResult): void;
+        jasmineDone?(): any;
     }
 
     interface Runner {

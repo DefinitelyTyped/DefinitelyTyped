@@ -1,4 +1,5 @@
 /// <reference path="jasmine.d.ts" />
+/// <reference path="../es6-promise/es6-promise.d.ts" />
 
 // tests based on http://jasmine.github.io/2.2/introduction.html
 
@@ -943,6 +944,22 @@ var myReporter: jasmine.CustomReporter = {
 };
 
 jasmine.getEnv().addReporter(myReporter);
+
+// test for custom reporter which return ES6 Promise in jasmineDone():
+var myShortReporter: jasmine.CustomReporter = {
+    jasmineDone: function() {
+        return new Promise<void>(function(resolve, reject) {  
+            setTimeout(() => resolve(), 10000);
+        });
+    }
+}
+
+var jasmineDoneResolved: Promise<void> = myShortReporter.jasmineDone();
+jasmineDoneResolved.then(() => {
+    console.log("[ShortReporter] : jasmineDone Resolved");
+});
+
+jasmine.getEnv().addReporter(myShortReporter);
 
 describe("Randomize Tests", function() {
 	it("should allow randomization of the order of tests", function() {
