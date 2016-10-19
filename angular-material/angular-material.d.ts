@@ -160,6 +160,7 @@ declare namespace angular.material {
         hideDelay(delay: number): T;
         position(position: string): T;
         parent(parent?: string|Element|JQuery): T; // default: root node
+        toastClass(toastClass: string): T;
     }
 
     interface ISimpleToastPreset extends IToastPreset<ISimpleToastPreset> {
