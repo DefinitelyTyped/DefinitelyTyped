@@ -329,11 +329,11 @@ interface RTCSctpTransport {
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelinit
 interface RTCDataChannelInit {
     ordered?: boolean; // default = true
-    maxPacketLifeTime: number;
-    maxRetransmits: number;
+    maxPacketLifeTime?: number;
+    maxRetransmits?: number;
     protocol?: string; // default = ''
     negotiated?: boolean; // default = false
-    id: number;
+    id?: number;
 }
 
 // https://www.w3.org/TR/webrtc/#idl-def-rtcdatachannelstate
