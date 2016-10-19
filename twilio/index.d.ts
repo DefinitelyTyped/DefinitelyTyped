@@ -6,11 +6,9 @@
 /// <reference types="express" />
 /// <reference types="node" />
 /// <reference types="q" />
-
-import * as Express from 'express';
-import * as Http from 'http';
-
-import Q = require('q');
+import Express = require("express");
+import Http = require("http");
+import Q = require("q");
 
 declare interface twilio {
   (sid?: string, tkn?: string, options?: twilio.ClientOptions): twilio.RestClient;
