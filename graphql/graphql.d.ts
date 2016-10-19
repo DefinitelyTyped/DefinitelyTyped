@@ -128,7 +128,6 @@ declare module "graphql" {
 
 
     // Utilities for operating on GraphQL type schema and parsed sources.
-    /*
     export {
         // The GraphQL query recommended for a full schema introspection.
         introspectionQuery,
@@ -185,7 +184,6 @@ declare module "graphql" {
         // Asserts a string is a valid GraphQL name.
         assertValidName,
     } from 'graphql/utilities';
-    */
 }
 
 declare module "graphql/graphql" {
@@ -2197,194 +2195,543 @@ declare module "graphql/error/syntaxError" {
 ///////////////////////////
 // graphql/utilities     //
 ///////////////////////////
-// declare module "graphql/utilities/index" {
-//     // The GraphQL query recommended for a full schema introspection.
-//     export { introspectionQuery } from 'graphql/utilities/introspectionQuery';
+declare module "graphql/utilities" {
+    export * from "graphql/utilities/index";
+}
 
-//     // Gets the target Operation from a Document
-//     export { getOperationAST } from 'graphql/utilities/getOperationAST';
+declare module "graphql/utilities/index" {
+    // The GraphQL query recommended for a full schema introspection.
+    export { introspectionQuery } from 'graphql/utilities/introspectionQuery';
 
-//     // Build a GraphQLSchema from an introspection result.
-//     export { buildClientSchema } from 'graphql/utilities/buildClientSchema';
+    // Gets the target Operation from a Document
+    export { getOperationAST } from 'graphql/utilities/getOperationAST';
 
-//     // Build a GraphQLSchema from GraphQL Schema language.
-//     export { buildASTSchema, buildSchema } from 'graphql/utilities/buildASTSchema';
+    // Build a GraphQLSchema from an introspection result.
+    export { buildClientSchema } from 'graphql/utilities/buildClientSchema';
 
-//     // Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
-//     export { extendSchema } from 'graphql/utilities/extendSchema';
+    // Build a GraphQLSchema from GraphQL Schema language.
+    export { buildASTSchema, buildSchema } from 'graphql/utilities/buildASTSchema';
 
-//     // Print a GraphQLSchema to GraphQL Schema language.
-//     export { printSchema, printIntrospectionSchema } from 'graphql/utilities/schemaPrinter';
+    // Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
+    export { extendSchema } from 'graphql/utilities/extendSchema';
 
-//     // Create a GraphQLType from a GraphQL language AST.
-//     export { typeFromAST } from 'graphql/utilities/typeFromAST';
+    // Print a GraphQLSchema to GraphQL Schema language.
+    export { printSchema, printIntrospectionSchema } from 'graphql/utilities/schemaPrinter';
 
-//     // Create a JavaScript value from a GraphQL language AST.
-//     export { valueFromAST } from 'graphql/utilities/valueFromAST';
+    // Create a GraphQLType from a GraphQL language AST.
+    export { typeFromAST } from 'graphql/utilities/typeFromAST';
 
-//     // Create a GraphQL language AST from a JavaScript value.
-//     export { astFromValue } from 'graphql/utilities/astFromValue';
+    // Create a JavaScript value from a GraphQL language AST.
+    export { valueFromAST } from 'graphql/utilities/valueFromAST';
 
-//     // A helper to use within recursive-descent visitors which need to be aware of
-//     // the GraphQL type system.
-//     export { TypeInfo } from 'graphql/utilities/TypeInfo';
+    // Create a GraphQL language AST from a JavaScript value.
+    export { astFromValue } from 'graphql/utilities/astFromValue';
 
-//     // Determine if JavaScript values adhere to a GraphQL type.
-//     export { isValidJSValue } from 'graphql/utilities/isValidJSValue';
+    // A helper to use within recursive-descent visitors which need to be aware of
+    // the GraphQL type system.
+    export { TypeInfo } from 'graphql/utilities/TypeInfo';
 
-//     // Determine if AST values adhere to a GraphQL type.
-//     export { isValidLiteralValue } from 'graphql/utilities/isValidLiteralValue';
+    // Determine if JavaScript values adhere to a GraphQL type.
+    export { isValidJSValue } from 'graphql/utilities/isValidJSValue';
 
-//     // Concatenates multiple AST together.
-//     export { concatAST } from 'graphql/utilities/concatAST';
+    // Determine if AST values adhere to a GraphQL type.
+    export { isValidLiteralValue } from 'graphql/utilities/isValidLiteralValue';
 
-//     // Separates an AST into an AST per Operation.
-//     export { separateOperations } from 'graphql/utilities/separateOperations';
+    // Concatenates multiple AST together.
+    export { concatAST } from 'graphql/utilities/concatAST';
 
-//     // Comparators for types
-//     export {
-//         isEqualType,
-//         isTypeSubTypeOf,
-//         doTypesOverlap
-//     } from 'graphql/utilities/typeComparators';
+    // Separates an AST into an AST per Operation.
+    export { separateOperations } from 'graphql/utilities/separateOperations';
 
-//     // Asserts that a string is a valid GraphQL name
-//     export { assertValidName } from 'graphql/utilities/assertValidName';
-// }
+    // Comparators for types
+    export {
+        isEqualType,
+        isTypeSubTypeOf,
+        doTypesOverlap
+    } from 'graphql/utilities/typeComparators';
 
-// declare module "graphql/utilities/assertValidName" {
-//     // Helper to assert that provided names are valid.
-//     function assertValidName(name: string): void;
-// }
+    // Asserts that a string is a valid GraphQL name
+    export { assertValidName } from 'graphql/utilities/assertValidName';
+}
 
-// declare module "graphql/utilities/astFromValue" {
-//     import {
-//         Value,
-//         //IntValue,
-//         //FloatValue,
-//         //StringValue,
-//         //BooleanValue,
-//         //EnumValue,
-//         //ListValue,
-//         //ObjectValue,
-//     } from 'graphql/language/ast';
-//     import { GraphQLInputType } from 'graphql/type/definition';
+declare module "graphql/utilities/assertValidName" {
+    // Helper to assert that provided names are valid.
+    function assertValidName(name: string): void;
+}
 
-//     /**
-//      * Produces a GraphQL Value AST given a JavaScript value.
-//      *
-//      * A GraphQL type must be provided, which will be used to interpret different
-//      * JavaScript values.
-//      *
-//      * | JSON Value    | GraphQL Value        |
-//      * | ------------- | -------------------- |
-//      * | Object        | Input Object         |
-//      * | Array         | List                 |
-//      * | Boolean       | Boolean              |
-//      * | String        | String / Enum Value  |
-//      * | Number        | Int / Float          |
-//      * | Mixed         | Enum Value           |
-//      *
-//      */
-//     // TODO: this should set overloads according to above the table
-//     export function astFromValue(
-//         value: any,
-//         type: GraphQLInputType
-//     ): Value // Warning: there is a code in bottom: throw new TypeError
+declare module "graphql/utilities/astFromValue" {
+    import {
+        Value,
+        //IntValue,
+        //FloatValue,
+        //StringValue,
+        //BooleanValue,
+        //EnumValue,
+        //ListValue,
+        //ObjectValue,
+    } from 'graphql/language/ast';
+    import { GraphQLInputType } from 'graphql/type/definition';
 
-// }
+    /**
+     * Produces a GraphQL Value AST given a JavaScript value.
+     *
+     * A GraphQL type must be provided, which will be used to interpret different
+     * JavaScript values.
+     *
+     * | JSON Value    | GraphQL Value        |
+     * | ------------- | -------------------- |
+     * | Object        | Input Object         |
+     * | Array         | List                 |
+     * | Boolean       | Boolean              |
+     * | String        | String / Enum Value  |
+     * | Number        | Int / Float          |
+     * | Mixed         | Enum Value           |
+     *
+     */
+    // TODO: this should set overloads according to above the table
+    export function astFromValue(
+        value: any,
+        type: GraphQLInputType
+    ): Value // Warning: there is a code in bottom: throw new TypeError
+}
 
-// declare module "graphql/utilities/buildASTSchema" {
-//     import { Document } from 'graphql/language/ast';
-//     import { Source } from 'graphql/language/source';
-//     import { GraphQLSchema } from 'graphql/type/schema';
+declare module "graphql/utilities/buildASTSchema" {
+    import { Document } from 'graphql/language/ast';
+    import { Source } from 'graphql/language/source';
+    import { GraphQLSchema } from 'graphql/type/schema';
 
-//     /**
-//      * This takes the ast of a schema document produced by the parse function in
-//      * src/language/parser.js.
-//      *
-//      * If no schema definition is provided, then it will look for types named Query
-//      * and Mutation.
-//      *
-//      * Given that AST it constructs a GraphQLSchema. The resulting schema
-//      * has no resolve methods, so execution will use default resolvers.
-//      */
-//     function buildASTSchema(ast: Document): GraphQLSchema;
+    /**
+     * This takes the ast of a schema document produced by the parse function in
+     * src/language/parser.js.
+     *
+     * If no schema definition is provided, then it will look for types named Query
+     * and Mutation.
+     *
+     * Given that AST it constructs a GraphQLSchema. The resulting schema
+     * has no resolve methods, so execution will use default resolvers.
+     */
+    function buildASTSchema(ast: Document): GraphQLSchema;
 
-//     /**
-//      * Given an ast node, returns its string description based on a contiguous
-//      * block full-line of comments preceding it.
-//      */
-//     function getDescription(node: { loc?: Location }): string;
+    /**
+     * Given an ast node, returns its string description based on a contiguous
+     * block full-line of comments preceding it.
+     */
+    function getDescription(node: { loc?: Location }): string;
 
-//     /**
-//      * A helper function to build a GraphQLSchema directly from a source
-//      * document.
-//      */
-//     function buildSchema(source: string | Source): GraphQLSchema;
-// }
+    /**
+     * A helper function to build a GraphQLSchema directly from a source
+     * document.
+     */
+    function buildSchema(source: string | Source): GraphQLSchema;
 
-// declare module "graphql/utilities/buildClientSchema" {
-//     import { IntrospectionQuery } from 'graphql/utilities/introspectionQuery';
-//     import { GraphQLSchema } from 'graphql/type/schema';
-//     /**
-//      * Build a GraphQLSchema for use by client tools.
-//      *
-//      * Given the result of a client running the introspection query, creates and
-//      * returns a GraphQLSchema instance which can be then used with all graphql-js
-//      * tools, but cannot be used to execute a query, as introspection does not
-//      * represent the "resolver", "parse" or "serialize" functions or any other
-//      * server-internal mechanisms.
-//      */
-//     export function buildClientSchema(
-//         introspection: IntrospectionQuery
-//     ): GraphQLSchema;
-// }
+    /**
+     * Given an ast node, returns its string description based on a contiguous
+     * block full-line of comments preceding it.
+     */
+    function getDescription(node: { loc?: Location }): string;
 
-// declare module "graphql/utilities/concatAST" {
+    /**
+     * A helper function to build a GraphQLSchema directly from a source
+     * document.
+     */
+    function buildSchema(source: string | Source): GraphQLSchema;
+}
 
-// }
+declare module "graphql/utilities/buildClientSchema" {
+    import { IntrospectionQuery } from 'graphql/utilities/introspectionQuery';
+    import { GraphQLSchema } from 'graphql/type/schema';
+    /**
+     * Build a GraphQLSchema for use by client tools.
+     *
+     * Given the result of a client running the introspection query, creates and
+     * returns a GraphQLSchema instance which can be then used with all graphql-js
+     * tools, but cannot be used to execute a query, as introspection does not
+     * represent the "resolver", "parse" or "serialize" functions or any other
+     * server-internal mechanisms.
+     */
+    function buildClientSchema(
+        introspection: IntrospectionQuery
+    ): GraphQLSchema;
+}
 
-// declare module "graphql/utilities/extendSchema" {
+declare module "graphql/utilities/concatAST" {
+    import { Document } from 'graphql/language/ast';
+    /**
+     * Provided a collection of ASTs, presumably each from different files,
+     * concatenate the ASTs together into batched AST, useful for validating many
+     * GraphQL source files which together represent one conceptual application.
+     */
+    function concatAST(asts: Array<Document>): Document;
+}
 
-// }
+declare module "graphql/utilities/extendSchema" {
+    import { GraphQLSchema } from 'graphql/type/schema';
 
-// declare module "graphql/utilities/getOperationAST" {
+    /**
+     * Produces a new schema given an existing schema and a document which may
+     * contain GraphQL type extensions and definitions. The original schema will
+     * remain unaltered.
+     *
+     * Because a schema represents a graph of references, a schema cannot be
+     * extended without effectively making an entire copy. We do not know until it's
+     * too late if subgraphs remain unchanged.
+     *
+     * This algorithm copies the provided schema, applying extensions while
+     * producing the copy. The original schema remains unaltered.
+     */
+    function extendSchema(
+        schema: GraphQLSchema,
+        documentAST: Document
+    ): GraphQLSchema;
+}
 
-// }
+declare module "graphql/utilities/getOperationAST" {
+    import { Document, OperationDefinition } from 'graphql/language/ast';
 
-// declare module "graphql/utilities/introspectionQuery" {
+    /**
+     * Returns an operation AST given a document AST and optionally an operation
+     * name. If a name is not provided, an operation is only returned if only one is
+     * provided in the document.
+     */
+    export function getOperationAST(
+        documentAST: Document,
+        operationName: string
+    ): OperationDefinition;
+}
 
-// }
+declare module "graphql/utilities/introspectionQuery" {
+    import { DirectiveLocationEnum } from 'graphql/type/directives';
 
-// declare module "graphql/utilities/isValidJSValue" {
+    /*
+    query IntrospectionQuery {
+        __schema {
+        queryType { name }
+        mutationType { name }
+        subscriptionType { name }
+        types {
+            ...FullType
+        }
+        directives {
+            name
+            description
+            locations
+            args {
+            ...InputValue
+            }
+        }
+        }
+    }
 
-// }
+    fragment FullType on __Type {
+        kind
+        name
+        description
+        fields(includeDeprecated: true) {
+        name
+        description
+        args {
+            ...InputValue
+        }
+        type {
+            ...TypeRef
+        }
+        isDeprecated
+        deprecationReason
+        }
+        inputFields {
+        ...InputValue
+        }
+        interfaces {
+        ...TypeRef
+        }
+        enumValues(includeDeprecated: true) {
+        name
+        description
+        isDeprecated
+        deprecationReason
+        }
+        possibleTypes {
+        ...TypeRef
+        }
+    }
 
-// declare module "graphql/utilities/isValidLiteralValue" {
+    fragment InputValue on __InputValue {
+        name
+        description
+        type { ...TypeRef }
+        defaultValue
+    }
 
-// }
+    fragment TypeRef on __Type {
+        kind
+        name
+        ofType {
+        kind
+        name
+        ofType {
+            kind
+            name
+            ofType {
+            kind
+            name
+            ofType {
+                kind
+                name
+                ofType {
+                kind
+                name
+                ofType {
+                    kind
+                    name
+                    ofType {
+                    kind
+                    name
+                    }
+                }
+                }
+            }
+            }
+        }
+        }
+    }
+    */
+    const introspectionQuery: string;
 
-// declare module "graphql/utilities/schemaPrinter" {
 
-// }
+    interface IntrospectionQuery {
+        __schema: IntrospectionSchema
+    }
 
-// declare module "graphql/utilities/separateOperations" {
+    interface IntrospectionSchema {
+        queryType: IntrospectionNamedTypeRef;
+        mutationType?: IntrospectionNamedTypeRef;
+        subscriptionType?: IntrospectionNamedTypeRef;
+        types: Array<IntrospectionType>;
+        directives: Array<IntrospectionDirective>;
+    }
 
-// }
+    type IntrospectionType =
+        IntrospectionScalarType |
+        IntrospectionObjectType |
+        IntrospectionInterfaceType |
+        IntrospectionUnionType |
+        IntrospectionEnumType |
+        IntrospectionInputObjectType;
 
-// declare module "graphql/utilities/typeComparators" {
+    interface IntrospectionScalarType {
+        kind: 'SCALAR';
+        name: string;
+        description?: string;
+    }
 
-// }
+    interface IntrospectionObjectType {
+        kind: 'OBJECT';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        interfaces: Array<IntrospectionNamedTypeRef>;
+    }
 
-// declare module "graphql/utilities/typeFromAST" {
+    interface IntrospectionInterfaceType {
+        kind: 'INTERFACE';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
+    }
 
-// }
+    interface IntrospectionUnionType {
+        kind: 'UNION';
+        name: string;
+        description?: string;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
+    }
+
+    interface IntrospectionEnumType {
+        kind: 'ENUM';
+        name: string;
+        description?: string;
+        enumValues: Array<IntrospectionEnumValue>;
+    }
+
+    interface IntrospectionInputObjectType {
+        kind: 'INPUT_OBJECT';
+        name: string;
+        description?: string;
+        inputFields: Array<IntrospectionInputValue>;
+    }
+
+    type IntrospectionTypeRef =
+        IntrospectionNamedTypeRef |
+        IntrospectionListTypeRef |
+        IntrospectionNonNullTypeRef
+
+    interface IntrospectionNamedTypeRef {
+        kind: string;
+        name: string;
+    }
+
+    interface IntrospectionListTypeRef {
+        kind: 'LIST';
+        ofType?: IntrospectionTypeRef;
+    }
+
+    interface IntrospectionNonNullTypeRef {
+        kind: 'NON_NULL';
+        ofType?: IntrospectionTypeRef;
+    }
+
+    interface IntrospectionField {
+        name: string;
+        description?: string;
+        args: Array<IntrospectionInputValue>;
+        type: IntrospectionTypeRef;
+        isDeprecated: boolean;
+        deprecationReason?: string;
+    }
+
+    interface IntrospectionInputValue {
+        name: string;
+        description?: string;
+        type: IntrospectionTypeRef;
+        defaultValue?: string;
+    }
+
+    interface IntrospectionEnumValue {
+        name: string;
+        description?: string;
+        isDeprecated: boolean;
+        deprecationReason?: string;
+    }
+
+    interface IntrospectionDirective {
+        name: string;
+        description?: string;
+        locations: Array<DirectiveLocationEnum>;
+        args: Array<IntrospectionInputValue>;
+    }
+}
+
+declare module "graphql/utilities/isValidJSValue" {
+    import { GraphQLInputType } from 'graphql/type/definition';
+
+    /**
+     * Given a JavaScript value and a GraphQL type, determine if the value will be
+     * accepted for that type. This is primarily useful for validating the
+     * runtime values of query variables.
+     */
+    function isValidJSValue(
+        value: any,
+        type: GraphQLInputType
+    ): Array<string>
+}
+
+declare module "graphql/utilities/isValidLiteralValue" {
+    import { Value } from 'graphql/language/ast';
+    import { GraphQLInputType } from 'graphql/type/definition';
+
+    /**
+     * Utility for validators which determines if a value literal AST is valid given
+     * an input type.
+     *
+     * Note that this only validates literal values, variables are assumed to
+     * provide values of the correct type.
+     */
+    function isValidLiteralValue(
+        type: GraphQLInputType,
+        valueAST: Value
+    ): Array<string>
+}
+
+declare module "graphql/utilities/schemaPrinter" {
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    function printSchema(schema: GraphQLSchema): string;
+
+    function printIntrospectionSchema(schema: GraphQLSchema): string;
+}
+
+declare module "graphql/utilities/separateOperations" {
+    import {
+        Document,
+        OperationDefinition,
+    } from 'graphql/language/ast';
+
+    function separateOperations(
+        documentAST: Document
+    ): { [operationName: string]: Document }
+}
+
+declare module "graphql/utilities/typeComparators" {
+    import {
+        GraphQLType,
+        GraphQLCompositeType,
+        GraphQLAbstractType
+    } from 'graphql/type/definition';
+    import {
+        GraphQLSchema
+    } from 'graphql/type/schema';
+
+    /**
+     * Provided two types, return true if the types are equal (invariant).
+     */
+    function isEqualType(typeA: GraphQLType, typeB: GraphQLType): boolean;
+
+    /**
+     * Provided a type and a super type, return true if the first type is either
+     * equal or a subset of the second super type (covariant).
+     */
+    function isTypeSubTypeOf(
+        schema: GraphQLSchema,
+        maybeSubType: GraphQLType,
+        superType: GraphQLType
+    ): boolean;
+
+    /**
+     * Provided two composite types, determine if they "overlap". Two composite
+     * types overlap when the Sets of possible concrete types for each intersect.
+     *
+     * This is often used to determine if a fragment of a given type could possibly
+     * be visited in a context of another type.
+     *
+     * This function is commutative.
+     */
+    function doTypesOverlap(
+        schema: GraphQLSchema,
+        typeA: GraphQLCompositeType,
+        typeB: GraphQLCompositeType
+    ): boolean;
+}
+
+declare module "graphql/utilities/typeFromAST" {
+    import { Type } from 'graphql/language/ast';
+    import { GraphQLType, GraphQLNullableType } from 'graphql/type/definition';
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    function typeFromAST(
+        schema: GraphQLSchema,
+        inputTypeAST: Type
+    ): GraphQLType
+}
 
 declare module "graphql/utilities/TypeInfo" {
     class TypeInfo { }
 }
 
-// declare module "graphql/utilities/valueFromAST" {
+declare module "graphql/utilities/valueFromAST" {
+    import { GraphQLInputType } from 'graphql/type/definition';
+    import {
+        Value,
+        Variable,
+        ListValue,
+        ObjectValue
+    } from 'graphql/language/ast';
 
-// }
+    function valueFromAST(
+        valueAST: Value, 
+        type: GraphQLInputType,
+        variables?: {
+            [key: string]: any
+        }
+    ): any;
+}
