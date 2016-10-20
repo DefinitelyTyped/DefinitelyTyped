@@ -28,8 +28,8 @@ billplz.create_bill({
   mobile: 12345,
   name: 'your-name',
   amount: 100,
-  callback_url: "https://example.com/webhook/",
-  redirect_url: "https://example.com/done",
+  callback_url: 'https://example.com/webhook/',
+  redirect_url: 'https://example.com/done',
   due_at: '0000-00-00'
 });
 
