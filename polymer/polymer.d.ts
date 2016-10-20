@@ -7,7 +7,7 @@
 
 declare namespace polymer {
 
-  type PropConstructorType = StringConstructor|ObjectConstructor|BooleanConstructor|NumberConstructor|DateConstructor|ArrayConstructor;
+  type PropConstructorType = StringConstructor | ObjectConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor;
 
   interface PropObjectType {
     type: PropConstructorType;
@@ -305,15 +305,38 @@ declare namespace polymer {
       wantShadow: boolean
   }
 
-  interface PolymerStatic {
+  interface RenderStatus {
+    _afterNextRenderQueue: [Element, Function, any][];
+    _callbacks: Function[];
+    _ready: boolean;
+    _waitingNextRender: boolean;
+    _catchFirstRender(): void;
+    _flushNextRender(): void;
+    _flushRenderCallbacks(callbacks: [Element, Function, any][]): void;
+    _makeReady(): void;
+    _watchNextRender(): void;
 
+    afterNextRender(element: Element, fn: Function, args?: any): void;
+    hasRendered(): boolean;
+    whenReady(cb: Function): void;
+  }
+
+  interface ImportStatus extends RenderStatus {
+    whenLoaded(cb: Function): void;
+  }
+
+  interface PolymerStatic {
     Settings: Settings;
 
-    dom:DomApiStatic;
+    dom: DomApiStatic;
 
-    (prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
+    (prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
 
-    Class(prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
+    Class(prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
+
+    RenderStatus: RenderStatus
+
+    ImportStatus: ImportStatus
   }
 }
 
