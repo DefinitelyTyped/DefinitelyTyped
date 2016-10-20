@@ -17,7 +17,7 @@ billplz.create_collection({
 billplz.create_collectionOpen({
   title: 'your-title',
   description: 'your-description',
-  amount: 100,
+  amount: 100
 });
 
 // test create bill
