@@ -254,6 +254,7 @@ declare module "graphql/language" {
 }
 
 declare module "graphql/language/index" {
+    export * from 'graphql/language/ast';
     export { getLocation } from 'graphql/language/location';
     import * as Kind from 'graphql/language/kinds';
     export { Kind };
@@ -271,7 +272,7 @@ declare module "graphql/language/ast" {
      * Contains a range of UTF-8 character offsets and token references that
      * identify the region of the source from which the AST derived.
      */
-    type Location = {
+    export type Location = {
 
         /**
          * The character offset at which this Node begins.
@@ -303,7 +304,7 @@ declare module "graphql/language/ast" {
      * Represents a range of characters represented by a lexical token
      * within a Source.
      */
-    type Token = {
+    export type Token = {
 
         /**
          * The kind of Token.
@@ -366,7 +367,7 @@ declare module "graphql/language/ast" {
     /**
      * The list of all possible AST node types.
      */
-    type Node = Name
+    export type Node = Name
         | Document
         | OperationDefinition
         | VariableDefinition
@@ -405,7 +406,7 @@ declare module "graphql/language/ast" {
 
     // Name
 
-    type Name = {
+    export type Name = {
         kind: 'Name';
         loc?: Location;
         value: string;
@@ -413,17 +414,17 @@ declare module "graphql/language/ast" {
 
     // Document
 
-    type Document = {
+    export type Document = {
         kind: 'Document';
         loc?: Location;
         definitions: Array<Definition>;
     }
 
-    type Definition = OperationDefinition
+    export type Definition = OperationDefinition
         | FragmentDefinition
         | TypeSystemDefinition // experimental non-spec addition.
 
-    type OperationDefinition = {
+    export type OperationDefinition = {
         kind: 'OperationDefinition';
         loc?: Location;
         operation: OperationType;
@@ -434,9 +435,9 @@ declare module "graphql/language/ast" {
     }
 
     // Note: subscription is an experimental non-spec addition.
-    type OperationType = 'query' | 'mutation' | 'subscription';
+    export type OperationType = 'query' | 'mutation' | 'subscription';
 
-    type VariableDefinition = {
+    export type VariableDefinition = {
         kind: 'VariableDefinition';
         loc?: Location;
         variable: Variable;
@@ -444,23 +445,23 @@ declare module "graphql/language/ast" {
         defaultValue?: Value;
     }
 
-    type Variable = {
+    export type Variable = {
         kind: 'Variable';
         loc?: Location;
         name: Name;
     }
 
-    type SelectionSet = {
+    export type SelectionSet = {
         kind: 'SelectionSet';
         loc?: Location;
         selections: Array<Selection>;
     }
 
-    type Selection = Field
+    export type Selection = Field
         | FragmentSpread
         | InlineFragment
 
-    type Field = {
+    export type Field = {
         kind: 'Field';
         loc?: Location;
         alias?: Name;
@@ -470,7 +471,7 @@ declare module "graphql/language/ast" {
         selectionSet?: SelectionSet;
     }
 
-    type Argument = {
+    export type Argument = {
         kind: 'Argument';
         loc?: Location;
         name: Name;
@@ -480,14 +481,14 @@ declare module "graphql/language/ast" {
 
     // Fragments
 
-    type FragmentSpread = {
+    export type FragmentSpread = {
         kind: 'FragmentSpread';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type InlineFragment = {
+    export type InlineFragment = {
         kind: 'InlineFragment';
         loc?: Location;
         typeCondition?: NamedType;
@@ -495,7 +496,7 @@ declare module "graphql/language/ast" {
         selectionSet: SelectionSet;
     }
 
-    type FragmentDefinition = {
+    export type FragmentDefinition = {
         kind: 'FragmentDefinition';
         loc?: Location;
         name: Name;
@@ -507,7 +508,7 @@ declare module "graphql/language/ast" {
 
     // Values
 
-    type Value = Variable
+    export type Value = Variable
         | IntValue
         | FloatValue
         | StringValue
@@ -516,49 +517,49 @@ declare module "graphql/language/ast" {
         | ListValue
         | ObjectValue
 
-    type IntValue = {
+    export type IntValue = {
         kind: 'IntValue';
         loc?: Location;
         value: string;
     }
 
-    type FloatValue = {
+    export type FloatValue = {
         kind: 'FloatValue';
         loc?: Location;
         value: string;
     }
 
-    type StringValue = {
+    export type StringValue = {
         kind: 'StringValue';
         loc?: Location;
         value: string;
     }
 
-    type BooleanValue = {
+    export type BooleanValue = {
         kind: 'BooleanValue';
         loc?: Location;
         value: boolean;
     }
 
-    type EnumValue = {
+    export type EnumValue = {
         kind: 'EnumValue';
         loc?: Location;
         value: string;
     }
 
-    type ListValue = {
+    export type ListValue = {
         kind: 'ListValue';
         loc?: Location;
         values: Array<Value>;
     }
 
-    type ObjectValue = {
+    export type ObjectValue = {
         kind: 'ObjectValue';
         loc?: Location;
         fields: Array<ObjectField>;
     }
 
-    type ObjectField = {
+    export type ObjectField = {
         kind: 'ObjectField';
         loc?: Location;
         name: Name;
@@ -568,7 +569,7 @@ declare module "graphql/language/ast" {
 
     // Directives
 
-    type Directive = {
+    export type Directive = {
         kind: 'Directive';
         loc?: Location;
         name: Name;
@@ -578,23 +579,23 @@ declare module "graphql/language/ast" {
 
     // Type Reference
 
-    type Type = NamedType
+    export type Type = NamedType
         | ListType
         | NonNullType
 
-    type NamedType = {
+    export type NamedType = {
         kind: 'NamedType';
         loc?: Location;
         name: Name;
     };
 
-    type ListType = {
+    export type ListType = {
         kind: 'ListType';
         loc?: Location;
         type: Type;
     }
 
-    type NonNullType = {
+    export type NonNullType = {
         kind: 'NonNullType';
         loc?: Location;
         type: NamedType | ListType;
@@ -602,40 +603,40 @@ declare module "graphql/language/ast" {
 
     // Type System Definition
 
-    type TypeSystemDefinition = SchemaDefinition
+    export type TypeSystemDefinition = SchemaDefinition
         | TypeDefinition
         | TypeExtensionDefinition
         | DirectiveDefinition
 
-    type SchemaDefinition = {
+    export type SchemaDefinition = {
         kind: 'SchemaDefinition';
         loc?: Location;
         directives: Array<Directive>;
         operationTypes: Array<OperationTypeDefinition>;
     }
 
-    type OperationTypeDefinition = {
+    export type OperationTypeDefinition = {
         kind: 'OperationTypeDefinition';
         loc?: Location;
         operation: OperationType;
         type: NamedType;
     }
 
-    type TypeDefinition = ScalarTypeDefinition
+    export type TypeDefinition = ScalarTypeDefinition
         | ObjectTypeDefinition
         | InterfaceTypeDefinition
         | UnionTypeDefinition
         | EnumTypeDefinition
         | InputObjectTypeDefinition
 
-    type ScalarTypeDefinition = {
+    export type ScalarTypeDefinition = {
         kind: 'ScalarTypeDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type ObjectTypeDefinition = {
+    export type ObjectTypeDefinition = {
         kind: 'ObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -644,7 +645,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    type FieldDefinition = {
+    export type FieldDefinition = {
         kind: 'FieldDefinition';
         loc?: Location;
         name: Name;
@@ -653,7 +654,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    type InputValueDefinition = {
+    export type InputValueDefinition = {
         kind: 'InputValueDefinition';
         loc?: Location;
         name: Name;
@@ -662,7 +663,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    type InterfaceTypeDefinition = {
+    export type InterfaceTypeDefinition = {
         kind: 'InterfaceTypeDefinition';
         loc?: Location;
         name: Name;
@@ -670,7 +671,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    type UnionTypeDefinition = {
+    export type UnionTypeDefinition = {
         kind: 'UnionTypeDefinition';
         loc?: Location;
         name: Name;
@@ -678,7 +679,7 @@ declare module "graphql/language/ast" {
         types: Array<NamedType>;
     }
 
-    type EnumTypeDefinition = {
+    export type EnumTypeDefinition = {
         kind: 'EnumTypeDefinition';
         loc?: Location;
         name: Name;
@@ -686,14 +687,14 @@ declare module "graphql/language/ast" {
         values: Array<EnumValueDefinition>;
     }
 
-    type EnumValueDefinition = {
+    export type EnumValueDefinition = {
         kind: 'EnumValueDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type InputObjectTypeDefinition = {
+    export type InputObjectTypeDefinition = {
         kind: 'InputObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -701,13 +702,13 @@ declare module "graphql/language/ast" {
         fields: Array<InputValueDefinition>;
     }
 
-    type TypeExtensionDefinition = {
+    export type TypeExtensionDefinition = {
         kind: 'TypeExtensionDefinition';
         loc?: Location;
         definition: ObjectTypeDefinition;
     }
 
-    type DirectiveDefinition = {
+    export type DirectiveDefinition = {
         kind: 'DirectiveDefinition';
         loc?: Location;
         name: Name;
