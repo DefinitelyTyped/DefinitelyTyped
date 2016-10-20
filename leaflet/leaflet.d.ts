@@ -1343,6 +1343,7 @@ declare namespace L {
     export interface Icon extends Layer {
         createIcon(oldIcon?: HTMLElement): HTMLElement;
         createShadow(oldIcon?: HTMLElement): HTMLElement;
+        imagePath: string;
     }
 
     export namespace Icon {
