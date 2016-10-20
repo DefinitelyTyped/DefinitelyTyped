@@ -20,7 +20,11 @@ declare module "noble" {
     export function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
 
     export class Peripheral extends events.EventEmitter {
+        id:            string;
         uuid:          string;
+        address:       string;
+        addressType:   string;
+        connectable:   boolean;
         advertisement: Advertisement;
         rssi:          number;
         services:      Service[];
