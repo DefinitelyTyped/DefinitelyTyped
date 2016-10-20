@@ -50,10 +50,9 @@ declare namespace twilio {
   }
 
   export interface RequestCallback { (err: any, data: any, response: Http.ClientResponse): void; }
-  export interface BaseRequestCallback { (err: any, data: any): void; }
 
   export interface RestMethod {
-    (callback: BaseRequestCallback | RequestCallback): Q.Promise<any>;
+    (callback: RequestCallback): Q.Promise<any>;
     (args: any, callback?: RequestCallback): Q.Promise<any>;
   }
 
