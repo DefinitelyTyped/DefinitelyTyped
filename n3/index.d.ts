@@ -16,7 +16,6 @@ Match samples from README.md
 
 */
 
-
 declare module "n3" {
     import * as fs from "fs";
     import * as stream from "stream";
@@ -47,6 +46,10 @@ declare module "n3" {
 
 
         function Parser(options?: ParserOptions): N3Parser;
+        // interface Parser {
+        //    new: (options?: ParserOptions) => N3Parser;
+        //}
+
         function StreamParser(options?: ParserOptions): N3StreamParser;
 
         interface ParserOptions {

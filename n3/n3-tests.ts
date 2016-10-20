@@ -1,4 +1,4 @@
-/// <reference path="./n3.d.ts" />
+/// <reference path="./index.d.ts" />
 /// <reference path="../node/index.d.ts" />
 
 import * as N3 from "n3";
@@ -33,7 +33,7 @@ https://github.com/RubenVerborgh/N3.js/blob/master/README.md
 */
 
 function test_doc_rdf_to_triples_1() {
-    var parser: N3.N3Parser = N3.Parser();
+    var parser = N3.Parser();
     parser.parse('@prefix c: <http://example.org/cartoons#>.\n' +
         'c:Tom a c:Cat.\n' +
         'c:Jerry a c:Mouse;\n' +
@@ -61,7 +61,7 @@ function test_doc_rdf_stream_to_triples_1() {
     var rdfStream = fs.createReadStream('cartoons.ttl');
     parser.parse(rdfStream, console.log);
 
-    var streamParser: N3.N3StreamParser = N3.StreamParser();
+    var streamParser = N3.StreamParser();
     var rdfStream = fs.createReadStream('cartoons.ttl');
     rdfStream.pipe(streamParser);
     streamParser.pipe(new SlowConsumer());
@@ -107,9 +107,9 @@ function test_doc_from_triples_to_rdf_stream() {
 }
 
 function test_doc_from_triple_stream_to_rdf_stream() {
-    var streamParser: N3.N3StreamParser = N3.StreamParser(),
+    var streamParser = /* new */ N3.StreamParser(),
         inputStream = fs.createReadStream('cartoons.ttl'),
-        streamWriter = N3.StreamWriter({ prefixes: { c: 'http://example.org/cartoons#' } });
+        streamWriter = /* new */ N3.StreamWriter({ prefixes: { c: 'http://example.org/cartoons#' } });
     inputStream.pipe(streamParser);
     streamParser.pipe(streamWriter);
     streamWriter.pipe(process.stdout);
@@ -168,7 +168,7 @@ function test_doc_utility() {
     N3Util.isLiteral('"This word is "quoted"!"'); // true
     N3Util.isLiteral('"3"^^http://www.w3.org/2001/XMLSchema#integer'); // true
 
-    N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
+    /* new */ N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
     // { subject: 'a', predicate: 'b', object: '"This word is "quoted"!"' }
 
     N3Util.createLiteral('My text', 'en-gb');
