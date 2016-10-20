@@ -6,7 +6,7 @@
 declare module "query-string" {
     type primitive = string | boolean | number;
                 
-    interface IStringifyOptions { strict: boolean; encode: boolean; }
+    interface IStringifyOptions { strict?: boolean; encode?: boolean; }
 
     /**
      * Parse a query string into an object.
