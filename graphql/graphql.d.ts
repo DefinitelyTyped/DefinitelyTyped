@@ -19,69 +19,7 @@ declare module "graphql" {
 
 
     // Create and operate on GraphQL type definitions and schema.
-    export {
-        GraphQLSchema,
-
-        // Definitions
-        GraphQLScalarType,
-        GraphQLObjectType,
-        GraphQLInterfaceType,
-        GraphQLUnionType,
-        GraphQLEnumType,
-        GraphQLInputObjectType,
-        GraphQLList,
-        GraphQLNonNull,
-        GraphQLDirective,
-
-        // "Enum" of Type Kinds
-        TypeKind,
-
-        // "Enum" of Directive Locations
-        DirectiveLocation,
-
-        // Scalars
-        GraphQLInt,
-        GraphQLFloat,
-        GraphQLString,
-        GraphQLBoolean,
-        GraphQLID,
-
-        // Built-in Directives defined by the Spec
-        specifiedDirectives,
-        GraphQLIncludeDirective,
-        GraphQLSkipDirective,
-        GraphQLDeprecatedDirective,
-
-        // Constant Deprecation Reason
-        DEFAULT_DEPRECATION_REASON,
-
-        // Meta-field definitions.
-        SchemaMetaFieldDef,
-        TypeMetaFieldDef,
-        TypeNameMetaFieldDef,
-
-        // GraphQL Types for introspection.
-        __Schema,
-        __Directive,
-        __DirectiveLocation,
-        __Type,
-        __Field,
-        __InputValue,
-        __EnumValue,
-        __TypeKind,
-
-        // Predicates
-        isType,
-        isInputType,
-        isOutputType,
-        isLeafType,
-        isCompositeType,
-        isAbstractType,
-
-        // Un-modifiers
-        getNullableType,
-        getNamedType,
-    } from 'graphql/type';
+    export * from 'graphql/type';
 
 
     // Parse and operate on GraphQL language source files.
@@ -1012,29 +950,7 @@ declare module "graphql/type/index" {
     // GraphQL Schema definition
     export { GraphQLSchema } from 'graphql/type/schema';
 
-    export {
-        // Predicates
-        isType,
-        isInputType,
-        isOutputType,
-        isLeafType,
-        isCompositeType,
-        isAbstractType,
-
-        // Un-modifiers
-        getNullableType,
-        getNamedType,
-
-        // Definitions
-        GraphQLScalarType,
-        GraphQLObjectType,
-        GraphQLInterfaceType,
-        GraphQLUnionType,
-        GraphQLEnumType,
-        GraphQLInputObjectType,
-        GraphQLList,
-        GraphQLNonNull,
-    } from 'graphql/type/definition';
+    export * from 'graphql/type/definition';
 
     export {
         // "Enum" of Directive Locations
@@ -1096,7 +1012,7 @@ declare module "graphql/type/definition" {
     /**
      * These are all of the possible kinds of types.
      */
-    type GraphQLType =
+    export type GraphQLType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1106,12 +1022,12 @@ declare module "graphql/type/definition" {
         GraphQLList<any> |
         GraphQLNonNull<any>;
 
-    function isType(type: any): boolean;
+    export function isType(type: any): type is GraphQLType;
 
     /**
      * These types may be used as input types for arguments and directives.
      */
-    type GraphQLInputType =
+    export type GraphQLInputType =
         GraphQLScalarType |
         GraphQLEnumType |
         GraphQLInputObjectType |
@@ -1123,12 +1039,12 @@ declare module "graphql/type/definition" {
         GraphQLList<any>
         >;
 
-    function isInputType(type: GraphQLType): boolean;
+    export function isInputType(type: GraphQLType): type is GraphQLInputType;
 
     /**
      * These types may be used as output types as the result of fields.
      */
-    type GraphQLOutputType =
+    export type GraphQLOutputType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1144,40 +1060,40 @@ declare module "graphql/type/definition" {
         GraphQLList<any>
         >;
 
-    function isOutputType(type: GraphQLType): boolean;
+    export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
 
     /**
      * These types may describe types which may be leaf values.
      */
-    type GraphQLLeafType =
+    export type GraphQLLeafType =
         GraphQLScalarType |
         GraphQLEnumType;
 
-    function isLeafType(type: GraphQLType): boolean;
+    export function isLeafType(type: GraphQLType): type is GraphQLLeafType;
 
     /**
      * These types may describe the parent context of a selection set.
      */
-    type GraphQLCompositeType =
+    export type GraphQLCompositeType =
         GraphQLObjectType |
         GraphQLInterfaceType |
         GraphQLUnionType;
 
-    function isCompositeType(type: GraphQLType): boolean;
+    export function isCompositeType(type: GraphQLType): type is GraphQLCompositeType;
 
     /**
      * These types may describe the parent context of a selection set.
      */
-    type GraphQLAbstractType =
+    export type GraphQLAbstractType =
         GraphQLInterfaceType |
         GraphQLUnionType;
 
-    function isAbstractType(type: GraphQLType): boolean;
+    export function isAbstractType(type: GraphQLType): type is GraphQLAbstractType;
 
     /**
      * These types can all accept null as a value.
      */
-    type GraphQLNullableType =
+    export type GraphQLNullableType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1186,14 +1102,14 @@ declare module "graphql/type/definition" {
         GraphQLInputObjectType |
         GraphQLList<any>;
 
-    function getNullableType<T extends GraphQLType>(
+    export function getNullableType<T extends GraphQLType>(
         type: T
     ): (T & GraphQLNullableType);
 
     /**
      * These named types do not include modifiers like List or NonNull.
      */
-    type GraphQLNamedType =
+    export type GraphQLNamedType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1201,7 +1117,7 @@ declare module "graphql/type/definition" {
         GraphQLEnumType |
         GraphQLInputObjectType;
 
-    function getNamedType(type: GraphQLType): GraphQLNamedType
+    export function getNamedType(type: GraphQLType): GraphQLNamedType
 
     /**
      * Used while defining GraphQL types to allow for circular references in
@@ -1243,7 +1159,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLScalarTypeConfig<TInternal, TExternal> {
+    export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
         name: string;
         description?: string;
         serialize: (value: any) => TInternal;
@@ -1301,7 +1217,7 @@ declare module "graphql/type/definition" {
 
     //
 
-    interface GraphQLObjectTypeConfig<TSource> {
+    export interface GraphQLObjectTypeConfig<TSource> {
         name: string;
         interfaces?: Thunk<Array<GraphQLInterfaceType>>;
         fields: Thunk<GraphQLFieldConfigMap<TSource>>;
@@ -1309,26 +1225,26 @@ declare module "graphql/type/definition" {
         description?: string
     }
 
-    type GraphQLTypeResolveFn = (
+    export type GraphQLTypeResolveFn = (
         value: any,
         context: any,
         info: GraphQLResolveInfo
     ) => GraphQLObjectType;
 
-    type GraphQLIsTypeOfFn = (
+    export type GraphQLIsTypeOfFn = (
         source: any,
         context: any,
         info: GraphQLResolveInfo
     ) => boolean;
 
-    type GraphQLFieldResolveFn<TSource> = (
+    export type GraphQLFieldResolveFn<TSource> = (
         source: TSource,
         args: { [argName: string]: any },
         context: any,
         info: GraphQLResolveInfo
     ) => any;
 
-    interface GraphQLResolveInfo {
+    export interface GraphQLResolveInfo {
         fieldName: string;
         fieldASTs: Array<Field>;
         returnType: GraphQLOutputType;
@@ -1341,7 +1257,7 @@ declare module "graphql/type/definition" {
         variableValues: { [variableName: string]: any };
     }
 
-    interface GraphQLFieldConfig<TSource> {
+    export interface GraphQLFieldConfig<TSource> {
         type: GraphQLOutputType;
         args?: GraphQLFieldConfigArgumentMap;
         resolve?: GraphQLFieldResolveFn<TSource>;
@@ -1349,21 +1265,21 @@ declare module "graphql/type/definition" {
         description?: string;
     }
 
-    interface GraphQLFieldConfigArgumentMap {
+    export interface GraphQLFieldConfigArgumentMap {
         [argName: string]: GraphQLArgumentConfig;
     }
 
-    interface GraphQLArgumentConfig {
+    export interface GraphQLArgumentConfig {
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface GraphQLFieldConfigMap<TSource> {
+    export interface GraphQLFieldConfigMap<TSource> {
         [fieldName: string]: GraphQLFieldConfig<TSource>;
     }
 
-    interface GraphQLFieldDefinition {
+    export interface GraphQLFieldDefinition {
         name: string;
         description: string;
         type: GraphQLOutputType;
@@ -1373,14 +1289,14 @@ declare module "graphql/type/definition" {
         deprecationReason: string;
     }
 
-    interface GraphQLArgument {
+    export interface GraphQLArgument {
         name: string;
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface GraphQLFieldDefinitionMap {
+    export interface GraphQLFieldDefinitionMap {
         [fieldName: string]: GraphQLFieldDefinition;
     }
 
@@ -1414,7 +1330,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLInterfaceTypeConfig {
+    export interface GraphQLInterfaceTypeConfig {
         name: string,
         fields: Thunk<GraphQLFieldConfigMap<any>>,
         /**
@@ -1461,7 +1377,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLUnionTypeConfig {
+    export interface GraphQLUnionTypeConfig {
         name: string,
         types: Thunk<Array<GraphQLObjectType>>,
         /**
@@ -1506,23 +1422,23 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLEnumTypeConfig {
+    export interface GraphQLEnumTypeConfig {
         name: string;
         values: GraphQLEnumValueConfigMap;
         description?: string;
     }
 
-    interface GraphQLEnumValueConfigMap {
+    export interface GraphQLEnumValueConfigMap {
         [valueName: string]: GraphQLEnumValueConfig;
     }
 
-    interface GraphQLEnumValueConfig {
+    export interface GraphQLEnumValueConfig {
         value?: any;
         deprecationReason?: string;
         description?: string;
     }
 
-    interface GraphQLEnumValueDefinition {
+    export interface GraphQLEnumValueDefinition {
         name: string;
         description: string;
         deprecationReason: string;
@@ -1552,36 +1468,36 @@ declare module "graphql/type/definition" {
     class GraphQLInputObjectType {
         name: string;
         description: string;
-        constructor(config: InputObjectConfig);
-        getFields(): InputObjectFieldMap;
+        constructor(config: GraphQLInputObjectConfig);
+        getFields(): GraphQLInputObjectFieldMap;
         toString(): string;
     }
 
-    interface InputObjectConfig {
+    export interface GraphQLInputObjectConfig {
         name: string;
-        fields: Thunk<InputObjectConfigFieldMap>;
+        fields: Thunk<GraphQLInputObjectConfigFieldMap>;
         description?: string;
     }
 
-    interface InputObjectFieldConfig {
+    export interface GraphQLInputObjectFieldConfig {
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface InputObjectConfigFieldMap {
-        [fieldName: string]: InputObjectFieldConfig;
+    export interface GraphQLInputObjectConfigFieldMap {
+        [fieldName: string]: GraphQLInputObjectFieldConfig;
     }
 
-    interface InputObjectField {
+    export interface GraphQLInputObjectField {
         name: string;
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface InputObjectFieldMap {
-        [fieldName: string]: InputObjectField;
+    export interface GraphQLInputObjectFieldMap {
+        [fieldName: string]: GraphQLInputObjectField;
     }
 
     /**
