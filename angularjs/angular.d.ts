@@ -1770,7 +1770,7 @@ declare namespace angular {
     ///////////////////////////////////////////////////////////////////////////
 
     interface IDirectiveFactory {
-        (...args: any[]): IDirective;
+        (...args: any[]): IDirective | IDirectiveLinkFn;
     }
 
     interface IDirectiveLinkFn {
@@ -1778,8 +1778,8 @@ declare namespace angular {
             scope: IScope,
             instanceElement: JQuery,
             instanceAttributes: IAttributes,
-            controller: {},
-            transclude: ITranscludeFunction
+            controller?: IController | IController[] | {[key: string]: IController},
+            transclude?: ITranscludeFunction
         ): void;
     }
 
@@ -1807,7 +1807,6 @@ declare namespace angular {
         controller?: string | Injectable<IControllerConstructor>;
         controllerAs?: string;
         /**
-         * @deprecated
          * Deprecation warning: although bindings for non-ES6 class controllers are currently bound to this before
          * the controller constructor is called, this use is now deprecated. Please place initialization code that
          * relies upon bindings inside a $onInit method on the controller, instead.
