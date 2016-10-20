@@ -567,6 +567,9 @@ declare namespace ReactBootstrap {
         Collapse: typeof NavbarCollapse;
         Header: typeof NavbarHeader;
         Toggle: typeof NavbarToggle;
+        Form:typeof NavbarForm;
+        Link:typeof NavbarLink;
+        Text:typeof NavbarText;
     }
     type Navbar = React.ClassicComponent<NavbarProps, {}>;
     var Navbar: NavbarClass;
