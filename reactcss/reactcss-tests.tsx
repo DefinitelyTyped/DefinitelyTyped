@@ -1,4 +1,4 @@
-// React CSS Transition Replace Test
+// ReactCSS Test
 // ================================================================================
 ///<reference path="reactcss.d.ts"/>
 ///<reference path="../react/react.d.ts"/>
