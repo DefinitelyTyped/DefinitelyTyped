@@ -1,18 +1,18 @@
+// Tests for the type definitions for The Spotify Web API (including changes March 29th 2016)
+// Project: https://developer.spotify.com/web-api/
+// Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 /*
  * This test file contains the sample output from The Spotify Web Api obtained from [The Web API Console](https://developer.spotify.com/web-api/console/)
- * The standard suggested values for input were used.
  * 
- * Updated for the March 29th, 2016 changes to the Spotify Web Api.
- * 
- * Combined with the typings it should compile without errors.
+ * Run the tests (they should always compile without any errors):
+ * tsc spotify-api-tests.ts --target es6 --noImplicitAny
  * 
  * The order of tests is the same as on [The Spotify Web Api](https://developer.spotify.com/web-api/endpoint-reference/)
- * To find tests, search for "* Tests" instead of scrolling to keep sane.
  */
 
 /// <reference path="./spotify-api.d.ts" />
-
-
 
 /**
  * Get an Album
