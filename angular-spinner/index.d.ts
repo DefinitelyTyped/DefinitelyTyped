@@ -9,7 +9,7 @@
 * SpinnerService 
 * see https://github.com/urish/angular-spinner
 */
-interface ISpinnerService {
+export interface ISpinnerService {
     /**
      * Start selected spinner
      * 
