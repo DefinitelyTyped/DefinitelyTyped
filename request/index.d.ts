@@ -97,7 +97,7 @@ declare namespace request {
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
         maxRedirects?: number;
-        encoding?: string;
+        encoding?: string | null;
         pool?: any;
         timeout?: number;
         proxy?: any;
