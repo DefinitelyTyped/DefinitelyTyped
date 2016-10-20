@@ -5,7 +5,7 @@
 
 // api options type
 interface BillplzOptions {
-    key?: string;
+    key: string;
     endpoint?: string;
     sandbox?: boolean;
 }
@@ -49,7 +49,7 @@ interface BillArguments {
 
 declare class Billplz {
     // constructor
-    constructor(options: (string | BillplzOptions));
+    constructor(options: string | BillplzOptions);
 
     // create_collection 
     create_collection(title: CollectionArguments, callback?: any): void;
