@@ -85,26 +85,7 @@ declare module "graphql" {
 
 
     // Parse and operate on GraphQL language source files.
-    export {
-        Source,
-        getLocation,
-
-        // Parse
-        parse,
-        parseValue,
-        parseType,
-
-        // Print
-        print,
-
-        // Visit
-        visit,
-        visitInParallel,
-        visitWithTypeInfo,
-        Kind,
-        TokenKind,
-        BREAK,
-    } from 'graphql/language';
+    export * from 'graphql/language';
 
 
     // Execute GraphQL queries.
