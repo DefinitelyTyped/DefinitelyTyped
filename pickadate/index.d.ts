@@ -138,7 +138,7 @@ declare namespace Pickadate {
          * Specify where to insert the picker's root element by passing any
          * valid CSS selector to this option. Defaults to undefined.
          */
-        container?: string;
+        container?: string|JQuery;
 
         /**
          * The hidden input container.
