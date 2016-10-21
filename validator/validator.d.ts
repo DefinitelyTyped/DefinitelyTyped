@@ -213,6 +213,10 @@ declare namespace ValidatorJS {
     // remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will
     // need to escape some chars, e.g. whitelist(input, '\\[\\]').
     whitelist(input: string, chars: string): string;
+    
+    toString(input: any | any[]): string;
+    
+    version: string;
 
     // **************
     // * Extensions *

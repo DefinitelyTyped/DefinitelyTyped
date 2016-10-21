@@ -2,6 +2,258 @@
 
 import * as validator from 'validator';
 
+
+/************************************************
+*                                               *
+*                  IMPORT TESTS                 *
+*                                               *
+************************************************/
+import {
+    blacklist as blacklistFunc,
+    contains as containsFunc,
+    equals as equalsFunc,
+    escape as escapeFunc,
+    isAfter as isAfterFunc,
+    isAlpha as isAlphaFunc,
+    isAlphanumeric as isAlphanumericFunc,
+    isAscii as isAsciiFunc,
+    isBase64 as isBase64Func,
+    isBefore as isBeforeFunc,
+    isBoolean as isBooleanFunc,
+    isByteLength as isByteLengthFunc,
+    isCreditCard as isCreditCardFunc,
+    isCurrency as isCurrencyFunc,
+    isDataURI as isDataURIFunc,
+    isDate as isDateFunc,
+    isDecimal as isDecimalFunc,
+    isDivisibleBy as isDivisibleByFunc,
+    isEmail as isEmailFunc,
+    isFQDN as isFQDNFunc,
+    isFloat as isFloatFunc,
+    isFullWidth as isFullWidthFunc,
+    isHalfWidth as isHalfWidthFunc,
+    isHexColor as isHexColorFunc,
+    isHexadecimal as isHexadecimalFunc,
+    isIP as isIPFunc,
+    isISBN as isISBNFunc,
+    isISIN as isISINFunc,
+    isISO8601 as isISO8601Func,
+    isIn as isInFunc,
+    isInt as isIntFunc,
+    isJSON as isJSONFunc,
+    isLength as isLengthFunc,
+    isLowercase as isLowercaseFunc,
+    isMACAddress as isMACAddressFunc,
+    isMD5 as isMD5Func,
+    isMobilePhone as isMobilePhoneFunc,
+    isMongoId as isMongoIdFunc,
+    isMultibyte as isMultibyteFunc,
+    isNull as isNullFunc,
+    isNumeric as isNumericFunc,
+    isSurrogatePair as isSurrogatePairFunc,
+    isURL as isURLFunc,
+    isUUID as isUUIDFunc,
+    isUppercase as isUppercaseFunc,
+    isVariableWidth as isVariableWidthFunc,
+    isWhitelisted as isWhitelistedFunc,
+    ltrim as ltrimFunc,
+    matches as matchesFunc,
+    normalizeEmail as normalizeEmailFunc,
+    rtrim as rtrimFunc,
+    stripLow as stripLowFunc,
+    toBoolean as toBooleanFunc,
+    toDate as toDateFunc,
+    toFloat as toFloatFunc,
+    toInt as toIntFunc,
+    trim as trimFunc,
+    unescape as unescapeFunc,
+    whitelist as whitelistFunc,
+} from 'validator'
+
+namespace import_tests {
+  let _blacklist = validator.blacklist;
+  _blacklist = blacklistFunc;
+
+  let _contains = validator.contains;
+  _contains = containsFunc;
+
+  let _equals = validator.equals;
+  _equals = equalsFunc;
+
+  let _escape = validator.escape;
+  _escape = escapeFunc;
+
+  let _isAfter = validator.isAfter;
+  _isAfter = isAfterFunc;
+
+  let _isAlpha = validator.isAlpha;
+  _isAlpha = isAlphaFunc;
+
+  let _isAlphanumeric = validator.isAlphanumeric;
+  _isAlphanumeric = isAlphanumericFunc;
+
+  let _isAscii = validator.isAscii;
+  _isAscii = isAsciiFunc;
+
+  let _isBase64 = validator.isBase64;
+  _isBase64 = isBase64Func;
+
+  let _isBefore = validator.isBefore;
+  _isBefore = isBeforeFunc;
+
+  let _isBoolean = validator.isBoolean;
+  _isBoolean = isBooleanFunc;
+
+  let _isByteLength = validator.isByteLength;
+  _isByteLength = isByteLengthFunc;
+
+  let _isCreditCard = validator.isCreditCard;
+  _isCreditCard = isCreditCardFunc;
+
+  let _isCurrency = validator.isCurrency;
+  _isCurrency = isCurrencyFunc;
+
+  let _isDataURI = validator.isDataURI;
+  _isDataURI = isDataURIFunc;
+
+  let _isDate = validator.isDate;
+  _isDate = isDateFunc;
+
+  let _isDecimal = validator.isDecimal;
+  _isDecimal = isDecimalFunc;
+
+  let _isDivisibleBy = validator.isDivisibleBy;
+  _isDivisibleBy = isDivisibleByFunc;
+
+  let _isEmail = validator.isEmail;
+  _isEmail = isEmailFunc;
+
+  let _isFQDN = validator.isFQDN;
+  _isFQDN = isFQDNFunc;
+
+  let _isFloat = validator.isFloat;
+  _isFloat = isFloatFunc;
+
+  let _isFullWidth = validator.isFullWidth;
+  _isFullWidth = isFullWidthFunc;
+
+  let _isHalfWidth = validator.isHalfWidth;
+  _isHalfWidth = isHalfWidthFunc;
+
+  let _isHexColor = validator.isHexColor;
+  _isHexColor = isHexColorFunc;
+
+  let _isHexadecimal = validator.isHexadecimal;
+  _isHexadecimal = isHexadecimalFunc;
+
+  let _isIP = validator.isIP;
+  _isIP = isIPFunc;
+
+  let _isISBN = validator.isISBN;
+  _isISBN = isISBNFunc;
+
+  let _isISIN = validator.isISIN;
+  _isISIN = isISINFunc;
+
+  let _isISO8601 = validator.isISO8601;
+  _isISO8601 = isISO8601Func;
+
+  let _isIn = validator.isIn;
+  _isIn = isInFunc;
+
+  let _isInt = validator.isInt;
+  _isInt = isIntFunc;
+
+  let _isJSON = validator.isJSON;
+  _isJSON = isJSONFunc;
+
+  let _isLength = validator.isLength;
+  _isLength = isLengthFunc;
+
+  let _isLowercase = validator.isLowercase;
+  _isLowercase = isLowercaseFunc;
+
+  let _isMACAddress = validator.isMACAddress;
+  _isMACAddress = isMACAddressFunc;
+
+  let _isMD5 = validator.isMD5;
+  _isMD5 = isMD5Func;
+
+  let _isMobilePhone = validator.isMobilePhone;
+  _isMobilePhone = isMobilePhoneFunc;
+
+  let _isMongoId = validator.isMongoId;
+  _isMongoId = isMongoIdFunc;
+
+  let _isMultibyte = validator.isMultibyte;
+  _isMultibyte = isMultibyteFunc;
+
+  let _isNull = validator.isNull;
+  _isNull = isNullFunc;
+
+  let _isNumeric = validator.isNumeric;
+  _isNumeric = isNumericFunc;
+
+  let _isSurrogatePair = validator.isSurrogatePair;
+  _isSurrogatePair = isSurrogatePairFunc;
+
+  let _isURL = validator.isURL;
+  _isURL = isURLFunc;
+
+  let _isUUID = validator.isUUID;
+  _isUUID = isUUIDFunc;
+
+  let _isUppercase = validator.isUppercase;
+  _isUppercase = isUppercaseFunc;
+
+  let _isVariableWidth = validator.isVariableWidth;
+  _isVariableWidth = isVariableWidthFunc;
+
+  let _isWhitelisted = validator.isWhitelisted;
+  _isWhitelisted = isWhitelistedFunc;
+
+  let _ltrim = validator.ltrim;
+  _ltrim = ltrimFunc;
+
+  let _matches = validator.matches;
+  _matches = matchesFunc;
+
+  let _normalizeEmail = validator.normalizeEmail;
+  _normalizeEmail = normalizeEmailFunc;
+
+  let _rtrim = validator.rtrim;
+  _rtrim = rtrimFunc;
+
+  let _stripLow = validator.stripLow;
+  _stripLow = stripLowFunc;
+
+  let _toBoolean = validator.toBoolean;
+  _toBoolean = toBooleanFunc;
+
+  let _toDate = validator.toDate;
+  _toDate = toDateFunc;
+
+  let _toFloat = validator.toFloat;
+  _toFloat = toFloatFunc;
+
+  let _toInt = validator.toInt;
+  _toInt = toIntFunc;
+
+  let _trim = validator.trim;
+  _trim = trimFunc;
+
+  let _unescape = validator.unescape;
+  _unescape = unescapeFunc;
+
+  let _whitelist = validator.whitelist;
+  _whitelist = whitelistFunc;
+}
+
+/************************************************
+*                                               *
+*                  API TESTS                    *
+*                                               *
+************************************************/
 let any: any;
 
 // **************
@@ -297,6 +549,16 @@ let any: any;
   result = validator.trim('sample', ' ');
 
   result = validator.whitelist('sample', 'abc');
+}
+
+{
+  let str: string;
+  str = validator.toString([123, 456, '123', '456', true, false]);
+}
+
+{
+  let ver: string;
+  ver = validator.version;
 }
 
 // **************

@@ -46,6 +46,7 @@ declare module "winston" {
   export function setLevels(target: any): any;
   export function cli(): LoggerInstance;
   export function close(): void;
+  export function configure(options: LoggerOptions): void;
 
   export interface ExceptionProcessInfo {
     pid: number;
@@ -124,10 +125,10 @@ declare module "winston" {
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
     profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
+    configure(options: LoggerOptions): void;
     setLevels(target: any): any;
     cli(): LoggerInstance;
-    
+
     level: string;
   }
 

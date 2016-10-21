@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.6
+﻿// Type definitions for JQuery DataTables 1.10.7
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -187,6 +187,17 @@ declare namespace DataTables {
         * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
         */
         draw(reset?: boolean): DataTable;
+
+        /*
+        * Look up a language token that was defined in the DataTables' language initialisation object.
+        *
+        * @param token The language token to lookup from the language object.
+        * @param def The default value to use if the DataTables initialisation has not specified a value.
+        * @param numeric If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+        *
+        * @returns Resulting internationalised string.
+        */
+        i18n(token: string, def: any | string, numeric?: number): string;
 
         /*
         * Get the initialisation options used for the table. Since: DataTables 1.10.6
@@ -412,6 +423,11 @@ declare namespace DataTables {
     //#region "util-methods"
 
     interface UtilityMethods {
+        /*
+        * Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).
+        */
+        any(): boolean;
+
         /**
         * Concatenate two or more API instances together
         *
@@ -886,6 +902,13 @@ declare namespace DataTables {
         * @param d Data to use for the row.
         */
         data(d: any[] | Object): DataTable;
+        
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
+        */
+        id(hash?: boolean): string;
 
         /**
         * Get the row index of the row column.
@@ -1620,7 +1643,7 @@ declare namespace DataTables {
     }
 
     interface FunctionRowCallback {
-        (row: Node, data: any[] | Object): void;
+        (row: Node, data: any[] | Object, index: number): void;
     }
 
     interface FunctionStateLoadCallback {
@@ -1662,6 +1685,7 @@ declare namespace DataTables {
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
+        url?: string;
     }
 
     interface LanguagePaginateSettings {

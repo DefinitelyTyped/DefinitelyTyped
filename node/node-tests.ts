@@ -487,7 +487,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
-        }
+        },
+        allowHalfOpen: true,
+        readableObjectMode: true,
+        writableObjectMode: true
     })
 }
 
@@ -558,17 +561,196 @@ namespace crypto_tests {
 //////////////////////////////////////////////////
 
 namespace tls_tests {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-        key: "NOT REALLY A KEY",
-        cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+    {
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-        host: "127.0.0.1",
-        port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
+    }
+
+    {
+        let _server: tls.Server;
+        let _boolean: boolean;
+        let _func1 = function(err: Error, resp: Buffer){};
+        let _func2 = function(err: Error, sessionData: any){};
+        /**
+         * events.EventEmitter
+         * 1. tlsClientError
+         * 2. newSession
+         * 3. OCSPRequest
+         * 4. resumeSession
+         * 5. secureConnection
+         **/
+
+        _server = _server.addListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.addListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.addListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.addListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.addListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        let _err: Error;
+        let _tlsSocket: tls.TLSSocket;
+        let _any: any;
+        let _func: Function;
+        let _buffer: Buffer;
+        _boolean = _server.emit("tlsClientError", _err, _tlsSocket);
+        _boolean = _server.emit("newSession", _any, _any, _func1);
+        _boolean = _server.emit("OCSPRequest", _buffer, _buffer, _func);
+        _boolean = _server.emit("resumeSession", _any, _func2);
+        _boolean = _server.emit("secureConnection", _tlsSocket);
+
+        _server = _server.on("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.on("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.on("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.on("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.on("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.once("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.once("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.once("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.once("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.once("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+
+        _server = _server.prependOnceListener("tlsClientError", (err, tlsSocket) => {
+            let _err: Error = err;
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+        _server = _server.prependOnceListener("newSession", (sessionId, sessionData, callback) => {
+            let _sessionId: any = sessionId;
+            let _sessionData: any = sessionData;
+            let _func1 = callback;
+        })
+        _server = _server.prependOnceListener("OCSPRequest", (certificate, issuer, callback) => {
+            let _certificate: Buffer = certificate;
+            let _issuer: Buffer = issuer;
+            let _callback: Function = callback;
+        })
+        _server = _server.prependOnceListener("resumeSession", (sessionId, callback) => {
+            let _sessionId: any = sessionId;
+            let _func2 = callback;
+        })
+        _server = _server.prependOnceListener("secureConnection", (tlsSocket) => {
+            let _tlsSocket: tls.TLSSocket = tlsSocket;
+        })
+    }
+
+    {
+        let _TLSSocket: tls.TLSSocket;
+        let _boolean: boolean;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _TLSSocket = _TLSSocket.addListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.addListener("secureConnect", () => { });
+
+        let _buffer: Buffer;
+        _boolean = _TLSSocket.emit("OCSPResponse", _buffer);
+        _boolean = _TLSSocket.emit("secureConnect");
+
+        _TLSSocket = _TLSSocket.on("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.on("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.once("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.once("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependListener("secureConnect", () => { });
+
+        _TLSSocket = _TLSSocket.prependOnceListener("OCSPResponse", (response) => {
+            let _response: Buffer = response;
+        })
+        _TLSSocket = _TLSSocket.prependOnceListener("secureConnect", () => { });
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -659,14 +841,86 @@ namespace tty_tests {
 ////////////////////////////////////////////////////
 
 namespace dgram_tests {
-    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-    });
-    ds.bind();
-    ds.bind(41234);
-    var ai: dgram.AddressInfo = ds.address();
-    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-    });
-    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    {
+        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+        });
+        ds.bind();
+        ds.bind(41234);
+        var ai: dgram.AddressInfo = ds.address();
+        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+        });
+        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    }
+
+    {
+        let _socket: dgram.Socket;
+        let _boolean: boolean;
+        let _err: Error;
+        let _str: string;
+        let _rinfo: dgram.AddressInfo;
+        /**
+         * events.EventEmitter
+         * 1. close
+         * 2. error
+         * 3. listening
+         * 4. message
+         **/
+
+        _socket = _socket.addListener("close", () => {});
+        _socket = _socket.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.addListener("listening", () => {});
+        _socket = _socket.addListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _boolean = _socket.emit("close")
+        _boolean = _socket.emit("error", _err);
+        _boolean = _socket.emit("listening");
+        _boolean = _socket.emit("message", _str, _rinfo);
+
+        _socket = _socket.on("close", () => {});
+        _socket = _socket.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.on("listening", () => {});
+        _socket = _socket.on("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.once("close", () => {});
+        _socket = _socket.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.once("listening", () => {});
+        _socket = _socket.once("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependListener("close", () => {});
+        _socket = _socket.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependListener("listening", () => {});
+        _socket = _socket.prependListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+
+        _socket = _socket.prependOnceListener("close", () => {});
+        _socket = _socket.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _socket = _socket.prependOnceListener("listening", () => {});
+        _socket = _socket.prependOnceListener("message", (msg, rinfo) => {
+            let _msg: string = msg;
+            let _rinfo: dgram.AddressInfo = rinfo;
+        })
+    }
 }
 
 ////////////////////////////////////////////////////
@@ -1136,6 +1390,9 @@ namespace process_tests {
 
         var _p: NodeJS.Process = process;
         _p = p;
+    }
+    {
+        assert(process.argv[0] === process.argv0);
     }
 }
 

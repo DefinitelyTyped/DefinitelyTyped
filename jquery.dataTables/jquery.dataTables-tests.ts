@@ -147,7 +147,7 @@ $(document).ready(function () {
     var infoCallbackFunc: DataTables.FunctionInfoCallback = function (settings, start, end, total, pre) { };
     var initCallbackFunc: DataTables.FunctionInitComplete = function (settings, json) { };
     var preDrawFunc: DataTables.FunctionPreDrawCallback = function (settings) { };
-    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data) { };
+    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data, index) { };
     var stateLoadCallbackFunc: DataTables.FunctionStateLoadCallback = function (settings) { };
     var stateLoadedCallbackFunc: DataTables.FunctionStateLoaded = function (settings, data) { };
     var stateSaveCallbackFunc: DataTables.FunctionStateSaveCallback = function (settings, data) { };
@@ -310,6 +310,9 @@ $(document).ready(function () {
     draw.$("");
 
     var initSettings = dt.init();
+
+    var i18n: string = dt.i18n('buttons.copy', 'Copy to clipboard');
+    i18n = dt.i18n('select.rows', { _: '%d rows selected', 1: '1 row selected' }, 0);
 
     var off = dt.off("event");
     off = dt.off("event", function () { });
@@ -900,6 +903,8 @@ $(document).ready(function () {
     //#endregion "Methods-Table"
 
     //#region "Methods-Util"
+
+    var util_1: boolean = dt.any();
 
     //#endregion "Methods-Util"
 });
