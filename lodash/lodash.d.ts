@@ -1590,7 +1590,6 @@ declare module _ {
          *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
          * @return Returns the index of the found element, else -1.
          */
         findIndex<T>(
@@ -1723,7 +1722,6 @@ declare module _ {
          *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The function invoked per iteration.
          * @return Returns the index of the found element, else -1.
          */
         findLastIndex<T>(
@@ -6894,7 +6892,6 @@ declare module _ {
         * right to left.
         * @param collection Searches for a value in this list.
         * @param callback The function called per iteration.
-        * @param thisArg The this binding of callback.
         * @return The found element, else undefined.
         **/
         findLast<T>(
