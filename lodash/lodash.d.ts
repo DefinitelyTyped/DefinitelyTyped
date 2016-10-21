@@ -1590,11 +1590,13 @@ declare module _ {
          *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
+         * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
         findIndex<T>(
             array: List<T>,
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
@@ -1602,7 +1604,8 @@ declare module _ {
          */
         findIndex<T>(
             array: List<T>,
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
@@ -1610,7 +1613,8 @@ declare module _ {
          */
         findIndex<W, T>(
             array: List<T>,
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1619,21 +1623,24 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1642,21 +1649,24 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findIndex
          */
         findIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1665,21 +1675,24 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1688,21 +1701,24 @@ declare module _ {
          * @see _.findIndex
          */
         findIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findIndex
          */
         findIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1722,11 +1738,13 @@ declare module _ {
          *
          * @param array The array to search.
          * @param predicate The function invoked per iteration.
+         * @param fromIndex The index to search from.
          * @return Returns the index of the found element, else -1.
          */
         findLastIndex<T>(
             array: List<T>,
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
@@ -1734,7 +1752,8 @@ declare module _ {
          */
         findLastIndex<T>(
             array: List<T>,
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
@@ -1742,7 +1761,8 @@ declare module _ {
          */
         findLastIndex<W, T>(
             array: List<T>,
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1751,21 +1771,24 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1774,21 +1797,24 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): number;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): number;
     }
 
@@ -1797,21 +1823,24 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -1820,21 +1849,24 @@ declare module _ {
          * @see _.findLastIndex
          */
         findLastIndex<TResult>(
-            predicate?: ListIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
 
         /**
          * @see _.findLastIndex
          */
         findLastIndex<W>(
-            predicate?: W
+            predicate?: W,
+            fromIndex?: number
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -6892,25 +6924,32 @@ declare module _ {
         * right to left.
         * @param collection Searches for a value in this list.
         * @param callback The function called per iteration.
+        * @param fromIndex The index to search from.
         * @return The found element, else undefined.
         **/
         findLast<T>(
             collection: Array<T>,
-            callback: ListIterator<T, boolean>): T;
+            callback: ListIterator<T, boolean>,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
         **/
         findLast<T>(
             collection: List<T>,
-            callback: ListIterator<T, boolean>): T;
+            callback: ListIterator<T, boolean>,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
         **/
         findLast<T>(
             collection: Dictionary<T>,
-            callback: DictionaryIterator<T, boolean>): T;
+            callback: DictionaryIterator<T, boolean>,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6918,7 +6957,9 @@ declare module _ {
         **/
         findLast<W, T>(
             collection: Array<T>,
-            whereValue: W): T;
+            whereValue: W,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6926,7 +6967,9 @@ declare module _ {
         **/
         findLast<W, T>(
             collection: List<T>,
-            whereValue: W): T;
+            whereValue: W,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6934,7 +6977,9 @@ declare module _ {
         **/
         findLast<W, T>(
             collection: Dictionary<T>,
-            whereValue: W): T;
+            whereValue: W,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6942,7 +6987,9 @@ declare module _ {
         **/
         findLast<T>(
             collection: Array<T>,
-            pluckValue: string): T;
+            pluckValue: string,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6950,7 +6997,9 @@ declare module _ {
         **/
         findLast<T>(
             collection: List<T>,
-            pluckValue: string): T;
+            pluckValue: string,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.find
@@ -6958,7 +7007,9 @@ declare module _ {
         **/
         findLast<T>(
             collection: Dictionary<T>,
-            pluckValue: string): T;
+            pluckValue: string,
+            fromIndex?: number
+        ): T;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -6966,20 +7017,26 @@ declare module _ {
         * @see _.findLast
         */
         findLast(
-            callback: ListIterator<T, boolean>): T;
+            callback: ListIterator<T, boolean>,
+            fromIndex?: number
+        ): T;
         /**
         * @see _.findLast
         * @param _.where style callback
         */
         findLast<W>(
-            whereValue: W): T;
+            whereValue: W,
+            fromIndex?: number
+        ): T;
 
         /**
         * @see _.findLast
         * @param _.where style callback
         */
         findLast(
-            pluckValue: string): T;
+            pluckValue: string,
+            fromIndex?: number
+        ): T;
     }
 
     //_.flatMap
