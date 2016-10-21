@@ -58,3 +58,34 @@ pc.onicegatheringstatechange = ev => console.log(ev.type);
 pc.onconnectionstatechange = ev => console.log(ev.type);
 pc.ontrack = ev => console.log(ev.receiver);
 pc.ondatachannel = ev => console.log(ev.channel);
+
+// Legacy interface extensions
+pc.createOffer(
+    (sdp: RTCSessionDescription) => console.log(sdp.sdp),
+    (error: DOMException) => console.log(error.message),
+    {iceRestart: true}
+).then(() => console.log('createOffer complete'));
+pc.setLocalDescription(
+    {type: 'offer', sdp: 'foobar'},
+    () => console.log('local description set'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('setLocalDescription complete'));
+pc.createAnswer(
+    (sdp: RTCSessionDescription) => console.log(sdp.sdp),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('createAnswer complete'));
+pc.setRemoteDescription(
+    {type: 'answer', sdp: 'foobar'},
+    () => console.log('remote description set'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('setRemoteDescription complete'));
+pc.addIceCandidate(
+    {candidate: 'candidate', sdpMid: 'foo', sdpMLineIndex: 1},
+    () => console.log('candidate added'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('addIceCandidate complete'));
+pc.getStats(
+    null,
+    (report: RTCStatsReport) => console.log('got report'),
+    (error: DOMException) => console.log(error.message)
+).then(() => console.log('getStats complete'));

@@ -396,6 +396,18 @@ interface RTCDataChannelEvent {
     readonly channel: RTCDataChannel;
 }
 
+// https://www.w3.org/TR/webrtc/#idl-def-rtcsessiondescriptioncallback
+// Deprecated!
+type RTCSessionDescriptionCallback = (sdp: RTCSessionDescription) => void;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnectionerrorcallback
+// Deprecated!
+type RTCPeerConnectionErrorCallback = (error: DOMException) => void;
+
+// https://www.w3.org/TR/webrtc/#idl-def-rtcstatscallback
+// Deprecated!
+type RTCStatsCallback = (report: RTCStatsReport) => void;
+
 // https://www.w3.org/TR/webrtc/#idl-def-rtcpeerconnection
 interface RTCPeerConnection extends EventTarget {
     createOffer(options?: RTCOfferOptions): Promise<RTCSessionDescriptionInit>;
@@ -445,8 +457,28 @@ interface RTCPeerConnection extends EventTarget {
     createDataChannel(label: string | null, dataChannelDict?: RTCDataChannelInit): RTCDataChannel;
     ondatachannel: (event: 	RTCDataChannelEvent) => void;
 
-    // Extension: h-rtcpeerconnection-interface-extensions-2
+    // Extension: https://www.w3.org/TR/webrtc/#h-rtcpeerconnection-interface-extensions-2
     getStats(selector?: MediaStreamTrack | null): Promise<RTCStatsReport>;
+
+    // Extension: https://www.w3.org/TR/webrtc/#legacy-interface-extensions
+    // Deprecated!
+    createOffer(successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback,
+        options?: RTCOfferOptions): Promise<void>;
+    setLocalDescription(description: RTCSessionDescriptionInit,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    createAnswer(successCallback: RTCSessionDescriptionCallback,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    setRemoteDescription(description: RTCSessionDescriptionInit,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    addIceCandidate(candidate: RTCIceCandidateInit | RTCIceCandidate,
+        successCallback: () => void,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
+    getStats(selector: MediaStreamTrack | null,
+        successCallback: RTCStatsCallback,
+        failureCallback: RTCPeerConnectionErrorCallback): Promise<void>;
 }
 interface RTCPeerConnectionStatic {
     new(configuration?: RTCConfiguration): RTCPeerConnection;
