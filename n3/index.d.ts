@@ -45,12 +45,17 @@ declare module "n3" {
         }
 
 
-        function Parser(options?: ParserOptions): N3Parser;
-        // interface Parser {
-        //    new: (options?: ParserOptions) => N3Parser;
-        //}
+        interface ParserConstructor {
+            new (options?: ParserOptions): N3Parser;
+            (options?: ParserOptions): N3Parser;
+        }
+        const Parser: ParserConstructor;
 
-        function StreamParser(options?: ParserOptions): N3StreamParser;
+        interface StreamParserConstructor {
+            new (options?: ParserOptions): N3StreamParser;
+            (options?: ParserOptions): N3StreamParser;
+        }
+        const StreamParser: StreamParserConstructor;
 
         interface ParserOptions {
             format?: string,
@@ -76,8 +81,14 @@ declare module "n3" {
         }
 
 
-        function Writer(options: WriterOptions): N3Writer;
-        function Writer(fd: any, options: WriterOptions): N3Writer;
+        interface WriterConstructor {
+            new (options?: WriterOptions): N3Writer;
+            (options?: WriterOptions): N3Writer;
+
+            new (fd: any, options?: WriterOptions): N3Writer;
+            (fd: any, options?: WriterOptions): N3Writer;
+        }
+        const Writer: WriterConstructor;
 
         interface N3Writer {
             addTriple(subject: string, predicate: string, object: string): void;
