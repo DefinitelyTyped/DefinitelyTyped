@@ -5,13 +5,10 @@
 
 /// <reference path="../react/react.d.ts" />
 
-import * as React from "react";
-
 declare namespace ReactBytesizeIcons {
-
     type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
     type StrokeLinecap = "round" | "butt" | "square" | "inherit";
-    interface BytesizeIconsProps extends React.Props<any> {
+    interface BytesizeIconsProps extends __React.Props<any> {
         width?: number;
         height?: number;
         strokeWidth?: string;
@@ -19,7 +16,7 @@ declare namespace ReactBytesizeIcons {
         strokeLinecap?: StrokeLinecap;
         color?: string;
     }
-    class BytesizeIconComponent extends React.Component<BytesizeIconsProps, {}> {}
+    class BytesizeIconComponent extends __React.Component<BytesizeIconsProps, {}> {}
 }
 
 declare module "react-bytesize-icons" {
