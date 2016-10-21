@@ -59,15 +59,13 @@ export interface ILegendwidget {
 
   export interface IListener<T> {
     on: {
-        (event: "renderlet", fnctn: (c: T, filter: any) => any): T;
-        (event: "pretransition", fnctn: (c: T, filter: any) => any): T;
-        (event: "preRender", fnctn: (c: T) => any): T;
-        (event: "postRender", fnctn: (c: T) => any): T;
-        (event: "preRedraw", fnctn: (c: T) => any): T;
-        (event: "postRedraw", fnctn: (c: T) => any): T;
-        (event: "filtered", fnctn: (c: T, filter: any) => any): T;
-        (event: "zoomed", fnctn: (c: T, filter: any) => any): T;
-        (event: string, fnctn: (c: T, ...args: any[]) => any): T;
+      (event: "preRender", fnctn: (c: T) => any): T;
+      (event: "postRender", fnctn: (c: T) => any): T;
+      (event: "preRedraw", fnctn: (c: T) => any): T;
+      (event: "postRedraw", fnctn: (c: T) => any): T;
+      (event: "filtered", fnctn: (c: T, filter: any) => any): T;
+      (event: "zoomed", fnctn: (c: T, filter: any) => any): T;
+      (event: string, fnctn: (c: T, ...args: any[]) => any): T;
     };
   }
 
