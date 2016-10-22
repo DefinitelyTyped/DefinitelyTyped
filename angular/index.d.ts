@@ -1379,12 +1379,12 @@ declare namespace angular {
          */
         url: string;
         /**
-         * Event listeners to be bound to the XMLHttpRequest object. 
+         * Event listeners to be bound to the XMLHttpRequest object.
          * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
          */
         eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
         /**
-         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * Event listeners to be bound to the XMLHttpRequest upload object.
          * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
          */
         uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
@@ -1690,7 +1690,7 @@ declare namespace angular {
          * Define DOM attribute binding to component properties. Component properties are always bound to the component
          * controller and not to the scope.
          */
-        bindings?: {[boundProperty: string]: string};
+        bindings?: {[boundProperty: string]: '<' | '@' | '&' | '=' };
         /**
          * Whether transclusion is enabled. Disabled by default.
          */
@@ -1708,7 +1708,7 @@ declare namespace angular {
         (new (...args: any[]) => IController) |
         // Instead of classes, plain functions are often used as controller constructors, especially in examples.
         ((...args: any[]) => (void | IController));
-    
+
     /**
      * Directive controllers have a well-defined lifecycle. Each controller can implement "lifecycle hooks". These are methods that
      * will be called by Angular at certain points in the life cycle of the directive.
