@@ -52,25 +52,25 @@ declare class Billplz {
     constructor(options: string | BillplzOptions);
 
     // create_collection 
-    create_collection(title: CollectionArguments, callback?: any): void;
+    create_collection(title: CollectionArguments, callback?: (res: any, err: any) => void): void;
 
     // create collectionOpen
-    create_collectionOpen(args: OpenCollectionArguments, callback?: any): void;
+    create_collectionOpen(args: OpenCollectionArguments, callback?: (res: any, err: any) => void): void;
 
     // create bill
-    create_bill(args: BillArguments, callback?: any): void;
+    create_bill(args: BillArguments, callback?: (res: any, err: any) => void): void;
 
     // get bill
-    get_bill(billId: string, callback?: any): void;
+    get_bill(billId: string, callback?: (res: any, err: any) => void): void;
 
     // delete bill
-    delete_bill(billId: string, callback?: any): void;
+    delete_bill(billId: string, callback?: (res: any, err: any) => void): void;
 
     // change_collection status
-    change_collection_status(collectionId: string, status: string, callback?: any): void;
+    change_collection_status(collectionId: string, status: string, callback?: (res: any, err: any) => void): void;
 
     // registration check
-    registration_check(bankAccountNumber: string, callback?: any): void;
+    registration_check(bankAccountNumber: string, callback?: (res: any, err: any) => void): void;
 }
 
 declare module "billplz" {
