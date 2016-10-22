@@ -4,8 +4,17 @@ FusionCharts.addEventListener('ready',(eventObject)=>{
     eventObject.stopPropagation();
 });
 
+FusionCharts.ready((fusioncharts)=>{
 
-let chart = new FusionCharts({
+});
+
+FusionCharts.version;
+
+FusionCharts('chartId').render();;
+
+FusionCharts["debugger"].enable(true);
+
+let chartData ={
     type: 'column2d',
     renderAt: 'chart-container',
     width: '450',
@@ -25,6 +34,18 @@ let chart = new FusionCharts({
         }
         ]
     }
-});
+};
 
+let chart = new FusionCharts(chartData);
+chart.render();
 chart.isActive();
+chart.addEventListener('ready',function(eventObject){
+    eventObject.type;
+});
+chart.chartType();
+chart.addVariable();
+chart.clone();
+chart.zoomTo(0,3);
+chart.zoomOut();
+chart.setJSONData(chartData);
+chart.ref;
