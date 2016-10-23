@@ -1,5 +1,5 @@
-/// <reference path="./asn1js.d.ts" />
-/// <reference path="./pvutils.d.ts" />
+/// <reference types="asn1js" />
+/// <reference types="pvutils" />
 
 declare namespace PKIjs {
     abstract class PKIBase {
@@ -25,15 +25,17 @@ declare namespace PKIjs {
 
         /**
          * Convert parsed asn1js object into current class
-         * @param {!Object} schema
+         * 
+         * @param {Object} schema
          */
         fromSchema(schema: Object): void;
 
         /**
          * Convert current object to asn1js object and set correct values
+         * 
          * @returns {Object} asn1js object
          */
-        toSchema(): Object;
+        toSchema(): any;
 
         /**
          * Convertion for the class to JSON object
@@ -75,7 +77,7 @@ declare module "pkijs/src/AttributeTypeAndValue" {
          * @type {Object}
          * @memberOf AttributeTypeAndValue
          */
-        value: Object;
+        value: any;
     }
 }
 
@@ -249,7 +251,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
          * @param {Object} parameters Additional parameters
          * @returns {Promise}
          */
-        verify(parameters?: {trustedCerts?: Certificate[]}): PromiseLike<boolean>;
+        verify(parameters?: { trustedCerts?: Certificate[] }): PromiseLike<boolean>;
     }
 }
 
@@ -313,6 +315,14 @@ declare module "pkijs/src/Certificate" {
         extensions: Extension[];
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
+
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
 
         /**
          * Create ASN.1 schema for existing values of TBS part for the certificate
@@ -397,6 +407,15 @@ declare module "pkijs/src/CertificateRevocationList" {
         crlExtension?: Extension[];
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
+
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
+
         encodeTBS(): Object;
         isCertificateRevoked(certificate: Certificate): boolean;
         /**
@@ -440,7 +459,15 @@ declare module "pkijs/src/CertificationRequest" {
         subjectPublicKeyInfo: PublicKeyInfo;
         attributes?: Attribute[];
         signatureAlgorithm: AlgorithmIdentifier;
-        signatureValue: BitString
+        signatureValue: BitString;
+
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
 
         /**
          * Aux function making ASN1js Sequence from current TBS
@@ -956,6 +983,13 @@ declare module "pkijs/src/OCSPRequest" {
         tbsRequest: TBSRequest;
         optionalSignature?: Signature;
         /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
+        /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
@@ -1242,6 +1276,7 @@ declare module "pkijs/src/PublicKeyInfo" {
          * @param {Object} json
          */
         fromJSON(json: JsonWebKey): void;
+        importKey(publicKey: CryptoKey): PromiseLike<void>;
     }
 }
 
@@ -1380,6 +1415,13 @@ declare module "pkijs/src/ResponseData" {
         producedAt: Date;
         responses: SingleResponse[];
         responseExtensions: Extension[];
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1576,6 +1618,14 @@ declare module "pkijs/src/SignedData" {
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
 
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
+
         verify(options: VerifyParams): PromiseLike<VerifyResult>;
         /**
          * Signing current SignedData
@@ -1656,6 +1706,13 @@ declare module "pkijs/src/TBSRequest" {
         requestorName?: GeneralName;
         requestList: Request[];
         requestExtensions?: Extension;
+        /**
+         * Convert current object to asn1js object and set correct values
+         * 
+         * @param {boolean} [encodeFlag]
+         * @returns {*}
+         */
+        toSchema(encodeFlag?: boolean): any;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1761,4 +1818,99 @@ declare module "pkijs/src/TSTInfo" {
         verify(params: VerifyParams): PromiseLike<boolean>;
     }
 
+}
+
+declare module "pkijs/src/common" {
+    import { Sequence } from "asn1js";
+    import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+
+    interface Engine {
+        name: string;
+        crypto: Crypto;
+        subtle: SubtleCrypto;
+    }
+
+    function setEngine(name: string, crypto: Crypto, subtle: SubtleCrypto): void;
+    function getEngine(): Engine;
+    /**
+     * Get crypto subtle from current "crypto engine" or "undefined"
+     * 
+     * @returns {(SubtleCrypto | undefined)}
+     */
+    function getCrypto(): SubtleCrypto | undefined;
+    /**
+     * Initialize input Uint8Array by random values (with help from current "crypto engine")
+     * 
+     * @param {ArrayBufferView} view
+     * @returns {ArrayBufferView}
+     */
+    function getRandomValues(view: ArrayBufferView): ArrayBufferView;
+    /**
+     * Get OID for each specific WebCrypto algorithm
+     * 
+     * @param {Algorithm} algorithm
+     * @returns {string}
+     */
+    function getOIDByAlgorithm(algorithm: Algorithm): string;
+    /**
+     * Get default algorithm parameters for each kind of operation
+     * 
+     * @param {string} algorithmName Algorithm name to get common parameters for
+     * @param {string} operation Kind of operation: "sign", "encrypt", "generatekey", "importkey", "exportkey", "verify"
+     * @returns {{ algorithm: Algorithm; usages: string[]; }}
+     */
+    function getAlgorithmParameters(algorithmName: string, operation: string): { algorithm: Algorithm; usages: string[]; };
+    /**
+     * Create CMS ECDSA signature from WebCrypto ECDSA signature
+     * 
+     * @param {ArrayBuffer} signatureBuffer WebCrypto result of "sign" function
+     * @returns {ArrayBuffer}
+     */
+    function createCMSECDSASignature(signatureBuffer: ArrayBuffer): ArrayBuffer;
+    /**
+     * String preparation function. In a future here will be realization of algorithm from RFC4518
+     * 
+     * @param {string} inputString JavaScript string. As soon as for each ASN.1 string type we have a specific transformation function here we will work with pure JavaScript string
+     * @returns {string} Formated string
+     */
+    function stringPrep(inputString: string): string;
+    /**
+     * Create a single ArrayBuffer from CMS ECDSA signature
+     * 
+     * @param {Sequence} cmsSignature ASN.1 SEQUENCE contains CMS ECDSA signature
+     * @returns {ArrayBuffer}
+     */
+    function createECDSASignatureFromCMS(cmsSignature: Sequence): ArrayBuffer;
+    /**
+     * Get WebCrypto algorithm by wel-known OID
+     * 
+     * @param {string} oid Wel-known OID to search for
+     * @returns {Object}
+     */
+    function getAlgorithmByOID(oid: string): Algorithm;
+    /**
+     * Getting hash algorithm by signature algorithm
+     * 
+     * @param {AlgorithmIdentifier} signatureAlgorithm Signature algorithm
+     * @returns {string}
+     */
+    function getHashAlgorithm(signatureAlgorithm: AlgorithmIdentifier): string;
+    /**
+     * ANS X9.63 Key Derivation Function having a "Counter" as a parameter
+     * 
+     * @param {string} hashFunction Used hash function
+     * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
+     * @param {number} Counter
+     * @param {ArrayBuffer} SharedInfo Usually DER encoded "ECC_CMS_SharedInfo" structure
+     */
+    function kdfWithCounter(hashFunction: string, Zbuffer: ArrayBuffer, Counter: number, SharedInfo: ArrayBuffer): PromiseLike<{ counter: number; result: ArrayBuffer; }>
+    /**
+     * ANS X9.63 Key Derivation Function
+     * 
+     * @param {string} hashFunction Used hash function
+     * @param {ArrayBuffer} Zbuffer ArrayBuffer containing ECDH shared secret to derive from
+     * @param {number} keydatalen Length (!!! in BITS !!!) of used kew derivation function
+     * @param {ArrayBuffer} SharedInfo Usually DER encoded "ECC_CMS_SharedInfo" structure
+     */
+    function kdf(hashFunction: string, Zbuffer: ArrayBuffer, keydatalen: number, SharedInfo: ArrayBuffer): PromiseLike<ArrayBuffer>;
 }
