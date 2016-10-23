@@ -132,6 +132,8 @@ export interface IChartOptions {
  * need and the rest will be given sensible defaults.
  */
 export declare class SmoothieChart {
+    options: IChartOptions;
+
     constructor(chartOptions?: IChartOptions);
 
     /**
@@ -179,4 +181,6 @@ export declare class SmoothieChart {
     updateValueRange(): void;
 
     render(canvas?: HTMLCanvasElement, time?: number): void;
+
+    static timeFormatter(date: Date): string;
 }

@@ -1,6 +1,6 @@
 // Type definitions for Raven.js
 // Project: https://github.com/getsentry/raven-js
-// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>
+// Definitions by: Santi Albo <https://github.com/santialbo/>, Benjamin Pannell <http://github.com/spartan563>, Gary Blackwood <http://github.com/Garee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Raven: RavenStatic;
@@ -10,14 +10,14 @@ declare module 'raven-js' {
 }
 
 interface RavenOptions {
-    /** The log level associated with this event. Default: error */
-    level?: string;
-
     /** The name of the logger used by Sentry. Default: javascript */
     logger?: string;
 
     /** The release version of the application you are monitoring with Sentry */
     release?: string;
+
+    /** The environment in which the application is running. */
+    environment?: string;
 
     /** The name of the server or device that the client is running on */
     serverName?: string;
@@ -39,11 +39,6 @@ interface RavenOptions {
         [id: string]: string;
     };
 
-    extra?: any;
-
-    /** In some cases you may see issues where Sentry groups multiple events together when they should be separate entities. In other cases, Sentry simply doesn’t group events together because they’re so sporadic that they never look the same. */
-    fingerprint?: string[];
-
     /** A function which allows mutation of the data payload right before being sent to Sentry */
     dataCallback?: (data: any) => any;
 
@@ -53,8 +48,17 @@ interface RavenOptions {
     /** By default, Raven does not truncate messages. If you need to truncate characters for whatever reason, you may set this to limit the length. */
     maxMessageLength?: number;
 
+    /** Enables/disables automatic collection of breadcrumbs. Default: true. */
+    autoBreadcrumbs?: any;
+
+    /** The max number of breadcrumb captures. Default: 100. */
+    maxBreadcrumbs?: number;
+
     /** Override the default HTTP data transport handler. */
     transport?: (options: RavenTransportOptions) => void;
+
+    /** Allow the use of a Sentry DSN with a private key. Default: false. */
+    allowSecretKey?: boolean;
 }
 
 interface RavenStatic {
@@ -179,6 +183,8 @@ interface RavenStatic {
 
     /** If you need to conditionally check if raven needs to be initialized or not, you can use the isSetup function. It will return true if Raven is already initialized. */
     isSetup(): boolean;
+
+    showReportDialog(options: RavenOptions): void;
 }
 
 interface RavenTransportOptions {

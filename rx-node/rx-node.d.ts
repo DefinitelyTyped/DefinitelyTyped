@@ -3,8 +3,8 @@
 // Definitions by: Andre Luiz dos Santos <https://github.com/andre-luiz-dos-santos/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../rx/rx.d.ts" />
+/// <reference types="node" />
+/// <reference types="rx" />
 
 declare namespace RxNode {
 

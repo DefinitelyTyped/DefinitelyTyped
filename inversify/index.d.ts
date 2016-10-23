@@ -1,4 +1,4 @@
-// Type definitions for inversify 2.0.0-beta.9
+// Type definitions for inversify 2.0.0-rc.12
 // Project: https://github.com/inversify/InversifyJS
 // Definitions by: inversify <https://github.com/inversify>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -45,7 +45,7 @@ declare namespace inversify {
             constraint: (request: Request) => boolean;
             onActivation: (context: Context, injectable: T) => T;
             cache: T;
-            dynamicValue: () => T;
+            dynamicValue: (context: Context) => T;
             scope: number; // BindingScope
             type: number; // BindingType
         }
@@ -135,6 +135,7 @@ declare namespace inversify {
         export interface Target {
             guid: string;
             serviceIdentifier: ServiceIdentifier<any>;
+            type: number; // TargetType
             name: QueryableString;
             metadata: Array<Metadata>;
             hasTag(key: string): boolean;
@@ -152,6 +153,7 @@ declare namespace inversify {
 
         export interface Kernel {
             guid: string;
+            parent: Kernel;
             bind<T>(serviceIdentifier: ServiceIdentifier<T>): BindingToSyntax<T>;
             unbind(serviceIdentifier: ServiceIdentifier<any>): void;
             unbindAll(): void;
@@ -160,6 +162,8 @@ declare namespace inversify {
             getNamed<T>(serviceIdentifier: ServiceIdentifier<T>, named: string): T;
             getTagged<T>(serviceIdentifier: ServiceIdentifier<T>, key: string, value: any): T;
             getAll<T>(serviceIdentifier: ServiceIdentifier<T>): T[];
+            getAllNamed<T>(serviceIdentifier: ServiceIdentifier<T>, named: string): T[];
+            getAllTagged<T>(serviceIdentifier: ServiceIdentifier<T>, key: string, value: any): T[];
             load(...modules: KernelModule[]): void;
             unload(...modules: KernelModule[]): void;
             applyMiddleware(...middleware: Middleware[]): void;
@@ -197,10 +201,12 @@ declare namespace inversify {
         export interface KeyValuePair<T> {
             serviceIdentifier: ServiceIdentifier<any>;
             value: Array<T>;
+            guid: string;
         }
 
         export interface BindingInSyntax<T> {
             inSingletonScope(): BindingWhenOnSyntax<T>;
+            inTransientScope(): BindingWhenOnSyntax<T>;
         }
 
         export interface BindingInWhenOnSyntax<T> extends BindingInSyntax<T>, BindingWhenOnSyntax<T> { }
@@ -211,8 +217,9 @@ declare namespace inversify {
 
         export interface BindingToSyntax<T> {
             to(constructor: { new (...args: any[]): T; }): BindingInWhenOnSyntax<T>;
+            toSelf(): BindingInWhenOnSyntax<T>;
             toConstantValue(value: T): BindingWhenOnSyntax<T>;
-            toDynamicValue(func: () => T): BindingWhenOnSyntax<T>;
+            toDynamicValue(func: (context: Context) => T): BindingWhenOnSyntax<T>;
             toConstructor<T2>(constructor: Newable<T2>): BindingWhenOnSyntax<T>;
             toFactory<T2>(factory: FactoryCreator<T2>): BindingWhenOnSyntax<T>;
             toFunction(func: T): BindingWhenOnSyntax<T>;
@@ -238,6 +245,7 @@ declare namespace inversify {
             whenAnyAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
             whenNoAncestorMatches(constraint: (request: Request) => boolean): BindingOnSyntax<T>;
         }
+
     }
 
     export var Kernel: interfaces.KernelConstructor;
@@ -247,23 +255,13 @@ declare namespace inversify {
     export function tagged(metadataKey: string, metadataValue: any): (target: any, targetKey: string, index?: number) => any;
     export function named(name: string): (target: any, targetKey: string, index?: number) => any;
     export function targetName(name: string): (target: any, targetKey: string, index: number) => any;
+    export function unmanaged(): (target: any, targetKey: string, index: number) => any;
     export function inject(serviceIdentifier: interfaces.ServiceIdentifier<any>): (target: any, targetKey: string, index?: number) => any;
+    export function guid(): string;
 
     export function multiInject(
         serviceIdentifier: interfaces.ServiceIdentifier<any>
     ): (target: any, targetKey: string, index?: number) => any;
-
-    export function makePropertyInjectDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>)) => (proto: any, key: string) => void;
-
-    export function makePropertyInjectNamedDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>), named: string) => (proto: any, key: string) => void;
-
-    export function makePropertyInjectTaggedDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>), key: string, value: any) => (proto: any, propertyName: string) => void;
-
-    export function makePropertyMultiInjectDecorator(kernel: interfaces.Kernel):
-        (serviceIdentifier: (string | Symbol | interfaces.Newable<any>)) => (proto: any, key: string) => void;
 
     // constraint helpers
     export var traverseAncerstors: (request: interfaces.Request, constraint: (request: interfaces.Request) => boolean) => boolean;

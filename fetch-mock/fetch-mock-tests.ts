@@ -1,5 +1,3 @@
-/// <reference path="./fetch-mock.d.ts" />
-
 import * as fetchMock from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);
@@ -30,3 +28,15 @@ fetchMock.called("http://test.com");
 (fetchMock.lastCall()[1] as RequestInit).body;
 fetchMock.lastUrl();
 fetchMock.lastOptions();
+
+fetchMock.get("http://test.com", 200)
+fetchMock.post("http://test.com", 200)
+fetchMock.put("http://test.com", 200)
+fetchMock.delete("http://test.com", 200)
+fetchMock.head("http://test.com", 200)
+
+fetchMock.get("http://test.com", 200, {method: "GET"})
+fetchMock.post("http://test.com", 200, {method: "POST"})
+fetchMock.put("http://test.com", 200, {method: "PUT"})
+fetchMock.delete("http://test.com", 200, {method: "DELETE"})
+fetchMock.head("http://test.com", 200, {method: "HEAD"})

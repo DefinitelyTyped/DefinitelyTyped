@@ -3,7 +3,7 @@
 // Definitions by: Andrey Balokha <https://github.com/andrewBalekha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 interface __config {
   className?: string
@@ -45,6 +45,6 @@ interface Slider extends __config {
 }
 
 declare module "react-slick" {
-  var Slider: __React.ClassicComponentClass<Slider>;
+  var Slider: React.ClassicComponentClass<Slider>;
   export = Slider;
 }

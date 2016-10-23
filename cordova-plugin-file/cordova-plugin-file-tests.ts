@@ -1,4 +1,4 @@
-/// <reference path="../cordova/index.d.ts"/>
+/// <reference types="cordova"/>
 /// <reference path="index.d.ts"/>
 
 function fsaccessor(fs: FileSystem) {
@@ -10,7 +10,14 @@ function fsaccessor(fs: FileSystem) {
 }
 
 window.requestFileSystem(
-    window.TEMPORARY,
+    LocalFileSystem.TEMPORARY,
+    1024 * 1024 * 5,
+    fsaccessor,
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+
+window.requestFileSystem(
+    LocalFileSystem.PERSISTENT,
     1024 * 1024 * 5,
     fsaccessor,
     (err: FileError) => { alert('Error: ' + err.code); }

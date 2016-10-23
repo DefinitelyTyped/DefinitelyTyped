@@ -1,5 +1,3 @@
-///<reference path="angular-q-spread.d.ts"/>
-
 interface IMyService {
     getFirstname(): ng.IPromise<string>;
     getLastname(): ng.IPromise<string>;

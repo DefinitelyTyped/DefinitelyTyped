@@ -1,6 +1,3 @@
-
-///<reference path="combokeys.d.ts" />
-
 import Combokeys = require("combokeys");
 
 const combokeys1: Combokeys.Combokeys = new Combokeys(document.createElement('div'));

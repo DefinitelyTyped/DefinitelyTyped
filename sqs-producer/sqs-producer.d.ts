@@ -3,7 +3,7 @@
 // Definitions by: Daniel Chao <http://dchao.co/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../aws-sdk/aws-sdk.d.ts"/>
+///<reference types="aws-sdk"/>
 
 declare module "sqs-producer" {
 

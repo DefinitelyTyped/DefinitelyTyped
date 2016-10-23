@@ -11,14 +11,14 @@
     var SCREEN_HEIGHT = window.innerHeight;
     var FLOOR = -250;
 
-    var container,stats;
-
-    var camera, scene;
-    var renderer;
-
-    var mesh, helper;
-
-    var mixer;
+    var container: HTMLElement;
+    var stats: Stats;
+    var camera: THREE.PerspectiveCamera;
+    var scene: THREE.Scene;
+    var renderer: THREE.WebGLRenderer;
+    var mesh: THREE.Mesh;
+    var helper: THREE.SkeletonHelper;
+    var mixer: THREE.AnimationMixer;
 
     var mouseX = 0, mouseY = 0;
 
@@ -100,7 +100,7 @@
         // STATS
 
         stats = new Stats();
-        container.appendChild( stats.domElement );
+        container.appendChild( stats.dom );
 
         //
 
@@ -177,12 +177,12 @@
         mesh.receiveShadow = true;
 
         helper = new THREE.SkeletonHelper( mesh );
-        helper.material.linewidth = 3;
+        //helper.material.linewidth = 3;
         helper.visible = false;
         scene.add( helper );
 
 
-        var clipMorpher = THREE.AnimationClip.CreateFromMorphTargetSequence( 'facialExpressions', mesh.geometry.morphTargets, 3, true );
+        var clipMorpher = THREE.AnimationClip.CreateFromMorphTargetSequence( 'facialExpressions', (mesh.geometry as THREE.Geometry).morphTargets, 3, true );
         var clipBones = geometry.animations[0];
 
         mixer = new THREE.AnimationMixer( mesh );

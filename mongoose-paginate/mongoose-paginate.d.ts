@@ -3,7 +3,7 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mongoose/mongoose.d.ts" />
+/// <reference types="mongoose" />
 
 declare module 'mongoose' {
   export interface PaginateOptions {
@@ -26,16 +26,21 @@ declare module 'mongoose' {
     offset?: number;
   }
 
-  export type PaginateModel<T> = _PaginateModel<T> & Model<T>;
-  interface _PaginateModel<T> {
+  interface PaginateModel<T extends Document> extends Model<T> {
     paginate(query?: Object, options?: PaginateOptions, callback?: (err: any, result: PaginateResult<T>) => void): Promise<PaginateResult<T>>;
   }
 
-  export function model<T extends Document, Statics>(
+  export function model<T extends Document>(
     name: string,
     schema?: Schema,
     collection?: string,
-    skipInit?: boolean): Statics & PaginateModel<T>;
+    skipInit?: boolean): PaginateModel<T>;
+
+  export function model<T extends Document, U extends PaginateModel<T>>(
+    name: string,
+    schema?: Schema,
+    collection?: string,
+    skipInit?: boolean): U;
 }
 
 declare module 'mongoose-paginate' {

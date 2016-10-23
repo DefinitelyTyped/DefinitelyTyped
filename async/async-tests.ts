@@ -1,8 +1,12 @@
+/// <reference types="node" />
 
+import fs = require("fs");
 
-var fs, path;
+var path: {
+    exists: (path: string, callback?: (err: string, exists: boolean) => any) => void;
+};
 
-function callback() {}
+function callback() { }
 
 async.map(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });
 async.mapSeries(['file1', 'file2', 'file3'], fs.stat, function (err, results) { });

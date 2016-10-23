@@ -208,7 +208,7 @@ export class PKCS11 {
      * @param {Handle} slot ID of token's slot
      * @returns {Handle[]} Gets mech. array
      */
-    C_GetMechanismList(slot: Handle): number[];
+    C_GetMechanismList(slot: Handle): Handle[];
     /**
      * Obtains information about a particular mechanism possibly supported by a token 
      * 
@@ -216,7 +216,7 @@ export class PKCS11 {
      * @param {Handle} mech Type of mechanism
      * @returns {MechanismInfo} Receives mechanism info
      */
-    C_GetMechanismInfo(slot: Handle, mech: number): MechanismInfo;
+    C_GetMechanismInfo(slot: Handle, mech: Handle): MechanismInfo;
 
     /* Session management */
 

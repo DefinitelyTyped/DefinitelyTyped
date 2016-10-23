@@ -1,5 +1,3 @@
-/// <reference path="trayballoon.d.ts" />
-
 import trayballoon = require( "trayballoon" );
 
 function testTrayballoon() {

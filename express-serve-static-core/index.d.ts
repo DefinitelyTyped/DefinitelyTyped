@@ -1,4 +1,4 @@
-// Type definitions for Express 4.x (core shared with serve-static)
+// Type definitions for Express 4.x
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,7 +22,7 @@ declare module "express-serve-static-core" {
     }
 
     interface RequestHandler {
-        (req: Request, res: Response, next?: NextFunction): any;
+        (req: Request, res: Response, next: NextFunction): any;
     }
 
     interface ErrorRequestHandler {
@@ -97,6 +97,10 @@ declare module "express-serve-static-core" {
         use: IRouterHandler<this> & IRouterMatcher<this>;
 
         route(prefix: PathParams): IRoute;
+        /**
+         * Stack of configured routes
+         */
+        stack: any[];
     }
 
     interface IRoute {
@@ -117,16 +121,16 @@ declare module "express-serve-static-core" {
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
-        secure?: boolean;
+        secure?: boolean | 'auto';
     }
 
     interface Errback { (err: Error): void; }
 
-    interface Request extends http.ServerRequest, Express.Request {
+    interface Request extends http.IncomingMessage, Express.Request {
 
         /**
             * Return request header.
@@ -199,7 +203,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted charset of the specified character sets,
-            * based on the request’s Accept-Charset HTTP header field.
+            * based on the request's Accept-Charset HTTP header field.
             * If none of the specified charsets is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
@@ -212,7 +216,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted encoding of the specified encodings,
-            * based on the request’s Accept-Encoding HTTP header field.
+            * based on the request's Accept-Encoding HTTP header field.
             * If none of the specified encodings is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
@@ -225,7 +229,7 @@ declare module "express-serve-static-core" {
 
         /**
             * Returns the first accepted language of the specified languages,
-            * based on the request’s Accept-Language HTTP header field.
+            * based on the request's Accept-Language HTTP header field.
             * If none of the specified languages is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
@@ -800,11 +804,11 @@ declare module "express-serve-static-core" {
         locals: any;
 
         charset: string;
-        
+
         /**
          * Adds the field to the Vary response header, if it is not there already.
          * Examples:
-         * 
+         *
          *     res.vary('User-Agent').render('docs');
          *
          */
@@ -818,6 +822,12 @@ declare module "express-serve-static-core" {
     }
 
     interface Application extends IRouter, Express.Application {
+        /**
+         * Express instance itself is a request handler, which could be invoked without
+         * third argument.
+         */
+        (req: Request, res: Response): any;
+        
         /**
             * Initialize the server.
             *
@@ -1046,6 +1056,11 @@ declare module "express-serve-static-core" {
             * simply by removing them from this object.
             */
         routes: any;
+        
+        /**
+         * Used to get all registered routes in Express Application
+         */
+        _router: any;
     }
 
     interface Express extends Application {

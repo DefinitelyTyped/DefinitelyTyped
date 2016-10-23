@@ -3,21 +3,21 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-///<reference path="../redux/redux.d.ts" />
+///<reference types="redux" />
 
 declare module 'redux-mock-store' {
     import * as Redux from 'redux'
 
-    function createMockStore<T>(middlewares?:Redux.Middleware[]):mockStore<T>
+    function createMockStore<T>(middlewares?: Redux.Middleware[]): mockStore<T>;
 
-    type mockStore<T> = (state?:T) => IStore<T>;
+    export type mockStore<T> = (state?: T) => IStore<T>;
 
-    type IStore<T> = {
-        dispatch(action: any):any
-        getState():T
-        getActions():Object[]
-        clearActions():void
-        subscribe(listener: Function):Function
+    export interface IStore<T> {
+        dispatch(action: any): any;
+        getState(): T;
+        getActions(): any[];
+        clearActions(): void;
+        subscribe(listener: Function): Function;
     }
 
     export default createMockStore

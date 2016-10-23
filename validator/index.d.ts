@@ -1,29 +1,39 @@
-// Type definitions for validator.js v4.5.1
+// Type definitions for validator.js v5.7.0
 // Project: https://github.com/chriso/validator.js
-// Definitions by: tgfjt <https://github.com/tgfjt>, Ilya Mochalov <https://github.com/chrootsu>
+// Definitions by: tgfjt <https://github.com/tgfjt>, Ilya Mochalov <https://github.com/chrootsu>, Ayman Nedjmeddine <https://github.com/IOAyman>, Louy Alakkad <https://github.com/louy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
+  type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
+  type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
+  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW"
+
   interface ValidatorStatic {
 
-    /* ************
-     * Validators *
-     **************/
+    // **************
+    // * Validators *
+    // **************
 
     // check if the string contains the seed.
     contains(str: string, elem: any): boolean;
 
     // check if the string matches the comparison.
-    equals(str: string, comparison: any): boolean;
+    equals(str: string, comparison: string): boolean;
 
     // check if the string is a date that's after the specified date (defaults to now).
-    isAfter(str: string, date?: Date): boolean;
+    isAfter(str: string, date?: string): boolean;
 
-    // check if the string contains only letters (a-zA-Z).
-    isAlpha(str: string): boolean;
+    // check if the string contains only letters (a-zA-Z). Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
+    // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
+    // 'cs-CZ', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'hu-HU',
+    // 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR']) and defaults to en-US
+    isAlpha(str: string, locale?: AlphaLocale): boolean;
 
-    // check if the string contains only letters and numbers.
-    isAlphanumeric(str: string): boolean;
+    // check if the string contains only letters and numbers. Locale is one of ['ar', 'ar-AE', 'ar-BH', 'ar-DZ', 'ar-EG',
+    // 'ar-IQ', 'ar-JO', 'ar-KW', 'ar-LB', 'ar-LY', 'ar-MA', 'ar-QA', 'ar-QM', 'ar-SA', 'ar-SD', 'ar-SY', 'ar-TN', 'ar-YE',
+    // 'cs-CZ', 'de-DE', 'en-AU', 'en-GB', 'en-HK', 'en-IN', 'en-NZ', 'en-US', 'en-ZA', 'en-ZM', 'es-ES', 'fr-FR', 'hu-HU',
+    // 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ru-RU', 'sr-RS', 'sr-RS@latin', 'tr-TR']) and defaults to en-US
+    isAlphanumeric(str: string, locale?: AlphanumericLocale): boolean;
 
     // check if the string contains ASCII chars only.
     isAscii(str: string): boolean;
@@ -32,7 +42,7 @@ declare namespace ValidatorJS {
     isBase64(str: string): boolean;
 
     // check if the string is a date that's before the specified date.
-    isBefore(str: string, date?: Date): boolean;
+    isBefore(str: string, date?: string): boolean;
 
     // check if a string is a boolean.
     isBoolean(str: string): boolean;
@@ -46,6 +56,9 @@ declare namespace ValidatorJS {
 
     // check if the string is a valid currency amount.
     isCurrency(str: string, options?: IsCurrencyOptions): boolean;
+
+    // check if the string is a data uri format (https://developer.mozilla.org/en-US/docs/Web/HTTP/data_URIs)
+    isDataURI(str: string): boolean;
 
     // check if the string is a date.
     isDate(str: string): boolean;
@@ -110,9 +123,15 @@ declare namespace ValidatorJS {
     // check if the string is a MAC address.
     isMACAddress(str: string): boolean;
 
-    // check if the string is a mobile phone number, (locale is one of ['zh-CN', 'zh-TW', 'en-ZA', 'en-AU', 'en-HK',
-    // 'pt-PT', 'fr-FR', 'el-GR', 'en-GB', 'en-US', 'en-ZM', 'ru-RU', 'nb-NO', 'nn-NO', 'vi-VN', 'en-NZ', 'en-IN']).
-    isMobilePhone(str: string, locale: string): boolean;
+    // check if the string is a MD5 hash.
+    isMD5(str: string): boolean;
+
+    // check if the string is a mobile phone number, (locale is one of
+    // ['ar-DZ', 'ar-SA', 'ar-SY', 'cs-CZ', 'de-DE', 'da-DK', 'el-GR', 'en-AU', 'en-GB', 'en-HK',
+    // 'en-IN', 'en-NZ', 'en-US', 'en-CA', 'en-ZA', 'en-ZM', 'es-ES', 'fi-FI', 'fr-FR', 'hu-HU',
+    // 'it-IT', 'ja-JP', 'ms-MY', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ru-RU', 'sr-RS', 'tr-TR',
+    // 'vi-VN', 'zh-CN', 'zh-TW']).
+    isMobilePhone(str: string, locale: MobilePhoneLocale): boolean;
 
     // check if the string is a valid hex-encoded representation of a MongoDB ObjectId
     // (http://docs.mongodb.org/manual/reference/object-id/).
@@ -133,8 +152,8 @@ declare namespace ValidatorJS {
     // check if the string is an URL.
     isURL(str: string, options?: IsURLOptions): boolean;
 
-    // check if the string is a UUID (version 3, 4 or 5).
-    isUUID(str: string, version?: number): boolean;
+    // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
+    isUUID(str: string, version?: string | number): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
@@ -143,14 +162,14 @@ declare namespace ValidatorJS {
     isVariableWidth(str: string): boolean;
 
     // checks characters if they appear in the whitelist.
-    isWhitelisted(str: string, chars: string|string[]): boolean;
+    isWhitelisted(str: string, chars: string | string[]): boolean;
 
     // check if string matches the pattern.
-    matches(str: string, pattern: any, modifiers?: string): boolean;
+    matches(str: string, pattern: RegExp | string, modifiers?: string): boolean;
 
-    /**************
-     * Sanitizers *
-     **************/
+    // **************
+    // * Sanitizers *
+    // **************
 
     // remove characters that appear in the blacklist. The characters are used in a RegExp and so you will need
     // to escape some chars, e.g. blacklist(input, '\\[\\]').
@@ -159,14 +178,17 @@ declare namespace ValidatorJS {
     // replace <, >, &, ', " and / with HTML entities.
     escape(input: string): string;
 
+    // replaces HTML encoded entities with <, >, &, ', " and /.
+    unescape(input: string): string;
+
     // trim characters from the left-side of the input.
-    ltrim(input: any, chars?: string): string;
+    ltrim(input: string, chars?: string): string;
 
     // canonicalize an email address.
-    normalizeEmail(email: string, options?: NormalizeEmailOptions): string;
+    normalizeEmail(email: string, options?: NormalizeEmailOptions): string | false;
 
     // trim characters from the right-side of the input.
-    rtrim(input: any, chars?: string): string;
+    rtrim(input: string, chars?: string): string;
 
     // remove characters with a numerical value < 32 and 127, mostly control characters. If keep_new_lines is true,
     // newline characters are preserved (\n and \r, hex 0xA and 0xD). Unicode-safe in JavaScript.
@@ -174,30 +196,31 @@ declare namespace ValidatorJS {
 
     // convert the input to a boolean. Everything except for '0', 'false' and '' returns true. In strict mode only '1'
     // and 'true' return true.
-    toBoolean(input: any, strict?: boolean): boolean;
+    toBoolean(input: string, strict?: boolean): boolean;
 
     // convert the input to a date, or null if the input is not a date.
-    toDate(input: any): Date; // Date or null
+    toDate(input: string): Date; // Date or null
 
     // convert the input to a float, or NaN if the input is not a float.
-    toFloat(input: any): number; // number or NaN
+    toFloat(input: string): number; // number or NaN
 
     // convert the input to an integer, or NaN if the input is not an integer.
-    toInt(input: any, radix?: number): number; // number or NaN
-
-    // convert the input to a string.
-    toString(input: any): string;
+    toInt(input: string, radix?: number): number; // number or NaN
 
     // trim characters (whitespace by default) from both sides of the input.
-    trim(input: any, chars?: string): string;
+    trim(input: string, chars?: string): string;
 
     // remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will
     // need to escape some chars, e.g. whitelist(input, '\\[\\]').
     whitelist(input: string, chars: string): string;
 
-    /**************
-     * Extensions *
-     **************/
+    toString(input: any | any[]): string;
+    
+    version: string;
+
+    // **************
+    // * Extensions *
+    // **************
 
     // add your own validators.
     // Note: that the first argument will be automatically coerced to a string.
@@ -263,10 +286,11 @@ declare namespace ValidatorJS {
     protocols?: string[];
     require_tld?: boolean;
     require_protocol?: boolean;
+    require_host: boolean;
     require_valid_protocol?: boolean;
     allow_underscores?: boolean;
-    host_whitelist?: boolean;
-    host_blacklist?: boolean;
+    host_whitelist?: (string | RegExp)[];
+    host_blacklist?: (string | RegExp)[];
     allow_trailing_dot?: boolean;
     allow_protocol_relative_urls?: boolean;
   }
@@ -280,13 +304,12 @@ declare namespace ValidatorJS {
 }
 
 declare module "validator" {
-  let validator: ValidatorJS.ValidatorStatic;
-  namespace validator {}
+  const validator: ValidatorJS.ValidatorStatic;
   export = validator;
 }
 
 // deprecated interfaces for backward compatibility, please use ValidatorJS.* instead the ones
-interface IValidatorStatic extends ValidatorJS.ValidatorStatic {}
-interface IURLoptions extends ValidatorJS.IsURLOptions {}
-interface IFQDNoptions extends ValidatorJS.IsFQDNOptions {}
-interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions {}
+interface IValidatorStatic extends ValidatorJS.ValidatorStatic { }
+interface IURLoptions extends ValidatorJS.IsURLOptions { }
+interface IFQDNoptions extends ValidatorJS.IsFQDNOptions { }
+interface IEmailoptions extends ValidatorJS.NormalizeEmailOptions { }

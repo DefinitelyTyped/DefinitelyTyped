@@ -32,9 +32,9 @@ declare namespace ReactRouterRedux {
 
     type RouterAction = {
         type: string
-        payload?: any
+        payload?: LocationDescriptor
     }
-    
+
     interface RouteActions {
         push: PushAction;
         replace: ReplaceAction;
@@ -45,7 +45,7 @@ declare namespace ReactRouterRedux {
     interface ReactRouterReduxHistory extends History.History {
         unsubscribe(): void;
     }
-    
+
     interface DefaultSelectLocationState extends Function {
         (state: any): any;
     }

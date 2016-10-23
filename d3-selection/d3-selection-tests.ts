@@ -894,14 +894,20 @@ positions = d3Selection.touches(h, changedTouches);
 // ---------------------------------------------------------------------------------------
 
 let xElement: Element;
-let foo: d3Selection.Local = d3Selection.local();
+let foo: d3Selection.Local<number[]> = d3Selection.local<number[]>();
 let propName: string = foo.toString();
 
-console.log('Local Property Name: %s', propName);
+// direct set & get on Local<T> object
+xElement = foo.set(xElement, [1, 2, 3]);
+let array: number[] = foo.get(xElement);
 
-xElement = foo.set(xElement, 'test');
+// test read & write of .property() access to locals
+array = d3Selection.select(xElement)
+  .property(foo, [3, 2, 1])
+  .property(foo, () => [999])
+  .property(foo);
 
-// TODO: complete remaing tests for Local
+foo.remove(xElement);
 
 // ---------------------------------------------------------------------------------------
 // Tests of Namespace

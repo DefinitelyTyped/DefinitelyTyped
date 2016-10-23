@@ -3,6 +3,9 @@
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+///<reference types="node"/>
+
+import { ReadStream } from "fs";
 
 export interface Options {
     // file encoding (defaults to 'utf8')
@@ -37,28 +40,31 @@ export interface Options {
 }
 
 export interface FileCallback {
-    (error: any, content: any, next: () => void): void;
+    (error: any, content: string | Buffer, next: () => void): void;
 }
 
 export interface FileNamedCallback {
-    (error: any, content: any, filename: string, next: () => void): void;
+    (error: any, content: string | Buffer, filename: string, next: () => void): void;
 }
 
 export interface StreamCallback {
-    (error: any, stream: any, next: () => void): void;
+    (error: any, stream: ReadStream, next: () => void): void;
 }
 
 export interface FinishedCallback {
-    (error: any, files: any): void;
+    (error: any, files: string[]): void;
+}
+export interface PathsResult {
+    files: string[];
+    dirs: string[];
 }
 
-export declare function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
-export declare function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
-export declare function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
-export declare function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
-export declare function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback,
-    finishedCallback?: FinishedCallback): void;
-export declare function files(dir: string, callback: (error: any, files: any) => void): void;
-export declare function subdirs(dir: string, callback: (error: any, subdirs: any) => void): void;
-export declare function paths(dir: string, callback: (error: any, paths: any) => void): void;
-export declare function paths(dir: string, combine: boolean, callback: (error: any, paths: any) => void): void;
+export function readFiles(dir: string, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
+export function readFiles(dir: string, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
+export function readFiles(dir: string, options: Options, fileCallback: FileCallback, finishedCallback?: FinishedCallback): void;
+export function readFiles(dir: string, options: Options, fileCallback: FileNamedCallback, finishedCallback?: FinishedCallback): void;
+export function readFilesStream(dir: string, options: Options, streamCallback: StreamCallback, finishedCallback?: FinishedCallback): void;
+export function files(dir: string, callback: (error: any, files: string[]) => void): void;
+export function subdirs(dir: string, callback: (error: any, subdirs: string[]) => void): void;
+export function paths(dir: string, callback: (error: any, paths: PathsResult) => void): void;
+export function paths(dir: string, combine: boolean, callback: (error: any, paths: string[] | PathsResult) => void): void;

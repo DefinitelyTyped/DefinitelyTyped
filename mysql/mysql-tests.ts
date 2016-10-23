@@ -393,3 +393,7 @@ connection.query({
 connection = mysql.createConnection("mysql://localhost/test?flags=-FOUND_ROWS");
 connection = mysql.createConnection({ debug: true });
 connection = mysql.createConnection({ debug: ['ComQueryPacket', 'RowDataPacket'] });
+
+var type: mysql.FieldType = mysql.FieldType.SHORT;
+var info: mysql.IFieldInfo;
+info.type = type;

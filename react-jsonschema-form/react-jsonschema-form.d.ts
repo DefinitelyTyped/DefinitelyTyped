@@ -3,8 +3,6 @@
 // Definitions by: Dan Fox <https://github.com/iamdanfox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-
 declare module "react-jsonschema-form" {
     import * as React from "react";
 

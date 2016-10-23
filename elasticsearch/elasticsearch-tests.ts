@@ -1,4 +1,4 @@
-/// <reference path="elasticsearch.d.ts"/>
+
 import elasticsearch = require("elasticsearch");
 
 var client = new elasticsearch.Client({
@@ -32,4 +32,57 @@ client.indices.delete({
   ignore: [404]
 }).then(function (body) {
 }, function (error) {
+});
+
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type'
+});
+
+client.create({
+  id: '123',
+  index: 'index',
+  type: 'type'
+}, (err, repsonse, status) => {
+});
+
+client.cluster.getSettings({
+  masterTimeout: 100
+}, (err, response) => {
+});
+
+client.cluster.health({
+  masterTimeout: 100
+}, (err, response) => {
+});
+
+client.cluster.pendingTasks({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.putSettings({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.putSettings({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.reroute({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.state({
+  ignore: 1
+}, (err, response) => {
+});
+
+client.cluster.stats({
+  ignore: 1
+}, (err, response) => {
 });

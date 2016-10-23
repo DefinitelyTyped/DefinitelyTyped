@@ -10,7 +10,7 @@ import * as events from "events";
 
 type Callback = Function;
 type Client = Function;
-type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean>;
+type Value = string | number | boolean | Date | Array<string> | Array<number> | Array<Date> | Array<boolean> | Buffer | Knex.Raw;
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
 type TableName = string | Knex.Raw | Knex.QueryBuilder;
 
@@ -29,7 +29,7 @@ interface Knex extends Knex.QueryInterface {
     client: any;
     migrate: Knex.Migrator;
     seed: any;
-    fn: any;
+    fn: Knex.FunctionHelper;
     on(eventName: string, callback: Function): Knex.QueryBuilder;
 }
 
@@ -345,6 +345,7 @@ declare namespace Knex {
         table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
         dropTableIfExists(tableName: string): Promise<void>;
         raw(statement: string): SchemaBuilder;
+        withSchema(schemaName: string): SchemaBuilder;
     }
 
     interface TableBuilder {
@@ -534,6 +535,7 @@ declare namespace Knex {
         directory?: string;
         extension?: string;
         tableName?: string;
+        disableTransactions?: boolean;
     }
 
     interface Migrator {
@@ -542,6 +544,10 @@ declare namespace Knex {
         rollback(config?: MigratorConfig): Promise<any>;
         status(config?: MigratorConfig): Promise<number>;
         currentVersion(config?: MigratorConfig): Promise<string>;
+    }
+
+    interface FunctionHelper {
+        now(): Raw;
     }
 }
 

@@ -98,7 +98,7 @@ import WarningIcon from 'material-ui/svg-icons/alert/warning';
 import {cyan500, cyan700,
   grey100, grey300, grey400, grey500,
   pinkA200,
-  white, darkBlack, fullBlack, 
+  white, darkBlack, fullBlack,
   blue300,
   indigo900,
   orange200,
@@ -111,6 +111,8 @@ import {cyan500, cyan700,
   orange500,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
+
+import {SMALL, MEDIUM, LARGE, default as withWidth} from 'material-ui/utils/withWidth';
 
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
@@ -178,7 +180,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-  },
+  } as React.CSSProperties,
   gridList: {
     width: 500,
     height: 500,
@@ -365,7 +367,7 @@ const AppBarExampleIconButton = () => (
     iconElementLeft={<IconButton><NavigationClose /></IconButton>}
     iconElementRight={<FlatButton label="Save" />}
   />
-);  
+);
 
 const AppBarExampleIconMenu = () => (
   <AppBar
@@ -4925,6 +4927,8 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
     );
   }
 }
+
+const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
 
 interface MaterialUiTestsState {

@@ -1,6 +1,3 @@
-/// <reference path="../pouchdb-core/pouchdb-core.d.ts" />
-/// <reference path="./pouchdb-http.d.ts" />
-
 namespace PouchDBHttpTests {
     function testConstructor() {
         type MyModel = { numericProperty: number };

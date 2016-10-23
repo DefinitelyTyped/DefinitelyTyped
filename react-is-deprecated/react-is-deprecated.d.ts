@@ -3,8 +3,6 @@
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts" />
-
 declare module 'react-is-deprecated' {
   import { Validator, Requireable, ValidationMap, ReactPropTypes } from 'react';
 

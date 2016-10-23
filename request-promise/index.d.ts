@@ -7,7 +7,7 @@ declare module 'request-promise' {
     import request = require('request');
     import http = require('http');
     import errors = require('request-promise/errors');
-    import promise = require('bluebird');
+    import Promise = require('bluebird');
 
     namespace requestPromise {
         interface RequestPromise extends request.Request {
@@ -21,6 +21,7 @@ declare module 'request-promise' {
             finally<TResult>(handler: () => PromiseLike<TResult>): Promise<any>;
             finally<TResult>(handler: () => TResult): Promise<any>;
             promise(): Promise<any>;
+            cancel(): void;
         }
 
         interface RequestPromiseOptions extends request.CoreOptions {

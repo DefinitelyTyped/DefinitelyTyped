@@ -8,20 +8,19 @@
 import * as angular from 'angular';
 
 declare module 'angular' {
-	export namespace dynamicLocale {
+    export namespace dynamicLocale {
 
-		interface tmhDynamicLocaleService {
-			set(locale: string): void;
-			get(): string;
-		}
+        interface tmhDynamicLocaleService {
+            set(locale: string): void;
+            get(): string;
+        }
 
-		interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
-			localeLocationPattern(location: string): tmhDynamicLocaleProvider;
-			localeLocationPattern(): string;
-			useStorage(storageName: string): void;
-			useCookieStorage(): void;
-		}
-	}
+        interface tmhDynamicLocaleProvider extends angular.IServiceProvider {
+            localeLocationPattern(location: string): tmhDynamicLocaleProvider;
+            localeLocationPattern(): string;
+            storageKey(storageKey: string): void;
+            useStorage(storageName: string): void;
+            useCookieStorage(): void;
+        }
+    }
 }
-
-

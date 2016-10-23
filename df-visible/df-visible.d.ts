@@ -3,7 +3,7 @@
 // Definitions by: Andrey Lipatkin <https://github.com/Litee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference types="jquery" />
 
 type Direction = "horizontal" | "vertical" | "both";
 

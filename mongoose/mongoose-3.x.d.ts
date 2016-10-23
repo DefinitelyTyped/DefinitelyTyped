@@ -3,7 +3,7 @@
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../node/node.d.ts" />
+///<reference types="node" />
 
 declare module "mongoose" {
   function connect(uri: string, options?: ConnectionOptions , callback?: (err: any) => void): Mongoose;

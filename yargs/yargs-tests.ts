@@ -1,9 +1,11 @@
-﻿// Type definition tests for yargs
-// Project: https://github.com/chevex/yargs
-// Definitions by: Martin Poelstra <https://github.com/poelstra>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+﻿/// <reference types="node" />
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+const stringVal = 'string';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -270,6 +272,14 @@ function Argv$version() {
 		.version(function () { return '1.0.0'; }, '--version', 'description');
 }
 
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
+}
+
 function Argv$locale() {
 	var argv = yargs
 		.usage('./$0 - follow ye instructions true')
@@ -339,5 +349,62 @@ function Argv$commandDirWithOptions() {
 			include: /.*\.js$/,
 			exclude: /.*\.spec.js$/,
 		})
+		.argv
+}
+
+function Argv$normalize() {
+	var ya = yargs
+		.normalize('path')
+		.normalize(['user', 'group'])
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-coercekey-fn
+function Argv$coerce() {
+	var ya = yargs
+		.coerce('file', function (arg: string) {
+			return fs.readFileSync(arg, 'utf8');
+		})
+		.argv
+}
+function Argv$coerces() {
+	var ya = yargs
+		.coerce({
+			date: Date.parse,
+			json: JSON.parse
+		})
+		.argv
+}
+function Argv$coerceWithKeys() {
+	var ya = yargs
+		.coerce(['src', 'dest'], path.resolve)
+		.argv
+}
+
+// From http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var ya = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
+		})
+		.argv
+}
+
+function Argv$implies() {
+	var ya = yargs
+		.implies('foo', 'snuh')
+		.implies({
+			x: 'y'
+		})
+		.argv
+}
+
+function Argv$count() {
+	var ya = yargs
+		.count('size')
+		.count(['w', 'h'])
 		.argv
 }

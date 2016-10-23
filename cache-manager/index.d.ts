@@ -28,7 +28,7 @@ interface Cache {
 
 
 declare namespace cacheManager {
-    function caching(ICongig: StoreConfig): Cache;
+    function caching(IConfig: StoreConfig): Cache;
     function multiCaching(Caches: Cache[]): Cache;
 }
 

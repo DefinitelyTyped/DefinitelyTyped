@@ -1,6 +1,6 @@
 // Type definitions for React v0.14
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = React;
@@ -163,6 +163,7 @@ declare namespace React {
 
     // Base component for plain JS classes
     class Component<P, S> implements ComponentLifecycle<P, S> {
+        constructor(...args: any[]);
         constructor(props?: P, context?: any);
         setState(f: (prevState: S, props: P) => S, callback?: () => any): void;
         setState(state: S, callback?: () => any): void;
@@ -200,7 +201,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -272,7 +273,7 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
-        currentTarget: EventTarget;
+        currentTarget: EventTarget & T;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -367,7 +368,7 @@ declare namespace React {
         pseudoElement: string;
         elapsedTime: number;
     }
-    
+
     interface TransitionEvent extends SyntheticEvent<{}> {
         propertyName: string;
         pseudoElement: string;
@@ -1184,6 +1185,12 @@ declare namespace React {
 
         imeMode?: any;
 
+        /**
+         * Defines how the browser distributes space between and around flex items
+         * along the main-axis of their container.
+         */
+        justifyContent?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+
         layoutGrid?: any;
 
         layoutGridChar?: any;
@@ -1971,7 +1978,6 @@ declare namespace React {
         hrefLang?: string;
         htmlFor?: string;
         httpEquiv?: string;
-        icon?: string;
         id?: string;
         inputMode?: string;
         integrity?: string;
@@ -2076,6 +2082,7 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        fillRule?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
@@ -2085,6 +2092,7 @@ declare namespace React {
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
+        mask?: string;
         offset?: number | string;
         opacity?: number | string;
         patternContentUnits?: string;
@@ -2099,7 +2107,8 @@ declare namespace React {
         stopOpacity?: number | string;
         stroke?: string;
         strokeDasharray?: string;
-        strokeLinecap?: string;
+        strokeLinecap?: "butt" | "round" | "square" | "inherit";
+        strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
         strokeMiterlimit?: string;
         strokeOpacity?: number | string;
         strokeWidth?: number | string;
@@ -2273,7 +2282,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface Validator<T> {
-        (object: T, key: string, componentName: string): Error;
+        (object: T, key: string, componentName: string, ...rest: any[]): Error;
     }
 
     interface Requireable<T> extends Validator<T> {

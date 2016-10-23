@@ -1,5 +1,3 @@
-/// <reference path="js-quantities.d.ts" />
-
 var Val1 = Qty('1 m')
 
 var Val2 = Qty(1);

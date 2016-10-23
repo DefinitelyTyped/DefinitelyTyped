@@ -1,5 +1,3 @@
-/// <reference path="domurl.d.ts" />
-
 interface UModel extends QueryString {
     a: any;
     b: string;

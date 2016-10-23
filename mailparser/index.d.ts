@@ -55,7 +55,7 @@ interface ParsedMail {
     attachments?: Attachment[];
 }
 
-export class MailParser implements WritableStream {
+export class MailParser extends StreamModule.Writable {
     constructor(options?: Options);
     on(event: string, callback: (any: any) => void): this;
 

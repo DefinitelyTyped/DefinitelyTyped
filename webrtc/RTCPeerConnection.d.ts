@@ -5,7 +5,7 @@
 //
 // W3 Spec: https://www.w3.org/TR/webrtc/#idl-def-RTCIceServer
 
-/// <reference path='MediaStream.d.ts' />
+/// <reference path="MediaStream.d.ts" />
 
 // TODO(1): Get Typescript to have string-enum types as WebRtc is full of string
 // enums.
@@ -324,8 +324,8 @@ interface RTCPeerConnection {
   onicecandidate: (event: RTCIceCandidateEvent) => void;
   onidentityresult: (event: Event) => void;
   onsignalingstatechange: (event: Event) => void;
-  getStats(selector: MediaStreamTrack): Promise<RTCStatsReport>;
-  getStats(selector: MediaStreamTrack, // nullable
+  getStats(selector: MediaStreamTrack | null): Promise<RTCStatsReport>;
+  getStats(selector: MediaStreamTrack | null,
            successCallback: RTCStatsCallback,
            failureCallback: RTCPeerConnectionErrorCallback): void;
 }

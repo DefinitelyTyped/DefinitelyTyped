@@ -46,7 +46,7 @@ declare namespace multer {
 
     interface DiskStorageOptions {
         /** A function used to determine within which folder the uploaded files should be stored. Defaults to the system's default temporary directory. */
-        destination?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error, destination: string) => void) => void;
+        destination?: string | ((req: Express.Request, file: Express.Multer.File, callback: (error: Error, destination: string) => void) => void);
         /** A function used to determine what the file should be named inside the folder. Defaults to a random name with no file extension. */
         filename?: (req: Express.Request, file: Express.Multer.File, callback: (error: Error, filename: string) => void) => void;
     }
@@ -81,34 +81,36 @@ declare var multer: Multer;
 
 export = multer;
 
-declare namespace Express {
-    export interface Request {
-        file: Multer.File;
-        files: {
-            [fieldname: string]: Multer.File[];
-        };
-    }
+declare global {
+    namespace Express {
+        export interface Request {
+            file: Multer.File;
+            files: {
+                [fieldname: string]: Multer.File[];
+            };
+        }
 
-    namespace Multer {
-        export interface File {
-            /** Field name specified in the form */
-            fieldname: string;
-            /** Name of the file on the user's computer */
-            originalname: string;
-            /** Encoding type of the file */
-            encoding: string;
-            /** Mime type of the file */
-            mimetype: string;
-            /** Size of the file in bytes */
-            size: number;
-            /** The folder to which the file has been saved (DiskStorage) */
-            destination: string;
-            /** The name of the file within the destination (DiskStorage) */
-            filename: string;
-            /** Location of the uploaded file (DiskStorage) */
-            path: string;
-            /** A Buffer of the entire file (MemoryStorage) */
-            buffer: Buffer;
+        namespace Multer {
+            export interface File {
+                /** Field name specified in the form */
+                fieldname: string;
+                /** Name of the file on the user's computer */
+                originalname: string;
+                /** Encoding type of the file */
+                encoding: string;
+                /** Mime type of the file */
+                mimetype: string;
+                /** Size of the file in bytes */
+                size: number;
+                /** The folder to which the file has been saved (DiskStorage) */
+                destination: string;
+                /** The name of the file within the destination (DiskStorage) */
+                filename: string;
+                /** Location of the uploaded file (DiskStorage) */
+                path: string;
+                /** A Buffer of the entire file (MemoryStorage) */
+                buffer: Buffer;
+            }
         }
     }
 }

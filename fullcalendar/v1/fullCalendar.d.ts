@@ -3,8 +3,8 @@
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../../jquery/jquery.d.ts"/>
-/// <reference path="../../moment/moment.d.ts"/>
+/// <reference types="jquery"/>
+/// <reference types="moment"/>
 
 declare namespace FullCalendar {
     export interface Calendar {

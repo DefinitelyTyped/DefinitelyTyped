@@ -23,7 +23,7 @@
 
  =============================================== */
 
-/// <reference path="../koa/koa.d.ts" />
+/// <reference types="koa" />
 
 declare module "koa-hbs" {
 
@@ -40,7 +40,7 @@ declare module "koa-hbs" {
             layoutsPath?: string,
             contentHelperName?: string,
             blockHelperName?: string,
-            disableCache?: boolean 
+            disableCache?: boolean
         }
     }
 

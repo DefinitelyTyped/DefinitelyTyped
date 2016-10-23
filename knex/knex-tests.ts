@@ -411,11 +411,14 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
+knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
+  table.timestamp('created_at').defaultTo(knex.fn.now());
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -616,7 +619,12 @@ knex.select('*')
 //
 // Migrations
 //
-var config = { };
+var config = {
+  directory: "./migrations",
+  extension: "js",
+  tableName: "knex_migrations",
+  disableTransactions: false
+};
 knex.migrate.make(name, config);
 knex.migrate.make(name);
 

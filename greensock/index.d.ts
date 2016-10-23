@@ -13,7 +13,38 @@ interface IDispatcher {
 
 declare type Tween = TweenLite | TweenMax;
 declare type Timeline = SimpleTimeline | TimelineLite | TimelineMax;
-
+declare type TweenConfig = {
+    [tweenProp: string]: any;
+    delay?: number;
+    ease?: Ease;
+    repeat?: number;
+    repeatDelay?: number;
+    yoyo?: boolean;
+    paused?: boolean;
+    overwrite?: string|number;
+    onComplete?: Function;
+    immediateRender?: boolean;
+    onCompleteParams?: any[];
+    onCompleteScope?: Object;
+    onRepeat?: Function;
+    onRepeatScope?: Object;
+    onReverseComplete?: Function;
+    onReverseCompleteParams?: any[];
+    onReverseCompleteScope?: Object;
+    onStart?: Function;
+    onStartParams?: any[];
+    onStartScope?: Object;
+    onUpdate?: Function;
+    onUpdateParams?: any[];
+    onUpdateScope?: Object;
+    startAt?: Object;
+    useFrames?: boolean;
+    lazy?: boolean;
+    onOverwrite?: Function;
+    autoCSS?: boolean;
+    callbackScope?: Object;
+}
+ 
 //com.greensock.core
 declare class Animation {
     static ticker: IDispatcher;
@@ -86,7 +117,7 @@ declare class TweenLite extends Animation {
     static killTweensOf(target: Object, onlyActive?: boolean, vars?: Object): void;
     static lagSmoothing(threshold: number, adjustedLag: number): void;
     static set(target: Object, vars: Object): TweenLite;
-    static to(target: Object, duration: number, vars: Object): TweenLite;
+    static to(target: Object, duration: number, vars: TweenConfig): TweenLite;
 }
 
 declare class TweenMax extends TweenLite {
@@ -112,7 +143,7 @@ declare class TweenMax extends TweenLite {
     static staggerFrom(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
     static staggerFromTo(targets: any, duration: number, fromVars: Object, toVars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
     static staggerTo(targets: any, duration: number, vars: Object, stagger: number, onCompleteAll?: Function, onCompleteAllParams?: any[], onCompleteAllScope?: any): any[];
-    static to(target:Object, duration:number, vars:Object):TweenMax;
+    static to(target:Object, duration:number, vars:TweenConfig):TweenMax;
     updateTo(vars: Object, resetDuration?: boolean): TweenMax;
     yoyo(): boolean;
     yoyo(value?: boolean): TweenMax;
