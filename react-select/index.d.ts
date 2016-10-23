@@ -63,12 +63,24 @@ declare namespace ReactSelectClass {
         valueArray: Option[];
     }
 
+    export interface ArrowRendererProps {
+        /**
+         * Arrow mouse down event handler.
+         */
+        onMouseDown: React.MouseEventHandler<{}>;
+    }
+
     export interface ReactSelectProps extends React.Props<ReactSelectClass> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
          */
         addLabelText?: string;
+        /**
+         * renders a custom drop-down arrow to be shown in the right-hand side of the select.
+         * @default undefined
+         */
+        arrowRenderer?: (props: ArrowRendererProps) => React.ReactElement<any>;
         /**
          * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
          * @default false
