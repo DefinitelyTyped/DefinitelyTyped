@@ -61,20 +61,20 @@ declare module "pkijs/src/Attribute" {
 }
 
 declare module "pkijs/src/AttributeTypeAndValue" {
-
+    import { ObjectIdentifier } from "asn1js";
     export default class AttributeTypeAndValue extends PKIjs.PKIBase {
 
         /**
-         * Internal 0 - UTCTime; 1 - GeneralizedTime; 2 - empty value
          * 
-         * @type {number}
+         * 
+         * @type {ObjectIdentifier}
          * @memberOf AttributeTypeAndValue
          */
-        type: number;
+        type: ObjectIdentifier;
         /**
-         * Value of the TIME class
          * 
-         * @type {Object}
+         * 
+         * @type {*}
          * @memberOf AttributeTypeAndValue
          */
         value: any;

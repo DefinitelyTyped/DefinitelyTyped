@@ -217,7 +217,7 @@ export function parseCMSSigned() {
             if (cert instanceof Certificate) {
                 let ul = "<ul>";
                 for (let i = 0; i < cert.issuer.typesAndValues.length; i++) {
-                    let typeval = rdnmap[cert.issuer.typesAndValues[i].type];
+                    let typeval = rdnmap[cert.issuer.typesAndValues[i].type.toString()];
                     if (typeof typeval === "undefined")
                         typeval = cert.issuer.typesAndValues[i].type.toString();
 
@@ -248,7 +248,7 @@ export function parseCMSSigned() {
                 let ul = "<ul>";
 
                 for (let i = 0; i < crl.issuer.typesAndValues.length; i++) {
-                    let typeval = rdnmap[crl.issuer.typesAndValues[i].type];
+                    let typeval = rdnmap[crl.issuer.typesAndValues[i].type.toString()];
                     if (typeof typeval === "undefined")
                         typeval = crl.issuer.typesAndValues[i].type.toString();
 
@@ -601,7 +601,7 @@ export function createCMSSigned(buffer: ArrayBuffer) {
 // *********************************************************************************
 // region Verify existing CMS_Signed
 // *********************************************************************************
-export function verifyCMSSigned() {
+function verifyCMSSigned() {
     // region Initial check 
     if (cmsSignedBuffer.byteLength === 0) {
         alert("Nothing to verify!");
@@ -623,12 +623,8 @@ export function verifyCMSSigned() {
         );
     // endregion 
 }
-// *********************************************************************************
-// endregion 
-// *********************************************************************************
-// region Functions handling file selection
-// *********************************************************************************
-export function handleFileBrowse(evt: Event) {
+
+function handleFileBrowse(evt: Event) {
     const tempReader = new FileReader();
 
     const currentFiles = (evt.target as any).files;
@@ -638,8 +634,8 @@ export function handleFileBrowse(evt: Event) {
 
     tempReader.readAsArrayBuffer(currentFiles[0]);
 }
-// *********************************************************************************
-export function handleParsingFile(evt: Event) {
+
+function handleParsingFile(evt: Event) {
     const tempReader = new FileReader();
 
     const currentFiles = (evt.target as any).files;
@@ -652,8 +648,8 @@ export function handleParsingFile(evt: Event) {
 
     tempReader.readAsArrayBuffer(currentFiles[0]);
 }
-// *********************************************************************************
-export function handleCABundle(evt: Event) {
+
+function handleCABundle(evt: Event) {
     const tempReader = new FileReader();
 
     const currentFiles = (evt.target as any).files;
@@ -663,6 +659,3 @@ export function handleCABundle(evt: Event) {
 
     tempReader.readAsArrayBuffer(currentFiles[0]);
 }
-// *********************************************************************************
-// endregion
-// *********************************************************************************
