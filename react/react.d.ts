@@ -524,6 +524,101 @@ declare namespace __React {
 
         // Transition Events
         onTransitionEnd?: TransitionEventHandler;
+
+        // Clipboard Events
+        onCopyCapture?: ClipboardEventHandler;
+        onCutCapture?: ClipboardEventHandler;
+        onPasteCapture?: ClipboardEventHandler;
+
+        // Composition Events
+        onCompositionEndCapture?: CompositionEventHandler;
+        onCompositionStartCapture?: CompositionEventHandler;
+        onCompositionUpdateCapture?: CompositionEventHandler;
+
+        // Focus Events
+        onFocusCapture?: FocusEventHandler;
+        onBlurCapture?: FocusEventHandler;
+
+        // Form Events
+        onChangeCapture?: FormEventHandler;
+        onInputCapture?: FormEventHandler;
+        onSubmitCapture?: FormEventHandler;
+
+        // Image Events
+        onLoadCapture?: ReactEventHandler;
+        onErrorCapture?: ReactEventHandler; // also a Media Event
+
+        // Keyboard Events
+        onKeyDownCapture?: KeyboardEventHandler;
+        onKeyPressCapture?: KeyboardEventHandler;
+        onKeyUpCapture?: KeyboardEventHandler;
+
+        // Media Events
+        onAbortCapture?: ReactEventHandler;
+        onCanPlayCapture?: ReactEventHandler;
+        onCanPlayThroughCapture?: ReactEventHandler;
+        onDurationChangeCapture?: ReactEventHandler;
+        onEmptiedCapture?: ReactEventHandler;
+        onEncryptedCapture?: ReactEventHandler;
+        onEndedCapture?: ReactEventHandler;
+        onLoadedDataCapture?: ReactEventHandler;
+        onLoadedMetadataCapture?: ReactEventHandler;
+        onLoadStartCapture?: ReactEventHandler;
+        onPauseCapture?: ReactEventHandler;
+        onPlayCapture?: ReactEventHandler;
+        onPlayingCapture?: ReactEventHandler;
+        onProgressCapture?: ReactEventHandler;
+        onRateChangeCapture?: ReactEventHandler;
+        onSeekedCapture?: ReactEventHandler;
+        onSeekingCapture?: ReactEventHandler;
+        onStalledCapture?: ReactEventHandler;
+        onSuspendCapture?: ReactEventHandler;
+        onTimeUpdateCapture?: ReactEventHandler;
+        onVolumeChangeCapture?: ReactEventHandler;
+        onWaitingCapture?: ReactEventHandler;
+
+        // MouseEvents
+        onClickCapture?: MouseEventHandler;
+        onContextMenuCapture?: MouseEventHandler;
+        onDoubleClickCapture?: MouseEventHandler;
+        onDragCapture?: DragEventHandler;
+        onDragEndCapture?: DragEventHandler;
+        onDragEnterCapture?: DragEventHandler;
+        onDragExitCapture?: DragEventHandler;
+        onDragLeaveCapture?: DragEventHandler;
+        onDragOverCapture?: DragEventHandler;
+        onDragStartCapture?: DragEventHandler;
+        onDropCapture?: DragEventHandler;
+        onMouseDownCapture?: MouseEventHandler;
+        onMouseEnterCapture?: MouseEventHandler;
+        onMouseLeaveCapture?: MouseEventHandler;
+        onMouseMoveCapture?: MouseEventHandler;
+        onMouseOutCapture?: MouseEventHandler;
+        onMouseOverCapture?: MouseEventHandler;
+        onMouseUpCapture?: MouseEventHandler;
+
+        // Selection Events
+        onSelectCapture?: ReactEventHandler;
+
+        // Touch Events
+        onTouchCancelCapture?: TouchEventHandler;
+        onTouchEndCapture?: TouchEventHandler;
+        onTouchMoveCapture?: TouchEventHandler;
+        onTouchStartCapture?: TouchEventHandler;
+
+        // UI Events
+        onScrollCapture?: UIEventHandler;
+
+        // Wheel Events
+        onWheelCapture?: WheelEventHandler;
+
+        // Animation Events
+        onAnimationStartCapture?: AnimationEventHandler;
+        onAnimationEndCapture?: AnimationEventHandler;
+        onAnimationIterationCapture?: AnimationEventHandler;
+
+        // Transition Events
+        onTransitionEndCapture?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
