@@ -47,7 +47,7 @@ declare module "pkijs/src/Attribute" {
     export default class Attribute extends PKIjs.PKIBase {
 
         type: string;
-        value: Array;
+        value: Array<any>;
 
         /**
          * Compare values with default values for all class members
@@ -55,7 +55,6 @@ declare module "pkijs/src/Attribute" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
-
     }
 }
 
@@ -207,24 +206,87 @@ declare module "pkijs/src/BasicOCSPResponse" {
     import { BitString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
+    import ResponseData from "pkijs/src/ResponseData";
+
+    interface GetCertificateStatusResult {
+        isForCertificate: boolean;
+        /**
+         * 0 = good, 1 = revoked, 2 = unknown
+         * 
+         * @type {number}
+         * @memberOf GetCertificateStatusResult
+         */
+        status: number;
+    }
 
     export default class BasicOCSPResponse extends PKIjs.PKIBase {
         tbsResponseData: ResponseData;
         signatureAlgorithm: AlgorithmIdentifier;
         signature: BitString;
-        certs: Certificate[];
+        certs?: Certificate[];
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+        /**
+         * Get OCSP response status for specific certificate
+         * @param {Certificate} certificate Certificate to be checked
+         * @param {Certificate} issuerCertificate Certificate of issuer for certificate to be checked
+         * @returns {Promise}
+         */
+        getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
+        /**
+         * Make signature for current OCSP Basic Response
+         * @param {Object} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @returns {Promise}
+         */
+        sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
+        /**
+         * Verify existing OCSP Basic Response
+         * @param {Object} parameters Additional parameters
+         * @returns {Promise}
+         */
+        verify(parameters?: {trustedCerts?: Certificate[]}): PromiseLike<boolean>;
     }
 }
 
 declare module "pkijs/src/CertID" {
     import { OctetString, Integer } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+    import Certificate from "pkijs/src/Certificate";
+
+    interface CreateFroCertificateParams {
+        hashAlgorithm: string;
+        issuerCertificate: Certificate;
+    }
 
     export default class CertID extends PKIjs.PKIBase {
         hashAlgorithm: AlgorithmIdentifier;
         issuerNameHash: OctetString;
         issuerKeyHash: OctetString;
         serialNumber: Integer;
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+        /**
+         * Check that two "CertIDs" are equal
+         * @param {CertID} certificateID Identifier of the certificate to be checked
+         * @returns {boolean}
+         */
+        isEqual(certificateID: CertID): boolean;
+        /**
+         * Making OCSP certificate identifier for specific certificate
+         * @param {Certificate} certificate Certificate making OCSP Request for
+         * @param {Object} parameters Additional parameters
+         * @returns {Promise}
+         */
+        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
     }
 }
 
@@ -232,7 +294,9 @@ declare module "pkijs/src/Certificate" {
     import { OctetString, Integer, BitString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
+    import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import Extension from "pkijs/src/Extension";
+    import Time from "pkijs/src/Time";
 
     export default class Certificate extends PKIjs.PKIBase {
         tbs: ArrayBuffer;
@@ -278,13 +342,14 @@ declare module "pkijs/src/CertificateChainValidationEngine" {
     import { BitString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
+    import OCSPResponse from "pkijs/src/OCSPResponse";
     import CertificateRevocationList from "pkijs/src/CertificateRevocationList";
 
     export default class CertificateChainValidationEngine {
         trustedCerts: Certificate[];
         certs: Certificate[];
         crls: CertificateRevocationList[];
-        ocsp: Array;
+        ocsp: OCSPResponse;
         checkDate: Date;
 
         /**
@@ -569,6 +634,9 @@ declare module "pkijs/src/EncryptedContentInfo" {
 }
 
 declare module "pkijs/src/EncryptedData" {
+    import EncryptedContentInfo from "pkijs/src/EncryptedContentInfo";
+    import Attribute from "pkijs/src/Attribute";
+
     export default class EncryptedData extends PKIjs.PKIBase {
         version: number;
         encryptedContentInfo: EncryptedContentInfo;
@@ -709,7 +777,7 @@ declare module "pkijs/src/GeneratorsDriver" {
      * @param {Generator|GeneratorFunction} generatorInstance
      * @returns {Promise}
      */
-    export default function generatorsDriver(generatorInstance: Generator | GeneratorFunction): PromiseLike<any>;
+    export default function generatorsDriver(generatorInstance: any): PromiseLike<any>;
 }
 
 declare module "pkijs/src/InfoAccess" {
@@ -844,7 +912,7 @@ declare module "pkijs/src/MacData" {
     export default class MacData extends PKIjs.PKIBase {
         mac: DigestInfo;
         macSalt: OctetString;
-        iterations?: OctetString;
+        iterations?: number;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -899,6 +967,9 @@ declare module "pkijs/src/OCSPRequest" {
 declare module "pkijs/src/OCSPResponse" {
     import { Enumerated } from "asn1js";
     import ResponseBytes from "pkijs/src/ResponseBytes";
+    import Certificate from "pkijs/src/Certificate";
+    import { GetCertificateStatusResult } from "pkijs/src/BasicOCSPResponse";
+    import { CreateFroCertificateParams } from "pkijs/src/CertID";
 
     export default class OCSPResponse extends PKIjs.PKIBase {
         responseStatus: Enumerated;
@@ -908,14 +979,28 @@ declare module "pkijs/src/OCSPResponse" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+        /**
+         * Get OCSP response status for specific certificate
+         * @param {Certificate} certificate
+         * @param {Certificate} issuerCertificate
+         * @returns {*}
+         */
+        getCertificateStatus(certificate: Certificate, issuerCertificate: Certificate): PromiseLike<GetCertificateStatusResult>;
+        /**
+         * Making OCSP Request for specific certificate
+         * @param {Certificate} certificate Certificate making OCSP Request for
+         * @param {Object} parameters Additional parameters
+         * @returns {Promise}
+         */
+        createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
     }
 }
 
 declare module "pkijs/src/OriginatorIdentifierOrKey" {
     export default class OriginatorIdentifierOrKey extends PKIjs.PKIBase {
         variant: number;
-        value?: Array;
+        value?: any;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
@@ -1362,9 +1447,318 @@ declare module "pkijs/src/RSAPrivateKey" {
 
 }
 
-declare module "pkijs/src/" {
-    export default class extends PKIjs.PKIBase {
+declare module "pkijs/src/RSAPublicKey" {
+    import { Integer } from "asn1js";
 
+    export default class RSAPublicKey extends PKIjs.PKIBase {
+        modulus: Integer;
+        publicExponent: Integer;
+        /**
+         * Convert JSON value into current object
+         * @param {Object} json
+         */
+        fromJSON(json: JsonWebKey): void;
+    }
+
+}
+
+declare module "pkijs/src/RSASSAPSSParams" {
+    import { Integer } from "asn1js";
+    import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+    export default class RSASSAPSSParams extends PKIjs.PKIBase {
+        /**
+         * Algorithms of hashing (DEFAULT sha1)
+         * 
+         * @type {AlgorithmIdentifier}
+         * @memberOf RSASSAPSSParams
+         */
+        hashAlgorithm: AlgorithmIdentifier;
+        /**
+         * Algorithm of "mask generaion function (MGF)" (DEFAULT mgf1SHA1)
+         * 
+         * @type {AlgorithmIdentifier}
+         * @memberOf RSASSAPSSParams
+         */
+        maskGenAlgorithm: AlgorithmIdentifier;
+        /**
+         * Salt length (DEFAULT 20)
+         * 
+         * @type {number}
+         * @memberOf RSASSAPSSParams
+         */
+        saltLength: number;
+        /**
+         * (DEFAULT 1)
+         * 
+         * @type {number}
+         * @memberOf RSASSAPSSParams
+         */
+        trailerField: number;
+    }
+
+}
+
+declare module "pkijs/src/Signature" {
+    import { BitString } from "asn1js";
+    import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+    import Certificate from "pkijs/src/Certificate";
+
+    export default class Signature extends PKIjs.PKIBase {
+        signatureAlgorithm: AlgorithmIdentifier;
+        signature: BitString;
+        certs?: Certificate[];
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/SignedAndUnsignedAttributes" {
+    import Attribute from "pkijs/src/Attribute";
+
+    export default class SignedAndUnsignedAttributes extends PKIjs.PKIBase {
+        type: string;
+        attributes: Attribute[];
+        encodedValue: ArrayBuffer;
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/SignedData" {
+    import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+    import EncapsulatedContentInfo from "pkijs/src/EncapsulatedContentInfo";
+    import Certificate from "pkijs/src/Certificate";
+    import OtherCertificateFormat from "pkijs/src/OtherCertificateFormat";
+    import CertificateRevocationList from "pkijs/src/CertificateRevocationList";
+    import OtherRevocationInfoFormat from "pkijs/src/OtherRevocationInfoFormat";
+    import SignerInfo from "pkijs/src/SignerInfo";
+
+    interface VerifyParams {
+        signer?: number;
+        data?: ArrayBuffer;
+        trustedCerts?: Certificate[],
+        checkDate?: Date;
+        checkChain?: boolean;
+        includeSignerCertificate?: boolean;
+        extendedMode?: boolean;
+    }
+
+    interface VerifyResult {
+        date: Date;
+        code: number;
+        message: string;
+        signatureVerified?: boolean;
+        signerCertificate?: Certificate;
+        signerCertificateVerified?: boolean;
+    }
+
+    export default class SignedData extends PKIjs.PKIBase {
+        version: number;
+        digestAlgorithms: AlgorithmIdentifier[];
+        encapContentInfo: EncapsulatedContentInfo
+        certificates?: Certificate[] | OtherCertificateFormat[]
+        crls?: CertificateRevocationList[] | OtherRevocationInfoFormat[]
+        signerInfos: SignerInfo[];
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        verify(options: VerifyParams): PromiseLike<VerifyResult>;
+        /**
+         * Signing current SignedData
+         * 
+         * @param {CryptoKey} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {number} signerIndex Index number (starting from 0) of signer index to make signature for
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @param {BufferSource} [data] Detached data
+         * @returns {ArrayBuffer}
+         * 
+         * @memberOf SignedData
+         */
+        sign(privateKey: CryptoKey, signerIndex: number, hashAlgorithm?: string, data?: BufferSource): ArrayBuffer;
+    }
+
+}
+
+declare module "pkijs/src/SignerInfo" {
+    import { OctetString } from "asn1js";
+    import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
+    import SignedAndUnsignedAttributes from "pkijs/src/SignedAndUnsignedAttributes";
+
+    export default class SignerInfo extends PKIjs.PKIBase {
+        version: number;
+        sid: any;
+        digestAlgorithm: AlgorithmIdentifier;
+        signedAttrs?: SignedAndUnsignedAttributes;
+        unsignedAttrs?: SignedAndUnsignedAttributes;
+        signatureAlgorithm: AlgorithmIdentifier;
+        signature: OctetString;
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/SingleResponse" {
+    import CertID from "pkijs/src/CertID";
+    import Extension from "pkijs/src/Extension";
+
+    export default class SingleResponse extends PKIjs.PKIBase {
+        certID: CertID;
+        certStatus: Object;
+        thisUpdate: Date;
+        nextUpdate?: Date;
+        singleExtensions: Extension[];
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/SubjectDirectoryAttributes" {
+    import Attribute from "pkijs/src/Attribute";
+
+    export default class SubjectDirectoryAttributes extends PKIjs.PKIBase {
+        attributes: Attribute[];
+    }
+
+}
+
+declare module "pkijs/src/TBSRequest" {
+    import GeneralName from "pkijs/src/GeneralName";
+    import Request from "pkijs/src/Request";
+    import Extension from "pkijs/src/Extension";
+
+    export default class TBSRequest extends PKIjs.PKIBase {
+        tbs: ArrayBuffer;
+        version?: number;
+        requestorName?: GeneralName;
+        requestList: Request[];
+        requestExtensions?: Extension;
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/Time" {
+    export default class Time extends PKIjs.PKIBase {
+        type: number;
+        value: Date;
+    }
+
+}
+
+declare module "pkijs/src/TimeStampReq" {
+    import { Integer } from "asn1js";
+    import MessageImprint from "pkijs/src/MessageImprint";
+    import Extension from "pkijs/src/Extension";
+
+    export default class TimeStampReq extends PKIjs.PKIBase {
+        version: number;
+        messageImprint: MessageImprint;
+        reqPolicy?: string;
+        nonce?: Integer;
+        certReq?: boolean;
+        extensions?: Extension[];
+
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+    }
+
+}
+
+declare module "pkijs/src/TimeStampResp" {
+    import ContentInfo from "pkijs/src/ContentInfo";
+    import PKIStatusInfo from "pkijs/src/PKIStatusInfo";
+    import { VerifyResult, VerifyParams } from "pkijs/src/SignedData";
+
+    export default class TimeStampResp extends PKIjs.PKIBase {
+        status: PKIStatusInfo;
+        timeStampToken?: ContentInfo;
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+        /**
+         * Sign current TSP Response
+         * @param {Object} privateKey Private key for "subjectPublicKeyInfo" structure
+         * @param {string} [hashAlgorithm] Hashing algorithm. Default SHA-1
+         * @returns {Promise}
+         */
+        sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
+        /**
+         * Verify current TSP Response
+         * @param {Object} verificationParameters Input parameters for verification
+         * @returns {Promise}
+         */
+        verify(verificationParameters: VerifyParams): PromiseLike<VerifyResult>;
+    }
+
+}
+
+declare module "pkijs/src/TSTInfo" {
+    import { Integer } from "asn1js";
+    import MessageImprint from "pkijs/src/MessageImprint";
+    import Accuracy from "pkijs/src/Accuracy";
+    import GeneralName from "pkijs/src/GeneralName";
+    import Extension from "pkijs/src/Extension";
+
+    interface VerifyParams {
+        data: BufferSource;
+        notBefore?: Date;
+        notAfter?: Date;
+    }
+
+    export default class extends PKIjs.PKIBase {
+        version: number;
+        policy: string;
+        messageImprint: MessageImprint;
+        serialNumber: Integer;
+        genTime: Date;
+        accuracy?: Accuracy;
+        ordering?: boolean;
+        nonce?: Integer;
+        tsa?: GeneralName;
+        extensions?: Extension[];
+        /**
+         * Compare values with default values for all class members
+         * @param {string} memberName String name for a class member
+         * @param {*} memberValue Value to compare with default value
+         */
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+        verify(params: VerifyParams): PromiseLike<boolean>;
     }
 
 }
