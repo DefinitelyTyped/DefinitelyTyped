@@ -5,9 +5,9 @@
 
 /// <reference path="../react/react.d.ts" />
 
-declare namespace ReactBytesizeIcons {
-    type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
-    type StrokeLinecap = "round" | "butt" | "square" | "inherit";
+declare module "react-bytesize-icons" {
+    export type StrokeLinejoin = "round" | "bevel" | "miter" | "inherit";
+    export type StrokeLinecap = "round" | "butt" | "square" | "inherit";
     interface BytesizeIconsProps extends __React.Props<any> {
         width?: number;
         height?: number;
@@ -16,93 +16,91 @@ declare namespace ReactBytesizeIcons {
         strokeLinecap?: StrokeLinecap;
         color?: string;
     }
-    class BytesizeIconComponent extends __React.Component<BytesizeIconsProps, {}> {}
-}
+    export class BytesizeIconComponent extends __React.Component<BytesizeIconsProps, {}> {}
 
-declare module "react-bytesize-icons" {
-    export class Activity extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Alert extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Archive extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ArrowBottom extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ArrowLeft extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ArrowRight extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ArrowTop extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Backwards extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Ban extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Bell extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Bookmark extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Camera extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class CaretBottom extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class CaretLeft extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class CaretRight extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class CaretTop extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Cart extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Checkmark extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ChevronBottom extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ChevronLeft extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ChevronRight extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class ChevronTop extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Clock extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Close extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Code extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Compose extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Creditcard extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Download extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Send extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Edit extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Eject extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class EllipsisHorizontal extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class EllipsisVertical extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class End extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Export extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class External extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Book extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Calendar extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Print extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Eye extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class File extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Fire extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Flag extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class FolderOpen extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Folder extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Forwards extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Gift extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Github extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Heart extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Home extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Import extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Inbox extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Info extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Lightning extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Link extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Location extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Lock extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Mail extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Menu extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Message extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Music extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Mute extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Options extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Paperclip extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Pause extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Photo extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Plus extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Minus extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Play extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Portfolio extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Reload extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Reply extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Search extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Settings extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Star extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Start extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Tag extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Trash extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Twitter extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Unlock extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Upload extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class User extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Video extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Volume extends ReactBytesizeIcons.BytesizeIconComponent {}
-    export class Work extends ReactBytesizeIcons.BytesizeIconComponent {}
+    export class Activity extends BytesizeIconComponent {}
+    export class Alert extends BytesizeIconComponent {}
+    export class Archive extends BytesizeIconComponent {}
+    export class ArrowBottom extends BytesizeIconComponent {}
+    export class ArrowLeft extends BytesizeIconComponent {}
+    export class ArrowRight extends BytesizeIconComponent {}
+    export class ArrowTop extends BytesizeIconComponent {}
+    export class Backwards extends BytesizeIconComponent {}
+    export class Ban extends BytesizeIconComponent {}
+    export class Bell extends BytesizeIconComponent {}
+    export class Bookmark extends BytesizeIconComponent {}
+    export class Camera extends BytesizeIconComponent {}
+    export class CaretBottom extends BytesizeIconComponent {}
+    export class CaretLeft extends BytesizeIconComponent {}
+    export class CaretRight extends BytesizeIconComponent {}
+    export class CaretTop extends BytesizeIconComponent {}
+    export class Cart extends BytesizeIconComponent {}
+    export class Checkmark extends BytesizeIconComponent {}
+    export class ChevronBottom extends BytesizeIconComponent {}
+    export class ChevronLeft extends BytesizeIconComponent {}
+    export class ChevronRight extends BytesizeIconComponent {}
+    export class ChevronTop extends BytesizeIconComponent {}
+    export class Clock extends BytesizeIconComponent {}
+    export class Close extends BytesizeIconComponent {}
+    export class Code extends BytesizeIconComponent {}
+    export class Compose extends BytesizeIconComponent {}
+    export class Creditcard extends BytesizeIconComponent {}
+    export class Download extends BytesizeIconComponent {}
+    export class Send extends BytesizeIconComponent {}
+    export class Edit extends BytesizeIconComponent {}
+    export class Eject extends BytesizeIconComponent {}
+    export class EllipsisHorizontal extends BytesizeIconComponent {}
+    export class EllipsisVertical extends BytesizeIconComponent {}
+    export class End extends BytesizeIconComponent {}
+    export class Export extends BytesizeIconComponent {}
+    export class External extends BytesizeIconComponent {}
+    export class Book extends BytesizeIconComponent {}
+    export class Calendar extends BytesizeIconComponent {}
+    export class Print extends BytesizeIconComponent {}
+    export class Eye extends BytesizeIconComponent {}
+    export class File extends BytesizeIconComponent {}
+    export class Fire extends BytesizeIconComponent {}
+    export class Flag extends BytesizeIconComponent {}
+    export class FolderOpen extends BytesizeIconComponent {}
+    export class Folder extends BytesizeIconComponent {}
+    export class Forwards extends BytesizeIconComponent {}
+    export class Gift extends BytesizeIconComponent {}
+    export class Github extends BytesizeIconComponent {}
+    export class Heart extends BytesizeIconComponent {}
+    export class Home extends BytesizeIconComponent {}
+    export class Import extends BytesizeIconComponent {}
+    export class Inbox extends BytesizeIconComponent {}
+    export class Info extends BytesizeIconComponent {}
+    export class Lightning extends BytesizeIconComponent {}
+    export class Link extends BytesizeIconComponent {}
+    export class Location extends BytesizeIconComponent {}
+    export class Lock extends BytesizeIconComponent {}
+    export class Mail extends BytesizeIconComponent {}
+    export class Menu extends BytesizeIconComponent {}
+    export class Message extends BytesizeIconComponent {}
+    export class Music extends BytesizeIconComponent {}
+    export class Mute extends BytesizeIconComponent {}
+    export class Options extends BytesizeIconComponent {}
+    export class Paperclip extends BytesizeIconComponent {}
+    export class Pause extends BytesizeIconComponent {}
+    export class Photo extends BytesizeIconComponent {}
+    export class Plus extends BytesizeIconComponent {}
+    export class Minus extends BytesizeIconComponent {}
+    export class Play extends BytesizeIconComponent {}
+    export class Portfolio extends BytesizeIconComponent {}
+    export class Reload extends BytesizeIconComponent {}
+    export class Reply extends BytesizeIconComponent {}
+    export class Search extends BytesizeIconComponent {}
+    export class Settings extends BytesizeIconComponent {}
+    export class Star extends BytesizeIconComponent {}
+    export class Start extends BytesizeIconComponent {}
+    export class Tag extends BytesizeIconComponent {}
+    export class Trash extends BytesizeIconComponent {}
+    export class Twitter extends BytesizeIconComponent {}
+    export class Unlock extends BytesizeIconComponent {}
+    export class Upload extends BytesizeIconComponent {}
+    export class User extends BytesizeIconComponent {}
+    export class Video extends BytesizeIconComponent {}
+    export class Volume extends BytesizeIconComponent {}
+    export class Work extends BytesizeIconComponent {}
 }
