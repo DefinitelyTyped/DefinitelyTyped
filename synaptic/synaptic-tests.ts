@@ -72,7 +72,7 @@ namespace LayerTests {
     var connection = A.project(B);
 
     var C = new Layer(4);
-    C.gate(connection, Layer.gateType.INPUT_GATE); // now C gates the connection between A and B (input gate)
+    C.gate(connection, Layer.gateType.INPUT); // now C gates the connection between A and B (input gate)
 
     // activate
     // --------
@@ -151,7 +151,7 @@ namespace NetworkTests {
         output: outputLayer
     });
     var connection = A.project(B);
-    C.gate(connection, Layer.gateType.INPUT_GATE); // now C's output layer gates the connection between A's output layer and B's input layer (input gate)
+    C.gate(connection, Layer.gateType.INPUT); // now C's output layer gates the connection between A's output layer and B's input layer (input gate)
 
     // activate
     // --------
