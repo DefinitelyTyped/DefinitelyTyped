@@ -3,25 +3,24 @@
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>, simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../mongoose/mongoose.d.ts" />
-/// <reference path="../passport-local/passport-local.d.ts" />
+/// <reference types="mongoose" />
+/// <reference types="passport-local" />
 
 declare module 'mongoose' {
   import passportLocal = require('passport-local');
 
   // methods
-  export interface PassportLocalDocument {
+  export interface PassportLocalDocument extends Document {
     setPassword(password: string, cb: (err: any, res: any) => void): void;
     authenticate(password: string, cb: (err: any, res: any, error: any) => void): void;
   }
 
   // statics
-  export type PassportLocalModel<T extends PassportLocalDocument> = _PassportLocalModel<T> & Model<T>;
-  interface _PassportLocalModel<T extends PassportLocalDocument> {
+  interface PassportLocalModel<T extends Document> extends Model<T> {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
     serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
     deserializeUser(): (username: string, cb: (err: any) => void) => void;
-    register(user: PassportLocalModel<T>, password: string, cb: (err: any) => void): void;
+    register(user: T, password: string, cb: (err: any) => void): void;
     findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any) => void): any;
     createStrategy(): passportLocal.Strategy;
   }
@@ -75,13 +74,22 @@ declare module 'mongoose' {
       plugin: (schema: PassportLocalSchema, options?: PassportLocalOptions) => void,
       options?: PassportLocalOptions
     ): this;
+
+    // overload for the default mongoose plugin function
+    plugin(plugin: (schema: Schema, options?: Object) => void, opts?: Object): this;
   }
 
-  export function model<T extends PassportLocalDocument, Statics>(
+  export function model<T extends Document>(
     name: string,
     schema?: PassportLocalSchema,
     collection?: string,
-    skipInit?: boolean): Statics & PassportLocalModel<T>;
+    skipInit?: boolean): PassportLocalModel<T>;
+
+  export function model<T extends Document, U extends PassportLocalModel<T>>(
+    name: string,
+    schema?: PassportLocalSchema,
+    collection?: string,
+    skipInit?: boolean): U;
 }
 
 declare module 'passport-local-mongoose' {

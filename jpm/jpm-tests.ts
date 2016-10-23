@@ -1,5 +1,3 @@
-/// <reference path="jpm.d.ts" />
-
 import * as base64 from "sdk/base64";
 base64.decode("jesus", "abc");
 base64.decode(base64.encode("easy"));
@@ -25,7 +23,7 @@ requests.Request<{value: string}>({url: "http://example.com", onComplete: (respo
 import * as selection from "sdk/selection";
 selection.on("select", () => {
   console.log(selection.text);
-  selection.html = "<h1>Hello There!</h1>";
+  selection.html == "<h1>Hello There!</h1>";
   if (selection.isContiguous) {
     console.log("selection is not not contiguous");
   }

@@ -2,9 +2,9 @@
 // Project: https://github.com/apache/cordova-plugin-contacts
 // Definitions by: Microsoft Open Technologies Inc <http://msopentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 
-// Copyright (c) Microsoft Open Technologies Inc
-// Licensed under the MIT license
+//
+// Copyright (c) Microsoft Open Technologies, Inc.
+// Licensed under the MIT license.
 
 interface Navigator {
     /** Provides access to the device contacts database. */
@@ -42,6 +42,40 @@ interface Contacts {
      */
     pickContact(onSuccess: (contact: Contact) => void,
         onError: (error: ContactError) => void): void
+
+    /**
+     * This allows us to use an enumeration when setting the desired fields for the ContactFindOptions.
+     * The values will correspond to the type of string literals in ContactFieldType.
+     */
+    fieldType: {
+        addresses: "addresses",
+        birthday: "birthday",
+        categories: "categories",
+        country: "country",
+        department: "department",
+        displayName: "displayName",
+        emails: "emails",
+        familyName: "familyName",
+        formatted: "formatted",
+        givenName: "givenName",
+        honorificPrefix: "honorificPrefix",
+        honorificSuffix: "honorificSuffix",
+        id: "id",
+        ims: "ims",
+        locality: "locality",
+        middleName: "middleName",
+        name: "name",
+        nickname: "nickname",
+        note: "note",
+        organizations: "organizations",
+        phoneNumbers: "phoneNumbers",
+        photos: "photos",
+        postalCode: "postalCode",
+        region: "region",
+        streetAddress: "streetAddress",
+        title: "title",
+        urls: "urls"
+    }
 }
 
 interface ContactProperties {
@@ -105,7 +139,7 @@ interface Contact extends ContactProperties {
 
 declare var Contact: {
     /** Constructor of Contact object */
-    new(id?: string,
+    new (id?: string,
         displayName?: string,
         name?: ContactName,
         nickname?: string,
@@ -130,7 +164,7 @@ interface ContactError {
 }
 
 declare var ContactError: {
-    new(code: number): ContactError;
+    new (code: number): ContactError;
     UNKNOWN_ERROR: number;
     INVALID_ARGUMENT_ERROR: number;
     TIMEOUT_ERROR: number;
@@ -158,7 +192,7 @@ interface ContactName {
 
 declare var ContactName: {
     /** Constructor for ContactName object */
-    new(formatted?: string,
+    new (formatted?: string,
         familyName?: string,
         givenName?: string,
         middleName?: string,
@@ -170,7 +204,7 @@ declare var ContactName: {
  * The ContactField object is a reusable component that represents contact fields generically.
  * Each ContactField object contains a value, type, and pref property. A Contact object stores
  * several properties in ContactField[] arrays, such as phone numbers and email addresses.
- * 
+ *
  * In most instances, there are no pre-determined values for a ContactField object's type attribute.
  * For example, a phone number can specify type values of home, work, mobile, iPhone,
  * or any other value that is supported by a particular device platform's contact database.
@@ -189,7 +223,7 @@ interface ContactField {
 
 declare var ContactField: {
     /** Constructor for ContactField object */
-    new(type?: string,
+    new (type?: string,
         value?: string,
         pref?: boolean): ContactField
 };
@@ -219,7 +253,7 @@ interface ContactAddress {
 
 declare var ContactAddress: {
     /** Constructor of ContactAddress object */
-    new(pref?: boolean,
+    new (pref?: boolean,
         type?: string,
         formatted?: string,
         streetAddress?: string,
@@ -248,7 +282,7 @@ interface ContactOrganization {
 
 declare var ContactOrganization: {
     /** Constructor for ContactOrganization object */
-    new(pref?: boolean,
+    new (pref?: boolean,
         type?: string,
         name?: string,
         department?: string,
@@ -262,12 +296,42 @@ interface ContactFindOptions {
     /** Determines if the find operation returns multiple navigator.contacts. */
     multiple?: boolean;
     /* Contact fields to be returned back. If specified, the resulting Contact object only features values for these fields. */
-    desiredFields?: string[];
+    desiredFields?: ContactFieldType[];
 }
+
+/** these are the string values that are valid for the desired fields in ContactFindOptions */
+declare type ContactFieldType =
+    "addresses"
+    | "birthday"
+    | "categories"
+    | "country"
+    | "department"
+    | "displayName"
+    | "emails"
+    | "familyName"
+    | "formatted"
+    | "givenName"
+    | "honorificPrefix"
+    | "honorificSuffix"
+    | "id"
+    | "ims"
+    | "locality"
+    | "middleName"
+    | "name"
+    | "nickname"
+    | "note"
+    | "organizations"
+    | "phoneNumbers"
+    | "photos"
+    | "postalCode"
+    | "region"
+    | "streetAddress"
+    | "title"
+    | "urls";
 
 declare var ContactFindOptions: {
     /** Constructor for ContactFindOptions object */
-    new(filter?: string,
+    new (filter?: string,
         multiple?: boolean,
-        desiredFields?: string[]): ContactFindOptions
+        desiredFields?: ContactFieldType[]): ContactFindOptions
 };

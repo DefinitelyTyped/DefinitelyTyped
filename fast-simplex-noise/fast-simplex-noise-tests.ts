@@ -1,4 +1,3 @@
-///<reference path="fast-simplex-noise.d.ts"/>
 
 import FastSimplexNoise = require('fast-simplex-noise')
 

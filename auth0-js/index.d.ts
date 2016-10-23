@@ -42,6 +42,7 @@ interface Auth0ClientOptions {
 /** Represents a normalized UserProfile. */
 interface Auth0UserProfile {
     email: string;
+    email_verified: boolean;
     family_name: string;
     gender: string;
     given_name: string;
@@ -127,6 +128,6 @@ interface Auth0DelegationToken {
 
 declare const Auth0: Auth0Static;
 
-declare module "auth0" {
+declare module "auth0-js" {
     export = Auth0
 }

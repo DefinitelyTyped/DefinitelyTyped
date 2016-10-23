@@ -20,6 +20,13 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
+    var browserColors: ng.material.IBrowserColors = {
+      theme: 'default', 
+      palette: 'neonRed', 
+      hue: '500'  
+    };
+    $mdThemingProvider.enableBrowserColor(browserColors);
+
     $mdIconProvider
         .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
         .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
@@ -39,6 +46,25 @@ myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
+});
+
+myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+    var colorExpression : ng.material.IColorExpression;
+    var element : Element;
+
+    colorExpression = { color: '#FFFFFF' }
+
+    element = new Element();
+
+    $scope['applyThemeColors'] = () => {
+        $mdColor.applyThemeColors(element, colorExpression);
+    };
+    $scope['getThemeColor'] = () => {
+        $mdColor.getThemeColor('default-neonRed')
+    };
+    $scope['hasTheme'] = () => {
+        $mdColor.hasTheme();
+    };
 });
 
 myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
@@ -127,15 +153,33 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
         instance.isOpen();
         instance.isLockedOpen();
     });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+    $scope['openToast'] = () => {
+        $mdToast.show($mdToast.simple().textContent('Hello!'));
+        $mdToast.updateTextContent('New Content');
+    }
+
+    $scope['customToast'] = () => {
+        var options = {
+            hideDelay: 3000,
+            position: 'top right',
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
+        };
+
+        $mdToast.show(options);
+    }
 });
 
 myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
     $scope['createPanel'] = () => {
         var config = {
+            id: 'myPanel',
             template: '<h1>Hello!</h1>',
             hasBackdrop: true,
             disableParentScroll: true,

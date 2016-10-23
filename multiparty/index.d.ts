@@ -18,8 +18,8 @@ export declare class Form extends events.EventEmitter {
      * @param request
      * @param callback
      */
-    parse(request: http.ServerRequest, callback?: (error: Error, fields: any, files: any) => any): void;
-}
+    parse(request: http.IncomingMessage, callback?: (error: Error, fields: any, files: any) => any): void;
+  }
 
 export interface File {
     /**

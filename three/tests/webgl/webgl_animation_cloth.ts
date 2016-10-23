@@ -43,13 +43,16 @@
 
     if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-    var container, stats;
-    var camera, scene, renderer;
-
-    var clothGeometry;
-    var sphere;
-    var object, arrow;
-
+    var container: HTMLElement;
+    var stats: Stats;
+    var camera: THREE.PerspectiveCamera;
+    var scene: THREE.Scene;
+    var renderer: THREE.WebGLRenderer;
+    var clothGeometry: THREE.ParametricGeometry;
+    var sphere: THREE.Mesh;
+    var object: THREE.Mesh;
+    var arrow: THREE.ArrowHelper;
+    var light:  THREE.DirectionalLight, materials;
     var rotate = true;
 
     init();
@@ -75,8 +78,6 @@
 
         // lights
 
-        var light, materials;
-
         scene.add(new THREE.AmbientLight(0x666666));
 
         light = new THREE.DirectionalLight(0xdfebff, 1.75);
@@ -97,7 +98,7 @@
         light.shadowCameraBottom = -d;
 
         light.shadowCameraFar = 1000;
-        light.shadowDarkness = 0.5;
+        //light.shadowDarkness = 0.5;
 
         scene.add(light);
 
@@ -111,7 +112,7 @@
 
         // cloth geometry
         clothGeometry = new THREE.ParametricGeometry(clothFunction, cloth.w, cloth.h);
-        clothGeometry.dynamic = true;
+        //clothGeometry.dynamic = true;
         clothGeometry.computeFaceNormals();
 
         var uniforms = { texture: { value: clothTexture } };
@@ -126,7 +127,7 @@
         object.receiveShadow = true;
         scene.add(object);
 
-        object.customDepthMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader });
+        //object.customDepthMaterial = new THREE.ShaderMaterial({ uniforms: uniforms, vertexShader: vertexShader, fragmentShader: fragmentShader });
 
         // sphere
 
@@ -217,7 +218,7 @@
         //
 
         stats = new Stats();
-        container.appendChild(stats.domElement);
+        container.appendChild(stats.dom);
 
         //
 

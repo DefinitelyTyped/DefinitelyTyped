@@ -194,6 +194,8 @@ declare module IORedis {
         hmget(...args: any[]): any;
         hincrby(args: any[], callback?: ResCallbackT<any>): any;
         hincrby(...args: any[]): any;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): any;
+        hincrbyfloat(...args: any[]): any;
         hdel(args: any[], callback?: ResCallbackT<any>): any;
         hdel(...args: any[]): any;
         hlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -209,6 +211,8 @@ declare module IORedis {
         hexists(...args: any[]): any;
         incrby(args: any[], callback?: ResCallbackT<any>): any;
         incrby(...args: any[]): any;
+        incrbyfloat(args: any[], callback?: ResCallbackT<any>): any;
+        incrbyfloat(...args: any[]): any;
         decrby(args: any[], callback?: ResCallbackT<any>): any;
         decrby(...args: any[]): any;
         getset(args: any[], callback?: ResCallbackT<any>): any;
@@ -475,6 +479,8 @@ declare module IORedis {
         hmget(...args: any[]): Pipeline;
         hincrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hincrby(...args: any[]): Pipeline;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        hincrbyfloat(...args: any[]): Pipeline;
         hdel(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hdel(...args: any[]): Pipeline;
         hlen(args: any[], callback?: ResCallbackT<any>): Pipeline;
@@ -490,6 +496,8 @@ declare module IORedis {
         hexists(...args: any[]): Pipeline;
         incrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         incrby(...args: any[]): Pipeline;
+        incrbyfloat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        incrbyfloat(...args: any[]): Pipeline;
         decrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         decrby(...args: any[]): Pipeline;
         getset(args: any[], callback?: ResCallbackT<any>): Pipeline;

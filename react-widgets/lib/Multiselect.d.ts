@@ -35,8 +35,8 @@ interface MultiselectProps extends React.Props<MultiselectClass> {
     /**
      * A dataItem field name for uniquely identifying items in the data list. A valueField is
      * required when the value prop is not itself a dataItem. A valueField is useful when
-     * specifying the selected item, by its id instead of using the model as the value. 
-     * When a valueField is not provided, the Multiselect will use strict equality checks (===) 
+     * specifying the selected item, by its id instead of using the model as the value.
+     * When a valueField is not provided, the Multiselect will use strict equality checks (===)
      * to locate the value in the data list.
      */
     valueField?: string;

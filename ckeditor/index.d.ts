@@ -544,8 +544,19 @@ declare namespace CKEDITOR {
     }
 
 
-    interface focusManager {
+    class focusManager {
+        // Properties
+        currentActive: dom.domObject;
+        hasFocus: boolean;
 
+        // Methods
+        constructor(editor: editor);
+        focus(currentActive?: dom.element): void;
+        lock(): void;
+        unlock(): void;
+        blur(noDelay?: boolean): void;
+        add(element: dom.element, isCapture: boolean): void;
+        remove(element: dom.element): void;
     }
 
     interface keystrokeHandler {

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 interface DateTimePickerProps extends React.Props<DateTimePickerClass> {
     /**
-     * Whether to show the date picker button. 
+     * Whether to show the date picker button.
      * @default true
      */
     calendar?: boolean;

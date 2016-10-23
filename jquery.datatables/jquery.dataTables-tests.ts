@@ -159,7 +159,7 @@ $(document).ready(function () {
 
     var ajaxFunc: DataTables.FunctionAjax = function (data, callback, settings) { };
 
-    var ajaxDataFunc: DataTables.FunctionAjaxData = function (data) {
+    var ajaxDataFunc: DataTables.FunctionAjaxData = function (data, settings) {
         return data;
     };
 
@@ -309,6 +309,11 @@ $(document).ready(function () {
     draw = dt.draw(true);
     draw.$("");
 
+    var initSettings = dt.init();
+
+    var i18n: string = dt.i18n('buttons.copy', 'Copy to clipboard');
+    i18n = dt.i18n('select.rows', { _: '%d rows selected', 1: '1 row selected' }, 0);
+
     var off = dt.off("event");
     off = dt.off("event", function () { });
     off.$("");
@@ -437,6 +442,9 @@ $(document).ready(function () {
 
         console.log(data);
     });
+
+    cells.every(function () { });
+    cells.every(function (cellRowIdx, cellColIdx, tableLoop, cellLoop) { });
 
     var cell = dt.cell(":contains('Not shipped')");
     cell = dt.cell(function () { });
@@ -715,6 +723,9 @@ $(document).ready(function () {
     }
     dt.columns.adjust().draw(false); // adjust column sizing and redraw
 
+    dt.columns().every(function () { });
+    dt.columns().every(function (colIdx, tableLoop, colLoop) { });
+
     //#endregion "Methods-Column"
 
     //#region "Methods-Row"
@@ -754,6 +765,8 @@ $(document).ready(function () {
     var rows_11 = dt.rows("selector").remove();
     var rows_12 = dt.rows("selector").nodes();
     var rows_13 = dt.rows.add([{}, {}]);
+    dt.rows().every(function () { });
+    dt.rows().every(function (rowIdx, tableLoop, rowLoop) { });
 
     var table3 = $('#example').DataTable();
     table3.row.add({
@@ -890,6 +903,8 @@ $(document).ready(function () {
     //#endregion "Methods-Table"
 
     //#region "Methods-Util"
+
+    var util_1: boolean = dt.any();
 
     //#endregion "Methods-Util"
 });

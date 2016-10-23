@@ -1459,6 +1459,7 @@ declare namespace PIXI {
             global: Point;
             target: DisplayObject;
             originalEvent: Event;
+            identifier: number;
 
             getLocalPosition(displayObject: DisplayObject, point?: Point, globalPos?: Point): Point;
 

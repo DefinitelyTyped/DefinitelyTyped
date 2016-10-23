@@ -1,4 +1,4 @@
-﻿// Type definitions for JQuery DataTables 1.10.5
+﻿// Type definitions for JQuery DataTables 1.10.7
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -159,7 +159,7 @@ declare namespace DataTables {
         /**
         * Get jquery object
         */
-        $(selector: string | Node | Node[]| JQuery, modifier?: ObjectSelectorModifier): JQuery;
+        $(selector: string | Node | Node[] | JQuery, modifier?: ObjectSelectorModifier): JQuery;
 
         ///// Almost identical to $ in operation, but in this case returns the data for the matched rows.
         //_(selector: string | Node | Node[] | JQuery, modifier?: ObjectSelectorModifier): JQuery;
@@ -187,6 +187,22 @@ declare namespace DataTables {
         * @param reset Reset (default) or hold the current paging position. A full re-sort and re-filter is performed when this method is called, which is why the pagination reset is the default action.
         */
         draw(reset?: boolean): DataTable;
+
+        /*
+        * Look up a language token that was defined in the DataTables' language initialisation object.
+        *
+        * @param token The language token to lookup from the language object.
+        * @param def The default value to use if the DataTables initialisation has not specified a value.
+        * @param numeric If handling numeric output, the number to be presented should be given in this parameter. If not numeric operator is required (for example button label text) this parameter is not required.
+        *
+        * @returns Resulting internationalised string.
+        */
+        i18n(token: string, def: any | string, numeric?: number): string;
+
+        /*
+        * Get the initialisation options used for the table. Since: DataTables 1.10.6
+        */
+        init(): Settings;
 
         /**
         * Table events removal.
@@ -407,6 +423,11 @@ declare namespace DataTables {
     //#region "util-methods"
 
     interface UtilityMethods {
+        /*
+        * Get a boolean value to indicate if there are any entries in the API instance's result set (i.e. any data, selected rows, etc).
+        */
+        any(): boolean;
+
         /**
         * Concatenate two or more API instances together
         *
@@ -629,6 +650,13 @@ declare namespace DataTables {
         data(): DataTable;
 
         /**
+        * Iterate over each selected cell, with the function context set to be the cell in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every cell selected.
+        */
+        every(fn: (cellRowIdx: number, cellColIdx: number, tableLoop: number, cellLoop: number) => void): DataTable;
+
+        /**
         * Get index information about the selected cells
         */
         indexes(): DataTable;
@@ -750,6 +778,13 @@ declare namespace DataTables {
         dataSrc(): DataTable;
 
         /**
+        * Iterate over each selected column, with the function context set to be the column in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every column selected.
+        */
+        every(fn: (colIdx: number, tableLoop: number, colLoop: number) => void): DataTable;
+
+        /**
         * Get the column indexes of the selected columns.
         *
         * @param t Specify if you want to get the column data index (default) or the visible index (visible).
@@ -847,7 +882,7 @@ declare namespace DataTables {
         *
         * @param data Data to use for the new row. This may be an array, object or Javascript object instance, but must be in the same format as the other data in the table
         */
-        add(data: any[]| Object): DataTable;
+        add(data: any[] | Object): DataTable;
     }
 
     interface RowMethods extends DataTableCore, CommonRowMethod {
@@ -859,14 +894,21 @@ declare namespace DataTables {
         /**
         * Get the data for the selected row
         */
-        data(): any[]| Object;
+        data(): any[] | Object;
 
         /**
         * Set the data for the selected row
         *
         * @param d Data to use for the row.
         */
-        data(d: any[]| Object): DataTable;
+        data(d: any[] | Object): DataTable;
+
+        /**
+        * Get the id of the selected row.
+        *
+        * @param hash Set to true to append a hash (#) to the start of the row id.
+        */
+        id(hash?: boolean): string;
 
         /**
         * Get the row index of the row column.
@@ -919,7 +961,14 @@ declare namespace DataTables {
         *
         * @param d Data to use for the row.
         */
-        data(d: any[]| Object): DataTable;
+        data(d: any[] | Object): DataTable;
+
+        /**
+        * Iterate over each selected row, with the function context set to be the row in question. Since: DataTables 1.10.6
+        *
+        * @param fn Function to execute for every row selected.
+        */
+        every(fn: (rowIdx: number, tableLoop: number, rowLoop: number) => void): DataTable;
 
         /**
         * Get the row indexes of the selected rows.
@@ -1031,7 +1080,7 @@ declare namespace DataTables {
         *
         * @param table Selector string for table
         */
-        Api(selector: string | Node | Node[]| JQuery): DataTables.DataTable;
+        Api(selector: string | Node | Node[] | JQuery): DataTables.DataTable;
     }
 
     export interface StaticUtilFunctions {
@@ -1175,7 +1224,7 @@ declare namespace DataTables {
         /**
         * Change the options in the page length select list. Since: 1.10
         */
-        lengthMenu?: (number | string)[]| (number | string)[][];
+        lengthMenu?: (number | string)[] | (number | string)[][];
 
         /**
         * Control which cell the order event handler will be applied to in a column. Since: 1.10
@@ -1190,12 +1239,12 @@ declare namespace DataTables {
         /**
         * Initial order (sort) to apply to the table. Since: 1.10
         */
-        order?: (string | number)[]| (string | number)[][];
+        order?: (string | number)[] | (string | number)[][];
 
         /**
         * Ordering to always be applied to the table. Since: 1.10
         */
-        orderFixed?: (string | number)[]| (string | number)[][]| Object;
+        orderFixed?: (string | number)[] | (string | number)[][] | Object;
 
         /**
         * Multiple column ordering ability control. Since: 1.10
@@ -1395,7 +1444,11 @@ declare namespace DataTables {
     }
 
     interface FunctionAjaxData {
-        (data: Object): string | Object;
+        /*
+        * @param data Data that DataTables has constructed for the request.
+        * @param settings DataTables settings object. Since 1.10.6
+        */
+        (data: Object, settings: Settings): string | Object;
     }
 
     //#endregion "ajax-settings"
@@ -1558,7 +1611,7 @@ declare namespace DataTables {
     //#region "callback-functions"
 
     interface FunctionCreateRow {
-        (row: Node, data: any[]| Object, dataIndex: number): void;
+        (row: Node, data: any[] | Object, dataIndex: number): void;
     }
 
     interface FunctionDrawCallback {
@@ -1590,7 +1643,7 @@ declare namespace DataTables {
     }
 
     interface FunctionRowCallback {
-        (row: Node, data: any[]| Object): void;
+        (row: Node, data: any[] | Object): void;
     }
 
     interface FunctionStateLoadCallback {

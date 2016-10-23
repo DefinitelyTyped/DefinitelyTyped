@@ -1,50 +1,60 @@
-// Type definitions for inversify 1.0.0-alpha.4
+// Type definitions for inversify-express-utils 1.0.0
 // Project: https://github.com/inversify/inversify-express-utils
 // Definitions by: inversify <https://github.com/inversify/>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../inversify/inversify.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="inversify" />
+/// <reference types="express" />
 
 declare module "inversify-express-utils" {
 
     import * as express from "express";
     import * as inversify from "inversify";
 
-    interface IInversifyExpressServerConstructor {
-        new(kernel: inversify.interfaces.Kernel): IInversifyExpressServer;
+    export namespace interfaces {
+
+        export interface InversifyExpressServerConstructor {
+            new(kernel: inversify.interfaces.Kernel): InversifyExpressServer;
+        }
+
+        export interface InversifyExpressServer {
+            setConfig(fn: ConfigFunction): InversifyExpressServer;
+            setErrorConfig(fn: ConfigFunction): InversifyExpressServer;
+            build(): express.Application;
+        }
+
+        export interface ConfigFunction {
+            (app: express.Application): void;
+        }
+
+        export interface HandlerDecoratorFactory {
+            (path: string, ...middleware: express.RequestHandler[]): HandlerDecorator;
+        }
+
+        export interface HandlerDecorator {
+            (target: any, key: string, value: any): void;
+        }
+
     }
 
-    interface IInversifyExpressServer {
-        setConfig(fn: IConfigFunction): IInversifyExpressServer;
-        setErrorConfig(fn: IConfigFunction): IInversifyExpressServer;
-        build(): express.Application;
+    export interface Controller {}
+
+    interface ServiceIdentifiers {
+        Controller: Symbol;
     }
 
-    interface IConfigFunction {
-        (app: express.Application): void;
-    }
-
-    interface IHandlerDecoratorFactory {
-        (path: string, ...middleware: express.RequestHandler[]): IHandlerDecorator;
-    }
-
-    interface IHandlerDecorator {
-        (target: any, key: string, value: any): void;
-    }
-
-    export interface IController {}
-
-    export var InversifyExpressServer: IInversifyExpressServerConstructor;
+    export var InversifyExpressServer: interfaces.InversifyExpressServerConstructor;
 
     export var Controller: (path: string, ...middleware: express.RequestHandler[]) => (target: any) => void;
 
-    export var All: IHandlerDecoratorFactory;
-    export var Get: IHandlerDecoratorFactory;
-    export var Post: IHandlerDecoratorFactory;
-    export var Put: IHandlerDecoratorFactory;
-    export var Patch: IHandlerDecoratorFactory;
-    export var Head: IHandlerDecoratorFactory;
-    export var Delete: IHandlerDecoratorFactory;
-    export var Method: (method: string, path: string, ...middleware: express.RequestHandler[]) => IHandlerDecorator;
+    export var All: interfaces.HandlerDecoratorFactory;
+    export var Get: interfaces.HandlerDecoratorFactory;
+    export var Post: interfaces.HandlerDecoratorFactory;
+    export var Put: interfaces.HandlerDecoratorFactory;
+    export var Patch: interfaces.HandlerDecoratorFactory;
+    export var Head: interfaces.HandlerDecoratorFactory;
+    export var Delete: interfaces.HandlerDecoratorFactory;
+    export var Method: (method: string, path: string, ...middleware: express.RequestHandler[]) => interfaces.HandlerDecorator;
+    export var TYPE: ServiceIdentifiers;
+
 }

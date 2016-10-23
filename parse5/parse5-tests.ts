@@ -59,5 +59,6 @@ fragment.quirksMode = true;
 fragment.namespaceURI = '';
 fragment.nodeName = '';
 fragment.value = '';
+fragment.data = '';
 fragment = fragment.childNodes[0];
 fragment = fragment.parentNode;

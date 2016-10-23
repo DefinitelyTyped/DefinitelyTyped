@@ -44,9 +44,11 @@ interface VideoJSPlayer {
 	size(width: number, height: number): VideoJSPlayer;
 	requestFullScreen(): VideoJSPlayer;
 	cancelFullScreen(): VideoJSPlayer;
-	ready(callback: () => void ): void;
-	on(eventName: string, callback: () => void ): void;
+	ready(callback: () => void ): VideoJSPlayer;
+	on(eventName: string, callback: (eventObject: Event) => void ): void;
 	off(eventName: string, callback: () => void ): void;
+	off(eventName: string): void;
+	off(): void;
 	dispose(): void;
 	addRemoteTextTrack(options : {}) : HTMLTrackElement;
 	removeRemoteTextTrack(track : HTMLTrackElement) : void;

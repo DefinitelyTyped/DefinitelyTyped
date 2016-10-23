@@ -57,6 +57,11 @@ clock = lolex.install(window, Date.now(), ['setTimeout', 'clearTimeout']);
 clock = lolex.install(Date.now());
 clock = lolex.install(Date.now(), ['setTimeout', 'clearTimeout']);
 
+/**
+ * clock.now
+ */
+var n: number = clock.now;
+
 
 var id: number;
 /**
@@ -100,6 +105,11 @@ id = clock.setImmediate(() => {});
 
 clock.clearImmediate(id);
 
+/**
+ * clock.setSystemTime
+ */
+clock.setSystemTime(0);
+clock.setSystemTime(new Date());
 
 /**
  * clock.tick(time)
@@ -113,3 +123,4 @@ clock.tick(1000);
  */
 
 clock.uninstall();
+

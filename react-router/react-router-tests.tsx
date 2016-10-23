@@ -1,7 +1,8 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
+import {renderToString} from "react-dom/server";
 
-import { browserHistory, hashHistory, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute,InjectedRouter, Link, RouterOnContext} from "react-router"
+import { browserHistory, hashHistory, match, createMemoryHistory, withRouter, routerShape, Router, Route, IndexRoute, InjectedRouter, Link, RouterOnContext, RouterContext} from "react-router";
 
 interface MasterContext {
 	router: RouterOnContext;
@@ -91,3 +92,16 @@ ReactDOM.render((
 		</Route>
 	</Router>
 ), document.body)
+
+
+const history = createMemoryHistory("baseurl");
+const routes = (
+	<Route path="/" component={Master}>
+		<IndexRoute component={DashboardWithRouter} />
+		<Route path="users" component={Users}/>
+	</Route>
+);
+
+match({history, routes, location: "baseurl"}, (error, redirectLocation, renderProps) => {
+	renderToString(<RouterContext {...renderProps} />);
+});

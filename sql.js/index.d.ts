@@ -5,7 +5,8 @@
 
 /// <reference types="node" />
 
-declare class Database {
+export declare class Database {
+    constructor();
     constructor(data: Buffer);
     constructor(data: Uint8Array);
     constructor(data: number[]);
@@ -27,9 +28,13 @@ declare class Database {
     export(): Uint8Array;
 
     close(): void;
+
+    getRowsModified(): number;
+
+    create_function(name: string, func: Function): void;
 }
 
-declare class Statement {
+export declare class Statement {
     bind(): boolean;
     bind(values: { [key: string]: number | string | Uint8Array }): boolean;
     bind(values: (number | string | Uint8Array)[]): boolean;
@@ -57,7 +62,7 @@ declare class Statement {
     free(): boolean;
 }
 
-interface QueryResults {
+export interface QueryResults {
     columns: string[];
     values: (number | string | Uint8Array)[][];
 }

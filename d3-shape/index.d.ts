@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-shape module 1.0.0
+// Type definitions for D3JS d3-shape module v1.0.3
 // Project: https://github.com/d3/d3-shape/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -326,10 +326,12 @@ export var symbolWye: SymbolType;
 // -----------------------------------------------------------------------------------
 
 
-// HACK: SeriesPoint is a [number, number] two-element Array with added
+// SeriesPoint is a [number, number] two-element Array with added
 // data and index properties related to the data element which formed the basis for the
 // SeriesPoint
 export interface SeriesPoint<Datum> extends Array<number> {
+    0: number;
+    1: number;
     index: number;
     data: Datum;
 }

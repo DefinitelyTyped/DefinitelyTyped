@@ -46,7 +46,7 @@ export interface SignOptions {
     issuer?: string;
     jwtid?: string;
     noTimestamp?: boolean;
-    headers?: Object;
+    header?: Object;
     encoding?: string;
 }
 

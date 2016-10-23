@@ -109,6 +109,10 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.is('.some-class');
     }
 
+    function test_isEmpty() {
+        boolVal = shallowWrapper.isEmpty()
+    }
+
     function test_not() {
         elementWrapper = shallowWrapper.find('.foo').not('.bar');
     }
@@ -396,6 +400,10 @@ namespace ReactWrapperTest {
         boolVal = reactWrapper.is('.some-class');
     }
 
+    function test_isEmpty() {
+        boolVal = reactWrapper.isEmpty()
+    }
+
     function test_not() {
         elementWrapper = reactWrapper.find('.foo').not('.bar');
     }
@@ -631,6 +639,10 @@ namespace CheerioWrapperTest {
 
     function test_is() {
         boolVal = cheerioWrapper.is('.some-class');
+    }
+
+    function test_isEmpty() {
+        boolVal = cheerioWrapper.isEmpty()
     }
 
     function test_not() {

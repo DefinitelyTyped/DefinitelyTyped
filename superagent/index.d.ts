@@ -76,6 +76,7 @@ declare namespace request {
         notAcceptable: boolean;
         notFound: boolean;
         forbidden: boolean;
+      xhr: XMLHttpRequest;
         get(header: string): string;
     }
 
@@ -95,6 +96,7 @@ declare namespace request {
       pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
       query(val: Object): this;
       redirects(n: number): this;
+      responseType(type: string): this;
       send(data: string): this;
       send(data: Object): this;
       send(): this;
@@ -102,6 +104,7 @@ declare namespace request {
       set(field: Object): this;
       timeout(ms: number): this;
       type(val: string): this;
+      unset(field: string): this;
       use(fn: Function): this;
       withCredentials(): this;
       write(data: string, encoding?: string): this;

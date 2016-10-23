@@ -3,7 +3,7 @@
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+/// <reference types="react"/>
 
 declare module "react-modal" {
     interface ReactModal {
@@ -23,6 +23,6 @@ declare module "react-modal" {
         ariaHideApp?: boolean,
         shouldCloseOnOverlayClick?: boolean
     }
-    let ReactModal: __React.ClassicComponentClass<ReactModal>;
+    let ReactModal: React.ClassicComponentClass<ReactModal>;
     export = ReactModal;
 }

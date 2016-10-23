@@ -1195,7 +1195,7 @@ namespace CSR {
         computedValue(targetField: string, transform: (...values: string[]) => string, ...sourceField: string[]): ICSR {
             var dependentValues: { [field: string]: string } = {};
 
-            return this.onPostRenderField(targetField, (schema, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
+            return this.onPostRenderField(targetField, (schema: SPClientTemplates.FieldSchema_InForm, ctx: SPClientTemplates.RenderContext_FieldInForm) => {
                 if (ctx.ControlMode == SPClientTemplates.ClientControlMode.EditForm
                     || ctx.ControlMode == SPClientTemplates.ClientControlMode.NewForm) {
                     var targetControl = CSR.getControl(schema);

@@ -1,4 +1,4 @@
-// Type definitions for Redux v3.5.2
+// Type definitions for Redux v3.6.0
 // Project: https://github.com/reactjs/redux
 // Definitions by: William Buchwalter <https://github.com/wbuchwalter/>, Vincent Prouillet <https://github.com/Keats/>, Kaur Kuut <https://github.com/xStrom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,11 +15,11 @@ declare namespace Redux {
      *
      * Actions must have a `type` field that indicates the type of action being
      * performed. Types can be defined as constants and imported from another
-     * module. It’s better to use strings for `type` than Symbols because strings
+     * module. It's better to use strings for `type` than Symbols because strings
      * are serializable.
      *
      * Other than `type`, the structure of an action object is really up to you.
-     * If you’re interested, check out Flux Standard Action for recommendations on
+     * If you're interested, check out Flux Standard Action for recommendations on
      * how actions should be constructed.
      */
     interface Action {
@@ -93,7 +93,7 @@ declare namespace Redux {
      * `dispatch` function provided by the store instance without any middleware.
      *
      * The base dispatch function *always* synchronously sends an action to the
-     * store’s reducer, along with the previous state returned by the store, to
+     * store's reducer, along with the previous state returned by the store, to
      * calculate a new state. It expects actions to be plain objects ready to be
      * consumed by the reducer.
      *
@@ -114,7 +114,7 @@ declare namespace Redux {
     }
 
     /**
-     * A store is an object that holds the application’s state tree.
+     * A store is an object that holds the application's state tree.
      * There should only be a single store in a Redux app, as the composition
      * happens on the reducer level.
      *
@@ -220,7 +220,7 @@ declare namespace Redux {
      * original store. There is an example in `compose` documentation
      * demonstrating that.
      *
-     * Most likely you’ll never write a store enhancer, but you may use the one
+     * Most likely you'll never write a store enhancer, but you may use the one
      * provided by the developer tools. It is what makes time travel possible
      * without the app being aware it is happening. Amusingly, the Redux
      * middleware implementation is itself a store enhancer.
@@ -308,7 +308,7 @@ declare namespace Redux {
      * an action creator is a factory that creates an action.
      *
      * Calling an action creator only produces an action, but does not dispatch
-     * it. You need to call the store’s `dispatch` function to actually cause the
+     * it. You need to call the store's `dispatch` function to actually cause the
      * mutation. Sometimes we say *bound action creators* to mean functions that
      * call an action creator and immediately dispatch its result to a specific
      * store instance.
@@ -366,6 +366,11 @@ declare namespace Redux {
 
     /* compose */
 
+    type Func0<R> = () => R;
+    type Func1<T1, R> = (a1: T1) => R;
+    type Func2<T1, T2, R> = (a1: T1, a2: T2) => R;
+    type Func3<T1, T2, T3, R> = (a1: T1, a2: T2, a3: T3, ...args: any[]) => R;
+
     /**
      * Composes single-argument functions from right to left. The rightmost
      * function can take multiple arguments as it provides the signature for the
@@ -376,28 +381,56 @@ declare namespace Redux {
      *   to left. For example, `compose(f, g, h)` is identical to doing
      *   `(...args) => f(g(h(...args)))`.
      */
-    function compose(): <R>(a: R, ...args: any[]) => R;
+    function compose(): <R>(a: R) => R;
 
+    function compose<F extends Function>(f: F): F;
+
+    /* two functions */
     function compose<A, R>(
-      f1: (b: A) => R,
-      f2: (...args: any[]) => A
-    ): (...args: any[]) => R;
+      f1: (b: A) => R, f2: Func0<A>
+    ): Func0<R>;
+    function compose<A, T1, R>(
+      f1: (b: A) => R, f2: Func1<T1, A>
+    ): Func1<T1, R>;
+    function compose<A, T1, T2, R>(
+      f1: (b: A) => R, f2: Func2<T1, T2, A>
+    ): Func2<T1, T2, R>;
+    function compose<A, T1, T2, T3, R>(
+      f1: (b: A) => R, f2: Func3<T1, T2, T3, A>
+    ): Func3<T1, T2, T3, R>;
 
+    /* three functions */
     function compose<A, B, R>(
-      f1: (b: B) => R,
-      f2: (a: A) => B,
-      f3: (...args: any[]) => A
-    ): (...args: any[]) => R;
+      f1: (b: B) => R, f2: (a: A) => B, f3: Func0<A>
+    ): Func0<R>;
+    function compose<A, B, T1, R>(
+      f1: (b: B) => R, f2: (a: A) => B, f3: Func1<T1, A>
+    ): Func1<T1, R>;
+    function compose<A, B, T1, T2, R>(
+      f1: (b: B) => R, f2: (a: A) => B, f3: Func2<T1, T2, A>
+    ): Func2<T1, T2, R>;
+    function compose<A, B, T1, T2, T3, R>(
+      f1: (b: B) => R, f2: (a: A) => B, f3: Func3<T1, T2, T3, A>
+    ): Func3<T1, T2, T3, R>;
 
+    /* four functions */
     function compose<A, B, C, R>(
-      f1: (b: C) => R,
-      f2: (a: B) => C,
-      f3: (a: A) => B,
-      f4: (...args: any[]) => A
+      f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: Func0<A>
+    ): Func0<R>;
+    function compose<A, B, C, T1, R>(
+      f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: Func1<T1, A>
+    ): Func1<T1, R>;
+    function compose<A, B, C, T1, T2, R>(
+      f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: Func2<T1, T2, A>
+    ): Func2<T1, T2, R>;
+    function compose<A, B, C, T1, T2, T3, R>(
+      f1: (b: C) => R, f2: (a: B) => C, f3: (a: A) => B, f4: Func3<T1, T2, T3, A>
+    ): Func3<T1, T2, T3, R>;
+
+    /* rest */
+    function compose<R>(
+      f1: (b: any) => R, ...funcs: Function[]
     ): (...args: any[]) => R;
 
-    function compose<R>(
-      f1: (a: any) => R,
-      ...funcs: Function[]
-    ): (...args: any[]) => R;
+    function compose<R>(...funcs: Function[]): (...args: any[]) => R;
 }

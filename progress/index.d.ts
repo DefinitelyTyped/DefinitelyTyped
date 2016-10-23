@@ -111,6 +111,12 @@ declare class ProgressBar {
      * Terminates a progress bar.
      */
     terminate(): void;
+
+
+    /**
+     * Completed status of progress (Boolean)
+     */
+    complete: boolean;
 }
 declare namespace ProgressBar { }
 

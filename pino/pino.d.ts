@@ -3,7 +3,7 @@
 // Definitions by: Peter Snider <https://github.com/psnider>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>   // only for require()
+/// <reference types="node"/>
 
 declare module 'pino' {
 
@@ -41,8 +41,8 @@ declare module 'pino' {
     }
 
     interface Pino {
-        (optionsOrStream?: LoggerOptions | stream.Writable): Logger
-        (options: LoggerOptions, stream: stream.Writable): Logger
+        (optionsOrStream?: LoggerOptions | stream.Writable | stream.Readable): Logger
+        (options: LoggerOptions, stream: stream.Writable | stream.Readable): Logger
         levels: {
             values: LevelLabelsToValues
             labels: LevelValuesToLabels

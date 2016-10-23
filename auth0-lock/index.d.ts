@@ -92,7 +92,7 @@ interface Auth0LockConstructorOptions {
     initialScreen?: "login" | "signUp" | "forgotPassword";
     language?: string;
     languageDictionary?: any;
-    loginAfterSignup?: boolean;
+    loginAfterSignUp?: boolean;
     mustAcceptTerms?: boolean;
     popupOptions?: Auth0LockPopupOptions;
     prefill?: { email?: string, username?: string};

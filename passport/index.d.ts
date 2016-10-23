@@ -27,30 +27,11 @@ declare namespace Express {
 declare module 'passport' {
     import express = require('express');
 
-    function use(strategy: Strategy): Passport;
-    function use(name: string, strategy: Strategy): Passport;
-    function unuse(name: string): Passport;
-    function framework(fw: string): Passport;
-    function initialize(options?: { userProperty: string; }): express.Handler;
-    function session(options?: { pauseStream: boolean; }): express.Handler;
-
-    function authenticate(strategy: string, callback?: Function): express.Handler;
-    function authenticate(strategy: string, options: Object, callback?: Function): express.Handler;
-    function authenticate(strategies: string[], callback?: Function): express.Handler;
-    function authenticate(strategies: string[], options: Object, callback?: Function): express.Handler;
-    function authorize(strategy: string, callback?: Function): express.Handler;
-    function authorize(strategy: string, options: Object, callback?: Function): express.Handler;
-    function authorize(strategies: string[], callback?: Function): express.Handler;
-    function authorize(strategies: string[], options: Object, callback?: Function): express.Handler;
-    function serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
-    function deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
-    function transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
-
     interface Passport {
-        use(strategy: Strategy): Passport;
-        use(name: string, strategy: Strategy): Passport;
+        use(strategy: passport.Strategy): Passport;
+        use(name: string, strategy: passport.Strategy): Passport;
         unuse(name: string): Passport;
-        framework(fw: string): Passport;
+        framework(fw: passport.Framework): Passport;
         initialize(options?: { userProperty: string; }): express.Handler;
         session(options?: { pauseStream: boolean; }): express.Handler;
 
@@ -66,7 +47,10 @@ declare module 'passport' {
         deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
+    const passport: Passport;
+    export = passport;
 
+    namespace passport {
     interface Strategy {
         name?: string;
         authenticate(req: express.Request, options?: Object): void;
@@ -76,7 +60,7 @@ declare module 'passport' {
         provider: string;
         id: string;
         displayName: string;
-        name? : {
+            name?: {
             familyName: string;
             givenName: string;
             middleName?: string;
@@ -89,4 +73,12 @@ declare module 'passport' {
             value: string;
         }[];
     }
+
+        interface Framework {
+            initialize(passport: Passport, options?: Object): Function;
+            authenticate(passport: Passport, name: string, options?: Object, callback?: Function): Function;
+            authorize?(passport: Passport, name: string, options?: Object, callback?: Function): Function;
+        }
+    }
+
 }

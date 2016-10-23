@@ -11,7 +11,7 @@ interface Security {
 }
 
 export class WSSecurity implements Security {
-    constructor(username: string, password: string, options: any);
+    constructor(username: string, password: string, options?: any);
 }
 
 export class ClientSSLSecurity implements Security {

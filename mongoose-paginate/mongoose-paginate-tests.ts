@@ -1,6 +1,4 @@
-/// <reference path="./mongoose-paginate.d.ts" />
-/// <reference path="../mongoose/mongoose.d.ts" />
-/// <reference path="../express/express.d.ts" />
+/// <reference types="express" />
 
 /**
  * Created by Linus Brolin <https://github.com/linusbrolin/>.
@@ -11,14 +9,15 @@ import {
     model,
     PaginateModel,
     PaginateOptions,
-    PaginateResult
+    PaginateResult,
+    Document
 } from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate';
 import { Router, Request, Response } from 'express';
 
 
 //#region Test Models
-interface User {
+interface User extends Document {
   email: string;
   username: string;
   password: string;
@@ -32,8 +31,7 @@ const UserSchema: Schema = new Schema({
 
 UserSchema.plugin(mongoosePaginate);
 
-type UserModel<T> = _UserModel<T> & PaginateModel<T>;
-interface _UserModel<T> {}
+interface UserModel<T extends Document> extends PaginateModel<T> {};
 
 let UserModel: UserModel<User> = model<User>('User', UserSchema) as UserModel<User>;
 //#endregion

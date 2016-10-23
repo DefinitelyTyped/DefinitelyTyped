@@ -34,4 +34,11 @@ declare module "node-forge" {
       export function generateKeyPair(options?: GenerateKeyPairOptions, callback?: (err: Error, keypair: KeyPair) => void): KeyPair;
     }
   }
+
+  export namespace ssh {
+    /**
+     * Encodes a private RSA key as an OpenSSH file.
+     */
+    export function privateKeyToOpenSSH(privateKey?: string, passphrase?: string): string;
+  }
 }

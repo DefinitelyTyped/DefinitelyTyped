@@ -3,7 +3,9 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes } from "react";
+import { ReactElement, Component, StatelessComponent, ComponentClass, HTMLAttributes as ReactHTMLAttributes } from "react";
+
+type HTMLAttributes = ReactHTMLAttributes<{}>;
 
 export class ElementClass extends Component<any, any> {
 }
@@ -29,7 +31,7 @@ interface CommonWrapper<P, S> {
     find<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     find<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
     find(props: EnzymePropSelector): CommonWrapper<any, any>;
-    find(selector: string): CommonWrapper<HTMLAttributes<{}>, any>;
+    find(selector: string): CommonWrapper<HTMLAttributes, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -44,7 +46,7 @@ interface CommonWrapper<P, S> {
     filter<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
     filter(props: EnzymePropSelector): CommonWrapper<any, any>;
-    filter(selector: string): CommonWrapper<HTMLAttributes<{}>, any>;
+    filter(selector: string): CommonWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
@@ -99,6 +101,11 @@ interface CommonWrapper<P, S> {
     is(selector: EnzymeSelector): boolean;
 
     /**
+     * Returns whether or not the current node is empty.
+     */
+    isEmpty(): boolean;
+
+    /**
      * Returns a new wrapper with only the nodes of the current wrapper that don't match the provided selector.
      * This method is effectively the negation or inverse of filter.
      * @param selector
@@ -113,7 +120,7 @@ interface CommonWrapper<P, S> {
     children<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
     children(props: EnzymePropSelector): CommonWrapper<any, any>;
-    children(selector: string): CommonWrapper<HTMLAttributes<{}>, any>;
+    children(selector: string): CommonWrapper<HTMLAttributes, any>;
     children(): CommonWrapper<any, any>;
 
     /**
@@ -133,7 +140,7 @@ interface CommonWrapper<P, S> {
     parents<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
     parents(props: EnzymePropSelector): CommonWrapper<any, any>;
-    parents(selector: string): CommonWrapper<HTMLAttributes<{}>, any>;
+    parents(selector: string): CommonWrapper<HTMLAttributes, any>;
     parents(): CommonWrapper<any, any>;
 
     /**
@@ -151,7 +158,7 @@ interface CommonWrapper<P, S> {
     closest<P2>(component: ComponentClass<P2>): CommonWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): CommonWrapper<P2, {}>;
     closest(props: EnzymePropSelector): CommonWrapper<any, any>;
-    closest(selector: string): CommonWrapper<HTMLAttributes<{}>, any>;
+    closest(selector: string): CommonWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a string of the rendered text of the current render tree. This function should be looked at with
@@ -380,7 +387,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     find<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     find<P2>(statelessComponent: (props: P2) => JSX.Element): ShallowWrapper<P2, {}>;
     find(props: EnzymePropSelector): ShallowWrapper<any, any>;
-    find(selector: string): ShallowWrapper<HTMLAttributes<{}>, any>;
+    find(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
     /**
      * Removes nodes in the current wrapper that do not match the provided selector.
@@ -389,7 +396,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     filter<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
     filter(props: EnzymePropSelector): ShallowWrapper<any, any>;
-    filter(selector: string): ShallowWrapper<HTMLAttributes<{}>, any>;
+    filter(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -405,7 +412,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     children<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
     children(props: EnzymePropSelector): ShallowWrapper<any, any>;
-    children(selector: string): ShallowWrapper<HTMLAttributes<{}>, any>;
+    children(selector: string): ShallowWrapper<HTMLAttributes, any>;
     children(): ShallowWrapper<any, any>;
 
     /**
@@ -425,7 +432,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     parents<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
     parents(props: EnzymePropSelector): ShallowWrapper<any, any>;
-    parents(selector: string): ShallowWrapper<HTMLAttributes<{}>, any>;
+    parents(selector: string): ShallowWrapper<HTMLAttributes, any>;
     parents(): ShallowWrapper<any, any>;
 
     /**
@@ -438,7 +445,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     closest<P2>(component: ComponentClass<P2>): ShallowWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ShallowWrapper<P2, {}>;
     closest(props: EnzymePropSelector): ShallowWrapper<any, any>;
-    closest(selector: string): ShallowWrapper<HTMLAttributes<{}>, any>;
+    closest(selector: string): ShallowWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a wrapper with the direct parent of the node in the current wrapper.
@@ -454,6 +461,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
 export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     unmount(): ReactWrapper<any, any>;
     mount(): ReactWrapper<any, any>;
+    render(): CheerioWrapper<P, S>;
 
     /**
      * Returns a wrapper of the node that matches the provided reference name.
@@ -481,7 +489,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     find<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     find<P2>(statelessComponent: (props: P2) => JSX.Element): ReactWrapper<P2, {}>;
     find(props: EnzymePropSelector): ReactWrapper<any, any>;
-    find(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
+    find(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -496,7 +504,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     filter<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     filter<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
     filter(props: EnzymePropSelector): ReactWrapper<any, any>;
-    filter(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
+    filter(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
@@ -506,7 +514,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     children<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     children<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
     children(props: EnzymePropSelector): ReactWrapper<any, any>;
-    children(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
+    children(selector: string): ReactWrapper<HTMLAttributes, any>;
     children(): ReactWrapper<any, any>;
 
     /**
@@ -526,7 +534,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     parents<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     parents<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
     parents(props: EnzymePropSelector): ReactWrapper<any, any>;
-    parents(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
+    parents(selector: string): ReactWrapper<HTMLAttributes, any>;
     parents(): ReactWrapper<any, any>;
 
     /**
@@ -539,7 +547,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
     closest<P2>(component: ComponentClass<P2>): ReactWrapper<P2, any>;
     closest<P2>(statelessComponent: StatelessComponent<P2>): ReactWrapper<P2, {}>;
     closest(props: EnzymePropSelector): ReactWrapper<any, any>;
-    closest(selector: string): ReactWrapper<HTMLAttributes<{}>, any>;
+    closest(selector: string): ReactWrapper<HTMLAttributes, any>;
 
     /**
      * Returns a wrapper with the direct parent of the node in the current wrapper.
