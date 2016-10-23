@@ -1,68 +1,27 @@
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
 
-declare namespace PKIjs {
-    abstract class PKIBase {
-        /**
-         * Constructor for class
-         * @param {Object} [parameters={}]
-         * @property {Object} [schema] asn1js parsed value
-         */
-        constructor(parameters?: Object);
-
-        /**
-         * Return default values for all class members
-         * @param {string} memberName String name for a class member
-         */
-        static defaultValues(memberName: string): any;
-
-        /**
-         * Return value of asn1js schema for current class
-         * @param {Object} parameters Input parameters for the schema
-         * @returns {Object} asn1js schema object
-         */
-        static schema(parameters?: Object): Object;
-
-        /**
-         * Convert parsed asn1js object into current class
-         * 
-         * @param {Object} schema
-         */
-        fromSchema(schema: Object): void;
-
-        /**
-         * Convert current object to asn1js object and set correct values
-         * 
-         * @returns {Object} asn1js object
-         */
-        toSchema(): any;
-
-        /**
-         * Convertion for the class to JSON object
-         * @returns {Object}
-         */
-        toJSON(): Object;
-    }
-}
-
 declare module "pkijs/src/Attribute" {
-    export default class Attribute extends PKIjs.PKIBase {
+    export default class Attribute {
 
         type: string;
         value: Array<any>;
 
-        /**
-         * Compare values with default values for all class members
-         * @param {string} memberName String name for a class member
-         * @param {*} memberValue Value to compare with default value
-         */
+        constructor(params?: any);
+
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/AttributeTypeAndValue" {
     import { ObjectIdentifier } from "asn1js";
-    export default class AttributeTypeAndValue extends PKIjs.PKIBase {
+
+    export default class AttributeTypeAndValue {
 
         /**
          * 
@@ -78,17 +37,34 @@ declare module "pkijs/src/AttributeTypeAndValue" {
          * @memberOf AttributeTypeAndValue
          */
         value: any;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/AltName" {
     import GeneralName from "pkijs/src/GeneralName";
+
     /**
      * Class from RFC5280
      */
-    export default class AltName extends PKIjs.PKIBase {
+    export default class AltName {
 
         altNames: GeneralName[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -97,7 +73,7 @@ declare module "pkijs/src/GeneralName" {
      * @class
      * @description GeneralName
      */
-    export default class GeneralName extends PKIjs.PKIBase {
+    export default class GeneralName {
 
         /**
          * value type - from a tagged value (0 for "otherName", 1 for "rfc822Name" etc.)
@@ -121,20 +97,36 @@ declare module "pkijs/src/GeneralName" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/GeneralNames" {
     import GeneralName from "pkijs/src/GeneralName";
 
-    export default class GeneralNames extends PKIjs.PKIBase {
+    export default class GeneralNames {
 
         names: GeneralName[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/AlgorithmIdentifier" {
-    export default class AlgorithmIdentifier extends PKIjs.PKIBase {
+    export default class AlgorithmIdentifier {
         algorithmId: string;
         algorithmParams: Object;
 
@@ -151,11 +143,19 @@ declare module "pkijs/src/AlgorithmIdentifier" {
          * @returns {boolean}
          */
         isEqual(algorithmIdentifier: AlgorithmIdentifier): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/Accuracy" {
-    export default class Accuracy extends PKIjs.PKIBase {
+    export default class Accuracy {
         seconds: number;
         millis: number;
         micros: number;
@@ -178,9 +178,17 @@ declare module "pkijs/src/AccessDescription" {
      * @export
      * @class AccessDescription
      */
-    export default class AccessDescription extends PKIjs.PKIBase {
+    export default class AccessDescription {
         accessMethod: string;
         accessLocation: GeneralName;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -188,19 +196,35 @@ declare module "pkijs/src/AuthorityKeyIdentifier" {
     import GeneralName from "pkijs/src/AccessDescription";
     import { Integer, OctetString } from "asn1js";
 
-    export default class AuthorityKeyIdentifier extends PKIjs.PKIBase {
+    export default class AuthorityKeyIdentifier {
         keyIdentifier: OctetString;
         authorityCertIssuer: GeneralName[];
         authorityCertSerialNumber: Integer;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/BasicConstraints" {
     import { Integer } from "asn1js";
 
-    export default class BasicConstraints extends PKIjs.PKIBase {
+    export default class BasicConstraints {
         cA: boolean;
         pathLenConstraint: number | Integer;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -221,7 +245,7 @@ declare module "pkijs/src/BasicOCSPResponse" {
         status: number;
     }
 
-    export default class BasicOCSPResponse extends PKIjs.PKIBase {
+    export default class BasicOCSPResponse {
         tbsResponseData: ResponseData;
         signatureAlgorithm: AlgorithmIdentifier;
         signature: BitString;
@@ -252,6 +276,14 @@ declare module "pkijs/src/BasicOCSPResponse" {
          * @returns {Promise}
          */
         verify(parameters?: { trustedCerts?: Certificate[] }): PromiseLike<boolean>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -265,7 +297,7 @@ declare module "pkijs/src/CertID" {
         issuerCertificate: Certificate;
     }
 
-    export default class CertID extends PKIjs.PKIBase {
+    export default class CertID {
         hashAlgorithm: AlgorithmIdentifier;
         issuerNameHash: OctetString;
         issuerKeyHash: OctetString;
@@ -289,6 +321,14 @@ declare module "pkijs/src/CertID" {
          * @returns {Promise}
          */
         createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -300,7 +340,7 @@ declare module "pkijs/src/Certificate" {
     import Extension from "pkijs/src/Extension";
     import Time from "pkijs/src/Time";
 
-    export default class Certificate extends PKIjs.PKIBase {
+    export default class Certificate {
         tbs: ArrayBuffer;
         version: number;
         serialNumber: Integer;
@@ -344,6 +384,13 @@ declare module "pkijs/src/Certificate" {
         sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
 
         verify(issuerCertificate?: Certificate): PromiseLike<boolean>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 
 }
@@ -367,7 +414,7 @@ declare module "pkijs/src/CertificateChainValidationEngine" {
          * @param {Object} [parameters={}]
          * @property {Object} [schema] asn1js parsed value
          */
-        constructor(parameters?: Object);
+        constructor(parameters?: any);
 
         sort(): any;
         /**
@@ -382,8 +429,16 @@ declare module "pkijs/src/CertificateChainValidationEngine" {
 declare module "pkijs/src/CertificatePolicies" {
     import PolicyInformation from "pkijs/src/PolicyInformation";
 
-    export default class CertificatePolicies extends PKIjs.PKIBase {
+    export default class CertificatePolicies {
         certificatePolicies: PolicyInformation[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -394,9 +449,9 @@ declare module "pkijs/src/CertificateRevocationList" {
     import Extension from "pkijs/src/Extension";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
-    import { BitString } from "asn1js";
+    import { BitString, Sequence } from "asn1js";
 
-    export default class CertificateRevocationList extends PKIjs.PKIBase {
+    export default class CertificateRevocationList {
         tbs: ArrayBuffer;
         version?: number;
         signature: AlgorithmIdentifier;
@@ -416,7 +471,7 @@ declare module "pkijs/src/CertificateRevocationList" {
          */
         toSchema(encodeFlag?: boolean): any;
 
-        encodeTBS(): Object;
+        encodeTBS(): Sequence;
         isCertificateRevoked(certificate: Certificate): boolean;
         /**
          * Make a signature for existing CRL data
@@ -433,26 +488,41 @@ declare module "pkijs/src/CertificateRevocationList" {
             issuerCertificate?: Certificate;
             publicKeyInfo?: PublicKeyInfo;
         }): PromiseLike<boolean>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/CertificateSet" {
     import Certificate from "pkijs/src/Certificate";
 
-    export default class CertificateSet extends PKIjs.PKIBase {
+    export default class CertificateSet {
         certificates: Certificate[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/CertificationRequest" {
-    import { BitString } from "asn1js";
+    import { BitString, Sequence } from "asn1js";
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
     import PublicKeyInfo from "pkijs/src/PublicKeyInfo";
     import Certificate from "pkijs/src/Certificate";
     import Attribute from "pkijs/src/Attribute";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class CertificationRequest extends PKIjs.PKIBase {
+    export default class CertificationRequest {
         tbs: ArrayBuffer;
         version: number;
         subject: RelativeDistinguishedNames;
@@ -473,7 +543,7 @@ declare module "pkijs/src/CertificationRequest" {
          * Aux function making ASN1js Sequence from current TBS
          * @returns {Sequence}
          */
-        encodeTBS(): Object;
+        encodeTBS(): Sequence;
         /**
          * Makes signature for currect certification request
          * @param {CryptoKey} privateKey WebCrypto private key
@@ -485,13 +555,28 @@ declare module "pkijs/src/CertificationRequest" {
          * @returns {*}
          */
         verify(): PromiseLike<boolean>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/ContentInfo" {
-    export default class ContentInfo extends PKIjs.PKIBase {
+    export default class ContentInfo {
         contentType: string;
         content: any;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -547,7 +632,7 @@ declare module "pkijs/src/DigestInfo" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import { OctetString } from "asn1js";
 
-    export default class DigestInfo extends PKIjs.PKIBase {
+    export default class DigestInfo {
         digestAlgorithm: AlgorithmIdentifier;
         digest: OctetString;
         /**
@@ -556,6 +641,14 @@ declare module "pkijs/src/DigestInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -563,17 +656,25 @@ declare module "pkijs/src/DistributionPoint" {
     import { BitString } from "asn1js";
     import GeneralName from "pkijs/src/GeneralName";
 
-    export default class DistributionPoint extends PKIjs.PKIBase {
+    export default class DistributionPoint {
         distributionPoint?: GeneralName[];
         reasons?: BitString;
         cRLIssuer?: GeneralName[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/ECCCMSSharedInfo" {
     import { OctetString } from "asn1js";
 
-    export default class ECCCMSSharedInfo extends PKIjs.PKIBase {
+    export default class ECCCMSSharedInfo {
         keyInfo: AlgorithmIdentifier;
         entityUInfo?: OctetString;
         suppPubInfo: OctetString;
@@ -583,6 +684,14 @@ declare module "pkijs/src/ECCCMSSharedInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -590,7 +699,7 @@ declare module "pkijs/src/ECPrivateKey" {
     import { OctetString } from "asn1js";
     import ECPublicKey from "pkijs/src/ECPublicKey";
 
-    export default class ECPrivateKey extends PKIjs.PKIBase {
+    export default class ECPrivateKey {
         version: number;
         privateKey: OctetString;
         namedCurve?: string;
@@ -606,11 +715,19 @@ declare module "pkijs/src/ECPrivateKey" {
          * @param {Object} json
          */
         fromJSON(json: JsonWebKey): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/ECPublicKey" {
-    export default class ECPublicKey extends PKIjs.PKIBase {
+    export default class ECPublicKey {
         x: ArrayBuffer;
         y: ArrayBuffer;
         namedCurve: string;
@@ -625,13 +742,21 @@ declare module "pkijs/src/ECPublicKey" {
          * @param {Object} json
          */
         fromJSON(json: JsonWebKey): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/EncapsulatedContentInfo" {
     import { OctetString } from "asn1js";
 
-    export default class EncapsulatedContentInfo extends PKIjs.PKIBase {
+    export default class EncapsulatedContentInfo {
         eContentType: string;
         eContent: OctetString
         /**
@@ -640,6 +765,14 @@ declare module "pkijs/src/EncapsulatedContentInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -647,7 +780,7 @@ declare module "pkijs/src/EncryptedContentInfo" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import { OctetString } from "asn1js";
 
-    export default class EncryptedContentInfo extends PKIjs.PKIBase {
+    export default class EncryptedContentInfo {
         eContentType: string;
         contentEncryptionAlgorithm: AlgorithmIdentifier;
         encryptedContent: OctetString;
@@ -657,6 +790,14 @@ declare module "pkijs/src/EncryptedContentInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -664,7 +805,7 @@ declare module "pkijs/src/EncryptedData" {
     import EncryptedContentInfo from "pkijs/src/EncryptedContentInfo";
     import Attribute from "pkijs/src/Attribute";
 
-    export default class EncryptedData extends PKIjs.PKIBase {
+    export default class EncryptedData {
         version: number;
         encryptedContentInfo: EncryptedContentInfo;
         unprotectedAttrs: Attribute[];
@@ -693,6 +834,14 @@ declare module "pkijs/src/EncryptedData" {
         decrypt(parameters: {
             password: string;
         }): PromiseLike<ArrayBuffer>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -703,7 +852,7 @@ declare module "pkijs/src/EnvelopedData" {
     import RecipientInfo from "pkijs/src/RecipientInfo";
     import OriginatorInfo from "pkijs/src/OriginatorInfo";
 
-    export default class EnvelopedData extends PKIjs.PKIBase {
+    export default class EnvelopedData {
         version: number;
         originatorInfo?: OriginatorInfo;
         recipientInfos: RecipientInfo[];
@@ -759,31 +908,63 @@ declare module "pkijs/src/EnvelopedData" {
             recipientCertificate: Certificate;
             recipientPrivateKey: ArrayBuffer;
         }): PromiseLike<ArrayBuffer>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/ExtKeyUsage" {
-    export default class ExtKeyUsage extends PKIjs.PKIBase {
+    export default class ExtKeyUsage {
         keyPurposes: string[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/Extension" {
     import { OctetString } from "asn1js";
 
-    export default class Extension extends PKIjs.PKIBase {
+    export default class Extension {
         extnID: string;
         critical: boolean;
         extnValue: OctetString;
         parsedValue?: Object;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/Extensions" {
     import Extension from "pkijs/src/Extension";
 
-    export default class Extensions extends PKIjs.PKIBase {
+    export default class Extensions {
         extensions: Extension[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -791,10 +972,18 @@ declare module "pkijs/src/GeneralSubtree" {
     import { Integer } from "asn1js";
     import GeneralName from "pkijs/src/GeneralName";
 
-    export default class GeneralSubtree extends PKIjs.PKIBase {
+    export default class GeneralSubtree {
         base: GeneralName;
         minimum: number | Integer;
         maximum?: number | Integer;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -810,8 +999,16 @@ declare module "pkijs/src/GeneratorsDriver" {
 declare module "pkijs/src/InfoAccess" {
     import AccessDescription from "pkijs/src/AccessDescription";
 
-    export default class InfoAccess extends PKIjs.PKIBase {
+    export default class InfoAccess {
         accessDescriptions: AccessDescription[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -819,9 +1016,17 @@ declare module "pkijs/src/IssuerAndSerialNumber" {
     import { Integer } from "asn1js";
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
 
-    export default class IssuerAndSerialNumber extends PKIjs.PKIBase {
+    export default class IssuerAndSerialNumber {
         issuer: RelativeDistinguishedNames;
         serialNumber: Integer;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -829,12 +1034,20 @@ declare module "pkijs/src/IssuingDistributionPoint" {
     import GeneralName from "pkijs/src/GeneralName";
     import RelativeDistinguishedNames from "pkijs/src/RelativeDistinguishedNames";
 
-    export default class IssuingDistributionPoint extends PKIjs.PKIBase {
+    export default class IssuingDistributionPoint {
         distributionPoint?: GeneralName[] | RelativeDistinguishedNames;
         onlyContainsUserCerts: boolean;
         onlySomeReasons: number;
         indirectCRL: boolean;
         onlyContainsAttributeCerts: boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -842,10 +1055,18 @@ declare module "pkijs/src/KEKIdentifier" {
     import { OctetString, GeneralizedTime } from "asn1js";
     import OtherKeyAttribute from "pkijs/src/OtherKeyAttribute";
 
-    export default class KEKIdentifier extends PKIjs.PKIBase {
+    export default class KEKIdentifier {
         keyIdentifier: OctetString;
         date?: GeneralizedTime;
         other?: OtherKeyAttribute;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -854,7 +1075,7 @@ declare module "pkijs/src/KEKRecipientInfo" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import KEKIdentifier from "pkijs/src/KEKIdentifier";
 
-    export default class KEKRecipientInfo extends PKIjs.PKIBase {
+    export default class KEKRecipientInfo {
         version: number;
         kekid: KEKIdentifier;
         keyEncryptionAlgorithm: AlgorithmIdentifier;
@@ -866,11 +1087,19 @@ declare module "pkijs/src/KEKRecipientInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/KeyAgreeRecipientIdentifier" {
-    export default class KeyAgreeRecipientIdentifier extends PKIjs.PKIBase {
+    export default class KeyAgreeRecipientIdentifier {
         variant: number;
         value: Object;
         /**
@@ -879,6 +1108,14 @@ declare module "pkijs/src/KeyAgreeRecipientIdentifier" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -889,7 +1126,7 @@ declare module "pkijs/src/KeyAgreeRecipientInfo" {
     import OriginatorIdentifierOrKey from "pkijs/src/OriginatorIdentifierOrKey";
     import RecipientEncryptedKeys from "pkijs/src/RecipientEncryptedKeys";
 
-    export default class KeyAgreeRecipientInfo extends PKIjs.PKIBase {
+    export default class KeyAgreeRecipientInfo {
         version: number;
         originator: OriginatorIdentifierOrKey;
         ukm?: OctetString;
@@ -901,7 +1138,15 @@ declare module "pkijs/src/KeyAgreeRecipientInfo" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -911,10 +1156,10 @@ declare module "pkijs/src/KeyTransRecipientInfo" {
     import RecipientIdentifier from "pkijs/src/RecipientIdentifier";
     import Certificate from "pkijs/src/Certificate";
 
-    export default class KeyTransRecipientInfo extends PKIjs.PKIBase {
+    export default class KeyTransRecipientInfo {
         version: number;
         rid: RecipientIdentifier;
-        keyEncryptionAlgorithm: AlgorithmIdentifier
+        keyEncryptionAlgorithm: AlgorithmIdentifier;
         encryptedKey: OctetString;
         /**
          * For some reasons we need to store recipient's certificate here
@@ -922,13 +1167,21 @@ declare module "pkijs/src/KeyTransRecipientInfo" {
          * @type {Certificate}
          * @memberOf KeyTransRecipientInfo
          */
-        recipientCertificate: Certificate
+        recipientCertificate: Certificate;
         /**
          * Compare values with default values for all class members
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -936,7 +1189,7 @@ declare module "pkijs/src/MacData" {
     import { OctetString } from "asn1js";
     import DigestInfo from "pkijs/src/DigestInfo";
 
-    export default class MacData extends PKIjs.PKIBase {
+    export default class MacData {
         mac: DigestInfo;
         macSalt: OctetString;
         iterations?: number;
@@ -945,7 +1198,15 @@ declare module "pkijs/src/MacData" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -953,7 +1214,7 @@ declare module "pkijs/src/MessageImprint" {
     import { OctetString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class MessageImprint extends PKIjs.PKIBase {
+    export default class MessageImprint {
         hashAlgorithm: AlgorithmIdentifier;
         hashedMessage: OctetString;
         /**
@@ -961,7 +1222,15 @@ declare module "pkijs/src/MessageImprint" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -969,9 +1238,17 @@ declare module "pkijs/src/MessageImprint" {
 declare module "pkijs/src/NameConstraints" {
     import GeneralSubtree from "pkijs/src/GeneralSubtree";
 
-    export default class NameConstraints extends PKIjs.PKIBase {
+    export default class NameConstraints {
         permittedSubtrees?: GeneralSubtree[];
         excludedSubtrees?: GeneralSubtree[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -979,7 +1256,7 @@ declare module "pkijs/src/OCSPRequest" {
     import TBSRequest from "pkijs/src/TBSRequest";
     import Signature from "pkijs/src/Signature";
 
-    export default class OCSPRequest extends PKIjs.PKIBase {
+    export default class OCSPRequest {
         tbsRequest: TBSRequest;
         optionalSignature?: Signature;
         /**
@@ -994,7 +1271,14 @@ declare module "pkijs/src/OCSPRequest" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 }
 
@@ -1005,7 +1289,7 @@ declare module "pkijs/src/OCSPResponse" {
     import { GetCertificateStatusResult } from "pkijs/src/BasicOCSPResponse";
     import { CreateFroCertificateParams } from "pkijs/src/CertID";
 
-    export default class OCSPResponse extends PKIjs.PKIBase {
+    export default class OCSPResponse {
         responseStatus: Enumerated;
         responseBytes?: ResponseBytes;
         /**
@@ -1028,11 +1312,19 @@ declare module "pkijs/src/OCSPResponse" {
          * @returns {Promise}
          */
         createForCertificate(certificate: Certificate, parameters: CreateFroCertificateParams): PromiseLike<void>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/OriginatorIdentifierOrKey" {
-    export default class OriginatorIdentifierOrKey extends PKIjs.PKIBase {
+    export default class OriginatorIdentifierOrKey {
         variant: number;
         value?: any;
         /**
@@ -1040,7 +1332,15 @@ declare module "pkijs/src/OriginatorIdentifierOrKey" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1048,7 +1348,7 @@ declare module "pkijs/src/OriginatorInfo" {
     import CertificateSet from "pkijs/src/CertificateSet";
     import RevocationInfoChoices from "pkijs/src/RevocationInfoChoices";
 
-    export default class OriginatorInfo extends PKIjs.PKIBase {
+    export default class OriginatorInfo {
         certs: CertificateSet;
         crls: RevocationInfoChoices;
         /**
@@ -1056,7 +1356,15 @@ declare module "pkijs/src/OriginatorInfo" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1064,7 +1372,7 @@ declare module "pkijs/src/OriginatorPublicKey" {
     import { BitString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class OriginatorPublicKey extends PKIjs.PKIBase {
+    export default class OriginatorPublicKey {
         algorithm: AlgorithmIdentifier;
         publicKey: BitString;
         /**
@@ -1072,19 +1380,35 @@ declare module "pkijs/src/OriginatorPublicKey" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/OtherCertificateFormat" {
-    export default class OtherCertificateFormat extends PKIjs.PKIBase {
+    export default class OtherCertificateFormat {
         otherCertFormat: string;
         otherCert: any;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/OtherKeyAttribute" {
-    export default class OtherKeyAttribute extends PKIjs.PKIBase {
+    export default class OtherKeyAttribute {
         keyAttrId: string;
         keyAttr: any;
         /**
@@ -1092,7 +1416,15 @@ declare module "pkijs/src/OtherKeyAttribute" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1104,7 +1436,7 @@ interface JsonOtherPrimeInfo {
 
 declare module "pkijs/src/OtherPrimeInfo" {
     import { Integer } from "asn1js";
-    export default class OtherPrimeInfo extends PKIjs.PKIBase {
+    export default class OtherPrimeInfo {
         prime: Integer;
         exponent: Integer;
         coefficient: Integer;
@@ -1113,11 +1445,19 @@ declare module "pkijs/src/OtherPrimeInfo" {
          * @param {Object} json
          */
         fromJSON(json: JsonOtherPrimeInfo): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/OtherRecipientInfo" {
-    export default class OtherRecipientInfo extends PKIjs.PKIBase {
+    export default class OtherRecipientInfo {
         oriType: string;
         oriValue: any;
         /**
@@ -1125,15 +1465,30 @@ declare module "pkijs/src/OtherRecipientInfo" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/OtherRevocationInfoFormat" {
-    export default class OtherRevocationInfoFormat extends PKIjs.PKIBase {
+    export default class OtherRevocationInfoFormat {
         otherRevInfoFormat: string;
         otherRevInfo: any;
 
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1141,7 +1496,7 @@ declare module "pkijs/src/PasswordRecipientinfo" {
     import { OctetString } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class PasswordRecipientinfo extends PKIjs.PKIBase {
+    export default class PasswordRecipientinfo {
         version: number;
         keyDerivationAlgorithm?: AlgorithmIdentifier
         keyEncryptionAlgorithm: AlgorithmIdentifier
@@ -1152,33 +1507,57 @@ declare module "pkijs/src/PasswordRecipientinfo" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PBES2Params" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class PBES2Params extends PKIjs.PKIBase {
+    export default class PBES2Params {
         keyDerivationFunc: AlgorithmIdentifier;
         encryptionScheme: AlgorithmIdentifier;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PBKDF2Params" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
 
-    export default class PBKDF2Params extends PKIjs.PKIBase {
+    export default class PBKDF2Params {
         salt: Object;
         iterationCount: number;
         keyLength: number;
         prf: AlgorithmIdentifier;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PKIStatusInfo" {
     import { Utf8String, BitString } from "asn1js";
-    export default class PKIStatusInfo extends PKIjs.PKIBase {
+    export default class PKIStatusInfo {
         status: number;
         statusStrings?: Utf8String;
         failInfo?: BitString;
@@ -1187,33 +1566,65 @@ declare module "pkijs/src/PKIStatusInfo" {
          * @param {string} memberName String name for a class member
          * @param {*} memberValue Value to compare with default value
          */
-        static compareWithDefault(memberName: string, memberValue: any): boolean;;
+        static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PolicyConstraints" {
-    export default class PolicyConstraints extends PKIjs.PKIBase {
+    export default class PolicyConstraints {
         requireExplicitPolicy?: number;
         inhibitPolicyMapping?: number;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PolicyInformation" {
     import PolicyQualifierInfo from "pkijs/src/PolicyQualifierInfo";
 
-    export default class PolicyInformation extends PKIjs.PKIBase {
+    export default class PolicyInformation {
         policyIdentifier: string;
         /**
          * Value of the TIME class 
          */
         policyQualifiers: PolicyQualifierInfo[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PolicyMapping" {
-    export default class PolicyMapping extends PKIjs.PKIBase {
+    export default class PolicyMapping {
         issuerDomainPolicy: string;
         subjectDomainPolicy: string;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
 
     }
 }
@@ -1221,15 +1632,31 @@ declare module "pkijs/src/PolicyMapping" {
 declare module "pkijs/src/PolicyMappings" {
     import PolicyMapping from "pkijs/src/PolicyMapping";
 
-    export default class PolicyMappings extends PKIjs.PKIBase {
+    export default class PolicyMappings {
         mappings: PolicyMapping[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PolicyQualifierInfo" {
-    export default class PolicyQualifierInfo extends PKIjs.PKIBase {
+    export default class PolicyQualifierInfo {
         policyQualifierId: string;
         qualifier: Object;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1240,7 +1667,7 @@ declare module "pkijs/src/PrivateKeyInfo" {
     import RSAPrivateKey from "pkijs/src/RSAPrivateKey";
     import ECPrivateKey from "pkijs/src/ECPrivateKey";
 
-    export default class PrivateKeyInfo extends PKIjs.PKIBase {
+    export default class PrivateKeyInfo {
         version: number;
         privateKeyAlgorithm: AlgorithmIdentifier;
         privateKey: OctetString;
@@ -1251,13 +1678,29 @@ declare module "pkijs/src/PrivateKeyInfo" {
          * @param {JsonWebKey} json
          */
         fromJSON(json: JsonWebKey): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/PrivateKeyUsagePeriod" {
-    export default class PrivateKeyUsagePeriod extends PKIjs.PKIBase {
+    export default class PrivateKeyUsagePeriod {
         notBefore?: Date;
         notAfter?: Date;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
@@ -1267,7 +1710,7 @@ declare module "pkijs/src/PublicKeyInfo" {
     import ECPublicKey from "pkijs/src/ECPublicKey";
     import RSAPublicKey from "pkijs/src/RSAPublicKey";
 
-    export default class PublicKeyInfo extends PKIjs.PKIBase {
+    export default class PublicKeyInfo {
         algorithm: AlgorithmIdentifier
         subjectPublicKey: BitString;
         parsedKey?: ECPublicKey | RSAPublicKey;
@@ -1277,13 +1720,21 @@ declare module "pkijs/src/PublicKeyInfo" {
          */
         fromJSON(json: JsonWebKey): void;
         importKey(publicKey: CryptoKey): PromiseLike<void>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/RecipientEncryptedKey" {
     import { OctetString } from "asn1js";
     import KeyAgreeRecipientIdentifier from "pkijs/src/KeyAgreeRecipientIdentifier";
-    export default class RecipientEncryptedKey extends PKIjs.PKIBase {
+    export default class RecipientEncryptedKey {
         rid: KeyAgreeRecipientIdentifier;
         encryptedKey: OctetString;
         /**
@@ -1292,13 +1743,21 @@ declare module "pkijs/src/RecipientEncryptedKey" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 }
 
 declare module "pkijs/src/RecipientEncryptedKeys" {
     import RecipientEncryptedKey from "pkijs/src/RecipientEncryptedKey";
 
-    export default class RecipientEncryptedKeys extends PKIjs.PKIBase {
+    export default class RecipientEncryptedKeys {
         encryptedKeys: RecipientEncryptedKey[];
         /**
          * Compare values with default values for all class members
@@ -1306,12 +1765,20 @@ declare module "pkijs/src/RecipientEncryptedKeys" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
 
 declare module "pkijs/src/RecipientIdentifier" {
-    export default class RecipientIdentifier extends PKIjs.PKIBase {
+    export default class RecipientIdentifier {
         variant: number;
         value: any;
         /**
@@ -1320,12 +1787,20 @@ declare module "pkijs/src/RecipientIdentifier" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
 
 declare module "pkijs/src/RecipientInfo" {
-    export default class RecipientInfo extends PKIjs.PKIBase {
+    export default class RecipientInfo {
         variant: number;
         value: any;
         /**
@@ -1334,6 +1809,14 @@ declare module "pkijs/src/RecipientInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1342,7 +1825,7 @@ declare module "pkijs/src/RecipientKeyIdentifier" {
     import { GeneralizedTime, OctetString } from "asn1js";
     import OtherKeyAttribute from "pkijs/src/OtherKeyAttribute";
 
-    export default class RecipientKeyIdentifier extends PKIjs.PKIBase {
+    export default class RecipientKeyIdentifier {
         subjectKeyIdentifier: OctetString;
         date?: GeneralizedTime;
         other?: OtherKeyAttribute;
@@ -1352,6 +1835,14 @@ declare module "pkijs/src/RecipientKeyIdentifier" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1359,7 +1850,7 @@ declare module "pkijs/src/RecipientKeyIdentifier" {
 declare module "pkijs/src/RelativeDistinguishedNames" {
     import AttributeTypeAndValue from "pkijs/src/AttributeTypeAndValue";
 
-    export default class RelativeDistinguishedNames extends PKIjs.PKIBase {
+    export default class RelativeDistinguishedNames {
         typesAndValues: AttributeTypeAndValue[];
         valueBeforeDecode: ArrayBuffer;
         /**
@@ -1368,6 +1859,14 @@ declare module "pkijs/src/RelativeDistinguishedNames" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1376,7 +1875,7 @@ declare module "pkijs/src/Request" {
     import CertID from "pkijs/src/CertID";
     import Extension from "pkijs/src/Extension";
 
-    export default class Request extends PKIjs.PKIBase {
+    export default class Request {
         reqCert: CertID;
         singleRequestExtensions?: Extension[];
         /**
@@ -1385,6 +1884,14 @@ declare module "pkijs/src/Request" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1392,7 +1899,7 @@ declare module "pkijs/src/Request" {
 declare module "pkijs/src/ResponseBytes" {
     import { OctetString } from "asn1js";
 
-    export default class ResponseBytes extends PKIjs.PKIBase {
+    export default class ResponseBytes {
         responseType: string;
         response: OctetString;
         /**
@@ -1401,6 +1908,14 @@ declare module "pkijs/src/ResponseBytes" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1409,7 +1924,7 @@ declare module "pkijs/src/ResponseData" {
     import Extension from "pkijs/src/Extension";
     import SingleResponse from "pkijs/src/SingleResponse";
 
-    export default class ResponseData extends PKIjs.PKIBase {
+    export default class ResponseData {
         tds: ArrayBuffer;
         responderID: Object;
         producedAt: Date;
@@ -1428,6 +1943,13 @@ declare module "pkijs/src/ResponseData" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 
 }
@@ -1436,9 +1958,17 @@ declare module "pkijs/src/RevocationInfoChoices" {
     import CertificateRevocationList from "pkijs/src/CertificateRevocationList";
     import OtherRevocationInfoFormat from "pkijs/src/OtherRevocationInfoFormat";
 
-    export default class RevocationInfoChoices extends PKIjs.PKIBase {
+    export default class RevocationInfoChoices {
         crls: CertificateRevocationList[];
         otherRevocationInfos: OtherRevocationInfoFormat[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1448,20 +1978,36 @@ declare module "pkijs/src/RevokedCertificate" {
     import Time from "pkijs/src/Time";
     import Extensions from "pkijs/src/Extensions";
 
-    export default class RevokedCertificate extends PKIjs.PKIBase {
+    export default class RevokedCertificate {
         userCertificate: Integer;
         revocationDate: Time;
         crlEntryExtensions: Extensions;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
 
 declare module "pkijs/src/RSAESOAEPParams" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
-    export default class RSAESOAEPParams extends PKIjs.PKIBase {
+    export default class RSAESOAEPParams {
         hashAlgorithm: AlgorithmIdentifier;
         maskGenAlgorithm: AlgorithmIdentifier;
         pSourceAlgorithm: AlgorithmIdentifier;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1469,7 +2015,7 @@ declare module "pkijs/src/RSAESOAEPParams" {
 declare module "pkijs/src/RSAPrivateKey" {
     import { Integer } from "asn1js";
     import OtherPrimeInfo from "pkijs/src/OtherPrimeInfo";
-    export default class RSAPrivateKey extends PKIjs.PKIBase {
+    export default class RSAPrivateKey {
         version: number;
         modulus: Integer;
         publicExponent: Integer;
@@ -1485,6 +2031,14 @@ declare module "pkijs/src/RSAPrivateKey" {
          * @param {Object} json
          */
         fromJSON(json: JsonWebKey): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1492,7 +2046,7 @@ declare module "pkijs/src/RSAPrivateKey" {
 declare module "pkijs/src/RSAPublicKey" {
     import { Integer } from "asn1js";
 
-    export default class RSAPublicKey extends PKIjs.PKIBase {
+    export default class RSAPublicKey {
         modulus: Integer;
         publicExponent: Integer;
         /**
@@ -1500,6 +2054,14 @@ declare module "pkijs/src/RSAPublicKey" {
          * @param {Object} json
          */
         fromJSON(json: JsonWebKey): void;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1507,7 +2069,8 @@ declare module "pkijs/src/RSAPublicKey" {
 declare module "pkijs/src/RSASSAPSSParams" {
     import { Integer } from "asn1js";
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
-    export default class RSASSAPSSParams extends PKIjs.PKIBase {
+
+    export default class RSASSAPSSParams {
         /**
          * Algorithms of hashing (DEFAULT sha1)
          * 
@@ -1536,6 +2099,14 @@ declare module "pkijs/src/RSASSAPSSParams" {
          * @memberOf RSASSAPSSParams
          */
         trailerField: number;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1545,7 +2116,7 @@ declare module "pkijs/src/Signature" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import Certificate from "pkijs/src/Certificate";
 
-    export default class Signature extends PKIjs.PKIBase {
+    export default class Signature {
         signatureAlgorithm: AlgorithmIdentifier;
         signature: BitString;
         certs?: Certificate[];
@@ -1555,6 +2126,14 @@ declare module "pkijs/src/Signature" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1562,7 +2141,7 @@ declare module "pkijs/src/Signature" {
 declare module "pkijs/src/SignedAndUnsignedAttributes" {
     import Attribute from "pkijs/src/Attribute";
 
-    export default class SignedAndUnsignedAttributes extends PKIjs.PKIBase {
+    export default class SignedAndUnsignedAttributes {
         type: string;
         attributes: Attribute[];
         encodedValue: ArrayBuffer;
@@ -1572,6 +2151,14 @@ declare module "pkijs/src/SignedAndUnsignedAttributes" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1604,7 +2191,7 @@ declare module "pkijs/src/SignedData" {
         signerCertificateVerified?: boolean;
     }
 
-    export default class SignedData extends PKIjs.PKIBase {
+    export default class SignedData {
         version: number;
         digestAlgorithms: AlgorithmIdentifier[];
         encapContentInfo: EncapsulatedContentInfo
@@ -1639,6 +2226,13 @@ declare module "pkijs/src/SignedData" {
          * @memberOf SignedData
          */
         sign(privateKey: CryptoKey, signerIndex: number, hashAlgorithm?: string, data?: BufferSource): ArrayBuffer;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 
 }
@@ -1648,7 +2242,7 @@ declare module "pkijs/src/SignerInfo" {
     import AlgorithmIdentifier from "pkijs/src/AlgorithmIdentifier";
     import SignedAndUnsignedAttributes from "pkijs/src/SignedAndUnsignedAttributes";
 
-    export default class SignerInfo extends PKIjs.PKIBase {
+    export default class SignerInfo {
         version: number;
         sid: any;
         digestAlgorithm: AlgorithmIdentifier;
@@ -1662,6 +2256,14 @@ declare module "pkijs/src/SignerInfo" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1670,7 +2272,7 @@ declare module "pkijs/src/SingleResponse" {
     import CertID from "pkijs/src/CertID";
     import Extension from "pkijs/src/Extension";
 
-    export default class SingleResponse extends PKIjs.PKIBase {
+    export default class SingleResponse {
         certID: CertID;
         certStatus: Object;
         thisUpdate: Date;
@@ -1682,6 +2284,14 @@ declare module "pkijs/src/SingleResponse" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1689,8 +2299,16 @@ declare module "pkijs/src/SingleResponse" {
 declare module "pkijs/src/SubjectDirectoryAttributes" {
     import Attribute from "pkijs/src/Attribute";
 
-    export default class SubjectDirectoryAttributes extends PKIjs.PKIBase {
+    export default class SubjectDirectoryAttributes {
         attributes: Attribute[];
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1700,7 +2318,7 @@ declare module "pkijs/src/TBSRequest" {
     import Request from "pkijs/src/Request";
     import Extension from "pkijs/src/Extension";
 
-    export default class TBSRequest extends PKIjs.PKIBase {
+    export default class TBSRequest {
         tbs: ArrayBuffer;
         version?: number;
         requestorName?: GeneralName;
@@ -1719,14 +2337,29 @@ declare module "pkijs/src/TBSRequest" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toJSON(): any;
     }
 
 }
 
 declare module "pkijs/src/Time" {
-    export default class Time extends PKIjs.PKIBase {
+    export default class Time {
         type: number;
         value: Date;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1736,7 +2369,7 @@ declare module "pkijs/src/TimeStampReq" {
     import MessageImprint from "pkijs/src/MessageImprint";
     import Extension from "pkijs/src/Extension";
 
-    export default class TimeStampReq extends PKIjs.PKIBase {
+    export default class TimeStampReq {
         version: number;
         messageImprint: MessageImprint;
         reqPolicy?: string;
@@ -1750,6 +2383,14 @@ declare module "pkijs/src/TimeStampReq" {
          * @param {*} memberValue Value to compare with default value
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1759,7 +2400,7 @@ declare module "pkijs/src/TimeStampResp" {
     import PKIStatusInfo from "pkijs/src/PKIStatusInfo";
     import { VerifyResult, VerifyParams } from "pkijs/src/SignedData";
 
-    export default class TimeStampResp extends PKIjs.PKIBase {
+    export default class TimeStampResp {
         status: PKIStatusInfo;
         timeStampToken?: ContentInfo;
         /**
@@ -1781,6 +2422,14 @@ declare module "pkijs/src/TimeStampResp" {
          * @returns {Promise}
          */
         verify(verificationParameters: VerifyParams): PromiseLike<VerifyResult>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
@@ -1798,7 +2447,7 @@ declare module "pkijs/src/TSTInfo" {
         notAfter?: Date;
     }
 
-    export default class extends PKIjs.PKIBase {
+    export default class TSTInfo {
         version: number;
         policy: string;
         messageImprint: MessageImprint;
@@ -1816,6 +2465,14 @@ declare module "pkijs/src/TSTInfo" {
          */
         static compareWithDefault(memberName: string, memberValue: any): boolean;
         verify(params: VerifyParams): PromiseLike<boolean>;
+
+        constructor(params?: any);
+
+        static defaultValues(memberName: string): any;
+        static schema(parameters?: any): any;
+        fromSchema(schema: any): void;
+        toSchema(): any;
+        toJSON(): any;
     }
 
 }
