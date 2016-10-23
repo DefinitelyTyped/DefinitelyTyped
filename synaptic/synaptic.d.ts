@@ -406,7 +406,7 @@ declare namespace Synaptic {
 
         interface TrainingScheduleOptions {
             every: number;
-            do: (data: TrainingScheduleDoData) => boolean | undefined;
+            do: (data: TrainingScheduleDoData) => boolean | void;
         }
 
         type CostFuntion = (targetValues: number[], outputValues: number[]) => number;
