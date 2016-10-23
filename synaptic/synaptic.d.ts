@@ -461,7 +461,7 @@ declare namespace Synaptic {
          * @param trainingSet
          * @returns When the training is done this method returns an object with the error, the iterations, and the elapsed time of the training.
          */
-        public trainAsync(trainingSet: Trainer.TrainingSet): any;
+        public trainAsync(trainingSet: Trainer.TrainingSet): Promise<Trainer.TrainingResult>;
 
         /**
          * This method allows you to train any training set to a Network.
@@ -469,7 +469,7 @@ declare namespace Synaptic {
          * @param trainingOptions
          * @returns When the training is done this method returns an object with the error, the iterations, and the elapsed time of the training.
          */
-        public trainAsync(trainingSet: Trainer.TrainingSet, trainingOptions: Trainer.TrainingOptions): any;
+        public trainAsync(trainingSet: Trainer.TrainingSet, trainingOptions: Trainer.TrainingOptions): Promise<Trainer.TrainingResult>;
 
         /**
            * This method accepts the same arguments as train(dataSet, options). It will iterate over the dataSet, activating the network.
