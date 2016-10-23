@@ -142,8 +142,8 @@ interface Async {
     some<T>(arr: T[], iterator: AsyncBooleanIterator<T>, callback?: AsyncBooleanResultCallback): void;
     some<T>(arr: Dictionary<T>, iterator: AsyncBooleanIterator<T>, callback?: AsyncBooleanResultCallback): void;
     someSeries: typeof async.some;
-    someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, AsyncBooleanResultCallback): void;
-    someLimit<T>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T>, AsyncBooleanResultCallback): void;
+    someLimit<T>(arr: T[], limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncBooleanResultCallback): void;
+    someLimit<T>(arr: Dictionary<T>, limit: number, iterator: AsyncBooleanIterator<T>, callback?: AsyncBooleanResultCallback): void;
     any: typeof async.some;
     anySeries: typeof async.someSeries;
     anyLimit: typeof async.someLimit;
