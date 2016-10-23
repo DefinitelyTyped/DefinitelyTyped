@@ -31,5 +31,6 @@ declare module 'ndarray' {
 
   function ndarray(data: Data, shape?: number[], stride?: number[], offset?: number): ndarray;
 
+  namespace ndarray { }
   export = ndarray;
 }
