@@ -312,6 +312,7 @@ client = restify.createStringClient({
 
 client.head('test', function(err: any, req: restify.Request, res: restify.Response) { });
 client.put('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
+client.patch('path', {}, function(err: any, req: restify.Request, res: restify.Response, obj: any) { });
 client.del('path', function(err: any, req: restify.Request, res: restify.Response) { });
 
 client.post('/foo', { hello: 'world' }, function(err: any, req: restify.Request, res: restify.Response, obj: any) {

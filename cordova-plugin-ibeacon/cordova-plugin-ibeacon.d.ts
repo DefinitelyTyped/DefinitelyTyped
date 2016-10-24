@@ -16,7 +16,8 @@ declare namespace BeaconPlugin {
 	export interface LocationManager {
 		delegate: Delegate;
 		BeaconRegion: BeaconRegion;
-		onDomDelegateReady(): void;
+		Region: Region;
+		onDomDelegateReady(): Q.Promise<void>;
 		startMonitoringForRegion(region: Region): Q.Promise<void>;
 		stopMonitoringForRegion(region: Region): Q.Promise<void>;
 		requestStateForRegion(region: Region): Q.Promise<void>;
@@ -49,6 +50,7 @@ declare namespace BeaconPlugin {
 		beacons: Beacon[];
 		authorizationStatus: string;
 		state: string;
+		error: string;
 	}
 
 	export interface Delegate {

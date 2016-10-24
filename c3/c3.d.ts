@@ -385,10 +385,10 @@ declare namespace c3 {
          * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
          */
         onmouseout?: (d: any, element?: any) => void;
-        // onselected?: any;
-        // onunselected?: any;
-        // ondragstart?: any;
-        // ondragend?: any;
+        
+        onselected?: (d: any, element?: any) => void;
+
+        onunselected?: (d: any, element?: any) => void; 
     }
 
     interface Axis {
@@ -681,7 +681,7 @@ declare namespace c3 {
              * Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not donut/pie/gauge.
              * If undefined returned, the row of that value will be skipped.
              */
-            value?: (name: string, ratio: number, id: string, index: number) => string;
+            value?: (value: any, ratio: number, id: string, index: number) => string;
         };
         /**
          * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
@@ -747,7 +747,7 @@ declare namespace c3 {
         /**
          * The radius size of each point.
          */
-        r?: number;
+        r?: number | ((d: any) => number);
 
         focus?: {
             expand: {

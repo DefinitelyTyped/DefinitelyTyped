@@ -690,9 +690,15 @@ declare module 'plugins/dialog' {
          * @param {object} context The composition context.
         */
         compositionComplete(child: HTMLElement, parent: HTMLElement, context: composition.CompositionContext): void;
+
+        /**
+         * Opacity of the blockout. The default is 0.6.
+         */
+        blockoutOpacity?: number;
     }
 
     interface Dialog {
+        host: HTMLElement;
         owner: any;
         context: DialogContext;
         activator: DurandalActivator<any>;
@@ -727,7 +733,7 @@ declare module 'plugins/dialog' {
      * @param {string} [name] The name of the context to retrieve.
      * @returns {DialogContext} True context.
     */
-    export function getContext(name: string): DialogContext;
+    export function getContext(name?: string): DialogContext;
 
     /**
      * Adds (or replaces) a dialog context.

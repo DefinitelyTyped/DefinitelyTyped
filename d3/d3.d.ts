@@ -297,7 +297,7 @@ declare namespace d3 {
              * @param value the function to compute data for each node
              */
             datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Update<NewDatum>;
-            
+
             /**
              * Set the data item for each node in the selection.
              * @param value the constant element to use for each node
@@ -415,7 +415,7 @@ declare namespace d3 {
 
             select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
             call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
-            
+
             empty(): boolean;
             size(): number;
         }
@@ -1082,7 +1082,12 @@ declare namespace d3 {
     /**
      * Return the min and max simultaneously.
      */
-    export function extent<T, U extends Numeric>(array: U[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
+    export function extent<T>(array: T[], accessor: (datum: T, index: number) => Date): [Date, Date];
+
+    /**
+     * Return the min and max simultaneously.
+     */
+    export function extent<T, U extends Numeric>(array: T[], accessor: (datum: T, index: number) => U): [U | Primitive, U | Primitive];
 
     /**
      * Compute the sum of an array of numbers.
@@ -2923,6 +2928,8 @@ declare namespace d3 {
 
             start(): Force<Link, Node>;
 
+            tick(): Force<Link, Node>;
+
             alpha(): number;
             alpha(value: number): Force<Link, Node>;
 
@@ -2983,6 +2990,7 @@ declare namespace d3 {
 
             range(): (values: T[], index: number) => [number, number];
             range(range: (values: T[], index: number) => [number, number]): Histogram<T>;
+            range(range: [number, number]): Histogram<T>;
 
             bins(): (range: [number, number], values: T[], index: number) => number[];
             bins(count: number): Histogram<T>;

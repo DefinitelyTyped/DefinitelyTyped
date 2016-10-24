@@ -1,4 +1,4 @@
-// Type definitions for Lo-Dash
+// Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -172,6 +172,7 @@ Other changes
 - [x] Ensured _.range preserves the sign of start of -0
 - [x] Ensured _.reduce & _.reduceRight use getIteratee in their array branch
 - [x] Fixed rounding issue with the precision param of _.floor
+- [x] Added flush method to debounced & throttled functions
 
 ** LATER **
 Misc:
@@ -185,7 +186,6 @@ Misc:
 - [ ] _.extend as an alias of _.assignIn
 - [ ] _.extendWith as an alias of _.assignInWith
 - [ ] Added clear method to _.memoize.Cache
-- [ ] Added flush method to debounced & throttled functions
 - [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
 - [ ] Enabled _.flow & _.flowRight to accept an array of functions
 - [ ] Ensured “Collection” methods treat functions as objects
@@ -355,6 +355,9 @@ declare module _ {
          */
         set(key: string, value: any): _.Dictionary<any>;
     }
+    interface MapCacheConstructor {
+        new (): MapCache;
+    }
 
     interface LoDashWrapperBase<T, TWrapper> { }
 
@@ -384,7 +387,15 @@ declare module _ {
         unshift(...items: T[]): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> { }
+    interface LoDashExplicitArrayWrapper<T> extends LoDashExplicitWrapperBase<T[], LoDashExplicitArrayWrapper<T>> {
+        pop(): LoDashExplicitObjectWrapper<T>;
+        push(...items: T[]): LoDashExplicitArrayWrapper<T>;
+        shift(): LoDashExplicitObjectWrapper<T>;
+        sort(compareFn?: (a: T, b: T) => number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number): LoDashExplicitArrayWrapper<T>;
+        splice(start: number, deleteCount: number, ...items: any[]): LoDashExplicitArrayWrapper<T>;
+        unshift(...items: T[]): LoDashExplicitArrayWrapper<T>;
+    }
 
     interface LoDashImplicitNumberArrayWrapper extends LoDashImplicitArrayWrapper<number> { }
 
@@ -501,7 +512,7 @@ declare module _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(...values: (T[]|List<T>)[]) : T[];
+         concat<T>(array: T[]|List<T>, ...values: (T|T[]|List<T>)[]) : T[];
     }
 
     //_.difference
@@ -1999,6 +2010,18 @@ declare module _ {
          */
         flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
     }
+
+    // _.flattenDepth
+    interface LoDashStatic {
+        /**
+        * Recursively flatten array up to depth times.
+        *
+        * @param array The array to recursively flatten.
+        * @param number The maximum recursion depth.
+        * @return Returns the new flattened array.
+        */
+        flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T>, depth?: number): T[];
+     }
 
     //_.fromPairs
     interface LoDashStatic {
@@ -6775,12 +6798,13 @@ declare module _ {
          *
          * @param collection The collection to search.
          * @param predicate The function invoked per iteration.
-         * @param thisArg The this binding of predicate.
+         * @param fromIndex The index to search from.
          * @return Returns the matched element, else undefined.
          */
         find<T>(
             collection: List<T>,
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6788,7 +6812,8 @@ declare module _ {
          */
         find<T>(
             collection: Dictionary<T>,
-            predicate?: DictionaryIterator<T, boolean>
+            predicate?: DictionaryIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6796,7 +6821,8 @@ declare module _ {
          */
         find<T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): T;
 
         /**
@@ -6804,7 +6830,8 @@ declare module _ {
          */
         find<TObject extends {}, T>(
             collection: List<T>|Dictionary<T>,
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): T;
     }
 
@@ -6813,21 +6840,24 @@ declare module _ {
          * @see _.find
          */
         find(
-            predicate?: ListIterator<T, boolean>
+            predicate?: ListIterator<T, boolean>,
+            fromIndex?: number
         ): T;
 
         /**
          * @see _.find
          */
         find(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): T;
 
         /**
          * @see _.find
          */
         find<TObject extends {}>(
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): T;
     }
 
@@ -6836,21 +6866,24 @@ declare module _ {
          * @see _.find
          */
         find<TResult>(
-            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>
+            predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>,
+            fromIndex?: number
         ): TResult;
 
         /**
          * @see _.find
          */
         find<TResult>(
-            predicate?: string
+            predicate?: string,
+            fromIndex?: number
         ): TResult;
 
         /**
          * @see _.find
          */
         find<TObject extends {}, TResult>(
-            predicate?: TObject
+            predicate?: TObject,
+            fromIndex?: number
         ): TResult;
     }
 
@@ -8562,6 +8595,21 @@ declare module _ {
             callback: MemoIterator<TValue, TResult>): LoDashExplicitObjectWrapper<TResult>;
     }
 
+    interface LoDashExplicitArrayWrapper<T> {
+        /**LoDashExplicitWrapper
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>,
+            accumulator: TResult): LoDashExplicitWrapper<TResult>;
+
+        /**
+         * @see _.reduce
+         */
+        reduce<TResult>(
+            callback: MemoIterator<T, TResult>): LoDashExplicitWrapper<TResult>;
+    }
+
     //_.reduceRight
     interface LoDashStatic {
         /**
@@ -10120,9 +10168,9 @@ declare module _ {
         /**
          * Creates a debounced function that delays invoking func until after wait milliseconds have elapsed since
          * the last time the debounced function was invoked. The debounced function comes with a cancel method to
-         * cancel delayed invocations. Provide an options object to indicate that func should be invoked on the
-         * leading and/or trailing edge of the wait timeout. Subsequent calls to the debounced function return the
-         * result of the last func invocation.
+         * cancel delayed invocations and a flush method to immediately invoke them. Provide an options object to
+         * indicate that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent
+         * calls to the debounced function return the result of the last func invocation.
          *
          * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only
          * if the the debounced function is invoked more than once during the wait timeout.
@@ -10366,7 +10414,7 @@ declare module _ {
          */
         memoize: {
             <T extends Function>(func: T, resolver?: Function): T & MemoizedFunction;
-            Cache: MapCache;
+            Cache: MapCacheConstructor;
         }
     }
 
@@ -10743,9 +10791,9 @@ declare module _ {
     interface LoDashStatic {
         /**
          * Creates a throttled function that only invokes func at most once per every wait milliseconds. The throttled
-         * function comes with a cancel method to cancel delayed invocations. Provide an options object to indicate
-         * that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls to
-         * the throttled function return the result of the last func call.
+         * function comes with a cancel method to cancel delayed invocations and a flush method to immediately invoke
+         * them. Provide an options object to indicate that func should be invoked on the leading and/or trailing edge
+         * of the wait timeout. Subsequent calls to the throttled function return the result of the last func call.
          *
          * Note: If leading and trailing options are true, func is invoked on the trailing edge of the timeout only if
          * the the throttled function is invoked more than once during the wait timeout.
@@ -13465,29 +13513,26 @@ declare module _ {
 
         /**
          * @see _.sumBy
-         **/
-        sumBy<T>(
-            collection: Dictionary<T>,
-            iteratee: DictionaryIterator<T, number>
-        ): number;
-
-        /**
-         * @see _.sumBy
          */
-        sumBy<T>(
-            collection: List<number>|Dictionary<number>,
+        sumBy(
+            collection: List<{}>,
             iteratee: string
         ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy<T>(collection: List<T>|Dictionary<T>): number;
+        sumBy(
+            collection: List<number>
+        ): number;
 
         /**
          * @see _.sumBy
          */
-        sumBy(collection: List<number>|Dictionary<number>): number;
+        sumBy(
+            collection: List<{}>,
+            iteratee: Dictionary<{}>
+        ): number;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
@@ -13506,15 +13551,15 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
-         **/
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+         */
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): number;
 
         /**
@@ -13525,7 +13570,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): number;
+        sumBy(iteratee: Dictionary<{}>): number;
     }
 
     interface LoDashExplicitArrayWrapper<T> {
@@ -13545,14 +13590,19 @@ declare module _ {
          * @see _.sumBy
          */
         sumBy(): LoDashExplicitWrapper<number>;
+
+        /**
+         * @see _.sumBy
+         */
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.sumBy
          */
-        sumBy<TValue>(
-            iteratee: ListIterator<TValue, number>|DictionaryIterator<TValue, number>
+        sumBy(
+            iteratee: ListIterator<{}, number>
         ): LoDashExplicitWrapper<number>;
 
         /**
@@ -13563,7 +13613,7 @@ declare module _ {
         /**
          * @see _.sumBy
          */
-        sumBy(): LoDashExplicitWrapper<number>;
+        sumBy(iteratee: Dictionary<{}>): LoDashExplicitWrapper<number>;
     }
 
     /**********
@@ -19145,6 +19195,7 @@ declare module _ {
 
     interface Cancelable {
         cancel(): void;
+        flush(): void;
     }
 }
 
@@ -19414,15 +19465,10 @@ declare module "lodash/flattenDeep" {
    export = flattenDeep;
 }
 
-/**
-* uncoment it if definition exists
-*/
-/*
 declare module "lodash/flattenDepth" {
    const flattenDepth: typeof _.flattenDepth;
    export = flattenDepth;
 }
-*/
 
 declare module "lodash/flip" {
    const flip: typeof _.flip;

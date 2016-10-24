@@ -38,8 +38,20 @@ declare namespace vuejs {
         deep?: boolean;
         twoWay?: boolean;
         acceptStatement?: boolean;
+        terminal?: boolean;
         priority?: number;
         [key: string]: any;
+    }
+
+    interface Directive {
+        el: HTMLElement;
+        vm: Vue;
+        expression: string;
+        arg?: string;
+        name: string;
+        modifiers: { [key: string]: boolean };
+        descriptor: any;
+        params?: { [key: string]: any };
     }
 
     interface FilterOption {
@@ -84,7 +96,7 @@ declare namespace vuejs {
         detached?(): void;
         beforeDestroy?(): void;
         destroyed?(): void;
-        activate?(): void;
+        activate?: (done: () => void) => void;
         directives?: { [key: string]: (DirectiveOption | Function) };
         elementDirectives?: { [key: string]: (DirectiveOption | Function) };
         filters?: { [key: string]: (Function | FilterOption) };

@@ -1,4 +1,4 @@
-// Type definitions for rc-tooltip v3.3.2
+// Type definitions for rc-tooltip v3.4.2
 // Project: https://github.com/react-component/tooltip
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,7 +27,7 @@ declare namespace Tooltip {
 		placement?: Placement | Object;
 		align?: Object;
 		onPopupAlign?: (popupDomNode: Element, align: Object) => void;
-		overlay: React.ReactElement<any>;
+		overlay: React.ReactElement<any> | (() => React.ReactElement<any>);
 		arrowContent?: React.ReactNode;
 		getTooltipContainer?: () => Element;
 		destroyTooltipOnHide?: boolean;

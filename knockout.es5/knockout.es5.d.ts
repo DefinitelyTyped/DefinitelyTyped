@@ -12,6 +12,13 @@ interface KnockoutStatic {
     defineProperty<T>(obj: T, propertyName: string, options: KnockoutDefinePropertyOptions): T;
     getObservable(obj: any, propertyName: string): KnockoutObservable<any>;
     valueHasMutated(obj: any, propertyName: string): void;
+    es5: KnockoutEs5;
+}
+
+interface KnockoutEs5 {
+    getAllObservablesForObject<T>(obj: T, createIfNotDefined?: boolean): T;
+    notifyWhenPresentOrFutureArrayValuesMutate<T>(ko: KnockoutStatic, observable: KnockoutObservable<T>): void;
+    isTracked<T>(obj: T, propertyName: string): boolean;
 }
 
 interface KnockoutDefinePropertyOptions {

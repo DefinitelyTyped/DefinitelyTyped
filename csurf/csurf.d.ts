@@ -1,4 +1,4 @@
-// Type definitions for csurf
+// Type definitions for csurf 1.9.0
 // Project: https://www.npmjs.org/package/csurf
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,6 +17,8 @@ declare module "csurf" {
   function csurf(options?: {
     value?: (req: express.Request) => string;
     cookie?: csurf.CookieOptions | boolean;
+    ignoreMethods?: string[];
+    sessionKey?: string;
   }): express.RequestHandler;
 
   namespace csurf {

@@ -3,7 +3,7 @@
 // Definitions by: Egor Komarov <https://github.com/Odrin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 declare module L {
     module AwesomeMarkers {

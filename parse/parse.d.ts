@@ -25,6 +25,10 @@ declare namespace Parse {
 
     interface SuccessFailureOptions extends SuccessOption, ErrorOption {
     }
+    
+    interface SessionTokenOption {
+        sessionToken?: string;
+    }
 
     interface WaitOption {
         /**
@@ -39,6 +43,9 @@ declare namespace Parse {
          * In Cloud Code and Node only, causes the Master Key to be used for this request.
          */
         useMasterKey?: boolean;
+    }
+
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {
     }
 
     interface SilentOption {
@@ -67,29 +74,30 @@ declare namespace Parse {
 
     interface IPromise<T> {
 
-        then<U>(resolvedCallback: (value: T) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
-    class Promise<T> {
+    class Promise<T> implements IPromise<T> {
 
         static as<U>(resolvedValue: U): Promise<U>;
-        static error<U>(error: U): Promise<U>;
+        static error<U, V>(error: U): Promise<V>;
         static is(possiblePromise: any): Boolean;
-        static when(promises: Promise<any>[]): Promise<any>;
+        static when(promises: IPromise<any>[]): Promise<any>;
+        static when(...promises: IPromise<any>[]): Promise<any>;
 
         always(callback: Function): Promise<T>;
         done(callback: Function): Promise<T>;
         fail(callback: Function): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
-        then<U>(resolvedCallback: (value: T) => Promise<U>,
-                rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
-            rejectedCallback?: (reason: any) => U): IPromise<T>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U,
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U,
+            rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     interface IBaseObject {
@@ -306,7 +314,9 @@ declare namespace Parse {
      */
     class Object extends BaseObject {
 
-        id: any;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         attributes: any;
         cid: string;
         changed: boolean;
@@ -319,7 +329,9 @@ declare namespace Parse {
         static fetchAll<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
         static fetchAllIfNeeded<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
         static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
-        static saveAll<T>(list: Object[], options?: Object.SaveAllOptions): Promise<T>;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+
+        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
         add(attr: string, item: any): Object;
@@ -333,7 +345,7 @@ declare namespace Parse {
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
-        fetch<T>(options?: Object.FetchOptions): Promise<T>;
+        fetch<T extends Object>(options?: Object.FetchOptions): Promise<T>;
         get(attr: string): any;
         getACL(): ACL;
         has(attr: string): boolean;
@@ -345,7 +357,8 @@ declare namespace Parse {
         previousAttributes(): any;
         relation(attr: string): Relation;
         remove(attr: string, item: any): any;
-        save<T>(options?: Object.SaveOptions, arg2?: any, arg3?: any): Promise<T>;
+        save<T extends Object>(attrs?: { [key: string]: any }, options?: Object.SaveOptions): Promise<T>;
+        save<T extends Object>(key: string, value: any, options?: Object.SaveOptions): Promise<T>;
         set(key: string, value: any, options?: Object.SetOptions): boolean;
         setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
@@ -353,15 +366,15 @@ declare namespace Parse {
     }
 
     namespace Object {
-        interface DestroyOptions extends SuccessFailureOptions, WaitOption, UseMasterKeyOption { }
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
 
-        interface DestroyAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface FetchOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
 
-        interface SaveOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption, WaitOption { }
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
 
-        interface SaveAllOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
 
         interface SetOptions extends ErrorOption, SilentOption {
             promise?: any;
@@ -452,10 +465,10 @@ declare namespace Parse {
             at?: number;
         }
 
-        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, UseMasterKeyOption {
+        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {
         }
 
-        interface FetchOptions extends SuccessFailureOptions, SilentOption, UseMasterKeyOption { }
+        interface FetchOptions extends SuccessFailureOptions, SilentOption, ScopeOptions { }
 
         interface RemoveOptions extends SilentOption { }
 
@@ -583,11 +596,11 @@ declare namespace Parse {
         doesNotExist(key: string): Query;
         doesNotMatchKeyInQuery(key: string, queryKey: string, query: Query): Query;
         doesNotMatchQuery(key: string, query: Query): Query;
-        each<T>(callback: Function, options?: SuccessFailureOptions): Promise<T>;
+        each<T>(callback: Function, options?: Query.EachOptions): Promise<T>;
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
-        find<T>(options?: Query.FindOptions): Promise<T>;
+        find<T extends Object>(options?: Query.FindOptions): Promise<T[]>;
         first<T>(options?: Query.FirstOptions): Promise<T>;
         get(objectId: string, options?: Query.GetOptions): Promise<any>;
         greaterThan(key: string, value: any): Query;
@@ -613,10 +626,11 @@ declare namespace Parse {
     }
 
     namespace Query {
-        interface CountOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface FindOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface FirstOptions extends SuccessFailureOptions, UseMasterKeyOption { }
-        interface GetOptions extends SuccessFailureOptions, UseMasterKeyOption { }
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
     }
 
     /**
@@ -640,6 +654,21 @@ declare namespace Parse {
         getUsers(): Relation;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
+    }
+
+    class Config extends Object {
+        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static current(): Config;
+
+        get(attr: string): any;
+        escape(attr: string): any;
+    }
+
+    class Session extends Object {
+        static current(): Promise<Session>;
+
+        getSessionToken(): string;
+        isCurrentSessionRevocable(): boolean;
     }
 
     /**
@@ -698,11 +727,10 @@ declare namespace Parse {
         static allowCustomUserClass(isAllowed: boolean): void;
         static become<T>(sessionToken: string, options?: SuccessFailureOptions): Promise<T>;
         static requestPasswordReset<T>(email: string, options?: SuccessFailureOptions): Promise<T>;
+        static extend(protoProps?: any, classProps?: any): any;
 
         signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
         logIn<T>(options?: SuccessFailureOptions): Promise<T>;
-        fetch<T>(options?: SuccessFailureOptions): Promise<T>;
-        save<T>(arg1: any, arg2: any, arg3: any): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
@@ -822,9 +850,9 @@ declare namespace Parse {
         }
 
         interface JobStatus {
-            error?: Function;
-            message?: Function;
-            success?: Function;
+            error?: (response: any) => void;
+            message?: (response: any) => void;
+            success?: (response: any) => void;
         }
 
         interface FunctionRequest {
@@ -835,8 +863,8 @@ declare namespace Parse {
         }
 
         interface FunctionResponse {
-            success?: (response: HttpResponse) => void;
-            error?: (response: HttpResponse) => void;
+            success?: (response: any) => void;
+            error?: (response: any) => void;
         }
 
         interface Cookie {
@@ -845,12 +873,18 @@ declare namespace Parse {
             value?: string;
         }
 
-        interface AfterSaveRequest extends FunctionRequest {}
+        interface SaveRequest extends FunctionRequest {
+            object: Object;
+        }
+
+        interface AfterSaveRequest extends SaveRequest {}
         interface AfterDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends FunctionRequest {}
-        interface BeforeSaveResponse extends FunctionResponse {}
+        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeSaveResponse extends FunctionResponse {
+            success?: () => void;
+        }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
@@ -859,8 +893,10 @@ declare namespace Parse {
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
-        function run<T>(name: string, data?: any, options?: SuccessFailureOptions): Promise<T>;
+        function run<T>(name: string, data?: any, options?: RunOptions): Promise<T>;
         function useMasterKey(): void;
+
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
 
         /**
          * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
@@ -911,7 +947,10 @@ declare namespace Parse {
 
     }
 
-    enum ErrorCode {
+    /*
+     * We need to inline the codes in order to make compilation work without this type definition as dependency.
+     */
+    const enum ErrorCode {
 
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
@@ -1033,7 +1072,7 @@ declare namespace Parse {
             title?: string;
         }
 
-        interface SendOptions {
+        interface SendOptions extends UseMasterKeyOption {
             success?: () => void;
             error?: (error: Error) => void;
         }
@@ -1043,18 +1082,18 @@ declare namespace Parse {
      * Call this method first to set up your authentication tokens for Parse.
      * You can get your keys from the Data Browser on parse.com.
      * @param {String} applicationId Your Parse Application ID.
-     * @param {String} javaScriptKey Your Parse JavaScript Key.
+     * @param {String} javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
      * @param {String} masterKey (optional) Your Parse Master Key. (Node.js only!)
      */
-    function initialize(applicationId: string, javaScriptKey: string, masterKey?: string): void;
+    function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
 }
 
 declare module "parse/node" {
-    export = { Parse };
+    export = Parse;
 }
 
 declare module "parse" {
-    import parse = require("parse/node");
+    import * as parse from "parse/node";
     export = parse
 }

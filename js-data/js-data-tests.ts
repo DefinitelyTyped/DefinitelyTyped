@@ -600,3 +600,5 @@ customActionResource.emit("DS.change", customActionResource, customActionResourc
 customActionResourceInstance.on("DS.change", myEvtHandler);
 customActionResourceInstance.off("DS.change", myEvtHandler);
 customActionResourceInstance.emit("DS.change", customActionResource, customActionResourceInstance);
+
+JSData.DSUtils.Promise = Promise;

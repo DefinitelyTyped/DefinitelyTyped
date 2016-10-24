@@ -28,6 +28,12 @@ karma.runner.run({port: 9876}, (exitCode: number) => {
   process.exit(exitCode);
 });
 
+karma.stopper.stop({port: 9876}, function(exitCode) {
+  if (exitCode === 0) {
+    console.log('Server stop as initiated')
+  }
+  process.exit(exitCode)
+});
 
 //var Server = require('karma').Server; => cannot use this syntax otherwise Server is of type any
 var server = new karma.Server({logLevel: 'debug', port: 9876}, function(exitCode: number) {
@@ -48,7 +54,7 @@ server.on('run_complete', (browsers, results) => {
    results.error = false;
    results.exitCode = 0;
    results.failed = 9;
-   results.success = 10; 
+   results.success = 10;
 });
 
 //var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any

@@ -69,8 +69,8 @@ declare namespace angular.animate {
         * @param value If provided then set the animation on or off.
         * @returns current animation state
         */
+        enabled(value?: boolean): boolean;
         enabled(element: JQuery, value?: boolean): boolean;
-        enabled(value: boolean): boolean;
 
         /**
          * Cancels the provided animation.
@@ -184,21 +184,17 @@ declare namespace angular.animate {
      */
     interface IAnimationOptions {
         /**
-         * The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
-         */
-        to?: Object;
-
-        /**
-         * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
-         */
-        from?: Object;
-
-        /**
          * The DOM event (e.g. enter, leave, move). When used, a generated CSS class of ng-EVENT and
          * ng-EVENT-active will be applied to the element during the animation. Multiple events can be provided when
          * spaces are used as a separator. (Note that this will not perform any DOM operation.)
          */
         event?: string;
+
+        /**
+         * Indicates that the ng-prefix will be added to the event class. Setting to false or
+         * omitting will turn ng-EVENT and ng-EVENT-active in EVENT and EVENT-active. Unused if event is omitted.
+         */
+        structural?: boolean;
 
         /**
          * The CSS easing value that will be applied to the transition or keyframe animation (or both).
@@ -208,12 +204,22 @@ declare namespace angular.animate {
         /**
          * The raw CSS transition style that will be used (e.g. 1s linear all).
          */
-        transition?: string;
+        transitionStyle?: string;
 
         /**
          * The raw CSS keyframe animation style that will be used (e.g. 1s my_animation linear).
          */
-        keyframe?: string;
+        keyframeStyle?: string;
+
+        /**
+         * The starting CSS styles (a key/value object) that will be applied at the start of the animation.
+         */
+        from?: Object;
+
+        /**
+         * The ending CSS styles (a key/value object) that will be applied across the animation via a CSS transition.
+         */
+        to?: Object;
 
         /**
          * A space separated list of CSS classes that will be added to the element and spread across the animation.
@@ -250,11 +256,16 @@ declare namespace angular.animate {
         /**
          * The numeric index representing the stagger item (e.g. a value of 5 is equal to the sixth item
          * in the stagger; therefore when a stagger option value of 0.1 is used then there will be a stagger delay of 600ms)
-         * applyClassesEarly - Whether or not the classes being added or removed will be used when detecting the animation.
-         * This is set by $animate when enter/leave/move animations are fired to ensure that the CSS classes are resolved in time.
-         * (Note that this will prevent any transitions from occuring on the classes being added and removed.)
+         *
          */
         staggerIndex?: number;
+
+        /**
+         * Whether or not the provided from and to styles will be removed once the animation is closed. This is useful for
+         * when the styles are used purely for the sake of the animation and do not have a lasting visual effect on the element
+         * (e.g. a colapse and open animation). By default this value is set to false.
+         */
+        cleanupStyles?: boolean;
     }
 
     interface IAnimateCssRunner {

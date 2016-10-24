@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path='../node/node.d.ts'/>
 
 /// <reference path='../redis/redis.d.ts'/>
@@ -20,7 +20,7 @@ declare module "acl" {
   type Callback = (err: Error) => any;
   type AnyCallback = (err: Error, obj: any) => any;
   type AllowedCallback = (err: Error, allowed: boolean) => any;
-  type GetUserId = (req: http.ServerRequest, res: http.ServerResponse) => Value;
+  type GetUserId = (req: http.IncomingMessage, res: http.ServerResponse) => Value;
 
   interface AclStatic {
     new (backend: Backend<any>, logger: Logger, options: Option): Acl;

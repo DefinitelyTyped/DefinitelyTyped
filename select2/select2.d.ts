@@ -78,7 +78,9 @@ interface Select2Options {
     */
     templateSelection?: (object: Select2SelectionObject) => any;
     templateResult?: (object: Select2SelectionObject) => any;
-	language?: string;
+    language?: string | string[] | {};
+    selectOnClose?: boolean;
+    sorter?: (data: any[]) => any[];
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {

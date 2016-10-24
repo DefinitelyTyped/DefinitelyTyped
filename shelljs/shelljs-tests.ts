@@ -119,6 +119,21 @@ shell.chmod("u+x", "/Users/brandon");
 
 shell.exit(0);
 
+shell.touch('/Users/brandom/test1');
+shell.touch('/Users/brandom/test1', '/Users/brandom/test2');
+
+shell.touch(['/Users/brandom/test1']);
+shell.touch(['/Users/brandom/test1', '/Users/brandom/test2']);
+
+shell.touch('-c', '/Users/brandom/test1');
+shell.touch('-c', '/Users/brandom/test1', '/Users/brandom/test2');
+shell.touch('-c', ['/Users/brandom/test1', '/Users/brandom/test2']);
+
+shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
+shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
+shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
+
+
 var tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 
 var errorlol = shell.error();

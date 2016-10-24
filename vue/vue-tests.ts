@@ -30,9 +30,20 @@ namespace TestGlobalAPI {
     twoWay: true,
     acceptStatement: true,
     priority: 1,
+    terminal: true,
     count: 30
   });
-  Vue.directive("my-directive", () => {});
+  Vue.directive("my-directive", function() {
+    const d = this as vuejs.Directive;
+    d.el;
+    d.vm;
+    d.expression;
+    d.arg;
+    d.name;
+    d.modifiers;
+    d.descriptor;
+    d.params;
+  });
   var myDirective = Vue.directive("my-directive");
   var elementDirective = Vue.elementDirective("element-directive");
   Vue.elementDirective("element-directive", elementDirective);
@@ -76,6 +87,11 @@ namespace TestGlobalAPI {
       }
     },
     init: function() {}
+  });
+  Vue.component("component", {
+    activate: function(callback: Function) {
+      callback();
+    }
   });
   var transition = Vue.transition("transition");
   Vue.transition("transition", transition);

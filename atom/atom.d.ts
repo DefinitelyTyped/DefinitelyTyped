@@ -946,9 +946,14 @@ declare namespace AtomCore {
 		registry: any;
 		repository: Object;
 		scopeName: string;
+		tokenizeLines: (text: string) => any;
 		// TBD
 
 	}
+	
+	  interface IGrammars {
+    		grammarForScopeName(scope: string): IGrammar;
+  	}
 
 	interface IPane /* extends Theorist.Model */ {
 		itemForURI: (uri:string)=>IEditor;
@@ -1302,6 +1307,7 @@ declare namespace AtomCore {
 		deserializers:IDeserializerManager;
 		config: IConfig;
 		commands: ICommandRegistry;
+		grammars: IGrammars;
 		keymaps: IKeymapManager;
 		keymap: IKeymapManager;
 		packages: IPackageManager;

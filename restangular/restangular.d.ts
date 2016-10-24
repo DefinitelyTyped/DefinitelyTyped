@@ -84,15 +84,25 @@ declare namespace restangular {
     one(route: string, id?: number): IElement;
     one(route: string, id?: string): IElement;
     oneUrl(route: string, url: string): IElement;
-    all(route: string): IElement;
-    allUrl(route: string, url: string): IElement;
+    all(route: string): ICollection;
+    allUrl(route: string, url: string): ICollection;
     copy(fromElement: any): IElement;
     withConfig(configurer: (RestangularProvider: IProvider) => any): IService;
     restangularizeElement(parent: any, element: any, route: string, collection?: any, reqParams?: any): IElement;
     restangularizeCollection(parent: any, element: any, route: string): ICollection;
-    service(route: string, parent?: any): IService;
+    service(route: string, parent?: any): IScopedService;
     stripRestangular(element: any): any;
     extendModel(route: string, extender: (model: IElement) => any): void;
+    extendCollection(route: string, extender: (collection: ICollection) => any): void;
+  }
+  
+  interface IScopedService extends IService {
+    one(id: number): IElement;
+    one(id: string): IElement;
+    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
+    getList(queryParams?: any, headers?: any): ICollectionPromise<any>;
+    getList<T>(queryParams?: any, headers?: any): ICollectionPromise<T>;
   }
 
   interface IElement extends IService {
@@ -103,8 +113,6 @@ declare namespace restangular {
     put(queryParams?: any, headers?: any): IPromise<any>;
     post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
     post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
-    post(elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
-    post<T>(elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
     trace(queryParams?: any, headers?: any): IPromise<any>;

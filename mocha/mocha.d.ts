@@ -29,10 +29,6 @@ interface MochaSetupOptions {
     grep?: any;
 }
 
-interface MochaDone {
-    (error?: Error): void;
-}
-
 declare var mocha: Mocha;
 declare var describe: Mocha.IContextDefinition;
 declare var xdescribe: Mocha.IContextDefinition;
@@ -46,55 +42,29 @@ declare var xit: Mocha.ITestDefinition;
 declare var test: Mocha.ITestDefinition;
 declare var specify: Mocha.ITestDefinition;
 
-declare function before(action: () => void): void;
+interface MochaDone {
+    (error?: any): any;
+}
 
-declare function before(action: (done: MochaDone) => void): void;
+interface ActionFunction {
+    (done: MochaDone): any | PromiseLike<any>
+}
 
-declare function before(description: string, action: () => void): void;
-
-declare function before(description: string, action: (done: MochaDone) => void): void;
-
-declare function setup(action: () => void): void;
-
-declare function setup(action: (done: MochaDone) => void): void;
-
-declare function after(action: () => void): void;
-
-declare function after(action: (done: MochaDone) => void): void;
-
-declare function after(description: string, action: () => void): void;
-
-declare function after(description: string, action: (done: MochaDone) => void): void;
-
-declare function teardown(action: () => void): void;
-
-declare function teardown(action: (done: MochaDone) => void): void;
-
-declare function beforeEach(action: () => void): void;
-
-declare function beforeEach(action: (done: MochaDone) => void): void;
-
-declare function beforeEach(description: string, action: () => void): void;
-
-declare function beforeEach(description: string, action: (done: MochaDone) => void): void;
-
-declare function suiteSetup(action: () => void): void;
-
-declare function suiteSetup(action: (done: MochaDone) => void): void;
-
-declare function afterEach(action: () => void): void;
-
-declare function afterEach(action: (done: MochaDone) => void): void;
-
-declare function afterEach(description: string, action: () => void): void;
-
-declare function afterEach(description: string, action: (done: MochaDone) => void): void;
-
-declare function suiteTeardown(action: () => void): void;
-
-declare function suiteTeardown(action: (done: MochaDone) => void): void;
+declare function setup(action: ActionFunction): void;
+declare function teardown(action: ActionFunction): void;
+declare function suiteSetup(action: ActionFunction): void;
+declare function suiteTeardown(action: ActionFunction): void;
+declare function before(action: ActionFunction): void;
+declare function before(description: string, action: ActionFunction): void;
+declare function after(action: ActionFunction): void;
+declare function after(description: string, action: ActionFunction): void;
+declare function beforeEach(action: ActionFunction): void;
+declare function beforeEach(description: string, action: ActionFunction): void;
+declare function afterEach(action: ActionFunction): void;
+declare function afterEach(description: string, action: ActionFunction): void;
 
 declare class Mocha {
+    currentTest: Mocha.ITestDefinition;
     constructor(options?: {
         grep?: RegExp;
         ui?: string;
@@ -176,13 +146,11 @@ declare namespace Mocha {
     }
 
     interface ITestDefinition {
-        (expectation: string, assertion?: () => void): ITest;
-        (expectation: string, assertion?: (done: MochaDone) => void): ITest;
-        only(expectation: string, assertion?: () => void): ITest;
-        only(expectation: string, assertion?: (done: MochaDone) => void): ITest;
-        skip(expectation: string, assertion?: () => void): void;
-        skip(expectation: string, assertion?: (done: MochaDone) => void): void;
+        (expectation: string, assertion?: ActionFunction): ITest;
+        only(expectation: string, assertion?: ActionFunction): ITest;
+        skip(expectation: string, assertion?: ActionFunction): void;
         timeout(ms: number): void;
+        state: "failed" | "passed";
     }
 
     export module reporters {

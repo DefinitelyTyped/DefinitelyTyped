@@ -14,6 +14,7 @@ interface SubnetInfo {
     subnetMaskLength: number;
     numHosts: number;
     length: number;
+    contains(ip: string): boolean;
 }
 
 declare module "ip" {

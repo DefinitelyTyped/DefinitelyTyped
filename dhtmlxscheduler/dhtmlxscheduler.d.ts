@@ -3,12 +3,12 @@
 // Definitions by: Maksim Kozhukh <http://github.com/mkozhukh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface SchedulerCallback {  (...args: any[]) : any }
+interface SchedulerCallback { (...args: any[]): any }
 interface SchedulerFilterCallback { (id: string | number, event: any): boolean }
 
-type SchedulerEventName ='onAfterEventDisplay'|'onAfterFolderToggle'|'onAfterLightbox'|'onAfterSchedulerResize'|'onBeforeCollapse'|'onBeforeDrag'|'onBeforeEventChanged'|'onBeforeEventCreated'|'onBeforeEventDelete'|'onBeforeEventDisplay'|'onBeforeEventDragIn'|'onBeforeEventDragOut'|'onBeforeExpand'|'onBeforeExternalDragIn'|'onBeforeFolderToggle'|'onBeforeLightbox'|'onBeforeSectionRender'|'onBeforeTodayDisplayed'|'onBeforeTooltip'|'onBeforeViewChange'|'onCellClick'|'onCellDblClick'|'onClearAll'|'onClick'|'onCollapse'|'onConfirmedBeforeEventDelete'|'onContextMenu'|'onDblClick'|'onDragEnd'|'onEmptyClick'|'onEventAdded'|'onEventCancel'|'onEventChanged'|'onEventCollision'|'onEventCopied'|'onEventCreated'|'onEventCut'|'onEventDeleted'|'onEventDrag'|'onEventDragIn'|'onEventDragOut'|'onEventDropOut'|'onEventIdChange'|'onEventLoading'|'onEventPasted'|'onEventSave'|'onExpand'|'onExternalDragIn'|'onLightbox'|'onLightboxButton'|'onLimitViolation'|'onLoadError'|'onLocationError'|'onMouseDown'|'onMouseMove'|'onOptionsLoad'|'onOptionsLoadFinal'|'onOptionsLoadStart'|'onSaveError'|'onScaleAdd'|'onScaleDblClick'|'onSchedulerReady'|'onSchedulerResize'|'onTemplatesReady'|'onTimelineCreated'|'onViewChange'|'onViewMoreClick'|'onXLE'|'onXLS'|'onXScaleClick'|'onXScaleDblClick'|'onYScaleClick'|'onYScaleDblClick';
+type SchedulerEventName = 'onAfterEventDisplay' | 'onAfterFolderToggle' | 'onAfterLightbox' | 'onAfterSchedulerResize' | 'onBeforeCollapse' | 'onBeforeDrag' | 'onBeforeEventChanged' | 'onBeforeEventCreated' | 'onBeforeEventDelete' | 'onBeforeEventDisplay' | 'onBeforeEventDragIn' | 'onBeforeEventDragOut' | 'onBeforeExpand' | 'onBeforeExternalDragIn' | 'onBeforeFolderToggle' | 'onBeforeLightbox' | 'onBeforeSectionRender' | 'onBeforeTodayDisplayed' | 'onBeforeTooltip' | 'onBeforeViewChange' | 'onCellClick' | 'onCellDblClick' | 'onClearAll' | 'onClick' | 'onCollapse' | 'onConfirmedBeforeEventDelete' | 'onContextMenu' | 'onDblClick' | 'onDragEnd' | 'onEmptyClick' | 'onEventAdded' | 'onEventCancel' | 'onEventChanged' | 'onEventCollision' | 'onEventCopied' | 'onEventCreated' | 'onEventCut' | 'onEventDeleted' | 'onEventDrag' | 'onEventDragIn' | 'onEventDragOut' | 'onEventDropOut' | 'onEventIdChange' | 'onEventLoading' | 'onEventPasted' | 'onEventSave' | 'onExpand' | 'onExternalDragIn' | 'onLightbox' | 'onLightboxButton' | 'onLimitViolation' | 'onLoadError' | 'onLocationError' | 'onMouseDown' | 'onMouseMove' | 'onOptionsLoad' | 'onOptionsLoadFinal' | 'onOptionsLoadStart' | 'onSaveError' | 'onScaleAdd' | 'onScaleDblClick' | 'onSchedulerReady' | 'onSchedulerResize' | 'onTemplatesReady' | 'onTimelineCreated' | 'onViewChange' | 'onViewMoreClick' | 'onXLE' | 'onXLS' | 'onXScaleClick' | 'onXScaleDblClick' | 'onYScaleClick' | 'onYScaleDblClick';
 
-interface SchedulerTemplates{
+interface SchedulerTemplates {
 	/**
 	 * specifies the date in the header of the view
 	 * @param start the start date of the view
@@ -458,7 +458,7 @@ interface SchedulerTemplates{
 
 }
 
-interface SchedulerConfigOptions{
+interface SchedulerConfigOptions {
 	/**
 	 * 'says' to present the numbers of days in the Month view as clickable links that open the related day in the specified view
 	*/
@@ -477,12 +477,12 @@ interface SchedulerConfigOptions{
 	/**
 	 * specifies how to display the default error notification in case the XML data loading failed
 	*/
-	ajax_error: string|boolean;
+	ajax_error: string | boolean;
 
 	/**
 	 * 'says' to show multi-day events in  the regular way (as one-day events are displayed)
 	*/
-	all_timed: boolean|string;
+	all_timed: boolean | string;
 
 	/**
 	 * sets the date format that will be used by the addEvent() method to parse the start_date, end_date properties in case they are specified as strings
@@ -812,7 +812,7 @@ interface SchedulerConfigOptions{
 	/**
 	 * sets the height of the area that displays multi-day events
 	*/
-	multi_day_height_limit: number|boolean;
+	multi_day_height_limit: number | boolean;
 
 	/**
 	 * enables the possibility to render the same events in several sections of the Timeline or Units view
@@ -942,12 +942,12 @@ interface SchedulerConfigOptions{
 	/**
 	 * enables/disables the touch support in the scheduler
 	*/
-	touch: boolean|string;
+	touch: boolean | string;
 
 	/**
 	 * defines the time period in milliseconds that is used to differ the long touch gesture from the scroll gesture
 	*/
-	touch_drag: number|boolean;
+	touch_drag: number | boolean;
 
 	/**
 	 * enables/disables prompting messages in the right top corner of the screen
@@ -996,7 +996,7 @@ interface SchedulerConfigOptions{
 
 }
 
-interface SchedulerDateHelpers{
+interface SchedulerDateHelpers {
 	add(origin: Date, count: number, unit: string): Date;
 	copy(origin: Date): Date;
 
@@ -1017,19 +1017,19 @@ interface SchedulerDateHelpers{
 	to_fixed(value: number): string;
 }
 
-interface SchedulerHotkeys{
+interface SchedulerHotkeys {
 	edit_save: number;
 	edit_cancel: number;
 }
 
-interface SchedulerLocaleDate{
+interface SchedulerLocaleDate {
 	month_full: string[];
 	month_short: string[];
 	day_full: string[];
 	day_short: string[];
 }
 
-interface SchedulerLocaleLabels{
+interface SchedulerLocaleLabels {
 	dhx_cal_today_button: string;
 	day_tab: string;
 	week_tab: string;
@@ -1046,13 +1046,13 @@ interface SchedulerLocaleLabels{
 	section_time: string;
 }
 
-interface SchedulerLocale{
+interface SchedulerLocale {
 	date: SchedulerLocaleDate;
 	labels: SchedulerLocaleLabels;
 }
 
 
-interface SchedulerSizes{
+interface SchedulerSizes {
 	/**
 	* the height of day cells in the month view
 	*/
@@ -1124,14 +1124,14 @@ interface SchedulerSizes{
 	scroll_width: number;
 }
 
-interface SchedulerEnterprise{
+interface SchedulerEnterprise {
 	/**
 	 * Creates a new instance of Scheduler
 	 */
 	getSchedulerInstance(): SchedulerStatic;
 }
 
-interface SchedulerStatic{
+interface SchedulerStatic {
 	templates: SchedulerTemplates;
 	config: SchedulerConfigOptions;
 	date: SchedulerDateHelpers;
@@ -1238,7 +1238,7 @@ interface SchedulerStatic{
 	 * @param time_points an array <b>[start_minute,end_minute,..,start_minute_N,end_minute_N]</b>, <br> where each pair sets a certain limit range. The array can have any number of <br> such pairs
 	 * @param items defines specific items of  view(s) to block
 	*/
-	blockTime(date: Date|number, time_points: any[], items?: any): void;
+	blockTime(date: Date | number, time_points: any[], items?: any): void;
 
 	/**
 	 * calls an inner event
@@ -1327,7 +1327,7 @@ interface SchedulerStatic{
 	 * deletes the specified event
 	 * @param id the event's id
 	*/
-	deleteEvent(id: string|number): void;
+	deleteEvent(id: string | number): void;
 
 	/**
 	 * removes marking/blocking set by the addMarkedTimespan() and blockTime() methods
@@ -1393,39 +1393,39 @@ interface SchedulerStatic{
 	 * returns the event object by its id
 	 * @param event_id the  event's id
 	*/
-	getEvent(event_id: string|number): void;
+	getEvent(event_id: string | number): any;
 
 	/**
 	 * gets the event's end date
 	 * @param id the event's id
 	*/
-	getEventEndDate(id: string): Date;
+	getEventEndDate(id: string | number): Date;
 
 	/**
 	 * gets the event's start date
 	 * @param id the event's id
 	*/
-	getEventStartDate(id: string): Date;
+	getEventStartDate(id: string | number): Date;
 
 	/**
 	 * gets the event's text
 	 * @param id the event's id
 	*/
-	getEventText(id: string): string;
+	getEventText(id: string | number): string;
 
 	/**
 	 * returns a collection of events which occur during the specified period
 	 * @param from the start date of the period
 	 * @param to the end date of the period
 	*/
-	getEvents(from?: Date, to?: Date): void;
+	getEvents(from?: Date, to?: Date): any;
 
 	/**
 	 * gets the label of a select control in the lightbox
 	 * @param property the name of a data property that the control is mapped to
 	 * @param key the option's id. This parameter is compared with the event's data property <br> to assign the select's option to an event
 	*/
-	getLabel(property: string, key: string|number): void;
+	getLabel(property: string, key: string | number): any;
 
 	/**
 	 * gets the lightbox's HTML object element
@@ -1486,7 +1486,7 @@ interface SchedulerStatic{
 	 * @param date the initial date of the scheduler (by default, the current date)
 	 * @param view the name of the initial view (by default, "week")
 	*/
-	init(container: string|HTMLElement, date?: Date, view?: string): void;
+	init(container: string | HTMLElement, date?: Date, view?: string): void;
 
 	/**
 	 * inverts the specified time zones
@@ -1497,7 +1497,7 @@ interface SchedulerStatic{
 	/**
 	 * checks whether the calendar is currently opened in the scheduler
 	*/
-	isCalendarVisible(): boolean|HTMLElement;
+	isCalendarVisible(): boolean | HTMLElement;
 
 	/**
 	 * checks whether the specified event one-day or multi-day
@@ -1607,7 +1607,7 @@ interface SchedulerStatic{
 	 * @param id the event's id
 	 * @param event the event object
 	*/
-	setEvent(id: string|number, event: any): void;
+	setEvent(id: string | number, event: any): void;
 
 	/**
 	 * sets the event's end date
@@ -1739,7 +1739,7 @@ interface SchedulerStatic{
 	 * removes marking/blocking set by the markTimespan() method
 	 * @param divs a timespan to remove marking/blocking from (or an array of timespans)
 	*/
-	unmarkTimespan(divs: HTMLElement|any[]): void;
+	unmarkTimespan(divs: HTMLElement | any[]): void;
 
 	/**
 	 * unselects the specified event
@@ -1775,8 +1775,6 @@ interface SchedulerStatic{
 	updateView(date: Date, view: string): void;
 
 }
-
-
 
 declare var scheduler: SchedulerStatic;
 declare var Scheduler: SchedulerEnterprise;

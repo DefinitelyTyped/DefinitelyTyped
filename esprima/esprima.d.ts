@@ -30,6 +30,7 @@ declare namespace esprima {
         attachComment?: boolean;
         tolerant?: boolean;
         source?: boolean;
+        sourceType?: 'script' | 'module';
     }
 
     const Syntax: {

@@ -4,6 +4,7 @@
 import q = require('q');
 
 Q(8).then(x => console.log(x.toExponential()));
+Q().then(() => console.log("nothing"));
 
 var delay = function (delay: number) {
     var d = Q.defer<void>();
@@ -206,4 +207,20 @@ namespace TestCanRethrowRejectedPromises {
 
 }
 
+// test Q.Promise.all
+var y1 = Q().then(() => {
+    var s = Q("hello");
+    var n = Q(1);
+    return <[typeof s, typeof n]>[s, n];
+});
 
+var y2 = Q().then(() => {
+    var s = "hello";
+    var n = Q(1);
+    return <[typeof s, typeof n]>[s, n];
+});
+
+var p2: Q.Promise<[string, number]> = y1.then(val => Q.all(val));
+var p3: Q.Promise<[string, number]> = Q.all(y1);
+var p5: Q.Promise<[string, number]> = y2.then(val => Q.all(val));
+var p6: Q.Promise<[string, number]> = Q.all(y2);

@@ -1,4 +1,5 @@
 /// <reference path="isomorphic-fetch.d.ts"/>
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 
 import fetchImportedViaCommonJS = require('isomorphic-fetch');
 import * as fetchImportedViaES6Module from 'isomorphic-fetch';

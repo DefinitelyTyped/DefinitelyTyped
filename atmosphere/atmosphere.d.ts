@@ -55,7 +55,7 @@ declare namespace Atmosphere {
         connectTimeout?: number;
         reconnectInterval?: number;
         dropHeaders?: boolean;
-        uuid?: number;
+        uuid?: string;
         async?: boolean;
         shared?: boolean;
         readResponsesHeaders?: boolean;

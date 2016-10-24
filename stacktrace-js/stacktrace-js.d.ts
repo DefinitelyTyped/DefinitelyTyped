@@ -4,21 +4,35 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace StackTrace {
+
+  export interface SourceCache {
+    [key: string]: string | Promise<string>;
+  }
+
+  /**
+   * Options for StackTrace
+   * @param filter Function(StackFrame => Boolean) - Only include stack entries matching for which filter returns true
+   * @param sourceCache Object (String URL => String Source) - Pre-populate source cache to avoid network requests
+   * @param offline Boolean (default: false) - Set to true to prevent all network requests
+   */
   export interface StackTraceOptions {
-    filter?: (stackFrame:StackFrame) => boolean;
-    sourceCache?: { URL:string };
-    offline?: boolean;
+    filter?:      (stackFrame: StackFrame) => boolean;
+    sourceCache?: SourceCache;
+    offline?:     boolean;
   }
 
   export interface StackFrame {
-    constructor(functionName:string, args:any, fileName:string, lineNumber:number, columnNumber:number): StackFrame;
+    constructor(functionName: string, args: any, fileName: string, lineNumber: number, columnNumber: number): StackFrame;
 
-    functionName?:string;
-    args?:any;
-    fileName?:string;
-    lineNumber?:number;
-    columnNumber?:number;
-    toString():string;
+    functionName: string;
+    args:         any;
+    fileName:     string;
+    lineNumber:   number;
+    columnNumber: number;
+    source:       string;
+    isEval:       boolean;
+    isNative:     boolean;
+    toString():   string;
   }
 
   /**
@@ -34,7 +48,7 @@ declare namespace StackTrace {
    * @param options Object for options
    * @return Array[StackFrame]
    */
-  export function fromError(error:Error, options?:StackTraceOptions): Promise<StackFrame[]>;
+  export function fromError(error: Error, options?: StackTraceOptions): Promise<StackFrame[]>;
 
   /**
    * Use StackGenerator to generate a backtrace.
@@ -49,25 +63,31 @@ declare namespace StackTrace {
    *
    * @param {Function} fn to be instrumented
    * @param {Function} callback function to call with a stack trace on invocation
-   * @param {Function} errorCallback optional function to call with error if unable to get stack trace.
+   * @param {Function} errback optional function to call with error if unable to get stack trace.
    * @param {Object} thisArg optional context object (e.g. window)
+   * @return {Function} instrumented function
    */
-  export function instrument(fn:() => void, callback:(stackFrames:StackFrame[]) => void, errorCallback:(error:Error) => void, thisArg?:any): void;
+  export function instrument<TFunc extends Function>(fn: TFunc, callback: (stackFrames: StackFrame[]) => void, errback?: (error: Error) => void, thisArg?: any): TFunc;
 
   /**
    * Given a function that has been instrumented,
    * revert the function to it's original (non-instrumented) state.
    *
    * @param fn {Function}
+   * @return {Function} original function
    */
-  export function deinstrument(fn:() => void): void;
+  export function deinstrument<TFunc extends Function>(fn: TFunc): TFunc;
 
   /**
    * Given an Array of StackFrames, serialize and POST to given URL.
    *
    * @param stackframes - Array[StackFrame]
    * @param url - URL as String
-   * @return Promise<any>
+   * @return Promise<string>
    */
-  export function report(stackframes: StackFrame[], url: string): Promise<any>;
+  export function report(stackframes: StackFrame[], url: string): Promise<string>;
+}
+
+declare module "stacktrace-js" {
+    export = StackTrace;
 }

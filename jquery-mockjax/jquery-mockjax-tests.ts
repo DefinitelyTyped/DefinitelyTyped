@@ -1,6 +1,6 @@
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="jquery-mockjax.d.ts"/>
-/// <reference path="../qunit/qunit.d.ts" />
+/// <reference path="../qunit/qunit-1.16.d.ts" />
 
 class Tests {
     private _noErrorCallbackExpected: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
@@ -9,7 +9,7 @@ class Tests {
     run(): void {
         const self = this;
 
-        var t = QUnit.test;
+        let t = QUnit.test;
 
         QUnit.begin(() => {
 
@@ -36,7 +36,7 @@ class Tests {
                 responseText: 'Hello Word'
             });
 
-            var xhr = $.ajax({
+            let xhr = $.ajax({
                 url: '/xmlhttprequest',
                 complete: () => { }
             });
@@ -67,7 +67,7 @@ class Tests {
         });
 
         t('Intercept asynchronized proxy calls', (assert) => {
-            var done = assert.async();
+            let done = assert.async();
             $.mockjax({
                 url: '/proxy',
                 proxy: 'test_proxy.json'
@@ -85,7 +85,7 @@ class Tests {
         });
 
         t('Intercept and proxy (sub-ajax request)', (assert) => {
-            var done = assert.async();
+            let done = assert.async();
 
             $.mockjax({
                 url: '/proxy',
@@ -104,7 +104,7 @@ class Tests {
         });
 
         t('Proxy type specification', (assert) => {
-            var done = assert.async();
+            let done = assert.async();
 
             $.mockjax({
                 url: '/proxy',
@@ -124,7 +124,7 @@ class Tests {
         });
 
         t('Support 1.5 $.ajax(url, settings) signature.', (assert) => {
-            var done = assert.async();
+            let done = assert.async();
 
             $.mockjax({
                 url: '/resource',
@@ -141,9 +141,9 @@ class Tests {
         });
 
         t('Dynamic response callback', (assert) => {
-            var done = assert.async();
+            let done = assert.async();
 
-            var settings: MockJaxSettings = {
+            let settings: MockJaxSettings = {
                 url: '/response-callback',
                 response: (settings) => {
                     settings.responseText = settings.data.response + ' 2';
@@ -165,8 +165,36 @@ class Tests {
                 }
             });
         });
+
+        t('Asyncronous response callback', (assert) => {
+            let done = assert.async();
+
+            let settings: MockJaxSettings = {
+                url: '/async-response-callback',
+                response: (settings, completed) => {
+                    setTimeout(() => {
+                        settings.responseText = settings.data.response + ' 3';
+                        completed();
+                    }, 10);
+                }
+            };
+
+            $.mockjax(settings);
+
+            $.ajax({
+                url: '/async-response-callback',
+                dataType: 'text',
+                data: {
+                    response: 'Hello world'
+                },
+                error: self._noErrorCallbackExpected,
+                complete: (xhr) => {
+                    assert.equal(xhr.responseText, 'Hello world 3', 'Response Text matches');
+                    done();
+                }
+            });
+        });
     }
 }
 
-var tests = new Tests();
-tests.run();
+new Tests().run();

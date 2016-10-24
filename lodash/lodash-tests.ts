@@ -141,6 +141,14 @@ result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
 result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).pop();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).shift();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).unshift(5, 6);
+
 /*********
  * Array *
  *********/
@@ -3674,33 +3682,51 @@ namespace TestFind {
 
     result = _.find<TResult>(array);
     result = _.find<TResult>(array, listIterator);
+    result = _.find<TResult>(array, listIterator, 1);
     result = _.find<TResult>(array, '');
+    result = _.find<TResult>(array, '', 1);
     result = _.find<{a: number}, TResult>(array, {a: 42});
+    result = _.find<{a: number}, TResult>(array, {a: 42}, 1);
 
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
+    result = _.find<TResult>(list, listIterator, 1);
     result = _.find<TResult>(list, '');
+    result = _.find<TResult>(list, '', 1);
     result = _.find<{a: number}, TResult>(list, {a: 42});
+    result = _.find<{a: number}, TResult>(list, {a: 42}, 1);
 
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
+    result = _.find<TResult>(dictionary, dictionaryIterator, 1);
     result = _.find<TResult>(dictionary, '');
+    result = _.find<TResult>(dictionary, '', 1);
     result = _.find<{a: number}, TResult>(dictionary, {a: 42});
+    result = _.find<{a: number}, TResult>(dictionary, {a: 42}, 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
+    result = _(array).find(listIterator, 1);
     result = _(array).find('');
+    result = _(array).find('', 1);
     result = _(array).find<{a: number}>({a: 42});
+    result = _(array).find<{a: number}>({a: 42}, 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
+    result = _(list).find<TResult>(listIterator, 1);
     result = _(list).find<TResult>('');
+    result = _(list).find<TResult>('', 1);
     result = _(list).find<{a: number}, TResult>({a: 42});
+    result = _(list).find<{a: number}, TResult>({a: 42}, 1);
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
+    result = _(dictionary).find<TResult>(dictionaryIterator, 1);
     result = _(dictionary).find<TResult>('');
+    result = _(dictionary).find<TResult>('', 1);
     result = _(dictionary).find<{a: number}, TResult>({a: 42});
+    result = _(dictionary).find<{a: number}, TResult>({a: 42}, 1);
 }
 
 result = <number>_.findLast([1, 2, 3, 4], function (num) {
@@ -4661,32 +4687,38 @@ result = <{a: number}[][]>_({0: {a: 1}, 1: {a: 2}}).partition<{a: number}>('a', 
 //         result = _(dictionary).chain().map<TResult>(['d', 0, 'b']);
 //     }
 // }
+namespace TestReduce {
+    interface ABC {
+        [index: string]: number;
+        a: number;
+        b: number;
+        c: number;
+    }
 
-interface ABC {
-    [index: string]: number;
-    a: number;
-    b: number;
-    c: number;
+    result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
+        return sum + num;
+    });
+
+    // chained
+    result = _.chain([1, 2 ,3]).reduce(function (sum: number, num: number) {
+        return sum + num;
+    }).value();
+
+    result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, {});
+
+    result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
+        return sum + num;
+    });
+    result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
+        r[key] = num * 3;
+        return r;
+    }, <ABC> {});
+
+    result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
 }
-
-result = <number>_.reduce<number, number>([1, 2, 3], function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_.reduce({ 'a': 1, 'b': 2, 'c': 3 }, function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, {});
-
-result = <number>_([1, 2, 3]).reduce<number>(function (sum: number, num: number) {
-    return sum + num;
-});
-result = <ABC>_({ 'a': 1, 'b': 2, 'c': 3 }).reduce<number, ABC>(function (r: ABC, num: number, key: string) {
-    r[key] = num * 3;
-    return r;
-}, <ABC> {});
-
-result = <number[]>_.reduceRight([[0, 1], [2, 3], [4, 5]], function (a: number[], b: number[]) { return a.concat(b); }, <number[]>[]);
-
 // _.reject
 namespace TestReject {
     let array: TResult[];
@@ -5733,11 +5765,11 @@ namespace TestFlow {
     let Fn2: (m: number, n: number) => number;
     let Fn3: (a: number) => string;
     let Fn4: (a: string) => number;
-    
+
     {
         // type infer test
         let result: (m: number, n: number) => number;
-        
+
         result = _.flow(Fn2, Fn1);
         result = _.flow(Fn2, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1);
@@ -5840,12 +5872,18 @@ namespace TestMemoize {
         result = _(memoizeFn).chain().memoize(memoizeResolverFn);
     }
 
-    _.memoize.Cache = {
-        delete: key => false,
-        get: key => undefined,
-        has: key => false,
-        set(key, value) { return this; }
-    };
+    interface MemoizeCache<K, V> {
+        delete(key: K): boolean;
+        get(key: K): V;
+        has(key: K): boolean;
+        set(key: K, value: V): this;
+    }
+    interface MemoizeCacheConstructor {
+        new (): MemoizeCache<any, any>;
+    }
+    let MemoizeCache: MemoizeCacheConstructor
+
+    _.memoize.Cache = MemoizeCache;
 }
 
 // _.overArgs
@@ -7896,49 +7934,41 @@ namespace TestSum {
 // _.sumBy
 namespace TestSumBy {
     let array: number[];
+    let objectArray: { 'age': number }[];
+
     let list: _.List<number>;
-    let dictionary: _.Dictionary<number>;
+    let objectList: _.List<{ 'age': number }>;
 
     let listIterator: (value: number, index: number, collection: _.List<number>) => number;
-    let dictionaryIterator: (value: number, key: string, collection: _.Dictionary<number>) => number;
 
     {
         let result: number;
 
-        result = _.sumBy<number>(array);
-        result = _.sumBy<number>(array, listIterator);
-        result = _.sumBy<number>(array, '');
+        result = _.sumBy(array);
+        result = _.sumBy(array, listIterator);
+        result = _.sumBy(objectArray, 'age');
+        result = _.sumBy(objectArray, { 'age': 30 });
 
-
-        result = _.sumBy<number>(list);
-        result = _.sumBy<number>(list, listIterator);
-        result = _.sumBy<number>(list, '');
-
-        result = _.sumBy<number>(dictionary);
-        result = _.sumBy<number>(dictionary, dictionaryIterator);
-        result = _.sumBy<number>(dictionary, '');
+        result = _.sumBy(list);
+        result = _.sumBy(list, listIterator);
+        result = _.sumBy(objectList, 'age');
+        result = _.sumBy(objectList, { 'age': 30 });
 
         result = _(array).sumBy(listIterator);
-        result = _(array).sumBy('');
+        result = _(objectArray).sumBy('age');
 
-        result = _(list).sumBy<number>(listIterator);
-        result = _(list).sumBy('');
-
-        result = _(dictionary).sumBy<number>(dictionaryIterator);
-        result = _(dictionary).sumBy('');
+        result = _(list).sumBy(listIterator);
+        result = _(objectList).sumBy('age');
     }
 
     {
         let result: _.LoDashExplicitWrapper<number>;
 
         result = _(array).chain().sumBy(listIterator);
-        result = _(array).chain().sumBy('');
+        result = _(objectArray).chain().sumBy('age');
 
-        result = _(list).chain().sumBy<number>(listIterator);
-        result = _(list).chain().sumBy('');
-
-        result = _(dictionary).chain().sumBy<number>(dictionaryIterator);
-        result = _(dictionary).chain().sumBy('');
+        result = _(list).chain().sumBy(listIterator);
+        result = _(objectList).chain().sumBy('age');
     }
 }
 

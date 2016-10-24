@@ -1,4 +1,4 @@
-// Type definitions for three.js r75
+// Type definitions for three.js r81
 // Project: http://mrdoob.github.com/three.js/
 // Definitions by: Kon <http://phyzkit.net/>, Satoru Kimura <https://github.com/gyohk>, Florent Poujol <https://github.com/florentpoujol>, SereznoKot <https://github.com/SereznoKot>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -149,6 +149,7 @@ declare namespace THREE {
     export const UnsignedShort4444Type: PixelType;
     export const UnsignedShort5551Type: PixelType;
     export const UnsignedShort565Type: PixelType;
+    export const UnsignedInt248Type: PixelType;
 
     // Pixel formats
     export enum PixelFormat { }
@@ -158,6 +159,8 @@ declare namespace THREE {
     export const LuminanceFormat: PixelFormat;
     export const LuminanceAlphaFormat: PixelFormat;
     export const RGBEFormat: PixelFormat;
+    export const DepthFormat: PixelFormat;
+    export const DepthStencilFormat: PixelFormat;
 
     // Compressed texture formats
     // DDS / ST3C Compressed texture formats
@@ -211,6 +214,11 @@ declare namespace THREE {
     export const RGBM16Encoding: TextureEncoding;
     export const RGBDEncoding: TextureEncoding;
 
+    // Depth packing strategies
+    export enum DepthPackingStrategies { }
+    export const BasicDepthPacking: DepthPackingStrategies;
+    export const RGBADepthPacking: DepthPackingStrategies;
+
     // log handlers
     export function warn(message?: any, ...optionalParams: any[]): void;
     export function error(message?: any, ...optionalParams: any[]): void;
@@ -218,40 +226,78 @@ declare namespace THREE {
 
     // Animation ////////////////////////////////////////////////////////////////////////////////////////
 
+    export class AnimationAction {
+        loop: boolean;
+        time: number;
+        timeScale: number;
+        weight: number;
+        repetitions: number;
+        paused: boolean;
+        enabled: boolean;
+        clampWhenFinished: boolean;
+        zeroSlopeAtStart: boolean;
+        zeroSlopeAtEnd: boolean;
+
+        play(): AnimationAction;
+        stop(): AnimationAction;
+        reset(): AnimationAction;
+        isRunning(): boolean;
+        startAt(time: number): AnimationAction;
+        setLoop(mode: boolean, repetitions: number): AnimationAction;
+        setEffectiveWeight(weight: number): AnimationAction;
+        getEffectiveWeight(): number;
+        fadeIn(duration: number): AnimationAction;
+        fadeOut(duration: number): AnimationAction;
+        crossFadeFrom(fadeOutAction: AnimationAction, duration: number, warp: boolean): AnimationAction;
+        crossFadeTo(fadeInAction: AnimationAction, duration: number, warp: boolean): AnimationAction;
+        stopFading(): AnimationAction;
+        setEffectiveTimeScale(timeScale: number): AnimationAction;
+        getEffectiveTimeScale(): number;
+        setDuration(duration: number): AnimationAction;
+        syncWith(action: AnimationAction): AnimationAction;
+        halt(duration: number): AnimationAction;
+        warp(statTimeScale: number, endTimeScale: number, duration: number): AnimationAction;
+        stopWarping(): AnimationAction;
+        getMixer(): AnimationMixer;
+        getClip(): AnimationClip;
+        getRoot(): any;
+    }
+
     export class AnimationClip {
         constructor( name?: string, duration?: number, tracks?: KeyframeTrack[] );
 
         name: string;
         tracks: KeyframeTrack[];
         duration: number;
+        uuid: string;
         results: any[];
 
         resetDuration(): void;
         trim(): AnimationClip;
         optimize(): AnimationClip;
 
-        static CreateFromMorphTargetSequence( name: string, morphTargetSequence: MorphTarget[], fps: number ): AnimationClip;
+        static CreateFromMorphTargetSequence( name: string, morphTargetSequence: MorphTarget[], fps: number, noLoop: boolean ): AnimationClip;
         static findByName( clipArray: AnimationClip, name: string ): AnimationClip;
-        static CreateClipsFromMorphTargetSequences( morphTargets: MorphTarget[], fps: number ): AnimationClip[];
+        static CreateClipsFromMorphTargetSequences( morphTargets: MorphTarget[], fps: number, noLoop: boolean ): AnimationClip[];
         static parse( json: any ): AnimationClip;
         static parseAnimation( animation: any, bones: Bone[], nodeName: string ): AnimationClip;
         static toJSON(): any;
     }
 
-    export class AnimationMixer {
+    export class AnimationMixer extends EventDispatcher {
         constructor(root: any);
 
         time: number;
         timeScale: number;
 
-        clipAction(clip: AnimationClip, root?: any): any; // returns THREE.AnimationMixer._Action
-        existingAction(clip: AnimationClip, root?: any): any; /// returns THREE.AnimationMixer._Action
+        clipAction(clip: AnimationClip, root?: any): AnimationAction;
+        existingAction(clip: AnimationClip, root?: any): AnimationAction;
         stopAllAction(clip: AnimationClip, root?: any): AnimationMixer;
         update(deltaTime: number): AnimationMixer;
         getRoot(): any;
         uncacheClip(clip: AnimationClip): void;
         uncacheRoot(root: any): void;
-        uncazcheAction(clip: AnimationClip, root?: any): void;
+        uncacheAction(clip: AnimationClip, root?: any): void;
     }
 
     export class AnimationObjectGroup {
@@ -367,6 +413,10 @@ declare namespace THREE {
         constructor(name: string, times: any[], values: any[]);
     }
 
+    export class ColorKeyframeTrack extends KeyframeTrack {
+        constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
+    }
+
     export class NumberKeyframeTrack extends KeyframeTrack {
         constructor(name: string, times: any[], values: any[], interpolation: InterpolationModes);
     }
@@ -411,9 +461,6 @@ declare namespace THREE {
          * @param vector point to look at
          */
         lookAt(vector: Vector3): void;
-
-        clone(): Camera;
-        copy(camera?: Camera): Camera;
     }
 
     export class CubeCamera extends Object3D {
@@ -445,6 +492,14 @@ declare namespace THREE {
         constructor(left: number, right: number, top: number, bottom: number, near?: number, far?: number);
 
         zoom: number;
+        view: {
+          fullWidth: number,
+          fullHeight: number,
+          offsetX: number,
+          offsetY: number,
+          width: number,
+          height: number
+        };
 
         /**
          * Camera frustum left plane.
@@ -480,8 +535,8 @@ declare namespace THREE {
          * Updates the camera projection matrix. Must be called after change of parameters.
          */
         updateProjectionMatrix(): void;
-        clone(): OrthographicCamera;
-        copy(source: OrthographicCamera): OrthographicCamera;
+        setViewOffset(fullWidth: number, fullHeight: number, offsetX: number, offsetY: number, width: number, height: number): void;
+        clearViewOffset(): void;
         toJSON(meta?: any): any;
     }
 
@@ -503,7 +558,6 @@ declare namespace THREE {
          */
         constructor(fov?: number, aspect?: number, near?: number, far?: number);
 
-        focalLength: number;
         zoom: number;
 
         /**
@@ -526,14 +580,23 @@ declare namespace THREE {
          */
         far: number;
 
-        /**
-         * Uses focal length (in mm) to estimate and set FOV 35mm (fullframe) camera is used if frame size is not specified.
-         * Formula based on http://www.bobatkins.com/photography/technical/field_of_view.html
-         * @param focalLength focal length
-         * @param frameHeight frame size. Default value is 24.
-         */
-        setLens(focalLength: number, frameHeight?: number): void;
+        focus: number;
+        view: {
+            fullWidth: number,
+            fullHeight: number,
+            offsetX: number,
+            offsetY: number,
+            width: number,
+            height: number
+        };
+        filmGauge: number;
+        filmOffset: number;
 
+        setFocalLength(focalLength: number): void;
+        getFocalLength(): number;
+        getEffectiveFOV(): number;
+        getFilmWidth(): number;
+        getFilmHeight(): number;
         /**
          * Sets an offset in a larger frustum. This is useful for multi-window or multi-monitor/multi-machine setups.
          * For example, if you have 3x2 monitors and each monitor is 1920x1080 and the monitors are in grid like this:
@@ -572,14 +635,16 @@ declare namespace THREE {
          * @param height height of subcamera
          */
         setViewOffset(fullWidth: number, fullHeight: number, x: number, y: number, width: number, height: number): void;
+        clearViewOffset(): void;
 
         /**
          * Updates the camera projection matrix. Must be called after change of parameters.
          */
         updateProjectionMatrix(): void;
-        clone(): PerspectiveCamera;
-        copy(source: PerspectiveCamera): PerspectiveCamera;
         toJSON(meta?: any): any;
+
+        // deprecated
+        setLens(focalLength: number, frameHeight?: number): void;
     }
 
     export class StereoCamera extends Camera {
@@ -598,27 +663,28 @@ declare namespace THREE {
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferAttribute.js">src/core/BufferAttribute.js</a>
      */
     export class BufferAttribute {
-        constructor(array: ArrayLike<number>, itemSize: number); // array parameter should be TypedArray.
+        constructor(array: ArrayLike<number>, itemSize: number, normalized?: boolean); // array parameter should be TypedArray.
 
         uuid: string;
         array: ArrayLike<number>;
         itemSize: number;
         dynamic: boolean;
-        updateRange: {offset:number, count:number};
+        updateRange: {offset: number, count: number};
         version: number;
+        normalized: boolean;
         needsUpdate: boolean;
         count: number;
 
         setDynamic(dynamic: boolean): BufferAttribute;
-        clone(): BufferAttribute;
-        copy(source: BufferAttribute): BufferAttribute;
+        clone(): this;
+        copy(source: this): this;
         copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
         copyArray(array: ArrayLike<number>): BufferAttribute;
-        copyColorsArray(colors: {r:number, g:number, b:number}[]): BufferAttribute;
-        copyIndicesArray(indices: {a:number, b:number, c:number}[]): BufferAttribute;
-        copyVector2sArray(vectors: {x:number, y:number}[]): BufferAttribute;
-        copyVector3sArray(vectors: {x:number, y:number, z:number}[]): BufferAttribute;
-        copyVector4sArray(vectors: {x:number, y:number, z:number, w:number}[]): BufferAttribute;
+        copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
+        copyIndicesArray(indices: {a: number, b: number, c: number}[]): BufferAttribute;
+        copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
+        copyVector3sArray(vectors: {x: number, y: number, z: number}[]): BufferAttribute;
+        copyVector4sArray(vectors: {x: number, y: number, z: number, w: number}[]): BufferAttribute;
         set(value: ArrayLike<number>, offset?: number): BufferAttribute;
         getX(index: number): number;
         setX(index: number, x: number): BufferAttribute;
@@ -631,7 +697,6 @@ declare namespace THREE {
         setXY(index: number, x: number, y: number): BufferAttribute;
         setXYZ(index: number, x: number, y: number, z: number): BufferAttribute;
         setXYZW(index: number, x: number, y: number, z: number, w: number): BufferAttribute;
-        clone(): BufferAttribute;
 
         length: number; // deprecated, use count
     }
@@ -682,7 +747,7 @@ declare namespace THREE {
      *
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/BufferGeometry.js">src/core/BufferGeometry.js</a>
      */
-    export class BufferGeometry {
+    export class BufferGeometry extends EventDispatcher {
         /**
          * This creates a new BufferGeometry. It also sets several properties to an default value.
          */
@@ -700,11 +765,9 @@ declare namespace THREE {
         index: BufferAttribute;
         attributes: BufferAttribute|InterleavedBufferAttribute[];
         morphAttributes: any;
-        drawcalls: any; // deprecated, use groups
-        offsets: any; // deprecated, use groups
         groups: {start: number, count: number, materialIndex?: number}[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         drawRange: { start: number, count: number };
 
         getIndex(): BufferAttribute;
@@ -734,8 +797,8 @@ declare namespace THREE {
 
         center(): Vector3;
 
-        setFromObject(object: Object3D) : void;
-        updateFromObject(object: Object3D) : void;
+        setFromObject(object: Object3D): void;
+        updateFromObject(object: Object3D): void;
 
         fromGeometry(geometry: Geometry, settings?: any): BufferGeometry;
 
@@ -764,8 +827,8 @@ declare namespace THREE {
         toNonIndexed(): BufferGeometry;
 
         toJSON(): any;
-        clone(): BufferGeometry;
-        copy(source: BufferGeometry): BufferGeometry;
+        clone(): this;
+        copy(source: this): this;
 
         /**
          * Disposes the object from memory.
@@ -773,17 +836,14 @@ declare namespace THREE {
          */
         dispose(): void;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: Event) => void ): void;
-        hasEventListener(type: string, listener: (event: Event) => void): void;
-        removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
+        // deprecated
+        drawcalls: any;
+        offsets: any;
 
-        addIndex(index: any): void; // deprecated, use setIndex()
-        addAttribute(name: any, array: any, itemSize: any): any; // deprecated
-        addDrawCall(start: any, count: any, indexOffset?: any): void; // deprecated, use addGroup()
-        clearDrawCalls(): void; // deprecated, use clearGroups()
-        computeFaceNormals(): void; // deprecated
+        addIndex(index: any): void;
+        addDrawCall(start: any, count: any, indexOffset?: any): void;
+        clearDrawCalls(): void;
+        addAttribute(name: any, array: any, itemSize: any): any;
     }
 
     /**
@@ -849,7 +909,7 @@ declare namespace THREE {
     /**
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/DirectGeometry.js">src/core/DirectGeometry.js</a>
      */
-    export class DirectGeometry {
+    export class DirectGeometry extends EventDispatcher {
         constructor();
 
         id: number;
@@ -867,7 +927,7 @@ declare namespace THREE {
         skinWeights: number[];
         skinIndices: number[];
         boundingBox: Box3;
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
         verticesNeedUpdate: boolean;
         normalsNeedUpdate: boolean;
         colorsNeedUpdate: boolean;
@@ -919,8 +979,6 @@ declare namespace THREE {
          */
         constructor();
 
-        apply(object: any): void;
-
         /**
          * Adds a listener to an event type.
          * @param type The type of the listener that gets removed.
@@ -947,6 +1005,9 @@ declare namespace THREE {
          * @param type The type of event that gets fired.
          */
         dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
+
+        // deprecated
+        apply(target: any): void;
     }
 
     export interface Event {
@@ -1018,8 +1079,8 @@ declare namespace THREE {
          */
         materialIndex: number;
 
-        clone(): Face3;
-        copy(source: Face3): Face3;
+        clone(): this;
+        copy(source: this): this;
     }
 
     export class Face4 extends Face3 {} // deprecated, use Face3
@@ -1039,10 +1100,6 @@ declare namespace THREE {
         normals: Vector3[];
     }
 
-    export interface BoundingSphere {
-        radius: number;
-    }
-
     export let GeometryIdCount: number;
 
     /**
@@ -1058,7 +1115,7 @@ declare namespace THREE {
      *
      * @see https://github.com/mrdoob/three.js/blob/master/src/core/Geometry.js
      */
-    export class Geometry {
+    export class Geometry extends EventDispatcher {
         constructor();
 
         /**
@@ -1142,7 +1199,7 @@ declare namespace THREE {
         /**
          * Bounding sphere.
          */
-        boundingSphere: BoundingSphere;
+        boundingSphere: Sphere;
 
         /**
          * Set to true if the vertices array has been updated.
@@ -1244,9 +1301,9 @@ declare namespace THREE {
         /**
          * Creates a new clone of the Geometry.
          */
-        clone(): Geometry;
+        clone(): this;
 
-        copy(source: Geometry): Geometry;
+        copy(source: this): this;
 
         /**
          * Removes The object from memory.
@@ -1255,7 +1312,7 @@ declare namespace THREE {
         dispose(): void;
 
 
-        //These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
+        // These properties do not exist in a normal Geometry class, but if you use the instance that was passed by JSONLoader, it will be added.
         bones: Bone[];
         animation: AnimationClip;
         animations: AnimationClip[];
@@ -1268,7 +1325,7 @@ declare namespace THREE {
     }
 
     export namespace GeometryUtils { // deprecated
-        export function merge(goemetry1: any, goemetry2: any, materialIndexOffset?: any): any; // deprecated, use geometry.merge( geometry2, matrix, materialIndexOffset )
+        export function merge(geometry1: any, geometry2: any, materialIndexOffset?: any): any; // deprecated, use geometry.merge( geometry2, matrix, materialIndexOffset )
         export function center(geometry: any): any; // deprecated, use geometry.center()
     }
 
@@ -1279,9 +1336,6 @@ declare namespace THREE {
         constructor(data: ArrayLike<number>, itemSize: number, meshPerAttribute?: number);
 
         meshPerAttribute: number;
-
-        clone(): InstancedBufferAttribute;
-        copy(source: InstancedBufferAttribute): InstancedBufferAttribute;
     }
 
     /**
@@ -1290,12 +1344,10 @@ declare namespace THREE {
     export class InstancedBufferGeometry extends BufferGeometry {
         constructor();
 
-        groups: {start:number, count:number, instances:number}[];
+        groups: {start: number, count: number, instances: number}[];
         maxInstancedCount: number;
 
         addGroup(start: number, count: number, instances: number): void;
-        clone(): InstancedBufferGeometry;
-        copy(source: InstancedBufferGeometry): InstancedBufferGeometry;
     }
 
     /**
@@ -1314,11 +1366,11 @@ declare namespace THREE {
         needsUpdate: boolean;
 
         setDynamic(dynamic: boolean): InterleavedBuffer;
-        clone(): InterleavedBuffer;
-        copy(source: InterleavedBuffer): InterleavedBuffer;
+        clone(): this;
+        copy(source: this): this;
         copyAt(index1: number, attribute: InterleavedBufferAttribute, index2: number): InterleavedBuffer;
         set(value: ArrayLike<number>, index: number): InterleavedBuffer;
-        clone(): InterleavedBuffer;
+        clone(): this;
     }
 
     /**
@@ -1328,22 +1380,21 @@ declare namespace THREE {
         constructor(array: ArrayLike<number>, stride: number, meshPerAttribute?: number);
 
         meshPerAttribute: number;
-
-        clone(): InstancedInterleavedBuffer;
-        copy(source: InstancedInterleavedBuffer): InstancedInterleavedBuffer;
     }
 
     /**
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/core/InterleavedBufferAttribute.js">src/core/InterleavedBufferAttribute.js</a>
      */
     export class InterleavedBufferAttribute {
-        constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number);
+        constructor(interleavedBuffer: InterleavedBuffer, itemSize: number, offset: number, normalized: boolean);
 
         uuid: string;
         data: InterleavedBuffer;
         itemSize: number;
         offset: number;
         count: number;
+        normalized: boolean;
+        array: any[];
 
         getX(index: number): number;
         setX(index: number, x: number): InterleavedBufferAttribute;
@@ -1365,7 +1416,7 @@ declare namespace THREE {
     /**
      * Base class for scene graph objects
      */
-    export class Object3D {
+    export class Object3D extends EventDispatcher {
         constructor();
 
         /**
@@ -1409,7 +1460,6 @@ declare namespace THREE {
          * Object's local rotation (Euler angles), in radians.
          */
         rotation: Euler;
-        eulerOrder: string; // deprecated, use rotation.order
 
         /**
          * Global rotation.
@@ -1424,11 +1474,6 @@ declare namespace THREE {
         modelViewMatrix: Matrix4;
 
         normalMatrix: Matrix3;
-
-        /**
-         * When this is set, then the rotationMatrix gets calculated every frame.
-         */
-        rotationAutoUpdate: boolean;
 
         /**
          * Local transform.
@@ -1539,7 +1584,6 @@ declare namespace THREE {
          * @param distance  The distance to translate.
          */
         translateOnAxis(axis: Vector3, distance: number): Object3D;
-        translate(distance: number, axis: Vector3): Object3D; // deprecated, use translateOnAxis(axis, distance)
 
         /**
          * Translates object along x axis by distance.
@@ -1627,22 +1671,19 @@ declare namespace THREE {
 
         toJSON(meta?: { geometries: any, materials: any, textures: any, images: any }): any;
 
-        clone(recursive?: boolean): Object3D;
+        clone(recursive?: boolean): this;
 
         /**
          *
          * @param object
          * @param recursive
          */
-        copy(source: Object3D, recursive?: boolean): Object3D;
+        copy(source: this, recursive?: boolean): this;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: Event) => void ): void;
-        hasEventListener(type: string, listener: (event: Event) => void): void;
-        removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
-
-        getChildByName(name: string): Object3D; // deprecated, use getObjectByName()
+        // deprecated
+        eulerOrder: string;
+        getChildByName(name: string): Object3D;
+        translate(distance: number, axis: Vector3): Object3D;
     }
 
     export interface Intersection {
@@ -1674,7 +1715,7 @@ declare namespace THREE {
         linePrecision: number;
 
         set(origin: Vector3, direction: Vector3): void;
-        setFromCamera(coords: { x: number; y: number;}, camera: Camera ): void;
+        setFromCamera(coords: { x: number; y: number; }, camera: Camera ): void;
         intersectObject(object: Object3D, recursive?: boolean): Intersection[];
         intersectObjects(objects: Object3D[], recursive?: boolean): Intersection[];
     }
@@ -1692,9 +1733,9 @@ declare namespace THREE {
     }
 
     export class Font {
-        constructor(data: any);
+        constructor(jsondata: string);
 
-        data: any;
+        data: string;
 
         generateShapes(text: string, size: number, divisions: number): any[];
     }
@@ -1721,9 +1762,6 @@ declare namespace THREE {
         shadowBias: any; // deprecated, use shadow.bias
         shadowMapWidth: any; // deprecated, use shadow.mapSize.width
         shadowMapHeight: any; // deprecated, use shadow.mapSize.height
-
-        copy(source: Light): Light;
-        clone(recursive?: boolean): Light;
     }
 
     export class LightShadow {
@@ -1736,8 +1774,9 @@ declare namespace THREE {
         map: RenderTarget;
         matrix: Matrix4;
 
-        copy(source: LightShadow): LightShadow;
-        clone(recursive?: boolean): LightShadow;
+        copy(source: this): this;
+        clone(recursive?: boolean): this;
+        toJSON(): any;
     }
 
     /**
@@ -1757,9 +1796,6 @@ declare namespace THREE {
         constructor(hex?: number|string, intensity?: number);
 
         castShadow: boolean;
-
-        copy(source: AmbientLight): AmbientLight;
-        clone(recursive?: boolean): AmbientLight;
     }
 
     /**
@@ -1788,19 +1824,15 @@ declare namespace THREE {
         intensity: number;
 
         shadow: LightShadow;
-
-        copy(source: DirectionalLight): DirectionalLight;
-        clone(recursive?: boolean): HemisphereLight;
     }
+
+    export class DirectionalLightShadow extends LightShadow {}
 
     export class HemisphereLight extends Light {
         constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
 
         groundColor: Color;
         intensity: number;
-
-        copy(source: HemisphereLight): HemisphereLight;
-        clone(recursive?: boolean): HemisphereLight;
     }
 
     /**
@@ -1829,9 +1861,6 @@ declare namespace THREE {
         decay: number;
         shadow: LightShadow;
         power: number;
-
-        copy(source: PointLight): PointLight;
-        clone(recursive?: boolean): PointLight;
     }
 
     /**
@@ -1871,11 +1900,13 @@ declare namespace THREE {
         exponent: number;
 
         decay: number;
-        shadow: LightShadow;
+        shadow: SpotLightShadow;
         power: number;
+        penumbra: number;
+    }
 
-        clone(recursive?: boolean): SpotLight;
-        copy(source: PointLight): SpotLight;
+    export class SpotLightShadow extends LightShadow {
+        update(light: Light): void;
     }
 
     // Loaders //////////////////////////////////////////////////////////////////////////////////
@@ -1927,7 +1958,7 @@ declare namespace THREE {
         static Handlers: LoaderHandler;
     }
 
-    export interface LoaderHandler{
+    export interface LoaderHandler {
         handlers: (RegExp | Loader)[];
 
         add(regex: RegExp, loader: Loader): void;
@@ -1943,9 +1974,9 @@ declare namespace THREE {
         withCredentials: boolean;
 
         load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): any;
-        setPath(path: string): void;
-        setResponseType(responseType: string): void;
-        setWithCredentials(withCredentials: boolean): void;
+        setPath(path: string): XHRLoader;
+        setResponseType(responseType: string): XHRLoader;
+        setWithCredentials(withCredentials: boolean): XHRLoader;
     }
 
     export class FontLoader {
@@ -1954,6 +1985,7 @@ declare namespace THREE {
         manager: LoadingManager;
 
         load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+        parse(json: string): Font;
     }
 
     /**
@@ -1965,6 +1997,7 @@ declare namespace THREE {
 
         manager: LoadingManager;
         crossOrigin: string;
+        withCredentials: string;
         path: string;
 
         /**
@@ -1972,8 +2005,9 @@ declare namespace THREE {
          * @param url
          */
         load(url: string, onLoad?: (image: HTMLImageElement) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): HTMLImageElement;
-        setCrossOrigin(crossOrigin: string): void;
-        setPath(value: any): void;
+        setCrossOrigin(crossOrigin: string): ImageLoader;
+        setWithCredentials(value: string): ImageLoader;
+        setPath(value: string): ImageLoader;
     }
 
     /**
@@ -1984,7 +2018,6 @@ declare namespace THREE {
 
         manager: LoadingManager;
         withCredentials: boolean;
-        statusDomElement: HTMLElement; // readonly and deprecated
 
         load(url: string, onLoad?: (geometry: Geometry, materials: Material[]) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
         setTexturePath( value: string ): void;
@@ -2073,6 +2106,7 @@ declare namespace THREE {
 
         manager: LoadingManager;
         crossOrigin: string;
+        withCredentials: string;
         path: string;
 
         /**
@@ -2081,8 +2115,9 @@ declare namespace THREE {
          * @param url
          */
         load(url: string, onLoad?: (texture: Texture) => void): Texture;
-        setCrossOrigin(crossOrigin: string): void;
-        setPath(path: string): void;
+        setCrossOrigin(crossOrigin: string): TextureLoader;
+        setWithCredentials(value: string): TextureLoader;
+        setPath(path: string): TextureLoader;
     }
 
     export class CubeTextureLoader {
@@ -2093,8 +2128,8 @@ declare namespace THREE {
         path: string;
 
         load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
-        setCrossOrigin(crossOrigin: string): void;
-        setPath(path: string): void;
+        setCrossOrigin(crossOrigin: string): CubeTextureLoader;
+        setPath(path: string): CubeTextureLoader;
     }
 
     export class BinaryTextureLoader {
@@ -2113,7 +2148,13 @@ declare namespace THREE {
         path: string;
 
         load(url: string, onLoad: (texture: CompressedTexture) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
-        setPath(path: string): void;
+        setPath(path: string): CompressedTextureLoader;
+    }
+
+    export class AudioLoader {
+        constructor(manager?: LoadingManager);
+
+        load(url: string, onLoad: Function, onPrgress: Function, onError: Function): void;
     }
 
     export namespace Cache {
@@ -2153,12 +2194,16 @@ declare namespace THREE {
         premultipliedAlpha?: boolean;
         overdraw?: number;
         visible?: boolean;
+        fog?: boolean;
+        lights?: boolean;
+        shading?: Shading;
+        vertexColors?: Colors;
     }
 
     /**
      * Materials describe the appearance of objects. They are defined in a (mostly) renderer-independent way, so you don't have to rewrite materials if you decide to use a different renderer.
      */
-    export class Material {
+    export class Material extends EventDispatcher {
         constructor();
 
         /**
@@ -2229,6 +2274,9 @@ declare namespace THREE {
          */
         depthWrite: boolean;
 
+        clippingPlanes: any;
+        clipShadows: boolean;
+
         colorWrite: boolean;
 
         precision: any;
@@ -2271,20 +2319,20 @@ declare namespace THREE {
          */
         needsUpdate: boolean;
 
-        warpRGB: Color; // deprecated, returns a new Color intance
+        fog: boolean;
+        lights: boolean;
+        shading: Shading;
+        vertexColors: Colors;
 
         setValues(parameters: MaterialParameters): void;
         toJSON(meta?: any): any;
-        clone(): Material;
-        copy(source: Material): Material;
+        clone(): this;
+        copy(source: this): this;
         update(): void;
         dispose(): void;
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: Event) => void ): void;
-        hasEventListener(type: string, listener: (event: Event) => void): void;
-        removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
+        // deprecated
+        warpRGB: Color;
     }
 
     export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -2292,9 +2340,6 @@ declare namespace THREE {
         linewidth?: number;
         linecap?: string;
         linejoin?: string;
-        blending?: Blending;
-        vertexColors?: Colors;
-        fog?: boolean;
     }
 
     export class LineBasicMaterial extends Material {
@@ -2304,13 +2349,8 @@ declare namespace THREE {
         linewidth: number;
         linecap: string;
         linejoin: string;
-        blending: Blending;
-        vertexColors: Colors;
-        fog: boolean;
 
         setValues(parameters: LineBasicMaterialParameters): void;
-        clone(): LineBasicMaterial;
-        copy(source: LineBasicMaterial): LineBasicMaterial;
     }
 
     export interface LineDashedMaterialParameters extends MaterialParameters {
@@ -2319,9 +2359,6 @@ declare namespace THREE {
         scale?: number;
         dashSize?: number;
         gapSize?: number;
-        blending?: Blending;
-        vertexColors?: Colors;
-        fog?: boolean;
     }
 
     export class LineDashedMaterial extends Material {
@@ -2332,13 +2369,8 @@ declare namespace THREE {
         scale: number;
         dashSize: number;
         gapSize: number;
-        blending: Blending;
-        vertexColors: Colors;
-        fog: boolean;
 
         setValues(parameters: LineDashedMaterialParameters): void;
-        clone(): LineDashedMaterial;
-        copy(source: LineDashedMaterial): LineDashedMaterial;
     }
 
     /**
@@ -2357,15 +2389,12 @@ declare namespace THREE {
         reflectivity?: number;
         refractionRatio?: number;
         shading?: Shading;
-        blending?: Blending;
         wireframe?: boolean;
         wireframeLinewidth?: number;
         wireframeLinecap?: string;
         wireframeLinejoin?: string;
-        vertexColors?: Colors;
         skinning?: boolean;
         morphTargets?: boolean;
-        fog?: boolean;
     }
 
     export class MeshBasicMaterial extends Material {
@@ -2381,20 +2410,15 @@ declare namespace THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: boolean;
         shading: Shading;
-        blending: Blending;
         wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
-        vertexColors: Colors;
         skinning: boolean;
         morphTargets: boolean;
 
         setValues(parameters: MeshBasicMaterialParameters): void;
-        clone(): MeshBasicMaterial;
-        copy(source: MeshBasicMaterial): MeshBasicMaterial;
     }
 
     export interface MeshDepthMaterialParameters extends MaterialParameters {
@@ -2409,8 +2433,6 @@ declare namespace THREE {
         wireframeLinewidth: number;
 
         setValues(parameters: MeshDepthMaterialParameters): void;
-        clone(): MeshDepthMaterial;
-        copy(source: MeshDepthMaterial): MeshDepthMaterial;
     }
 
     export interface MeshLambertMaterialParameters extends MaterialParameters {
@@ -2429,13 +2451,10 @@ declare namespace THREE {
         combine?: Combine;
         reflectivity?: number;
         refractionRatio?: number;
-        fog?: boolean;
-        blending?: Blending;
         wireframe?: boolean;
         wireframeLinewidth?: number;
         wireframeLinecap?: string;
         wireframeLinejoin?: string;
-        vertexColors?: Colors;
         skinning?: boolean;
         morphTargets?: boolean;
         morphNormals?: boolean;
@@ -2445,7 +2464,7 @@ declare namespace THREE {
         constructor(parameters?: MeshLambertMaterialParameters);
 
         color: Color;
-        emissive: Color;
+        emissive: number|string;
         emissiveIntensity: number;
         emissiveMap: Texture;
         map: Texture;
@@ -2459,20 +2478,15 @@ declare namespace THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: boolean;
-        blending: Blending;
         wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
-        vertexColors: Colors;
         skinning: boolean;
         morphTargets: boolean;
         morphNormals: boolean;
 
         setValues(parameters: MeshLambertMaterialParameters): void;
-        clone(): MeshLambertMaterial;
-        copy(source: MeshLambertMaterial): MeshLambertMaterial;
     }
 
     export interface MeshStandardMaterialParameters extends MaterialParameters {
@@ -2500,20 +2514,17 @@ declare namespace THREE {
         envMap?: Texture;
         envMapIntensity?: number;
         refractionRatio?: number;
-        shading?: Shading;
-        blending?: Blending;
         wireframe?: boolean;
         wireframeLinewidth?: number;
-        vertexColors?: Colors;
         skinning?: boolean;
         morphTargets?: boolean;
         morphNormals?: boolean;
-        fog?: boolean;
     }
 
     export class MeshStandardMaterial extends Material {
         constructor(parameters?: MeshStandardMaterialParameters);
 
+        defines: any;
         color: Color;
         roughness: number;
         metalness: number;
@@ -2538,38 +2549,13 @@ declare namespace THREE {
         envMap: Texture;
         envMapIntensity: number;
         refractionRatio: number;
-        shading: Shading;
-        blending: Blending;
         wireframe: boolean;
         wireframeLinewidth: number;
-        vertexColors: Colors;
         skinning: boolean;
         morphTargets: boolean;
         morphNormals: boolean;
-        fog: boolean;
 
         setValues(parameters: MeshStandardMaterialParameters): void;
-        clone(): MeshStandardMaterial;
-        copy(source: MeshStandardMaterial): MeshStandardMaterial;
-    }
-
-    export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
-        reflectivity?: number;
-        clearCoat?: number;
-        clearCoatRoughness?: number;
-    }
-
-    export class MeshPhysicalMaterial extends MeshStandardMaterial {
-        constructor(parameters?: MeshPhysicalMaterialParameters);
-
-        defines: any;
-        reflectivity: number;
-        clearCoat: number;
-        clearCoatRoughness: number;
-
-        setValues(parameters: MeshPhysicalMaterialParameters): void;
-        clone(): MeshPhysicalMaterial;
-        copy(source: MeshPhysicalMaterial): MeshPhysicalMaterial;
     }
 
     export interface MeshNormalMaterialParameters extends MaterialParameters {
@@ -2588,8 +2574,6 @@ declare namespace THREE {
         morphTargets: boolean;
 
         setValues(parameters: MeshNormalMaterialParameters): void;
-        clone(): MeshNormalMaterial;
-        copy(source: MeshNormalMaterial): MeshNormalMaterial;
     }
 
     export interface MeshPhongMaterialParameters extends MaterialParameters {
@@ -2619,17 +2603,13 @@ declare namespace THREE {
         combine?: Combine;
         reflectivity?: number;
         refractionRatio?: number;
-        shading?: Shading;
-        blending?: Blending;
         wireframe?: boolean;
         wireframeLinewidth?: number;
         wireframeLinecap?: string;
         wireframeLinejoin?: string;
-        vertexColors?: Colors;
         skinning?: boolean;
         morphTargets?: boolean;
         morphNormals?: boolean;
-        fog?: boolean;
     }
 
     export class MeshPhongMaterial extends Material {
@@ -2659,22 +2639,31 @@ declare namespace THREE {
         combine: Combine;
         reflectivity: number;
         refractionRatio: number;
-        fog: boolean;
-        shading: Shading;
-        blending: Blending;
         wireframe: boolean;
         wireframeLinewidth: number;
         wireframeLinecap: string;
         wireframeLinejoin: string;
-        vertexColors: Colors;
         skinning: boolean;
         morphTargets: boolean;
         morphNormals: boolean;
         metal: boolean; // deprecated
 
         setValues(parameters: MeshPhongMaterialParameters): void;
-        clone(): MeshPhongMaterial;
-        copy(source: MeshPhongMaterial): MeshPhongMaterial;
+    }
+
+    export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
+        reflectivity?: number;
+        clearCoat?: number;
+        clearCoatRoughness?: number;
+    }
+
+    export class MeshPhysicalMaterial extends MeshStandardMaterial {
+        constructor(parameters: MeshPhysicalMaterialParameters);
+
+        defines: any;
+        reflectivity: number;
+        clearCoat: number;
+        clearCoatRoughness: number;
     }
 
     // MultiMaterial does not inherit the Material class in the original code. However, it should treat as Material class.
@@ -2685,7 +2674,6 @@ declare namespace THREE {
         materials: Material[];
 
         toJSON(meta: any): any;
-        clone(): MultiMaterial;
     }
 
     export class MeshFaceMaterial extends MultiMaterial {} // deprecated, use MultiMaterial
@@ -2695,9 +2683,6 @@ declare namespace THREE {
         map?: Texture;
         size?: number;
         sizeAttenuation?: boolean;
-        blending?: Blending;
-        vertexColors?: Colors;
-        fog?: boolean;
     }
 
     export class PointsMaterial extends Material {
@@ -2707,31 +2692,24 @@ declare namespace THREE {
         map: Texture;
         size: number;
         sizeAttenuation: boolean;
-        blending: Blending;
-        vertexColors: boolean;
-        fog: boolean;
 
         setValues(parameters: PointsMaterialParameters): void;
-        clone(): PointsMaterial;
-        copy(source: PointsMaterial): PointsMaterial;
     }
 
-    export class PointCloudMaterial extends PointsMaterial {} // deprecated, use PointsMaterial
-    export class ParticleBasicMaterial extends PointsMaterial {} // deprecated, use PointsMaterial
-    export class ParticleSystemMaterial extends PointsMaterial {} // deprecated, use PointsMaterial
+    export class PointCloudMaterial extends PointsMaterial {} // deprecated
+    export class ParticleBasicMaterial extends PointsMaterial {} // deprecated
+    export class ParticleSystemMaterial extends PointsMaterial {} // deprecated
 
     export interface ShaderMaterialParameters extends MaterialParameters {
         defines?: any;
         uniforms?: any;
         vertexShader?: string;
         fragmentShader?: string;
-        shading?: Shading;
         lineWidth?: number;
         wireframe?: boolean;
         wireframeLinewidth?: number;
-        fog?: boolean;
         lights?: boolean;
-        vertexColors?: Colors;
+        clipping?: boolean;
         skinning?: boolean;
         morphTargets?: boolean;
         morphNormals?: boolean;
@@ -2741,16 +2719,14 @@ declare namespace THREE {
         constructor(parameters?: ShaderMaterialParameters);
 
         defines: any;
-        uniforms: any;
+        uniforms: any; // type should be  { [uniform: string]: { value: any }; };    but gives "Index signature is missing in type" error during compilation
         vertexShader: string;
         fragmentShader: string;
-        shading: Shading;
         linewidth: number;
         wireframe: boolean;
         wireframeLinewidth: number;
-        fog: boolean;
         lights: boolean;
-        vertexColors: Colors;
+        clipping: boolean;
         skinning: boolean;
         morphTargets: boolean;
         morphNormals: boolean;
@@ -2760,8 +2736,6 @@ declare namespace THREE {
         index0AttributeName: string;
 
         setValues(parameters: ShaderMaterialParameters): void;
-        clone(): ShaderMaterial;
-        copy(source: ShaderMaterial): ShaderMaterial;
         toJSON(meta: any): any;
     }
 
@@ -2773,7 +2747,6 @@ declare namespace THREE {
         color?: number|string;
         map?: Texture;
         rotation?: number;
-        fog?: boolean;
     }
 
     export class SpriteMaterial extends Material {
@@ -2782,11 +2755,12 @@ declare namespace THREE {
         color: Color;
         map: Texture;
         rotation: number;
-        fog: boolean;
 
         setValues(parameters: SpriteMaterialParameters): void;
-        clone(): SpriteMaterial;
-        copy(source: SpriteMaterial): SpriteMaterial;
+    }
+
+    export class ShadowMaterial extends ShaderMaterial {
+        constructor(parameters?: ShaderMaterialParameters);
     }
 
     // Math //////////////////////////////////////////////////////////////////////////////////
@@ -2800,13 +2774,12 @@ declare namespace THREE {
         set(min: Vector2, max: Vector2): Box2;
         setFromPoints(points: Vector2[]): Box2;
         setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
-        clone(): Box2;
-        copy(box: Box2): Box2;
+        clone(): this;
+        copy(box: this): this;
         makeEmpty(): Box2;
-        empty(): any; // deprecated, use isEmpty()
         isEmpty(): boolean;
-        center(optionalTarget?: Vector2): Vector2;
-        size(optionalTarget?: Vector2): Vector2;
+        getCenter(optionalTarget?: Vector2): Vector2;
+        getSize(optionalTarget?: Vector2): Vector2;
         expandByPoint(point: Vector2): Box2;
         expandByVector(vector: Vector2): Box2;
         expandByScalar(scalar: number): Box2;
@@ -2821,6 +2794,7 @@ declare namespace THREE {
         translate(offset: Vector2): Box2;
         equals(box: Box2): boolean;
 
+        empty(): any; // deprecated, use isEmpty()
         isIntersectionBox(b: any): any; // deprecated, use intersectsBox()
     }
 
@@ -2831,16 +2805,16 @@ declare namespace THREE {
         min: Vector3;
 
         set(min: Vector3, max: Vector3): Box3;
-        setFromArray(array: number[]): Box3;
+        setFromArray(array: ArrayLike<number>): Box3;
         setFromPoints(points: Vector3[]): Box3;
         setFromCenterAndSize(center: Vector3, size: Vector3): Box3;
         setFromObject(object: Object3D): Box3;
-        clone(): Box3;
-        copy(box: Box3): Box3;
+        clone(): this;
+        copy(box: this): this;
         makeEmpty(): Box3;
         isEmpty(): boolean;
-        center(optionalTarget?: Vector3): Vector3;
-        size(optionalTarget?: Vector3): Vector3;
+        getCenter(optionalTarget?: Vector3): Vector3;
+        getSize(optionalTarget?: Vector3): Vector3;
         expandByPoint(point: Vector3): Box3;
         expandByVector(vector: Vector3): Box3;
         expandByScalar(scalar: number): Box3;
@@ -2932,13 +2906,13 @@ declare namespace THREE {
         /**
          * Clones this color.
          */
-        clone(): Color;
+        clone(): this;
 
         /**
          * Copies given color.
          * @param color Color to copy.
          */
-        copy(color: Color): Color;
+        copy(color: this): this;
 
         /**
          * Copies given color making conversion from gamma to linear space.
@@ -2985,6 +2959,7 @@ declare namespace THREE {
         add(color: Color): Color;
         addColors(color1: Color, color2: Color): Color;
         addScalar(s: number): Color;
+        sub(color: Color): Color;
         multiply(color: Color): Color;
         multiplyScalar(s: number): Color;
         lerp(color: Color, alpha: number): Color;
@@ -3153,10 +3128,10 @@ declare namespace THREE {
         onChangeCallback: Function;
 
         set(x: number, y: number, z: number, order?: string): Euler;
-        clone(): Euler;
-        copy(euler: Euler): Euler;
+        clone(): this;
+        copy(euler: this): this;
         setFromRotationMatrix(m: Matrix4, order?: string, update?: boolean): Euler;
-        setFromQuaternion(q:Quaternion, order?: string, update?: boolean): Euler;
+        setFromQuaternion(q: Quaternion, order?: string, update?: boolean): Euler;
         setFromVector3( v: Vector3, order?: string ): Euler;
         reorder(newOrder: string): Euler;
         equals(euler: Euler): boolean;
@@ -3181,10 +3156,11 @@ declare namespace THREE {
         planes: Plane[];
 
         set(p0?: number, p1?: number, p2?: number, p3?: number, p4?: number, p5?: number): Frustum;
-        clone(): Frustum;
-        copy(frustum: Frustum): Frustum;
+        clone(): this;
+        copy(frustum: this): this;
         setFromMatrix(m: Matrix4): Frustum;
         intersectsObject(object: Object3D): boolean;
+        intersectsObject(sprite: Sprite): boolean;
         intersectsSphere(sphere: Sphere): boolean;
         intersectsBox(box: Box3): boolean;
         containsPoint(point: Vector3): boolean;
@@ -3197,9 +3173,9 @@ declare namespace THREE {
         end: Vector3;
 
         set(start?: Vector3, end?: Vector3): Line3;
-        clone(): Line3;
-        copy(line: Line3): Line3;
-        center(optionalTarget?: Vector3): Vector3;
+        clone(): this;
+        copy(line: this): this;
+        getCenter(optionalTarget?: Vector3): Vector3;
         delta(optionalTarget?: Vector3): Vector3;
         distanceSq(): number;
         distance(): number;
@@ -3215,6 +3191,9 @@ declare namespace THREE {
      * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math.js">src/math/Math.js</a>
      */
     export namespace Math {
+        export const DEG2RAD: number;
+        export const RAD2DEG: number;
+
         export function generateUUID(): string;
 
         /**
@@ -3291,7 +3270,7 @@ declare namespace THREE {
         /**
          * copy(m:T):T;
          */
-        copy(m: Matrix): Matrix;
+        copy(m: this): this;
 
         /**
          * multiplyScalar(s:number):T;
@@ -3313,7 +3292,7 @@ declare namespace THREE {
         /**
          * clone():T;
          */
-        clone(): Matrix;
+        clone(): this;
     }
 
     /**
@@ -3332,43 +3311,33 @@ declare namespace THREE {
 
         set(n11: number, n12: number, n13: number, n21: number, n22: number, n23: number, n31: number, n32: number, n33: number): Matrix3;
         identity(): Matrix3;
-        clone(): Matrix3;
-        copy(m: Matrix3): Matrix3;
-        setFromMatix4(m: Matrix4): Matrix3;
-
-        /**
-         * @deprecated Use applyToVector3Array()
-         */
-        multiplyVector3Array(a: any): any;
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        clone(): this;
+        copy(m: this): this;
+        setFromMatrix4(m: Matrix4): Matrix3;
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer(buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         multiplyScalar(s: number): Matrix3;
         determinant(): number;
         getInverse(matrix: Matrix3, throwOnDegenerate?: boolean): Matrix3;
 
         /**
-         * @deprecated No longer takes a Matrix4 argument.
-         */
-        getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3;
-
-        /**
          * Transposes this matrix in place.
          */
         transpose(): Matrix3;
-        flattenToArrayOffset(array: number[], offset: number): number[];
         getNormalMatrix(matrix4: Matrix4): Matrix3;
 
         /**
          * Transposes this matrix into the supplied array r, and returns itself.
          */
         transposeIntoArray(r: number[]): number[];
-        fromArray(array: number[]): Matrix3;
+        fromArray(array: number[], offset?: number): Matrix3;
         toArray(): number[];
 
-        /**
-         * @deprecated Use vector.applyMatrix3( matrix )
-         */
+        // deprecated
         multiplyVector3(vector: Vector3): any;
+        multiplyVector3Array(a: any): any;
+        getInverse(matrix: Matrix4, throwOnDegenerate?: boolean): Matrix3;
+        flattenToArrayOffset(array: number[], offset: number): number[];
     }
 
     /**
@@ -3406,9 +3375,8 @@ declare namespace THREE {
          * Resets this matrix to identity.
          */
         identity(): Matrix4;
-        clone(): Matrix4;
-        copy(m: Matrix4): Matrix4;
-        extractPosition(m: Matrix4): Matrix4; // deprecated, use copyPosition()
+        clone(): this;
+        copy(m: this): this;
         copyPosition(m: Matrix4): Matrix4;
         extractBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
         makeBasis( xAxis: Vector3, yAxis: Vector3, zAxis: Vector3): Matrix4;
@@ -3418,7 +3386,6 @@ declare namespace THREE {
          */
         extractRotation(m: Matrix4): Matrix4;
         makeRotationFromEuler(euler: Euler): Matrix4;
-        setRotationFromQuaternion(q: Quaternion): Matrix4; // deprecated, use makeRotationFromQuaternion()
         makeRotationFromQuaternion(q: Quaternion): Matrix4;
         /**
          * Constructs a rotation matrix, looking from eye towards center with defined up vector.
@@ -3429,6 +3396,8 @@ declare namespace THREE {
          * Multiplies this matrix by m.
          */
         multiply(m: Matrix4): Matrix4;
+
+        premultiply(m: Matrix4): Matrix4;
 
         /**
          * Sets this matrix to a x b.
@@ -3445,8 +3414,7 @@ declare namespace THREE {
          * Multiplies this matrix by s.
          */
         multiplyScalar(s: number): Matrix4;
-        multiplyVector3Array(array: number[]): number[]; // deprecated, use applyToVector3Array()
-        applyToVector3Array(array: number[], offset?: number, length?: number): number[];
+        applyToVector3Array(array: ArrayLike<number>, offset?: number, length?: number): ArrayLike<number>;
         applyToBuffer( buffer: BufferAttribute, offset?: number, length?: number): BufferAttribute;
         /**
          * Computes determinant of this matrix.
@@ -3459,10 +3427,7 @@ declare namespace THREE {
          */
         transpose(): Matrix4;
 
-        /**
-         * Flattens this matrix into supplied flat array starting from offset position in the array.
-         */
-        flattenToArrayOffset(array: number[], offset: number): number[];
+
 
         /**
          * Sets the position component for this matrix from vector v.
@@ -3548,29 +3513,18 @@ declare namespace THREE {
          */
         makeOrthographic(left: number, right: number, top: number, bottom: number, near: number, far: number): Matrix4;
         equals( matrix: Matrix4 ): boolean;
-        fromArray(array: number[]): Matrix4;
+        fromArray(array: number[], offset?: number): Matrix4;
         toArray(): number[];
 
-        /**
-         * @deprecated Use Vector3.setFromMatrixPosition( matrix )
-         */
-        getPosition(): any;
-        /**
-         * @deprecated Use Vector3.applyMatrix4( matrix ) or Vector3.applyProjection( matrix )
-         */
+        // deprecated
+        extractPosition(m: Matrix4): Matrix4;
+        setRotationFromQuaternion(q: Quaternion): Matrix4;
         multiplyVector3(v: any): any;
-        /**
-         * @deprecated Use Vector3.applyMatrix4( matrix )
-         */
         multiplyVector4(v: any): any;
-        /**
-         * @deprecated Use Vector3.transformDirection( matrix )
-         */
+        multiplyVector3Array(array: number[]): number[];
         rotateAxis(v: any): void;
-        /**
-         * @deprecated Use Vector3.applyMatrix( matrix )
-         */
         crossVector(v: any): void;
+        flattenToArrayOffset(array: number[], offset: number): number[];
     }
 
     export class Plane {
@@ -3583,8 +3537,8 @@ declare namespace THREE {
         setComponents(x: number, y: number, z: number, w: number): Plane;
         setFromNormalAndCoplanarPoint(normal: Vector3, point: Vector3): Plane;
         setFromCoplanarPoints(a: Vector3, b: Vector3, c: Vector3): Plane;
-        clone(): Plane;
-        copy(plane: Plane): Plane;
+        clone(): this;
+        copy(plane: this): this;
         normalize(): Plane;
         negate(): Plane;
         distanceToPoint(point: Vector3): number;
@@ -3599,15 +3553,16 @@ declare namespace THREE {
         translate(offset: Vector3): Plane;
         equals(plane: Plane): boolean;
 
-        isIntersectionLine(l: any): any; // deprecated, use instersectsLine()
+        // deprecated
+        isIntersectionLine(l: any): any;
     }
 
     export class Spherical {
         constructor(radius?: number, phi?: number, theta?: number);
 
-        set(radius: number, phi: number, theta: number): void;
-        clone(): Spherical;
-        copy(other: Spherical): Spherical;
+        set(radius: number, phi: number, theta: number): Spherical;
+        clone(): this;
+        copy(other: this): this;
         makeSafe(): void;
         setFromVector3(vec3: Vector3): Spherical;
     }
@@ -3643,12 +3598,12 @@ declare namespace THREE {
         /**
          * Clones this quaternion.
          */
-        clone(): Quaternion;
+        clone(): this;
 
         /**
          * Copies values of q to this quaternion.
          */
-        copy(q: Quaternion): Quaternion;
+        copy(q: this): this;
 
         /**
          * Sets this quaternion from rotation specified by Euler angles.
@@ -3690,6 +3645,7 @@ declare namespace THREE {
          * Multiplies this quaternion by b.
          */
         multiply(q: Quaternion): Quaternion;
+        premultiply(q: Quaternion): Quaternion;
 
         /**
          * Sets this quaternion to a x b
@@ -3697,7 +3653,6 @@ declare namespace THREE {
          */
         multiplyQuaternions(a: Quaternion, b: Quaternion): Quaternion;
 
-        multiplyVector3(v: any): any; // deprecated, use vector.applyQuaternion( quaternion )
 
         slerp(qb: Quaternion, t: number): Quaternion;
         equals(v: Quaternion): boolean;
@@ -3716,6 +3671,9 @@ declare namespace THREE {
         static slerp(qa: Quaternion, qb: Quaternion, qm: Quaternion, t: number): Quaternion;
 
         static slerpFlat(dst: number[], dstOffset: number, src0: number[], srcOffset: number, src1: number[], stcOffset1: number, t: number): Quaternion;
+
+        // deprecated
+        multiplyVector3(v: any): any;
     }
 
     export class Ray {
@@ -3725,8 +3683,8 @@ declare namespace THREE {
         direction: Vector3;
 
         set(origin: Vector3, direction: Vector3): Ray;
-        clone(): Ray;
-        copy(ray: Ray): Ray;
+        clone(): this;
+        copy(ray: this): this;
         at(t: number, optionalTarget?: Vector3): Vector3;
         lookAt(v: Vector3): Vector3;
         recast(t: number): Ray;
@@ -3745,9 +3703,10 @@ declare namespace THREE {
         applyMatrix4(matrix4: Matrix4): Ray;
         equals(ray: Ray): boolean;
 
-        isIntersectionSphere(s: any): any; // deprecated, use intersectsSphere()
-        isIntersectionPlane(p: any): any; // deprecated, use intersectsPlane()
-        isIntersectionBox(b: any): any; // deprecated, use intersectsBox()
+        // deprecated
+        isIntersectionBox(b: any): any;
+        isIntersectionPlane(p: any): any;
+        isIntersectionSphere(s: any): any;
     }
 
     export class Sphere {
@@ -3758,8 +3717,8 @@ declare namespace THREE {
 
         set(center: Vector3, radius: number): Sphere;
         setFromPoints(points: Vector3[], optionalCenter?: Vector3): Sphere;
-        clone(): Sphere;
-        copy(sphere: Sphere): Sphere;
+        clone(): this;
+        copy(sphere: this): this;
         empty(): boolean;
         containsPoint(point: Vector3): boolean;
         distanceToPoint(point: Vector3): number;
@@ -3835,14 +3794,15 @@ declare namespace THREE {
 
         set(a: Vector3, b: Vector3, c: Vector3): Triangle;
         setFromPointsAndIndices(points: Vector3[], i0: number, i1: number, i2: number): Triangle;
-        clone(): Triangle;
-        copy(triangle: Triangle): Triangle;
+        clone(): this;
+        copy(triangle: this): this;
         area(): number;
         midpoint(optionalTarget?: Vector3): Vector3;
         normal(optionalTarget?: Vector3): Vector3;
         plane(optionalTarget?: Vector3): Plane;
         barycoordFromPoint(point: Vector3, optionalTarget?: Vector3): Vector3;
         containsPoint(point: Vector3): boolean;
+        closestPointToPoint(): Vector3;
         equals(triangle: Triangle): boolean;
 
         static normal(a: Vector3, b: Vector3, c: Vector3, optionalTarget?: Vector3): Vector3;
@@ -3869,7 +3829,7 @@ declare namespace THREE {
         /**
          * copy(v:T):T;
          */
-        copy(v: Vector): Vector;
+        copy(v: this): this;
 
         /**
          * add(v:T):T;
@@ -3958,7 +3918,7 @@ declare namespace THREE {
         /**
          * clone():T;
          */
-        clone(): Vector;
+        clone(): this;
     }
 
     /**
@@ -4003,11 +3963,11 @@ declare namespace THREE {
         /**
          * Clones this vector.
          */
-        clone(): Vector2;
+        clone(): this;
         /**
          * Copies value of v to this vector.
          */
-        copy(v: Vector2): Vector2;
+        copy(v: this): this;
 
         /**
          * Adds v to this vector.
@@ -4094,6 +4054,7 @@ declare namespace THREE {
          * Computes squared distance of this vector to v.
          */
         distanceToSquared(v: Vector2): number;
+        distanceToManhattan(v: Vector2): number;
 
         /**
          * Normalizes this vector and multiplies it by l.
@@ -4168,11 +4129,11 @@ declare namespace THREE {
         /**
          * Clones this vector.
          */
-        clone(): Vector3;
+        clone(): this;
         /**
          * Copies value of v to this vector.
          */
-        copy(v: Vector3): Vector3;
+        copy(v: this): this;
 
         /**
          * Adds v to this vector.
@@ -4210,7 +4171,7 @@ declare namespace THREE {
         applyMatrix4(m: Matrix4): Vector3;
         applyProjection(m: Matrix4): Vector3;
         applyQuaternion(q: Quaternion): Vector3;
-        project(camera: Camera): Vector3;
+        project(camrea: Camera): Vector3;
         unproject(camera: Camera): Vector3;
         transformDirection(m: Matrix4): Vector3;
         divide(v: Vector3): Vector3;
@@ -4292,15 +4253,12 @@ declare namespace THREE {
          * Computes squared distance of this vector to v.
          */
         distanceToSquared(v: Vector3): number;
+        distanceToManhattan(v: Vector3): number;
 
         setFromSpherical(s: Spherical): Matrix3;
-        getPositionFromMatrix(m: Matrix4): Vector3; // deprecated, use setFromMatrixPosition()
         setFromMatrixPosition(m: Matrix4): Vector3;
-        getScaleFromMatrix(m: Matrix4): Vector3; // deprecated, use setFromMatrixScale()
         setFromMatrixScale(m: Matrix4): Vector3;
-        getColumnFromMatrixColumn(index: number, matrix: Matrix4): Vector3; // deprecated, use setFromMatrixColumn()
         setFromMatrixColumn(matrix: Matrix4, index: number): Vector3;
-        setFromMatrixColumn(index: number, matrix: Matrix4): Vector3; // deprecated, now expects ( matrix, index )
 
         /**
          * Checks for strict equality of this vector and v.
@@ -4308,13 +4266,16 @@ declare namespace THREE {
         equals(v: Vector3): boolean;
 
         fromArray(xyz: number[], offset?: number): Vector3;
-
         toArray(xyz?: number[], offset?: number): number[];
-
         fromAttribute( attribute: BufferAttribute, index: number, offset?: number): Vector3;
+
+        // deprecated
+        getPositionFromMatrix(m: Matrix4): Vector3;
+        getScaleFromMatrix(m: Matrix4): Vector3;
+        getColumnFromMatrix(index: number, matrix: Matrix4): Vector3;
     }
 
-    export class Vertex extends Vector3 {} // deprecated, use Vector3
+    export class Vertex extends Vector3 {} // deprecated
 
     /**
      * 4D vector.
@@ -4364,11 +4325,11 @@ declare namespace THREE {
         /**
          * Clones this vector.
          */
-        clone(): Vector4;
+        clone(): this;
         /**
          * Copies value of v to this vector.
          */
-        copy(v: Vector4): Vector4;
+        copy(v: this): this;
 
         /**
          * Adds v to this vector.
@@ -4516,9 +4477,6 @@ declare namespace THREE {
         constructor(skin: SkinnedMesh);
 
         skin: SkinnedMesh;
-
-        clone(): Bone;
-        copy(source: Bone): Bone;
     }
 
     export class Group extends Object3D {
@@ -4529,16 +4487,15 @@ declare namespace THREE {
         constructor();
 
         levels: any[];
-        objects: any[]; // deprecated, use .levels
 
         addLevel(object: Object3D, distance?: number): void;
         getObjectForDistance(distance: number): Object3D;
         raycast(raycaster: Raycaster, intersects: any): void;
         update(camera: Camera): void;
-
-        clone(): LOD;
-        copy(source: LOD): LOD;
         toJSON(meta: any): any;
+
+        // deprecated
+        objects: any[];
     }
 
     export interface LensFlareProperty {
@@ -4565,8 +4522,6 @@ declare namespace THREE {
         add(object: Object3D): void;
         add(texture: Texture, size?: number, distance?: number, blending?: Blending, color?: Color): void;
         updateLensFlares(): void;
-        clone(): LensFlare;
-        copy(source: LensFlare): LensFlare;
     }
 
     export class Line extends Object3D {
@@ -4580,9 +4535,10 @@ declare namespace THREE {
         material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
         raycast(raycaster: Raycaster, intersects: any): void;
-        clone(): Line;
-        copy(source: Line): Line;
     }
+
+    export const LineStrip: number; // deprecated
+    export const LinePieces: number; // deprecated
 
     export class LineSegments extends Line {
         constructor(
@@ -4590,14 +4546,9 @@ declare namespace THREE {
             material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
             mode?: number
         );
-
-        clone(): LineSegments;
-        copy(source: LineSegments): LineSegments;
     }
 
     enum LineMode {}
-    var LineStrip: LineMode; // deprecated
-    var LinePieces: LineMode; // deprecated
 
     export class Mesh extends Object3D {
         constructor(geometry?: Geometry, material?: Material);
@@ -4611,8 +4562,6 @@ declare namespace THREE {
         updateMorphTargets(): void;
         getMorphTargetIndexByName(name: string): number;
         raycast(raycaster: Raycaster, intersects: any): void;
-        clone(): Mesh;
-        copy(source: Mesh): Mesh;
     }
 
     /**
@@ -4642,12 +4591,10 @@ declare namespace THREE {
         material: Material;
 
         raycast(raycaster: Raycaster, intersects: any): void;
-        clone(): Points;
-        copy(source: Points): Points;
     }
 
-    export class PointCloud extends Points {} // deprecated, use Points
-    export class ParticleSystem extends Points {} // deprecated, use Points
+    export class PointCloud extends Points {} // deprecated
+    export class ParticleSystem extends Points {} // deprecated
 
     export class Skeleton {
         constructor(bones: Bone[], boneInverses?: Matrix4[], useVertexTexture?: boolean);
@@ -4664,7 +4611,7 @@ declare namespace THREE {
         calculateInverses(bone: Bone): void;
         pose(): void;
         update(): void;
-        clone(): Skeleton;
+        clone(): this;
     }
 
     export class SkinnedMesh extends Mesh {
@@ -4685,8 +4632,6 @@ declare namespace THREE {
         pose(): void;
         normalizeSkinWeights(): void;
         updateMatrixWorld(force?: boolean): void;
-        clone(): SkinnedMesh;
-        copy(source: SkinnedMesh): SkinnedMesh;
     }
 
     export class Sprite extends Object3D {
@@ -4696,19 +4641,18 @@ declare namespace THREE {
         material: SpriteMaterial;
 
         raycast(raycaster: Raycaster, intersects: any): void;
-        clone(): Sprite;
-        copy(source: Sprite): Sprite;
     }
 
-    export class Particle extends Sprite {} // deprecated, use Sprite
+    export class Particle extends Sprite {} // deprecated
 
 
     // Renderers //////////////////////////////////////////////////////////////////////////////////
 
     export interface Renderer {
-        render(scene: Scene, camera: Camera): void;
-        setSize(width:number, height:number, updateStyle?:boolean): void;
         domElement: HTMLCanvasElement;
+
+        render(scene: Scene, camera: Camera): void;
+        setSize(width: number, height: number, updateStyle?: boolean): void;
     }
 
     export interface WebGLRendererParameters {
@@ -4814,9 +4758,10 @@ declare namespace THREE {
          */
         sortObjects: boolean;
 
-        extensions: WebGLExtensions;
+        clippingPlanes: any[];
+        localClippingEnabled: boolean;
 
-        gammaFactor: number; // deprecated
+        extensions: WebGLExtensions;
 
         /**
          * Default is false.
@@ -4849,11 +4794,6 @@ declare namespace THREE {
         maxMorphNormals: number;
 
         /**
-         * Default is true.
-         */
-        autoScaleCubemaps: boolean;
-
-        /**
          * An object with a series of statistical information about the graphics board memory and the rendering process. Useful for debugging or just for the sake of curiosity. The object contains the following fields:
          */
         info: {
@@ -4871,15 +4811,13 @@ declare namespace THREE {
         };
 
         shadowMap: WebGLShadowMap;
-        shadowMapType: ShadowMapType; // deprecated, use shadowMap.type
-        shadowMapEnabled: boolean; // deprecated, use shadowMap.enabled
-        shadowMapCullFace: CullFace; // deprecated, use shadowMap.cullFace
 
         pixelRation: number;
 
         capabilities: WebGLCapabilities;
         properties: WebGLProperties;
         state: WebGLState;
+        allocTextureUnit: any;
 
         /**
          * Return the WebGL context.
@@ -4943,7 +4881,7 @@ declare namespace THREE {
         clearColor(): void;
         clearDepth(): void;
         clearStencil(): void;
-        clearTarget(renderTarget:WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
+        clearTarget(renderTarget: WebGLRenderTarget, color: boolean, depth: boolean, stencil: boolean): void;
         resetGLState(): void;
         dispose(): void;
 
@@ -4971,24 +4909,31 @@ declare namespace THREE {
          * @param frontFace "ccw" or "cw
          */
         setFaceCulling(cullFace?: CullFace, frontFace?: FrontFaceDirection): void;
-        setTexture(texture: Texture, slot: number): void;
+        setTexture(texture: Texture, slot: number): void; // deprecated
+        setTexture2D(texture: Texture, slot: number): void;
+        setTextureCube(texture: Texture, slot: number): void;
         getCurrentRenderTarget(): RenderTarget;
         setRenderTarget(renderTarget: RenderTarget): void;
         readRenderTargetPixels( renderTarget: RenderTarget, x: number, y: number, width: number, height: number, buffer: any ): void;
 
-        supportsFloatTextures(): any; // deprecated
-        supportsHalfFloatTextures(): any; // deprecated
-        supportsStandardDerivatives(): any; // deprecated
-        supportsCompressedTextureS3TC(): any; // deprecated
-        supportsCompressedTexturePVRTC(): any; // deprecated
-        supportsBlendMinMax(): any; // deprecated
-        supportsVertexTextures(): any; // deprecated
-        supportsInstancedArrays(): any; // deprecated
-        enableScissorTest(boolean: any): any; // deprecated
+        // deprecated
+        gammaFactor: number;
+        shadowMapEnabled: boolean;
+        shadowMapType: ShadowMapType;
+        shadowMapCullFace: CullFace;
+
+        supportsFloatTextures(): any;
+        supportsHalfFloatTextures(): any;
+        supportsStandardDerivatives(): any;
+        supportsCompressedTextureS3TC(): any;
+        supportsCompressedTexturePVRTC(): any;
+        supportsBlendMinMax(): any;
+        supportsVertexTextures(): any;
+        supportsInstancedArrays(): any;
+        enableScissorTest(boolean: any): any;
     }
 
-    export interface RenderTarget {
-    }
+    export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
 
     export interface WebGLRenderTargetOptions {
         wrapS?: Wrapping;
@@ -5002,7 +4947,7 @@ declare namespace THREE {
         stencilBuffer?: boolean; // true;
     }
 
-    export class WebGLRenderTarget implements RenderTarget {
+    export class WebGLRenderTarget extends EventDispatcher {
         constructor(width: number, height: number, options?: WebGLRenderTargetOptions);
 
         uuid: string;
@@ -5014,6 +4959,7 @@ declare namespace THREE {
         texture: Texture;
         depthBuffer: boolean;
         stencilBuffer: boolean;
+        depthTexture: Texture;
         wrapS: any; // deprecated, use texture.wrapS
         wrapT: any; // deprecated, use texture.wrapT
         magFilter: any; // deprecated, use texture.magFilter
@@ -5026,15 +4972,9 @@ declare namespace THREE {
         generateMipmaps: any; // deprecated, use texture.generateMipmaps
 
         setSize(width: number, height: number): void;
-        clone(): WebGLRenderTarget;
-        copy(source: WebGLRenderTarget): WebGLRenderTarget;
+        clone(): this;
+        copy(source: this): this;
         dispose(): void;
-
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: Event) => void ): void;
-        hasEventListener(type: string, listener: (event: Event) => void): void;
-        removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
     }
 
     export class WebGLRenderTargetCube extends WebGLRenderTarget {
@@ -5057,6 +4997,10 @@ declare namespace THREE {
         beginnormal_vertex: string;
         bsdfs: string;
         bumpmap_pars_fragment: string;
+        clipping_planes_fragment: string;
+        clipping_planes_pars_fragment: string;
+        clipping_planes_pars_vertex: string;
+        clipping_planes_vertex: string;
         color_fragment: string;
         color_pars_fragment: string;
         color_pars_vertex: string;
@@ -5068,8 +5012,6 @@ declare namespace THREE {
         defaultnormal_vertex: string;
         depth_frag: string;
         depth_vert: string;
-        depthRGBA_frag: string;
-        depthRGBA_vert: string;
         distanceRGBA_frag: string;
         distanceRGBA_vert: string;
         displacementmap_vertex: string;
@@ -5094,10 +5036,8 @@ declare namespace THREE {
         lights_pars: string;
         lights_phong_fragment: string;
         lights_phong_pars_fragment: string;
-        lights_phong_pars_vertex: string;
-        lights_phong_vertex: string;
-        lights_standard_fragment: string;
-        lights_standard_pars_fragment: string;
+        lights_physical_fragment: string;
+        lights_physical_pars_fragment: string;
         lights_template: string;
         logdepthbuf_fragment: string;
         logdepthbuf_pars_fragment: string;
@@ -5113,19 +5053,24 @@ declare namespace THREE {
         meshlambert_vert: string;
         meshphong_frag: string;
         meshphong_vert: string;
-        meshstandard_frag: string;
-        meshstandard_vert: string;
+        meshphysical_frag: string;
+        meshphysical_vert: string;
         metalnessmap_fragment: string;
         metalnessmap_pars_fragment: string;
         morphnormal_vertex: string;
         morphtarget_pars_vertex: string;
         morphtarget_vertex: string;
+        normal_flip: string;
         normal_frag: string;
         normal_fragment: string;
         normal_vert: string;
         normalmap_pars_fragment: string;
+        packing: string;
         points_frag: string;
         points_vert: string;
+        shadow_frag: string;
+        shadow_vert: string;
+
         premultiplied_alpha_fragment: string;
         project_vertex: string;
         roughnessmap_fragment: string;
@@ -5149,10 +5094,10 @@ declare namespace THREE {
         uv_pars_vertex: string;
         uv_vertex: string;
         worldpos_vertex: string;
-    }
+    };
 
     export interface Shader {
-        uniforms: any;
+        uniforms: IUniform;
         vertexShader: string;
         fragmentShader: string;
     }
@@ -5171,10 +5116,10 @@ declare namespace THREE {
         equirect: Shader;
         depthRGBA: Shader;
         distanceRGBA: Shader;
+        physical: Shader;
     };
 
     export interface IUniform {
-        type: string;
         value: any;
     }
 
@@ -5224,61 +5169,57 @@ declare namespace THREE {
         lights: {
             ambientLightColor: IUniform
             directionalLights: {
-                type: string;
                 value: any[];
                 properties: {
-                    direction: { type: string };
-                    color: { type: string };
-                    shadow: { type: string };
-                    shadowBias: { type: string };
-                    shadowRadius: { type: string };
-                    shadowMapSize: { type: string };
+                    direction: {};
+                    color: {};
+                    shadow: {};
+                    shadowBias: {};
+                    shadowRadius: {};
+                    shadowMapSize: {};
                 };
             };
             directionalShadowMap: IUniform;
             directionalShadowMatrix: IUniform;
             spotLights: {
-                type: string;
                 value: any[];
                 properties: {
-                    color: { type: string };
-                    position: { type: string };
-                    direction: { type: string };
-                    distance: { type: string };
-                    coneCos: { type: string };
-                    penumbraCos: { type: string };
-                    decay: { type: string };
-                    shadow: { type: string };
-                    shadowBias: { type: string };
-                    shadowRadius: { type: string };
-                    shadowMapSize: { type: string };
+                    color: {};
+                    position: {};
+                    direction: {};
+                    distance: {};
+                    coneCos: {};
+                    penumbraCos: {};
+                    decay: {};
+                    shadow: {};
+                    shadowBias: {};
+                    shadowRadius: {};
+                    shadowMapSize: {};
                 };
             };
             spotShadowMap: IUniform;
             spotShadowMatrix: IUniform;
             pointLights: {
-                type: string;
                 value: any[];
                 properties: {
-                    color: { type: string };
-                    position: { type: string };
-                    decay: { type: string };
-                    distance: { type: string };
-                    shadow: { type: string };
-                    shadowBias: { type: string };
-                    shadowRadius: { type: string };
-                    shadowMapSize: { type: string };
+                    color: {};
+                    position: {};
+                    decay: {};
+                    distance: {};
+                    shadow: {};
+                    shadowBias: {};
+                    shadowRadius: {};
+                    shadowMapSize: {};
                 };
             };
             pointShadowMap: IUniform;
             pointShadowMatrix: IUniform;
             hemisphereLigtts: {
-                type: string;
                 value: any[];
                 properties: {
-                    direction: { type: string };
-                    skycolor: { type: string };
-                    groundColor: { type: string };
+                    direction: {};
+                    skycolor: {};
+                    groundColor: {};
                 };
             };
         };
@@ -5298,10 +5239,11 @@ declare namespace THREE {
     }
 
     export class Uniform {
-        constructor(type: string, value: string);
+        constructor(value: any);
+        constructor(type: string, value: any); // deprecated
 
-        type: string;
-        value: string;
+        type: string; // deprecated
+        value: any;
         dynamic: boolean;
         onUpdateCallback: Function;
 
@@ -5313,8 +5255,18 @@ declare namespace THREE {
         constructor(_gl: WebGLRenderingContext, extensions: any, _infoRender: any);
 
         setMode(value: any): void;
-        render(start: any, count: any): void;
+        render(start: any, count: number): void;
         renderInstances(geometry: any): void;
+    }
+
+    export class WebGLClipping {
+        uniform: { value: any, needsUpdate: boolean };
+        numPlanes: number;
+
+        init(planes: any[], enableLocalClipping: boolean, camera: Camera): boolean;
+        beginShadows(): void;
+        endShadows(): void;
+        setState(planes: any[], clipShadows: boolean, camera: Camera, cache: boolean, fromCache: boolean): void;
     }
 
     export interface WebGLCapabilitiesParameters {
@@ -5339,7 +5291,8 @@ declare namespace THREE {
         floatFragmentTextures: any;
         floatVertexTextures: any;
 
-        getMaxPrecision(precision: any): any;
+        getMaxAnisotropy(): number;
+        getMaxPrecision(precision: string): string;
     }
 
     export class WebGLExtensions {
@@ -5389,7 +5342,7 @@ declare namespace THREE {
         uniforms: any; // deprecated, use getUniforms()
         attributes: any; // deprecated, use getAttributes()
 
-        getUniforms(): any;
+        getUniforms(): WebGLUniforms;
         getAttributes(): any;
         destroy(): void;
     }
@@ -5399,10 +5352,35 @@ declare namespace THREE {
 
         programs: any[];
 
-        getParameters(material: ShaderMaterial, lights: any, fog: any, object: any): any[];
+        getParameters(material: ShaderMaterial, lights: any, fog: any, nClipPlanes: number, object: any): any;
         getProgramCode(material: ShaderMaterial, parameters: any): string;
         acquireProgram(material: ShaderMaterial, parameters: any, code: string): WebGLProgram;
         releaseProgram(program: WebGLProgram): void;
+    }
+
+    export class WebGLTextures {
+        constructor(gl: any, extensions: any, state: any, properties: any, capabilities: any, paramThreeToGL: Function, info: any);
+
+        setTexture2D(texture: any, slot: number): void;
+        setTextureCube(texture: any, slot: number): void;
+        setTextureCubeDynamic(texture: any, slot: number): void;
+        setupRenderTarget(renderTarget: any): void;
+        updateRenderTargetMipmap(renderTarget: any): void;
+    }
+
+    export class WebGLUniforms {
+        constructor(gl: any, program: WebGLProgram, renderer: WebGLRenderer);
+
+        renderer: WebGLRenderer;
+
+        setValue(gl: any, value: any, renderer?: any): void;
+        set(gl: any, object: any, name: string): void;
+        setOptional(gl: any, object: any, name: string): void;
+
+        static upload(gl: any, seq: any, values: any[], renderer: any): void;
+        static seqWithValue(seq: any, values: any[]): any[];
+        static splitDynamic(seq: any, values: any[]): any[];
+        static evalDynamic(seq: any, values: any[], object: any, camera: any): any[];
     }
 
     export class WebGLProperties {
@@ -5418,19 +5396,29 @@ declare namespace THREE {
     }
 
     export class WebGLShadowMap {
-        constructor(_renderer: Renderer, _lights: any[], _objects: any[]);
+        constructor(_renderer: Renderer, _lights: any[], _objects: any[], capabilities: any);
 
         enabled: boolean;
         autoUpdate: boolean;
         needsUpdate: boolean;
         type: ShadowMapType;
-        cullFace: CullFace;
+        renderReverseSided: boolean;
+        renderSingleSided: boolean;
 
         render(scene: Scene, camera: Camera): void;
+
+        // deprecated
+        cullFace: any;
     }
 
     export class WebGLState {
         constructor(gl: any, extensions: any, paramThreeToGL: Function);
+
+        buffers: {
+            color: WebGLColorBuffer,
+            depth: WebGLDepthBuffer,
+            stencil: WebGLStencilBuffer,
+        };
 
         init(): void;
         initAttributes(): void;
@@ -5441,15 +5429,16 @@ declare namespace THREE {
         disable(id: string): void;
         getCompressedTextureFormats(): any[];
         setBlending(blending: number, blendEquation: number, blendSrc: number, blendDst: number, blendEquationAlpha: number, blendSrcAlpha: number, blendDstAlpha: number): void;
-        setDepthFunc(func: Function): void;
+        setColorWrite(colorWrite: number): void;
         setDepthTest(depthTest: number): void;
         setDepthWrite(depthWrite: number): void;
-        setColorWrite(colorWrite: number): void;
-        setStencilFunc(stencilFunc: Function, stencilRef: any, stencilMask: any): void;
-        setStencilOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
+        setDepthFunc(depthFunc: Function): void;
         setStencilTest(stencilTest: boolean): void;
         setStencilWrite(stencilWrite: any): void;
+        setStencilFunc(stencilFunc: Function, stencilRef: any, stencilMask: number): void;
+        setStencilOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
         setFlipSided(flipSided: number): void;
+        setCullFace(cullFace: CullFace): void;
         setLineWidth(width: number): void;
         setPolygonOffset(polygonoffset: number, factor: number, units: number): void;
         setScissorTest(scissorTest: boolean): void;
@@ -5463,6 +5452,38 @@ declare namespace THREE {
         clearStencil(stencil: any): void;
         scissor(scissor: any): void;
         viewport(viewport: any): void;
+        reset(): void;
+    }
+
+    export class WebGLColorBuffer {
+        constructor(gl: any, state: any);
+
+        setMask(colorMask: number): void;
+        setLocked(lock: boolean): void;
+        setClear(r: number, g: number, b: number, a: number): void;
+        reset(): void;
+    }
+
+    export class WebGLDepthBuffer {
+        constructor(gl: any, state: any);
+
+        setTest(depthTest: boolean): void;
+        sertMask(depthMask: number): void;
+        setFunc(depthFunc: Function): void;
+        setLocked(lock: boolean): void;
+        setClear(depth: any): void;
+        reset(): void;
+    }
+
+    export class WebGLStencilBuffer {
+        constructor(gl: any, state: any);
+
+        setTest(stencilTest: boolean): void;
+        sertMask(stencilMask: number): void;
+        setFunc(stencilFunc: Function, stencilRef: any, stencilMask: number): void;
+        setOp(stencilFail: any, stencilZFail: any, stencilZPass: any): void;
+        setLocked(lock: boolean): void;
+        setClear(stencil: any): void;
         reset(): void;
     }
 
@@ -5497,14 +5518,16 @@ declare namespace THREE {
          */
         overrideMaterial: Material;
         autoUpdate: boolean;
+        background: any;
 
-        copy(source: Scene, recursive?: boolean): Scene;
+        toJSON(meta?: any): any;
     }
 
     export interface IFog {
-        name:string;
+        name: string;
         color: Color;
-        clone():IFog;
+        clone(): this;
+        toJSON(): any;
     }
 
     /**
@@ -5513,7 +5536,7 @@ declare namespace THREE {
     export class Fog implements IFog {
         constructor(hex: number, near?: number, far?: number);
 
-        name:string;
+        name: string;
 
         /**
          * Fog color.
@@ -5531,7 +5554,8 @@ declare namespace THREE {
          */
         far: number;
 
-        clone(): Fog;
+        clone(): this;
+        toJSON(): any;
     }
 
     /**
@@ -5549,13 +5573,14 @@ declare namespace THREE {
          */
         density: number;
 
-        clone(): FogExp2;
+        clone(): this;
+        toJSON(): any;
     }
 
     // Textures /////////////////////////////////////////////////////////////////////
     export let TextureIdCount: number;
 
-    export class Texture {
+    export class Texture extends EventDispatcher {
         constructor(
             image: HTMLImageElement | HTMLCanvasElement | HTMLVideoElement,
             mapping?: Mapping,
@@ -5565,14 +5590,15 @@ declare namespace THREE {
             minFilter?: TextureFilter,
             format?: PixelFormat,
             type?: TextureDataType,
-            anisotropy?: number
+            anisotropy?: number,
+            encoding?: TextureEncoding
             );
 
         id: number;
         uuid: string;
         name: string;
         sourceFile: string;
-        image: any; // HTMLImageElement or ImageData ;
+        image: any; // HTMLImageElement or ImageData or { width: number, height: number } in some children;
         mipmaps: ImageData[];
         mapping: Mapping;
         wrapS: Wrapping;
@@ -5595,17 +5621,27 @@ declare namespace THREE {
         static DEFAULT_IMAGE: any;
         static DEFAULT_MAPPING: any;
 
-        clone(): Texture;
-        copy(source: Texture): Texture;
+        clone(): this;
+        copy(source: this): this;
         toJSON(meta: any): any;
         dispose(): void;
         transformUv(uv: Vector): void;
+    }
 
-        // EventDispatcher mixins
-        addEventListener(type: string, listener: (event: Event) => void ): void;
-        hasEventListener(type: string, listener: (event: Event) => void): void;
-        removeEventListener(type: string, listener: (event: Event) => void): void;
-        dispatchEvent(event: { type: string; [attachment: string]: any; }): void;
+    export class DepthTexture extends Texture {
+        constructor(
+            width: number,
+            heighht: number,
+            type?: TextureDataType,
+            mapping?: Mapping,
+            wrapS?: Wrapping,
+            wrapT?: Wrapping,
+            magFilter?: TextureFilter,
+            minFilter?: TextureFilter,
+            anisotropy?: number
+        );
+
+        image: { width: number, height: number };
     }
 
     export class CanvasTexture extends Texture {
@@ -5620,9 +5656,6 @@ declare namespace THREE {
             type?: TextureDataType,
             anisotropy?: number
         );
-
-        clone(): CanvasTexture;
-        copy(source: CanvasTexture): CanvasTexture;
     }
 
     export class CubeTexture extends Texture {
@@ -5635,12 +5668,11 @@ declare namespace THREE {
             minFilter?: TextureFilter,
             format?: PixelFormat,
             type?: TextureDataType,
-            anisotropy?: number
+            anisotropy?: number,
+            encoding?: TextureEncoding
         );
 
         images: any; // returns and sets the value of Texture.image in the codde ?
-
-        copy(source: CubeTexture): CubeTexture;
     }
 
     export class CompressedTexture extends Texture {
@@ -5655,13 +5687,11 @@ declare namespace THREE {
             wrapT?: Wrapping,
             magFilter?: TextureFilter,
             minFilter?: TextureFilter,
-            anisotropy?: number
+            anisotropy?: number,
+            encoding?: TextureEncoding
         );
 
         image: { width: number; height: number; };
-
-        clone(): CompressedTexture;
-        copy(source: CompressedTexture): CompressedTexture;
     }
 
     export class DataTexture extends Texture {
@@ -5676,13 +5706,11 @@ declare namespace THREE {
             wrapT: Wrapping,
             magFilter: TextureFilter,
             minFilter: TextureFilter,
-            anisotropy?: number
+            anisotropy?: number,
+            encoding?: TextureEncoding
         );
 
         image: { data: ImageData; width: number; height: number; };
-
-        clone(): DataTexture;
-        copy(source: DataTexture): DataTexture;
     }
 
     export class VideoTexture extends Texture {
@@ -5697,9 +5725,6 @@ declare namespace THREE {
             type?: TextureDataType,
             anisotropy?: number
             );
-
-        clone(): VideoTexture;
-        copy(source: VideoTexture): VideoTexture;
     }
 
     // Extras /////////////////////////////////////////////////////////////////////
@@ -5747,26 +5772,28 @@ declare namespace THREE {
         hasPlaybackControl: boolean;
         isPlaying: boolean;
         sourceType: string;
-        filter: any;
+        filters: any[];
 
         getOutput(): GainNode;
-        load(file: string): Audio;
         setNodeSource(audioNode: AudioBufferSourceNode): Audio;
         setBuffer(audioBuffer: AudioBuffer): Audio;
-        play(): void;
-        pause(): void;
-        stop(): void;
-        connect(): void;
-        disconnect(): void;
-        setFilter(value: any): void;
+        play(): Audio;
+        pause(): Audio;
+        stop(): Audio;
+        connect(): Audio;
+        disconnect(): Audio;
+        getFilters(): any[];
+        setFilter(value: any[]): Audio;
         getFilter(): any;
-        setPlaybackRate(value: number): void;
+        setFilter(filter: any): Audio;
+        setPlaybackRate(value: number): Audio;
         getPlaybackRate(): number;
         onEnded(): void;
-        setLoop(value: boolean): void;
         getLoop(): boolean;
-        setVolume(value: number): void;
+        setLoop(value: boolean): void;
         getVolume(): number;
+        setVolume(value: number): Audio;
+        load(file: string): Audio; // deprecated, use the AudioLoader class
     }
 
     export class AudioAnalyser {
@@ -5775,8 +5802,14 @@ declare namespace THREE {
         analyser: any;
         data: Uint8Array;
 
-        getData(): Uint8Array;
+        getFrequencyData(): Uint8Array;
+        getAverageFrequency(): number;
+
+        // deprecated
+        getData(file: any): any;
     }
+
+    export const AudioContext: AudioContext;
 
     export class AudioBuffer {
         constructor(context: any);
@@ -5836,7 +5869,7 @@ declare namespace THREE {
          * Returns a vector for point at relative position in curve according to arc length
          * getPointAt(u: number): T;
          */
-        getPointAt(u: number):T;
+        getPointAt(u: number): T;
 
         /**
          * Get sequence of points using getPoint( t )
@@ -5896,7 +5929,10 @@ declare namespace THREE {
         closePath(): void;
         getPoint(t: number): T;
         getLength(): number;
+        updateArcLengths(): void;
         getCurveLengths(): number[];
+        getSpacedPoints(divisions?: number): T[];
+        getPoints(divisions?: number): T[];
         createPointsGeometry(divisions: number): Geometry;
         createSpacedPointsGeometry(divisions: number): Geometry;
         createGeometry(points: T[]): Geometry;
@@ -5923,7 +5959,7 @@ declare namespace THREE {
     export class Path extends CurvePath<Vector2> {
         constructor(points?: Vector2[]);
 
-        actions: PathAction[];
+        currentPoint: Vector2;
 
         fromPoints(vectors: Vector2[]): void;
         moveTo(x: number, y: number): void;
@@ -5935,8 +5971,19 @@ declare namespace THREE {
         absarc(aX: number, aY: number, aRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean): void;
         ellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean, aRotation: number): void;
         absellipse(aX: number, aY: number, xRadius: number, yRadius: number, aStartAngle: number, aEndAngle: number, aClockwise: boolean, aRotation: number): void;
-        getSpacedPoints(divisions?: number): Vector2[];
-        getPoints(divisions?: number, closedPath?: boolean): Vector2[];
+    }
+
+    export class ShapePath {
+        constructor();
+
+        subPaths: any[];
+        currentPath: any;
+
+        moveTo(x: number, y: number): void;
+        lineTo(x: number, y: number): void;
+        quadraticCurveTo(aCPx: number, aCPy: number, aX: number, aY: number): void;
+        bezierCurveTo(aCP1x: number, aCP1y: number, aCP2x: number, aCP2y: number, aX: number, aY: number): void;
+        splineThru(pts: Vector2[]): void;
         toShapes(isCCW: boolean, noHoles: any): Shape[];
     }
 
@@ -6083,8 +6130,6 @@ declare namespace THREE {
             heightSegments: number;
             depthSegments: number;
         };
-
-        clone(): BoxGeometry;
     }
 
     export class CubeGeometry extends BoxGeometry {} // deprecated, use BoxGeometry
@@ -6149,6 +6194,14 @@ declare namespace THREE {
         };
     }
 
+    export class ConeBufferGeometry extends BufferGeometry {
+        constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
+    }
+
+    export class ConeGeometry extends CylinderGeometry {
+        constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
+    }
+
     export class DodecahedronGeometry extends Geometry {
         constructor(radius: number, detail: number);
 
@@ -6160,8 +6213,6 @@ declare namespace THREE {
 
     export class EdgesGeometry extends BufferGeometry {
         constructor(geometry: BufferGeometry, thresholdAngle: number);
-
-        clone(): EdgesGeometry;
     }
 
     export class ExtrudeGeometry extends Geometry {
@@ -6352,7 +6403,7 @@ declare namespace THREE {
             bevelEnabled: boolean;
             bevelThickness: number;
             bevelSize: number;
-        }
+        };
     }
 
     export class TorusBufferGeometry extends BufferGeometry {
@@ -6458,7 +6509,7 @@ declare namespace THREE {
     }
 
     export class BoxHelper extends LineSegments {
-        constructor(object?: Object3D);
+        constructor(object?: Object3D, color?: Color);
 
         update(object?: Object3D): void;
     }
@@ -6477,7 +6528,6 @@ declare namespace THREE {
 
         light: Light;
         lightPlane: Line;
-        targetLine: Line;
 
         dispose(): void;
         update(): void;
@@ -6497,12 +6547,9 @@ declare namespace THREE {
     }
 
     export class GridHelper extends LineSegments {
-        constructor(size: number, step: number);
+        constructor(size: number, divisions: number, color1?: Color|number, color2?: Color|number);
 
-        color1: Color;
-        color2: Color;
-
-        setColors(colorCenterLine: number, colorGrid: number): void;
+        setColors(color1?: Color|number, color2?: Color|number): void; // deprecated
     }
 
     export class HemisphereLightHelper extends Object3D {
@@ -6536,10 +6583,9 @@ declare namespace THREE {
     }
 
     export class SpotLightHelper extends Object3D {
-        constructor(light: Light, sphereSize: number, arrowLength: number);
+        constructor(light: Light);
 
         light: Light;
-        cone: Mesh;
 
         dispose(): void;
         update(): void;
@@ -6605,6 +6651,6 @@ declare namespace THREE {
     }
 }
 
-declare module 'three' {
+declare module "three" {
     export = THREE;
 }

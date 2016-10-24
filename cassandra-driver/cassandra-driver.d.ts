@@ -16,10 +16,10 @@ declare module "cassandra-driver" {
 
   namespace policies {
     namespace addressResolution {
-      var EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic; 
+      var EC2MultiRegionTranslator: EC2MultiRegionTranslatorStatic;
 
       interface AddressTranslator {
-        translate(address: string, port: number, callback: Callback): void;  
+        translate(address: string, port: number, callback: Callback): void;
       }
 
       interface EC2MultiRegionTranslatorStatic {
@@ -135,13 +135,13 @@ declare module "cassandra-driver" {
     var LocalTime: LocalTimeStatic;
     var Long: _Long;
     var ResultSet: ResultSetStatic;
-    var ResultStream: ResultStreamStatic;
+    // var ResultStream: ResultStreamStatic;
     var Row: RowStatic;
     var TimeUuid: TimeUuidStatic;
     var Tuple: TupleStatic;
     var Uuid: UuidStatic;
 
-    enum consistencies { 
+    enum consistencies {
       any = 0,
       one,
       two,
@@ -154,7 +154,7 @@ declare module "cassandra-driver" {
       localSerial,
       localOne
     }
-    
+
     enum dataTypes {
       custom = 0,
       ascii,
@@ -204,7 +204,7 @@ declare module "cassandra-driver" {
       fromString(value: string): BigDecimal;
       fromNumber(value: number): BigDecimal;
     }
-    
+
     interface BigDecimal {
       equals(other: BigDecimal): boolean;
       inspect(): string;
@@ -239,7 +239,7 @@ declare module "cassandra-driver" {
 
     interface IntegerStatic {
       new(bits: Array<number>, sign: number): Integer;
-      
+
       fromInt(value: number): Integer;
       fromNumber(value: number): Integer;
       fromBits(bits: Array<number>): Integer;
@@ -295,7 +295,7 @@ declare module "cassandra-driver" {
       fromString(value: string): LocalDate;
       fromBuffer(buffer: Buffer): LocalDate;
     }
-    
+
     interface LocalDate {
       _value: number;
       year: number;
@@ -366,7 +366,6 @@ declare module "cassandra-driver" {
       buffer: Buffer;
       paused: boolean;
 
-      _read(): void;
       _valve(readNext: Function): void;
       add(chunk: Buffer): void;
     }
@@ -384,7 +383,7 @@ declare module "cassandra-driver" {
 
     interface TimeUuidStatic {
       new (value?: Date, ticks?: number, nodeId?: string|Buffer, clockId?: string|Buffer): TimeUuid;
-      
+
       fromDate(date: Date, ticks?: number, nodeId?: string|Buffer, clockId?: string|Buffer): TimeUuid;
       fromString(value: string): TimeUuid;
       min(date: Date, ticks?: number): TimeUuid;
@@ -408,7 +407,7 @@ declare module "cassandra-driver" {
     interface Tuple {
       elements: Array<any>;
       length: number;
-      
+
       get(index: number): any;
       toString(): string;
       toJSON(): string;
@@ -480,10 +479,10 @@ declare module "cassandra-driver" {
   interface QueryOptions {
     autoPage?: boolean;
     captureStackTrace?: boolean;
-    consistency: number;
+    consistency?: number;
     customPayload?: any;
     fetchSize?: number;
-    hints: Array<string> | Array<Array<string>>;
+    hints?: Array<string> | Array<Array<string>>;
     logged?: boolean;
     pageState?: Buffer|string;
     prepare?: boolean;
@@ -513,7 +512,7 @@ declare module "cassandra-driver" {
     execute(query: string, params?: any, options?: QueryOptions, callback?: ResultCallback): void;
     getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
     shutdown(callback?: Callback): void;
-    stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): void;
+    stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
   }
 
   interface HostStatic {
@@ -549,7 +548,7 @@ declare module "cassandra-driver" {
   }
 
   interface EncoderStatic {
-    new(protocolVersion: number, options: ClientOptions) : Encoder; 
+    new(protocolVersion: number, options: ClientOptions) : Encoder;
   }
 
   interface Encoder {
@@ -590,29 +589,29 @@ declare module "cassandra-driver" {
     }
 
     class ArgumentError extends DriverError {
-      constructor(message: string); 
+      constructor(message: string);
     }
 
     class AuthenticationError extends DriverError {
-      constructor(message: string); 
+      constructor(message: string);
     }
 
     class DriverInternalError extends DriverError {
-      constructor(message: string); 
+      constructor(message: string);
     }
 
     class NoHostAvailableError extends DriverError {
-      constructor(innerErrors: any, message?: string); 
+      constructor(innerErrors: any, message?: string);
     }
 
     class NotSupportedError extends DriverError {
-      constructor(message: string); 
+      constructor(message: string);
     }
 
     class OperationTimedOutError extends DriverError {}
 
     class ResponseError extends DriverError {
-      constructor(code: number, message: string); 
+      constructor(code: number, message: string);
     }
   }
 
@@ -688,7 +687,7 @@ declare module "cassandra-driver" {
 
     interface IndexStatic {
       new (name: string, target: string, kind: IndexType, options: Object): Index;
-      
+
       fromRows(indexRows: Array<types.Row>): Array<Index>;
       fromColumnRows(columnRows: Array<types.Row>, columnsByName: { [key:string]: ColumnInfo }): Array<Index>;
     }

@@ -14,50 +14,10 @@ declare module 'pino' {
     type LevelLabelsToValues = {[level: string]: number}
     type LevelValuesToLabels = {[level: number]: string}
 
-    interface RequestSummary {
-        pid: number
-        hostname: string
-        level: number
-        msg: string
-        time: string
-        v: number
-        req: {
-            method: string
-            url: string
-            headers: Headers
-            remoteAddress: string
-            remotePort: number
-        }
-    }
-
-    interface ResponseSummary {
-        pid: number
-        hostname: string
-        level: number
-        msg: string
-        time: string
-        v: number
-        res: {
-            statusCode: number
-            header: string
-        }
-    }
-
-    interface ErrorSummary {
-        pid: number
-        hostname: string
-        level: number
-        msg: string
-        time: number
-        v: number
-        type: string
-        stack: string
-    }
-
     interface Serializers {
-        req?: (req: any) => RequestSummary
-        res?: (res: any) => ResponseSummary
-        err?: (error: Error) => ErrorSummary
+        req?: (req: any) => any
+        res?: (res: any) => any
+        err?: (error: Error) => any
     }
 
     interface LoggerOptions {
@@ -81,8 +41,8 @@ declare module 'pino' {
     }
 
     interface Pino {
-        (optionsOrStream?: LoggerOptions | stream.Writable): Logger
-        (options: LoggerOptions, stream: stream.Writable): Logger
+        (optionsOrStream?: LoggerOptions | stream.Writable | stream.Readable): Logger
+        (options: LoggerOptions, stream: stream.Writable | stream.Readable): Logger
         levels: {
             values: LevelLabelsToValues
             labels: LevelValuesToLabels

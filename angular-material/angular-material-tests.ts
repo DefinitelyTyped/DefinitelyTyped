@@ -20,6 +20,13 @@ myApp.config((
         .warnPalette('red')
         .dark(true);
 
+    var browserColors: ng.material.IBrowserColors = {
+      theme: 'default', 
+      palette: 'neonRed', 
+      hue: '500'  
+    };
+    $mdThemingProvider.enableBrowserColor(browserColors);
+
     $mdIconProvider
         .defaultIconSet('my/app/icons.svg')       // Register a default set of SVG icons
         .iconSet('social', 'my/app/social.svg')   // Register a named icon set of SVGs
@@ -30,11 +37,34 @@ myApp.config((
 myApp.controller('BottomSheetController', ($scope: ng.IScope, $mdBottomSheet: ng.material.IBottomSheetService) => {
     $scope['openBottomSheet'] = () => {
         $mdBottomSheet.show({
-            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>'
+            template: '<md-bottom-sheet>Hello!</md-bottom-sheet>',
+            clickOutsideToClose: true,
+            disableBackdrop: true,
+            disableParentScroll: false,
+            parent: () => {}
         });
     };
     $scope['hideBottomSheet'] = $mdBottomSheet.hide.bind($mdBottomSheet, 'hide');
     $scope['cancelBottomSheet'] = $mdBottomSheet.cancel.bind($mdBottomSheet, 'cancel');
+});
+
+myApp.controller('ColorController', ($scope: ng.IScope, $mdColor: ng.material.IColorService) => {
+    var colorExpression : ng.material.IColorExpression;
+    var element : Element;
+
+    colorExpression = { color: '#FFFFFF' }
+
+    element = new Element();
+
+    $scope['applyThemeColors'] = () => {
+        $mdColor.applyThemeColors(element, colorExpression);
+    };
+    $scope['getThemeColor'] = () => {
+        $mdColor.getThemeColor('default-neonRed')
+    };
+    $scope['hasTheme'] = () => {
+        $mdColor.hasTheme();
+    };
 });
 
 myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.IDialogService) => {
@@ -66,6 +96,16 @@ myApp.controller('DialogController', ($scope: ng.IScope, $mdDialog: ng.material.
     };
     $scope['promptDialog'] = () => {
         $mdDialog.show($mdDialog.prompt().placeholder('Prompt input placeholder text'));
+    };
+    $scope['promptDialog'] = () => {
+        $mdDialog.show($mdDialog.prompt().initialValue('Buddy'));
+    };
+    $scope['prerenderedDialog'] = () => {
+        $mdDialog.show({
+            template: '<md-dialog>Hello!</md-dialog>',
+            contentElement: '#myDialog',
+            clickOutsideToClose: true
+        });
     };
     $scope['hideDialog'] = $mdDialog.hide.bind($mdDialog, 'hide');
     $scope['cancelDialog'] = $mdDialog.cancel.bind($mdDialog, 'cancel');
@@ -105,8 +145,82 @@ myApp.controller('SidenavController', ($scope: ng.IScope, $mdSidenav: ng.materia
     $scope['close'] = () => $mdSidenav(componentId).close();
     $scope['isOpen'] = $mdSidenav(componentId).isOpen();
     $scope['isLockedOpen'] = $mdSidenav(componentId).isLockedOpen();
+
+    $scope['asyncLookup'] = $mdSidenav(componentId, true).then((instance) => {
+        instance.toggle();
+        instance.open();
+        instance.close();
+        instance.isOpen();
+        instance.isLockedOpen();
+    });
+
+    $scope['onClose'] = $mdSidenav(componentId).onClose(() => {});
 });
 
 myApp.controller('ToastController', ($scope: ng.IScope, $mdToast: ng.material.IToastService) => {
-    $scope['openToast'] = () => $mdToast.show($mdToast.simple().textContent('Hello!'));
+    $scope['openToast'] = () => {
+        $mdToast.show($mdToast.simple().textContent('Hello!'));
+        $mdToast.updateTextContent('New Content');
+    }
+
+    $scope['customToast'] = () => {
+        var options = {
+            hideDelay: 3000,
+            position: 'top right',
+            controller  : 'ToastCtrl',
+            templateUrl : 'toast-template.html',
+            toastClass: 'my-class'
+        };
+
+        $mdToast.show(options);
+    }
+});
+
+myApp.controller('PanelController', ($scope: ng.IScope, $mdPanel: ng.material.IPanelService) => {
+    $scope['createPanel'] = () => {
+        var config = {
+            id: 'myPanel',
+            template: '<h1>Hello!</h1>',
+            hasBackdrop: true,
+            disableParentScroll: true,
+            zIndex: 150
+        };
+        
+        $mdPanel.create(config);
+
+        var panelRef = $mdPanel.create(config);
+        panelRef.open()
+            .then((ref: ng.material.IPanelRef) => {
+                ref.addClass('foo');
+                ref.removeClass('bar');
+                ref.close();
+            })
+            .finally(() => {
+                panelRef = undefined;
+            });
+    };
+
+    $scope['openPanel'] = () => {
+        $mdPanel.open({
+            template: '<h1>Hello!</h1>',
+            hasBackdrop: true,
+            disableParentScroll: true,
+            zIndex: 150
+        })
+            .then((panelRef: ng.material.IPanelRef) => {
+                panelRef.addClass('foo');
+                panelRef.removeClass('bar');
+                panelRef.close();
+            });
+    };
+
+    $scope['newPanelPosition'] = () => {
+        $mdPanel.newPanelPosition().absolute().center();
+        $mdPanel.newPanelPosition().relativeTo('.demo-menu-open-button').addPanelPosition("ALIGN_START", "BELOW");
+    };
+
+    $scope['newPanelAnimation'] = () => {
+        $mdPanel.newPanelAnimation().openFrom('.some-target');
+        $mdPanel.newPanelAnimation().openFrom({top: 0, left: 0});
+    };
 });
