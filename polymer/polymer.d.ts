@@ -336,6 +336,7 @@ declare namespace polymer {
 
     RenderStatus: RenderStatus
 
+    /** @deprecated */
     ImportStatus: ImportStatus
   }
 }
