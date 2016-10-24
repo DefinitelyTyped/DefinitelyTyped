@@ -303,9 +303,308 @@ declare namespace ValidatorJS {
   }
 }
 
+/**
+ * MODULES
+ */
+declare var validator: ValidatorJS.ValidatorStatic;
+
 declare module "validator" {
-  const validator: ValidatorJS.ValidatorStatic;
   export = validator;
+}
+
+declare module "validator/lib/blacklist" {
+  const blacklist: typeof validator.blacklist;
+  export = blacklist;
+}
+
+declare module "validator/lib/contains" {
+  const contains: typeof validator.contains;
+  export = contains;
+}
+
+declare module "validator/lib/equals" {
+  const equals: typeof validator.equals;
+  export = equals;
+}
+
+declare module "validator/lib/escape" {
+  const escape: typeof validator.escape;
+  export = escape;
+}
+
+declare module "validator/lib/isAfter" {
+  const isAfter: typeof validator.isAfter;
+  export = isAfter;
+}
+
+declare module "validator/lib/isAlpha" {
+  const isAlpha: typeof validator.isAlpha;
+  export = isAlpha;
+}
+
+declare module "validator/lib/isAlphanumeric" {
+  const isAlphanumeric: typeof validator.isAlphanumeric;
+  export = isAlphanumeric;
+}
+
+declare module "validator/lib/isAscii" {
+  const isAscii: typeof validator.isAscii;
+  export = isAscii;
+}
+
+declare module "validator/lib/isBase64" {
+  const isBase64: typeof validator.isBase64;
+  export = isBase64;
+}
+
+declare module "validator/lib/isBefore" {
+  const isBefore: typeof validator.isBefore;
+  export = isBefore;
+}
+
+declare module "validator/lib/isBoolean" {
+  const isBoolean: typeof validator.isBoolean;
+  export = isBoolean;
+}
+
+declare module "validator/lib/isByteLength" {
+  const isByteLength: typeof validator.isByteLength;
+  export = isByteLength;
+}
+
+declare module "validator/lib/isCreditCard" {
+  const isCreditCard: typeof validator.isCreditCard;
+  export = isCreditCard;
+}
+
+declare module "validator/lib/isCurrency" {
+  const isCurrency: typeof validator.isCurrency;
+  export = isCurrency;
+}
+
+declare module "validator/lib/isDataURI" {
+  const isDataURI: typeof validator.isDataURI;
+  export = isDataURI;
+}
+
+declare module "validator/lib/isDate" {
+  const isDate: typeof validator.isDate;
+  export = isDate;
+}
+
+declare module "validator/lib/isDecimal" {
+  const isDecimal: typeof validator.isDecimal;
+  export = isDecimal;
+}
+
+declare module "validator/lib/isDivisibleBy" {
+  const isDivisibleBy: typeof validator.isDivisibleBy;
+  export = isDivisibleBy;
+}
+
+declare module "validator/lib/isEmail" {
+  const isEmail: typeof validator.isEmail;
+  export = isEmail;
+}
+
+declare module "validator/lib/isFQDN" {
+  const isFQDN: typeof validator.isFQDN;
+  export = isFQDN;
+}
+
+declare module "validator/lib/isFloat" {
+  const isFloat: typeof validator.isFloat;
+  export = isFloat;
+}
+
+declare module "validator/lib/isFullWidth" {
+  const isFullWidth: typeof validator.isFullWidth;
+  export = isFullWidth;
+}
+
+declare module "validator/lib/isHalfWidth" {
+  const isHalfWidth: typeof validator.isHalfWidth;
+  export = isHalfWidth;
+}
+
+declare module "validator/lib/isHexColor" {
+  const isHexColor: typeof validator.isHexColor;
+  export = isHexColor;
+}
+
+declare module "validator/lib/isHexadecimal" {
+  const isHexadecimal: typeof validator.isHexadecimal;
+  export = isHexadecimal;
+}
+
+declare module "validator/lib/isIP" {
+  const isIP: typeof validator.isIP;
+  export = isIP;
+}
+
+declare module "validator/lib/isISBN" {
+  const isISBN: typeof validator.isISBN;
+  export = isISBN;
+}
+
+declare module "validator/lib/isISIN" {
+  const isISIN: typeof validator.isISIN;
+  export = isISIN;
+}
+
+declare module "validator/lib/isISO8601" {
+  const isISO8601: typeof validator.isISO8601;
+  export = isISO8601;
+}
+
+declare module "validator/lib/isIn" {
+  const isIn: typeof validator.isIn;
+  export = isIn;
+}
+
+declare module "validator/lib/isInt" {
+  const isInt: typeof validator.isInt;
+  export = isInt;
+}
+
+declare module "validator/lib/isJSON" {
+  const isJSON: typeof validator.isJSON;
+  export = isJSON;
+}
+
+declare module "validator/lib/isLength" {
+  const isLength: typeof validator.isLength;
+  export = isLength;
+}
+
+declare module "validator/lib/isLowercase" {
+  const isLowercase: typeof validator.isLowercase;
+  export = isLowercase;
+}
+
+declare module "validator/lib/isMACAddress" {
+  const isMACAddress: typeof validator.isMACAddress;
+  export = isMACAddress;
+}
+
+declare module "validator/lib/isMD5" {
+  const isMD5: typeof validator.isMD5;
+  export = isMD5;
+}
+
+declare module "validator/lib/isMobilePhone" {
+  const isMobilePhone: typeof validator.isMobilePhone;
+  export = isMobilePhone;
+}
+
+declare module "validator/lib/isMongoId" {
+  const isMongoId: typeof validator.isMongoId;
+  export = isMongoId;
+}
+
+declare module "validator/lib/isMultibyte" {
+  const isMultibyte: typeof validator.isMultibyte;
+  export = isMultibyte;
+}
+
+declare module "validator/lib/isNull" {
+  const isNull: typeof validator.isNull;
+  export = isNull;
+}
+
+declare module "validator/lib/isNumeric" {
+  const isNumeric: typeof validator.isNumeric;
+  export = isNumeric;
+}
+
+declare module "validator/lib/isSurrogatePair" {
+  const isSurrogatePair: typeof validator.isSurrogatePair;
+  export = isSurrogatePair;
+}
+
+declare module "validator/lib/isURL" {
+  const isURL: typeof validator.isURL;
+  export = isURL;
+}
+
+declare module "validator/lib/isUUID" {
+  const isUUID: typeof validator.isUUID;
+  export = isUUID;
+}
+
+declare module "validator/lib/isUppercase" {
+  const isUppercase: typeof validator.isUppercase;
+  export = isUppercase;
+}
+
+declare module "validator/lib/isVariableWidth" {
+  const isVariableWidth: typeof validator.isVariableWidth;
+  export = isVariableWidth;
+}
+
+declare module "validator/lib/isWhitelisted" {
+  const isWhitelisted: typeof validator.isWhitelisted;
+  export = isWhitelisted;
+}
+
+declare module "validator/lib/ltrim" {
+  const ltrim: typeof validator.ltrim;
+  export = ltrim;
+}
+
+declare module "validator/lib/matches" {
+  const matches: typeof validator.matches;
+  export = matches;
+}
+
+declare module "validator/lib/normalizeEmail" {
+  const normalizeEmail: typeof validator.normalizeEmail;
+  export = normalizeEmail;
+}
+
+declare module "validator/lib/rtrim" {
+  const rtrim: typeof validator.rtrim;
+  export = rtrim;
+}
+
+declare module "validator/lib/stripLow" {
+  const stripLow: typeof validator.stripLow;
+  export = stripLow;
+}
+
+declare module "validator/lib/toBoolean" {
+  const toBoolean: typeof validator.toBoolean;
+  export = toBoolean;
+}
+
+declare module "validator/lib/toDate" {
+  const toDate: typeof validator.toDate;
+  export = toDate;
+}
+
+declare module "validator/lib/toFloat" {
+  const toFloat: typeof validator.toFloat;
+  export = toFloat;
+}
+
+declare module "validator/lib/toInt" {
+  const toInt: typeof validator.toInt;
+  export = toInt;
+}
+
+declare module "validator/lib/trim" {
+  const trim: typeof validator.trim;
+  export = trim;
+}
+
+declare module "validator/lib/unescape" {
+  const unescape: typeof validator.unescape;
+  export = unescape;
+}
+
+declare module "validator/lib/whitelist" {
+  const whitelist: typeof validator.whitelist;
+  export = whitelist;
 }
 
 // deprecated interfaces for backward compatibility, please use ValidatorJS.* instead the ones
