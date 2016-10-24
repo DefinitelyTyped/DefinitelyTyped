@@ -541,3 +541,6 @@ declare namespace vg {
 
   // TODO: classes for View, Model, etc.
 }
+
+export = vg;
+export as namespace vg;
