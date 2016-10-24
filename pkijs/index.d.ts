@@ -38,6 +38,16 @@ declare module "pkijs/src/AttributeTypeAndValue" {
          */
         value: any;
 
+        /**
+         * Compare two AttributeTypeAndValue values, or AttributeTypeAndValue with ArrayBuffer value
+         * 
+         * @param {(AttributeTypeAndValue|ArrayBuffer)} compareTo The value compare to current
+         * @returns {boolean}
+         * 
+         * @memberOf AttributeTypeAndValue
+         */
+        isEqual(compareTo: AttributeTypeAndValue|ArrayBuffer): boolean;
+
         constructor(params?: any);
 
         static defaultValues(memberName: string): any;
@@ -159,7 +169,6 @@ declare module "pkijs/src/Accuracy" {
         seconds: number;
         millis: number;
         micros: number;
-        algorithmParams: any;
 
         /**
          * Compare values with default values for all class members
@@ -346,15 +355,15 @@ declare module "pkijs/src/Certificate" {
         tbs: ArrayBuffer;
         version: number;
         serialNumber: Integer;
-        signature: Integer;
+        signature: AlgorithmIdentifier;
         issuer: RelativeDistinguishedNames;
         notBefore: Time;
         notAfter: Time;
         subject: RelativeDistinguishedNames;
         subjectPublicKeyInfo: PublicKeyInfo;
-        issuerUniqueID: ArrayBuffer;
-        subjectUniqueID: ArrayBuffer;
-        extensions: Extension[];
+        issuerUniqueID?: ArrayBuffer;
+        subjectUniqueID?: ArrayBuffer;
+        extensions?: Extension[];
         signatureAlgorithm: AlgorithmIdentifier;
         signatureValue: BitString;
 
@@ -544,18 +553,26 @@ declare module "pkijs/src/CertificationRequest" {
 
         /**
          * Aux function making ASN1js Sequence from current TBS
+         * 
          * @returns {Sequence}
          */
         encodeTBS(): Sequence;
         /**
          * Makes signature for currect certification request
+         * 
          * @param {CryptoKey} privateKey WebCrypto private key
-         * @param {string} hashAlgorithm String representing current hashing algorithm
+         * @param {string} [hashAlgorithm] String representing current hashing algorithm
+         * @returns {PromiseLike<ArrayBuffer>}
+         * 
+         * @memberOf CertificationRequest
          */
-        sign(privateKey: CryptoKey, hashAlgorithm: string): PromiseLike<ArrayBuffer>;
+        sign(privateKey: CryptoKey, hashAlgorithm?: string): PromiseLike<ArrayBuffer>;
         /**
          * Verify existing certification request signature
-         * @returns {*}
+         * 
+         * @returns {PromiseLike<boolean>}
+         * 
+         * @memberOf CertificationRequest
          */
         verify(): PromiseLike<boolean>;
 
