@@ -496,9 +496,9 @@ stringValue = tileWMS.getGetFeatureInfoUrl([0, 0], 1, "EPSG:4326", {});
 // ol.source.WMTS
 //
 var wmts: ol.source.WMTS = new ol.source.WMTS({
-   layer: "",
+    layer: "",
     projection: projection,
-   matrixSet: "",
+    matrixSet: "",
     style: "",
     tileGrid: new ol.tilegrid.WMTS({
         matrixIds: [],
