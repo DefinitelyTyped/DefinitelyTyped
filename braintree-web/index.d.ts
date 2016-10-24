@@ -97,7 +97,7 @@ declare namespace BraintreeWeb {
 //  billingContact
 //  Billing contact information for the user.
 //    countryCode
-//Required.The merchant’s two- letter ISO 3166 country code.
+//Required.The merchantï¿½s two- letter ISO 3166 country code.
 //    currencyCode
 //  Required.The three- letter ISO 4217 currency code for the payment.
 //    lineItems
@@ -1736,3 +1736,4 @@ interface BraintreeStatic {
 }
 
 declare var braintree: BraintreeStatic;
+export = braintree;
