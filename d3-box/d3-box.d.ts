@@ -1,4 +1,4 @@
-// Type definitions for d3-slider
+// Type definitions for d3-box
 // Project: https://github.com/JacksonGariety/d3-box
 // Definitions by: Linkun Chen <https://github.com/lk-chen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,8 +22,8 @@ declare namespace d3 {
         domain(x: number[]): Box;
         value(): (d: any) => number;
         value(x: (d: any) => number): Box;
-        whiskers(): (d: any[]) => number[];
-        whiskers(x: (d: any[]) => number[]): Box;
+        whiskers(): (d: any[], i?: number) => number[];
+        whiskers(x: (d: any[], i?: number) => number[]): Box;
         quartiles(): (d: any[]) => number[];
         quantiles(x: (d: any[]) => number[]): Box;
     }
