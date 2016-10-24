@@ -14,7 +14,7 @@ declare namespace Vega {
 
   export interface ViewArgs {
     // TODO docs
-    el: any;
+    el?: any;
     data?: any;
     hover?: boolean;
     renderer?: string;
