@@ -1,4 +1,4 @@
-// Type definitions for dagre-d3.core.js
+// Type definitions for dagre-d3.core.js v0.4.10
 // Project: https://github.com/cpettitt/dagre-d3
 // Definitions by: Mark Wong Siang Kai <https://github.com/markwongsk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,6 +6,12 @@
 /// <reference types="d3"/>
 /// <reference types="dagre"/>
 /// <reference types="jquery"/>
+
+// TODO: When upgrading dagre-d3.core.js to a version using D3 version 4, please ensure that:
+// (1) The version number in the first comment line of this file is updated
+// (2) The package.json file in this folder is updated to reflect the correct
+// dependencies on @types defintions for D3 version 4 modules.
+
 
 declare namespace Dagre {
 

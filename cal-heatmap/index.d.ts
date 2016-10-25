@@ -5,6 +5,12 @@
 
 /// <reference types="d3" />
 
+
+// TODO: When upgrading cal-heatmap to a version using D3 version 4, please ensure that:
+// (1) The version number in the first comment line of this file is updated
+// (2) The package.json file in this folder is updated to reflect the correct
+// dependencies on @types defintions for D3 version 4 modules.
+
 declare namespace CalHeatMap
 {
 	interface CalHeatMapStatic

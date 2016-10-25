@@ -1,9 +1,16 @@
-// Type definitions for C3js
+// Type definitions for C3js v0.4.11
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="d3"/>
+
+// TODO: When upgrading C3js to a version using D3 version 4, please ensure that:
+// (1) The version number in the first comment line of this file is updated
+// (2) The package.json file in this folder is updated to reflect the correct
+// dependencies on @types defintions for D3 version 4 modules.
+
+
 
 declare namespace c3 {
 
@@ -385,10 +392,10 @@ declare namespace c3 {
          * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
          */
         onmouseout?: (d: any, element?: any) => void;
-        
+
         onselected?: (d: any, element?: any) => void;
 
-        onunselected?: (d: any, element?: any) => void; 
+        onunselected?: (d: any, element?: any) => void;
     }
 
     interface Axis {
