@@ -1,3 +1,8 @@
+// Type definitions for pkijs
+// Project: https://github.com/PeculiarVentures/PKI.js
+// Definitions by: Stepan Miroshin <https://github.com/microshine>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 /// <reference types="asn1js" />
 /// <reference types="pvutils" />
 
@@ -2608,7 +2613,7 @@ declare module "pkijs/src/common" {
     function kdf(hashFunction: string, Zbuffer: ArrayBuffer, keydatalen: number, SharedInfo: ArrayBuffer): PromiseLike<ArrayBuffer>;
 }
 
-declare module "pkijs/src/cms" {
+declare module "pkijs/src/_cms" {
     export * from "pkijs/src/ContentInfo";
     export * from "pkijs/src/OtherCertificateFormat";
     export * from "pkijs/src/OtherRevocationInfoFormat";
@@ -2645,7 +2650,7 @@ declare module "pkijs/src/cms" {
     export * from "pkijs/src/EncryptedData";
 }
 
-declare module "pkijs/src/ocsp_tsp" {
+declare module "pkijs/src/_ocsp_tsp" {
     export * from "pkijs/src/CertID";
     export * from "pkijs/src/Request";
     export * from "pkijs/src/TBSRequest";
@@ -2664,7 +2669,7 @@ declare module "pkijs/src/ocsp_tsp" {
     export * from "pkijs/src/TimeStampResp";
 }
 
-declare module "pkijs/src/x509" {
+declare module "pkijs/src/_x509" {
     export * from "pkijs/src/AccessDescription";
     export * from "pkijs/src/AlgorithmIdentifier";
     export * from "pkijs/src/AltName";

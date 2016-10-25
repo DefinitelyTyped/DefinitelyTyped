@@ -1,3 +1,8 @@
+// Type definitions for asn1js
+// Project: https://github.com/PeculiarVentures/ASN1.js
+// Definitions by: Stepan Miroshin <https://github.com/microshine>
+// Definitions: https://github.com/borisyankov/DefinitelyTyped
+
 declare module "asn1js" {
     import { getParametersValue, padNumber, isEqualBuffer, bufferToHexCodes, checkBufferParams, utilToBase, utilFromBase, utilEncodeTC, utilDecodeTC, utilConcatBuf, nearestPowerOf2 } from "pvutils";
 
