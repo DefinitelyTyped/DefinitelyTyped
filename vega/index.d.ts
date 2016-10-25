@@ -5,16 +5,22 @@
 
 declare namespace Vega {
 
+  export type ChartViewConstructor = {
+    (args: {renderer: 'svg'} & ViewArgs): SvgView;
+    (args: {renderer: 'canvas'} & ViewArgs): CanvasView;
+    (args: ViewArgs): View;
+  };
+
   export interface Parse {
-    spec(url: string, callback: (chart: (args: ViewArgs) => View) => void): void;
-    spec(spec: Spec, callback: (chart: (args: ViewArgs) => View) => void): void;
+    spec(url: string, callback: (chart: ChartViewConstructor) => void): void;
+    spec(spec: Spec, callback: (chart: ChartViewConstructor) => void): void;
     data(dataSet: Data[], callback: () => void): void;
     // TODO all the other stuff
   }
 
   export interface ViewArgs {
     // TODO docs
-    el: any;
+    el?: any;
     data?: any;
     hover?: boolean;
     renderer?: string;
@@ -23,33 +29,41 @@ declare namespace Vega {
   export interface View {
     // TODO docs
     width(): number;
-    width(w: number): View;
+    width(w: number): this;
 
     height(): number;
-    height(h: number): View;
+    height(h: number): this;
 
     padding(): Padding;
-    padding(p: Padding): View;
+    padding(p: Padding): this;
 
     viewport(): number[];
-    viewport(v: number[]): View;
+    viewport(v: number[]): this;
 
-    renderer(r: string): View;
+    renderer(r: string): this;
 
     data(): Runtime.DataSets;
-    data(d: any/*TODO*/): View;
+    data(d: any/*TODO*/): this;
 
-    initialize(selector: string): View;
-    initialize(node: Element): View;
+    initialize(selector: string): this;
+    initialize(node: Element): this;
 
-    render(r?: any[]): View;
+    render(r?: any[]): this;
 
-    update(options?: UpdateOptions): View;
+    update(options?: UpdateOptions): this;
 
     model(): Vega.Model;
 
     defs(): Defs;
-    defs(defs: Defs): View;
+    defs(defs: Defs): this;
+  }
+
+  export interface SvgView extends View {
+    svg(): string;
+  }
+
+  export interface CanvasView extends View {
+    canvas(): any; // Returns a node-canvas instance
   }
 
   export interface Padding {
@@ -541,3 +555,6 @@ declare namespace vg {
 
   // TODO: classes for View, Model, etc.
 }
+
+export = vg;
+export as namespace vg;
