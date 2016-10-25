@@ -27,6 +27,19 @@ import * as timers from "timers";
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
 
 //////////////////////////////////////////////////////////
+/// Global Tests : https://nodejs.org/api/global.html  ///
+//////////////////////////////////////////////////////////
+namespace global_tests {
+    {
+        let x: NodeModule;
+        let y: NodeModule;
+        x.children.push(y);
+        x.parent = require.main;
+        require.main = y;
+    }
+}
+
+//////////////////////////////////////////////////////////
 /// Assert Tests : https://nodejs.org/api/assert.html ///
 //////////////////////////////////////////////////////////
 
@@ -1393,6 +1406,10 @@ namespace process_tests {
     }
     {
         assert(process.argv[0] === process.argv0);
+    }
+    {
+        var module: NodeModule;
+        module = process.mainModule;
     }
 }
 
