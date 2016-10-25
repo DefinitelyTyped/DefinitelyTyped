@@ -3,6 +3,7 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="angular" />
 import * as angular from 'angular';
 
 declare module 'angular' {
