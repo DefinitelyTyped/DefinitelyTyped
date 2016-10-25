@@ -2,28 +2,28 @@
 
 function test() {
 
-  var gProcessor: OpenJsCad.Processor = null;
-  
+  let gProcessor: OpenJsCad.Processor;
+
   // Show all exceptions to the user:
   OpenJsCad.AlertUserOfUncaughtExceptions();
-  
+
   function onload()
   {
     gProcessor = new OpenJsCad.Processor(<HTMLDivElement>document.getElementById("viewer"));
     updateSolid();
   }
-  
+
   function updateSolid()
   {
     gProcessor.setJsCad((<HTMLTextAreaElement>document.getElementById('code')).value);
   }
-  
+
 
 }
 
 function main()
 {
-  // Main entry point; here we construct our solid: 
+  // Main entry point; here we construct our solid:
   var gear = involuteGear(
     15,
     10,
@@ -42,10 +42,10 @@ function involuteGear(numTeeth: number, circularPitch: number, pressureAngle: nu
   if(arguments.length < 3) pressureAngle = 20;
   if(arguments.length < 4) clearance = 0;
   if(arguments.length < 4) thickness = 1;
-  
+
   var addendum = circularPitch / Math.PI;
   var dedendum = addendum + clearance;
-  
+
   // radiuses of the 4 circles:
   var pitchRadius = numTeeth * circularPitch / (2 * Math.PI);
   var baseRadius = pitchRadius * Math.cos(Math.PI * pressureAngle / 180);
@@ -68,13 +68,13 @@ function involuteGear(numTeeth: number, circularPitch: number, pressureAngle: nu
     // first side of the tooth:
     var angle = maxangle * i / resolution;
     var tanlength = angle * baseRadius;
-    var radvector = CSG.Vector2D.fromAngle(angle);    
+    var radvector = CSG.Vector2D.fromAngle(angle);
     var tanvector = radvector.normal();
     var p = radvector.times(baseRadius).plus(tanvector.times(tanlength));
     points[i+1] = p;
-    
+
     // opposite side of the tooth:
-    radvector = CSG.Vector2D.fromAngle(angularToothWidthAtBase - angle);    
+    radvector = CSG.Vector2D.fromAngle(angularToothWidthAtBase - angle);
     tanvector = radvector.normal().negated();
     p = radvector.times(baseRadius).plus(tanvector.times(tanlength));
     points[2 * resolution + 2 - i] = p;
@@ -91,10 +91,10 @@ function involuteGear(numTeeth: number, circularPitch: number, pressureAngle: nu
     allteeth = allteeth.unionForNonIntersecting(rotatedtooth);
   }
 
-  // build the root circle:  
+  // build the root circle:
   points = [];
   var toothAngle = 2 * Math.PI / numTeeth;
-  var toothCenterAngle = 0.5 * angularToothWidthAtBase; 
+  var toothCenterAngle = 0.5 * angularToothWidthAtBase;
   for(var i = 0; i < numTeeth; i++)
   {
     var angle = toothCenterAngle + i * toothAngle;
@@ -118,7 +118,7 @@ var cylresolution=16;
 
 function main2()
 {
-  var params = 
+  var params =
     {
       quality: 0,
       diameter1: 12.2,
