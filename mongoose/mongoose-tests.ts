@@ -489,6 +489,16 @@ documentArray.toObject({}).length;
 documentArray.$shift();
 /* inherited from Native Array */
 documentArray.concat();
+/* practical example */
+interface MySubEntity1 extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity1 extends mongoose.Document {
+  sub: mongoose.Types.DocumentArray<MySubEntity>
+}
+var newEnt: MyEntity1;
+var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
  * section types/buffer.js
@@ -512,6 +522,7 @@ mongoose.Types.Buffer.from([1, 2, 3]);
  */
 var objectId: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('0x1234');
 objectId = new mongoose.Types.ObjectId(12345);
+objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
 export interface IManagerSchema extends mongoose.MongooseDocument {
@@ -958,7 +969,6 @@ schematype.unique(true).unique(true);
 schematype.validate(/re/)
   .validate({}, 'error')
   .validate(cb, 'try', 'tri');
-schematype.options.required;
 
 /*
  * section promise.js

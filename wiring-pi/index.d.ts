@@ -1,4 +1,4 @@
-// Type definitions for wiring-pi 2.1.1
+// Type definitions for wiring-pi 2.2.0
 // Project: https://github.com/eugeneware/wiring-pi
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -116,6 +116,7 @@ declare module 'wiring-pi' {
     // I2C
     export function wiringPiI2CSetup(devId: number): number;
     export function wiringPiI2CSetupInterface(device: string, devId: number): number;
+    export function wiringPiI2CClose(fd: number): void;
     export function wiringPiI2CRead(fd: number): number;
     export function wiringPiI2CReadReg8(fd: number, reg: number): number;
     export function wiringPiI2CReadReg16(fd: number, reg: number): number;
@@ -127,6 +128,7 @@ declare module 'wiring-pi' {
     export function wiringPiSPIDataRW(channel: number, data: Buffer): number;
     export function wiringPiSPISetup(channel: number, speed: number): number;
     export function wiringPiSPISetupMode(channel: number, speed: number, mode: number): number;
+    export function wiringPiSPIClose(fd: number): void;
     // Serial
     export function serialOpen(device: string, baudrate: number): number;
     export function serialClose(fd: number): void;
