@@ -26,7 +26,9 @@ declare module "winston" {
 
   export var log: LogMethod;
 
+  export var silly: LeveledLogMethod;
   export var debug: LeveledLogMethod;
+  export var verbose: LeveledLogMethod;
   export var info: LeveledLogMethod;
   export var warn: LeveledLogMethod;
   export var error: LeveledLogMethod;
@@ -109,7 +111,9 @@ declare module "winston" {
 
     log: LogMethod;
 
+    silly: LeveledLogMethod;
     debug: LeveledLogMethod;
+    verbose: LeveledLogMethod;
     info: LeveledLogMethod;
     warn: LeveledLogMethod;
     error: LeveledLogMethod;
