@@ -1,4 +1,4 @@
-import validUrl = require('valid-url');
+import validUrl = require("valid-url");
 
 function testIsUri() {
     validUrl.isUri("http://github.com/");
