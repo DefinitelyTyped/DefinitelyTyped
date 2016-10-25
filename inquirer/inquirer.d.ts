@@ -33,6 +33,7 @@ declare module "inquirer" {
              * @return
              */
             prompt(questions: Questions, cb?: (answers: Answers) => any): ui.Prompt;
+            prompt(questions: Questions): Promise<Answers>;
             prompts: Prompts;
             Separator: objects.SeparatorStatic;
             ui: {
