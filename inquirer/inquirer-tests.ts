@@ -3,7 +3,7 @@
 import inquirer = require('inquirer');
 
 
-inquirer.prompt([/* Pass your questions in here */], function( answers: inquirer.Answers ) {
+inquirer.prompt([/* Pass your questions in here */]).then(function( answers: inquirer.Answers ) {
     // Use user feedback for... whatever!!
 });
 
@@ -88,7 +88,7 @@ inquirer.prompt([
             return true;
         }
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -133,7 +133,7 @@ inquirer.prompt([
             }
         ]
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -176,7 +176,7 @@ var questions = [
     }
 ];
 
-inquirer.prompt( questions, function( answers ) {
+inquirer.prompt( questions ).then(function( answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -212,7 +212,7 @@ inquirer.prompt([
         choices: [ "Jumbo", "Large", "Standard", "Medium", "Small", "Micro" ],
         filter: function( val: string ) { return val.toLowerCase(); }
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -248,7 +248,7 @@ inquirer.prompt([
         paginated : true,
         choices   : choices
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -268,8 +268,8 @@ inquirer.prompt({
     name: "chocolate",
     message: "What's your favorite chocolate?",
     choices: [ "Mars", "Oh Henry", "Hershey" ]
-}, function( answers: inquirer.Answers ) {
-    inquirer.prompt({
+}).then(function( answers: inquirer.Answers ) {
+    return inquirer.prompt({
         type: "list",
         name: "beverage",
         message: "And your favorite beverage?",
@@ -294,7 +294,7 @@ inquirer.prompt([
         message: "Enter your git password",
         name: "password"
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -394,7 +394,7 @@ var questions2 = [
     }
 ];
 
-inquirer.prompt( questions, function( answers ) {
+inquirer.prompt( questions ).then(function( answers ) {
     console.log("\nOrder receipt:");
     console.log( JSON.stringify(answers, null, "  ") );
 });
@@ -430,7 +430,7 @@ inquirer.prompt([
         choices: [ "Jumbo", "Large", "Standard", "Medium", "Small", "Micro" ],
         filter: function( val: string ) { return val.toLowerCase(); }
     }
-], function( answers: inquirer.Answers ) {
+]).then(function( answers: inquirer.Answers ) {
     console.log( JSON.stringify(answers, null, "  ") );
 });
 
@@ -462,7 +462,7 @@ var questions3 = [
 ];
 
 function ask() {
-    inquirer.prompt( questions3, function( answers: inquirer.Answers ) {
+    return inquirer.prompt( questions3 ).then(function( answers: inquirer.Answers ) {
         output2.push( answers['tvShow'] );
         if ( answers['askAgain'] ) {
             ask();
@@ -522,6 +522,6 @@ function likesFood ( aFood: string ) {
     }
 }
 
-inquirer.prompt(questions, function (answers) {
+inquirer.prompt(questions).then(function (answers) {
     console.log( JSON.stringify(answers, null, "  ") );
 });

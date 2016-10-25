@@ -27,10 +27,9 @@ declare namespace inquirer {
         /**
          * Public CLI helper interface
          * @param questions Questions settings array
-         * @param cb Callback being passed the user answers
          * @return
          */
-        prompt(questions: Questions, cb?: (answers: Answers) => any): ui.Prompt;
+        prompt(questions: Questions): Promise<Answers>;
         prompts: Prompts;
         Separator: objects.SeparatorStatic;
         ui: {
@@ -68,14 +67,14 @@ declare namespace inquirer {
          */
         type?: string;
         /**
-         * The name to use when storing the answer in the anwers hash.
+         * The name to use when storing the answer in the answers hash.
          */
-        name?: string;
+        name: string;
         /**
          * The question to print. If defined as a function,
          * the first parameter will be the current inquirer session answers.
          */
-        message?: string | ((answers: Answers) => string);
+        message: string | ((answers: Answers) => string);
         /**
          * Default value(s) to use if nothing is entered, or a function that returns the default value(s).
          * If defined as a function, the first parameter will be the current inquirer session answers.
