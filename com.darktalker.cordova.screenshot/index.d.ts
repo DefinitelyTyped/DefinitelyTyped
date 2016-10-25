@@ -13,7 +13,6 @@ declare namespace com.darktalker.cordova.screenshot {
          * @param quality custom quality of to be taken image in percentage (100 is default)
          * @param filename custom filename of to be taken image, ('screenshot_<milliSecondsSince1970>.<format>' is default)
          */
-
         save(saveCallback: (errorMessage: string, successObject: {success: boolean, filePath: string}) => void,
              format?: string,
              quality?: number,
@@ -26,7 +25,7 @@ declare namespace com.darktalker.cordova.screenshot {
          * @param quality custom quality of to be taken image in percentage (100 is default)
          */
         URI(uriCallback: (errorMessage: string, successObject: {URI: string}) => void,
-            quality?: number);
+            quality?: number): void;
     }
 }
 
