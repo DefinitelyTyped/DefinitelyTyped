@@ -1,7 +1,7 @@
 /// <reference types="sinon"/>
 
 function testChain() {
-    sinon.stub().chain('exec');
+    Sinon.stub().chain('exec');
 }
 
 testChain();

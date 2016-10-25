@@ -5,9 +5,9 @@
 
 import * as s from "sinon";
 
-declare namespace Sinon {
+declare module "sinon" {
 
-  export interface SinonStub {
+  interface SinonStub {
 
     /**
      * When called, the stub will create a new stub to represent a mongoose chained function.
