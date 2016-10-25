@@ -46,11 +46,11 @@ declare namespace FusionCharts {
 
         dataFormat?: ChartDataFormats;
 
-        dataSource?: string | Object;
+        dataSource?: string | {};
 
-        events?: Object;
+        events?: {};
 
-        link?: Object;
+        link?: {};
 
         showDataLoadingMessage?: boolean;
 
@@ -142,17 +142,17 @@ declare namespace FusionCharts {
     }
 
     interface FusionCharts {
-        clone(overrides?: Object, argsOnly?: boolean): any;
+        clone(overrides?: {}, argsOnly?: boolean): any;
 
         isActive(): boolean;
 
         chartType(value?: string, options?: any): string;
 
-        addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: Object) => void): void;
+        addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
-        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: Object) => void): void;
+        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
-        configureLink(param: Object | any[], level?: number): void;
+        configureLink(param: {} | any[], level?: number): void;
 
         setChartAttribute(attributes: ChartObject | String, value?: string): void;
 
@@ -160,13 +160,13 @@ declare namespace FusionCharts {
 
         getXMLData(): any;
 
-        setXMLData(data: string | Object): void;
+        setXMLData(data: string | {}): void;
 
         setXMLUrl(url: string): void;
 
         setChartDataUrl(url: string, format: ChartDataFormats): void;
 
-        setChartData(data: string | Object, format: ChartDataFormats): void;
+        setChartData(data: string | {}, format: ChartDataFormats): void;
 
         getChartData(format: ChartDataFormats): any;
 
@@ -194,7 +194,7 @@ declare namespace FusionCharts {
 
         getXML(): any;
 
-        setDataXML(data: string | Object): void;
+        setDataXML(data: string | {}): void;
 
         setDataURL(url: string): void;
 
@@ -206,7 +206,7 @@ declare namespace FusionCharts {
 
         slicePlotItem(index: number, slice: boolean): void;
 
-        centerLabel(labelText: string, options?: Object): void;
+        centerLabel(labelText: string, options?: {}): void;
 
         startingAngle(angle?: number, relative?: boolean): void;
 
@@ -222,9 +222,9 @@ declare namespace FusionCharts {
 
         getViewEndIndex(): number;
 
-        print(options?: Object): void;
+        print(options?: {}): void;
 
-        exportChart(options?: Object): void;
+        exportChart(options?: {}): void;
 
         getSVGString(): string;
 
@@ -234,7 +234,7 @@ declare namespace FusionCharts {
 
         getJSONData(): JSON;
 
-        setJSONData(data: string | Object): void;
+        setJSONData(data: string | {}): void;
 
         setJSONUrl(url: string): void;
 
@@ -248,30 +248,30 @@ declare namespace FusionCharts {
 
         dispose(): void;
 
-        configure(options: Object): void;
+        configure(options: {}): void;
 
-        ref: Object;
+        ref: {};
 
     }
 
     interface FusionChartStatic {
-        new (chartObject: ChartObject|Object): FusionCharts;
+        new (chartObject: ChartObject|{}): FusionCharts;
 
         (chartId: string): FusionCharts;
 
         getObjectReference(elementId: string): Element;
 
-        addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: Object) => void): void;
+        addEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
-        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: Object) => void): void;
+        removeEventListener(type: string | string[], listener: (eventObject?: EventObject, eventArgs?: {}) => void): void;
 
         ready(callback: (fusionChartStatic?: FusionChartStatic) => any, context?: any): FusionChartStatic;
 
-        transcodeData(data: string | Object, source: ChartDataFormats, target: ChartDataFormats, advanced: boolean): any;
+        transcodeData(data: string | {}, source: ChartDataFormats, target: ChartDataFormats, advanced: boolean): any;
 
-        batchExport(options: Object): void;
+        batchExport(options: {}): void;
 
-        formatNumber(num: number, type?: string, config?: Object): Element;
+        formatNumber(num: number, type?: string, config?: {}): Element;
 
         setCurrentRenderer(name: string): void
 
@@ -281,9 +281,9 @@ declare namespace FusionCharts {
 
         version: string[];
 
-        items: Object;
+        items: {};
 
-        options: Object;
+        options: {};
 
         debugger:Debugger;
 
