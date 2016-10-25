@@ -1,12 +1,13 @@
 // Type definitions for boom
 // Project: http://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <http://github.com/rogatty>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
-declare module Boom {
-    interface BoomError {
+declare namespace Boom {
+
+    export interface BoomError {
         data: any;
         reformat: () => void;
         isBoom: boolean;
@@ -43,14 +44,17 @@ declare module Boom {
     export function rangeNotSatisfiable(message?: string, data?: any): BoomError;
     export function expectationFailed(message?: string, data?: any): BoomError;
     export function badData(message?: string, data?: any): BoomError;
+    export function locked(message?: string, data?: any): BoomError;
+    export function preconditionRequired(message?: string, data?: any): BoomError;
     export function tooManyRequests(message?: string, data?: any): BoomError;
+    export function illegal(message?: string, data?: any): BoomError;
 
     // 5xx
+    export function badImplementation(message?: string, data?: any): BoomError;
     export function notImplemented(message?: string, data?: any): BoomError;
     export function badGateway(message?: string, data?: any): BoomError;
-    export function serverTimeout(message?: string, data?: any): BoomError;
+    export function serverUnavailable(message?: string, data?: any): BoomError;
     export function gatewayTimeout(message?: string, data?: any): BoomError;
-    export function badImplementation(message?: string, data?: any): BoomError;
 }
 
 declare module "boom" {

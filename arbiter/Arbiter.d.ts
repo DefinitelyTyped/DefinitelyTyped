@@ -1,18 +1,18 @@
 // Type definitions for Arbiter.js 1.0
 // Project: http://arbiterjs.com/
 // Definitions by: Arash Shakery <https://github.com/arash16>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // May 22 2013
 
 
-declare module ArbiterDef {
+declare namespace ArbiterDef {
     export interface SubscribeHandler {
         (data: any, message: string, subscriber_context: any): void;
     }
 
     export interface SubscribeOptions {
         /**
-          * By default, all subscribers have a priority of 0. Higher values get higher 
+          * By default, all subscribers have a priority of 0. Higher values get higher
           * priority and are executed first. Negative values are allowed.
           */
         priority?: number;
@@ -23,7 +23,7 @@ declare module ArbiterDef {
         async?: boolean;
 
         /**
-          * If your subscriber is not interested in any past messages that may have been 
+          * If your subscriber is not interested in any past messages that may have been
           * persisted, you can force them to be ignored.
           */
         persist?: boolean;
@@ -32,19 +32,19 @@ declare module ArbiterDef {
     export interface PublishOptions {
         /**
           * By default, subscribers can return "false" to prevent subsequent subscribers from
-          * receiving the message. By passing cancelable:false in the options, the publisher 
+          * receiving the message. By passing cancelable:false in the options, the publisher
           * can prevent canceling.
           */
         cancelable?: boolean;
 
         /**
-          * If the publishers wants subscribers to be notified even if they subscribe later, 
+          * If the publishers wants subscribers to be notified even if they subscribe later,
           * setting the persist flag will do that.
           */
         persist?: boolean;
 
         /**
-          * If you wish to notify the subscribers but return from the publish() call before 
+          * If you wish to notify the subscribers but return from the publish() call before
           * the subscriber functions execute, use asynchronous mode
           */
         async?: boolean;
@@ -63,7 +63,7 @@ declare module ArbiterDef {
         /**
           * Publishes a message to all subscribers.
           * Returns: true on success, false if any subscriber has thrown a js exception.
-          * 
+          *
           * @param msg Message may be in any format, but may not contain [ ,*]. A structure like a/b/c is recommended by convention, to allow messages to be categorized.
           * @param data Pass data to subscribers that contains details about the message.
           */

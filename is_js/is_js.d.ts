@@ -1,7 +1,7 @@
 ﻿// Type definitions for is.js
 // Project: http://arasatasaygin.github.io/is.js/
 // Definitions by: Rodrigo Cabral <https://github.com/cabralRodrigo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface IsStatic {
 

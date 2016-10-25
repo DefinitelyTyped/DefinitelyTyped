@@ -1,11 +1,11 @@
 // Type definitions for Notify.js
 // Project: https://github.com/jpillora/notifyjs
 // Definitions by: Xiaohan Zhang <https://github.com/hellochar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped/
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module Notify {
+declare namespace Notify {
     interface Options {
         /**
          * Whether to hide the notification on click. Default is true.

@@ -1,33 +1,26 @@
 /// <reference path="sanitize-html.d.ts" />
 
-import sanitizeHtml = require('sanitize-html');
+import * as sanitize from 'sanitize-html';
 
-var s: string;
-var t: string;
+let options: sanitize.IOptions = {
+  allowedTags: sanitize.defaults.allowedTags.concat('h1', 'h2', 'img'),
+  allowedAttributes: {
+    'a': sanitize.defaults.allowedAttributes['a'].concat('rel'),
+    'img': ['src', 'height', 'width', 'alt']
+  },
+  transformTags: {
+    'a': sanitize.simpleTransform('a', { 'rel': 'nofollow' }),
+    'img': (tagName: string, attribs: sanitize.Attributes) => {
+      let img = { tagName, attribs };
+      img.attribs['alt'] = 'transformed' ;
+      return img;
+    }
+  },
+  exclusiveFilter: function(frame: sanitize.IFrame) {
+    return frame.tag === 'a' && !frame.text.trim();
+  }
+};
 
-t = sanitizeHtml(s);
-t = sanitizeHtml(s, {
-});
-t = sanitizeHtml(s, {
-	allowedTags: ["a", "br"],
-	allowedSchemes: ["http"],
-	allowedAttributes: { "a": ["href"] },
-	allowedClasses: { "a": ["someclass"] },
-	transformTags: { 
-		"a": "b", 
-		"br": function(tagName: string, attributes: {[index: string]: string}): { tagName: string; attributes: {[index: string]: string};} {
-			return { tagName: tagName, attributes: attributes };
-		}
-	},
-	exclusiveFilter: {
-		"a": function(frame: {
-			tag: string;
-			attribs: { [index: string]: string };
-			text: string;
-			tagPosition: number;
-		}): boolean {
-			return false;
-		}
-	}
-});
+let unsafe = '<div><script>alert("hello");</script></div>';
 
+let safe = sanitize(unsafe, options);

@@ -1,7 +1,7 @@
 ﻿// Type definitions for podcast v0.1.0
 // Project: http://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PodcastStatic
 {
@@ -64,6 +64,12 @@ interface IItemOptions
     date: Date;
     lat?: number;
     long?: number;
+    enclosure?: {
+        url: string;
+        file?: string;
+        size?: number;
+        mime?: string;
+    }
     itunesAuthor?: string;
     itunesExplicit?: boolean;
     itunesSubtitle?: string;

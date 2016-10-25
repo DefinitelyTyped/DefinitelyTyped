@@ -1,12 +1,12 @@
 // Type definitions for update-notifier
 // Project: https://github.com/yeoman/update-notifier
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "update-notifier" {
 	function t(settings?:t.ISettings):t.IResult;
 
-	module t {
+	namespace t {
 
 		export interface IResult {
 			update: IUpdateInfo;

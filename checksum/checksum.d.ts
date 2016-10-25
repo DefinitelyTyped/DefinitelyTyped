@@ -1,11 +1,11 @@
 // Type definitions for checksum 0.1.1
 // Project: https://github.com/dshaw/checksum
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "checksum" {
-	
-	module checksum {
+
+	namespace checksum {
 		/**
 		 * Options object for all functions
 		 */
@@ -16,22 +16,22 @@ declare module "checksum" {
 			 */
 			algorithm?: string;
 		}
-		
+
 		/**
 		 * Generate the checksum for a file on disk
 		 * @param filename	The file name
-		 * @param callback	Callback which is called with the result or an error 
+		 * @param callback	Callback which is called with the result or an error
 		 */
 		function file(filename: string, callback: (error: Error, hash: string) => void): void;
 		/**
 		 * Generate the checksum for a file on disk
 		 * @param filename	The file name
 		 * @param options	Options object to indicate hash algo
-		 * @param callback	Callback which is called with the result or an error 
+		 * @param callback	Callback which is called with the result or an error
 		 */
 		function file(filename: string, options: ChecksumOptions, callback: (error: Error, hash: string) => void): void;
 	}
-	
+
 	/**
 	 * Generates a checksum for the given value
 	 * @param value	Any value
@@ -39,6 +39,6 @@ declare module "checksum" {
 	 * @returns	Checksum
 	 */
 	function checksum(value: any, options?: checksum.ChecksumOptions): string;
-	
+
 	export = checksum;
 }

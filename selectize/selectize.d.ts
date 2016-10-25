@@ -1,11 +1,11 @@
-// Type definitions for Selectize 0.11.2
+// Type definitions for Selectize 0.12.13
 // Project: https://github.com/brianreavis/selectize.js
-// Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module Selectize {
+declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
     // option identifiers are parameterized by T; data is parameterized by U
     interface IOptions<T, U> {
@@ -31,7 +31,7 @@ declare module Selectize {
         /**
          * Allows the user to create a new items that aren't in the list of options.
          * This option can be any of the following: "true", "false" (disabled), or a function that accepts two
-         * arguments: "input" and "callback". The callback should be invoked with the final data for the option. 
+         * arguments: "input" and "callback". The callback should be invoked with the final data for the option.
          *
          * Default: false
          */
@@ -182,6 +182,13 @@ declare module Selectize {
          * Default: "value"
          */
         valueField?: string;
+
+        /**
+         * Option groups that options will be bucketed into.
+         * If your element is a <select> with <optgroup>s this property gets populated automatically.
+         * Make sure each object in the array has a property named whatever "optgroupValueField" is set to.
+         */
+        optgroups?: U[];
 
         /**
          * The name of the option group property that serves as its unique identifier.
@@ -555,6 +562,11 @@ declare module Selectize {
          * Clears the render cache. Takes an optional template argument (e.g. "option", "item") to clear only that cache.
          */
         clearCache(template?: string): void;
+
+        /**
+         * When the `settings.placeholder` value is changed, the new placeholder will be displayed.
+         */
+        updatePlaceholder(): void;
     }
 
     interface ISearchToken {
@@ -602,4 +614,3 @@ interface JQuery {
 interface HTMLElement {
     selectize: Selectize.IApi<any, any>;
 }
-

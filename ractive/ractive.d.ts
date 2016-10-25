@@ -6,7 +6,7 @@
 
 declare type _RactiveEvent = Event;
 
-declare module Ractive {
+declare namespace Ractive {
     export interface Node extends HTMLElement {
         _ractive: any;
     }
@@ -21,11 +21,11 @@ declare module Ractive {
     }
 
     export interface AdaptorPlugin extends Object {
-        // TODO: 
+        // TODO:
     }
 
     export interface ComponentPlugin extends Static {
-        // TODO: 
+        // TODO:
     }
 
     export interface DecoratorPlugin {
@@ -37,7 +37,7 @@ declare module Ractive {
     }
 
     export interface EventPlugin extends Function {
-        // TODO: 
+        // TODO:
     }
 
     export interface TransitionPlugin {
@@ -192,7 +192,7 @@ declare module Ractive {
         el?: string | HTMLElement | any;
         // TODO: undocumented in Initialisation options page
         events?: EventPlugins;
-		
+
         // Since 0.5.5
         // TODO: unclear in documantation
         interpolators?: { [key: string]: any; };
@@ -293,7 +293,7 @@ declare module Ractive {
          * @deprecated
          */
         init?: (options: ExtendOptions) => void;
-		
+
         // Default false, inherit from Ractive.defaults
         isolated?: boolean;
     }
@@ -387,7 +387,7 @@ declare module Ractive {
         // target - Node or String or jQuery (see Valid selectors)
         // anchor - Node or String or jQuery
         insert(target: any, anchor?: any): void; // TODO: void?
-        
+
         merge(keypath: string, value: any[], options?: { compare: boolean | string | Function }): Promise;
 
         // callback context Ractive
@@ -396,7 +396,7 @@ declare module Ractive {
 
 		// Since 0.7.1
 		observeOnce(keypath: string, callback: (newValue: any, oldValue: any, keypath: string) => void, options?: ObserveOnceOptions): Observe;
-		
+
         // handler context Ractive
         off(eventName?: string, handler?: (event?: Ractive.Event | any, ...args: any[]) => any): Ractive;
         on(eventName: string, handler: (event?: Ractive.Event | any, ...args: any[]) => any): Observe;

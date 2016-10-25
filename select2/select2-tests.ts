@@ -9,6 +9,9 @@ $("#e2").select2({
 $("#e2_2").select2({
     placeholder: "Select a State"
 });
+$("#e2_3").select2({
+    placeholder: { id: "1", text: "Select options" }
+});
 $("#e3").select2({
     minimumInputLength: 2
 });
@@ -31,6 +34,7 @@ $("#e5").select2({
         }
     }
 });
+
 $("#e19").select2({ maximumSelectionSize: 3 });
 $("#e10").select2({
     data: [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }]
@@ -56,6 +60,7 @@ $("#e6").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
+        cache: false,
         data: function (term, page) {
             return {
                 q: term,
@@ -98,7 +103,7 @@ $("#e7").select2({
     ajax: {
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
-        quietMillis: 100,
+        delay: 100,
         data: function (term, page) {
             return {
                 q: term,
@@ -115,6 +120,13 @@ $("#e7").select2({
     formatResult: movieFormatResult,
     formatSelection: movieFormatSelection,
     dropdownCssClass: "bigdrop"
+});
+
+function sort(elements) {
+  return elements.sort();
+}
+$("#e20").select2({
+  sorter: sort
 });
 
 $("#e8").select2();

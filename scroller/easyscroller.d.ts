@@ -1,7 +1,7 @@
 // Type definitions for Zynga EasyScroller
 // Project: https://github.com/zynga/scroller
 // Definitions by: Boris Yankov <https://github.com/borisyankov>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="scroller.d.ts"/>

@@ -1,19 +1,24 @@
 // Type definitions for RxJS-Time v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.time-lite.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface Observable<T> {
 		delaySubscription(dueTime: number, scheduler?: IScheduler): Observable<T>;
 		delayWithSelector(delayDurationSelector: (item: T) => number): Observable<T>;
 		delayWithSelector(subscriptionDelay: number, delayDurationSelector: (item: T) => number): Observable<T>;
 
 		timeoutWithSelector<TTimeout>(firstTimeout: Observable<TTimeout>, timeoutdurationSelector?: (item: T) => Observable<TTimeout>, other?: Observable<T>): Observable<T>;
-		throttleWithSelector<TTimeout>(throttleDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
+
+		debounceWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
+		/**
+		* @deprecated use #debounceWithSelector instead.
+		*/
+		throttleWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
 
 		skipLastWithTime(duration: number, scheduler?: IScheduler): Observable<T>;
 		takeLastWithTime(duration: number, timerScheduler?: IScheduler, loopScheduler?: IScheduler): Observable<T>;

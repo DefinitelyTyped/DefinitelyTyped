@@ -1,8 +1,15 @@
-﻿/// <reference path="log4javascript.d.ts" />
+﻿/// <reference path="./log4javascript.d.ts" />
 
 function aSimpleLoggingMessageString() {
 	var log = log4javascript.getDefaultLogger();
-	log.info("Hello World");
+    log.info("Hello World");
+}
+
+function compareLogLevelsAndLog() {
+    var log = log4javascript.getDefaultLogger();
+    if (log4javascript.Level.INFO.isGreaterOrEqual(log.getLevel())) {
+        log.log(log4javascript.Level.INFO, ["Info"]);
+    }
 }
 
 function loggingAnErrorWithAMessage() {
@@ -47,4 +54,8 @@ function changingTheFormatOfLogMessages() {
 	var popUpAppender = new log4javascript.PopUpAppender();
 	var layout = new log4javascript.PatternLayout("[%-5p] %m");
 	popUpAppender.setLayout(layout);
+}
+
+function configureLogLog() {
+	log4javascript.logLog.setQuietMode(true);
 }

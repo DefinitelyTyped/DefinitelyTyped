@@ -1,11 +1,11 @@
 // Type definitions for JsRender
 // Project: http://www.jsviews.com/#jsrender
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
-declare module JsRender {
+declare namespace JsRender {
     interface Converters {
         (name: string, converterFn: (value: any) => any): any;
         (namedConverters: any, parentTemplate?: any): any;

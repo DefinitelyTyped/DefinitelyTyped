@@ -1,11 +1,11 @@
 // Type definitions for jQuery Notify Bar 1.4
 // Project: http://www.whoop.ee/posts/2013-04-05-the-resurrection-of-jquery-notify-bar/
 // Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryNotifyBar {
+declare namespace JQueryNotifyBar {
 
     interface NotifyBarOptions {
         /**
@@ -17,6 +17,13 @@ declare module JQueryNotifyBar {
          * How long bar will be delayed, doesn't count animation time.
          */
         delay?: number;
+
+        /**
+         * How long this bar will be slided up and down.
+         *
+         * Default: "normal"
+         */
+        animationSpeed?: string | number;
 
         /**
          * Custom jQuery object for notify bar.

@@ -1,10 +1,11 @@
-﻿// Type definitions for AutobahnJS v0.9.6
+// Type definitions for AutobahnJS v0.9.6
 // Project: http://autobahn.ws/js/
-// Definitions by: Elad Zelingher <https://github.com/darkl/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-declare module autobahn {
+
+declare namespace autobahn {
 
     export class Session {
         id: number;
@@ -44,7 +45,13 @@ declare module autobahn {
 
     interface IInvocation {
         caller?: number;
-        progress?: boolean;
+        progress?: (args : any[], kwargs : any) => void;
+        procedure: string;
+    }
+
+    class Invocation implements IInvocation {
+        constructor(caller?: number, progress?: boolean, procedure?: string);
+
         procedure: string;
     }
 
@@ -54,12 +61,34 @@ declare module autobahn {
         topic: string;
     }
 
+    class Event implements IEvent {
+        constructor(publication?: number, publisher?: string, topic?: string);
+
+        publication: number;
+        topic: string;
+    }
+
     interface IResult {
         args: any[];
         kwargs: any;
     }
 
+    class Result implements IResult {
+        constructor(args?: any[], kwargs?: any);
+
+        args: any[];
+        kwargs: any;
+    }
+
     interface IError {
+        error: string;
+        args: any[];
+        kwargs: any;
+    }
+
+    class Error implements IError {
+        constructor(error?: string, args?: any[], kwargs?: any);
+
         error: string;
         args: any[];
         kwargs: any;
@@ -77,6 +106,20 @@ declare module autobahn {
         unsubscribe(): When.Promise<any>;
     }
 
+    class Subscription implements ISubscription {
+        constructor(topic? : string, handler?: SubscribeHandler, options?: ISubscribeOptions, session?: Session, id?: number);
+
+        handler: SubscribeHandler;
+
+        unsubscribe(): When.Promise<any>;
+
+        topic: string;
+        options: ISubscribeOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
+
     type RegisterEndpoint = (args?: any[], kwargs?: any, details?: IInvocation) => void;
 
     interface IRegistration {
@@ -89,7 +132,27 @@ declare module autobahn {
         unregister(): When.Promise<any>;
     }
 
+    class Registration implements IRegistration {
+        constructor(procedure?: string, endpoint?: RegisterEndpoint, options?: IRegisterOptions, session?: Session, id?: number);
+
+        endpoint: RegisterEndpoint;
+
+        unregister(): When.Promise<any>;
+
+        procedure: string;
+        options: IRegisterOptions;
+        session: Session;
+        id: number;
+        active: boolean;
+    }
+
     interface IPublication {
+        id: number;
+    }
+
+    class Publication implements IPublication {
+        constructor(id: number);
+
         id: number;
     }
 
@@ -100,13 +163,14 @@ declare module autobahn {
     }
 
     interface IPublishOptions {
+        acknowledge?: boolean;
         exclude?: number[];
         eligible?: number[];
-        disclose_me? : Boolean;
+        disclose_me?: Boolean;
     }
 
     interface ISubscribeOptions {
-        match? : string;
+        match?: string;
     }
 
     interface IRegisterOptions {
@@ -118,7 +182,7 @@ declare module autobahn {
 
         open(): void;
 
-        close(reason: string, message: string): void;
+        close(reason?: string, message?: string): void;
 
         onopen: (session: Session, details: any) => void;
         onclose: (reason: string, details: any) => boolean;
@@ -130,7 +194,7 @@ declare module autobahn {
         type: string;
     }
 
-    type DeferFactory = () => any;
+    type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 
@@ -147,7 +211,7 @@ declare module autobahn {
         retry_delay_jitter?: number;
         url?: string;
         protocols?: string[];
-        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+        onchallenge?: OnChallengeHandler;
         realm?: string;
         authmethods?: string[];
         authid?: string;
@@ -169,7 +233,7 @@ declare module autobahn {
     }
 
     interface ITransportFactory {
-        //constructor(options: any);
+        // constructor(options: any);
         type: string;
         create(): ITransport;
     }
@@ -178,7 +242,7 @@ declare module autobahn {
         register(name: string, factory: any): void;
         isRegistered(name: string): boolean;
         get(name: string): any;
-        list(): any[];
+        list(): string[];
     }
 
     interface ILog {
@@ -189,7 +253,17 @@ declare module autobahn {
         assert(condition: boolean, message: string): void;
     }
 
+    interface IAuthCra {
+        derive_key(secret: string, salt: string, iterations: number, keylen: number): string;
+        sign(key: string, challenge: string): string;
+    }
+
     var util: IUtil;
     var log: ILog;
     var transports: ITransports;
+    var auth_cra: IAuthCra;
+}
+
+declare module "autobahn" {
+    export = autobahn;
 }

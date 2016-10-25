@@ -1,12 +1,12 @@
 // Type definitions for MathJax
 // Project: https://github.com/mathjax/MathJax
 // Definitions by: Roland Zwaga <https://github.com/rolandzwaga>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are slightly preliminary and can use some more strong typing here and there. Please feel free to improve.
 declare var MathJax:jax.IMathJax;
 
-declare module jax {
+declare namespace jax {
 
     export interface IMathJax {
         Hub?:IMathJaxHub;
@@ -549,7 +549,10 @@ declare module jax {
         * from “Show Source” and put it into a page that uses MathJax’s MathML input jax and expect to get the same
         * results as the original TeX. (Without this, there may be some spacing differences.)
         */
-        texHints?:boolean;
+        texHints?: boolean;
+
+        mpContext?: boolean;
+        mpMouse?: boolean;
     }
 
     export interface IErrorSettings {
@@ -575,6 +578,7 @@ declare module jax {
         MMLorHTML?:IMMLorHTMLConfiguration;
         NativeMML?:INativeMMLOutputProcessor;
         "HTML-CSS"?:IHTMLCSSOutputProcessor;
+        CommonHTML?: ICommonHTMLOutputProcessor;
         AsciiMath?:IAsciiMathInputProcessor;
         MathML?:IMathMLInputProcessor;
         TeX?:ITeXInputProcessor;
@@ -582,27 +586,27 @@ declare module jax {
         asciimath2jax?:IAsciimath2jaxPreprocessor;
         mml2jax?:IMML2jaxPreprocessor;
         tex2jax?:ITEX2jaxPreprocessor;
-        /*A comma-separated list of input and output jax to initialize at startup. Their main code is loaded only when
+        /*A list of input and output jax to initialize at startup. Their main code is loaded only when
          * they are actually used, so it is not inefficient to include jax that may not actually be used on the page.
          * These are found in the MathJax/jax directory.
          */
         jax?:string[];
-        /*A comma-separated list of extensions to load at startup. The default directory is MathJax/extensions. The
+        /*A list of extensions to load at startup. The default directory is MathJax/extensions. The
          * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
          * inform your user that mathematics fonts are available that they can download to improve their experience of
          * your site.
          */
         extensions?:string[];
-        /*A comma-separated list of configuration files to load when MathJax starts up, e.g., to define local macros,
+        /*A list of configuration files to load when MathJax starts up, e.g., to define local macros,
          * etc., and there is a sample config file named config/local/local.js. The default directory is the
          * MathJax/config directory. The MMLorHTML.js configuration is one such configuration file, and there are a
          * number of other pre-defined configurations (see Using a configuration file for more details).
          */
         config?:string[];
-        /*A comma-separated list of CSS stylesheet files to be loaded when MathJax starts up. The default directory is
+        /*A list of CSS stylesheet files to be loaded when MathJax starts up. The default directory is
          * the MathJax/config directory.
          */
-        styleSheets?:string;
+        styleSheets?:string[];
         /*CSS styles to be defined dynamically at startup time. These are in the form selector:rules (see CSS Style
          * Objects for complete details).
          */
@@ -1225,6 +1229,29 @@ declare module jax {
         tooltip?:IToolTip;
     }
 
+    export interface ICommonHTMLOutputProcessor {
+        /*The scaling factor (as a percentage) of math with respect to the surrounding text. The CommonHTML output
+         * processor tries to match the ex-size of the mathematics with that of the text where it is placed, but you may
+         * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
+         * menu item associated with the typeset mathematics.
+         */
+        scale?:number;
+        /*This gives a minimum scale (as a percent) for the scaling used by MathJax to match the equation to the
+         * surrounding text. This will prevent MathJax from making the mathematics too small.
+         */
+        minScaleAdjust?:number;
+        /*This setting controls whether <mtext> elements will be typeset using the math fonts or the font of the
+         * surrounding text. When false, the font for mathvariant="normal" will be used; when true, the font will be
+         * inherited from the surrounding paragraph.
+         */
+        mtextFontInherit?:boolean;
+        /*This is an object that configures automatic linebreaking in the CommonHTML output. In order to be backward
+         * compatible with earlier versions of MathJax, only explicit line breaks are performed by default, so you must
+         * enable line breaks if you want automatic ones.
+         */
+        linebreaks?:ILineBreaks;
+    }
+
     export interface IAsciiMathInputProcessor {
         /*Determines whether operators like summation symbols will have their limits above and below the operators
         * (true) or to their right (false). The former is how they would appear in displayed equations that appear on
@@ -1272,7 +1299,14 @@ declare module jax {
         * of a’s in MathJax’s equation buffer, the MAXBUFFER constant is used to limit the size of the string being
         * processed by MathJax. It is set to 5KB, which should be sufficient for any reasonable equation.
         */
-        MAXBUFFER?:number;
+        MAXBUFFER?: number;
+
+        /*A comma-separated list of extensions to load at startup. The default directory is MathJax/extensions. The
+         * tex2jax and mml2jax preprocessors can be listed here, as well as a FontWarnings extension that you can use to
+         * inform your user that mathematics fonts are available that they can download to improve their experience of
+         * your site.
+         */
+        extensions?: string[];
     }
 
     export interface IEquationNumbers {

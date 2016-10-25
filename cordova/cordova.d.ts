@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova
 // Project: http://cordova.apache.org
 // Definitions by: Microsoft Open Technologies Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 //
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
@@ -25,6 +25,7 @@
 /// <reference path="plugins/StatusBar.d.ts"/>
 /// <reference path="plugins/Vibration.d.ts"/>
 /// <reference path="plugins/WebSQL.d.ts"/>
+/// <reference path="plugins/Keyboard.d.ts"/>
 
 interface Cordova {
     /** Invokes native functionality by specifying corresponding service name, action and optional parameters.
@@ -34,7 +35,7 @@ interface Cordova {
      * @param action The action name to call on the native side (generally corresponds to the native class method).
      * @param args An array of arguments to pass into the native environment.
      */
-    exec(success: () => any, fail: () => any, service: string, action: string, args?: string[]): void;
+    exec(success: (data: any) => any, fail: (err: any) => any, service: string, action: string, args?: any[]): void;
     /** Gets the operating system name. */
     platformId: string;
     /** Gets Cordova framework version */
@@ -94,3 +95,7 @@ interface UrlUtil {
 
 /** Apache Cordova instance */
 declare var cordova: Cordova;
+
+declare module 'cordova' {
+    export = cordova;
+}

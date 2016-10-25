@@ -1,7 +1,7 @@
 // Type definitions for nexpect 0.4.2
 // Project: https://github.com/nodejitsu/nexpect
 // Definitions by: vvakame <http://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

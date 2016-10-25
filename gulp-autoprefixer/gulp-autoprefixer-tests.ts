@@ -1,7 +1,7 @@
 /// <reference path="./gulp-autoprefixer.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
-import autoprefixer = require("gulp-autoprefixer");
+import * as gulp from "gulp";
+import * as autoprefixer from "gulp-autoprefixer";
 
 gulp.src("test.css")
     .pipe(autoprefixer())

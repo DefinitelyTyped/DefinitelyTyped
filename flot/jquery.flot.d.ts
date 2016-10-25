@@ -1,12 +1,12 @@
 // Type definitions for Flot
 // Project: http://www.flotcharts.org/
 // Definitions by: Matt Burland <https://github.com/burlandm>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module jquery.flot {
+declare namespace jquery.flot {
     interface plotOptions {
         colors?: any[];
         series?: seriesOptions;
@@ -92,6 +92,8 @@ declare module jquery.flot {
     interface axisOptions {
         show?: boolean;            // null or true/false
         position?: string;      // "bottom" or "top" or "left" or "right"
+        mode?: string;          // "time"
+        monthNames?: string[];  // array of month names
 
         color?: any;            // null or color spec
         tickColor?: any;        // null or color spec

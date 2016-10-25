@@ -1,13 +1,13 @@
 // Type definitions for Parse v1.2.19
 // Project: https://parse.com/
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../underscore/underscore.d.ts" />
 
-declare module Parse {
+declare namespace Parse {
 
     var applicationId: string;
     var javaScriptKey: string;
@@ -15,53 +15,44 @@ declare module Parse {
     var serverURL: string;
     var VERSION: string;
 
-    interface ParseDefaultOptions {
-        wait?: boolean;
-        silent?: boolean;
+    interface SuccessOption {
         success?: Function;
+    }
+
+    interface ErrorOption {
         error?: Function;
+    }
+
+    interface SuccessFailureOptions extends SuccessOption, ErrorOption {
+    }
+    
+    interface SessionTokenOption {
+        sessionToken?: string;
+    }
+
+    interface WaitOption {
+        /**
+         * Set to true to wait for the server to confirm success
+         * before triggering an event.
+         */
+        wait?: boolean;
+    }
+
+    interface UseMasterKeyOption {
+        /**
+         * In Cloud Code and Node only, causes the Master Key to be used for this request.
+         */
         useMasterKey?: boolean;
     }
 
-    interface CollectionOptions {
-        model?: Object;
-        query?: Query;
-        comparator?: string;
+    interface ScopeOptions extends SessionTokenOption, UseMasterKeyOption {
     }
 
-    interface CollectionAddOptions {
-        at?: number;
-    }
-
-    interface RouterOptions {
-        routes: any;
-    }
-
-    interface NavigateOptions {
-        trigger?: boolean;
-    }
-
-    interface ViewOptions {
-        model?: any;
-        collection?: any;
-        el?: any;
-        id?: string;
-        className?: string;
-        tagName?: string;
-        attributes?: any[];
-    }
-
-    interface PushData {
-        channels?: string[];
-        push_time?: Date;
-        expiration_time?: Date;
-        expiration_interval?: number;
-        where?: Query;
-        data?: any;
-        alert?: string;
-        badge?: string;
-        sound?: string;
-        title?: string;
+    interface SilentOption {
+        /**
+         * Set to true to avoid firing the event.
+         */
+        silent?: boolean;
     }
 
     /**
@@ -83,29 +74,30 @@ declare module Parse {
 
     interface IPromise<T> {
 
-        then<U>(resolvedCallback: (value: T) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
-        then<U>(resolvedCallback: (value: T) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U, rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
-    interface Promise<T> {
+    class Promise<T> implements IPromise<T> {
+
+        static as<U>(resolvedValue: U): Promise<U>;
+        static error<U, V>(error: U): Promise<V>;
+        static is(possiblePromise: any): Boolean;
+        static when(promises: IPromise<any>[]): Promise<any>;
+        static when(...promises: IPromise<any>[]): Promise<any>;
 
         always(callback: Function): Promise<T>;
-        as(): Promise<T>;
         done(callback: Function): Promise<T>;
-        error(): Promise<T>;
         fail(callback: Function): Promise<T>;
-        is(): Promise<T>;
         reject(error: any): void;
         resolve(result: any): void;
-        then<U>(resolvedCallback: (value: T) => Promise<U>,
-                rejectedCallback?: (reason: any) => Promise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
-            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<T>;
-        then<U>(resolvedCallback: (value: T) => U,
-            rejectedCallback?: (reason: any) => U): IPromise<T>;
-
-        when(promises: Promise<T>[]): Promise<T>;
+        then<U>(resolvedCallback: (...values: T[]) => IPromise<U>,
+                rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U,
+            rejectedCallback?: (reason: any) => IPromise<U>): IPromise<U>;
+        then<U>(resolvedCallback: (...values: T[]) => U,
+            rejectedCallback?: (reason: any) => U): IPromise<U>;
     }
 
     interface IBaseObject {
@@ -199,7 +191,7 @@ declare module Parse {
         constructor(name: string, data: any, type?: string);
         name(): string;
         url(): string;
-        save<T>(options?: ParseDefaultOptions): Promise<T>;
+        save<T>(options?: SuccessFailureOptions): Promise<T>;
 
     }
 
@@ -233,7 +225,7 @@ declare module Parse {
 
         constructor(arg1?: any, arg2?: any);
 
-        current(options?: ParseDefaultOptions): GeoPoint;
+        current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
         kilometersTo(point: GeoPoint): number;
         milesTo(point: GeoPoint): number;
@@ -322,7 +314,9 @@ declare module Parse {
      */
     class Object extends BaseObject {
 
-        id: any;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
         attributes: any;
         cid: string;
         changed: boolean;
@@ -332,10 +326,12 @@ declare module Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
-        static fetchAll<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
-        static fetchAllIfNeeded<T>(list: Object[], options: ParseDefaultOptions): Promise<T>;
-        static destroyAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
-        static saveAll<T>(list: Object[], options?: ParseDefaultOptions): Promise<T>;
+        static fetchAll<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
+        static fetchAllIfNeeded<T>(list: Object[], options: SuccessFailureOptions): Promise<T>;
+        static destroyAll<T>(list: Object[], options?: Object.DestroyAllOptions): Promise<T>;
+        static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
+
+        static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
         add(attr: string, item: any): Object;
@@ -344,12 +340,12 @@ declare module Parse {
         changedAttributes(diff: any): boolean;
         clear(options: any): any;
         clone(): Object;
-        destroy<T>(options?: ParseDefaultOptions): Promise<T>;
+        destroy<T>(options?: Object.DestroyOptions): Promise<T>;
         dirty(attr: String): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
-        fetch<T>(options?: ParseDefaultOptions): Promise<T>;
+        fetch<T extends Object>(options?: Object.FetchOptions): Promise<T>;
         get(attr: string): any;
         getACL(): ACL;
         has(attr: string): boolean;
@@ -361,12 +357,28 @@ declare module Parse {
         previousAttributes(): any;
         relation(attr: string): Relation;
         remove(attr: string, item: any): any;
-        save<T>(options?: ParseDefaultOptions, arg2?: any, arg3?: any): Promise<T>;
-        set(key: string, value: any, options?: ParseDefaultOptions): boolean;
-        setACL(acl: ACL, options?: ParseDefaultOptions): boolean;
+        save<T extends Object>(attrs?: { [key: string]: any }, options?: Object.SaveOptions): Promise<T>;
+        save<T extends Object>(key: string, value: any, options?: Object.SaveOptions): Promise<T>;
+        set(key: string, value: any, options?: Object.SetOptions): boolean;
+        setACL(acl: ACL, options?: SuccessFailureOptions): boolean;
         unset(attr: string, options?: any): any;
-        validate(attrs: any, options?: ParseDefaultOptions): boolean;
+        validate(attrs: any, options?: SuccessFailureOptions): boolean;
+    }
 
+    namespace Object {
+        interface DestroyOptions extends SuccessFailureOptions, WaitOption, ScopeOptions { }
+
+        interface DestroyAllOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        interface FetchOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        interface SaveOptions extends SuccessFailureOptions, SilentOption, ScopeOptions, WaitOption { }
+
+        interface SaveAllOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        interface SetOptions extends ErrorOption, SilentOption {
+            promise?: any;
+        }
     }
 
     /**
@@ -420,24 +432,49 @@ declare module Parse {
         query: Query;
         comparator: (object: Object) => any;
 
-        constructor(models?: Object[], options?: CollectionOptions);
+        constructor(models?: Object[], options?: Collection.Options);
         static extend(instanceProps: any, classProps: any): any;
 
         initialize(): void;
-        add(models: any[], options?: CollectionAddOptions): Collection<T>;
+        add(models: any[], options?: Collection.AddOptions): Collection<T>;
         at(index: number): Object;
         chain(): _Chain<Collection<T>>;
-        fetch(options?: ParseDefaultOptions): Promise<T>;
-        create(model: Object, options?: ParseDefaultOptions): Object;
+        fetch(options?: Collection.FetchOptions): Promise<T>;
+        create(model: Object, options?: Collection.CreateOptions): Object;
         get(id: string): Object;
         getByCid(cid: any): any;
         pluck(attr: string): any[];
-        remove(model: any, options?: ParseDefaultOptions): Collection<T>;
-        remove(models: any[], options?: ParseDefaultOptions): Collection<T>;
-        reset(models: any[], options?: ParseDefaultOptions): Collection<T>;
-        sort(options?: ParseDefaultOptions): Collection<T>;
+        remove(model: any, options?: Collection.RemoveOptions): Collection<T>;
+        remove(models: any[], options?: Collection.RemoveOptions): Collection<T>;
+        reset(models: any[], options?: Collection.ResetOptions): Collection<T>;
+        sort(options?: Collection.SortOptions): Collection<T>;
         toJSON(): any;
+    }
 
+    namespace Collection {
+        interface Options {
+            model?: Object;
+            query?: Query;
+            comparator?: string;
+        }
+
+        interface AddOptions extends SilentOption {
+            /**
+             * The index at which to add the models.
+             */
+            at?: number;
+        }
+
+        interface CreateOptions extends SuccessFailureOptions, WaitOption, SilentOption, ScopeOptions {
+        }
+
+        interface FetchOptions extends SuccessFailureOptions, SilentOption, ScopeOptions { }
+
+        interface RemoveOptions extends SilentOption { }
+
+        interface ResetOptions extends SilentOption { }
+
+        interface SortOptions extends SilentOption { }
     }
 
     /**
@@ -549,23 +586,23 @@ declare module Parse {
         addDescending(key: string[]): Query;
         ascending(key: string): Query;
         ascending(key: string[]): Query;
-        collection(items?: Object[], options?: ParseDefaultOptions): Collection<Object>;
+        collection(items?: Object[], options?: Collection.Options): Collection<Object>;
         containedIn(key: string, values: any[]): Query;
         contains(key: string, substring: string): Query;
         containsAll(key: string, values: any[]): Query;
-        count<T>(options?: ParseDefaultOptions): Promise<T>;
+        count<T>(options?: Query.CountOptions): Promise<T>;
         descending(key: string): Query;
         descending(key: string[]): Query;
         doesNotExist(key: string): Query;
         doesNotMatchKeyInQuery(key: string, queryKey: string, query: Query): Query;
         doesNotMatchQuery(key: string, query: Query): Query;
-        each<T>(callback: Function, options?: ParseDefaultOptions): Promise<T>;
+        each<T>(callback: Function, options?: Query.EachOptions): Promise<T>;
         endsWith(key: string, suffix: string): Query;
         equalTo(key: string, value: any): Query;
         exists(key: string): Query;
-        find<T>(options?: ParseDefaultOptions): Promise<T>;
-        first<T>(options?: ParseDefaultOptions): Promise<T>;
-        get(objectId: string, options?: ParseDefaultOptions): Promise<any>;
+        find<T extends Object>(options?: Query.FindOptions): Promise<T[]>;
+        first<T>(options?: Query.FirstOptions): Promise<T>;
+        get(objectId: string, options?: Query.GetOptions): Promise<any>;
         greaterThan(key: string, value: any): Query;
         greaterThanOrEqualTo(key: string, value: any): Query;
         include(key: string): Query;
@@ -588,6 +625,14 @@ declare module Parse {
         withinRadians(key: string, point: GeoPoint, maxDistance: number): Query;
     }
 
+    namespace Query {
+        interface EachOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface CountOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FindOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface FirstOptions extends SuccessFailureOptions, ScopeOptions { }
+        interface GetOptions extends SuccessFailureOptions, ScopeOptions { }
+    }
+
     /**
      * Represents a Role on the Parse server. Roles represent groupings of
      * Users for the purposes of granting permissions (e.g. specifying an ACL
@@ -608,7 +653,22 @@ declare module Parse {
         getRoles(): Relation;
         getUsers(): Relation;
         getName(): string;
-        setName(name: string, options?: ParseDefaultOptions): any;
+        setName(name: string, options?: SuccessFailureOptions): any;
+    }
+
+    class Config extends Object {
+        static get(options?: SuccessFailureOptions): Promise<Config>;
+        static current(): Config;
+
+        get(attr: string): any;
+        escape(attr: string): any;
+    }
+
+    class Session extends Object {
+        static current(): Promise<Session>;
+
+        getSessionToken(): string;
+        isCurrentSessionRevocable(): boolean;
     }
 
     /**
@@ -624,15 +684,29 @@ declare module Parse {
      */
     class Router extends Events {
 
-        routes: any[];
+        routes: Router.RouteMap;
 
-        constructor(options?: RouterOptions);
+        constructor(options?: Router.Options);
         static extend(instanceProps: any, classProps: any): any;
 
         initialize(): void;
-        navigate(fragment: string, options?: NavigateOptions): Router;
+        navigate(fragment: string, options?: Router.NavigateOptions): Router;
         navigate(fragment: string, trigger?: boolean): Router;
         route(route: string, name: string, callback: Function): Router;
+    }
+
+    namespace Router {
+        interface Options {
+            routes: RouteMap;
+        }
+
+        interface RouteMap {
+            [url: string]: string;
+        }
+
+        interface NavigateOptions {
+            trigger?: boolean;
+        }
     }
 
     /**
@@ -647,27 +721,26 @@ declare module Parse {
     class User extends Object {
 
         static current(): User;
-        static signUp<T>(username: string, password: string, attrs: any, options?: ParseDefaultOptions): Promise<T>;
-        static logIn<T>(username: string, password: string, options?: ParseDefaultOptions): Promise<T>;
-        static logOut(): void;
+        static signUp<T>(username: string, password: string, attrs: any, options?: SuccessFailureOptions): Promise<T>;
+        static logIn<T>(username: string, password: string, options?: SuccessFailureOptions): Promise<T>;
+        static logOut<T>(): Promise<T>;
         static allowCustomUserClass(isAllowed: boolean): void;
-        static become<T>(sessionToken: string, options?: ParseDefaultOptions): Promise<T>;
-        static requestPasswordReset<T>(email: string, options?: ParseDefaultOptions): Promise<T>;
+        static become<T>(sessionToken: string, options?: SuccessFailureOptions): Promise<T>;
+        static requestPasswordReset<T>(email: string, options?: SuccessFailureOptions): Promise<T>;
+        static extend(protoProps?: any, classProps?: any): any;
 
-        signUp<T>(attrs: any, options?: ParseDefaultOptions): Promise<T>;
-        logIn<T>(options?: ParseDefaultOptions): Promise<T>;
-        fetch<T>(options?: ParseDefaultOptions): Promise<T>;
-        save<T>(arg1: any, arg2: any, arg3: any): Promise<T>;
+        signUp<T>(attrs: any, options?: SuccessFailureOptions): Promise<T>;
+        logIn<T>(options?: SuccessFailureOptions): Promise<T>;
         authenticated(): boolean;
         isCurrent(): boolean;
 
         getEmail(): string;
-        setEmail(email: string, options: ParseDefaultOptions): boolean;
+        setEmail(email: string, options: SuccessFailureOptions): boolean;
 
         getUsername(): string;
-        setUsername(username: string, options?: ParseDefaultOptions): boolean;
+        setUsername(username: string, options?: SuccessFailureOptions): boolean;
 
-        setPassword(password: string, options?: ParseDefaultOptions): boolean;
+        setPassword(password: string, options?: SuccessFailureOptions): boolean;
         getSessionToken(): string;
     }
 
@@ -695,7 +768,7 @@ declare module Parse {
         $el: JQuery;
         attributes: any;
 
-        constructor(options?: ViewOptions);
+        constructor(options?: View.Options);
 
         static extend(properties: any, classProperties?: any): any;
 
@@ -704,13 +777,29 @@ declare module Parse {
         setElement(element: JQuery, delegate?: boolean): View<T>;
         render(): View<T>;
         remove(): View<T>;
-        make(tagName: any, attributes?: any, content?: any): any;
+        make(tagName: any, attributes?: View.Attribute[], content?: any): any;
         delegateEvents(events?: any): any;
         undelegateEvents(): any;
 
     }
 
-    module Analytics {
+    namespace View {
+        interface Options {
+            model?: any;
+            collection?: any;
+            el?: any;
+            id?: string;
+            className?: string;
+            tagName?: string;
+            attributes?: Attribute[];
+        }
+
+        interface Attribute {
+            [attributeName: string]: string | number | boolean;
+        }
+    }
+
+    namespace Analytics {
 
         function track<T>(name: string, dimensions: any):Promise<T>;
     }
@@ -720,13 +809,13 @@ declare module Parse {
      * @namespace
      * Provides a set of utilities for using Parse with Facebook.
      */
-    module FacebookUtils {
+    namespace FacebookUtils {
 
         function init(options?: any): void;
         function isLinked(user: User): boolean;
-        function link(user: User, permissions: any, options?: ParseDefaultOptions): void;
-        function logIn(permissions: any, options?: ParseDefaultOptions): void;
-        function unlink(user: User, options?: ParseDefaultOptions): void;
+        function link(user: User, permissions: any, options?: SuccessFailureOptions): void;
+        function logIn(permissions: any, options?: SuccessFailureOptions): void;
+        function unlink(user: User, options?: SuccessFailureOptions): void;
     }
 
     /**
@@ -736,7 +825,7 @@ declare module Parse {
      *   Some functions are only available from Cloud Code.
      * </em></strong></p>
      */
-    module Cloud {
+    namespace Cloud {
 
         interface CookieOptions {
             domain?: string;
@@ -761,9 +850,9 @@ declare module Parse {
         }
 
         interface JobStatus {
-            error?: Function;
-            message?: Function;
-            success?: Function;
+            error?: (response: any) => void;
+            message?: (response: any) => void;
+            success?: (response: any) => void;
         }
 
         interface FunctionRequest {
@@ -774,8 +863,8 @@ declare module Parse {
         }
 
         interface FunctionResponse {
-            success?: (response: HttpResponse) => void;
-            error?: (response: HttpResponse) => void;
+            success?: (response: any) => void;
+            error?: (response: any) => void;
         }
 
         interface Cookie {
@@ -784,22 +873,68 @@ declare module Parse {
             value?: string;
         }
 
-        interface AfterSaveRequest extends FunctionRequest {}
+        interface SaveRequest extends FunctionRequest {
+            object: Object;
+        }
+
+        interface AfterSaveRequest extends SaveRequest {}
         interface AfterDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteRequest extends FunctionRequest {}
         interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends FunctionRequest {}
-        interface BeforeSaveResponse extends FunctionResponse {}
+        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeSaveResponse extends FunctionResponse {
+            success?: () => void;
+        }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
-        function httpRequest<T>(options: ParseDefaultOptions): Promise<HttpResponse>;
+        function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
-        function run<T>(name: string, data?: any, options?: ParseDefaultOptions): Promise<T>;
+        function run<T>(name: string, data?: any, options?: RunOptions): Promise<T>;
         function useMasterKey(): void;
+
+        interface RunOptions extends SuccessFailureOptions, ScopeOptions { }
+
+        /**
+         * To use this Cloud Module in Cloud Code, you must require 'buffer' in your JavaScript file.
+         *
+         *     import Buffer = require("buffer").Buffer;
+         */
+        var HTTPOptions: new () => HTTPOptions;
+        interface HTTPOptions extends FunctionResponse {
+            /**
+             * The body of the request.
+             * If it is a JSON object, then the Content-Type set in the headers must be application/x-www-form-urlencoded or application/json.
+             * You can also set this to a Buffer object to send raw bytes.
+             * If you use a Buffer, you should also set the Content-Type header explicitly to describe what these bytes represent.
+             */
+            body?: string | Buffer | Object;
+            /**
+             * Defaults to 'false'.
+             */
+            followRedirects?: boolean;
+            /**
+             * The headers for the request.
+             */
+            headers?: {
+                [headerName: string]: string | number | boolean;
+            };
+            /**
+             *The method of the request (i.e GET, POST, etc).
+             */
+            method?: string;
+            /**
+             * The query portion of the url.
+             */
+            params?: any;
+            /**
+             * The url to send the request to.
+             */
+            url: string;
+        }
     }
 
 
@@ -812,7 +947,10 @@ declare module Parse {
 
     }
 
-    enum ErrorCode {
+    /*
+     * We need to inline the codes in order to make compilation work without this type definition as dependency.
+     */
+    const enum ErrorCode {
 
         OTHER_CAUSE = -1,
         INTERNAL_SERVER_ERROR = 1,
@@ -842,7 +980,6 @@ declare module Parse {
         INVALID_CONTENT_LENGTH =  128,
         FILE_TOO_LARGE =  129,
         FILE_SAVE_ERROR =  130,
-        FILE_DELETE_ERROR =  153,
         DUPLICATE_VALUE =  137,
         INVALID_ROLE_NAME =  139,
         EXCEEDED_QUOTA =  140,
@@ -851,6 +988,9 @@ declare module Parse {
         INVALID_IMAGE_DATA =  150,
         UNSAVED_FILE_ERROR =  151,
         INVALID_PUSH_TIME_ERROR = 152,
+        FILE_DELETE_ERROR = 153,
+        REQUEST_LIMIT_EXCEEDED = 155,
+        INVALID_EVENT_NAME = 160,
         USERNAME_MISSING =  200,
         PASSWORD_MISSING =  201,
         USERNAME_TAKEN =  202,
@@ -860,6 +1000,7 @@ declare module Parse {
         SESSION_MISSING =  206,
         MUST_CREATE_USER_THROUGH_SIGNUP =  207,
         ACCOUNT_ALREADY_LINKED =  208,
+        INVALID_SESSION_TOKEN = 209,
         LINKED_ID_MISSING =  250,
         INVALID_LINKED_SESSION =  251,
         UNSUPPORTED_SERVICE =  252,
@@ -880,7 +1021,7 @@ declare module Parse {
      * You should not create subclasses of Parse.Op or instantiate Parse.Op
      * directly.
      */
-    module Op {
+    namespace Op {
 
         interface BaseOperation extends IBaseObject {
             objects(): any[];
@@ -915,27 +1056,44 @@ declare module Parse {
      * @name Parse.Push
      * @namespace
      */
-    module Push {
+    namespace Push {
+        function send<T>(data: PushData, options?: SendOptions): Promise<T>;
 
-        function send<T>(data: PushData, options?: ParseDefaultOptions):Promise<T>;
+        interface PushData {
+            channels?: string[];
+            push_time?: Date;
+            expiration_time?: Date;
+            expiration_interval?: number;
+            where?: Query;
+            data?: any;
+            alert?: string;
+            badge?: string;
+            sound?: string;
+            title?: string;
+        }
+
+        interface SendOptions extends UseMasterKeyOption {
+            success?: () => void;
+            error?: (error: Error) => void;
+        }
     }
 
     /**
      * Call this method first to set up your authentication tokens for Parse.
      * You can get your keys from the Data Browser on parse.com.
      * @param {String} applicationId Your Parse Application ID.
-     * @param {String} javaScriptKey Your Parse JavaScript Key.
+     * @param {String} javaScriptKey (optional) Your Parse JavaScript Key (Not needed for parse-server)
      * @param {String} masterKey (optional) Your Parse Master Key. (Node.js only!)
      */
-    function initialize(applicationId: string, javaScriptKey: string, masterKey?: string): void;
+    function initialize(applicationId: string, javaScriptKey?: string, masterKey?: string): void;
 
 }
 
-declare module "parse" {
-    var type: typeof Parse;
-    var subType: {
-        Parse: typeof type;
-    }
+declare module "parse/node" {
+    export = Parse;
+}
 
-    export = subType;
+declare module "parse" {
+    import * as parse from "parse/node";
+    export = parse
 }

@@ -68,7 +68,17 @@ exports = (grunt: IGrunt) => {
     asyncedTwoArgs(2, "values", (result: string) => {
         console.log(result);
     });
-    var fileMaps = grunt.file.expandMapping([''], '', { ext: '.js' });
+
+    // tests for module grunt.file
+    var expandedFilesConfig: grunt.file.IExpandedFilesConfig = {
+        expand: true,
+        cwd: 'src',
+        src: ['**/*.ts'],
+        dest: 'build',
+        ext: '.js',
+        flatten: false
+    };
+    var fileMaps = grunt.file.expandMapping([''], '', expandedFilesConfig);
     fileMaps.length;
     fileMaps[0].src.length;
     fileMaps[0].dest;

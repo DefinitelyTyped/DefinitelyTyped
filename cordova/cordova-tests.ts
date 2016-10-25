@@ -1,5 +1,5 @@
 // Copyright (c) Microsoft Open Technologies, Inc.
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
 
 /// <reference path="cordova.d.ts"/>
 
@@ -126,12 +126,27 @@ function fsaccessor(fs: FileSystem) {
         (err: FileError)=> { alert('Error: ' + err.code); });
 }
 
+
+
+//----------------------------------------------------------------------
+// FileSystem plugin
+//
+//cordova states that the enums for requestFileSystem live on LocalFileSystem
+//
 window.requestFileSystem(
-    window.TEMPORARY,
+    LocalFileSystem.TEMPORARY,
     1024 * 1024 * 5,
     fsaccessor,
     (err: FileError) => { alert('Error: ' + err.code); }
 );
+window.requestFileSystem(
+    LocalFileSystem.PERSISTENT,
+    1024 * 1024 * 5,
+    fsaccessor,
+    (err: FileError) => { alert('Error: ' + err.code); }
+);
+// FileSystem plugin
+//----------------------------------------------------------------------
 
 window.resolveLocalFileSystemURI(cordova.file.applicationDirectory,
     (entry: Entry)=> {
@@ -176,8 +191,12 @@ file.download('http://some.server.com/download.php',
             console.error('Failed with exception ' + err.exception);
         }
     },
-    { headers: null },
-    true);
+    true,
+    {
+      headers: {
+        "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+      }
+    });
 
 file.upload('cdvfile://localhost/persistent/path/to/downloads/',
     'http://some.server.com/download.php',
@@ -188,7 +207,7 @@ file.upload('cdvfile://localhost/persistent/path/to/downloads/',
             console.error('Failed with exception ' + err.exception);
         }
     },
-    { headers: null, httpMethod: "PUT" },
+    { headers: {"X-Email": "user@mail.com", 'X-Token': "asdf3w234"}, httpMethod: "PUT" },
     true);
 
 file.abort();
@@ -199,7 +218,7 @@ file.abort();
 // InAppBrowser plugin
 //----------------------------------------------------------------------
 
-// signature of window.open() added by InAppBrowser plugin 
+// signature of window.open() added by InAppBrowser plugin
 // is similar to native window.open signature, so the compiler can's
 // select proper overload, but we cast result to InAppBrowser manually.
 var iab = <InAppBrowser>window.open('google.com', '_self');
@@ -303,3 +322,28 @@ db.transaction(
 navigator.notification.vibrate(100);
 navigator.notification.vibrateWithPattern([100, 200, 200, 150, 50], 3);
 setTimeout(navigator.notification.cancelVibration, 1000);
+
+// Keyboard plugin
+//----------------------------------------------------------------------
+Keyboard.shrinkView(true);
+Keyboard.shrinkView(false);
+Keyboard.hideFormAccessoryBar(true);
+Keyboard.hideFormAccessoryBar(false);
+Keyboard.disableScrollingInShrinkView(true);
+Keyboard.disableScrollingInShrinkView(false);
+if (Keyboard.isVisible) {
+    console.log('Keyboard is visible');
+}
+Keyboard.automaticScrollToTopOnHiding = true;
+Keyboard.onshow = function () {
+    console.log('onshow');
+};
+Keyboard.onhide = function () {
+    console.log('onhide');
+};
+Keyboard.onshowing = function () {
+    console.log('onshowing');
+};
+Keyboard.onhiding= function () {
+    console.log('onhiding');
+};

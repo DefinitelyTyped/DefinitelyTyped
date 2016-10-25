@@ -4,8 +4,10 @@
 var peerByOption: PeerJs.Peer = new Peer({
     key: 'peerKey',
     debug: 3,
-    logFunction: ()=>{
-    }
+});
+
+peerByOption.on("connection", dataConnection => {
+    var type: string = dataConnection.type;
 });
 
 peerByOption.listAllPeers(function(items){
@@ -21,9 +23,10 @@ var peerByIdAndOption: PeerJs.Peer = new Peer(
     {
         key: 'peerKey',
         debug: 3,
-        logFunction: ()=>{
-        }
     });
+peerByIdAndOption.on("call", mediaConnection => {
+    var isOpen: boolean = mediaConnection.open;
+});
 
 var id = peerByOption.id;
 var connections = peerByOption.connections;
@@ -42,11 +45,13 @@ var connection = peerById.connect("id", {
 
 var call = peerById.call('callto-id', (<any>window).localStream);
 
-peerById.on("open", ()=> console.log("open"));
+var openHandler=()=> console.log("open");
+peerById.on("open", openHandler);
 peerById.on("connection", (c)=> console.log("connection"));
 peerById.on("call", (media)=> console.log("call"));
 peerById.on("close", ()=> console.log("close"));
 peerById.on("disconnected", ()=> console.log("disconnected"));
 peerById.on("error", (err)=> console.log(err));
+peerById.off("open", openHandler);
 
 var connection2 = peerById.getConnection(peerByOption, "callto-id");

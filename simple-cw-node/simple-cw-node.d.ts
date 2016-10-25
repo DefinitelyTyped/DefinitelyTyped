@@ -1,7 +1,7 @@
 // Type definitions for simple-cw-node
 // Project: https://github.com/astronaughts/simple-cw-node
 // Definitions by: vvakame <https://github.com/vvakame>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../superagent/superagent.d.ts" />
 
@@ -14,7 +14,7 @@ declare module "simple-cw-node" {
 	// Merged declaration, ChatWork is both a callable function and a namespace
 	function ChatWork():ChatWork.ChatWork;
 
-	module ChatWork {
+	namespace ChatWork {
 		interface ChatWorkInitOptions {
 			token:string;
 		}

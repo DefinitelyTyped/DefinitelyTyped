@@ -1,4 +1,4 @@
-/// <reference path="../express/express.d.ts"/>
+/// <reference path="./connect-slashes.d.ts"/>
 
 import express = require('express');
 import slashes = require('connect-slashes');

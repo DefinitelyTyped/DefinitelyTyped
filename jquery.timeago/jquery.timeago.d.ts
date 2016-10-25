@@ -1,7 +1,7 @@
 ﻿// Type definitions for jQuery.timeago.js 1.0.2
 // Project: http://timeago.yarp.com/
 // Definitions by: François Guillot <http://fguillot.developpez.com/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>

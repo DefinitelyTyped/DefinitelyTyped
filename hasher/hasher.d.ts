@@ -1,11 +1,11 @@
 // Type definitions for Hasher.js
 // Project: https://github.com/millermedeiros/hasher/
 // Definitions by: flyfishMT <https://github.com/flyfishMT/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../js-signals/js-signals.d.ts" />
 
-declare module HasherJs {
+declare namespace HasherJs {
 
 	export interface HasherStatic {
 
@@ -108,7 +108,7 @@ declare module HasherJs {
 	}
 }
 
-declare var hasher: HasherJs.HasherStatic; 
+declare var hasher: HasherJs.HasherStatic;
 
 // AMD
 declare module 'hasher'{
