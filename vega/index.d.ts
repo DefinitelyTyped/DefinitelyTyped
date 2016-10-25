@@ -558,3 +558,4 @@ declare namespace vg {
 
 export = vg;
 export as namespace vg;
+export as namespace Vega;
