@@ -3584,8 +3584,8 @@ const ToggleExampleSimple = () => (
       label="Label on the right"
       labelPosition="right"
       style={styles.toggle}
-            thumbTwitchedStyle={styles.toggle}
-            trackTwitchedStyle={styles.toggle}
+      thumbSwitchedStyle={styles.toggle}
+      trackSwitchedStyle={styles.toggle}
     />
   </div>
 );

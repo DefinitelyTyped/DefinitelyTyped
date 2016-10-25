@@ -128,6 +128,6 @@ export declare class Events extends events.EventEmitter {
     public on(event: string, listener: Function): this;
 }
 
-    export const types: typeof pgTypes;
+export const types: typeof pgTypes;
 
 

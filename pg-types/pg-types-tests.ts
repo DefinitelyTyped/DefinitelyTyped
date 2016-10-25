@@ -1,5 +1,6 @@
 /// <reference types="moment" />
 import * as types from "pg-types";
+import * as moment from "moment";
 
 types.getTypeParser(1184, 'text');
 

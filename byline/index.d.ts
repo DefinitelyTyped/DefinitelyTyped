@@ -35,8 +35,10 @@ declare namespace bl {
     // ():LineStream; // same as createStream():LineStream
     // (stream:stream.Stream, options?:LineStreamOptions):LineStream; // same as createStream(stream, options?):LineStream
 
-    export declare function createStream(): LineStream;
-    export declare function createStream(stream: NodeJS.ReadableStream, options?: LineStreamOptions): LineStream;
+    export function createStream(): LineStream;
+    export function createStream(stream: NodeJS.ReadableStream, options?: LineStreamOptions): LineStream;
 
-    export declare var LineStream: LineStreamCreatable;
+    export var LineStream: LineStreamCreatable;
 }
+
+export = bl;
