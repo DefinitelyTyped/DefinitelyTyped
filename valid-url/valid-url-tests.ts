@@ -1,5 +1,3 @@
-/// <reference types="valid-url"/>
-
 import validUrl = require('valid-url');
 
 function testIsUri() {
