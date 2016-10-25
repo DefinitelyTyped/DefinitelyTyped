@@ -306,16 +306,6 @@ declare namespace polymer {
   }
 
   interface RenderStatus {
-    _afterNextRenderQueue: [Element, Function, any][];
-    _callbacks: Function[];
-    _ready: boolean;
-    _waitingNextRender: boolean;
-    _catchFirstRender(): void;
-    _flushNextRender(): void;
-    _flushRenderCallbacks(callbacks: [Element, Function, any][]): void;
-    _makeReady(): void;
-    _watchNextRender(): void;
-
     afterNextRender(element: Element, fn: Function, args?: any): void;
     hasRendered(): boolean;
     whenReady(cb: Function): void;
