@@ -10,7 +10,7 @@ declare module "react-datepicker" {
         autoComplete?: string;
         autoFocus?: boolean;
         className?: string;
-        customInput?: any
+        customInput?: React.ReactNode;
         dateFormat?: string;
         dateFormatCalendar?: string;
         disabled?: boolean;
