@@ -16947,7 +16947,7 @@ declare namespace kendo {
         function resize(element: Element, force: boolean): void;
         function saveAs(options: any): void;
         function stringify(value: any): string;
-        function throttle(fn: Function, timeout: number): void;
+        function throttle(fn: Function, timeout: number): Function;
         function touchScroller(element: string): void;
         function touchScroller(element: JQuery): void;
         function touchScroller(element: Element): void;
