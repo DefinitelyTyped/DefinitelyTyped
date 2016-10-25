@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "cordova-plugin-network-information-tests.ts"
+        "ndarray-tests.ts"
     ]
 }
