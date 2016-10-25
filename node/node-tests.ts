@@ -487,7 +487,10 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
-        }
+        },
+        allowHalfOpen: true,
+        readableObjectMode: true,
+        writableObjectMode: true
     })
 }
 

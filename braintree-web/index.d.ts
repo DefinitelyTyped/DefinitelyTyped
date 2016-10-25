@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.0.2
+// Type definitions for Braintree-web v3.3.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -540,11 +540,13 @@ declare namespace BraintreeWeb {
    * @typedef {object} field
    * @property {string} selector A CSS selector to find the container where the hosted field will be inserted.
    * @property {string} [placeholder] Will be used as the `placeholder` attribute of the input. If `placeholder` is not natively supported by the browser, it will be polyfilled.
+   * @property {string} [type] Will be used as the `type` attribute of the input. To mask `cvv` input, for instance, `type: "password"` can be used.
    * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field. Note: Input formatting does not work properly on Android and iOS, so input formatting is automatically disabled on those browsers.
    */
   interface HostedFieldsField {
     selector: string;
     placeholder?: string;
+    type?: string;
     formatInput?: boolean;
   }
 

@@ -37,6 +37,23 @@ function test_CKEDITOR() {
     CKEDITOR.replaceAll((textarea, config) => false);
 }
 
+function test_config() {
+    var config1: CKEDITOR.config = {
+        toolbar: 'basic',
+    };
+    var config2: CKEDITOR.config = {
+        toolbar: [
+            [ 'mode', 'document', 'doctools' ],
+            [ 'clipboard', 'undo' ],
+            '/',
+            [ 'find', 'selection', 'spellchecker' ],
+            [ 'basicstyles', 'cleanup' ],
+            '/',
+            [ 'list', 'indent', 'blocks', 'align', 'bidi' ],
+        ],
+    };
+}
+
 function test_dom_comment() {
     var type = CKEDITOR.NODE_COMMENT;
     var nativeNode = document.createComment('Example');
