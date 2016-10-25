@@ -128,7 +128,7 @@ The `Project` link does not have to be to GitHub, but prefer linking to a source
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
