@@ -1,5 +1,4 @@
-/// <reference path="pg-types.d.ts" />
-/// <reference path="../moment/moment.d.ts" />
+/// <reference types="moment" />
 import * as types from "pg-types";
 
 types.getTypeParser(1184, 'text');
