@@ -55,7 +55,7 @@ $(function () {
             }
         },
 
-        series: [<HighchartsAreaRangeChartSeriesOptions>{
+        series: [<__Highcharts.AreaRangeChartSeriesOptions>{
             name: 'USD to EUR',
             data: someData,
             lineColor: "blue"

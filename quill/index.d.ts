@@ -10,7 +10,8 @@ declare namespace QuillJS {
         modules?: { [key: string]: any },
         placeholder?: string,
         readOnly?: boolean,
-        theme?: string
+        theme?: string,
+        formats?: string[] 
     }
 
     export interface BoundsStatic {

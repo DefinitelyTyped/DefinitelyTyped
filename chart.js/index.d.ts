@@ -345,6 +345,7 @@ interface ChartXAxe {
     stacked?: boolean;
     categoryPercentage?: number;
     barPercentage?: number;
+    barThickness?: number;
     gridLines?: GridLineOptions;
     position?: string;
     ticks?: TickOptions;

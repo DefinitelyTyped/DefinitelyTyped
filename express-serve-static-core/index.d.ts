@@ -1098,27 +1098,6 @@ declare module "express-serve-static-core" {
     }
 
     interface Express extends Application {
-        /**
-            * Framework version.
-            */
-        version: string;
-
-        /**
-            * Expose mime.
-            */
-        mime: string;
-
-        (): Application;
-
-        /**
-        * Create an express application.
-        */
-        createApplication(): Application;
-
-        createServer(): Application;
-
-        application: any;
-
         request: Request;
 
         response: Response;

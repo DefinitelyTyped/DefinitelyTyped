@@ -20,15 +20,15 @@ declare namespace RRule {
         wkst?: number | Weekday
         count?: number;
         until?: Date;
-        bysetpos?: number;
-        bymonth?: number;
-        bymonthday?: number;
-        byyearday?: number;
-        byweekno?: number;
-        byweekday?: Weekday[];
-        byhour?: number;
-        byminute?: number;
-        bysecond?: number;
+        bysetpos?: number | number[];
+        bymonth?: number | number[];
+        bymonthday?: number | number[];
+        byyearday?: number | number[];
+        byweekno?: number | number[];
+        byweekday?:  Weekday | Weekday[] | number | number[];
+        byhour?: number | number[];
+        byminute?: number | number[];
+        bysecond?: number | number[];
     }
 
     class Weekday {
