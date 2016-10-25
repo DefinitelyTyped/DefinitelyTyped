@@ -1,6 +1,7 @@
 // Type definitions for i2c-bus v1.0.0
 // Project: https://github.com/fivdi/i2c-bus
 // Definitions by: Jason Heard <https://github.com/101100>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
