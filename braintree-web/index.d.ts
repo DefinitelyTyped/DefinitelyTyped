@@ -1,4 +1,4 @@
-// Type definitions for Braintree-web v3.3.0
+// Type definitions for Braintree-web v3.5.0
 // Project: https://github.com/braintree/braintree-web
 // Definitions by: Guy Shahine <https://github.com/chlela>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -541,13 +541,16 @@ declare namespace BraintreeWeb {
    * @property {string} selector A CSS selector to find the container where the hosted field will be inserted.
    * @property {string} [placeholder] Will be used as the `placeholder` attribute of the input. If `placeholder` is not natively supported by the browser, it will be polyfilled.
    * @property {string} [type] Will be used as the `type` attribute of the input. To mask `cvv` input, for instance, `type: "password"` can be used.
-   * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field. Note: Input formatting does not work properly on Android and iOS, so input formatting is automatically disabled on those browsers.
+   * @property {boolean} [formatInput=true] - Enable or disable automatic formatting on this field.
+   * @property {object|boolean} [select] If truthy, this field becomes a `<select>` dropdown list. This can only be used for `expirationMonth` and `expirationYear` fields.
+   * @property {string[]} [select.options] An array of 12 strings, one per month. This can only be used for the `expirationMonth` field. For example, the array can look like `['01 - January', '02 - February', ...]`.
    */
   interface HostedFieldsField {
     selector: string;
     placeholder?: string;
     type?: string;
     formatInput?: boolean;
+    select?: boolean | { options: string[] };
   }
 
   /**

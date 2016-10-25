@@ -1397,6 +1397,9 @@ namespace process_tests {
         var _p: NodeJS.Process = process;
         _p = p;
     }
+    {
+        assert(process.argv[0] === process.argv0);
+    }
 }
 
 ///////////////////////////////////////////////////////////
