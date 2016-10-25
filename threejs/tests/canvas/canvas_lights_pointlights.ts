@@ -42,7 +42,7 @@
 
         }
 
-				var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xff0040, program: program }));
+        var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0xff0040, program: program }));
         light1.add(sprite);
 
         var sprite = new THREE.Sprite(new THREE.SpriteCanvasMaterial({ color: 0x0040ff, program: program }));
@@ -54,7 +54,7 @@
         loader = new THREE.JSONLoader();
         loader.load('obj/WaltHeadLo.js', function (geometry) {
 
-            mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xffffff, shading: THREE.FlatShading, overdraw: 0.5 }));
+            mesh = new THREE.Mesh(geometry, new THREE.MeshLambertMaterial({ color: 0xffffff, overdraw: 0.5 }));
             scene.add(mesh);
 
         });

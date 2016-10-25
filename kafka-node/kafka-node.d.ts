@@ -1,7 +1,7 @@
 // Type definitions for kafka-node 0.2.22
 // Project: https://github.com/SOHU-Co/kafka-node/
 // Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'kafka-node' {
 
@@ -9,6 +9,7 @@ declare module 'kafka-node' {
     export class Client {
         constructor(connectionString: string, clientId: string, options?: ZKOptions);
         close(callback?: Function): void;
+        topicExists(topics: Array<string>, callback: Function): void;
     }
 
     export class Producer {
@@ -28,7 +29,7 @@ declare module 'kafka-node' {
     }
 
     export class Consumer {
-        constructor(client: Client, fetchRequests: Array<Topic>, options: ConsumerOptions);
+        constructor(client: Client, fetchRequests: Array<OffsetFetchRequest>, options: ConsumerOptions);
         on(eventName: string, cb: (message: string) => any): void;
         on(eventName: string, cb: (error: any) => any): void;
         addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;

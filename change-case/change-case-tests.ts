@@ -35,3 +35,5 @@ b = changeCase.isLower(s);
 b = changeCase.isLowerCase(s);
 s = changeCase.ucFirst(s);
 s = changeCase.upperCaseFirst(s);
+s = changeCase.lcFirst(s);
+s = changeCase.lowerCaseFirst(s);

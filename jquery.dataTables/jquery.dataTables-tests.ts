@@ -44,6 +44,9 @@ $(document).ready(function () {
     };
 
     var colDataFunc: DataTables.FunctionColumnData = function (row, type, set, meta) {
+        meta.col;
+        meta.row;
+        meta.settings;
     };
 
     var colRenderObject: DataTables.ObjectColumnRender = {
@@ -54,7 +57,9 @@ $(document).ready(function () {
     };
 
     var colRenderFunc: DataTables.FunctionColumnRender = function (data, type, row, meta) {
-
+        meta.col;
+        meta.row;
+        meta.settings;
     };
 
     var col: DataTables.ColumnSettings =
@@ -77,21 +82,21 @@ $(document).ready(function () {
             width: "200px"
         }
     col =
-    {
-        data: "",
-        orderData: [10, 11, 20],
-        render: "",
-    }
+        {
+            data: "",
+            orderData: [10, 11, 20],
+            render: "",
+        }
     col =
-    {
-        data: colDataObject,
-        render: colRenderObject,
-    }
+        {
+            data: colDataObject,
+            render: colRenderObject,
+        }
     col =
-    {
-        data: colDataFunc,
-        render: colRenderFunc,
-    }
+        {
+            data: colDataFunc,
+            render: colRenderFunc,
+        }
 
     //#endregion "Column"
 
@@ -119,16 +124,16 @@ $(document).ready(function () {
         };
 
     colDef =
-    {
-        targets: "2",
-        cellType: "th",
-    };
+        {
+            targets: "2",
+            cellType: "th",
+        };
 
     colDef =
-    {
-        targets: ["2", 5],
-        cellType: "th",
-    };
+        {
+            targets: ["2", 5],
+            cellType: "th",
+        };
 
     //#endregion "ColumnDef"
 
@@ -142,7 +147,7 @@ $(document).ready(function () {
     var infoCallbackFunc: DataTables.FunctionInfoCallback = function (settings, start, end, total, pre) { };
     var initCallbackFunc: DataTables.FunctionInitComplete = function (settings, json) { };
     var preDrawFunc: DataTables.FunctionPreDrawCallback = function (settings) { };
-    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data) { };
+    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data, index) { };
     var stateLoadCallbackFunc: DataTables.FunctionStateLoadCallback = function (settings) { };
     var stateLoadedCallbackFunc: DataTables.FunctionStateLoaded = function (settings, data) { };
     var stateSaveCallbackFunc: DataTables.FunctionStateSaveCallback = function (settings, data) { };
@@ -154,7 +159,7 @@ $(document).ready(function () {
 
     var ajaxFunc: DataTables.FunctionAjax = function (data, callback, settings) { };
 
-    var ajaxDataFunc: DataTables.FunctionAjaxData = function (data) {
+    var ajaxDataFunc: DataTables.FunctionAjaxData = function (data, settings) {
         return data;
     };
 
@@ -214,6 +219,7 @@ $(document).ready(function () {
             pagingType: "simple",
             retrieve: true,
             renderer: "bootstrap",
+            rowId: "custId",
             scrollCollapse: true,
             search: true,
             searchCols: [{ "search": "", "smart": true, "regex": false, "caseInsensitive": true }],
@@ -224,41 +230,41 @@ $(document).ready(function () {
 
 
     config =
-    {
-        ajax: ajaxFunc,
-        deferLoading: [10, 100],
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-        order: [0, 'asc'],
-        orderFixed: [[0, 'asc'], [1, 'asc']],
-        renderer: {
-            header: "bootstrap",
-            pageButton: "jqueryui"
-        },
-        search: { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
-        searchCols: [
-            null,
-            { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
-            { "search": "" },
-            { "search": "", "smart": true },
-            null
-        ],
-    };
+        {
+            ajax: ajaxFunc,
+            deferLoading: [10, 100],
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            order: [0, 'asc'],
+            orderFixed: [[0, 'asc'], [1, 'asc']],
+            renderer: {
+                header: "bootstrap",
+                pageButton: "jqueryui"
+            },
+            search: { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
+            searchCols: [
+                null,
+                { "search": "", "smart": true, "regex": false, "caseInsensitive": true },
+                { "search": "" },
+                { "search": "", "smart": true },
+                null
+            ],
+        };
 
     config =
-    {
-        ajax: {
-            data: {},
-            dataSrc: "",
-        },
-    };
+        {
+            ajax: {
+                data: {},
+                dataSrc: "",
+            },
+        };
 
     config =
-    {
-        ajax: {
-            data: ajaxDataFunc,
-            dataSrc: function (data) { },
-        },
-    };
+        {
+            ajax: {
+                data: ajaxDataFunc,
+                dataSrc: function (data: any) { },
+            },
+        };
 
     //#endregion "Settings"
 
@@ -300,9 +306,15 @@ $(document).ready(function () {
     destroy = dt.destroy(true);
     destroy.$("");
 
-    var draw = dt.draw();
+    var draw: DataTables.DataTable = dt.draw();
     draw = dt.draw(true);
+    draw = dt.draw("page");
     draw.$("");
+
+    var initSettings = dt.init();
+
+    var i18n: string = dt.i18n('buttons.copy', 'Copy to clipboard');
+    i18n = dt.i18n('select.rows', { _: '%d rows selected', 1: '1 row selected' }, 0);
 
     var off = dt.off("event");
     off = dt.off("event", function () { });
@@ -333,7 +345,8 @@ $(document).ready(function () {
         "end": 20,
         "length": 10,
         "recordsTotal": 57,
-        "recordsDisplay": 57
+        "recordsDisplay": 57,
+        "serverSide": false
     };
 
     var page_len_get = dt.page.len();
@@ -380,20 +393,20 @@ $(document).ready(function () {
     var select = $('<select />')
         .appendTo('body')
         .on('change', function () {
-        dt
-            .column(0)
-            .search($(this).val())
-            .draw();
-    });
+            dt
+                .column(0)
+                .search($(this).val())
+                .draw();
+        });
     // Get the search data for the first column and add to the select list
     var data = dt
         .cells('', 0)
         .cache('search')
         .sort()
         .unique()
-        .each(function (d) {
-        select.append($('<option value="' + d + '">' + d + '</option>'));
-    });
+        .each(function (d: any) {
+            select.append($('<option value="' + d + '">' + d + '</option>'));
+        });
 
     var cells_data = cells.data();
     var data = dt
@@ -432,6 +445,9 @@ $(document).ready(function () {
 
         console.log(data);
     });
+
+    cells.every(function () { });
+    cells.every(function (cellRowIdx, cellColIdx, tableLoop, cellLoop) { });
 
     var cell = dt.cell(":contains('Not shipped')");
     cell = dt.cell(function () { });
@@ -507,28 +523,28 @@ $(document).ready(function () {
     columns = dt.columns("selector", modifier);
 
     var columns_cache = columns.cache("order");
-    dt.columns('.select-filter').eq(0).each(function (colIdx) {
+    dt.columns('.select-filter').eq(0).each(function (colIdx: any) {
         // Create the select list and search operation
         var select = $('<select />')
             .appendTo(
             dt.column(colIdx).footer()
             )
             .on('change', function () {
-            dt
-                .column(colIdx)
-                .search($(this).val())
-                .draw();
-        });
- 
+                dt
+                    .column(colIdx)
+                    .search($(this).val())
+                    .draw();
+            });
+
         // Get the search data for the first column and add to the select list
         dt
             .column(colIdx)
             .cache('search')
             .sort()
             .unique()
-            .each(function (d) {
-            select.append($('<option value="' + d + '">' + d + '</option>'));
-        });
+            .each(function (d: any) {
+                select.append($('<option value="' + d + '">' + d + '</option>'));
+            });
     });
 
     var columns_data = columns.data();
@@ -540,7 +556,7 @@ $(document).ready(function () {
             .sort()       // Sort data alphabetically
             .unique()     // Reduce to unique values
             .join('<br>')
-        );
+    );
 
     //var idx = dt
     //    .columns('.check')
@@ -598,31 +614,31 @@ $(document).ready(function () {
         dt.column(0).footer()
         )
         .on('change', function () {
-        dt
-            .column(0)
-            .search($(this).val())
-            .draw();
-    });
- 
+            dt
+                .column(0)
+                .search($(this).val())
+                .draw();
+        });
+
     // Get the search data for the first column and add to the select list
     dt
         .column(0)
         .cache('search')
         .sort()
         .unique()
-        .each(function (d) {
-        select.append($('<option value="' + d + '">' + d + '</option>'));
-    });
+        .each(function (d: any) {
+            select.append($('<option value="' + d + '">' + d + '</option>'));
+        });
 
     var column_data = column.data();
     alert('Column 4 sum: ' +
         dt
             .column(4)
             .data()
-    .reduce(function (a, b) {
-    return a + b;
-    })
-        );
+            .reduce(function (a: any, b: any) {
+                return a + b;
+            })
+    );
 
     var column_dataSrc = column.dataSrc();
     $('#example').on('click', 'tbody td', function () {
@@ -675,7 +691,7 @@ $(document).ready(function () {
             .draw();
     });
 
-    dt.columns('.select-filter').eq(0).each(function (colIdx) {
+    dt.columns('.select-filter').eq(0).each(function (colIdx: any) {
         // Create the select list and search operation
         var select = $('<select />')
             .appendTo(
@@ -683,20 +699,20 @@ $(document).ready(function () {
             )
             .on('change', function () {
                 dt
-                .column(colIdx)
-                .search($(this).val())
-                .draw();
-        });
- 
+                    .column(colIdx)
+                    .search($(this).val())
+                    .draw();
+            });
+
         // Get the search data for the first column and add to the select list
         dt
             .column(colIdx)
             .cache('search')
             .sort()
             .unique()
-            .each(function (d) {
-            select.append($('<option value="' + d + '">' + d + '</option>'));
-        });
+            .each(function (d: any) {
+                select.append($('<option value="' + d + '">' + d + '</option>'));
+            });
     });
 
     var column_visible_get = column.visible();
@@ -704,11 +720,14 @@ $(document).ready(function () {
     column_visible_set = column.visible(false, true);
     alert('Column index 0 is ' +
         (dt.column(0).visible() === true ? 'visible' : 'not visible')
-        );
+    );
     for (var i = 0; i < 4; i++) {
         dt.column(i).visible(false, false);
     }
     dt.columns.adjust().draw(false); // adjust column sizing and redraw
+
+    dt.columns().every(function () { });
+    dt.columns().every(function (colIdx, tableLoop, colLoop) { });
 
     //#endregion "Methods-Column"
 
@@ -735,6 +754,8 @@ $(document).ready(function () {
     var row_19 = dt.row("selector").index();
     var row_20 = dt.row("selector").node();
     var row_21 = dt.row("selector").remove();
+    var row_22: string = dt.row("selector").id();
+    var row_23: string = dt.row("selector").id(false);
 
     var rows_1 = dt.rows();
     var rows_2 = dt.rows().remove();
@@ -749,6 +770,10 @@ $(document).ready(function () {
     var rows_11 = dt.rows("selector").remove();
     var rows_12 = dt.rows("selector").nodes();
     var rows_13 = dt.rows.add([{}, {}]);
+    dt.rows().every(function () { });
+    dt.rows().every(function (rowIdx, tableLoop, rowLoop) { });
+    var rows_14: DataTables.DataTable = dt.rows("selector").ids();
+    var rows_15: DataTables.DataTable = dt.rows("selector").ids(false);
 
     var table3 = $('#example').DataTable();
     table3.row.add({
@@ -786,9 +811,9 @@ $(document).ready(function () {
         pupil,
     ])
         .draw();
-        //.nodes()
-        //.to$()
-        //.addClass('new');
+    //.nodes()
+    //.to$()
+    //.addClass('new');
 
     $('#example tbody').on('click', 'td.details-control', function () {
         var tr = $(this).parents('tr');
@@ -813,7 +838,7 @@ $(document).ready(function () {
     ])
         .show();
 
-    dt.rows().eq(0).each(function (rowIdx) {
+    dt.rows().eq(0).each(function (rowIdx: any) {
         dt
             .row(rowIdx)
             .child(
@@ -824,7 +849,7 @@ $(document).ready(function () {
                 '<td>' + rowIdx + '.3</td>' +
                 '<td>' + rowIdx + '.4</td>' +
                 '</tr>'
-                )
+            )
             )
             .show();
     });
@@ -863,6 +888,20 @@ $(document).ready(function () {
 
     //#endregion "Methods-Row"
 
+    //#region "Methods-Static"
+
+    // Variable is a stand-in for $.fn.dataTable. See extension of JQueryStatic at the top of jquery.dataTables.d.ts.
+    var staticFn: DataTables.StaticFunctions;
+
+    // With boolean parameter type, always returns DataTables.DataTable[].
+    var static_1: DataTables.DataTable[] = <DataTables.DataTable[]>staticFn.tables(true);
+    // With object parameter type, returns DataTables.DataTable[] when "api" property is false.
+    static_1 = <DataTables.DataTable[]>staticFn.tables({ "visible": true, "api": false });
+    // With object parameter type, returns DataTables.DataTable when "api" property is true.
+    var static_2: DataTables.DataTable = <DataTables.DataTable>staticFn.tables({ "visible": true, "api": true });
+
+    //#endregion "Methods-Static"
+
     //#region "Methods-Table"
 
     var tables = dt.tables();
@@ -885,6 +924,9 @@ $(document).ready(function () {
     //#endregion "Methods-Table"
 
     //#region "Methods-Util"
+
+    var util_1: boolean = dt.any();
+    var util_2: number = dt.count();
 
     //#endregion "Methods-Util"
 });

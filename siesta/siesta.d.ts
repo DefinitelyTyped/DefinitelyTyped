@@ -1,9 +1,9 @@
 // Type definitions for Siesta
 // Project: http://www.bryntum.com/products/siesta/
 // Definitions by: bquarmby <https://github.com/bquarmby>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Siesta {
+declare namespace Siesta {
     /**
      * @abstract
      */
@@ -57,7 +57,7 @@ declare module Siesta {
         start(...descriptors: any[]): void;
     }
 
-    module Harness {
+    namespace Harness {
         interface ITestGroupDescriptor {
             group: string;
 
@@ -228,7 +228,7 @@ declare module Siesta {
         wait(title: string, howLong: number): void;
     }
 
-    module Test {
+    namespace Test {
         interface IActionCall {
             (next: (...args: any[]) => void, ...previous: any[]): void;
         }
@@ -246,8 +246,8 @@ declare module Siesta {
             desc?: string;
         }
 
-        module Action {
-            module Role {
+        namespace Action {
+            namespace Role {
                 /**
                  * @mixin
                  */
@@ -408,7 +408,7 @@ declare module Siesta {
             xit(name: string, code: Function, timeout?: number): void;
         }
 
-        module BDD {
+        namespace BDD {
             /**
              @class
              */
@@ -592,7 +592,7 @@ declare module Siesta {
             waitForPageLoad(callback: Function, scope?: any): void;
         }
 
-        module Simulate {
+        namespace Simulate {
             /**
              * @mixin
              */
@@ -611,7 +611,7 @@ declare module Siesta {
                 type(el: any, text: string, callback?: Function, scope?: any, options?: any): void;
             }
 
-            // NOTE https://github.com/borisyankov/DefinitelyTyped/pull/3135
+            // NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/3135
             var KeyCodes: {
                 '\b': number; // = 8,
                 'BACKSPACE': number; // = 8,

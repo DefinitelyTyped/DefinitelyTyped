@@ -1,7 +1,7 @@
 ﻿// Type definitions for Web Speech API
 // Project: https://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html
 // Definitions by: SaschaNaz <https://github.com/saschanaz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Spec version: 19 October 2012
 // Errata version: 6 June 2014

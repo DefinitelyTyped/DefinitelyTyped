@@ -1,7 +1,7 @@
 // Type definitions for jStorage 0.3.0
 // Project: http://www.jstorage.info/
 // Definitions by: Danil Flores <https://github.com/dflor003/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JStorageOptions {
     TTL: number;

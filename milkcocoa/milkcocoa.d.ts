@@ -1,10 +1,10 @@
 // Type definitions for Milkcocoa 0.2.8
 // Project: https://mlkcca.com/
 // Definitions by: odangosan <https://github.com/odangosan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Api Reference : https://mlkcca.com/document/api-js.html
 
-declare module milkcocoa {
+declare namespace milkcocoa {
   class MilkCocoa {
     constructor(host: string, callback?: Function);
     dataStore(path: string): DataStore;
@@ -14,8 +14,8 @@ declare module milkcocoa {
     getCurrentUser(callback: (err: MilkCocoa.Error.GetCurrentUser, user: { id: string }) => void): void;
   }
 
-  module MilkCocoa {
-    module Error {
+  namespace MilkCocoa {
+    namespace Error {
       enum AddAccount {
         // FormatError = 1, AlreadyExist = 2
         FormatError, AlreadyExist

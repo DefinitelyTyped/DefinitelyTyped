@@ -1,16 +1,16 @@
 // Type definitions for decimal.js
 // Project: http://mikemcl.github.io/decimal.js
 // Definitions by: Joseph Rossi <http://github.com/musicist288>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Decimal: decimal.IDecimalStatic;
 
 // Support AMD require
-declare module 'decimal' {
+declare module 'decimal.js' {
     export = Decimal;
 }
 
-declare module decimal {
+declare namespace decimal {
 
     enum RoundingMode {
         /**

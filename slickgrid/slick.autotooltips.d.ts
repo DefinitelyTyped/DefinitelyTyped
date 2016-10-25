@@ -1,11 +1,11 @@
 // Type definitions for SlickGrid AutoToolTips Plugin 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Ryo Iwamoto <https://github.com/ryiwamoto>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="SlickGrid.d.ts" />
 
-declare module Slick {
+declare namespace Slick {
     export interface SlickGridAutoTooltipsOption extends PluginOptions {
         /**
          * Enable tooltip for grid cells

@@ -1,25 +1,27 @@
 // Type definitions for node-bunyan
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
 declare module "bunyan" {
-    import events = require('events');
-    import EventEmitter = events.EventEmitter;
-    import WritableStream = NodeJS.WritableStream;
+    import { EventEmitter } from 'events';
 
     class Logger extends EventEmitter {
         constructor(options:LoggerOptions);
         addStream(stream:Stream):void;
-        addSerializers(serializers:Serializers):void;
+        addSerializers(serializers:Serializers | StdSerializers):void;
         child(options:LoggerOptions, simple?:boolean):Logger;
         child(obj:Object, simple?:boolean):Logger;
         reopenFileStreams():void;
 
+        level():string|number;
         level(value: number | string):void;
         levels(name: number | string, value: number | string):void;
+
+        fields:any;
+        src:boolean;
 
         trace(error:Error, format?:any, ...params:any[]):void;
         trace(buffer:Buffer, format?:any, ...params:any[]):void;
@@ -50,25 +52,37 @@ declare module "bunyan" {
     interface LoggerOptions {
         name: string;
         streams?: Stream[];
-        level?: string;
-        stream?: WritableStream;
+        level?: string | number;
+        stream?: NodeJS.WritableStream;
         serializers?: Serializers;
         src?: boolean;
     }
 
+	interface Serializer {
+		(input:any): any;
+	}
+
     interface Serializers {
-        [key:string]: (input:any) => string;
+        [key:string]: Serializer;
+    }
+
+    interface StdSerializers {
+        err: Serializer;
+        res: Serializer;
+        req: Serializer;
     }
 
     interface Stream {
         type?: string;
         level?: number | string;
         path?: string;
-        stream?: WritableStream | Stream;
+        stream?: NodeJS.WritableStream | Stream;
         closeOnExit?: boolean;
+        period?: string;
+        count?: number;
     }
 
-    export var stdSerializers:Serializers;
+    export var stdSerializers: StdSerializers;
 
     export var TRACE:number;
     export var DEBUG:number;

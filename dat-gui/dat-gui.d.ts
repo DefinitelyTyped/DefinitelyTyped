@@ -1,9 +1,9 @@
 // Type definitions for dat.GUI v0.5
 // Project: https://github.com/dataarts/dat.gui
 // Definitions by: Satoru Kimura <https://github.com/gyohk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped  
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped  
 
-declare module dat {
+declare namespace dat {
     export class GUI {
         constructor(option?: GUIParams);
 

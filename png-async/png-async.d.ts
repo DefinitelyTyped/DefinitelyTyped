@@ -1,7 +1,7 @@
 // Type definitions for png-async
 // Project: https://github.com/kanreisa/node-png-async
 // Definitions by: Yuki KAN <https://github.com/kanreisa>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -49,10 +49,5 @@ declare module 'png-async' {
         write(data: any, cb?: any): boolean;
         end(data?: any): void;
         bitblt(dst: Image, sx: number, sy: number, w: number, h: number, dx: number, dy: number): Image;
-
-        on(event: string, listener: Function): Image;
-        once(event: string, listener: Function): Image;
-        removeListener(event: string, listener: Function): Image;
-        removeAllListeners(event: string): Image;
     }
 }

@@ -63,7 +63,10 @@ swal({
     text: "I will close in 2 seconds.",
     timer: 2000,
     showConfirmButton: false
-});
+},
+    function () {
+        swal("Time Out!", "The time is out of joint.", "success");
+    });
 
 // A replacement for the "prompt" function
 swal({
@@ -72,7 +75,9 @@ swal({
     type: "input",
     showCancelButton: true,
     closeOnConfirm: false,
-    animation: "slide-from-top"
+    animation: "slide-from-top",
+    inputPlaceholder: "Write something plx",
+    inputValue: "Write something"
 },
     function (inputValue) {
         if (inputValue === false) return false;
@@ -86,8 +91,27 @@ swal({
     }
     );
 
+// With a loader (for AJAX request for example)
+swal({
+    title: "Ajax request example",
+    text: "Submit to run ajax request",
+    type: "info",
+    showCancelButton: true,
+    closeOnConfirm: false,
+    showLoaderOnConfirm: true
+},
+    function () {
+        setTimeout(function () {
+            swal("Ajax request finished!");
+        }, 2000);
+    });
+
 swal.setDefaults({ confirmButtonColor: "#000000" });
 
 swal.close();
 
 swal.showInputError("Invalid email!");
+
+swal.disableButtons();
+
+swal.enableButtons();

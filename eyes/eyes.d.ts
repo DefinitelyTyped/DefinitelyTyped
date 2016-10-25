@@ -1,7 +1,7 @@
 // Type definitions for eyes 0.1.8
 // Project: https://github.com/cloudhead/eyes.js
 // Definitions by: bryn austin bellomy <https://github.com/brynbellomy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts"/>
 
@@ -13,7 +13,7 @@ declare module "eyes"
     export function inspect(thing:any, label?:string): void;
 
     export interface InspectorFunction {
-        (thing:any, label?:string): void;
+        (thing:any, label?:string): string;
     }
 
     export interface EyesOptions

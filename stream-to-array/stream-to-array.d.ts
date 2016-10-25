@@ -1,7 +1,7 @@
 // Type definitions for stream-to-array
 // Project: https://github.com/stream-utils/stream-to-array
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../node/node.d.ts" />

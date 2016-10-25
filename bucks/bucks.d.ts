@@ -1,9 +1,9 @@
 // Type definitions for bucks.js 0.8.3
 // Project: https://github.com/CyberAgent/bucks.js
 // Definitions by: Shunsuke Ohtani <https://github.com/zaneli>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Bucks {
+declare namespace Bucks {
 
   interface BucksStatic {
 

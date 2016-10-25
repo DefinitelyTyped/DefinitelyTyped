@@ -1,9 +1,9 @@
 // Type definitions for svg-pan-zoom v2.3.9
 // Project: https://github.com/ariutta/svg-pan-zoom
 // Definitions by: Chintan Shah <https://github.com/Promact>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module SvgPanZoom {
+declare namespace SvgPanZoom {
 
     interface OptionConfig {
         panEnabled?: boolean; // enable or disable panning (default enabled)

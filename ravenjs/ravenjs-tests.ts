@@ -1,5 +1,9 @@
 /// <reference path="ravenjs.d.ts" />
 
+import RavenJS from 'raven-js';
+
+RavenJS.config('https://public@getsentry.com/1').install();
+
 var options: RavenOptions = {
     logger: 'my-logger',
     ignoreUrls: [
@@ -29,14 +33,22 @@ try {
 
 Raven.context(throwsError);
 Raven.context({tags: { key: "value" }}, throwsError);
+Raven.context({extra: {planet: {name: 'Earth'}}}, throwsError);
 
 setTimeout(Raven.wrap(throwsError), 1000);
 Raven.wrap({logger: "my.module"}, throwsError)();
+Raven.wrap({tags: {git_commit: 'c0deb10c4'}}, throwsError)();
 
-Raven.setUser({
+Raven.setUserContext({
     email: 'matt@example.com',
     id: '123'
 });
 
 Raven.captureMessage('Broken!');
 Raven.captureMessage('Broken!', {tags: { key: "value" }});
+
+Raven.showReportDialog(options);
+
+Raven.setTagsContext({ key: "value" });
+
+Raven.setExtraContext({ foo: "bar" });

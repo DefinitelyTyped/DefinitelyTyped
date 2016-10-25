@@ -1,14 +1,14 @@
 // Type definitions for Emscripten
 // Project: http://kripken.github.io/emscripten-site/index.html
 // Definitions by: Kensuke Matsuzaki <https://github.com/zakki>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Emscripten {
+declare namespace Emscripten {
     interface FileSystemType {
     }
 }
 
-declare module Module {
+declare namespace Module {
     function print(str: string): void;
     function printErr(str: string): void;
     var arguments: string[];
@@ -22,8 +22,8 @@ declare module Module {
     function ccall(ident: string, returnType: string, argTypes: string[], args: any[]): any;
     function cwrap(ident: string, returnType: string, argTypes: string[]): any;
 
-    function setValue(ptr: number, value: any, type: string, noSafe: boolean): void;
-    function getValue(ptr: number, type: string, noSafe: boolean): any;
+    function setValue(ptr: number, value: any, type: string, noSafe?: boolean): void;
+    function getValue(ptr: number, type: string, noSafe?: boolean): number;
 
     var ALLOC_NORMAL: number;
     var ALLOC_STACK: number;
@@ -83,7 +83,7 @@ declare module Module {
     function _free(ptr: number): void;
 }
 
-declare module FS {
+declare namespace FS {
     interface Lookup {
         path: string;
         node: FSNode;

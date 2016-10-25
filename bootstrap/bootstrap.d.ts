@@ -1,13 +1,13 @@
-// Type definitions for Bootstrap 2.2
+// Type definitions for Bootstrap 3.3.5
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
 interface ModalOptions {
-    backdrop?: boolean;
+    backdrop?: boolean|string;
     keyboard?: boolean;
     show?: boolean;
     remote?: string;
@@ -22,39 +22,46 @@ interface ModalOptionsBackdropString {
 
 interface ScrollSpyOptions {
     offset?: number;
+    target?: string;
 }
 
 interface TooltipOptions {
     animation?: boolean;
     html?: boolean;
-    placement?: any;
+    placement?: string | Function;
     selector?: string;
-    title?: any;
+    title?: string | Function;
     trigger?: string;
-    delay?: any;
-    container?: any;
+    template?: string;
+    delay?: number | Object;
+    container?: string | boolean;
+    viewport?: string | Function | Object;
 }
 
 interface PopoverOptions {
     animation?: boolean;
     html?: boolean;
-    placement?: any;
+    placement?: string | Function;
     selector?: string;
     trigger?: string;
-    title?: any;
+    title?: string | Function;
+    template?: string;
     content?: any;
-    delay?: any;
-    container?: any;
+    delay?: number | Object;
+    container?: string | boolean;
+    viewport?: string | Function | Object;
 }
 
 interface CollapseOptions {
-    parent?: any;    
+    parent?: any;
     toggle?: boolean;
 }
 
 interface CarouselOptions {
     interval?: number;
     pause?: string;
+    wrap?: boolean;
+    keybord?: boolean;
 }
 
 interface TypeaheadOptions {
@@ -68,7 +75,12 @@ interface TypeaheadOptions {
 }
 
 interface AffixOptions {
-    offset?: any;
+    offset?: number | Function | Object;
+    target?: any;
+}
+
+interface TransitionEventNames {
+    end: string;
 }
 
 interface JQuery {
@@ -106,6 +118,12 @@ interface JQuery {
     typeahead(options?: TypeaheadOptions): JQuery;
 
     affix(options?: AffixOptions): JQuery;
+
+    emulateTransitionEnd(duration: number): JQuery;
+}
+
+interface JQuerySupport {
+    transition: boolean | TransitionEventNames;
 }
 
 declare module "bootstrap" {

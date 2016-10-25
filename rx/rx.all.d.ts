@@ -1,7 +1,7 @@
 // Type definitions for RxJS-All v2.2.28
 // Project: http://rx.codeplex.com/
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="rx.d.ts"/> 
 /// <reference path="rx.aggregates.d.ts"/> 

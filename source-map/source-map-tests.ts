@@ -1,3 +1,5 @@
+/// <reference path="./source-map.d.ts" />
+
 ﻿import SourceMap = require('source-map');
 
 function testSourceMapConsumer() {
@@ -9,7 +11,7 @@ function testSourceMapConsumer() {
             version: 'foo',
             sources: ['foo', 'bar'],
             names: ['foo', 'bar'],
-            sourcesContent: 'foo',
+            sourcesContent: ['foo'],
             mappings: 'foo'
         });
 

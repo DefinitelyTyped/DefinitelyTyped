@@ -1,10 +1,10 @@
 ﻿// Type definitions for cli-color 0.3.2
 // Project: https://github.com/medikoo/cli-color
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "cli-color" {
-	module m {
+	namespace m {
 		export interface Format {
 			(...text: any[]): string;
 
@@ -83,7 +83,7 @@ declare module "cli-color/trim" {
 declare module "cli-color/throbber" {
 	import clc = require('cli-color');
 
-	module setupThrobber {
+	namespace setupThrobber {
 		export interface Throbber {
 			start(): void;
 			stop(): void;

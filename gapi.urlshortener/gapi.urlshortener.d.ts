@@ -1,14 +1,14 @@
 ﻿// Type definitions for Google Url Shortener API
 // Project: https://developers.google.com/url-shortener/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.urlshortener {
-    
+declare namespace gapi.client.urlshortener {
+
     export interface url {
-        
+
         /**
          * Expands a short URL or gets creation time and analytics.
          */
@@ -85,23 +85,23 @@ interface GoogleApiUrlShortenerUrlResource {
      */
     analytics: {
         /**
-         * Click analytics over all time.	
+         * Click analytics over all time.
          */
         allTime: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
         /**
-         * Click analytics over the last month.	
+         * Click analytics over the last month.
          */
         month: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
         /**
-         * Click analytics over the last week.	
+         * Click analytics over the last week.
          */
         week: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
-        /** 
-         * Click analytics over the last day.	
+        /**
+         * Click analytics over the last day.
          */
         day: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
         /**
-         * Click analytics over the last two hours.	
+         * Click analytics over the last two hours.
          */
         twoHours: GoogleApiUrlShortenerUrlResourceAnalyticsObject;
     }
@@ -109,38 +109,38 @@ interface GoogleApiUrlShortenerUrlResource {
 
 interface GoogleApiUrlShortenerUrlResourceAnalyticsObject {
     /**
-     * Number of clicks on this short URL.	
+     * Number of clicks on this short URL.
      */
     shortUrlClicks: string;
     /**
-     * Number of clicks on all goo.gl short URLs pointing to this long URL.	
+     * Number of clicks on all goo.gl short URLs pointing to this long URL.
      */
     longUrlClicks: string;
     /**
-     * Top referring hosts, e.g. "www.google.com"; sorted by (descending) click counts. Only present if this data is available.	
+     * Top referring hosts, e.g. "www.google.com"; sorted by (descending) click counts. Only present if this data is available.
      */
     referrers: GoogleApiUrlShortenerUrlResourceAnalyticsArrayObject[];
-    /** 
-     * Top countries (expressed as country codes), e.g. "US" or "DE"; sorted by (descending) click counts. Only present if this data is available.	
+    /**
+     * Top countries (expressed as country codes), e.g. "US" or "DE"; sorted by (descending) click counts. Only present if this data is available.
      */
     countries: GoogleApiUrlShortenerUrlResourceAnalyticsArrayObject[];
     /**
-     * Top browsers, e.g. "Chrome"; sorted by (descending) click counts. Only present if this data is available.	
+     * Top browsers, e.g. "Chrome"; sorted by (descending) click counts. Only present if this data is available.
      */
     browsers: GoogleApiUrlShortenerUrlResourceAnalyticsArrayObject[];
     /**
-     * Top platforms or OSes, e.g. "Windows"; sorted by (descending) click counts. Only present if this data is available.	
+     * Top platforms or OSes, e.g. "Windows"; sorted by (descending) click counts. Only present if this data is available.
      */
     platforms: GoogleApiUrlShortenerUrlResourceAnalyticsArrayObject[];
 }
 
 interface GoogleApiUrlShortenerUrlResourceAnalyticsArrayObject {
     /**
-     * Number of clicks for this top entry, e.g. for this particular country or browser.	
+     * Number of clicks for this top entry, e.g. for this particular country or browser.
      */
     count: string;
     /**
-     * Label assigned to this top entry, e.g. "US" or "Chrome".	
+     * Label assigned to this top entry, e.g. "US" or "Chrome".
      */
     id: string;
 }

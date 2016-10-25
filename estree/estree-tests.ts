@@ -59,7 +59,6 @@ expression = withStatement.object;
 var switchStatement: ESTree.SwitchStatement;
 expression = switchStatement.discriminant;
 switchCase = switchStatement.cases[0];
-boolean = switchStatement.lexical;
 
 // ReturnStatement
 var returnStatement: ESTree.ReturnStatement;
@@ -164,7 +163,6 @@ statement = switchCase.consequent[0];
 // CatchClause
 string = catchClause.type;
 pattern = catchClause.param;
-expression = catchClause.guard;
 blockStatement = catchClause.body;
 
 // Misc

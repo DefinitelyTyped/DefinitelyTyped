@@ -45,6 +45,48 @@ import http = require('http');
             console.log(Date.now() + ' Peer ' + connection.remoteAddress + ' disconnected.');
         });
     });
+
+    var wsRouter = new websocket.router({
+      server: wsServer
+    });
+
+    wsRouter.mount('*', (request) => {
+      if(!originIsAllowed(request.origin)) {
+        request.reject();
+        console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+        return;
+      }
+
+      var connection = request.accept('echo-protocol', request.origin);
+      console.log((new Date()) + ' Connection accepted.');
+      connection.on('message', (message: websocket.IMessage) => {
+          if (message.type === 'utf8') {
+              console.log('Received Message: ' + message.utf8Data);
+              connection.sendUTF(message.utf8Data);
+          }
+          else if (message.type === 'binary') {
+              console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
+              connection.sendBytes(message.binaryData);
+          }
+      });
+
+      connection.on('close', (code: number) => {
+          console.log(Date.now() + ' Peer ' + connection.remoteAddress + ' disconnected.');
+      });
+    });
+
+    wsRouter.mount('*', 'protocol', (request) => {
+    });
+
+    wsRouter.mount(/^route\/[a-zA-Z]+$/, (request) => {
+
+    });
+
+    wsRouter.unmount('*');
+    wsRouter.unmount('*', 'protocol');
+
+    wsRouter.unmount(/^route\/[a-zA-Z]+$/);
+    wsRouter.unmount(/^route\/[a-zA-Z]+$/, 'protocol');
 }
 
 {
@@ -78,7 +120,7 @@ import http = require('http');
                 setTimeout(sendNumber, 1000);
             }
         }
-        
+
         sendNumber();
     });
 

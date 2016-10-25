@@ -1,7 +1,7 @@
 // Type definitions for Firebase Simple Login
 // Project: https://www.firebase.com/docs/security/simple-login-overview.html
 // Definitions by: Wilker Lucio <http://github.com/wilkerlucio>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./firebase.d.ts" />
 

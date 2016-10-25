@@ -1,14 +1,14 @@
 // Type definitions for Google Page Speed Online Api
 // Project: https://developers.google.com/speed/pagespeed/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.pagespeedonline {
+declare namespace gapi.client.pagespeedonline {
 
     export interface pagespeedapi {
-        
+
         /**
          * Runs Page Speed analysis on the page at the specified URL, and returns a Page Speed score, a list of suggestions to make that page faster, and other information.
          */
@@ -275,5 +275,5 @@ interface GoogleApiPageSpeedOnlineRuleResource {
 
 
                     /**
-                     * 
+                     *
                      */

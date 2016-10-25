@@ -2,7 +2,7 @@
 /// <reference path="../backbone/backbone.d.ts" />
 /// <reference path="backbone.paginator.d.ts" />
 
-module BackbonePaginatorTests {
+namespace BackbonePaginatorTests {
 
   class TestModel extends Backbone.Model{};
 
@@ -18,7 +18,7 @@ module BackbonePaginatorTests {
   };
 
 
-  module InitializingWithNoOption {
+  namespace InitializingWithNoOption {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(){
@@ -32,7 +32,7 @@ module BackbonePaginatorTests {
 
 
 
-  module InitializingWithOptions {
+  namespace InitializingWithOptions {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
 
@@ -90,7 +90,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Fetching {
+  namespace Fetching {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(models?: TestModel[],
@@ -112,7 +112,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Paging {
+  namespace Paging {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(models?: TestModel[],
@@ -129,7 +129,7 @@ module BackbonePaginatorTests {
     var result:JQueryXHR|TestCollection = testCollection.getFirstPage();
 
     testCollection.getFirstPage(options);
-   
+
     // 'silent's type is boolean. (structural subtyping)
     testCollection.getFirstPage({silent: 'aa'});
     // 'url's type is string. (structural subtyping)
@@ -195,7 +195,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Parse {
+  namespace Parse {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(models?: TestModel[],
@@ -244,7 +244,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Setting {
+  namespace Setting {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(models?: TestModel[],
@@ -275,7 +275,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Syncing {
+  namespace Syncing {
 
     class TestCollection extends Backbone.PageableCollection<TestModel> {
       constructor(models?: TestModel[],
@@ -295,7 +295,7 @@ module BackbonePaginatorTests {
 
 
 
-  module Confllict {
+  namespace Confllict {
 
     var result:typeof Backbone.PageableCollection
 	    = Backbone.PageableCollection.noConflict();

@@ -1,12 +1,12 @@
 // Type definitions for angular-local-storage v0.1.5
 // Project: https://github.com/grevory/angular-local-storage
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../angularjs/angular.d.ts' />
 
-declare module angular.local.storage {
-  interface ILocalStorageServiceProvider extends IServiceProvider {
+declare namespace angular.local.storage {
+  interface ILocalStorageServiceProvider extends angular.IServiceProvider {
     /**
      * Setter for the prefix
      * You should set a prefix to avoid overwriting any local storage variables from the rest of your app
@@ -56,6 +56,15 @@ declare module angular.local.storage {
      * @param val
      */
     set(key:string, val:string):boolean;
+    /**
+     * Directly adds a value to cookies with an expiration.
+     * Note: Typically used as a fallback if local storage is not supported.
+     * Returns: Boolean
+     * @param key
+     * @param val
+     * @param daysToExpiry
+     */
+    set(key:string, val:string, daysToExpiry:number):boolean;
     /**
      * Directly get a value from a cookie.
      * Returns: value from local storage
@@ -129,7 +138,7 @@ declare module angular.local.storage {
      * @param value optional
      * @param key The corresponding key used in local storage
      */
-    bind(scope:ng.IScope, property: string, value?: any, key?: string): Function;
+    bind(scope: angular.IScope, property: string, value?: any, key?: string): Function;
     /**
      * Return the derive key
      * Returns String

@@ -1,7 +1,7 @@
 // Type definitions for jQuery JoyRide Plugin 2.1
 // Project: https://github.com/zurb/joyride
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

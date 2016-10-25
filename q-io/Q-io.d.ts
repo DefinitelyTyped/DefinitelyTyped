@@ -1,7 +1,7 @@
 // Type definitions for Q-io
 // Project: https://github.com/kriskowal/q-io
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../node/node.d.ts" />
 ///<reference path="../q/Q.d.ts" />
@@ -12,7 +12,7 @@
 //TODO find solution for overloaded return types (QioFS.open/QioFS.read)
 //     for some ideas see https://typescript.codeplex.com/discussions/461587#post1105930
 
-declare module QioFS {
+declare namespace QioFS {
 
 	//TODO how to define the multiple return types? use any for now?
 	export function open(path:string, options?:any):Q.Promise<any>;
@@ -138,7 +138,7 @@ declare module QioFS {
 	}
 }
 
-declare module QioHTTP {
+declare namespace QioHTTP {
 	export function request(request:Request):Q.Promise<Response>;
 	export function request(url:string):Q.Promise<Response>;
 
@@ -187,7 +187,7 @@ declare module QioHTTP {
 	}
 }
 
-declare module Qio {
+declare namespace Qio {
 	interface ForEachCallback {
 		(chunk:Buffer):Q.Promise<any>;
 		(chunk:string):Q.Promise<any>;

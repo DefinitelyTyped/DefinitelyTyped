@@ -11,14 +11,141 @@ _.map({ one: 1, two: 2, three: 3 }, (value, key) => value * 3);
 //var sum = _.reduce([1, 2, 3], (memo, num) => memo + num, 0);	// https://typescript.codeplex.com/workitem/1960
 var sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num, 0);
 sum = _.reduce<number, number>([1, 2, 3], (memo, num) => memo + num); // memo is optional #issue 5 github
+sum = _.reduce<string, number>({'a':'1', 'b':'2', 'c':'3'}, (memo, numstr) => memo + (+numstr));
 
 var list = [[0, 1], [2, 3], [4, 5]];
 //var flat = _.reduceRight(list, (a, b) => a.concat(b), []);	// https://typescript.codeplex.com/workitem/1960
 var flat = _.reduceRight<number[], number[]>(list, (a, b) => a.concat(b), []);
 
-var even = _.find([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
+namespace TestFind {
+	let array: {a: string}[] = [{a: 'a'}, {a: 'b'}];
+	let list: _.List<{a: string}> = {0: {a: 'a'}, 1: {a: 'b'}, length: 2};
+	let dict: _.Dictionary<{a: string}> = {a: {a: 'a'}, b: {a: 'b'}};
+	let context = {};
 
-var firstCapitalLetter = _.find({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
+	{
+		let iterator = (value: {a: string}, index: number, list: _.List<{a: string}>) => value.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(array, iterator);
+		result = _.find<{a: string}>(array, iterator, context);
+		result = _.find<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.find<{a: string}>(array, 'a');
+
+		result = _(array).find<{a: string}>(iterator);
+		result = _(array).find<{a: string}>(iterator, context);
+		result = _(array).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).find<{a: string}>('a');
+
+		result = _(array).chain().find<{a: string}>(iterator).value();
+		result = _(array).chain().find<{a: string}>(iterator, context).value();
+		result = _(array).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().find<{a: string}>('a').value();
+
+		result = _.find<{a: string}>(list, iterator);
+		result = _.find<{a: string}>(list, iterator, context);
+		result = _.find<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.find<{a: string}>(list, 'a');
+
+		result = _(list).find<{a: string}>(iterator);
+		result = _(list).find<{a: string}>(iterator, context);
+		result = _(list).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).find<{a: string}>('a');
+
+		result = _(list).chain().find<{a: string}>(iterator).value();
+		result = _(list).chain().find<{a: string}>(iterator, context).value();
+		result = _(list).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(array, iterator);
+		result = _.detect<{a: string}>(array, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(array, {a: 'b'});
+		result = _.detect<{a: string}>(array, 'a');
+
+		result = _(array).detect<{a: string}>(iterator);
+		result = _(array).detect<{a: string}>(iterator, context);
+		result = _(array).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(array).detect<{a: string}>('a');
+
+		result = _(array).chain().detect<{a: string}>(iterator).value();
+		result = _(array).chain().detect<{a: string}>(iterator, context).value();
+		result = _(array).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(array).chain().detect<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(list, iterator);
+		result = _.detect<{a: string}>(list, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(list, {a: 'b'});
+		result = _.detect<{a: string}>(list, 'a');
+
+		result = _(list).detect<{a: string}>(iterator);
+		result = _(list).detect<{a: string}>(iterator, context);
+		result = _(list).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(list).detect<{a: string}>('a');
+
+		result = _(list).chain().detect<{a: string}>(iterator).value();
+		result = _(list).chain().detect<{a: string}>(iterator, context).value();
+		result = _(list).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(list).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (element: {a: string}, key: string, list: _.Dictionary<{a: string}>) => element.a === 'b';
+		let result: {a: string};
+
+		result = _.find<{a: string}>(dict, iterator);
+		result = _.find<{a: string}>(dict, iterator, context);
+		result = _.find<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.find<{a: string}>(dict, 'a');
+
+		result = _(dict).find<{a: string}>(iterator);
+		result = _(dict).find<{a: string}>(iterator, context);
+		result = _(dict).find<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).find<{a: string}>('a');
+
+		result = _(dict).chain().find<{a: string}>(iterator).value();
+		result = _(dict).chain().find<{a: string}>(iterator, context).value();
+		result = _(dict).chain().find<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().find<{a: string}>('a').value();
+
+		result = _.detect<{a: string}>(dict, iterator);
+		result = _.detect<{a: string}>(dict, iterator, context);
+		result = _.detect<{a: string}, {a: string}>(dict, {a: 'b'});
+		result = _.detect<{a: string}>(dict, 'a');
+
+		result = _(dict).detect<{a: string}>(iterator);
+		result = _(dict).detect<{a: string}>(iterator, context);
+		result = _(dict).detect<{a: string}, {a: string}>({a: 'b'});
+		result = _(dict).detect<{a: string}>('a');
+
+		result = _(dict).chain().detect<{a: string}>(iterator).value();
+		result = _(dict).chain().detect<{a: string}>(iterator, context).value();
+		result = _(dict).chain().detect<{a: string}, {a: string}>({a: 'b'}).value();
+		result = _(dict).chain().detect<{a: string}>('a').value();
+	}
+
+	{
+		let iterator = (value: string, index: number, list: _.List<string>) => value === 'b';
+		let result: string;
+
+		result = _.find<string>('abc', iterator);
+		result = _.find<string>('abc', iterator, context);
+
+		result = _('abc').find<string>(iterator);
+		result = _('abc').find<string>(iterator, context);
+
+		result = _('abc').chain().find<string>(iterator).value();
+		result = _('abc').chain().find<string>(iterator, context).value();
+
+		result = _.detect<string>('abc', iterator);
+		result = _.detect<string>('abc', iterator, context);
+
+		result = _('abc').detect<string>(iterator);
+		result = _('abc').detect<string>(iterator, context);
+
+		result = _('abc').chain().detect<string>(iterator).value();
+		result = _('abc').chain().detect<string>(iterator, context).value();
+	}
+}
 
 var evens = _.filter([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
@@ -39,6 +166,8 @@ _.some({ a: 'a', b: 'B', c: 'C', d: 'd' }, l => l === l.toUpperCase());
 
 _.contains([1, 2, 3], 3);
 
+_.contains([1, 2, 3], 3, 1);
+
 _.invoke([[5, 1, 7], [3, 2, 1]], 'sort');
 
 var stooges = [{ name: 'moe', age: 40 }, { name: 'larry', age: 50 }, { name: 'curly', age: 60 }];
@@ -46,6 +175,10 @@ _.pluck(stooges, 'name');
 
 _.max(stooges, (stooge) => stooge.age);
 _.min(stooges, (stooge) => stooge.age);
+_.max({ a: 1, b: 2 });
+_.max({ a: 'a', b: 'bb' }, (v, k) => v.length);
+_.min({ a: 1, b: 2 });
+_.min({ a: 'a', b: 'bb' }, (v, k) => v.length);
 
 var numbers = [10, 5, 100, 2, 1000];
 _.max(numbers);
@@ -109,6 +242,10 @@ _.object([['moe', 30], ['larry', 40], ['curly', 50]]);
 _.indexOf([1, 2, 3], 2);
 _.lastIndexOf([1, 2, 3, 1, 2, 3], 2);
 _.sortedIndex([10, 20, 30, 40, 50], 35);
+_.findIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findIndex([{a: 'a'}, {a: 'b'}], {a: 'b'});
+_.findLastIndex([1, 2, 3, 1, 2, 3], num => num % 2 === 0);
+_.findLastIndex([{ a: 'a' }, { a: 'b' }], { a: 'b' });
 _.range(10);
 _.range(1, 11);
 _.range(0, 30, 5);
@@ -143,10 +280,12 @@ _.defer(function () { alert('deferred'); });
 var updatePosition = (param:string) => alert('updating position... Param: ' + param);
 var throttled = _.throttle(updatePosition, 100);
 $(window).scroll(throttled);
+throttled.cancel();
 
 var calculateLayout = (param:string) => alert('calculating layout... Param: ' + param);
 var lazyLayout = _.debounce(calculateLayout, 300);
 $(window).resize(lazyLayout);
+lazyLayout.cancel();
 
 var createApplication = (param:string) => alert('creating application... Param: ' + param);
 var initialize = _.once(createApplication);
@@ -168,6 +307,10 @@ var exclaim = function (statement) { return statement + "!"; };
 var welcome = _.compose(exclaim, greet);
 welcome('moe');
 
+var partialApplicationTestFunction = (a: string, b: number, c: boolean, d: string, e: number, f: string) => {  }
+var partialApplicationResult = _.partial(partialApplicationTestFunction, "", 1);
+var parametersCanBeStubbed = _.partial(partialApplicationResult, _, _, _, "");
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 _.keys({ one: 1, two: 2, three: 3 });
@@ -176,10 +319,16 @@ _.pairs({ one: 1, two: 2, three: 3 });
 _.invert({ Moe: "Moses", Larry: "Louis", Curly: "Jerome" });
 _.functions(_);
 _.extend({ name: 'moe' }, { age: 50 });
+_.extendOwn({ name: 'moe'}, { age: 50 });
+_.assign({ name: 'moe'}, { age: 50 });
 _.pick({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, 'name', 'age');
 _.omit({ name: 'moe', age: 50, userid: 'moe1' }, ['name', 'age']);
+
+_.mapObject({ a: 1, b: 2 }, val => val * 2) === _.mapObject({ a: 2, b: 4 }, _.identity);
+_.mapObject({ a: 1, b: 2 }, (val, key, o) => o[key] * 2) === _.mapObject({ a: 2, b: 4}, _.identity);
+_.mapObject({ x: "string 1", y: "string 2" }, 'length') === _.mapObject({ x: "string 1", y: "string 2"}, _.property('length'));
 
 var iceCream = { flavor: "chocolate" };
 _.defaults(iceCream, { flavor: "vanilla", sprinkles: "lots" });
@@ -249,6 +398,34 @@ _.isNull(undefined);
 
 _.isUndefined((<any>window).missingVariable);
 
+//////////////////////////////////// User Defined Guard tests
+
+function useElement(arg: Element) {};
+function useArguments(arg: IArguments) {};
+function useFunction(arg: Function) {};
+function useError(arg: Error) {};
+function useString(arg: String) {};
+function useNumber(arg: Number) {};
+function useBoolean(arg: Boolean) {};
+function useDate(arg: Date) {};
+function useRegExp(arg: RegExp) {};
+function useArray<T>(arg: T[]) {};
+function useSymbol(arg: symbol) {};
+
+var guardedType: {};
+if(_.isElement(guardedType)) useElement(guardedType);
+if(_.isArray(guardedType)) useArray(guardedType);
+if(_.isArray<String>(guardedType)) useArray(guardedType);
+if(_.isArguments(guardedType)) useArguments(guardedType);
+if(_.isFunction(guardedType)) useFunction(guardedType);
+if(_.isError(guardedType)) useError(guardedType);
+if(_.isString(guardedType)) useString(guardedType);
+if(_.isNumber(guardedType)) useNumber(guardedType);
+if(_.isBoolean(guardedType)) useBoolean(guardedType);
+if(_.isDate(guardedType)) useDate(guardedType);
+if(_.isRegExp(guardedType)) useRegExp(guardedType);
+if(_.isSymbol(guardedType)) useSymbol(guardedType);
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 var UncleMoe = { name: 'moe' };
@@ -286,18 +463,20 @@ _.result(object, 'stuff');
 var compiled = _.template("hello: <%= name %>");
 compiled({ name: 'moe' });
 var list2 = "<% _.each(people, function(name) { %> <li><%= name %></li> <% }); %>";
-_.template(list2, { people: ['moe', 'curly', 'larry'] });
+_.template(list2)({ people: ['moe', 'curly', 'larry'] });
 var template = _.template("<b><%- value %></b>");
 template({ value: '<script>' });
 var compiled2 = _.template("<% print('Hello ' + epithet); %>");
 compiled2({ epithet: "stooge" });
+var oldTemplateSettings = _.templateSettings;
 _.templateSettings = {
 	interpolate: /\{\{(.+?)\}\}/g
 };
 var template2 = _.template("Hello {{ name }}!");
 template2({ name: "Mustache" });
-_.template("Using 'with': <%= data.answer %>", { variable: 'data' });
+_.template("Using 'with': <%= data.answer %>", oldTemplateSettings)({ variable: 'data' });
 
+_.template("Using 'with': <%= data.answer %>", { variable: 'data' })({ answer: 'no' });
 
 _(['test', 'test']).pick(['test2', 'test2']);
 
@@ -328,10 +507,16 @@ function chain_tests() {
 		.flatten()
 		.find(num => num % 2 == 0)
 		.value();
-		
+
 	var firstVal: number = _.chain([1, 2, 3])
 		.first()
 		.value();
+
+    let numberObjects = [{property: 'odd', value: 1}, {property: 'even', value: 2}, {property: 'even', value: 0}];
+    let evenAndOddGroupedNumbers = _.chain(numberObjects)
+        .groupBy('property')
+        .mapObject((objects: any) => _.pluck(objects, 'value'))
+        .value(); // { odd: [1], even: [0, 2] }
 }
 
 var obj: { [k: string] : number } = {
@@ -345,3 +530,25 @@ _.chain(obj).map(function (value, key) {
     empty[key] = value;
     console.log("vk", value, key);
 });
+
+function strong_typed_values_tests() {
+    var dictionaryLike: { [k: string] : {title: string, value: number} } = {
+        'test' : { title: 'item1', value: 5 },
+        'another' : { title: 'item2', value: 8 },
+        'third' : { title: 'item3', value: 10 }
+    };
+
+    _.chain(dictionaryLike).values().filter((r) => {
+        return r.value >= 8;
+    }).map((r) => {
+        return [r.title, true];
+    }).object().value();
+
+    var x: number = _(dictionaryLike).chain().filter((x) => {
+        console.log(x.title);
+        console.log(x.value.toFixed());
+        return x.title == 'item1';
+    }).size().value();
+
+    _.values<{title: string, value: number}>(dictionaryLike);
+}

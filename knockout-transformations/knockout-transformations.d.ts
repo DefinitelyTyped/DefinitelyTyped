@@ -1,11 +1,11 @@
 // Type definitions for knockout-transformations 2.0.0
 // Project: https://github.com/One-com/knockout-transformations
 // Definitions by: John Reilly <https://github.com/johnnyreilly>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 
-declare module KnockoutTransformations {
+declare namespace KnockoutTransformations {
     interface Mapping<T, TResult> {
         (value: T): TResult;
     }

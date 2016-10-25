@@ -1,13 +1,13 @@
 // Type definitions for donna
 // Project: https://github.com/atom/donna
 // Definitions by: vvakame <https://github.com/vvakame/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "donna" {
     function generateMetadata(modules: string[]): DonnaTypes.Metadata;
 }
 
-declare module DonnaTypes {
+declare namespace DonnaTypes {
     interface Metadata {
         files: { [filePath: string]: File; };
     }
@@ -25,6 +25,7 @@ declare module DonnaTypes {
         type: string;
         name: string;
         bindingType: string;
+        paramNames?: string[];
         classProperties?: any[];
         prototypeProperties?: number[][];
         doc?: string;

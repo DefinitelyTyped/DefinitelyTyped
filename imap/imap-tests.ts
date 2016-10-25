@@ -124,7 +124,7 @@ var fs = require('fs');
 
 openInbox(function(err : Error, box : IMAP.Box) {
     if (err) throw err;
-    imap.search([ 'UNSEEN', ['SINCE', 'May 20, 2010'] ], function(err : Error, results : string[]) {
+    imap.search([ 'UNSEEN', ['SINCE', 'May 20, 2010'] ], function(err : Error, results : number[]) {
         if (err) throw err;
         var f = imap.fetch(results, { bodies: '' });
         f.on('message', function(msg : IMAP.ImapMessage, seqno : number) {

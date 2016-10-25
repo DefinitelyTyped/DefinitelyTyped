@@ -1,11 +1,11 @@
 // Type definitions for angular.ui.sortable module v0.13+
 // Project: https://github.com/angular-ui/ui-sortable
 // Definitions by: Thodoris Greasidis <https://github.com/thgreasi>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.ui {
+declare namespace angular.ui {
 
     interface UISortableOptions<T> extends SortableOptions<T> {
         'ui-floating'?: string|boolean;

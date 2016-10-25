@@ -1,16 +1,16 @@
 ﻿// Type definitions for nodemailer-smtp-transport 1.0.2
 // Project: https://github.com/andris9/nodemailer-smtp-transport
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference path="../nodemailer/nodemailer.d.ts" />
 
 declare module "nodemailer-smtp-transport" {
 
 	import tls = require("tls");
 
-	module smtpTransport {
+	namespace smtpTransport {
 		export interface AuthOptions {
 			user?: string;
 			pass?: string;
@@ -18,6 +18,40 @@ declare module "nodemailer-smtp-transport" {
 		}
 
 		export interface SmtpOptions {
+			/**
+			 * Fills in certain SMTP configurations options (e.g. 'host', 'port', and 'secure') for
+			 * well-known services. Possible values:
+			 *   - '1und1'
+			 *   - 'AOL'
+			 *   - 'DebugMail.io'
+			 *   - 'DynectEmail'
+			 *   - 'FastMail'
+			 *   - 'GandiMail'
+			 *   - 'Gmail'
+			 *   - 'Godaddy'
+			 *   - 'GodaddyAsia'
+			 *   - 'GodaddyEurope'
+			 *   - 'hot.ee'
+			 *   - 'Hotmail'
+			 *   - 'iCloud'
+			 *   - 'mail.ee'
+			 *   - 'Mail.ru'
+			 *   - 'Mailgun'
+			 *   - 'Mailjet'
+			 *   - 'Mandrill'
+			 *   - 'Naver'
+			 *   - 'Postmark'
+			 *   - 'QQ'
+			 *   - 'QQex'
+			 *   - 'SendCloud'
+			 *   - 'SendGrid'
+			 *   - 'SES'
+			 *   - 'Sparkpost'
+			 *   - 'Yahoo'
+			 *   - 'Yandex'
+			 *   - 'Zoho'
+			 */
+			service?: string;
 			/**
 			 * is the port to connect to (defaults to 25 or 465)
 			 */

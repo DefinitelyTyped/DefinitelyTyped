@@ -103,6 +103,12 @@ function test_throwException() {
     expect(fn).to.not.throwException();
 }
 
+function test_withArgs() {
+    var fn = () => {};
+    expect(fn).withArgs().to.throwException();
+    expect(fn).withArgs(true, 1, '').to.throwException();
+}
+
 function test_within() {
     expect(1).to.be.within(0, Infinity);
 }

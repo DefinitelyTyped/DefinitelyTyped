@@ -1,9 +1,11 @@
 // Type definitions for JSZip
 // Project: http://stuk.github.com/jszip/
 // Definitions by: mzeiher <https://github.com/mzeiher>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface JSZip {
+    files: {[key: string]: JSZipObject};
+
     /**
      * Get a file from the archive
      *
@@ -32,7 +34,7 @@ interface JSZip {
 
     /**
      * Return an new JSZip instance with the given folder as root
-     * 
+     *
      * @param name Name of the folder
      * @return New JSZip object with the given folder as root or null
      */
@@ -40,11 +42,18 @@ interface JSZip {
 
     /**
      * Returns new JSZip instances with the matching folders as root
-     * 
+     *
      * @param name RegExp to match
      * @return New array of JSZipFile objects which match the RegExp
      */
     folder(name: RegExp): JSZipObject[];
+
+    /**
+     * Call a callback function for each entry at this folder level.
+     *
+     * @param callback function
+     */
+    forEach(callback: (relativePath: string, file: JSZipObject) => void): void;
 
     /**
      * Get all files wchich match the given filter function
@@ -56,29 +65,46 @@ interface JSZip {
 
     /**
      * Removes the file or folder from the archive
-     * 
+     *
      * @param path Relative path of file or folder
      * @return Returns the JSZip instance
      */
     remove(path: string): JSZip;
 
     /**
-     * Generates a new archive
-     *
-     * @param options Optional options for the generator
-     * @return The serialized archive
+     * @deprecated since version 3.0
+     * @see {@link generateAsync}
+     * http://stuk.github.io/jszip/documentation/upgrade_guide.html
      */
     generate(options?: JSZipGeneratorOptions): any;
 
     /**
-     * Deserialize zip file
+     * Generates a new archive asynchronously
+     *
+     * @param options Optional options for the generator
+     * @return The serialized archive
+     */
+    generateAsync(options?: JSZipGeneratorOptions, onUpdate?: Function): Promise<any>;
+
+    /**
+     * @deprecated since version 3.0
+     * @see {@link loadAsync}
+     * http://stuk.github.io/jszip/documentation/upgrade_guide.html
+     */
+    load(): void;
+
+    /**
+     * Deserialize zip file asynchronously
      *
      * @param data Serialized zip file
      * @param options Options for deserializing
-     * @return Returns the JSZip instance
+     * @return Returns promise
      */
-    load(data: any, options: JSZipLoadOptions): JSZip;
+    loadAsync(data: any, options?: JSZipLoadOptions): Promise<JSZip>;
 }
+
+type Serialization = ("string" | "text" | "base64" | "binarystring" | "uint8array" |
+                      "arraybuffer" | "blob" | "nodebuffer");
 
 interface JSZipObject {
     name: string;
@@ -87,11 +113,31 @@ interface JSZipObject {
     comment: string;
     options: JSZipObjectOptions;
 
-    asText(): string;
-    asBinary(): string;
-    asArrayBuffer(): ArrayBuffer;
-    asUint8Array(): Uint8Array;
-    //asNodeBuffer(): Buffer;
+    /**
+     * Prepare the content in the asked type.
+     * @param {String} type the type of the result.
+     * @param {Function} onUpdate a function to call on each internal update.
+     * @return Promise the promise of the result.
+     */
+    async(type: Serialization, onUpdate?: Function): Promise<any>;
+
+    /**
+     * @deprecated since version 3.0
+     */
+    asText(): void;
+    /**
+     * @deprecated since version 3.0
+     */
+    asBinary(): void;
+    /**
+     * @deprecated since version 3.0
+     */
+    asArrayBuffer(): void;
+    /**
+     * @deprecated since version 3.0
+     */
+    asUint8Array(): void;
+    //asNodeBuffer(): void;
 }
 
 interface JSZipFileOptions {

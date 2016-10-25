@@ -1,7 +1,7 @@
 ﻿// Type definitions for fs-mock 1.1.3
 // Project: https://github.com/sakren/node-fs-mock
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "fs-mock" {
 	import events = require("events");
 	import fs = require("fs");
 
-	module FS {
+	namespace FS {
 		export interface Opts {
 			windows?: boolean;
 			drives?: string[];
