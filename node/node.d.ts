@@ -52,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
     extensions: any;
-    main: any;
+    main: NodeModule;
 }
 
 declare var require: NodeRequire;
@@ -372,6 +372,7 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: string;
+        mainModule: NodeModule;
         memoryUsage(): MemoryUsage;
         nextTick(callback: Function, ...args: any[]): void;
         umask(mask?: number): number;
