@@ -5,6 +5,9 @@
 
 /// <reference path="../d3/d3.d.ts"/>
 
+export = c3;
+export as namespace c3;
+
 declare namespace c3 {
 
     type PrimitiveArray = Array<string | boolean | number>;
