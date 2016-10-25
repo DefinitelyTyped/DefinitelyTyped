@@ -1185,6 +1185,15 @@ declare namespace L {
         distance: number;
     }
 
+    export namespace DomEvent {
+        export function on(el: HTMLElement, types: string, fn: Function, context?: Object): typeof DomEvent;
+        export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function off(el: HTMLElement, types: string, fn: Function, context?: Object): typeof DomEvent;
+        export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+        export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+        export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+    }
+
     interface DefaultMapPanes {
         mapPane: HTMLElement;
         tilePane: HTMLElement;
