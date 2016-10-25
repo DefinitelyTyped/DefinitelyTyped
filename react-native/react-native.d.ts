@@ -7502,11 +7502,16 @@ declare namespace  __React {
 
     export interface NavigationHeaderProps {
         renderTitleComponent?(props: Object): JSX.Element
+        renderLeftComponent?(props: Object): JSX.Element
+        renderRightComponent?(props: Object): JSX.Element
         onNavigateBack(): void
+        style?: ViewStyle
+        viewProps?: any
+        statusBarHeight?: number | NavigationAnimatedValue
     }
 
     export interface NavigationHeaderStatic extends React.ComponentClass<NavigationHeaderProps> {
-        Title: JSX.Element
+        Title: () => JSX.ElementClass
         HEIGHT: number
     }
 
