@@ -292,14 +292,17 @@ declare namespace polymer {
   }
 
   interface Settings {
-
-    wantShadow:boolean;
-    hasShadow:boolean;
-    nativeShadow:boolean;
-    useShadow:boolean;
-    useNativeShadow:boolean;
-    useNativeImports:boolean;
-    useNativeCustomElements:boolean;
+      hasNativeCSSProperties: boolean
+      hasNativeImports: boolean
+      hasShadow: boolean
+      nativeShadow: boolean
+      useNativeCSSProperties: boolean
+      useNativeCustomElements: boolean
+      useNativeImports: boolean
+      useNativeShadow: boolean
+      usePolyfillProto: boolean
+      useShadow: boolean
+      wantShadow: boolean
   }
 
   interface PolymerStatic {
