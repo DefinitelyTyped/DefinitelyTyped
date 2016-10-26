@@ -1,4 +1,4 @@
-/// <reference path="index.d.ts" />
+/// <reference types="aws-lambda" />
 
 var str: string = "any string";
 var date: Date = new Date();
