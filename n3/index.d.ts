@@ -3,7 +3,7 @@
 // Definitions by: Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/index.d.ts" />
+/// <reference types="node" />
 
 /**
 ### 0.8.1 Changelog (https://github.com/RubenVerborgh/N3)
@@ -16,11 +16,11 @@ Match samples from README.md
 
 */
 
-declare module "n3" {
+
     import * as fs from "fs";
     import * as stream from "stream";
 
-    namespace N3 {
+declare namespace N3 {
 
         type ErrorCallback = (err: Error, result: any) => void;
 
@@ -45,17 +45,17 @@ declare module "n3" {
         }
 
 
-        interface ParserConstructor {
-            new (options?: ParserOptions): N3Parser;
-            (options?: ParserOptions): N3Parser;
-        }
-        const Parser: ParserConstructor;
+    interface ParserConstructor {
+        new (options?: ParserOptions): N3Parser;
+        (options?: ParserOptions): N3Parser;
+    }
+    const Parser: ParserConstructor;
 
-        interface StreamParserConstructor {
-            new (options?: ParserOptions): N3StreamParser;
-            (options?: ParserOptions): N3StreamParser;
-        }
-        const StreamParser: StreamParserConstructor;
+    interface StreamParserConstructor {
+        new (options?: ParserOptions): N3StreamParser;
+        (options?: ParserOptions): N3StreamParser;
+    }
+    const StreamParser: StreamParserConstructor;
 
         interface ParserOptions {
             format?: string,
@@ -81,14 +81,14 @@ declare module "n3" {
         }
 
 
-        interface WriterConstructor {
-            new (options?: WriterOptions): N3Writer;
-            (options?: WriterOptions): N3Writer;
+    interface WriterConstructor {
+        new (options?: WriterOptions): N3Writer;
+        (options?: WriterOptions): N3Writer;
 
-            new (fd: any, options?: WriterOptions): N3Writer;
-            (fd: any, options?: WriterOptions): N3Writer;
-        }
-        const Writer: WriterConstructor;
+        new (fd: any, options?: WriterOptions): N3Writer;
+        (fd: any, options?: WriterOptions): N3Writer;
+    }
+    const Writer: WriterConstructor;
 
         interface N3Writer {
             addTriple(subject: string, predicate: string, object: string): void;
@@ -113,7 +113,7 @@ declare module "n3" {
         }
 
         interface N3StoreWriter extends N3Writer {
-            find(subject: string, predicate: string, object: string): Triple[];
+        find(subject: string, predicate: string | null, object: string | null): Triple[];
         }
         function Store(): N3StoreWriter;
 
@@ -133,5 +133,4 @@ declare module "n3" {
     }
 
     export = N3;
-}
 
