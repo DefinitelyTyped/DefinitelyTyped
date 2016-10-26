@@ -216,7 +216,7 @@ declare module 'angular' {
              * @return {IUploadPromise<T>}
              */
             abort(): IUploadPromise<T>;
-            progress(callback: IHttpPromiseCallback<T>): IUploadPromise<T>;
+            progress(callback: (event: IFileProgressEvent) => void): IUploadPromise<T>;
             /**
              * Access or attach event listeners to the underlying XMLHttpRequest
              *

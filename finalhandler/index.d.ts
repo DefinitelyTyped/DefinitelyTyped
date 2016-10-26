@@ -8,12 +8,14 @@
 
 import {ServerRequest, ServerResponse} from "http";
 
-export interface Options {
-    message?: boolean | ((err: any, status: number) => string);
-    onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
-    stacktrace?: boolean;
+declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: finalHandler.Options): (err: any) => void;
+
+declare namespace finalHandler {
+	export interface Options {
+		message?: boolean|((err: any, status: number) => string);
+		onerror?: (err: any, req: ServerRequest, res: ServerResponse) => void;
+		stacktrace?: boolean;
+	}
 }
 
-declare function finalHandler(req: ServerRequest, res: ServerResponse, options?: Options): (err: any) => void;
-
-export default finalHandler;
+export = finalHandler;
