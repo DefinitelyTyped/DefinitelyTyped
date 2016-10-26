@@ -16,10 +16,25 @@
 
 /// <reference types="node" />
 /// <reference types="bluebird" />
-/// <reference path="./text.d.ts" />
 
 import PluginBase = require("plugin/PluginBase");
-import MetaDataStr = require("text!metadata.json");
+
+/**
+ * In actual usage the MetaDataStr would most likely
+ * be initialized with an import...
+ * 
+  import MetaDataStr = require("text!metadata.json");
+ * 
+ * Which would require a declaration, like...
+ * `text.d.ts`
+ *
+  declare module "text!*" {
+    var text: string;
+    export = text;
+  }
+ *
+ */
+const MetaDataStr = "";
 
 import Promise = require("bluebird");
 /** 
