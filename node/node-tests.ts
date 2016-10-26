@@ -1226,6 +1226,102 @@ namespace child_process_tests {
         childProcess.exec("echo test");
         childProcess.spawnSync("echo test");
     }
+    
+    {
+        let _cp: childProcess.ChildProcess;
+        let _boolean: boolean;
+
+        _cp = _cp.addListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("disconnet", () => { });
+        _cp = _cp.addListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.addListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.addListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _boolean = _cp.emit("close", () => { });
+        _boolean = _cp.emit("disconnet", () => { });
+        _boolean = _cp.emit("error", () => { });
+        _boolean = _cp.emit("exit", () => { });
+        _boolean = _cp.emit("message", () => { });
+
+        _cp = _cp.on("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("disconnet", () => { });
+        _cp = _cp.on("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.on("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.on("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.once("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("disconnet", () => { });
+        _cp = _cp.once("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.once("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.once("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("disconnet", () => { });
+        _cp = _cp.prependListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+
+        _cp = _cp.prependOnceListener("close", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("disconnet", () => { });
+        _cp = _cp.prependOnceListener("error", (err) => {
+            let _err: Error = err;
+        })
+        _cp = _cp.prependOnceListener("exit", (code, signal) => {
+            let _code: number = code;
+            let _signal: string = signal;
+        })
+        _cp = _cp.prependOnceListener("message", (message, sendHandle) => {
+            let _message: any = message;
+            let _sendHandle: net.Socket | net.Server = sendHandle;
+        })
+    }
 }
 
 //////////////////////////////////////////////////////////////////////
