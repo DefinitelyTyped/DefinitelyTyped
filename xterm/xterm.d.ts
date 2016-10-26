@@ -24,6 +24,7 @@ interface Xterm {
 
   focus(): void;
 
+  getOption(key: string): number | boolean;
   getOption(key: 'rows'): number;
   getOption(key: 'cols'): number;
   getOption(key: 'cursorBlink'): boolean;
@@ -42,6 +43,7 @@ interface Xterm {
 
   scrollDisp(n: number): void;
 
+  setOption(key: string, value: number | boolean): void;
   setOption(key: 'rows', value: number): void;
   setOption(key: 'cols', value: number): void;
   setOption(key: 'cursorBlink', value: boolean): void;
