@@ -24,7 +24,9 @@ interface Xterm {
 
   focus(): void;
 
-  getOption(key: string): any;
+  setOption(key: 'rows'): number;
+  setOption(key: 'cols'): number;
+  setOption(key: 'cursorBlink'): boolean;
 
   on(event: string, callback: (...args: any[]) => void): void;
 
@@ -40,7 +42,9 @@ interface Xterm {
 
   scrollDisp(n: number): void;
 
-  setOption(key: string, value: any): void;
+  setOption(key: 'rows', value: number): void;
+  setOption(key: 'cols', value: number): void;
+  setOption(key: 'cursorBlink', value: boolean): void;
 
   write(text: string): void;
 
@@ -59,27 +63,12 @@ interface XtermConstructor {
  */
 declare module Xterm {
   interface IOptions {
-    colors?: string[];
-
-    theme?: string;
-
-    convertEol?: boolean;
-
-    termName?: string;
-
-    geometry?: number[];
 
     cursorBlink?: boolean;
 
-    visualBell?: boolean;
+    rows?: number;
 
-    popOnBell?: boolean;
-
-    scrollback?: number;
-
-    debug?: boolean;
-
-    cancelEvents?: boolean;
+    cols?: number;
   }
 }
 
