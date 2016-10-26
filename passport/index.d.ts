@@ -27,6 +27,7 @@ declare namespace Express {
 declare module 'passport' {
     import express = require('express');
 
+    namespace passport {
     interface Passport {
         use(strategy: passport.Strategy): Passport;
         use(name: string, strategy: passport.Strategy): Passport;
@@ -47,10 +48,7 @@ declare module 'passport' {
         deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
-    const passport: Passport;
-    export = passport;
 
-    namespace passport {
     interface Strategy {
         name?: string;
         authenticate(req: express.Request, options?: Object): void;
@@ -60,6 +58,7 @@ declare module 'passport' {
         provider: string;
         id: string;
         displayName: string;
+            username?: string;
             name?: {
             familyName: string;
             givenName: string;
@@ -81,4 +80,6 @@ declare module 'passport' {
         }
     }
 
+    const passport: passport.Passport;
+    export = passport;
 }
