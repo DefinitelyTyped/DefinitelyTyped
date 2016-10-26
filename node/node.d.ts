@@ -52,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
     extensions: any;
-    main: NodeModule | undefined;
+    main: NodeModule;
 }
 
 declare var require: NodeRequire;
@@ -63,7 +63,7 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: NodeModule | null;
+    parent: NodeModule;
     children: NodeModule[];
 }
 
