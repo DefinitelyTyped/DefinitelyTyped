@@ -7,8 +7,8 @@
 
 /// <reference path="webgme-blob.d.ts" />
 /// <reference path="webgme-core.d.ts" />
+/// <reference path="webgme-config.d.ts" />
 /// <reference path="webgme-v1.d.ts" />
-
 
 /**
 ### 2.6.0 Changelog (https://webgme.org)
@@ -48,5 +48,9 @@ declare module "plugin/PluginBase" {
 }
 
 declare module "plugin/PluginConfig" {
-    export = Core.PluginConfig;
+    export = Config.PluginConfig;
+}
+
+declare module "webgme/config/config.default" {
+    export = Config.config;
 }

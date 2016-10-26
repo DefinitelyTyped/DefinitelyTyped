@@ -201,28 +201,6 @@ declare namespace Core {
         serialize(): { success: boolean, messages: Message[], pluginName: string, finishTime: string };
     }
 
-    export interface ConfigItem {
-        // a unique name for the configuration item
-        name: Name;
-        // a human comprehensible name
-        displayName: string;
-        // a detailed description fo the item
-        description: string;
-        // the value of the item: if valueItem is provided it must be one of those values.
-        value: string;
-        // the datatype of the value: 'string', 'integer', ...
-        valueType: string,
-        // an enumeration of the allowed values for the value field
-        valueItems?: string[];
-        // a regular expression limiting the values allowed.
-        // e.g. '^[a-zA-Z]+$'
-        regex?: RegExp;
-        // a description of the regex grammar
-        // e.g. 'Name can only contain English characters!'
-        regexMessage?: string;
-        // can the value be changed?
-        readOnly?: boolean;
-    }
 
     export interface BlobMetadataDescriptor { }
 
@@ -577,31 +555,6 @@ declare namespace Core {
         }
     }
 
-    /**
-       https://editor.webgme.org/docs/source/global.html#GmeConfig		    https://editor.webgme.org/docs/source/global.html#GmeConfig
-       https://github.com/webgme/webgme/blob/master/config/README.md		    https://github.com/webgme/webgme/blob/master/config/README.md
-    */
-    export interface GmeConfig {
-        addOn: any; //  Add-on related settings.
-        authentication: any; // - Authentication related settings.
-        bin: any; // - Bin script related settings.
-        blob: Blob.ObjectBlob; // - Blob related settings.
-        client: any; // - Client related settings.
-        core: Core; // - Client related settings.
-        debug: boolean; // - Enables debug mode.
-        executor: any; // - Executor related settings.
-        mongo: any; // - Mongo database related settings.
-        plugin: any; // - Plugin related settings.
-        requirejsPaths: any; // - Additional paths to for requirejs.
-        rest: any; // - REST related settings.
-        seedProjects: any; // - Seed related settings.
-        server: any; // - Server related settings.
-        socketIO: any; // - Socket IO related settings.
-        storage: any; // - Storage related settings.
-        visualization: any; // - Visualization related settings.
-        serialize(): any;
-    }
-
     export interface Dictionary {
         // allow any number of 'other' properties.
         [propName: string]: any;
@@ -652,7 +605,7 @@ declare namespace Core {
         activeSelection: Node[];
         blobClient: BlobClient;
         core: Core;
-        gmeConfig: GmeConfig;
+        gmeConfig: Config.GmeConfig;
         isConfigured: boolean;
         logger: GmeLogger;
         /**
@@ -685,16 +638,16 @@ declare namespace Core {
         addCommitToResult(status: string): void;
         baseIsMeta(node: any): boolean;
 
-        configure(config: GmeConfig): void;
+        configure(config: Config.GmeConfig): void;
         createMessage(node: any, message: string, serverity: string): void;
         /**
          * Gets the configuration structure for the plugin.
          * The ConfigurationStructure defines the configuration for the plugin
          * and will be used to populate the GUI when invoking the plugin from webGME.
          */
-        getConfigStructure(): ConfigItem[];
-        getCurrentConfig(): GmeConfig;
-        getDefaultConfig(): GmeConfig;
+        getConfigStructure(): Config.ConfigItem[];
+        getCurrentConfig(): Config.GmeConfig;
+        getDefaultConfig(): Config.GmeConfig;
         /**
          * Gets the description of the plugin.
          */
@@ -709,7 +662,7 @@ declare namespace Core {
          * Gets the semantic version (semver.org) of the plugin.
          */
         getVersion(): string;
-        initialize(logger: GmeLogger, blobClient: BlobClient, gmeConfig: GmeConfig): void;
+        initialize(logger: GmeLogger, blobClient: BlobClient, gmeConfig: Config.GmeConfig): void;
         isInvalidActiveNode(pluginId: any): any;
         isMetaTypeOf(node: any, metaNode: any): boolean;
         /**
@@ -736,7 +689,7 @@ declare namespace Core {
             (message: string, callback: ObjectCallback): void;
             (message: string): Promise<DataObject>;
         }
-        setCurrentConfig(newConfig: GmeConfig): void;
+        setCurrentConfig(newConfig: Config.GmeConfig): void;
         updateMeta(generatedMeta: any): void;
         updateSuccess(value: boolean, message: TemplateStringsArray): void;
     }
@@ -748,7 +701,7 @@ declare namespace Core {
         activeSelection: Node[];
         blobClient: Core.BlobClient;
         core: Core.Core;
-        gmeConfig: Core.GmeConfig;
+        gmeConfig: Config.GmeConfig;
         isConfigured: boolean;
         logger: Core.GmeLogger;
         META: any;
@@ -761,17 +714,17 @@ declare namespace Core {
 
         addCommitToResult(status: string): void;
         baseIsMeta(node: any): boolean;
-        configure(config: Core.GmeConfig): void;
+        configure(config: Config.GmeConfig): void;
         createMessage(node: any, message: string, serverity: string): void;
         getConfigStructure(): any;
-        getCurrentConfig(): Core.GmeConfig;
-        getDefaultConfig(): Core.GmeConfig;
+        getCurrentConfig(): Config.GmeConfig;
+        getDefaultConfig(): Config.GmeConfig;
         getDescription(): string;
         getMetadata(): any;
         getMetaType(node: any): any;
         getName(): string;
         getVersion(): string;
-        initialize(logger: GmeLogger, blobClient: BlobClient, gmeConfig: GmeConfig): void;
+        initialize(logger: GmeLogger, blobClient: BlobClient, gmeConfig: Config.GmeConfig): void;
         isInvalidActiveNode(pluginId: any): any;
         isMetaTypeOf(node: any, metaNode: any): boolean;
         main(callback: Core.ResultCallback): void;
@@ -780,37 +733,9 @@ declare namespace Core {
             (message: string, callback: Core.ResultCallback): void;
             (message: string): Promise<DataObject>;
         }
-        setCurrentConfig(newConfig: Core.GmeConfig): void;
+        setCurrentConfig(newConfig: Config.GmeConfig): void;
         updateMeta(generatedMeta: any): void;
         updateSuccess(value: boolean, message: TemplateStringsArray): void;
-    }
-
-
-    class PluginConfig implements GmeConfig {
-        constructor();
-        addOn: any; //  Add-on related settings.
-        authentication: any; // - Authentication related settings.
-        bin: any; // - Bin script related settings.
-        blob: Blob.ObjectBlob; // - Blob related settings.
-        client: any; // - Client related settings.
-        core: Core; // - Client related settings.
-        debug: boolean; // - Enables debug mode.
-        executor: any; // - Executor related settings.
-        mongo: any; // - Mongo database related settings.
-        plugin: any; // - Plugin related settings.
-        requirejsPaths: any; // - Additional paths to for requirejs.
-        rest: any; // - REST related settings.
-        seedProjects: any; // - Seed related settings.
-        server: any; // - Server related settings.
-        socketIO: any; // - Socket IO related settings.
-        storage: any; // - Storage related settings.
-        visualization: any; // - Visualization related settings.
-
-        serialize(): any;
-        // allow any number of 'other' properties.
-        [propName: string]: any;
-
-        serialize(): any;
     }
 
 }
