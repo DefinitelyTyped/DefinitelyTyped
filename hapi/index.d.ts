@@ -73,6 +73,37 @@ export interface ICatBoxCacheOptions {
     /**   if true, allows multiple cache users to share the same segment (e.g. multiple methods using the same cache storage container). Default to false.  */
     shared?: boolean;
 }
+	
+	/** policy configuration for the "CatBox" module and server method options. */
+	export interface ICatBoxCachePolicyOptions {
+		/** the cache name configured in server.cache. Defaults to the default cache. */
+		cache?: string;
+		/** string segment name, used to isolate cached items within the cache partition. When called within a plugin, defaults to '!name' where 'name' is the plugin name. When called within a server method, defaults to '#name' where 'name' is the server method name. Required when called outside of a plugin. */
+		segment?: string;
+		/** if true, allows multiple cache provisions to share the same segment. Default to false. */
+		shared?: boolean;
+		/** relative expiration expressed in the number of milliseconds since the item was saved in the cache. Cannot be used together with expiresAt. */
+		expiresIn?: number;
+		/** time of day expressed in 24h notation using the 'HH:MM' format, at which point all cache records expire. Uses local time. Cannot be used together with expiresIn. */
+		expiresAt?: number;
+		/** a function used to generate a new cache item if one is not found in the cache when calling get(). The method's signature is function(id, next) where: - id - the id string or object provided to the get() method. - next - the method called when the new item is returned with the signature function(err, value, ttl) where: - err - an error condition. - value - the new value generated. - ttl - the cache ttl value in milliseconds. Set to 0 to skip storing in the cache. Defaults to the cache global policy. */
+		generateFunc?: Function;
+		/** number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided. Must be less than expiresIn. */
+		staleIn?: number;
+		/** number of milliseconds to wait before checking if an item is stale. */
+		staleTimeout?: number;
+		/** number of milliseconds to wait before returning a timeout error when the generateFunc function takes too long to return a value. When the value is eventually returned, it is stored in the cache for future requests. Required if generateFunc is present. Set to false to disable timeouts which may cause all get() requests to get stuck forever. */
+		generateTimeout?: number;
+		/** if true, an error or timeout in the generateFunc causes the stale value to be evicted from the cache. Defaults to true */
+		dropOnError?: boolean;
+		/** if false, an upstream cache read error will stop the cache.get() method from calling the generate function and will instead pass back the cache error. Defaults to true. */
+		generateOnReadError?: boolean;
+		/** if false, an upstream cache write error when calling cache.get() will be passed back with the generated value when calling. Defaults to true. */
+		generateIgnoreWriteError?: boolean;
+		/** number of milliseconds while generateFunc call is in progress for a given id, before a subsequent generateFunc call is allowed. Defaults to 0 (no blocking of concurrent generateFunc calls beyond staleTimeout). */
+		pendingGenerateTimeout?: number;
+	}
+
 
 /** Any connections configuration server defaults can be included to override and customize the individual connection. */
 export interface IServerConnectionOptions extends IConnectionConfigurationServerDefaults {
@@ -103,6 +134,8 @@ export interface IServerConnectionOptions extends IConnectionConfigurationServer
 export interface IConnectionConfigurationServerDefaults {
     /**  application-specific connection configuration which can be accessed via connection.settings.app. Provides a safe place to store application configuration without potential conflicts with the framework internals. Should not be used to configure plugins which should use plugins[name]. Note the difference between connection.settings.app which is used to store configuration values and connection.app which is meant for storing run-time state.  */
     app?: any;
+		/** if false, response content encoding is disabled. Defaults to true */
+		compression?: boolean;
     /**  connection load limits configuration where:  */
     load?: {
         /**  maximum V8 heap size over which incoming requests are rejected with an HTTP Server Timeout (503) response. Defaults to 0 (no limit).  */
@@ -328,11 +361,12 @@ export interface IStrictReply<T> extends IReplyMethods {
 
 export interface ISessionHandler {
     (request: Request, reply: IReply): void;
-}
+	}
 
-export interface IStrictSessionHandler {
+	export interface IStrictSessionHandler {
     <T>(request: Request, reply: IStrictReply<T>): void;
 }
+
 export interface IRequestHandler<T> {
     (request: Request): T;
 }
@@ -496,7 +530,7 @@ export interface IRouteAdditionalConfigurationOptions {
     };
 
     /**  an alternative location for the route handler option. */
-    handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
+		handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** an optional unique identifier used to look up the route using server.lookup(). */
     id?: number;
     /** optional arguments passed to JSON.stringify() when converting an object or error response to a string payload.Supports the following: */
@@ -895,7 +929,7 @@ export interface IRouteConfiguration {
     /**  - an optional domain string or an array of domain strings for limiting the route to only requests with a matching host header field.Matching is done against the hostname part of the header only (excluding the port).Defaults to all hosts.*/
     vhost?: string;
     /**  - (required) the function called to generate the response after successful authentication and validation.The handler function is described in Route handler.If set to a string, the value is parsed the same way a prerequisite server method string shortcut is processed.Alternatively, handler can be assigned an object with a single key using the name of a registered handler type and value with the options passed to the registered handler.*/
-    handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
+		handler?: ISessionHandler | IStrictSessionHandler | string | IRouteHandlerConfig;
     /** - additional route options.*/
     config?: IRouteAdditionalConfigurationOptions;
 }
@@ -1106,7 +1140,7 @@ export interface IServerMethod {
  generateKey - a function used to generate a unique key (for caching) from the arguments passed to the method function (the callback argument is not passed as input). The server will automatically generate a unique key if the function's arguments are all of types 'string', 'number', or 'boolean'. However if the method uses other types of arguments, a key generation function must be provided which takes the same arguments as the function and returns a unique string (or null if no key can be generated).*/
 export interface IServerMethodOptions {
     bind?: any;
-    cache?: ICatBoxCacheOptions;
+		cache?: ICatBoxCachePolicyOptions;
     callback?: boolean;
     generateKey?(args: any[]): string;
 }
@@ -1873,9 +1907,9 @@ export class Server extends Events.EventEmitter {
 		}
 		}
 		});*/
-        strategy(name: string, scheme: string, mode?: boolean | string, options?: any): void;
-        strategy(name: string, scheme: string, mode?: boolean | string): void;
-        strategy(name: string, scheme: string, options?: any): void;
+			strategy(name: string, scheme: string, mode?: boolean | string, options?: any): void;
+			strategy(name: string, scheme: string, mode?: boolean | string): void;
+			strategy(name: string, scheme: string, options?:any): void;
 
 		/** server.auth.test(strategy, request, next)
 		 Tests a request against an authentication strategy where:
@@ -1942,7 +1976,7 @@ export class Server extends Events.EventEmitter {
 	// value === { capital: 'oslo' };
 	});
 	});*/
-    cache(options: ICatBoxCacheOptions): void;
+		cache(options: ICatBoxCachePolicyOptions): void;
 
 	/** server.connection([options])
 	 Adds an incoming server connection
