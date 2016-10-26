@@ -8,10 +8,7 @@
         "typeRoots": [
             "../"
         ],
-        "types": [
-            "node",
-            "n3"
-        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

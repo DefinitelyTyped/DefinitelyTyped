@@ -1,4 +1,3 @@
-/// <reference types="n3" />
 /// <reference types="node" />
 
 /**
