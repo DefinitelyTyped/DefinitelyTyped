@@ -1,11 +1,8 @@
-/// <reference path="./index.d.ts" />
-/// <reference path="../node/index.d.ts" />
-
+/// <reference types="n3" />
+/// <reference types="node" />
 
 /**
-  [?] has correct naming convention
-      I am not sure what the correct naming convention is.
-      Is it n3.d.ts or index.d.ts?
+  [x] has correct naming convention (index.d.ts)
 
   checked compilation succeeds  
    [+] tsc --noImplicitAny --target es5 ./index.d.ts

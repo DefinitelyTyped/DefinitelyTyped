@@ -3,7 +3,7 @@
 // Definitions by: Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/index.d.ts" />
+/// <reference types="node" />
 
 /**
 ### 0.8.1 Changelog (https://github.com/RubenVerborgh/N3)
@@ -113,7 +113,7 @@ declare namespace N3 {
     }
 
     interface N3StoreWriter extends N3Writer {
-        find(subject: string, predicate: string, object: string): Triple[];
+        find(subject: string, predicate: string | null, object: string | null): Triple[];
     }
     function Store(): N3StoreWriter;
 
