@@ -1,6 +1,12 @@
 # typescript-typings
 Each branch represents a different set of typescript typings that I am working on.
 
+To create a new set of typings...
+
+   git checkout master
+   git checkout -b <new-project-name>
+
+   edit the files as needed an commit
 
 ## N3
 
