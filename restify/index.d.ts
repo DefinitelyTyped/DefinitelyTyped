@@ -485,7 +485,7 @@ interface HttpClient extends Client {
     patch: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
     del: (opts?: string | { path?: string;[name: string]: any }, callback?: Function) => any;
 }
-
+ 
 interface ThrottleOptions {
     burst?: number;
     rate?: number;
