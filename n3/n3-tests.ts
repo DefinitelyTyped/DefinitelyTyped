@@ -3,15 +3,17 @@
 /**
   [x] has correct naming convention (index.d.ts)
 
+  Run tsc with the tsconfig.json file modified as indicated.
+
   checked compilation succeeds  
-   [+] tsc --noImplicitAny --target es5 ./index.d.ts
-   [x] tsc --noImplicitAny --target es6 ./index.d.ts
+   [+] --noImplicitAny --target es5 
+   [x] --noImplicitAny --target es6 
 
   [x] has a test file with the suffix of -tests.ts
 
   checked the test file
-   [x] tsc --noImplicitAny --target es5 --module commonjs ./n3-tests.ts 
-   [x] tsc --noImplicitAny --target es6 --module commonjs ./n3-tests.ts 
+   [x] --noImplicitAny --target es5 --module commonjs  
+   [x] --noImplicitAny --target es6 --module commonjs  
 
 */
 
