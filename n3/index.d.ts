@@ -1,4 +1,4 @@
-// Type definitions for N3 v0.8.1 
+// Type definitions for N3
 // Project: https://github.com/RubenVerborgh/N3.js
 // Definitions by: Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
