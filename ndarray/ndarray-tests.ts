@@ -1,3 +1,4 @@
+
 import ndarray = require('ndarray');
 
 const data = new Int32Array(2 * 2 * 2 + 10);
@@ -22,4 +23,3 @@ console.log(a.get(0, 0, 0) === 1);
 console.log(a.index(1, 1, 1) === 12);
 
 const b = a.lo(0, 0, 0).hi(1, 1, 1);
-const c = b.step(0).transpose(0, 0, 0).pick(-1, -1, 0);
