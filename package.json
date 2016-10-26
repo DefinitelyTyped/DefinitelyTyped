@@ -1,0 +1,55 @@
+{
+  "name": "@types/SAMPLE",
+  "version": "0.8.1",
+  "description": "A set of TypeScript definitions for SAMPLE",
+  "main": "",
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts",
+    "types-metadata.json"
+  ],
+  "keywords": [
+    "typescript",
+    "SAMPLE",
+    "defininition"
+  ],
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typings": "~1.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phreed/typescript-typings.git"
+  },
+  "author": {
+    "name": "Fred Eisele",
+    "email": "fred.eisele@vanderbilt.edu"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typescript-typings/typings/issues"
+  },
+  "homepage": "https://github.com/typescript-typings/typings#readme",
+  "engines": {
+    "node": ">=0.12",
+    "npm": ">=2.0.0"
+  },
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "fred.eisele@vanderbilt.edu"
+    }
+  ],
+  "os": [
+    "linux"
+  ],
+  "optionalDependencies": {},
+  "preferGlobal": true,
+  "private": false,
+  "publishConfig": {
+    "scope": "@types"
+  }
+}
