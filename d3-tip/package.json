@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "@types/d3": "^3.5.36"
-  }
+    "dependencies": {
+        "@types/d3": "^3.5.36"
+    }
 }

@@ -1,4 +1,4 @@
-// Type definitions for C3js v0.4.11
+// Type definitions for C3js v0.4
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
