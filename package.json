@@ -1,6 +1,6 @@
 {
   "name": "@types/cytoscape",
-  "version": "0.8.1",
+  "version": "2.7.10",
   "description": "A set of TypeScript definitions for Cytoscape JS",
   "main": "",
   "typings": "index.d.ts",
