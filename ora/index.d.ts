@@ -7,9 +7,8 @@
 
 declare module "ora" {
     type Color = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | 'gray';
-    type Text = string;
     interface Options {
-        text?: Text;
+        text?: string;
         spinner?: string | Spinner;
         color?: Color;
         interval?: number;
@@ -32,6 +31,6 @@ declare module "ora" {
         text: string;
         color: Color;
     }
-    function ora(options: Options | Text): Instance;
+    function ora(options: Options | string): Instance;
     export = ora;
 }
