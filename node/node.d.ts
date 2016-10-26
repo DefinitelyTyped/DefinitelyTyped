@@ -1332,7 +1332,7 @@ declare module "repl" {
 
         addListener(event: string, listener: Function): this;
         addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", Function): this;
+        addListener(event: "reset", listener: Function): this;
 
         emit(event: string, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
@@ -1340,7 +1340,7 @@ declare module "repl" {
 
         on(event: string, listener: Function): this;
         on(event: "exit", listener: () => void): this;
-        on(event: "reset", Function): this;
+        on(event: "reset", listener: Function): this;
 
         once(event: string, listener: Function): this;
         once(event: "exit", listener: () => void): this;
