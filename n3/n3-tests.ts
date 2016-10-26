@@ -1,6 +1,24 @@
 /// <reference path="./index.d.ts" />
 /// <reference path="../node/index.d.ts" />
 
+
+/**
+  [?] has correct naming convention
+      I am not sure what the correct naming convention is.
+      Is it n3.d.ts or index.d.ts?
+
+  checked compilation succeeds  
+   [+] tsc --noImplicitAny --target es5 ./index.d.ts
+   [x] tsc --noImplicitAny --target es6 ./index.d.ts
+
+  [x] has a test file with the suffix of -tests.ts
+
+  checked the test file
+   [x] tsc --noImplicitAny --target es5 --module commonjs ./n3-tests.ts 
+   [x] tsc --noImplicitAny --target es6 --module commonjs ./n3-tests.ts 
+
+*/
+
 import * as N3 from "n3";
 import * as fs from "fs";
 import * as stream from "stream";
@@ -57,7 +75,7 @@ function test_doc_rdf_to_triples_2() {
 }
 
 function test_doc_rdf_stream_to_triples_1() {
-    var parser: N3.N3Parser = N3.Parser();
+    var parser = N3.Parser();
     var rdfStream = fs.createReadStream('cartoons.ttl');
     parser.parse(rdfStream, console.log);
 
@@ -107,7 +125,7 @@ function test_doc_from_triples_to_rdf_stream() {
 }
 
 function test_doc_from_triple_stream_to_rdf_stream() {
-    var streamParser = /* new */ N3.StreamParser(),
+    var streamParser = new N3.StreamParser(),
         inputStream = fs.createReadStream('cartoons.ttl'),
         streamWriter = /* new */ N3.StreamWriter({ prefixes: { c: 'http://example.org/cartoons#' } });
     inputStream.pipe(streamParser);
@@ -168,7 +186,7 @@ function test_doc_utility() {
     N3Util.isLiteral('"This word is "quoted"!"'); // true
     N3Util.isLiteral('"3"^^http://www.w3.org/2001/XMLSchema#integer'); // true
 
-    /* new */ N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
+    new N3.Parser().parse('<a> <b> "This word is \\"quoted\\"!".', console.log);
     // { subject: 'a', predicate: 'b', object: '"This word is "quoted"!"' }
 
     N3Util.createLiteral('My text', 'en-gb');
