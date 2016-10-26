@@ -6,7 +6,14 @@ To create a new set of typings...
    git checkout master
    git checkout -b <new-project-name>
 
-   edit the files as needed an commit
+   edit the files as needed (see below for hints)
+   git commit -m 'initial commit of sample'
+
+The projects that have been previously commited 
+are good samples of the types of edits you will need 
+for your porject.
+
+   git difftool master n3 
 
 ## N3
 

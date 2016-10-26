@@ -5,8 +5,7 @@
   "main": "",
   "typings": "index.d.ts",
   "files": [
-    "index.d.ts",
-    "types-metadata.json"
+    "index.d.ts"
   ],
   "keywords": [
     "typescript",
