@@ -1,7 +1,7 @@
 {
-  "name": "@types/SAMPLE",
+  "name": "@types/cytoscape",
   "version": "0.8.1",
-  "description": "A set of TypeScript definitions for SAMPLE",
+  "description": "A set of TypeScript definitions for Cytoscape JS",
   "main": "",
   "typings": "index.d.ts",
   "files": [
@@ -9,7 +9,7 @@
   ],
   "keywords": [
     "typescript",
-    "SAMPLE",
+    "cytoscape",
     "defininition"
   ],
   "directories": {
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/phreed/typescript-typings.git"
+    "url": "git+https://github.com/phreed/ts-typings.git"
   },
   "author": {
     "name": "Fred Eisele",
