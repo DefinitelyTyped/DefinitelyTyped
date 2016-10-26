@@ -42,16 +42,6 @@
 //  - Cy.CollectionNodes
 //      The output is a collection of node elements OR single node.
 
-/**
-### 0.0.1 Changelog
-
-#### TODO:
-
-Match samples from README.md
-
-- [x] do it.
-
-*/
 
 declare namespace Cy {
     /**
@@ -110,7 +100,7 @@ declare namespace Cy {
          * Remove the elements from the graph.
          */
         remove(): CollectionElements;
-        
+
         /**
          * Put removed elements back into the graph.
          */
@@ -175,7 +165,7 @@ declare namespace Cy {
     }
     interface CollectionNodesMetadata {
         //http://js.cytoscape.org/#collection/metadata
-        
+
         /**
          * Get the maximum degree of the nodes in the collection.
          * 
@@ -273,7 +263,7 @@ declare namespace Cy {
          * @param pos An object specifying name-value pairs representing dimensions to set.
          */
         positions(pos: Position): CollectionNodes;
-        
+
         /**
         * Set the positions functionally.
         * 
@@ -416,7 +406,7 @@ declare namespace Cy {
          * @param duration [optional] The duration in milliseconds that the classes should be added on the elements. After the duration, the classes are removed.
          */
         flashClass(classes: string, duration?: number): CollectionElements;
-       
+
 
         /**
         * Get a name-value pair object containing visual style properties and their values for the element.
@@ -572,11 +562,11 @@ declare namespace Cy {
             renderedPosition?: Position,
             style?: Css.ElementCss
         }, options?: {
-                duration?: number,
-                queue?: boolean,
-                complete?: () => void,
-                step?: () => void
-            }): CollectionElements;
+            duration?: number,
+            queue?: boolean,
+            complete?: () => void,
+            step?: () => void
+        }): CollectionElements;
 
         /**
          * Add a delay between animations for the elements.
@@ -694,7 +684,7 @@ declare namespace Cy {
          * i - The index of the element in the collection.
          * ele - The element at the current index.
          */
-        each(each: (i: number, ele: CollectionElements) => void);
+        each(each: (i: number, ele: CollectionElements) => void): void;
 
         /**
          * Iterate over the elements in the collection using an implementation like the native array function namesake.
@@ -708,7 +698,7 @@ declare namespace Cy {
          * eles - The collection of elements being iterated.
          * @param thisArg [optional] The value for this within the iterating function.
          */
-        forEach(each: (ele: CollectionElements, i: number, eles: CollectionElements) => void|boolean, thisArg?: any);
+        forEach(each: (ele: CollectionElements, i: number, eles: CollectionElements) => void | boolean, thisArg?: any): void;
 
         /**
          * Get an element at a particular index in the collection.
@@ -988,7 +978,7 @@ declare namespace Cy {
     }
     interface CollectionTraversing {
         // http://js.cytoscape.org/#collection/traversing
-        
+
         /**
         * Get the open neighbourhood of the elements.
         * 
@@ -1143,7 +1133,7 @@ declare namespace Cy {
         /**
          * The root nodes (selector or collection) to start the search from.
          */
-        roots: Selector|Collection;
+        roots: Selector | Collection;
         /**
          * A handler function that is called when a node is visited in the search. The handler returns true when it finds the desired node, and it returns false to cancel the search.
          * i - The index indicating this node is the ith visited node.
@@ -1175,7 +1165,7 @@ declare namespace Cy {
         /**
          * The root node (selector or collection) where the algorithm starts.
          */
-        root: Selector|Collection;
+        root: Selector | Collection;
 
         /**
          * A function that returns the positive numeric weight for this edge.
@@ -1227,7 +1217,7 @@ declare namespace Cy {
          * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
          */
         breadthFirstSearch(
-            roots: Selector|Collection,
+            roots: Selector | Collection,
             visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
             directed?: boolean): SearchBreadthFirstResult;
         /**
@@ -1251,7 +1241,7 @@ declare namespace Cy {
          * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
          */
         bfs(
-            roots: Selector|Collection,
+            roots: Selector | Collection,
             visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
             directed?: boolean): SearchBreadthFirstResult;
 
@@ -1276,7 +1266,7 @@ declare namespace Cy {
          * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
          */
         depthFirstSearch(
-            roots: Selector|Collection,
+            roots: Selector | Collection,
             visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
             directed?: boolean): SearchBreadthFirstResult;
         /**
@@ -1300,7 +1290,7 @@ declare namespace Cy {
          * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
          */
         dfs(
-            roots: Selector|Collection,
+            roots: Selector | Collection,
             visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
             directed?: boolean): SearchBreadthFirstResult;
 
@@ -1321,11 +1311,11 @@ declare namespace Cy {
          * @param directed [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
          */
         dijkstra(
-            root: Selector|Collection,
+            root: Selector | Collection,
             weight?: (edge: CollectionEdges) => number,
             directed?: boolean): SearchDijkstraResult;
-        
-        
+
+
         //TODO: continue here: http://js.cytoscape.org/#collection/algorithms/eles.dijkstra
     }
     interface CollectionNodesCompound {
@@ -1424,11 +1414,11 @@ declare namespace Cy {
         /**
          * Set a particular data field for the element.
          */
-        data(name: string, value: any);
+        data(name: string, value: any): void;
         /**
          * Update multiple data fields at once via an object.
          */
-        data(obj: any);
+        data(obj: any): void;
 
         /**
          * Get the entire scratchpad object for the element, where temporary or non-JSON data can be stored. App-level scratchpad data should use namespaces prefixed with underscore, like '_foo'.
@@ -1453,7 +1443,7 @@ declare namespace Cy {
          * 
          * @param namespace A namespace string.
          */
-        removeScratch(namespace: string);
+        removeScratch(namespace: string): void;
 
         /**
          * A shortcut to get the ID of an element.
@@ -1878,7 +1868,7 @@ declare namespace Cy {
 
     interface ElementDefinition {
         group?: ElementGroup;
-        data: NodeDataDefinition|EdgeDataDefinition;
+        data: NodeDataDefinition | EdgeDataDefinition;
         /**
          * Scratchpad data (usually temp or nonserialisable data)
          */
@@ -2136,7 +2126,7 @@ declare namespace Cy {
          */
         on(eventsMap: {
             [value: string]: (evt: EventObject) => void
-        }, selector?: Selector, data?: any);
+        }, selector?: Selector, data?: any): void;
 
         /**
          * Bind to events that occur in the graph.
@@ -2171,7 +2161,7 @@ declare namespace Cy {
          */
         bind(eventsMap: {
             [value: string]: (evt: EventObject) => void
-        }, selector?: Selector, data?: any);
+        }, selector?: Selector, data?: any): void;
 
         /**
          * Bind to events that occur in the graph.
@@ -2206,7 +2196,7 @@ declare namespace Cy {
          */
         listen(eventsMap: {
             [value: string]: (evt: EventObject) => void
-        }, selector?: Selector, data?: any);
+        }, selector?: Selector, data?: any): void;
 
         /**
          * Bind to events that occur in the graph.
@@ -2241,7 +2231,7 @@ declare namespace Cy {
          */
         addListener(eventsMap: {
             [value: string]: (evt: EventObject) => void
-        }, selector?: Selector, data?: any);
+        }, selector?: Selector, data?: any): void;
 
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
@@ -2276,7 +2266,7 @@ declare namespace Cy {
          */
         one(eventsMap: {
             [value: string]: (evt: EventObject) => void
-        }, selector?: Selector, data?: any);
+        }, selector?: Selector, data?: any): void;
 
         /**
          * Remove event handlers.
@@ -2546,7 +2536,7 @@ declare namespace Cy {
          * Get the on-screen height of the viewport in pixels.
          */
         height(): number;
-        
+
         /**
          * Get the extent of the viewport, a bounding box in model coordinates that lets you know what model positions are visible in the viewport.
          */
@@ -2642,11 +2632,11 @@ declare namespace Cy {
                 eles: Collection
             }
         }, options?: {
-                duration?: number,
-                queue?: boolean,
-                complete?: () => void,
-                step?: () => void
-            }): Cy.Instance;
+            duration?: number,
+            queue?: boolean,
+            complete?: () => void,
+            step?: () => void
+        }): Cy.Instance;
 
         /**
          * Add a delay between animations for the viewport.
@@ -2759,11 +2749,11 @@ declare namespace Cy {
         /**
          * The [[Stylesheet]] used to style the graph. For convenience, this option can alternatively be specified as a promise that resolves to the stylesheet.
          */
-        style?: Stylesheet[]|Promise<Stylesheet[]>;
+        style?: Stylesheet[] | Promise<Stylesheet[]>;
         /**
          * An array of [[Elements]] specified as plain objects. For convenience, this option can alternatively be specified as a promise that resolves to the elements JSON.
          */
-        elements?: ElementsDefinition|ElementDefinition[]|Promise<ElementsDefinition>|Promise<ElementDefinition[]>;
+        elements?: ElementsDefinition | ElementDefinition[] | Promise<ElementsDefinition> | Promise<ElementDefinition[]>;
         /**
          * A plain object that specifies layout options. Which layout is initially run is specified by the name field. Refer to a layout's documentation for the options it supports. If you want to specify your node positions yourself in your elements JSON, you can use the preset layout — by default it does not set any positions, leaving your nodes in their current positions (e.g. specified in options.elements at initialisation time)
          */
