@@ -22,6 +22,7 @@ import * as vm from "vm";
 import * as string_decoder from "string_decoder";
 import * as stream from "stream";
 import * as timers from "timers";
+import * as repl from "repl";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -1643,6 +1644,36 @@ namespace net_tests {
 
     }
 
+}
+
+/////////////////////////////////////////////////////
+/// repl Tests : https://nodejs.org/api/repl.html ///
+/////////////////////////////////////////////////////
+
+namespace repl_tests {
+    {
+        let _server: repl.REPLServer;
+        let _boolean: boolean;
+        let _ctx: any;
+
+        _server = _server.addListener("exit", () => { });
+        _server = _server.addListener("reset", () => { });
+
+        _boolean = _server.emit("exit", () => { });
+        _boolean = _server.emit("reset", _ctx);
+
+        _server = _server.on("exit", () => { });
+        _server = _server.on("reset", () => { });
+
+        _server = _server.once("exit", () => { });
+        _server = _server.once("reset", () => { });
+
+        _server = _server.prependListener("exit", () => { });
+        _server = _server.prependListener("reset", () => { });
+
+        _server = _server.prependOnceListener("exit", () => { });
+        _server = _server.prependOnceListener("reset", () => { });
+    }
 }
 
 /*****************************************************************************
