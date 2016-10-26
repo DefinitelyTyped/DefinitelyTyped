@@ -119,16 +119,14 @@ declare module 'pug' {
      */
     export function renderFile(path: string, options: Options & LocalsObject, callback: (err: Error | null, res: string) => void): void;
 
-    /////////////////////////
-    ///    Interfaces     ///
-    /////////////////////////
+    ///////////////////
+    ///    Types    ///
+    ///////////////////
 
     /** 
      * A function that can be use to render html string of compiled template.
      */
-    export interface compileTemplate {
-        (locals?: LocalsObject): string;
-    }
+    export type compileTemplate = (locals?: LocalsObject) => string;
 
     /** 
      * An object that can have multiple properties of any type.

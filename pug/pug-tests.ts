@@ -5,7 +5,7 @@ import * as pug from 'pug';
 /// Options https://pugjs.org/api/reference.html#options ///
 ////////////////////////////////////////////////////////////
 namespace options_tests {
-    let opts: pug.Options;
+    let opts: pug.Options = {};
     let str = 'string'
     let bool = false;
     let strArray = ['string'];
@@ -84,9 +84,7 @@ namespace methods_tests {
 
         // test type for callback paraments
         pug.render(source, {}, (err, html) => {
-            if (err) {
-                let e: Error = err;
-            }
+            let e: Error | null = err;
             str = html;
         });
     }
@@ -97,9 +95,7 @@ namespace methods_tests {
 
         // test type for callback paraments
         pug.renderFile(path, {}, (err, html) => {
-            if (err) {
-                let e: Error = err;
-            }
+            let e: Error | null = err;
             str = html;
         });
     }
