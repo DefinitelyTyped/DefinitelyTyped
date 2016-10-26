@@ -11,7 +11,7 @@
  * v2.0.3
  */
 
-import * as pkcs11 from "pkcs11js";
+import * as pkcs11 from "pkcs11js"
 
 type Handle = Buffer;
 type CryptoData = string | Buffer;
@@ -1047,7 +1047,7 @@ declare class X509Certificate extends Certificate {
 
 interface IAlgorithm {
     name: string;
-    params: Buffer | IParams;
+    params?: Buffer | IParams;
 }
 
 type MechanismType = MechanismEnum | KeyGenMechanism | IAlgorithm | string;
