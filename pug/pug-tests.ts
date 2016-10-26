@@ -43,7 +43,7 @@ namespace methods_tests {
     let path = "foo.pug";
     let compileTemplate: pug.compileTemplate;
     let template: string;
-    let clientFunctionString: pug.ClientFunctionString;
+    let clientFunctionString: string
     let str: string;
 
     {
@@ -84,7 +84,9 @@ namespace methods_tests {
 
         // test type for callback paraments
         pug.render(source, {}, (err, html) => {
-            let e: Error = err;
+            if (err) {
+                let e: Error = err;
+            }
             str = html;
         });
     }
@@ -95,7 +97,9 @@ namespace methods_tests {
 
         // test type for callback paraments
         pug.renderFile(path, {}, (err, html) => {
-            let e: Error = err;
+            if (err) {
+                let e: Error = err;
+            }
             str = html;
         });
     }
