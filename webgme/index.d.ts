@@ -3,8 +3,9 @@
 // Definitions by: Fred Eisele <https://github.com/phreed>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/index.d.ts" />
+/// <reference types="node" />
 
+/// <reference path="webgme-util.d.ts" />
 /// <reference path="webgme-blob.d.ts" />
 /// <reference path="webgme-core.d.ts" />
 /// <reference path="webgme-config.d.ts" />
@@ -53,4 +54,12 @@ declare module "plugin/PluginConfig" {
 
 declare module "webgme/config/config.default" {
     export = Config.config;
+}
+
+declare module "common/util/canon" {
+    export = Util.CANON;
+}
+
+declare module "common/util/assert" {
+    export = Util.ASSERT;
 }

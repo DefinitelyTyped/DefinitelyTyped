@@ -1,5 +1,5 @@
-/// <reference path="./index.d.ts" />
-/// <reference path="../node/index.d.ts" />
+
+/// <reference types="node" />
 
 import * as fs from "fs";
 import * as stream from "stream";

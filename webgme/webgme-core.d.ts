@@ -102,7 +102,7 @@ declare namespace Core {
         /** Saves this artifact and uploads the metadata to the server's storage. */
         save: {
             (callback: MetadataHashCallback): void;
-            (): Promise<MetadataHash>;
+            (message?: string): Promise<MetadataHash>;
         }
     }
     /**
@@ -511,18 +511,22 @@ declare namespace Core {
         setAttributeMeta(node: Node, name: Name, rule: MetaRule): undefined | Error;
         setBase(node: Node, base: Node): undefined | Error;
         setChildMeta(node: Node, child: Node, min?: number, max?: number): undefined | Error;
-        setChildrenMetaLimits(min?: number, max?: number): undefined | Error;
+        setChildrenMetaLimits(node: Node, min?: number, max?: number): undefined | Error;
         setConstraint(node: Node, name: Name, constraint: Constraint): undefined | Error;
         setGuid: {
             (node: Node, guid: GUID, callback: ObjectCallback): undefined | Error;
             (node: Node, guid: GUID): Promise<DataObject>;
         };
-        setMemberAttribute(node: Node, setName: string, memberPath: string, SVGPathSegLinetoHorizontalAbsme: string,
-            value: InAttr): undefined | Error;
+        setMemberAttribute: {
+            (node: Node, setName: string, memberPath: string,
+                SVGPathSegLinetoHorizontalAbsme: string,
+                value?: InAttr): undefined | Error;
+        };
         setMemberRegistry(node: Node, setName: string, memberPath: string, regName: string,
-            value: InAttr): undefined | Error;
-        setPointer(node: Node, name: Name, target: Node): undefined | Error;
-        setPointerMetaLimits(min?: number, max?: number): undefined | Error;
+            value?: InAttr): undefined | Error;
+        setPointer(node: Node, name: Name, target: Node | null): undefined | Error;
+        setPointerMetaLimits(node: Node, memberPath: string,
+            min?: number, max?: number): undefined | Error;
         setPointerMetaTarget(node: Node, name: Name, target: Node, min?: number, max?: number): undefined | Error;
         /** Get the assigned registry */
         setRegistry(node: Node, name: Name, value: InAttr): undefined | Error;
@@ -684,7 +688,7 @@ declare namespace Core {
           @param {function(string, plugin.PluginResult)} handler - the result handler
          */
         main(callback: ResultCallback): void;
-        save(message: string): Promisable; // returns a promise?
+        save(message?: string): Promisable; // returns a promise?
         sendNotification: {
             (message: string, callback: ObjectCallback): void;
             (message: string): Promise<DataObject>;
@@ -728,7 +732,7 @@ declare namespace Core {
         isInvalidActiveNode(pluginId: any): any;
         isMetaTypeOf(node: any, metaNode: any): boolean;
         main(callback: Core.ResultCallback): void;
-        save(message: string): Core.Promisable;
+        save(message?: string): Core.Promisable;
         sendNotification: {
             (message: string, callback: Core.ResultCallback): void;
             (message: string): Promise<DataObject>;

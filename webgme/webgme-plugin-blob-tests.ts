@@ -14,9 +14,8 @@
  * (the Blob is suited to handle binary objects of any size and structure).
  */
 
-/// <reference path="./index.d.ts" />
-/// <reference path="../node/index.d.ts" />
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference types="node" />
+/// <reference types="bluebird" />
 /// <reference path="./text.d.ts" />
 
 import PluginBase = require("plugin/PluginBase");

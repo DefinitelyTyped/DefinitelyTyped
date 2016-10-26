@@ -2,9 +2,8 @@
  * This is an extract from a Darpa project.
  */
 
-/// <reference path="./index.d.ts" />
-/// <reference path="../node/index.d.ts" />
-/// <reference path="../bluebird/bluebird-2.0.d.ts" />
+/// <reference types="node" />
+/// <reference types="bluebird" />
 
 import PluginBase = require("plugin/PluginBase");
 
