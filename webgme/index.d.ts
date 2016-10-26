@@ -5,13 +5,6 @@
 
 /// <reference types="node" />
 
-/**
-### 2.6.0 Changelog (https://webgme.org)
-
-#### TODO:
-
-*/
-
 // Based on examination of
 // Example: https://github.com/typed-typings/env-node/blob/master/0.12/node.d.ts
 // Source: https://raw.githubusercontent.com/phreed/typed-npm-webgme/master/webgme.d.ts

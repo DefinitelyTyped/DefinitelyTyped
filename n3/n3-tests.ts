@@ -1,22 +1,5 @@
 /// <reference types="node" />
 
-/**
-  [x] has correct naming convention (index.d.ts)
-
-  Run tsc with the tsconfig.json file modified as indicated.
-
-  checked compilation succeeds  
-   [+] --noImplicitAny --target es5 
-   [x] --noImplicitAny --target es6 
-
-  [x] has a test file with the suffix of -tests.ts
-
-  checked the test file
-   [x] --noImplicitAny --target es5 --module commonjs  
-   [x] --noImplicitAny --target es6 --module commonjs  
-
-*/
-
 import * as N3 from "n3";
 import * as fs from "fs";
 import * as stream from "stream";

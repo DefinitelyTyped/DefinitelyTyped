@@ -1,14 +1,4 @@
 
-
-/**
- Checked `tsc --project tsconfig.json`
-
-  ...with the following settings
-   [x] --noImplicitAny --target es5 --module commonjs 
-   [x] --noImplicitAny --target es6 --module commonjs 
-
-*/
-
 /// <reference types="node" />
 /// <reference types="bluebird" />
 
@@ -221,6 +211,8 @@ function test_core_pointers_connections() {
     self.core.setPointer(connNode, 'src', sourceNode);
     self.core.setPointer(connNode, 'dst', destinationNode);
 }
+
+
 /**
  * https://github.com/webgme/webgme/wiki/GME-Blob-Storage-API
  * 
