@@ -24,9 +24,9 @@ interface Xterm {
 
   focus(): void;
 
-  setOption(key: 'rows'): number;
-  setOption(key: 'cols'): number;
-  setOption(key: 'cursorBlink'): boolean;
+  getOption(key: 'rows'): number;
+  getOption(key: 'cols'): number;
+  getOption(key: 'cursorBlink'): boolean;
 
   on(event: string, callback: (...args: any[]) => void): void;
 
