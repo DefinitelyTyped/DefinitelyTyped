@@ -3,6 +3,7 @@
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../electron/electron.d.ts" />
-
-// this file will be removed.
+declare module 'electron' {
+	var electron: string;
+	export = electron;
+}
