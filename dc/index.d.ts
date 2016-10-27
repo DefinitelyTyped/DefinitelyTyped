@@ -5,9 +5,6 @@
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 
-
-
-
 ///<reference types="d3" />
 ///<reference types="crossfilter" />
 

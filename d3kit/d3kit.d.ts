@@ -5,7 +5,6 @@
 
 /// <reference types="d3" />
 
-
 declare namespace d3kit {
 
     export interface ChartMargin {

@@ -4,8 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="d3" />
-
-
 declare namespace nv {
 
 //#region Core Interfaces

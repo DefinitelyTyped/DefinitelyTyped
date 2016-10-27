@@ -3,7 +3,6 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 import * as d3 from 'd3';
 
 declare module 'd3' {

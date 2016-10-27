@@ -5,9 +5,6 @@
 
 /// <reference types="d3"/>
 
-
-
-
 declare namespace c3 {
 
     type PrimitiveArray = Array<string | boolean | number>;

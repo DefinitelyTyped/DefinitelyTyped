@@ -5,8 +5,6 @@
 
 /// <reference types="d3" />
 
-
-
 declare namespace CalHeatMap
 {
 	interface CalHeatMapStatic

@@ -3,8 +3,6 @@
 // Definitions by: Gert Braspenning <https://github.com/brspnnggrt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
 import {Primitive} from "d3";
 
 declare module "d3" {

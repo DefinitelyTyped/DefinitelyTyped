@@ -7,8 +7,6 @@
 /// <reference types="dagre"/>
 /// <reference types="jquery"/>
 
-
-
 declare namespace Dagre {
 
     interface DagreD3Factory extends Dagre.DagreFactory {

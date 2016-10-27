@@ -5,9 +5,6 @@
 
 /// <reference types="d3" />
 
-
-
-
 declare namespace Plottable {
     namespace Utils {
         namespace Math {
