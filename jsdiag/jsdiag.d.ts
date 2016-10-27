@@ -1,4 +1,4 @@
-// Type definitions for MindFusion.Diagramming for JavaScript, V2.7
+// Type definitions for MindFusion.Diagramming for JavaScript V2.7
 // Project: http://www.mindfusion.eu/javascript-diagram.html
 // Definitions by: MindFusion <http://www.mindfusion.eu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
