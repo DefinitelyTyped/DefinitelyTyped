@@ -37,7 +37,7 @@ interface DatepickerOptions {
     orientation?: string;
     assumeNearbyYear?: any;
     viewMode?: string;
-    templates?: any
+    templates?: any;
 }
 
 interface DatepickerCustomFormatOptions {
