@@ -9,7 +9,7 @@ export = xml2js;
 
 declare namespace xml2js {
     function parseString(xml: string, callback: (err: any, result: any) => void): void;
-    function parseString(xml: string, options: Options, callback: (err: any, result: any) => void): void;
+    function parseString(xml: string, options: OptionsV2, callback: (err: any, result: any) => void): void;
 
     var defaults: {
         '0.1': Options;
@@ -17,39 +17,13 @@ declare namespace xml2js {
     }
 
     class Builder {
-        constructor(options?: BuilderOptions);
+        constructor(options?: OptionsV2);
         buildObject(rootObj: any): string;
     }
 
     class Parser {
-        constructor(options?: Options);
-        processAsync(): any;
-        assignOrPush(obj: any, key: string, newValue: any): any;
-        reset(): any;
+        constructor(options?: OptionsV2);
         parseString(str: string, cb?: Function): void;
-    }
-
-    interface RenderOptions {
-        indent?: string;
-        newline?: string;
-        pretty?: boolean;
-    }
-
-    interface XMLDeclarationOptions {
-        encoding?: string;
-        standalone?: boolean;
-        version?: string;
-    }
-
-    interface BuilderOptions {
-        doctype?: any;
-        headless?: boolean;
-        indent?: string;
-        newline?: string;
-        pretty?: boolean;
-        renderOpts?: RenderOptions;
-        rootName?: string;
-        xmldec?: XMLDeclarationOptions;
     }
 
     interface Options {
@@ -66,6 +40,7 @@ declare namespace xml2js {
         explicitChildren?: boolean;
         explicitRoot?: boolean;
         ignoreAttrs?: boolean;
+        includeWhiteChars?: boolean;
         mergeAttrs?: boolean;
         normalize?: boolean;
         normalizeTags?: boolean;
@@ -96,3 +71,4 @@ declare namespace xml2js {
         cdata?: boolean;
     }
 }
+
