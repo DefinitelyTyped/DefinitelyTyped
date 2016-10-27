@@ -3,10 +3,6 @@
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// TODO: When upgrading d3-tip to a version using D3 version 4, please ensure that:
-// (1) The version number in the first comment line of this file is updated
-// (2) The package.json file in this folder is updated to reflect the correct
-// dependencies on @types defintions for D3 version 4 modules.
 
 import * as d3 from 'd3';
 
