@@ -262,9 +262,7 @@ declare namespace Realm {
     * Results
     * @see { @link https://realm.io/docs/react-native/latest/api/Realm.Results.html }
     */
-    export interface Results extends Collection {
-        // ...
-    }
+    export interface Results extends Collection {}
 }
 
 declare class Realm {
