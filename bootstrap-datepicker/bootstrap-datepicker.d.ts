@@ -12,7 +12,7 @@
  * “w” (week), “m” (month), and “y” (year).
  * 
  * See online docs for more info:
- *  http://bootstrap-datepicker.readthedocs.org/en/release/options.html
+ *  http://bootstrap-datepicker.readthedocs.io/en/latest/options.html
  */
 interface DatepickerOptions {
     format?: string | DatepickerCustomFormatOptions;
@@ -37,6 +37,7 @@ interface DatepickerOptions {
     orientation?: string;
     assumeNearbyYear?: any;
     viewMode?: string;
+    templates?: any
 }
 
 interface DatepickerCustomFormatOptions {
