@@ -3,7 +3,7 @@
 // Definitions by: Daniel Pereira <https://github.com/djpereira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../electron/github-electron.d.ts" />
 
 /** Nice and simple notifications for electron apps */
 declare module 'electron-notify' {
