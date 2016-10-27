@@ -39,7 +39,7 @@ interface InterpolateProps {
     useDangerouslySetInnerHTML?: boolean;
     dangerouslySetInnerHTMLPartElement?: string;
 
-    [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean;
+    [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean | undefined;
 }
 
 export class Interpolate extends React.Component<InterpolateProps, {}> { }

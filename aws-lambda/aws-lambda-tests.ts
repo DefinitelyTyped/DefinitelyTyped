@@ -1,12 +1,12 @@
 import lambda = require('aws-lambda');
 
-var str: string;
-var date: Date;
-var anyObj: any;
-var num: number;
+var str: string = "any string";
+var date: Date = new Date();
+var anyObj: any = { abc: 123 };
+var num: number = 5;
 var identity: lambda.CognitoIdentity;
-var error: Error;
-var b: boolean;
+var error: Error = new Error();
+var b: boolean = true;
 var clientCtx: lambda.ClientContext;
 
 /* Context */
@@ -36,3 +36,12 @@ function callback(cb: lambda.Callback) {
     cb(error);
     cb(null, anyObj);
 }
+/* Compatibility functions */
+context.done();
+context.done(error);
+context.done(error, anyObj);
+context.succeed(str);
+context.succeed(anyObj);
+context.succeed(str, anyObj);
+context.fail(error);
+context.fail(str);

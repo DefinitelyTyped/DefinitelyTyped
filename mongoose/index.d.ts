@@ -1045,13 +1045,13 @@ declare module "mongoose" {
        * This is the same subdocument constructor used for casting.
        * @param obj the value to cast to this arrays SubDocument schema
        */
-      create(obj: Object): Subdocument;
+      create(obj: Object): T;
 
       /**
        * Searches array items for the first document with a matching _id.
        * @returns the subdocument or null if not found.
        */
-      id(id: ObjectId | string | number | NativeBuffer): Embedded;
+      id(id: ObjectId | string | number | NativeBuffer): T;
 
       /** Helper for console.log */
       inspect(): T[];
@@ -1094,7 +1094,19 @@ declare module "mongoose" {
       * section types/objectid.js
       * http://mongoosejs.com/docs/api.html#types-objectid-js
       */
-    class ObjectId extends mongodb.ObjectID {}
+    var ObjectId: ObjectIdConstructor;
+
+    // mongodb.ObjectID does not allow mongoose.Types.ObjectId(id). This is
+    //   commonly used in mongoose and is found in an example in the docs:
+    //   http://mongoosejs.com/docs/api.html#aggregate_Aggregate
+    // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
+    type ObjectIdConstructor = typeof mongodb.ObjectID & {
+      (s?: string | number): mongodb.ObjectID;
+    }
+
+    // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
+    //   the ObjectIdConstructor, so we add the interface below
+    interface ObjectId extends mongodb.ObjectID {}
 
     /*
       * section types/embedded.js
@@ -2014,12 +2026,6 @@ declare module "mongoose" {
      */
     validate(obj: RegExp | Function | Object, errorMsg?: string,
       type?: string): this;
-
-    /**
-     * http://mongoosejs.com/docs/api.html#schematype_SchemaType
-     * Options for this schema type (required, index, etc.)
-     */
-    options: any;
   }
 
   /*

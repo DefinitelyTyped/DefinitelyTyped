@@ -303,6 +303,10 @@ if (app.isAccessibilitySupportEnabled()) {
 }
 app.setLoginItemSettings({openAtLogin: true, openAsHidden: false});
 console.log(app.getLoginItemSettings().wasOpenedAtLogin);
+app.setAboutPanelOptions({
+	applicationName: 'Test',
+	version: '1.2.3'
+});
 
 var window = new BrowserWindow();
 window.setProgressBar(0.5);
@@ -357,6 +361,12 @@ var browserOptions = {
 if (process.platform !== 'win32' || systemPreferences.isAeroGlassEnabled()) {
 	browserOptions.transparent = true;
 	browserOptions.frame = false;
+}
+
+if (process.platform === 'win32') {
+	systemPreferences.on('color-changed', () => { console.log('color changed'); });
+	systemPreferences.on('inverted-color-scheme-changed', (_, inverted) => console.log(inverted ? 'inverted' : 'not inverted'));
+	console.log('Color for menu is', systemPreferences.getColor('menu'));
 }
 
 // Create the window.

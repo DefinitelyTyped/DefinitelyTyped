@@ -136,13 +136,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     eventAfterAllRender?: (view: ViewObject) => void;
     eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
 
-    //scheduler options
-    resourceAreaWidth?: number;
-    schedulerLicenseKey?: string;
-    customButtons?: any;
-    resourceLabelText?: any;
-    resourceColumns?: any;
-    displayEventTime?: any;
+	//scheduler options
 }
 
 /**

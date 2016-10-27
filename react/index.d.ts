@@ -201,7 +201,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any>;
+        (props: P, context?: any): ReactElement<any> | null;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -273,7 +273,7 @@ declare namespace React {
 
     interface SyntheticEvent<T> {
         bubbles: boolean;
-        currentTarget: EventTarget & T;
+        currentTarget: EventTarget;
         cancelable: boolean;
         defaultPrevented: boolean;
         eventPhase: number;
@@ -284,7 +284,7 @@ declare namespace React {
         stopPropagation(): void;
         isPropagationStopped(): boolean;
         persist(): void;
-        target: EventTarget;
+        target: EventTarget & T;
         timeStamp: Date;
         type: string;
     }
@@ -2075,6 +2075,7 @@ declare namespace React {
 
     interface SVGAttributes<T> extends HTMLAttributes<T> {
         clipPath?: string;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -2082,13 +2083,14 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
-        fillRule?: string;
+        filter?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        in?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -2100,9 +2102,11 @@ declare namespace React {
         points?: string;
         preserveAspectRatio?: string;
         r?: number | string;
+        result?: string;
         rx?: number | string;
         ry?: number | string;
         spreadMethod?: string;
+        stdDeviation?: number | string
         stopColor?: string;
         stopOpacity?: number | string;
         stroke?: string;
@@ -2114,6 +2118,8 @@ declare namespace React {
         strokeWidth?: number | string;
         textAnchor?: string;
         transform?: string;
+        type?: string;
+        values?: string;
         version?: string;
         viewBox?: string;
         x1?: number | string;
@@ -2282,7 +2288,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface Validator<T> {
-        (object: T, key: string, componentName: string): Error;
+        (object: T, key: string, componentName: string, ...rest: any[]): Error;
     }
 
     interface Requireable<T> extends Validator<T> {

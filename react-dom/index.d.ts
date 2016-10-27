@@ -3,8 +3,6 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="react-dom.server.d.ts" />
-
 export as namespace ReactDOM;
 export = ReactDOM;
 
