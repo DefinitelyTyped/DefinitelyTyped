@@ -1,4 +1,4 @@
-// Type definitions for request-promise v3.0.0
+// Type definitions for request-promise v4.1.0
 // Project: https://github.com/request/request-promise
 // Definitions by: Christopher Glantschnig <https://github.com/cglantschnig/>, Joe Skeen <http://github.com/joeskeen>, Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,6 +27,7 @@ declare module 'request-promise' {
         interface RequestPromiseOptions extends request.CoreOptions {
             simple?: boolean;
             transform?: (body: any, response: http.IncomingMessage, resolveWithFullResponse?: boolean) => any;
+            transform2xxOnly?: boolean;
             resolveWithFullResponse?: boolean;
         }
 

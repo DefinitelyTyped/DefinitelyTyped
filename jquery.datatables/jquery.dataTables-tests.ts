@@ -147,7 +147,7 @@ $(document).ready(function () {
     var infoCallbackFunc: DataTables.FunctionInfoCallback = function (settings, start, end, total, pre) { };
     var initCallbackFunc: DataTables.FunctionInitComplete = function (settings, json) { };
     var preDrawFunc: DataTables.FunctionPreDrawCallback = function (settings) { };
-    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data) { };
+    var rowCallbackFunc: DataTables.FunctionRowCallback = function (row, data, index) { };
     var stateLoadCallbackFunc: DataTables.FunctionStateLoadCallback = function (settings) { };
     var stateLoadedCallbackFunc: DataTables.FunctionStateLoaded = function (settings, data) { };
     var stateSaveCallbackFunc: DataTables.FunctionStateSaveCallback = function (settings, data) { };

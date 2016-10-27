@@ -1,3 +1,4 @@
+/// <reference types="bit-array" />
 
 import BitArray = require("bit-array");
 

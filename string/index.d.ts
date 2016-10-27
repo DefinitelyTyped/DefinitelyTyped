@@ -71,6 +71,10 @@ interface StringJS {
 	replaceAll(ss: string, newStr: string): StringJS;
 	
 	strip(...strings: string[]): StringJS;
+
+	stripLeft(...strings: string[]): StringJS;
+
+	stripRight(...strings: string[]): StringJS;
 	
 	right(n: number): StringJS;
 	
@@ -87,6 +91,8 @@ interface StringJS {
 	template(values: Object, open?: string, close?: string): StringJS;
 	
 	times(n: number): StringJS;
+	
+	titleCase(): StringJS;
 	
 	toBoolean(): boolean;
 	
