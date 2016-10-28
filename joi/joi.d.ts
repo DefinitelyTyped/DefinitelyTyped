@@ -829,7 +829,6 @@ declare module 'joi' {
 	 */
 	export function validate<T>(value: T): ValidationResult<T>;
 	export function validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
-	export function validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
 
 	export function validate<T>(value: T, schema: Schema): ValidationResult<T>;
 	export function validate<T>(value: T, schema: Object): ValidationResult<T>;
