@@ -1468,36 +1468,36 @@ declare module "graphql/type/definition" {
     class GraphQLInputObjectType {
         name: string;
         description: string;
-        constructor(config: GraphQLInputObjectConfig);
-        getFields(): GraphQLInputObjectFieldMap;
+        constructor(config: GraphQLInputObjectTypeConfig);
+        getFields(): GraphQLInputFieldDefinitionMap;
         toString(): string;
     }
 
-    export interface GraphQLInputObjectConfig {
+    export interface GraphQLInputObjectTypeConfig {
         name: string;
-        fields: Thunk<GraphQLInputObjectConfigFieldMap>;
+        fields: Thunk<GraphQLInputFieldConfigMap>;
         description?: string;
     }
 
-    export interface GraphQLInputObjectFieldConfig {
+    export interface GraphQLInputFieldConfig {
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    export interface GraphQLInputObjectConfigFieldMap {
-        [fieldName: string]: GraphQLInputObjectFieldConfig;
+    export interface GraphQLInputFieldConfigMap {
+        [fieldName: string]: GraphQLInputFieldConfig;
     }
 
-    export interface GraphQLInputObjectField {
+    export interface GraphQLInputFieldDefinition {
         name: string;
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    export interface GraphQLInputObjectFieldMap {
-        [fieldName: string]: GraphQLInputObjectField;
+    export interface GraphQLInputFieldDefinitionMap {
+        [fieldName: string]: GraphQLInputFieldDefinition;
     }
 
     /**
