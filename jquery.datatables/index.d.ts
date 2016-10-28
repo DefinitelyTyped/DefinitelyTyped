@@ -1643,7 +1643,7 @@ declare namespace DataTables {
     }
 
     interface FunctionRowCallback {
-        (row: Node, data: any[] | Object): void;
+        (row: Node, data: any[] | Object, index: number): void;
     }
 
     interface FunctionStateLoadCallback {
@@ -1685,6 +1685,7 @@ declare namespace DataTables {
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
+        url?: string;
     }
 
     interface LanguagePaginateSettings {

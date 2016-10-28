@@ -1,4 +1,4 @@
-// Type definitions for The Spotify Web API v1.0
+// Type definitions for The Spotify Web API (including changes March 29th 2016)
 // Project: https://developer.spotify.com/web-api/
 // Definitions by: Niels Kristian Hansen Skovmand <https://github.com/skovmand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -114,6 +114,20 @@ declare namespace SpotifyApi {
      */
     interface ArtistsRelatedArtistsResponse {
         artists: ArtistObjectFull[]
+    }
+
+    /**
+     * Get audio features for a track
+     * GET /v1/audio-features/{id}
+     */
+    interface AudioFeaturesResponse extends AudioFeaturesObject {}
+
+    /**
+     * Get audio features for several tracks
+     * GET /v1/audio-features
+     */
+    interface MultipleAudioFeaturesResponse {
+        "audio_features": AudioFeaturesObject[]
     }
 
     /**
@@ -249,6 +263,24 @@ declare namespace SpotifyApi {
     interface CheckUserSavedAlbumsResponse extends Array<boolean> {}
 
     /**
+     * Get a User’s Top Artists and Tracks
+     * GET /v1/me/top/{type}
+     */
+    interface UsersTopTracksResponse extends PagingObject<TrackObjectFull> {}
+
+    /**
+     * Get a User’s Top Artists and Tracks
+     * GET /v1/me/top/{type}
+     */
+    interface UsersTopArtistsResponse extends PagingObject<ArtistObjectFull> {}
+
+    /**
+     * Get recommendations based on seeds
+     * GET /v1/recommendations
+     */
+    interface RecommendationsFromSeedsResponse extends RecommendationsObject {}
+
+    /**
      * Search for an album
      * GET /v1/search?type=album
      */
@@ -369,47 +401,8 @@ declare namespace SpotifyApi {
 
 
     //
-    // Objects from the Object Models of the Spotify Web Api
+    // Objects from the Object Models of the Spotify Web Api, ordered alphabetically.
     // [Object Model](https://developer.spotify.com/web-api/object-model)
-    //
-
-    //
-    // The Paging Object wrappers used for retrieving collections from the Spotify API.
-    //
-
-    /**
-     * BasePagingObject which the IPagingObject and ICursorBasedPagingObject extend from.
-     * Doesn't exist in itself in the spotify API.
-     */
-    interface BasePagingObject <T>{
-        href: string,
-        items: T[],
-        limit: number,
-        next: string,
-        total: number
-    }
-
-    /**
-     * Paging Object wrapper used for retrieving collections from the Spotify API.
-     * [](https://developer.spotify.com/web-api/object-model/#paging-object)
-     */
-    interface PagingObject<T> extends BasePagingObject<T> {
-        previous: string,
-        offset: number
-    }
-
-    /**
-     * Cursor Based Paging Object wrappers used for retrieving collections from the Spotify API.
-     * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
-     */
-    interface CursorBasedPagingObject<T> extends BasePagingObject<T> {
-        cursors: CursorObject
-    }
-
-
-
-    //
-    // All other objects of the Object Models from the Spotify Web Api, ordered alphabetically.
     //
 
     /**
@@ -439,7 +432,7 @@ declare namespace SpotifyApi {
         id: string,
         images: ImageObject[],
         name: string,
-        type: string,
+        type: "album",
         uri: string
     }
 
@@ -463,8 +456,33 @@ declare namespace SpotifyApi {
         href: string,
         id: string,
         name: string,
-        type: string,
+        type: "artist",
         uri: string
+    }
+
+    /**
+     * Audio Features Object
+     * https://developer.spotify.com/web-api/object-model/#audio-features-object
+     */
+    interface AudioFeaturesObject {
+        acousticness: number,
+        analysis_url: string,
+        danceability: number,
+        duration_ms: number,
+        energy: number,
+        id: string,
+        instrumentalness: number,
+        key: number,
+        liveness: number,
+        loudness: number,
+        mode: number,
+        speechiness: number,
+        tempo: number,
+        time_signature: number,
+        track_href: string,
+        type: "audio_features",
+        uri: string,
+        valence: number
     }
 
     /**
@@ -484,7 +502,7 @@ declare namespace SpotifyApi {
      */
     interface CopyrightObject {
         text: string,
-        type: string
+        type: "C" | "P"
     }
 
     /**
@@ -546,6 +564,33 @@ declare namespace SpotifyApi {
     }
 
     /**
+     * Paging Object wrapper used for retrieving collections from the Spotify API.
+     * [](https://developer.spotify.com/web-api/object-model/#paging-object)
+     */
+    interface PagingObject<T> {
+        href: string,
+        items: T[],
+        limit: number,
+        next: string,
+        offset: number,
+        previous: string,
+        total: number
+    }
+
+    /**
+     * Cursor Based Paging Object wrappers used for retrieving collections from the Spotify API.
+     * [](https://developer.spotify.com/web-api/object-model/#cursor-based-paging-object)
+     */
+    interface CursorBasedPagingObject<T> {
+        href: string,
+        items: T[],
+        limit: number,
+        next: string,
+        cursors: CursorObject,
+        total: number
+    }
+
+    /**
      * Base Playlist Object. Does not in itself exist in Spotify Web Api,
      * but needs to be made since the tracks types vary in the Full and Simplified versions.
      */
@@ -559,7 +604,7 @@ declare namespace SpotifyApi {
         owner: UserObjectPublic,
         public: boolean,
         snapshot_id: string,
-        type: string,
+        type: "playlist",
         uri: string
     }
 
@@ -593,6 +638,28 @@ declare namespace SpotifyApi {
         added_by: UserObjectPublic,
         is_local: boolean,
         track: TrackObjectFull
+    }
+
+    /**
+     * Recommendations Object
+     * [](https://developer.spotify.com/web-api/object-model/#recommendations-object)
+     */
+    interface RecommendationsObject {
+        seeds: RecommendationsSeedObject[],
+        tracks: TrackObjectSimplified[]
+    }
+
+    /**
+     * Recommendations Seed Object
+     * [](https://developer.spotify.com/web-api/object-model/#recommendations-seed-object)
+     */
+    interface RecommendationsSeedObject {
+        afterFilteringSize: number,
+        afterRelinkingSize: number,
+        href: string,
+        id: string,
+        initialPoolSize: number,
+        type: "artist" | "track" | "genre"
     }
 
     /**
@@ -641,7 +708,7 @@ declare namespace SpotifyApi {
         name: string,
         preview_url: string,
         track_number: number,
-        type: string,
+        type: "track",
         uri: string
     }
 
@@ -653,7 +720,7 @@ declare namespace SpotifyApi {
         external_urls: ExternalUrlObject,
         href: string,
         id: string,
-        type: string,
+        type: "track",
         uri: string
     }
 
@@ -679,7 +746,7 @@ declare namespace SpotifyApi {
         href: string,
         id: string,
         images?: ImageObject[],
-        type: string,
+        type: "user",
         uri: string
     }
 

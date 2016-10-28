@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -16,6 +16,6 @@
     },
     "files": [
         "react-is-deprecated.d.ts",
-        "react-is-deprecated-tests.tsx"
+        "react-is-deprecated-tests.ts"
     ]
 }
