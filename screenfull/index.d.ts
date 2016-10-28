@@ -1,4 +1,4 @@
-// Type definitions for screenfull.js 2.0.0
+// Type definitions for screenfull.js 3.0.0
 // Project: https://github.com/sindresorhus/screenfull.js
 // Definitions by: Ilia Choly <http://github.com/icholy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -24,3 +24,5 @@ interface IScreenfull {
   toggle(elem?: Element): void;
   exit(): void;
 }
+
+export = screenfull;
