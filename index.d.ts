@@ -42,6 +42,8 @@
 //  - Cy.CollectionNodes
 //      The output is a collection of node elements OR single node.
 
+// <reference types="jquery" />
+import "jquery";
 
 declare namespace Cy {
     /**
@@ -2745,7 +2747,7 @@ declare namespace Cy {
          * 
          * The default is undefined.
          */
-        container?: HTMLElement;
+        container?: HTMLElement | JQuery;
         /**
          * The [[Stylesheet]] used to style the graph. For convenience, this option can alternatively be specified as a promise that resolves to the stylesheet.
          */

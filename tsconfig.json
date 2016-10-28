@@ -6,7 +6,8 @@
         "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
-            "../"
+            "../",
+            "./node_modules/@types"
         ],
         "types": [],
         "noEmit": true,
