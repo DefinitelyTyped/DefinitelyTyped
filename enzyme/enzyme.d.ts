@@ -1,6 +1,6 @@
-// Type definitions for Enzyme v2.4.1
+// Type definitions for Enzyme v2.5.1
 // Project: https://github.com/airbnb/enzyme
-// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>
+// Definitions by: Marian Palkus <https://github.com/MarianPalkus>, Cap3 <http://www.cap3.de>, Ivo Stratev <https://github.com/NoHomey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts" />
@@ -204,8 +204,9 @@ declare module "enzyme" {
          * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
          * @param [key]
          */
-        state(key?: string): any;
-        state<T>(key?: string): T;
+        state(): S;
+        state(key: string): any;
+        state<T>(key: string): T;
 
         /**
          * Returns the context hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
@@ -253,8 +254,9 @@ declare module "enzyme" {
          *
          * NOTE: can only be called on a wrapper instance that is also the root instance.
          * @param state
+         * @param [callback]
          */
-        setState(state: S): this;
+        setState(state: S, callback?: () => void): this;
 
         /**
          * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
@@ -265,9 +267,10 @@ declare module "enzyme" {
          * Returns itself.
          *
          * NOTE: can only be called on a wrapper instance that is also the root instance.
-         * @param state
+         * @param props
+         * @param [callback]
          */
-        setProps(props: P): this;
+        setProps(props: P, callback?: () => void): this;
 
         /**
          * A method that sets the context of the root component, and re-renders. Useful for when you are wanting to
@@ -423,6 +426,13 @@ declare module "enzyme" {
          */
         childAt(index: number): ShallowWrapper<any, any>;
         childAt<P2, S2>(index: number): ShallowWrapper<P2, S2>;
+
+        /**
+         * Shallow render the one non-DOM child of the current wrapper, and return a wrapper around the result.
+         * NOTE: can only be called on wrapper of a single non-DOM component element node.
+         * @param [options]
+         */
+        dive<P2, S2>(options?: ShallowRendererProps): ShallowWrapper<P2, S2>;
 
         /**
          * Returns a wrapper around all of the parents/ancestors of the wrapper. Does not include the node in the

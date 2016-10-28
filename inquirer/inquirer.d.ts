@@ -33,6 +33,7 @@ declare module "inquirer" {
              * @return
              */
             prompt(questions: Questions, cb?: (answers: Answers) => any): ui.Prompt;
+            prompt(questions: Questions): Promise<Answers>;
             prompts: Prompts;
             Separator: objects.SeparatorStatic;
             ui: {
@@ -112,7 +113,7 @@ declare module "inquirer" {
          * A key/value hash containing the client answers in each prompt.
          */
         interface Answers {
-            [key: string]: string|boolean;
+            [key: string]: any;
         }
 
         namespace ui {
