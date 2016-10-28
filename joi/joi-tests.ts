@@ -800,7 +800,7 @@ namespace validate_tests {
         value = Joi.validate(value, obj, (err, value) => value);
         value = Joi.validate(value, schema, (err, value) => value);
 
-        returnValue = Joi.validate(value, schema, obj, validOpts);
+        returnValue = Joi.validate(value, schema, validOpts);
         returnValue = Joi.validate(value, obj, validOpts);
         value = Joi.validate(value, obj, validOpts, (err, value) => value);
         value = Joi.validate(value, schema, validOpts, (err, value) => value);
