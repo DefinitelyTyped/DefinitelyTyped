@@ -124,7 +124,7 @@ declare namespace __React {
         props?: P & ClassAttributes<T>,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P> | SFC<P>,
+        type: ComponentClass<P>,
         props?: P & Attributes,
         ...children: ReactNode[]): ReactElement<P>;
 
