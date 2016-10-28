@@ -7454,6 +7454,7 @@ declare namespace  __React {
     // Network Polyfill
     // TODO: Add proper support for fetch
     export type fetch = (url: string, options?: Object) => Promise<any>
+	export const fetch: fetch;
 
     // Timers polyfill
     export type timedScheduler = (fn: string | Function, time: number) => number
