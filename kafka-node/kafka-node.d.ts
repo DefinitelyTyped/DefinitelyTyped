@@ -9,6 +9,7 @@ declare module 'kafka-node' {
     export class Client {
         constructor(connectionString: string, clientId: string, options?: ZKOptions);
         close(callback?: Function): void;
+        topicExists(topics: Array<string>, callback: Function): void;
     }
 
     export class Producer {

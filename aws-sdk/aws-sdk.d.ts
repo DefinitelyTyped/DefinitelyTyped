@@ -527,7 +527,8 @@ declare module "aws-sdk" {
 
     interface UpdateParam extends _DDBDC_Writer {
       Key: _DDBDC_Keys;
-      AttributeUpdates: {
+      UpdateExpression?: string;
+      AttributeUpdates?: {
         [someKey: string]: {
           Action: "PUT" | "ADD" | "DELETE";
           Value: any
