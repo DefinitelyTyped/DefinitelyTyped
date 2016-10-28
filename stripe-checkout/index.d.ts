@@ -25,10 +25,14 @@ interface StripeCheckoutOptions {
     currency?: string;
     panelLabel?: string;
     zipCode?: boolean;
+    billingAddress?: boolean;
     email?: string;
+    shippingAddress?: boolean;
     label?: string;
     allowRememberMe?: boolean;
     bitcoin?: boolean;
+    alipay?: boolean | 'auto';
+    alipayReusable?: boolean;
     opened?: () => void;
     closed?: () => void;
 }

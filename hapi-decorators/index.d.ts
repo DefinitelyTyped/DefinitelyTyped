@@ -3,8 +3,6 @@
 // Definitions by: Ken Howard <http://github.com/kenhowardpdx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="hapi"/>
-
 import * as hapi from 'hapi';
 interface ControllerStatic {
     new (): Controller;

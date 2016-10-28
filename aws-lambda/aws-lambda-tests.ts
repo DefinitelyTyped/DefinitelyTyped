@@ -54,7 +54,6 @@ function callback(cb: AWSLambda.Callback) {
     cb(error);
     cb(null, anyObj);
 }
-
 /* Compatibility functions */
 context.done();
 context.done(error);

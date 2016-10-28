@@ -16,6 +16,12 @@
             "typingsPackageName": "ng-table",
             "sourceRepoURL": "https://github.com/esvit/ng-table",
             "asOfVersion": "2.0.1"
+        },
+        {
+            "libraryName": "spotify-web-api-js",
+            "typingsPackageName": "spotify-web-api-js",
+            "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
+            "asOfVersion": "0.21.0"
         }
     ]
 }
