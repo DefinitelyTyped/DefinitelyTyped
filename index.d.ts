@@ -1950,9 +1950,11 @@ declare namespace Cy {
         type Style = string; // solid, dotted, dashed, or double
 
         export interface NodeCss {
+            label?: string
             width?: number
             height?: number
             shape?: Shape
+            opacity?: number
             backgroundColor?: Colour
             "background-color"?: Colour
             "background-blacken"?: number
@@ -1961,6 +1963,10 @@ declare namespace Cy {
             "border-style"?: Style
             "border-color"?: Colour
             "border-opacity"?: number
+            "line-color"?: Colour
+            "target-arrow-color"?: Colour
+            "source-arrow-color"?: Colour
+            "text-opacity"?: number
         }
 
         export interface CompoundNodeCss extends NodeCss {
