@@ -6,7 +6,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es6",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
