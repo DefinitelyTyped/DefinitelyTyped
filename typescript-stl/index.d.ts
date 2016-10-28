@@ -1,4 +1,4 @@
-// Type definitions for TypeScript-STL v1.1.3
+// Type definitions for TypeScript-STL v1.2.0
 // Project: https://github.com/samchon/typescript-stl
 // Definitions by: Jeongho Nam <http://samchon.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2730,38 +2730,9 @@ declare namespace std.base {
      */
     abstract class Container<T> implements IContainer<T> {
         /**
-         * <p> Default Constructor. </p>
-         *
-         * <p> Constructs an empty container, with no elements. </p>
+         * Default Constructor.
          */
-        constructor();
-        /**
-         * <p> Initializer list Constructor. </p>
-         *
-         * <p> Constructs a container with a copy of each of the elements in <i>array</i>, in the same order. </p>
-         *
-         * @param array An array containing elements to be copied and contained.
-         */
-        constructor(array: Array<T>);
-        /**
-         * <p> Copy Constructor. </p>
-         *
-         * <p> Constructs a container with a copy of each of the elements in <i>container</i>, in the same order. </p>
-         *
-         * @param container Another container object of the same type (with the same class template
-         *					arguments <i>T</i>), whose contents are either copied or acquired.
-         */
-        constructor(container: IContainer<T>);
-        /**
-         * <p> Range Constructor. </p>
-         *
-         * <p> Constructs a container with as many elements as the range (<i>begin</i>, <i>end<i>), with each
-         * element emplace-constructed from its corresponding element in that range, in the same order. </p>
-         *
-         * @param begin Input interator of the initial position in a sequence.
-         * @param end Input interator of the final position in a sequence.
-         */
-        constructor(begin: Iterator<T>, end: Iterator<T>);
+        protected constructor();
         /**
          * @inheritdoc
          */
@@ -2941,7 +2912,7 @@ declare namespace std.base {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class HashBuckets<T> {
+    abstract class HashBuckets<T> {
         /**
          * @hidden
          */
@@ -2953,7 +2924,7 @@ declare namespace std.base {
         /**
          * Default Constructor.
          */
-        constructor();
+        protected constructor();
         /**
          * <p> Reconstruction of hash table. </p>
          *
@@ -4115,9 +4086,9 @@ declare namespace std {
         /**
          * Construct from the source {@link IContainer container}.
          *
-         * @param source The source
+         * @param source The source container.
          */
-        constructor(source: base.IContainer<T>);
+        protected constructor(source: base.IContainer<T>);
         /**
          * <p> Get iterator to previous element. </p>
          * <p> If current iterator is the first item(equal with {@link IContainer.begin IContainer.begin()}),
@@ -4165,7 +4136,7 @@ declare namespace std {
          *
          * @return A value of the iterator.
          */
-        readonly value: T;
+        readonly abstract value: T;
         abstract swap(obj: Iterator<T>): void;
     }
 }
@@ -4203,7 +4174,7 @@ declare namespace std {
          *
          * @param base A reference of the base iterator, which iterates in the opposite direction.
          */
-        constructor(base: Base);
+        protected constructor(base: Base);
         /**
          * <p> Return base iterator. </p>
          *
@@ -4219,7 +4190,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected abstract create_neighbor(base: Base): This;
+        protected abstract _Create_neighbor(base: Base): This;
         /**
          * <p> Get value of the iterator is pointing. </p>
          *
@@ -4417,6 +4388,298 @@ declare namespace std {
 }
 declare namespace std.base {
     /**
+     * An abstract list.
+     *
+     * <p> {@link ListContainer}s are sequence containers that allow constant time insert and erase operations anywhere
+     * within the sequence, and iteration in both directions. </p>
+     *
+     * <p> List containers are implemented as doubly-linked lists; Doubly linked lists can store each of the elements they
+     * contain in different and unrelated storage locations. The ordering is kept internally by the association to each
+     * element of a link to the element preceding it and a link to the element following it. </p>
+     *
+     * <p> Compared to other base standard sequence containers (array, vector and deque), lists perform generally better
+     * in inserting, extracting and moving elements in any position within the container for which an iterator has already
+     * been obtained, and therefore also in algorithms that make intensive use of these, like sorting algorithms. </p>
+     *
+     * <p> The main drawback of lists and forward_lists compared to these other sequence containers is that they lack
+     * direct access to the elements by their position; For example, to access the sixth element in a list, one has to
+     * iterate from a known position (like the beginning or the end) to that position, which takes linear time in the
+     * distance between these. They also consume some extra memory to keep the linking information associated to each
+     * element (which may be an important factor for large lists of small-sized elements). </p>
+     *
+     * <h3> Container properties </h3>
+     * <dl>
+     * 	<dt> Sequence </dt>
+     * 	<dd> Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by
+     *		 their position in this sequence. </dd>
+     *
+     * 	<dt> Doubly-linked list </dt>
+     *	<dd> Each element keeps information on how to locate the next and the previous elements, allowing constant time
+     *		 insert and erase operations before or after a specific element (even of entire ranges), but no direct random
+     *		 access. </dd>
+     * </dl>
+     *
+     * @param <T> Type of the elements.
+     *
+     * @reference http://www.cplusplus.com/reference/list/list/
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class ListContainer<T, BidrectionalIterator extends ListIteratorBase<T>> extends Container<T> implements IDequeContainer<T> {
+        /**
+         * @hidden
+         */
+        private begin_;
+        /**
+         * @hidden
+         */
+        private end_;
+        /**
+         * @hidden
+         */
+        private size_;
+        /**
+         * Default Constructor.
+         */
+        protected constructor();
+        protected abstract _Create_iterator(prev: BidrectionalIterator, next: BidrectionalIterator, val: T): BidrectionalIterator;
+        /**
+         * @inheritdoc
+         */
+        assign<U extends T, InputIterator extends Iterator<U>>(first: InputIterator, last: InputIterator): void;
+        /**
+         * @inheritdoc
+         */
+        clear(): void;
+        /**
+         * @inheritdoc
+         */
+        begin(): BidrectionalIterator;
+        /**
+         * @inheritdoc
+         */
+        end(): BidrectionalIterator;
+        /**
+         * @inheritdoc
+         */
+        size(): number;
+        /**
+         * @inheritdoc
+         */
+        front(): T;
+        /**
+         * @inheritdoc
+         */
+        back(): T;
+        /**
+         * @inheritdoc
+         */
+        push_front(val: T): void;
+        /**
+         * @inheritdoc
+         */
+        push_back(val: T): void;
+        /**
+         * @inheritdoc
+         */
+        pop_front(): void;
+        /**
+         * @inheritdoc
+         */
+        pop_back(): void;
+        /**
+         * @inheritdoc
+         */
+        push(...items: T[]): number;
+        /**
+         * <p> Insert an element. </p>
+         *
+         * <p> The container is extended by inserting a new element before the element at the specified
+         * <i>position</i>. This effectively increases the {@link List.size List size} by the amount of elements
+         * inserted. </p>
+         *
+         * <p> Unlike other standard sequence containers, {@link List} is specifically designed to be efficient
+         * inserting and removing elements in any position, even in the middle of the sequence. </p>
+         *
+         * @param position Position in the container where the new element is inserted.
+         *				   {@link iterator}> is a member type, defined as a
+         *				   {@link ListIterator bidirectional iterator} type that points to elements.
+         * @param val Value to be inserted as an element.
+         *
+         * @return An iterator that points to the newly inserted element; <i>val</i>.
+         */
+        insert(position: BidrectionalIterator, val: T): BidrectionalIterator;
+        /**
+         * <p> Insert elements by repeated filling. </p>
+         *
+         * <p> The container is extended by inserting a new element before the element at the specified
+         * <i>position</i>. This effectively increases the {@link List.size List size} by the amount of elements
+         * inserted. </p>
+         *
+         * <p> Unlike other standard sequence containers, {@link List} is specifically designed to be efficient
+         * inserting and removing elements in any position, even in the middle of the sequence. </p>
+         *
+         * @param position Position in the container where the new elements are inserted. The {@link iterator} is a
+         *				   member type, defined as a {@link ListIterator bidirectional iterator} type that points to
+         *				   elements.
+         * @param size Number of elements to insert.
+         * @param val Value to be inserted as an element.
+         *
+         * @return An iterator that points to the first of the newly inserted elements.
+         */
+        insert(position: BidrectionalIterator, size: number, val: T): BidrectionalIterator;
+        /**
+         * <p> Insert elements by range iterators. </p>
+         *
+         * <p> The container is extended by inserting a new element before the element at the specified
+         * <i>position</i>. This effectively increases the {@link List.size List size} by the amount of elements
+         * inserted. </p>
+         *
+         * <p> Unlike other standard sequence containers, {@link List} is specifically designed to be efficient
+         * inserting and removing elements in any position, even in the middle of the sequence. </p>
+         *
+         * @param position Position in the container where the new elements are inserted. The {@link iterator} is a
+         *				   member type, defined as a {@link ListIterator bidirectional iterator} type that points to
+         *				   elements.
+         * @param begin An iterator specifying range of the begining element.
+         * @param end An iterator specifying range of the ending element.
+         *
+         * @return An iterator that points to the first of the newly inserted elements.
+         */
+        insert<U extends T, InputIterator extends Iterator<U>>(position: BidrectionalIterator, begin: InputIterator, end: InputIterator): BidrectionalIterator;
+        /**
+         * @hidden
+         */
+        private insert_by_val(position, val);
+        /**
+         * @hidden
+         */
+        protected _Insert_by_repeating_val(position: BidrectionalIterator, size: number, val: T): BidrectionalIterator;
+        /**
+         * @hidden
+         */
+        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: BidrectionalIterator, begin: InputIterator, end: InputIterator): BidrectionalIterator;
+        /**
+         * <p> Erase an element. </p>
+         *
+         * <p> Removes from the {@link List} either a single element; <i>position</i>. </p>
+         *
+         * <p> This effectively reduces the container size by the number of element removed. </p>
+         *
+         * <p> Unlike other standard sequence containers, {@link List} objects are specifically designed to be
+         * efficient inserting and removing elements in any position, even in the middle of the sequence. </p>
+         *
+         * @param position Iterator pointing to a single element to be removed from the {@link List}.
+         *
+         * @return An iterator pointing to the element that followed the last element erased by the function call.
+         *		   This is the {@link end end()} if the operation erased the last element in the sequence.
+         */
+        erase(position: BidrectionalIterator): BidrectionalIterator;
+        /**
+         * <p> Erase elements. </p>
+         *
+         * <p> Removes from the {@link List} container a range of elements. </p>
+         *
+         * <p> This effectively reduces the container {@link size} by the number of elements removed. </p>
+         *
+         * <p> Unlike other standard sequence containers, {@link List} objects are specifically designed to be
+         * efficient inserting and removing elements in any position, even in the middle of the sequence. </p>
+         *
+         * @param begin An iterator specifying a range of beginning to erase.
+         * @param end An iterator specifying a range of end to erase.
+         *
+         * @return An iterator pointing to the element that followed the last element erased by the function call.
+         *		   This is the {@link end end()} if the operation erased the last element in the sequence.
+         */
+        erase(begin: BidrectionalIterator, end: BidrectionalIterator): BidrectionalIterator;
+        /**
+         * @hidden
+         */
+        protected _Erase_by_range(first: BidrectionalIterator, last: BidrectionalIterator): BidrectionalIterator;
+        /**
+         * <p> Swap content. </p>
+         *
+         * <p> Exchanges the content of the container by the content of <i>obj</i>, which is another
+         * {@link List container} object with same type of elements. Sizes and container type may differ. </p>
+         *
+         * <p> After the call to this member function, the elements in this container are those which were in <i>obj</i>
+         * before the call, and the elements of <i>obj</i> are those which were in this. All iterators, references and
+         * pointers remain valid for the swapped objects. </p>
+         *
+         * <p> Notice that a non-member function exists with the same name, {@link std.swap swap}, overloading that
+         * algorithm with an optimization that behaves like this member function. </p>
+         *
+         * @param obj Another {@link List container} of the same type of elements (i.e., instantiated
+         *			  with the same template parameter, <b>T</b>) whose content is swapped with that of this
+         *			  {@link container List}.
+         */
+        swap(obj: ListContainer<T, BidrectionalIterator>): void;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: base.IContainer<T>): void;
+    }
+}
+declare namespace std.base {
+    /**
+     * An iterator, node of a List-based container.
+     *
+     * <a href="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" target="_blank">
+     *	<img src="http://samchon.github.io/typescript-stl/images/design/class_diagram/linear_containers.png" style="max-width: 100%" />
+     * </a>
+     *
+     * @author Jeongho Nam <http://samchon.org>
+     */
+    abstract class ListIteratorBase<T> extends Iterator<T> {
+        /**
+         * @hidden
+         */
+        private prev_;
+        /**
+         * @hidden
+         */
+        private next_;
+        /**
+         * @hidden
+         */
+        protected value_: T;
+        /**
+         * Initializer Constructor.
+         *
+         * @param source The source {@link Container} to reference.
+         * @param prev A refenrece of previous node ({@link ListIterator iterator}).
+         * @param next A refenrece of next node ({@link ListIterator iterator}).
+         * @param value Value to be stored in the node (iterator).
+         */
+        protected constructor(source: Container<T>, prev: ListIteratorBase<T>, next: ListIteratorBase<T>, value: T);
+        /**
+         * @inheritdoc
+         */
+        prev(): ListIteratorBase<T>;
+        /**
+         * @inheritdoc
+         */
+        next(): ListIteratorBase<T>;
+        /**
+         * @inheritdoc
+         */
+        advance(step: number): ListIteratorBase<T>;
+        /**
+         * @inheritdoc
+         */
+        readonly value: T;
+        /**
+         * @inheritdoc
+         */
+        equal_to(obj: ListIteratorBase<T>): boolean;
+        /**
+         * @inheritdoc
+         */
+        swap(obj: ListIteratorBase<T>): void;
+    }
+}
+declare namespace std.base {
+    /**
      * <p> An abstract map. </p>
      *
      * <p> {@link MapContainer MapContainers} are associative containers that store elements formed by a combination
@@ -4470,7 +4733,7 @@ declare namespace std.base {
         /**
          * Default Constructor.
          */
-        constructor();
+        protected constructor();
         /**
          * @inheritdoc
          */
@@ -4537,7 +4800,7 @@ declare namespace std.base {
          * beginning of the container. </p>
          *
          * <p> {@link rbegin} points to the element preceding the one that would be pointed to by member {@link end}.
-         * </p>
+         * </p>7
          *
          * @return A {@link MapReverseIterator reverse iterator} to the <i>reverse beginning</i> of the sequence
          *
@@ -4830,7 +5093,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        private erase_by_range(begin, end);
+        private erase_by_range(first, last);
         /**
          * @hidden
          */
@@ -4887,6 +5150,17 @@ declare namespace std.base {
          */
         protected abstract _Handle_erase(first: MapIterator<Key, T>, last: MapIterator<Key, T>): void;
     }
+    /**
+     * @hidden
+     */
+    class MapElementList<Key, T> extends ListContainer<Pair<Key, T>, MapIterator<Key, T>> {
+        private associative_;
+        constructor(associative: MapContainer<Key, T>);
+        protected _Create_iterator(prev: MapIterator<Key, T>, next: MapIterator<Key, T>, val: Pair<Key, T>): MapIterator<Key, T>;
+        get_associative(): MapContainer<Key, T>;
+        rbegin(): MapReverseIterator<Key, T>;
+        rend(): MapReverseIterator<Key, T>;
+    }
 }
 declare namespace std {
     /**
@@ -4897,18 +5171,14 @@ declare namespace std {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class MapIterator<Key, T> extends Iterator<Pair<Key, T>> implements IComparable<MapIterator<Key, T>> {
-        /**
-         * A {@link ListIterator} pointing {@link Pair} of <i>key</i> and <i>value</i>.
-         */
-        private list_iterator_;
+    class MapIterator<Key, T> extends base.ListIteratorBase<Pair<Key, T>> implements IComparable<MapIterator<Key, T>> {
         /**
          * Construct from the {@link MapContainer source map} and {@link ListIterator list iterator}.
          *
          * @param source The source {@link MapContainer}.
          * @param list_iterator A {@link ListIterator} pointing {@link Pair} of <i>key</i> and <i>value</i>.
          */
-        constructor(source: base.MapContainer<Key, T>, list_iterator: ListIterator<Pair<Key, T>>);
+        constructor(source: base.MapElementList<Key, T>, prev: MapIterator<Key, T>, next: MapIterator<Key, T>, val: Pair<Key, T>);
         /**
          * Get iterator to previous element.
          */
@@ -4927,15 +5197,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        private readonly map;
-        /**
-         * Get ListIterator.
-         */
-        get_list_iterator(): ListIterator<Pair<Key, T>>;
-        /**
-         * @inheritdoc
-         */
-        readonly value: Pair<Key, T>;
+        get_source(): base.MapContainer<Key, T>;
         /**
          * Get first, key element.
          */
@@ -4978,7 +5240,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(base: MapIterator<Key, T>): MapReverseIterator<Key, T>;
+        protected _Create_neighbor(base: MapIterator<Key, T>): MapReverseIterator<Key, T>;
         /**
          * Get first, key element.
          */
@@ -5170,7 +5432,7 @@ declare namespace std.base {
         /**
          * Default Constructor.
          */
-        constructor();
+        protected constructor();
         /**
          * @inheritdoc
          */
@@ -5336,7 +5598,7 @@ declare namespace std.base {
         /**
          * @hidden
          */
-        private erase_by_range(begin, end);
+        private erase_by_range(first, last);
         /**
          * @hidden
          */
@@ -5393,6 +5655,17 @@ declare namespace std.base {
          */
         protected abstract _Handle_erase(first: SetIterator<T>, last: SetIterator<T>): void;
     }
+    /**
+     * @hidden
+     */
+    class SetElementList<T> extends ListContainer<T, SetIterator<T>> {
+        private associative_;
+        constructor(associative: SetContainer<T>);
+        protected _Create_iterator(prev: SetIterator<T>, next: SetIterator<T>, val: T): SetIterator<T>;
+        get_associative(): SetContainer<T>;
+        rbegin(): SetReverseIterator<T>;
+        rend(): SetReverseIterator<T>;
+    }
 }
 declare namespace std {
     /**
@@ -5403,8 +5676,7 @@ declare namespace std {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class SetIterator<T> extends Iterator<T> implements IComparable<SetIterator<T>> {
-        private list_iterator_;
+    class SetIterator<T> extends base.ListIteratorBase<T> implements IComparable<SetIterator<T>> {
         /**
          * <p> Construct from source and index number. </p>
          *
@@ -5415,7 +5687,11 @@ declare namespace std {
          * @param map The source Set to reference.
          * @param index Sequence number of the element in the source Set.
          */
-        constructor(source: base.SetContainer<T>, it: ListIterator<T>);
+        constructor(source: base.SetElementList<T>, prev: SetIterator<T>, next: SetIterator<T>, val: T);
+        /**
+         * @inheritdoc
+         */
+        get_source(): base.SetContainer<T>;
         /**
          * @inheritdoc
          */
@@ -5428,15 +5704,6 @@ declare namespace std {
          * @inheritdoc
          */
         advance(size: number): SetIterator<T>;
-        /**
-         * @hidden
-         */
-        private readonly set;
-        get_list_iterator(): ListIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        readonly value: T;
         /**
          * @inheritdoc
          */
@@ -5474,7 +5741,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(base: SetIterator<T>): SetReverseIterator<T>;
+        protected _Create_neighbor(base: SetIterator<T>): SetReverseIterator<T>;
     }
 }
 declare namespace std.base {
@@ -5634,7 +5901,10 @@ declare namespace std.base {
         /**
          * Default Constructor.
          */
-        constructor();
+        protected constructor();
+        /**
+         * Clear, removes all tree nodes.
+         */
         clear(): void;
         /**
          * Find a node from its contained value.
@@ -7659,7 +7929,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(base: DequeIterator<T>): DequeReverseIterator<T>;
+        protected _Create_neighbor(base: DequeIterator<T>): DequeReverseIterator<T>;
         /**
          * @inheritdoc
          */
@@ -9275,9 +9545,6 @@ declare namespace std {
      * contain in different and unrelated storage locations. The ordering is kept internally by the association to each
      * element of a link to the element preceding it and a link to the element following it. </p>
      *
-     * <p> They are very similar to forward_list: The main difference being that forward_list objects are single-linked
-     * lists, and thus they can only be iterated forwards, in exchange for being somewhat smaller and more efficient. </p>
-     *
      * <p> Compared to other base standard sequence containers (array, vector and deque), lists perform generally better
      * in inserting, extracting and moving elements in any position within the container for which an iterator has already
      * been obtained, and therefore also in algorithms that make intensive use of these, like sorting algorithms. </p>
@@ -9309,19 +9576,7 @@ declare namespace std {
      * @reference http://www.cplusplus.com/reference/list/list/
      * @author Jeongho Nam <http://samchon.org>
      */
-    class List<T> extends base.Container<T> implements base.IDequeContainer<T> {
-        /**
-         * @hidden
-         */
-        private begin_;
-        /**
-         * @hidden
-         */
-        private end_;
-        /**
-         * @hidden
-         */
-        private size_;
+    class List<T> extends base.ListContainer<T, ListIterator<T>> {
         /**
          * <p> Default Constructor. </p>
          *
@@ -9365,6 +9620,7 @@ declare namespace std {
          * @param end Input interator of the final position in a sequence.
          */
         constructor(begin: Iterator<T>, end: Iterator<T>);
+        protected _Create_iterator(prev: ListIterator<T>, next: ListIterator<T>, val: T): ListIterator<T>;
         /**
          * @inheritdoc
          */
@@ -9376,18 +9632,6 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        clear(): void;
-        /**
-         * @inheritdoc
-         */
-        begin(): ListIterator<T>;
-        /**
-         * @inheritdoc
-         */
-        end(): ListIterator<T>;
-        /**
-         * @inheritdoc
-         */
         rbegin(): ListReverseIterator<T>;
         /**
          * @inheritdoc
@@ -9396,35 +9640,11 @@ declare namespace std {
         /**
          * @inheritdoc
          */
-        size(): number;
-        /**
-         * @inheritdoc
-         */
         front(): T;
         /**
          * @inheritdoc
          */
         back(): T;
-        /**
-         * @inheritdoc
-         */
-        push(...items: T[]): number;
-        /**
-         * @inheritdoc
-         */
-        push_front(val: T): void;
-        /**
-         * @inheritdoc
-         */
-        push_back(val: T): void;
-        /**
-         * @inheritdoc
-         */
-        pop_front(): void;
-        /**
-         * @inheritdoc
-         */
-        pop_back(): void;
         /**
          * <p> Insert an element. </p>
          *
@@ -9538,18 +9758,6 @@ declare namespace std {
          */
         insert<U extends T, InputIterator extends Iterator<U>>(position: ListReverseIterator<T>, begin: InputIterator, end: InputIterator): ListReverseIterator<T>;
         /**
-         * @hidden
-         */
-        private insert_by_val(position, val);
-        /**
-         * @hidden
-         */
-        protected _Insert_by_repeating_val(position: ListIterator<T>, size: number, val: T): ListIterator<T>;
-        /**
-         * @hidden
-         */
-        protected _Insert_by_range<U extends T, InputIterator extends Iterator<U>>(position: ListIterator<T>, begin: InputIterator, end: InputIterator): ListIterator<T>;
-        /**
          * <p> Erase an element. </p>
          *
          * <p> Removes from the {@link List} either a single element; <i>position</i>. </p>
@@ -9615,10 +9823,6 @@ declare namespace std {
          *		   This is the {@link rend rend()} if the operation erased the last element in the sequence.
          */
         erase(begin: ListReverseIterator<T>, end: ListReverseIterator<T>): ListReverseIterator<T>;
-        /**
-         * @hidden
-         */
-        protected _Erase_by_range(first: ListIterator<T>, last: ListIterator<T>): ListIterator<T>;
         /**
          * <p> Remove duplicate values. </p>
          *
@@ -9889,25 +10093,14 @@ declare namespace std {
      *
      * @author Jeongho Nam <http://samchon.org>
      */
-    class ListIterator<T> extends Iterator<T> {
+    class ListIterator<T> extends base.ListIteratorBase<T> {
         /**
-         * @hidden
-         */
-        private prev_;
-        /**
-         * @hidden
-         */
-        private next_;
-        /**
-         * @hidden
-         */
-        private value_;
-        /**
-         * <p> Construct from the source {@link List container}. </p>
+         * Initializer Constructor.
          *
-         * <h4> Note </h4>
-         * <p> Do not create the iterator directly, by yourself. </p>
-         * <p> Use {@link List.begin begin()}, {@link List.end end()} in {@link List container} instead. </p>
+         * #### Note
+         * Do not create the iterator directly, by yourself.
+         *
+         * Use {@link List.begin begin()}, {@link List.end end()} in {@link List container} instead.
          *
          * @param source The source {@link List container} to reference.
          * @param prev A refenrece of previous node ({@link ListIterator iterator}).
@@ -9915,7 +10108,6 @@ declare namespace std {
          * @param value Value to be stored in the node (iterator).
          */
         constructor(source: List<T>, prev: ListIterator<T>, next: ListIterator<T>, value: T);
-        private list();
         /**
          * @inheritdoc
          */
@@ -9969,7 +10161,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(base: ListIterator<T>): ListReverseIterator<T>;
+        protected _Create_neighbor(base: ListIterator<T>): ListReverseIterator<T>;
         /**
          * @inheritdoc
          */
@@ -10490,6 +10682,7 @@ declare namespace std {
          * @inheritdoc
          */
         swap(obj: VectorIterator<T>): void;
+        toString(): number;
     }
 }
 declare namespace std {
@@ -10514,7 +10707,7 @@ declare namespace std {
         /**
          * @hidden
          */
-        protected create_neighbor(base: VectorIterator<T>): VectorReverseIterator<T>;
+        protected _Create_neighbor(base: VectorIterator<T>): VectorReverseIterator<T>;
         /**
          * @inheritdoc
          */
