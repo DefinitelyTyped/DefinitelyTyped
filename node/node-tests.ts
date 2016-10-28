@@ -1200,6 +1200,69 @@ namespace readline_tests {
 
         readline.clearScreenDown(stream);
     }
+
+    {
+        let _rl: readline.ReadLine;
+        let _boolean: boolean;
+
+        _rl = _rl.addListener("close", () => { });
+        _rl = _rl.addListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.addListener("pause", () => { });
+        _rl = _rl.addListener("resume", () => { });
+        _rl = _rl.addListener("SIGCONT", () => { });
+        _rl = _rl.addListener("SIGINT", () => { });
+        _rl = _rl.addListener("SIGTSTP", () => { });
+
+        _boolean = _rl.emit("close", () => { });
+        _boolean = _rl.emit("line", () => { });
+        _boolean = _rl.emit("pause", () => { });
+        _boolean = _rl.emit("resume", () => { });
+        _boolean = _rl.emit("SIGCONT", () => { });
+        _boolean = _rl.emit("SIGINT", () => { });
+        _boolean = _rl.emit("SIGTSTP", () => { });
+
+        _rl = _rl.on("close", () => { });
+        _rl = _rl.on("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.on("pause", () => { });
+        _rl = _rl.on("resume", () => { });
+        _rl = _rl.on("SIGCONT", () => { });
+        _rl = _rl.on("SIGINT", () => { });
+        _rl = _rl.on("SIGTSTP", () => { });
+
+        _rl = _rl.once("close", () => { });
+        _rl = _rl.once("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.once("pause", () => { });
+        _rl = _rl.once("resume", () => { });
+        _rl = _rl.once("SIGCONT", () => { });
+        _rl = _rl.once("SIGINT", () => { });
+        _rl = _rl.once("SIGTSTP", () => { });
+
+        _rl = _rl.prependListener("close", () => { });
+        _rl = _rl.prependListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependListener("pause", () => { });
+        _rl = _rl.prependListener("resume", () => { });
+        _rl = _rl.prependListener("SIGCONT", () => { });
+        _rl = _rl.prependListener("SIGINT", () => { });
+        _rl = _rl.prependListener("SIGTSTP", () => { });
+
+        _rl = _rl.prependOnceListener("close", () => { });
+        _rl = _rl.prependOnceListener("line", (input) => {
+            let _input: any = input;
+        })
+        _rl = _rl.prependOnceListener("pause", () => { });
+        _rl = _rl.prependOnceListener("resume", () => { });
+        _rl = _rl.prependOnceListener("SIGCONT", () => { });
+        _rl = _rl.prependOnceListener("SIGINT", () => { });
+        _rl = _rl.prependOnceListener("SIGTSTP", () => { });
+    }
 }
 
 ////////////////////////////////////////////////////
