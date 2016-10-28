@@ -1,5 +1,5 @@
 
-import deepExtend = require('deep-extend');
+import * as deepExtend from 'deep-extend';
 var obj1 = {
   a: 1,
   b: 2,

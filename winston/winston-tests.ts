@@ -262,3 +262,6 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     }),
   ]
 });
+
+/* Reconfigure logger */
+logger.configure({ level: 'silly' });
