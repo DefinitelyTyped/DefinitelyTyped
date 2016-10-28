@@ -1,4 +1,4 @@
-// Type definitions for date-fns
+// Type definitions for date-fns v2.5.1
 // Project: https://date-fns.org/
 // Definitions by: Matt Lewis <https://github.com/mattlewis92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
