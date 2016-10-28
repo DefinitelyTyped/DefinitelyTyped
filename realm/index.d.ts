@@ -350,7 +350,4 @@ declare class Realm {
     write(callback: () => void): void;
 }
 
-declare module 'realm' {
-    export = Realm;
-}
-
+export = Realm;
