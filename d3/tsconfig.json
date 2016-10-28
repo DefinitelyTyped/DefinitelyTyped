@@ -4,6 +4,12 @@
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "node_modules/@types",
+            "../"
+        ],
+        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
