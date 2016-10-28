@@ -1,4 +1,3 @@
-
 import {
 	connect,
 	Document as CamoDocument,
