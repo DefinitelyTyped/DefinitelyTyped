@@ -14,7 +14,7 @@ declare namespace ReactSwipeableModule {
     }
 
     interface OnSwipedCallback {
-        (event: React.TouchEvent, deltaX: number, deltaY: number, isFlick: boolean): void;
+        (event: React.TouchEvent, deltaX: number, deltaY: number, isFlick: boolean, velocity: number): void;
     }
 
     interface OnSwipedDirectionCallback {
