@@ -339,6 +339,7 @@ declare namespace angular.material {
         onRemoving?: Function;
         onDomRemoved?: Function;
         origin?: string|JQuery|Element;
+        onCloseSuccess?: ((panel: IPanelRef, closeReason: string) => any);
     }
 
     interface IPanelRef {
@@ -410,6 +411,16 @@ declare namespace angular.material {
         };
         interceptorTypes: {
           CLOSE: string,
+        };
+        closeReasons: {
+          CLICK_OUTSIDE: string,
+          ESCAPE: string,
+        };
+        absPosition: {
+          TOP:  string,
+          RIGHT: string,
+          BOTTOM: string,
+          LEFT: string,
         };
     }
 }

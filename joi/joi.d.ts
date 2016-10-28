@@ -40,6 +40,10 @@ declare module 'joi' {
 		 * provides an external data set to be used in references
 		 */
 		context?: Object;
+		/**
+		 * when true, do not apply default values. Defaults to false.
+		 */
+		noDefaults?: boolean;
 	}
 
 	export interface RenameOptions {
@@ -287,6 +291,17 @@ declare module 'joi' {
 		 * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
 		 */
 		empty(schema?: any) : T;
+		
+		/**
+		 * Overrides the default joi error with a custom error if the rule fails where:
+		 * @param err - the override error.
+		 *
+		 * Note that the provided error will be returned as-is, unmodified and undecorated
+		 * with any of the normal joi error properties. If validation fails and another
+		 * error is found before the error override, that error will be returned and the
+		 * override will be ignored (unless the abortEarly option has been set to false).
+		 */
+		error?(err: Error): T;
 	}
 
 	export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -827,9 +842,18 @@ declare module 'joi' {
 	/**
 	 * Validates a value using the given schema and options.
 	 */
-	export function validate<T>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, callback: (err: ValidationError, value: T) => void): void;
-	export function validate<T>(value: T, schema: Object, options?: ValidationOptions, callback?: (err: ValidationError, value: T) => void): ValidationResult<T>;
+	export function validate<T>(value: T): ValidationResult<T>;
+	export function validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
+
+	export function validate<T>(value: T, schema: Schema): ValidationResult<T>;
+	export function validate<T>(value: T, schema: Object): ValidationResult<T>;
+	export function validate<T, R>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => R): R;
+	export function validate<T, R>(value: T, schema: Object, callback: (err: ValidationError, value: T) => R): R;
+
+	export function validate<T>(value: T, schema: Schema, options: ValidationOptions): ValidationResult<T>;
+	export function validate<T>(value: T, schema: Object, options: ValidationOptions): ValidationResult<T>;
+	export function validate<T, R>(value: T, schema: Schema, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
+	export function validate<T, R>(value: T, schema: Object, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
 	/**
 	 * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
