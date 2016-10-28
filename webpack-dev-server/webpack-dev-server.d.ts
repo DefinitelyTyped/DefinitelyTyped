@@ -13,6 +13,7 @@ declare module "webpack-dev-server" {
         export interface Configuration {
             contentBase?: string;
             hot?: boolean;
+            https?: boolean;
             historyApiFallback?: boolean;
             compress?: boolean;
             proxy?: any;

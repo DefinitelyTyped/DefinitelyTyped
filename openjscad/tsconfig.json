@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "OpenJsCad-tests.ts"
+        "openjscad-tests.ts"
     ]
 }

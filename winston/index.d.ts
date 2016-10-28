@@ -46,6 +46,7 @@ export declare function addColors(target: any): any;
 export declare function setLevels(target: any): any;
 export declare function cli(): LoggerInstance;
 export declare function close(): void;
+  export function configure(options: LoggerOptions): void;
 
 export interface ExceptionProcessInfo {
     pid: number;
@@ -124,7 +125,7 @@ export interface LoggerInstance extends NodeJS.EventEmitter {
     remove(transport: TransportInstance): LoggerInstance;
     startTimer(): ProfileHandler;
     profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
-
+    configure(options: LoggerOptions): void;
     setLevels(target: any): any;
     cli(): LoggerInstance;
 
