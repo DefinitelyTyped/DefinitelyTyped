@@ -69,7 +69,8 @@ declare namespace Cy {
      */
     type Scratchpad = any;
 
-    interface CollectionElements extends CollectionEdges, CollectionNodes, CollectionFirstElement {
+    interface CollectionElements extends CollectionManipulation,
+        CollectionEdges, CollectionNodes, CollectionFirstElement {
         //Intentionally empty.
     }
 
