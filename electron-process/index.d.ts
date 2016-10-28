@@ -24,7 +24,6 @@ declare  namespace ElectronProcess{
                 }
 }
 
-
 declare module "electron-process" {
     const electronProcess: ElectronProcess.Processor;
     export = electronProcess;
