@@ -60,3 +60,6 @@ options = RRule.parseText('every day for 3 times')
 // {freq: 3, count: "3"}
 options.dtstart = new Date(2000, 1, 1)
 rule = new RRule(options)
+
+// Test arrays
+let multipleInstance = new RRule({freq:3, byhour:[6,12,18]})
