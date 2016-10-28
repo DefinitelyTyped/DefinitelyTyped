@@ -315,6 +315,10 @@ var htmlAttr: React.HTMLProps<HTMLElement> = {
         event.preventDefault();
         event.stopPropagation();
     },
+    onClickCapture: (event: React.MouseEvent<{}>) => {
+        event.preventDefault();
+        event.stopPropagation();
+    },
     dangerouslySetInnerHTML: {
         __html: "<strong>STRONG</strong>"
     }

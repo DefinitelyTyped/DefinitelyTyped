@@ -528,6 +528,101 @@ declare namespace React {
 
         // Transition Events
         onTransitionEnd?: TransitionEventHandler;
+
+        // Clipboard Events (captured)
+        onCopyCapture?: ClipboardEventHandler<T>;
+        onCutCapture?: ClipboardEventHandler<T>;
+        onPasteCapture?: ClipboardEventHandler<T>;
+
+        // Composition Events (captured)
+        onCompositionEndCapture?: CompositionEventHandler<T>;
+        onCompositionStartCapture?: CompositionEventHandler<T>;
+        onCompositionUpdateCapture?: CompositionEventHandler<T>;
+
+        // Focus Events (captured)
+        onFocusCapture?: FocusEventHandler<T>;
+        onBlurCapture?: FocusEventHandler<T>;
+
+        // Form Events (captured)
+        onChangeCapture?: FormEventHandler<T>;
+        onInputCapture?: FormEventHandler<T>;
+        onSubmitCapture?: FormEventHandler<T>;
+
+        // Image Events (captured)
+        onLoadCapture?: ReactEventHandler<T>;
+        onErrorCapture?: ReactEventHandler<T>; // also a Media Event
+
+        // Keyboard Events (captured)
+        onKeyDownCapture?: KeyboardEventHandler<T>;
+        onKeyPressCapture?: KeyboardEventHandler<T>;
+        onKeyUpCapture?: KeyboardEventHandler<T>;
+
+        // Media Events (captured)
+        onAbortCapture?: ReactEventHandler<T>;
+        onCanPlayCapture?: ReactEventHandler<T>;
+        onCanPlayThroughCapture?: ReactEventHandler<T>;
+        onDurationChangeCapture?: ReactEventHandler<T>;
+        onEmptiedCapture?: ReactEventHandler<T>;
+        onEncryptedCapture?: ReactEventHandler<T>;
+        onEndedCapture?: ReactEventHandler<T>;
+        onLoadedDataCapture?: ReactEventHandler<T>;
+        onLoadedMetadataCapture?: ReactEventHandler<T>;
+        onLoadStartCapture?: ReactEventHandler<T>;
+        onPauseCapture?: ReactEventHandler<T>;
+        onPlayCapture?: ReactEventHandler<T>;
+        onPlayingCapture?: ReactEventHandler<T>;
+        onProgressCapture?: ReactEventHandler<T>;
+        onRateChangeCapture?: ReactEventHandler<T>;
+        onSeekedCapture?: ReactEventHandler<T>;
+        onSeekingCapture?: ReactEventHandler<T>;
+        onStalledCapture?: ReactEventHandler<T>;
+        onSuspendCapture?: ReactEventHandler<T>;
+        onTimeUpdateCapture?: ReactEventHandler<T>;
+        onVolumeChangeCapture?: ReactEventHandler<T>;
+        onWaitingCapture?: ReactEventHandler<T>;
+
+        // MouseEvents (captured)
+        onClickCapture?: MouseEventHandler<T>;
+        onContextMenuCapture?: MouseEventHandler<T>;
+        onDoubleClickCapture?: MouseEventHandler<T>;
+        onDragCapture?: DragEventHandler<T>;
+        onDragEndCapture?: DragEventHandler<T>;
+        onDragEnterCapture?: DragEventHandler<T>;
+        onDragExitCapture?: DragEventHandler<T>;
+        onDragLeaveCapture?: DragEventHandler<T>;
+        onDragOverCapture?: DragEventHandler<T>;
+        onDragStartCapture?: DragEventHandler<T>;
+        onDropCapture?: DragEventHandler<T>;
+        onMouseDownCapture?: MouseEventHandler<T>;
+        onMouseEnterCapture?: MouseEventHandler<T>;
+        onMouseLeaveCapture?: MouseEventHandler<T>;
+        onMouseMoveCapture?: MouseEventHandler<T>;
+        onMouseOutCapture?: MouseEventHandler<T>;
+        onMouseOverCapture?: MouseEventHandler<T>;
+        onMouseUpCapture?: MouseEventHandler<T>;
+
+        // Selection Events (captured)
+        onSelectCapture?: ReactEventHandler<T>;
+
+        // Touch Events (captured)
+        onTouchCancelCapture?: TouchEventHandler<T>;
+        onTouchEndCapture?: TouchEventHandler<T>;
+        onTouchMoveCapture?: TouchEventHandler<T>;
+        onTouchStartCapture?: TouchEventHandler<T>;
+
+        // UI Events (captured)
+        onScrollCapture?: UIEventHandler<T>;
+
+        // Wheel Events (captured)
+        onWheelCapture?: WheelEventHandler<T>;
+
+        // Animation Events (captured)
+        onAnimationStartCapture?: AnimationEventHandler;
+        onAnimationEndCapture?: AnimationEventHandler;
+        onAnimationIterationCapture?: AnimationEventHandler;
+
+        // Transition Events (captured)
+        onTransitionEndCapture?: TransitionEventHandler;
     }
 
     // This interface is not complete. Only properties accepting
