@@ -759,30 +759,57 @@ schema = Joi.lazy(() => schema)
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-Joi.validate(value, obj);
-Joi.validate(value, schema);
-Joi.validate(value, schema, validOpts);
-Joi.validate(value, schema, validOpts, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
-});
-Joi.validate(value, schema, (err, value) => {
-	x = value;
-	str = err.message;
-	str = err.details[0].path;
-	str = err.details[0].message;
-	str = err.details[0].type;
-});
-// variant
-Joi.validate(num, schema, validOpts, (err, value) => {
-	num = value;
-});
+namespace validate_tests {
+    {
+        Joi.validate(value, obj);
+        Joi.validate(value, schema);
+        Joi.validate(value, schema, validOpts);
+        Joi.validate(value, schema, validOpts, (err, value) => {
+            x = value;
+            str = err.message;
+            str = err.details[0].path;
+            str = err.details[0].message;
+            str = err.details[0].type;
+        });
+        Joi.validate(value, schema, (err, value) => {
+            x = value;
+            str = err.message;
+            str = err.details[0].path;
+            str = err.details[0].message;
+            str = err.details[0].type;
+        });
+        // variant
+        Joi.validate(num, schema, validOpts, (err, value) => {
+            num = value;
+        });
 
-// plain opts
-Joi.validate(value, {});
+        // plain opts
+        Joi.validate(value, {});
+    }
+
+    {
+        let value = { username: 'example', password: 'example' };
+        let schema = Joi.object().keys({
+            username: Joi.string().max(255).required(),
+            password: Joi.string().regex(/^[a-zA-Z0-9]{3,255}$/).required(),
+        });
+        let returnValue: Joi.ValidationResult<typeof value>;
+
+        returnValue = Joi.validate(value);
+        value = Joi.validate(value, (err, value) => value);
+
+        returnValue = Joi.validate(value, schema);
+        returnValue = Joi.validate(value, obj);
+        value = Joi.validate(value, obj, (err, value) => value);
+        value = Joi.validate(value, schema, (err, value) => value);
+
+        returnValue = Joi.validate(value, schema, validOpts);
+        returnValue = Joi.validate(value, obj, validOpts);
+        value = Joi.validate(value, obj, validOpts, (err, value) => value);
+        value = Joi.validate(value, schema, validOpts, (err, value) => value);
+    }
+}
+
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
