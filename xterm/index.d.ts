@@ -3,12 +3,12 @@
 // Definitions by: Steven Silvester <https://github.com/blink1073>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Typing for an xterm terminal object.
- */
-interface Xterm {
 
-  options: Xterm.IOptions;
+declare class Terminal {
+
+  constructor(options?: Terminal.IOptions);
+
+  options: Terminal.IOptions;
 
   element: HTMLElement;
 
@@ -54,18 +54,9 @@ interface Xterm {
 }
 
 
-interface XtermConstructor {
-  new (options?: Xterm.IOptions): Xterm;
-  (options?: Xterm.IOptions): Xterm;
-}
-
-
-/**
- * A terminal options.
- */
-declare module Xterm {
+declare namespace Terminal {
+  export
   interface IOptions {
-
     cursorBlink?: boolean;
 
     rows?: number;
@@ -74,10 +65,4 @@ declare module Xterm {
   }
 }
 
-
-declare var Xterm: XtermConstructor;
-
-
-declare module 'xterm' {
-  export = Xterm;
-}
+export default Terminal;

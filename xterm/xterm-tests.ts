@@ -1,6 +1,5 @@
-/// <reference path="xterm.d.ts" />
 
-import * as Terminal from 'xterm';
+import Terminal from 'xterm';
 
 declare var fetch: any;
 
@@ -12,7 +11,7 @@ var term: Terminal,
     charWidth: number,
     charHeight: number;
 
-var terminalContainer = document.getElementById('terminal-container'),
+var terminalContainer = document.getElementById('terminal-container') as HTMLElement,
     optionElements = {
       cursorBlink: document.querySelector('#option-cursor-blink')
     },
@@ -20,8 +19,8 @@ var terminalContainer = document.getElementById('terminal-container'),
     rowsElement = document.getElementById('rows') as any;
 
 function setTerminalSize () {
-  var cols = parseInt(colsElement.value),
-      rows = parseInt(rowsElement.value),
+  var cols = parseInt(colsElement.value) || 0,
+      rows = parseInt(rowsElement.value) || 0,
       width = (cols * charWidth).toString() + 'px',
       height = (rows * charHeight).toString() + 'px';
 
@@ -43,7 +42,7 @@ function createTerminal() {
     terminalContainer.removeChild(terminalContainer.children[0]);
   }
   term = new Terminal({
-    cursorBlink: (optionElements.cursorBlink as any).checked
+    cursorBlink: (optionElements.cursorBlink as any).checked as boolean
   });
   term.on('resize', function (size: any) {
     if (!pid) {
