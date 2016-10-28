@@ -1965,7 +1965,9 @@ declare namespace Cy {
             "border-opacity"?: number
             "line-color"?: Colour
             "target-arrow-color"?: Colour
+            "target-arrow-shape"?: Shape
             "source-arrow-color"?: Colour
+            "source-arrow-shape"?: Shape
             "text-opacity"?: number
         }
 
@@ -1977,7 +1979,7 @@ declare namespace Cy {
         }
 
         export interface ElementCss extends NodeCss, CompoundNodeCss { }
-        //export interface ElementCss extends CSSStyleDeclaration { }
+        // export interface ElementCss extends CSSStyleDeclaration { }
     }
 
     interface Renderer {
