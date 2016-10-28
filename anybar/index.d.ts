@@ -3,9 +3,8 @@
 // Definitions by: Chris Khoo <https://github.com/khoomeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'anybar' {
-    const anybar: {
-        (color: string, options?: { port: number }): void
-    }
-    export = anybar
-}
+declare namespace anybar { }
+
+declare function anybar(color: string, options?: { port: number }): void
+
+export = anybar
