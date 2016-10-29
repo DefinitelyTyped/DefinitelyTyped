@@ -57,6 +57,9 @@ function divide() {
 function demand_count() {
 	var argv = yargs
 		.demand(2)
+		.demand(2, false)
+		.demand(2, 2)
+		.demand(2, 2, "message")
 		.argv;
 	console.dir(argv);
 }
