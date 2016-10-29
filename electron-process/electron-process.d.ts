@@ -4,7 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../github-electron/github-electron.d.ts" />
+/// <reference path="../electron/github-electron.d.ts" />
+/// <reference path="../node-uuid/node-uuid.d.ts" />
+/// <reference path="../object-hash/object-hash.d.ts" />
+/// <reference path="../lodash/lodash.d.ts" />
+
 
 
 declare  namespace ElectronProcess{
