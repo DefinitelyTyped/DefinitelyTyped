@@ -90,12 +90,13 @@ declare module 'pug' {
     export function render(template: string, options: Options & LocalsObject): string;
     /**
      * Compile a Pug template and render it without locals to html string.
+     * @param {((err: Error | null, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
      */
     export function render(template: string, callback: (err: Error | null, res: string) => void): void;
     /**
      * Compile a Pug template and render it with locals to html string.
      * @param {(Options & LocalsObject)} options Pug Options and rendering locals
-     * @param {((err: Error | void, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
+     * @param {((err: Error | null, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
      */
     export function render(template: string, options: Options & LocalsObject, callback: (err: Error | null, res: string) => void): void;
 
@@ -110,12 +111,13 @@ declare module 'pug' {
     export function renderFile(path: string, options: Options & LocalsObject): string;
     /**
      * Compile a Pug template from a file and render it without locals to html string.
+     * @param {((err: Error | null, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
      */
     export function renderFile(path: string, callback: (err: Error | null, res: string) => void): void;
     /**
      * Compile a Pug template from a file and render it with locals to html string.
      * @param {(Options & LocalsObject)} options Pug Options and rendering locals
-     * @param {((err: Error | void, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
+     * @param {((err: Error | null, res: string) => void)} callback Node.js-style callback receiving the rendered results. This callback is called synchronously.
      */
     export function renderFile(path: string, options: Options & LocalsObject, callback: (err: Error | null, res: string) => void): void;
 
