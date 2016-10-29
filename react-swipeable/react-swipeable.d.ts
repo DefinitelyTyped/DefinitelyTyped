@@ -22,7 +22,7 @@ declare namespace ReactSwipeableModule {
         (event: React.TouchEvent<any>, delta: number): void;
     }
 
-    interface Props extends React.HTMLAttributes {
+    interface Props extends React.HTMLAttributes<any> {
         onSwiped?: OnSwipedCallback;
         onSwiping?: onSwipingCallback;
         onSwipingUp?: OnSwipingDirectionCallback;
