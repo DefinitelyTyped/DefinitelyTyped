@@ -75,7 +75,7 @@ new Nightmare()
   .goto('http://yahoo.com')
   .evaluate(function (parameter) {
     return document.title + ' -- ' + parameter;
-  }, function (title) {
+  }, function (title: string) {
   }, 'testparameter')
   .run(done);
 
@@ -92,7 +92,7 @@ new Nightmare()
   .goto('http://google.com')
   .inject('js', 'test/files/jquery-2.1.1.min.js')
   .inject('css', 'test/files/test.css')
-  .evaluate(function () {          
+  .evaluate(function () {
     return $('body').css('background-color');
   }, function (color) {
   })
@@ -102,7 +102,7 @@ new Nightmare()
   .goto('http://google.com')
   .inject('js', 'test/files/jquery-2.1.1.min.js')
   .inject('pdf', 'test/files/test.css')
-  .evaluate(function () {          
+  .evaluate(function () {
     return $('body').css('background-color');
   }, function (color) {
   })

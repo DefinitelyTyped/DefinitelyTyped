@@ -245,7 +245,7 @@ describe('AngularWizard', function () {
         $rootScope.$digest();
         expect(scope.referenceCurrentStep).toEqual('Starting');
     });
-    it("should go to the next step because the promise that CANENTER returns resolves to true", function (done) {
+    it("should go to the next step because the promise that CANENTER returns resolves to true", function (done: DoneFn) {
         var scope = <IWizardScope>$rootScope.$new();
         scope.dynamicStepDisabled = 'Y';
         var view = createGenericView(scope);
