@@ -8,7 +8,7 @@ type Callback = () => void;
 export interface Lock {
     share(cb: Callback): void;
     exclude(cb: Callback): void;
-    readonly count: number;
+    count: number;
     dispose(): void;
     unlock(): void;
     downgrade(): void;
