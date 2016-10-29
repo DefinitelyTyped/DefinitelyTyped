@@ -251,10 +251,10 @@ schema.method('name', cb).method({
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
 schema.plugin(function (schema, opts) {
-  schema.get('path');
+schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc) {}).post('post', function (doc, next) {
+schema.post('post', function (doc: mongoose.Document) {}).post('post', function (doc: mongoose.Document, next: (err: mongoose.NativeError) => void) {
   next(new Error());
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);

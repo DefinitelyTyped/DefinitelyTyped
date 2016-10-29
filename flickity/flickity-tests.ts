@@ -109,11 +109,11 @@ flikty2.on(FlickityEvents.cellSelect, (evt, ele) => {
     //do something
 });
 
-flikty2.off(FlickityEvents.cellSelect, (evt, ele, pntr, vctr) => {
+flikty2.off(FlickityEvents.cellSelect, (evt: Event, ele: Element | Touch, pntr: Element, vctr: number) => {
     //do something
 });
 
-flikty2.once(FlickityEvents.cellSelect, (evt, ele, pntr) => {
+flikty2.once(FlickityEvents.cellSelect, (evt: Event, ele: Element | Touch, pntr: Object) => {
     //do something
 });
 
