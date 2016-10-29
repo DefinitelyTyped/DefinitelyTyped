@@ -1,4 +1,4 @@
-// Type definitions for react-swipeable 3.3.1
+// Type definitions for react-swipeable 3.7.0
 // Project: https://www.npmjs.com/package/react-swipeable
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,6 +37,7 @@ declare namespace ReactSwipeableModule {
         delta?: number;
         preventDefaultTouchmoveEvent?: boolean;
         nodeName?: string;
+        trackMouse?: boolean;
     }
 
     interface ReactSwipeable extends React.ComponentClass<Props> { }
