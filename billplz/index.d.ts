@@ -3,7 +3,7 @@
 // Definitions by: Akim <https://github.com/Akim95>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Billplz {
+declare namespace Billplz {
     // api options type
     interface BillplzOptions {
         key: string;
