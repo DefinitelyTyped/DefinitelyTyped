@@ -1,4 +1,4 @@
-/// <reference path="../node/node.d.ts"/>
+/// <reference path="../node/index.d.ts"/>
 
 declare module "fxn" {
     namespace fxn {
