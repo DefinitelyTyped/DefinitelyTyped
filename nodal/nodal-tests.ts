@@ -1,4 +1,4 @@
-import * as Nodal from './nodal.d';
+import * as Nodal from './index.d';
 
 let BlogPost: typeof Nodal.Model;
 
@@ -63,7 +63,7 @@ class AccessToken extends Nodal.Model {
     return "thing";
   }
 
-  public static login (params, callback: Function) {
+  public static login (params: any, callback: Function) {
     if (params.body.grant_type !== 'password') {
       return callback(new Error('Must supply grant_type'));
     }
@@ -93,7 +93,7 @@ class AccessToken extends Nodal.Model {
       });
   }
 
-  public static verify (params, callback: Function) {
+  public static verify (params: any, callback: Function) {
     this.query()
       .join('user')
       .where({
@@ -115,8 +115,8 @@ class AccessToken extends Nodal.Model {
       });
   }
 
-  public static logout (params, callback: Function) {
-    this.verify(params, (err, accessToken) => {
+  public static logout (params: any, callback: Function) {
+    this.verify(params, (err: Error, accessToken: AccessToken) => {
       if (err) {
         return callback(err);
       }
@@ -134,11 +134,11 @@ AccessToken.joinsTo(User, {multiple: true});
 
 class AuthController extends Nodal.Controller {
 
-  public authorize (callback) {
+  public authorize (callback: Function) {
     this.setHeader('Cache-Control', 'no-store');
     this.setHeader('Pragma', 'no-cache');
 
-    AccessToken.verify(this.params, (err: Error, accessToken: string, user) => {
+    AccessToken.verify(this.params, (err: Error, accessToken: string, user: User) => {
       if (err) {
         return this.respond(err);
       }

@@ -3,7 +3,7 @@
 // Definitions by: Adam Charron <https://github.com/charrondev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
+/// <reference path="../node/index.d.ts"/>
 /// <reference path="./fxn.d.ts"/>
 
 import * as fxn from 'fxn';
@@ -836,7 +836,7 @@ export class Model {
    * @param {string} field Field to set
    * @param {any} value Value for the field
    */
-  public __safeSet__(field, value);
+  public __safeSet__(field: string, value: any): void;
   /**
    * Destroys model reference in database
    * @param {function} callback Method to execute upon completion, returns error if failed
