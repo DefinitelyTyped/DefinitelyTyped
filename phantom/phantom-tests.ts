@@ -34,7 +34,7 @@ phantom.create(["--web-security=no", "--ignore-ssl-errors=yes"]).then((ph) => {
                 console.log(selector + " contains the following text: " + text);
             }, "title");
         }).then(() => {
-            return page.evaluate(function(selector) {
+            return page.evaluate(function(selector: any) {
                 var text = (<HTMLElement>document.querySelector(selector)).innerText
                 return text
             })

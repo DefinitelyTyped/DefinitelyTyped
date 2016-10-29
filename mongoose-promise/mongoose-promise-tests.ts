@@ -6,14 +6,14 @@ var mongopromise: mongoose.Promise<number>;
 mongopromise.addBack(function (err, arg) {
   err.stack;
   arg.toFixed();
-}).addBack(function (err, arg1, arg2) {
+}).addBack(function (err: any, arg1: number, arg2: number) {
   err.stack;
   arg1.toFixed();
   arg2.toFixed();
 });
 mongopromise.addCallback(function (arg) {
   arg.toFixed();
-}).addCallback(function (arg1, arg2) {
+}).addCallback(function (arg1: number, arg2: number) {
   arg1.toFixed();
   arg2.toFixed();
 });
@@ -34,7 +34,7 @@ mongopromise.then(function (arg) {
 }, function (err) {
   err.stack;
   return 9;
-}).then(function (arg1, arg2) {
+}).then(function (arg1: number, arg2: number) {
   arg1.toFixed();
   arg2.toFixed();
 });
