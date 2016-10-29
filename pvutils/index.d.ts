@@ -3,7 +3,9 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "pvutils" {
+export = PvUtils
+
+declare namespace PvUtils {
     /**
      * Making UTC date from local date
      * @param {Date} date Date to convert from

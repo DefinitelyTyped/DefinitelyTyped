@@ -3,8 +3,11 @@
 // Definitions by: Stepan Miroshin <https://github.com/microshine>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare module "asn1js" {
-    import { getParametersValue, padNumber, isEqualBuffer, bufferToHexCodes, checkBufferParams, utilToBase, utilFromBase, utilEncodeTC, utilDecodeTC, utilConcatBuf, nearestPowerOf2 } from "pvutils";
+import { getParametersValue, padNumber, isEqualBuffer, bufferToHexCodes, checkBufferParams, utilToBase, utilFromBase, utilEncodeTC, utilDecodeTC, utilConcatBuf, nearestPowerOf2 } from "pvutils";
+
+export = Asn1js;
+
+declare namespace Asn1js {
 
     interface LocalBaseBlockParams {
         blockLength?: number;
@@ -463,15 +466,15 @@ declare module "asn1js" {
         fromString(inputString: string): void;
     }
 
-    interface LocalUniversalLocalUniversalStringValueBlockParams extends LocalHexBlockParams, LocalBaseBlockParams {
+    interface LocalUniversalStringValueParams extends LocalHexBlockParams, LocalBaseBlockParams {
     }
 
-    class LocalUniversalLocalUniversalStringValueBlock extends LocalBaseBlock implements LocalHexBlock {
+    class LocalUniversalStringValueBlock extends LocalBaseBlock implements LocalHexBlock {
         value: string;
         isHexOnly: boolean;
         valueHex: ArrayBuffer;
 
-        constructor(params?: LocalUniversalLocalUniversalStringValueBlockParams);
+        constructor(params?: LocalUniversalStringValueParams);
 
         fromBER(inputBuffer: ArrayBuffer, inputOffset: number, inputLength: number): number;
         toBER(sizeOnly?: boolean): ArrayBuffer;
@@ -481,7 +484,7 @@ declare module "asn1js" {
         value?: string;
     }
 
-    export class UniversalString extends BaseBlock<LocalUniversalLocalUniversalStringValueBlock> {
+    export class UniversalString extends BaseBlock<LocalUniversalStringValueBlock> {
         constructor(params?: UniversalStringParams);
         /**
          * Function converting ArrayBuffer into ASN.1 internal string
