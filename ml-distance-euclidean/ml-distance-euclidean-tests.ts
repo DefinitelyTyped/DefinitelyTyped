@@ -1,5 +1,3 @@
-/// <reference path="ml-distance-euclidean.d.ts" />
-
 import * as euclidean from "ml-distance-euclidean";
 
 euclidean([10, 12, 16, 25], [3, 7, 11, 15]);
