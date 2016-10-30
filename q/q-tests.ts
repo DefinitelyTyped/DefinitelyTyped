@@ -20,6 +20,8 @@ Q.when(delay(1000), function (val: void) {
 // Note from Q documentation: a deferred can be resolved with a value or a promise.
 var otherPromise = Q.defer<string>().promise;
 Q.defer<string>().resolve(otherPromise);
+// An undocumented method. Use `resolve` instead.
+Q.defer<string>().fulfill('foo');
 
 Q.timeout(Q(new Date()), 1000, "My dates never arrived. :(").then(d => d.toJSON());
 
