@@ -32,7 +32,7 @@ declare namespace yargs {
         demand(key: string, required?: boolean): Argv;
         demand(keys: string[], msg: string): Argv;
         demand(keys: string[], required?: boolean): Argv;
-        demand(positionals: number, required?: boolean, msg?: string): Argv;
+        demand(positionals: number, required?: boolean): Argv;
         demand(positionals: number, msg: string): Argv;
 
         require(key: string, msg: string): Argv;
@@ -72,6 +72,7 @@ declare namespace yargs {
 
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
+        completion(): Argv;
         completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, fn?: AsyncCompletionFunction): Argv;

@@ -426,3 +426,74 @@ function Argv$updateStrings() {
 		.wrap(null)
 		.argv
 }
+
+function Argv$default() {
+	var ya = yargs
+		.default('random', function randomValue() {
+			return Math.random() * 256;
+		})
+		.argv
+}
+
+function Argv$configObject() {
+	var ya = yargs
+		.config({foo: 1, bar: 2})
+		.argv
+}
+
+function Argv$configParseFunction() {
+	var ya = yargs
+		.config('settings', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.config('settings', 'description', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.argv
+}
+
+function Argv$helpDescriptionExplicit() {
+	var ya = yargs
+		.help('help', 'description', true)
+		.argv
+}
+
+function Argv$showHelpConsoleLevel() {
+	yargs.showHelp("log"); //prints to stdout using console.log()
+}
+
+function Argv$getCompletion() {
+	var ya = yargs
+		.option('foobar', {})
+		.option('foobaz', {})
+		.completion()
+		.getCompletion(['./test.js', '--foo'], function (completions) {
+			console.log(completions)
+		})
+		.argv
+}
+
+function Argv$pkgConf() {
+	var ya = yargs
+		.pkgConf(['key1', 'key2'], 'configFile.json')
+		.argv
+}
+
+function Argv$recommendCommands() {
+	var ya = yargs
+		.recommendCommands()
+		.argv
+}
+
+function Argv$showCompletionScript() {
+	var ya = yargs
+		.showCompletionScript()
+		.argv
+}
+
+function Argv$skipValidation() {
+	var ya = yargs
+		.skipValidation('arg1')
+		.skipValidation(['arg2', 'arg3'])
+		.argv
+}
