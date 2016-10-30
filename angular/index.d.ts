@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
