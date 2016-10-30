@@ -408,3 +408,21 @@ function Argv$count() {
 		.count(['w', 'h'])
 		.argv
 }
+
+function Argv$number() {
+	var ya = yargs
+		.number('n')
+		.number(['width', 'height'])
+		.argv
+}
+
+function Argv$updateStrings() {
+	var ya = yargs
+		.command('run', 'the run command')
+		.help('help')
+		.updateStrings({
+			'Commands:': 'My Commands -->\n'
+		})
+		.wrap(null)
+		.argv
+}
