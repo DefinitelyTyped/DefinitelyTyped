@@ -257,20 +257,20 @@ declare module feng3d {
          * @param cls				类定义
          * @return
          */
-        getComponentByClass<T extends IComponent>(cls: new (...args) => T): T;
+        getComponentByClass<T extends IComponent>(cls: new () => T): T;
         /**
          * 根据类定义查找组件
          * @param cls		类定义
          * @return			返回与给出类定义一致的组件
          */
-        getComponentsByClass<T extends IComponent>(cls: new (...args) => T): T[];
+        getComponentsByClass<T extends IComponent>(cls: new () => T): T[];
         /**
          * 根据类定义获取或创建组件
          * <p>当不存在该类型对象时创建一个该组件并且添加到容器中</p>
          * @param cls
          * @return
          */
-        getOrCreateComponentByClass<T extends IComponent>(cls: new (...args) => T): T;
+        getOrCreateComponentByClass<T extends IComponent>(cls: new () => T): T;
         /**
         * 判断是否拥有组件
         * @param com	被检测的组件
@@ -387,20 +387,20 @@ declare module feng3d {
          * @param cls				类定义
          * @return                  返回指定类型组件
          */
-        getComponentByClass<T extends IComponent>(cls: new (...args) => T): T;
+        getComponentByClass<T extends IComponent>(cls: new () => T): T;
         /**
          * 根据类定义查找组件
          * @param cls		类定义
          * @return			返回与给出类定义一致的组件
          */
-        getComponentsByClass<T extends IComponent>(cls: new (...args) => T): T[];
+        getComponentsByClass<T extends IComponent>(cls: new () => T): T[];
         /**
          * 根据类定义获取或创建组件
          * <p>当不存在该类型对象时创建一个该组件并且添加到容器中</p>
          * @param cls       类定义
          * @return          返回与给出类定义一致的组件
          */
-        getOrCreateComponentByClass<T extends IComponent>(cls: new (...args) => T): T;
+        getOrCreateComponentByClass<T extends IComponent>(cls: new () => T): T;
         /**
          * 判断是否拥有组件
          * @param com	被检测的组件
