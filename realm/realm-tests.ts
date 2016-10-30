@@ -56,6 +56,6 @@ realm.addListener('change', () => {
 // remove all events
 realm.removeAllListeners();
 
-allPerson.find((person) => {
+allPerson.find((person: any) => {
     return person.name === 'Jack';
 });
