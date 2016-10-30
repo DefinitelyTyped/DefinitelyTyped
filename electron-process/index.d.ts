@@ -3,11 +3,9 @@
 // Definitions by: Will Streeter <https://github.com/WillStreeter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="object-hash"/>
-///<reference types="uuid"/>
-///<reference types="electron"/>
-///<reference types="lodash"/>
-
+/// <reference path="foreground.d.ts" />
+/// <reference path="background.d.ts" />
+/// <reference path="main.d.ts" />
 
 declare  namespace ElectronProcess{
 
