@@ -14,7 +14,7 @@ declare namespace React {
 
     type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
 
-    type Key = string | number | null;
+    type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
     type ComponentState = {} | void;
 
@@ -28,7 +28,7 @@ declare namespace React {
     interface ReactElement<P> {
         type: string | ComponentClass<P> | SFC<P>;
         props: P;
-        key?: Key;
+        key?: Key | null;
     }
 
     interface SFCElement<P> extends ReactElement<P> {
@@ -74,7 +74,7 @@ declare namespace React {
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMFactory<P extends DOMAttributes<T>, T extends Element> {
-        (props?: P & ClassAttributes<T> | null, ...children: Array<ReactNode | undefined | null>): DOMElement<P, T>;
+        (props?: P & ClassAttributes<T> | null, ...children: ReactNode[]): DOMElement<P, T>;
     }
 
     interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
@@ -93,7 +93,7 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean | null;
+    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 
     //
     // Top Level API

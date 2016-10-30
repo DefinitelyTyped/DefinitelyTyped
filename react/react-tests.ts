@@ -41,7 +41,7 @@ var props: Props & React.ClassAttributes<{}> = {
     foo: 42
 };
 
-var container: Element = document.createElement('div');
+var container: Element = document.createElement("div");
 
 //
 // Top-Level API
@@ -146,7 +146,7 @@ namespace StatelessComponent {
 
 var StatelessComponent2: React.SFC<SCProps> =
     // props is contextually typed
-    (props: SCProps) => React.DOM.div(null, props.foo);
+    (props) => React.DOM.div(null, props.foo);
 StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
@@ -254,7 +254,7 @@ var key = element.key;
 // --------------------------------------------------------------------------
 
 var displayName: string | undefined = ClassicComponent.displayName;
-var defaultProps: Props | {} = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {};
+var defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : <Props>{};
 var propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
