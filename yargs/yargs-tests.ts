@@ -227,7 +227,7 @@ function completion_sync() {
 
 function completion_async() {
 	var argv = yargs
-		.completion('completion', (current, argv, done) => {
+		.completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
 			setTimeout(function () {
 				done([
 					'apple',
