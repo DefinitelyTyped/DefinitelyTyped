@@ -224,7 +224,7 @@ function completion_sync() {
 
 function completion_async() {
 	var argv = yargs
-		.completion('completion', (current, argv, done) => {
+		.completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
 			setTimeout(function () {
 				done([
 					'apple',
@@ -406,5 +406,23 @@ function Argv$count() {
 	var ya = yargs
 		.count('size')
 		.count(['w', 'h'])
+		.argv
+}
+
+function Argv$number() {
+	var ya = yargs
+		.number('n')
+		.number(['width', 'height'])
+		.argv
+}
+
+function Argv$updateStrings() {
+	var ya = yargs
+		.command('run', 'the run command')
+		.help('help')
+		.updateStrings({
+			'Commands:': 'My Commands -->\n'
+		})
+		.wrap(null)
 		.argv
 }
