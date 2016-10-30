@@ -356,7 +356,7 @@ declare namespace ReactSelectClass {
         /**
          * factory to create new options
          */
-        newOptionCreator?: (input: string) => Option;
+        newOptionCreator?: (arg: { label: string, labelKey: string, valueKey: string }) => Option;
 
         /**
          * Creates prompt/placeholder for option text.
