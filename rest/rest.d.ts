@@ -28,7 +28,7 @@ declare module "rest" {
 			entity?: any;
 			canceled?: boolean;
 			cancel?: () => void;
-			originator?: () => Client;
+			originator?: (request?: Request) => ResponsePromise;
 		}
 
 		export interface Status {
