@@ -3,9 +3,9 @@
 // Definitions by: Christian Rackerseder <https://www.echooff.de>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "website-scraper" {
-    import * as request from 'request';
+import * as request from 'request';
 
+declare namespace websiteScraper {
     interface Url {
         url: string;
         filename: string;
@@ -46,3 +46,5 @@ declare module "website-scraper" {
     function scrape(options: Options, callback: Callback): void;
     function scrape(options: Options): Promise<Resource[]>;
 }
+
+export = websiteScraper;
