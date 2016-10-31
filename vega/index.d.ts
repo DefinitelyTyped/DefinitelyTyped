@@ -3,7 +3,7 @@
 // Definitions by: Tom Crockett <http://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Vega {
+declare namespace vg {
 
   export type ChartViewConstructor = {
     (args: {renderer: 'svg'} & ViewArgs): SvgView;
@@ -525,15 +525,13 @@ declare namespace Vega {
     offset?: number;
     band?: boolean;
   }
-}
 
-declare namespace vg {
-  export var parse: Vega.Parse;
+  export var parse: Parse;
   export namespace scene {
-    export function item(mark: Vega.Node): Vega.Node;
+    export function item(mark: Node): Node;
   }
 
-  export class Bounds implements Vega.Bounds {
+  export class Bounds implements Bounds {
     x1: number;
     y1: number;
     x2: number;
