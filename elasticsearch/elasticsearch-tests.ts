@@ -10,26 +10,26 @@ client = new elasticsearch.Client({
     'box1.server.org',
     'box2.server.org'
   ],
-  selector: function(hosts: any) { }
+  selector: function (hosts: any) { }
 });
 
 client.ping({
   requestTimeout: 30000
-}, function(error) {
+}, function (error) {
 });
 
 client.search({
   q: 'pants'
-}).then(function(body) {
+}).then(function (body) {
   var hits = body.hits.hits;
-}, function(error) {
+}, function (error) {
 });
 
 client.indices.delete({
   index: 'test_index',
   ignore: [404]
-}).then(function(body) {
-}, function(error) {
+}).then(function (body) {
+}, function (error) {
 });
 
 client.create({
@@ -87,7 +87,7 @@ client.cluster.stats({
 
 client.count({
   index: 'index_name'
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -104,7 +104,7 @@ client.count({
       }
     }
   }
-}, function(err, response) {
+}, function (err, response) {
   // ...
 });
 
@@ -116,7 +116,7 @@ client.explain({
 
   // the query to score it against
   q: 'field:value'
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -129,7 +129,7 @@ client.explain({
       match: { title: 'test' }
     }
   }
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -142,7 +142,7 @@ client.index({
     tags: ['y', 'z'],
     published: true,
   }
-}, function(error, response) {
+}, function (error, response) {
 
 });
 
@@ -154,7 +154,7 @@ client.mget({
       { _index: 'indexC', _type: 'typeC', _id: '1' }
     ]
   }
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -164,14 +164,14 @@ client.mget({
   body: {
     ids: [1, 2, 3]
   }
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
 client.search({
   index: 'myindex',
   q: 'title:test'
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -191,7 +191,7 @@ client.search({
       }
     }
   }
-}, function(error, response) {
+}, function (error, response) {
   // ...
 });
 
@@ -205,7 +205,7 @@ client.suggest({
       }
     }
   }
-}, function(error, response) {
+}, function (error, response) {
 });
 
 client.indices.updateAliases({
@@ -215,8 +215,8 @@ client.indices.updateAliases({
       { add: { index: 'logstash-2014.05', alias: 'logstash-current' } }
     ]
   }
-}).then(function(response) {
+}).then(function (response) {
   // ...
-}, function(error) {
+}, function (error) {
   // ...
 });
