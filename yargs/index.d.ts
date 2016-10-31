@@ -78,10 +78,10 @@ declare namespace yargs {
 
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
-        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
-        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
 
         example(command: string, description: string): Argv;
 

@@ -650,12 +650,12 @@ angular.module('AnotherSampleDirective', []).directive('myDirective', ['$interpo
                 resolve();
             });
 
-            promise = new $q((resolve: angular.IQResolveReject<{}>, reject: angular.IQResolveReject<any>) => {
+            promise = new $q((resolve, reject) => {
                 reject();
                 resolve(true);
             });
 
-            promise = new $q<boolean>((resolver: angular.IQResolveReject<boolean>, reject: angular.IQResolveReject<any>) => {
+            promise = new $q<boolean>((resolver, reject) => {
                 resolver(true);
                 reject(false);
             });
