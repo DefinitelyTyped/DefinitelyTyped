@@ -6,4 +6,4 @@
 /// <reference path="foreground.d.ts" />
 /// <reference path="background.d.ts" />
 /// <reference path="main.d.ts" />
-/// <reference path="index.d.ts" />
+/// <reference path="electron-process.d.ts" />
