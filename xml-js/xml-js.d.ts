@@ -1,4 +1,4 @@
-// Type definitions for xml-js
+// Type definitions for xml-js 0.9.5
 // Project: https://github.com/nashwaan/xml-js
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -80,8 +80,10 @@ declare module "xml-js" {
         elementsKey?: string
     }
 
+    type True = true;
+
     interface JS2XMLOptionsCompact extends JS2XMLOptions {
-        compact: true
+        compact: True;
     }
 
     export function js2xml(json: ElementCompact, options?: JS2XMLOptionsCompact): string;
