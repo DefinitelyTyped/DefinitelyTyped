@@ -3,33 +3,31 @@
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="react" />
+
 export as namespace ReactDOM;
 export = ReactDOM;
 
-import { ReactInstance, Component, ComponentState,
-        ReactElement, SFCElement, CElement,
-         DOMAttributes, DOMElement } from 'react';
-
 declare namespace ReactDOM {
-    function findDOMNode<E extends Element>(instance: ReactInstance): E;
-    function findDOMNode(instance: ReactInstance): Element;
+    function findDOMNode<E extends Element>(instance: React.ReactInstance): E;
+    function findDOMNode(instance: React.ReactInstance): Element;
 
-    function render<P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
+    function render<P extends React.DOMAttributes<T>, T extends Element>(
+        element: React.DOMElement<P, T>,
         container: Element | null,
         callback?: (element: T) => any): T;
     function render<P>(
-        element: SFCElement<P>,
+        element: React.SFCElement<P>,
         container: Element | null,
         callback?: () => any): void;
-    function render<P, T extends Component<P, ComponentState>>(
-        element: CElement<P, T>,
+    function render<P, T extends React.Component<P, React.ComponentState>>(
+        element: React.CElement<P, T>,
         container: Element | null,
         callback?: (component: T) => any): T;
     function render<P>(
-        element: ReactElement<P>,
+        element: React.ReactElement<P>,
         container: Element | null,
-        callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+        callback?: (component?: React.Component<P, React.ComponentState> | Element) => any): React.Component<P, ComponentState> | Element | void;
 
     function unmountComponentAtNode(container: Element): boolean;
 
@@ -39,24 +37,24 @@ declare namespace ReactDOM {
     function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
     function unstable_batchedUpdates(callback: () => any): void;
 
-    function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
-        parentComponent: Component<any, any>,
-        element: DOMElement<P, T>,
+    function unstable_renderSubtreeIntoContainer<P extends React.DOMAttributes<T>, T extends Element>(
+        parentComponent: React.Component<any, any>,
+        element: React.DOMElement<P, T>,
         container: Element,
         callback?: (element: T) => any): T;
-    function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
-        parentComponent: Component<any, any>,
-        element: CElement<P, T>,
+    function unstable_renderSubtreeIntoContainer<P, T extends React.Component<P, React.ComponentState>>(
+        parentComponent: React.Component<any, any>,
+        element: React.CElement<P, T>,
         container: Element,
         callback?: (component: T) => any): T;
     function render<P>(
-        parentComponent: Component<any, any>,
-        element: SFCElement<P>,
+        parentComponent: React.Component<any, any>,
+        element: React.SFCElement<P>,
         container: Element,
         callback?: () => any): void;
     function unstable_renderSubtreeIntoContainer<P>(
-        parentComponent: Component<any, any>,
-        element: ReactElement<P>,
+        parentComponent: React.Component<any, any>,
+        element: React.ReactElement<P>,
         container: Element,
-        callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
+        callback?: (component?: React.Component<P, React.ComponentState> | Element) => any): React.Component<P, React.ComponentState> | Element | void;
 }
