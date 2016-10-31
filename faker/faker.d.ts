@@ -1,11 +1,11 @@
-// Type definitions for faker
+// Type definitions for faker v3.1
 // Project: http://marak.com/faker.js/
 // Definitions by: Bas Pennings <https://github.com/basp/>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var fakerStatic: Faker.FakerStatic;
 
-declare module Faker {
+declare namespace Faker {
 	interface FakerStatic {
 		locale: string;
 
@@ -135,7 +135,8 @@ declare module Faker {
 		};
 
 		lorem: {
-			words(num?: number): string[];
+			word(): string;
+			words(num?: number): string;
 			sentence(wordCount?: number, range?: number): string;
 			sentences(sentenceCount?: number): string;
 			paragraph(sentenceCount?: number): string;
@@ -171,6 +172,21 @@ declare module Faker {
 			uuid(): string;
 			boolean(): boolean;
 		};
+
+		system: {
+			fileName(ext: string, type: string): string;
+			commonFileName(ext: string, type: string): string;
+			mimeType(): string;
+			commonFileType(): string;
+			commonFileExt(): string;
+			fileType(): string;
+			fileExt(mimeType: string): string;
+			//directoryPath(): string;
+			//filePath(): string;
+			semver(): string;
+		};
+
+		seed(value: number): void;
 	}
 
 	interface Card {

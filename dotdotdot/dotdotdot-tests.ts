@@ -4,6 +4,7 @@
 $("span").dotdotdot({ ellipsis: ":::" });
 $("span").dotdotdot({ wrap: "letter" });
 $("span").dotdotdot({ fallbackToLetter: false });
+$("span").dotdotdot({ after: "a.after" });
 $("span").dotdotdot({ after: $("#after") });
 $("span").dotdotdot({ watch: true });
 $("span").dotdotdot({ height: 42 });

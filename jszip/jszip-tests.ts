@@ -8,112 +8,121 @@ var SEVERITY = {
 	FATAL: 4
 }
 
-function testJSZip() {
-	var newJszip = new JSZip();
+function createTestZip(): JSZip {
+	var zip = new JSZip();
+	zip.file("test.txt", "test string");
+	zip.file("test/test.txt", "test string");
+	return zip
+}
 
-	newJszip.file("test.txt", "test string");
-	newJszip.file("test/test.txt", "test string");
-
-	var serializedZip = newJszip.generate({compression: "DEFLATE", type: "base64"});
-
-	newJszip = new JSZip();
-	newJszip.load(serializedZip, {base64: true, checkCRC32: true});
-
-    if (newJszip.file("test.txt").asText() === "test string") {
-		log(SEVERITY.INFO, "all ok");
-	} else {
-		log(SEVERITY.ERROR, "no matching file found");
-	}
-    if (newJszip.file("test/test.txt").asText() === "test string") {
-		log(SEVERITY.INFO, "all ok");
-	} else {
-		log(SEVERITY.ERROR, "no matching file found");
-	}
-
-	var folder = newJszip.folder("test");
-	if(folder.file("test.txt").asText() == "test string") {
-		log(SEVERITY.INFO, "all ok");
-	}
-	else {
-		log(SEVERITY.ERROR, "wrong file");
-	}
-
-	var folders = newJszip.folder(new RegExp("^test"));
-
-	if(folders.length == 1) {
-		log(SEVERITY.INFO, "all ok");
-		if(folders[0].dir == true) {
-			log(SEVERITY.INFO, "all ok");
-		}
-		else {
-			log(SEVERITY.ERROR, "wrong file");
-		}
-	} else {
-		log(SEVERITY.ERROR, "wrong number of folder");
-	}
-
-	var files = newJszip.file(new RegExp("^test"));
-	if(files.length == 2) {
-		log(SEVERITY.INFO, "all ok");
-        if (files[0].asText() == "test string" && files[1].asText() == "test string") {
-			log(SEVERITY.INFO, "all ok");
-		}
-		else {
-			log(SEVERITY.ERROR, "wrong data in files");
-		}
-	}
-	else {
-		log(SEVERITY.ERROR, "wrong number of files");
-	}
-
-	var filterFiles = newJszip.filter((relativePath: string, file: JSZipObject) => {
-        if (file.asText() == "test string") {
-			return true;
-		}
-		return false;
+function filterWithFileAsync(zip: JSZip, as: Serialization,
+                             cb: (relativePath: string, file: JSZipObject, value: any) => boolean)
+  : Promise<JSZipObject[]> {
+	var promises: Promise<any>[] = [];
+	var promiseIndices: {[key: string]: number} = {};
+	zip.forEach((relativePath: string, file: JSZipObject) => {
+		var promise = file.async(as);
+		promiseIndices[file.name] = promises.length;
+		promises.push(promise);
 	});
+	return Promise.all(promises).then(function(values: any[]) {
+		var filtered = zip.filter((relativePath: string, file: JSZipObject) => {
+			var index = promiseIndices[file.name];
+			return cb(relativePath, file, values[index]);
+		});
+		return Promise.resolve(filtered);
+	});
+}
 
-	if(filterFiles.length == 2) {
-		log(SEVERITY.INFO, "all ok");
-	}
-	else {
-		log(SEVERITY.ERROR, "wrong number of files");
-	}
+function testJSZip() {
+	var zip = createTestZip();
+	zip.generateAsync({compression: "DEFLATE", type: "base64"}).then(function(serializedZip: any) {
+		var newJszip = new JSZip();
+		return newJszip.loadAsync(serializedZip, {base64: true/*, checkCRC32: true*/});
+	}).then(function(newJszip: JSZip) {
+		newJszip.file("test.txt").async('text').then(function(text: string) {
+			if (text === "test string") {
+				log(SEVERITY.INFO, "all ok");
+			} else {
+				log(SEVERITY.ERROR, "no matching file found");
+			}
+		}).catch((e: any) => log(SEVERITY.ERROR, e));
 
+		newJszip.file("test/test.txt").async('text').then(function(text: string) {
+			if (text === "test string") {
+				log(SEVERITY.INFO, "all ok");
+			} else {
+				log(SEVERITY.ERROR, "no matching file found");
+			}
+		}).catch((e: any) => log(SEVERITY.ERROR, e));
+
+		var folder = newJszip.folder("test");
+		folder.file("test.txt").async('text').then(function(text: string) {
+			if (text == "test string") {
+				log(SEVERITY.INFO, "all ok");
+			} else {
+				log(SEVERITY.ERROR, "wrong file");
+			}
+		}).catch((e: any) => log(SEVERITY.ERROR, e));
+
+		var folders = newJszip.folder(new RegExp("^test"));
+
+		if (folders.length == 1) {
+			log(SEVERITY.INFO, "all ok");
+			if (folders[0].dir == true) {
+				log(SEVERITY.INFO, "all ok");
+			} else {
+				log(SEVERITY.ERROR, "wrong file");
+			}
+		} else {
+			log(SEVERITY.ERROR, "wrong number of folder");
+		}
+
+		var files = newJszip.file(new RegExp("^test"));
+		if (files.length == 2) {
+			log(SEVERITY.INFO, "all ok");
+			Promise.all([files[0].async('text'), files[1].async('text')]).then(function(texts: string[]) {
+				if (texts[0] == "test string" && texts[1] == 'test string') {
+					log(SEVERITY.INFO, "all ok");
+				} else {
+					log(SEVERITY.ERROR, "wrong data in files");
+				}
+			});
+		} else {
+			log(SEVERITY.ERROR, "wrong number of files");
+		}
+
+		filterWithFileAsync(newJszip, 'text', (relativePath: string, file: JSZipObject, text: string) => {
+			if (text == "test string") {
+				return true;
+			}
+			return false;
+		}).then(function(filterFiles: JSZipObject[]) {
+			if (filterFiles.length == 2) {
+				log(SEVERITY.INFO, "all ok");
+			} else {
+				log(SEVERITY.ERROR, "wrong number of files");
+			}
+		}).catch((e: any) => log(SEVERITY.ERROR, e));
+	}).catch((e: any)=> { console.error(e) });
+}
+
+function testJSZipRemove() {
+	var newJszip = createTestZip();
 	newJszip.remove("test/test.txt");
 
-	filterFiles = newJszip.filter((relativePath: string, file: JSZipObject) => {
-        if (file.asText() == "test string") {
+	filterWithFileAsync(newJszip, 'text', (relativePath: string, file: JSZipObject, text: string) => {
+		if (text == "test string") {
 			return true;
 		}
 		return false;
-	});
-
-	if(filterFiles.length == 1) {
-		log(SEVERITY.INFO, "all ok");
-	}
-	else {
-		log(SEVERITY.ERROR, "wrong number of files");
-	}
-
-	var uncompressedStr = JSZip.compressions.DEFLATE.uncompress(
-		JSZip.compressions.DEFLATE.compress("\0\1\2\3\4\5\6\7",{level:9}));
-	var uncompressedArr = JSZip.compressions.DEFLATE.uncompress(
-		JSZip.compressions.DEFLATE.compress([0,1,2,3,4,5,6,7],{level:9}));
-	var uncompressedUint8Arr = JSZip.compressions.DEFLATE.uncompress(
-		JSZip.compressions.DEFLATE.compress(new Uint8Array([0,1,2,3,4,5,6,7]),{level:9}));
-
-	var every_match = [0,1,2,3,4,5,6,7].every(function(val, i){
-		return uncompressedStr[i] === val &&
-					 uncompressedArr[i] === val &&
-					 uncompressedUint8Arr[i] === val;
-	});
-	if(every_match) {
-		log(SEVERITY.INFO, "compress and uncompress ok.");
-	}else{
-		log(SEVERITY.ERROR, "compress or uncompress failed.");
-	}
-
+	}).then(function(filterFiles: JSZipObject[]) {
+		if (filterFiles.length == 1) {
+			log(SEVERITY.INFO, "all ok");
+		} else {
+			log(SEVERITY.ERROR, "wrong number of files");
+		}
+	}).catch((e: any) => log(SEVERITY.ERROR, e));
 }
 
 function log(severity:number, message: any) {
@@ -142,3 +151,4 @@ function log(severity:number, message: any) {
 }
 
 testJSZip();
+testJSZipRemove();

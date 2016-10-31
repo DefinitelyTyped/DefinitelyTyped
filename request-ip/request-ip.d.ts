@@ -1,7 +1,7 @@
 // Type definitions for request-ip
 // Project: https://github.com/pbojinov/request-ip
 // Definitions by: Adam Babcock <https://github.com/mrhen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "request-ip" {
     interface Request {
@@ -28,5 +28,11 @@ declare module "request-ip" {
         };
     }
 
+    interface Options {
+        attributeName: string;
+    }
+
     export function getClientIp(req:Request):string;
+
+    export function mw(options?: Options): (req: Request, res: any, next: any) => any;
 }

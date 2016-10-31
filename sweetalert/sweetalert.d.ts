@@ -1,7 +1,7 @@
-// Type definitions for SweetAlert 1.1.0
+// Type definitions for SweetAlert 1.1.3
 // Project: https://github.com/t4t5/sweetalert/
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var sweetAlert: SweetAlert.SweetAlertStatic;
 declare var swal: SweetAlert.SweetAlertStatic;
@@ -10,19 +10,17 @@ declare module "sweetalert" {
     export = swal;
 }
 
-declare module SweetAlert {
+declare namespace SweetAlert {
+    type AlertType = "warning" | "error" | "success" | "info";
+
+    type PromtType = "input" | "prompt";
+
     interface SettingsBase {
         /**
          * A description for the modal.
          * Default: null
          */
         text?: string;
-
-        /**
-         * The type of the modal. SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "warning", "error", "success" and "info". You can also set it as "input" to get a prompt modal.
-         * Default: null
-         */
-        type?: string;
 
         /**
          * If set to true, the user can dismiss the modal by pressing the Escape key.
@@ -112,7 +110,29 @@ declare module SweetAlert {
          * If set to false, the modal's animation will be disabled. Possible animations: "slide-from-top", "slide-from-bottom", "pop" (use true instead) and "none" (use false instead).
          * Default: true
          */
-        animation?: boolean | string;
+        animation?: boolean | "slide-from-top" | "slide-from-bottom" | "pop" | "none" | string;
+
+        /**
+         * Set to true to disable the buttons and show that something is loading.
+         * Default: false
+         */
+        showLoaderOnConfirm?: boolean;
+    }
+
+    interface AlertModalSettings extends SettingsBase {
+        /**
+         * The type of the modal. SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "warning", "error", "success" and "info". You can also set it as "input" to get a prompt modal.
+         * Default: null
+         */
+        type?: AlertType;
+    }
+
+    interface PromtModalSettings extends SettingsBase {
+        /**
+         * The type of the modal. SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "warning", "error", "success" and "info". You can also set it as "input" to get a prompt modal.
+         * Default: null
+         */
+        type?: PromtType;
 
         /**
          * Change the type of the input field when using type: "input" (this can be useful if you want users to type in their password for example).
@@ -131,33 +151,22 @@ declare module SweetAlert {
          * Default: null
          */
         inputValue?: string;
-
-        /**
-         * Set to true to disable the buttons and show that something is loading.
-         * Default: false
-         */
-        showLoaderOnConfirm?: boolean;
     }
 
-    interface Settings extends SettingsBase {
+    interface Settings {
         /**
          * The title of the modal.
          */
         title: string;
     }
 
-    interface SetDefaultsSettings extends SettingsBase {
+    interface SetDefaultsSettings {
         /**
          * The title of the modal.
          * Default: null
          */
         title?: string;
     }
-
-    /**
-     * Is true or false if the user confirms or cancels the alert. Except for the type "input", then when the user confirms the alert, this variable contains the value of the input element.
-     */
-    type CallbackArgument = boolean | string;
 
     interface SweetAlertStatic {
         /**
@@ -179,18 +188,24 @@ declare module SweetAlert {
          * @param text A description for the modal.
          * @param type The type of the modal. SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "warning", "error", "success" and "info". You can also set it as "input" to get a prompt modal.
          */
-        (title: string, text: string, type: string): void;
+        (title: string, text: string, type: AlertType | PromtType): void;
 
         /**
          * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
-         * @param callback The callback from the users action. The value is true or false if the user confirms or cancels the alert. Except for the type "input", then when the user confirms the alert, the argument contains the value of the input element.
+         * @param callback The callback from the users action. The value is true or false if the user confirms or cancels the alert.
          */
-        (settings: Settings, callback?: (isConfirmOrInputValue: CallbackArgument) => any): void;
+        (settings: Settings & AlertModalSettings, callback?: (isConfirm: boolean) => any): void;
+
+        /**
+         * SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop computer, mobile or tablet. An awesome replacement for JavaScript's alert.
+         * @param callback The callback from the users action. When the user confirms the prompt, the argument contains the value of the input element. When the user cancels the prompt, the argument is false.
+         */
+        (settings: Settings & PromtModalSettings, callback?: (isConfirmOrInputValue: boolean | string) => any): void;
 
         /**
          * If you end up using a lot of the same settings when calling SweetAlert, you can use setDefaults at the start of your program to set them once and for all!
          */
-        setDefaults(settings: SetDefaultsSettings): void;
+        setDefaults(settings: SetDefaultsSettings & AlertModalSettings & PromtModalSettings): void;
 
         /**
          * Close the currently open SweetAlert programmatically.

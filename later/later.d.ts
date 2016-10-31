@@ -1,23 +1,23 @@
 ﻿// Type definitions for LaterJS
 // Project: http://bunkat.github.io/later/
 // Definitions by: Jason D Dryhurst-Smith <http://jasonds.co.uk/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Later {
+declare namespace Later {
 
     export interface IScheduleData {
 
-        /** 
+        /**
          * A list of recurrence information as a composite schedule.
          */
         schedules: IRecurrence[];
 
-        /** 
+        /**
          * A list of exceptions to the composite recurrence information.
          */
         exceptions: IRecurrence[];
 
-        /** 
+        /**
          * A code to identify any errors in the composite schedule and exceptions.
          * The number tells you the position of the error within the schedule.
          */
@@ -136,30 +136,30 @@ declare module Later {
         /** Before modifiers.
          */
         Y_b?: number[];
-        
+
         /*
          * Custom Time Periods and Modifiers
          * For acces to custom time periods created as extension to the later static type
          * and modifiers created on the later modifier static type.
          */
-        [ timeperiodAndModifierName: string ]: number[]; 
+        [ timeperiodAndModifierName: string ]: number[];
     }
-    
+
     export interface IParseStatic {
 
-        /** 
+        /**
          * Create a recurrence builder for building schedule data.
          */
         recur(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Create schedule data by parsing a cron string
          *
          * @param {string} [input] - A string value to parse.
          */
         cron(input?: string): IScheduleData;
 
-        /** 
+        /**
          * Create schedule data by paring a human readable string.
          *
          * @param {string} [input] - A string value to parse.
@@ -169,7 +169,7 @@ declare module Later {
 
     export interface ITimer {
 
-        /** 
+        /**
          * Clear the timer and end execution.
          */
         clear(): void;
@@ -264,137 +264,137 @@ declare module Later {
         /** a time period
          */
         year(): IRecurrenceBuilder;
-        
+
         /** a time period
          */
         fullDate(): IRecurrenceBuilder;
 
-        /** 
-         * Specifies one or more specific vals of a time period information provider. 
+        /**
+         * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
-         * 
+         *
          * @param {number[]} values - A list of values.
          */
         on(...values: number[]): IRecurrenceBuilder;
-        /** 
-         * Specifies one or more specific vals of a time period information provider. 
+        /**
+         * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
-         * 
+         *
          * @param {string} value - A string representing your value.
          */
         on(value: string): IRecurrenceBuilder;
-        /** 
-         * Specifies one or more specific vals of a time period information provider. 
+        /**
+         * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
-         * 
+         *
          * @param {Date} date - A Date representing your value.
          */
         on(date: Date): IRecurrenceBuilder;
 
-        /** 
-         * Preceed a time period. 
+        /**
+         * Preceed a time period.
          *
          * @param {number} [value] - A number representing your value.
-         */ 
+         */
         every(value?: number): IRecurrenceBuilder;
-        /** 
-         * Preceed a time period. 
+        /**
+         * Preceed a time period.
          *
          * @param {string} [value] - A string representing your value.
-         */ 
+         */
         every(value?: string): IRecurrenceBuilder;
 
-        /** 
-         * Preceed a time period. 
+        /**
+         * Preceed a time period.
          *
          * @param {number} start - A number representing your start value.
          * @param {number} end - A number representing your end value.
          */
         between(start: number, end: number): IRecurrenceBuilder;
-        /** 
-         * Preceed a time period. 
+        /**
+         * Preceed a time period.
          *
          * @param {string} start - A string representing your start value.
          * @param {string} end - A string representing your end value.
          */
         between(start: string, end: string): IRecurrenceBuilder;
 
-        /** 
-         * After a time period. 
+        /**
+         * After a time period.
          *
          * @param {number} value - A number representing your value.
-         */ 
+         */
         after(value: number): IRecurrenceBuilder;
-        /** 
-         * After a time period. 
+        /**
+         * After a time period.
          *
          * @param {string} value - A string representing your value.
-         */ 
+         */
         after(value: string): IRecurrenceBuilder;
-        
-        /** 
-         * After a time period. 
+
+        /**
+         * After a time period.
          *
          * @param {number} value - A number representing your value.
-         */ 
+         */
         before(value: number): IRecurrenceBuilder;
-        /** 
-         * After a time period. 
+        /**
+         * After a time period.
          *
          * @param {string} value - A string representing your value.
-         */ 
+         */
         before(value: string): IRecurrenceBuilder;
-        
-        /** 
-         * After a time period. 
+
+        /**
+         * After a time period.
          *
          * @param {number} value - A number representing your value.
-         */ 
+         */
         startingOn(value: number): IRecurrenceBuilder;
-        /** 
-         * After a time period. 
+        /**
+         * After a time period.
          *
          * @param {string} value - A string representing your value.
-         */  
+         */
         startingOn(value: string): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Equivalent to .on(min)
          */
         first(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Equivalent to .on(max)
          */
         last(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Equivalent to .on(1,7).dayOfWeek()
          */
         onWeekend(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Equivalent to .on(2,3,4,5,6).dayOfWeek()
          */
         onWeekday(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Add a new schedule value to schedules, composite schedule.
          */
         and(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Add exceptions.
          */
         except(): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Custom Timeperiod Recurrences.
          * Using a key as defined by the custom period in any extension to Later.IStatic.
          */
         customPeriod(key: string): IRecurrenceBuilder;
 
-        /** 
+        /**
          * Customise Recurrences.
          * Using a key as defined by the custom modifier in any extension to Later.IModifierStatic.
          */
@@ -403,12 +403,12 @@ declare module Later {
 
     export interface IDateProvider {
 
-        /** 
-         * Set later to use UTC time. 
+        /**
+         * Set later to use UTC time.
          */
         UTC(): void;
 
-        /** 
+        /**
          * Set later to use local time.
          */
         localTime(): void;
@@ -463,27 +463,27 @@ declare module Later {
          */
         prevRollover(d: Date, val: number, constraint: IModifier, period: ITimePeriod): Date;
     }
-    
+
     export interface ITimePeriod {
 
-        /** 
+        /**
          * The name of the time period information provider.
          */
         name: string;
 
-        /** 
+        /**
          * The rough number of seconds that are covered when moving from one instance of this time period to the next instance.
          */
         range: number;
 
-        /** 
+        /**
          * The value of this time period for the date specified.
          *
          * @param {Date} date - The given date.
          */
         val(date: Date): number;
 
-        /** 
+        /**
          * True if the specified value is valid for the specified date, false otherwise.
          *
          * @param {Date} date - The given date.
@@ -491,7 +491,7 @@ declare module Later {
          */
         isValid(date: Date, value: any): boolean;
 
-        /** 
+        /**
          * The minimum and maximum valid values for the time period for the specified date.
          * If the minimum value is not 0, 0 can be specified in schedules to indicate the maximum value.
          * This makes working with non - constant extents(like days in a month) easier.
@@ -500,7 +500,7 @@ declare module Later {
          */
         extent(date?: Date): number[];
 
-        /** 
+        /**
          * The first second in which the value is the same as the value of the specified date.
          *  For example, the start of an hour would be the hour with 0 minutes and 0 seconds.
          *
@@ -508,7 +508,7 @@ declare module Later {
          */
         start(date: Date): Date;
 
-        /** 
+        /**
          * The last second in which the value is the same as the value of the specified date.
          * For example, the end of an hour would be the hour with 59 minutes and 59 seconds.
          *
@@ -516,7 +516,7 @@ declare module Later {
          */
         end(date: Date): Date;
 
-        /** 
+        /**
          * Returns the next date where the value is the value specified.
          * Sets the value to 1 if value specified is greater than the max allowed value.
          *
@@ -525,9 +525,9 @@ declare module Later {
          */
         next(date: Date, value: any): Date;
 
-        /** 
+        /**
          * Returns the previous date where the value is the value specified.
-         * Sets the value to the max allowed value if the value specified is greater than the max allowed value. 
+         * Sets the value to the max allowed value if the value specified is greater than the max allowed value.
          *
          * @param {Date} date - The given date.
          * @param {any} value - The value to test for the date.
@@ -546,7 +546,7 @@ declare module Later {
     }
 
     export interface IModifierStatic {
-        
+
         /**
          * After Modifier
          */
@@ -559,15 +559,15 @@ declare module Later {
     }
 
     export interface IStatic {
-        
-        /** 
+
+        /**
          * Schedule
          * Generates instances from schedule data.
          */
         schedule(input: any): ISchedule;
 
-        /** 
-         * Parse 
+        /**
+         * Parse
          * For generating schedule data.
          */
         parse: IParseStatic;
@@ -576,50 +576,50 @@ declare module Later {
          */
         date: IDateProvider;
 
-        /** 
+        /**
          * Set timeout on window using given recurrence next.
-         *  
+         *
          * @param {function} callback - A callback called after first instance of recurrence pattern.
          * @param {Later.IReccurence} - A recurrence instance.
          */
         setTimeout(callback: () => void, time: IScheduleData): ITimer;
-        /** 
+        /**
          * Set interval on window using given recurrence
-         *  
+         *
          * @param {function} callback - A callback called after each instance of recurrence pattern.
          * @param {Later.IReccurence} - A recurrence instance.
          */
         setInterval(callback: () => void, time: IScheduleData): ITimer;
 
-        /** 
+        /**
          * time period information provider.
          */
         time: ITimePeriod;
-        /** 
+        /**
          * Second time period information provider.
          */
         second: ITimePeriod;
-        /** 
+        /**
          * Minute time period information provider.
          */
         minute: ITimePeriod;
-        /** 
+        /**
          * Hour time period information provider.
          */
         hour: ITimePeriod;
-        /** 
+        /**
          * Day time period information provider.
          */
         day: ITimePeriod;
-        /** 
+        /**
          * Day of week time period information provider.
          */
         dayOfWeek: ITimePeriod;
-        /** 
+        /**
          * Day of week in month time period information provider.
          */
         dayOfWeekCount: ITimePeriod;
-        /** 
+        /**
          * Day in year time period information provider.
          */
         dayOfYear: ITimePeriod;
@@ -639,35 +639,35 @@ declare module Later {
          * Year time period information provider.
          */
         year: ITimePeriod;
-        
+
         /**
          * Later Modifiers:
-         * 
+         *
          * This type can be easily extended to include any custom IModifiers that you desire.
          * These can then be used to create schedules of your own custom type.
-         * 
+         *
          * interface IGandalfsLaterModifier extends Later.IModifierStatic {
          *     duringTheThirdAge: IModifier
          * }
-         * 
+         *
          * Be sure to use this interface when dealing with Later.modifier
          */
         modifier: IModifierStatic
     }
 }
 
-/** 
+/**
  * Later Module:
- * 
+ *
  * Easily define complex schedules then quickly calculate future or previous schedule occurrences.
- * 
+ *
  * This type can be easily extended to include any custom ITimePeriods that you desire.
  * These can then be used to create schedules of your own custom type.
- * 
+ *
  * interface IGandalfsLater extends Later.IStatic {
  *     agesOfMiddleEarth: ITimePeriod
  * }
- * 
- * Be sure to use this interface when dealing with Later. 
+ *
+ * Be sure to use this interface when dealing with Later.
  */
 declare var later: Later.IStatic;

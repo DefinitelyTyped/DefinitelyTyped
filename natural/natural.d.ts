@@ -1,31 +1,34 @@
 // Type definitions for Natural 0.2.1
 // Project: https://github.com/NaturalNode/natural
 // Definitions by: Dylan R. E. Moonfire <https://github.com/dmoonfire/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
 declare module "natural" {
   import events = require("events");
 
-  class WordTokenizer {
+  interface Tokenizer {
     tokenize(text: string): string[];
   }
-  class AggressiveTokenizer {
+  class WordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
-  class TreebankWordTokenizer {
+  class AggressiveTokenizer implements Tokenizer {
+    tokenize(text: string): string[];
+  }
+  class TreebankWordTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
   interface RegexTokenizerOptions {
     pattern: RegExp;
     discardEmpty?: boolean;
   }
-  class RegexpTokenizer {
+  class RegexpTokenizer implements Tokenizer {
     constructor(options: RegexTokenizerOptions);
     tokenize(text: string): string[];
   }
-  class WordPunctTokenizer {
+  class WordPunctTokenizer implements Tokenizer {
     tokenize(text: string): string[];
   }
 
@@ -60,6 +63,9 @@ declare module "natural" {
   var PorterStemmerPt: {
     stem(token: string): string;
   }
+  var LancasterStemmer: {
+    stem(token: string): string;
+  }
 
   interface BayesClassifierCallback { (err: any, classifier: any): void }
   class BayesClassifier {
@@ -74,6 +80,24 @@ declare module "natural" {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
   }
 
+  interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
+  class LogisticRegressionClassifier {
+    events: events.EventEmitter;
+    addDocument(text: string, stem: string): void;
+    addDocument(text: string[], stem: string): void;
+    train(): void;
+    classify(observation: string): string;
+    getClassifications(observation: string): string[];
+    save(filename: string, callback: LogisticRegressionClassifierCallback): void;
+    static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
+    static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
+  }
+
+
+  interface Phonetic {
+    compare(stringA: string, stringB: string): boolean;
+    process(token: string, maxLength?: number): string;
+  }
   var Metaphone: {
     compare(stringA: string, stringB: string): boolean;
     process(token: string, maxLength?: number): string;

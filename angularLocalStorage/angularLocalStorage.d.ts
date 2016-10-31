@@ -1,11 +1,11 @@
 // Type definitions for AngularLocalStorage 0.1.7
 // Project: https://github.com/agrublev/angularLocalStorage
 // Definitions by: Horiuchi_H <https://github.com/horiuchi/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts"/>
 
-declare module angular.localStorage {
+declare namespace angular.localStorage {
   interface ILocalStorageService {
     set(key: string, value: any): any;
     get(key: string): any;

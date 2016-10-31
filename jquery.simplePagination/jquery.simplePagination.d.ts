@@ -1,7 +1,7 @@
 // Type definitions for jQuery simplePagination.js v1.4
 // Project: https://github.com/flaviusmatis/simplePagination.js
 // Definitions by: Natan Vivo <https://github.com/nvivo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

@@ -1,9 +1,9 @@
 // Type definitions for phonegap-facebook-plugin 0.11.0
 // Project: https://github.com/Wizcorp/phonegap-facebook-plugin
 // Definitions by: Justin Unterreiner <https://github.com/Justin-Credible>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module PhonegapFacebookPlugin {
+declare namespace PhonegapFacebookPlugin {
 
     //#region API Methods
 
@@ -13,7 +13,7 @@ declare module PhonegapFacebookPlugin {
          * Allows access to the Facebook Graph API. This API allows for additional permission because, unlike login, the Graph API can
          * accept multiple permissions. In order to make calls to the Graph API on behalf of a user, the user has to be logged into your
          * app using Facebook login.
-         * 
+         *
          * @param graphPath The graph API path to use for the query.
          * @param permissions The permissions to request.
          * @param successCallback The callback to be executed when the call completes successfully.
@@ -23,7 +23,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to retreive the access token for the current user.
-         * 
+         *
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
@@ -31,7 +31,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to get the login status for the current user.
-         * 
+         *
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
@@ -39,7 +39,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to log an event.
-         * 
+         *
          * @param name Name of the event.
          * @param params Extra data to log with the event (optional).
          * @param valueToSum a property which is an arbitrary number that can represent any value (e.g., a price or a quantity).
@@ -52,7 +52,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to log a purchase.
-         * 
+         *
          * @param value The value of the purchase.
          * @param currency An ISO-4217 currency code.
          * @param successCallback The callback to be executed when the call completes successfully.
@@ -63,7 +63,7 @@ declare module PhonegapFacebookPlugin {
         /**
          * Used to log the user in via Facebook. Calling this will result in a Facebook login dialog (or external
          * webpage) launching. Once the user completes the flow, one of the two callbacks will be executed.
-         * 
+         *
          * @param permissions The permissions to request during login.
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
@@ -72,7 +72,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to log the user out of Facebook. This will invalidate their access token.
-         * 
+         *
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
          */
@@ -80,7 +80,7 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * Used to open a Facebook dialog.
-         * 
+         *
          * @param options The options that control the dialog and it's behavior.
          * @param successCallback The callback to be executed when the call completes successfully.
          * @param failureCallback The callback to be executed when the call fails.
@@ -96,9 +96,9 @@ declare module PhonegapFacebookPlugin {
 
         /**
          * The type of dialog to show, can be one of the following.
-         * 
+         *
          * Depeneding on the type, a different options object will be used:
-         * 
+         *
          * Method               Options Type
          * feed                 FeedDialogOptions
          * send                 SendDialogOptions
@@ -111,7 +111,7 @@ declare module PhonegapFacebookPlugin {
     /**
      * You can add the Feed Dialog to your app so people can publish individual stories to their timeline. This
      * includes captions that your app manages and a personal comment from the person sharing the content.
-     * 
+     *
      * For use with showDialog() of method type 'feed'.
      */
     interface FeedDialogOptions extends BaseDialogOptions {
@@ -174,7 +174,7 @@ declare module PhonegapFacebookPlugin {
     /**
      * The Send Dialog lets people privately send content to specific friends. They'll have the option to privately
      * share a link as a Facebook message or group post. The Send Dialog does not require any extended permissions.
-     * 
+     *
      * For use with showDialog() of method type 'send'.
      */
     interface SendDialogOptions extends BaseDialogOptions {
@@ -195,7 +195,7 @@ declare module PhonegapFacebookPlugin {
      * The Share dialog prompts a person to publish an individual story or an Open Graph story to their timeline.
      * This does not require Facebook Login or any extended permissions, so it is the easiest way to enable
      * sharing on web.
-     * 
+     *
      * For use with showDialog() of method type 'share'.
      */
     interface ShareDialogOptions extends BaseDialogOptions {
@@ -211,7 +211,7 @@ declare module PhonegapFacebookPlugin {
      * The Share dialog prompts a person to publish an individual story or an Open Graph story to their timeline.
      * This does not require Facebook Login or any extended permissions, so it is the easiest way to enable
      * sharing on web.
-     * 
+     *
      * For use with showDialog() of method type 'share_open_graph'.
      */
     interface ShareOpenGraphDialogOptions extends BaseDialogOptions {

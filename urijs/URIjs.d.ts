@@ -1,11 +1,11 @@
 // Type definitions for URI.js 1.15.1
 // Project: https://github.com/medialize/URI.js
 // Definitions by: RodneyJT <https://github.com/RodneyJT>, Brian Surowiec <https://github.com/xt0rted>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module uri {
+declare namespace uri {
 
     interface URI {
         absoluteTo(path: string): URI;
@@ -28,8 +28,10 @@ declare module uri {
         domain(domain: boolean): string;
         domain(domain: string): URI;
 
+        duplicateQueryParameters(val: boolean): URI;
+
         equals(): boolean;
-        equals(url: string): boolean;
+        equals(url: string | URI): boolean;
 
         filename(): string;
         filename(file: boolean): string;
@@ -60,6 +62,9 @@ declare module uri {
         normalizeProtocol(): URI;
         normalizeQuery(): URI;
         normalizeSearch(): URI;
+
+        origin(): string;
+        origin(uri: string | URI): URI;
 
         password(): string;
         password(pw: string): URI;
@@ -103,6 +108,8 @@ declare module uri {
         setQuery(qry: Object): URI;
         setSearch(key: string, value: string): URI;
         setSearch(qry: Object): URI;
+        hasQuery(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
+        hasSearch(name: string | any, value?: string | number | boolean | Function | Array<string> | Array<number> | Array<boolean> | RegExp, withinArray?: boolean): boolean;
         subdomain(): string;
         subdomain(subdomain: string): URI;
         suffix(): string;
@@ -181,6 +188,8 @@ declare module uri {
         expand(template: string, vals: Object): URI;
 
         iso8859(): void;
+    
+        joinPaths(...paths: (string | URI)[]): URI;
 
         parse(url: string): {
             protocol: string;
@@ -226,5 +235,13 @@ interface JQuery {
 declare var URI: uri.URIStatic;
 
 declare module 'URI' {
+    export = URI;
+}
+
+declare module 'urijs' {
+    export = URI;
+}
+
+declare module 'urijs/src/URITemplate' {
     export = URI;
 }

@@ -1,9 +1,9 @@
 // Type definitions for Tabris.js v1.2
 // Project: http://tabrisjs.com
 // Definitions by: Tabris.js team <http://github.com/eclipsesource/tabris>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module tabris {
+declare namespace tabris {
 
   // Types
 
@@ -489,7 +489,7 @@ declare module tabris {
 
   /**
    * Canvas is a widget which allows drawing on it using a canvas context.
-   * Canvas context is a subset of the HTML5 [CanvasRenderingContext2D](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D). 
+   * Canvas context is a subset of the HTML5 [CanvasRenderingContext2D](https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D).
    */
   interface Canvas extends Composite {
 
@@ -591,7 +591,7 @@ declare module tabris {
      * @param items
      * @param index the position to insert the items at.
      *   If a negative index is given, it is interpreted as relative to the end.
-     *   If the given index is greater than the item count, new items will be appended at the end. 
+     *   If the given index is greater than the item count, new items will be appended at the end.
      */
     insert (items: any[], index: number): void;
 

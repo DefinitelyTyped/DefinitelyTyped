@@ -1,39 +1,40 @@
-// Type definitions for ProtoBuf.js
+// Type definitions for ProtoBuf.js 5.0.1
 // Project: https://github.com/dcodeIO/ProtoBuf.js
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../bytebuffer/bytebuffer.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
-declare module ProtoBuf {
+declare namespace ProtoBuf {
     // ==========
     // protobufjs/src/ProtoBuf.js
-    
+
     var Builder: Builder;
-    var ByteBuffer: Buffer;
     var Long: LongStatic;
     var DotProto: DotProto;
     var Reflect: Reflect;
+    var Util: Util;
+    var convertFieldsToCamelCase: boolean;
 
     // var Lang: Lang; TODO: implement interface Lang
-    // var Util: Util; TODO: implement interface Util
-    
-    export function loadJson(json: string, builder?: ProtoBuilder,
-        filename?: string): ProtoBuilder;
-    
-    export function loadJsonFile(filename: string,
+
+    export function loadJson(json: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
+
+    export function loadJsonFile(filename: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
-  
-    export function loadProto(proto: string, builder?: ProtoBuilder,
-        filename?: string): ProtoBuilder;
-  	
-    export function loadProtoFile(filePath: string,
+
+    export function loadProto(proto: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
+
+    export function loadProtoFile(filePath: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
-    
+
     export function newBuilder(options?: {[key: string]: any}): ProtoBuilder;
-  
+
     export interface LongStatic {
       new(low?: number, high?: number, unsigned?:boolean): Long;
 
@@ -55,7 +56,7 @@ declare module ProtoBuf {
       isLong(obj: any): boolean;
     }
 
-    // Based on https://github.com/dcodeIO/Long.js and https://github.com/borisyankov/DefinitelyTyped/blob/master/long/long.d.ts
+    // Based on https://github.com/dcodeIO/Long.js and https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/long/long.d.ts
     export interface Long {
       high: number;
       low: number;
@@ -97,10 +98,10 @@ declare module ProtoBuf {
       toUnsigned(): Long;
       xor(other: Long | number | string): Long;
     }
-    
+
     // ==========
     // protobufjs/src/ProtoBuf/Builder.js
-    
+
     export interface Builder {
         new(options?: {[key: string]: any}): ProtoBuilder;
         Message: Message;
@@ -111,26 +112,46 @@ declare module ProtoBuf {
         isValidService(def: {[key: string]: any}): boolean;
         isValidExtend(def: {[key: string]: any}): boolean;
     }
-    
+
     /**
      * TODO: Confirm that message needs no further implementation
      */
     export interface Message {
         new(values?: {[key: string]: any}, var_args?: string[]): Message;
+        $add(key: string, value: any, noAssert?: boolean): Message;
+        $get<T>(key: string): T;
+        $set(key: string | {[key: string]: any}, value?: any | boolean, noAssert?: boolean): void;
+        add(key: string, value: any, noAssert?: boolean): Message;
+        calculate(): number;
+        encode(buffer?: ByteBuffer | boolean, noVerify?: boolean): ByteBuffer;
+        encode64(): string;
+        encodeAB(): ArrayBuffer;
+        encodeNB(): Buffer;
+        encodeHex(): string;
+        encodeJSON(): string;
+        encodeDelimited(buffer?: ByteBuffer | boolean, noVerify?: boolean): ByteBuffer;
+        get<T>(key: string, noAssert?: boolean): T;
+        set(key: string | {[key: string]: any}, value?: any | boolean, noAssert?: boolean): void;
+        toArrayBuffer(): ArrayBuffer;
+        toBase64(): string;
+        toBuffer(): Buffer;
+        toHex(): string;
+        toRaw(binaryAsBase64?: boolean, longsAsStrings?: boolean): {[key: string]: any};
+        toString(): string;
         [field: string]: any;
   	}
-    
+
     /**
      * TODO: Implement service interface
      */
     export interface Service {
         new(rpcImpl?: Function): Service;
     }
-    
-    
+
+
     // ==========
     // meta objects for constructing protobufs
-    
+
     export interface ProtoBuilder {
         ns: ReflectNamespace;
         ptr: ReflectNamespace;
@@ -144,37 +165,39 @@ declare module ProtoBuf {
         define(pkg: string, options?: {[key: string]: any}): ProtoBuilder;
         create(defs?: {[key: string]: any}[]): ProtoBuilder;
         resolveAll(): void;
-    		build(path?: string): ProtoBuf;
+        build(path?: string | [string]): MetaMessage<Message>;
+   		build<T>(path?: string | [string]): MetaMessage<T>;
         lookup(path?: string): ReflectT;
   	}
-    
+
     export interface ProtoBuf {
-        [package: string]: {[key: string]: MetaMessage | any};
+        [package: string]: {[key: string]: MetaMessage<Message> | any};
     }
-    
-    export interface MetaMessage {
-        new(values?: {[key: string]: any}, var_args?: string[]): Message;
-        decode(buffer?: Buffer, enc?: string): Message;
-        decodeDelimited(buffer?: Buffer, enc?: string): Message;
-        decode64(str: string): Message;
-        decodeHex(str: string): Message;
+
+    export interface MetaMessage<T> {
+        new(values?: {[key: string]: any}, var_args?: string[]): T & Message;
+        decode(buffer: ArrayBuffer | ByteBuffer | Buffer | string, length?: number | string, enc?: string): T & Message;
+        decodeDelimited(buffer: ByteBuffer | ArrayBuffer | Buffer | string, enc?: string): T & Message;
+        decode64(str: string): T & Message;
+        decodeHex(str: string): T & Message;
+        decodeJSON(str: string): T & Message;
     }
-    
+
     // ==========
     // protobufjs/src/ProtoBuf/DotProto.js
-  
+
     export interface DotProto {
         Parser: Parser;
         Tokenizer: Tokenizer;
     }
-    
+
     export interface Parser {
         new(proto: string): Parser;
         tn: Tokenizer;
         parse(): MetaProto;
         toString(): string;
     }
-    
+
     export interface Tokenizer {
         new(proto: string): Tokenizer;
         source: string;
@@ -187,10 +210,10 @@ declare module ProtoBuf {
         peek(): string;
         toString(): string;
     }
-    
+
     // ==========
     // proto meta information returned by the Parser
-    
+
     export interface MetaProto {
         package: string;
         messages: ProtoMessage[];
@@ -199,18 +222,18 @@ declare module ProtoBuf {
         options: {[key: string]: any};
         services: ProtoService[];
     }
-    
+
     export interface ProtoEnum {
         name: string;
-        values: ProtoEnumValue;
+        values: ProtoEnumValue[];
         options: {[key: string]: any};
     }
-    
+
     export interface ProtoEnumValue {
         name: string;
         id: string;
     }
-    
+
     export interface ProtoField {
         rule: string;
         options: {[key: string]: any};
@@ -219,7 +242,7 @@ declare module ProtoBuf {
         id: number;
         oneof?: string;
     }
-    
+
     export interface ProtoMessage {
         name: string;
         isGroup?: boolean;
@@ -229,23 +252,33 @@ declare module ProtoBuf {
         options: {[key: string]: any};
         oneofs: {[key: string]:number[]};
     }
-    
+
     export interface ProtoRpcService {
         request: string;
         response: string;
         options: {[key: string]: any};
     }
-    
+
     export interface ProtoService {
         name: string;
         rpc: {[key: string]:ProtoRpcService};
         options: {[key: string]: any};
     }
-    
-    
+
+    // ==========
+    // protobufjs/src/ProtoBuf/Util.js
+
+    export interface Util {
+        IS_NODE: boolean
+        fetch(path: string, callback?: (data: string) => any): string;
+        toCamelCase(str: string): string;
+        XHR(): XMLHttpRequest;
+    }
+
+
     // ==========
     // protobufjs/src/ProtoBuf/Reflect.js
-    
+
     export interface Reflect {
         T: ReflectT;
         Namespace: ReflectNamespace;
@@ -254,7 +287,7 @@ declare module ProtoBuf {
         Extension: ReflectExtension;
         Service: ReflectService;
     }
-    
+
     export interface ReflectT {
         new(builder?: ProtoBuilder, parent?: ReflectT, name?: string): ReflectT;
         builder: ProtoBuilder;
@@ -263,7 +296,7 @@ declare module ProtoBuf {
         fqn(): string;
         toString(includeClass?: boolean): string;
     }
-    
+
     export interface ReflectNamespace extends ReflectT {
         new(builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
             options?: {[key: string]: any}): ReflectNamespace;
@@ -279,7 +312,7 @@ declare module ProtoBuf {
         buildOpt(): {[key: string]: any};
         getOption(name?: string): any;
     }
-    
+
     export interface ReflectMessage extends ReflectNamespace {
         new(builder?: ProtoBuilder, parent?: ReflectNamespace, name?: string,
             options?: {[key: string]: any}, isGroup?: boolean): ReflectMessage;
@@ -288,14 +321,15 @@ declare module ProtoBuf {
                                           // new ProtoBuf.Reflect.Message.ExtensionField();
         OneOf: ReflectOneOf; // NOTE: only for new ProtoBuf.Reflect.Message.OneOf();
         extensions: number[];
-        clazz(): MetaMessage;
+        clazz(): MetaMessage<Message>;
         isGroup: boolean;
-        build(rebuild?: boolean): MetaMessage|any;
+        build(rebuild?: boolean): MetaMessage<Message>|any;
+        build<T>(rebuild?: boolean): MetaMessage<T>|any;
         encode(message: Message, buffer: Buffer, noVerify?: boolean): Buffer;
         calculate(message: Message): number;
         decode(buffer: Buffer, length?: number, expectedGroupEndId?: number): Message;
     }
-    
+
     export interface ReflectEnum extends ReflectNamespace {
         new(builder?: ProtoBuilder, parent?: ReflectT, name?: string,
             options?: {[key: string]: any}): ReflectEnum;
@@ -303,13 +337,13 @@ declare module ProtoBuf {
         object: {[key: string]:number};
         build(): {[key: string]: any};
     }
-    
+
     export interface ReflectExtension extends ReflectT {
         new(builder?: ProtoBuilder, parent?: ReflectT, name?: string,
             field?: ReflectField): ReflectExtension;
         field: ReflectField;
     }
-    
+
     export interface ReflectService extends ReflectNamespace {
         new(): ReflectService;
         Method: ReflectMethod; // NOTE: only for new ProtoBuf.Reflect.Service.Method();
@@ -317,7 +351,7 @@ declare module ProtoBuf {
         clazz(): Function;
         build(rebuild?: boolean): Function|any;
     }
-    
+
     // TODO: check that the runtime instance of this type reflects this definition
     export interface ReflectField extends ReflectT {
         new(builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
@@ -341,30 +375,30 @@ declare module ProtoBuf {
         calculateValue(value: any): number;
         decode(wireType: number, buffer: Buffer, skipRepeated?: boolean): any;
     }
-    
+
     export interface WireTuple {
       name: string;
       wireType: number;
     }
-    
+
     // TODO: check that the runtime instance of this type reflects this definition
     export interface ReflectExtensionField extends ReflectField {
         new(builder: ProtoBuilder, message: ReflectMessage, rule: string, type: string,
             name: string, id: number, options: {[key: string]: any}): ReflectExtensionField;
         extension: ReflectExtension;
     }
-    
+
     export interface ReflectOneOf extends ReflectT {
         new(builder?: ProtoBuilder, message?: ReflectMessage, name?: string): ReflectOneOf;
         fields: ReflectField[];
     }
-    
+
     export interface ReflectValue extends ReflectT {
         new(builder?: ProtoBuilder, enm?: ReflectEnum, name?: string, id?: number): ReflectValue;
         className: string;
         id: number;
     }
-    
+
     export interface ReflectMethod extends ReflectT {
         new(builder?: ProtoBuilder, svc?: ReflectService, name?: string,
             options?: {[key: string]: any}): ReflectMethod;
@@ -372,18 +406,22 @@ declare module ProtoBuf {
         options: {[key: string]: any};
         buildOpt(): {[key: string]: any};
     }
-    
+
     export interface ReflectRPCMethod extends ReflectMethod {
         new(builder?: ProtoBuilder, svc?: ReflectService, name?: string, request?: string,
             response?: string, options?: {[key: string]: any}): ReflectRPCMethod;
         requestName: string;
         responseName: string;
         resolvedRequestType: ReflectMessage;
-        resolveResponseType: ReflectMessage;
+        resolvedResponseType: ReflectMessage;
     }
 
 }
 
 declare module "protobufjs" {
+    export = ProtoBuf;
+}
+
+declare module "protobufjs/dist/protobuf-light" {
     export = ProtoBuf;
 }

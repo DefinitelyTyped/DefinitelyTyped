@@ -1,5 +1,17 @@
 ﻿/// <reference path="whatwg-fetch.d.ts" />
-/// <reference path="../es6-promise/es6-promise.d.ts" />
+
+function test_HeadersCopiedFromHeaders() {
+	var source = new Headers();
+	source.append('Content-Type', 'application/json');
+	return new Headers(source);
+}
+
+function test_HeadersCopiedFromHash() {
+	var source: DOMStringMap = {
+		'Content-Type': 'application/json'
+	};
+	return new Headers(source);
+}
 
 function test_fetchUrlWithOptions() {
 	var headers = new Headers();
@@ -9,7 +21,8 @@ function test_fetchUrlWithOptions() {
 		headers: headers,
 		mode: 'same-origin',
 		credentials: 'omit',
-		cache: 'default'
+		cache: 'default',
+		redirect: 'manual'
 	};
 	handlePromise(window.fetch("http://www.andlabs.net/html5/uCOR.php", requestOptions));
 }
@@ -39,9 +52,16 @@ function test_fetchUrlWithRequestObject() {
 	handlePromise(window.fetch(request));
 }
 
+function test_globalFetchVar() {
+	fetch('http://test.com', {})
+		.then(response => {
+			// for test only
+		});
+}
+
 function handlePromise(promise: Promise<Response>) {
 	promise.then((response) => {
-		if (response.type === 'basis') {
+		if (response.type === 'basic') {
 			// for test only
 		}
 		return response.text();

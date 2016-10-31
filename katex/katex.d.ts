@@ -1,7 +1,7 @@
 // Type definitions for KaTeX v.0.5.0
 // Project: http://khan.github.io/KaTeX/
 // Definitions by: Michael Randolph <https://github.com/mrand01>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "katex" {
 	interface KatexOptions {

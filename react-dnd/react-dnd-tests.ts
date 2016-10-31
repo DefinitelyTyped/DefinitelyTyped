@@ -1,4 +1,6 @@
 ///<reference path="react-dnd.d.ts" />
+///<reference path="react-dnd-html5-backend.d.ts" />
+///<reference path="react-dnd-test-backend.d.ts" />
 "use strict";
 
 // Test adapted from the ReactDnD chess game tutorial:
@@ -13,13 +15,13 @@ import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
 import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
-import HTML5Backend = require('react-dnd/modules/backends/HTML5');
-import TestBackend = require('react-dnd/modules/backends/Test');
+import HTML5Backend, { getEmptyImage, NativeTypes } from "react-dnd-html5-backend";
+import TestBackend from "react-dnd-test-backend";
 
 // Game Component
 // ----------------------------------------------------------------------
 
-module Game {
+namespace Game {
     var knightPosition = [0, 0];
     var observer: any = null;
 
@@ -59,7 +61,7 @@ var ItemTypes = {
 // Knight Component
 // ----------------------------------------------------------------------
 
-module Knight {
+namespace Knight {
     interface KnightP extends React.Props<Knight> {
         connectDragSource: ReactDnd.ConnectDragSource;
         connectDragPreview: ReactDnd.ConnectDragPreview;
@@ -81,10 +83,12 @@ module Knight {
     }
 
     export class Knight extends React.Component<KnightP, {}> {
+        static defaultProps: KnightP;
+
         static create = React.createFactory(Knight);
 
         componentDidMount() {
-            var img = HTML5Backend.getEmptyImage();
+            var img = getEmptyImage();
             img.onload = () => this.props.connectDragPreview(img);
         }
 
@@ -109,7 +113,7 @@ module Knight {
 // Square Component
 // ----------------------------------------------------------------------
 
-module Square {
+namespace Square {
     interface SquareP extends React.Props<Square> {
         black: boolean;
     }
@@ -131,7 +135,7 @@ module Square {
 // BoardSquare Component
 // ----------------------------------------------------------------------
 
-module BoardSquare {
+namespace BoardSquare {
     interface BoardSquareP extends React.Props<BoardSquare> {
         x: number;
         y: number;
@@ -154,6 +158,8 @@ module BoardSquare {
     }
 
     export class BoardSquare extends React.Component<BoardSquareP, {}> {
+        static defaultProps: BoardSquareP;
+
         private _renderOverlay = (color: string) => {
             return r.div({
                 style: {
@@ -195,12 +201,13 @@ module BoardSquare {
     }
 
     export var DndBoardSquare = DropTarget(ItemTypes.KNIGHT, boardSquareTarget, boardSquareCollect)(BoardSquare);
+    export var fileDropTarget = DropTarget(NativeTypes.FILE, boardSquareTarget, boardSquareCollect)(BoardSquare);
     export var create = React.createFactory(DndBoardSquare);
 }
 
 // Custom Drag Layer Component
 // ----------------------------------------------------------------------
-module CustomDragLayer {
+namespace CustomDragLayer {
     interface CustomDragLayerP extends React.Props<CustomDragLayer> {
         isDragging?: boolean;
         item?: Object;
@@ -227,7 +234,7 @@ module CustomDragLayer {
 // Board Component
 // ----------------------------------------------------------------------
 
-module Board {
+namespace Board {
     interface BoardP extends React.Props<Board> {
         knightPosition: number[];
     }
@@ -258,7 +265,7 @@ module Board {
         };
 
         render() {
-            var squares: React.DOMElement<React.HTMLAttributes>[] = [];
+            var squares: React.ReactHTMLElement<HTMLDivElement>[] = [];
             for (let i = 0; i < 64; i++) {
                 squares.push(this._renderSquare(i));
             }

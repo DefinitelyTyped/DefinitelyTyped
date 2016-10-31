@@ -1,7 +1,7 @@
 ﻿// Type definitions for podcast v0.1.0
 // Project: http://github.com/maxnowack/node-podcast
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PodcastStatic
 {

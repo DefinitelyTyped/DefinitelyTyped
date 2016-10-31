@@ -4,6 +4,9 @@ import Dropzone = require("dropzone");
 
 const dropzoneFromString = new Dropzone(".test");
 const dropzoneFromElement = new Dropzone(document.getElementById("test"));
+const dropzoneRenameFunction = function(name: string){
+	return name;
+};
 
 const dropzoneWithOptions = new Dropzone(".test", {
 	url: "/some/url",
@@ -25,10 +28,12 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	clickable: true,
 	ignoreHiddenFiles: true,
 	acceptedFiles: "image/*",
+	renameFilename: dropzoneRenameFunction,
 	autoProcessQueue: true,
 	autoQueue: true,
 	addRemoveLinks: true,
 	previewsContainer: "<div></div>",
+	hiddenInputContainer: document.createElement("input"),
 	capture: "camera",
 
 	dictDefaultMessage: "",
@@ -183,5 +188,95 @@ dropzone.processFiles(addedFiles);
 
 dropzone.processQueue();
 dropzone.removeAllFiles(true);
+
+dropzone
+	.on("drop", () => {
+		console.count('drop');
+	})
+	.on("dragstart", () => {
+		console.count('dragstart');
+	})
+	.on("dragend", () => {
+		console.count('dragend');
+	})
+	.on("dragenter", () => {
+		console.count('dragenter');
+	})
+	.on("dragover", () => {
+		console.count('dragover');
+	})
+	.on("dragleave", () => {
+		console.count('dragleave');
+	})
+	.on("paste", () => {
+		console.count('paste');
+	})
+	.on("reset", () => {
+		console.count('reset');
+	})
+	.on("addedfile", () => {
+		console.count('addedfile');
+	})
+	.on("addedfiles", () => {
+		console.count('addedfiles');
+	})
+	.on("removedfile", () => {
+		console.count('removedfile');
+	})
+	.on("thumbnail", () => {
+		console.count('thumbnail');
+	})
+	.on("error", () => {
+		console.count('error');
+	})
+	.on("errormultiple", () => {
+		console.count('errormultiple');
+	})
+	.on("processing", () => {
+		console.count('processing');
+	})
+	.on("processingmultiple", () => {
+		console.count('processingmultiple');
+	})
+	.on("uploadprogress", () => {
+		console.count('uploadprogress');
+	})
+	.on("totaluploadprogress", () => {
+		console.count('totaluploadprogress');
+	})
+	.on("sending", () => {
+		console.count('sending');
+	})
+	.on("sendingmultiple", () => {
+		console.count('sendingmultiple');
+	})
+	.on("success", () => {
+		console.count('success');
+	})
+	.on("successmultiple", () => {
+		console.count('successmultiple');
+	})
+	.on("canceled", () => {
+		console.count('canceled');
+	})
+	.on("canceledmultiple", () => {
+		console.count('canceledmultiple');
+	})
+	.on("complete", () => {
+		console.count('complete');
+	})
+	.on("completemultiple", () => {
+		console.count('completemultiple');
+	})
+	.on("maxfilesexceeded", () => {
+		console.count('maxfilesexceeded');
+	})
+	.on("maxfilesreached", () => {
+		console.count('maxfilesreached');
+	})
+	.on("queuecomplete", () => {
+		console.count('queuecomplete');
+	});
+
 
 dropzone.destroy();

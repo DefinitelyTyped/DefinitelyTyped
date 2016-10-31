@@ -1,7 +1,7 @@
 // Type definitions for swig-email-templates
 // Project: https://github.com/andrewrk/swig-email-templates
 // Definitions by: Adam Babcock <https://github.com/mrhen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../swig/swig.d.ts" />
 

@@ -1,7 +1,7 @@
 /// <reference path="./gulp-gh-pages.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
-import ghPages = require("gulp-gh-pages");
+import * as gulp from "gulp";
+import * as ghPages from "gulp-gh-pages";
 
 gulp.src("test.css")
     .pipe(ghPages());

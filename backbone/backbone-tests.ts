@@ -29,11 +29,11 @@ class SettingDefaults extends Backbone.Model {
     }
 
     constructor(attributes?: any, options?: any) {
+        super(attributes, options); // error TS17009: 'super' must be called before accessing 'this' in the constructor of a derived class.
         this.defaults = <any>{
             name: "Joe"
         }
         // super has to come last
-        super(attributes, options);
     }
 
     // or set it like this
@@ -90,6 +90,25 @@ function test_models() {
     note.set({ title: "March 20", content: "In his eyes she eclipses..." });
 
     note.set("title", "A Scandal in Bohemia");
+
+    let strings: string[]
+    let value: any;
+    let values: any[];
+    let bool: boolean;
+
+    // underscore methods
+    strings = note.keys();
+    values  = note.values();
+    values  = note.pairs();
+    values  = note.invert();
+    value   = note.pick("foo");
+    value   = note.pick("foo", "bar");
+    value   = note.pick((value: any, key: any, object: any) => true);
+    value   = note.omit("foo");
+    value   = note.omit("foo", "bar");
+    value   = note.omit((value: any, key: any, object: any) => true);
+    value   = note.chain().pick().omit().value();
+    bool    = note.isEmpty();
 }
 
 class Employee extends Backbone.Model {
@@ -120,6 +139,16 @@ class Library extends Backbone.Collection<Book> {
     // This model definition is here only to test type compatibility of the model, but it
     // is not necessary in working code as it is automatically inferred through generics.
     model: typeof Book;
+
+    constructor(models?: Book[] | Object[], options?: any) {
+        super(models, options);
+
+        // Test comparator allowed types.
+        this.comparator = "title";
+        this.comparator = (model: Book) => { return 1; };
+        this.comparator = (model: Book) => { return "Title"; };
+        this.comparator = (model1: Book, model2: Book) => { return 1; };
+    }
 }
 
 class Books extends Backbone.Collection<Book> { }
@@ -151,14 +180,89 @@ function test_collection() {
         book.get("published") === true);
 
     var alphabetical = books.sortBy((book: Book): number => null);
+
+    let one: Book;
+    let models: Book[];
+    let bool: boolean;
+    let numDict: _.Dictionary<number>;
+    let modelDict: _.Dictionary<Book>;
+    let modelsDict: _.Dictionary<Book[]>;
+    let num: number;
+
+    models = books.slice(1);
+    models = books.slice(1, 3);
+
+    // underscore methods
+    bool       = books.all((value: Book, index: number, list: Book[]) => true);
+    bool       = books.any((value: Book, index: number, list: Book[]) => true);
+    bool       = books.chain().any((value: Book, index: number, list: Book[]) => true).value();
+    models     = books.collect((value: Book, index: number, list: Book[]) => value);
+    bool       = books.contains(book1);
+    numDict    = books.countBy((value: Book, index: number, list: Book[]) => true);
+    numDict    = books.countBy("foo");
+    one        = books.detect((value: Book, index: number, list: Book[]) => true);
+    models     = books.difference([book1]);
+    models     = books.drop();
+    models     = books.each((value: Book, index: number, list: Book[]) => true);
+    bool       = books.every((value: Book, index: number, list: Book[]) => true);
+    models     = books.filter((value: Book, index: number, list: Book[]) => true);
+    one        = books.find((value: Book, index: number, list: Book[]) => true);
+    num        = books.findIndex((value: Book, index: number, list: Book[]) => true);
+    num        = books.findLastIndex((value: Book, index: number, list: Book[]) => true);
+    one        = books.first();
+    models     = books.first(3);
+    models     = books.foldl((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models     = books.foldr((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models     = books.forEach((value: Book, index: number, list: Book[]) => true);
+    modelsDict = books.groupBy((value: Book, index: number, list: Book[]) => true);
+    modelsDict = books.groupBy("foo");
+    one        = books.head();
+    models     = books.head(3);
+    bool       = books.include(book1);
+    bool       = books.includes(book1);
+    modelDict  = books.indexBy((value: Book, index: number, list: Book[]) => true);
+    modelDict  = books.indexBy("foo");
+    num        = books.indexOf(book1, true);
+    one        = books.initial();
+    models     = books.initial(3);
+    models     = books.inject((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    one        = books.invoke("at", 3);
+    bool       = books.isEmpty();
+    one        = books.last();
+    models     = books.last(3);
+    num        = books.lastIndexOf(book1, 3);
+    models     = books.map((value: Book, index: number, list: Book[]) => value);
+    one        = books.max((value: Book, index: number, list: Book[]) => value);
+    one        = books.min((value: Book, index: number, list: Book[]) => value);
+    [models]   = books.partition((value: Book, index: number, list: Book[]) => true);
+    models     = books.reduce((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models     = books.reduceRight((prev: Book[], curr: Book, index: number, list: Book[]) => prev, []);
+    models     = books.reject((value: Book, index: number, list: Book[]) => true);
+    models     = books.rest(3);
+    one        = books.sample();
+    models     = books.sample(3);
+    models     = books.select((value: Book, index: number, list: Book[]) => true);
+    models     = books.shuffle();
+    num        = books.size();
+    bool       = books.some((value: Book, index: number, list: Book[]) => true);
+    models     = books.sortBy((value: Book, index: number, list: Book[]) => value);
+    models     = books.sortBy("foo");
+    models     = books.tail(3);
+    one        = books.take();
+    models     = books.take(3);
+    models     = books.toArray();
+    models     = books.without(book1, book1);
 }
 
 //////////
 
 Backbone.history.start();
+Backbone.History.started;
+Backbone.history.loadUrl();
+Backbone.history.loadUrl('12345');
 
-module v1Changes {
-    module events {
+namespace v1Changes {
+    namespace events {
         function test_once() {
             var model = new Employee;
             model.once('invalid', () => { }, this);
@@ -186,7 +290,7 @@ module v1Changes {
         }
     }
 
-    module ModelAndCollection {
+    namespace ModelAndCollection {
         function test_url() {
             Employee.prototype.url = () => '/employees';
             EmployeeCollection.prototype.url = () => '/employees';
@@ -214,7 +318,7 @@ module v1Changes {
         }
     }
 
-    module Model {
+    namespace Model {
         function test_validationError() {
             var model = new Employee;
             if (model.validationError) {
@@ -286,7 +390,7 @@ module v1Changes {
         }
     }
 
-    module Collection {
+    namespace Collection {
         function test_fetch() {
             var collection = new EmployeeCollection;
             collection.fetch({ reset: true });
@@ -302,7 +406,7 @@ module v1Changes {
         }
     }
 
-    module Router {
+    namespace Router {
         function test_navigate() {
             var router = new Backbone.Router;
 

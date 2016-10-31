@@ -8,6 +8,8 @@ import Q = require('q');
 
 chai.use(chaiAsPromised);
 
+class TestClass {}
+
 // ReSharper disable WrongExpressionStatement
 // BDD API (expect)
 var thenableNum: PromisesAPlus.Thenable<number>;
@@ -17,6 +19,13 @@ thenableNum = chai.expect(thenableNum).to.become(3);
 thenableNum = chai.expect(thenableNum).to.be.fulfilled;
 thenableNum = chai.expect(thenableNum).to.be.rejected;
 thenableNum = chai.expect(thenableNum).to.be.rejectedWith(Error);
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith('Error');
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(/message/);
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(Error, /message/);
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(Error, 'message');
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(TestClass);
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(TestClass, /message/);
+thenableNum = chai.expect(thenableNum).to.be.rejectedWith(TestClass, 'message');
 thenableNum = chai.expect(thenableNum).to.notify(() => console.log('done'));
 
 // BDD API (should)
@@ -25,6 +34,13 @@ thenableNum = thenableNum.should.eventually.deep.equal(3);
 thenableNum = thenableNum.should.become(3);
 thenableNum = thenableNum.should.be.rejected;
 thenableNum = thenableNum.should.be.rejectedWith(Error);
+thenableNum = thenableNum.should.be.rejectedWith('Error');
+thenableNum = thenableNum.should.be.rejectedWith(/message/);
+thenableNum = thenableNum.should.be.rejectedWith(Error, /message/);
+thenableNum = thenableNum.should.be.rejectedWith(Error, 'message');
+thenableNum = thenableNum.should.be.rejectedWith(TestClass);
+thenableNum = thenableNum.should.be.rejectedWith(TestClass, /message/);
+thenableNum = thenableNum.should.be.rejectedWith(TestClass, 'message');
 thenableNum = thenableNum.should.eventually.equal(3).notify(() => console.log('done'));
 thenableNum = thenableNum.should.be.fulfilled.and.notify(() => console.log('done'));
 

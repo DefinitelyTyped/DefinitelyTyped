@@ -1,13 +1,23 @@
 // Type definitions for Chance 0.7.3
 // Project: http://chancejs.com
 // Definitions by: Chris Bowdon <https://github.com/cbowdon/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-declare module Chance {
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace Chance {
+
+    interface Seeded {
+        seed: number;
+    }
+
+    type SeededChance = Chance & Seeded;
 
     interface ChanceStatic {
-        Chance(): Chance;
+        (): Chance
+        (seed: number): SeededChance
+        (generator: () => any): Chance
+
         new(): Chance;
-        new(seed: number): Chance;
+        new(seed: number): SeededChance;
         new(generator: () => any): Chance;
     }
 
@@ -110,8 +120,16 @@ declare module Chance {
         capitalize(str: string): string;
         mixin(desc: MixinDescriptor): any;
         pad(num: number, width: number, padChar?: string): string;
+        /**
+         * @deprecated Use pickone
+        */
         pick<T>(arr: T[]): T;
+        pickone<T>(arr: T[]): T;
+        /**
+         * @deprecated Use pickset 
+         */
         pick<T>(arr: T[], count: number): T[];
+        pickset<T>(arr: T[], count: number): T[];
         set: Setter;
         shuffle<T>(arr: T[]): T[];
 
@@ -209,5 +227,10 @@ declare var Chance: Chance.ChanceStatic;
 
 // import Chance = require('chance');
 declare module 'chance' {
+    interface ExportedChance extends Chance.ChanceStatic {
+        Chance: ExportedChance;
+    }
+    var Chance: ExportedChance;
+
     export = Chance;
 }

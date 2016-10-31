@@ -1,7 +1,7 @@
 // Type definitions for Zynga Scroller
 // Project: http://zynga.github.com/scroller/
 // Definitions by: Marcelo Haskell Camargo <https://github.com/haskellcamargo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Scroller {
   constructor(a: (left: number, top: number, zoom: number) => void, b?: {

@@ -1,7 +1,7 @@
 ﻿// Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="umbraco-services.d.ts" />
 /// <reference path="umbraco-resources.d.ts" />
@@ -14,7 +14,7 @@ declare module 'umbraco' {
     export = umbraco;
 }
 
-declare module umbraco {
+declare namespace umbraco {
 
 }
 

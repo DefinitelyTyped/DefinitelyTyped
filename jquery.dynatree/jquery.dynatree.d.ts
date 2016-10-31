@@ -1,13 +1,13 @@
 // Type definitions for jquery.dynatree 1.2.5
 // Project: http://code.google.com/p/dynatree/
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
 /// <reference path="../jqueryui/jqueryui.d.ts"/>
 
-declare module JQueryUI {
+declare namespace JQueryUI {
     interface UI {
         dynatree: DynatreeNamespace
     }
@@ -178,7 +178,7 @@ interface DynaTreeDataModel {
 
 interface DynaTreeDNDOptions {
     autoExpandMS?: number; // Expand nodes after n milliseconds of hovering.
-    preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc. 
+    preventVoidMoves?: boolean; // Prevent dropping nodes 'before self', etc.
     revert: boolean; // true: slide helper back to source if drop is rejected
 
     // Make tree nodes draggable:

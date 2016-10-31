@@ -1,7 +1,7 @@
 // Type definitions for simplebar.js 1.1.7
 // Project: https://github.com/Grsmto/simplebar
 // Definitions by: Gregor Woiwode <https://github.com/gregonnet>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface SimplebarOptions {
     autoHide?: boolean;

@@ -5,7 +5,7 @@
 
 ///<reference path="rx-lite.d.ts"/>
 
-declare module Rx {
+declare namespace Rx {
 	export module config {
 		/**
 		* Configuration option to determine whether to use native events only

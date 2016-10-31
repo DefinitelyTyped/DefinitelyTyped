@@ -1,14 +1,14 @@
 // Type definitions for karma v0.13.9
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../log4js/log4js.d.ts" />
 
 declare module 'karma' {
-    // See Karma public API https://karma-runner.github.io/0.12/dev/public-api.html
+    // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
     import Promise = require('bluebird');
     import https = require('https');
     import log4js = require('log4js');
@@ -27,6 +27,7 @@ declare module 'karma' {
             server: DeprecatedServer;
             Server: Server;
             runner: Runner;
+            stopper: Stopper;
             launcher: Launcher;
             VERSION: string;
         }
@@ -34,7 +35,7 @@ declare module 'karma' {
         interface LauncherStatic {
             generateId(): string;
             //TODO: injector should be of type `di.Injector`
-            new(emitter: NodeJS.EventEmitter, injector: any): Launcher;
+            new (emitter: NodeJS.EventEmitter, injector: any): Launcher;
         }
 
         interface Launcher {
@@ -53,11 +54,28 @@ declare module 'karma' {
         }
 
         interface Runner {
-            run(options?: Config, callback?: ServerCallback): void;
+            run(options?: ConfigOptions | ConfigFile, callback?: ServerCallback): void;
+        }
+
+
+        interface Stopper {
+            /**
+              * This function will signal a running server to stop. The equivalent of karma stop.
+              */
+            stop(options?: ConfigOptions, callback?: ServerCallback): void;
+        }
+
+
+        interface TestResults {
+            disconnected: boolean;
+            error: boolean;
+            exitCode: number;
+            failed: number;
+            success: number;
         }
 
         interface Server extends NodeJS.EventEmitter {
-            new(options?: Config, callback?: ServerCallback): Server;
+            new (options?: ConfigOptions | ConfigFile, callback?: ServerCallback): Server;
             /**
              * Start the server
              */
@@ -72,6 +90,13 @@ declare module 'karma' {
              */
             refreshFiles(): Promise<any>;
 
+            on(event: string, listener: Function): this;
+
+            /**
+             * Listen to the 'run_complete' event.
+             */
+            on(event: 'run_complete', listener: (browsers: any, results: TestResults ) => void): this;
+
             ///**
             // * Backward-compatibility with karma-intellij bundled with WebStorm.
             // * Deprecated since version 0.13, to be removed in 0.14
@@ -84,6 +109,19 @@ declare module 'karma' {
         }
 
         interface Config {
+            set: (config: ConfigOptions) => void;
+            LOG_DISABLE: string;
+            LOG_ERROR: string;
+            LOG_WARN: string;
+            LOG_INFO: string;
+            LOG_DEBUG: string;
+        }
+
+        interface ConfigFile {
+            configFile: string;
+        }
+
+        interface ConfigOptions {
             /**
              * @description Enable or disable watching files and executing the tests whenever one of these files changes.
              * @default true
@@ -163,7 +201,7 @@ declare module 'karma' {
              * </p>
              */
             captureTimeout?: number;
-            client?: ClientConfig;
+            client?: ClientOptions;
             /**
              * @default true
              * @description Enable or disable colors in the output (reporters and logs).
@@ -178,7 +216,7 @@ declare module 'karma' {
              * @default []
              * @description List of files/patterns to load in the browser.
              */
-            files?: (FilePattern|string)[];
+            files?: (FilePattern | string)[];
             /**
              * @default []
              * @description List of test frameworks you want to use. Typically, you will set this to ['jasmine'], ['mocha'] or ['qunit']...
@@ -244,7 +282,7 @@ declare module 'karma' {
              * but your interactive debugging does not.
              *
              */
-            preprocessors?: { [name: string]: string|string[] }
+            preprocessors?: { [name: string]: string | string[] }
             /**
              * @default 'http:'
              * Possible Values:
@@ -308,7 +346,7 @@ declare module 'karma' {
             urlRoot?: string;
         }
 
-        interface ClientConfig {
+        interface ClientOptions {
             /**
              * @default undefined
              * @description When karma run is passed additional arguments on the command-line, they

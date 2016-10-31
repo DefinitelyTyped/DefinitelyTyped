@@ -48,7 +48,7 @@ if (form.bytesReceived > 100) {
 if (form.bytesExpected > 100) {
 }
 
-var req: http.ServerRequest;
+var req: http.IncomingMessage;
 
 form.parse(req);
 form.parse(req, (err: any, fields: formidable.Fields, files: formidable.Files) => {

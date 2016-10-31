@@ -1,9 +1,9 @@
 // Type definitions for virtual-dom 2.0.1
 // Project: https://github.com/Matt-Esch/virtual-dom
 // Definitions by: Christopher Brown <https://github.com/chbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module VirtualDOM {
+declare namespace VirtualDOM {
   interface VHook {
     hook(node: Element, propertyName: string): void;
     unhook(node: Element, propertyName: string): void;

@@ -1,7 +1,7 @@
 // Type definitions for knockout-secure-binding
 // Project: https://github.com/brianmhunt/knockout-secure-binding
 // Definitions by: Pine Mizune <https://github.com/pine613>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../knockout/knockout.d.ts" />
 

@@ -1,9 +1,7 @@
 // Type definitions for amazon-product-api
 // Project: https://github.com/t3chnoboy/amazon-product-api
 // Definitions by: Matti Lehtinen <https://github.com/MattiLehtinen/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "amazon-product-api" {
 

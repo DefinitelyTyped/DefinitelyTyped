@@ -1,120 +1,188 @@
 /// <reference path="chroma-js.d.ts" />
 
+import * as myChroma from "chroma-js";
+
 function test_chroma() {
-    chroma("red");
-    chroma("#ff0000");
-    chroma("#f00");
-    chroma("FF0000");
-    chroma(255, 0, 0);
-    chroma([255, 0, 0]);
-    chroma(0, 1, 0.5, 'hsl');
-    chroma([0, 1, 0.5], 'hsl');
-    chroma(0, 1, 1, 'hsv');
-    chroma("rgb(255,0,0)");
-    chroma("rgb(100%,0%,0%)");
-    chroma("hsl(0,100%,50%)");
-    chroma(53.24, 80.09, 67.20, 'lab');
-    chroma(53.24, 104.55, 40, 'lch');
-    chroma(1, 0, 0, 'gl');
+    chroma('hotpink');
+    chroma('#ff3399');
+    chroma('F39');
+    chroma.hex("#fff");
+    
+    chroma(0xff3399);
+    chroma(0xff, 0x33, 0x99);
+    chroma(255, 51, 153);
+    chroma([255, 51, 153]);
+    chroma(330, 1, 0.6, 'hsl');
+    chroma.hsl(330, 1, 0.6);
+    chroma.lch(80, 40, 130);
+    chroma(80, 40, 130, 'lch');
+    chroma.cmyk(0.2, 0.8, 0, 0);
+    chroma(0.2, 0.8, 0, 0, 'cmyk');
+    chroma.gl(0.6, 0, 0.8);
+    chroma.gl(0.6, 0, 0.8, 0.5);
+    chroma(0.6, 0, 0.8, 'gl');
+    chroma.temperature(2000);
+    chroma.temperature(3500);
+    chroma.temperature(6000);
+    chroma.mix('red', 'blue');
+    chroma.mix('red', 'blue', 0.25);
+    chroma.mix('red', 'blue', 0.5, 'rgb');
+    chroma.mix('red', 'blue', 0.5, 'hsl');
+    chroma.mix('red', 'blue', 0.5, 'lab');
+    chroma.mix('red', 'blue', 0.5, 'lch');
+    chroma.blend('4CBBFC', 'EEEE22', 'multiply');
+    chroma.blend('4CBBFC', 'EEEE22', 'darken');
+    chroma.blend('4CBBFC', 'EEEE22', 'lighten');
+    chroma.random();
+    chroma.contrast('pink', 'hotpink');
+    chroma.contrast('pink', 'purple');
+    chroma.brewer.OrRd;
+    var data = [3.0, 3.5, 3.6, 3.8, 3.8, 4.1, 4.3, 4.4,
+        4.6, 4.9, 5.2, 5.3, 5.4, 5.7, 5.8, 5.9,
+        6.2, 6.5, 6.8, 7.2, 9];
+    chroma.limits(data, 'e', 5);
+    chroma.limits(data, 'q', 5);
+    chroma.limits(data, 'k', 5);
 
-    chroma.hex("#ff0000");
-    chroma.hex("red");
-    chroma.hex("rgb(255, 0, 0)");
-
-    chroma.rgb(255, 0, 0);
-    chroma.hsl(0, 1, 0.5);
-    chroma.hsv(120, 0.5, 0.5);
-    chroma.lab(53.24, 80.09, 67.20);
-    chroma.lch(53.24, 104.55, 40);
-    chroma.gl(1, 0, 0);
-
-    chroma.interpolate('white', 'black', 0)  // #ffffff
-    chroma.interpolate('white', 'black', 1)  // #000000
-    chroma.interpolate('white', 'black', 0.5)  // #7f7f7f
-    chroma.interpolate('white', 'black', 0.5, 'hsv')  // #808080
-    chroma.interpolate('white', 'black', 0.5, 'lab')  // #777777
-
-    chroma.interpolate('rgba(0,0,0,0)', 'rgba(255,0,0,1)', 0.5).css()  //"rgba(127.5,0,0,0.5)"
-
-    var bezInterpolator = chroma.interpolate.bezier(['white', 'yellow', 'red', 'black']);
-    bezInterpolator(0).hex()  // #ffffff
-    bezInterpolator(0.33).hex()  // #ffcc67
-    bezInterpolator(0.66).hex()  // #b65f1a
-    bezInterpolator(1).hex()  // #000000
-
-    chroma.luminance('black') // 0
-    chroma.luminance('white') // 1
-    chroma.luminance('#ff0000') // 0.2126
-
-    chroma.contrast('white', 'navy')  // 16.00 – ok
-    chroma.contrast('white', 'yellow')  // 1.07 – not ok!
+    myChroma(0xff3399);
+    myChroma.limits(data, 'k', 5);
 }
 
 function test_color() {
-    chroma('red').hex()  // "#FF0000""
-    chroma('red').rgb()  // [255, 0, 0]
-    chroma('red').hsv()  // [0, 1, 1]
-    chroma('red').hsl()  // [0, 1, 0.5]
-    chroma('red').lab()  // [53.2407, 80.0924, 67.2031]
-    chroma('red').lch()  // [53.2407, 104.5517, 39.9990]
-    chroma('red').rgba() // [255, 0, 0, 1]
-    chroma('red').css()  // "rgb(255,0,0)"
-    chroma('red').alpha(0.7).css()  // "rgba(255,0,0,0.7)"
-    chroma('red').css('hsl')        // "hsl(0,100%,50%)"
-    chroma('red').alpha(0.7).css('hsl')  // "hsla(0,100%,50%,0.7)"
-    chroma('blue').css('hsla') // "hsla(240,100%,50%,1)"
+    chroma('red').alpha(0.5);
+    chroma('rgba(255,0,0,0.35)').alpha();
+    chroma('hotpink').darken();
+    chroma('hotpink').darken(2);
+    chroma('hotpink').brighten();
+    chroma('slategray').saturate();
+    chroma('slategray').saturate(2);
+    chroma('hotpink').desaturate();
+    chroma('hotpink').desaturate(2);
+    chroma('hotpink').desaturate(3);
+    // change hue to 0 deg (=red)
+    chroma('skyblue').set('hsl.h', 0);
+    // set chromacity to 30
+    chroma('hotpink').set('lch.c', 30);
+    // half Lab lightness
+    chroma('orangered').set('lab.l', '*0.5');
+    // double Lch saturation
+    chroma('darkseagreen').set('lch.c', '*2');
+    chroma('orangered').get('lab.l');
+    chroma('orangered').get('hsl.l');
+    chroma('orangered').get('rgb.g');
+    chroma('white').luminance();
+    chroma('aquamarine').luminance();
+    chroma('hotpink').luminance();
+    chroma('darkslateblue').luminance();
+    chroma('black').luminance();
+    chroma('white').luminance(0.5);
+    chroma('aquamarine').luminance(0.5);
+    chroma('hotpink').luminance(0.5);
+    chroma('darkslateblue').luminance(0.5);
+    chroma('aquamarine').luminance(0.5);
+    chroma('aquamarine').luminance(0.5, 'lab');
+    chroma('aquamarine').luminance(0.5, 'hsl');
+    chroma('orange').hex();
+    chroma('#ffa500').name();
+    chroma('#ffa505').name();
+    chroma('teal').css();
+    chroma('teal').alpha(0.5).css();
+    chroma('teal').css('hsl');
+    chroma('orange').rgb();
+    chroma('orange').hsl();
+    chroma('white').hsl();
+    chroma('orange').hsv();
+    chroma('white').hsv();
+    chroma('orange').hsi();
+    chroma('white').hsi();
+    chroma('orange').lab();
+    chroma('skyblue').lch();
+    chroma('skyblue').hcl();
+    chroma('#ff3300').temperature();
+    chroma('#ff8a13').temperature();
+    chroma('#ffe3cd').temperature();
+    chroma('#cbdbff').temperature();
+    chroma('#b3ccff').temperature();
+    chroma('33cc00').gl();
 
-    var red = chroma('red');
-    red.alpha(0.5);
-    red.css();  // rgba(255,0,0,0.5);
-
-    chroma('red').darken().hex()  // #BC0000
-    chroma('red').brighten().hex()  // #FF603B
-    chroma('#eecc99').saturate().hex() // #fcc973
-    chroma('red').desaturate().hex() // #ec3d23
-
-    chroma('black').luminance() // 0
-    chroma('white').luminance() // 1
-    chroma('red').luminance() // 0.2126
+    myChroma('teal').alpha(0.5).css();
+    myChroma('teal').css('hsl');
+    myChroma('orange').rgb();
 }
 
 function test_scale() {
-    var scale = chroma.scale(['lightyellow', 'navy']);
-    scale(0.5);  // #7F7FB0
+    var f = chroma.scale();
+    f(0.25);
+    f(0.5);
+    f(0.75);
+    chroma.scale(['yellow', '008ae5']);
+    chroma.scale(['yellow', 'red', 'black']);
+    // default domain is [0,1]
+    chroma.scale(['yellow', '008ae5']);
+    // set domain to [0,100]
+    chroma.scale(['yellow', '008ae5']).domain([0, 100]);
+    // default domain is [0,1]
+    chroma.scale(['yellow', 'lightgreen', '008ae5'])
+        .domain([0, 0.25, 1]);
+    chroma.scale(['yellow', '008ae5']);
+    chroma.scale(['yellow', 'navy']);
+    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('lab');
+    chroma.scale(['yellow', 'navy']).mode('hsl');
+    chroma.scale(['yellow', 'navy']).mode('lch');
+    chroma.scale('YlGnBu');
+    chroma.scale('Spectral');
+    chroma.scale('Spectral').domain([1, 0]);
+    chroma.brewer.OrRd;
+    chroma.scale(['yellow', '008ae5']).mode('lch');
+
+    chroma.scale(['yellow', '008ae5'])
+        .mode('lch')
+        .correctLightness();
+    // linear interpolation
+    chroma.scale(['yellow', 'red', 'black']);
+    // bezier interpolation
+    chroma.bezier(['yellow', 'red', 'black']);
+    // convert bezier interpolator into chroma.scale
+    chroma.bezier(['yellow', 'red', 'black'])
+        .scale().colors(5);
+    // use the default helix...
+    chroma.cubehelix();
+    // or customize it
+    chroma.cubehelix()
+        .start(200)
+        .rotations(-0.5)
+        .gamma(0.8)
+        .lightness([0.3, 0.8]);
+
+    chroma.cubehelix()
+        .start(200)
+        .rotations(-0.35)
+        .gamma(0.7)
+        .lightness([0.3, 0.8])
+        .scale() // convert to chroma.scale
+        .correctLightness()
+        .colors(5);
 
     chroma.scale('RdYlBu');
+    chroma.scale('RdYlBu').padding(0.15);
 
-    var col = scale(0.5);
-    col.hex();  // #7F7FB0
-    col.rgb();  // [127.5, 127.5, 176]
+    chroma.scale('OrRd');
+    chroma.scale('OrRd').padding([0.2, 0]);
 
-    scale = chroma.scale(['lightyellow', 'navy']).out('hex');
-    scale(0.5);  // "#7F7FB0"
+    chroma.scale('OrRd').classes(5);
+    chroma.scale('OrRd').classes(8);
 
-    var scale = chroma.scale(['lightyellow', 'navy']);
-    scale.mode('hsv')(0.5);  // #54C08A
-    scale.mode('hsl')(0.5);  // #31FF98
-    scale.mode('lab')(0.5);  // #967CB2
-    scale.mode('lch')(0.5);  // #D26662
+    myChroma.cubehelix()
+        .start(200)
+        .rotations(-0.35)
+        .gamma(0.7)
+        .lightness([0.3, 0.8])
+        .scale() // convert to chroma.scale
 
-    var scale = chroma.scale(['lightyellow', 'navy']).domain([0, 400]);
-    scale(200);  // #7F7FB0
+        .correctLightness()
+        .colors(5);
 
-    var scale = chroma.scale(['lightyellow', 'navy']).domain([0, 100, 200, 300, 400]);
-    scale(98);  // #7F7FB0
-    scale(99);  // #7F7FB0
-    scale(100);  // #AAAAC0
-    scale(101);  // #AAAAC0
-
-    chroma.scale(['#eee', '#900']).domain([0, 400], 7);
-    chroma.scale(['#eee', '#900']).domain([1, 1000000], 7, 'log');
-    chroma.scale(['#eee', '#900']).domain([1, 1000000], 5, 'quantiles');
-    chroma.scale(['#eee', '#900']).domain([1, 1000000], 5, 'k-means');
-    chroma.scale(['white', 'red']).domain([0, 100], 4).domain() // [0, 25, 50, 75, 100]
-
-    chroma.scale().range(['lightyellow', 'navy']);
-
-    chroma.scale(['lightyellow', 'navy']).correctLightness(true);
-
-    chroma.scale('RdYlGn').domain([0,1], 5).colors()
+    myChroma.scale('RdYlBu');
+    myChroma.scale('RdYlBu').padding(0.15);
 }

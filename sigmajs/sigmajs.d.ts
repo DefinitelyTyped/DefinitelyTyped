@@ -1,9 +1,9 @@
 // Type definitions for sigma.js v1.0.3
 // Project: https://github.com/jacomyal/sigma.js
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module SigmaJs{
+declare namespace SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
     }
@@ -287,9 +287,16 @@ declare module SigmaJs{
     }
 
     interface SVG {
-        edges: {[renderType: string]: SVGObject<SigmaJs.Edge>};
+        edges: {
+            labels: SVGEdgeLabels;
+            [renderType: string]: SVGObject<SigmaJs.Edge> | SVGEdgeLabels;
+        };
         labels: {[renderType: string]: SVGObject<SigmaJs.Node>};
         nodes: {[renderType: string]: SVGObject<SigmaJs.Node>};
+    }
+
+    interface SVGEdgeLabels {
+        [renderType: string]: SVGObject<SigmaJs.Edge>;
     }
 
     interface SVGObject<T> {

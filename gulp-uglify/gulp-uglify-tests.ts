@@ -1,8 +1,8 @@
-/// <reference path="./gulp-uglify.d.ts"/>
+/// <reference path="gulp-uglify.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
-import uglify = require("gulp-uglify");
 
+import * as gulp from 'gulp';
+import * as uglify from 'gulp-uglify';
 
 gulp.task('compress', function() {
     var tsResult = gulp.src('lib/*.ts')
@@ -14,7 +14,7 @@ gulp.task('compress2', function() {
     var tsResult = gulp.src('lib/*.ts')
         .pipe(uglify({
             mangle: false,
-            preserverComments: "some",
+            preserveComments: "some",
             compress: false,
             output: {
                 max_line_len: 300

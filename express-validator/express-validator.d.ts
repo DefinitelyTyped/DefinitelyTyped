@@ -1,12 +1,13 @@
-// Type definitions for express-validator 2.9.0
+// Type definitions for express-validator 2.20.4
 // Project: https://github.com/ctavan/express-validator
-// Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Nathan Ridley <https://github.com/axefrog/>, Jonathan Häberle <http://dreampulse.de>, Peter Harris <https://github.com/codeanimal/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
+/// <reference path="../bluebird/bluebird.d.ts" />
 
 // Add RequestValidation Interface on to Express's Request Interface.
-declare module Express {
+declare namespace Express {
 	interface Request extends ExpressValidator.RequestValidation {}
 }
 
@@ -24,32 +25,40 @@ declare module "express-validator" {
 }
 
 // Internal Module.
-declare module ExpressValidator {
+declare namespace ExpressValidator {
 
 	export interface ValidationError {
 		msg: string;
 		param: string;
 	}
 
-	interface ValidatorFunction { (item: string, message: string): Validator; }
+	interface ValidatorFunction { (item: string | {}, message?: string): Validator; }
+	interface ValidatorExtraFunction extends ValidatorFunction { (matchIndex: number, message?: string): Validator; }
 	interface SanitizerFunction { (item: string): Sanitizer; }
 	interface Dictionary<T> { [key: string]: T; }
 
 	export interface RequestValidation {
-		assert: ValidatorFunction;
-		check: ValidatorFunction;
+		assert: ValidatorExtraFunction;
+		validate: ValidatorExtraFunction;
+		check: ValidatorExtraFunction;
 		checkBody: ValidatorFunction;
 		checkFiles: ValidatorFunction;
-		checkHeader: ValidatorFunction;
+		checkHeaders: ValidatorFunction;
 		checkParams: ValidatorFunction;
 		checkQuery: ValidatorFunction;
-		validate: ValidatorFunction;
-
+		
 		filter: SanitizerFunction;
 		sanitize: SanitizerFunction;
-
+		sanitizeBody: SanitizerFunction;
+		sanitizeQuery: SanitizerFunction;
+		sanitizeParams: SanitizerFunction;
+		sanitizeHeaders: SanitizerFunction;
+		
 		onValidationError(errback: (msg: string) => void): void;
-		validationErrors(mapped?: boolean): Dictionary<any> | any[];
+		validationErrors(mapped?: boolean): Dictionary<MappedError> | MappedError[];
+		validationErrors<T>(mapped?: boolean): Dictionary<T> | T[];
+		asyncValidationErrors(mapped?: boolean): Promise<MappedError[] | Dictionary<MappedError>>;
+		asyncValidationErrors<T>(mapped?: boolean): Promise<T[] | Dictionary<T>>;
 	}
 
 	export interface Validator {
@@ -61,19 +70,35 @@ declare module ExpressValidator {
 		 * Alias for notRegex()
 		 */
 		not(): Validator;
-		isEmail(): Validator;
+		isEmail(options?:{}): Validator;
 		/**
 		 * Accepts http, https, ftp
 		 */
-		isUrl(): Validator;
+		isURL(): Validator;
+		isFQDN(options?: MinMaxOptions): Validator;
+		
 		/**
 		 * Combines isIPv4 and isIPv6
 		 */
 		isIP(): Validator;
 		isIPv4(): Validator;
 		isIPv6(): Validator;
-		isAlpha(): Validator;
-		isAlphanumeric(): Validator;
+		isMACAddress(): Validator;
+		isISBN(version?: number): Validator;
+		isISIN(): Validator;
+		isISO8601(): Validator;
+		isMobilePhone(locale: string): Validator;
+		isMongoId(): Validator;
+		isMultibyte(): Validator;
+		isAlpha(locale?: string): Validator;
+		isAlphanumeric(locale?: string): Validator;
+		isAscii(): Validator;
+		isBase64(): Validator;
+		isBoolean(): Validator;
+		isByteLength(options: MinMaxOptions): Validator;
+		isCurrency(options: {}): Validator;
+		isDataURI(): Validator;
+		isDivisibleBy(num: number): Validator;
 		isNumeric(): Validator;
 		isHexadecimal(): Validator;
 		/**
@@ -83,7 +108,7 @@ declare module ExpressValidator {
 		/**
 		 * isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
 		 */
-		isInt(): Validator;
+		isInt(options?: MinMaxOptions): Validator;
 		isLowercase(): Validator;
 		isUppercase(): Validator;
 		isDecimal(): Validator;
@@ -91,10 +116,12 @@ declare module ExpressValidator {
 		 * Alias for isDecimal
 		 */
 		isFloat(): Validator;
+		isFullWidth(): Validator;
+		isHalfWidth(): Validator;
+		isVariableWidth(): Validator;
 		/**
 		 * Check if length is 0
 		 */
-		notNull(): Validator;
 		isNull(): Validator;
 		/**
 		 * Not just whitespace (input.trim().length !== 0)
@@ -102,12 +129,13 @@ declare module ExpressValidator {
 		notEmpty(): Validator;
 		equals(equals:any): Validator;
 		contains(str:string): Validator;
-		notContains(str:string): Validator;
+
 		/**
-		 * Usage: regex(/[a-z]/i) or regex('[a-z]','i')
+		 * Usage: matches(/[a-z]/i) or matches('[a-z]','i')
 		 */
-		regex(pattern:string, modifiers:string): Validator;
-		notRegex(pattern:string, modifiers:string): Validator;
+		matches(pattern:string, modifiers?:string): Validator;
+		matches(pattern: RegExp): Validator;
+		
 		/**
 		 * max is optional
 		 */
@@ -115,7 +143,7 @@ declare module ExpressValidator {
 		/**
 		 * Version can be 3, 4 or 5 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
 		 */
-		isUUID(version:number): Validator;
+		isUUID(version?:number): Validator;
 		/**
 		 * Alias for isUUID(3)
 		 */
@@ -135,17 +163,20 @@ declare module ExpressValidator {
 		/**
 		 * Argument is optional and defaults to today. Comparison is non-inclusive
 		 */
-		isAfter(date:Date): Validator;
+		isAfter(date?:Date): Validator;
 		/**
 		 * Argument is optional and defaults to today. Comparison is non-inclusive
 		 */
-		isBefore(date:Date): Validator;
+		isBefore(date?:Date): Validator;
 		isIn(options:string): Validator;
 		isIn(options:string[]): Validator;
 		notIn(options:string): Validator;
 		notIn(options:string[]): Validator;
 		max(val:string): Validator;
 		min(val:string): Validator;
+		isJSON(): Validator;
+		isLength(options: MinMaxOptions): Validator;
+		isWhitelisted(chars: string): Validator;
 		/**
 		 * Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
 		 */
@@ -153,7 +184,10 @@ declare module ExpressValidator {
 		/**
 		 * Check an input only when the input exists
 		 */
-		optional(): Validator;
+		isSurrogatePar(): Validator;
+		
+		optional(options?: { checkFalsy?: boolean }): Validator;
+		withMessage(message: string): Validator;
 	}
 
 	interface Sanitizer {
@@ -163,34 +197,49 @@ declare module ExpressValidator {
 		trim(...chars:string[]): Sanitizer;
 		ltrim(...chars:string[]): Sanitizer;
 		rtrim(...chars:string[]): Sanitizer;
-		ifNull(replace:any): Sanitizer;
+		stripLow(keep_new_lines?: boolean): Sanitizer;
 		toFloat(): Sanitizer;
-		toInt(): Sanitizer;
+		toInt(radix?: number): Sanitizer;
 		/**
-		 * True unless str = '0', 'false', or str.length == 0
+		 * True unless str = '0', 'false', or str.length == 0. In strict mode only '1' and 'true' return true.
 		 */
-		toBoolean(): Sanitizer;
+		toBoolean(strict?: boolean): Sanitizer;
+		
 		/**
-		 * False unless str = '1' or 'true'
-		 */
-		toBooleanStrict(): Sanitizer;
-		/**
-		 * Decode HTML entities
-		 */
-		entityDecode(): Sanitizer;
-		entityEncode(): Sanitizer;
+		* Convert the input string to a date, or null if the input is not a date.
+		*/
+		toDate(): Sanitizer;
+		
 		/**
 		 * Escape &, <, >, and "
 		 */
 		escape(): Sanitizer;
+		
 		/**
-		 * Remove common XSS attack vectors from user-supplied HTML
+		 * Replaces HTML encoded entities with <, >, &, ', " and /.
 		 */
-		xss(): Sanitizer;
+		unescape(): Sanitizer;
+		
+		blacklist(chars: string): Sanitizer;
+		blacklist(chars: string[]): Sanitizer;
+		whitelist(chars: string): Sanitizer;
+		whitelist(chars: string[]): Sanitizer;
+		
+		normalizeEmail(options?: { lowercase?: boolean; remove_dots?: boolean; remove_extensions?: boolean }): Sanitizer;
+		
 		/**
-		 * Remove common XSS attack vectors from images
+		 * !!! XSS sanitization was removed from the library (see: https://github.com/chriso/validator.js#xss-sanitization)
 		 */
-		xss(fromImages:boolean): Sanitizer;
 	}
-
+	
+	interface MappedError {
+		param: string;
+		msg: string;
+		value: string;
+	}
+	
+	interface MinMaxOptions {
+		min?: number;
+		max?: number;
+	}
 }

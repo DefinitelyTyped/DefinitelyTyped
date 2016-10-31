@@ -1,7 +1,7 @@
-// Type definitions for Select2 3.2
+// Type definitions for Select2 4.0.1
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -25,10 +25,11 @@ interface Select2AjaxOptions {
     */
     url?: any;
     dataType?: string;
-    quietMillis?: number;
+    delay?: number;
     cache?: boolean;
     data?: (term: string, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
+    processResults?:(data: any, params: any) => any;
 }
 
 interface IdTextPair {
@@ -42,7 +43,7 @@ interface Select2Options {
     minimumInputLength?: number;
     minimumResultsForSearch?: number;
     maximumSelectionSize?: number;
-    placeholder?: string;
+    placeholder?: string | IdTextPair;
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
@@ -71,6 +72,15 @@ interface Select2Options {
     dropdownCss?: any;
     dropdownCssClass?: any;
     escapeMarkup?: (markup: string) => string;
+    theme?: string;
+    /**
+    * Template can return both plain string that will be HTML escaped and a jquery object that can render HTML
+    */
+    templateSelection?: (object: Select2SelectionObject) => any;
+    templateResult?: (object: Select2SelectionObject) => any;
+    language?: string | string[] | {};
+    selectOnClose?: boolean;
+    sorter?: (data: any[]) => any[];
 }
 
 interface Select2JQueryEventObject extends JQueryEventObject {
@@ -81,6 +91,16 @@ interface Select2JQueryEventObject extends JQueryEventObject {
         id: any;
         text: string;
     };
+}
+
+interface Select2SelectionObject {
+    loading: boolean;
+    disabled: boolean;
+    element: HTMLOptionElement;
+    id: string;
+    selected: boolean;
+    text: string;
+    title: string;
 }
 
 interface JQuery {

@@ -1,5 +1,5 @@
 ///<reference path="java.d.ts"/>
-///<reference path="../bluebird/bluebird.d.ts"/>
+///<reference path="../bluebird/bluebird-2.0.d.ts"/>
 
 import java = require('java');
 import BluePromise = require('bluebird');

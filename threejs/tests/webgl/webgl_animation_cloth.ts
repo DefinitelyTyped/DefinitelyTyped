@@ -114,7 +114,7 @@
         clothGeometry.dynamic = true;
         clothGeometry.computeFaceNormals();
 
-        var uniforms = { texture: { type: "t", value: clothTexture } };
+        var uniforms = { texture: { value: clothTexture } };
         var vertexShader = document.getElementById('vertexShaderDepth').textContent;
         var fragmentShader = document.getElementById('fragmentShaderDepth').textContent;
 

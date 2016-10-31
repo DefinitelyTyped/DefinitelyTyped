@@ -1,13 +1,13 @@
 // Type definitions for Chrome Cast application development
 // Project: https://developers.google.com/cast/
 // Definitions by: Thomas Stig Jacobsen <https://github.com/eXeDK>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ////////////////////
 // Cast
 // @see https://code.google.com/p/chromium/codesearch#chromium/src/ui/file_manager/externs/chrome_cast.js
 ////////////////////
-declare module chrome.cast {
+declare namespace chrome.cast {
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.AutoJoinPolicy
@@ -424,7 +424,7 @@ declare module chrome.cast {
             successCallback: (media: chrome.cast.media.Media) => void,
             errorCallback: (error: chrome.cast.Error) => void
         ):void
-        
+
         /**
          * @param {!chrome.cast.media.QueueLoadRequest} queueLoadRequest
          * @param {function(!chrome.cast.media.Media)} successCallback
@@ -494,10 +494,10 @@ declare module chrome.cast {
     }
 }
 
-declare module chrome.cast.media {
-    
+declare namespace chrome.cast.media {
+
     var DEFAULT_MEDIA_RECEIVER_APP_ID: string;
-    
+
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MediaCommand
@@ -561,7 +561,7 @@ declare module chrome.cast.media {
         FINISHED: string;
         ERROR: string;
     }
-    
+
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media#.RepeatMode
@@ -572,7 +572,7 @@ declare module chrome.cast.media {
         SINGLE:string;
         ALL_AND_SHUFFLE:string;
     }
-    
+
     interface QueueItem {
         /**
          * @param {!chrome.cast.media.MediaInfo} mediaInfo
@@ -582,7 +582,7 @@ declare module chrome.cast.media {
         new(
             mediaInfo: chrome.cast.media.MediaInfo
         ):QueueItem;
-        
+
         activeTrackIds: Array<Number>;
         autoplay: boolean;
         customData: Object;
@@ -591,7 +591,7 @@ declare module chrome.cast.media {
         preloadTime: number;
         startTime: number;
     }
-    
+
     interface QueueLoadRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>} items
@@ -601,13 +601,13 @@ declare module chrome.cast.media {
         new(
             items: Array<chrome.cast.media.QueueItem>
         ):QueueLoadRequest;
-        
+
         customData: Object;
         items: Array<chrome.cast.media.QueueItem>;
         repeatMode: chrome.cast.media.RepeatMode;
         startIndex: number;
     }
-    
+
     interface QueueInsertItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
@@ -617,12 +617,12 @@ declare module chrome.cast.media {
         new(
             itemsToInsert: Array<chrome.cast.media.QueueItem>
         ):QueueInsertItemsRequest;
-        
+
         customData: Object;
         insertBefore:number;
         items: Array<chrome.cast.media.QueueItem>;
     }
-    
+
     interface QueueRemoveItemsRequest {
         /**
          * @param {!Array<number>}
@@ -632,11 +632,11 @@ declare module chrome.cast.media {
         new(
             itemIdsToRemove: Array<number>
         ):QueueRemoveItemsRequest;
-        
+
         customData: Object;
         itemIds: Array<number>;
     }
-    
+
     interface QueueReorderItemsRequest {
         /**
          * @param {!Array<number>}
@@ -646,12 +646,12 @@ declare module chrome.cast.media {
         new(
             itemIdsToReorder: Array<number>
         ):QueueReorderItemsRequest;
-        
+
         customData: Object;
         insertBefore: number;
         itemIds: Array<number>;
     }
-    
+
     interface QueueUpdateItemsRequest {
         /**
          * @param {!Array<chrome.cast.media.QueueItem>}
@@ -661,11 +661,11 @@ declare module chrome.cast.media {
         new(
             itemsToUpdate: Array<chrome.cast.media.QueueItem>
         ):QueueUpdateItemsRequest;
-        
+
         customData: Object;
         item: Array<chrome.cast.media.QueueItem>;
     }
-    
+
     /**
      * @enum {string}
      * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.TrackType
@@ -848,7 +848,7 @@ declare module chrome.cast.media {
         releaseYear: number;
         subtitle: string;
         title: string;
-        /** @deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -858,7 +858,7 @@ declare module chrome.cast.media {
          * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.MovieMediaMetadata
          */
         new():MovieMediaMetadata;
-        
+
         images: Array<chrome.cast.Image>;
         metadataType: chrome.cast.media.MetadataType;
         releaseDate: string;
@@ -917,11 +917,11 @@ declare module chrome.cast.media {
         images: Array<chrome.cast.Image>;
         releaseDate: string;
 
-        /** @deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
-        /** @deprecated. Use artist instead. */ 
+        /** @deprecated. Use artist instead. */
         artistName: string;
-        /** @deprecated. Use releaseDate instead. */ 
+        /** @deprecated. Use releaseDate instead. */
         releaseYear: number;
     }
 
@@ -943,7 +943,7 @@ declare module chrome.cast.media {
         height: number;
         creationDateTime: string;
 
-        /** @deprecated. Use metadataType instead. */ 
+        /** @deprecated. Use metadataType instead. */
         type: chrome.cast.media.MetadataType;
     }
 
@@ -996,7 +996,7 @@ declare module chrome.cast.media {
         sessionId: string;
         supportedMediaCommands: Array<chrome.cast.media.MediaCommand>;
         volume: chrome.cast.Volume;
-        
+
         /** @deprecated. Use getEstimatedTime instead */
         currentTime: number;
 
@@ -1104,7 +1104,7 @@ declare module chrome.cast.media {
          * @suppress {deprecated} Uses currentTime member to compute estimated time.
          */
         getEstimatedTime(): number
-        
+
         /**
          * @param {!chrome.cast.media.QueueItem} item
          * @param {function()} successCallback
@@ -1115,7 +1115,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!chrome.cast.media.QueueInsertItemsRequest} queueInsertItemsRequest
          * @param {function()} successCallback
@@ -1126,7 +1126,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!number} itemId
          * @param {function()} successCallback
@@ -1137,7 +1137,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!number} itemId
          * @param {!number} newIndex
@@ -1150,7 +1150,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {function()} successCallback
          * @param {function(!chrome.cast.Error)} errorCallback
@@ -1159,8 +1159,8 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
-        /**         
+
+        /**
          * @param {function()} successCallback
          * @param {function(!chrome.cast.Error)} errorCallback
          */
@@ -1168,7 +1168,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!number} itemId
          * @param {function()} successCallback
@@ -1179,7 +1179,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!chrome.cast.media.QueueReorderItemsRequest} queueReorderItemsRequest
          * @param {function()} successCallback
@@ -1190,7 +1190,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!chrome.cast.media.RepeatMode} repeatMode
          * @param {function()} successCallback
@@ -1201,7 +1201,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
         /**
          * @param {!chrome.cast.media.QueueUpdateItemsRequest} queueUpdateItemsRequest
          * @param {function()} successCallback
@@ -1212,7 +1212,7 @@ declare module chrome.cast.media {
             successCallback: Function,
             errorCallback: (error: chrome.cast.Error) => void
         ): void
-        
+
     }
 
     interface Track {
@@ -1263,7 +1263,7 @@ declare module chrome.cast.media {
  * @namespace
  * @see https://developers.google.com/cast/docs/reference/chrome/chrome.cast.media.timeout
  */
-declare module chrome.cast.media.timeout {
+declare namespace chrome.cast.media.timeout {
     var load: number;
     var getStatus: number;
     var play: number;

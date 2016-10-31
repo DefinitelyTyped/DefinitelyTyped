@@ -13,6 +13,7 @@
 *.map
 *.swp
 .DS_Store
+npm-debug.log
 
 _Resharper.DefinitelyTyped
 bin
@@ -34,3 +35,4 @@ node_modules
 
 .sublimets
 .settings/launch.json
+yarn.lock

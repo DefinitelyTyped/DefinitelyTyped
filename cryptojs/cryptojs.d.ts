@@ -1,12 +1,12 @@
 // Type definitions for CryptoJS 3.1.2
 // Project: https://code.google.com/p/crypto-js/
 // Definitions by: Gia Bảo @ Sân Đình <https://github.com/giabao>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var CryptoJS: CryptoJS.CryptoJSStatic;
 
-declare module CryptoJS{
-    module lib{
+declare namespace CryptoJS{
+    namespace lib{
         interface Base{
             extend(overrides: Object): Object
             init(...args: any[]): void
@@ -208,7 +208,7 @@ declare module CryptoJS{
         }
     }
 
-    module enc{
+    namespace enc{
         interface IEncoder{
             stringify(wordArray: lib.WordArray): string
         }
@@ -228,7 +228,7 @@ declare module CryptoJS{
         }
     }
 
-    module kdf{
+    namespace kdf{
         interface KdfStatic{
             OpenSSL: IKdfImpl
         }
@@ -239,7 +239,7 @@ declare module CryptoJS{
         }
     }
 
-    module format{
+    namespace format{
         interface FormatStatic{
             OpenSSL: IFormatter
             Hex: IFormatter
@@ -251,7 +251,7 @@ declare module CryptoJS{
         }
     }
 
-    module algo{
+    namespace algo{
         interface AlgoStatic{
             AES: algo.AES
             DES: algo.DES
@@ -349,7 +349,7 @@ declare module CryptoJS{
         interface RC4Drop extends RC4 { }
     }
 
-    module mode{
+    namespace mode{
         interface ModeStatic{
             CBC: mode.CBC
             CFB: mode.CFB
@@ -378,7 +378,7 @@ declare module CryptoJS{
         interface OFB extends IBlockCipherModeImpl{}
     }
 
-    module pad{
+    namespace pad{
         interface PadStatic{
             Pkcs7: pad.Pkcs7
             AnsiX923: pad.AnsiX923
@@ -401,7 +401,7 @@ declare module CryptoJS{
         interface NoPadding extends IPaddingImpl{}
     }
 
-    module x64{
+    namespace x64{
         interface X64Static{
             Word: x64.Word
             WordArray: x64.WordArray

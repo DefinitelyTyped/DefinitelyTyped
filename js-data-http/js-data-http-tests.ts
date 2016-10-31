@@ -1,8 +1,14 @@
+/// <reference path="./../axios/axios.d.ts" />
 /// <reference path="js-data-http.d.ts" />
+
+import * as axios from 'axios';
 
 var adapter = new DSHttpAdapter();
 var store = new JSData.DS();
 store.registerAdapter('http', adapter, { default: true });
+
+adapter.defaults.basePath = '/api';
+adapter.http = axios;
 
 var ADocument:JSData.DSResourceDefinition<any> = store.defineResource<any>('document');
 
@@ -28,7 +34,7 @@ ADocument.inject({ id: 5, author: 'John' });
 ADocument.inject({ id: 6, author: 'John' });
 
 // bypass the data store
-adapter.updateAll<{ id?: number; author: string; }>(ADocument, { author: 'Johnny' }, { author: 'John' }).then(function (documents) {
+adapter.updateAll(ADocument, { author: 'Johnny' }, { author: 'John' }).then(function (documents) {
     documents[0]; // { id: 5, author: 'Johnny' }
 
     // The updated documents have NOT been injected into the data store because we bypassed the data store
@@ -37,7 +43,7 @@ adapter.updateAll<{ id?: number; author: string; }>(ADocument, { author: 'Johnny
 });
 
 // Normally you would just go through the data store
-ADocument.updateAll<{ id?: number; author: string; }>({ author: 'Johnny' }, { author: 'John' }).then(function (documents) {
+ADocument.updateAll({ author: 'Johnny' }, { author: 'John' }).then(function (documents) {
     documents[0]; // { id: 5, author: 'Johnny' }
 
     // the updated documents have been injected into the data store

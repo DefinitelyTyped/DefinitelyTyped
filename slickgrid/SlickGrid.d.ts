@@ -1,7 +1,7 @@
 // Type definitions for SlickGrid 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
@@ -33,7 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 interface DOMEvent extends Event {}
 
-declare module Slick {
+declare namespace Slick {
 
 	/**
 	* slick.core.js
@@ -92,14 +92,16 @@ declare module Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public subscribe(fn: (e: EventData, data: T) => any): void;
+		public subscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
 		* @method unsubscribe
 		* @param fn {Function} Event handler to be removed.
 		*/
-		public unsubscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public unsubscribe(fn: (e: EventData, data: T) => any): void;
+		public unsubscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Fires an event notifying all subscribers.
@@ -217,7 +219,7 @@ declare module Slick {
 	* @extends Slick.NonDataItem
 	* @constructor
 	*/
-	export class Group<T, R> extends NonDataRow {
+	export class Group<T extends SlickData> extends NonDataRow {
 
 		constructor();
 
@@ -240,7 +242,7 @@ declare module Slick {
 		* @property value
 		* @type {Object}
 		*/
-		public value: T;
+		public value: any;
 
 		/***
 		* Formatted display value of the group.
@@ -261,21 +263,21 @@ declare module Slick {
 		* @property totals
 		* @type {GroupTotals}
 		*/
-		public totals: GroupTotals<T, R>;
+		public totals: GroupTotals<T>;
 
 		/**
 		* Rows that are part of the group.
 		* @property rows
 		* @type {Array}
 		*/
-		public rows: R[];
+		public rows: T[];
 
 		/**
 		* Sub-groups that are part of the group.
 		* @property groups
 		* @type {Array}
 		*/
-		public groups: Group<T, R>[];
+		public groups: Group<T>[];
 
 		/**
 		* A unique key used to identify the group.  This key can be used in calls to DataView
@@ -292,7 +294,7 @@ declare module Slick {
 		* @param group {Group} Group instance to compare to.
 		* todo: this is on the prototype (NonDataRow()) instance, not Group, maybe doesn't matter?
 		*/
-		public equals(group: Group<T, R>): boolean;
+		public equals(group: Group<T>): boolean;
 	}
 
 	/***
@@ -304,7 +306,7 @@ declare module Slick {
 	* @extends Slick.NonDataItem
 	* @constructor
 	*/
-	export class GroupTotals<T, R> extends NonDataRow {
+	export class GroupTotals<T> extends NonDataRow {
 
 		constructor();
 
@@ -313,7 +315,7 @@ declare module Slick {
 		* @param group
 		* @type {Group}
 		*/
-		public group: Group<T, R>;
+		public group: Group<T>;
 
 	}
 
@@ -690,12 +692,84 @@ declare module Slick {
 	}
 
 	export interface DataProvider<T extends SlickData> {
-		getItem(index: number): T;
+		/**
+		 * Returns the number of data items in the set.
+		 */
 		getLength(): number;
+
+		/**
+		 * Returns the item at a given index.
+		 * @param index
+		 */
+		getItem(index: number): T;
+
+		/**
+		 * Returns the metadata for the item at a given index (optional).
+		 * @param index
+		 */
+		getItemMetadata?(index: number): RowMetadata<T>;
 	}
 
 	export interface SlickData {
 		// todo ? might be able to leave as empty
+	}
+
+	export interface RowMetadata<T> {
+		/**
+		 * One or more (space-separated) CSS classes to be added to the entire row.
+		 */
+		cssClasses?: string;
+
+		/**
+		 * Whether or not any cells in the row can be set as "active".
+		 */
+		focusable?: boolean;
+
+		/**
+		 * Whether or not a row or any cells in it can be selected.
+		 */
+		selectable?: boolean;
+
+		/**
+		 * Metadata related to individual columns
+		 */
+		columns?: {
+			/**
+			 * Metadata indexed by column id
+			 */
+			[index: string]: ColumnMetadata<T>;
+			/**
+			 * Metadata indexed by column index
+			 */
+			[index: number]: ColumnMetadata<T>;
+		}
+	}
+
+	export interface ColumnMetadata<T extends SlickData> {
+		/**
+		 * Whether or not a cell can be set as "active".
+		 */
+		focusable?: boolean;
+
+		/**
+		 * Whether or not a cell can be selected.
+		 */
+		selectable?: boolean;
+
+		/**
+		 * A custom cell formatter.
+		 */
+		formatter?: Formatter<T>;
+
+		/**
+		 * A custom cell editor.
+		 */
+		editor?: Slick.Editors.Editor<T>;
+
+		/**
+		 * Number of columns this cell will span. Can also contain "*" to indicate that the cell should span the rest of the row.
+		 */
+		colspan?: number|string;
 	}
 
 	/**
@@ -965,7 +1039,7 @@ declare module Slick {
 		* @param e A standard W3C/jQuery event.
 		* @return
 		**/
-		public getCellFromEvent<T>(e: Event<T>): Cell; // todo: !! Unsure on return type !!
+		public getCellFromEvent(e: DOMEvent): Cell;
 
 		/**
 		* Returns a hash containing row and cell indexes. Coordinates are relative to the top left corner of the grid beginning with the first row (not including the column headers).
@@ -973,7 +1047,7 @@ declare module Slick {
 		* @param y A y coordinate.
 		* @return
 		**/
-		public getCellFromPoint(x: number, y: number): Cell; // todo: !! Unsure on return type !!
+		public getCellFromPoint(x: number, y: number): Cell;
 
 		/**
 		* Returns a DOM element containing a cell at a given row and cell.
@@ -1323,9 +1397,13 @@ declare module Slick {
 
 	export interface OnSortEventArgs<T extends SlickData> extends GridEventArgs<T> {
 		multiColumnSort: boolean;
-		sortCol?: SortColumn<T>;
-		sortCols?: SortColumn<T>[];
+
+		// Single column returned
+		sortCol?: Column<T>;
 		sortAsc: boolean;
+
+		// Multiple columns returned
+		sortCols?: SortColumn<T>[];
 	}
 
 	export interface OnScrollEventArgs<T extends SlickData> extends GridEventArgs<T> {
@@ -1489,8 +1567,7 @@ declare module Slick {
 			public fastSort(field: string, ascending: boolean): void;
 			public fastSort(field: Function, ascending: boolean): void;		// todo: typeof(field), should be the same callback as Array.sort
 			public reSort(): void;
-			public setGrouping(groupingInfos: GroupingOptions<T>[]): void;
-			public setGrouping(groupingInfo: GroupingOptions<T>): void;
+			public setGrouping(groupingInfos: GroupingOptions<T> | GroupingOptions<T>[]): void;
 			public getGrouping(): GroupingOptions<T>[];
 
 			/**
@@ -1528,7 +1605,7 @@ declare module Slick {
 			*     the 'high' setGrouping.
 			*/
 			public expandGroup(...varArgs: string[]): void;
-			public getGroups(): Group<T, any>[];
+			public getGroups(): Group<T>[];
 			public getIdxById(id: string): number;
 			public getRowById(id: string): number;
 			public getItemById(id: any): T;
@@ -1546,7 +1623,7 @@ declare module Slick {
 
 			public getLength(): number;
 			public getItem(index: number): T;
-			public getItemMetadata(index?: number): TotalsRowMetadata<T>;
+			public getItemMetadata(index: number): RowMetadata<T>;
 
 			public onRowCountChanged: Slick.Event<OnRowCountChangedEventData>;
 			public onRowsChanged: Slick.Event<OnRowsChangedEventData>;
@@ -1554,16 +1631,16 @@ declare module Slick {
 		}
 
 		export interface GroupingOptions<T> {
-			getter: Function;	// todo
-			formatter: Formatter<T>;
-			comparer: (a:any, b:any) => any;	// todo
-			predefinedValues: any[];	// todo
-			aggregators: Aggregators.Aggregator<T>[];
-			aggregateEmpty: boolean;
-			aggregateCollapsed: boolean;
-			aggregateChildGroups: boolean;
-			collapsed: boolean;
-			displayTotalsRow: boolean;
+			getter?: ((item?: T) => any) | string;
+			formatter?: (item?: T) => string;
+			comparer?: (a: Group<T>, b: Group<T>) => number;
+			predefinedValues?: any[];	// todo
+			aggregators?: Aggregators.Aggregator<T>[];
+			aggregateEmpty?: boolean;
+			aggregateCollapsed?: boolean;
+			aggregateChildGroups?: boolean;
+			collapsed?: boolean;
+			displayTotalsRow?: boolean;
 		}
 
 		export interface PagingOptions {
@@ -1596,7 +1673,7 @@ declare module Slick {
 				public field: string;
 				public init(): void;
 				public accumulate(item: T): void;
-				public storeResult(groupTotals: GroupTotals<T, any>): void;	// todo "R"
+				public storeResult(groupTotals: GroupTotals<T>): void;
 			}
 
 			export class Avg<T> extends Aggregator<T> {
@@ -1633,29 +1710,8 @@ declare module Slick {
 		export class GroupItemMetadataProvider<T extends Slick.SlickData> {
 			public init(): void;
 			public destroy(): void;
-			public getGroupRowMetadata(): GroupRowMetadata<T>;
-			public getTotalsRowMetadata(): TotalsRowMetadata<T>;
-		}
-
-		export interface GroupRowMetadata<T extends Slick.SlickData> {
-			selectable: boolean;
-			focusable: boolean;
-			cssClasses: string;
-			columns: {
-				0: {
-					colspan: string;
-					formatter: Formatter<T>;
-					editor: Slick.Editors.Editor<T>;
-				}
-			};
-		}
-
-		export interface TotalsRowMetadata<T extends Slick.SlickData> {
-			selectable: boolean;
-			focusable: boolean;
-			cssClasses: string;
-			formatter: Formatter<T>;
-			editor: Slick.Editors.Editor<T>;
+			public getGroupRowMetadata(item?: Group<T>): RowMetadata<T>;
+			public getTotalsRowMetadata(item?: GroupTotals<T>): RowMetadata<T>;
 		}
 
 		export interface GroupItemMetadataProviderOptions {

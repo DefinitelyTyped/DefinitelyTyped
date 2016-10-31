@@ -1,7 +1,7 @@
 // Type definitions for chocolatechip v4.0.4
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 interface ChocolateChipStatic {
 
   /**

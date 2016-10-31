@@ -1,12 +1,11 @@
 /// <reference path="promises-a-plus.d.ts"/>
 /// <reference path="../rx/rx.async.d.ts"/>
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
 /// <reference path="../q/Q.d.ts"/>
 /// <reference path="../when/when"/>
 
-var thenNum: PromisesAPlus.Thenable<number>; 
-var thenStr: PromisesAPlus.Thenable<string>; 
-var thenBool: PromisesAPlus.Thenable<boolean>; 
+var thenNum: PromisesAPlus.Thenable<number>;
+var thenStr: PromisesAPlus.Thenable<string>;
+var thenBool: PromisesAPlus.Thenable<boolean>;
 
 var impl: PromisesAPlus.PromiseImpl;
 
@@ -45,9 +44,9 @@ function testCompatibleWithRxJS() {
 }
 
 function testCompatibleWithES6Promises() {
-	// from spec to ES6
-	var es6ThenNum: Thenable<number> = thenNum;
-	var es6ThenStr: Thenable<string> = thenStr;
+	// define ES6 thenables
+	var es6ThenNum: PromiseLike<number>;
+	var es6ThenStr: PromiseLike<string>;
 
 	// from ES6 to spec
 	thenNum = es6ThenNum;

@@ -1,6 +1,6 @@
 /// <reference path="angular.d.ts" />
 
-// issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
+// issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
@@ -62,6 +62,10 @@ angular.module('http-auth-interceptor', [])
  */
     .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
+        $httpProvider.defaults.headers.common = {'Authorization': 'Bearer token'};
+        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
+        $httpProvider.defaults.headers.post['Authorization'] = function (config:ng.IRequestConfig):string { return 'Bearer token'; }
+
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
                 return response;
@@ -87,7 +91,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -170,31 +174,57 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x: any; // need to export something for module to kick in
 }
 
 // IModule Registering Test
 var mod = angular.module('tests', []);
-mod.controller('name', function ($scope: ng.IScope) { })
-mod.controller('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.controller(My.Namespace);
+mod.controller('name', function ($scope: ng.IScope) { });
+mod.controller('name', ['$scope', function ($scope: ng.IScope) { }]);
+mod.controller('name', class {
+    // Uncommenting the next line should lead to a type error because this signature isn't compatible
+    // with the signature of the `$onChanges` hook:
+    // $onChanges(x: number) { }
+});
+mod.controller({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
 mod.directive('name', <any>function ($scope: ng.IScope) { })
 mod.directive('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.directive(My.Namespace);
+mod.directive({
+    myFooDir: () => ({
+        template: 'my-foo-dir.tpl.html'
+    }),
+    myBarDir: ['$fooService', ($fooService: any) => ({
+        template: 'my-bar-dir.tpl.html'
+    })]
+});
 mod.factory('name', function ($scope: ng.IScope) { })
-mod.factory('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.factory(My.Namespace);
+mod.factory('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.factory({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.filter('name', function ($scope: ng.IScope) { })
-mod.filter('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.filter(My.Namespace);
+mod.filter('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.filter({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.provider('name', function ($scope: ng.IScope) { return { $get: () => { } } })
 mod.provider('name', TestProvider);
 mod.provider('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.provider(My.Namespace);
 mod.service('name', function ($scope: ng.IScope) { })
 mod.service('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.service(My.Namespace);
+mod.service({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
 mod.constant('name', 23);
 mod.constant('name', "23");
 mod.constant(My.Namespace);
@@ -243,14 +273,20 @@ foo.then((x) => {
 });
 
 // $q signature tests
-module TestQ {
+namespace TestQ {
     interface TResult {
         a: number;
         b: string;
         c: boolean;
     }
+    interface TValue {
+        e: number;
+        f: boolean;
+    }
     var tResult: TResult;
     var promiseTResult: angular.IPromise<TResult>;
+    var tValue: TValue;
+    var promiseTValue: angular.IPromise<TValue>;
 
     var $q: angular.IQService;
     var promiseAny: angular.IPromise<any>;
@@ -268,6 +304,9 @@ module TestQ {
     {
         let result: angular.IPromise<any[]>;
         result = $q.all([promiseAny, promiseAny]);
+        // TS should infer that n1 and n2 are numbers and have toFixed.
+        $q.all([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
+        $q.all([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
     }
     {
         let result: angular.IPromise<TResult[]>;
@@ -296,6 +335,17 @@ module TestQ {
         result = $q.reject('');
     }
 
+    // $q.resolve
+    {
+        let result: angular.IPromise<void>;
+        result = $q.resolve();
+    }
+    {
+        let result: angular.IPromise<TResult>;
+        result = $q.resolve<TResult>(tResult);
+        result = $q.resolve<TResult>(promiseTResult);
+    }
+
     // $q.when
     {
         let result: angular.IPromise<void>;
@@ -305,6 +355,22 @@ module TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.when<TResult>(tResult);
         result = $q.when<TResult>(promiseTResult);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
     }
 }
 
@@ -328,7 +394,7 @@ httpFoo.success((data, status, headers, config) => {
 
 
 // Deferred signature tests
-module TestDeferred {
+namespace TestDeferred {
     var any: any;
 
     interface TResult {
@@ -368,9 +434,18 @@ module TestDeferred {
     }
 }
 
+namespace TestInjector {
+    let $injector: angular.auto.IInjectorService;
+
+    $injector.strictDi = true;
+
+    $injector.annotate(() => {});
+    $injector.annotate(() => {}, true);
+}
+
 
 // Promise signature tests
-module TestPromise {
+namespace TestPromise {
     var result: any;
     var any: any;
 
@@ -387,35 +462,47 @@ module TestPromise {
 
     var tresult: TResult;
     var tresultPromise: ng.IPromise<TResult>;
-    
+    var tresultHttpPromise: ng.IHttpPromise<TResult>;
+
     var tother: TOther;
     var totherPromise: ng.IPromise<TOther>;
-    
+    var totherHttpPromise: ng.IHttpPromise<TOther>;
+
     var promise: angular.IPromise<TResult>;
 
     // promise.then
     result = <angular.IPromise<any>>promise.then((result) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any);
     result = <angular.IPromise<any>>promise.then((result) => any, (any) => any, (any) => any);
-    
+
     result = <angular.IPromise<TResult>>promise.then((result) => result);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => result, (any) => any, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any);
     result = <angular.IPromise<TResult>>promise.then((result) => tresultPromise, (any) => any, (any) => any);
-    
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.then((result) => tresultHttpPromise, (any) => any, (any) => any);
+
     result = <angular.IPromise<TOther>>promise.then((result) => tother);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => tother, (any) => any, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any);
     result = <angular.IPromise<TOther>>promise.then((result) => totherPromise, (any) => any, (any) => any);
-    
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.then((result) => totherHttpPromise, (any) => any, (any) => any);
+
     // promise.catch
     result = <angular.IPromise<any>>promise.catch((err) => any);
     result = <angular.IPromise<TResult>>promise.catch((err) => tresult);
+    result = <angular.IPromise<TResult>>promise.catch((err) => tresultPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TResult>>>promise.catch((err) => tresultHttpPromise);
     result = <angular.IPromise<TOther>>promise.catch((err) => tother);
+    result = <angular.IPromise<TOther>>promise.catch((err) => totherPromise);
+    result = <angular.IPromise<ng.IHttpPromiseCallbackArg<TOther>>>promise.catch((err) => totherHttpPromise);
 
     // promise.finally
     result = <angular.IPromise<TResult>>promise.finally(() => any);
@@ -437,10 +524,12 @@ function test_angular_forEach() {
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
+isolateScope = element.find('div.foo').isolateScope();
+isolateScope = element.children().isolateScope();
 
 
 // $timeout signature tests
-module TestTimeout {
+namespace TestTimeout {
     interface TResult {
         a: number;
         b: string;
@@ -484,9 +573,10 @@ function test_IAttributes(attributes: ng.IAttributes){
 }
 
 test_IAttributes({
-    $normalize: function (classVal){},
+    $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
+    $updateClass: function(newClass, oldClass){},
     $set: function(key, value){},
     $observe: function(name: any, fn: any){
         return fn;
@@ -725,6 +815,7 @@ angular.module('docsTransclusionExample', [])
         };
     });
 
+
 angular.module('docsIsoFnBindExample', [])
     .controller('Controller', ['$scope', '$timeout', function($scope: any, $timeout: any) {
         $scope.name = 'Tobias';
@@ -824,6 +915,50 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('multiSlotTranscludeExample', [])
+    .directive('dropDownMenu', function() {
+        return {
+            transclude: {
+                button: 'button',
+                list: 'ul',
+            },
+            link: function(scope, element, attrs, ctrl, transclude) {
+                // without scope
+                transclude().appendTo(element);
+                transclude(clone => clone.appendTo(element));
+
+                // with scope
+                transclude(scope, clone => clone.appendTo(element));
+                transclude(scope, clone => clone.appendTo(element), element, 'button');
+                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+            }
+        };
+    });
+
+angular.module('componentExample', [])
+    .component('counter', {
+        require: {'ctrl': '^ctrl'},
+        bindings: {
+            count: '='
+        },
+        controller: 'CounterCtrl',
+        controllerAs: 'counterCtrl',
+        template: function () {
+            return '';
+        },
+        transclude: {
+            'el': 'target'
+        }
+    })
+    .component('anotherCounter', {
+        controller: function(){},
+        require: {
+            'parent': '^parentCtrl'
+        },
+        template: '',
+        transclude: true
+    });
+
 interface copyExampleUser {
     name?: string;
     email?: string;
@@ -855,7 +990,7 @@ angular.module('copyExample', [])
         $scope.reset();
     }]);
 
-module locationTests {
+namespace locationTests {
 
     var $location: ng.ILocationService;
 
@@ -934,18 +1069,127 @@ function NgModelControllerTyping() {
     };
 }
 
-function ngFilterTyping() {
-    var $filter:  angular.IFilterService;
+var $filter: angular.IFilterService;
+
+function testFilter() {
+
     var items: string[];
-    
-    $filter("name")(items, "test");
-    $filter("name")(items, {name: "test"});
-    $filter("name")(items, (val, index, array) => {
-        return array;
+    $filter("filter")(items, "test");
+    $filter("filter")(items, {name: "test"});
+    $filter("filter")(items, (val, index, array) => {
+        return true;
     });
-    $filter("name")(items, (val, index, array) => {
-        return array;
+    $filter("filter")(items, (val, index, array) => {
+      return true;
     }, (actual, expected) => {
         return actual == expected;
+    });
+}
+
+function testCurrency() {
+    $filter("currency")(126);
+    $filter("currency")(126, "$", 2);
+}
+
+function testNumber() {
+    $filter("number")(167);
+    $filter("number")(167, 2);
+}
+
+function testDate() {
+    $filter("date")(new Date());
+    $filter("date")(new Date(), 'yyyyMMdd');
+    $filter("date")(new Date(), 'yyyyMMdd', '+0430');
+}
+
+function testJson() {
+    var json: string = $filter("json")({test:true}, 2);
+}
+
+function testLowercase() {
+    var lower: string = $filter("lowercase")('test');
+}
+
+function testUppercase() {
+    var lower: string = $filter("uppercase")('test');
+}
+
+function testLimitTo() {
+    var limitTo = $filter("limitTo");
+    var filtered: number[] = $filter("limitTo")([1,2,3], 5);
+    filtered = $filter("limitTo")([1,2,3], 5, 2);
+
+    var filteredString: string = $filter("limitTo")("124", 4);
+    filteredString = $filter("limitTo")(124, 4);
+}
+
+function testOrderBy() {
+    var filtered: number[] = $filter("orderBy")([1,2,3], "test");
+    filtered = $filter("orderBy")([1,2,3], "test", true);
+    filtered = $filter("orderBy")([1,2,3], ['prop1', 'prop2']);
+    filtered = $filter("orderBy")([1,2,3], (val: number) => 1);
+    var filtered2: string[] = $filter("orderBy")(["1","2","3"], (val: string) => 1);
+    filtered2 = $filter("orderBy")(["1","2","3"], [
+        (val: string) => 1,
+        (val: string) => 2
+    ]);
+}
+
+function testDynamicFilter() {
+    // Test with separate variables
+    var dateFilter = $filter("date");
+    var myDate = new Date();
+    dateFilter(myDate , "EEE, MMM d");
+
+    // Test with dynamic name
+    var filterName = 'date';
+    var dynDateFilter = $filter<ng.IFilterDate>(filterName);
+    dynDateFilter(new Date());
+}
+
+interface MyCustomFilter {
+    (value: string): string;
+}
+
+function testCustomFilter() {
+    var filterCustom = $filter<MyCustomFilter>('custom');
+    var filtered: string = filterCustom("test");
+}
+
+function parseTyping() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c');
+    if (compiledExp.constant) {
+        return compiledExp({});
+    } else if (compiledExp.literal) {
+        return compiledExp({}, {a: {b: {c: 42}}});
+    }
+}
+
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
+}
+
+function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
+    if (mode === 'debug') {
+        return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
+            $provide.decorator('$rootScope', function($delegate: ng.IRootScopeService) {
+                $delegate['debug'] = true;
+            });
+        }, 'debug-helpers'], {
+            strictDi: true
+        });
+    }
+    return angular.bootstrap(element, ['main'], {
+        strictDi: false
+    });
+}
+
+function testIHttpParamSerializerJQLikeProvider() {
+    let serializer: angular.IHttpParamSerializer;
+    serializer({
+        a: "b"
     });
 }

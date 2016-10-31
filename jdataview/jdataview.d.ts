@@ -1,7 +1,7 @@
 ﻿// Type definitions for jDataView
 // Project: https://github.com/jDataView/jDataView
 // Definitions by: Ingvar Stepanyan <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class jDataView implements DataView {
 	constructor(byteCount: number, offset?: number, length?: number, littleEndian?: boolean)
@@ -81,7 +81,7 @@ declare class jDataView implements DataView {
 	writeFloat64(value: number, littleEndian?: boolean): void
 }
 
-declare module jDataView {
+declare namespace jDataView {
 	interface Bytes {
 		length: number;
 		[index: number]: number;

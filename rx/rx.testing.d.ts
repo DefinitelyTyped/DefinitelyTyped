@@ -1,12 +1,12 @@
 // Type definitions for RxJS-Testing v2.2.28
 // Project: https://github.com/Reactive-Extensions/RxJS/
 // Definitions by: Igor Oleinikov <https://github.com/Igorbek>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="rx.d.ts" />
 ///<reference path="rx.virtualtime.d.ts" />
 
-declare module Rx {
+declare namespace Rx {
 	export interface TestScheduler extends VirtualTimeScheduler<number, number> {
 		createColdObservable<T>(...records: Recorded[]): Observable<T>;
 		createHotObservable<T>(...records: Recorded[]): Observable<T>;

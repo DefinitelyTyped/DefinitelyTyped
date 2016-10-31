@@ -1,12 +1,12 @@
 // Type definitions for Umbraco v7.2.8
 // Project: https://github.com/umbraco
 // Definitions by: DeCareSystemsIreland <https://github.com/DeCareSystemsIreland>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="umbraco.d.ts" />
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module umbraco.services {
+declare namespace umbraco.services {
 
     /**
     * @ngdoc service
@@ -494,6 +494,10 @@ declare module umbraco.services {
         width?: number;
         /*strips the modal from any animation and wrappers, used when you want to inject a dialog into an existing container*/
         inline?: boolean;
+        /** 
+         * It will set this value as a property on the dialog controller's scope as $scope.dialogData
+         */
+	dialogData?: any;
     }
 
     /**

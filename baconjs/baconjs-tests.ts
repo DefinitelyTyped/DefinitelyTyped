@@ -75,7 +75,7 @@ function CreatingStreams() {
         var stream = Bacon.fromBinder(sink => {
             sink("first value");
             sink([new Bacon.Next("2nd"), new Bacon.Next("3rd")]);
-            sink(new Bacon.Next(() => {
+            sink(new Bacon.Next((): string => {
                 return "This one will be evaluated lazily"
             }));
             sink(new Bacon.Error("oops, an error"));
@@ -88,7 +88,7 @@ function CreatingStreams() {
     }
 
     new Bacon.Next("value");
-    new Bacon.Next(() => "value");
+    new Bacon.Next((): string => "value");
 }
 
 function CommonMethodsInEventStreamsAndProperties() {
@@ -296,7 +296,7 @@ function CombiningMultipleStreamsAndProperties() {
 
 function $Event() {
     new Bacon.Next("value");
-    new Bacon.Next(() => "value");
+    new Bacon.Next((): string => "value");
 }
 
 function Errors() {

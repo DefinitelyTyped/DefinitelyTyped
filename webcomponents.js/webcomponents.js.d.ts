@@ -1,9 +1,9 @@
 // Type definitions for webcomponents.js 0.6.0
 // Project: https://github.com/webcomponents/webcomponentsjs
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module webcomponents {
+declare namespace webcomponents {
 
     export interface CustomElementInit {
         prototype: HTMLElement;
@@ -31,6 +31,11 @@ declare module webcomponents {
         whenReady(callback: () => void): void;
     }
 
+    export interface ShadowRootPolyfill extends DocumentFragment {
+        innerHTML: string;
+        host: Element;
+    }
+
     export interface Polyfill {
         flags: any;
     }
@@ -39,6 +44,11 @@ declare module webcomponents {
 
 declare module "webcomponents.js" {
     export = webcomponents;
+}
+
+interface Element {
+    createShadowRoot(): webcomponents.ShadowRootPolyfill;
+    shadowRoot?: webcomponents.ShadowRootPolyfill;
 }
 
 interface Document {

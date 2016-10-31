@@ -1,7 +1,7 @@
 // Type definitions for gulp-plumber
 // Project: https://github.com/floatdrop/gulp-plumber
 // Definitions by: Joe Skeen <http://github.com/joeskeen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 

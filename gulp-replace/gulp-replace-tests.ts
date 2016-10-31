@@ -1,7 +1,7 @@
 /// <reference path="./gulp-replace.d.ts"/>
 /// <reference path="../gulp/gulp.d.ts"/>
-import gulp = require("gulp");
-import replace = require("gulp-replace");
+import * as gulp from "gulp";
+import * as replace from "gulp-replace";
 
 gulp.task('templates', function(){
     gulp.src(['file.txt'])

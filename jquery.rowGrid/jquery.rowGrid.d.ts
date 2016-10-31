@@ -1,7 +1,7 @@
 // Type definitions for jQuery rowGrid.js plugin (v1.0.2)
 // Project: https://github.com/brunjo/rowGrid.js
 // Definitions by: Vinayak Garg <https://github.com/vinayak-garg>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 

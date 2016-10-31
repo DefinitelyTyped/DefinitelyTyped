@@ -1,11 +1,11 @@
 ﻿// Type definitions for doT v1.0.1
 // Project: https://github.com/olado/doT
 // Definitions by: ZombieHunter <https://github.com/ZombieHunter>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var doT: doT.doTStatic;
 
-declare module doT {
+declare namespace doT {
 
 	interface doTStatic {
 		/**

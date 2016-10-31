@@ -1,7 +1,7 @@
 // Type definitions for statsd-client v0.1.0
 // Project: https://github.com/msiebuhr/node-statsd-client
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "statsd-client" {
 
@@ -99,5 +99,6 @@ declare module "statsd-client" {
 		getChildClient(name: string): StatsdClient;
 	}
 
+	namespace StatsdClient {}
 	export = StatsdClient;
 }

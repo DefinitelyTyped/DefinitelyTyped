@@ -11,7 +11,7 @@ interface JQuery {
     magicSuggest(configurationObject?: MagicSuggest.Configuration): MagicSuggest.Instance;
 }
 
-declare module MagicSuggest {
+declare namespace MagicSuggest {
     interface Configuration {
         /**********  CONFIGURATION PROPERTIES ************/
         /**

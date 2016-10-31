@@ -1,9 +1,9 @@
 // Type definitions for Selenium WebDriverJS 2.44.0
 // Project: https://code.google.com/p/selenium/
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module chrome {
+declare namespace chrome {
     /**
      * Creates a new WebDriver client for Chrome.
      *
@@ -387,7 +387,7 @@ declare module chrome {
     function setDefaultService(service: any): void;
 }
 
-declare module firefox {
+declare namespace firefox {
     /**
      * Manages a Firefox subprocess configured for use with WebDriver.
      */
@@ -622,7 +622,7 @@ declare module firefox {
     }
 }
 
-declare module executors {
+declare namespace executors {
     /**
      * Creates a command executor that uses WebDriver's JSON wire protocol.
      * @param url The server's URL, or a promise that will resolve to that URL.
@@ -632,9 +632,9 @@ declare module executors {
     function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
 }
 
-declare module webdriver {
+declare namespace webdriver {
 
-    module error {
+    namespace error {
         interface IErrorCode {
             SUCCESS: number;
 
@@ -769,7 +769,7 @@ declare module webdriver {
         }
     }
 
-    module logging {
+    namespace logging {
 
         /**
          * A hash describing log preferences.
@@ -899,7 +899,7 @@ declare module webdriver {
         }
     }
 
-    module promise {
+    namespace promise {
         //region Functions
 
         /**
@@ -1791,7 +1791,7 @@ declare module webdriver {
         }
     }
 
-    module stacktrace {
+    namespace stacktrace {
         /**
          * Class representing one stack frame.
          */
@@ -1892,7 +1892,7 @@ declare module webdriver {
         var BROWSER_SUPPORTED: boolean;
     }
 
-    module until {
+    namespace until {
         /**
          * Defines a condition to
          */
@@ -5077,7 +5077,7 @@ declare module webdriver {
         thenFinally<R>(callback: () => any): webdriver.promise.Promise<R>;
     }
 
-    module By {
+    namespace By {
         /**
          * Locates elements that have a specific class name. The returned locator
          * is equivalent to searching for elements with the CSS selector ".clazz".
@@ -5310,7 +5310,7 @@ declare module webdriver {
     }
 }
 
-declare module testing {
+declare namespace testing {
     /**
     * Registers a new test suite.
     * @param name The suite name.

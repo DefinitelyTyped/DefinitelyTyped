@@ -10,6 +10,10 @@ assert.equal(3, "3", "uses == comparator");
 
 assert.notStrictEqual(2, "2", "uses === comparator");
 
+assert.deepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+
+assert.notDeepStrictEqual([{a:1}], [{a:1}], "uses === comparator");
+
 assert.throws(() => {
     throw "a hammer at your face";
 }, undefined, "DODGED IT");
