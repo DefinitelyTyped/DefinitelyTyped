@@ -223,7 +223,11 @@ declare namespace Parse {
         latitude: number;
         longitude: number;
 
-        constructor(arg1?: any, arg2?: any);
+        constructor(other: GeoPoint);
+        constructor(lat: number, lng: number);
+        constructor(latLng: number[]);
+        constructor(latLng: { latitude: number; longitude: number });
+        constructor();
 
         current(options?: SuccessFailureOptions): GeoPoint;
         radiansTo(point: GeoPoint): number;
