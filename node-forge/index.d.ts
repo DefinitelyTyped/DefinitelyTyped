@@ -9,6 +9,7 @@ declare module "node-forge" {
     type Hex = string;
     type Base64 = string;
     type Utf8 = string;
+    type OID = string;
 
     namespace pki {
 
@@ -22,6 +23,11 @@ declare module "node-forge" {
 
         function privateKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
+
+        interface oids {
+            [key: string]: string;
+        }
+        var oids: oids;
 
         namespace rsa {
 
@@ -130,9 +136,11 @@ declare module "node-forge" {
             value: Asn1[];
         }
 
-        function create(tagClass: Class, type: Type, constructed?: boolean, value?: Asn1[]): Asn1;
+        function create(tagClass: Class, type: Type, constructed: boolean, value: string | Asn1[]): Asn1;
         function fromDer(bytes: Bytes | util.ByteBuffer, strict?: boolean): Asn1;
         function toDer(obj: Asn1): util.ByteBuffer;
+        function oidToDer(oid: OID): util.ByteStringBuffer;
+        function derToOid(der: util.ByteStringBuffer): OID;
     }
 
     namespace util {
@@ -174,8 +182,8 @@ declare module "node-forge" {
             getInt32Le(): number;
             getInt(numOfBits: number): number;
             getSignedInt(numOfBits: number): number;
-            getBytes(count: number): Bytes;
-            bytes(count: number): Bytes;
+            getBytes(count?: number): Bytes;
+            bytes(count?: number): Bytes;
             at(index: number): Byte;
             setAt(index: number, byte: number): ByteStringBuffer;
             last(): Byte;
