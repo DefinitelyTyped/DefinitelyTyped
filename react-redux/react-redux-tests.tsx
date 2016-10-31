@@ -262,6 +262,17 @@ function mapStateToProps3(state: TodoState, ownProps: TodoProps): TodoState {
 
 connect(mapStateToProps3)(TodoApp);
 
+// Allow passing state and ownProps arguments to factory function makeMapStateToProps
+function makeMapStateToProps(mState: any, mOwnProps: TodoProps) {
+    // do preparation work that should be done once for every connected container instance here (e.g. memoized selectors),
+    // then...
+
+    // return some mapStateToProps function like usual
+    return mapStateToProps3;
+}
+
+connect<TodoState, {}, TodoProps>(makeMapStateToProps)(TodoApp);
+
 // Inject todos of a specific user depending on props, and inject props.userId into the action
 
 //function mapStateToProps(state) {
