@@ -317,7 +317,7 @@ mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el
 });
 
 // define using comparator
-mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el, x) {
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el: MixedObject, x: Date) {
     return el.date.valueOf() - x.valueOf();
 });
 

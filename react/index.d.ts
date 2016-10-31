@@ -2083,6 +2083,7 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
+        fillRule?: "nonzero" | "evenodd" | "inherit";
         filter?: string;
         fontFamily?: string;
         fontSize?: number | string;
