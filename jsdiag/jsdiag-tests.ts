@@ -1,5 +1,5 @@
-/// <reference path="../jquery/jquery.d.ts" />
-/// <reference path="jsdiag.d.ts" />
+/// <reference path="../jquery/index.d.ts" />
+/// <reference path="index.d.ts" />
 
 import Diagram = MindFusion.Diagramming.Diagram;
 import DiagramNode = MindFusion.Diagramming.DiagramNode;
