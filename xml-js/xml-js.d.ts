@@ -8,7 +8,7 @@ declare module "xml-js" {
         [key: string]: string
     }
 
-    type Types = "comment" | "element" | "cdata" | "text"
+    type Types = "comment" | "element" | "cdata" | "text";
 
     export interface ElementCompact {
         [key: string]: any
@@ -84,10 +84,10 @@ declare module "xml-js" {
         compact: true
     }
 
-    export function js2xml(json: ElementCompact, options?: JS2XMLOptionsCompact): string
-    export function js2xml(json: Element, options?: JS2XMLOptions): string
-    export function json2xml(json: ElementCompact, options?: JS2XMLOptionsCompact): string
-    export function json2xml(json: Element, options?: JS2XMLOptions): string
-    export function xml2json(xml: string, options?: XML2JSOptions): any
-    export function xml2js(xml: string, options?: XML2JSOptions): any
+    export function js2xml(json: ElementCompact, options?: JS2XMLOptionsCompact): string;
+    export function js2xml(json: Element, options?: JS2XMLOptions): string;
+    export function json2xml(json: ElementCompact, options?: JS2XMLOptionsCompact): string;
+    export function json2xml(json: Element, options?: JS2XMLOptions): string;
+    export function xml2json(xml: string, options?: XML2JSOptions): any;
+    export function xml2js(xml: string, options?: XML2JSOptions): any;
 }
