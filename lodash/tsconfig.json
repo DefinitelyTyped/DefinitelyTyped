@@ -55,6 +55,7 @@
         "every/index.d.ts",
         "extend/index.d.ts",
         "extendWith/index.d.ts",
+        "fb/index.d.ts",
         "fill/index.d.ts",
         "filter/index.d.ts",
         "find/index.d.ts",
