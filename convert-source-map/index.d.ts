@@ -1,6 +1,6 @@
 // Type definitions for convert-source-map v1.3.0
 // Project: https://github.com/thlorenz/convert-source-map
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, Melvin Groenhoff <https://github.com/mgroenhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface SourceMapConverter {
