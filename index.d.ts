@@ -4,43 +4,50 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Translation from Objects in help to Typescript interface.
-// cy   --> Cy.Instance
-//  the core
-// ele  --> Cy.CollectionFirst
-//  a collection of a single element (node or edge)
-// eles --> Cy.Collection
-//  a collection of one or more elements (nodes and edges)
-// node --> Cy.CollectionFirstNode
-//  a collection of a single node
-// nodes -> Cy.CollectionNodes
-//  a collection of one or more nodes
-// edge --> Cy.CollectionFirstEdge
-//  a collection of a single edge
-// edges -> Cy.CollectionEdges
-//  a collection of one or more edges
-// 
-// The library makes a diferrence between input and output parameter due to the dynamic behaviour of the Cytoscape library.
-// For a input parameter it will always expect:
-//  - Cy.Collection
-//      The input can be any element (node and edge) collection.
-//  - Cy.CollectionNodes
-//      The input must be a node collection.
-//  - Cy.CollectionEdges
-//      The input must be a edge collection.
-//  - Cy.CollectionFirst
-//      The input must be a single element.
-//  - Cy.CollectionFirstNode
-//      The inut must be a single node.
-//  - Cy.CollectionFirstEdge
-//      The input must be a single edge.
+// http://js.cytoscape.org/#notation/functions
 //
-// For a output of a function it will always give:
-//  - Cy.CollectionElements
-//      The output is a collection of node and edge elements OR single element.
-//  - Cy.CollectionEdges
-//      The output is a collection of edge elements OR single edge.
-//  - Cy.CollectionNodes
-//      The output is a collection of node elements OR single node.
+
+/**
+ * cy   --> Cy.Instance
+ *  the core
+ * ele  --> Cy.CollectionFirst
+ *  a collection of a single element (node or edge)
+ * eles --> Cy.Collection
+ *  a collection of one or more elements (nodes and edges)
+ * node --> Cy.CollectionFirstNode
+ *  a collection of a single node
+ * nodes -> Cy.CollectionNodes
+ *  a collection of one or more nodes
+ * edge --> Cy.CollectionFirstEdge
+ *  a collection of a single edge
+ * edges -> Cy.CollectionEdges
+ *  a collection of one or more edges
+ * 
+ * The library makes a distinction between input and output parameters
+ *  due to the dynamic behaviour of the Cytoscape library.
+ * 
+ * For a input parameter it will always expect:
+ *  - Cy.Collection
+ *      The input can be any element (node and edge) collection.
+ *  - Cy.CollectionNodes
+ *      The input must be a node collection.
+ *  - Cy.CollectionEdges
+ *      The input must be a edge collection.
+ *  - Cy.CollectionFirst
+ *      The input must be a single element.
+ *  - Cy.CollectionFirstNode
+ *      The inut must be a single node.
+ *  - Cy.CollectionFirstEdge
+ *      The input must be a single edge.
+ *
+ * For a output of a function it will always give:
+ *  - Cy.CollectionElements
+ *      The output is a collection of node and edge elements OR single element.
+ *  - Cy.CollectionEdges
+ *      The output is a collection of edge elements OR single edge.
+ *  - Cy.CollectionNodes
+ *      The output is a collection of node elements OR single node.
+ */
 
 
 declare namespace Cy {
@@ -69,77 +76,169 @@ declare namespace Cy {
      */
     type Scratchpad = any;
 
-    interface CollectionElements extends CollectionManipulation,
+    /**
+     * The output is a collection of node and edge elements OR single element.
+     */
+    interface CollectionElements extends
         CollectionEdges, CollectionNodes, CollectionFirstElement {
         //Intentionally empty.
     }
-
+    /**
+     * edges -> Cy.CollectionEdges
+     *  a collection of one or more edges
+     * 
+     * The output is a collection of edge elements OR single edge.
+     */
     interface CollectionEdges extends Collection, CollectionFirstEdge,
         CollectionEdgesTraversing { }
-
+    /**
+     *  nodes -> Cy.CollectionNodes
+     *  a collection of one or more nodes
+     * 
+     * The output is a collection of node elements OR single node.
+     */
     interface CollectionNodes extends Collection, CollectionFirstNode,
         CollectionNodesMetadata, CollectionNodesPosition, CollectionNodesTraversing, CollectionNodesCompound { }
 
+    /**
+     * eles --> Cy.Collection
+     *  a collection of one or more elements (nodes and edges)
+     * 
+     * The input can be any element (node and edge) collection.
+     */
     interface Collection extends CollectionFirst,
-        CollectionManipulation, CollectionEvents, CollectionData, CollectionPosition, CollectionLayout, CollectionSelection, CollectionStyle, CollectionAnimation, CollectionComparision, CollectionIteration, CollectionBuildingUnion, CollectionAlgorithms { }
+        CollectionManipulation, CollectionEvents, CollectionData, CollectionPosition,
+        CollectionLayout, CollectionSelection, CollectionStyle, CollectionAnimation,
+        CollectionComparision, CollectionIteration, CollectionBuildingUnion, CollectionAlgorithms { }
 
     interface CollectionFirstElement extends CollectionFirstEdge, CollectionFirstNode {
         //Intentionally empty.
     }
-
+    /**
+     *  edge --> Cy.CollectionFirstEdge
+     *  a collection of a single edge
+     */
     interface CollectionFirstEdge extends CollectionFirst,
         CollectionFirstEdgeData, CollectionFirstEdgeTraversing { }
 
+    /**
+     *  node --> Cy.CollectionFirstNode
+     *  a collection of a single node
+     */
     interface CollectionFirstNode extends CollectionFirst,
         CollectionFirstNodeMetadata, CollectionFirstNodePosition, CollectionFirstNodeCompound { }
 
+    /**
+     * ele  --> Cy.CollectionFirst
+     * a collection of a single element (node or edge)
+     */
     interface CollectionFirst extends
-        CollectionFirstManipulation, CollectionFirstData, CollectionFirstPosition, CollectionFirstSelection, CollectionFirstStyle, CollectionFirtsAnimation { }
+        CollectionFirstManipulation, CollectionFirstData, CollectionFirstPosition,
+        CollectionFirstSelection, CollectionFirstStyle, CollectionFirtsAnimation { }
 
+    /**
+     * http://js.cytoscape.org/#collection/graph-manipulation
+     */
     interface CollectionManipulation {
         /**
          * Remove the elements from the graph.
+         * http://js.cytoscape.org/#eles.remove
          */
         remove(): CollectionElements;
 
         /**
          * Put removed elements back into the graph.
+         * http://js.cytoscape.org/#eles.restore
          */
         restore(): CollectionElements;
 
         /**
          * Get a new collection containing clones (i.e. copies) of the elements in the calling collection.
+         * http://js.cytoscape.org/#eles.clone
          */
         clone(): CollectionElements;
         /**
          * Get a new collection containing clones (i.e. copies) of the elements in the calling collection.
+         * http://js.cytoscape.org/#eles.clone
          */
         copy(): CollectionElements;
 
         /**
          * Effectively move edges to different nodes. The modified (actually new) elements are returned.
+         * http://js.cytoscape.org/#eles.move
          */
         move(location: { source?: string, target?: string }): CollectionEdges;
         /**
          * Effectively move nodes to different parent node. The modified (actually new) elements are returned.
+         * http://js.cytoscape.org/#eles.move
          */
         move(location: { parent: string }): CollectionNodes;
     }
 
+    /**
+     * 
+     * http://js.cytoscape.org/#collection/events
+     */
     interface CollectionEvents {
-        //TODO: http://js.cytoscape.org/#collection/events
+        /**
+         * http://js.cytoscape.org/#eles.on
+         */
+        on(events: string, selector: string, data: any, handler: EventHandler): void;
+        on(events: string, selector: string, handler: EventHandler): void;
+        on(events: string, data: any, handler: EventHandler): void;
+        on(events: string, handler: EventHandler): void;
+        /**
+         * http://js.cytoscape.org/#eles.promiseOn
+         * alias: pon
+         */
+        promiseOn(events: string, selector?: string): Promise<EventHandler>;
+
+        /**
+         * @param events A space separated list of event names.
+         * @param selector [optional] A delegate selector to specify child elements for which the handler is triggered.
+         * @param data [optional] A plain object which is passed to the handler in the event object argument.
+         * @param function(event) The handler function that is called when one of the specified events occurs. 
+         * @param event The event object.
+         * http://js.cytoscape.org/#eles.one
+         */
+        one(events: string, selector: string, data: any, handler: EventHandler): void;
+        one(events: string, selector: string, handler: EventHandler): void;
+        one(events: string, data: any, handler: EventHandler): void;
+        one(events: string, handler: EventHandler): void;
+        /**
+         * http://js.cytoscape.org/#eles.once
+         */
+        once(events: string, selector: string, data: any, handler: EventHandler): void;
+        once(events: string, selector: string, handler: EventHandler): void;
+        once(events: string, data: any, handler: EventHandler): void;
+        once(events: string, handler: EventHandler): void;
+        /**
+         * http://js.cytoscape.org/#eles.off
+         * alias unbind, unlisten, removeListener
+         */
+        off(events: string, selector?: string, handler?: EventHandler): void;
+        /**
+         * http://js.cytoscape.org/#eles.trigger
+         * alias: emit
+         */
+        trigger(events: string, extra?: string[]): void;
     }
 
+    /**
+     * http://js.cytoscape.org/#collection/data
+     * 
+     * The following fields are immutable:
+     * id: The id field is used to uniquely identify an element in the graph.
+     * source & target : These fields define an edge's relationship to nodes, and this relationship can not be changed after creation.
+     * parent: The parent field defines the parent (compound) node.
+     * 
+     * 
+     */
     interface CollectionData {
-        //http://js.cytoscape.org/#collection/data
-
-        //    The following fields are immutable:
-        //id: The id field is used to uniquely identify an element in the graph.
-        //source & target : These fields define an edge's relationship to nodes, and this relationship can not be changed after creation.
-        //parent: The parent field defines the parent (compound) node.
 
         /**
          * Remove developer-defined data associated with the elements.
+         * http://js.cytoscape.org/#eles.removeData
          */
         removeData(): CollectionElements;
         /**
@@ -148,6 +247,7 @@ declare namespace Cy {
          * @param names A space-separated list of fields to delete.
          */
         removeData(names: string): CollectionElements;
+
         /**
          * Remove developer-defined data associated with the elements.
          */
@@ -1054,7 +1154,7 @@ declare namespace Cy {
          * That is:
          * - edge1.source().id() === edge2.source().id() 
          *   && edge1.target().id() === edge2.target().id()
-
+     
          * @param selector [optional] An optional selector that is used to filter the resultant collection.
          */
         codirectedEdges(selector?: Selector): CollectionEdges;
@@ -1162,6 +1262,9 @@ declare namespace Cy {
          */
         found: CollectionNodes;
     }
+    /**
+     * http://js.cytoscape.org/#eles.dijkstra
+     */
     interface SearchDijkstraOptions {
         /**
          * The root node (selector or collection) where the algorithm starts.
@@ -1180,6 +1283,9 @@ declare namespace Cy {
          */
         directed?: boolean;
     }
+    /**
+     * http://js.cytoscape.org/#eles.dijkstra
+     */
     interface SearchDijkstraResult {
         /**
          * Returns the distance from the source node to node.
@@ -1192,10 +1298,76 @@ declare namespace Cy {
          */
         pathTo: (node: CollectionFirstNode) => Collection;
     }
-    interface SearchAStarOptions { }
-    interface SearchAStarResult { }
+    /**
+     * http://js.cytoscape.org/#eles.aStar
+     */
+    interface SearchAStarOptions {
+        root: Selector | Collection;
+        goal: Selector | Collection;
+        weight?: (edge: CollectionEdges) => number;
+        heuristic?: (node: CollectionNodes) => number;
+        directed?: boolean;
+    }
+    /**
+     * http://js.cytoscape.org/#eles.aStar
+     */
+    interface SearchAStarResult {
+        found: boolean;
+        distance: number;
+        path: Collection;
+    }
+
+    /**
+     * http://js.cytoscape.org/#eles.floydWarshall
+     */
+    interface SearchFloydWarshallOptions {
+        weight: (edge: CollectionEdges) => number;
+        directed?: boolean;
+    }
+    /**
+     * http://js.cytoscape.org/#eles.floydWarshall
+     */
+    interface SearchFloydWarshallResult {
+        /**
+       * Returns the distance from the source node to node.
+       */
+        distance: (fromNode: CollectionFirstNode | Selection, toNode: CollectionFirstNode | Selection) => number;
+
+        /**
+         * Returns a collection containing the shortest path from the source node to node.
+         * The path starts with the source node and includes the edges between the nodes in the path such that if pathTo(node)[i] is an edge, then pathTo(node)[i-1] is the previous node in the path and pathTo(node)[i+1] is the next node in the path.
+         */
+        path: (fromNode: CollectionFirstNode | Selection, toNode: CollectionFirstNode | Selection) => Collection;
+    }
+
+    /**
+     * http://js.cytoscape.org/#eles.bellmanFord
+     */
+
+    /**
+     * http://js.cytoscape.org/#eles.bellmanFord
+     */
+    interface SearchBellmanFordResult {
+        /** 
+         * function that computes the shortest path from root node to the argument node
+         * (either objects or selector string) 
+        */
+        pathTo: (node: CollectionFirstNode | Selection) => Collection;
+
+        /**
+         *  function that computes the shortest distance from root node to argument node
+         * (either objects or selector string) 
+         * */
+        distanceTo: (node: CollectionFirstNode | Selection) => number;
+
+        /* true/false. If true, pathTo and distanceTo will be undefined */
+        hasNegativeWeightCycle: boolean;
+    }
+
+    /**
+     * http://js.cytoscape.org/#collection/algorithms
+     */
     interface CollectionAlgorithms {
-        // http://js.cytoscape.org/#collection/algorithms
 
         /**
          * Perform a breadth-first search within the elements in the collection.
@@ -1203,48 +1375,13 @@ declare namespace Cy {
          * Note that this function performs a breadth-first search on only the subset of the graph in the calling collection.
          */
         breadthFirstSearch(options: SearchBreadthFirstOptions): SearchBreadthFirstResult;
-        /**
-         * Perform a breadth-first search within the elements in the collection.
-         * 
-         * Note that this function performs a breadth-first search on only the subset of the graph in the calling collection.
-         * 
-         * @param roots The root nodes (selector or collection) to start the search from.
-         * @param visit [optional] A handler function that is called when a node is visited in the search. The handler returns true when it finds the desired node, and it returns false to cancel the search.
-         * i - The index indicating this node is the ith visited node.
-         * depth - How many edge hops away this node is from the root nodes.
-         * v - The current node.
-         * e - The edge connecting the previous node to the current node.
-         * u - The previous node.
-         * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
-         */
-        breadthFirstSearch(
-            roots: Selector | Collection,
-            visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
-            directed?: boolean): SearchBreadthFirstResult;
+
         /**
          * Perform a breadth-first search within the elements in the collection.
          * 
          * Note that this function performs a breadth-first search on only the subset of the graph in the calling collection.
          */
         bfs(options: SearchBreadthFirstOptions): SearchBreadthFirstResult;
-        /**
-         * Perform a breadth-first search within the elements in the collection.
-         * 
-         * Note that this function performs a breadth-first search on only the subset of the graph in the calling collection.
-         * 
-         * @param roots The root nodes (selector or collection) to start the search from.
-         * @param visit [optional] A handler function that is called when a node is visited in the search. The handler returns true when it finds the desired node, and it returns false to cancel the search.
-         * i - The index indicating this node is the ith visited node.
-         * depth - How many edge hops away this node is from the root nodes.
-         * v - The current node.
-         * e - The edge connecting the previous node to the current node.
-         * u - The previous node.
-         * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
-         */
-        bfs(
-            roots: Selector | Collection,
-            visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
-            directed?: boolean): SearchBreadthFirstResult;
 
         /**
          * Perform a depth-first search within the elements in the collection.
@@ -1252,72 +1389,34 @@ declare namespace Cy {
          * Note that this function performs a depth-first search on only the subset of the graph in the calling collection.
          */
         depthFirstSearch(options: SearchBreadthFirstOptions): SearchBreadthFirstResult;
-        /**
-         * Perform a depth-first search within the elements in the collection.
-         * 
-         * Note that this function performs a depth-first search on only the subset of the graph in the calling collection.
-         * 
-         * @param roots The root nodes (selector or collection) to start the search from.
-         * @param visit [optional] A handler function that is called when a node is visited in the search. The handler returns true when it finds the desired node, and it returns false to cancel the search.
-         * i - The index indicating this node is the ith visited node.
-         * depth - How many edge hops away this node is from the root nodes.
-         * v - The current node.
-         * e - The edge connecting the previous node to the current node.
-         * u - The previous node.
-         * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
-         */
-        depthFirstSearch(
-            roots: Selector | Collection,
-            visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
-            directed?: boolean): SearchBreadthFirstResult;
+
         /**
          * Perform a depth-first search within the elements in the collection.
          * 
          * Note that this function performs a depth-first search on only the subset of the graph in the calling collection.
          */
         dfs(options: SearchBreadthFirstOptions): SearchBreadthFirstResult;
-        /**
-         * Perform a depth-first search within the elements in the collection.
-         * 
-         * Note that this function performs a depth-first search on only the subset of the graph in the calling collection.
-         * 
-         * @param roots The root nodes (selector or collection) to start the search from.
-         * @param visit [optional] A handler function that is called when a node is visited in the search. The handler returns true when it finds the desired node, and it returns false to cancel the search.
-         * i - The index indicating this node is the ith visited node.
-         * depth - How many edge hops away this node is from the root nodes.
-         * v - The current node.
-         * e - The edge connecting the previous node to the current node.
-         * u - The previous node.
-         * @param directed [optional] A boolean indicating whether the search should only go along edges from source to target (default false).
-         */
-        dfs(
-            roots: Selector | Collection,
-            visit?: (i: number, depth: number, v: CollectionNodes, e: CollectionEdges, u: CollectionNodes) => boolean,
-            directed?: boolean): SearchBreadthFirstResult;
 
         /**
          * Perform Dijkstra's algorithm on the elements in the collection. This finds the shortest paths to all other nodes in the collection from the root node.
          * 
          * Note that this function performs Dijkstra's algorithm on only the subset of the graph in the calling collection.
+         * http://js.cytoscape.org/#eles.dijkstra
+         * 
          */
         dijkstra(options: SearchDijkstraOptions): SearchDijkstraResult;
+
         /**
-         * Perform Dijkstra's algorithm on the elements in the collection. This finds the shortest paths to all other nodes in the collection from the root node.
-         * 
-         * Note that this function performs Dijkstra's algorithm on only the subset of the graph in the calling collection.
-         * 
-         * @param root The root node (selector or collection) where the algorithm starts.
-         * @param weight [optional] A function that returns the positive numeric weight for this edge.
-         * If no weight function is defined, a constant weight of 1 is used for each edge.
-         * @param directed [optional] A boolean indicating whether the algorithm should only go along edges from source to target (default false).
+         * Perform the A* search algorithm on the elements in the collection. 
+         * This finds the shortest path from the root node to the goal node.
+         * http://js.cytoscape.org/#eles.aStar
          */
-        dijkstra(
-            root: Selector | Collection,
-            weight?: (edge: CollectionEdges) => number,
-            directed?: boolean): SearchDijkstraResult;
+        aStar(options: SearchAStarOptions): SearchAStarResult;
 
-
-        //TODO: continue here: http://js.cytoscape.org/#collection/algorithms/eles.dijkstra
+        /**
+             * http://js.cytoscape.org/#eles.bellmanFord
+             */
+        //TODO: continue here: 
     }
     interface CollectionNodesCompound {
         // http://js.cytoscape.org/#collection/compound-nodes
@@ -1394,16 +1493,25 @@ declare namespace Cy {
     interface CollectionFirstManipulation {
         /**
            * Get whether the element has been removed from the graph.
+           * http://js.cytoscape.org/#ele.removed
            */
         removed(): boolean;
         /**
          * Get whether the element is inside the graph (i.e. not removed).
+         * http://js.cytoscape.org/#ele.inside
          */
         inside(): boolean;
     }
-    interface CollectionFirstData {
-        //http://js.cytoscape.org/#collection/data
 
+    /**
+     * The following fields are immutable:
+     * id : The id field is used to uniquely identify an element in the graph.
+     * source & target : These fields define an edge’s relationship to nodes, and this relationship can not be changed after creation.
+     * parent : The parent field defines the parent (compound) node.
+     * 
+     * http://js.cytoscape.org/#collection/data
+     */
+    interface CollectionFirstData {
         /**
         * Get all data for the element.
         */
@@ -1990,6 +2098,11 @@ declare namespace Cy {
         name: string;
     }
 
+    /**
+     *  cy   --> Cy.Instance
+     *   the core
+     * http://js.cytoscape.org/#core
+     */
     interface Instance extends InstanceEvent, InstanceViewPort, InstanceAnimation, InstanceLayout, InstanceStyle, InstanceExport {
         /**
          * Add elements to the graph and return them.
@@ -2099,6 +2212,13 @@ declare namespace Cy {
         data: any;
     }
 
+    /** 
+     * A function which is run in response to the generation of an EventObject.
+     */
+    interface EventHandler {
+        (evt: EventObject): void;
+    }
+
     interface InstanceEvent {
         // http://js.cytoscape.org/#core/events
 
@@ -2108,7 +2228,7 @@ declare namespace Cy {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        on(events: string, handler: (evt: EventObject) => void): void;
+        on(events: string, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2116,7 +2236,7 @@ declare namespace Cy {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        on(events: string, selector: Selector, handler: (evt: EventObject) => void): void;
+        on(events: string, selector: Selector, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2125,7 +2245,7 @@ declare namespace Cy {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        on(events: string, selector: Selector, data: any, handler: (evt: EventObject) => void): void;
+        on(events: string, selector: Selector, data: any, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2134,7 +2254,7 @@ declare namespace Cy {
          * @param data A plain object which is passed to the handler in the event object argument.
          */
         on(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector, data?: any): void;
 
         /**
@@ -2143,7 +2263,7 @@ declare namespace Cy {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        bind(events: string, handler: (evt: EventObject) => void): void;
+        bind(events: string, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2151,7 +2271,7 @@ declare namespace Cy {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        bind(events: string, selector: Selector, handler: (evt: EventObject) => void): void;
+        bind(events: string, selector: Selector, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2160,7 +2280,7 @@ declare namespace Cy {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        bind(events: string, selector: Selector, data: any, handler: (evt: EventObject) => void): void;
+        bind(events: string, selector: Selector, data: any, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2169,7 +2289,7 @@ declare namespace Cy {
          * @param data A plain object which is passed to the handler in the event object argument.
          */
         bind(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector, data?: any): void;
 
         /**
@@ -2178,7 +2298,7 @@ declare namespace Cy {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        listen(events: string, handler: (evt: EventObject) => void): void;
+        listen(events: string, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2186,7 +2306,7 @@ declare namespace Cy {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        listen(events: string, selector: Selector, handler: (evt: EventObject) => void): void;
+        listen(events: string, selector: Selector, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2195,7 +2315,7 @@ declare namespace Cy {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        listen(events: string, selector: Selector, data: any, handler: (evt: EventObject) => void): void;
+        listen(events: string, selector: Selector, data: any, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2204,7 +2324,7 @@ declare namespace Cy {
          * @param data A plain object which is passed to the handler in the event object argument.
          */
         listen(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector, data?: any): void;
 
         /**
@@ -2213,7 +2333,7 @@ declare namespace Cy {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        addListener(events: string, handler: (evt: EventObject) => void): void;
+        addListener(events: string, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2221,7 +2341,7 @@ declare namespace Cy {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        addListener(events: string, selector: Selector, handler: (evt: EventObject) => void): void;
+        addListener(events: string, selector: Selector, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2230,7 +2350,7 @@ declare namespace Cy {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        addListener(events: string, selector: Selector, data: any, handler: (evt: EventObject) => void): void;
+        addListener(events: string, selector: Selector, data: any, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph.
          *
@@ -2239,7 +2359,7 @@ declare namespace Cy {
          * @param data A plain object which is passed to the handler in the event object argument.
          */
         addListener(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector, data?: any): void;
 
         /**
@@ -2248,7 +2368,7 @@ declare namespace Cy {
          * @param events A space separated list of event names.
          * @param handler The handler function that is called when one of the specified events occurs.
          */
-        one(events: string, handler: (evt: EventObject) => void): void;
+        one(events: string, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -2256,7 +2376,7 @@ declare namespace Cy {
          * @param handler The handler function that is called when one of the specified events occurs.
          * @param selector A selector to specify elements for which the handler is triggered.
          */
-        one(events: string, selector: Selector, handler: (evt: EventObject) => void): void;
+        one(events: string, selector: Selector, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -2265,7 +2385,7 @@ declare namespace Cy {
          * @param selector A selector to specify elements for which the handler is triggered.
          * @param data A plain object which is passed to the handler in the event object argument.
          */
-        one(events: string, selector: Selector, data: any, handler: (evt: EventObject) => void): void;
+        one(events: string, selector: Selector, data: any, handler: EventHandler): void;
         /**
          * Bind to events that occur in the graph, and trigger the handler only once.
          *
@@ -2274,7 +2394,7 @@ declare namespace Cy {
          * @param data A plain object which is passed to the handler in the event object argument.
          */
         one(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector, data?: any): void;
 
         /**
@@ -2283,7 +2403,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          * @param handler [optional] A reference to the handler function to remove.
          */
-        off(events: string, selector?: Selector, handler?: (evt: EventObject) => void): void;
+        off(events: string, selector?: Selector, handler?: EventHandler): void;
 
         /**
          * Remove event handlers.
@@ -2291,7 +2411,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          */
         off(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector): void;
 
         /**
@@ -2300,7 +2420,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          * @param handler [optional] A reference to the handler function to remove.
          */
-        unbind(events: string, selector?: Selector, handler?: (evt: EventObject) => void): void;
+        unbind(events: string, selector?: Selector, handler?: EventHandler): void;
 
         /**
          * Remove event handlers.
@@ -2308,7 +2428,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          */
         unbind(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector): void;
 
         /**
@@ -2317,7 +2437,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          * @param handler [optional] A reference to the handler function to remove.
          */
-        unlisten(events: string, selector?: Selector, handler?: (evt: EventObject) => void): void;
+        unlisten(events: string, selector?: Selector, handler?: EventHandler): void;
 
         /**
          * Remove event handlers.
@@ -2325,7 +2445,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          */
         unlisten(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector): void;
 
         /**
@@ -2334,7 +2454,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          * @param handler [optional] A reference to the handler function to remove.
          */
-        removeListener(events: string, selector?: Selector, handler?: (evt: EventObject) => void): void;
+        removeListener(events: string, selector?: Selector, handler?: EventHandler): void;
 
         /**
          * Remove event handlers.
@@ -2343,7 +2463,7 @@ declare namespace Cy {
          * @param selector [optional] The same selector used to bind to the events.
          */
         removeListener(eventsMap: {
-            [value: string]: (evt: EventObject) => void
+            [value: string]: EventHandler
         }, selector?: Selector): void;
 
         /**
