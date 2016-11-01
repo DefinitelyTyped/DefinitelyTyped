@@ -1,4 +1,10 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
+﻿// Type definitions for ej.web.all v14.3.0.52
+// Project: http://help.syncfusion.com/js/typescript
+// Definitions by: Syncfusion <https://github.com/syncfusion/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference path="../jquery/jquery.d.ts" />
+
 /*!
 *  filename: ej.web.all.d.ts
 *  version : 14.3.0.52
