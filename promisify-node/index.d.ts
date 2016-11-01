@@ -14,4 +14,4 @@ export = promisify;
  * @param {Boolean} noMutate - Optional set to true to avoid mutating the target.
  * @returns {*} exports - The resolved value from require or passed in value.
  */
-declare function promisify(name: string | Object | Function, test?: Function, noMutate: boolean = false): any;
+declare function promisify(name: string | Object | Function, test?: Function, noMutate?: boolean): any;
