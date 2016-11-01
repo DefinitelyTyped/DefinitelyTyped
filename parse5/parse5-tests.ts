@@ -58,6 +58,7 @@ fragment = parse5.parseFragment('<div></div>', {locationInfo: true});
 fragment.quirksMode = true;
 fragment.namespaceURI = '';
 fragment.nodeName = '';
+fragment.tagName = '';
 fragment.value = '';
 fragment = fragment.childNodes[0];
 fragment = fragment.parentNode;
