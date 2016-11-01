@@ -292,6 +292,7 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
      */
     empty(schema?: any): T;
+
     /**
      * Overrides the default joi error with a custom error if the rule fails where:
      * @param err - the override error.
