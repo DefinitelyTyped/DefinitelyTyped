@@ -32,7 +32,7 @@ function setTerminalSize () {
 colsElement.addEventListener('change', setTerminalSize);
 rowsElement.addEventListener('change', setTerminalSize);
 
-optionElements.cursorBlink.addEventListener('change', createTerminal);
+(optionElements.cursorBlink as any).addEventListener('change', createTerminal);
 
 createTerminal();
 
