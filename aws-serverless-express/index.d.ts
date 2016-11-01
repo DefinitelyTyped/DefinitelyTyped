@@ -3,22 +3,17 @@
 // Definitions by: Ben Speakman <https://github.com/threesquared>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts"/>
-/// <reference path="../aws-lambda/aws-lambda.d.ts"/>
+/// <reference types="node"/>
+import * as http from 'http';
+import * as lambda from 'aws-lambda';
 
-declare module 'aws-serverless-express' {
+export function createServer(
+    requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => http.Server,
+    serverListenCallback?: () => any
+): http.Server;
 
-    import * as http from 'http';
-    import * as lambda from 'aws-lambda';
-
-    export function createServer(
-        requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => http.Server,
-        serverListenCallback?: () => any
-    ): http.Server;
-
-    export function proxy(
-        server: http.Server,
-        event: any,
-        context: lambda.Context
-    ): void;
-}
+export function proxy(
+    server: http.Server,
+    event: any,
+    context: lambda.Context
+): void;
