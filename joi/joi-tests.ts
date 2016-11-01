@@ -58,6 +58,7 @@ validOpts = {stripUnknown: bool};
 validOpts = {language: bool};
 validOpts = {presence: str};
 validOpts = {context: obj};
+validOpts = {noDefaults: bool};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -221,6 +222,8 @@ namespace common {
 	anySchema = anySchema.empty();
 	anySchema = anySchema.empty(str);
 	anySchema = anySchema.empty(anySchema);
+
+    	anySchema = anySchema.error(err);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
