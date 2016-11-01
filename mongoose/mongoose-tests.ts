@@ -254,7 +254,7 @@ schema.plugin(function (schema, opts) {
 schema.get('path');
   opts.hasOwnProperty('');
 }).plugin(cb, {opts: true});
-schema.post('post', function (doc: mongoose.Document) {}).post('post', function (doc: mongoose.Document, next: (err: mongoose.NativeError) => void) {
+schema.post('post', function (doc) {}).post('post', function (doc, next) {
   next(new Error());
 });
 schema.queue('m1', [1, 2, 3]).queue('m2', [[]]);

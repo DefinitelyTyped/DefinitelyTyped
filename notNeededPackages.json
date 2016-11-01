@@ -22,6 +22,12 @@
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
             "asOfVersion": "0.21.0"
+        },
+        {
+            "libraryName": "Linq.JS",
+            "typingsPackageName": "linq",
+            "sourceRepoURL": "https://linqjs.codeplex.com/",
+            "asOfVersion": "2.2.33"
         }
     ]
 }
