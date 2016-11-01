@@ -1227,6 +1227,11 @@ declare namespace angular {
         (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+
+        /**
+         * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
+         */
+        isSlotFilled(slotName: string): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
