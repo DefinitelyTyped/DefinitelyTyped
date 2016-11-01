@@ -3,7 +3,7 @@
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Alfaslash <https://github.com/alfaslash>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module Huject {
+declare module huject {
 
     export class Container {
         /**
@@ -268,6 +268,4 @@ declare module Huject {
     export function Factory<T>(target: Object, propertyKey: string|symbol, descriptor: TypedPropertyDescriptor<T>): TypedPropertyDescriptor<T> | void;
 }
 
-declare module "huject" {
-    export = Huject;
-}
+export = huject;
