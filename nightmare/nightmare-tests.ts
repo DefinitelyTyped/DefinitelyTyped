@@ -75,7 +75,7 @@ new Nightmare()
   .goto('http://yahoo.com')
   .evaluate(function (parameter) {
     return document.title + ' -- ' + parameter;
-  }, function (title: string) {
+  }, function (title) {
   }, 'testparameter')
   .run(done);
 

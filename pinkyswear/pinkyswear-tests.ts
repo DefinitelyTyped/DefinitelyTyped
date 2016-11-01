@@ -2,7 +2,7 @@
 
 var promise: PinkySwear.Promise = pinkySwear();
 
-promise.then(function(value: any) {
+promise.then(function(value) {
     console.log("Success with value " + value + "1");
 }, function(value) {
     console.log("Failure with value " + value + "!");
