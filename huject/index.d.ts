@@ -1,3 +1,8 @@
+// Type definitions for huject
+// Project: https://github.com/asvetliakov/Huject
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, Alfaslash <https://github.com/alfaslash>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module Huject {
 
     export class Container {
