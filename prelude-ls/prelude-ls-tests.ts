@@ -354,7 +354,7 @@ var fixRes: number = prelude.fix(
 )(9); //=> 55
 
 var sameLength: (x: string, y: string) => boolean
-  = prelude.over<string, number, boolean>((x: number, y: number) => x == y, x => x.length);
+  = prelude.over<string, number, boolean>((x, y) => x == y, x => x.length);
 sameLength('hi', 'me');    //=> true
 sameLength('one', 'boom'); //=> false
 

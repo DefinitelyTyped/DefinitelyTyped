@@ -12,7 +12,7 @@ namespace bardTests {
         constructor(private $q: angular.IQService) {}
 
         remoteCall(): angular.IPromise<string[]> {
-            return new this.$q((resolve: angular.IQResolveReject<{}>, reject: angular.IQResolveReject<any>) => {
+            return new this.$q((resolve, reject) => {
                 resolve(['Hello', 'World']);
             });
         }

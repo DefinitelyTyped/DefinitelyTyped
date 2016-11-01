@@ -50,7 +50,7 @@ client.add(magnetURI, {}, function (torrent) {
     console.log('======');
   })
 
-  torrent.on('wire', function (wire: any, addr: any) {
+  torrent.on('wire', function (wire, addr) {
     console.log('connected to peer with address ' + addr)
     wire.use()
   })

@@ -657,7 +657,7 @@ namespace MxTests {
             var _arr = CreateNumberArray();
 
             assert.ok(mx(_arr).select(t => t + 100).first() === 100, "select first 10 numbers plus 100!");
-            assert.ok(mx(_arr).select((t: number, i: number) => i).last() === 9, "select index while enumerating 10 numbers!");
+            assert.ok(mx(_arr).select((t, i) => i).last() === 9, "select index while enumerating 10 numbers!");
         });
 
 

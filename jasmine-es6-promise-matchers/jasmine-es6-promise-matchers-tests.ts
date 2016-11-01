@@ -9,7 +9,7 @@ describe('specs', () => {
 		JasminePromiseMatchers.uninstall
 	});
 
-	it('should have correct syntax', (done: DoneFn) => {
+	it('should have correct syntax', (done) => {
 		var foo = {};
 		var bar = {};
 
