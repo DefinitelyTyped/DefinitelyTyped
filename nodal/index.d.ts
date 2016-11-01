@@ -3,8 +3,7 @@
 // Definitions by: Adam Charron <https://github.com/charrondev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/index.d.ts"/>
-/// <reference path="./fxn.d.ts"/>
+/// <reference types="node"/>
 
 import * as fxn from 'fxn';
 
