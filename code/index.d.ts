@@ -5,14 +5,14 @@
 
 /** Generates an assertion object. */
 export function expect<T>(value: T | T[], prefix?: string): AssertionChain<T>;
-/** Make the test fail with message. */
+/** Makes the test fail with the given message. */
 export function fail(message: string): void;
 /** Returns the total number of assertions created using the expect() method. */
 export function count(): number;
 /** Returns an array of the locations where incomplete assertions were declared or null if no incomplete assertions found. */
 export function incomplete(): Array<string> | null;
 /** Returns the filename, line number, and column number of where the error was created. */
-export function thrownAt(error?: Error): ErrorDetails;
+export function thrownAt(error?: Error): CodeError;
 /** Configure code. */
 export const settings: Settings;
 
@@ -83,7 +83,7 @@ interface Types<T> {
     function(): AssertionChain<T>;
     /** Asserts that the reference value is a number. */
     number(): AssertionChain<T>;
-    /** Asserts that the reference value is an RegExp. */
+    /** Asserts that the reference value is a RegExp. */
     regexp(): AssertionChain<T>;
     /** Asserts that the reference value is a string. */
     string(): AssertionChain<T>;
@@ -103,11 +103,11 @@ interface Values<T> {
     /** Asserts that the reference value (a string, array, or object) includes the provided values. */
     include(values: string | string[] | T | T[]): AssertionChain<T>;
     /** Asserts that the reference value (a string, array, or object) includes the provided values. */
-    includes(values: string | string[] | T): AssertionChain<T>;
+    includes(values: string | string[] | T | T[]): AssertionChain<T>;
     /** Asserts that the reference value (a string, array, or object) includes the provided values. */
-    contain(values: string | string[] | T): AssertionChain<T>;
+    contain(values: string | string[] | T | T[]): AssertionChain<T>;
     /** Asserts that the reference value (a string, array, or object) includes the provided values. */
-    contains(values: string | string[] | T): AssertionChain<T>;
+    contains(values: string | string[] | T | T[]): AssertionChain<T>;
     /** Asserts that the reference value (a string) starts with the provided value. */
     startWith(value: string): AssertionChain<T>;
     /** Asserts that the reference value (a string) starts with the provided value. */
@@ -181,7 +181,7 @@ interface Settings {
     comparePrototypes?: boolean;
 }
 
-interface ErrorDetails {
+interface CodeError {
     filename: string;
     line: string;
     column: string;
