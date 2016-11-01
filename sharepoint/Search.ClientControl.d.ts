@@ -3,7 +3,7 @@
 // Definitions by: Stanislav Vyshchepan <http://blog.gandjustas.ru>, Andrey Markeev <http://markeev.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../microsoft-ajax/Microsoft.Ajax.d.ts"/>
+/// <reference path="../microsoft-ajax/microsoft.ajax.d.ts"/>
 /// <reference path="SP.d.ts"/>
 /// <reference path="SP.Search.d.ts"/>
 
