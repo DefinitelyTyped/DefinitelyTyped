@@ -1933,9 +1933,9 @@ declare module "net" {
         listen(port: number, listeningListener?: Function): Server;
         listen(path: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
+        listen(options: ListenOptions, listeningListener?: Function): Server;
         listen(handle: any, backlog?: number, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
         close(callback?: Function): Server;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error, count: number) => void): void;
