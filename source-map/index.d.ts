@@ -10,14 +10,17 @@ declare namespace SourceMap {
     interface StartOfSourceMap {
         file?: string;
         sourceRoot?: string;
+        skipValidation?: boolean;
     }
 
-    interface RawSourceMap extends StartOfSourceMap {
-        version: string;
-        sources: Array<string>;
-        names: Array<string>;
+    interface RawSourceMap {
+        version: number;
+        sources: string[];
+        names: string[];
+        sourceRoot?: string;
         sourcesContent?: string[];
         mappings: string;
+        file: string;
     }
 
     interface Position {
@@ -56,35 +59,78 @@ declare namespace SourceMap {
         public static ORIGINAL_ORDER: number;
 
         constructor(rawSourceMap: RawSourceMap);
+
+        public computeColumnSpans(): void;
+
         public originalPositionFor(generatedPosition: Position): MappedPosition;
+
         public generatedPositionFor(originalPosition: MappedPosition): Position;
-        public sourceContentFor(source: string): string;
+
+        public allGeneratedPositionsFor(originalPosition: MappedPosition): Position[];
+
+        public hasContentsOfAllSources(): boolean;
+
+        public sourceContentFor(source: string, returnNullOnMissing?: boolean): string;
+
         public eachMapping(callback: (mapping: MappingItem) => void, context?: any, order?: number): void;
     }
 
     class SourceMapGenerator {
         constructor(startOfSourceMap?: StartOfSourceMap);
+
         public static fromSourceMap(sourceMapConsumer: SourceMapConsumer): SourceMapGenerator;
+
         public addMapping(mapping: Mapping): void;
+
         public setSourceContent(sourceFile: string, sourceContent: string): void;
+
         public applySourceMap(sourceMapConsumer: SourceMapConsumer, sourceFile?: string, sourceMapPath?: string): void;
+
         public toString(): string;
+
         public toJSON(): RawSourceMap;
     }
 
     class SourceNode {
+        children: SourceNode [];
+        sourceContents: any;
+        line: number;
+        column: number;
+        source: string;
+        name: string;
+
         constructor();
         constructor(line: number, column: number, source: string);
-        constructor(line: number, column: number, source: string, chunk?: string, name?: string);
-        public static fromStringWithSourceMap(code: string, sourceMapConsumer: SourceMapConsumer, relativePath?: string): SourceNode;
+        constructor(
+            line: number,
+            column: number,
+            source: string,
+            chunks?: (string | SourceNode)[] | SourceNode | string,
+            name?: string
+        );
+
+        public static fromStringWithSourceMap(
+            code: string,
+            sourceMapConsumer: SourceMapConsumer,
+            relativePath?: string
+        ): SourceNode;
+
         public add(chunk: any): SourceNode;
+
         public prepend(chunk: any): SourceNode;
+
         public setSourceContent(sourceFile: string, sourceContent: string): void;
+
         public walk(fn: (chunk: string, mapping: MappedPosition) => void): void;
+
         public walkSourceContents(fn: (file: string, content: string) => void): void;
+
         public join(sep: string): SourceNode;
+
         public replaceRight(pattern: string, replacement: string): SourceNode;
+
         public toString(): string;
+
         public toStringWithSourceMap(startOfSourceMap?: StartOfSourceMap): CodeWithSourceMap;
     }
 }
