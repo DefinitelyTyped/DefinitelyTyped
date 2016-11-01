@@ -1,5 +1,3 @@
-/// <reference path="../qunit/qunit.d.ts" />
-
 QUnit.module( "group a" );
 
 QUnit.test( "a basic test example", function( assert ) {
@@ -8,7 +6,7 @@ QUnit.test( "a basic test example", function( assert ) {
 QUnit.test( "a basic test example 2", function( assert ) {
   assert.ok( true, "this test is fine" );
 });
- 
+
 QUnit.module( "group b" );
 QUnit.test( "a basic test example 3", function( assert ) {
   assert.ok( true, "this test is fine" );
@@ -23,14 +21,14 @@ QUnit.module( "module a", function() {
     assert.ok( true, "this test is fine" );
   });
 });
- 
+
 QUnit.module( "module b", function() {
   QUnit.test( "a basic test example 2", function( assert ) {
     assert.ok( true, "this test is fine" );
   });
- 
+
   QUnit.module( "nested module b.1", function() {
- 
+
     // This test will be prefixed with the following module label:
     // "module b > nested module b.1"
     QUnit.test( "a basic test example 3", function( assert ) {
@@ -61,13 +59,13 @@ QUnit.module( "Machine Maker", {
     this.parts = [ "wheels", "motor", "chassis" ];
   }
 });
- 
+
 QUnit.test( "makes a robot", function( assert ) {
   this.parts.push( "arduino" );
   assert.equal( this.maker.build( this.parts ), "robot" );
   assert.deepEqual( this.maker.made, [ "robot" ] );
 });
- 
+
 QUnit.test( "makes a car", function( assert ) {
   assert.equal( this.maker.build( this.parts ), "car" );
   this.maker.duplicate();
@@ -75,31 +73,31 @@ QUnit.test( "makes a car", function( assert ) {
 });
 
 QUnit.module( "grouped tests argument hooks", function( hooks ) {
-  
+
   hooks.beforeEach( function( assert ) {
     assert.ok( true, "beforeEach called" );
   } );
- 
+
   hooks.afterEach( function( assert ) {
     assert.ok( true, "afterEach called" );
   } );
- 
+
   QUnit.test( "call hooks", function( assert ) {
     assert.expect( 2 );
   } );
- 
+
   QUnit.module( "stacked hooks", function( hooks ) {
- 
+
     // This will run after the parent module's beforeEach hook
     hooks.beforeEach( function( assert ) {
       assert.ok( true, "nested beforeEach called" );
     } );
- 
+
     // This will run before the parent module's afterEach
     hooks.afterEach( function( assert ) {
       assert.ok( true, "nested afterEach called" );
     } );
- 
+
     QUnit.test( "call hooks", function( assert ) {
       assert.expect( 4 );
     } );
@@ -149,11 +147,11 @@ QUnit.done(function( details ) {
 });
 
 QUnit.log(function( obj ) {
- 
+
     // Parse some stuff before sending it.
     var actual = QUnit.dump.parse( obj.actual );
     var expected = QUnit.dump.parse( obj.expected );
- 
+
     // Send it.
     //   sendMessage( "qunit.log", obj.result, actual, expected, obj.message, obj.source );
     console.log("qunit.log", obj.result, actual, expected, obj.message, obj.source);
@@ -161,7 +159,7 @@ QUnit.log(function( obj ) {
 
 var qHeader = document.getElementById( "qunit-header" ),
   parsed = QUnit.dump.parse( qHeader );
- 
+
 console.log( parsed );
 
 var input: any = {
@@ -173,7 +171,7 @@ var input: any = {
 QUnit.dump.maxDepth = 1;
 console.log( QUnit.dump.parse( input ) );
 // Logs: { "parts": [object Object] }
- 
+
 QUnit.dump.maxDepth = 2;
 console.log( QUnit.dump.parse( input ) );
 // Logs: { "parts": { "back": [object Array], "front": [object Array] } }
@@ -189,7 +187,7 @@ QUnit.test( "QUnit.extend", function( assert ) {
     c: 3,
     z: undefined
   } );
- 
+
   assert.equal( base.a, 1, "Unspecified values are not modified" );
   assert.equal( base.b, 2.5, "Existing values are updated" );
   assert.equal( base.c, 3, "New values are defined" );
@@ -206,7 +204,7 @@ QUnit.log(function( details ) {
   }
   var loc = details.module + ": " + details.name + ": ",
     output = "FAILED: " + loc + ( details.message ? details.message + ", " : "" );
- 
+
   if ( details.actual ) {
     output += "expected: " + details.expected + ", actual: " + details.actual;
   }
@@ -226,20 +224,20 @@ QUnit.moduleStart(function( details ) {
 
 let Robot: any = () => {};
 
-QUnit.module( "robot", {  
+QUnit.module( "robot", {
   beforeEach: function() {
     this.robot = new Robot();
   }
 });
- 
+
 QUnit.test( "say", function( assert ) {
   assert.ok( false, "I'm not quite ready yet" );
 });
- 
+
 QUnit.test( "stomp", function( assert ) {
   assert.ok( false, "I'm not quite ready yet" );
 });
- 
+
 // You're currently working on the laser feature, so we run only this test
 QUnit.only( "laser", function( assert ) {
   assert.ok( this.robot.laser() );
@@ -251,11 +249,11 @@ QUnit.module( "robot", {
     this.robot = new Robot();
   }
 });
- 
+
 QUnit.test( "say", function( assert ) {
   assert.strictEqual( this.robot.say(), "Exterminate!" );
 });
- 
+
 // Robot doesn't have a laser method, yet, skip this test
 // Will show up as skipped in the results
 QUnit.skip( "laser", function( assert ) {
@@ -264,32 +262,32 @@ QUnit.skip( "laser", function( assert ) {
 
 QUnit.log( function( details ) {
   if ( details.result ) {
- 
+
     // 5 is the line reference for the assertion method, not the following line.
     console.log( QUnit.stack( 5 ) );
   }
 } );
- 
+
 QUnit.test( "foo", function( assert ) {
- 
+
   // the log callback will report the position of the following line.
   assert.ok( true );
 } );
 
 QUnit.config.autostart = false;
- 
+
 // require(["test/tests1.js", "test/tests2.js"], function() {
   (() => { QUnit.start(); })()
 // });
 
 QUnit.test( "a test", function( assert ) {
- 
+
   function square( x: number ) {
     return x * x;
   }
- 
+
   var result = square( 2 );
- 
+
   assert.equal( result, 4, "square(2) equals 4" );
 });
 
@@ -317,7 +315,7 @@ QUnit.test( "assert.async() test", function( assert ) {
 
 QUnit.test( "two async calls", function( assert ) {
   assert.expect( 2 );
- 
+
   var done1 = assert.async();
   var done2 = assert.async();
   setTimeout(function() {
@@ -333,17 +331,17 @@ QUnit.test( "two async calls", function( assert ) {
 QUnit.test( "multiple call done()", function( assert ) {
   assert.expect( 3 );
   var done = assert.async( 3 );
- 
+
   setTimeout(function() {
     assert.ok( true, "first call done." );
     done();
   }, 500 );
- 
+
   setTimeout(function() {
     assert.ok( true, "second call done." );
     done();
   }, 500 );
- 
+
   setTimeout(function() {
     assert.ok( true, "third call done." );
     done();
@@ -353,14 +351,14 @@ QUnit.test( "multiple call done()", function( assert ) {
 
 QUnit.test( "deepEqual test", function( assert ) {
   var obj = { foo: "bar" };
- 
+
   assert.deepEqual( obj, { foo: "bar" }, "Two objects can be the same in value" );
 });
 
 QUnit.test( "ok test", function( assert ) {
   assert.ok( true, "true succeeds" );
   assert.ok( "non-empty", "non-empty string succeeds" );
- 
+
   assert.ok( false, "false fails" );
   assert.ok( 0, "0 fails" );
   assert.ok( NaN, "NaN fails" );
@@ -378,30 +376,30 @@ QUnit.test( "equal test", function( assert ) {
   assert.equal( 0, 0, "Zero, Zero; equal succeeds" );
   assert.equal( "", 0, "Empty, Zero; equal succeeds" );
   assert.equal( "", "", "Empty, Empty; equal succeeds" );
- 
+
   assert.equal( "three", 3, "Three, 3; equal fails" );
   assert.equal( null, false, "null, false; equal fails" );
 });
 
 QUnit.test( "a test", function( assert ) {
   assert.expect( 2 );
- 
+
   function calc( x: number, operation: (x:number)=> number ) {
     return operation( x );
   }
- 
+
   var result = calc( 2, function( x ) {
     assert.ok( true, "calc() calls operation function" );
     return x * x;
   });
- 
+
   assert.equal( result, 4, "2 squared equals 4" );
 });
 
 
 QUnit.test( "notDeepEqual test", function( assert ) {
   var obj = { foo: "bar" };
- 
+
   assert.notDeepEqual( obj, { foo: "bla" }, "Different object, same key, different value, not equal" );
 });
 
@@ -416,7 +414,7 @@ QUnit.test( "notOk test", function( assert ) {
   assert.notOk( NaN, "NaN succeeds" );
   assert.notOk( null, "null succeeds" );
   assert.notOk( undefined, "undefined succeeds" );
- 
+
   assert.notOk( true, "true fails" );
   assert.notOk( 1, "1 fails" );
   assert.notOk( "not-empty", "not-empty string fails" );
@@ -433,7 +431,7 @@ QUnit.test( "notPropEqual test", function( assert ) {
       this.y = y;
       this.z = z;
     }
-    
+
     doA = function () {};
     doB = function () {};
     bar = 'prototype';
@@ -458,12 +456,12 @@ QUnit.test( "propEqual test", function( assert ) {
       this.y = y;
       this.z = z;
     }
-    
+
     doA = function () {};
     doB = function () {};
     bar = 'prototype';
   }
- 
+
   var foo = new Foo( 1, "2", [] );
   var bar: any = {
     x : 1,
@@ -482,33 +480,33 @@ QUnit.test( "propEqual test", function( assert ) {
 //         message: message
 //     });
 // };
- 
+
 // QUnit.test( "mod2", function( assert ) {
 //     assert.expect( 2 );
- 
+
 //     assert['mod2']( 2, 0, "2 % 2 == 0" );
 //     assert['mod2']( 3, 1, "3 % 2 == 1" );
 // });
 
 QUnit.test( "throws", function( assert ) {
- 
+
  class CustomError {
    message: string;
    constructor(message: string) {
-      this.message = message; 
+      this.message = message;
    }
    toString = function() {
       return this.message;
     }
  }
- 
+
   assert.throws(
     function() {
       throw "error"
     },
     "throws with just a message, not using the 'expected' argument"
   );
- 
+
   assert.throws(
     function() {
       throw new CustomError("some error description");
@@ -516,7 +514,7 @@ QUnit.test( "throws", function( assert ) {
     /description/,
     "raised error message contains 'description'"
   );
- 
+
   assert.throws(
     function() {
       throw new Error();
@@ -524,7 +522,7 @@ QUnit.test( "throws", function( assert ) {
     CustomError,
     "raised error is an instance of CustomError"
   );
- 
+
   assert.throws(
     function() {
       throw new CustomError("some error description");
@@ -532,7 +530,7 @@ QUnit.test( "throws", function( assert ) {
     new CustomError("some error description"),
     "raised error instance matches the CustomError instance"
   );
- 
+
   assert.throws(
     function() {
       throw new CustomError("some error description");
