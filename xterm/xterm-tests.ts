@@ -13,7 +13,7 @@ var term: Terminal,
 
 var terminalContainer = document.getElementById('terminal-container') as HTMLElement,
     optionElements = {
-      cursorBlink: document.querySelector('#option-cursor-blink')
+      cursorBlink: document.querySelector('#option-cursor-blink') as any
     },
     colsElement = document.getElementById('cols') as any,
     rowsElement = document.getElementById('rows') as any;
@@ -32,7 +32,7 @@ function setTerminalSize () {
 colsElement.addEventListener('change', setTerminalSize);
 rowsElement.addEventListener('change', setTerminalSize);
 
-(optionElements.cursorBlink as any).addEventListener('change', createTerminal);
+optionElements.cursorBlink.addEventListener('change', createTerminal);
 
 createTerminal();
 
@@ -42,7 +42,7 @@ function createTerminal() {
     terminalContainer.removeChild(terminalContainer.children[0]);
   }
   term = new Terminal({
-    cursorBlink: (optionElements.cursorBlink as any).checked as boolean
+    cursorBlink: optionElements.cursorBlink.checked as boolean
   });
   term.on('resize', function (size: any) {
     if (!pid) {
