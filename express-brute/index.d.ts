@@ -49,7 +49,6 @@ interface ExpressBruteMiddleware {
  */
 interface ExpressBruteOptions {
     freeRetries?: number;
-    proxyDepth?: number;
     attachResetToRequest?: boolean;
     refreshTimeoutOnRequest?: boolean;
     minWait?: number;
