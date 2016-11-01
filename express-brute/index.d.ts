@@ -77,13 +77,6 @@ declare class ExpressBrute {
     getMiddleware(options: ExpressBruteMiddleware): express.RequestHandler;
 
     /**
-     * @summary Uses the current proxy trust settings to get the current IP from a request object.
-     * @param {Request} request The HTTP request.
-     * @return {RequestHandler} The Request handler.
-     */
-    getIPFromRequest(request: express.Request): express.RequestHandler;
-
-    /**
      * @summary Middleware that will bounce requests that happen faster than the current wait time by calling failCallback.
      * @param {Request}     request     The HTTP request.
      * @param {Response}    response    The HTTP response.
