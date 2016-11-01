@@ -34,6 +34,7 @@ declare namespace yargs {
         demand(keys: string[], required?: boolean): Argv;
         demand(positionals: number, required?: boolean): Argv;
         demand(positionals: number, msg: string): Argv;
+        demand(positionals: number, max: number, msg?: string): Argv;
 
         require(key: string, msg: string): Argv;
         require(key: string, required: boolean): Argv;
@@ -73,10 +74,10 @@ declare namespace yargs {
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
         completion(): Argv;
-        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
-        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, fn?: SyncCompletionFunction): Argv;
         completion(cmd: string, description?: string, fn?: AsyncCompletionFunction): Argv;
+        completion(cmd: string, description?: string, fn?: SyncCompletionFunction): Argv;
 
         example(command: string, description: string): Argv;
 

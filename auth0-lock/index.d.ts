@@ -122,5 +122,5 @@ interface Auth0LockStatic {
 declare var Auth0Lock: Auth0LockStatic;
 
 declare module "auth0-lock" {
-    export = Auth0Lock;
+    export default Auth0Lock;
 }

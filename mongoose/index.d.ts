@@ -594,16 +594,16 @@ declare module "mongoose" {
      * @param method name of the method to hook
      * @param fn callback
      */
-    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
     post<T extends Document>(method: string, fn: (doc: T, next: (err?: NativeError) => void,
       ...otherArgs: any[]) => void): this;
+    post<T extends Document>(method: string, fn: (doc: T) => void, ...args: any[]): this;
 
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
-      errorCb?: (err: Error) => void): this;
     pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
+      errorCb?: (err: Error) => void): this;
+    pre(method: string, fn: (next: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
 
     /**

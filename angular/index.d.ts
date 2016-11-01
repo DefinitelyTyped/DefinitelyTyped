@@ -1,6 +1,6 @@
 // Type definitions for Angular JS 1.5
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
@@ -984,9 +984,7 @@ declare namespace angular {
      * See http://docs.angularjs.org/api/ng/service/$q
      */
     interface IQService {
-        new <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         new <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
-        <T>(resolver: (resolve: IQResolveReject<T>) => any): IPromise<T>;
         <T>(resolver: (resolve: IQResolveReject<T>, reject: IQResolveReject<any>) => any): IPromise<T>;
 
         /**
@@ -1229,6 +1227,11 @@ declare namespace angular {
         (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
         (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+
+        /**
+         * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
+         */
+        isSlotFilled(slotName: string): boolean;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1380,12 +1383,12 @@ declare namespace angular {
          */
         url: string;
         /**
-         * Event listeners to be bound to the XMLHttpRequest object. 
+         * Event listeners to be bound to the XMLHttpRequest object.
          * To bind events to the XMLHttpRequest upload object, use uploadEventHandlers. The handler will be called in the context of a $apply block.
          */
         eventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
         /**
-         * Event listeners to be bound to the XMLHttpRequest upload object. 
+         * Event listeners to be bound to the XMLHttpRequest upload object.
          * To bind events to the XMLHttpRequest object, use eventHandlers. The handler will be called in the context of a $apply block.
          */
         uploadEventHandlers?: { [type: string]: EventListenerOrEventListenerObject };
@@ -1709,7 +1712,7 @@ declare namespace angular {
         (new (...args: any[]) => IController) |
         // Instead of classes, plain functions are often used as controller constructors, especially in examples.
         ((...args: any[]) => (void | IController));
-    
+
     /**
      * Directive controllers have a well-defined lifecycle. Each controller can implement "lifecycle hooks". These are methods that
      * will be called by Angular at certain points in the life cycle of the directive.
