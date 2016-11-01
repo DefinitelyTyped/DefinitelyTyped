@@ -12,6 +12,7 @@ interface StripeStatic {
     getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     card: StripeCardData;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
+    createToken(data: StripeTokenData): Promise<StripeTokenResponse>;
     bankAccount: StripeBankAccount;
 }
 
@@ -37,6 +38,7 @@ interface StripeTokenResponse {
     currency: string;
     livemode: boolean;
     object: string;
+    type: string;
     used: boolean;
     error: StripeError;
 }
