@@ -3,8 +3,6 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types='react' />
-
 declare namespace ReactSwipeableModule {
     interface onSwipingCallback {
         (event: React.TouchEvent<any>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number): void;
