@@ -40,7 +40,7 @@ export interface Element {
 declare namespace Options {
     interface XML2JS extends ChangingKeyNames, IgnoreOptions {
         compact?: boolean
-        spaces?: number
+        spaces?: number | string
         trim?: boolean
         sanitize?: boolean
         nativeType?: boolean
@@ -49,7 +49,7 @@ declare namespace Options {
     }
 
     interface JS2XML extends ChangingKeyNames, IgnoreOptions {
-        spaces?: number
+        spaces?: number | string
         compact?: boolean
         fullTagEmptyElement?: boolean
     }
