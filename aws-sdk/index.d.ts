@@ -616,8 +616,8 @@ export module CloudFormation {
         ResourceTypes?: string[];
         OnFailure?: string[];       //  cannot specify both DisableRollback and OnFailure
                                     //  DO_NOTHING | ROLLBACK | DELETE
-        StackPolicyBody?: string[];  //  cannot specify both StackPolicyBody and StackPolicyURL
-        StackPolicyURL?: string[];   //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyBody?: string;  //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot specify both StackPolicyBody and StackPolicyURL
         Tags?: CloudFormation.Tag[];
     }
 
