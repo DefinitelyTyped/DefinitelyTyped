@@ -57,6 +57,9 @@ function divide() {
 function demand_count() {
 	var argv = yargs
 		.demand(2)
+		.demand(2, false)
+		.demand(2, 2)
+		.demand(2, 2, "message")
 		.argv;
 	console.dir(argv);
 }
@@ -224,7 +227,7 @@ function completion_sync() {
 
 function completion_async() {
 	var argv = yargs
-		.completion('completion', (current, argv, done) => {
+		.completion('completion', (current: string, argv: any, done: (completion: string[]) => void) => {
 			setTimeout(function () {
 				done([
 					'apple',
@@ -406,5 +409,94 @@ function Argv$count() {
 	var ya = yargs
 		.count('size')
 		.count(['w', 'h'])
+		.argv
+}
+
+function Argv$number() {
+	var ya = yargs
+		.number('n')
+		.number(['width', 'height'])
+		.argv
+}
+
+function Argv$updateStrings() {
+	var ya = yargs
+		.command('run', 'the run command')
+		.help('help')
+		.updateStrings({
+			'Commands:': 'My Commands -->\n'
+		})
+		.wrap(null)
+		.argv
+}
+
+function Argv$default() {
+	var ya = yargs
+		.default('random', function randomValue() {
+			return Math.random() * 256;
+		})
+		.argv
+}
+
+function Argv$configObject() {
+	var ya = yargs
+		.config({foo: 1, bar: 2})
+		.argv
+}
+
+function Argv$configParseFunction() {
+	var ya = yargs
+		.config('settings', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.config('settings', 'description', function (configPath) {
+			return JSON.parse(fs.readFileSync(configPath, 'utf-8'))
+		})
+		.argv
+}
+
+function Argv$helpDescriptionExplicit() {
+	var ya = yargs
+		.help('help', 'description', true)
+		.argv
+}
+
+function Argv$showHelpConsoleLevel() {
+	yargs.showHelp("log"); //prints to stdout using console.log()
+}
+
+function Argv$getCompletion() {
+	var ya = yargs
+		.option('foobar', {})
+		.option('foobaz', {})
+		.completion()
+		.getCompletion(['./test.js', '--foo'], function (completions) {
+			console.log(completions)
+		})
+		.argv
+}
+
+function Argv$pkgConf() {
+	var ya = yargs
+		.pkgConf(['key1', 'key2'], 'configFile.json')
+		.argv
+}
+
+function Argv$recommendCommands() {
+	var ya = yargs
+		.recommendCommands()
+		.argv
+}
+
+function Argv$showCompletionScript() {
+	var ya = yargs
+		.showCompletionScript()
+		.argv
+}
+
+function Argv$skipValidation() {
+	var ya = yargs
+		.skipValidation('arg1')
+		.skipValidation(['arg2', 'arg3'])
 		.argv
 }

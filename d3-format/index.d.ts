@@ -15,7 +15,7 @@ export interface FormatLocaleDefinition {
      * The group separator (e.g., ","). Note that the thousands property is a misnomer, as\
      * the grouping definition allows groups other than thousands.
      */
-    thousands: '.' | ',';
+    thousands: '.' | ',' | '\u00a0' | "'";
     /**
      * The array of group sizes (e.g., [3]), cycled as needed.
      */

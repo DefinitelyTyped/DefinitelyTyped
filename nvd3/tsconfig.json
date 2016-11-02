@@ -4,11 +4,6 @@
         "target": "es6",
         "noImplicitAny": false,
         "strictNullChecks": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

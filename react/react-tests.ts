@@ -329,17 +329,23 @@ React.DOM.input(htmlAttr);
 
 React.DOM.svg({ viewBox: "0 0 48 48" },
     React.DOM.rect({
-      x: 22,
-      y: 10,
-      width: 4,
-      height: 28
+        x: 22,
+        y: 10,
+        width: 4,
+        height: 28
     }),
     React.DOM.rect({
-      x: 10,
-      y: 22,
-      width: 28,
-      height: 4
-    }));
+        x: 10,
+        y: 22,
+        width: 28,
+        height: 4
+    }),
+    React.DOM.path({
+        d: "M0,0V3H3V0ZM1,1V2H2V1Z",
+        fill: "#999999",
+        fillRule: "evenodd"
+    })
+);
 
 
 //

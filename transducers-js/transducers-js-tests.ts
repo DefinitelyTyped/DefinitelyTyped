@@ -4,6 +4,7 @@
 // tests taken from https://github.com/cognitect-labs/transducers-js
 
 import * as t from 'transducers-js';
+import * as _ from "lodash";
 
 var map    = t.map,
     filter = t.filter,

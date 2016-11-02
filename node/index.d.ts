@@ -344,6 +344,7 @@ declare namespace NodeJS {
         stderr: WritableStream;
         stdin: ReadableStream;
         argv: string[];
+        argv0: string;
         execArgv: string[];
         execPath: string;
         abort(): void;
@@ -1670,6 +1671,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1793,7 +1795,7 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
@@ -2303,21 +2305,132 @@ declare module "fs" {
     export function exists(path: string | Buffer, callback?: (exists: boolean) => void): void;
     export function existsSync(path: string | Buffer): boolean;
 
-    interface Constants {
+    export namespace constants {
+        // File Access Constants
+
         /** Constant for fs.access(). File is visible to the calling process. */
-        F_OK: number;
+        export const F_OK: number;
 
         /** Constant for fs.access(). File can be read by the calling process. */
-        R_OK: number;
+        export const R_OK: number;
 
         /** Constant for fs.access(). File can be written by the calling process. */
-        W_OK: number;
+        export const W_OK: number;
 
         /** Constant for fs.access(). File can be executed by the calling process. */
-        X_OK: number;
-    }
+        export const X_OK: number;
 
-    export const constants: Constants;
+        // File Open Constants
+
+        /** Constant for fs.open(). Flag indicating to open a file for read-only access. */
+        export const O_RDONLY: number;
+
+        /** Constant for fs.open(). Flag indicating to open a file for write-only access. */
+        export const O_WRONLY: number;
+
+        /** Constant for fs.open(). Flag indicating to open a file for read-write access. */
+        export const O_RDWR: number;
+
+        /** Constant for fs.open(). Flag indicating to create the file if it does not already exist. */
+        export const O_CREAT: number;
+
+        /** Constant for fs.open(). Flag indicating that opening a file should fail if the O_CREAT flag is set and the file already exists. */
+        export const O_EXCL: number;
+
+        /** Constant for fs.open(). Flag indicating that if path identifies a terminal device, opening the path shall not cause that terminal to become the controlling terminal for the process (if the process does not already have one). */
+        export const O_NOCTTY: number;
+
+        /** Constant for fs.open(). Flag indicating that if the file exists and is a regular file, and the file is opened successfully for write access, its length shall be truncated to zero. */
+        export const O_TRUNC: number;
+
+        /** Constant for fs.open(). Flag indicating that data will be appended to the end of the file. */
+        export const O_APPEND: number;
+
+        /** Constant for fs.open(). Flag indicating that the open should fail if the path is not a directory. */
+        export const O_DIRECTORY: number;
+
+        /** Constant for fs.open(). Flag indicating reading accesses to the file system will no longer result in an update to the atime information associated with the file. This flag is available on Linux operating systems only. */
+        export const O_NOATIME: number;
+
+        /** Constant for fs.open(). Flag indicating that the open should fail if the path is a symbolic link. */
+        export const O_NOFOLLOW: number;
+
+        /** Constant for fs.open(). Flag indicating that the file is opened for synchronous I/O. */
+        export const O_SYNC: number;
+
+        /** Constant for fs.open(). Flag indicating to open the symbolic link itself rather than the resource it is pointing to. */
+        export const O_SYMLINK: number;
+
+        /** Constant for fs.open(). When set, an attempt will be made to minimize caching effects of file I/O. */
+        export const O_DIRECT: number;
+
+        /** Constant for fs.open(). Flag indicating to open the file in nonblocking mode when possible. */
+        export const O_NONBLOCK: number;
+
+        // File Type Constants
+
+        /** Constant for fs.Stats mode property for determining a file's type. Bit mask used to extract the file type code. */
+        export const S_IFMT: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a regular file. */
+        export const S_IFREG: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a directory. */
+        export const S_IFDIR: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a character-oriented device file. */
+        export const S_IFCHR: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a block-oriented device file. */
+        export const S_IFBLK: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a FIFO/pipe. */
+        export const S_IFIFO: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a symbolic link. */
+        export const S_IFLNK: number;
+
+        /** Constant for fs.Stats mode property for determining a file's type. File type constant for a socket. */
+        export const S_IFSOCK: number;
+
+        // File Mode Constants
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by owner. */
+        export const S_IRWXU: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by owner. */
+        export const S_IRUSR: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by owner. */
+        export const S_IWUSR: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by owner. */
+        export const S_IXUSR: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by group. */
+        export const S_IRWXG: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by group. */
+        export const S_IRGRP: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by group. */
+        export const S_IWGRP: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by group. */
+        export const S_IXGRP: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable, writable and executable by others. */
+        export const S_IRWXO: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating readable by others. */
+        export const S_IROTH: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating writable by others. */
+        export const S_IWOTH: number;
+
+        /** Constant for fs.Stats mode property for determining access permissions for a file. File mode indicating executable by others. */
+        export const S_IXOTH: number;
+    }
 
     /** Tests a user's permissions for the file specified by path. */
     export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
@@ -2548,6 +2661,69 @@ declare module "tls" {
     }
 
     export class TLSSocket extends stream.Duplex {
+        /**
+         * Construct a new tls.TLSSocket object from an existing TCP socket.
+         */
+        constructor(socket:net.Socket, options?: {
+          /**
+           * An optional TLS context object from tls.createSecureContext()
+           */
+          secureContext?: SecureContext,
+          /**
+           * If true the TLS socket will be instantiated in server-mode.
+           * Defaults to false.
+           */
+          isServer?: boolean,
+          /**
+           * An optional net.Server instance.
+           */
+          server?: net.Server,
+          /**
+           * If true the server will request a certificate from clients that
+           * connect and attempt to verify that certificate. Defaults to
+           * false.
+           */
+          requestCert?: boolean,
+          /**
+           * If true the server will reject any connection which is not
+           * authorized with the list of supplied CAs. This option only has an
+           * effect if requestCert is true. Defaults to false.
+           */
+          rejectUnauthorized?: boolean,
+          /**
+           * An array of strings or a Buffer naming possible NPN protocols.
+           * (Protocols should be ordered by their priority.)
+           */
+          NPNProtocols?: string[] | Buffer,
+          /**
+           * An array of strings or a Buffer naming possible ALPN protocols.
+           * (Protocols should be ordered by their priority.) When the server
+           * receives both NPN and ALPN extensions from the client, ALPN takes
+           * precedence over NPN and the server does not send an NPN extension
+           * to the client.
+           */
+          ALPNProtocols?: string[] | Buffer,
+          /**
+           * SNICallback(servername, cb) <Function> A function that will be
+           * called if the client supports SNI TLS extension. Two arguments
+           * will be passed when called: servername and cb. SNICallback should
+           * invoke cb(null, ctx), where ctx is a SecureContext instance.
+           * (tls.createSecureContext(...) can be used to get a proper
+           * SecureContext.) If SNICallback wasn't provided the default callback
+           * with high-level API will be used (see below).
+           */
+          SNICallback?: Function,
+          /**
+           * An optional Buffer instance containing a TLS session.
+           */
+          session?: Buffer,
+          /**
+           * If true, specifies that the OCSP status request extension will be
+           * added to the client hello and an 'OCSPResponse' event will be
+           * emitted on the socket before establishing a secure communication
+           */
+          requestOCSP?: boolean
+        });
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
          * the operating system.
@@ -3004,7 +3180,7 @@ declare module "stream" {
         export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
             readable: boolean;
             constructor(opts?: ReadableOptions);
-            _read(size: number): void;
+            protected _read(size: number): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
             pause(): Readable;
@@ -3086,7 +3262,7 @@ declare module "stream" {
         export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            protected _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             end(): void;
@@ -3174,7 +3350,7 @@ declare module "stream" {
             // Writeable
             writable: boolean;
             constructor(opts?: DuplexOptions);
-            _write(chunk: any, encoding: string, callback: Function): void;
+            protected _write(chunk: any, encoding: string, callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             end(): void;
@@ -3182,7 +3358,7 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
         }
 
-        export interface TransformOptions extends ReadableOptions, WritableOptions {
+        export interface TransformOptions extends DuplexOptions {
             transform?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             flush?: (callback: Function) => any;
         }
@@ -3192,8 +3368,8 @@ declare module "stream" {
             readable: boolean;
             writable: boolean;
             constructor(opts?: TransformOptions);
-            _transform(chunk: any, encoding: string, callback: Function): void;
-            _flush(callback: Function): void;
+            protected _transform(chunk: any, encoding: string, callback: Function): void;
+            protected _flush(callback: Function): void;
             read(size?: number): any;
             setEncoding(encoding: string): void;
             pause(): Transform;

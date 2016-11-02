@@ -10,7 +10,8 @@ declare namespace QuillJS {
         modules?: { [key: string]: any },
         placeholder?: string,
         readOnly?: boolean,
-        theme?: string
+        theme?: string,
+        formats?: string[] 
     }
 
     export interface BoundsStatic {
@@ -38,7 +39,7 @@ declare namespace QuillJS {
     type formatsType = { [key: string]: any };
 
     export interface QuillStatic {
-        new (selector: string, options?: QuillOptionsStatic): QuillStatic;
+        new (container: string | Element, options?: QuillOptionsStatic): QuillStatic;
         deleteText(start: number, end: number, source?: sourceType): void;
         disable(): void;
         enable(enabled?: boolean): void;
@@ -91,6 +92,6 @@ declare namespace QuillJS {
 
 declare var Quill: QuillJS.QuillStatic;
 
-declare module "Quill" {
+declare module "quill" {
     export = Quill;
 }

@@ -195,9 +195,8 @@ export interface Bisector<T, U> {
     right: (array: T[], x: U, lo?: number, hi?: number) => number;
 }
 
+export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
 export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
-
-export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**

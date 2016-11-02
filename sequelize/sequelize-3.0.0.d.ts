@@ -3134,7 +3134,7 @@ declare namespace sequelize {
     /**
          * Shortcut for types used in FindOptions.attributes
          */
-    type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3154,7 +3154,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
+        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will

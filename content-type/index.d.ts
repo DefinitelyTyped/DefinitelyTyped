@@ -3,10 +3,10 @@
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-declare var x: ContentType.StaticFunctions;
-export = x;
+declare var ct: ct.StaticFunctions;
+export = ct;
 
-declare namespace ContentType {
+declare namespace ct {
     interface StaticFunctions {
         parse(string: string): MediaType;
         parse(req: { headers: any; }): MediaType;

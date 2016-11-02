@@ -1989,39 +1989,10 @@ declare namespace multiplex {
 
 
         /**
-        * Projects each element of a sequence into a new form.
-        * @param selector A transform function to apply to each source element.
-        */
-        select<TResult>(selector: (item: T) => TResult): Enumerable<TResult>
-
-
-        /**
-        * Projects each element of a sequence into a new form by incorporating the element's index.
+        * Projects each element of a sequence into a new form. May incorporate the element's index.
         * @param selector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
         */
-        select<TResult>(selector: (item: T, index: number) => TResult): Enumerable<TResult>
-
-
-        /**
-        * Projects each element of a sequence to an Enumerable and flattens the resulting sequences into one sequence.
-        * @param collectionSelector A transform function to apply to each source element.
-        */
-        selectMany<TResult>(selector: (item: T) => Iterable<TResult>): Enumerable<TResult>;
-
-
-        /**
-        * Projects each element of a sequence to an Enumerable and flattens the resulting sequences into one sequence. The index of each source element is used in the projected form of that element.
-        * @param collectionSelector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
-        */
-        selectMany<TResult>(selector: (item: T, index: number) => Iterable<TResult>): Enumerable<TResult>;
-
-
-        /**
-        * Projects each element of a sequence to an Enumerable and flattens the resulting sequences into one sequence.
-        * @param collectionSelector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
-        * @param resultSelector A transform function to apply to each element of the intermediate sequence.
-        */
-        selectMany<TCollection, TResult>(collectionSelector: (item: T) => Iterable<TCollection>, resultSelector: (item: T, collection: TCollection) => TResult): Enumerable<TResult>;
+        select<TResult>(selector: (item: T, index: number) => TResult): Enumerable<TResult>;
 
 
         /**
@@ -2029,7 +2000,7 @@ declare namespace multiplex {
         * @param collectionSelector A transform function to apply to each source element; the second parameter of the function represents the index of the source element.
         * @param resultSelector A transform function to apply to each element of the intermediate sequence.
         */
-        selectMany<TCollection, TResult>(collectionSelector: (item: T, index: number) => Iterable<TCollection>, resultSelector: (item: T, collection: TCollection) => TResult): Enumerable<TResult>;
+        selectMany<TCollection, TResult>(collectionSelector: (item: T, index: number) => Iterable<TCollection>, resultSelector?: (item: T, collection: TCollection) => TResult): Enumerable<TResult>;
 
 
         /**

@@ -2140,6 +2140,7 @@ declare namespace React {
 
     interface SVGAttributes<T> extends HTMLAttributes<T> {
         clipPath?: string;
+        colorInterpolationFilters?: "auto" | "sRGB" | "linearRGB" | "inherit";
         cx?: number | string;
         cy?: number | string;
         d?: string;
@@ -2147,13 +2148,15 @@ declare namespace React {
         dy?: number | string;
         fill?: string;
         fillOpacity?: number | string;
-        fillRule?: string;
+        fillRule?: "nonzero" | "evenodd" | "inherit";
+        filter?: string;
         fontFamily?: string;
         fontSize?: number | string;
         fx?: number | string;
         fy?: number | string;
         gradientTransform?: string;
         gradientUnits?: string;
+        in?: string;
         markerEnd?: string;
         markerMid?: string;
         markerStart?: string;
@@ -2165,9 +2168,11 @@ declare namespace React {
         points?: string;
         preserveAspectRatio?: string;
         r?: number | string;
+        result?: string;
         rx?: number | string;
         ry?: number | string;
         spreadMethod?: string;
+        stdDeviation?: number | string
         stopColor?: string;
         stopOpacity?: number | string;
         stroke?: string;
@@ -2179,6 +2184,8 @@ declare namespace React {
         strokeWidth?: number | string;
         textAnchor?: string;
         transform?: string;
+        type?: string;
+        values?: string;
         version?: string;
         viewBox?: string;
         x1?: number | string;
