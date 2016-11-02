@@ -3,7 +3,7 @@
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace __Highcharts {
+declare namespace Highcharts {
     interface Position {
         align?: string;
         verticalAlign?: string;
@@ -2244,7 +2244,7 @@ declare namespace __Highcharts {
         formAttributes?: any;
         /**
          * Path where Highcharts will look for export module dependencies to load on demand if they don't already exist on
-         * window. Should currently point to location of CanVG library (https://github.com/canvg/canvg) and RGBColor.js, 
+         * window. Should currently point to location of CanVG library (https://github.com/canvg/canvg) and RGBColor.js,
          * required for client side export in certain browsers.
          * @default 'http://code.highcharts.com/{version}/lib'
          * @since 5.0.0
@@ -2989,7 +2989,7 @@ declare namespace __Highcharts {
          */
         padding?: number;
         /**
-         * Whether to reserve space for the labels. This can be turned off when for example the labels are rendered inside 
+         * Whether to reserve space for the labels. This can be turned off when for example the labels are rendered inside
          * the plot area instead of outside.
          * @default true
          * @since 4.1.10
@@ -4952,8 +4952,8 @@ declare namespace __Highcharts {
     }
 
     /* You will rarely, if ever, want to use this interface directly. Instead it is much more useful to use one of the derived
-     * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
-     */
+        * interfaces (AreaChartSeriesOptions, LineChartSeriesOptions, etc.)
+        */
     interface IndividualSeriesOptions {
         type?: string;
         /**
@@ -6445,33 +6445,28 @@ declare namespace __Highcharts {
     }
 }
 
-interface JQuery {
-    highcharts(): __Highcharts.ChartObject;
-    /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-    * @param {Options} options Options for this chart
-    * @return current {JQuery} selector the current JQuery selector
-    **/
-    highcharts(options: __Highcharts.Options): JQuery;
-    /**
-    * Creates a new Highcharts.Chart for the current JQuery selector; usually
-    * a div selected by $('#container')
-    * @param {Options} options Options for this chart
-    * @param callback Callback function used to manipulate the constructed chart instance
-    * @return current {JQuery} selector the current JQuery selector
-    **/
-    highcharts(options: __Highcharts.Options, callback: (chart: __Highcharts.ChartObject) => void): JQuery;
+declare global {
+    interface JQuery {
+        highcharts(): Highcharts.ChartObject;
+        /**
+        * Creates a new Highcharts.Chart for the current JQuery selector; usually
+        * a div selected by $('#container')
+        * @param {Options} options Options for this chart
+        * @return current {JQuery} selector the current JQuery selector
+        **/
+        highcharts(options: Highcharts.Options): JQuery;
+        /**
+        * Creates a new Highcharts.Chart for the current JQuery selector; usually
+        * a div selected by $('#container')
+        * @param {Options} options Options for this chart
+        * @param callback Callback function used to manipulate the constructed chart instance
+        * @return current {JQuery} selector the current JQuery selector
+        **/
+        highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
+    }
+
+    var Highcharts: Highcharts.Static;
 }
 
-/**
- * Enabling the usage of ES6 module loading.
- */
-declare var Highcharts: __Highcharts.Static;
-
-/**
- * Declaration for ES6 module loading.
- */
-declare module "highcharts" {
-    export = __Highcharts;
-}
+export = Highcharts;
+export as namespace Highcharts;

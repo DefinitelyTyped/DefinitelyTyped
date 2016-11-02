@@ -16,6 +16,7 @@
         "index.d.ts",
         "highstock.d.ts",
         "highcharts-tests.ts",
+        "highcharts-modules-no-data-to-display-tests.ts",
         "highstock-tests.ts"
     ]
 }

@@ -3,9 +3,9 @@
 // Definitions by: Daniel Martin <http://github.com/inad9300>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
+import { Static } from "highcharts";
 
-declare var HighchartsBoost: (H: __Highcharts.Static) => __Highcharts.Static;
+declare var HighchartsBoost: (H: Static) => Static;
 
 declare module "highcharts/modules/boost" {
     export = HighchartsBoost;
