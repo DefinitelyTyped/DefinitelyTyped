@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 import { runLoaders, getContext, Loader, RunLoaderOption } from 'loader-runner';
 
 const option = {} as RunLoaderOption;
