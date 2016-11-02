@@ -77,9 +77,15 @@ winston.exitOnError = bool;
 winston.log(str, str);
 winston.log(str, str, metadata);
 winston.log(str, str, metadata, metadata, metadata);
+winston.silly(str);
+winston.silly(str, metadata);
+winston.silly(str, metadata, metadata, metadata);
 winston.debug(str);
 winston.debug(str, metadata);
 winston.debug(str, metadata, metadata, metadata);
+winston.verbose(str);
+winston.verbose(str, metadata);
+winston.verbose(str, metadata, metadata, metadata);
 winston.info(str);
 winston.info(str, metadata);
 winston.info(str, metadata, metadata, metadata);
@@ -263,3 +269,6 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
     }),
   ]
 });
+
+/* Reconfigure logger */
+logger.configure({ level: 'silly' });

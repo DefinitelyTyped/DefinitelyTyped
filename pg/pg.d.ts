@@ -4,10 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
+/// <reference path="../pg-types/pg-types.d.ts" />
 
 declare module "pg" {
     import events = require("events");
     import stream = require("stream");
+    import pgTypes = require("pg-types");
 
     export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
     export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
@@ -34,13 +36,13 @@ declare module "pg" {
     }
 
     export interface PoolConfig extends ClientConfig {
-      // properties from module 'node-pool'
-      max?: number;
-      min?: number;
-      refreshIdle?: boolean;
-      idleTimeoutMillis?: number;
-      reapIntervalMillis?: number;
-      returnToHead?: boolean;
+        // properties from module 'node-pool'
+        max?: number;
+        min?: number;
+        refreshIdle?: boolean;
+        idleTimeoutMillis?: number;
+        reapIntervalMillis?: number;
+        returnToHead?: boolean;
     }
 
     export interface QueryConfig {
@@ -90,7 +92,7 @@ declare module "pg" {
         constructor(connection: string);
         constructor(config: ClientConfig);
 
-        connect(callback?: (err:Error) => void): void;
+        connect(callback?: (err: Error) => void): void;
         end(): void;
         release(): void;
 
@@ -126,7 +128,6 @@ declare module "pg" {
         public on(event: string, listener: Function): this;
     }
 
-    export namespace types {
-        function setTypeParser<T>(typeId: number, parser: (value: string) => T): void;
-    }
+    export const types: typeof pgTypes;
+
 }
