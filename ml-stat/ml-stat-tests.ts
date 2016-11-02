@@ -1,5 +1,3 @@
-/// <reference path="./index.d.ts" />
-
 import { array as stat, matrix as matStat } from "ml-stat";
 
 var arr: number[];
