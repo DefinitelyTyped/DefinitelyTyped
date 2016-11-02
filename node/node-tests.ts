@@ -179,7 +179,7 @@ namespace fs_tests {
     }
 
     {
-        var errno: string;
+        var errno: number;
         fs.readFile('testfile', (err, data) => {
             if (err && err.errno) {
                 errno = err.errno;
