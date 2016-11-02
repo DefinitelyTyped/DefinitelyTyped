@@ -41,7 +41,7 @@ interface LocalForageDbMethods {
 
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any): Promise<any>;
     iterate(iteratee: (value: any, key: string, iterationNumber: number) => any,
-      callback: (err: any, result: any) => void): void;
+        callback: (err: any, result: any) => void): void;
 }
 
 interface LocalForageDriverSupportFunc {
@@ -53,11 +53,11 @@ interface LocalForageDriver extends LocalForageDbMethods {
 
     _initStorage(options: LocalForageOptions): void;
 
-    _support: boolean | LocalForageDriverSupportFunc;
+    _support?: boolean | LocalForageDriverSupportFunc;
 }
 
 interface LocalForageSerializer {
-    serialize<T>(value: T | ArrayBuffer | Blob, callback: (value: string, error: any) => {}): void;
+    serialize<T>(value: T | ArrayBuffer | Blob, callback: (value: string, error: any) => void): void;
 
     deserialize<T>(value: string): T | ArrayBuffer | Blob;
 
@@ -74,7 +74,7 @@ interface LocalForage extends LocalForageDbMethods {
     /**
      * Set and persist localForage options. This must be called before any other calls to localForage are made, but can be called after localForage is loaded.
      * If you set any config values with this method they will persist after driver changes, so you can call config() then setDriver()
-     * @param {ILocalForageConfig} options?
+     * @param {LocalForageOptions} options?
      */
     config(options: LocalForageOptions): boolean;
 
@@ -104,6 +104,9 @@ interface LocalForage extends LocalForageDbMethods {
     getSerializer(callback: (serializer: LocalForageSerializer) => void): void;
 
     supports(driverName: string): boolean;
+
+    ready(callback: () => void): void;
+    ready(): Promise<void>;
 }
 
 declare module "localforage" {

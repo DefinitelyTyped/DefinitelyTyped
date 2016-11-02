@@ -61,8 +61,7 @@ namespace LocalForageTest {
     localForage.removeItem("key").then(() => {
     });
 
-    localForage.getDriver("CustomDriver").then((result: LocalForageDriver) => {
-        var driver: LocalForageDriver = result;
+    localForage.getDriver("CustomDriver").then((driver: LocalForageDriver) => {
         // we need to use a variable for proper type guards before TS 2.0
         var _support = driver._support;
         if (typeof _support === "function") {
@@ -104,5 +103,14 @@ namespace LocalForageTest {
         localForage.getSerializer((serializer: LocalForageSerializer) => {
             testSerializer = serializer;
         });
+    }
+
+    {
+        let store: LocalForage;
+
+        store.ready()
+        .then(() => {});
+
+        store.ready(() => {});
     }
 }
