@@ -67,7 +67,7 @@ export class ConcatSource extends Source implements SourceAndMapMixin {
 
     constructor(...args: (string | Source)[]);
 
-    add(item: (string | Source)[]): void;
+    add(item: string | Source): void;
 
     source(): string;
 
@@ -170,10 +170,9 @@ export class ReplaceSource extends Source implements SourceAndMapMixin {
     _replacementToSourceNode(oldNode: SourceNode, newString: string): string | SourceNode;
 
     _splitSourceNode(node: SourceNode, position: SourceNode[]): SourceNode[];
-
     _splitSourceNode(node: string, position: number): number;
 
-    _splitString(str: string, position: number): any[];
+    _splitString(str: string, position: number): string[];
 }
 
 export class SourceMapSource extends Source implements SourceAndMapMixin {
