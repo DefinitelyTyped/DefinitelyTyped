@@ -3,13 +3,12 @@
 // Definitions by: Diana Caro <https://github.com/CaribeSoy/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'ml-distance-euclidean' {
-	interface Euclidean {
+declare var euclidean: ML.Math.Distance.euclidean.Euclidean;
+export = euclidean;
+
+declare namespace ML.Math.Distance.euclidean {
+	export interface Euclidean {
 		(p: number[], q: number[]): number;
 		squared: (p: number[], q: number[]) => number;
 	}
-	
-	const euclidean: Euclidean;
-	
-	export = euclidean;
 }
