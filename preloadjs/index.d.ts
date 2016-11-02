@@ -1,6 +1,6 @@
 // Type definitions for PreloadJS 0.6.2
 // Project: http://www.createjs.com/#!/PreloadJS
-// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
+// Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>, Endel Dreyer <https://github.com/endel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
