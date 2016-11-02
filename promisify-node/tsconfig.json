@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "pkcs11js-tests.ts"
+        "promisify-node-tests"
     ]
 }

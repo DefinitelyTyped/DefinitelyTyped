@@ -410,7 +410,7 @@ declare namespace SocketIOClient {
 		 * @param The connection timeout milliseconds
 		 * @return This Manager
 		 */
-		timeout(v: boolean): Manager;
+		timeout(v: number): Manager;
 
 		/**
 		 * Sets the current transport socket and opens our connection
