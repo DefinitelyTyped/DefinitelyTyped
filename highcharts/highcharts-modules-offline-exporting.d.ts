@@ -3,8 +3,6 @@
 // Definitions by: Daniel Martin <http://github.com/inad9300>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="highcharts.d.ts" />
-
 declare var HighchartsOfflineExporting: (H: __Highcharts.Static) => __Highcharts.Static;
 
 declare module "highcharts/modules/offline-exporting" {

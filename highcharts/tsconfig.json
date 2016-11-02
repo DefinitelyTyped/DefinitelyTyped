@@ -16,6 +16,10 @@
         "index.d.ts",
         "highstock.d.ts",
         "highcharts-tests.ts",
-        "highstock-tests.ts"
+        "highstock-tests.ts",
+        "highcharts-more.d.ts",
+        "highcharts-modules-boost.d.ts",
+        "highcharts-modules-exporting.d.ts",
+        "highcharts-modules-offline-exporting.d.ts"
     ]
 }
