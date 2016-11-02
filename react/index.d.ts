@@ -550,9 +550,7 @@ declare namespace React {
         onMouseDown?: MouseEventHandler<T>;
         onMouseDownCapture?: MouseEventHandler<T>;
         onMouseEnter?: MouseEventHandler<T>;
-        onMouseEnterCapture?: MouseEventHandler<T>;
         onMouseLeave?: MouseEventHandler<T>;
-        onMouseLeaveCapture?: MouseEventHandler<T>;
         onMouseMove?: MouseEventHandler<T>;
         onMouseMoveCapture?: MouseEventHandler<T>;
         onMouseOut?: MouseEventHandler<T>;
