@@ -3,12 +3,12 @@
 // Definitions by: Steven Silvester <https://github.com/blink1073>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/**
- * Typing for an xterm terminal object.
- */
-interface Xterm {
 
-  options: Xterm.IOptions;
+declare class Terminal {
+
+  constructor(options?: Terminal.IOptions);
+
+  options: Terminal.IOptions;
 
   element: HTMLElement;
 
@@ -24,7 +24,10 @@ interface Xterm {
 
   focus(): void;
 
-  getOption(key: string): any;
+  getOption(key: string): number | boolean;
+  getOption(key: 'rows'): number;
+  getOption(key: 'cols'): number;
+  getOption(key: 'cursorBlink'): boolean;
 
   on(event: string, callback: (...args: any[]) => void): void;
 
@@ -40,7 +43,10 @@ interface Xterm {
 
   scrollDisp(n: number): void;
 
-  setOption(key: string, value: any): void;
+  setOption(key: string, value: number | boolean): void;
+  setOption(key: 'rows', value: number): void;
+  setOption(key: 'cols', value: number): void;
+  setOption(key: 'cursorBlink', value: boolean): void;
 
   write(text: string): void;
 
@@ -48,45 +54,15 @@ interface Xterm {
 }
 
 
-interface XtermConstructor {
-  new (options?: Xterm.IOptions): Xterm;
-  (options?: Xterm.IOptions): Xterm;
-}
-
-
-/**
- * A terminal options.
- */
-declare module Xterm {
+declare namespace Terminal {
+  export
   interface IOptions {
-    colors?: string[];
-
-    theme?: string;
-
-    convertEol?: boolean;
-
-    termName?: string;
-
-    geometry?: number[];
-
     cursorBlink?: boolean;
 
-    visualBell?: boolean;
+    rows?: number;
 
-    popOnBell?: boolean;
-
-    scrollback?: number;
-
-    debug?: boolean;
-
-    cancelEvents?: boolean;
+    cols?: number;
   }
 }
 
-
-declare var Xterm: XtermConstructor;
-
-
-declare module 'xterm' {
-  export = Xterm;
-}
+export default Terminal;
