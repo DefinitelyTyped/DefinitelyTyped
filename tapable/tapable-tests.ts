@@ -22,7 +22,9 @@ class Compiler extends Tapable {
 
 const compiler = new Compiler();
 
-let callback: Tapable.CallbackFunction;
+let callback: Tapable.CallbackFunction = function () {
+
+};
 
 compiler.apply(new DllPlugin());
 
