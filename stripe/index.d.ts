@@ -12,7 +12,6 @@ interface StripeStatic {
     getToken(token: string, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
     card: StripeCardData;
     createToken(data: StripeTokenData, responseHandler: (status: number, response: StripeTokenResponse) => void): void;
-    createToken(data: StripeTokenData): Promise<StripeTokenResponse>;
     bankAccount: StripeBankAccount;
 }
 
@@ -35,12 +34,11 @@ interface StripeTokenResponse {
     id: string;
     card: StripeCardData;
     created: number;
-    currency: string;
     livemode: boolean;
     object: string;
     type: string;
     used: boolean;
-    error: StripeError;
+    error?: StripeError;
 }
 
 interface StripeError {
@@ -53,10 +51,8 @@ interface StripeError {
 interface StripeCardData {
     object: string;
     last4: string;
-    type: string;
     exp_month: number;
     exp_year: number;
-    fingerprint: string;
     country?: string;
     name?: string;
     address_line1?: string;
@@ -89,7 +85,6 @@ interface StripeBankTokenResponse
 {
     id: string;
     bank_account: {
-        id: string;
         country: string;
         bank_name: string;
         last4: number;
@@ -101,10 +96,11 @@ interface StripeBankTokenResponse
     type: string;
     object: string;
     used: boolean;
-    error: StripeError;
+    error?: StripeError;
 }
 
 declare var Stripe: StripeStatic;
 declare module "Stripe" {
     export = StripeStatic;
 }
+
