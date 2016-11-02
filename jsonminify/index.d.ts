@@ -9,6 +9,4 @@ interface MinifyFn {
 
 declare var minify: MinifyFn;
 
-declare module "jsonminify" {
-    export = minify;
-}
+export = minify;
