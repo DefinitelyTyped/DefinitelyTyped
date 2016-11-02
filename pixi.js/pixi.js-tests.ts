@@ -274,7 +274,7 @@ namespace basics {
 
             // draw a circle, set the lineStyle to zero so the circle doesn't have an outline
             this.graphics.lineStyle(0);
-            this.graphics.beginFill(0xFFFF0B, 0.5);
+            this.graphics.beginFill(PIXI.utils.hex2string(0xFFFF0B), 0.5);
             this.graphics.drawCircle(470, 90, 60);
             this.graphics.endFill();
 
