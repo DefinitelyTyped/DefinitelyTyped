@@ -6,7 +6,5 @@
 import { Static } from "highcharts";
 
 declare var HighchartsBoost: (H: Static) => Static;
-
-declare module "highcharts/modules/boost" {
-    export = HighchartsBoost;
-}
+export = HighchartsBoost;
+export as namespace HighchartsBoost;

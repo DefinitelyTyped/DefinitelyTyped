@@ -6,7 +6,5 @@
 import { Static } from "highcharts";
 
 declare var HighchartsExporting: (H: Static) => Static;
-
-declare module "highcharts/modules/exporting" {
-    export = HighchartsExporting;
-}
+export = HighchartsExporting;
+export as namespace HighchartsExporting;
