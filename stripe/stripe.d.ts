@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StripeStatic {
+    applePay: StripeApplePay;
     setPublishableKey(key: string): void;
     validateCardNumber(cardNumber: string): boolean;
     validateExpiry(month: string, year: string): boolean;
@@ -104,3 +105,64 @@ declare module "Stripe" {
     export = StripeStatic;
 }
 
+interface StripeApplePay
+{
+    checkAvailability(resopnseHandler: (result: boolean) => void): void;
+    buildSession(data: StripeApplePayPaymentRequest,
+                 onSuccessHandler: (result: StripeApplePaySessionResult, completion: ((value: any) => void)) => void,
+                 onErrorHanlder: (error: { message: string }) => void): any;
+}
+
+type StripeApplePayBillingContactField = 'postalAddress' | 'name';
+type StripeApplePayShippingContactField = StripeApplePayBillingContactField | 'phone' | 'email';
+type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'servicePickup';
+
+interface StripeApplePayPaymentRequest
+{
+    billingContact: StripeApplePayBillingContact;
+    countryCode: string;
+    currencyCode: string;
+    total: StripeApplePayLineItem;
+    lineItems?: StripeApplePayLineItem[];
+    requiredBillingContactFields?: StripeApplePayBillingContactField[];
+    requiredShippingContactFields?: StripeApplePayShippingContactField[];
+    shippingContact?: StripeApplePayPaymentContact;
+    shippingMethods?: StripeApplePayShippingMethod[];
+    shippingType?: StripeApplePayShipping[];
+}
+
+// https://developer.apple.com/reference/applepayjs/1916082-applepay_js_data_types
+interface StripeApplePayLineItem
+{
+    type: 'pending' | 'final';
+    label: string;
+    amount: number;
+}
+
+interface StripeApplePaySessionResult
+{
+    token: StripeTokenResponse;
+    shippingContact?: StripeApplePayBillingContact;
+    shippingMethod?: StripeShippingMethod
+}
+
+interface StripeApplePayShippingMethod
+{
+    label: string;
+    detail: string;
+    amount: number;
+    identifier: string;
+}
+
+interface StripeApplePayPaymentContact
+{
+    emailAddress: string;
+    phoneNumber: string;
+    givenName: string;
+    familyName: string;
+    addressLines: string[];
+    locality: string;
+    administrativeArea: string;
+    postalCode: string;
+    countryCode: string;
+}
