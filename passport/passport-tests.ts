@@ -29,7 +29,9 @@ const newFramework:passport.Framework = {
 passport.use(new TestStrategy());
 passport.framework(newFramework);
 passport.serializeUser((user, done) => { });
+passport.serializeUser<string, number>((user, done) => { });
 passport.deserializeUser((id, done) => { });
+passport.deserializeUser<string, number>((id, done) => { });
 
 passport.use(new TestStrategy())
   .unuse('test')

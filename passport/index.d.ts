@@ -45,7 +45,9 @@ declare module 'passport' {
         authorize(strategies: string[], callback?: Function): express.Handler;
         authorize(strategies: string[], options: Object, callback?: Function): express.Handler;
         serializeUser(fn: (user: any, done: (err: any, id: any) => void) => void): void;
+        serializeUser<TUser, TID>(fn: (user: TUser, done: (err: any, id: TID) => void) => void): void;
         deserializeUser(fn: (id: any, done: (err: any, user: any) => void) => void): void;
+        deserializeUser<TUser, TID>(fn: (id: TID, done: (err: any, user: TUser) => void) => void): void;
         transformAuthInfo(fn: (info: any, done: (err: any, info: any) => void) => void): void;
     }
 
