@@ -1,6 +1,7 @@
 {
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "angular-clipboard-tests.ts"
   ],
   "compilerOptions": {
     "module": "commonjs",
