@@ -1,6 +1,6 @@
 // Type definitions for dotenv 2.0.0
 // Project: https://github.com/motdotla/dotenv
-// Definitions by: Borek Bernard <https://github.com/borekb>
+// Definitions by: Jussi Kinnula <https://github.com/jussikinnula/>, Borek Bernard <https://github.com/borekb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
