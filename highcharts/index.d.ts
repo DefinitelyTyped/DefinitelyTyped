@@ -6464,9 +6464,8 @@ declare global {
         **/
         highcharts(options: Highcharts.Options, callback: (chart: Highcharts.ChartObject) => void): JQuery;
     }
-
-    var Highcharts: Highcharts.Static;
 }
 
+declare var Highcharts: Highcharts.Static;
 export = Highcharts;
 export as namespace Highcharts;
