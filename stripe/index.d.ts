@@ -1,6 +1,6 @@
 // Type definitions for stripe
 // Project: https://stripe.com/
-// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>
+// Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>, Eric J. Smith <https://github.com/ejsmith/>, Amrit Kahlon <https://github.com/amritk/>, Adam Cmiel <https://github.com/adamcmiel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface StripeStatic {
@@ -119,7 +119,7 @@ type StripeApplePayShipping = 'shipping' | 'delivery' | 'storePickup' | 'service
 
 interface StripeApplePayPaymentRequest
 {
-    billingContact: StripeApplePayBillingContact;
+    billingContact: StripeApplePayPaymentContact;
     countryCode: string;
     currencyCode: string;
     total: StripeApplePayLineItem;
@@ -142,8 +142,8 @@ interface StripeApplePayLineItem
 interface StripeApplePaySessionResult
 {
     token: StripeTokenResponse;
-    shippingContact?: StripeApplePayBillingContact;
-    shippingMethod?: StripeShippingMethod
+    shippingContact?: StripeApplePayPaymentContact;
+    shippingMethod?: StripeApplePayShippingMethod;
 }
 
 interface StripeApplePayShippingMethod
