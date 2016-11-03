@@ -18290,6 +18290,7 @@ declare namespace kendo.ooxml {
         cells?: WorkbookSheetRowCell[];
         index?: number;
         height?: number;
+        type?: string;
     }
 
     interface WorkbookSheet {
