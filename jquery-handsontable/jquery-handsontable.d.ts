@@ -292,6 +292,8 @@ declare namespace Handsontable {
          */
         manualRowResize?: boolean;
 
+        manualRowMove?: boolean;
+
         /**
          * Setting to true enables the copyPaste plugin, which enables the copying and pasting to the clipboard.
          */
