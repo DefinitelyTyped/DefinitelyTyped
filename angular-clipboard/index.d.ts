@@ -3,25 +3,20 @@
 // Definitions by: Bradford Wagner <https://github.com/bradfordwagner/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default 'angular.clipboard';
-export type ClipboardService = angular.clipboard.ClipboardService;
-
-declare module 'angular' {
-    export namespace clipboard {
+declare module 'angular-clipboard' {
+    /**
+     * Definition of the Clipboard Service
+     */
+    export interface ClipboardService {
         /**
-         * Definition of the Clipboard Service
+         * tells us whether or not angular-clipboard is supported
          */
-        interface ClipboardService {
-            /**
-             * tells us whether or not angular-clipboard is supported
-             */
-            supported: boolean;
+        supported: boolean;
 
-            /**
-             * copies text to a clipboard
-             * @param text the text to be copied to the clipboard
-             */
-            copyText(text: string): void;
-        }
+        /**
+         * copies text to a clipboard
+         * @param text the text to be copied to the clipboard
+         */
+        copyText(text: string): void;
     }
 }
