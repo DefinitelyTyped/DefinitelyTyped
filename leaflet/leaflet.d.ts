@@ -28,9 +28,9 @@ declare namespace L {
         static removeClass(el: HTMLElement, name: String):void;
         static setClass(el: HTMLElement, name: String):void;
         static getClass(el: HTMLElement): String;
-        static setOpacity(el: HTMLElement, opacity: Number);
+        static setOpacity(el: HTMLElement, opacity: Number):void;
         static testProp(props: String[]): String|boolean/*=false*/;
-        static setTransform(el: HTMLElement, offset: Point, scale?: Number);
+        static setTransform(el: HTMLElement, offset: Point, scale?: Number):void;
         static setPosition(el: HTMLElement, position: Point):void;
         static getPosition(el: HTMLElement): Point
         static disableTextSelection(): void
