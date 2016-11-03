@@ -9,7 +9,6 @@ declare module 'amqplib' {
     import * as Promise from 'bluebird';
     import * as events from 'events';
     import shared = require('amqplib/properties');
-    import callback_api = require('amqplib/callback_api');
 
     export import Replies = shared.Replies;
     export import Options = shared.Options;
