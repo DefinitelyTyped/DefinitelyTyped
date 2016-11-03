@@ -1,9 +1,7 @@
-/// <reference path="./angular-promise-tracker.d.ts" />
-
 angular.module('promise-tracker-tests', []).run(['$q', 'promiseTracker',
     ($q: angular.IQService, promiseTracker: angular.promisetracker.PromiseTrackerService) => {
         const trackerWithoutOptions = promiseTracker();
-
+        
         const options = {
             activationDelay: 10,
             minDuration: 500
