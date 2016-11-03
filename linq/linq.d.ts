@@ -82,7 +82,7 @@ declare namespace linq {
         Alternate(value: any): Enumerable<any>;
         Contains(value: any, compareSelector?: ($: T) => any): boolean;
         Contains(value: any, compareSelector?: string): boolean;
-        DefaultIfEmpty(defaultValue: any): Enumerable<any>;
+        DefaultIfEmpty<U>(defaultValue: U): Enumerable<T> | Enumerable<U>;
         Distinct(compareSelector?: ($: T) => any): Enumerable<any>;
         Distinct(compareSelector?: string): Enumerable<any>;
         Except(second: any[], compareSelector?: ($: T) => any): Enumerable<any>;
@@ -147,19 +147,19 @@ declare namespace linq {
         Sum(selector?: string): number;
         //Paging Methods
         ElementAt(index: number): T;
-        ElementAtOrDefault(index: number, defaultValue: T): T;
+        ElementAtOrDefault<U>(index: number, defaultValue: U): T | U;
         First(predicate?: ($: T) => boolean): T;
         First(predicate?: string): T;
-        FirstOrDefault(defaultValue: T, predicate?: ($: T) => boolean): T;
-        FirstOrDefault(defaultValue: T, predicate?: string): T;
+        FirstOrDefault<U>(defaultValue: U, predicate?: ($: T) => boolean): T | U;
+        FirstOrDefault<U>(defaultValue: U, predicate?: string): T | U;
         Last(predicate?: ($: T) => boolean): T;
         Last(predicate?: string): T;
-        LastOrDefault(defaultValue: T, predicate?: ($: T) => boolean): T;
-        LastOrDefault(defaultValue: T, predicate?: string): T;
+        LastOrDefault<U>(defaultValue: U, predicate?: ($: T) => boolean): T | U;
+        LastOrDefault<U>(defaultValue: U, predicate?: string): T | U;
         Single(predicate?: ($: T) => boolean): T;
         Single(predicate?: string): T;
-        SingleOrDefault(defaultValue: T, predicate?: ($: T) => boolean): T;
-        SingleOrDefault(defaultValue: T, predicate?: string): T;
+        SingleOrDefault<U>(defaultValue: U, predicate?: ($: T) => boolean): T | U;
+        SingleOrDefault<U>(defaultValue: U, predicate?: string): T | U;
         Skip(count: number): Enumerable<T>;
         SkipWhile(predicate: ($: T, i: number) => boolean): Enumerable<T>;
         SkipWhile(predicate: string): Enumerable<T>;
