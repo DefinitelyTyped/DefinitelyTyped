@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface PaymentRequest extends EventTarget {
-    new (methodData: PaymentMethodData[], details: PaymentDetails, options?: PaymentOptions);
+    new (methodData: PaymentMethodData[], details: PaymentDetails, options?: PaymentOptions): PaymentRequest;
     show(): PromiseLike<PaymentResponse>;
     abort(): PromiseLike<void>;
     shippingAddress?: PaymentAddress;
