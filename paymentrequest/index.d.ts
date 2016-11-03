@@ -87,5 +87,7 @@ interface PaymentRequestUpdateEvent extends Event {
     updateWith(d: PromiseLike<PaymentDetails>): void;
 }
 
-declare var PaymentRequest: PaymentRequest;
+interface Window {
+	PaymentRequest?: PaymentRequest;
+}
 
