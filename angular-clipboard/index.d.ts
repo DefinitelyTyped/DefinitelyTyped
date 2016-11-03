@@ -4,14 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export default 'angular.clipboard';
-export type IClipboardService = angular.clipboard.IClipboardService;
+export type ClipboardService = angular.clipboard.ClipboardService;
 
 declare module 'angular' {
     export namespace clipboard {
         /**
          * Definition of the Clipboard Service
          */
-        interface IClipboardService {
+        interface ClipboardService {
             /**
              * tells us whether or not angular-clipboard is supported
              */
