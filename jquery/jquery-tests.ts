@@ -169,6 +169,12 @@ function test_ajax() {
         console.log(data, textStatus, jqXHR);
     });
 
+    // done method can change promise type through promise chaining
+    var chainedValuePromise : JQueryPromise<number>;
+    chainedValuePromise = $.ajax({
+        url: "test.js"
+    }).then(() => $.when(1));
+
     // fail method
     $.ajax({
         url: "test.js"
