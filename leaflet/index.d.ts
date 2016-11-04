@@ -90,7 +90,7 @@ declare namespace L {
 
     export function latLng(coords: LatLngLiteral): LatLng;
 
-    export function latLng(coords: {lat: number, lng: number, alt: number}): LatLng;
+    export function latLng(coords: { lat: number, lng: number, alt: number }): LatLng;
 
     export interface LatLngBounds {
         extend(latlng: LatLng): this;
@@ -167,7 +167,7 @@ declare namespace L {
 
     export function point(coords: PointTuple): Point;
 
-    export function point(coords: {x: number, y: number}): Point;
+    export function point(coords: { x: number, y: number }): Point;
 
     export type BoundsLiteral = Array<PointTuple>;
 
@@ -203,7 +203,11 @@ declare namespace L {
 
     export type EventHandlerFn = (event: Event) => void;
 
-    export type EventHandlerFnMap = {[type: string]: EventHandlerFn};
+    export type EventHandlerFnMap = { [type: string]: EventHandlerFn };
+
+    export class Class {
+        static extend<Target>(extension: any): { new (...args: any[]): Target; };
+    }
 
     /**
      * A set of methods shared between event-powered classes (like Map and Marker).
@@ -211,7 +215,7 @@ declare namespace L {
      * with an object (e.g. the user clicks on the map, causing the map to fire
      * 'click' event).
      */
-    export interface Evented {
+    export class Evented extends Class {
         /**
          * Adds a listener function (fn) to a particular event type of the object.
          * You can optionally specify the context of the listener (object the this
@@ -355,7 +359,7 @@ declare namespace L {
         interactive?: boolean;
     }
 
-    export interface Layer extends Evented {
+    export class Layer extends Evented {
         addTo(map: Map): this;
         remove(): this;
         removeFrom(map: Map): this;
@@ -400,7 +404,7 @@ declare namespace L {
         // Extension methods
         onAdd(map: Map): this;
         onRemove(map: Map): this;
-        getEvents(): {[name: string]: (event: Event) => void};
+        getEvents(): { [name: string]: (event: Event) => void };
         getAttribution(): string;
         beforeAdd(map: Map): this;
     }
@@ -422,7 +426,7 @@ declare namespace L {
         keepBuffer?: number;
     }
 
-    export interface GridLayer extends Layer {
+    export class GridLayer extends Layer {
         bringToFront(): this;
         bringToBack(): this;
         getAttribution(): string;
@@ -482,7 +486,7 @@ declare namespace L {
         crossOrigin?: boolean;
     }
 
-    export interface ImageOverlay extends Layer {
+    export class ImageOverlay extends Layer {
         setOpacity(opacity: number): this;
         bringToFront(): this;
         bringToBack(): this;
@@ -514,7 +518,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface Path extends Layer {
+    export class Path extends Layer {
         redraw(): this;
         setStyle(style: PathOptions): this;
         bringToFront(): this;
@@ -526,7 +530,7 @@ declare namespace L {
         noClip?: boolean;
     }
 
-    interface InternalPolyline extends Path {
+    class InternalPolyline extends Path {
         getLatLngs(): Array<LatLng>;
         setLatLngs(latlngs: Array<LatLng>): this;
         setLatLngs(latlngs: Array<LatLngLiteral>): this;
@@ -542,7 +546,7 @@ declare namespace L {
         addLatLng(latlng: Array<LatLngTuple>): this;
     }
 
-    export interface Polyline extends InternalPolyline {
+    export class Polyline extends InternalPolyline {
         toGeoJSON(): GeoJSON.LineString | GeoJSON.MultiLineString;
     }
 
@@ -558,7 +562,7 @@ declare namespace L {
 
     export function polyline(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polyline;
 
-    export interface Polygon extends InternalPolyline {
+    export class Polygon extends InternalPolyline {
         toGeoJSON(): GeoJSON.Polygon | GeoJSON.MultiPolygon;
     }
 
@@ -574,7 +578,7 @@ declare namespace L {
 
     export function polygon(latlngs: Array<Array<LatLngTuple>>, options?: PolylineOptions): Polygon;
 
-    export interface Rectangle extends Polygon {
+    export class Rectangle extends Polygon {
         setBounds(latLngBounds: LatLngBounds): this;
         setBounds(latLngBounds: LatLngBoundsLiteral): this;
     }
@@ -587,7 +591,7 @@ declare namespace L {
         radius?: number;
     }
 
-    export interface CircleMarker extends Path {
+    export class CircleMarker extends Path {
         toGeoJSON(): GeoJSON.Point;
         setLatLng(latLng: LatLng): this;
         setLatLng(latLng: LatLngLiteral): this;
@@ -607,7 +611,7 @@ declare namespace L {
         radius?: number;
     }
 
-    export interface Circle extends CircleMarker {
+    export class Circle extends CircleMarker {
         setRadius(radius: number): this;
         getRadius(): number;
         getBounds(): LatLngBounds;
@@ -629,9 +633,9 @@ declare namespace L {
         padding?: number;
     }
 
-    export interface Renderer extends Layer {}
+    export class Renderer extends Layer { }
 
-    export interface SVG extends Renderer {}
+    export class SVG extends Renderer { }
 
     export namespace SVG {
         export function create(name: string): SVGElement;
@@ -643,7 +647,7 @@ declare namespace L {
 
     export function svg(options?: RendererOptions): SVG;
 
-    export interface Canvas extends Renderer {}
+    export class Canvas extends Renderer { }
 
     export function canvas(options?: RendererOptions): Canvas;
 
@@ -652,7 +656,7 @@ declare namespace L {
      * If you add it to the map, any layers added or removed from the group will be
      * added/removed on the map as well. Extends Layer.
      */
-    export interface LayerGroup extends Layer {
+    export class LayerGroup extends Layer {
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection).
          */
@@ -725,7 +729,7 @@ declare namespace L {
      * Extended LayerGroup that also has mouse events (propagated from
      * members of the group) and a shared bindPopup method.
      */
-    export interface FeatureGroup extends LayerGroup {
+    export class FeatureGroup extends LayerGroup {
         /**
          * Sets the given path options to each layer of the group that has a setStyle method.
          */
@@ -821,7 +825,7 @@ declare namespace L {
      * Represents a GeoJSON object or an array of GeoJSON objects.
      * Allows you to parse GeoJSON data and display it on the map. Extends FeatureGroup.
      */
-    export interface GeoJSON extends FeatureGroup {
+    export class GeoJSON extends FeatureGroup {
         /**
          * Adds a GeoJSON object to the layer.
          */
@@ -974,7 +978,7 @@ declare namespace L {
             zoomOutTitle?: string;
         }
 
-        export interface Zoom extends Control {}
+        export interface Zoom extends Control { }
 
         export interface AttributionOptions extends ControlOptions {
             prefix?: string | boolean;
@@ -1007,7 +1011,7 @@ declare namespace L {
             updateWhenIdle?: boolean;
         }
 
-        export interface Scale extends Control {}
+        export interface Scale extends Control { }
     }
 
     export namespace control {
@@ -1015,7 +1019,7 @@ declare namespace L {
 
         export function attribution(options: Control.AttributionOptions): Control.Attribution;
 
-        type LayersObject = {[name: string]: Layer};
+        type LayersObject = { [name: string]: Layer };
 
         export function layers(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions): Control.Layers;
 
@@ -1044,7 +1048,7 @@ declare namespace L {
 
     type Content = string | HTMLElement;
 
-    export interface Popup extends Layer {
+    export class Popup extends Layer {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLngExpression): this;
         getContent(): Content;
@@ -1073,7 +1077,7 @@ declare namespace L {
         opacity?: number;
     }
 
-    export interface Tooltip extends Layer {}
+    export class Tooltip extends Layer { }
 
     export function tooltip(options?: TooltipOptions, source?: Layer): Tooltip;
 
@@ -1088,7 +1092,7 @@ declare namespace L {
         noMoveStart?: boolean;
     }
 
-    export interface ZoomPanOptions extends ZoomOptions, PanOptions {}
+    export interface ZoomPanOptions extends ZoomOptions, PanOptions { }
 
     export interface FitBoundsOptions extends ZoomOptions, PanOptions {
         paddingTopLeft?: PointExpression;
@@ -1116,19 +1120,19 @@ declare namespace L {
         removeHooks(): void;
     }
 
-    export interface Event {
+    export class Event {
         type: string;
         target: any; // should this be Object and have users cast?
     }
 
-    export interface MouseEvent extends Event {
+    export class MouseEvent extends Event {
         latlng: LatLng;
         layerPoint: Point;
         containerPoint: Point;
         originalEvent: MouseEvent; // how can I reference the global MouseEvent?
     }
 
-    export interface LocationEvent extends Event {
+    export class LocationEvent extends Event {
         latlng: LatLng;
         bounds: LatLngBounds;
         accuracy: number;
@@ -1139,12 +1143,12 @@ declare namespace L {
         timestamp: number;
     }
 
-    export interface ErrorEvent extends Event {
+    export class ErrorEvent extends Event {
         message: string;
         code: number;
     }
 
-    export interface LayerEvent extends Event {
+    export class LayerEvent extends Event {
         layer: Layer;
     }
 
@@ -1152,7 +1156,7 @@ declare namespace L {
         name: string;
     }
 
-    export interface TileEvent extends Event {
+    export class TileEvent extends Event {
         tile: HTMLImageElement;
         coords: Point; // apparently not a normal point, since docs say it has z (zoom)
     }
@@ -1161,27 +1165,27 @@ declare namespace L {
         error: Error;
     }
 
-    export interface ResizeEvent extends Event {
+    export class ResizeEvent extends Event {
         oldSize: Point;
         newSize: Point;
     }
 
-    export interface GeoJSONEvent extends Event {
+    export class GeoJSONEvent extends Event {
         layer: Layer;
         properties: any; // any or Object?
         geometryType: string;
         id: string;
     }
 
-    export interface PopupEvent extends Event {
+    export class PopupEvent extends Event {
         popup: Popup;
     }
 
-    export interface TooltipEvent extends Event {
+    export class TooltipEvent extends Event {
         tooltip: Tooltip;
     }
 
-    export interface DragEndEvent extends Event {
+    export class DragEndEvent extends Event {
         distance: number;
     }
 
@@ -1195,7 +1199,7 @@ declare namespace L {
         popupPane: HTMLElement;
     }
 
-    export interface Map extends Evented {
+    export class Map extends Evented {
         getRenderer(layer: Path): Renderer;
 
         // Methods for layers and controls
@@ -1262,7 +1266,7 @@ declare namespace L {
         createPane(name: string, container?: HTMLElement): HTMLElement;
         getPane(pane: string): HTMLElement;
         getPane(pane: HTMLElement): HTMLElement;
-        getPanes(): {[name: string]: HTMLElement} & DefaultMapPanes;
+        getPanes(): { [name: string]: HTMLElement } & DefaultMapPanes;
         getContainer(): HTMLElement;
         whenReady(fn: () => void, context?: Object): this;
 
@@ -1340,7 +1344,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface Icon extends Layer {
+    export class Icon extends Layer {
         createIcon(oldIcon?: HTMLElement): HTMLElement;
         createShadow(oldIcon?: HTMLElement): HTMLElement;
     }
@@ -1360,7 +1364,7 @@ declare namespace L {
         className?: string;
     }
 
-    export interface DivIcon extends Icon {}
+    export interface DivIcon extends Icon { }
 
     export function divIcon(options: DivIconOptions): DivIcon;
 
@@ -1376,7 +1380,7 @@ declare namespace L {
         riseOffset?: number;
     }
 
-    export interface Marker extends Layer {
+    export class Marker extends Layer {
         getLatLng(): LatLng;
         setLatLng(latlng: LatLng): this;
         setLatLng(latlng: LatLngLiteral): this;
