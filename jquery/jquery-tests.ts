@@ -209,9 +209,9 @@ function test_ajax() {
         url: "test.js"
     });
     jqXHR.abort('aborting because I can');
-	
+
     //Test the promise exposed by the jqXHR object
-	
+
     // done method
     $.ajax({
         url: "test.js"
@@ -239,7 +239,7 @@ function test_ajax() {
     }).promise().always((jqXHR, textStatus, errorThrown) => {
         console.log(jqXHR, textStatus, errorThrown);
     });
-	
+
     // then method (as of 1.8)
     $.ajax({
         url: "test.js"
@@ -252,7 +252,7 @@ function test_ajax() {
     // generic then method
     var p: JQueryPromise<number> = $.ajax({ url: "test.js" }).promise()
         .then(() => "Hello")
-        .then((x) => x.length);	
+        .then((x) => x.length);
 }
 
 function test_ajaxComplete() {
