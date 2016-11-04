@@ -1777,10 +1777,10 @@ declare namespace webdriver {
           toString(): string;
 
           /** This logger's name. */
-          name(): string;
+          name: string;
 
           /** The numeric log level. */
-          value(): number;
+          value: number;
 
           /**
            * Indicates no log messages should be recorded.
