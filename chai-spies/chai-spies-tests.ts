@@ -1,3 +1,6 @@
+/// <reference types="chai" />
+/// <reference types="mocha" />
+
 import * as chai from 'chai';
 import * as spies from 'chai-spies';
 import * as Mocha from 'mocha';
