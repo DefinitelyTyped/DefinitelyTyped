@@ -2,8 +2,10 @@
 // Project: http://www.highcharts.com/
 // Definitions by: Andrey Zolotin <http://github.com/nitoloz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference path="highcharts.d.ts" />
-declare namespace __Highcharts {
+
+import * as Hc from "highcharts";
+
+declare module "highcharts" {
     interface ChartObject {
         /**
          * Returns true if there are data points within the plot area now
