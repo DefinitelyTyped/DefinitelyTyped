@@ -13,38 +13,32 @@
 
  =============================================== */
 
-/// <reference path="../koa/koa.d.ts" />
-/// <reference path="../cookies/cookies.d.ts"/>
+import * as Koa from "koa";
+import * as cookies from "cookies";
 
-declare module "koa-session-minimal" {
-
-    import * as Koa from "koa";
-    import * as cookies from "cookies";
-
-    module "koa" {
-        interface Request {
-            session: any;
-            sessionHandler: { regenerateId: () => void };
-        }
+declare module "koa" {
+    interface Request {
+        session: any;
+        sessionHandler: { regenerateId: () => void };
     }
-
-    function session(opts?: {
-        /**
-         * session cookie name and store key prefix. Default is 'koa:sess'
-         */
-        key?: string;
-
-        /**
-         * cookie options
-         */
-        cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
-
-        /**
-         * session store
-         */
-        store?: any;
-    }): { (ctx: Koa.Context, next?: () => any): any };
-
-    namespace session {}
-    export = session;
 }
+
+declare function session(opts?: {
+    /**
+     * session cookie name and store key prefix. Default is 'koa:sess'
+     */
+    key?: string;
+
+    /**
+     * cookie options
+     */
+    cookie?:  cookies.IOptions | { (ctx?: Koa.Context): cookies.IOptions };
+
+    /**
+     * session store
+     */
+    store?: any;
+}): { (ctx: Koa.Context, next?: () => any): any };
+
+declare namespace session {}
+export = session;

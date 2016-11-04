@@ -3,36 +3,32 @@
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../nodemailer/nodemailer.d.ts"/>
+import * as nodemailer from "nodemailer";
 
-declare module "nodemailer-stub-transport" {
-    import * as nodemailer from "nodemailer";
-
-    namespace StubTransportStatic {
-        /**
-         * Options.
-         * @interface
-         */
-        export interface Options {
-            /**
-             * Specifies a custom error.
-             * @type {any}
-             */
-            error?: any;
-
-            /**
-             * Value that indicates if the BCC addresses must be included in generated message.
-             * @type {boolean}
-             */
-            keepBcc?: boolean;
-        }
-    }
-
+declare namespace StubTransportStatic {
     /**
-     * Creates a stub transport.
-     * @param {Options} [options] Options.
-     * @return {Transport} The stub transport.
+     * Options.
+     * @interface
      */
-    function stubTransport(options?: StubTransportStatic.Options): nodemailer.Transport;
-    export = stubTransport;
+    export interface Options {
+        /**
+         * Specifies a custom error.
+         * @type {any}
+         */
+        error?: any;
+
+        /**
+         * Value that indicates if the BCC addresses must be included in generated message.
+         * @type {boolean}
+         */
+        keepBcc?: boolean;
+    }
 }
+
+/**
+ * Creates a stub transport.
+ * @param {Options} [options] Options.
+ * @return {Transport} The stub transport.
+ */
+declare function stubTransport(options?: StubTransportStatic.Options): nodemailer.Transport;
+export = stubTransport;

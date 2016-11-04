@@ -3,25 +3,20 @@
 // Definitions by: Remo H. Jansen <https://github.com/remojansen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../react/react.d.ts"/>
+import React = require("react");
 
-declare module "react-side-effect" {
+declare function withSideEffect(
+    reducePropsToState: (propsList: any[]) => any,
+    handleStateChangeOnClient: (state: any) => any,
+    mapStateOnServer?: (state: any) => any
+): ClassDecorator;
 
-    import React = __React;
+declare class ElementClass extends React.Component<any, any> {}
 
-    function withSideEffect(
-        reducePropsToState: (propsList: any[]) => any,
-        handleStateChangeOnClient: (state: any) => any,
-        mapStateOnServer?: (state: any) => any
-    ): ClassDecorator;
-
-    class ElementClass extends React.Component<any, any> {}
-
-    interface ClassDecorator {
-        <T extends (typeof ElementClass)>(component:T): T;
-    }
-
-    namespace withSideEffect {} // https://github.com/Microsoft/TypeScript/issues/5073
-
-    export = withSideEffect;
+interface ClassDecorator {
+    <T extends (typeof ElementClass)>(component:T): T;
 }
+
+declare namespace withSideEffect {} // https://github.com/Microsoft/TypeScript/issues/5073
+
+export = withSideEffect;
