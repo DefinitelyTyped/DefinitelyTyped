@@ -422,14 +422,27 @@ conicConformal = conicConformal.fitSize([960, 500], samplePolygon); // inherited
 // GeoPath Generator
 // ----------------------------------------------------------------------
 
+let minimalRenderingContextMockUp: d3Geo.GeoContext = {
+    beginPath: () => { return; },
+    moveTo: (x: number, y: number) => { return; },
+    lineTo: (x: number, y: number) => { return; },
+    arc: (x, y, radius, startAngle, endAngle) => { return; },
+    closePath: () => { return; }
+};
+
 // Create geoPath Generator =============================================
 
 let geoPathCanvas: d3Geo.GeoPath<any, d3Geo.GeoPermissibleObjects>;
 geoPathCanvas = d3Geo.geoPath();
+geoPathCanvas = d3Geo.geoPath(null);
+geoPathCanvas = d3Geo.geoPath(null, null);
+geoPathCanvas = d3Geo.geoPath(d3Geo.geoAzimuthalEqualArea());
+geoPathCanvas = d3Geo.geoPath(d3Geo.geoAzimuthalEqualArea(), minimalRenderingContextMockUp);
 
 let geoPathSVG: d3Geo.GeoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>;
 geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>();
-
+geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(d3Geo.geoAzimuthalEqualArea());
+geoPathSVG = d3Geo.geoPath<SVGPathElement, d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>>(d3Geo.geoAzimuthalEqualArea(), null);
 // Configure geoPath Generator ==========================================
 
 // projection(...) ------------------------------------------------------
@@ -446,14 +459,8 @@ let geoPathConicProjection: d3Geo.GeoConicProjection = geoPathSVG.projection<d3G
 
 // context(...) ------------------------------------------------------
 
-// minimal context interface
-geoPathCanvas = geoPathCanvas.context({
-    beginPath: () => { return; },
-    moveTo: (x: number, y: number) => { return; },
-    lineTo: (x: number, y: number) => { return; },
-    arc: (x, y, radius, startAngle, endAngle) => { return; },
-    closePath: () => { return; }
-});
+// minimal context interface (mockup)
+geoPathCanvas = geoPathCanvas.context(minimalRenderingContextMockUp);
 
 
 let geoPathContext: d3Geo.GeoContext = geoPathCanvas.context();
