@@ -849,8 +849,8 @@ function TestLogging() {
     level = webdriver.logging.Level.SEVERE;
     level = webdriver.logging.Level.WARNING;
 
-    var name: string = level.name();
-    var value: number = level.value();
+    var name: string = level.name;
+    var value: number = level.value;
 
     var type: string;
     type = webdriver.logging.Type.BROWSER;
