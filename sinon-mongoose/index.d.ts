@@ -3,16 +3,13 @@
 // Definitions by: stevehipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../sinon/sinon.d.ts"/>
+import * as s from "sinon";
 
-declare namespace Sinon {
-
+declare module "sinon" {
   export interface SinonStub {
-
     /**
      * When called, the stub will create a new stub to represent a mongoose chained function.
      */
     chain(name: string): SinonStub
   }
-
 }
