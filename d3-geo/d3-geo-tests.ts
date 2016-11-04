@@ -293,6 +293,12 @@ let multiString: GeoJSON.MultiLineString = graticuleGenerator();
 let lines: GeoJSON.LineString[] = graticuleGenerator.lines();
 let polygon2: GeoJSON.Polygon = graticuleGenerator.outline();
 
+// geoGraticule10() =====================================================
+
+// test convenience function:
+
+multiString = d3Geo.geoGraticule10();
+
 // ----------------------------------------------------------------------
 // Raw Projections
 // ----------------------------------------------------------------------
@@ -360,7 +366,7 @@ let clipAngle: number = constructedProjection.clipAngle();
 constructedProjection = constructedProjection.clipAngle(null);
 constructedProjection = constructedProjection.clipAngle(45);
 
-let clipExtent: [[number, number], [number, number]] = constructedProjection.clipExtent();
+let clipExtent: [[number, number], [number, number]] | null = constructedProjection.clipExtent();
 constructedProjection = constructedProjection.clipExtent(null);
 constructedProjection = constructedProjection.clipExtent([[0, 0], [1, 1]]);
 
@@ -461,13 +467,13 @@ let canvasContext: CanvasRenderingContext2D;
 geoPathCanvas = geoPathCanvas.context(canvasContext);
 
 canvasContext = geoPathCanvas.context<CanvasRenderingContext2D>();
-// canvasContext = geoPathSimple.context(); // fails without casting to CanvasRenderingContext2D
-// canvasContext = geoPathSimple.context<SampleProperties1>(); // fails as SampleProperties does not extend GeoCanvas
+// canvasContext = geoPathCanvas.context(); // fails without casting to CanvasRenderingContext2D
+// canvasContext = geoPathCanvas.context<SampleProperties1>(); // fails as SampleProperties does not extend GeoCanvas
 
 // pointRadius(...) ------------------------------------------------------
 
 geoPathCanvas = geoPathCanvas.pointRadius(5);
-let geoPathCanvasPointRadiusAccessor: (this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number = geoPathCanvas.pointRadius();
+let geoPathCanvasPointRadiusAccessor: ((this: any, d: d3Geo.GeoPermissibleObjects, ...args: any[]) => number) | number = geoPathCanvas.pointRadius();
 
 geoPathSVG = geoPathSVG.pointRadius(function (datum) {
     let that: SVGPathElement = this;
@@ -475,9 +481,9 @@ geoPathSVG = geoPathSVG.pointRadius(function (datum) {
     return datum.properties.name === 'Alabama' ? 10 : 15;
 });
 
-let geoPathSVGPointRadiusAccessor: (this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number = geoPathSVG.pointRadius();
-// let geoPathSVGPointRadiusAccessorWrong1: (this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number = geoPathSVG.pointRadius(); // fails, mismatch in this context
-// let geoPathSVGPointRadiusAccessorWrong2: (this: SVGPathElement, d: d3Geo.GeoGeometryObjects, ...args: any[]) => number = geoPathSVG.pointRadius(); // fails, mismatch in object datum type
+let geoPathSVGPointRadiusAccessor: number | ((this: SVGPathElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius();
+// let geoPathSVGPointRadiusAccessorWrong1: number | ((this: SVGCircleElement, d: d3Geo.ExtendedFeature<GeoJSON.Polygon, SampleProperties1>, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in this context
+// let geoPathSVGPointRadiusAccessorWrong2: number | ((this: SVGPathElement, d: d3Geo.GeoGeometryObjects, ...args: any[]) => number) = geoPathSVG.pointRadius(); // fails, mismatch in object datum type
 
 // Use geoPath Generator ================================================
 
@@ -549,33 +555,8 @@ let svgCircleWrong: Selection<SVGCircleElement, d3Geo.ExtendedFeature<GeoJSON.Po
 let svgPathWrong: Selection<SVGPathElement, GeoJSON.Polygon, any, any>;
 // svgPathWrong.attr('d', geoPathSVG); // fails, mismatch in datum type
 
-// ----------------------------------------------------------------------
-// geoClipExtent
-// ----------------------------------------------------------------------
 
-let geoClipExtent: d3Geo.GeoExtent = d3Geo.geoClipExtent();
 
-// extent(...) ----------------------------------------------------------
-
-let extent2: [[number, number], [number, number]] = geoClipExtent.extent();
-geoClipExtent = geoClipExtent.extent([[0, 0], [960, 500]]);
-
-// stream(...) ----------------------------------------------------------
-
-let stream: d3Geo.GeoStream;
-stream = geoClipExtent.stream(stream);
-
-// ----------------------------------------------------------------------
-// Stream interface
-// ----------------------------------------------------------------------
-
-stream.point(0, 0);
-stream.point(0, 0, 0);
-stream.lineStart();
-stream.lineEnd();
-stream.polygonStart();
-stream.polygonEnd();
-stream.sphere();
 
 // ----------------------------------------------------------------------
 // Context interface
@@ -610,6 +591,57 @@ customTransformProto = {
 };
 
 let t: { stream: (s: d3Geo.GeoStream) => (CustomTranformProto & d3Geo.GeoStream) } = d3Geo.geoTransform(customTransformProto);
+
+
+// geoIdentity() ========================================================
+
+let identityTransform: d3Geo.GeoIdentityTranform;
+
+identityTransform = d3Geo.geoIdentity();
+
+scale = identityTransform.scale();
+identityTransform = identityTransform.scale(2);
+
+translate = identityTransform.translate();
+identityTransform = identityTransform.translate([10, 10]);
+
+clipExtent = identityTransform.clipExtent();
+identityTransform = identityTransform.clipExtent(null);
+identityTransform = identityTransform.clipExtent([[0, 0], [100, 100]]);
+
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], samplePolygon);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleSphere);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleGeometryCollection);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedGeometryCollection);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleFeature);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature1);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeature2);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleFeatureCollection);
+identityTransform = identityTransform.fitExtent([[0, 0], [960, 500]], sampleExtendedFeatureCollection);
+
+identityTransform = identityTransform.fitSize([960, 500], samplePolygon);
+identityTransform = identityTransform.fitSize([960, 500], sampleSphere);
+identityTransform = identityTransform.fitSize([960, 500], sampleGeometryCollection);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedGeometryCollection);
+identityTransform = identityTransform.fitSize([960, 500], sampleFeature);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeature1);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeature2);
+identityTransform = identityTransform.fitSize([960, 500], sampleFeatureCollection);
+identityTransform = identityTransform.fitSize([960, 500], sampleExtendedFeatureCollection);
+
+
+// ----------------------------------------------------------------------
+// Stream interface
+// ----------------------------------------------------------------------
+let stream: d3Geo.GeoStream;
+
+stream.point(0, 0);
+stream.point(0, 0, 0);
+stream.lineStart();
+stream.lineEnd();
+stream.polygonStart();
+stream.polygonEnd();
+stream.sphere();
 
 // geoStream(...) ========================================================
 
