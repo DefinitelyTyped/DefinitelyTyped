@@ -3,7 +3,7 @@
 // Definitions by: Andrew Short <http://ajshort.me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 declare module 'xmlrpc' {
     import { EventEmitter } from 'events';

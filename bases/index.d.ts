@@ -3,20 +3,18 @@
 // Definitions by: Hari Krishna <https://github.com/harikv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "bases" {
-    export function toAlphabet(num: number, alphabet: string): string;
+export function toAlphabet(num: number, alphabet: string): string;
 
-    export function fromAlphabet(str: string, alphabet: string): number;
+export function fromAlphabet(str: string, alphabet: string): number;
 
-    export function toBase(num: number, base: number): string;
+export function toBase(num: number, base: number): string;
 
-    export function fromBase(str: string, base:number): number;
+export function fromBase(str: string, base:number): number;
 
-    export let KNOWN_ALPHABETS: any;
+export let KNOWN_ALPHABETS: any;
 
-    export let NUMERALS: string;
+export let NUMERALS: string;
 
-    export let LETTERS_LOWERCASE: string;
+export let LETTERS_LOWERCASE: string;
 
-    export let LETTERS_UPPERCASE: string;
-}
+export let LETTERS_UPPERCASE: string;

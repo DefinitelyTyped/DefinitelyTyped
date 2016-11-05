@@ -3,9 +3,9 @@
 // Definitions by: York Yao <https://github.com/plantain-00/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
-declare module Tesseract {
+declare namespace Tesseract {
     type ImageLike = string | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement
         | CanvasRenderingContext2D | File | Blob | ImageData | Buffer;
     interface Progress {
@@ -141,9 +141,6 @@ declare module Tesseract {
     }
 }
 
-declare module "tesseract.js" {
-    var Tesseract: Tesseract.TesseractStatic
-    export = Tesseract;
-}
-
 declare var Tesseract: Tesseract.TesseractStatic;
+export = Tesseract;
+export as namespace Tesseract;
