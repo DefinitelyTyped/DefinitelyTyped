@@ -3,15 +3,21 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "paths": {
-            "*": ["*", "react-daterange-picker/node_modules/*"]
+            "*": [
+                "*",
+                "react-daterange-picker/node_modules/*"
+            ]
         },
-        "types": ["moment-range", "react"],
+        "types": [
+            "moment-range",
+            "react"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
