@@ -3,9 +3,11 @@
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "types": ["selenium-webdriver"],
+        "types": [
+            "selenium-webdriver"
+        ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
