@@ -7,7 +7,7 @@ declare namespace ValidatorJS {
   type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
   type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
   type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW"
-  
+
   interface ValidatorStatic {
 
     // **************
@@ -71,6 +71,9 @@ declare namespace ValidatorJS {
 
     // check if the string is an email.
     isEmail(str: string, options?: IsEmailOptions): boolean;
+
+    // check if the string has a length of zero.
+    isEmpty(str: string): boolean;
 
     // check if the string is a fully qualified domain name (e.g. domain.com).
     isFQDN(str: string, options?: IsFQDNOptions): boolean;
@@ -213,9 +216,9 @@ declare namespace ValidatorJS {
     // remove characters that do not appear in the whitelist. The characters are used in a RegExp and so you will
     // need to escape some chars, e.g. whitelist(input, '\\[\\]').
     whitelist(input: string, chars: string): string;
-    
+
     toString(input: any | any[]): string;
-    
+
     version: string;
 
     // **************
@@ -405,6 +408,11 @@ declare module "validator/lib/isDivisibleBy" {
 declare module "validator/lib/isEmail" {
   const isEmail: typeof validator.isEmail;
   export = isEmail;
+}
+
+declare module "validator/lib/isEmpty" {
+  const isEmpty: typeof validator.isEmpty;
+  export = isEmpty;
 }
 
 declare module "validator/lib/isFQDN" {
