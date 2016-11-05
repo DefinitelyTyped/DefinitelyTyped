@@ -13,6 +13,5 @@ declare namespace clipboard {
 
 declare var clipboard: clipboard.IClipboardJsStatic;
 
-declare module 'clipboard-js' {
-    export = clipboard;
-}
+export = clipboard;
+export as namespace clipboard;

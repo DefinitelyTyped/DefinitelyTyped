@@ -1,5 +1,3 @@
-/// <reference path="sass-graph.d.ts" />
-
 import { parseFile, parseDir, Graph } from "sass-graph";
 
 // Example copied from readme:

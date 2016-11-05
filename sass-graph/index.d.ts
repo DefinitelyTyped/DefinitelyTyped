@@ -76,6 +76,5 @@ declare namespace SassGraph {
   export function parseDir(dirpath: string, options?: Options): Graph;
 }
 
-declare module "sass-graph" {
-    export = SassGraph;
-}
+export = SassGraph;
+export as namespace SassGraph;

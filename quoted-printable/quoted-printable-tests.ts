@@ -1,6 +1,3 @@
-/// <reference path="./quoted-printable.d.ts" />
-/// <reference path="../utf8/utf8.d.ts" />
-
 import * as quotedPrintable from "quoted-printable";
 import * as utf8 from "utf8";
 
