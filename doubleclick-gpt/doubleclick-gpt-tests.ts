@@ -167,7 +167,7 @@ googletag.pubads().refresh([slot1], {changeCorrelator: false});
 
 // This call to refresh fetches a new ad for each slot, without changing
 // the correlator.
-googletag.pubads().refresh(null, {changeCorrelator: false});
+googletag.pubads().refresh(undefined, {changeCorrelator: false});
 
 // Label = AirlineAd.
 googletag.pubads().setCategoryExclusion("AirlineAd");
