@@ -1,6 +1,9 @@
 import * as tilereduce from 'tile-reduce'
-import { BBox, Tile, Source } from 'tile-reduce'
+import { BBox, Tile, Source, Types } from 'tile-reduce'
 
+global.mapOptions
+
+const start: tilereduce.Types = "start"
 const bbox: BBox = [-120, 40, -110, 50]
 const tile: Tile = [1, 1, 1]
 const source: Source = {
@@ -21,7 +24,7 @@ tilereduce({
     map: 'map.js',
     tiles: [tile],
 })
-.on('start', () => { })
+.on(start, () => { })
 .on('map', (tile, workerId) => { })
 .on('reduce', (result, tile) => { })
 .on('end', () => { })

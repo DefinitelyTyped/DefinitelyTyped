@@ -3,26 +3,12 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 declare namespace NodeJS  {
-  interface Global {
-    mapOptions: any
-  }
-}
-
-interface startEvent {
-    (): void;
-}
-
-interface mapEvent {
-    (tile: TileReduce.Tile, workerId: number): void;
-}
-
-interface reduceEvent {
-    (result: any, tile: TileReduce.Tile): void;
-}
-
-interface endEvent {
-    (error: any): void;
+    interface Global {
+        mapOptions: any
+    }
 }
 
 interface Events {
@@ -36,7 +22,7 @@ interface Events {
      *     console.log('starting')
      * })
      */
-    on(type: 'start', callback: startEvent): Events;
+    on(type: 'start', callback: () => void): Events;
 
     /**
      * Map Event
@@ -50,7 +36,7 @@ interface Events {
      *     console.log(`about to process [${ tile }] on worker ${ workerId }`)
      * })
      */
-    on(type: 'map', callback: mapEvent): Events;
+    on(type: 'map', callback: (tile: TileReduce.Tile, workerId: number) => void): Events;
 
     /**
      * Reduce Event
@@ -66,7 +52,7 @@ interface Events {
      *     count ++
      * })
      */
-    on(type: 'reduce', callback: reduceEvent): Events;
+    on(type: 'reduce', callback: (result: any, tile: TileReduce.Tile) => void): Events;
 
     /**
      * End Event
@@ -79,9 +65,8 @@ interface Events {
      *     console.log(`Total count was: ${ count }`)
      * })
      */
-    on(type: 'end', callback: endEvent): Events;
+    on(type: 'end', callback: (error: any) => void): Events;
 }
-
 
 interface Options {
     map: string;
@@ -126,6 +111,7 @@ declare function TileReduce (options: Options): Events;
 declare namespace TileReduce {
     type BBox = [number, number, number, number];
     type Tile = [number, number, number];
+    type Types = "start" | "map" | "reduce" | "end";
     interface Source {
         name: string;
         mbtiles?: string;
@@ -136,4 +122,6 @@ declare namespace TileReduce {
     }
 }
 
-export = TileReduce;
+declare module "tile-reduce" {
+    export = TileReduce
+}
