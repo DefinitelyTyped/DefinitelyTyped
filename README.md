@@ -109,43 +109,8 @@ Your package should have this structure:
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
 
-`index.d.ts` should start with a header looking like:
-
-```ts
-// Type definitions for foo 1.2
-// Project: https://github.com/baz/foo
-// Definitions by: My Self <https://github.com/me>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-```
-
-The `Project` link does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.
-
-`tsconfig.json` should look like this:
-
-```json
-{
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6",
-        "noImplicitAny": true,
-        "strictNullChecks": false,
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
-        "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
-    },
-    "files": [
-        "index.d.ts",
-        "foo-tests.ts"
-    ]
-}
-```
-
-These should be identical accross projects except that `foo-tests` will be replaced with the name of your test file,
-and you may also add the `"jsx"` compiler option if your library needs it.
+Generate these by running `tsc -p scripts`, then `node scripts/new-package.js new-package-name`.
+You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
