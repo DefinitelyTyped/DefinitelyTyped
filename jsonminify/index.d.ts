@@ -3,10 +3,6 @@
 // Definitions by: Dan Homola <https://github.com/no23reason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface MinifyFn {
-    (json: string): string;
-}
-
-declare var minify: MinifyFn;
+declare function minify(json: string): string;
 
 export = minify;
