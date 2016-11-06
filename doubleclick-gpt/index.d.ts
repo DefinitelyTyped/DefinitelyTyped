@@ -23,7 +23,10 @@ declare namespace googletag {
     }
 
     export interface Service {
-        addEventListener(eventType: string, listener: Function): void;
+        addEventListener(
+          eventType: string,
+            listener: (event: events.ImpressionViewableEvent | events.SlotOnloadEvent | events.SlotRenderEndedEvent | events.slotVisibilityChangedEvent) => void
+        ): void;
     }
 
     export interface CompanionAdsService extends Service {
