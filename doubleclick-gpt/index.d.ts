@@ -170,4 +170,4 @@ declare namespace googletag {
     }
 }
 
-declare const googletag: googletag.Googletag;
+declare let googletag: googletag.Googletag;
