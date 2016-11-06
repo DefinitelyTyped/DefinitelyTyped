@@ -52,6 +52,7 @@ import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Ste
 import {
     Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
 } from 'material-ui/Table';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
@@ -4913,6 +4914,24 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
                 </ToolbarGroup>
             </Toolbar>
         );
+    }
+}
+
+class BottomNavigationExample extends React.Component<{}, {
+    index?: number
+}> {
+    constructor() {
+        super()
+
+        this.state = {
+            index: 0
+        }
+    }
+    render() {
+        return <BottomNavigation selectedIndex={this.state.index}>
+            <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
+            <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+        </BottomNavigation>
     }
 }
 
