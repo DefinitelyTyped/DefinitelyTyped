@@ -3,9 +3,6 @@
 // Definitions by: Michael Van Sickle <https://github.com/vansimke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function define(dependencies: String[], factory: Function): any;
-declare function require(config?:Object, dependencies?: String[], callback?: Function): any;
-
 declare namespace dojox.dtl {
     interface __StringArgs { }
     interface __ObjectArgs { }
@@ -16124,8 +16121,12 @@ declare namespace dojo {
          */
         interface instrumentation{(Deferred: any): void}
 
+        interface Thenable<T> {
+            then<U>(onFulfilled?: (value?: T) => Thenable<U> | U, onRejected?: (error?: Error) => Thenable<U> | U): Thenable<U>;
+        }
+
         interface Callback<T, U> {
-            (arg: T): U|Promise<U>;
+            (arg: T): U|Thenable<U>;
         }
 
         /**
@@ -16136,7 +16137,7 @@ declare namespace dojo {
          * instances of this class.
          *
          */
-        interface Promise<T> {
+        interface Promise<T> extends Thenable<T> {
             /**
              * Add a callback to be invoked when the promise is resolved
              * or rejected.
@@ -28290,6 +28291,10 @@ declare module "dojo/promise/tracer" {
 declare module "dojo/promise/Promise" {
     interface Promise<T> extends dojo.promise.Promise<T> { }
     export = Promise;
+}
+declare module "dojo/promise/Thenable" {
+    interface Thenable<T> extends dojo.promise.Thenable<T> { }
+    export = Thenable;
 }
 declare module "dojo/rpc/JsonpService" {
     var exp: typeof dojo.rpc.JsonpService
