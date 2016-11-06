@@ -1,4 +1,4 @@
-// Type definitions for Google Publisher Tag v104, 2016-10-24
+// Type definitions for Google Publisher Tag v104
 // Project: https://developers.google.com/doubleclick-gpt/reference
 // Definitions by: John Wright <https://github.com/johngeorgewright>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
