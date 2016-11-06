@@ -207,6 +207,18 @@ function command() {
 				description:"Should i publish?"
 			}
 		})
+		.command({
+			command: "test",
+			describe: "test package",
+			builder: {
+				mateys: {
+					demand: false
+				}
+			},
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
 		.help('help')
 		.argv;
 }
