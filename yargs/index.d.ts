@@ -70,7 +70,7 @@ declare namespace yargs {
         command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
         command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Argv) => void): Argv;
         command(command: string, description: string, builder: (args: Argv) => Options, handler: (args: Argv) => void): Argv;
-        command(module: ICommandModule): Argv;
+        command(module: CommandModule): Argv;
 
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
 
@@ -200,12 +200,12 @@ declare namespace yargs {
         nargs?: number;
     }
 
-    interface ICommandModule {
+    interface CommandModule {
         aliases?: Array<string>|string;
         builder: {[key: string]: Options} | ((args: Argv) => Argv);
         command: Array<string>|string;
         describe: string|false;
-        handler: (args: Argv) => void;
+        handler: (args: any) => void;
     }
 
     type SyncCompletionFunction = (current: string, argv: any) => string[];
