@@ -1,4 +1,4 @@
-// Type definitions for cordova.plugins.diagnostic v3.2.2
+// Type definitions for cordova.plugins.diagnostic v3.3.0
 // Project: https://github.com/dpa99c/cordova-diagnostic-plugin
 // Definitions by: Dave Alden <https://github.com/dpa99c/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -683,6 +683,50 @@ interface Diagnostic {
      * @param errorCallback
      */
     getBackgroundRefreshStatus?: (
+        successCallback: (status: string) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * iOS ONLY
+     * Requests Bluetooth authorization for the application.
+     * @param successCallback
+     * @param errorCallback
+     */
+    requestBluetoothAuthorization?: (
+        successCallback: () => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * iOS ONLY
+     * Checks if motion tracking is available on the current device.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isMotionAvailable?: (
+        successCallback: (available: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * iOS ONLY
+     * Checks if it's possible to determine the outcome of a motion authorization request on the current device.
+     * @param successCallback
+     * @param errorCallback
+     */
+    isMotionRequestOutcomeAvailable?: (
+        successCallback: (available: boolean) => void,
+        errorCallback: (error: string) => void
+    ) => void;
+
+    /**
+     * iOS ONLY
+     * Requests and checks motion authorization for the application.
+     * @param successCallback
+     * @param errorCallback
+     */
+    requestAndCheckMotionAuthorization?: (
         successCallback: (status: string) => void,
         errorCallback: (error: string) => void
     ) => void;
