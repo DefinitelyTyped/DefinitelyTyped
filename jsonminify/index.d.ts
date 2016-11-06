@@ -3,6 +3,6 @@
 // Definitions by: Dan Homola <https://github.com/no23reason>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function minify(json: string): string;
+declare const minify: (json: string) => string;
 
 export = minify;
