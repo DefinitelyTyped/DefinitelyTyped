@@ -49,10 +49,10 @@ var container: Element = document.createElement("div");
 
 var ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
-        displayName: 'ClassicComponent',
+        displayName: "ClassicComponent",
         getDefaultProps() {
             return {
-                hello: 'hello',
+                hello: "hello",
                 world: "peace",
                 foo: 0,
             };
@@ -146,7 +146,7 @@ namespace StatelessComponent {
 
 var StatelessComponent2: React.SFC<SCProps> =
     // props is contextually typed
-    (props) => React.DOM.div(null, props.foo);
+    props => React.DOM.div(null, props.foo);
 StatelessComponent2.displayName = "StatelessComponent2";
 StatelessComponent2.defaultProps = {
     foo: 42
@@ -376,7 +376,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
             return null;
         },
         // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
-        percentage: (object: any, key: string, componentName: string, ...rest: any[]): any => {
+        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error | null => {
             const error = React.PropTypes.number(object, key, componentName, ...rest);
             if (error) {
                 return error;
