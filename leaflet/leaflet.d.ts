@@ -16,7 +16,8 @@ declare namespace L {
     }
 
     export class DomUtil {
-        static get(id: string|HTMLElement): HTMLElement;
+        static get(id: string): HTMLElement;
+        static get(id: HTMLElement): HTMLElement;
         static getStyle(el: HTMLElement, styleAttrib: string): string;
         static create(tagName: String, className?: String, container?: HTMLElement): HTMLElement;
         static remove(el: HTMLElement):void;
