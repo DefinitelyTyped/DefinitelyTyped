@@ -219,6 +219,11 @@ function command() {
 				/* handle me mateys! */
 			}
 		})
+		.command("test", "test mateys", {
+			handler: (args: any) => {
+				/* handle me mateys! */
+			}
+		})
 		.help('help')
 		.argv;
 }
