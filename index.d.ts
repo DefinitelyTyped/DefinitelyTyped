@@ -192,6 +192,7 @@ declare namespace Cy {
          * alias: pon
          */
         promiseOn(events: string, selector?: string): Promise<EventHandler>;
+        pon(events: string, selector?: string): Promise<EventHandler>;
 
         /**
          * @param events A space separated list of event names.
@@ -475,8 +476,10 @@ declare namespace Cy {
          */
         unselectify(): CollectionElements;
     }
+    /**
+     * http://js.cytoscape.org/#collection/style
+     */
     interface CollectionStyle {
-        // http://js.cytoscape.org/#collection/style
 
         /**
          * Add classes to elements.
@@ -2219,8 +2222,10 @@ declare namespace Cy {
         (evt: EventObject): void;
     }
 
+    /**
+     *  http://js.cytoscape.org/#core/events
+     */
     interface InstanceEvent {
-        // http://js.cytoscape.org/#core/events
 
         /**
          * Bind to events that occur in the graph.
@@ -2508,6 +2513,71 @@ declare namespace Cy {
          * @param fn The callback run as soon as the graph is ready, inside which this refers to the core (cy).
          */
         ready(fn: () => void): void;
+    }
+
+    /**
+     *  http://js.cytoscape.org/#layouts/layout-events
+     */
+    interface LayoutEvents {
+        /**
+       * Bind to events that occur in the graph.
+       *
+       * @param events A space separated list of event names.
+       * @param handler The handler function that is called when one of the specified events occurs.
+       * 
+       * alias: bind, listen, addListener
+       */
+        on(events: string, handler: EventHandler): void;
+
+        /**
+         * Bind to events that occur in the graph.
+         *
+         * @param events A space separated list of event names.
+         * @param handler The handler function that is called when one of the specified events occurs.
+         * @param data A plain object which is passed to the handler in the event object argument.
+         */
+        on(events: string, data: any, handler: EventHandler): void;
+        /**
+         * Get a promise that is resolved with the first of any of the specified events triggered on the layout.
+         * http://js.cytoscape.org/#layout.promiseOn
+         * alias: pon
+         */
+        promiseOn(events: string): Promise<EventHandler>;
+        pon(events: string): Promise<EventHandler>;
+        /**
+         * Bind to events that are emitted by the layout, and trigger the handler only once.
+         */
+        /**
+        * Bind to events that occur in the graph, and trigger the handler only once.
+        *
+        * @param events A space separated list of event names.
+        * @param handler The handler function that is called when one of the specified events occurs.
+        */
+        one(events: string, handler: EventHandler): void;
+
+        /**
+         * Bind to events that occur in the graph, and trigger the handler only once.
+         *
+         * @param events A space separated list of event names.
+         * @param handler The handler function that is called when one of the specified events occurs.
+         * @param data A plain object which is passed to the handler in the event object argument.
+         */
+        one(events: string, data: any, handler: EventHandler): void;
+
+        /**
+         * Remove event handlers.
+         * @param events A space separated list of event names.
+         * @param selector [optional] The same selector used to bind to the events.
+         * @param handler [optional] A reference to the handler function to remove.
+         */
+        off(events: string, handler?: EventHandler): void;
+        /**
+        * Trigger one or more events.
+        *
+        * @param events A space separated list of event names to trigger.
+        * @param extraParams [optional] An array of additional parameters to pass to the handler.
+        */
+        trigger(events: string, extraParams?: any[]): void;
     }
 
     interface InstanceViewPort {
@@ -2838,32 +2908,172 @@ declare namespace Cy {
         y: number;
     }
 
+    /**
+     * Layouts have a set of functions available to them, 
+     * which allow for more complex behaviour than the primary run-one-layout-at-a-time usecase. 
+     * A new, developer accessible layout can be made via cy.makeLayout().
+     * http://js.cytoscape.org/#layouts/layout-manipulation
+     */
     interface LayoutInstance {
-        //TODO: http://js.cytoscape.org/#layouts/layout-manipulation
-
         /**
          * Start running the layout.
+         * http://js.cytoscape.org/#layout.run
          */
         run(): void;
         /**
          * Start running the layout.
+         * alias: run()
          */
         start(): void;
 
         /**
          * Stop running the (asynchronous/discrete) layout.
+         * http://js.cytoscape.org/#layout.stop
          */
         stop(): void;
     }
 
+
+    /**
+     * http://js.cytoscape.org/#layouts
+     * 
+     * The default is 'grid'.
+     */
+    type LayoutOptionTypeNames = "null" | "random" | "grid" | "circle";
+
     interface LayoutOptions {
-        // TODO: http://js.cytoscape.org/#layouts
-        /**
-         * 
-         * The default is 'grid'.
-         */
-        name?: string;
-        padding?: number;
+        name: LayoutOptionTypeNames;
+        ready: () => void;
+        stop: () => void;
+    }
+
+    /**
+     * The null layout puts all nodes at (0, 0). It’s useful for debugging.
+     */
+    interface NullLayoutOptions extends LayoutOptions {
+    }
+
+    interface AbstractLayoutBounds {
+        // upper left
+        x1: number;
+        y1: number;
+    }
+    interface AbsoluteLayoutBounds extends AbstractLayoutBounds {
+        x2: number;
+        y2: number
+    }
+    interface RelativeLayoutBounds extends AbstractLayoutBounds {
+        w: number;
+        h: number
+    }
+    interface AbstractFiniteLayoutOptions extends LayoutOptions {
+        fit: boolean; // whether to fit to viewport
+        padding: number; // fit padding
+        boundingBox: undefined | AbstractLayoutBounds; // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    }
+    interface AbstractAnimateLayoutOptions {
+        animate: boolean; // whether to transition the node positions
+        animationDuration: number; // duration of animation in ms if enabled
+        animationEasing: undefined | any; // easing of animation if enabled
+    }
+    interface RandomLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+    }
+
+    /**
+     * The grid layout puts nodes in a well-spaced grid.
+     * (the default)
+     */
+    interface GridLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
+        avoidOverlapPadding: number; // extra spacing around nodes when avoidOverlap: true
+        condense: boolean; // uses all available space on false, uses minimal space on true
+        rows: undefined | number; // force num of rows in the grid
+        cols: undefined | number; // force num of columns in the grid
+        position: () => { row: number, col: number }; // returns { row, col } for element
+        sort: (a: any, b: any) => number; // a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }
+    }
+
+    interface CircleLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox and radius if not enough space
+        radius: undefined | number; // the radius of the circle
+        startAngle: number; // where nodes start in radians
+        sweep: undefined | number; // how many radians should be between the first and last node (defaults to full circle)
+        clockwise: boolean; // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
+        sort: (a: any, b: any) => number; // a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }          
+    }
+
+    /**
+     * The concentric layout positions nodes in concentric circles, 
+     * based on a metric that you specify to segregate the nodes into levels. 
+     * This layout sets the concentric value in ele.scratch().
+     * http://js.cytoscape.org/#layouts/concentric
+     */
+    interface ConcentricLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        startAngle: number; // where nodes start in radians
+        sweep: undefined | number; // how many radians should be between the first and last node (defaults to full circle)
+        clockwise: boolean; // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
+        equidistant: false; // whether levels have an equal radial distance betwen them, may cause bounding box overflow
+        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
+
+        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
+        height: undefined | number; // height of layout area (overrides container height)
+        width: undefined | number; // width of layout area (overrides container width)
+        concentric: (node: any) => number; // returns numeric value for each node, placing higher nodes in levels towards the centre
+        levelWidth: (nodes: any) => number; // the variation of concentric values in each level
+    }
+    /**
+     * The breadthfirst layout puts nodes in a hierarchy, based on a breadthfirst traversal of the graph.
+     * http://js.cytoscape.org/#layouts/breadthfirst
+     */
+    interface BreadthFirstLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        directed: boolean; // whether the tree is directed downwards (or edges can point in any direction if false)
+        circle: boolean // put depths in concentric circles if true, put depths top down if false
+        spacingFactor: number; // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
+        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
+        roots: undefined | any; // the roots of the trees
+        maximalAdjustments: number; // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+    }
+    /**
+     * The cose (Compound Spring Embedder) layout uses a physics simulation to lay out graphs. 
+     * It works well with noncompound graphs and it has additional logic to support compound graphs well.
+     * It was implemented by Gerardo Huck as part of Google Summer of Code 2013 
+     * (Mentors: Max Franz, Christian Lopes, Anders Riutta, Ugur Dogrusoz).
+     * Based on the article “A layout algorithm for undirected compound graphs” 
+     * by Ugur Dogrusoz, Erhan Giral, Ahmet Cetintas, Ali Civril and Emek Demir.
+     * The cose layout is very fast and produces good results. 
+     * The cose-bilkent extension is an evolution of the algorithm that is more 
+     * computationally expensive but produces near-perfect results.
+     */
+    interface CoseLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        // Number of iterations between consecutive screen positions update
+        // (0 -> only updated on the end)
+        refresh: number;
+        // Randomize the initial positions of the nodes (true) or use existing positions (false)
+        randomize: boolean;
+        // Extra spacing between components in non-compound graphs
+        componentSpacing: boolean;
+        // Node repulsion (non overlapping) multiplier
+        nodeRepulsion: (node: any) => number;
+        // Node repulsion (overlapping) multiplier
+        nodeOverlap: number;
+        // Ideal edge (non nested) length
+        idealEdgeLength: (edge: any) => number;
+        // Divisor to compute edge forces
+        edgeElasticity: (edge: any) => number;
+        // Nesting factor (multiplier) to compute ideal edge length for nested edges
+        nestingFactor: number;
+        // Gravity force (constant)
+        gravity: number;
+        // Maximum number of iterations to perform
+        numIter: number;
+        // Initial temperature (maximum node displacement)
+        initialTemp: number;
+        // Cooling factor (how the temperature is reduced between consecutive iterations
+        coolingFactor: number;
+        // Lower temperature threshold (below this point the layout will end)
+        minTemp: number;
+        // Whether to use threading to speed up the layout
+        useMultitasking: boolean;
     }
 
     interface CytoscapeOptions {
