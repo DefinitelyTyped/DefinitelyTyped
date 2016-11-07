@@ -231,7 +231,9 @@ declare namespace PDFKit {
         info?: DocumentInfo;
         autoFirstPage?: boolean;
         size?: number[];
-        margin?: { top: number; left: number; bottom: number; right: number }|number;
+        margin?: number;
+        margins?: { top: number; left: number; bottom: number; right: number };
+        layout?: "portrait" | "landscape";
 
         bufferPages?: boolean;
     }

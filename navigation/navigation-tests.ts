@@ -37,14 +37,14 @@ namespace NavigationTests {
 	person.navigated = (data) => {};
     person.urlEncode = function urlEncode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
         return queryString ? val.replace(/\s/g, '+') : encodeURIComponent(val);
-    }
+    };
     person.urlDecode = function urlDecode(state: Navigation.State, key: string, val: string, queryString: boolean): string {
         return queryString ? val.replace(/\+/g, ' ') : decodeURIComponent(val);
-    }
+    };
+	person.validate = (data: any) => data.id > 0;
 	
 	// Navigation Event
-	var navigationListener = 
-	(oldState: Navigation.State, state: Navigation.State, data: any) => {
+	var navigationListener = (oldState: Navigation.State, state: Navigation.State, data: any, asyncData: any) => {
 		stateNavigator.offNavigate(navigationListener);
 	};
 	stateNavigator.onNavigate(navigationListener);

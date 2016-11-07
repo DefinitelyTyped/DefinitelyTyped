@@ -467,5 +467,5 @@ declare module cropperjs {
 
 declare module "cropperjs" {
     const Cropper: typeof cropperjs.Cropper;
-    export = Cropper;
+    export default Cropper;
 }

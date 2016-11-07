@@ -61,6 +61,9 @@ interface RevealStatic {
     getQueryHash():any;
     setState(state:any):void;
     getState():any;
+
+    // update slides after dynamic changes
+    sync():void;
 }
 
 interface RevealOptions {

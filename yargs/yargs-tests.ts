@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="yargs.d.ts" />
+/// <reference path="../node/node.d.ts"/>
 
-import yargs = require('yargs');
+import * as yargs from 'yargs';
 
 // Examples taken from yargs website
 // https://github.com/chevex/yargs
@@ -236,9 +237,10 @@ function completion_async() {
 }
 
 function Argv$help() {
-	var yargs1 = yargs
-		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]");
-	var s: string = yargs1.help();
+	var argv = yargs
+		.usage("$0 -operand1 number -operand2 number -operation [add|subtract]")
+		.help()
+		.argv;
 }
 
 function Argv$showHelpOnFail() {
@@ -269,6 +271,14 @@ function Argv$version() {
 
 	var argv4 = yargs
 		.version(function () { return '1.0.0'; }, '--version', 'description');
+}
+
+function Argv$wrap() {
+	var argv1 = yargs
+		.wrap(null);
+
+	var argv2 = yargs
+		.wrap(yargs.terminalWidth());
 }
 
 function Argv$locale() {
@@ -320,4 +330,37 @@ function Argv$reset() {
 	} else {
 		ya.showHelp();
 	}
+}
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDir() {
+	var ya = yargs
+		.commandDir('.')
+		.argv
+}
+
+
+// http://yargs.js.org/docs/#methods-commanddirdirectory-opts
+function Argv$commandDirWithOptions() {
+	var ya = yargs
+		.commandDir('.', {
+			recurse: false,
+			extensions: ['js'],
+			visit: (commandObject: any, pathToFile: string, filename: string) => { },
+			include: /.*\.js$/,
+			exclude: /.*\.spec.js$/,
+		})
+		.argv
+}
+
+// http://yargs.js.org/docs/#methods-failfn
+function Argv$fail() {
+	var argv = yargs
+		.fail(function (msg, err) {
+			if (err) throw err // preserve stack
+			console.error('You broke it!')
+			console.error(msg)
+			process.exit(1)
+		})
+		.argv
 }

@@ -20,5 +20,12 @@ declare module "gulp-rename" {
     function rename(name: string): NodeJS.ReadWriteStream;
     function rename(callback: (path: ParsedPath) => any): NodeJS.ReadWriteStream;
     function rename(opts: Options): NodeJS.ReadWriteStream;
+
+    /**
+     * This is required as per:
+     * https://github.com/Microsoft/TypeScript/issues/5073
+     */
+    namespace rename {}
+
     export = rename;
 }

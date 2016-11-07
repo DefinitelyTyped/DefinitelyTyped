@@ -7,7 +7,7 @@ function test_HeadersCopiedFromHeaders() {
 }
 
 function test_HeadersCopiedFromHash() {
-	var source:HeadersMap = {
+	var source: DOMStringMap = {
 		'Content-Type': 'application/json'
 	};
 	return new Headers(source);

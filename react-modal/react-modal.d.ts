@@ -9,10 +9,10 @@ declare module "react-modal" {
     interface ReactModal {
         isOpen: boolean;
         style?: {
-            content: {
+            content?: {
                 [key: string]: any;
             },
-            overlay: {
+            overlay?: {
                 [key: string]: any;
             }
         },
@@ -21,8 +21,10 @@ declare module "react-modal" {
         onRequestClose?: Function,
         closeTimeoutMS?: number,
         ariaHideApp?: boolean,
-        shouldCloseOnOverlayClick?: boolean
+        shouldCloseOnOverlayClick?: boolean,
+        overlayClassName?: string,
+        className?: string
     }
     let ReactModal: __React.ClassicComponentClass<ReactModal>;
-    export default ReactModal;
+    export = ReactModal;
 }

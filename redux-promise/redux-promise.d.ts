@@ -19,5 +19,5 @@ declare namespace ReduxPromise {
 
 declare module "redux-promise" {
 	var promise: ReduxPromise.Promise;
-	export default promise;
+	export = promise;
 }

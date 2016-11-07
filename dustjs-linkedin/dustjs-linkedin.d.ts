@@ -89,7 +89,7 @@ declare module "dustjs-linkedin" {
         * Registers an event listener. Streams accept a single listener for a given event.
         * @param evt the event. Possible values are data, end, error (maybe more, look in the source).
         */
-        on(evt: string, callback: (data?: any) => any);
+        on(evt: string, callback: (data?: any) => any): this;
 
         pipe(stream: Stream): Stream;
     }
@@ -126,8 +126,8 @@ declare module "dustjs-linkedin" {
     * @param name the template name.
     * @param context a plain object or an instance of dust.Context.
     */
-    export function render(name: string, context: any, callback: (err: any, out: string) => any);
-    export function render(name: string, context: Context, callback: (err: any, out: string) => any);
+    export function render(name: string, context: any, callback: (err: any, out: string) => any): void;
+    export function render(name: string, context: Context, callback: (err: any, out: string) => any): void;
 
     /**
     * Compiles and renders source, invoking callback on completion. If no callback is supplied this function returns a Stream object. Use this function when precompilation is not required.

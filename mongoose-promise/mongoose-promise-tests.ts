@@ -1,8 +1,10 @@
 /// <reference path="mongoose-promise.d.ts" />
 
+import * as mongoose from 'mongoose';
+
 var cb = function () {};
 
-var mongopromise: MongoosePromise<number>;
+var mongopromise: mongoose.Promise<number>;
 mongopromise.addBack(function (err, arg) {
   err.stack;
   arg.toFixed();
@@ -40,7 +42,19 @@ mongopromise.then(function (arg) {
 });
 mongopromise.complete();
 /* static properties */
-MongoosePromise.ES6(function (complete, error) {
+mongoose.Promise.ES6(function (complete: any, error: any) {
   complete.apply(this);
   error.apply(this);
 });
+/* Practical Examples */
+interface IUser extends mongoose.Document {
+  name: string;
+  age: number;
+}
+var UserSchema = new mongoose.Schema({
+  name: String,
+  age: Number
+});
+var UserModel: mongoose.Model<IUser> = mongoose.model<IUser>('Model', UserSchema);
+UserModel.findOne({}).exec().fulfill();
+UserModel.find({}).exec().then(() => {}).catch(() => {}).reject('');

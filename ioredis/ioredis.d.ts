@@ -197,6 +197,8 @@ declare module IORedis {
         hmget(...args: any[]): any;
         hincrby(args: any[], callback?: ResCallbackT<any>): any;
         hincrby(...args: any[]): any;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): any;
+        hincrbyfloat(...args: any[]): any;
         hdel(args: any[], callback?: ResCallbackT<any>): any;
         hdel(...args: any[]): any;
         hlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -276,6 +278,8 @@ declare module IORedis {
         sort(...args: any[]): any;
         info(args: any[], callback?: ResCallbackT<any>): any;
         info(...args: any[]): any;
+        time(args: any[], callback?: ResCallbackT<any>): any;
+        time(...args: any[]): any;
         monitor(args: any[], callback?: ResCallbackT<any>): any;
         monitor(...args: any[]): any;
         ttl(args: any[], callback?: ResCallbackT<any>): any;
@@ -478,6 +482,8 @@ declare module IORedis {
         hmget(...args: any[]): Pipeline;
         hincrby(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hincrby(...args: any[]): Pipeline;
+        hincrbyfloat(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        hincrbyfloat(...args: any[]): Pipeline;
         hdel(args: any[], callback?: ResCallbackT<any>): Pipeline;
         hdel(...args: any[]): Pipeline;
         hlen(args: any[], callback?: ResCallbackT<any>): Pipeline;
@@ -557,6 +563,8 @@ declare module IORedis {
         sort(...args: any[]): Pipeline;
         info(args: any[], callback?: ResCallbackT<any>): Pipeline;
         info(...args: any[]): Pipeline;
+        time(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        time(...args: any[]): Pipeline;
         monitor(args: any[], callback?: ResCallbackT<any>): Pipeline;
         monitor(...args: any[]): Pipeline;
         ttl(args: any[], callback?: ResCallbackT<any>): Pipeline;

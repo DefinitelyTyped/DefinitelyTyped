@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
-/// <reference path="../nodemailer/nodemailer-types.d.ts" />
+/// <reference path="../nodemailer/nodemailer.d.ts" />
 
 declare module "nodemailer-direct-transport" {
 

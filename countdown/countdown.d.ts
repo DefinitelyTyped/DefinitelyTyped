@@ -3,11 +3,11 @@
 // Definitions by: Gabriel Juchault <https://github.com/gjuchault>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'countdown' {
-  export type DateFunction = (timespan: Timespan) => void;
-  export type DateTime = number | Date | DateFunction;
+declare namespace countdown {
+  type DateFunction = (timespan: Timespan) => void;
+  type DateTime = number | Date | DateFunction;
 
-  export interface Timespan {
+  interface Timespan {
       start?: Date;
       end?: Date;
       units?: number;
@@ -26,7 +26,7 @@ declare module 'countdown' {
       toHTML(tagName?: string, label?: string): string;
   }
 
-  export interface Format {
+  interface Format {
     singular?: string | Array<string>;
     plural?: string | Array<string>;
     last?: string;
@@ -36,7 +36,7 @@ declare module 'countdown' {
     formatter?(value: number, unit: number): string;
   }
 
-  export interface CountdownStatic {
+  interface CountdownStatic {
       (start: DateTime, end?: DateTime, units?: number, max?: number, digits?: number): Timespan | number;
       MILLENNIA: number;
       CENTURIES: number;
@@ -64,6 +64,9 @@ declare module 'countdown' {
       resetFormat(): void;
       setFormat(format: Format): void;
   }
+}
 
-  export let countdown: CountdownStatic;
+declare module 'countdown' {
+  let countdown: countdown.CountdownStatic;
+  export = countdown;
 }

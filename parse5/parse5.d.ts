@@ -1,6 +1,6 @@
-// Type definitions for parse5 2.1.5
+// Type definitions for parse5 2.2.0
 // Project: https://github.com/inikulin/parse5
-// Definitions by: Nico Jansen <https://github.com/nicojs>
+// Definitions by: Nico Jansen <https://github.com/nicojs>, Meirion Hughes <https://github.com/MeirionHughes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
@@ -45,6 +45,7 @@ declare module 'parse5' {
     export interface ASTAttribute {
         name: string;
         value: string;
+        prefix?: string;
     }
 
     export interface Attribute {
@@ -55,6 +56,7 @@ declare module 'parse5' {
     export interface ASTNode {
         attrs: ASTAttribute[];
         childNodes?: ASTNode[];
+        data?: string;
         namespaceURI?: string;
         parentNode?: ASTNode;
         nodeName: string;
@@ -126,10 +128,10 @@ declare module 'parse5' {
         /**
          * Raised when the parser encounters a start tag.
          * Listener function has 4 parameters:
-         * Tag name, List of attributes in the { key: String, value: String } form, selfClosing boolean 
+         * Tag name, List of attributes in the { name: String, value: String, prefix?: String } form, selfClosing boolean 
          * and start tag source code location info. Available if location info is enabled in SAXParserOptions.
          */
-        on(event: 'startTag', listener: (name: string, attrs: Attribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): this;
+        on(event: 'startTag', listener: (name: string, attrs: ASTAttribute[], selfClosing: boolean, location?: StartTagLocationInfo) => void): this;
         /**
          * Raised when parser encounters an end tag.
          * Listener function has 2 parameters:

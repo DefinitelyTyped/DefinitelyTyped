@@ -3,7 +3,7 @@
 // Definitions by: Pascal Vomhoff <https://github.com/pvomhoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 declare module "bluebird-retry" {
 	import Promise = require('bluebird');
 

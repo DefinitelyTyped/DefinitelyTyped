@@ -1,28 +1,114 @@
 /// <reference path="turf.d.ts"/>
+import * as turf from '@turf/turf'
+// AGGREGATION
+import * as collect from '@turf/collect'
+// MEASUREMENT
+import * as along from '@turf/along'
+import * as area from '@turf/area'
+import * as bboxPolygon from '@turf/bbox-polygon'
+import * as bearing from '@turf/bearing'
+import * as center from '@turf/center'
+import * as centroid from '@turf/centroid'
+import * as destination from '@turf/destination'
+import * as envelope from '@turf/envelope'
+import * as lineDistance from '@turf/line-distance'
+import * as midpoint from '@turf/midpoint'
+import * as pointOnSurce from '@turf/point-on-surface'
+import * as square from '@turf/square'
+// TRANSFORMATION
+import * as bezier from '@turf/bezier'
+import * as buffer from '@turf/buffer'
+import * as concave from '@turf/concave'
+import * as convex from '@turf/convex'
+import * as difference from '@turf/difference'
+import * as intersect from '@turf/intersect'
+import * as simplify from '@turf/simplify'
+import * as union from '@turf/union'
+// MISC
+import * as combine from '@turf/combine'
+import * as explode from '@turf/explode'
+import * as flip from '@turf/flip'
+import * as kinks from '@turf/kinks'
+import * as lineSlice from '@turf/line-slice'
+import * as pointOnLine from '@turf/point-on-line'
+// HELPER
+import {
+  featureCollection,
+  feature,
+  lineString,
+  multiLineString,
+  point,
+  multiPoint,
+  polygon,
+  multiPolygon,
+  geometryCollection } from '@turf/helpers'
+// DATA
+import * as random from '@turf/random'
+import * as sample from '@turf/sample'
+// INTERPOLATION
+import * as isolines from '@turf/isolines'
+import * as planepoint from '@turf/planepoint'
+import * as tin from '@turf/tin'
+// JOINS
+import * as inside from '@turf/inside'
+import * as tag from '@turf/tag'
+import * as within from '@turf/within'
+// GRIDS
+import * as hexGrid from '@turf/hex-grid'
+import * as pointGrid from '@turf/point-grid'
+import * as squareGrid from '@turf/square-grid'
+import * as triangleGrid from '@turf/triangle-grid'
+// CLASSIFICATION
+import * as nearest from '@turf/nearest'
+// // META
+// import * as propEach from '@turf/propEach'
+// import * as coordEach from '@turf/coordEach'
+// import * as coordReduce from '@turf/coordReduce'
+// import * as featureEach from '@turf/featureEach'
+// import * as getCoord from '@turf/getCoord'
+// // ASSERTIONS
+// import * as featureOf from '@turf/featureOf'
+// import * as collectionOf from '@turf/collectionOf'
+import * as bboxAssertions from '@turf/bbox'
+// import * as circle from '@turf/circle'
+// import * as geojsonType from '@turf/geojsonType'
+// import * as propReduce from '@turf/propReduce'
+// import * as coordAll from '@turf/coordAll'
+// import * as tesselate from '@turf/tesselate'
 
 ///////////////////////////////////////////
 // Tests data initialisation
 ///////////////////////////////////////////
-
-var point1: GeoJSON.Feature<GeoJSON.Point> = {
+const bbox = [0, 0, 10, 10]
+const properties = {pop: 3000}
+const point1: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
     "type": "Point",
     "coordinates": [-75.343, 39.984]
   }
-};
+}
 
-var point2: GeoJSON.Feature<GeoJSON.Point> = {
+const point2: GeoJSON.Feature<GeoJSON.Point> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
     "type": "Point",
-    "coordinates": [-75.534, 39.123]
-    }
-};
+    "coordinates": [-75.401, 39.884]
+  }
+}
 
-var line: GeoJSON.Feature<GeoJSON.LineString> = {
+const multiPoint1: GeoJSON.Feature<GeoJSON.MultiPoint> = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "MultiPoint",
+    "coordinates": [ [100.0, 0.0], [101.0, 1.0] ]
+  }
+}
+
+const lineString1: GeoJSON.Feature<GeoJSON.LineString> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -36,9 +122,21 @@ var line: GeoJSON.Feature<GeoJSON.LineString> = {
       [-77.019824, 38.892368]
     ]
   }
-};
+}
 
-var polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
+const multiLineString1: GeoJSON.Feature<GeoJSON.MultiLineString> = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "MultiLineString",
+    "coordinates": [
+        [ [100.0, 0.0], [101.0, 1.0] ],
+        [ [102.0, 2.0], [103.0, 3.0] ]
+      ]
+  }
+}
+
+const polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -69,9 +167,9 @@ var polygons: GeoJSON.FeatureCollection<GeoJSON.Polygon> = {
       }
     }
   ]
-};
+}
 
-var polygon1: GeoJSON.Feature<GeoJSON.Polygon> = {
+const polygon1: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
   "properties": {},
   "geometry": {
@@ -84,13 +182,11 @@ var polygon1: GeoJSON.Feature<GeoJSON.Polygon> = {
       [105.818939,21.004714]
     ]]
   }
-};
+}
 
-var polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
+const polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
-  "properties": {
-    "fill": "#00f"
-  },
+  "properties": {},
   "geometry": {
     "type": "Polygon",
     "coordinates": [[
@@ -106,7 +202,20 @@ var polygon2: GeoJSON.Feature<GeoJSON.Polygon> = {
   }
 }
 
-var features: GeoJSON.FeatureCollection<GeoJSON.Point> = {
+const multiPolygon1: GeoJSON.Feature<GeoJSON.MultiPolygon> = {
+  "type": "Feature",
+  "properties": {},
+  "geometry": {
+    "type": "MultiPolygon",
+    "coordinates": [
+      [[[102.0, 2.0], [103.0, 2.0], [103.0, 3.0], [102.0, 3.0], [102.0, 2.0]]],
+      [[[100.0, 0.0], [101.0, 0.0], [101.0, 1.0], [100.0, 1.0], [100.0, 0.0]],
+       [[100.2, 0.2], [100.8, 0.2], [100.8, 0.8], [100.2, 0.8], [100.2, 0.2]]]
+      ]
+  }
+}
+
+const points: GeoJSON.FeatureCollection<GeoJSON.Point> = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -114,96 +223,50 @@ var features: GeoJSON.FeatureCollection<GeoJSON.Point> = {
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.522259, 35.4691]
+        "coordinates": [-63.601226, 44.642643]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.502754, 35.463455]
+        "coordinates": [-63.591442, 44.651436]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.508269, 35.463245]
+        "coordinates": [-63.580799, 44.648749]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.516809, 35.465779]
+        "coordinates": [-63.573589, 44.641788]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.515372, 35.467072]
+        "coordinates": [-63.587665, 44.64533]
       }
     }, {
       "type": "Feature",
       "properties": {},
       "geometry": {
         "type": "Point",
-        "coordinates": [-97.509363, 35.463053]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.511123, 35.466601]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.518547, 35.469327]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.519706, 35.469659]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.517839, 35.466998]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.508678, 35.464942]
-      }
-    }, {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-97.514914, 35.463453]
+        "coordinates": [-63.595218, 44.64765]
       }
     }
   ]
-};
+}
 
-var triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
+const triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
   "type": "Feature",
-  "properties": {
-    "a": 11,
-    "b": 122,
-    "c": 44
-  },
+  "properties": {},
   "geometry": {
     "type": "Polygon",
     "coordinates": [[
@@ -213,310 +276,249 @@ var triangle: GeoJSON.Feature<GeoJSON.Polygon> = {
       [-75.1221, 39.57]
     ]]
   }
-};
-
-var aggregations = [
-  {
-    aggregation: 'sum',
-    inField: 'population',
-    outField: 'pop_sum'
-  },
-  {
-    aggregation: 'average',
-    inField: 'population',
-    outField: 'pop_avg'
-  },
-  {
-    aggregation: 'median',
-    inField: 'population',
-    outField: 'pop_median'
-  },
-  {
-    aggregation: 'min',
-    inField: 'population',
-    outField: 'pop_min'
-  },
-  {
-    aggregation: 'max',
-    inField: 'population',
-    outField: 'pop_max'
-  },
-  {
-    aggregation: 'deviation',
-    inField: 'population',
-    outField: 'pop_deviation'
-  },
-  {
-    aggregation: 'variance',
-    inField: 'population',
-    outField: 'pop_variance'
-  },
-  {
-    aggregation: 'count',
-    inField: '',
-    outField: 'point_count'
-  }
-];
-
-///////////////////////////////////////////
-// Tests Aggregation
-///////////////////////////////////////////
-
-// -- Test aggregate --
-var aggregated = turf.aggregate(polygons, points, aggregations);
-
-// -- Test average --
-var averaged = turf.average(polygons, points, 'population', 'pop_avg');
-
-// -- Test count --
-var counted = turf.count(polygons, points, 'pt_count');
-
-// -- Test deviation --
-var deviated = turf.deviation(polygons, points, 'population', 'pop_deviation');
-
-// -- Test max --
-var aggregated = turf.max(polygons, points, 'population', 'max');
-
-// -- Test median --
-var medians = turf.median(polygons, points, 'population', 'median');
-
-// -- Test min --
-var minimums = turf.min(polygons, points, 'population', 'min');
-
-// -- Test sum --
-var summed = turf.sum(polygons, points, 'population', 'sum');
-
-// -- Test variance --
-var varianced = turf.variance(polygons, points, 'population', 'variance');
+}
 
 ///////////////////////////////////////////
 // Tests Measurement
 ///////////////////////////////////////////
 
 // -- Test along --
-var along = turf.along(line, 1, 'miles');
+turf.along(lineString1, 50)
+turf.along(lineString1, 50, 'miles')
 
 // -- Test area --
-var area = turf.area(polygons);
+turf.area(polygons)
 
 // -- Test bboxPolygon --
-var bbox = [0, 0, 10, 10];
-var poly = turf.bboxPolygon(bbox);
+turf.bboxPolygon(bbox)
 
 // -- Test bearing --
-var bearing = turf.bearing(point1, point2);
+turf.bearing(point1, point2)
 
 // -- Test center
-var centerPt = turf.center(features);
+turf.center(points)
 
 // -- Test centroid --
-var centroidPt = turf.centroid(polygon1);
+turf.centroid(polygon1)
 
 // -- Test destination --
-var distance = 50;
-var bearing = 90;
-var units = 'miles';
-var destination = turf.destination(point1, distance, bearing, units);
+turf.destination(point1, 50, 90)
+turf.destination(point1, 50, 90, 'miles')
 
 // -- Test distance --
-var units = "miles";
-var distance = turf.distance(point1, point2, units);
+turf.distance(point1, point2)
+turf.distance(point1, point2, 'miles')
 
 // -- Test envelope --
-var enveloped = turf.envelope(polygons);
-
-// -- Test extent --
-var bbox = turf.extent(polygons);
+turf.envelope(polygons)
 
 // -- Test lineDistance
-var length = turf.lineDistance(line, 'miles');
+turf.lineDistance(lineString1)
+turf.lineDistance(lineString1, 'miles')
 
 // -- Test midpoint --
-var midpointed = turf.midpoint(point1, point2);
+turf.midpoint(point1, point2)
 
 // -- Test pointOnSurface --
-var pointOnPolygon = turf.pointOnSurface(polygon1);
-
-// -- Test size --
-var resized = turf.size(bbox, 2);
+turf.pointOnSurface(polygon1)
 
 // -- Test square --
-var squared = turf.square(bbox);
+turf.square(bbox)
 
 ///////////////////////////////////////////
 // Tests Transformation
 ///////////////////////////////////////////
 
 // -- Test bezier --
-var curved = turf.bezier(line);
+turf.bezier(lineString1)
 
 // -- Test buffer --
-var buffered = turf.buffer(point1, 500, units);
+turf.buffer(point1, 50)
+turf.buffer(point1, 50, 'miles')
 
 // -- Test concave --
-var hull = turf.concave(features, 1, 'miles');
+turf.concave(points, 1, 'miles')
 
 // -- Test convex --
-var hull = turf.convex(features);
+turf.convex(points)
 
 // -- Test difference --
-var differenced = turf.difference(polygon1, polygon2);
+turf.difference(polygon1, polygon2)
 
 // -- Test intersect --
-var intersection = turf.intersect(polygon1, polygon2);
-
-// -- Test merge --
-var merged = turf.merge(polygons);
+turf.intersect(polygon1, polygon2)
+turf.intersect(point1, polygon1)
+turf.intersect(point1, point1)
+turf.intersect(polygon1, point1)
+turf.intersect(polygon1, lineString1)
+turf.intersect(lineString1, point1)
 
 // -- Test simplify --
-var tolerance = 0.01;
-var simplified = turf.simplify(polygon1, tolerance, false);
+
+turf.simplify(polygon1, 0.01, false)
 
 // -- Test union --
-var union = turf.union(polygon1, polygon2);
+turf.union(polygon1, polygon2)
 
 ///////////////////////////////////////////
 // Tests Misc
 ///////////////////////////////////////////
 
 // -- Test combine --
-var combined = turf.combine(features);
+turf.combine(points)
 
 // -- Test explode --
-var points = turf.explode(polygon1);
+turf.explode(polygon1)
 
 // -- Test flip --
-var flipedPoint = turf.flip(point1);
+turf.flip(point1)
 
 // -- Test kinks --
-var kinks = turf.kinks(polygon1);
+turf.kinks(polygon1)
 
 // -- Test lineSlice --
-var sliced = turf.lineSlice(point1, point2, line);
+turf.lineSlice(point1, point2, lineString1)
 
 // -- Test pointOnLine --
-var snapped = turf.pointOnLine(line, point1);
+turf.pointOnLine(lineString1, point1)
 
 ///////////////////////////////////////////
 // Tests Helper
 ///////////////////////////////////////////
 
 // -- Test featurecollection --
-var fc = turf.featurecollection([point1, point2]);
+turf.featureCollection([point1, point2])
+turf.featureCollection([point1, polygon1])
+turf.featureCollection([polygon1, polygon2])
+turf.featureCollection([lineString1, polygon1])
+turf.featureCollection([lineString1, point1])
 
-// -- Test linestring --
-var linestring1 = turf.linestring([
-	[-21.964416, 64.148203],
-	[-21.956176, 64.141316],
-	[-21.93901, 64.135924],
-	[-21.927337, 64.136673]
-]);
-var linestring2 = turf.linestring([
-	[-21.929054, 64.127985],
-	[-21.912918, 64.134726],
-	[-21.916007, 64.141016],
-	[-21.930084, 64.14446]
-], {name: 'line 1', distance: 145});
+// -- Test feature --
+turf.feature(point1)
+turf.feature(polygon1)
+turf.feature(lineString1)
+
+// -- Test lineString --
+turf.lineString(lineString1.geometry.coordinates)
+turf.lineString(lineString1.geometry.coordinates, properties)
+
+// -- Test multiLineString --
+turf.multiLineString(multiLineString1.geometry.coordinates)
 
 // -- Test point --
-var pt1 = turf.point([-75.343, 39.984]);
-var pt2 = turf.point([-75.343, 39.984], {name: 'point 1', distance: 145});
+turf.point(point1.geometry.coordinates)
+turf.point(point1.geometry.coordinates, properties)
+
+// -- Test multiPoint --
+turf.multiPoint(multiPoint1.geometry.coordinates)
 
 // -- Test polygon --
-var polygon = turf.polygon([[
- [-2.275543, 53.464547],
- [-2.275543, 53.489271],
- [-2.215118, 53.489271],
- [-2.215118, 53.464547],
- [-2.275543, 53.464547]
-]], { name: 'poly1', population: 400});
+turf.polygon(polygon1.geometry.coordinates, properties)
+
+// -- Test multiPolygon --
+turf.multiPolygon(multiPolygon1.geometry.coordinates, properties)
+
+// -- Test geometryCollection --
+turf.geometryCollection([point1.geometry, lineString1.geometry]);
 
 ///////////////////////////////////////////
 // Tests Data
 ///////////////////////////////////////////
 
-// -- Test filter --
-var key = "species";
-var value = "oak";
-var filtered = turf.filter(features, key, value);
-
 // -- Test random --
-var randomPoints = turf.random('points', 100, {
-  bbox: [-70, 40, -60, 60]
-});
-
-var randomPoints = turf.random('points', 100, {
-  bbox: [-70, 40, -60, 60],
-  num_vertices: 2,
+turf.random('points', 100)
+turf.random('points', 100, { bbox })
+turf.random('polygons', 100, {
+  bbox,
+  num_vertices: 10,
   max_radial_length: 10
-});
-
-// -- Test remove --
-var filtered = turf.remove(points, 'marker-color', '#00f');
+})
 
 // -- Test sample --
-var randomPoints = turf.random('points', 1000);
-var sample = turf.sample(points, 10);
+turf.random('points', 100)
+turf.sample(points, 10)
 
 ///////////////////////////////////////////
 // Tests Interpolation
 ///////////////////////////////////////////
 
 // -- Test hexGrid --
-var cellWidth = 50;
-var hexgrid = turf.hexGrid(bbox, cellWidth, units);
-
-// -- Test isolines --
-var breaks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-var isolined = turf.isolines(points, 'z', 15, breaks);
-
-// -- Test planepoint --
-var zValue = turf.planepoint(point1, triangle);
+turf.hexGrid(bbox, 50)
+turf.hexGrid(bbox, 50, 'miles')
 
 // -- Test pointGrid --
-var extent = [-70.823364, -33.553984, -70.473175, -33.302986];
-var cellWidth = 3;
-var grid = turf.pointGrid(extent, cellWidth, units);
+turf.pointGrid(bbox, 50)
+turf.pointGrid(bbox, 50, 'miles')
 
 // -- Test squareGrid --
-var squareGrid = turf.squareGrid(extent, cellWidth, units);
-
-// -- Test tin --
-var tin = turf.tin(points, 'z');
+turf.squareGrid(bbox, 50)
+turf.squareGrid(bbox, 50, 'miles')
 
 // -- Test triangleGrid --
-var triangleGrid = turf.triangleGrid(extent, cellWidth, units);
+turf.triangleGrid(bbox, 50)
+turf.triangleGrid(bbox, 50, 'miles')
+
+///////////////////////////////////////////
+// Tests Interpolation
+///////////////////////////////////////////
+
+// -- Test isolines --
+turf.isolines(points, 'z', 15, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+// -- Test planepoint --
+turf.planepoint(point1, triangle)
+
+// -- Test tin --
+turf.tin(points, 'z')
 
 ///////////////////////////////////////////
 // Tests Joins
 ///////////////////////////////////////////
 
 // -- Test inside --
-var isInside1 = turf.inside(point1, polygon);
+turf.inside(point1, polygon1)
 
 // -- Test tag --
-var tagged = turf.tag(points, triangleGrid, 'fill', 'marker-color');
+turf.tag(points, polygons, 'pop', 'population')
 
 // -- Test within --
-var ptsWithin = turf.within(points, polygons);
+turf.within(points, polygons)
 
 ///////////////////////////////////////////
 // Tests Classification
 ///////////////////////////////////////////
 
-// -- Test jenks --
-var breaks = turf.jenks(points, 'population', 3);
-
 // -- Test nearest --
-var nearest = turf.nearest(point1, points);
+turf.nearest(point1, points)
 
-// -- Test quantile --
-var breaks = turf.quantile(points, 'population', [25, 50, 75, 99]);
+///////////////////////////////////////////
+// Tests Aggregation
+///////////////////////////////////////////
+turf.collect(polygons, points, 'population', 'values')
 
-// -- Test reclass --
-var translations = [
-  [0, 200, "small"],
-  [200, 400, "medium"],
-  [400, 600, "large"]
-];
-var reclassed = turf.reclass(points, 'population', 'size', translations);
+///////////////////////////////////////////
+// Tests Assertions
+///////////////////////////////////////////
+// -- Test bbox --
+turf.bbox(polygon1)
+turf.bbox(point1)
+turf.bbox(lineString1)
+turf.bbox(multiLineString1)
+turf.bbox(multiPolygon1)
+
+// -- Test circle --
+turf.circle(point1, 10)
+turf.circle(point1, 10, 32)
+turf.circle(point1, 10, 64, 'miles')
+
+// -- Test geojsonType --
+turf.geojsonType(point1, 'point', 'Test')
+
+// -- Test propReduce --
+turf.propReduce(point1, (memo, coord) => {}, 'point')
+
+// -- Test coordAll --
+turf.coordAll(polygon1)
+
+// -- Test tesselate --
+turf.tesselate(polygon1)

@@ -93,10 +93,31 @@ declare module "express-serve-static-core" {
         patch: IRouterMatcher<this>;
         options: IRouterMatcher<this>;
         head: IRouterMatcher<this>;
+        
+        checkout: IRouterMatcher<this>;
+        copy: IRouterMatcher<this>;
+        lock: IRouterMatcher<this>;
+        merge: IRouterMatcher<this>;
+        mkactivity: IRouterMatcher<this>;
+        mkcol: IRouterMatcher<this>;
+        move: IRouterMatcher<this>;
+        "m-search": IRouterMatcher<this>;
+        notify: IRouterMatcher<this>;
+        purge: IRouterMatcher<this>;
+        report: IRouterMatcher<this>;
+        search: IRouterMatcher<this>;
+        subscribe: IRouterMatcher<this>;
+        trace: IRouterMatcher<this>;
+        unlock: IRouterMatcher<this>;
+        unsubscribe: IRouterMatcher<this>;
 
         use: IRouterHandler<this> & IRouterMatcher<this>;
 
         route(prefix: PathParams): IRoute;
+        /**
+         * Stack of configured routes
+         */
+        stack: any[];
     }
 
     interface IRoute {
@@ -110,6 +131,23 @@ declare module "express-serve-static-core" {
         patch: IRouterHandler<this>;
         options: IRouterHandler<this>;
         head: IRouterHandler<this>;
+        
+        checkout: IRouterHandler<this>;
+        copy: IRouterHandler<this>;
+        lock: IRouterHandler<this>;
+        merge: IRouterHandler<this>;
+        mkactivity: IRouterHandler<this>;
+        mkcol: IRouterHandler<this>;
+        move: IRouterHandler<this>;
+        "m-search": IRouterHandler<this>;
+        notify: IRouterHandler<this>;
+        purge: IRouterHandler<this>;
+        report: IRouterHandler<this>;
+        search: IRouterHandler<this>;
+        subscribe: IRouterHandler<this>;
+        trace: IRouterHandler<this>;
+        unlock: IRouterHandler<this>;
+        unsubscribe: IRouterHandler<this>
     }
 
     export interface Router extends IRouter { }
@@ -117,16 +155,16 @@ declare module "express-serve-static-core" {
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
-        secure?: boolean;
+        secure?: boolean | 'auto';
     }
 
     interface Errback { (err: Error): void; }
 
-    interface Request extends http.ServerRequest, Express.Request {
+    interface Request extends http.IncomingMessage, Express.Request {
 
         /**
             * Return request header.
@@ -192,40 +230,50 @@ declare module "express-serve-static-core" {
             *     req.accepts('html, json');
             *     // => "json"
             */
-        accepts(type: string): string;
-
-        accepts(type: string[]): string;
+        accepts(): string[];
+        accepts(type: string): string | boolean;
+        accepts(type: string[]): string | boolean;
+        accepts(...type: string[]): string | boolean;
 
         /**
             * Returns the first accepted charset of the specified character sets,
-            * based on the request’s Accept-Charset HTTP header field.
+            * based on the request's Accept-Charset HTTP header field.
             * If none of the specified charsets is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             * @param charset
             */
-        acceptsCharsets(charset?: string | string[]): string[];
+        acceptsCharsets(): string[];
+        acceptsCharsets(charset: string): string | boolean;
+        acceptsCharsets(charset: string[]): string | boolean;
+        acceptsCharsets(...charset: string[]): string | boolean;
 
         /**
             * Returns the first accepted encoding of the specified encodings,
-            * based on the request’s Accept-Encoding HTTP header field.
+            * based on the request's Accept-Encoding HTTP header field.
             * If none of the specified encodings is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             * @param encoding
             */
-        acceptsEncodings(encoding?: string | string[]): string[];
+        acceptsEncodings(): string[];
+        acceptsEncodings(encoding: string): string | boolean;
+        acceptsEncodings(encoding: string[]): string | boolean;
+        acceptsEncodings(...encoding: string[]): string | boolean;
 
         /**
             * Returns the first accepted language of the specified languages,
-            * based on the request’s Accept-Language HTTP header field.
+            * based on the request's Accept-Language HTTP header field.
             * If none of the specified languages is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             *
             * @param lang
             */
-        acceptsLanguages(lang?: string | string[]): string[];
+        acceptsLanguages(): string[];
+        acceptsLanguages(lang: string): string | boolean;
+        acceptsLanguages(lang: string[]): string | boolean;
+        acceptsLanguages(...lang: string[]): string | boolean;
 
         /**
             * Parse Range header field,
@@ -809,6 +857,12 @@ declare module "express-serve-static-core" {
 
     interface Application extends IRouter, Express.Application {
         /**
+         * Express instance itself is a request handler, which could be invoked without
+         * third argument.
+         */
+        (req: Request, res: Response): any;
+        
+        /**
             * Initialize the server.
             *
             *   - setup default configuration
@@ -1036,30 +1090,14 @@ declare module "express-serve-static-core" {
             * simply by removing them from this object.
             */
         routes: any;
+        
+        /**
+         * Used to get all registered routes in Express Application
+         */
+        _router: any;
     }
 
     interface Express extends Application {
-        /**
-            * Framework version.
-            */
-        version: string;
-
-        /**
-            * Expose mime.
-            */
-        mime: string;
-
-        (): Application;
-
-        /**
-        * Create an express application.
-        */
-        createApplication(): Application;
-
-        createServer(): Application;
-
-        application: any;
-
         request: Request;
 
         response: Response;

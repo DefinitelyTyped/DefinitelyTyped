@@ -6,10 +6,11 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference path='../lodash/lodash.d.ts' />
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../validator/validator.d.ts" />
 
 declare module "sequelize" {
+    import * as _ from "lodash";
 
     namespace sequelize {
 
@@ -3808,8 +3809,8 @@ declare module "sequelize" {
              * Find a row that matches the query, or build (but don't save) the row if none is found.
              * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
              */
-            findOrInitialize( options : FindOrInitializeOptions<TAttributes> ) : Promise<TInstance>;
-            findOrBuild( options : FindOrInitializeOptions<TAttributes> ) : Promise<TInstance>;
+            findOrInitialize( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
+            findOrBuild( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
 
             /**
              * Find a row that matches the query, or build and save the row if none is found
@@ -3822,7 +3823,7 @@ declare module "sequelize" {
              * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
              * will be created instead, and any unique constraint violation will be handled internally.
              */
-            findOrCreate( options : FindOrInitializeOptions<TAttributes> ) : Promise<TInstance>;
+            findOrCreate( options : FindOrInitializeOptions<TAttributes> ) : Promise<[TInstance, boolean]>;
 
             /**
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
@@ -4986,17 +4987,17 @@ declare module "sequelize" {
             /**
              * Maximum connections of the pool
              */
-            maxConnections?: number;
+            max?: number;
 
             /**
              * Minimum connections of the pool
              */
-            minConnections?: number;
+            min?: number;
 
             /**
              * The maximum time, in milliseconds, that a connection can be idle before being released.
              */
-            maxIdleTime?: number;
+            idle?: number;
 
             /**
              * A function that validates a connection. Called with client. The default function checks that client is an

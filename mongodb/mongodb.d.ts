@@ -428,6 +428,8 @@ declare module "mongodb" {
     getTimestamp(): Date;
     // Returns the ObjectID id as a 24 byte hex string representation
     toHexString(): string;
+    // Returns the ObjectID id as a 24 byte hex string representation
+    toString(): string;
   }
 
   // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/Binary.html

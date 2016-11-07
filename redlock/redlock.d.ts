@@ -3,23 +3,23 @@
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../redis/redis.d.ts" />
 
 
 declare module "redlock" {
 
 	import * as redis from 'redis';
-	import * as Promise from 'bluebird';	
-		
+	import * as Promise from 'bluebird';
+
 	namespace Redlock {
-		
+
 		interface Callback<T> {
 			(err: any, value?: T): void;
 		}
 
 		interface Lock {
-			
+
 			redlock: Redlock;
 			resource: string;
 			value: any;
@@ -38,7 +38,7 @@ declare module "redlock" {
 
 		interface LockError extends Error {}
 	}
-	
+
 	class Redlock {
 
 		driftFactor: number;
@@ -59,6 +59,6 @@ declare module "redlock" {
 
 		extend(lock:  Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 	}
-	
+
 	export = Redlock;
 }

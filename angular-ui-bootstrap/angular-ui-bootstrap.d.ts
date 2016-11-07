@@ -400,6 +400,17 @@ declare namespace angular.ui.bootstrap {
          * @default 'body'
          */
         appendTo?: angular.IAugmentedJQuery;
+
+        /**
+         * A string reference to the component to be rendered that is registered with Angular's compiler. If using a directive, the directive must have `restrict: 'E'` and a template or templateUrl set.
+         *
+         * It supports these bindings:
+         *   - `close` - A method that can be used to close a modal, passing a result. The result must be passed in this format: `{$value: myResult}`
+         *   - `dismiss` - A method that can be used to dismiss a modal, passing a result. The result must be passed in this format: `{$value: myRejectedResult}`
+         *   - `modalInstance` - The modal instance. This is the same `$uibModalInstance` injectable found when using `controller`.
+         *   - `resolve` - An object of the modal resolve values. See [UI Router resolves] for details.
+         */
+        component?: string;
     }
 
     interface IModalStackService {

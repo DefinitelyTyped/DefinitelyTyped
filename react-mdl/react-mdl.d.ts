@@ -1,4 +1,4 @@
-﻿// Type definitions for react-mdl 1.5.3
+﻿// Type definitions for react-mdl 1.7.0
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -275,8 +275,17 @@ declare namespace __ReactMDL {
         overlap ?: boolean;
     }
     class Badge extends __MDLComponent<BadgeProps> {}
-    
-    
+
+
+    interface ChipProps extends __MDLOtherProps {
+        onClick ?:React.MouseEventHandler;
+        onClose ?:React.MouseEventHandler;
+    }
+
+    class Chip extends __MDLComponent<ChipProps> {}
+
+    class ChipContact extends __MDLComponent<__MDLOtherProps> {}
+
     interface ButtonProps extends __MDLOtherProps, RippleComponent, CustomRenderedComponent {
         accent ?: boolean;
         colored ?: boolean;
@@ -401,9 +410,11 @@ declare namespace __ReactMDL {
         transparent ?: boolean;
         waterfall ?: boolean;
         hideTop ?: boolean;
+        hideSpacer ?: boolean;
     }
     interface HeaderRowProps extends __MDLOtherProps {
         title ?: string;
+        hideSpacer ?: boolean;
     }
     interface HeaderTabsProps extends __MDLOtherProps, RippleComponent {
         activeTab ?: number;

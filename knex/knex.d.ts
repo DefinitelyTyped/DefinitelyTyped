@@ -3,7 +3,7 @@
 // Definitions by: Qubo <https://github.com/tkQubo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare module "knex" {
@@ -12,7 +12,7 @@ declare module "knex" {
 
   type Callback = Function;
   type Client = Function;
-  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>;
+  type Value = string|number|boolean|Date|Array<string>|Array<number>|Array<Date>|Array<boolean>|Buffer|Knex.Raw;
   type ColumnName = string|Knex.Raw|Knex.QueryBuilder;
   type TableName = string|Knex.Raw|Knex.QueryBuilder;
 
@@ -31,7 +31,7 @@ declare module "knex" {
     client: any;
     migrate: Knex.Migrator;
     seed: any;
-    fn: any;
+    fn: Knex.FunctionHelper;
     on(eventName: string, callback: Function): Knex.QueryBuilder;
   }
 
@@ -330,6 +330,7 @@ declare module "knex" {
     interface Transaction extends QueryBuilder {
       commit: any;
       rollback: any;
+      raw: Knex.RawBuilder;
     }
 
     //
@@ -346,6 +347,7 @@ declare module "knex" {
       table(tableName: string, callback: (tableBuilder: AlterTableBuilder) => any): Promise<void>;
       dropTableIfExists(tableName: string): Promise<void>;
       raw(statement: string): SchemaBuilder;
+      withSchema(schemaName: string): SchemaBuilder;
     }
 
     interface TableBuilder {
@@ -370,6 +372,7 @@ declare module "knex" {
       enum(columnName: string, values: Value[]): ColumnBuilder;
       enu(columnName: string, values: Value[]): ColumnBuilder;
       json(columnName: string): ColumnBuilder;
+      jsonb(columnName: string): ColumnBuilder;
       uuid(columnName: string): ColumnBuilder;
       comment(val: string): TableBuilder;
       specificType(columnName: string, type: string): ColumnBuilder;
@@ -453,6 +456,9 @@ declare module "knex" {
         Sqlite3ConnectionConfig|SocketConnectionConfig;
       pool?: PoolConfig;
       migrations?: MigratorConfig;
+      acquireConnectionTimeout?: number;
+      useNullAsDefault?: boolean;
+      searchPath?: string;
     }
 
     interface ConnectionConfig {
@@ -527,10 +533,10 @@ declare module "knex" {
     }
 
     interface MigratorConfig {
-      database?: string;
       directory?: string;
       extension?: string;
       tableName?: string;
+      disableTransactions?: boolean;
     }
 
     interface Migrator {
@@ -539,6 +545,10 @@ declare module "knex" {
       rollback(config?: MigratorConfig):Promise<any>;
       status(config?: MigratorConfig):Promise<number>;
       currentVersion(config?: MigratorConfig):Promise<string>;
+    }
+
+    interface FunctionHelper {
+      now(): Raw;
     }
   }
 

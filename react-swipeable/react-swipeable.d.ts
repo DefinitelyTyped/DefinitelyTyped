@@ -39,6 +39,7 @@ declare namespace ReactSwipeableModule {
         flickThreshold?: number;
         delta?: number;
         preventDefaultTouchmoveEvent?: boolean;
+        nodeName?: string;
     }
 
     interface ReactSwipeable extends React.ComponentClass<Props> { }

@@ -4,7 +4,7 @@ import multiparty = require('multiparty');
 import http = require('http');
 import util = require('util');
 
-http.createServer(function (req: http.ServerRequest, res: http.ServerResponse) {
+http.createServer(function (req: http.IncomingMessage, res: http.ServerResponse) {
   if (req.url === '/upload' && req.method === 'POST') {
     var count = 0;
     var form = new multiparty.Form();

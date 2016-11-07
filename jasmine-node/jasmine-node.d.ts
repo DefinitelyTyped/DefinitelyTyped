@@ -7,6 +7,12 @@
 
 declare function it(expectation:string, assertion:(done:(err?:any) => void) => void, timeout?:number):void;
 
+declare namespace jasmine {
+	interface Env {
+		defaultTimeoutInterval: number;
+	}
+}
+
 declare module "jasmine-node" {
     interface ExecuteSpecsOptions {
         specFolders: string[],
