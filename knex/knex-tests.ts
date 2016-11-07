@@ -57,12 +57,37 @@ var knex = Knex({
   }
 });
 
+// acquireConnectionTimeout
+var knex = Knex({
+  debug: true,
+  client: 'mysql',
+  connection: {
+    socketPath     : '/path/to/socket.sock',
+    user     : 'your_database_user',
+    password : 'your_database_password',
+    database : 'myapp_test'
+  },
+  acquireConnectionTimeout: 60000,
+});
+
 // Pure Query Builder without a connection
 var knex = Knex({});
 
 // Pure Query Builder without a connection, using a specific flavour of SQL
 var knex = Knex({
   client: 'pg'
+});
+
+// searchPath
+var knex = Knex({
+  client: 'pg',
+  searchPath: 'public',
+});
+
+// useNullAsDefault
+var knex = Knex({
+  client: 'sqlite',
+  useNullAsDefault: true,
 });
 
 knex('books').insert({title: 'Test'}).returning('*').toString();
@@ -355,6 +380,8 @@ knex.transaction(function(trx) {
 
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
+  
+  trx.raw('')
 
   var info: any;
   var books: any[] = [
@@ -387,11 +414,14 @@ knex.transaction(function(trx) {
   console.error(error);
 });
 
+knex.schema.withSchema("public").hasTable("table") as Promise<boolean>;
+
 knex.schema.createTable('users', function (table) {
   table.increments();
   table.string('name');
   table.enu('favorite_color', ['red', 'blue', 'green']);
   table.timestamps();
+  table.timestamp('created_at').defaultTo(knex.fn.now());
 });
 
 knex.schema.renameTable('users', 'old_users');
@@ -592,7 +622,12 @@ knex.select('*')
 //
 // Migrations
 //
-var config = { };
+var config = {
+  directory: "./migrations",
+  extension: "js",
+  tableName: "knex_migrations",
+  disableTransactions: false
+};
 knex.migrate.make(name, config);
 knex.migrate.make(name);
 

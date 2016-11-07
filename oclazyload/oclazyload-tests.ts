@@ -11,7 +11,7 @@ angular.module('app', ['oc.lazyLoad']).config(['$ocLazyLoadProvider', function (
     })
 }]);
 
-angular.module('app').controller(['$ocLazyLoadProvider', function ($ocLazyLoad: oc.ILazyLoad) {
+angular.module('app').controller('FooCtrl', ['$ocLazyLoad', function ($ocLazyLoad: oc.ILazyLoad) {
     $ocLazyLoad.load('testModule.js');
 
     $ocLazyLoad.load(['testModule.js', 'testModuleCtrl.js', 'testModuleService.js']);

@@ -114,6 +114,26 @@ declare module "fetch-mock" {
         unmatched: Array<MockCall>;
     }
 
+    interface MockOptionsMethodGet extends MockOptions {
+      method: 'GET'
+    }
+
+    interface MockOptionsMethodPost extends MockOptions {
+      method: 'POST'
+    }
+
+    interface MockOptionsMethodPut extends MockOptions {
+      method: 'PUT'
+    }
+
+    interface MockOptionsMethodDelete extends MockOptions {
+      method: 'DELETE'
+    }
+
+    interface MockOptionsMethodHead extends MockOptions {
+      method: 'HEAD'
+    }
+
     interface FetchMockStatic {
         /**
          * Replaces fetch() with a stub which records its calls, grouped by
@@ -139,6 +159,56 @@ declare module "fetch-mock" {
          * @param options The route to mock
          */
         mock(options: MockOptions): this;
+        /**
+         * Replaces fetch() with a stub which records its calls, grouped by
+           route, and optionally returns a mocked Response object or passes the
+           call through to fetch(). Shorthand for mock() restricted to the GET
+           method. Calls to .mock() can be chained.
+         * @param matcher Condition for selecting which requests to mock
+         * @param response Configures the http response returned by the mock
+         * @param [options] Additional properties defining the route to mock
+         */
+        get(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodGet): this;
+        /**
+         * Replaces fetch() with a stub which records its calls, grouped by
+           route, and optionally returns a mocked Response object or passes the
+           call through to fetch(). Shorthand for mock() restricted to the POST
+           method. Calls to .mock() can be chained.
+         * @param matcher Condition for selecting which requests to mock
+         * @param response Configures the http response returned by the mock
+         * @param [options] Additional properties defining the route to mock
+         */
+        post(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPost): this;
+        /**
+         * Replaces fetch() with a stub which records its calls, grouped by
+           route, and optionally returns a mocked Response object or passes the
+           call through to fetch(). Shorthand for mock() restricted to the PUT
+           method. Calls to .mock() can be chained.
+         * @param matcher Condition for selecting which requests to mock
+         * @param response Configures the http response returned by the mock
+         * @param [options] Additional properties defining the route to mock
+         */
+        put(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodPut): this;
+        /**
+         * Replaces fetch() with a stub which records its calls, grouped by
+           route, and optionally returns a mocked Response object or passes the
+           call through to fetch(). Shorthand for mock() restricted to the
+           DELETE method. Calls to .mock() can be chained.
+         * @param matcher Condition for selecting which requests to mock
+         * @param response Configures the http response returned by the mock
+         * @param [options] Additional properties defining the route to mock
+         */
+        delete(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodDelete): this;
+        /**
+         * Replaces fetch() with a stub which records its calls, grouped by
+           route, and optionally returns a mocked Response object or passes the
+           call through to fetch(). Shorthand for mock() restricted to the HEAD
+           method. Calls to .mock() can be chained.
+         * @param matcher Condition for selecting which requests to mock
+         * @param response Configures the http response returned by the mock
+         * @param [options] Additional properties defining the route to mock
+         */
+        head(matcher: MockMatcher, reponse: MockResponse | MockResponseFunction, options?: MockOptionsMethodHead): this;
         /**
          * Chainable method that restores fetch() to its unstubbed state and
            clears all data recorded for its calls.

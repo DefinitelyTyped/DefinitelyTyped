@@ -297,7 +297,7 @@ declare namespace d3 {
              * @param value the function to compute data for each node
              */
             datum<NewDatum>(value: (datum: Datum, index: number, outerIndex: number) => NewDatum): Update<NewDatum>;
-            
+
             /**
              * Set the data item for each node in the selection.
              * @param value the constant element to use for each node
@@ -415,7 +415,7 @@ declare namespace d3 {
 
             select(name: (datum: Datum, index: number, outerIndex: number) => EventTarget): Selection<Datum>;
             call(func: (selection: Enter<Datum>, ...args: any[]) => any, ...args: any[]): Enter<Datum>;
-            
+
             empty(): boolean;
             size(): number;
         }
@@ -1078,7 +1078,7 @@ declare namespace d3 {
      * Return the min and max simultaneously.
      */
     export function extent<T>(array: T[], accessor: (datum: T, index: number) => string): [string, string];
-    
+
     /**
      * Return the min and max simultaneously.
      */
@@ -2927,6 +2927,8 @@ declare namespace d3 {
             links(links: Link[]): Force<Link, Node>;
 
             start(): Force<Link, Node>;
+
+            tick(): Force<Link, Node>;
 
             alpha(): number;
             alpha(value: number): Force<Link, Node>;

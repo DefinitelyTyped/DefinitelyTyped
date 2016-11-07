@@ -25,15 +25,17 @@ declare namespace FullCalendar {
         end: moment.Moment;
     }
 
+    export interface Header {
+        left: string;
+        center: string;
+        right: string;
+    }
+
     export interface Options extends AgendaOptions, EventDraggingResizingOptions, DroppingExternalElementsOptions, SelectionOptions {
         // General display - http://fullcalendar.io/docs/display/
 
-        header?: {
-            left: string;
-            center: string;
-            right: string;
-        }
-        theme?: boolean
+        header?: boolean | Header;
+        theme?: boolean;
         buttonIcons?: {
             prev: string;
             next: string;
@@ -50,7 +52,7 @@ declare namespace FullCalendar {
         contentHeight?: number;
         aspectRatio?: number;
         handleWindowResize?: boolean;
-		views?: ViewSpecificOptions;
+        views?: ViewSpecificOptions;
         viewRender?: (view: ViewObject, element: JQuery) => void;
         viewDestroy?: (view: ViewObject, element: JQuery) => void;
         dayRender?: (date: Date, cell: HTMLTableDataCellElement) => void;
@@ -129,6 +131,14 @@ declare namespace FullCalendar {
         eventAfterRender?: (event: EventObject, element: HTMLDivElement, view: ViewObject) => void;
         eventAfterAllRender?: (view: ViewObject) => void;
         eventDestroy?: (event: EventObject, element: JQuery, view: ViewObject) => void;
+
+	//scheduler options
+	resourceAreaWidth?:number,
+        schedulerLicenseKey?:string,
+        customButtons?:any,
+        resourceLabelText?:any,
+        resourceColumns?:any,
+        displayEventTime?:any,
     }
 
     /**
@@ -318,7 +328,7 @@ interface JQuery {
     /**
      * Moves the calendar to an arbitrary date.
      */
-    fullCalendar(method: 'gotoDate', date: Date | string): void;
+    fullCalendar(method: 'gotoDate', date: moment.Moment | Date | string): void;
 
     /**
      * Moves the calendar forward/backward an arbitrary amount of time.

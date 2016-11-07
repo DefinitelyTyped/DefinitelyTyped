@@ -73,7 +73,7 @@ interface ChartOptions {
     onClick?: (any?: any) => any;
     title?: ChartTitleOptions;
     legend?: ChartLegendOptions;
-    tooltip?: ChartTooltipOptions;
+    tooltips?: ChartTooltipOptions;
     hover?: ChartHoverOptions;
     animation?: ChartAnimationOptions;
     elements?: ChartElementsOptions;
@@ -81,7 +81,7 @@ interface ChartOptions {
 }
 
 interface ChartFontOptions {
-    defaultFontColor?: string;
+    defaultFontColor?: ChartColor;
     defaultFontFamily?: string;
     defaultFontSize?: number;
     defaultFontStyle?: string;
@@ -93,7 +93,7 @@ interface ChartTitleOptions {
     fullWdith?: boolean;
     fontSize?: number;
     fontFamily?: string;
-    fontColor?: string;
+    fontColor?: ChartColor;
     fontStyle?: string;
     padding?: number;
     text?: string;
@@ -111,7 +111,7 @@ interface ChartLegendLabelOptions {
     boxWidth?: number;
     fontSize?: number;
     fontStyle?: number;
-    fontColor?: string;
+    fontColor?: ChartColor;
     fontFamily?: string;
     padding?: number;
     generateLabels?: (chart: any) => any;
@@ -121,22 +121,22 @@ interface ChartTooltipOptions {
     enabled?: boolean;
     custom?: (a: any) => void;
     mode?: string;
-    backgroundColor?: string;
+    backgroundColor?: ChartColor;
     titleFontFamily?: string;
     titleFontSize?: number;
     titleFontStyle?: string;
-    titleFontColor?: string;
+    titleFontColor?: ChartColor;
     titleSpacing?: number;
     titleMarginBottom?: number;
     bodyFontFamily?: string;
     bodyFontSize?: number;
     bodyFontStyle?: string;
-    bodyFontColor?: string;
+    bodyFontColor?: ChartColor;
     bodySpacing?: number;
     footerFontFamily?: string;
     footerFontSize?: number;
     footerFontStyle?: string;
-    footerFontColor?: string;
+    footerFontColor?: ChartColor;
     footerSpacing?: number;
     footerMarginTop?: number;
     xPadding?: number;
@@ -177,16 +177,16 @@ interface ChartElementsOptions {
 }
 
 interface ChartArcOtpions {
-    backgroundColor?: string;
-    borderColor?: string;
+    backgroundColor?: ChartColor;
+    borderColor?: ChartColor;
     borderWidth?: number;
 }
 
 interface ChartLineOptions {
     tension?: number;
-    backgroundColor?: string;
+    backgroundColor?: ChartColor;
     borderWidth?: number;
-    borderColor?: string;
+    borderColor?: ChartColor;
     borderCapStyle?: string;
     borderDash?: any[];
     borderDashOffset?: number;
@@ -196,37 +196,37 @@ interface ChartLineOptions {
 interface ChartPointOptions {
     radius?: number;
     pointStyle?: string;
-    backgroundColor?: string;
+    backgroundColor?: ChartColor;
     borderWidth?: number;
-    borderColor?: string;
+    borderColor?: ChartColor;
     hitRadius?: number;
     hoverRadius?: number;
     hoverBorderWidth?: number;
 }
 
 interface ChartRectangleOptions {
-    backgroundColor?: string;
+    backgroundColor?: ChartColor;
     borderWidth?: number;
-    borderColor?: string;
+    borderColor?: ChartColor;
     borderSkipped?: string;
 }
 interface GridLineOptions {
     display?: boolean;
-    color?: string;
+    color?: ChartColor;
     lineWidth?: number;
     drawBorder?: boolean;
     drawOnChartArea?: boolean;
     drawticks?: boolean;
     tickMarkLength?: number;
     zeroLineWidth?: number;
-    zeroLineColor?: string;
+    zeroLineColor?: ChartColor;
     offsetGridLines?: boolean;
 }
 
 interface ScaleTitleOptions {
     display?: boolean;
     labelString?: string;
-    fontColor?: string;
+    fontColor?: ChartColor;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: string;
@@ -236,7 +236,7 @@ interface TickOptions {
     autoSkip?: boolean;
     callback?: (value: any, index: any, values: any) => string;
     display?: boolean;
-    fontColor?: string;
+    fontColor?: ChartColor;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: string;
@@ -251,20 +251,20 @@ interface TickOptions {
 }
 interface AngleLineOptions {
     display?: boolean;
-    color?: string;
+    color?: ChartColor;
     lineWidth?: number;
 }
 
 interface PointLabelOptions {
     callback?: (arg: any) => any;
-    fontColor?: string;
+    fontColor?: ChartColor;
     fontFamily?: string;
     fontSize?: number;
     fontStyle?: string;
 }
 
 interface TickOptions {
-    backdropColor?: string;
+    backdropColor?: ChartColor;
     backdropPaddingX?: number;
     backdropPaddingY?: number;
     maxTicksLimit?: number;
@@ -285,10 +285,12 @@ interface LogarithmicTickOptions extends TickOptions {
     max?: number;
 }
 
+type ChartColor = string | CanvasGradient | CanvasPattern;
+
 interface ChartDataSets {
-    backgroundColor?: string[];
+    backgroundColor?: ChartColor;
     borderWidth?: number;
-    borderColor?: string[];
+    borderColor?: ChartColor;
     borderCapStyle?: string;
     borderDash?: number[];
     borderDashOffset?: number;
@@ -297,14 +299,14 @@ interface ChartDataSets {
     fill?: boolean;
     label?: string;
     lineTension?: number;
-    pointBorderColor?: string | string[];
-    pointBackgroundColor?: string | string[];
+    pointBorderColor?: ChartColor | ChartColor[];
+    pointBackgroundColor?: ChartColor | ChartColor[];
     pointBorderWidth?: number | number[];
     pointRadius?: number | number[];
     pointHoverRadius?: number | number[];
     pointHitRadius?: number | number[];
-    pointHoverBackgroundColor?: string | string[];
-    pointHoverBorderColor?: string | string[];
+    pointHoverBackgroundColor?: ChartColor | ChartColor[];
+    pointHoverBorderColor?: ChartColor | ChartColor[];
     pointHoverBorderWidth?: number | number[];
     pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
     xAxisID?: string;
@@ -332,6 +334,33 @@ interface ChartScales {
     gridLines?: GridLineOptions;
     scaleLabel?: ScaleTitleOptions;
     ticks?: TickOptions;
+    xAxes?: ChartXAxe[];
+    yAxes?: ChartYAxe[];
+}
+
+interface ChartXAxe {
+    type?: string;
+    display?: boolean;
+    id?: string;
+    stacked?: boolean;
+    categoryPercentage?: number;
+    barPercentage?: number;
+    barThickness?: number;
+    gridLines?: GridLineOptions;
+    position?: string;
+    ticks?: TickOptions;
+    time?: TimeScale;
+    scaleLabel?: ScaleTitleOptions;
+}
+
+interface ChartYAxe {
+    type?: string;
+    display?: boolean;
+    id?: string;
+    stacked?: boolean;
+    position?: string;
+    ticks?: TickOptions;
+    scaleLabel?: ScaleTitleOptions;
 }
 
 interface LinearScale extends ChartScales {
@@ -343,6 +372,7 @@ interface LogarithmicScale extends ChartScales {
 }
 
 interface TimeScale extends ChartScales {
+    format?: string;
     displayFormats?: string;
     isoWeekday?: boolean;
     max?: string;
@@ -350,7 +380,7 @@ interface TimeScale extends ChartScales {
     parser?: string | ((arg: any) => any);
     round?: string;
     tooltipFormat?: string;
-    unit?: TimeUnit;
+    unit?: string | TimeUnit;
     unitStepSize?: number;
 }
 
@@ -361,11 +391,12 @@ interface RadialLinearScale {
     ticks?: TickOptions;
 }
 
-declare var Chart: {
-    new (context: CanvasRenderingContext2D, options: ChartConfiguration): {};
+declare class Chart {
+    constructor (context: CanvasRenderingContext2D, options: ChartConfiguration);
+    config: ChartConfiguration;
     destroy: () => {};
-    update: (duration: any, lazy: any) => {};
-    render: (duration: any, lazy: any) => {};
+    update: (duration?: any, lazy?: any) => {};
+    render: (duration?: any, lazy?: any) => {};
     stop: () => {};
     resize: () => {};
     clear: () => {};
@@ -378,4 +409,4 @@ declare var Chart: {
     defaults: {
         global: ChartOptions;
     }
-};
+}

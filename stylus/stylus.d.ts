@@ -634,7 +634,7 @@ declare namespace Stylus {
     export class Compiler {
     }
 
-    export class Renderer implements NodeJS.EventEmitter {
+    export class Renderer extends NodeJS.EventEmitter {
         options: RenderOptions;
         str: string;
         events: any;

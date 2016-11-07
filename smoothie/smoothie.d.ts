@@ -141,6 +141,8 @@ declare module "smoothie"
      */
     export class SmoothieChart
     {
+        options: IChartOptions;
+
         constructor(chartOptions?: IChartOptions);
 
         /**
@@ -188,5 +190,7 @@ declare module "smoothie"
         updateValueRange(): void;
 
         render(canvas?: HTMLCanvasElement, time?: number): void;
+
+        static timeFormatter(date: Date): string;
     }
 }

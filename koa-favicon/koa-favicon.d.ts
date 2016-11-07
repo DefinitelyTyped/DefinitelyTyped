@@ -31,5 +31,6 @@ declare module "koa-favicon" {
 
     }): { (ctx: Koa.Context, next?: () => any): any };
 
+    namespace favicon {}
     export = favicon;
 }

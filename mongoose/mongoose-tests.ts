@@ -1,6 +1,10 @@
 /// <reference path="mongoose.d.ts" />
+/// <reference path="../lodash/lodash.d.ts"/>
 
 import * as mongoose from 'mongoose';
+
+// test compatibility with other libraries
+import * as _ from 'lodash';
 var fs = require('fs');
 
 // dummy variables
@@ -27,7 +31,7 @@ mongoose.connect(connectUri, {
     autoIndex: true
   },
   mongos: true
-}).then(cb).fulfill();
+}).then(cb);
 mongoose.connect(connectUri, function (error) {
   error.stack;
 });
@@ -45,14 +49,14 @@ mongoose.createConnection('localhost', 'database', 3000, {
     autoIndex: false
   }
 }).open('');
-mongoose.disconnect(cb).then(cb).fulfill;
+mongoose.disconnect(cb).then(cb);
 mongoose.get('test');
 mongoose.model('Actor', new mongoose.Schema({
   name: String
 }), 'collectionName', true).find({});
 mongoose.model('Actor').find({});
 mongoose.modelNames()[0].toLowerCase();
-new (new mongoose.Mongoose()).Mongoose().connect('');
+new (new mongoose.Mongoose(9, 8, 7)).Mongoose(1, 2, 3).connect('');
 mongoose.plugin(cb, {}).connect('');
 mongoose.set('test', 'value');
 mongoose.set('debug', function(collectionName: any, methodName: any, arg1: any, arg2: any) {});
@@ -136,7 +140,6 @@ conn1.model('myModel', new mongoose.Schema({}), 'myCol').find();
 interface IStatics {
   staticMethod1: (a: number) => string;
 }
-conn1.model<{}, IStatics>('').staticMethod1;
 conn1.modelNames()[0].toLowerCase();
 conn1.config.hasOwnProperty('');
 conn1.db.bufferMaxEntries;
@@ -350,7 +353,7 @@ new mongoose.Schema({
  * section document.js
  * http://mongoosejs.com/docs/api.html#document-js
  */
-var doc: mongoose.Document;
+var doc: mongoose.MongooseDocument;
 doc.$isDefault('path').valueOf();
 doc.depopulate('path');
 doc.equals(doc).valueOf();
@@ -459,13 +462,27 @@ mongooseArray.unshift(2, 4, 'hi').toFixed();
 /* inherited properties */
 mongooseArray.concat();
 mongooseArray.length;
+/* practical examples */
+interface MySubEntity extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity extends mongoose.Document {
+  sub: mongoose.Types.Array<MySubEntity>
+}
+var myEntity: MyEntity;
+var subDocArray = _.filter(myEntity.sub, function (sd) {
+  sd.property1;
+  sd.property2.toLowerCase();
+});
+
 
 /*
  * section types/documentarray.js
  * http://mongoosejs.com/docs/api.html#types-documentarray-js
  */
 // The constructor is private api, but we'll use it to test
-var documentArray: mongoose.Types.DocumentArray<mongoose.Document> =
+var documentArray: mongoose.Types.DocumentArray<mongoose.MongooseDocument> =
   new mongoose.Types.DocumentArray();
 documentArray.create({}).errors;
 documentArray.id(new Buffer('hi'));
@@ -475,6 +492,16 @@ documentArray.toObject({}).length;
 documentArray.$shift();
 /* inherited from Native Array */
 documentArray.concat();
+/* practical example */
+interface MySubEntity1 extends mongoose.Types.Subdocument {
+  property1: string;
+  property2: string;
+}
+interface MyEntity1 extends mongoose.Document {
+  sub: mongoose.Types.DocumentArray<MySubEntity>
+}
+var newEnt: MyEntity1;
+var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
  * section types/buffer.js
@@ -498,9 +525,10 @@ mongoose.Types.Buffer.from([1, 2, 3]);
  */
 var objectId: mongoose.Types.ObjectId = mongoose.Types.ObjectId.createFromHexString('0x1234');
 objectId = new mongoose.Types.ObjectId(12345);
+objectId = mongoose.Types.ObjectId(12345);
 objectId.getTimestamp();
 /* practical examples */
-export interface IManagerSchema extends mongoose.Document {
+export interface IManagerSchema extends mongoose.MongooseDocument {
   user: mongoose.Schema.Types.ObjectId;
 }
 export var ManagerSchema = new mongoose.Schema({
@@ -530,7 +558,7 @@ embeddedDocument.execPopulate();
  * section query.js
  * http://mongoosejs.com/docs/api.html#query-js
  */
-var query: mongoose.Query<mongoose.Document[]>;
+var query: mongoose.Query<mongoose.MongooseDocument[]>;
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
@@ -541,7 +569,7 @@ query.where('loc').within().box(lowerLeft, upperRight)
 query.box({ ll : lowerLeft, ur : upperRight }).box({});
 var queryModel = mongoose.model('QModel')
 query.cast(new queryModel(), {}).hasOwnProperty('');
-query.catch(function (err) {}).catch();
+query.catch(cb).catch(cb);
 query.center({}).center({});
 query.centerSphere({ center: [50, 50], radius: 10 }).centerSphere('path', {});
 query.circle({ center: [50, 50], radius: 10 }).circle('path');
@@ -696,7 +724,7 @@ query.stream().on('data', function (doc: any) {
 });
 query.tailable().tailable(false);
 query.then(cb).catch(cb);
-(new (query.toConstructor())()).toConstructor();
+(new (query.toConstructor())(1, 2, 3)).toConstructor();
 query.update({}, doc, {
 
 }, cb);
@@ -761,8 +789,9 @@ schemaArray.sparse(true);
  * section schema/string.js
  * http://mongoosejs.com/docs/api.html#schema-string-js
  */
+var MongoDocument: mongoose.Document;
 var schemastring: mongoose.Schema.Types.String = new mongoose.Schema.Types.String('hello');
-schemastring.checkRequired(234, new mongoose.Document()).valueOf();
+schemastring.checkRequired(234, MongoDocument).valueOf();
 schemastring.enum(['hi', 'a', 'b']).enum('hi').enum({});
 schemastring.lowercase().lowercase();
 schemastring.match(/re/, 'error').match(/re/);
@@ -790,7 +819,7 @@ documentarray.sparse(true);
  * http://mongoosejs.com/docs/api.html#schema-number-js
  */
 var schemanumber: mongoose.Schema.Types.Number = new mongoose.Schema.Types.Number('num', {});
-schemanumber.checkRequired(999, new mongoose.Document()).valueOf();
+schemanumber.checkRequired(999, MongoDocument).valueOf();
 schemanumber.max(999, 'error').max(999);
 schemanumber.min(999, 'error').min(999);
 /* static properties */
@@ -803,7 +832,7 @@ schemanumber.sparse(true);
  * http://mongoosejs.com/docs/api.html#schema-date-js
  */
 var schemadate: mongoose.Schema.Types.Date = new mongoose.Schema.Types.Date('99');
-schemadate.checkRequired([], new mongoose.Document()).valueOf();
+schemadate.checkRequired([], MongoDocument).valueOf();
 schemadate.expires(99).expires('now');
 schemadate.max(new Date(), 'error').max(new Date(''));
 schemadate.min(new Date(), 'error').min(new Date(''));
@@ -817,7 +846,7 @@ schemadate.sparse(true);
  * http://mongoosejs.com/docs/api.html#schema-buffer-js
  */
 var schemabuffer: mongoose.Schema.Types.Buffer = new mongoose.Schema.Types.Buffer('99');
-schemabuffer.checkRequired(999, new mongoose.Document()).valueOf();
+schemabuffer.checkRequired(999, MongoDocument).valueOf();
 /* static properties */
 mongoose.Schema.Types.Buffer.schemaName.toLowerCase();
 /* inherited properties */
@@ -840,7 +869,7 @@ schemaboolean.sparse(true);
  */
 var schemaobjectid: mongoose.Schema.Types.ObjectId = new mongoose.Schema.Types.ObjectId('99');
 schemaobjectid.auto(true).auto(false);
-schemaobjectid.checkRequired(99, new mongoose.Document()).valueOf();
+schemaobjectid.checkRequired(99, MongoDocument).valueOf();
 /* static properties */
 mongoose.Schema.Types.ObjectId.schemaName.toLowerCase();
 /* inherited properties */
@@ -1060,12 +1089,13 @@ mongoose.model('').aggregate()
   });
 
 /* pluggable promise */
-mongoose.Promise = Promise;
+(<any>mongoose).Promise = Promise;
+require('mongoose').Promise = Promise;
 mongoose.Promise.race;
 mongoose.Promise.all;
 
 mongoose.model('').findOne()
-  .exec().addErrback(cb);
+  .exec().then(cb);
 
 /*
  * section model.js
@@ -1078,8 +1108,9 @@ var MongoModel = mongoose.model('MongoModel', new mongoose.Schema({
     required: true
   }
 }), 'myCollection', true);
-MongoModel.$where('indexOf("val") !== -1').exec(function (err, docs) {
+MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
   docs[0].save();
+  docs[0].__v;
 });
 MongoModel.findById(999, function (err, doc) {
   doc.increment();
@@ -1122,7 +1153,6 @@ MongoModel.create([{ type: 'jelly bean' }, {
   arg[0].save();
   arg[1].save();
 });
-MongoModel.discriminator('M', new mongoose.Schema({name: String}));
 MongoModel.distinct('url', { clicks: {$gt: 100}}, function (err, result) {
 });
 MongoModel.distinct('url').exec(cb);
@@ -1249,6 +1279,10 @@ mongoModel.discriminators;
 mongoModel.modelName.toLowerCase();
 MongoModel = mongoModel.base.model('new', mongoModel.schema);
 /* inherited properties */
+MongoModel.modelName;
+mongoModel.modelName;
+MongoModel.collection;
+mongoModel.collection;
 mongoModel._id;
 mongoModel.execPopulate();
 mongoModel.on('data', cb);
@@ -1310,7 +1344,7 @@ LocModel.find()
       });
     });
   });
-LocModel.$where('')
+LocModel.find({}).$where('')
   .exec(function (err, locations) {
     locations[0].name;
     locations[1].openingTimes;
@@ -1346,10 +1380,50 @@ LocModel.geoSearch({}, {
 interface IStatics {
   staticMethod2: (a: number) => string;
 }
-var StaticModel = mongoose.model<Location, IStatics>('Location');
-StaticModel.staticMethod2(9).toUpperCase();
-(new StaticModel()).save(function (err, doc) {
-  doc.openingTimes;
-  doc.model<Location, IStatics>('').staticMethod2;
+interface MyDocument extends mongoose.Document {
+  prop: string;
+  method: () => void;
+}
+interface MyModel extends mongoose.Model<MyDocument> {
+  staticProp: string;
+  staticMethod: () => void;
+}
+interface ModelStruct {
+  doc: MyDocument;
+  model: MyModel;
+  method1: (callback: (model: MyModel, doc: MyDocument) => void) => MyModel;
+}
+var modelStruct1: ModelStruct;
+var myModel1: MyModel;
+var myDocument1: MyDocument;
+modelStruct1.method1(function (myModel1, myDocument1) {
+  myModel1.staticProp;
+  myModel1.staticMethod();
+  myDocument1.prop;
+  myDocument1.method();
+}).staticProp.toLowerCase();
+var mySchema = new mongoose.Schema({});
+export var Final: MyModel = <MyModel>mongoose.connection.model<MyDocument>('Final', mySchema);
+Final.findOne(function (err: any, doc: MyDocument) {
+  doc.save();
+  doc.remove();
+  doc.model('');
 });
-StaticModel.model<Location, IStatics>('').staticMethod2;
+export var Final2: MyModel = mongoose.model<MyDocument, MyModel>('Final2', mySchema);
+Final2.staticMethod();
+Final2.staticProp;
+var final2 = new Final2();
+final2.prop;
+final2.method;
+interface ibase extends mongoose.Document {
+  username: string;
+}
+interface extended extends ibase {
+  email: string;
+}
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour', null)
+const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', null);
+const x = new extended({
+  username: 'hi',     // required in baseSchema
+  email: 'beddiw',    // required in extededSchema
+});

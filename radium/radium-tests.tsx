@@ -43,6 +43,12 @@ class TestComponentWithConfig extends React.Component<{ a?: number }, {}> {
                         }}
                         >
                     </Style>
+                    <Style scopeSelector="test"
+                        rules={{
+                            background: "green"
+                        }}
+                        >
+                    </Style>
                 </Radium.StyleRoot>
             </div>
         )

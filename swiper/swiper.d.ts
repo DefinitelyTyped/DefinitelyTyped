@@ -122,8 +122,7 @@ declare class SwiperSlide {
 }
 
 declare class Swiper {
-    constructor(container: string, options?: SwiperOptions);
-    constructor(container: Element, options?: SwiperOptions);
+    constructor(container: string|Element, options?: SwiperOptions);
 
     // Properties
     width: number;

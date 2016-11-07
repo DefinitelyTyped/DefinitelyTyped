@@ -904,6 +904,79 @@ describe("Custom matcher: 'toBeGoofy'", function () {
     });
 });
 
+// test based on http://jasmine.github.io/2.5/custom_reporter.html
+var myReporter: jasmine.CustomReporter = {
+    jasmineStarted: function (suiteInfo: jasmine.SuiteInfo ) {
+        console.log("Running suite with " + suiteInfo.totalSpecsDefined);
+    },
+
+    suiteStarted: function (result: jasmine.CustomReporterResult) {
+        console.log("Suite started: " + result.description + " whose full description is: " + result.fullName);
+    },
+
+    specStarted: function (result: jasmine.CustomReporterResult) {
+        console.log("Spec started: " + result.description + " whose full description is: " + result.fullName);
+    },
+
+    specDone: function (result: jasmine.CustomReporterResult) {
+        console.log("Spec: " + result.description + " was " + result.status);
+        for (var i = 0; i < result.failedExpectations.length; i++) {
+            console.log("Failure: " + result.failedExpectations[i].message);
+            console.log("Actual: " + result.failedExpectations[i].actual);
+            console.log("Expected: " + result.failedExpectations[i].expected);
+            console.log(result.failedExpectations[i].stack);
+        }
+        console.log(result.passedExpectations.length);
+    },
+      
+    suiteDone: function (result: jasmine.CustomReporterResult) {
+        console.log('Suite: ' + result.description + ' was ' + result.status);
+        for (var i = 0; i < result.failedExpectations.length; i++) {
+            console.log('AfterAll ' + result.failedExpectations[i].message);
+            console.log(result.failedExpectations[i].stack);
+        }
+    },
+
+    jasmineDone: function() {
+        console.log('Finished suite');
+    }
+};
+
+jasmine.getEnv().addReporter(myReporter);
+
+// test for custom reporter which return ES6 Promise in jasmineDone():
+var myShortReporter: jasmine.CustomReporter = {
+    jasmineDone: function() {
+        return new Promise<void>(function(resolve, reject) {  
+            setTimeout(() => resolve(), 10000);
+        });
+    }
+}
+
+var jasmineDoneResolved: Promise<void> = myShortReporter.jasmineDone();
+jasmineDoneResolved.then(() => {
+    console.log("[ShortReporter] : jasmineDone Resolved");
+});
+
+jasmine.getEnv().addReporter(myShortReporter);
+
+describe("Randomize Tests", function() {
+	it("should allow randomization of the order of tests", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			return env.randomizeTests(true);
+		}).not.toThrow();
+	});
+
+	it("should allow a seed to be passed in for randomization", function() {
+		expect(function() {
+			var env = jasmine.getEnv();
+			env.randomizeTests(true);
+			return env.seed(1234);
+		}).not.toThrow();
+	});
+});
+
 (() => {
     // from boot.js
     var env = jasmine.getEnv();

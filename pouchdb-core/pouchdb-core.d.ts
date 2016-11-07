@@ -164,6 +164,10 @@ declare namespace PouchDB {
         interface PostOptions extends PutOptions {
         }
 
+        interface CompactOptions extends Core.Options {
+          interval?: number;
+        }
+
         interface InfoOptions extends Options {
         }
     }
@@ -264,6 +268,17 @@ declare namespace PouchDB {
         allDocs(options?: Core.AllDocsOptions):
             Promise<Core.AllDocsResponse<Content>>;
 
+        bulkDocs(docs: Core.Document<Content>[],
+                 options: Core.PutOptions | void,
+                 callback: Core.Callback<Core.Error, Core.Response[]>): void;
+        bulkDocs(docs: Core.Document<Content>[],
+                 options?: Core.PutOptions): Promise<Core.Response[]>;
+
+        /** Compact the database */
+        compact(options?: Core.CompactOptions): Promise<Core.Response>;
+        compact(options: Core.CompactOptions,
+                callback: Core.Callback<Core.Error, Core.Response>): void;
+
         /** Destroy the database */
         destroy(options: Core.DestroyOptions | void,
             callback: Core.AnyCallback): void;
@@ -318,6 +333,20 @@ declare namespace PouchDB {
             id?: Core.DocumentId,
             revision?: Core.RevisionId,
             options?: Core.PutOptions): Promise<Core.Response>;
+
+        /** Remove a doc from the database */
+        remove(doc: Core.Document<Content>,
+               options: Core.Options,
+               callback: Core.Callback<Core.Error, Core.Response>): void;
+        remove(docId: Core.DocumentId,
+               revision: Core.RevisionId,
+               options: Core.Options,
+               callback: Core.Callback<Core.Error, Core.Response>): void;
+        remove(doc: Core.Document<Content>,
+               options?: Core.Options): Promise<Core.Response>;
+        remove(docId: Core.DocumentId,
+               revision: Core.RevisionId,
+               options?: Core.Options): Promise<Core.Response>;
 
         /** Get database information */
         info(options: Core.InfoOptions | void,

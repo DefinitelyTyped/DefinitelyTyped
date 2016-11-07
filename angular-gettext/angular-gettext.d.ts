@@ -51,12 +51,12 @@ declare namespace angular.gettext {
     /** Get the correct pluralized (but untranslated) string for the value of n. */
     getStringForm(string: string, n: number): string;
 
-    /** Translate a string with the given context. Uses Angular.JS interpolation, so something like this will do what you expect:
+    /** Translate a string with the given scope. Uses Angular.JS interpolation, so something like this will do what you expect:
      * var hello = gettextCatalog.getString("Hello {{name}}!", { name: "Ruben" });
      * // var hello will be "Hallo Ruben!" in Dutch.
-     * The context parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.
+     * The scope parameter is optional: pass null (or don't pass anything) if you're not using it: this skips interpolation and is a lot faster.
      */
-    getString(string: string, context?: any): string;
+    getString(string: string, scope?: any, context?: string): string;
 
     /** Translate a plural string with the given context. */
     getPlural(n: number, string: string, stringPlural: string, context?: any): string;
