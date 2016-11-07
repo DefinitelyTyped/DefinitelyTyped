@@ -369,7 +369,7 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string): any {
+        customProp: function(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
