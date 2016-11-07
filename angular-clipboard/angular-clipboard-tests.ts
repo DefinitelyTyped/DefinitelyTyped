@@ -2,7 +2,7 @@
 /// <reference path="../angular/index.d.ts" />
 
 import * as angular from "angular";
-import {ClipboardService} from "angular-clipboard"
+import {ClipboardService} from "angular-clipboard";
 
 const app = angular.module('testModule', ['angular-clipboard']);
 app.controller('TestController', ($scope: ng.IScope, clipboard: ClipboardService) => {
