@@ -1797,7 +1797,7 @@ declare namespace Cy {
         relativePoint(pos: Position): CollectionNodes;
     }
     interface CollectionFirstPosition {
-        //http://js.cytoscape.org/#collection/position--dimensions
+        // http://js.cytoscape.org/#collection/position--dimensions
 
         /**
          * Get the width of the element.
@@ -1838,8 +1838,10 @@ declare namespace Cy {
          */
         active(): boolean;
     }
+    /**
+     *  http://js.cytoscape.org/#collection/selection
+     */
     interface CollectionFirstSelection {
-        // http://js.cytoscape.org/#collection/selection
 
         /**
          * Get whether the element is selected.
@@ -1851,8 +1853,11 @@ declare namespace Cy {
          */
         selectable(): boolean;
     }
+    /**
+     * http://js.cytoscape.org/#collection/style
+     */
     interface CollectionFirstStyle {
-        // http://js.cytoscape.org/#collection/style
+
 
         /**
          * Get whether an element has a particular class.
@@ -1934,17 +1939,19 @@ declare namespace Cy {
          */
         transparent(): boolean;
     }
+    /**
+     * http://js.cytoscape.org/#collection/animation
+     */
     interface CollectionFirtsAnimation {
-        // http://js.cytoscape.org/#collection/animation
-
         /**
          * Get whether the element is currently being animated.
          */
         animated(): boolean;
     }
+    /**
+     * http://js.cytoscape.org/#collection/traversing
+     */
     interface CollectionFirstEdgeTraversing {
-        // http://js.cytoscape.org/#collection/traversing
-
         /**
          * Get source node of this edge.
          * 
@@ -2055,11 +2062,11 @@ declare namespace Cy {
 
         type Colour = string;
 
-        // TODO: How to constrain to a value?
-        type Shape = string; // 'rectangle', 'roundrectangle', 'ellipse', 'triangle', pentagon, hexagon, heptagon, octagon, star
+        type Shape = 'rectangle' | 'roundrectangle' | 'ellipse' | 'triangle'
+            | "pentagon" | "hexagon" | "heptagon" | "octagon" | "star";
 
         // TODO: How to constrain to a value?
-        type Style = string; // solid, dotted, dashed, or double
+        type Style = "solid" | "dotted" | "dashed" | "double";
 
         export interface NodeCss {
             label?: string
@@ -2939,22 +2946,26 @@ declare namespace Cy {
      * 
      * The default is 'grid'.
      */
-    type LayoutOptionTypeNames = "null" | "random" | "grid" | "circle";
+    type LayoutOptionTypeNames = "null" | "random" | "preset"
+        | "grid" | "circle" | "concentric" | "breadthfirst" | "cose";
 
     interface LayoutOptions {
         name: LayoutOptionTypeNames;
-        ready: () => void;
-        stop: () => void;
+        /** Called on 'layoutready' */
+        ready?: () => void;
+        /** Called on 'layoutstop' */
+        stop?: () => void;
     }
 
     /**
      * The null layout puts all nodes at (0, 0). It’s useful for debugging.
+     * http://js.cytoscape.org/#layouts/null
      */
     interface NullLayoutOptions extends LayoutOptions {
     }
 
     interface AbstractLayoutBounds {
-        // upper left
+        /** upper left */
         x1: number;
         y1: number;
     }
@@ -2967,16 +2978,38 @@ declare namespace Cy {
         h: number
     }
     interface AbstractFiniteLayoutOptions extends LayoutOptions {
-        fit: boolean; // whether to fit to viewport
-        padding: number; // fit padding
-        boundingBox: undefined | AbstractLayoutBounds; // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+        /** [default: true] whether to fit to viewport */
+        fit?: boolean;
+        /** [default: 30] fit padding */
+        padding?: number;
+        /** [default: undefined] constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h } */
+        boundingBox?: undefined | AbstractLayoutBounds;
     }
     interface AbstractAnimateLayoutOptions {
-        animate: boolean; // whether to transition the node positions
-        animationDuration: number; // duration of animation in ms if enabled
-        animationEasing: undefined | any; // easing of animation if enabled
+        /** [default: false] whether to transition the node positions */
+        animate?: boolean;
+        /** [default: 500] duration of animation in ms if enabled */
+        animationDuration?: number;
+        /** [default: undefined] easing of animation if enabled */
+        animationEasing?: undefined | any;
     }
+    /**
+     * The random layout puts nodes in random positions within the viewport.
+     * http://js.cytoscape.org/#layouts/random
+     */
     interface RandomLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+    }
+    /**
+     * The preset layout puts nodes in the positions you specify manually.
+     * http://js.cytoscape.org/#layouts/preset
+     */
+    interface PresetLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
+        /** [default: undefined] map of (node id) => (position obj); or function(node){ return somPos; } */
+        positions: undefined | any;
+        /** [default: undefined] the zoom level to set (prob want fit = false if set) */
+        zoom: undefined | number;
+        /** [default: undefined] the pan level to set (prob want fit = false if set) */
+        pan: undefined | number;
     }
 
     /**
@@ -2984,22 +3017,35 @@ declare namespace Cy {
      * (the default)
      */
     interface GridLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
-        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
-        avoidOverlapPadding: number; // extra spacing around nodes when avoidOverlap: true
-        condense: boolean; // uses all available space on false, uses minimal space on true
-        rows: undefined | number; // force num of rows in the grid
-        cols: undefined | number; // force num of columns in the grid
-        position: () => { row: number, col: number }; // returns { row, col } for element
-        sort: (a: any, b: any) => number; // a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }
+        /** [default: true] prevents node overlap, may overflow boundingBox if not enough space */
+        avoidOverlap?: boolean;
+        /** [default: 10] extra spacing around nodes when avoidOverlap: true */
+        avoidOverlapPadding?: number;
+        /** [default: false] uses all available space on false, uses minimal space on true */
+        condense?: boolean;
+        /** [default: undefined] force num of rows in the grid */
+        rows?: undefined | number;
+        /** [default: undefined]  force num of columns in the grid */
+        cols?: undefined | number;
+        /** [default: => elem.{row: col:}]  returns { row, col } for element */
+        position?: () => { row: number, col: number };
+        /** [default: undefined]  a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') } */
+        sort?: (a: any, b: any) => number;
     }
 
     interface CircleLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
-        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox and radius if not enough space
-        radius: undefined | number; // the radius of the circle
-        startAngle: number; // where nodes start in radians
-        sweep: undefined | number; // how many radians should be between the first and last node (defaults to full circle)
-        clockwise: boolean; // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
-        sort: (a: any, b: any) => number; // a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }          
+        /** [default: true]  prevents node overlap, may overflow boundingBox and radius if not enough space */
+        avoidOverlap?: boolean;
+        /** [default: undefined]  the radius of the circle */
+        radius?: undefined | number;
+        /** [default: 3/4 turn]  where nodes start in radians */
+        startAngle?: number;
+        /** [default: undefined]  how many radians should be between the first and last node (defaults to full circle) */
+        sweep?: undefined | number;
+        /** [default: true]  whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false) */
+        clockwise?: boolean;
+        /** [default: undefined]  a sorting function to order the nodes; e.g. function(a, b){ return a.data('weight') - b.data('weight') }           */
+        sort?: (a: any, b: any) => number;
     }
 
     /**
@@ -3008,30 +3054,37 @@ declare namespace Cy {
      * This layout sets the concentric value in ele.scratch().
      * http://js.cytoscape.org/#layouts/concentric
      */
-    interface ConcentricLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
-        startAngle: number; // where nodes start in radians
-        sweep: undefined | number; // how many radians should be between the first and last node (defaults to full circle)
-        clockwise: boolean; // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
-        equidistant: false; // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-        minNodeSpacing: number; // min spacing between outside of nodes (used for radius adjustment)
-
-        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
-        height: undefined | number; // height of layout area (overrides container height)
-        width: undefined | number; // width of layout area (overrides container width)
-        concentric: (node: any) => number; // returns numeric value for each node, placing higher nodes in levels towards the centre
-        levelWidth: (nodes: any) => number; // the variation of concentric values in each level
+    interface ConcentricLayoutOptions extends CircleLayoutOptions {
+        /** [default: false]  whether levels have an equal radial distance betwen them, may cause bounding box overflow */
+        equidistant?: boolean;
+        /** [default: 10]  min spacing between outside of nodes (used for radius adjustment) */
+        minNodeSpacing?: number;
+        /** [default: undefined]  height of layout area (overrides container height) */
+        height?: undefined | number;
+        /** [default: undefined]  width of layout area (overrides container width) */
+        width?: undefined | number;
+        /** [default: => node.degree()]  returns numeric value for each node, placing higher nodes in levels towards the centre */
+        concentric?: (node: any) => number;
+        /** [default: => node.maxDegree * 1/4]  the variation of concentric values in each level */
+        levelWidth?: (nodes: any) => number;
     }
     /**
      * The breadthfirst layout puts nodes in a hierarchy, based on a breadthfirst traversal of the graph.
      * http://js.cytoscape.org/#layouts/breadthfirst
      */
     interface BreadthFirstLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
-        directed: boolean; // whether the tree is directed downwards (or edges can point in any direction if false)
-        circle: boolean // put depths in concentric circles if true, put depths top down if false
-        spacingFactor: number; // positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap)
-        avoidOverlap: boolean; // prevents node overlap, may overflow boundingBox if not enough space
-        roots: undefined | any; // the roots of the trees
-        maximalAdjustments: number; // how many times to try to position the nodes in a maximal way (i.e. no backtracking)
+        /** [default: false] whether the tree is directed downwards (or edges can point in any direction if false) */
+        directed?: boolean;
+        /** [default: false] put depths in concentric circles if true, put depths top down if false */
+        circle?: boolean
+        /** [default: 1.75] positive spacing factor, larger => more space between nodes (N.B. n/a if causes overlap) */
+        spacingFactor?: number;
+        /** [default: true]  prevents node overlap, may overflow boundingBox if not enough space */
+        avoidOverlap?: boolean;
+        /** [default: undefined]  the roots of the trees */
+        roots?: undefined | any;
+        /** [default: 0]  how many times to try to position the nodes in a maximal way (i.e. no backtracking) */
+        maximalAdjustments?: number;
     }
     /**
      * The cose (Compound Spring Embedder) layout uses a physics simulation to lay out graphs. 
@@ -3045,35 +3098,35 @@ declare namespace Cy {
      * computationally expensive but produces near-perfect results.
      */
     interface CoseLayoutOptions extends AbstractFiniteLayoutOptions, AbstractAnimateLayoutOptions {
-        // Number of iterations between consecutive screen positions update
-        // (0 -> only updated on the end)
-        refresh: number;
-        // Randomize the initial positions of the nodes (true) or use existing positions (false)
-        randomize: boolean;
-        // Extra spacing between components in non-compound graphs
-        componentSpacing: boolean;
-        // Node repulsion (non overlapping) multiplier
-        nodeRepulsion: (node: any) => number;
-        // Node repulsion (overlapping) multiplier
-        nodeOverlap: number;
-        // Ideal edge (non nested) length
-        idealEdgeLength: (edge: any) => number;
-        // Divisor to compute edge forces
-        edgeElasticity: (edge: any) => number;
-        // Nesting factor (multiplier) to compute ideal edge length for nested edges
-        nestingFactor: number;
-        // Gravity force (constant)
-        gravity: number;
-        // Maximum number of iterations to perform
-        numIter: number;
-        // Initial temperature (maximum node displacement)
-        initialTemp: number;
-        // Cooling factor (how the temperature is reduced between consecutive iterations
-        coolingFactor: number;
-        // Lower temperature threshold (below this point the layout will end)
-        minTemp: number;
-        // Whether to use threading to speed up the layout
-        useMultitasking: boolean;
+        /** Number of iterations between consecutive screen positions update
+         * (0 -> only updated on the end) [default: 20] */
+        refresh?: number;
+        /** Randomize the initial positions of the nodes (true) or use existing positions (false) [default: false] */
+        randomize?: boolean;
+        /** Extra spacing between components in non-compound graphs [default: false] */
+        componentSpacing?: boolean;
+        /** Node repulsion (non overlapping) multiplier [default: 100] */
+        nodeRepulsion?: (node: any) => number;
+        /** Node repulsion (overlapping) multiplier [default: => 400,000] */
+        nodeOverlap?: number;
+        /** Ideal edge (non nested) length[default: => 10] */
+        idealEdgeLength?: (edge: any) => number;
+        /** Divisor to compute edge forces [default: => 100] */
+        edgeElasticity?: (edge: any) => number;
+        /** Nesting factor (multiplier) to compute ideal edge length for nested edges [default: 5] */
+        nestingFactor?: number;
+        /** Gravity force (constant) [default: 80] */
+        gravity?: number;
+        /** Maximum number of iterations to perform [default: 1000] */
+        numIter?: number;
+        /** Initial temperature (maximum node displacement) [default: 200] */
+        initialTemp?: number;
+        /** Cooling factor (how the temperature is reduced between consecutive iterations [default: 0.95] */
+        coolingFactor?: number;
+        /** Lower temperature threshold (below this point the layout will end) [default: 10] */
+        minTemp?: number;
+        /** Whether to use threading to speed up the layout [default: true] */
+        useMultitasking?: boolean;
     }
 
     interface CytoscapeOptions {
