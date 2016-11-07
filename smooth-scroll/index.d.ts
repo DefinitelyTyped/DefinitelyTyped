@@ -4,6 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
+declare var smoothScroll: smoothScroll.SmoothScrollStatic;
+export = smoothScroll;
+export as namespace smoothScroll;
+
+
 declare namespace smoothScroll {
     interface SmoothScrollStatic {
         /** Global Settings */
@@ -50,10 +55,4 @@ declare namespace smoothScroll {
         callback?: (anchor: Element, toggle: Element) => void;
     }
 
-}
-
-
-declare var smoothScroll: smoothScroll.SmoothScrollStatic;
-declare module "smooth-scroll" {
-    export = smoothScroll;
 }
