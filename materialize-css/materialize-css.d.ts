@@ -414,8 +414,10 @@ interface JQuery {
 
     /**
      * Close a modal programatically
+     *
+     * @name options the lean modal options
      */
-    closeModal(): void;
+    closeModal(options?: Materialize.LeanModalOptions): void;
 
     /**
      * Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
