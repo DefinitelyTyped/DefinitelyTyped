@@ -640,7 +640,7 @@ declare module "koa" {
         }
 
         interface Middleware {
-            (context: Context, next?: () => Promise<void>): any;
+            (context: Context, next: () => Promise<void>): any;
         }
     }
 
