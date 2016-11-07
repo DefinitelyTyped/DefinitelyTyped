@@ -189,10 +189,10 @@ var domElement: React.ReactHTMLElement<HTMLDivElement> =
 var clonedElement: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, { foo: 43 });
 
-React.cloneElement(element, undefined);
-React.cloneElement(element, undefined, null);
-React.cloneElement(element, null);
-React.cloneElement(element, null, null);
+React.cloneElement(element, {});
+React.cloneElement(element, {}, null);
+React.cloneElement(element, {});
+React.cloneElement(element, {}, null);
 
 var clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast

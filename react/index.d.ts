@@ -37,7 +37,7 @@ declare namespace React {
 
     type CElement<P, T extends Component<P, ComponentState>> = ComponentElement<P, T>;
     interface ComponentElement<P, T extends Component<P, ComponentState>> extends ReactElement<P> {
-        type: ComponentClass<P> | ComponentClass<any>;
+        type: ComponentClass<P>;
         ref?: Ref<T>;
     }
 
