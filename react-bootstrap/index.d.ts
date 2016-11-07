@@ -520,6 +520,21 @@ declare namespace ReactBootstrap {
     type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
 
+    // <Navbar.Link />
+    interface NavbarLinkProps {
+        href: string;
+        onClick?: React.MouseEventHandler<{}>;
+    }
+    type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
+    const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
+
+    // <Navbar.Text />
+    interface NavbarTextProps {
+        pullRight?: boolean;
+    }
+    type NavbarText = React.ClassicComponent<NavbarTextProps, {}>;
+    const NavbarText: React.ClassicComponentClass<NavbarTextProps>;
+
     // <Navbar />
     interface NavbarProps extends React.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
@@ -542,6 +557,8 @@ declare namespace ReactBootstrap {
         Collapse: typeof NavbarCollapse;
         Header: typeof NavbarHeader;
         Toggle: typeof NavbarToggle;
+        Link: typeof NavbarLink;
+        Text: typeof NavbarText;
     }
     type Navbar = React.ClassicComponent<NavbarProps, {}>;
     var Navbar: NavbarClass;
