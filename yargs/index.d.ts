@@ -201,10 +201,10 @@ declare namespace yargs {
     }
 
     interface CommandModule {
-        aliases?: Array<string>|string;
+        aliases?: string[] | string;
         builder: {[key: string]: Options} | ((args: Argv) => Argv);
-        command: Array<string>|string;
-        describe: string|false;
+        command: string[] | string;
+        describe: string | false;
         handler: (args: any) => void;
     }
 
