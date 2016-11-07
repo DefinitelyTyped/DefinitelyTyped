@@ -191,8 +191,6 @@ var clonedElement: React.CElement<Props, ModernComponent> =
 
 React.cloneElement(element, {});
 React.cloneElement(element, {}, null);
-React.cloneElement(element, {});
-React.cloneElement(element, {}, null);
 
 var clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
@@ -423,7 +421,7 @@ var ContextTypesSpecification: React.ComponentSpec<any, any> = {
         }),
         requiredFunc: React.PropTypes.func.isRequired,
         requiredAny: React.PropTypes.any.isRequired,
-        customProp: function(props: any, propName: string, componentName: string): any {
+        customProp: function(props: any, propName: string, componentName: string): Error | null {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
             }
