@@ -1773,7 +1773,11 @@ interface SchedulerStatic {
 	 * @param view the view name
 	*/
 	updateView(date: Date, view: string): void;
-
+	
+        /**
+	 * update the current view
+	*/
+	updateView(): void;
 }
 
 declare var scheduler: SchedulerStatic;
