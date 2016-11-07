@@ -1,3 +1,3 @@
-import * as jsonminify from "jsonminify";
+import jsonminify = require("jsonminify");
 
 const minified: string = jsonminify('{ "foo": "bar" }');
