@@ -621,8 +621,10 @@ declare namespace createjs {
         nativeEvent: NativeMouseEvent;
         pointerID: number;
         primary: boolean;
+        propagationStopped: boolean;
         rawX: number;
         rawY: number;
+        relatedTarget: DisplayObject;
         stageX: number;
         stageY: number;
         mouseMoveOutside: boolean;
