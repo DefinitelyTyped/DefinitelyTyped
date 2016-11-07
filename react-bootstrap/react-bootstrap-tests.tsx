@@ -520,6 +520,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                         </NavDropdown>
                       </Nav>
                     </Navbar.Collapse>
+                    <Navbar.Text>Static text</Navbar.Text>
                   </Navbar>
                 </div>
 
