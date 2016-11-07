@@ -23,8 +23,8 @@ namespace init_tests {
             easing: 'easeInOutCubic',
             offset: 0,
             callback: function (anchor, toggle) {
-                let ele: Element;
-                ele = anchor;
+                let elem: Element;
+                elem = anchor;
                 toggle = toggle;
             }
         })
@@ -46,8 +46,8 @@ namespace animate_scroll_tests {
     {
         let anchor = document.querySelector('#bazinga');
         let toggle = document.querySelector('#toggle');
-        let easing: 'easeOutCubic' = 'easeOutCubic';
-        let options = { speed: 1000, easing: easing };
+        let easing: smoothScroll.EasingOptions = 'easeOutCubic';
+        let options: smoothScroll.SmoothScrollOptions = { speed: 1000, easing: easing };
         smoothScroll.animateScroll(anchor, toggle, options);
     }
 
