@@ -1,5 +1,3 @@
-/// <reference path="service_worker_api.d.ts" />
-
 var OFFLINE_CACHE = "cache_test";
 var OFFLINE_URL = "localhost";
 

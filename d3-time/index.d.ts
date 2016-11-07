@@ -1,6 +1,6 @@
-// Type definitions for D3JS d3-time module 1.0.0
+// Type definitions for D3JS d3-time module v1.0.2
 // Project: https://github.com/d3/d3-time/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // ---------------------------------------------------------------
@@ -14,7 +14,7 @@ export interface TimeInterval {
     ceil(date: Date): Date;
     offset(date: Date, step?: number): Date;
     range(start: Date, stop: Date, step?: number): Date[];
-    filter(test: (date: Date) => boolean): TimeInterval;
+    filter(test: (date: Date) => boolean): this;
 }
 
 export interface CountableTimeInterval extends TimeInterval {

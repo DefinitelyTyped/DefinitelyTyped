@@ -1,4 +1,4 @@
-// Type definitions for Sequelize 3.4.1
+// Type definitions for Sequelize 4.0.0
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,6 +11,7 @@
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
@@ -56,7 +57,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: BelongsToGetAssociationMixinOptions): Promise<TInstance | null>;
     }
 
     /**
@@ -170,7 +171,7 @@ declare namespace sequelize {
          * Get the associated instance.
          * @param options The options to use when getting the association.
          */
-        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance>;
+        (options?: HasOneGetAssociationMixinOptions): Promise<TInstance | null>;
     }
 
     /**
@@ -2544,6 +2545,41 @@ declare namespace sequelize {
         afterInit(name: string, fn: (sequelize: Sequelize) => void): void;
         afterInit(fn: (sequelize: Sequelize) => void): void;
 
+        /**
+         * A hook that is run before Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        beforeSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after Model.sync call
+         *
+         * @param name
+         * @param fn   	A callback function that is called with options passed to Model.sync
+         */
+        afterSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run before sequelize.sync call
+         *
+         * @param name
+         * @param fn    A callback function that is called with options passed to sequelize.sync
+         */
+        beforeBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        beforeBulkSync(fn: (options: SyncOptions) => void): void;
+
+        /**
+         * A hook that is run after sequelize.sync call
+         *
+         * @param name
+         * @param fn   A callback function that is called with options passed to sequelize.sync
+         */
+        afterBulkSync(name: string, fn: (options: SyncOptions) => void): void;
+        afterBulkSync(fn: (options: SyncOptions) => void): void;
     }
 
     //
@@ -3052,7 +3088,7 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object | null;
     }
 
     /**
@@ -3134,7 +3170,7 @@ declare namespace sequelize {
     /**
          * Shortcut for types used in FindOptions.attributes
          */
-    type FindOptionsAttriburesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3154,7 +3190,7 @@ declare namespace sequelize {
          * `Sequelize.literal`, `Sequelize.fn` and so on), and the second is the name you want the attribute to
          * have in the returned instance
          */
-        attributes?: FindOptionsAttriburesArray | { include?: FindOptionsAttriburesArray, exclude?: Array<string> };
+        attributes?: FindOptionsAttributesArray | { include?: FindOptionsAttributesArray, exclude?: Array<string> };
 
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
@@ -3718,15 +3754,15 @@ declare namespace sequelize {
          * Search for a single instance by its primary key. This applies LIMIT 1, so the listener will
          * always be called with a single instance.
          */
-        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
-        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance>;
+        findById(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
+        findByPrimary(identifier?: number | string, options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Search for a single instance. This applies LIMIT 1, so the listener will always be called with a single
          * instance.
          */
-        findOne(options?: FindOptions): Promise<TInstance>;
-        find(options?: FindOptions): Promise<TInstance>;
+        findOne(options?: FindOptions): Promise<TInstance | null>;
+        find(options?: FindOptions): Promise<TInstance | null>;
 
         /**
          * Run an aggregation method on the specified field
@@ -3818,8 +3854,8 @@ declare namespace sequelize {
          * Find a row that matches the query, or build (but don't save) the row if none is found.
          * The successfull result of the promise will be (instance, initialized) - Make sure to use .spread()
          */
-        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
-        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrInitialize(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
+        findOrBuild(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
          * Find a row that matches the query, or build and save the row if none is found
@@ -3832,7 +3868,7 @@ declare namespace sequelize {
          * an instance of sequelize.TimeoutError will be thrown instead. If a transaction is created, a savepoint
          * will be created instead, and any unique constraint violation will be handled internally.
          */
-        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<TInstance>;
+        findOrCreate(options: FindOrInitializeOptions<TAttributes>): Promise<[TInstance, boolean]>;
 
         /**
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)

@@ -1,4 +1,4 @@
-// Type definitions for faker
+// Type definitions for faker v3.1
 // Project: http://marak.com/faker.js/
 // Definitions by: Bas Pennings <https://github.com/basp/>, Yuki Kokubun <https://github.com/Kuniwak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -135,6 +135,7 @@ declare namespace Faker {
 		};
 
 		lorem: {
+			word(): string;
 			words(num?: number): string;
 			sentence(wordCount?: number, range?: number): string;
 			sentences(sentenceCount?: number): string;
@@ -170,6 +171,19 @@ declare namespace Faker {
 			objectElement<T>(object?: { [key: string]: T }, field?: any): T;
 			uuid(): string;
 			boolean(): boolean;
+		};
+
+		system: {
+			fileName(ext: string, type: string): string;
+			commonFileName(ext: string, type: string): string;
+			mimeType(): string;
+			commonFileType(): string;
+			commonFileExt(): string;
+			fileType(): string;
+			fileExt(mimeType: string): string;
+			//directoryPath(): string;
+			//filePath(): string;
+			semver(): string;
 		};
 
 		seed(value: number): void;

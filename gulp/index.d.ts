@@ -5,9 +5,11 @@
 
 /// <reference types="node" />
 /// <reference types="orchestrator" />
+/// <reference types="vinyl" />
 
 
 import Orchestrator = require("orchestrator");
+import VinylFile = require("vinyl");
 
 declare namespace gulp {
     interface Gulp extends Orchestrator {
@@ -57,22 +59,14 @@ declare namespace gulp {
          * @param glob a single glob or array of globs that indicate which files to watch for changes.
          * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
          */
-        (glob: string | string[], fn: (WatchCallback | string)): NodeJS.EventEmitter;
+        (glob: string|string[], fn: (WatchCallback|string)): NodeJS.EventEmitter;
         /**
          * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
          *
          * @param glob a single glob or array of globs that indicate which files to watch for changes.
          * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
          */
-        (glob: string | string[], fn: (WatchCallback | string)[]): NodeJS.EventEmitter;
-        /**
-         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
-         *
-         * @param glob a single glob or array of globs that indicate which files to watch for changes.
-         * @param opt options, that are passed to the gaze library.
-         * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
-         */
-        (glob: string | string[], opt: WatchOptions, fn: (WatchCallback | string)): NodeJS.EventEmitter;
+        (glob: string|string[], fn: (WatchCallback|string)[]): NodeJS.EventEmitter;
         /**
          * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
          *
@@ -80,7 +74,15 @@ declare namespace gulp {
          * @param opt options, that are passed to the gaze library.
          * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
          */
-        (glob: string | string[], opt: WatchOptions, fn: (WatchCallback | string)[]): NodeJS.EventEmitter;
+        (glob: string|string[], opt: WatchOptions, fn: (WatchCallback|string)): NodeJS.EventEmitter;
+        /**
+         * Watch files and do something when a file changes. This always returns an EventEmitter that emits change events.
+         *
+         * @param glob a single glob or array of globs that indicate which files to watch for changes.
+         * @param opt options, that are passed to the gaze library.
+         * @param fn a callback or array of callbacks to be called on each change, or names of task(s) to run when a file changes, added with task().
+         */
+        (glob: string|string[], opt: WatchOptions, fn: (WatchCallback|string)[]): NodeJS.EventEmitter;
 
     }
 
@@ -92,7 +94,7 @@ declare namespace gulp {
          * @param outFolder The path (output folder) to write files to. Or a function that returns it, the function will be provided a vinyl File instance.
          * @param opt
          */
-        (outFolder: string | ((file: string) => string), opt?: DestOptions): NodeJS.ReadWriteStream;
+        (outFolder: string|((file: VinylFile) => string), opt?: DestOptions): NodeJS.ReadWriteStream;
     }
 
     interface SrcMethod {
@@ -101,7 +103,7 @@ declare namespace gulp {
          * @param glob Glob or array of globs to read.
          * @param opt Options to pass to node-glob through glob-stream.
          */
-        (glob: string | string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
+        (glob: string|string[], opt?: SrcOptions): NodeJS.ReadWriteStream;
     }
 
     /**
@@ -151,14 +153,14 @@ declare namespace gulp {
         dot?: boolean;
 
         /**
-             * Set to match only fles, not directories. Set this flag to prevent copying empty directories
-             */
+         * Set to match only fles, not directories. Set this flag to prevent copying empty directories
+         */
         nodir?: boolean;
 
         /**
-     * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid
-     * filesystem path is returned. Set this flag to disable that behavior.
-     */
+         * By default, a pattern starting with a forward-slash will be "mounted" onto the root setting, so that a valid
+         * filesystem path is returned. Set this flag to disable that behavior.
+         */
         nomount?: boolean;
 
         /**

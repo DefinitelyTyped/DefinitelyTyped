@@ -1889,7 +1889,7 @@ declare module "core-js/fn/number/max-safe-integer" {
     var MAX_SAFE_INTEGER: typeof core.Number.MAX_SAFE_INTEGER;
     export = MAX_SAFE_INTEGER;
 }
-declare module "core-js/fn/number/min-safe-interger" {
+declare module "core-js/fn/number/min-safe-integer" {
     var MIN_SAFE_INTEGER: typeof core.Number.MIN_SAFE_INTEGER;
     export = MIN_SAFE_INTEGER;
 }
@@ -2668,7 +2668,7 @@ declare module "core-js/library/fn/number/max-safe-integer" {
     var MAX_SAFE_INTEGER: typeof core.Number.MAX_SAFE_INTEGER;
     export = MAX_SAFE_INTEGER;
 }
-declare module "core-js/library/fn/number/min-safe-interger" {
+declare module "core-js/library/fn/number/min-safe-integer" {
     var MIN_SAFE_INTEGER: typeof core.Number.MIN_SAFE_INTEGER;
     export = MIN_SAFE_INTEGER;
 }

@@ -1,6 +1,5 @@
 ﻿/// <reference types="cordova" />
 
-
 window.plugins.socialsharing.iPadPopupCoordinates = function () {
 	return "100,100,200,300";
 };

@@ -65,6 +65,9 @@ let point: d3Voronoi.VoronoiPoint;
 point[0] = 10; // x-coordinate
 point[1] = 10; // y-coordinate
 
+point = [10, 10];
+// point = [10]; // fails, second element for y-coordinate missing
+// point = ['a', 'b']; // fails, wrong element type
 
 // VoronoiPointPair ---------------------------------------------------
 
@@ -74,6 +77,13 @@ pointPair[0][0] = 10; // x-coordinate of first point
 pointPair[0][1] = 10; // y-coordinate of first point
 pointPair[1][0] = 20; // x-coordinate of second point
 pointPair[1][1] = 10; // y-coordinate of second point
+
+pointPair = [[10, 10], [50, 50]];
+
+// pointPair = [[10, 10]]; // fails, second point coordinates missing
+// pointPair = [[10, 10], [50]]; // fails, one element is not of type [number, number]
+// pointPair = [[10], [50, 50]]; // fails, one element is not of type [number, number]
+// pointPair = [['a', 10], [50, 50]]; // fails, one element is not of type [number, number]
 
 // VoronoiPolygon -------------------------------------------------------
 
@@ -224,3 +234,18 @@ link = links[0];
 
 testDatum = link.source;
 testDatum = link.target;
+
+
+// find() ===============================================================
+
+let nearestSite: d3Voronoi.VoronoiSite<VoronoiTestDatum> | null;
+let wrongSiteDataType: d3Voronoi.VoronoiSite<[number, number]> | null;
+
+// Without search radius
+nearestSite = voronoiDiagram.find(10, 50);
+
+// With search radius
+nearestSite = voronoiDiagram.find(10, 50, 20);
+
+// wrong data type
+// wrongSiteDataType = voronoiDiagram.find(10, 50); // fails, due to data type mismatch

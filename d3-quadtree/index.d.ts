@@ -1,6 +1,6 @@
-// Type definitions for D3JS d3-quadtree module 1.0.0
+// Type definitions for D3JS d3-quadtree module v1.0.1
 // Project: https://github.com/d3/d3-quadtree/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -20,27 +20,27 @@ export interface QuadtreeLeaf<T> {
  *
  * A child quadrant may be undefined if it is empty.
  */
-export interface QuadtreeInternalNode<T> extends Array<QuadtreeInternalNode<T> | QuadtreeLeaf<T> | undefined> {}
+export interface QuadtreeInternalNode<T> extends Array<QuadtreeInternalNode<T> | QuadtreeLeaf<T> | undefined> { }
 
 export interface Quadtree<T> {
     x(): (d: T) => number;
-    x(x: (d: T) => number): Quadtree<T>;
+    x(x: (d: T) => number): this;
     y(): (d: T) => number;
-    y(y: (d: T) => number): Quadtree<T>;
+    y(y: (d: T) => number): this;
     extent(): [[number, number], [number, number]] | undefined;
-    extent(extend: [[number, number], [number, number]]): Quadtree<T>;
-    cover(x: number, y: number): Quadtree<T>;
-    add(datum: T): Quadtree<T>;
-    addAll(data: Array<T>): Quadtree<T>;
-    remove(datum: T): Quadtree<T>;
-    removeAll(data: Array<T>): Quadtree<T>;
+    extent(extend: [[number, number], [number, number]]): this;
+    cover(x: number, y: number): this;
+    add(datum: T): this;
+    addAll(data: Array<T>): this;
+    remove(datum: T): this;
+    removeAll(data: Array<T>): this;
     copy(): Quadtree<T>;
     root(): QuadtreeInternalNode<T> | QuadtreeLeaf<T>;
     data(): Array<T>;
     size(): number;
     find(x: number, y: number, radius?: number): T | undefined;
-    visit(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => (void | boolean)): Quadtree<T>;
-    visitAfter(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void): Quadtree<T>;
+    visit(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => (void | boolean)): this;
+    visitAfter(callback: (node: QuadtreeInternalNode<T> | QuadtreeLeaf<T>, x0: number, y0: number, x1: number, y1: number) => void): this;
 }
 
 

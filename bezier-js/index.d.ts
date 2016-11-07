@@ -2,7 +2,8 @@
 // Project: https://github.com/Pomax/bezierjs
 // Definitions by: Dan Marshall <https://github.com/danmarshall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-declare module BezierJs {
+
+declare namespace BezierJs {
     interface Point {
         x: number;
         y: number;
@@ -143,7 +144,8 @@ declare module BezierJs {
         virtual: boolean;
     }
 }
-declare module BezierJs.utils {
+
+declare namespace BezierJs.utils {
     var Tvalues: number[];
     var Cvalues: number[];
     function arcfn(t: number, derivativeFn: Function): number;
@@ -178,7 +180,8 @@ declare module BezierJs.utils {
     function pairiteration(c1: Bezier, c2: Bezier, curveIntersectionThreshold?: number): string[];
     function getccenter(p1: Point, p2: Point, p3: Point): Arc;
 }
-declare module BezierJs {
+
+declare namespace BezierJs {
     /**
      * Poly Bezier
      * @param {[type]} curves [description]
@@ -196,4 +199,8 @@ declare module BezierJs {
         bbox(): BBox;
         offset(d: number): PolyBezier;
     }
+}
+
+declare module "bezier-js" {
+  export = BezierJs;
 }

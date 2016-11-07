@@ -839,6 +839,11 @@ declare namespace uiGrid {
          */
         useExternalFiltering?: boolean;
         /**
+         * Disables client side sorting. When true, handle the sortChanged event and do the sorting there
+         * @default false
+         */
+        useExternalSorting?: boolean;
+        /**
          * Default time in milliseconds to throttle scroll events to, defaults to 70ms
          * @default 70
          */
@@ -3564,7 +3569,7 @@ declare namespace uiGrid {
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
-         * respectively. 
+         * respectively.
          */
         sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /** Column width */
@@ -3799,7 +3804,7 @@ declare namespace uiGrid {
          * Algorithm to use for sorting this column. Takes 'a' and 'b' parameters
          * like any normal sorting function with additional 'rowA', 'rowB', and 'direction'
          * parameters that are the row objects and the current direction of the sort
-         * respectively. 
+         * respectively.
          */
         sortingAlgorithm?: (a: any, b: any, rowA: IGridRowOf<TEntity>, rowB: IGridRowOf<TEntity>, direction: string) => number;
         /**

@@ -1,5 +1,3 @@
-/// <reference path="immutable.d.ts" />
-
 import immutable = require('immutable')
 
 // List tests
@@ -47,7 +45,7 @@ list = list.asImmutable();
 // Collection.Indexed
 let indexedSeq: immutable.Seq.Indexed<number> = list.toSeq();
 
-// Iterable tests 
+// Iterable tests
 let value: number = list.get(0);
 value = list.get(0, 1);
 list = list.interpose(0);
@@ -182,11 +180,11 @@ tuple = list.findLastEntry(
 value = list.findKey(
     (value: number, key: number, iter: immutable.List<number>) => true,
     null
-); 
+);
 value = list.findLastKey(
     (value: number, key: number, iter: immutable.List<number>) => true,
     null
-); 
+);
 value = list.keyOf(0);
 value = list.lastKeyOf(0);
 value = list.max((valA: number, valB: number) => 0);
@@ -302,7 +300,7 @@ let funcSeqIndexed: immutable.Seq.Indexed<number> = immutable.Range(0, 3, 1);
 funcSeqIndexed = immutable.Repeat<number>(2, 10);
 
 
-// Seq tests 
+// Seq tests
 let seq: immutable.Seq<string, number> = immutable.Seq<string, number>();
 bool = immutable.Seq.isSeq(seq);
 funcSeqIndexed = immutable.Seq.of<number>(0, 1, 2, 3);

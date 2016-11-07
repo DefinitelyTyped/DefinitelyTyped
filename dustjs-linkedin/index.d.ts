@@ -89,7 +89,7 @@ export interface Stream {
     * Registers an event listener. Streams accept a single listener for a given event.
     * @param evt the event. Possible values are data, end, error (maybe more, look in the source).
     */
-    on(evt: string, callback: (data?: any) => any): any;
+    on(evt: string, callback: (data?: any) => any): this;
 
     pipe(stream: Stream): Stream;
 }

@@ -3,13 +3,10 @@
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../react/react.d.ts"/>
-///<reference path="../react-router/react-router.d.ts"/>
+///<reference types="react"/>
+///<reference types="react-router"/>
 
 declare namespace ReactBreadcrumbs {
-    import React = __React;
-
-
     interface BreadcrumbsProps extends React.Props<Breadcrumbs> {
         separator?: string | JSX.Element;
         displayMissing?: boolean;
@@ -25,7 +22,7 @@ declare namespace ReactBreadcrumbs {
         activeItemClass?: string;
         excludes?: string[];
         hideNoPath?: boolean;
-        routes: ReactRouter.RouteConfig;
+        routes: ReactRouter.Router.RouteConfig;
         setDocumentTitle?: boolean;
         params?: any;  // todo make it compatible with params of the ReactRouter.RouteComponentProps<P, R>
     }

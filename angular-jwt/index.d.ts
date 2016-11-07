@@ -30,5 +30,12 @@ declare module 'angular' {
         interface IJwtInterceptor {
             tokenGetter(...params: any[]): string;
         }
+
+        interface IAuthManagerServiceProvider {
+            authenticate(): void;
+            unauthenticate(): void;
+            checkAuthOnRefresh(): void;
+            redirectWhenUnauthenticated(): void;
+        }
     }
 }

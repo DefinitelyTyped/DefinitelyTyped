@@ -6,7 +6,7 @@
  * are not intended as functional tests.
  */
 
-import * as d3 from 'd3-array';
+import * as d3Array from 'd3-array';
 import { scaleTime } from 'd3-scale';
 import { timeYear } from 'd3-time';
 
@@ -47,8 +47,8 @@ let date: Date;
 let extentNum: [number, number];
 let extentStr: [string, string];
 let extentNumeric: [NumCoercible, NumCoercible];
-let extentDateMixed: [d3.Primitive, d3.Primitive];
-let extentMixed: [d3.Primitive | NumCoercible, d3.Primitive | NumCoercible];
+let extentDateMixed: [d3Array.Primitive, d3Array.Primitive];
+let extentMixed: [d3Array.Primitive | NumCoercible, d3Array.Primitive | NumCoercible];
 let extentDate: [Date, Date];
 
 let numbersArray = [10, 20, 30, 40, 50];
@@ -72,35 +72,35 @@ let mixedObjectArray = [
 
 // without accessors
 
-num = d3.max(numbersArray);
-str = d3.max(stringyNumbersArray);
-numeric = d3.max(numericArray);
-date = d3.max(dateArray);
+num = d3Array.max(numbersArray);
+str = d3Array.max(stringyNumbersArray);
+numeric = d3Array.max(numericArray);
+date = d3Array.max(dateArray);
 
 // with accessors
 
-num = d3.max(mixedObjectArray, function (datum, index, array) {
+num = d3Array.max(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.num;
 });
 
-str = d3.max(mixedObjectArray, function (datum, index, array) {
+str = d3Array.max(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.str;
 });
 
-numeric = d3.max(mixedObjectArray, function (datum, index, array) {
+numeric = d3Array.max(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.numeric;
 });
 
-date = d3.max(mixedObjectArray, function (datum, index, array) {
+date = d3Array.max(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -111,35 +111,35 @@ date = d3.max(mixedObjectArray, function (datum, index, array) {
 
 // without accessors
 
-num = d3.min(numbersArray);
-str = d3.min(stringyNumbersArray);
-numeric = d3.min(numericArray);
-date = d3.min(dateArray);
+num = d3Array.min(numbersArray);
+str = d3Array.min(stringyNumbersArray);
+numeric = d3Array.min(numericArray);
+date = d3Array.min(dateArray);
 
 // with accessors
 
-num = d3.min(mixedObjectArray, function (datum, index, array) {
+num = d3Array.min(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.num;
 });
 
-str = d3.min(mixedObjectArray, function (datum, index, array) {
+str = d3Array.min(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.str;
 });
 
-numeric = d3.min(mixedObjectArray, function (datum, index, array) {
+numeric = d3Array.min(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.numeric;
 });
 
-date = d3.min(mixedObjectArray, function (datum, index, array) {
+date = d3Array.min(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -150,36 +150,36 @@ date = d3.min(mixedObjectArray, function (datum, index, array) {
 
 // without accessors
 
-extentNum = d3.extent(numbersArray);
-extentStr = d3.extent(stringyNumbersArray);
-extentNumeric = d3.extent(numericArray);
-extentDate = d3.extent(dateArray);
-extentMixed = d3.extent([new NumCoercible(10), 13, '12', true]);
+extentNum = d3Array.extent(numbersArray);
+extentStr = d3Array.extent(stringyNumbersArray);
+extentNumeric = d3Array.extent(numericArray);
+extentDate = d3Array.extent(dateArray);
+extentMixed = d3Array.extent<NumCoercible>([new NumCoercible(10), 13, '12', true]);
 
 // with accessors
 
-extentNum = d3.extent(mixedObjectArray, function (datum, index, array) {
+extentNum = d3Array.extent(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.num;
 });
 
-extentStr = d3.extent(mixedObjectArray, function (datum, index, array) {
+extentStr = d3Array.extent(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.str;
 });
 
-extentMixed = d3.extent(mixedObjectArray, function (datum, index, array) {
+extentMixed = d3Array.extent(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
     return datum.numeric;
 });
 
-extentDateMixed = d3.extent(mixedObjectArray, function (datum, index, array) {
+extentDateMixed = d3Array.extent(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -188,9 +188,9 @@ extentDateMixed = d3.extent(mixedObjectArray, function (datum, index, array) {
 
 // mean() ----------------------------------------------------------------------
 
-num = d3.mean(numbersArray);
+num = d3Array.mean(numbersArray);
 
-num = d3.mean(mixedObjectArray, function (datum, index, array) {
+num = d3Array.mean(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -199,9 +199,9 @@ num = d3.mean(mixedObjectArray, function (datum, index, array) {
 
 // median() --------------------------------------------------------------------
 
-num = d3.median(numbersArray);
+num = d3Array.median(numbersArray);
 
-num = d3.median(mixedObjectArray, function (datum, index, array) {
+num = d3Array.median(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -210,9 +210,9 @@ num = d3.median(mixedObjectArray, function (datum, index, array) {
 
 // quantile() ------------------------------------------------------------------
 
-num = d3.quantile(numbersArray, 0.5);
+num = d3Array.quantile(numbersArray, 0.5);
 
-num = d3.quantile(mixedObjectArray, 0.5, function (datum, index, array) {
+num = d3Array.quantile(mixedObjectArray, 0.5, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -222,9 +222,9 @@ num = d3.quantile(mixedObjectArray, 0.5, function (datum, index, array) {
 // sum() -----------------------------------------------------------------------
 
 
-num = d3.sum(numbersArray);
+num = d3Array.sum(numbersArray);
 
-num = d3.sum(mixedObjectArray, function (datum, index, array) {
+num = d3Array.sum(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -233,9 +233,9 @@ num = d3.sum(mixedObjectArray, function (datum, index, array) {
 
 // deviation() -----------------------------------------------------------------
 
-num = d3.deviation(numbersArray);
+num = d3Array.deviation(numbersArray);
 
-num = d3.deviation(mixedObjectArray, function (datum, index, array) {
+num = d3Array.deviation(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -244,9 +244,9 @@ num = d3.deviation(mixedObjectArray, function (datum, index, array) {
 
 // variance() ------------------------------------------------------------------
 
-num = d3.variance(numbersArray);
+num = d3Array.variance(numbersArray);
 
-num = d3.variance(mixedObjectArray, function (datum, index, array) {
+num = d3Array.variance(mixedObjectArray, function (datum, index, array) {
     let d: MixedObject = datum;
     let i: number = index;
     let arr: Array<MixedObject> = array;
@@ -259,65 +259,65 @@ num = d3.variance(mixedObjectArray, function (datum, index, array) {
 
 // scan() ----------------------------------------------------------------------
 
-num = d3.scan(mixedObjectArray, function (a, b) {
+num = d3Array.scan(mixedObjectArray, function (a, b) {
     return a.num - b.num; // a and b are of type MixedObject
 });
 
 // bisectLeft() ----------------------------------------------------------------
 
-num = d3.bisectLeft([0, 2, 3, 4, 7, 8], 4);
-num = d3.bisectLeft([0, 2, 3, 4, 7, 8], 4, 1);
-num = d3.bisectLeft([0, 2, 3, 4, 7, 8], 4, 1, 4);
+num = d3Array.bisectLeft([0, 2, 3, 4, 7, 8], 4);
+num = d3Array.bisectLeft([0, 2, 3, 4, 7, 8], 4, 1);
+num = d3Array.bisectLeft([0, 2, 3, 4, 7, 8], 4, 1, 4);
 
-num = d3.bisectLeft(['0', '2', '3', '4', '7', '8'], '21');
-num = d3.bisectLeft(['0', '2', '3', '4', '7', '8'], '21', 1);
-num = d3.bisectLeft(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
+num = d3Array.bisectLeft(['0', '2', '3', '4', '7', '8'], '21');
+num = d3Array.bisectLeft(['0', '2', '3', '4', '7', '8'], '21', 1);
+num = d3Array.bisectLeft(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
 
-num = d3.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
-num = d3.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
-num = d3.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
+num = d3Array.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
+num = d3Array.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
+num = d3Array.bisectLeft([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
 
 // bisectRight() ---------------------------------------------------------------
 
-num = d3.bisectRight([0, 2, 3, 4, 7, 8], 4);
-num = d3.bisectRight([0, 2, 3, 4, 7, 8], 4, 1);
-num = d3.bisectRight([0, 2, 3, 4, 7, 8], 4, 1, 4);
+num = d3Array.bisectRight([0, 2, 3, 4, 7, 8], 4);
+num = d3Array.bisectRight([0, 2, 3, 4, 7, 8], 4, 1);
+num = d3Array.bisectRight([0, 2, 3, 4, 7, 8], 4, 1, 4);
 
-num = d3.bisectRight(['0', '2', '3', '4', '7', '8'], '21');
-num = d3.bisectRight(['0', '2', '3', '4', '7', '8'], '21', 1);
-num = d3.bisectRight(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
+num = d3Array.bisectRight(['0', '2', '3', '4', '7', '8'], '21');
+num = d3Array.bisectRight(['0', '2', '3', '4', '7', '8'], '21', 1);
+num = d3Array.bisectRight(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
 
-num = d3.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
-num = d3.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
-num = d3.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
+num = d3Array.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
+num = d3Array.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
+num = d3Array.bisectRight([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
 
 // bisect() --------------------------------------------------------------------
 
-num = d3.bisect([0, 2, 3, 4, 7, 8], 4);
-num = d3.bisect([0, 2, 3, 4, 7, 8], 4, 1);
-num = d3.bisect([0, 2, 3, 4, 7, 8], 4, 1, 4);
+num = d3Array.bisect([0, 2, 3, 4, 7, 8], 4);
+num = d3Array.bisect([0, 2, 3, 4, 7, 8], 4, 1);
+num = d3Array.bisect([0, 2, 3, 4, 7, 8], 4, 1, 4);
 
-num = d3.bisect(['0', '2', '3', '4', '7', '8'], '21');
-num = d3.bisect(['0', '2', '3', '4', '7', '8'], '21', 1);
-num = d3.bisect(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
+num = d3Array.bisect(['0', '2', '3', '4', '7', '8'], '21');
+num = d3Array.bisect(['0', '2', '3', '4', '7', '8'], '21', 1);
+num = d3Array.bisect(['0', '2', '3', '4', '7', '8'], '21', 1, 4);
 
-num = d3.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
-num = d3.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
-num = d3.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
+num = d3Array.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1));
+num = d3Array.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1);
+num = d3Array.bisect([new Date(2010, 1, 1), new Date(2011, 1, 1), new Date(2012, 1, 1), new Date(2013, 1, 1)], new Date(2011, 2, 1), 1, 2);
 
 // bisector() ------------------------------------------------------------------
 
 mixedObjectArray.sort(function (a, b) { return a.date.valueOf() - b.date.valueOf(); });
 
-let mixedObjectDateBisectorObject: d3.Bisector<MixedObject, Date>;
+let mixedObjectDateBisectorObject: d3Array.Bisector<MixedObject, Date>;
 
 // define using accessor
-mixedObjectDateBisectorObject = d3.bisector<MixedObject, Date>(function (el) {
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el) {
     return el.date;
 });
 
 // define using comparator
-mixedObjectDateBisectorObject = d3.bisector<MixedObject, Date>(function (el, x) {
+mixedObjectDateBisectorObject = d3Array.bisector<MixedObject, Date>(function (el, x) {
     return el.date.valueOf() - x.valueOf();
 });
 
@@ -334,15 +334,15 @@ num = mixedObjectDateBisectorObject.right(mixedObjectArray, new Date(2015, 3, 14
 
 // ascending() -----------------------------------------------------------------
 
-num = d3.ascending(10, 20);
-num = d3.ascending('10', '20');
-num = d3.ascending(new Date(2016, 6, 13), new Date(2016, 6, 14));
+num = d3Array.ascending(10, 20);
+num = d3Array.ascending('10', '20');
+num = d3Array.ascending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // descending() ----------------------------------------------------------------
 
-num = d3.descending(10, 20);
-num = d3.descending('10', '20');
-num = d3.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
+num = d3Array.descending(10, 20);
+num = d3Array.descending('10', '20');
+num = d3Array.descending(new Date(2016, 6, 13), new Date(2016, 6, 14));
 
 // -----------------------------------------------------------------------------
 // Test Transforming  Arrays
@@ -367,20 +367,20 @@ let testArrays: MixedObject[][] = [
 
 let mergedArray: MixedObject[];
 
-mergedArray = d3.merge(testArrays); // inferred type
-mergedArray = d3.merge<MixedObject>(testArrays); // explicit type
+mergedArray = d3Array.merge(testArrays); // inferred type
+mergedArray = d3Array.merge<MixedObject>(testArrays); // explicit type
 // mergedArray = d3.merge<MixedObject>([[10, 40, 30], [15, 30]]); // fails, type mismatch
 
 // pairs() ---------------------------------------------------------------------
 
 let pairs: Array<[MixedObject, MixedObject]>;
 
-pairs = d3.pairs(mergedArray);
+pairs = d3Array.pairs(mergedArray);
 
 // permute() -------------------------------------------------------------------
 
 // getting a permutation of array elements
-mergedArray = d3.permute(mergedArray, [1, 0, 2, 5, 3, 4, 6]);
+mergedArray = d3Array.permute(mergedArray, [1, 0, 2, 5, 3, 4, 6]);
 
 // Getting an ordered array with object properties
 
@@ -391,35 +391,35 @@ let testObject = {
     more: [10, 30, 40]
 };
 
-let x: Array<number | string | Date | number[]> = d3.permute(testObject, ['name', 'val', 'when', 'more']);
+let x: Array<number | string | Date | number[]> = d3Array.permute(testObject, ['name', 'val', 'when', 'more']);
 
 
 // range() ---------------------------------------------------------------------
 
-numbersArray = d3.range(10);
-numbersArray = d3.range(1, 10);
-numbersArray = d3.range(1, 10, 0.5);
+numbersArray = d3Array.range(10);
+numbersArray = d3Array.range(1, 10);
+numbersArray = d3Array.range(1, 10, 0.5);
 
 // shuffle() -------------------------------------------------------------------
 
-mergedArray = d3.shuffle(mergedArray);
+mergedArray = d3Array.shuffle(mergedArray);
 
-mergedArray = d3.shuffle(mergedArray, 1);
+mergedArray = d3Array.shuffle(mergedArray, 1);
 
-mergedArray = d3.shuffle(mergedArray, 1, 3);
+mergedArray = d3Array.shuffle(mergedArray, 1, 3);
 
 
 // ticks() ---------------------------------------------------------------------
 
-numbersArray = d3.ticks(1, 10, 5);
+numbersArray = d3Array.ticks(1, 10, 5);
 
 // tickStep() ------------------------------------------------------------------
 
-numbersArray = d3.tickStep(1, 10, 5);
+numbersArray = d3Array.tickStep(1, 10, 5);
 
 // transpose() -----------------------------------------------------------------
 
-testArrays = d3.transpose([
+testArrays = d3Array.transpose([
     [
         new MixedObject(10, new Date(2016, 6, 1)),
         new MixedObject(50, new Date(2017, 4, 15))
@@ -432,7 +432,7 @@ testArrays = d3.transpose([
 
 // zip() -----------------------------------------------------------------------
 
-testArrays = d3.zip(
+testArrays = d3Array.zip(
     [
         new MixedObject(10, new Date(2016, 6, 1)),
         new MixedObject(20, new Date(2016, 7, 30)),
@@ -454,11 +454,11 @@ let tScale = scaleTime();
 
 // Create histogram generator ==================================================
 
-let defaultHistogram: d3.HistogramGenerator<number, number>;
-defaultHistogram = d3.histogram();
+let defaultHistogram: d3Array.HistogramGenerator<number, number>;
+defaultHistogram = d3Array.histogram();
 
-let testHistogram: d3.HistogramGenerator<MixedObject, Date>;
-testHistogram = d3.histogram<MixedObject, Date>();
+let testHistogram: d3Array.HistogramGenerator<MixedObject, Date>;
+testHistogram = d3Array.histogram<MixedObject, Date>();
 
 // Configure histogram generator ===============================================
 
@@ -501,7 +501,7 @@ domainAccessorFn = testHistogram.domain();
 defaultHistogram = defaultHistogram.thresholds(3);
 
 // with threshold count generator
-defaultHistogram = defaultHistogram.thresholds(d3.thresholdScott);
+defaultHistogram = defaultHistogram.thresholds(d3Array.thresholdScott);
 
 // with thresholds value array
 
@@ -518,10 +518,10 @@ testHistogram = testHistogram.thresholds(tScale.ticks(timeYear));
 
 // Use histogram generator =====================================================
 
-let defaultBins: Array<d3.Bin<number, number>>;
+let defaultBins: Array<d3Array.Bin<number, number>>;
 defaultBins = defaultHistogram([-1, 0, 1, 1, 3, 20, 234]);
 
-let defaultBin: d3.Bin<number, number>;
+let defaultBin: d3Array.Bin<number, number>;
 defaultBin = defaultBins[0];
 
 num = defaultBin.length; // defaultBin is array
@@ -529,10 +529,10 @@ num = defaultBin[0]; // with element type number
 num = defaultBin.x0; // bin lower bound is number
 num = defaultBin.x1; // bin upper bound is number
 
-let testBins: Array<d3.Bin<MixedObject, Date>>;
+let testBins: Array<d3Array.Bin<MixedObject, Date>>;
 testBins = testHistogram(mixedObjectArray);
 
-let testBin: d3.Bin<MixedObject, Date>;
+let testBin: d3Array.Bin<MixedObject, Date>;
 testBin = testBins[0];
 
 num = testBin.length; // defaultBin is array
@@ -544,8 +544,8 @@ date = testBin.x1; // bin upper bound is Date
 
 // Histogram Tresholds =========================================================
 
-num = d3.thresholdFreedmanDiaconis([-1, 0, 1, 1, 3, 20, 234], -1, 234);
+num = d3Array.thresholdFreedmanDiaconis([-1, 0, 1, 1, 3, 20, 234], -1, 234);
 
-num = d3.thresholdScott([-1, 0, 1, 1, 3, 20, 234], -1, 234);
+num = d3Array.thresholdScott([-1, 0, 1, 1, 3, 20, 234], -1, 234);
 
-num = d3.thresholdSturges([-1, 0, 1, 1, 3, 20, 234]);
+num = d3Array.thresholdSturges([-1, 0, 1, 1, 3, 20, 234]);

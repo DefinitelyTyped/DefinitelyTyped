@@ -206,6 +206,7 @@ declare namespace ReactBootstrap {
         title?: string;
         useAnchor?: boolean;
         bsClass?:string; // Added since v0.30.0
+        bsStyle?:string;
     }
     class DropdownToggle extends React.Component<DropdownToggleProps, any> { }
 
@@ -428,6 +429,7 @@ declare namespace ReactBootstrap {
         rootClose?: boolean;
         show?: boolean;
         target?: Function;
+        shouldUpdatePosition?: boolean;
     }
     class Overlay extends React.Component<OverlayProps, {}> {
     }

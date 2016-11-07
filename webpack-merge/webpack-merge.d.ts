@@ -3,7 +3,7 @@
 // Definitions by: Simon Hartcher <https://github.com/deevus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path="../webpack/webpack.d.ts" />
+///<reference types="webpack" />
 
 declare module "webpack-merge" {
     import {Configuration} from "webpack";

@@ -1,49 +1,65 @@
-/// <reference path="aws-lambda.d.ts" />
+/// <reference types="aws-lambda" />
 
-import lambda = require('aws-lambda');
-
-var str: string;
-var date: Date;
-var sns: lambda.SNS;
-var kinesis: lambda.Kinesis;
-var recordsList: lambda.Record[];
-var anyObj: any;
-var num: number;
-
-/* Records */
-var records: lambda.Records;
-
-recordsList = records.Records;
-
-/* Record */
-var record: lambda.Record;
-
-str = record.EventVersion;
-str = record.EventSubscriptionArn;
-str = record.EnventSource;
-sns = record.Sns;
-kinesis = record.kinesis;
-
-/* SNS */
-str = sns.Type;
-str = sns.MessageId;
-str = sns.TopicArn;
-str = sns.Subject;
-str = sns.Message;
-date = sns.Timestamp;
-
-/* Kinesis */
-var kinesis: lambda.Kinesis;
-
-str = kinesis.data;
+var str: string = "any string";
+var date: Date = new Date();
+var anyObj: any = { abc: 123 };
+var num: number = 5;
+var error: Error = new Error();
+var b: boolean = true;
+var clientCtx: AWSLambda.ClientContext;
+var clientContextEnv: AWSLambda.ClientContextEnv;
+var clientContextClient: AWSLambda.ClientContextClient;
+var context: AWSLambda.Context;
+var identity: AWSLambda.CognitoIdentity;
 
 /* Context */
-var context: lambda.Context;
+b = context.callbackWaitsForEmptyEventLoop;
+str = context.functionName;
+str = context.functionVersion;
+str = context.invokedFunctionArn;
+num = context.memoryLimitInMB;
+str = context.awsRequestId;
+str = context.logGroupName;
+str = context.logStreamName;
+identity = context.identity;
+clientCtx = context.clientContext;
 
-context.log(str, anyObj);
-context.fail(str);
+/* CognitoIdentity */
+str = identity.cognitoIdentityId;
+str = identity.cognitoIdentityPoolId;
+
+/* ClientContext */
+clientContextClient = clientCtx.client;
+anyObj = clientCtx.Custom;
+clientContextEnv = clientCtx.env;
+
+/* ClientContextEnv */
+str = clientContextEnv.locale;
+str = clientContextEnv.make;
+str = clientContextEnv.model;
+str = clientContextEnv.platform;
+str = clientContextEnv.platformVersion;
+
+/* ClientContextClient */
+str = clientContextClient.appPackageName;
+str = clientContextClient.appTitle;
+str = clientContextClient.appVersionCode;
+str = clientContextClient.appVersionName;
+str = clientContextClient.installationId;
+
+/* Callback */
+function callback(cb: AWSLambda.Callback) {
+    cb();
+    cb(null);
+    cb(error);
+    cb(null, anyObj);
+}
+/* Compatibility functions */
+context.done();
+context.done(error);
+context.done(error, anyObj);
 context.succeed(str);
 context.succeed(anyObj);
 context.succeed(str, anyObj);
-str = context.awsRequestId;
-num = context.getRemainingTimeInMillis();
+context.fail(error);
+context.fail(str);

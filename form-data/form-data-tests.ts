@@ -4,7 +4,7 @@ import FormData = require('form-data');
 import fs = require('fs');
 import http = require('http');
 import request = require('request');
-import fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 import * as ImportUsingES6Syntax from 'form-data';
 

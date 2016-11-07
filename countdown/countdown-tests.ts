@@ -1,15 +1,13 @@
-/// <reference path="countdown.d.ts" />
+import * as countdown from 'countdown';
 
-import { countdown, Timespan, CountdownStatic, Format } from 'countdown';
-
-let ts: Timespan;
+let ts: countdown.Timespan;
 let interval: number;
 
-ts = <Timespan>countdown(new Date());
-ts = <Timespan>countdown(150);
+ts = <countdown.Timespan>countdown(new Date());
+ts = <countdown.Timespan>countdown(150);
 
 interval = <number>countdown(new Date(),
-    function (ts: Timespan) {
+    function (ts: countdown.Timespan) {
         document.getElementById('pageTimer').innerHTML = ts.toHTML('strong');
     },
     countdown.HOURS | countdown.MINUTES | countdown.SECONDS,

@@ -1,13 +1,12 @@
 // Type definitions for react-router v2.0.0
 // Project: https://github.com/rackt/react-router
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Yuichi Murata <https://github.com/mrk21>, Václav Ostrožlík <https://github.com/vasek17>, Nathan Brown <https://github.com/ngbrown>, Alex Wendland <https://github.com/awendland>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace ReactRouter;
 
 import * as React from 'react';
 
-    
 export const routerShape: React.Requireable<any>
 
 export const locationShape: React.Requireable<any>
@@ -32,6 +31,8 @@ import PropTypes from "./lib/PropTypes";
 import match from "./lib/match";
 import useRouterHistory from "./lib/useRouterHistory";
 import createMemoryHistory from "./lib/createMemoryHistory";
+import withRouter from "./lib/withRouter";
+import applyRouterMiddleware from "./lib/applyRouterMiddleware";
 
 // PlainRoute is defined in the API documented at:
 // https://github.com/rackt/react-router/blob/master/docs/API.md
@@ -45,13 +46,17 @@ export type EnterHook = Router.EnterHook;
 export type LeaveHook = Router.LeaveHook;
 export type ParseQueryString = Router.ParseQueryString;
 export type RedirectFunction = Router.RedirectFunction;
+export type RouteComponent = Router.RouteComponent;
 export type RouteComponentProps<P, R> = Router.RouteComponentProps<P, R>;
 export type RouteHook = Router.RouteHook;
 export type StringifyQuery = Router.StringifyQuery;
 export type RouterListener = Router.RouterListener;
 export type RouterState = Router.RouterState;
+export type InjectedRouter = Router.InjectedRouter;
+
 export type HistoryBase = History.HistoryBase;
 export type RouterOnContext = Router.RouterOnContext;
+export type RouteProps = Route.RouteProps;
 export type LinkProps = Link.LinkProps;
 
 export {
@@ -74,7 +79,9 @@ export {
     PropTypes,
     match,
     useRouterHistory,
-    createMemoryHistory
+    createMemoryHistory,
+    withRouter,
+    applyRouterMiddleware
 };
 
 export default Router;

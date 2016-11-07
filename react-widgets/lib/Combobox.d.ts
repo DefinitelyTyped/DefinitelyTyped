@@ -56,7 +56,7 @@ interface ComboBoxProps extends React.Props<ComboBoxClass> {
      * textField` prop may also also used as to find an item in the list as you type. Providing
      * an accessor function allows for computed text values
      */
-    textField?: string;
+    textField?: string | ((dataItem: any) => string);
     /**
      * This component is used to render each possible item in the Combobox. The default
      * component renders the text of the selected item (specified by textfield)

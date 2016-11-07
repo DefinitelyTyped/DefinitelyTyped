@@ -16,7 +16,7 @@ import {
 
 import * as d3Transition from 'd3-transition';
 import {
-    interpolateNumber,
+    interpolateString,
     interpolateRgb
 } from 'd3-interpolate';
 
@@ -103,12 +103,13 @@ exitTransition = exitCircles.transition('exit');
 let newEnterTransition: d3Transition.Transition<SVGCircleElement, CircleDatum, SVGSVGElement, SVGDatum>;
 newEnterTransition = enterCircles.transition(enterTransition);
 
-let wrongElementTypeTransition: d3Transition.Transition<HTMLDivElement, CircleDatum, HTMLBodyElement, any>;
-let wrongDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { wrong: string }, SVGSVGElement, any>;
+let differentElementTypeTransition: d3Transition.Transition<SVGSVGElement, CircleDatum, HTMLBodyElement, any>;
+let differentDatumTypeTransition: d3Transition.Transition<SVGCircleElement, { differrent: string }, SVGSVGElement, any>;
 
-newEnterTransition = enterCircles.transition(enterTransition);
-// newEnterTransition = enterCircles.transition(wrongElementTypeTransition);// fails, wrong group element type
-// newEnterTransition = enterCircles.transition(wrongDatumTypeTransition);// fails, wrong datum type
+// Comparable use cases arise e.g. when using an existing transition to generate a new transition
+// on a different selection to synchronize them (see e.g. Mike Bostock's Brush & Zoom II Example https://bl.ocks.org/mbostock/f48fcdb929a620ed97877e4678ab15e6)
+newEnterTransition = enterCircles.transition(differentElementTypeTransition);
+newEnterTransition = enterCircles.transition(differentDatumTypeTransition);
 
 // --------------------------------------------------------------------------
 // Test Transition Configuration (Timing)
@@ -242,7 +243,7 @@ select<HTMLBodyElement, { test: string }>('body')
 
 enterTransition = enterTransition.attrTween('r', function (d, i, group) {
     console.log(this.r.baseVal.value); // this type is SVGCircleElement
-    return interpolateNumber(0, d.r); // datum type is CircleDatum
+    return interpolateString(0, d.r); // datum type is CircleDatum
 });
 
 exitTransition = exitTransition.styleTween('fill', function (d, i, group) {
@@ -374,10 +375,14 @@ topTransition = d3Transition.transition('top');
 
 // test creation from existing transition
 
-newEnterTransition = d3Transition.transition(enterTransition);
-// newEnterTransition = d3Transition.transition(wrongElementTypeTransition);// fails, wrong group element type
-// newEnterTransition = d3Transition.transition(wrongDatumTypeTransition);// fails, wrong datum type
+topTransition = d3Transition.transition(enterTransition);
 
+// tests with pre-existing datum (typed as string)
+// set datum with a type of string
+select('html').datum('test');
+let topTransition2: d3Transition.Transition<HTMLElement, string, null, undefined>;
+topTransition2 = d3Transition.transition<string>('top');
+topTransition2 = d3Transition.transition<string>(enterTransition);
 
 // active(...) ----------------------------------------------------------
 

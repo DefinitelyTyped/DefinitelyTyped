@@ -17,7 +17,7 @@ declare namespace LRU {
     }
 
     interface Cache<T> {
-        set(key: any, value: T): void;
+        set(key: any, value: T, maxAge?: number): void;
         get(key: any): T;
         peek(key: any): T;
         has(key: any): boolean

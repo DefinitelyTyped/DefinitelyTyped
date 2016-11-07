@@ -1,6 +1,6 @@
-// Type definitions for D3JS d3-queue module 3.0.1
+// Type definitions for D3JS d3-queue module v3.0.2
 // Project: https://github.com/d3/d3-queue/
-// Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

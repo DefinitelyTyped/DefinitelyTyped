@@ -20,6 +20,27 @@ export class EnvironmentCredentials extends Credentials {
     constructor(profile: string);
 }
 
+export module CognitoIdentity {
+    export interface CognitoIdentityCredentialsParams {
+        IdentityPoolId?: string;
+        AccountId?: string;
+        Logins?: { [k: string]: any };
+
+        RoleArn?: string;
+        RoleSessionName?: string;
+        WebIdentityToken?: string;
+        ProviderId?: string;
+        Policy?: string;
+        DurationSeconds?: number;
+
+        IdentityId?: string;
+    }
+}
+
+export class CognitoIdentityCredentials extends Credentials {
+    constructor(params: CognitoIdentity.CognitoIdentityCredentialsParams);
+}
+
 export interface Logger {
     write?: (chunk: any, encoding?: string, callback?: () => void) => void;
     log?: (...messages: any[]) => void;
@@ -45,6 +66,51 @@ export declare class Endpoint {
 
 interface AwsError extends Error {
     stack: string;
+}
+
+export interface RetryDelayOption {
+    base?: number;
+    customBackoff?: (retryCount: number) => number;
+}
+
+export interface Ebs {
+    SnapshotId?: string;
+    VolumeSize?: number;
+    VolumeType?: string;
+    DeleteOnTermination?: boolean;
+    Iops?: number;
+    Encrypted?: boolean;
+}
+
+export interface BlockDeviceMapping {
+    VirtualName?: string;
+    DeviceName: string;
+    Ebs?: Ebs;
+    NoDevice?: boolean;
+}
+
+export interface InstanceMonitoring {
+    SpotPrice?: string;
+    Enabled?: boolean;
+}
+
+export interface Filter {
+    Name?: string;
+    Values?: boolean;
+}
+
+export interface StepAdjustment {
+    scalingAdjustment: number;
+    metricIntervalLowerBound?: number;
+    metricIntervalUpperBound?: number;
+}
+
+export interface Tags {
+    resourceId?: string;
+    resourceType?: string;
+    key: string;
+    value?: string;
+    propagateAtLaunch?: boolean;
 }
 
 export interface Services {
@@ -114,6 +180,37 @@ export interface ClientConfig extends ClientConfigPartial {
     region: string;
 }
 
+export declare class CloudFormation {
+    constructor(options?: CloudFormation.Options);
+    endpoint: Endpoint;
+
+    cancelUpdateStack(params: CloudFormation.CancelUpdateStackParams, callback: (err: AwsError, data: any) => void): void;
+    continueUpdateRollback(params: CloudFormation.ContinueUpdateRollbackParams, callback: (err: AwsError, data: any) => void): void;
+    createChangeSet(params: CloudFormation.CreateChangeSetParams, callback: (err: AwsError, data: any) => void): void;
+    createStack(params: CloudFormation.CreateStackParams, callback: (err: AwsError, data: any) => void): void;
+    deleteChangeSet(params: CloudFormation.DeleteChangeSetParams, callback: (err: AwsError, data: any) => void): void;
+    deleteStack(params: CloudFormation.DeleteStackParams, callback: (err: AwsError, data: any) => void): void;
+    describeAccountLimits(params: CloudFormation.DescribeAccountLimitsParams, callback: (err: AwsError, data: any) => void): void;
+    describeChangeSet(params: CloudFormation.DescribeChangeSetParams, callback: (err: AwsError, data: any) => void): void;
+    describeStackEvents(params: CloudFormation.DescribeStackEventsParams, callback: (err: AwsError, data: any) => void): void;
+    describeStackResource(params: CloudFormation.DescribeStackResourceParams, callback: (err: AwsError, data: any) => void): void;
+    describeStackResources(params: CloudFormation.DescribeStackResourcesParams, callback: (err: AwsError, data: any) => void): void;
+    describeStacks(params: CloudFormation.DescribeStacksParams, callback: (err: AwsError, data: any) => void): void;
+    estimateTemplateCost(params: CloudFormation.EstimateTemplateCostParams, callback: (err: AwsError, data: any) => void): void;
+    executeChangeSet(params: CloudFormation.ExecuteChangeSetParams, callback: (err: AwsError, data: any) => void): void;
+    getStackPolicy(params: CloudFormation.GetStackPolicyParams, callback: (err: AwsError, data: any) => void): void;
+    getTemplate(params: CloudFormation.GetTemplateParams, callback: (err: AwsError, data: any) => void): void;
+    getTemplateSummary(params: CloudFormation.GetTemplateSummaryParams, callback: (err: AwsError, data: any) => void): void;
+    listChangeSets(params: CloudFormation.ListChangeSetsParams, callback: (err: AwsError, data: any) => void): void;
+    listStackResources(params: CloudFormation.ListStackResourcesParams, callback: (err: AwsError, data: any) => void): void;
+    listStacks(params: CloudFormation.ListStacksParams, callback: (err: AwsError, data: any) => void): void;
+    setStackPolicy(params: CloudFormation.SetStackPolicyParams, callback: (err: AwsError, data: any) => void): void;
+    signalResource(params: CloudFormation.SignalResourceParams, callback: (err: AwsError, data: any) => void): void;
+    updateStack(params: CloudFormation.UpdateStackParams, callback: (err: AwsError, data: any) => void): void;
+    validateTemplate(params: CloudFormation.ValidateTemplateParams, callback: (err: AwsError, data: any) => void): void;
+    waitFor(state: string, params: CloudFormation.WaitForParams, callback: (err: AwsError, data: any) => void): void;
+}
+
 export declare class Lambda {
     constructor(options?: any);
     endpoint: Endpoint;
@@ -143,7 +240,65 @@ export declare class Lambda {
     updateFunctionConfiguration(params: Lambda.UpdateFunctionConfigurationParams, callback: (err: AwsError, data: any) => void): void;
 }
 
-export declare class SQS {
+export class AutoScaling {
+    constructor(options?: any);
+    endpoint: Endpoint;
+
+    attachInstances(params: AutoScaling.AttachInstancesParams, callback: (err: AwsError, data: any) => void): void;
+    attachLoadBalancers(params: AutoScaling.AttachLoadBalancersParams, callback: (err: AwsError, data: any) => void): void;
+    attachLoadBalancerTargetGroups(param: AutoScaling.AttachLoadBalancerTargetGroupsParams, callback: (err: AwsError, data: any) => void): void;
+    completeLifecycleAction(param: AutoScaling.CompleteLifecycleActionParams, callback: (err: AwsError, data: any) => void): void;
+    createAutoScalingGroup(param: AutoScaling.CreateAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
+    createLaunchConfiguration(param: AutoScaling.CreateLaunchConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+    createOrUpdateTags(param: AutoScaling.CreateOrUpdateTagsParams, callback: (err: AwsError, data: any) => void): void;
+    deleteAutoScalingGroup(param: AutoScaling.DeleteAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
+    deleteLaunchConfiguration(param: AutoScaling.DeleteLaunchConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+    deleteLifecycleHook(param: AutoScaling.DeleteLifecycleHookParams, callback: (err: AwsError, data: any) => void): void;
+    deleteNotificationConfiguration(param: AutoScaling.DeleteNotificationConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+    deletePolicy(param: AutoScaling.DeletePolicyParams, callback: (err: AwsError, data: any) => void): void;
+    deleteScheduledAction(param: AutoScaling.DeleteScheduledActionParams, callback: (err: AwsError, data: any) => void): void;
+    deleteTags(param: AutoScaling.DeleteTagsParams, callback: (err: AwsError, data: any) => void): void;
+    describeAccountLimits(callback: (err: AwsError, data: any) => void): void;
+    describeAdjustmentTypes(callback: (err: AwsError, data: any) => void): void;
+    describeAutoScalingGroups(param: AutoScaling.DescribeAutoScalingGroupsParams, callback: (err: AwsError, data: any) => void): void;
+    describeAutoScalingInstances(param: AutoScaling.DescribeAutoScalingInstancesParams, callback: (err: AwsError, data: any) => void): void;
+    describeAutoScalingNotificationTypes(callback: (err: AwsError, data: any) => void): void;
+    describeLaunchConfigurations(param: AutoScaling.DescribeLaunchConfigurationsParams, callback: (err: AwsError, data: any) => void): void;
+    describeLifecycleHooks(param: AutoScaling.DescribeLifecycleHooksParams, callback: (err: AwsError, data: any) => void): void;
+    describeLifecycleHookTypes(callback: (err: AwsError, data: any) => void): void;
+    describeLoadBalancers(param: AutoScaling.DescribeLoadBalancersParams, callback: (err: AwsError, data: any) => void): void;
+    describeLoadBalancerTargetGroups(param: AutoScaling.DescribeLoadBalancerTargetGroupsParams, callback: (err: AwsError, data: any) => void): void;
+    describeMetricCollectionTypes(callback: (err: AwsError, data: any) => void): void;
+    describeNotificationConfigurations(param: AutoScaling.DescribeNotificationConfigurationsParams, callback: (err: AwsError, data: any) => void): void;
+    describePolicies(param: AutoScaling.DescribePoliciesParams, callback: (err: AwsError, data: any) => void): void;
+    describeScalingActivities(param: AutoScaling.DescribeScalingActivitiesParams, callback: (err: AwsError, data: any) => void): void;
+    describeScalingProcessTypes(callback: (err: AwsError, data: any) => void): void;
+    describeScheduledActions(param: AutoScaling.DescribeScheduledActionsParams, callback: (err: AwsError, data: any) => void): void;
+    describeTags(param: AutoScaling.DescribeTagsParams, callback: (err: AwsError, data: any) => void): void;
+    describeTerminationPolicyTypes(callback: (err: AwsError, data: any) => void): void;
+    detachInstances(param: AutoScaling.DetachInstancesParams, callback: (err: AwsError, data: any) => void): void;
+    detachLoadBalancers(param: AutoScaling.DetachLoadBalancersParams, callback: (err: AwsError, data: any) => void): void;
+    detachLoadBalancerTargetGroups(param: AutoScaling.DetachLoadBalancerTargetGroupsParams, callback: (err: AwsError, data: any) => void): void;
+    disableMetricsCollection(param: AutoScaling.DisableMetricsCollectionParams, callback: (err: AwsError, data: any) => void): void;
+    enableMetricsCollection(param: AutoScaling.EnableMetricsCollectionParams, callback: (err: AwsError, data: any) => void): void;
+    enterStandby(param: AutoScaling.EnterStandbyParams, callback: (err: AwsError, data: any) => void): void;
+    executePolicy(param: AutoScaling.ExecutePolicyParams, callback: (err: AwsError, data: any) => void): void;
+    exitStandby(param: AutoScaling.ExitStandbyParams, callback: (err: AwsError, data: any) => void): void;
+    putLifecycleHook(param: AutoScaling.PutLifecycleHookParams, callback: (err: AwsError, data: any) => void): void;
+    putNotificationConfiguration(param: AutoScaling.PutNotificationConfigurationParams, callback: (err: AwsError, data: any) => void): void;
+    putScalingPolicy(param: AutoScaling.PutScalingPolicyParams, callback: (err: AwsError, data: any) => void): void;
+    putScheduledUpdateGroupAction(param: AutoScaling.PutScheduledUpdateGroupActionParams, callback: (err: AwsError, data: any) => void): void;
+    recordLifecycleActionHeartbeat(params: AutoScaling.RecordLifecycleActionHeartbeatParams, callback: (err: AwsError, data: any) => void): void;
+    resumeProcesses(params: AutoScaling.ResumeProcessesParams, callback: (err: AwsError, data: any) => void): void;
+    setDesiredCapacity(params: AutoScaling.SetDesiredCapacityParams, callback: (err: AwsError, data: any) => void): void;
+    setInstanceHealth(params: AutoScaling.SetInstanceHealthParams, callback: (err: AwsError, data: any) => void): void;
+    setInstanceProtection(params: AutoScaling.SetInstanceProtectionParams, callback: (err: AwsError, data: any) => void): void;
+    suspendProcesses(params: AutoScaling.SuspendProcessesParams, callback: (err: AwsError, data: any) => void): void;
+    terminateInstanceInAutoScalingGroup(params: AutoScaling.TerminateInstanceInAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
+    updateAutoScalingGroup(params: AutoScaling.UpdateAutoScalingGroupParams, callback: (err: AwsError, data: any) => void): void;
+  }
+
+export class SQS {
     constructor(options?: any);
     endpoint: Endpoint;
 
@@ -222,7 +377,7 @@ export declare class S3 {
     constructor(options?: any);
     endpoint: Endpoint;
 
-    getObject(params: s3.GetObjectRequest, callback: (err: Error, data: any) => void): void;
+    getObject(params: s3.GetObjectRequest, callback?: (err: Error, data: any) => void): any;
     putObject(params: s3.PutObjectRequest, callback: (err: Error, data: any) => void): void;
     deleteObject(params: s3.DeleteObjectRequest, callback: (err: Error, data: any) => void): void;
     headObject(params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
@@ -231,7 +386,13 @@ export declare class S3 {
     upload(params?: s3.PutObjectRequest, options?: s3.UploadOptions, callback?: (err: Error, data: any) => void): void;
     listObjects(params: s3.ListObjectRequest, callback: (err: Error, data: s3.ListObjectResponse) => void): void;
     listObjectsV2(params: s3.ListObjectV2Request, callback: (err: Error, data: s3.ListObjectV2Response) => void): void;
-}
+    waitFor(state: string, params: s3.HeadObjectRequest, callback: (err: Error, data: any) => void): void;
+
+    createMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
+    uploadPart(params: any, callback: (err: Error, data: any) => void): void;
+    listParts(params: any, callback: (err: Error, data: any) => void): void;
+    completeMultipartUpload(params: any, callback: (err: Error, data: any) => void): void;
+  }
 
 
 export class STS {
@@ -242,7 +403,7 @@ export class STS {
      */
     assumeRole(params: sts.AssumeRoleParams, callback: (err: any, data: any) => void): void;
     /**
-     * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response. 
+     * Returns a set of temporary security credentials for users who have been authenticated via a SAML authentication response.
      */
     assumeRoleWithSAML(params: sts.AssumeRoleWithSAMLParams, callback: (err: any, data: any) => void): void;
 
@@ -361,7 +522,8 @@ export declare module DynamoDB {
 
     interface UpdateParam extends _DDBDC_Writer {
         Key: _DDBDC_Keys;
-        AttributeUpdates: {
+      UpdateExpression?: string;
+      AttributeUpdates?: {
             [someKey: string]: {
                 Action: "PUT" | "ADD" | "DELETE";
                 Value: any
@@ -414,6 +576,213 @@ export declare module DynamoDB {
         batchWrite(params: any, next: (err: any, data: any) => void): void;
     }
 
+}
+
+// ===========================================================
+
+export module CloudFormation {
+    export interface CancelUpdateStackParams {
+        StackName: string;
+    }
+
+    export interface ContinueUpdateRollbackParams {
+        StackName: string;
+    }
+
+    export interface CreateChangeSetParams {
+        StackName: string;
+        TemplateBody?: string;  //  specify either TemplateBody or TemplateURL
+        TemplateURL?: string;   //  specify either TemplateBody or TemplateURL
+        UsePreviousTemplate?: boolean;
+        Parameters?: CloudFormation.Parameter[];
+        Capabilities?: string[];  //  CAPABILITY_IAM | CAPABILITY_NAMED_IAM
+        ResourceTypes?: string[];
+        NotificationARNs?: string[];
+        Tags?: CloudFormation.Tag[];
+        ChangeSetName: string;
+        ClientToken?: string;
+        Description?: string;
+    }
+
+    export interface CreateStackParams {
+        StackName: string;
+        TemplateBody?: string;  //  specify either TemplateBody or TemplateURL
+        TemplateURL?: string;   //  specify either TemplateBody or TemplateURL
+        Parameters?: CloudFormation.Parameter[];
+        DisableRollback?: boolean;  //  cannot specify both DisableRollback and OnFailure
+        TimeoutInMinutes?: number;
+        NotificationARNs?: string[];
+        Capabilities?: string[];
+        ResourceTypes?: string[];
+        OnFailure?: string[];       //  cannot specify both DisableRollback and OnFailure
+                                    //  DO_NOTHING | ROLLBACK | DELETE
+        StackPolicyBody?: string;  //  cannot specify both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot specify both StackPolicyBody and StackPolicyURL
+        Tags?: CloudFormation.Tag[];
+    }
+
+    export interface DeleteChangeSetParams {
+        ChangeSetName: string;
+        StackName?: string;
+    }
+
+    export interface DeleteStackParams {
+        StackName: string;
+        RetainResources?: string[];
+    }
+
+    export interface DescribeAccountLimitsParams {
+        NextToken?: string;
+    }
+
+    export interface DescribeChangeSetParams {
+        ChangeSetName: string;
+        StackName?: string;
+        NextToken?: string;
+    }
+
+    export interface DescribeStackEventsParams {
+        StackName?: string;
+        NextToken?: string;
+    }
+
+    export interface DescribeStackResourceParams {
+        StackName: string;
+        LogicalResourceId: string;
+    }
+
+    export interface DescribeStackResourcesParams {
+        StackName?: string;          //  must specify either StackName or PhysicalResourceId
+        LogicalResourceId?: string;
+        PhysicalResourceId?: string; //  must specify either StackName or PhysicalResourceId
+    }
+
+    export interface DescribeStacksParams {
+        StackName?: string;
+        NextToken?: string;
+    }
+
+    export interface EstimateTemplateCostParams {
+        TemplateBody?: string;  //  must specify either TemplateBody or TemplateURL
+                                //  if both are passed, only TemplateBody is used
+        TemplateURL?: string;   //  must specify either TemplateBody or TemplateURL
+        Parameters?: CloudFormation.Parameter[];
+    }
+
+    export interface ExecuteChangeSetParams {
+        ChangeSetName: string;
+        StackName?: string;
+    }
+
+    export interface GetStackPolicyParams {
+        StackName: string;
+    }
+
+    export interface GetTemplateParams {
+        StackName: string;
+    }
+
+    export interface GetTemplateSummaryParams {
+        //  must specify one of the three
+        TemplateBody?: string;
+        TemplateURL?: string;
+        StackName?: string;
+    }
+
+    export interface ListChangeSetsParams {
+        StackName: string;
+        NextToken?: string;
+    }
+
+    export interface ListStackResourcesParams {
+        StackName: string;
+        NextToken?: string;
+    }
+
+    export interface ListStacksParams {
+        NextToken?: string;
+        StackStatusFilter?: string[];
+    }
+
+    export interface SetStackPolicyParams {
+        StackName: string;
+        StackPolicyBody?: string;  //  cannot set both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot set both StackPolicyBody and StackPolicyURL
+    }
+
+    export interface SignalResourceParams {
+        StackName: string;
+        LogicalResourceId: string;
+        UniqueId: string;
+        Status: string;  //  SUCCESS | FAILURE
+    }
+
+    export interface UpdateStackParams {
+        StackName: string;
+        TemplateBody?: string;  //  specify either TemplateBody or TemplateURL, not both
+        TemplateURL?: string;   //  specify either TemplateBody or TemplateURL, not both
+        UsePreviousTemplate?: boolean;
+        StackPolicyDuringUpdateBody?: string;  //  cannot set both StackPolicyDuringUpdateBody and StackPolicyDuringUpdateURL
+        StackPolicyDuringUpdateURL?: string;   //  cannot set both StackPolicyDuringUpdateBody and StackPolicyDuringUpdateURL
+        Parameters?: CloudFormation.Parameter[];
+        Capabilities?: string[];  //  CAPABILITY_IAM | CAPABILITY_NAMED_IAM
+        ResourceTypes?: string[];
+        StackPolicyBody?: string;  //  cannot set both StackPolicyBody and StackPolicyURL
+        StackPolicyURL?: string;   //  cannot set both StackPolicyBody and StackPolicyURL
+        NotificationARNs?: string[];
+        Tags?: CloudFormation.Tag[];
+    }
+
+    export interface ValidateTemplateParams {
+        TemplateBody?: string;  //  must pass either TemplateBody or TemplateURL
+                                //  if both are specified, only TemplateBody is used
+        TemplateURL?: string;   //  must pass either TemplateBody or TemplateURL
+    }
+
+    export interface WaitForParams {
+        StackName: string;
+        NextToken?: string;
+    }
+
+    export interface Options {
+        params?: any;
+        endpoint?: string;
+        accessKeyId?: string;
+        secretAccessKey?: string;
+        sessionToken?: any;
+        credentials?: any;
+        credentialProvider?: any;
+        region?: string;
+        maxRetries?: number;
+        maxRedirects?: number;
+        sslEnabled?: boolean;
+        paramValidation?: any;
+        computeChecksums?: boolean;
+        convertResponseTypes?: boolean;
+        correctClockSkew?: boolean;
+        s3ForcePathStyle?: boolean;
+        s3BucketEndpoint?: boolean;
+        s3DisableBodySigning?: boolean;
+        retryDelayOptions?: any;
+        httpOptions?: any;
+        apiVersion?: any;
+        apiVersions?: any;
+        logger?: any;
+        systemClockOffset?: number;
+        signatureVersion?: string;
+        signatureCache?: boolean;
+    }
+
+    export interface Parameter {
+        ParameterKey: string;
+        ParameterValue: string;
+        UsePreviousValue?: boolean;  //  if you specify true, do not specify ParameterValue
+    }
+
+    export interface Tag {
+        Key: string;
+        Value: string;
+    }
 }
 
 // ===========================================================
@@ -585,8 +954,355 @@ export declare module Lambda {
     }
 }
 
-export declare module SQS {
+export module AutoScaling {
+    export interface AutoScalingOptions {
+        params?: any;
+        endpoint?: string;
+        accessKeyId?: string;
+        secretAccessKey?: string;
+        sessionToken?: Credentials;
+        credentials?: Credentials;
+        credentialProvider?: any;
+        region?: string;
+        maxRetries?: number;
+        maxRedirects?: number;
+        sslEnabled?: boolean;
+        paramValidation?: boolean;
+        computeChecksums?: boolean;
+        convertResponseTypes?: boolean;
+        correctClockSkew?: boolean;
+        s3ForcePathStyle?: boolean;
+        s3BucketEndpoint?: boolean;
+        s3DisableBodySigning?: boolean;
+        retryDelayOptions?: RetryDelayOption;
+        httpOptions?: HttpOptions;
+        apiVersion?: string;
+        apiVersions?: { [serviceName: string]: string };
+        logger?: Logger;
+        systemClockOffset?: number;
+        signatureVersion?: string;
+        signatureCache?: boolean;
+    }
 
+    export interface AttachInstancesParams {
+        AutoScalingGroupName: string;
+        InstanceIds: string[];
+    }
+
+    export interface AttachLoadBalancersParams {
+        AutoScalingGroupName: string;
+        LoadBalancerNames: string[];
+    }
+
+    export interface AttachLoadBalancerTargetGroupsParams {
+        AutoScalingGroupName: string;
+        TargetGroupARNs: string[];
+    }
+
+    export interface CompleteLifecycleActionParams {
+        AutoScalingGroupName: string;
+        LifecycleActionResult: string;
+        LifecycleHookName: string;
+        lifecycleActionToken?: string;
+        InstanceId?: string;
+    }
+
+    export interface CreateAutoScalingGroupParams {
+        AutoScalingGroupName: string;
+        MinSize: number;
+        MaxSize: number;
+        LaunchConfigurationName?: string;
+        InstanceId?: string;
+        DesiredCapacity?: number;
+        DefaultCooldown?: number;
+        AvailabilityZones?: string[];
+        LoadBalancerNames?: string[];
+        TargetGroupARNs?: string[];
+        HealthCheckType?: string;
+        HealthCheckGracePeriod?: number;
+        PlacementGroup?: string;
+        VPCZoneIdentifier?: string;
+        TerminationPolicies?: string;
+        NewInstancesProtectedFromScaleIn?: boolean;
+        Tags?: Tags;
+    }
+
+    export interface CreateLaunchConfigurationParams {
+        LaunchConfigurationName: string;
+        AssociatePublicIpAddress?: boolean;
+        ImageId?: string;
+        KeyName?: string;
+        SecurityGroups?: string[];
+        ClassicLinkVPCId?: string;
+        ClassicLinkVPCSecurityGroups?: string[];
+        UserData?: string;
+        InstanceId?: string;
+        InstanceType?: string;
+        KernelId?: string;
+        RamdiskId?: string;
+        BlockDeviceMappings?: BlockDeviceMapping[];
+        InstanceMonitoring?: InstanceMonitoring;
+        SpotPrice?: string;
+        IamInstanceProfile?: string;
+        EbsOptimized?: boolean;
+        PlacementTenancy?: string;
+    }
+
+    export interface CreateOrUpdateTagsParams {
+        Tags: Tags[];
+    }
+
+    export interface DeleteAutoScalingGroupParams {
+        AutoScalingGroupName: string;
+        ForceDelete?: boolean;
+    }
+
+    export interface DeleteLaunchConfigurationParams {
+        LaunchConfigurationName: string;
+    }
+
+    export interface DeleteLifecycleHookParams {
+        AutoScalingGroupName: string;
+        LifecycleHookName: string;
+    }
+
+    export interface DeleteNotificationConfigurationParams {
+        AutoScalingGroupName: string;
+        TopicARN: string;
+    }
+
+    export interface DeletePolicyParams {
+        PolicyName: string;
+        AutoScalingGroupName?: string;
+    }
+
+    export interface DeleteScheduledActionParams {
+        AutoScalingGroupName: string;
+        ScheduledActionName: string;
+    }
+
+    export interface DeleteTagsParams {
+        Tags: Tags[];
+    }
+
+    export interface DescribeAutoScalingGroupsParams {
+        AutoScalingGroupName?: string;
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeAutoScalingInstancesParams {
+        InstanceIds?: string[];
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeLaunchConfigurationsParams {
+        LaunchConfigurationNames?: string[];
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeLifecycleHooksParams {
+        AutoScalingGroupName: string;
+        LifecycleHookNames?: string[];
+    }
+
+    export interface DescribeLoadBalancersParams {
+        AutoScalingGroupName: string;
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeLoadBalancerTargetGroupsParams {
+        AutoScalingGroupName: string;
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeNotificationConfigurationsParams {
+        AutoScalingGroupName?: string;
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribePoliciesParams {
+        AutoScalingGroupName?: string;
+        PolicyNames?: string[];
+        PolicyTypes?: string[];
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeScalingActivitiesParams {
+        AutoScalingGroupName?: string;
+        ActivityIds?: string[];
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeScheduledActionsParams {
+        AutoScalingGroupName?: string;
+        ScheduledActionNames?: string[];
+        StartTime?: Date;
+        EndTime?: Date;
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DescribeTagsParams {
+        Filters?: Filter[];
+        NextToken?: string;
+        MaxRecords?: number;
+    }
+
+    export interface DetachInstancesParams {
+        AutoScalingGroupName: string;
+        ShouldDecrementDesiredCapacity: boolean;
+        InstanceIds?: string[];
+    }
+
+    export interface DetachLoadBalancersParams {
+        AutoScalingGroupName: string;
+        LoadBalancerNames: string;
+    }
+
+    export interface DetachLoadBalancerTargetGroupsParams {
+        AutoScalingGroupName: string;
+        TargetGroupARNs: string[];
+    }
+
+    export interface DisableMetricsCollectionParams {
+        AutoScalingGroupName: string;
+        Metrics?: string[];
+    }
+
+    export interface EnableMetricsCollectionParams {
+        AutoScalingGroupName: string;
+        Granularity: string;
+        Metrics?: string[];
+    }
+
+    export interface EnterStandbyParams {
+        AutoScalingGroupName: string;
+        ShouldDecrementDesiredCapacity: boolean;
+        InstanceIds?: string[];
+    }
+
+    export interface ExecutePolicyParams {
+        PolicyName: string;
+        AutoScalingGroupName?: string;
+        HonorCooldown?: boolean;
+        MetricValue?: number;
+        BreachThreshold?: number;
+    }
+
+    export interface ExitStandbyParams {
+        AutoScalingGroupName: string;
+        InstanceIds?: string[];
+    }
+
+    export interface PutLifecycleHookParams {
+        AutoScalingGroupName: string;
+        LifecycleHookName: string;
+        LifecycleTransition?: string;
+        RoleARN?: string;
+        NotificationTargetARN?: string;
+        NotificationMetadata?: string;
+        HeartbeatTimeout?: number;
+        DefaultResult?: string;
+    }
+
+    export interface PutNotificationConfigurationParams {
+        AutoScalingGroupName: string;
+        NotificationTypes: string[];
+        TopicARN: string;
+    }
+
+    export interface PutScalingPolicyParams {
+        AutoScalingGroupName: string;
+        AdjustmentType: string;
+        PolicyName: string;
+        PolicyType?: string;
+        MinAdjustmentStep?: number;
+        MinAdjustmentMagnitude?: number;
+        ScalingAdjustment?: number;
+        Cooldown?: number;
+        MetricAggregationType?: string;
+        StepAdjustments?: StepAdjustment[];
+        EstimatedInstanceWarmup: number;
+    }
+
+    export interface PutScheduledUpdateGroupActionParams {
+        AutoScalingGroupName: string;
+        ScheduledActionName: string;
+        Time?: Date;
+        StartTime?: Date;
+        EndTime?: Date;
+        Recurrence?: string;
+        MinSize?: number;
+        MaxSize?: number;
+        DesiredCapacity?: number;
+    }
+
+    export interface RecordLifecycleActionHeartbeatParams {
+        AutoScalingGroupName: string;
+        LifecycleHookName: string;
+        LifecycleActionToken?: string;
+        InstanceId?: string;
+    }
+
+    export interface ResumeProcessesParams {
+        AutoScalingGroupName: string;
+        ScalingProcesses?: string[];
+    }
+
+    export interface SetDesiredCapacityParams {
+        AutoScalingGroupName: string;
+        DesiredCapacity: number;
+        HonorCooldown?: boolean;
+    }
+
+    export interface SetInstanceHealthParams {
+        HealthStatus: string;
+        InstanceId: string;
+        ShouldRespectGracePeriod?: boolean;
+    }
+
+    export interface SetInstanceProtectionParams {
+        AutoScalingGroupName: string;
+        InstanceIds: string[];
+        ProtectedFromScaleIn: boolean;
+    }
+
+    export interface SuspendProcessesParams {
+        AutoScalingGroupName: string;
+        ScalingProcesses?: string[];
+    }
+
+    export interface TerminateInstanceInAutoScalingGroupParams {
+        InstanceId: string;
+        ShouldDecrementDesiredCapacity: boolean;
+    }
+
+    export interface UpdateAutoScalingGroupParams {
+        AutoScalingGroupName: string;
+        LaunchConfigurationName: string;
+        MinSize: number;
+        MaxSize: number;
+        DesiredCapacity: number;
+        DefaultCooldown: number;
+        AvailabilityZones: string[];
+        HealthCheckType: string;
+        HealthCheckGracePeriod: number;
+        PlacementGroup: string;
+        VPCZoneIdentifier: string;
+        TerminationPolicies: string[];
+        NewInstancesProtectedFromScaleIn?: boolean;
+    }
+}
+
+export module SQS {
     export interface SqsOptions {
         params?: any;
         endpoint?: string;

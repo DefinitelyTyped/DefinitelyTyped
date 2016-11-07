@@ -25,6 +25,7 @@ export interface History {
     createPath(path: LocationDescriptor): Path;
     createHref(path: LocationDescriptor): Href;
     createLocation(path?: LocationDescriptor, action?: Action, key?: LocationKey): Location;
+    getCurrentLocation: () => Location
 
     /** @deprecated use a location descriptor instead */
     createLocation(path?: Path, state?: LocationState, action?: Action, key?: LocationKey): Location;
@@ -55,8 +56,6 @@ export type HistoryOptions = {
     current?: number;
 }
 
-export type Href = string
-
 export type Location = {
     pathname: Pathname;
     search: Search;
@@ -74,18 +73,31 @@ export type LocationDescriptorObject = {
     state?: LocationState;
 };
 
-export type LocationDescriptor = LocationDescriptorObject | Path;
-export type LocationKey = string;
-export type LocationListener = (location: Location) => void;
-export type LocationState = Object;
-export type Path = string // Pathname + QueryString;
-export type Pathname = string;
-export type Query = Object;
-export type QueryString = string;
-export type Search = string;
-
-export type TransitionHook = (location: Location, callback: (result: any) => void) => any
-
+export namespace History {
+    export type LocationDescriptor = LocationDescriptorObject | Path;
+    export type LocationKey = string;
+    export type LocationListener = (location: Location) => void;
+    export type LocationState = Object;
+    export type Path = string // Pathname + QueryString;
+    export type Pathname = string;
+    export type Query = Object;
+    export type QueryString = string;
+    export type Search = string;
+    export type TransitionHook = (location: Location, callback: (result: any) => void) => any
+    export type Href = string;
+}
+// Back-compat aliases
+export type LocationDescriptor = History.LocationDescriptor;
+export type LocationKey = History.LocationKey;
+export type LocationListener = History.LocationListener;
+export type LocationState = History.LocationState;
+export type Path = History.Path;
+export type Pathname = History.Pathname;
+export type Query = History.Query;
+export type QueryString = History.QueryString;
+export type Search = History.Search;
+export type TransitionHook = History.TransitionHook;
+export type Href = History.Href;
 
 export interface HistoryBeforeUnload {
     listenBeforeUnload(hook: BeforeUnloadHook): () => void;

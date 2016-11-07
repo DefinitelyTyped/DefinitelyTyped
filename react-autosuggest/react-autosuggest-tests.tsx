@@ -1,9 +1,3 @@
-// React-Autosuggest Test
-// ================================================================================
-///<reference path="react-autosuggest.d.ts"/>
-///<reference path="../react/react.d.ts"/>
-///<reference path="../react/react-dom.d.ts"/>
-
 //region Imports
 import React = require('react');
 import ReactDOM = require('react-dom');
@@ -65,7 +59,12 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
                             onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
+                            onSuggestionSelected={this.onSuggestionsSelected}
                             inputProps={inputProps}/>;
+    }
+
+    protected onSuggestionsSelected(event: React.FormEvent<any>, data: ReactAutosuggest.ExplicitSuggestionSelectedEventData<Language>): void {
+        alert(`Selected language is ${data.suggestion.name} (${data.suggestion.year}).`);
     }
 
     protected renderSuggestion(suggestion: Language): JSX.Element {
@@ -74,13 +73,13 @@ export class ReactAutosuggestBasicTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent, {newValue, method}): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsUpdateRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -181,11 +180,18 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
         return <Autosuggest multiSection={true}
                             suggestions={suggestions}
                             onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested.bind(this)}
+                            onSuggestionSelected={this.onSuggestionSelected}
                             getSuggestionValue={this.getSuggestionValue}
                             renderSuggestion={this.renderSuggestion}
                             renderSectionTitle={this.renderSectionTitle}
                             getSectionSuggestions={this.getSectionSuggestions}
                             inputProps={inputProps} />;
+    }
+
+    protected onSuggestionSelected(event: React.FormEvent<any>, data: ReactAutosuggest.SuggestionSelectedEventData): void {
+        const language = data.suggestion as Language;
+
+        alert(`Selected language is ${language.name} (${language.year}).`);
     }
 
     protected renderSuggestion(suggestion: Language): JSX.Element {
@@ -198,13 +204,13 @@ export class ReactAutosuggestMultipleTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent, { newValue, method }): void {
+    protected onChange(event: React.FormEvent<any>, { newValue, method }: any): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsUpdateRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });
@@ -286,7 +292,7 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
                             inputProps={inputProps} />;
     }
 
-    protected renderSuggestion(suggestion: IPerson, { value, valueBeforeUpDown }): JSX.Element {
+    protected renderSuggestion(suggestion: IPerson, { value, valueBeforeUpDown }: any): JSX.Element {
         const suggestionText = `${suggestion.first} ${suggestion.last}`;
         const query = (valueBeforeUpDown || value).trim();
         const parts =  suggestionText.split(' ').map((part: string) => {
@@ -311,13 +317,13 @@ export class ReactAutosuggestCustomTest extends React.Component<any, any> {
     //endregion
 
     //region Event handlers
-    protected onChange(event: React.FormEvent, {newValue, method}): void {
+    protected onChange(event: React.FormEvent<any>, {newValue, method}: any): void {
         this.setState({
             value: newValue
         });
     }
 
-    protected onSuggestionsUpdateRequested({ value }): void {
+    protected onSuggestionsUpdateRequested({ value }: any): void {
         this.setState({
             suggestions: this.getSuggestions(value)
         });

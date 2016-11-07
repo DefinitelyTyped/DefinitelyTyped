@@ -3,7 +3,7 @@
 // Definitions by: Alireza Dabiri Nejad <https://github.com/alirdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
+/// <reference types="node" />
 
 /**
  * Helpers class and interfaces defined here, to make `nw` module cleaner.
@@ -13,7 +13,7 @@ declare module NWJS_Helpers {
     /**
      * Node.js v6.x EventEmitter Class
      */
-    class EventEmitter implements NodeJS.EventEmitter {
+    class EventEmitter extends NodeJS.EventEmitter {
         static EventEmitter: EventEmitter;
 
         static listenerCount( emitter: EventEmitter, event: string ): number; // deprecated

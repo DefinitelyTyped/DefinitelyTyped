@@ -13,6 +13,7 @@ import {
     scaleOrdinal,
     ScaleOrdinal,
     scalePow,
+    ScalePower,
     scaleTime,
     ScaleTime,
 } from 'd3-scale';
@@ -70,11 +71,17 @@ let leftAxis: d3Axis.Axis<number | { valueOf(): number }> = d3Axis.axisLeft(scal
 // scale(...) ----------------------------------------------------------------
 
 leftAxis = leftAxis.scale(scalePow());
+let powerScale: ScalePower<number, number> = leftAxis.scale<ScalePower<number, number>>();
+// powerScale = leftAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
+
+
+bottomAxis = bottomAxis.scale(scaleOrdinal<number>());
 // bottomAxis = bottomAxis.scale(scalePow()) // fails, domain of scale incompatible with domain of axis
 
 let axisScale: d3Axis.AxisScale<string> = bottomAxis.scale();
-// let ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale(); // fails, without casting as AxisScale is purposely  generic
+let ordinalScale: ScaleOrdinal<string, number> = bottomAxis.scale<ScaleOrdinal<string, number>>();
+// ordinalScale = bottomAxis.scale(); // fails, without casting as AxisScale is purposely  generic
 
 // ticks(...) ----------------------------------------------------------------
 

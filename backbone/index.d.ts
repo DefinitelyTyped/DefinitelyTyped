@@ -58,7 +58,7 @@ declare namespace Backbone {
     interface ModelSetOptions extends Silenceable, Validable {
     }
 
-    interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {
+    export interface ModelFetchOptions extends PersistenceOptions, ModelSetOptions, Parseable {
     }
 
     interface ModelSaveOptions extends Silenceable, Waitable, Validable, Parseable, PersistenceOptions {

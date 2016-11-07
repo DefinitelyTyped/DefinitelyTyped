@@ -1,4 +1,4 @@
-/// <reference types="auth0" />
+/// <reference types="auth0-js" />
 
 
 var widget: Auth0WidgetStatic = new Auth0Widget({

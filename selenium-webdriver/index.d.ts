@@ -1,6 +1,6 @@
-// Type definitions for Selenium WebDriverJS 2.44.0
-// Project: https://code.google.com/p/selenium/
-// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>
+// Type definitions for Selenium WebDriverJS 2.53.1
+// Project: https://github.com/SeleniumHQ/selenium/tree/master/javascript/node/selenium-webdriver
+// Definitions by: Bill Armstrong <https://github.com/BillArmstrong>, Yuki Kokubun <https://github.com/Kuniwak>, Craig Nishina <https://github.com/cnishina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace chrome {
@@ -19,8 +19,7 @@ declare namespace chrome {
          *     {@code null} to use the currently active flow.
          * @constructor
          */
-        constructor(opt_config?: webdriver.Capabilities, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
-        constructor(opt_config?: Options, opt_service?: any, opt_flow?: webdriver.promise.ControlFlow);
+        constructor(opt_config?: Options|webdriver.Capabilities, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
     }
 
     interface IOptionsValues {
@@ -241,6 +240,53 @@ declare namespace chrome {
 
 
         /**
+           * Sets the directory to store Chrome minidumps in. This option is only
+           * supported when ChromeDriver is running on Linux.
+           * @param {string} path The directory path.
+           * @return {!Options} A self reference.
+           */
+        setChromeMinidumpPath(path: string): Options;
+
+
+        /**
+         * Configures Chrome to emulate a mobile device. For more information, refer
+         * to the ChromeDriver project page on [mobile emulation][em]. Configuration
+         * options include:
+         *
+         * - `deviceName`: The name of a pre-configured [emulated device][devem]
+         * - `width`: screen width, in pixels
+         * - `height`: screen height, in pixels
+         * - `pixelRatio`: screen pixel ratio
+         *
+         * __Example 1: Using a Pre-configured Device__
+         *
+         *     let options = new chrome.Options().setMobileEmulation(
+         *         {deviceName: 'Google Nexus 5'});
+         *
+         *     let driver = new chrome.Driver(options);
+         *
+         * __Example 2: Using Custom Screen Configuration__
+         *
+         *     let options = new chrome.Options().setMobileEmulation({
+         *         width: 360,
+         *         height: 640,
+         *         pixelRatio: 3.0
+         *     });
+         *
+         *     let driver = new chrome.Driver(options);
+         *
+         *
+         * [em]: https://sites.google.com/a/chromium.org/chromedriver/mobile-emulation
+         * [devem]: https://developer.chrome.com/devtools/docs/device-mode
+         *
+         * @param {?({deviceName: string}|
+         *           {width: number, height: number, pixelRatio: number})} config The
+         *     mobile emulation configuration, or `null` to disable emulation.
+         * @return {!Options} A self reference.
+         */
+        setMobileEmulation(config: any): Options;
+
+        /**
          * Sets the proxy settings for the new session.
          * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
          * @return {!Options} A self reference.
@@ -255,21 +301,6 @@ declare namespace chrome {
          * @return {!webdriver.Capabilities} The capabilities.
          */
         toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
-
-
-        /**
-         * Converts this instance to its JSON wire protocol representation. Note this
-         * function is an implementation not intended for general use.
-         * @return {{args: !Array.<string>,
-         *           binary: (string|undefined),
-         *           detach: boolean,
-         *           extensions: !Array.<string>,
-         *           localState: (Object|undefined),
-         *           logFile: (string|undefined),
-         *           prefs: (Object|undefined)}} The JSON wire protocol representation
-         *     of this instance.
-         */
-        toJSON(): IOptionsValues;
     }
 
     /**
@@ -348,8 +379,7 @@ declare namespace chrome {
          *     configuration to use.
          * @return {!ServiceBuilder} A self reference.
          */
-        setStdio(config: string): ServiceBuilder;
-        setStdio(config: any[]): ServiceBuilder;
+        setStdio(config: string|Array<string|number|any>): ServiceBuilder;
 
 
         /**
@@ -368,7 +398,7 @@ declare namespace chrome {
          * @throws {Error} If the driver exectuable was not specified and a default
          *     could not be found on the current PATH.
          */
-        build(): any;
+        build(): remote.DriverService;
     }
 
     /**
@@ -377,395 +407,1325 @@ declare namespace chrome {
      * a ChromeDriver executable found on the system PATH.
      * @return {!remote.DriverService} The default ChromeDriver service.
      */
-    function getDefaultService(): any;
+    function getDefaultService(): remote.DriverService;
 
     /**
      * Sets the default service to use for new ChromeDriver instances.
      * @param {!remote.DriverService} service The service to use.
      * @throws {Error} If the default service is currently running.
      */
-    function setDefaultService(service: any): void;
+    function setDefaultService(service: remote.DriverService): void;
 }
 
-declare namespace firefox {
-    /**
-     * Manages a Firefox subprocess configured for use with WebDriver.
-     */
-    class Binary {
-        /**
-         * @param {string=} opt_exe Path to the Firefox binary to use. If not
-         *     specified, will attempt to locate Firefox on the current system.
-         * @constructor
-         */
-        constructor(opt_exe?: string);
+declare namespace edge {
 
-        /**
-         * Add arguments to the command line used to start Firefox.
-         * @param {...(string|!Array.<string>)} var_args Either the arguments to add as
-         *     varargs, or the arguments as an array.
-         */
-        addArguments(...var_args: string[]): void;
-
-
-        /**
-         * Launches Firefox and eturns a promise that will be fulfilled when the process
-         * terminates.
-         * @param {string} profile Path to the profile directory to use.
-         * @return {!promise.Promise.<!exec.Result>} A promise for the process result.
-         * @throws {Error} If this instance has already been started.
-         */
-        launch(profile: string): webdriver.promise.Promise<any>;
-
-
-        /**
-         * Kills the managed Firefox process.
-         * @return {!promise.Promise} A promise for when the process has terminated.
-         */
-        kill(): webdriver.promise.Promise<void>;
-    }
-
-    /**
-     * A WebDriver client for Firefox.
-     *
-     * @extends {webdriver.WebDriver}
-     */
     class Driver extends webdriver.WebDriver {
-        /**
-         * @param {(Options|webdriver.Capabilities|Object)=} opt_config The
-         *    configuration options for this driver, specified as either an
-         *    {@link Options} or {@link webdriver.Capabilities}, or as a raw hash
-         *    object.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The flow to
-         *     schedule commands through. Defaults to the active flow object.
-         * @constructor
-         */
-        constructor(opt_config?: webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
-        constructor(opt_config?: any, opt_flow?: webdriver.promise.ControlFlow);
+      /**
+       * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
+       *     options.
+       * @param {remote.DriverService=} opt_service The session to use; will use
+       *     the {@linkplain #getDefaultService default service} by default.
+       * @param {promise.ControlFlow=} opt_flow The control flow to use, or
+       *     {@code null} to use the currently active flow.
+       */
+      constructor(opt_config?: webdriver.Capabilities|Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
+
+      /**
+       * This function is a no-op as file detectors are not supported by this
+       * implementation.
+       * @override
+       */
+      setFileDetector(): void;
     }
 
     /**
-     * Configuration options for the FirefoxDriver.
+     * Class for managing MicrosoftEdgeDriver specific options.
      */
     class Options {
-        /**
-         * @constructor
-         */
-        constructor();
 
-        /**
-         * Sets the profile to use. The profile may be specified as a
-         * {@link Profile} object or as the path to an existing Firefox profile to use
-         * as a template.
-         *
-         * @param {(string|!Profile)} profile The profile to use.
-         * @return {!Options} A self reference.
-         */
-        setProfile(profile: string): Options;
-        setProfile(profile: Profile): Options;
+      /**
+       * Extracts the MicrosoftEdgeDriver specific options from the given
+       * capabilities object.
+       * @param {!capabilities.Capabilities} caps The capabilities object.
+       * @return {!Options} The MicrosoftEdgeDriver options.
+       */
+      static fromCapabilities(cap: webdriver.Capabilities): Options;
 
+      /**
+       * Sets the proxy settings for the new session.
+       * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
+       * @return {!Options} A self reference.
+       */
+      setProxy(proxy: webdriver.ProxyConfig): Options;
 
-        /**
-         * Sets the binary to use. The binary may be specified as the path to a Firefox
-         * executable, or as a {@link Binary} object.
-         *
-         * @param {(string|!Binary)} binary The binary to use.
-         * @return {!Options} A self reference.
-         */
-        setBinary(binary: string): Options;
-        setBinary(binary: Binary): Options;
+      /**
+       * Sets the page load strategy for Edge.
+       * Supported values are "normal", "eager", and "none";
+       *
+       * @param {string} pageLoadStrategy The page load strategy to use.
+       * @return {!Options} A self reference.
+       */
+      setPageLoadStrategy(pageLoadStrategy: string): Options;
 
-
-        /**
-         * Sets the logging preferences for the new session.
-         * @param {webdriver.logging.Preferences} prefs The logging preferences.
-         * @return {!Options} A self reference.
-         */
-        setLoggingPreferences(prefs: webdriver.logging.Preferences): Options;
-
-
-        /**
-         * Sets the proxy to use.
-         *
-         * @param {webdriver.ProxyConfig} proxy The proxy configuration to use.
-         * @return {!Options} A self reference.
-         */
-        setProxy(proxy: webdriver.ProxyConfig): Options;
-
-
-        /**
-         * Converts these options to a {@link webdriver.Capabilities} instance.
-         *
-         * @return {!webdriver.Capabilities} A new capabilities object.
-         */
-        toCapabilities(opt_remote?: any): webdriver.Capabilities;
+      /**
+       * Converts this options instance to a {@link capabilities.Capabilities}
+       * object.
+       * @param {capabilities.Capabilities=} opt_capabilities The capabilities to
+       *     merge these options into, if any.
+       * @return {!capabilities.Capabilities} The capabilities.
+       */
+      toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
     }
 
     /**
-     * Models a Firefox proifle directory for use with the FirefoxDriver. The
-     * {@code Proifle} directory uses an in-memory model until {@link #writeToDisk}
-     * is called.
+     * Creates {@link remote.DriverService} instances that manage a
+     * MicrosoftEdgeDriver server in a child process.
      */
-    class Profile {
-        /**
-         * @param {string=} opt_dir Path to an existing Firefox profile directory to
-         *     use a template for this profile. If not specified, a blank profile will
-         *     be used.
-         * @constructor
-         */
-        constructor(opt_dir?: string);
+    class ServiceBuilder {
+      /**
+       * @param {string=} opt_exe Path to the server executable to use. If omitted,
+       *   the builder will attempt to locate the MicrosoftEdgeDriver on the current
+       *   PATH.
+       * @throws {Error} If provided executable does not exist, or the
+       *   MicrosoftEdgeDriver cannot be found on the PATH.
+       */
+      constructor(opt_exe?: string);
 
-        /**
-         * Registers an extension to be included with this profile.
-         * @param {string} extension Path to the extension to include, as either an
-         *     unpacked extension directory or the path to a xpi file.
-         */
-        addExtension(extension: string): void;
+      /**
+       * Defines the stdio configuration for the driver service. See
+       * {@code child_process.spawn} for more information.
+       * @param {(string|!Array.<string|number|!stream.Stream|null|undefined>)}
+       *     config The configuration to use.
+       * @return {!ServiceBuilder} A self reference.
+       */
+      setStdio(config: string|Array<string|number|any>): ServiceBuilder;
 
+      /**
+       * Sets the port to start the MicrosoftEdgeDriver on.
+       * @param {number} port The port to use, or 0 for any free port.
+       * @return {!ServiceBuilder} A self reference.
+       * @throws {Error} If the port is invalid.
+       */
+      usingPort(port: number): ServiceBuilder;
 
-        /**
-         * Sets a desired preference for this profile.
-         * @param {string} key The preference key.
-         * @param {(string|number|boolean)} value The preference value.
-         * @throws {Error} If attempting to set a frozen preference.
-         */
-        setPreference(key: string, value: string): void;
-        setPreference(key: string, value: number): void;
-        setPreference(key: string, value: boolean): void;
+      /**
+       * Defines the environment to start the server under. This settings will be
+       * inherited by every browser session started by the server.
+       * @param {!Object.<string, string>} env The environment to use.
+       * @return {!ServiceBuilder} A self reference.
+       */
+      withEnvironment(env: Object): ServiceBuilder;
 
-
-        /**
-         * Returns the currently configured value of a profile preference. This does
-         * not include any defaults defined in the profile's template directory user.js
-         * file (if a template were specified on construction).
-         * @param {string} key The desired preference.
-         * @return {(string|number|boolean|undefined)} The current value of the
-         *     requested preference.
-         */
-        getPreference(key: string): any;
-
-
-        /**
-         * @return {number} The port this profile is currently configured to use, or
-         *     0 if the port will be selected at random when the profile is written
-         *     to disk.
-         */
-        getPort(): number;
-
-
-        /**
-         * Sets the port to use for the WebDriver extension loaded by this profile.
-         * @param {number} port The desired port, or 0 to use any free port.
-         */
-        setPort(port: number): void;
-
-
-        /**
-         * @return {boolean} Whether the FirefoxDriver is configured to automatically
-         *     accept untrusted SSL certificates.
-         */
-        acceptUntrustedCerts(): boolean;
-
-
-        /**
-         * Sets whether the FirefoxDriver should automatically accept untrusted SSL
-         * certificates.
-         * @param {boolean} value .
-         */
-        setAcceptUntrustedCerts(value: boolean): void;
-
-
-        /**
-         * Sets whether to assume untrusted certificates come from untrusted issuers.
-         * @param {boolean} value .
-         */
-        setAssumeUntrustedCertIssuer(value: boolean): void;
-
-
-        /**
-         * @return {boolean} Whether to assume untrusted certs come from untrusted
-         *     issuers.
-         */
-        assumeUntrustedCertIssuer(): boolean;
-
-
-        /**
-         * Sets whether to use native events with this profile.
-         * @param {boolean} enabled .
-         */
-        setNativeEventsEnabled(enabled: boolean): void;
-
-
-        /**
-         * Returns whether native events are enabled in this profile.
-         * @return {boolean} .
-         */
-        nativeEventsEnabled(): boolean;
-
-
-        /**
-         * Writes this profile to disk.
-         * @param {boolean=} opt_excludeWebDriverExt Whether to exclude the WebDriver
-         *     extension from the generated profile. Used to reduce the size of an
-         *     {@link #encode() encoded profile} since the server will always install
-         *     the extension itself.
-         * @return {!promise.Promise.<string>} A promise for the path to the new
-         *     profile directory.
-         */
-        writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
-
-
-        /**
-         * Encodes this profile as a zipped, base64 encoded directory.
-         * @return {!promise.Promise.<string>} A promise for the encoded profile.
-         */
-        encode(): webdriver.promise.Promise<string>;
+      /**
+       * Creates a new DriverService using this instance's current configuration.
+       * @return {!remote.DriverService} A new driver service using this instance's
+       *     current configuration.
+       * @throws {Error} If the driver exectuable was not specified and a default
+       *     could not be found on the current PATH.
+       */
+      build(): remote.DriverService;
     }
+
+    /**
+     * Returns the default MicrosoftEdgeDriver service. If such a service has
+     * not been configured, one will be constructed using the default configuration
+     * for an MicrosoftEdgeDriver executable found on the system PATH.
+     * @return {!remote.DriverService} The default MicrosoftEdgeDriver service.
+     */
+    function getDefaultService(): remote.DriverService;
+
+    /**
+     * Sets the default service to use for new MicrosoftEdgeDriver instances.
+     * @param {!remote.DriverService} service The service to use.
+     * @throws {Error} If the default service is currently running.
+     */
+    function setDefaultService(service: remote.DriverService): void;
 }
 
 declare namespace executors {
     /**
      * Creates a command executor that uses WebDriver's JSON wire protocol.
-     * @param url The server's URL, or a promise that will resolve to that URL.
-     * @returns {!webdriver.CommandExecutor} The new command executor.
+     * @param {(string|!promise.Promise<string>)} url The server's URL,
+     *     or a promise that will resolve to that URL.
+     * @param {?string=} opt_proxy (optional) The URL of the HTTP proxy for the
+     *     client to use.
+     * @returns {!./lib/command.Executor} The new command executor.
      */
-    function createExecutor(url: string): webdriver.CommandExecutor;
-    function createExecutor(url: webdriver.promise.Promise<string>): webdriver.CommandExecutor;
+    function createExecutor(url: string|webdriver.promise.Promise<string>, opt_agent?: string, opt_proxy?: string): webdriver.Executor;
+}
+
+declare namespace firefox {
+  /**
+   * Manages a Firefox subprocess configured for use with WebDriver.
+   */
+  class Binary {
+      /**
+       * @param {string=} opt_exe Path to the Firefox binary to use. If not
+       *     specified, will attempt to locate Firefox on the current system.
+       * @constructor
+       */
+      constructor(opt_exe?: string);
+
+      /**
+       * Add arguments to the command line used to start Firefox.
+       * @param {...(string|!Array.<string>)} var_args Either the arguments to add as
+       *     varargs, or the arguments as an array.
+       */
+      addArguments(...var_args: string[]): void;
+
+
+      /**
+       * Launches Firefox and eturns a promise that will be fulfilled when the process
+       * terminates.
+       * @param {string} profile Path to the profile directory to use.
+       * @return {!promise.Promise.<!exec.Result>} A promise for the process result.
+       * @throws {Error} If this instance has already been started.
+       */
+      launch(profile: string): webdriver.promise.Promise<any>;
+
+
+      /**
+       * Kills the managed Firefox process.
+       * @return {!promise.Promise} A promise for when the process has terminated.
+       */
+      kill(): webdriver.promise.Promise<void>;
+  }
+
+  /**
+   * Models a Firefox proifle directory for use with the FirefoxDriver. The
+   * {@code Proifle} directory uses an in-memory model until {@link #writeToDisk}
+   * is called.
+   */
+  class Profile {
+      /**
+       * @param {string=} opt_dir Path to an existing Firefox profile directory to
+       *     use a template for this profile. If not specified, a blank profile will
+       *     be used.
+       * @constructor
+       */
+      constructor(opt_dir?: string);
+
+      /**
+       * Registers an extension to be included with this profile.
+       * @param {string} extension Path to the extension to include, as either an
+       *     unpacked extension directory or the path to a xpi file.
+       */
+      addExtension(extension: string): void;
+
+
+      /**
+       * Sets a desired preference for this profile.
+       * @param {string} key The preference key.
+       * @param {(string|number|boolean)} value The preference value.
+       * @throws {Error} If attempting to set a frozen preference.
+       */
+      setPreference(key: string, value: string): void;
+      setPreference(key: string, value: number): void;
+      setPreference(key: string, value: boolean): void;
+
+
+      /**
+       * Returns the currently configured value of a profile preference. This does
+       * not include any defaults defined in the profile's template directory user.js
+       * file (if a template were specified on construction).
+       * @param {string} key The desired preference.
+       * @return {(string|number|boolean|undefined)} The current value of the
+       *     requested preference.
+       */
+      getPreference(key: string): any;
+
+
+      /**
+       * @return {number} The port this profile is currently configured to use, or
+       *     0 if the port will be selected at random when the profile is written
+       *     to disk.
+       */
+      getPort(): number;
+
+
+      /**
+       * Sets the port to use for the WebDriver extension loaded by this profile.
+       * @param {number} port The desired port, or 0 to use any free port.
+       */
+      setPort(port: number): void;
+
+
+      /**
+       * @return {boolean} Whether the FirefoxDriver is configured to automatically
+       *     accept untrusted SSL certificates.
+       */
+      acceptUntrustedCerts(): boolean;
+
+
+      /**
+       * Sets whether the FirefoxDriver should automatically accept untrusted SSL
+       * certificates.
+       * @param {boolean} value .
+       */
+      setAcceptUntrustedCerts(value: boolean): void;
+
+
+      /**
+       * Sets whether to assume untrusted certificates come from untrusted issuers.
+       * @param {boolean} value .
+       */
+      setAssumeUntrustedCertIssuer(value: boolean): void;
+
+
+      /**
+       * @return {boolean} Whether to assume untrusted certs come from untrusted
+       *     issuers.
+       */
+      assumeUntrustedCertIssuer(): boolean;
+
+
+      /**
+       * Sets whether to use native events with this profile.
+       * @param {boolean} enabled .
+       */
+      setNativeEventsEnabled(enabled: boolean): void;
+
+
+      /**
+       * Returns whether native events are enabled in this profile.
+       * @return {boolean} .
+       */
+      nativeEventsEnabled(): boolean;
+
+
+      /**
+       * Writes this profile to disk.
+       * @param {boolean=} opt_excludeWebDriverExt Whether to exclude the WebDriver
+       *     extension from the generated profile. Used to reduce the size of an
+       *     {@link #encode() encoded profile} since the server will always install
+       *     the extension itself.
+       * @return {!promise.Promise.<string>} A promise for the path to the new
+       *     profile directory.
+       */
+      writeToDisk(opt_excludeWebDriverExt?: boolean): webdriver.promise.Promise<string>;
+
+
+      /**
+       * Encodes this profile as a zipped, base64 encoded directory.
+       * @return {!promise.Promise.<string>} A promise for the encoded profile.
+       */
+      encode(): webdriver.promise.Promise<string>;
+  }
+
+  /**
+   * Configuration options for the FirefoxDriver.
+   */
+  class Options {
+    /**
+     * Sets the profile to use. The profile may be specified as a
+     * {@link Profile} object or as the path to an existing Firefox profile to use
+     * as a template.
+     *
+     * @param {(string|!Profile)} profile The profile to use.
+     * @return {!Options} A self reference.
+     */
+    setProfile(profile: string|any): Options;
+
+    /**
+     * Sets the binary to use. The binary may be specified as the path to a Firefox
+     * executable, or as a {@link Binary} object.
+     *
+     * @param {(string|!Binary)} binary The binary to use.
+     * @return {!Options} A self reference.
+     */
+    setBinary(binary: string|any): Options;
+
+    /**
+     * Sets the logging preferences for the new session.
+     * @param {logging.Preferences} prefs The logging preferences.
+     * @return {!Options} A self reference.
+     */
+    setLoggingPreferences(prefs: webdriver.logging.Preferences): Options;
+
+    /**
+     * Sets the proxy to use.
+     *
+     * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
+     * @return {!Options} A self reference.
+     */
+    setProxy(proxy: webdriver.ProxyConfig): Options;
+
+    /**
+     * Sets whether to use Mozilla's Marionette to drive the browser.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Mozilla/QA/Marionette/WebDriver
+     */
+    useMarionette(marionette: any): Options;
+
+    /**
+     * Converts these options to a {@link capabilities.Capabilities} instance.
+     *
+     * @return {!capabilities.Capabilities} A new capabilities object.
+     */
+    toCapabilities(): webdriver.Capabilities;
+  }
+
+  /**
+   * @return {string} .
+   * @throws {Error}
+   */
+  function findWires(): string;
+
+  /**
+   * @param {(string|!Binary)} binary .
+   * @return {!remote.DriverService} .
+   */
+  function createWiresService(binary: string|any): remote.DriverService;
+
+  /**
+   * @param {(Profile|string)} profile The profile to prepare.
+   * @param {number} port The port the FirefoxDriver should listen on.
+   * @return {!Promise<string>} a promise for the path to the profile directory.
+   */
+  function prepareProfile(profile: string|any, port: number): any;
+
+  /**
+   * A WebDriver client for Firefox.
+   */
+  class Driver extends webdriver.WebDriver {
+    /**
+     * @param {(Options|capabilities.Capabilities|Object)=} opt_config The
+     *    configuration options for this driver, specified as either an
+     *    {@link Options} or {@link capabilities.Capabilities}, or as a raw hash
+     *    object.
+     * @param {promise.ControlFlow=} opt_flow The flow to
+     *     schedule commands through. Defaults to the active flow object.
+     */
+    constructor(opt_config?: Options|webdriver.Capabilities|Object, opt_flow?: webdriver.promise.ControlFlow);
+
+    /**
+     * This function is a no-op as file detectors are not supported by this
+     * implementation.
+     * @override
+     */
+    setFileDetector(): void;
+  }
+}
+
+declare namespace http {
+  /**
+   * Converts a headers map to a HTTP header block string.
+   * @param {!Map<string, string>} headers The map to convert.
+   * @return {string} The headers as a string.
+   */
+  function headersToString(headers: any): string;
+
+  /**
+   * Represents a HTTP request message. This class is a "partial" request and only
+   * defines the path on the server to send a request to. It is each client's
+   * responsibility to build the full URL for the final request.
+   * @final
+   */
+  class HttpRequest {
+    /**
+     * @param {string} method The HTTP method to use for the request.
+     * @param {string} path The path on the server to send the request to.
+     * @param {Object=} opt_data This request's non-serialized JSON payload data.
+     */
+    constructor(method: string, path: string, opt_data?: Object);
+
+    /** @override */
+    toString(): string;
+  }
+
+  /**
+   * Represents a HTTP response message.
+   * @final
+   */
+  class HttpResponse {
+    /**
+     * @param {number} status The response code.
+     * @param {!Object<string>} headers The response headers. All header names
+     *     will be converted to lowercase strings for consistent lookups.
+     * @param {string} body The response body.
+     */
+    constructor(status: number, headers: Object, body: string);
+
+    /** @override */
+    toString(): string;
+  }
+
+
+  function post(path: string): any;
+  function del(path: string): any;
+  function get(path: string): any;
+  function resource(method: string, path: string): any;
+
+  /**
+   * A basic HTTP client used to send messages to a remote end.
+   */
+  class HttpClient {
+    /**
+     * @param {string} serverUrl URL for the WebDriver server to send commands to.
+     * @param {http.Agent=} opt_agent The agent to use for each request.
+     *     Defaults to `http.globalAgent`.
+     * @param {?string=} opt_proxy The proxy to use for the connection to the
+     *     server. Default is to use no proxy.
+     */
+    constructor(serverUrl: string, opt_agent?: any, opt_proxy?: string);
+
+    /**
+     * Sends a request to the server. The client will automatically follow any
+     * redirects returned by the server, fulfilling the returned promise with the
+     * final response.
+     *
+     * @param {!HttpRequest} httpRequest The request to send.
+     * @return {!promise.Promise<HttpResponse>} A promise that will be fulfilled
+     *     with the server's response.
+     */
+    send(httpRequest: HttpRequest): webdriver.promise.Promise<HttpResponse>;
+  }
+
+  /**
+   * Sends a single HTTP request.
+   * @param {!Object} options The request options.
+   * @param {function(!HttpResponse)} onOk The function to call if the
+   *     request succeeds.
+   * @param {function(!Error)} onError The function to call if the request fails.
+   * @param {?string=} opt_data The data to send with the request.
+   * @param {?string=} opt_proxy The proxy server to use for the request.
+   */
+  function sendRequest(options: Object, onOk: any, onError: any, opt_data?: string, opt_proxy?: string): any;
+
+  /**
+   * A command executor that communicates with the server using HTTP + JSON.
+   *
+   * By default, each instance of this class will use the legacy wire protocol
+   * from [Selenium project][json]. The executor will automatically switch to the
+   * [W3C wire protocol][w3c] if the remote end returns a compliant response to
+   * a new session command.
+   *
+   * [json]: https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+   * [w3c]: https://w3c.github.io/webdriver/webdriver-spec.html
+   *
+   * @implements {cmd.Executor}
+   */
+  class Executor {
+    /**
+     * @param {!HttpClient} client The client to use for sending requests to the
+     *     server.
+     */
+    constructor(client: HttpClient);
+
+    /**
+     * Defines a new command for use with this executor. When a command is sent,
+     * the {@code path} will be preprocessed using the command's parameters; any
+     * path segments prefixed with ":" will be replaced by the parameter of the
+     * same name. For example, given "/person/:name" and the parameters
+     * "{name: 'Bob'}", the final command path will be "/person/Bob".
+     *
+     * @param {string} name The command name.
+     * @param {string} method The HTTP method to use when sending this command.
+     * @param {string} path The path to send the command to, relative to
+     *     the WebDriver server's command root and of the form
+     *     "/path/:variable/segment".
+     */
+    defineCommand(name: string, method: string, path: string): void;
+
+    /** @override */
+    execute(command: any): any;
+  }
+
+  /**
+   * @param {string} str .
+   * @return {?} .
+   */
+  function tryParse(str: string): any;
+
+  /**
+   * Callback used to parse {@link HttpResponse} objects from a
+   * {@link HttpClient}.
+   * @param {!HttpResponse} httpResponse The HTTP response to parse.
+   * @param {boolean} w3c Whether the response should be processed using the
+   *     W3C wire protocol.
+   * @return {{value: ?}} The parsed response.
+   * @throws {WebDriverError} If the HTTP response is an error.
+   */
+  function parseHttpResponse(httpResponse: HttpResponse, w3c: boolean): any;
+
+  /**
+   * Builds a fully qualified path using the given set of command parameters. Each
+   * path segment prefixed with ':' will be replaced by the value of the
+   * corresponding parameter. All parameters spliced into the path will be
+   * removed from the parameter map.
+   * @param {string} path The original resource path.
+   * @param {!Object<*>} parameters The parameters object to splice into the path.
+   * @return {string} The modified path.
+   */
+  function buildPath(path: string, parameters: Object): string;
+}
+
+declare namespace ie {
+
+  /**
+   * A WebDriver client for Microsoft's Internet Explorer.
+   */
+  class Driver extends webdriver.WebDriver {
+    /**
+     * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
+     *     options.
+     * @param {promise.ControlFlow=} opt_flow The control flow to use,
+     *     or {@code null} to use the currently active flow.
+     */
+    constructor(opt_config?: webdriver.Capabilities|Options, opt_flow?: webdriver.promise.ControlFlow);
+
+    /**
+     * This function is a no-op as file detectors are not supported by this
+     * implementation.
+     * @override
+     */
+    setFileDetector(): void;
+  }
+
+  /**
+   * Class for managing IEDriver specific options.
+   */
+  class Options {
+    constructor();
+
+    /**
+     * Extracts the IEDriver specific options from the given capabilities
+     * object.
+     * @param {!capabilities.Capabilities} caps The capabilities object.
+     * @return {!Options} The IEDriver options.
+     */
+    static fromCapabilities(caps: webdriver.Capabilities): Options;
+
+    /**
+     * Whether to disable the protected mode settings check when the session is
+     * created. Disbling this setting may lead to significant instability as the
+     * browser may become unresponsive/hang. Only "best effort" support is provided
+     * when using this capability.
+     *
+     * For more information, refer to the IEDriver's
+     * [required system configuration](http://goo.gl/eH0Yi3).
+     *
+     * @param {boolean} ignoreSettings Whether to ignore protected mode settings.
+     * @return {!Options} A self reference.
+     */
+    introduceFlakinessByIgnoringProtectedModeSettings(ignoreSettings: boolean): Options;
+
+    /**
+     * Indicates whether to skip the check that the browser's zoom level is set to
+     * 100%.
+     *
+     * @param {boolean} ignore Whether to ignore the browser's zoom level settings.
+     * @return {!Options} A self reference.
+     */
+    ignoreZoomSetting(ignore: boolean): Options;
+
+    /**
+     * Sets the initial URL loaded when IE starts. This is intended to be used with
+     * {@link #ignoreProtectedModeSettings} to allow the user to initialize IE in
+     * the proper Protected Mode zone. Setting this option may cause browser
+     * instability or flaky and unresponsive code. Only "best effort" support is
+     * provided when using this option.
+     *
+     * @param {string} url The initial browser URL.
+     * @return {!Options} A self reference.
+     */
+    initialBrowserUrl(url: string): Options;
+
+    /**
+     * Configures whether to enable persistent mouse hovering (true by default).
+     * Persistent hovering is achieved by continuously firing mouse over events at
+     * the last location the mouse cursor has been moved to.
+     *
+     * @param {boolean} enable Whether to enable persistent hovering.
+     * @return {!Options} A self reference.
+     */
+    enablePersistentHover(enable: boolean): Options;
+
+    /**
+     * Configures whether the driver should attempt to remove obsolete
+     * {@linkplain webdriver.WebElement WebElements} from its internal cache on
+     * page navigation (true by default). Disabling this option will cause the
+     * driver to run with a larger memory footprint.
+     *
+     * @param {boolean} enable Whether to enable element reference cleanup.
+     * @return {!Options} A self reference.
+     */
+    enableElementCacheCleanup(enable: boolean): Options;
+
+    /**
+     * Configures whether to require the IE window to have input focus before
+     * performing any user interactions (i.e. mouse or keyboard events). This
+     * option is disabled by default, but delivers much more accurate interaction
+     * events when enabled.
+     *
+     * @param {boolean} require Whether to require window focus.
+     * @return {!Options} A self reference.
+     */
+    requireWindowFocus(require: boolean): Options;
+
+    /**
+     * Configures the timeout, in milliseconds, that the driver will attempt to
+     * located and attach to a newly opened instance of Internet Explorer. The
+     * default is zero, which indicates waiting indefinitely.
+     *
+     * @param {number} timeout How long to wait for IE.
+     * @return {!Options} A self reference.
+     */
+    browserAttachTimeout(timeout: number): Options;
+
+    /**
+     * Configures whether to launch Internet Explorer using the CreateProcess API.
+     * If this option is not specified, IE is launched using IELaunchURL, if
+     * available. For IE 8 and above, this option requires the TabProcGrowth
+     * registry value to be set to 0.
+     *
+     * @param {boolean} force Whether to use the CreateProcess API.
+     * @return {!Options} A self reference.
+     */
+    forceCreateProcessApi(force: boolean): Options;
+
+    /**
+     * Specifies command-line switches to use when launching Internet Explorer.
+     * This is only valid when used with {@link #forceCreateProcessApi}.
+     *
+     * @param {...(string|!Array.<string>)} var_args The arguments to add.
+     * @return {!Options} A self reference.
+     */
+    addArguments(...var_args: Array<string>): Options;
+
+    /**
+     * Configures whether proxies should be configured on a per-process basis. If
+     * not set, setting a {@linkplain #setProxy proxy} will configure the system
+     * proxy. The default behavior is to use the system proxy.
+     *
+     * @param {boolean} enable Whether to enable per-process proxy settings.
+     * @return {!Options} A self reference.
+     */
+    usePerProcessProxy(enable: boolean): Options;
+
+    /**
+     * Configures whether to clear the cache, cookies, history, and saved form data
+     * before starting the browser. _Using this capability will clear session data
+     * for all running instances of Internet Explorer, including those started
+     * manually._
+     *
+     * @param {boolean} cleanSession Whether to clear all session data on startup.
+     * @return {!Options} A self reference.
+     */
+    ensureCleanSession(cleanSession: boolean): Options;
+
+    /**
+     * Sets the path to the log file the driver should log to.
+     * @param {string} file The log file path.
+     * @return {!Options} A self reference.
+     */
+    setLogFile(file: string): Options;
+
+    /**
+     * Sets the IEDriverServer's logging {@linkplain Level level}.
+     * @param {Level} level The logging level.
+     * @return {!Options} A self reference.
+     */
+    setLogLevel(level: webdriver.logging.Level): Options;
+
+    /**
+     * Sets the IP address of the driver's host adapter.
+     * @param {string} host The IP address to use.
+     * @return {!Options} A self reference.
+     */
+    setHost(host: string): Options;
+
+    /**
+     * Sets the path of the temporary data directory to use.
+     * @param {string} path The log file path.
+     * @return {!Options} A self reference.
+     */
+    setExtractPath(path: string): Options;
+
+    /**
+     * Sets whether the driver should start in silent mode.
+     * @param {boolean} silent Whether to run in silent mode.
+     * @return {!Options} A self reference.
+     */
+    silent(silent: boolean): Options;
+
+    /**
+     * Sets the proxy settings for the new session.
+     * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
+     * @return {!Options} A self reference.
+     */
+    setProxy(proxy: webdriver.ProxyConfig): Options;
+
+    /**
+     * Converts this options instance to a {@link capabilities.Capabilities}
+     * object.
+     * @param {capabilities.Capabilities=} opt_capabilities The capabilities to
+     *     merge these options into, if any.
+     * @return {!capabilities.Capabilities} The capabilities.
+     */
+    toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
+  }
+
+}
+
+declare namespace opera {
+  /**
+   * Creates {@link remote.DriverService} instances that manages an
+   * [OperaDriver](https://github.com/operasoftware/operachromiumdriver)
+   * server in a child process.
+   */
+  class ServiceBuilder {
+    /**
+     * @param {string=} opt_exe Path to the server executable to use. If omitted,
+     *     the builder will attempt to locate the operadriver on the current
+     *     PATH.
+     * @throws {Error} If provided executable does not exist, or the operadriver
+     *     cannot be found on the PATH.
+     */
+    constructor(opt_exe?: string);
+
+    /**
+     * Sets the port to start the OperaDriver on.
+     * @param {number} port The port to use, or 0 for any free port.
+     * @return {!ServiceBuilder} A self reference.
+     * @throws {Error} If the port is invalid.
+     */
+    usingPort(port: number): ServiceBuilder;
+
+    /**
+     * Sets the path of the log file the driver should log to. If a log file is
+     * not specified, the driver will log to stderr.
+     * @param {string} path Path of the log file to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    loggingTo(path: string): ServiceBuilder;
+
+    /**
+     * Enables verbose logging.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    enableVerboseLogging(): ServiceBuilder;
+
+    /**
+     * Silence sthe drivers output.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    silent(): ServiceBuilder;
+
+    /**
+     * Defines the stdio configuration for the driver service. See
+     * {@code child_process.spawn} for more information.
+     * @param {(string|!Array<string|number|!stream.Stream|null|undefined>)}
+     *     config The configuration to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    setStdio(config: string|Array<string|number|any>): ServiceBuilder;
+
+    /**
+     * Defines the environment to start the server under. This settings will be
+     * inherited by every browser session started by the server.
+     * @param {!Object.<string, string>} env The environment to use.
+     * @return {!ServiceBuilder} A self reference.
+     */
+    withEnvironment(env: Object): ServiceBuilder;
+
+    /**
+     * Creates a new DriverService using this instance's current configuration.
+     * @return {!remote.DriverService} A new driver service using this instance's
+     *     current configuration.
+     * @throws {Error} If the driver exectuable was not specified and a default
+     *     could not be found on the current PATH.
+     */
+    build(): remote.DriverService;
+  }
+
+  /**
+   * Sets the default service to use for new OperaDriver instances.
+   * @param {!remote.DriverService} service The service to use.
+   * @throws {Error} If the default service is currently running.
+   */
+  function setDefaultService(service: remote.DriverService): any;
+
+  /**
+   * Returns the default OperaDriver service. If such a service has not been
+   * configured, one will be constructed using the default configuration for
+   * a OperaDriver executable found on the system PATH.
+   * @return {!remote.DriverService} The default OperaDriver service.
+   */
+  function getDefaultService(): remote.DriverService;
+
+  /**
+   * Class for managing {@linkplain Driver OperaDriver} specific options.
+   */
+  class Options {
+    /**
+     * Extracts the OperaDriver specific options from the given capabilities
+     * object.
+     * @param {!capabilities.Capabilities} caps The capabilities object.
+     * @return {!Options} The OperaDriver options.
+     */
+    static fromCapabilities(caps: webdriver.Capabilities): Options;
+
+    /**
+     * Add additional command line arguments to use when launching the Opera
+     * browser.  Each argument may be specified with or without the "--" prefix
+     * (e.g. "--foo" and "foo"). Arguments with an associated value should be
+     * delimited by an "=": "foo=bar".
+     * @param {...(string|!Array.<string>)} var_args The arguments to add.
+     * @return {!Options} A self reference.
+     */
+    addArguments(...var_args: Array<string>): Options;
+
+    /**
+     * Add additional extensions to install when launching Opera. Each extension
+     * should be specified as the path to the packed CRX file, or a Buffer for an
+     * extension.
+     * @param {...(string|!Buffer|!Array.<(string|!Buffer)>)} var_args The
+     *     extensions to add.
+     * @return {!Options} A self reference.
+     */
+    addExtensions(...var_args: Array<any>): Options;
+
+    /**
+     * Sets the path to the Opera binary to use. On Mac OS X, this path should
+     * reference the actual Opera executable, not just the application binary. The
+     * binary path be absolute or relative to the operadriver server executable, but
+     * it must exist on the machine that will launch Opera.
+     *
+     * @param {string} path The path to the Opera binary to use.
+     * @return {!Options} A self reference.
+     */
+    setOperaBinaryPath(path: string): Options;
+
+    /**
+     * Sets the logging preferences for the new session.
+     * @param {!./lib/logging.Preferences} prefs The logging preferences.
+     * @return {!Options} A self reference.
+     */
+    setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+
+    /**
+     * Sets the proxy settings for the new session.
+     * @param {capabilities.ProxyConfig} proxy The proxy configuration to use.
+     * @return {!Options} A self reference.
+     */
+    setProxy(proxy: webdriver.ProxyConfig): Options;
+
+    /**
+     * Converts this options instance to a {@link capabilities.Capabilities}
+     *     object.
+     * @param {capabilities.Capabilities=} opt_capabilities The capabilities to
+     *     merge these options into, if any.
+     * @return {!capabilities.Capabilities} The capabilities.
+     */
+    toCapabilities(opt_capabilities?: webdriver.Capabilities): webdriver.Capabilities;
+  }
+
+  class Driver extends webdriver.WebDriver {
+    /**
+     * @param {(capabilities.Capabilities|Options)=} opt_config The configuration
+     *     options.
+     * @param {remote.DriverService=} opt_service The session to use; will use
+     *     the {@link getDefaultService default service} by default.
+     * @param {promise.ControlFlow=} opt_flow The control flow to use,
+     *     or {@code null} to use the currently active flow.
+     */
+    constructor(opt_config?: webdriver.Capabilities|Options, opt_service?: remote.DriverService, opt_flow?: webdriver.promise.ControlFlow);
+
+    /**
+     * This function is a no-op as file detectors are not supported by this
+     * implementation.
+     * @override
+     */
+    setFileDetector(): void;
+  }
+}
+
+declare namespace remote {
+  /**
+   * A record object that defines the configuration options for a DriverService
+   * instance.
+   *
+   * @record
+   */
+  interface ServiceOptions {}
+
+  /**
+   * Manages the life and death of a native executable WebDriver server.
+   *
+   * It is expected that the driver server implements the
+   * https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol.
+   * Furthermore, the managed server should support multiple concurrent sessions,
+   * so that this class may be reused for multiple clients.
+   */
+  class DriverService {
+    /**
+     * @param {string} executable Path to the executable to run.
+     * @param {!ServiceOptions} options Configuration options for the service.
+     */
+    constructor(executable: string, options: ServiceOptions);
+
+    /**
+     * @return {!promise.Promise<string>} A promise that resolves to
+     *    the server's address.
+     * @throws {Error} If the server has not been started.
+     */
+    address(): webdriver.promise.Promise<string>;
+
+    /**
+     * Returns whether the underlying process is still running. This does not take
+     * into account whether the process is in the process of shutting down.
+     * @return {boolean} Whether the underlying service process is running.
+     */
+    isRunning(): boolean;
+
+    /**
+     * Starts the server if it is not already running.
+     * @param {number=} opt_timeoutMs How long to wait, in milliseconds, for the
+     *     server to start accepting requests. Defaults to 30 seconds.
+     * @return {!promise.Promise<string>} A promise that will resolve
+     *     to the server's base URL when it has started accepting requests. If the
+     *     timeout expires before the server has started, the promise will be
+     *     rejected.
+     */
+    start(opt_timeoutMs?: number): webdriver.promise.Promise<string>;
+
+    /**
+     * Stops the service if it is not currently running. This function will kill
+     * the server immediately. To synchronize with the active control flow, use
+     * {@link #stop()}.
+     * @return {!promise.Promise} A promise that will be resolved when
+     *     the server has been stopped.
+     */
+    kill(): webdriver.promise.Promise<any>;
+
+    /**
+     * Schedules a task in the current control flow to stop the server if it is
+     * currently running.
+     * @return {!promise.Promise} A promise that will be resolved when
+     *     the server has been stopped.
+     */
+    stop(): webdriver.promise.Promise<any>;
+  }
+}
+
+declare namespace safari {
+  class Server {}
+
+  /**
+   * @return {!Promise<string>} A promise that will resolve with the path
+   *     to Safari on the current system.
+   */
+  function findSafariExecutable(): any;
+
+  /**
+   * @param {string} serverUrl The URL to connect to.
+   * @return {!Promise<string>} A promise for the path to a file that Safari can
+   *     open on start-up to trigger a new connection to the WebSocket server.
+   */
+  function createConnectFile(serverUrl: string): any;
+
+  /**
+   * Deletes all session data files if so desired.
+   * @param {!Object} desiredCapabilities .
+   * @return {!Array<promise.Promise>} A list of promises for the deleted files.
+   */
+  function cleanSession(desiredCapabilities: webdriver.Capabilities): any[];
+
+  /** @return {string} . */
+  function getRandomString(): string;
+
+  /**
+   * @implements {command.Executor}
+   */
+  class CommandExecutor {
+  }
+
+  /**
+   * Configuration options specific to the {@link Driver SafariDriver}.
+   */
+  class Options {
+    /**
+     * Extracts the SafariDriver specific options from the given capabilities
+     * object.
+     * @param {!Capabilities} capabilities The capabilities object.
+     * @return {!Options} The ChromeDriver options.
+     */
+    static fromCapabilities(capabilities: webdriver.Capabilities): Options;
+
+    /**
+     * Sets whether to force Safari to start with a clean session. Enabling this
+     * option will cause all global browser data to be deleted.
+     * @param {boolean} clean Whether to make sure the session has no cookies,
+     *     cache entries, local storage, or databases.
+     * @return {!Options} A self reference.
+     */
+    setCleanSession(clean: boolean): Options;
+
+    /**
+     * Sets the logging preferences for the new session.
+     * @param {!./lib/logging.Preferences} prefs The logging preferences.
+     * @return {!Options} A self reference.
+     */
+    setLoggingPrefs(prefs: webdriver.logging.Preferences): Options;
+
+    /**
+     * Converts this options instance to a {@link Capabilities} object.
+     * @param {Capabilities=} opt_capabilities The capabilities to
+     *     merge these options into, if any.
+     * @return {!Capabilities} The capabilities.
+     */
+    toCapabilities(opt_capabilities: webdriver.Capabilities): webdriver.Capabilities;
+  }
+
+  /**
+   * A WebDriver client for Safari. This class should never be instantiated
+   * directly; instead, use the {@linkplain ./builder.Builder Builder}:
+   *
+   *     var driver = new Builder()
+   *         .forBrowser('safari')
+   *         .build();
+   *
+   */
+  class Driver extends webdriver.WebDriver {
+    /**
+     * @param {(Options|Capabilities)=} opt_config The configuration
+     *     options for the new session.
+     * @param {promise.ControlFlow=} opt_flow The control flow to create
+     *     the driver under.
+     */
+    constructor(opt_config?: Options|webdriver.Capabilities, opt_flow?: webdriver.promise.ControlFlow);
+
+  }
 }
 
 declare namespace webdriver {
 
     namespace error {
-        interface IErrorCode {
-            SUCCESS: number;
+        class IError extends Error {
+          constructor(opt_error?: string);
 
-            NO_SUCH_ELEMENT: number;
-            NO_SUCH_FRAME: number;
-            UNKNOWN_COMMAND: number;
-            UNSUPPORTED_OPERATION: number;  // Alias for UNKNOWN_COMMAND.
-            STALE_ELEMENT_REFERENCE: number;
-            ELEMENT_NOT_VISIBLE: number;
-            INVALID_ELEMENT_STATE: number;
-            UNKNOWN_ERROR: number;
-            ELEMENT_NOT_SELECTABLE: number;
-            JAVASCRIPT_ERROR: number;
-            XPATH_LOOKUP_ERROR: number;
-            TIMEOUT: number;
-            NO_SUCH_WINDOW: number;
-            INVALID_COOKIE_DOMAIN: number;
-            UNABLE_TO_SET_COOKIE: number;
-            MODAL_DIALOG_OPENED: number;
-            UNEXPECTED_ALERT_OPEN: number;
-            NO_SUCH_ALERT: number;
-            NO_MODAL_DIALOG_OPEN: number;
-            SCRIPT_TIMEOUT: number;
-            INVALID_ELEMENT_COORDINATES: number;
-            IME_NOT_AVAILABLE: number;
-            IME_ENGINE_ACTIVATION_FAILED: number;
-            INVALID_SELECTOR_ERROR: number;
-            SESSION_NOT_CREATED: number;
-            MOVE_TARGET_OUT_OF_BOUNDS: number;
-            SQL_DATABASE_ERROR: number;
-            INVALID_XPATH_SELECTOR: number;
-            INVALID_XPATH_SELECTOR_RETURN_TYPE: number;
-            // The following error codes are derived straight from HTTP return codes.
-            METHOD_NOT_ALLOWED: number;
+          code(): number;
         }
 
-        var ErrorCode: IErrorCode;
+        /**
+         * The base WebDriver error type. This error type is only used directly when a
+         * more appropriate category is not defined for the offending error.
+         */
+        class WebDriverError extends IError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
         /**
-         * Error extension that includes error status codes from the WebDriver wire
-         * protocol:
-         * http://code.google.com/p/selenium/wiki/JsonWireProtocol#Response_Status_Codes
-         *
-         * @extends {Error}
+         * An attempt was made to select an element that cannot be selected.
          */
-        class Error {
+        class ElementNotSelectableError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //region Constructors
+        /**
+         * An element command could not be completed because the element is not visible
+         * on the page.
+         */
+        class ElementNotVisibleError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /**
-             * @param {!bot.ErrorCode} code The error's status code.
-             * @param {string=} opt_message Optional error message.
-             * @constructor
-             */
-            constructor(code: number, opt_message?: string);
+        /**
+         * The arguments passed to a command are either invalid or malformed.
+         */
+        class InvalidArgumentError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //endregion
+        /**
+         * An illegal attempt was made to set a cookie under a different domain than
+         * the current page.
+         */
+        class InvalidCookieDomainError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //region Static Properties
+        /**
+         * The coordinates provided to an interactions operation are invalid.
+         */
+        class InvalidElementCoordinatesError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /**
-             * Status strings enumerated in the W3C WebDriver working draft.
-             * @enum {string}
-             * @see http://www.w3.org/TR/webdriver/#status-codes
-             */
-            static State: {
-                ELEMENT_NOT_SELECTABLE: string;
-                ELEMENT_NOT_VISIBLE: string;
-                IME_ENGINE_ACTIVATION_FAILED: string;
-                IME_NOT_AVAILABLE: string;
-                INVALID_COOKIE_DOMAIN: string;
-                INVALID_ELEMENT_COORDINATES: string;
-                INVALID_ELEMENT_STATE: string;
-                INVALID_SELECTOR: string;
-                JAVASCRIPT_ERROR: string;
-                MOVE_TARGET_OUT_OF_BOUNDS: string;
-                NO_SUCH_ALERT: string;
-                NO_SUCH_DOM: string;
-                NO_SUCH_ELEMENT: string;
-                NO_SUCH_FRAME: string;
-                NO_SUCH_WINDOW: string;
-                SCRIPT_TIMEOUT: string;
-                SESSION_NOT_CREATED: string;
-                STALE_ELEMENT_REFERENCE: string;
-                SUCCESS: string;
-                TIMEOUT: string;
-                UNABLE_TO_SET_COOKIE: string;
-                UNEXPECTED_ALERT_OPEN: string;
-                UNKNOWN_COMMAND: string;
-                UNKNOWN_ERROR: string;
-                UNSUPPORTED_OPERATION: string;
-            };
+        /**
+         * An element command could not be completed because the element is in an
+         * invalid state, e.g. attempting to click an element that is no longer attached
+         * to the document.
+         */
+        class InvalidElementStateError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //endregion
+        /**
+         * Argument was an invalid selector.
+         */
+        class InvalidSelectorError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //region Properties
+        /**
+         * Occurs when a command is directed to a session that does not exist.
+         */
+        class NoSuchSessionError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /**
-             * This error's status code.
-             * @type {!bot.ErrorCode}
-             */
-            code: number;
+        /**
+         * An error occurred while executing JavaScript supplied by the user.
+         */
+        class JavascriptError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /** @type {string} */
-            state: string;
+        /**
+         * The target for mouse interaction is not in the browser’s viewport and cannot
+         * be brought into that viewport.
+         */
+        class MoveTargetOutOfBoundsError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /** @override */
-            message: string;
+        /**
+         * An attempt was made to operate on a modal dialog when one was not open.
+         */
+        class NoSuchAlertError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /** @override */
-            name: string;
+        /**
+         * An element could not be located on the page using the given search
+         * parameters.
+         */
+        class NoSuchElementError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /** @override */
-            stack: string;
+        /**
+         * A request to switch to a frame could not be satisfied because the frame
+         * could not be found.
+         */
+        class NoSuchFrameError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /**
-             * Flag used for duck-typing when this code is embedded in a Firefox extension.
-             * This is required since an Error thrown in one component and then reported
-             * to another will fail instanceof checks in the second component.
-             * @type {boolean}
-             */
-            isAutomationError: boolean;
+        /**
+         * A request to switch to a window could not be satisfied because the window
+         * could not be found.
+         */
+        class NoSuchWindowError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //endregion
+        /**
+         * A script did not complete before its timeout expired.
+         */
+        class ScriptTimeoutError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //region Methods
+        /**
+         * A new session could not be created.
+         */
+        class SessionNotCreatedError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            /** @return {string} The string representation of this error. */
-            toString(): string;
+        /**
+         * An element command failed because the referenced element is no longer
+         * attached to the DOM.
+         */
+        class StaleElementReferenceError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
 
-            //endregion
+        /**
+         * An operation did not completErrorCodee before its timeout expired.
+         */
+        class TimeoutError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
+
+        /**
+         * A request to set a cookie’s value could not be satisfied.
+         */
+        class UnableToSetCookieError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
+
+        /**
+         * A screen capture operation was not possible.
+         */
+        class UnableToCaptureScreenError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
+
+        /**
+         * A modal dialog was open, blocking this operation.
+         */
+        class UnexpectedAlertOpenError extends WebDriverError {
+          /**
+           * @param {string=} opt_error the error message, if any.
+           * @param {string=} opt_text the text of the open dialog, if available.
+           */
+          constructor(opt_error?: string, opt_text?: string);
+
+          /**
+           * @return {(string|undefined)} The text displayed with the unhandled alert,
+           *     if available.
+           */
+          getAlertText(): string;
+        }
+
+        /**
+         * A command could not be executed because the remote end is not aware of it.
+         */
+        class UnknownCommandError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
+
+        /**
+         * The requested command matched a known URL but did not match an method for
+         * that URL.
+         */
+        class UnknownMethodError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
+        }
+
+        /**
+         * Reports an unsupport operation.
+         */
+        class UnsupportedOperationError extends WebDriverError {
+          /** @param {string=} opt_error the error message, if any. */
+          constructor(opt_error?: string);
         }
     }
 
@@ -776,21 +1736,21 @@ declare namespace webdriver {
          * @typedef {Object.<webdriver.logging.Type, webdriver.logging.LevelName>}
          */
         class Preferences {
-            setLevel(type: string, level: ILevel): void;
+            setLevel(type: string, level: Level|string|number): void;
             toJSON(): { [key: string]: string };
         }
 
         interface IType {
-            /** Logs originating from the browser. */
-            BROWSER: string;
-            /** Logs from a WebDriver client. */
-            CLIENT: string;
-            /** Logs from a WebDriver implementation. */
-            DRIVER: string;
-            /** Logs related to performance. */
-            PERFORMANCE: string;
-            /** Logs from the remote server. */
-            SERVER: string;
+          /** Logs originating from the browser. */
+          BROWSER: string;
+          /** Logs from a WebDriver client. */
+          CLIENT: string;
+          /** Logs from a WebDriver implementation. */
+          DRIVER: string;
+          /** Logs related to performance. */
+          PERFORMANCE: string;
+          /** Logs from the remote server. */
+          SERVER: string;
         }
 
         /**
@@ -800,24 +1760,74 @@ declare namespace webdriver {
         var Type: IType;
 
         /**
-         * Logging levels.
-         * @enum {{value: number, name: webdriver.logging.LevelName}}
+         * Defines a message level that may be used to control logging output.
+         *
+         * @final
          */
-        interface ILevel {
-            value: number;
-            name: string;
-        }
+        class Level {
+          name_: string;
+          value_: number;
+          /**
+           * @param {string} name the level's name.
+           * @param {number} level the level's numeric value.
+           */
+          constructor(name: string, level: number);
 
-        interface ILevelValues {
-            ALL: ILevel;
-            DEBUG: ILevel;
-            INFO: ILevel;
-            WARNING: ILevel;
-            SEVERE: ILevel;
-            OFF: ILevel;
-        }
+          /** @override */
+          toString(): string;
 
-        var Level: ILevelValues;
+          /** This logger's name. */
+          name: string;
+
+          /** The numeric log level. */
+          value: number;
+
+          /**
+           * Indicates no log messages should be recorded.
+           * @const
+           */
+          static OFF: Level;
+          /**
+           * Log messages with a level of `1000` or higher.
+           * @const
+           */
+          static SEVERE: Level;
+          /**
+           * Log messages with a level of `900` or higher.
+           * @const
+           */
+          static WARNING: Level;
+          /**
+           * Log messages with a level of `800` or higher.
+           * @const
+           */
+          static INFO: Level;
+          /**
+           * Log messages with a level of `700` or higher.
+           * @const
+           */
+          static DEBUG: Level;
+          /**
+           * Log messages with a level of `500` or higher.
+           * @const
+           */
+          static FINE: Level;
+          /**
+           * Log messages with a level of `400` or higher.
+           * @const
+           */
+          static FINER: Level;
+          /**
+           * Log messages with a level of `300` or higher.
+           * @const
+           */
+          static FINEST: Level;
+          /**
+           * Indicates all log messages should be recorded.
+           * @const
+           */
+          static ALL: Level;
+        }
 
         /**
          * Converts a level name or value to a {@link webdriver.logging.Level} value.
@@ -827,75 +1837,209 @@ declare namespace webdriver {
          *     convert .
          * @return {!webdriver.logging.Level} The converted level.
          */
-        function getLevel(nameOrValue: string): ILevel;
-        function getLevel(nameOrValue: number): ILevel;
+        function getLevel(nameOrValue: string|number): Level;
 
         interface IEntryJSON {
-            level: string;
-            message: string;
-            timestamp: number;
-            type: string;
+          level: string;
+          message: string;
+          timestamp: number;
+          type: string;
         }
 
         /**
          * A single log entry.
          */
         class Entry {
+          /**
+           * @param {(!webdriver.logging.Level|string)} level The entry level.
+           * @param {string} message The log message.
+           * @param {number=} opt_timestamp The time this entry was generated, in
+           *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
+           *     current time will be used.
+           * @param {string=} opt_type The log type, if known.
+           * @constructor
+           */
+          constructor(level: Level|string|number, message: string, opt_timestamp?:number, opt_type?:string|IType);
 
-            //region Constructors
+          /** @type {!webdriver.logging.Level} */
+          level: Level;
 
-            /**
-             * @param {(!webdriver.logging.Level|string)} level The entry level.
-             * @param {string} message The log message.
-             * @param {number=} opt_timestamp The time this entry was generated, in
-             *     milliseconds since 0:00:00, January 1, 1970 UTC. If omitted, the
-             *     current time will be used.
-             * @param {string=} opt_type The log type, if known.
-             * @constructor
-             */
-            constructor(level: ILevel, message: string, opt_timestamp?:number, opt_type?:string);
-            constructor(level: string, message: string, opt_timestamp?:number, opt_type?:string);
+          /** @type {string} */
+          message: string;
 
-            //endregion
+          /** @type {number} */
+          timestamp: number;
 
-            //region Public Properties
+          /** @type {string} */
+          type: string;
 
-            /** @type {!webdriver.logging.Level} */
-            level: ILevel;
+          /**
+           * @return {{level: string, message: string, timestamp: number,
+           *           type: string}} The JSON representation of this entry.
+           */
+          toJSON(): IEntryJSON;
+        }
 
-            /** @type {string} */
-            message: string;
+        /**
+         * An object used to log debugging messages. Loggers use a hierarchical,
+         * dot-separated naming scheme. For instance, "foo" is considered the parent of
+         * the "foo.bar" and an ancestor of "foo.bar.baz".
+         *
+         * Each logger may be assigned a {@linkplain #setLevel log level}, which
+         * controls which level of messages will be reported to the
+         * {@linkplain #addHandler handlers} attached to this instance. If a log level
+         * is not explicitly set on a logger, it will inherit its parent.
+         *
+         * This class should never be directly instantiated. Instead, users should
+         * obtain logger references using the {@linkplain ./logging.getLogger()
+         * getLogger()} function.
+         *
+         * @final
+         */
+        class Logger {
+          /**
+           * @param {string} name the name of this logger.
+           * @param {Level=} opt_level the initial level for this logger.
+           */
+          constructor(name: string, opt_level?: Level);
 
-            /** @type {number} */
-            timestamp: number;
+          /** @private {string} */
+          name_: string;
+          /** @private {Level} */
+          level_: Level;
+          /** @private {Logger} */
+          parent_: Logger;
+          /** @private {Set<function(!Entry)>} */
+          handlers_: any;
 
-            /** @type {string} */
-            type: string;
+          /** @return {string} the name of this logger. */
+          getName(): string;
 
-            //endregion
+          /**
+           * @param {Level} level the new level for this logger, or `null` if the logger
+           *     should inherit its level from its parent logger.
+           */
+          setLevel(level: Level): void;
 
-            //region Static Methods
+          /** @return {Level} the log level for this logger. */
+          getLevel(): Level;
 
-            /**
-             * Converts a {@link goog.debug.LogRecord} into a
-             * {@link webdriver.logging.Entry}.
-             * @param {!goog.debug.LogRecord} logRecord The record to convert.
-             * @param {string=} opt_type The log type.
-             * @return {!webdriver.logging.Entry} The converted entry.
-             */
-            static fromClosureLogRecord(logRecord: any, opt_type?:string): Entry;
+          /**
+           * @return {!Level} the effective level for this logger.
+           */
+          getEffectiveLevel(): Level;
 
-            //endregion
+          /**
+           * @param {!Level} level the level to check.
+           * @return {boolean} whether messages recorded at the given level are loggable
+           *     by this instance.
+           */
+          isLoggable(level: Level): boolean;
 
-            //region Methods
+          /**
+           * Adds a handler to this logger. The handler will be invoked for each message
+           * logged with this instance, or any of its descendants.
+           *
+           * @param {function(!Entry)} handler the handler to add.
+           */
+          addHandler(handler: any): void;
 
-            /**
-             * @return {{level: string, message: string, timestamp: number,
-             *           type: string}} The JSON representation of this entry.
-             */
-            toJSON(): IEntryJSON;
+          /**
+           * Removes a handler from this logger.
+           *
+           * @param {function(!Entry)} handler the handler to remove.
+           * @return {boolean} whether a handler was successfully removed.
+           */
+          removeHandler(handler: any): void;
 
-            //endregion
+          /**
+           * Logs a message at the given level. The message may be defined as a string
+           * or as a function that will return the message. If a function is provided,
+           * it will only be invoked if this logger's
+           * {@linkplain #getEffectiveLevel() effective log level} includes the given
+           * `level`.
+           *
+           * @param {!Level} level the level at which to log the message.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          log(level: Level, loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.SEVERE} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          severe(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.WARNING} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          warning(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.INFO} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          info(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.DEBUG} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          debug(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.FINE} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          fine(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.FINER} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          finer(loggable: string|Function): void;
+
+          /**
+           * Logs a message at the {@link Level.FINEST} log level.
+           * @param {(string|function(): string)} loggable the message to log, or a
+           *     function that will return the message.
+           */
+          finest(loggable: string|Function): void;
+        }
+
+        /**
+         * Maintains a collection of loggers.
+         *
+         * @final
+         */
+        class LogManager {
+          /**
+           * Retrieves a named logger, creating it in the process. This function will
+           * implicitly create the requested logger, and any of its parents, if they
+           * do not yet exist.
+           *
+           * @param {string} name the logger's name.
+           * @return {!Logger} the requested logger.
+           */
+          getLogger(name: string): Logger;
+
+          /**
+           * Creates a new logger.
+           *
+           * @param {string} name the logger's name.
+           * @param {!Logger} parent the logger's parent.
+           * @return {!Logger} the new logger.
+           * @private
+           */
+          createLogger_(name: string, parent: Logger): Logger;
         }
     }
 
@@ -908,15 +2052,15 @@ declare namespace webdriver {
          * input array's promises are rejected, the returned promise will be rejected
          * with the same reason.
          *
-         * @param {!Array.<(T|!webdriver.promise.Promise.<T>)>} arr An array of
+         * @param {!Array<(T|!ManagedPromise<T>)>} arr An array of
          *     promises to wait on.
-         * @return {!webdriver.promise.Promise.<!Array.<T>>} A promise that is
+         * @return {!ManagedPromise<!Array<T>>} A promise that is
          *     fulfilled with an array containing the fulfilled values of the
          *     input array, or rejected with the same reason as the first
          *     rejected value.
          * @template T
          */
-        function all(arr: Promise<any>[]): Promise<any[]>;
+        function all<T>(arr: Array<T|Promise<T>>): Promise<T[]>;
 
         /**
          * Invokes the appropriate callback function as soon as a promised
@@ -939,9 +2083,9 @@ declare namespace webdriver {
          * Creates a new control flow. The provided callback will be invoked as the
          * first task within the new flow, with the flow as its sole argument. Returns
          * a promise that resolves to the callback result.
-         * @param {function(!webdriver.promise.ControlFlow)} callback The entry point
+         * @param {function(!ControlFlow)} callback The entry point
          *     to the newly created flow.
-         * @return {!webdriver.promise.Promise} A promise that resolves to the callback
+         * @return {!ManagedPromise} A promise that resolves to the callback
          *     result.
          */
         function createFlow<R>(callback: (flow: ControlFlow) => R): Promise<R>;
@@ -966,7 +2110,7 @@ declare namespace webdriver {
          * Creates a promise that will be resolved at a set time in the future.
          * @param {number} ms The amount of time, in milliseconds, to wait before
          *     resolving the promise.
-         * @return {!webdriver.promise.Promise} The promise.
+         * @return {!ManagedPromise} The promise.
          */
         function delayed(ms: number): Promise<void>;
 
@@ -974,26 +2118,25 @@ declare namespace webdriver {
          * Calls a function for each element in an array, and if the function returns
          * true adds the element to a new array.
          *
-         * <p>If the return value of the filter function is a promise, this function
+         * If the return value of the filter function is a promise, this function
          * will wait for it to be fulfilled before determining whether to insert the
          * element into the new array.
          *
-         * <p>If the filter function throws or returns a rejected promise, the promise
+         * If the filter function throws or returns a rejected promise, the promise
          * returned by this function will be rejected with the same reason. Only the
          * first failure will be reported; all subsequent errors will be silently
          * ignored.
          *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
+         * @param {!(Array<TYPE>|ManagedPromise<!Array<TYPE>>)} arr The
          *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): (
-         *             boolean|webdriver.promise.Promise.<boolean>)} fn The function
+         * @param {function(this: SELF, TYPE, number, !Array<TYPE>): (
+         *             boolean|ManagedPromise<boolean>)} fn The function
          *     to call for each element in the array.
          * @param {SELF=} opt_self The object to be used as the value of 'this' within
          *     {@code fn}.
          * @template TYPE, SELF
          */
-        function filter<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>;
-        function filter<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+        function filter<T>(arr: Array<T>|Promise<Array<T>>, fn: (element: T, type: any, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>;
 
         /**
          * Creates a new deferred object.
@@ -1003,8 +2146,9 @@ declare namespace webdriver {
 
         /**
          * Creates a promise that has been resolved with the given value.
-         * @param {*=} opt_value The resolved value.
-         * @return {!webdriver.promise.Promise} The resolved promise.
+         * @param {T=} opt_value The resolved value.
+         * @return {!ManagedPromise<T>} The resolved promise.
+         * @template T
          */
         function fulfilled<T>(opt_value?: T): Promise<T>;
 
@@ -1013,42 +2157,44 @@ declare namespace webdriver {
          * new array, which is used as the fulfillment value of the promise returned
          * by this function.
          *
-         * <p>If the return value of the mapping function is a promise, this function
+         * If the return value of the mapping function is a promise, this function
          * will wait for it to be fulfilled before inserting it into the new array.
          *
-         * <p>If the mapping function throws or returns a rejected promise, the
+         * If the mapping function throws or returns a rejected promise, the
          * promise returned by this function will be rejected with the same reason.
          * Only the first failure will be reported; all subsequent errors will be
          * silently ignored.
          *
-         * @param {!(Array.<TYPE>|webdriver.promise.Promise.<!Array.<TYPE>>)} arr The
+         * @param {!(Array<TYPE>|ManagedPromise<!Array<TYPE>>)} arr The
          *     array to iterator over, or a promise that will resolve to said array.
-         * @param {function(this: SELF, TYPE, number, !Array.<TYPE>): ?} fn The
+         * @param {function(this: SELF, TYPE, number, !Array<TYPE>): ?} fn The
          *     function to call for each element in the array. This function should
          *     expect three arguments (the element, the index, and the array itself.
          * @param {SELF=} opt_self The object to be used as the value of 'this' within
          *     {@code fn}.
          * @template TYPE, SELF
          */
-        function map<T>(arr: T[], fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
-        function map<T>(arr: Promise<T[]>, fn: (element: T, index: number, array: T[]) => any, opt_self?: any): Promise<T[]>
+        function map<T>(arr: Array<T>|Promise<Array<T>>, fn: (self: any, type: any, index: number, array: T[]) => any, opt_self?: any): Promise<any[]>
 
         /**
          * Creates a promise that has been rejected with the given reason.
          * @param {*=} opt_reason The rejection reason; may be any value, but is
          *     usually an Error or a string.
-         * @return {!webdriver.promise.Promise} The rejected promise.
+         * @return {!ManagedPromise<T>} The rejected promise.
+         * @template T
          */
-        function rejected(opt_reason?: any): Promise<void>;
+        function rejected<T>(opt_reason?: any): Promise<T>;
 
         /**
-         * Wraps a function that is assumed to be a node-style callback as its final
-         * argument. This callback takes two arguments: an error value (which will be
+         * Wraps a function that expects a node-style callback as its final
+         * argument. This callback expects two arguments: an error value (which will be
          * null if the call succeeded), and the success value as the second argument.
-         * If the call fails, the returned promise will be rejected, otherwise it will
-         * be resolved with the result.
+         * The callback will the resolve or reject the returned promise, based on its
+         * arguments.
          * @param {!Function} fn The function to wrap.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with the
+         * @param {...?} var_args The arguments to apply to the function, excluding the
+         *     final callback.
+         * @return {!ManagedPromise} A promise that will be resolved with the
          *     result of the provided function's callback.
          */
         function checkedNodeCall<T>(fn: Function, ...var_args: any[]): Promise<T>;
@@ -1059,37 +2205,35 @@ declare namespace webdriver {
          * fulfilled value back into {@code next}. Likewise, if a yielded promise is
          * rejected, the rejection error will be passed to {@code throw}.
          *
-         * <p>Example 1: the Fibonacci Sequence.
-         * <pre><code>
-         * webdriver.promise.consume(function* fibonacci() {
-         *   var n1 = 1, n2 = 1;
-         *   for (var i = 0; i < 4; ++i) {
-         *     var tmp = yield n1 + n2;
-         *     n1 = n2;
-         *     n2 = tmp;
-         *   }
-         *   return n1 + n2;
-         * }).then(function(result) {
-         *   console.log(result);  // 13
-         * });
-         * </code></pre>
+         * __Example 1:__ the Fibonacci Sequence.
          *
-         * <p>Example 2: a generator that throws.
-         * <pre><code>
-         * webdriver.promise.consume(function* () {
-         *   yield webdriver.promise.delayed(250).then(function() {
-         *     throw Error('boom');
-         *   });
-         * }).thenCatch(function(e) {
-         *   console.log(e.toString());  // Error: boom
-         * });
-         * </code></pre>
+         *     promise.consume(function* fibonacci() {
+         *       var n1 = 1, n2 = 1;
+         *       for (var i = 0; i < 4; ++i) {
+         *         var tmp = yield n1 + n2;
+         *         n1 = n2;
+         *         n2 = tmp;
+         *       }
+         *       return n1 + n2;
+         *     }).then(function(result) {
+         *       console.log(result);  // 13
+         *     });
+         *
+         * __Example 2:__ a generator that throws.
+         *
+         *     promise.consume(function* () {
+         *       yield promise.delayed(250).then(function() {
+         *         throw Error('boom');
+         *       });
+         *     }).catch(function(e) {
+         *       console.log(e.toString());  // Error: boom
+         *     });
          *
          * @param {!Function} generatorFn The generator function to execute.
          * @param {Object=} opt_self The object to use as "this" when invoking the
          *     initial generator.
          * @param {...*} var_args Any arguments to pass to the initial generator.
-         * @return {!webdriver.promise.Promise.<?>} A promise that will resolve to the
+         * @return {!ManagedPromise<?>} A promise that will resolve to the
          *     generator's final result.
          * @throws {TypeError} If the given function is not a generator.
          */
@@ -1104,10 +2248,9 @@ declare namespace webdriver {
          *     resolved successfully.
          * @param {Function=} opt_errback The function to call when the value is
          *     rejected.
-         * @return {!webdriver.promise.Promise} A new promise.
+         * @return {!ManagedPromise} A new promise.
          */
-        function when<T,R>(value: T, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
-        function when<T,R>(value: Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<R>;
+        function when<T>(value: T|Promise<T>, opt_callback?: (value: T) => any, opt_errback?: (error: any) => any): Promise<any>;
 
         /**
          * Returns a promise that will be resolved with the input value in a
@@ -1120,19 +2263,19 @@ declare namespace webdriver {
          * Warning: This function makes no checks against objects that contain
          * cyclical references:
          *
-         *   var value = {};
-         *   value['self'] = value;
-         *   webdriver.promise.fullyResolved(value);  // Stack overflow.
+         *     var value = {};
+         *     value['self'] = value;
+         *     promise.fullyResolved(value);  // Stack overflow.
          *
          * @param {*} value The value to fully resolve.
-         * @return {!webdriver.promise.Promise} A promise for a fully resolved version
+         * @return {!ManagedPromise} A promise for a fully resolved version
          *     of the input value.
          */
         function fullyResolved<T>(value: any): Promise<T>;
 
         /**
          * Changes the default flow to use when no others are active.
-         * @param {!webdriver.promise.ControlFlow} flow The new default flow.
+         * @param {!ControlFlow} flow The new default flow.
          * @throws {Error} If the default flow is not currently active.
          */
         function setDefaultFlow(flow: ControlFlow): void;
@@ -1141,265 +2284,181 @@ declare namespace webdriver {
 
         /**
          * Error used when the computation of a promise is cancelled.
-         *
-         * @extends {goog.debug.Error}
-         * @final
          */
-        class CancellationError {
-            /**
-             * @param {string=} opt_msg The cancellation message.
-             * @constructor
-             */
-            constructor(opt_msg?: string);
-
-            name: string;
-            message: string;
+        class CancellationError extends Error {
+          /**
+           * @param {string=} opt_msg The cancellation message.
+           */
+          constructor(opt_msg?: string);
         }
 
         interface IThenable<T> {
             /**
-             * Cancels the computation of this promise's value, rejecting the promise in the
-             * process. This method is a no-op if the promise has alreayd been resolved.
+             * Cancels the computation of this promise's value, rejecting the promise in
+             * the process. This method is a no-op if the promise has already been
+             * resolved.
              *
-             * @param {string=} opt_reason The reason this promise is being cancelled.
+             * @param {(string|Error)=} opt_reason The reason this promise is being
+             *     cancelled. This value will be wrapped in a {@link CancellationError}.
              */
-            cancel(opt_reason?: string): void;
-
+            cancel(opt_reason?: string|Error): void;
 
             /** @return {boolean} Whether this promise's value is still being computed. */
             isPending(): boolean;
 
-
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param opt_callback The
+             * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return A new promise which will be
+             * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+             *     The function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
              *     resolved with the result of the invoked callback.
+             * @template R
              */
-            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
-
-            /**
-             * Registers listeners for when this instance is resolved.
-             *
-             * @param opt_callback The
-             *     function to call if this promise is successfully resolved. The function
-             *     should expect a single argument: the promise's resolved value.
-             * @param opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return A new promise which will be
-             *     resolved with the result of the invoked callback.
-             */
-            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
-
+            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
              * with the {@code catch} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } catch (ex) {
-             *     console.error(ex);
-             *   }
              *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenCatch(function(ex) {
-             *     console.error(ex);
-             *   });
-             * </code></pre>
+             *     // Synchronous API:
+             *     try {
+             *       doSynchronousWork();
+             *     } catch (ex) {
+             *       console.error(ex);
+             *     }
              *
-             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-             *     to call if this promise is rejected. The function should expect a single
-             *     argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             *     // Asynchronous promise API:
+             *     doAsynchronousWork().catch(function(ex) {
+             *       console.error(ex);
+             *     });
+             *
+             * @param {function(*): (R|IThenable<R>)} errback The
+             *     function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
              *     resolved with the result of the invoked callback.
              * @template R
              */
-            thenCatch<R>(errback: (error: any) => any): Promise<R>;
-
-
-            /**
-             * Registers a listener to invoke when this promise is resolved, regardless
-             * of whether the promise's value was successfully computed. This function
-             * is synonymous with the {@code finally} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } finally {
-             *     cleanUp();
-             *   }
-             *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenFinally(cleanUp);
-             * </code></pre>
-             *
-             * <b>Note:</b> similar to the {@code finally} clause, if the registered
-             * callback returns a rejected promise or throws an error, it will silently
-             * replace the rejection error (if any) from this promise:
-             * <pre><code>
-             *   try {
-             *     throw Error('one');
-             *   } finally {
-             *     throw Error('two');  // Hides Error: one
-             *   }
-             *
-             *   webdriver.promise.rejected(Error('one'))
-             *       .thenFinally(function() {
-             *         throw Error('two');  // Hides Error: one
-             *       });
-             * </code></pre>
-             *
-             *
-             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-             *     to call when this promise is resolved.
-             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
-             *     with the callback result.
-             * @template R
-             */
-            thenFinally<R>(callback: () => any): Promise<R>;
+            catch<R>(errback: Function): Promise<R>;
         }
 
         /**
-        * Thenable is a promise-like object with a {@code then} method which may be
-        * used to schedule callbacks on a promised value.
-        *
-        * @interface
-        * @template T
-        */
+         * Thenable is a promise-like object with a {@code then} method which may be
+         * used to schedule callbacks on a promised value.
+         *
+         * @interface
+         * @template T
+         */
         class Thenable<T> implements IThenable<T> {
             /**
-             * Cancels the computation of this promise's value, rejecting the promise in the
-             * process. This method is a no-op if the promise has alreayd been resolved.
+             * Cancels the computation of this promise's value, rejecting the promise in
+             * the process. This method is a no-op if the promise has already been
+             * resolved.
              *
-             * @param {string=} opt_reason The reason this promise is being cancelled.
+             * @param {(string|Error)=} opt_reason The reason this promise is being
+             *     cancelled. This value will be wrapped in a {@link CancellationError}.
              */
-            cancel(opt_reason?: string): void;
-
+            cancel(opt_reason?: string|Error): void;
 
             /** @return {boolean} Whether this promise's value is still being computed. */
             isPending(): boolean;
 
-
             /**
              * Registers listeners for when this instance is resolved.
              *
-             * @param opt_callback The
+             * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
              *     function to call if this promise is successfully resolved. The function
              *     should expect a single argument: the promise's resolved value.
-             * @param opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return A new promise which will be
+             * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+             *     The function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
              *     resolved with the result of the invoked callback.
+             * @template R
              */
-            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
-
-            /**
-             * Registers listeners for when this instance is resolved.
-             *
-             * @param opt_callback The
-             *     function to call if this promise is successfully resolved. The function
-             *     should expect a single argument: the promise's resolved value.
-             * @param opt_errback The
-             *     function to call if this promise is rejected. The function should expect
-             *     a single argument: the rejection reason.
-             * @return A new promise which will be
-             *     resolved with the result of the invoked callback.
-             */
-            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
-
+            then<R>(opt_callback?: (value: T) => R|IThenable<R>, opt_errback?: (error: any) => R|IThenable<R>): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
              * with the {@code catch} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } catch (ex) {
-             *     console.error(ex);
-             *   }
              *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenCatch(function(ex) {
-             *     console.error(ex);
-             *   });
-             * </code></pre>
+             *     // Synchronous API:
+             *     try {
+             *       doSynchronousWork();
+             *     } catch (ex) {
+             *       console.error(ex);
+             *     }
              *
-             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
-             *     to call if this promise is rejected. The function should expect a single
-             *     argument: the rejection reason.
-             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             *     // Asynchronous promise API:
+             *     doAsynchronousWork().catch(function(ex) {
+             *       console.error(ex);
+             *     });
+             *
+             * @param {function(*): (R|IThenable<R>)} errback The
+             *     function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
              *     resolved with the result of the invoked callback.
              * @template R
              */
-            thenCatch<R>(errback: (error: any) => any): Promise<R>;
-
+            catch<R>(errback: Function): Promise<R>;
 
             /**
              * Registers a listener to invoke when this promise is resolved, regardless
              * of whether the promise's value was successfully computed. This function
              * is synonymous with the {@code finally} clause in a synchronous API:
-             * <pre><code>
-             *   // Synchronous API:
-             *   try {
-             *     doSynchronousWork();
-             *   } finally {
-             *     cleanUp();
-             *   }
              *
-             *   // Asynchronous promise API:
-             *   doAsynchronousWork().thenFinally(cleanUp);
-             * </code></pre>
+             *     // Synchronous API:
+             *     try {
+             *       doSynchronousWork();
+             *     } finally {
+             *       cleanUp();
+             *     }
              *
-             * <b>Note:</b> similar to the {@code finally} clause, if the registered
+             *     // Asynchronous promise API:
+             *     doAsynchronousWork().finally(cleanUp);
+             *
+             * __Note:__ similar to the {@code finally} clause, if the registered
              * callback returns a rejected promise or throws an error, it will silently
              * replace the rejection error (if any) from this promise:
-             * <pre><code>
-             *   try {
-             *     throw Error('one');
-             *   } finally {
-             *     throw Error('two');  // Hides Error: one
-             *   }
              *
-             *   webdriver.promise.rejected(Error('one'))
-             *       .thenFinally(function() {
-             *         throw Error('two');  // Hides Error: one
-             *       });
-             * </code></pre>
+             *     try {
+             *       throw Error('one');
+             *     } finally {
+             *       throw Error('two');  // Hides Error: one
+             *     }
              *
+             *     promise.rejected(Error('one'))
+             *         .finally(function() {
+             *           throw Error('two');  // Hides Error: one
+             *         });
              *
-             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
-             *     to call when this promise is resolved.
-             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
+             * @param {function(): (R|IThenable<R>)} callback The function to call when
+             *     this promise is resolved.
+             * @return {!ManagedPromise<R>} A promise that will be fulfilled
              *     with the callback result.
              * @template R
              */
-            thenFinally<R>(callback: () => any): Promise<R>;
+            finally<R>(callback: Function): Promise<R>;
 
             /**
              * Adds a property to a class prototype to allow runtime checks of whether
-             * instances of that class implement the Thenable interface. This function will
-             * also ensure the prototype's {@code then} function is exported from compiled
-             * code.
-             * @param {function(new: webdriver.promise.Thenable, ...[?])} ctor The
+             * instances of that class implement the Thenable interface. This function
+             * will also ensure the prototype's {@code then} function is exported from
+             * compiled code.
+             * @param {function(new: Thenable, ...?)} ctor The
              *     constructor whose prototype to modify.
              */
             static addImplementation(ctor: Function): void;
 
-
             /**
-             * Checks if an object has been tagged for implementing the Thenable interface
-             * as defined by {@link webdriver.promise.Thenable.addImplementation}.
+             * Checks if an object has been tagged for implementing the Thenable
+             * interface as defined by {@link Thenable.addImplementation}.
              * @param {*} object The object to test.
              * @return {boolean} Whether the object is an implementation of the Thenable
              *     interface.
@@ -1432,12 +2491,11 @@ declare namespace webdriver {
              *           function((T|IThenable<T>|Thenable)=),
              *           function(*=))} resolver
              *     Function that is invoked immediately to begin computation of this
-             *     promise's value. The function should accept a pair of callback functions,
-             *     one for fulfilling the promise and another for rejecting it.
-             * @param {promise.ControlFlow=} opt_flow The control flow
+             *     promise's value. The function should accept a pair of callback
+             *     functions, one for fulfilling the promise and another for rejecting it.
+             * @param {ControlFlow=} opt_flow The control flow
              *     this instance was created under. Defaults to the currently active flow.
-             * @constructor
-            */
+             */
             constructor(resolver: (onFulfilled: IFulfilledCallback<T>, onRejected: IRejectedCallback)=>void, opt_flow?: ControlFlow);
             constructor(); // For angular-protractor/angular-protractor-tests.ts
 
@@ -1450,7 +2508,7 @@ declare namespace webdriver {
              *     {@code Error}, one will be created using the value's string
              *     representation.
              */
-            cancel(reason: any): void;
+            cancel(opt_reason?: string|Error): void;
 
             /** @return {boolean} Whether this promise's value is still being computed. */
             isPending(): boolean;
@@ -1468,23 +2526,7 @@ declare namespace webdriver {
              * @return A new promise which will be resolved
              *     with the result of the invoked callback.
              */
-            then<R>(opt_callback?: (value: T) => Promise<R>, opt_errback?: (error: any) => any): Promise<R>;
-
-            /**
-             * Registers listeners for when this instance is resolved. This function most
-             * overridden by subtypes.
-             *
-             * @param opt_callback The function to call if this promise is
-             *     successfully resolved. The function should expect a single argument: the
-             *     promise's resolved value.
-             * @param opt_errback The function to call if this promise is
-             *     rejected. The function should expect a single argument: the rejection
-             *     reason.
-             * @return A new promise which will be resolved
-             *     with the result of the invoked callback.
-             */
-            then<R>(opt_callback?: (value: T) => R, opt_errback?: (error: any) => any): Promise<R>;
-
+            then<R>(opt_callback?: (value: T) => IThenable<R>|R, opt_errback?: (error: any) => any): Promise<R>;
 
             /**
              * Registers a listener for when this promise is rejected. This is synonymous
@@ -1511,6 +2553,31 @@ declare namespace webdriver {
              * @template R
              */
             thenCatch<R>(errback: (error: any) => any): Promise<R>;
+
+            /**
+             * Registers a listener for when this promise is rejected. This is synonymous
+             * with the {@code catch} clause in a synchronous API:
+             *
+             *     // Synchronous API:
+             *     try {
+             *       doSynchronousWork();
+             *     } catch (ex) {
+             *       console.error(ex);
+             *     }
+             *
+             *     // Asynchronous promise API:
+             *     doAsynchronousWork().catch(function(ex) {
+             *       console.error(ex);
+             *     });
+             *
+             * @param {function(*): (R|IThenable<R>)} errback The
+             *     function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
+             *     resolved with the result of the invoked callback.
+             * @template R
+             */
+            catch<R>(errback: Function): Promise<R>;
 
 
             /**
@@ -1552,7 +2619,7 @@ declare namespace webdriver {
              *     with the callback result.
              * @template R
              */
-            thenFinally<R>(callback: () => any): Promise<R>;
+            thenFinally<R>(callback: Function): Promise<R>;
 
             //endregion
         }
@@ -1641,6 +2708,25 @@ declare namespace webdriver {
             setTimeout: (fn: Function, ms: number) => number;
         }
 
+        interface IEventType {
+            /** Emitted when all tasks have been successfully executed. */
+                IDLE: string;
+
+            /** Emitted when a ControlFlow has been reset. */
+                RESET: string;
+
+            /** Emitted whenever a new task has been scheduled. */
+                SCHEDULE_TASK: string;
+
+            /**
+             * Emitted whenever a control flow aborts due to an unhandled promise
+             * rejection. This event will be emitted along with the offending rejection
+             * reason. Upon emitting this event, the control flow will empty its task
+             * queue and revert to its initial state.
+             */
+                UNCAUGHT_EXCEPTION: string;
+        }
+
         /**
          * Handles the execution of scheduled tasks, each of which may be an
          * asynchronous operation. The control flow will ensure tasks are executed in
@@ -1680,24 +2766,7 @@ declare namespace webdriver {
              * Events that may be emitted by an {@link webdriver.promise.ControlFlow}.
              * @enum {string}
              */
-            static EventType: {
-                /** Emitted when all tasks have been successfully executed. */
-                    IDLE: string;
-
-                /** Emitted when a ControlFlow has been reset. */
-                    RESET: string;
-
-                /** Emitted whenever a new task has been scheduled. */
-                    SCHEDULE_TASK: string;
-
-                /**
-                 * Emitted whenever a control flow aborts due to an unhandled promise
-                 * rejection. This event will be emitted along with the offending rejection
-                 * reason. Upon emitting this event, the control flow will empty its task
-                 * queue and revert to its initial state.
-                 */
-                    UNCAUGHT_EXCEPTION: string;
-            };
+            static EventType: IEventType;
 
             /**
              * Returns a string representation of this control flow, which is its current
@@ -1791,107 +2860,6 @@ declare namespace webdriver {
         }
     }
 
-    namespace stacktrace {
-        /**
-         * Class representing one stack frame.
-         */
-        class Frame {
-            /**
-             * @param {(string|undefined)} context Context object, empty in case of global
-             *     functions or if the browser doesn't provide this information.
-             * @param {(string|undefined)} name Function name, empty in case of anonymous
-             *     functions.
-             * @param {(string|undefined)} alias Alias of the function if available. For
-             *     example the function name will be 'c' and the alias will be 'b' if the
-             *     function is defined as <code>a.b = function c() {};</code>.
-             * @param {(string|undefined)} path File path or URL including line number and
-             *     optionally column number separated by colons.
-             * @constructor
-             */
-            constructor(context?: string, name?: string, alias?: string, path?: string);
-
-            /**
-             * @return {string} The function name or empty string if the function is
-             *     anonymous and the object field which it's assigned to is unknown.
-             */
-            getName(): string;
-
-
-            /**
-             * @return {string} The url or empty string if it is unknown.
-             */
-            getUrl(): string;
-
-
-            /**
-             * @return {number} The line number if known or -1 if it is unknown.
-             */
-            getLine(): number;
-
-
-            /**
-             * @return {number} The column number if known and -1 if it is unknown.
-             */
-            getColumn(): number;
-
-
-            /**
-             * @return {boolean} Whether the stack frame contains an anonymous function.
-             */
-            isAnonymous(): boolean;
-
-
-            /**
-             * Converts this frame to its string representation using V8's stack trace
-             * format: http://code.google.com/p/v8/wiki/JavaScriptStackTraceApi
-             * @return {string} The string representation of this frame.
-             * @override
-             */
-            toString(): string;
-        }
-
-        /**
-         * Stores a snapshot of the stack trace at the time this instance was created.
-         * The stack trace will always be adjusted to exclude this function call.
-         */
-        class Snapshot {
-            /**
-             * @param {number=} opt_slice The number of frames to remove from the top of
-             *     the generated stack trace.
-             * @constructor
-             */
-            constructor(opt_slice?: number);
-
-            /**
-             * @return {!Array.<!webdriver.stacktrace.Frame>} The parsed stack trace.
-             */
-            getStacktrace(): Frame[];
-        }
-
-        /**
-         * Formats an error's stack trace.
-         * @param {!(Error|goog.testing.JsUnitException)} error The error to format.
-         * @return {!(Error|goog.testing.JsUnitException)} The formatted error.
-         */
-        function format(error: any): any;
-
-        /**
-         * Gets the native stack trace if available otherwise follows the call chain.
-         * The generated trace will exclude all frames up to and including the call to
-         * this function.
-         * @return {!Array.<!webdriver.stacktrace.Frame>} The frames of the stack trace.
-         */
-        function get(): Frame[];
-
-        /**
-         * Whether the current browser supports stack traces.
-         *
-         * @type {boolean}
-         * @const
-         */
-        var BROWSER_SUPPORTED: boolean;
-    }
-
     namespace until {
         /**
          * Defines a condition to
@@ -1915,32 +2883,31 @@ declare namespace webdriver {
 
         /**
          * Creates a condition that will wait until the input driver is able to switch
-         * to the designated frame. The target frame may be specified as:
-         * <ol>
-         *   <li>A numeric index into {@code window.frames} for the currently selected
-         *       frame.
-         *   <li>A {@link webdriver.WebElement}, which must reference a FRAME or IFRAME
-         *       element on the current page.
-         *   <li>A locator which may be used to first locate a FRAME or IFRAME on the
-         *       current page before attempting to switch to it.
-         * </ol>
+         * to the designated frame. The target frame may be specified as
          *
-         * <p>Upon successful resolution of this condition, the driver will be left
+         * 1. a numeric index into
+         *     [window.frames](https://developer.mozilla.org/en-US/docs/Web/API/Window.frames)
+         *     for the currently selected frame.
+         * 2. a {@link ./webdriver.WebElement}, which must reference a FRAME or IFRAME
+         *     element on the current page.
+         * 3. a locator which may be used to first locate a FRAME or IFRAME on the
+         *     current page before attempting to switch to it.
+         *
+         * Upon successful resolution of this condition, the driver will be left
          * focused on the new frame.
          *
-         * @param {!(number|webdriver.WebElement|
-         *           webdriver.Locator|webdriver.By.Hash|
-         *           function(!webdriver.WebDriver): !webdriver.WebElement)} frame
+         * @param {!(number|./webdriver.WebElement|By|
+         *           function(!./webdriver.WebDriver): !./webdriver.WebElement)} frame
          *     The frame identifier.
-         * @return {!until.Condition.<boolean>} A new condition.
+         * @return {!Condition<boolean>} A new condition.
          */
-        function ableToSwitchToFrame(frame: number|WebElement|Locator|By.Hash|((webdriver: WebDriver)=>WebElement)): Condition<boolean>;
+        function ableToSwitchToFrame(frame: number|WebElement|By|((webdriver: WebDriver)=>WebElement)): Condition<boolean>;
 
         /**
          * Creates a condition that waits for an alert to be opened. Upon success, the
          * returned promise will be fulfilled with the handle for the opened alert.
          *
-         * @return {!until.Condition.<!webdriver.Alert>} The new condition.
+         * @return {!Condition<!./webdriver.Alert>} The new condition.
          */
         function alertIsPresent(): Condition<Alert>;
 
@@ -2000,13 +2967,12 @@ declare namespace webdriver {
 
         /**
          * Creates a condition that will loop until an element is
-         * {@link webdriver.WebDriver#findElement found} with the given locator.
+         * {@link ./webdriver.WebDriver#findElement found} with the given locator.
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The locator
-         *     to use.
+         * @param {!(By|Function)} locator The locator to use.
          * @return {!until.Condition.<!webdriver.WebElement>} The new condition.
          */
-        function elementLocated(locator: Locator|By.Hash|Function): Condition<WebElement>;
+        function elementLocated(locator: By|Function): Condition<WebElement>;
 
         /**
          * Creates a condition that will wait for the given element's
@@ -2039,7 +3005,7 @@ declare namespace webdriver {
          *
          * @param {!webdriver.WebElement} element The element to test.
          * @param {!RegExp} regex The regular expression to test against.
-         * @return {!until.Condition.<boolean>} The new condition.
+         * @return {!until.Condition<boolean>} The new condition.
          * @see webdriver.WebDriver#getText
          */
         function elementTextMatches(element: WebElement, regex: RegExp): Condition<boolean>;
@@ -2053,7 +3019,7 @@ declare namespace webdriver {
          * @return {!until.Condition.<!Array.<!webdriver.WebElement>>} The new
          *     condition.
          */
-        function elementsLocated(locator: Locator|By.Hash|Function): Condition<WebElement[]>;
+        function elementsLocated(locator: By|Function): Condition<WebElement[]>;
 
         /**
          * Creates a condition that will wait for the given element to become stale. An
@@ -2061,7 +3027,7 @@ declare namespace webdriver {
          * has loaded.
          *
          * @param {!webdriver.WebElement} element The element that should become stale.
-         * @return {!until.Condition.<boolean>} The new condition.
+         * @return {!until.Condition<boolean>} The new condition.
          */
         function stalenessOf(element: WebElement): Condition<boolean>;
 
@@ -2080,7 +3046,7 @@ declare namespace webdriver {
          * given value.
          *
          * @param {string} title The expected page title.
-         * @return {!until.Condition.<boolean>} The new condition.
+         * @return {!until.Condition<boolean>} The new condition.
          */
         function titleIs(title: string): Condition<boolean>;
 
@@ -2104,18 +3070,11 @@ declare namespace webdriver {
         height: number;
     }
 
-    /**
-     * Enumeration of the buttons used in the advanced interactions API.
-     * NOTE: A TypeScript enum was not used so that this class could be extended in Protractor.
-     * @enum {number}
-     */
     interface IButton {
-        LEFT: number;
-        MIDDLE: number;
-        RIGHT: number;
+      LEFT: string;
+      MIDDLE: string;
+      RIGHT: string;
     }
-
-    var Button: IButton;
 
     /**
      * Representations of pressable keys that aren't text.  These are stored in
@@ -2124,102 +3083,96 @@ declare namespace webdriver {
      *
      * @enum {string}
      */
+    var Button: IButton;
+
     interface IKey {
-        NULL: string;
-        CANCEL: string;  // ^break
-        HELP: string;
-        BACK_SPACE: string;
-        TAB: string;
-        CLEAR: string;
-        RETURN: string;
-        ENTER: string;
-        SHIFT: string;
-        CONTROL: string;
-        ALT: string;
-        PAUSE: string;
-        ESCAPE: string;
-        SPACE: string;
-        PAGE_UP: string;
-        PAGE_DOWN: string;
-        END: string;
-        HOME: string;
-        ARROW_LEFT: string;
-        LEFT: string;
-        ARROW_UP: string;
-        UP: string;
-        ARROW_RIGHT: string;
-        RIGHT: string;
-        ARROW_DOWN: string;
-        DOWN: string;
-        INSERT: string;
-        DELETE: string;
-        SEMICOLON: string;
-        EQUALS: string;
+      NULL: string;
+      CANCEL: string;  // ^break
+      HELP: string;
+      BACK_SPACE: string;
+      TAB: string;
+      CLEAR: string;
+      RETURN: string;
+      ENTER: string;
+      SHIFT: string;
+      CONTROL: string;
+      ALT: string;
+      PAUSE: string;
+      ESCAPE: string;
+      SPACE: string;
+      PAGE_UP: string;
+      PAGE_DOWN: string;
+      END: string;
+      HOME: string;
+      ARROW_LEFT: string;
+      LEFT: string;
+      ARROW_UP: string;
+      UP: string;
+      ARROW_RIGHT: string;
+      RIGHT: string;
+      ARROW_DOWN: string;
+      DOWN: string;
+      INSERT: string;
+      DELETE: string;
+      SEMICOLON: string;
+      EQUALS: string;
 
-        NUMPAD0: string;  // number pad keys
-        NUMPAD1: string;
-        NUMPAD2: string;
-        NUMPAD3: string;
-        NUMPAD4: string;
-        NUMPAD5: string;
-        NUMPAD6: string;
-        NUMPAD7: string;
-        NUMPAD8: string;
-        NUMPAD9: string;
-        MULTIPLY: string;
-        ADD: string;
-        SEPARATOR: string;
-        SUBTRACT: string;
-        DECIMAL: string;
-        DIVIDE: string;
+      NUMPAD0: string;  // number pad keys
+      NUMPAD1: string;
+      NUMPAD2: string;
+      NUMPAD3: string;
+      NUMPAD4: string;
+      NUMPAD5: string;
+      NUMPAD6: string;
+      NUMPAD7: string;
+      NUMPAD8: string;
+      NUMPAD9: string;
+      MULTIPLY: string;
+      ADD: string;
+      SEPARATOR: string;
+      SUBTRACT: string;
+      DECIMAL: string;
+      DIVIDE: string;
 
-        F1: string;  // function keys
-        F2: string;
-        F3: string;
-        F4: string;
-        F5: string;
-        F6: string;
-        F7: string;
-        F8: string;
-        F9: string;
-        F10: string;
-        F11: string;
-        F12: string;
+      F1: string;  // function keys
+      F2: string;
+      F3: string;
+      F4: string;
+      F5: string;
+      F6: string;
+      F7: string;
+      F8: string;
+      F9: string;
+      F10: string;
+      F11: string;
+      F12: string;
 
-        COMMAND: string;  // Apple command key
-        META: string;   // alias for Windows key
-
-        /**
-         * Simulate pressing many keys at once in a "chord". Takes a sequence of
-         * {@link webdriver.Key}s or strings, appends each of the values to a string,
-         * and adds the chord termination key ({@link webdriver.Key.NULL}) and returns
-         * the resultant string.
-         *
-         * Note: when the low-level webdriver key handlers see Keys.NULL, active
-         * modifier keys (CTRL/ALT/SHIFT/etc) release via a keyup event.
-         *
-         * @param {...string} var_args The key sequence to concatenate.
-         * @return {string} The null-terminated key sequence.
-         * @see http://code.google.com/p/webdriver/issues/detail?id=79
-         */
-        chord: (...var_args: string[]) => string;
+      COMMAND: string;  // Apple command key
+      META: string;     // alias for Windows key
     }
 
+    /**
+     * Representations of pressable keys that aren't text.  These are stored in
+     * the Unicode PUA (Private Use Area) code points, 0xE000-0xF8FF.  Refer to
+     * http://www.google.com.au/search?&q=unicode+pua&btnG=Search
+     *
+     * @enum {string}
+     */
     var Key: IKey;
 
     /**
      * Class for defining sequences of complex user interactions. Each sequence
      * will not be executed until {@link #perform} is called.
      *
-     * <p>Example:<pre><code>
-     *   new webdriver.ActionSequence(driver).
-     *       keyDown(webdriver.Key.SHIFT).
-     *       click(element1).
-     *       click(element2).
-     *       dragAndDrop(element3, element4).
-     *       keyUp(webdriver.Key.SHIFT).
-     *       perform();
-     * </pre></code>
+     * Example:
+     *
+     *     new ActionSequence(driver).
+     *         keyDown(Key.SHIFT).
+     *         click(element1).
+     *         click(element2).
+     *         dragAndDrop(element3, element4).
+     *         keyUp(Key.SHIFT).
+     *         perform();
      *
      */
     class ActionSequence {
@@ -2247,14 +3200,18 @@ declare namespace webdriver {
          * Moves the mouse.  The location to move to may be specified in terms of the
          * mouse's current location, an offset relative to the top-left corner of an
          * element, or an element (in which case the middle of the element is used).
-         * @param {(!webdriver.WebElement|{x: number, y: number})} location The
-         *     location to drag to, as either another WebElement or an offset in pixels.
-         * @param {{x: number, y: number}=} opt_offset An optional offset, in pixels.
-         *     Defaults to (0, 0).
-         * @return {!webdriver.ActionSequence} A self reference.
+         *
+         * @param {(!./webdriver.WebElement|{x: number, y: number})} location The
+         *     location to drag to, as either another WebElement or an offset in
+         *     pixels.
+         * @param {{x: number, y: number}=} opt_offset If the target {@code location}
+         *     is defined as a {@link ./webdriver.WebElement}, this parameter defines
+         *     an offset within that element. The offset should be specified in pixels
+         *     relative to the top-left corner of the element's bounding box. If
+         *     omitted, the element's center will be used as the target offset.
+         * @return {!ActionSequence} A self reference.
          */
-        mouseMove(location: WebElement, opt_offset?: ILocation): ActionSequence;
-        mouseMove(location: ILocation): ActionSequence;
+        mouseMove(location: WebElement|ILocation, opt_offset?: ILocation): ActionSequence;
 
         /**
          * Presses a mouse button. The mouse button will not be released until
@@ -2262,100 +3219,101 @@ declare namespace webdriver {
          * sequence or another. The behavior for out-of-order events (e.g. mouseDown,
          * click) is undefined.
          *
-         * <p>If an element is provided, the mouse will first be moved to the center
+         * If an element is provided, the mouse will first be moved to the center
          * of that element. This is equivalent to:
-         * <pre><code>sequence.mouseMove(element).mouseDown()</code></pre>
          *
-         * <p>Warning: this method currently only supports the left mouse button. See
-         * http://code.google.com/p/selenium/issues/detail?id=4047
+         *     sequence.mouseMove(element).mouseDown()
          *
-         * @param {(webdriver.WebElement|webdriver.Button)=} opt_elementOrButton Either
+         * Warning: this method currently only supports the left mouse button. See
+         * [issue 4047](http://code.google.com/p/selenium/issues/detail?id=4047).
+         *
+         * @param {(./webdriver.WebElement|input.Button)=} opt_elementOrButton Either
          *     the element to interact with or the button to click with.
-         *     Defaults to {@link webdriver.Button.LEFT} if neither an element nor
+         *     Defaults to {@link input.Button.LEFT} if neither an element nor
          *     button is specified.
-         * @param {webdriver.Button=} opt_button The button to use. Defaults to
-         *     {@link webdriver.Button.LEFT}. Ignored if a button is provided as the
+         * @param {input.Button=} opt_button The button to use. Defaults to
+         *     {@link input.Button.LEFT}. Ignored if a button is provided as the
          *     first argument.
-         * @return {!webdriver.ActionSequence} A self reference.
+         * @return {!ActionSequence} A self reference.
          */
-        mouseDown(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
-        mouseDown(opt_elementOrButton?: number): ActionSequence;
+        mouseDown(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Releases a mouse button. Behavior is undefined for calling this function
          * without a previous call to {@link #mouseDown}.
          *
-         * <p>If an element is provided, the mouse will first be moved to the center
+         * If an element is provided, the mouse will first be moved to the center
          * of that element. This is equivalent to:
-         * <pre><code>sequence.mouseMove(element).mouseUp()</code></pre>
          *
-         * <p>Warning: this method currently only supports the left mouse button. See
-         * http://code.google.com/p/selenium/issues/detail?id=4047
+         *     sequence.mouseMove(element).mouseUp()
          *
-         * @param {(webdriver.WebElement|webdriver.Button)=} opt_elementOrButton Either
+         * Warning: this method currently only supports the left mouse button. See
+         * [issue 4047](http://code.google.com/p/selenium/issues/detail?id=4047).
+         *
+         * @param {(./webdriver.WebElement|input.Button)=} opt_elementOrButton Either
          *     the element to interact with or the button to click with.
-         *     Defaults to {@link webdriver.Button.LEFT} if neither an element nor
+         *     Defaults to {@link input.Button.LEFT} if neither an element nor
          *     button is specified.
-         * @param {webdriver.Button=} opt_button The button to use. Defaults to
-         *     {@link webdriver.Button.LEFT}. Ignored if a button is provided as the
+         * @param {input.Button=} opt_button The button to use. Defaults to
+         *     {@link input.Button.LEFT}. Ignored if a button is provided as the
          *     first argument.
-         * @return {!webdriver.ActionSequence} A self reference.
+         * @return {!ActionSequence} A self reference.
          */
-        mouseUp(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
-        mouseUp(opt_elementOrButton?: number): ActionSequence;
+        mouseUp(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Convenience function for performing a "drag and drop" manuever. The target
          * element may be moved to the location of another element, or by an offset (in
          * pixels).
-         * @param {!webdriver.WebElement} element The element to drag.
-         * @param {(!webdriver.WebElement|{x: number, y: number})} location The
-         *     location to drag to, either as another WebElement or an offset in pixels.
-         * @return {!webdriver.ActionSequence} A self reference.
+         *
+         * @param {!./webdriver.WebElement} element The element to drag.
+         * @param {(!./webdriver.WebElement|{x: number, y: number})} location The
+         *     location to drag to, either as another WebElement or an offset in
+         *     pixels.
+         * @return {!ActionSequence} A self reference.
          */
-        dragAndDrop(element: WebElement, location: WebElement): ActionSequence;
-        dragAndDrop(element: WebElement, location: ILocation): ActionSequence;
+        dragAndDrop(element: WebElement, location: WebElement|ILocation): ActionSequence;
 
         /**
          * Clicks a mouse button.
          *
-         * <p>If an element is provided, the mouse will first be moved to the center
+         * If an element is provided, the mouse will first be moved to the center
          * of that element. This is equivalent to:
-         * <pre><code>sequence.mouseMove(element).click()</code></pre>
          *
-         * @param {(webdriver.WebElement|webdriver.Button)=} opt_elementOrButton Either
+         *     sequence.mouseMove(element).click()
+         *
+         * @param {(./webdriver.WebElement|input.Button)=} opt_elementOrButton Either
          *     the element to interact with or the button to click with.
-         *     Defaults to {@link webdriver.Button.LEFT} if neither an element nor
+         *     Defaults to {@link input.Button.LEFT} if neither an element nor
          *     button is specified.
-         * @param {webdriver.Button=} opt_button The button to use. Defaults to
-         *     {@link webdriver.Button.LEFT}. Ignored if a button is provided as the
+         * @param {input.Button=} opt_button The button to use. Defaults to
+         *     {@link input.Button.LEFT}. Ignored if a button is provided as the
          *     first argument.
-         * @return {!webdriver.ActionSequence} A self reference.
+         * @return {!ActionSequence} A self reference.
          */
-        click(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
-        click(opt_elementOrButton?: number): ActionSequence;
+        click(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Double-clicks a mouse button.
          *
-         * <p>If an element is provided, the mouse will first be moved to the center of
+         * If an element is provided, the mouse will first be moved to the center of
          * that element. This is equivalent to:
-         * <pre><code>sequence.mouseMove(element).doubleClick()</code></pre>
          *
-         * <p>Warning: this method currently only supports the left mouse button. See
-         * http://code.google.com/p/selenium/issues/detail?id=4047
+         *     sequence.mouseMove(element).doubleClick()
          *
-         * @param {(webdriver.WebElement|webdriver.Button)=} opt_elementOrButton Either
+         * Warning: this method currently only supports the left mouse button. See
+         * [issue 4047](http://code.google.com/p/selenium/issues/detail?id=4047).
+         *
+         * @param {(./webdriver.WebElement|input.Button)=} opt_elementOrButton Either
          *     the element to interact with or the button to click with.
-         *     Defaults to {@link webdriver.Button.LEFT} if neither an element nor
+         *     Defaults to {@link input.Button.LEFT} if neither an element nor
          *     button is specified.
-         * @param {webdriver.Button=} opt_button The button to use. Defaults to
-         *     {@link webdriver.Button.LEFT}. Ignored if a button is provided as the
+         * @param {input.Button=} opt_button The button to use. Defaults to
+         *     {@link input.Button.LEFT}. Ignored if a button is provided as the
          *     first argument.
-         * @return {!webdriver.ActionSequence} A self reference.
+         * @return {!ActionSequence} A self reference.
          */
-        doubleClick(opt_elementOrButton?: WebElement, opt_button?: number): ActionSequence;
-        doubleClick(opt_elementOrButton?: number): ActionSequence;
+        doubleClick(opt_elementOrButton?: WebElement|string, opt_button?: string): ActionSequence;
 
         /**
          * Performs a modifier key press. The modifier key is <em>not released</em>
@@ -2387,7 +3345,7 @@ declare namespace webdriver {
          * @return {!webdriver.ActionSequence} A self reference.
          * @throws {Error} If the key is not a valid modifier key.
          */
-        sendKeys(...var_args: any[]): ActionSequence;
+        sendKeys(...var_args: Array<string>): ActionSequence;
 
         //endregion
     }
@@ -2483,7 +3441,6 @@ declare namespace webdriver {
        */
       scroll(offset: IOffset): TouchSequence;
 
-
       /**
        * Scrolls the touch screen, starting on `elem` and moving by the specified
        * offset.
@@ -2494,7 +3451,6 @@ declare namespace webdriver {
        */
       scrollFromElement(elem: WebElement, offset: IOffset): TouchSequence;
 
-
       /**
        * Flick, starting anywhere on the screen, at speed xspeed and yspeed.
        *
@@ -2503,7 +3459,6 @@ declare namespace webdriver {
        * @return {!webdriver.TouchSequence} A self reference.
        */
       flick(speed: ISpeed): TouchSequence;
-
 
       /**
        * Flick starting at elem and moving by x and y at specified speed.
@@ -2516,18 +3471,15 @@ declare namespace webdriver {
       flickElement(elem: WebElement, offset: IOffset, speed: number): TouchSequence;
     }
 
-
     interface IOffset {
       x: number;
       y: number;
     }
 
-
     interface ISpeed {
       xspeed: number;
       yspeed: number;
     }
-
 
     /**
      * Represents a modal dialog such as {@code alert}, {@code confirm}, or
@@ -2535,7 +3487,13 @@ declare namespace webdriver {
      * the alert, accept or dismiss the alert, and set the response text (in the
      * case of {@code prompt}).
      */
-    interface Alert {
+    class Alert {
+        /**
+         * @param {!WebDriver} driver The driver controlling the browser this alert
+         *     is attached to.
+         * @param {string} text The message text displayed with this alert.
+         */
+        constructor(driver: WebDriver, text: string);
 
         //region Methods
 
@@ -2546,6 +3504,18 @@ declare namespace webdriver {
          *     text displayed with this alert.
          */
         getText(): webdriver.promise.Promise<string>;
+
+        /**
+         * Sets the username and password in an alert prompting for credentials (such
+         * as a Basic HTTP Auth prompt). This method will implicitly
+         * {@linkplain #accept() submit} the dialog.
+         *
+         * @param {string} username The username to send.
+         * @param {string} password The password to send.
+         * @return {!promise.Promise<void>} A promise that will be resolved when this
+         *     command has completed.
+         */
+        authenticateAs(username: string, password: string): webdriver.promise.Promise<void>;
 
         /**
          * Accepts this alert.
@@ -2580,47 +3550,149 @@ declare namespace webdriver {
      * serves as a forward proxy on an Alert, allowing calls to be scheduled
      * directly on this instance before the underlying Alert has been fulfilled. In
      * other words, the following two statements are equivalent:
-     * <pre><code>
+     *
      *     driver.switchTo().alert().dismiss();
      *     driver.switchTo().alert().then(function(alert) {
      *       return alert.dismiss();
      *     });
-     * </code></pre>
      *
-     * @param {!webdriver.WebDriver} driver The driver controlling the browser this
-     *     alert is attached to.
-     * @param {!webdriver.promise.Thenable.<!webdriver.Alert>} alert A thenable
-     *     that will be fulfilled with the promised alert.
-     * @constructor
-     * @extends {webdriver.Alert}
-     * @implements {webdriver.promise.Thenable.<!webdriver.Alert>}
+     * @implements {promise.Thenable.<!webdriver.Alert>}
      * @final
      */
-    interface AlertPromise extends Alert, webdriver.promise.IThenable<Alert> {
+    class AlertPromise extends Alert implements webdriver.promise.IThenable<Alert>{
+      /**
+       * @param {!WebDriver} driver The driver controlling the browser this
+       *     alert is attached to.
+       * @param {!promise.Thenable<!Alert>} alert A thenable
+       *     that will be fulfilled with the promised alert.
+       */
+      constructor(driver: WebDriver, alert: webdriver.promise.Promise<Alert>);
+
+            //region Methods
+
+            /**
+             * Cancels the computation of this promise's value, rejecting the promise in the
+             * process.
+             * @param {*} reason The reason this promise is being cancelled. If not an
+             *     {@code Error}, one will be created using the value's string
+             *     representation.
+             */
+            cancel(opt_reason?: string|Error): void;
+
+            /** @return {boolean} Whether this promise's value is still being computed. */
+            isPending(): boolean;
+
+            /**
+             * Registers listeners for when this instance is resolved. This function most
+             * overridden by subtypes.
+             *
+             * @param opt_callback The function to call if this promise is
+             *     successfully resolved. The function should expect a single argument: the
+             *     promise's resolved value.
+             * @param opt_errback The function to call if this promise is
+             *     rejected. The function should expect a single argument: the rejection
+             *     reason.
+             * @return A new promise which will be resolved
+             *     with the result of the invoked callback.
+             */
+            then(opt_callback?: Function, opt_errback?: Function): webdriver.promise.Promise<any>;
+
+            /**
+             * Registers a listener for when this promise is rejected. This is synonymous
+             * with the {@code catch} clause in a synchronous API:
+             * <pre><code>
+             *   // Synchronous API:
+             *   try {
+             *     doSynchronousWork();
+             *   } catch (ex) {
+             *     console.error(ex);
+             *   }
+             *
+             *   // Asynchronous promise API:
+             *   doAsynchronousWork().thenCatch(function(ex) {
+             *     console.error(ex);
+             *   });
+             * </code></pre>
+             *
+             * @param {function(*): (R|webdriver.promise.Promise.<R>)} errback The function
+             *     to call if this promise is rejected. The function should expect a single
+             *     argument: the rejection reason.
+             * @return {!webdriver.promise.Promise.<R>} A new promise which will be
+             *     resolved with the result of the invoked callback.
+             * @template R
+             */
+            thenCatch<R>(errback: (error: any) => any): webdriver.promise.Promise<R>;
+
+            /**
+             * Registers a listener for when this promise is rejected. This is synonymous
+             * with the {@code catch} clause in a synchronous API:
+             *
+             *     // Synchronous API:
+             *     try {
+             *       doSynchronousWork();
+             *     } catch (ex) {
+             *       console.error(ex);
+             *     }
+             *
+             *     // Asynchronous promise API:
+             *     doAsynchronousWork().catch(function(ex) {
+             *       console.error(ex);
+             *     });
+             *
+             * @param {function(*): (R|IThenable<R>)} errback The
+             *     function to call if this promise is rejected. The function should
+             *     expect a single argument: the rejection reason.
+             * @return {!ManagedPromise<R>} A new promise which will be
+             *     resolved with the result of the invoked callback.
+             * @template R
+             */
+            catch<R>(errback: Function): webdriver.promise.Promise<R>;
+
+
+            /**
+             * Registers a listener to invoke when this promise is resolved, regardless
+             * of whether the promise's value was successfully computed. This function
+             * is synonymous with the {@code finally} clause in a synchronous API:
+             * <pre><code>
+             *   // Synchronous API:
+             *   try {
+             *     doSynchronousWork();
+             *   } finally {
+             *     cleanUp();
+             *   }
+             *
+             *   // Asynchronous promise API:
+             *   doAsynchronousWork().thenFinally(cleanUp);
+             * </code></pre>
+             *
+             * <b>Note:</b> similar to the {@code finally} clause, if the registered
+             * callback returns a rejected promise or throws an error, it will silently
+             * replace the rejection error (if any) from this promise:
+             * <pre><code>
+             *   try {
+             *     throw Error('one');
+             *   } finally {
+             *     throw Error('two');  // Hides Error: one
+             *   }
+             *
+             *   webdriver.promise.rejected(Error('one'))
+             *       .thenFinally(function() {
+             *         throw Error('two');  // Hides Error: one
+             *       });
+             * </code></pre>
+             *
+             *
+             * @param {function(): (R|webdriver.promise.Promise.<R>)} callback The function
+             *     to call when this promise is resolved.
+             * @return {!webdriver.promise.Promise.<R>} A promise that will be fulfilled
+             *     with the callback result.
+             * @template R
+             */
+            thenFinally<R>(callback: Function): webdriver.promise.Promise<R>;
     }
 
-    /**
-     * An error returned to indicate that there is an unhandled modal dialog on the
-     * current page.
-     * @extends {bot.Error}
-     */
-    interface UnhandledAlertError extends webdriver.error.Error {
-        //region Methods
-
-        /**
-         * @return {string} The text displayed with the unhandled alert.
-         */
-        getAlertText(): string;
-
-        /**
-         * @return {!webdriver.Alert} The open alert.
-         * @deprecated Use {@link #getAlertText}. This method will be removed in
-         *     2.45.0.
-         */
-        getAlert(): Alert;
-
-
-        //endregion
+    /** @deprecated Use {@link error.UnexpectedAlertOpenError} instead. */
+    class UnhandledAlertError extends webdriver.error.UnexpectedAlertOpenError {
     }
 
     /**
@@ -2630,7 +3702,9 @@ declare namespace webdriver {
     interface IBrowser {
         ANDROID: string;
         CHROME: string;
+        EDGE: string;
         FIREFOX: string;
+        IE: string;
         INTERNET_EXPLORER: string;
         IPAD: string;
         IPHONE: string;
@@ -2651,6 +3725,45 @@ declare namespace webdriver {
         noProxy?: string;
     }
 
+    /**
+     * Creates new {@link webdriver.WebDriver WebDriver} instances. The environment
+     * variables listed below may be used to override a builder's configuration,
+     * allowing quick runtime changes.
+     *
+     * - {@code SELENIUM_BROWSER}: defines the target browser in the form
+     *   {@code browser[:version][:platform]}.
+     *
+     * - {@code SELENIUM_REMOTE_URL}: defines the remote URL for all builder
+     *   instances. This environment variable should be set to a fully qualified
+     *   URL for a WebDriver server (e.g. http://localhost:4444/wd/hub). This
+     *   option always takes precedence over {@code SELENIUM_SERVER_JAR}.
+     *
+     * - {@code SELENIUM_SERVER_JAR}: defines the path to the
+     *   <a href="http://selenium-release.storage.googleapis.com/index.html">
+     *   standalone Selenium server</a> jar to use. The server will be started the
+     *   first time a WebDriver instance and be killed when the process exits.
+     *
+     * Suppose you had mytest.js that created WebDriver with
+     *
+     *     var driver = new webdriver.Builder()
+     *         .forBrowser('chrome')
+     *         .build();
+     *
+     * This test could be made to use Firefox on the local machine by running with
+     * `SELENIUM_BROWSER=firefox node mytest.js`. Rather than change the code to
+     * target Google Chrome on a remote machine, you can simply set the
+     * `SELENIUM_BROWSER` and `SELENIUM_REMOTE_URL` environment variables:
+     *
+     *     SELENIUM_BROWSER=chrome:36:LINUX \
+     *     SELENIUM_REMOTE_URL=http://www.example.com:4444/wd/hub \
+     *     node mytest.js
+     *
+     * You could also use a local copy of the standalone Selenium server:
+     *
+     *     SELENIUM_BROWSER=chrome:36:LINUX \
+     *     SELENIUM_SERVER_JAR=/path/to/selenium-server-standalone.jar \
+     *     node mytest.js
+     */
     class Builder {
 
         //region Constructors
@@ -2665,13 +3778,43 @@ declare namespace webdriver {
         //region Methods
 
         /**
+         * Configures this builder to ignore any environment variable overrides and to
+         * only use the configuration specified through this instance's API.
+         *
+         * @return {!Builder} A self reference.
+         */
+        disableEnvironmentOverrides(): Builder;
+
+        /**
          * Creates a new WebDriver client based on this builder's current
          * configuration.
          *
+         * While this method will immediately return a new WebDriver instance, any
+         * commands issued against it will be deferred until the associated browser
+         * has been fully initialized. Users may call {@link #buildAsync()} to obtain
+         * a promise that will not be fulfilled until the browser has been created
+         * (the difference is purely in style).
+         *
          * @return {!webdriver.WebDriver} A new WebDriver instance.
          * @throws {Error} If the current configuration is invalid.
+         * @see #buildAsync()
          */
         build(): WebDriver;
+
+        /**
+         * Creates a new WebDriver client based on this builder's current
+         * configuration. This method returns a promise that will not be fulfilled
+         * until the new browser session has been fully initialized.
+         *
+         * __Note:__ this method is purely a convenience wrapper around
+         * {@link #build()}.
+         *
+         * @return {!promise.Promise<!webdriver.WebDriver>} A promise that will be
+         *    fulfilled with the newly created WebDriver instance once the browser
+         *    has been fully initialized.
+         * @see #build()
+         */
+        buildAsync(): webdriver.promise.Promise<WebDriver>;
 
         /**
          * Configures the target browser for clients created by this instance.
@@ -2706,6 +3849,12 @@ declare namespace webdriver {
         getServerUrl(): string;
 
         /**
+         * @return {?string} The URL of the proxy server to use for the WebDriver's
+         *    HTTP connections, or `null` if not set.
+         */
+        getWebDriverProxy(): string;
+
+        /**
          * Sets the default action to take with an unexpected alert before returning
          * an error.
          * @param {string} beahvior The desired behavior; should be "accept", "dismiss",
@@ -2736,6 +3885,17 @@ declare namespace webdriver {
         setControlFlow(flow: webdriver.promise.ControlFlow): Builder;
 
         /**
+         * Set {@linkplain edge.Options options} specific to Microsoft's Edge browser
+         * for drivers created by this builder. Any proxy settings defined on the
+         * given options will take precedence over those set through
+         * {@link #setProxy}.
+         *
+         * @param {!edge.Options} options The MicrosoftEdgeDriver options to use.
+         * @return {!Builder} A self reference.
+         */
+        setEdgeOptions(options: edge.Options): Builder;
+
+        /**
          * Sets whether native events should be used.
          * @param {boolean} enabled Whether to enable native events.
          * @return {!Builder} A self reference.
@@ -2754,23 +3914,53 @@ declare namespace webdriver {
         setFirefoxOptions(options: firefox.Options): Builder;
 
         /**
+         * Set Internet Explorer specific {@linkplain ie.Options options} for drivers
+         * created by this builder. Any proxy settings defined on the given options
+         * will take precedence over those set through {@link #setProxy}.
+         *
+         * @param {!ie.Options} options The IEDriver options to use.
+         * @return {!Builder} A self reference.
+         */
+        setIeOptions(options: ie.Options): Builder;
+
+        /**
          * Sets the logging preferences for the created session. Preferences may be
          * changed by repeated calls, or by calling {@link #withCapabilities}.
          * @param {!(webdriver.logging.Preferences|Object.<string, string>)} prefs The
          *     desired logging preferences.
          * @return {!Builder} A self reference.
          */
-        setLoggingPrefs(prefs: webdriver.logging.Preferences): Builder;
-        setLoggingPrefs(prefs: { [key: string]: string }): Builder;
+        setLoggingPrefs(prefs: webdriver.logging.Preferences|Object): Builder;
+
+        /**
+         * Sets Opera specific {@linkplain opera.Options options} for drivers created
+         * by this builder. Any logging or proxy settings defined on the given options
+         * will take precedence over those set through {@link #setLoggingPrefs} and
+         * {@link #setProxy}, respectively.
+         *
+         * @param {!opera.Options} options The OperaDriver options to use.
+         * @return {!Builder} A self reference.
+         */
+        setOperaOptions(options: opera.Options): Builder;
 
         /**
          * Sets the proxy configuration to use for WebDriver clients created by this
          * builder. Any calls to {@link #withCapabilities} after this function will
          * overwrite these settings.
-         * @param {!webdriver.ProxyConfig} config The configuration to use.
+         * @param {!capabilities.ProxyConfig} config The configuration to use.
          * @return {!Builder} A self reference.
          */
-        setProxy(config: ProxyConfig): Builder;
+        setProxy(config: webdriver.ProxyConfig): Builder;
+
+        /**
+         * Sets Safari specific {@linkplain safari.Options options} for drivers
+         * created by this builder. Any logging settings defined on the given options
+         * will take precedence over those set through {@link #setLoggingPrefs}.
+         *
+         * @param {!safari.Options} options The Safari options to use.
+         * @return {!Builder} A self reference.
+         */
+        setSafari(options: safari.Options): Builder;
 
         /**
          * Sets how elements should be scrolled into view for interaction.
@@ -2794,17 +3984,164 @@ declare namespace webdriver {
         usingServer(url: string): Builder;
 
         /**
+         * Sets the URL of the proxy to use for the WebDriver's HTTP connections.
+         * If this method is never called, the Builder will create a connection
+         * without a proxy.
+         *
+         * @param {string} proxy The URL of a proxy to use.
+         * @return {!Builder} A self reference.
+         */
+        usingWebDriverProxy(proxy: string): Builder;
+
+        /**
          * Sets the desired capabilities when requesting a new session. This will
          * overwrite any previously set capabilities.
          * @param {!(Object|webdriver.Capabilities)} capabilities The desired
          *     capabilities for a new session.
          * @return {!Builder} A self reference.
          */
-        withCapabilities(capabilities: Capabilities): Builder;
-        withCapabilities(capabilities: any): Builder;
+        withCapabilities(capabilities: Object|Capabilities): Builder;
 
         //endregion
     }
+
+    /**
+     * Describes a mechanism for locating an element on the page.
+     * @final
+     */
+    class By {
+
+      /**
+       * @param {string} using the name of the location strategy to use.
+       * @param {string} value the value to search for.
+       */
+      constructor(using: string, value: string);
+
+      /**
+       * Locates elements that have a specific class name.
+       *
+       * @param {string} name The class name to search for.
+       * @return {!By} The new locator.
+       * @see http://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
+       * @see http://www.w3.org/TR/CSS2/selector.html#class-html
+       */
+      static className(name: string): By;
+
+      /**
+       * Locates elements using a CSS selector.
+       *
+       * @param {string} selector The CSS selector to use.
+       * @return {!By} The new locator.
+       * @see http://www.w3.org/TR/CSS2/selector.html
+       */
+      static css(selector: string): By;
+
+      /**
+       * Locates eleemnts by the ID attribute. This locator uses the CSS selector
+       * `*[id="$ID"]`, _not_ `document.getElementById`.
+       *
+       * @param {string} id The ID to search for.
+       * @return {!By} The new locator.
+       */
+      static id(id: string): By;
+
+      /**
+       * Locates link elements whose
+       * {@linkplain webdriver.WebElement#getText visible text} matches the given
+       * string.
+       *
+       * @param {string} text The link text to search for.
+       * @return {!By} The new locator.
+       */
+      static linkText(text: string): By;
+
+      /**
+       * Locates an elements by evaluating a
+       * {@linkplain webdriver.WebDriver#executeScript JavaScript expression}.
+       * The result of this expression must be an element or list of elements.
+       *
+       * @param {!(string|Function)} script The script to execute.
+       * @param {...*} var_args The arguments to pass to the script.
+       * @return {function(!./webdriver.WebDriver): !./promise.Promise}
+       *     A new JavaScript-based locator function.
+       */
+      static js(script: string|Function, ...var_args: Array<any>): (webdriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
+
+      /**
+       * Locates elements whose `name` attribute has the given value.
+       *
+       * @param {string} name The name attribute to search for.
+       * @return {!By} The new locator.
+       */
+      static name(name: string): By;
+
+      /**
+       * Locates link elements whose
+       * {@linkplain webdriver.WebElement#getText visible text} contains the given
+       * substring.
+       *
+       * @param {string} text The substring to check for in a link's visible text.
+       * @return {!By} The new locator.
+       */
+      static partialLinkText(text: string): By;
+
+      /**
+       * Locates elements with a given tag name.
+       *
+       * @param {string} name The tag name to search for.
+       * @return {!By} The new locator.
+       * @deprecated Use {@link By.css() By.css(tagName)} instead.
+       */
+      static tagName(name: string): By;
+
+      /**
+       * Locates elements matching a XPath selector. Care should be taken when
+       * using an XPath selector with a {@link webdriver.WebElement} as WebDriver
+       * will respect the context in the specified in the selector. For example,
+       * given the selector `//div`, WebDriver will search from the document root
+       * regardless of whether the locator was used with a WebElement.
+       *
+       * @param {string} xpath The XPath selector to use.
+       * @return {!By} The new locator.
+       * @see http://www.w3.org/TR/xpath/
+       */
+      static xpath(xpath: string): By;
+
+      /** @override */
+      toString(): string;
+    }
+
+    /**
+     * Short-hand expressions for the primary element locator strategies.
+     * For example the following two statements are equivalent:
+     *
+     *     var e1 = driver.findElement(webdriver.By.id('foo'));
+     *     var e2 = driver.findElement({id: 'foo'});
+     *
+     * Care should be taken when using JavaScript minifiers (such as the
+     * Closure compiler), as locator hashes will always be parsed using
+     * the un-obfuscated properties listed.
+     *
+     * @typedef {(
+     *     {className: string}|
+     *     {css: string}|
+     *     {id: string}|
+     *     {js: string}|
+     *     {linkText: string}|
+     *     {name: string}|
+     *     {partialLinkText: string}|
+     *     {tagName: string}|
+     *     {xpath: string})}
+     */
+    type ByHash = {className: string}|
+        {css: string}|
+        {id: string}|
+        {js: string}|
+        {linkText: string}|
+        {name: string}|
+        {partialLinkText: string}|
+        {tagName: string}|
+        {xpath: string};
 
     /**
      * Common webdriver capability keys.
@@ -2876,7 +4213,7 @@ declare namespace webdriver {
         SECURE_SSL: string;
 
         /** Whether the driver supports manipulating the app cache. */
-       SUPPORTS_APPLICATION_CACHE: string;
+        SUPPORTS_APPLICATION_CACHE: string;
 
         /** Whether the driver supports locating elements with CSS selectors. */
         SUPPORTS_CSS_SELECTORS: string;
@@ -2910,8 +4247,7 @@ declare namespace webdriver {
          *     capabilities to merge into this instance.
          * @constructor
          */
-        constructor(opt_other?: Capabilities);
-        constructor(opt_other?: any);
+        constructor(opt_other?: Capabilities|Object);
 
         //endregion
 
@@ -2927,8 +4263,7 @@ declare namespace webdriver {
          *     merge into this instance.
          * @return {!webdriver.Capabilities} A self reference.
          */
-        merge(other: Capabilities): Capabilities;
-        merge(other: any): Capabilities;
+        merge(other: Capabilities|Object): Capabilities;
 
         /**
          * @param {string} key The capability to set.
@@ -2946,9 +4281,7 @@ declare namespace webdriver {
          *     logging preferences.
          * @return {!webdriver.Capabilities} A self reference.
          */
-        setLoggingPrefs(prefs: webdriver.logging.Preferences): Capabilities;
-        setLoggingPrefs(prefs: { [key: string]: string }): Capabilities;
-
+        setLoggingPrefs(prefs: webdriver.logging.Preferences|Object): Capabilities;
 
         /**
          * Sets the proxy configuration for this instance.
@@ -3009,6 +4342,11 @@ declare namespace webdriver {
          * @return {!webdriver.Capabilities} A basic set of capabilities for Chrome.
          */
         static chrome(): Capabilities;
+
+        /**
+         * @return {!Capabilities} A basic set of capabilities for Microsoft Edge.
+         */
+        static edge(): Capabilities;
 
         /**
          * @return {!webdriver.Capabilities} A basic set of capabilities for Firefox.
@@ -3183,6 +4521,8 @@ declare namespace webdriver {
         GET_AVAILABLE_LOG_TYPES: string;
         GET_LOG: string;
         GET_SESSION_LOGS: string;
+
+        UPLOAD_FILE: string;
     }
 
     var CommandName: ICommandName;
@@ -3241,19 +4581,47 @@ declare namespace webdriver {
     }
 
     /**
-     * Handles the execution of {@code webdriver.Command} objects.
+     * Handles the execution of WebDriver {@link Command commands}.
+     * @interface
      */
-    interface CommandExecutor {
-        /**
-         * Executes the given {@code command}. If there is an error executing the
-         * command, the provided callback will be invoked with the offending error.
-         * Otherwise, the callback will be invoked with a null Error and non-null
-         * {@link bot.response.ResponseObject} object.
-         * @param {!webdriver.Command} command The command to execute.
-         * @param {function(Error, !bot.response.ResponseObject=)} callback the function
-         *     to invoke when the command response is ready.
-         */
-        execute(command: Command, callback: (error: Error, responseObject: any) => any ): void;
+    class Executor {
+      /**
+       * Executes the given {@code command}. If there is an error executing the
+       * command, the provided callback will be invoked with the offending error.
+       * Otherwise, the callback will be invoked with a null Error and non-null
+       * response object.
+       *
+       * @param {!Command} command The command to execute.
+       * @return {!promise.Promise<?>} A promise that will be fulfilled with
+       *     the command result.
+       */
+      execute(command: Command): webdriver.promise.Promise<any>
+    }
+
+    /**
+     * Wraps a promised {@link Executor}, ensuring no commands are executed until
+     * the wrapped executor has been fully resolved.
+     * @implements {Executor}
+     */
+    class DeferredExecutor {
+      /**
+       * @param {!promise.Promise<Executor>} delegate The promised delegate, which
+       *     may be provided by any promise-like thenable object.
+       */
+      constructor(delegate: webdriver.promise.Promise<Executor>);
+    }
+
+    /**
+     * Describes an event listener registered on an {@linkplain EventEmitter}.
+     */
+    class Listener {
+      /**
+       * @param {!Function} fn The acutal listener function.
+       * @param {(Object|undefined)} scope The object in whose scope to invoke the
+       *     listener.
+       * @param {boolean} oneshot Whether this listener should only be used once.
+       */
+      constructor(fn: Function, scope: Object, oneshot: boolean);
     }
 
     /**
@@ -3283,39 +4651,42 @@ declare namespace webdriver {
         /**
          * Returns a mutable list of listeners for a specific type of event.
          * @param {string} type The type of event to retrieve the listeners for.
-         * @return {!Array.<{fn: !Function, oneshot: boolean,
-         *                   scope: (Object|undefined)}>} The registered listeners for
-         *     the given event type.
+         * @return {!Set<!Listener>} The registered listeners for the given event
+         *     type.
          */
-        listeners(type: string): Array<{fn: Function; oneshot: boolean; scope: any;}>;
+        listeners(type: string): any;
 
         /**
          * Registers a listener.
          * @param {string} type The type of event to listen for.
-         * @param {!Function} listenerFn The function to invoke when the event is fired.
-         * @param {Object=} opt_scope The object in whose scope to invoke the listener.
-         * @return {!webdriver.EventEmitter} A self reference.
+         * @param {!Function} fn The function to invoke when the event is fired.
+         * @param {Object=} opt_self The object in whose scope to invoke the listener.
+         * @param {boolean=} opt_oneshot Whether the listener should b (e removed after
+         *    the first event is fired.
+         * @return {!EventEmitter} A self reference.
+         * @private
          */
-        addListener(type: string, listenerFn: Function, opt_scope?:any): EventEmitter;
+        addListener(type: string, fn: Function, opt_scope?:any, opt_oneshot?: boolean): EventEmitter;
+
 
         /**
          * Registers a one-time listener which will be called only the first time an
          * event is emitted, after which it will be removed.
          * @param {string} type The type of event to listen for.
-         * @param {!Function} listenerFn The function to invoke when the event is fired.
+         * @param {!Function} fn The function to invoke when the event is fired.
          * @param {Object=} opt_scope The object in whose scope to invoke the listener.
          * @return {!webdriver.EventEmitter} A self reference.
          */
-        once(type: string, listenerFn: any, opt_scope?: any): EventEmitter;
+        once(type: string, fn: any, opt_scope?: any): EventEmitter;
 
         /**
          * An alias for {@code #addListener()}.
          * @param {string} type The type of event to listen for.
-         * @param {!Function} listenerFn The function to invoke when the event is fired.
+         * @param {!Function} fn The function to invoke when the event is fired.
          * @param {Object=} opt_scope The object in whose scope to invoke the listener.
          * @return {!webdriver.EventEmitter} A self reference.
          */
-        on(type: string, listenerFn: Function, opt_scope?:any): EventEmitter;
+        on(type: string, fn: Function, opt_scope?:any): EventEmitter;
 
         /**
          * Removes a previously registered event listener.
@@ -3340,14 +4711,20 @@ declare namespace webdriver {
     /**
      * Interface for navigating back and forth in the browser history.
      */
-    interface WebDriverNavigation {
+    class Navigation {
         //region Constructors
 
         /**
-         * @param {!webdriver.WebDriver} driver The parent driver.
-         * @constructor
+         * Interface for navigating back and forth in the browser history.
+         *
+         * This class should never be instantiated directly. Insead, obtain an instance
+         * with
+         *
+         *    webdriver.navigate()
+         *
+         * @see WebDriver#navigate()
          */
-        new (driver: WebDriver): WebDriverNavigation;
+        constructor(driver: WebDriver);
 
         //endregion
 
@@ -3397,14 +4774,14 @@ declare namespace webdriver {
     /**
      * Provides methods for managing browser and driver state.
      */
-    interface WebDriverOptions {
+    class Options {
         //region Constructors
 
         /**
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        new (driver: webdriver.WebDriver): WebDriverOptions;
+        constructor(driver: webdriver.WebDriver);
 
         //endregion
 
@@ -3417,13 +4794,13 @@ declare namespace webdriver {
          * @param {string=} opt_path The cookie path.
          * @param {string=} opt_domain The cookie domain.
          * @param {boolean=} opt_isSecure Whether the cookie is secure.
-         * @param {(number|!Date)=} opt_expiry When the cookie expires. If specified as
-         *     a number, should be in milliseconds since midnight, January 1, 1970 UTC.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     cookie has been added to the page.
+         * @param {(number|!Date)=} opt_expiry When the cookie expires. If specified
+         *     as a number, should be in milliseconds since midnight,
+         *     January 1, 1970 UTC.
+         * @return {!promise.Promise<void>} A promise that will be resolved
+         *     when the cookie has been added to the page.
          */
-        addCookie(name: string, value: string, opt_path?: string, opt_domain?: string, opt_isSecure?: boolean, opt_expiry?: number): webdriver.promise.Promise<void>;
-        addCookie(name: string, value: string, opt_path?: string, opt_domain?: string, opt_isSecure?: boolean, opt_expiry?: Date): webdriver.promise.Promise<void>;
+        addCookie(name: string, value: string, opt_path?: string, opt_domain?: string, opt_isSecure?: boolean, opt_expiry?: number|Date): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to delete all cookies visible to the current page.
@@ -3467,19 +4844,19 @@ declare namespace webdriver {
          * @return {!webdriver.WebDriver.Logs} The interface for managing driver
          *     logs.
          */
-        logs(): WebDriverLogs;
+        logs(): webdriver.Logs;
 
         /**
          * @return {!webdriver.WebDriver.Timeouts} The interface for managing driver
          *     timeouts.
          */
-        timeouts(): WebDriverTimeouts;
+        timeouts(): webdriver.Timeouts;
 
         /**
          * @return {!webdriver.WebDriver.Window} The interface for managing the
          *     current window.
          */
-        window(): WebDriverWindow;
+        window(): webdriver.Window;
 
         //endregion
     }
@@ -3487,14 +4864,14 @@ declare namespace webdriver {
     /**
      * An interface for managing timeout behavior for WebDriver instances.
      */
-    interface WebDriverTimeouts {
+    class Timeouts {
         //region Constructors
 
         /**
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        new (driver: WebDriver): WebDriverTimeouts;
+        constructor(driver: webdriver.WebDriver);
 
         //endregion
 
@@ -3549,7 +4926,7 @@ declare namespace webdriver {
     /**
      * An interface for managing the current window.
      */
-    interface WebDriverWindow {
+    class Window {
 
         //region Constructors
 
@@ -3557,7 +4934,7 @@ declare namespace webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        new (driver: WebDriver): WebDriverWindow;
+        constructor(driver: webdriver.WebDriver);
 
         //endregion
 
@@ -3612,7 +4989,7 @@ declare namespace webdriver {
     /**
      * Interface for managing WebDriver log records.
      */
-    interface WebDriverLogs {
+    class Logs {
 
         //region Constructors
 
@@ -3620,7 +4997,7 @@ declare namespace webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        new (driver: WebDriver): WebDriverLogs;
+        constructor(driver: webdriver.WebDriver);
 
         //endregion
 
@@ -3655,7 +5032,7 @@ declare namespace webdriver {
     /**
      * An interface for changing the focus of the driver to another frame or window.
      */
-    interface WebDriverTargetLocator {
+    class TargetLocator {
 
         //region Constructors
 
@@ -3663,7 +5040,7 @@ declare namespace webdriver {
          * @param {!webdriver.WebDriver} driver The parent driver.
          * @constructor
          */
-        new (driver: WebDriver): WebDriverTargetLocator;
+        constructor(driver: webdriver.WebDriver);
 
         //endregion
 
@@ -3687,44 +5064,47 @@ declare namespace webdriver {
 
         /**
          * Schedules a command to switch the focus of all future commands to another
-         * frame on the page.
-         * <p/>
-         * If the frame is specified by a number, the command will switch to the frame
-         * by its (zero-based) index into the {@code window.frames} collection.
-         * <p/>
-         * If the frame is specified by a string, the command will select the frame by
-         * its name or ID. To select sub-frames, simply separate the frame names/IDs by
-         * dots. As an example, "main.child" will select the frame with the name "main"
-         * and then its child "child".
-         * <p/>
-         * If the specified frame can not be found, the deferred result will errback
-         * with a {@code bot.ErrorCode.NO_SUCH_FRAME} error.
-         * @param {string|number} nameOrIndex The frame locator.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     driver has changed focus to the specified frame.
+         * frame on the page. The target frame may be specified as one of the
+         * following:
+         *
+         * - A number that specifies a (zero-based) index into [window.frames](
+         *   https://developer.mozilla.org/en-US/docs/Web/API/Window.frames).
+         * - A {@link WebElement} reference, which correspond to a `frame` or `iframe`
+         *   DOM element.
+         * - The `null` value, to select the topmost frame on the page. Passing `null`
+         *   is the same as calling {@link #defaultContent defaultContent()}.
+         *
+         * If the specified frame can not be found, the returned promise will be
+         * rejected with a {@linkplain error.NoSuchFrameError}.
+         *
+         * @param {(number|WebElement|null)} id The frame locator.
+         * @return {!promise.Promise<void>} A promise that will be resolved
+         *     when the driver has changed focus to the specified frame.
          */
-        frame(nameOrIndex: string): webdriver.promise.Promise<void>;
-        frame(nameOrIndex: number): webdriver.promise.Promise<void>;
+        frame(nameOrIndex: number|WebElement): webdriver.promise.Promise<void>;
 
         /**
          * Schedules a command to switch the focus of all future commands to another
          * window. Windows may be specified by their {@code window.name} attribute or
-         * by its handle (as returned by {@code webdriver.WebDriver#getWindowHandles}).
-         * <p/>
-         * If the specificed window can not be found, the deferred result will errback
-         * with a {@code bot.ErrorCode.NO_SUCH_WINDOW} error.
+         * by its handle (as returned by {@link WebDriver#getWindowHandles}).
+         *
+         * If the specified window cannot be found, the returned promise will be
+         * rejected with a {@linkplain error.NoSuchWindowError}.
+         *
          * @param {string} nameOrHandle The name or window handle of the window to
          *     switch focus to.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved when the
-         *     driver has changed focus to the specified window.
+         * @return {!promise.Promise<void>} A promise that will be resolved
+         *     when the driver has changed focus to the specified window.
          */
         window(nameOrHandle: string): webdriver.promise.Promise<void>;
 
         /**
-         * Schedules a command to change focus to the active alert dialog. This command
-         * will return a {@link bot.ErrorCode.NO_MODAL_DIALOG_OPEN} error if a modal
-         * dialog is not currently open.
-         * @return {!webdriver.Alert} The open alert.
+         * Schedules a command to change focus to the active modal dialog, such as
+         * those opened by `window.alert()`, `window.confirm()`, and
+         * `window.prompt()`. The returned promise will be rejected with a
+         * {@linkplain error.NoSuchAlertError} if there are no open alerts.
+         *
+         * @return {!AlertPromise} The open alert.
          */
         alert(): AlertPromise;
 
@@ -3789,27 +5169,14 @@ declare namespace webdriver {
         //region Constructors
 
         /**
-         * @param {!(webdriver.Session|webdriver.promise.Promise)} session Either a
+         * @param {!(Session|promise.Promise<!Session>)} session Either a
          *     known session or a promise that will be resolved to a session.
-         * @param {!webdriver.CommandExecutor} executor The executor to use when
-         *     sending commands to the browser.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The flow to
+         * @param {!command.Executor} executor The executor to use when sending
+         *     commands to the browser.
+         * @param {promise.ControlFlow=} opt_flow The flow to
          *     schedule commands through. Defaults to the active flow object.
-         * @constructor
          */
-         constructor(session: Session, executor: CommandExecutor, opt_flow?: webdriver.promise.ControlFlow);
-         constructor(session: webdriver.promise.Promise<Session>, executor: CommandExecutor, opt_flow?: webdriver.promise.ControlFlow);
-
-        //endregion
-
-        //region Static Properties
-
-        static Navigation: WebDriverNavigation;
-        static Options: WebDriverOptions;
-        static Timeouts: WebDriverTimeouts;
-        static Window: WebDriverWindow;
-        static Logs: WebDriverLogs;
-        static TargetLocator: WebDriverTargetLocator;
+         constructor(session: Session|webdriver.promise.Promise<Session>, executor: Executor, opt_flow?: webdriver.promise.ControlFlow);
 
         //endregion
 
@@ -3817,29 +5184,29 @@ declare namespace webdriver {
 
         /**
          * Creates a new WebDriver client for an existing session.
-         * @param {!webdriver.CommandExecutor} executor Command executor to use when
-         *     querying for session details.
+         * @param {!command.Executor} executor Command executor to use when querying
+         *     for session details.
          * @param {string} sessionId ID of the session to attach to.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The control flow all driver
-         *     commands should execute under. Defaults to the
-         *     {@link webdriver.promise.controlFlow() currently active}  control flow.
-         * @return {!webdriver.WebDriver} A new client for the specified session.
+         * @param {promise.ControlFlow=} opt_flow The control flow all
+         *     driver commands should execute under. Defaults to the
+         *     {@link promise.controlFlow() currently active}  control flow.
+         * @return {!WebDriver} A new client for the specified session.
          */
-        static attachToSession(executor: CommandExecutor, sessionId: string, opt_flow?: webdriver.promise.ControlFlow): WebDriver;
+        static attachToSession(executor: Executor, sessionId: string, opt_flow?: webdriver.promise.ControlFlow): WebDriver;
 
         /**
          * Creates a new WebDriver session.
-         * @param {!webdriver.CommandExecutor} executor The executor to create the new
-         *     session with.
-         * @param {!webdriver.Capabilities} desiredCapabilities The desired
+         * @param {!command.Executor} executor The executor to create the new session
+         *     with.
+         * @param {!./capabilities.Capabilities} desiredCapabilities The desired
          *     capabilities for the new session.
-         * @param {webdriver.promise.ControlFlow=} opt_flow The control flow all driver
+         * @param {promise.ControlFlow=} opt_flow The control flow all driver
          *     commands should execute under, including the initial session creation.
-         *     Defaults to the {@link webdriver.promise.controlFlow() currently active}
+         *     Defaults to the {@link promise.controlFlow() currently active}
          *     control flow.
-         * @return {!webdriver.WebDriver} The driver for the newly created session.
+         * @return {!WebDriver} The driver for the newly created session.
          */
-        static createSession(executor: CommandExecutor, desiredCapabilities: Capabilities, opt_flow?: webdriver.promise.ControlFlow): WebDriver;
+        static createSession(executor: Executor, desiredCapabilities: Capabilities, opt_flow?: webdriver.promise.ControlFlow): WebDriver;
 
         //endregion
 
@@ -3852,20 +5219,22 @@ declare namespace webdriver {
         controlFlow(): webdriver.promise.ControlFlow;
 
         /**
-         * Schedules a {@code webdriver.Command} to be executed by this driver's
-         * {@code webdriver.CommandExecutor}.
-         * @param {!webdriver.Command} command The command to schedule.
+         * Schedules a {@link command.Command} to be executed by this driver's
+         * {@link command.Executor}.
+         *
+         * @param {!command.Command} command The command to schedule.
          * @param {string} description A description of the command for debugging.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved with
-         *     the command result.
+         * @return {!promise.Promise<T>} A promise that will be resolved
+         *     with the command result.
+         * @template T
          */
         schedule<T>(command: Command, description: string): webdriver.promise.Promise<T>;
 
 
         /**
-         * Sets the {@linkplain webdriver.FileDetector file detector} that should be
+         * Sets the {@linkplain input.FileDetector file detector} that should be
          * used with this instance.
-         * @param {webdriver.FileDetector} detector The detector to use or {@code null}.
+         * @param {input.FileDetector} detector The detector to use or {@code null}.
          */
         setFileDetector(detector: FileDetector): void;
 
@@ -3895,23 +5264,23 @@ declare namespace webdriver {
 
         /**
          * Creates a new action sequence using this driver. The sequence will not be
-         * scheduled for execution until {@link webdriver.ActionSequence#perform} is
+         * scheduled for execution until {@link actions.ActionSequence#perform} is
          * called. Example:
-         * <pre><code>
-         *   driver.actions().
-         *       mouseDown(element1).
-         *       mouseMove(element2).
-         *       mouseUp().
-         *       perform();
-         * </code></pre>
-         * @return {!webdriver.ActionSequence} A new action sequence for this instance.
+         *
+         *     driver.actions().
+         *         mouseDown(element1).
+         *         mouseMove(element2).
+         *         mouseUp().
+         *         perform();
+         *
+         * @return {!actions.ActionSequence} A new action sequence for this instance.
          */
         actions(): ActionSequence;
 
 
         /**
          * Creates a new touch sequence using this driver. The sequence will not be
-         * scheduled for execution until {@link webdriver.TouchSequence#perform} is
+         * scheduled for execution until {@link actions.TouchSequence#perform} is
          * called. Example:
          *
          *     driver.touchActions().
@@ -3919,7 +5288,7 @@ declare namespace webdriver {
          *         doubleTap(element2).
          *         perform();
          *
-         * @return {!webdriver.TouchSequence} A new touch sequence for this instance.
+         * @return {!actions.TouchSequence} A new touch sequence for this instance.
          */
         touchActions(): TouchSequence;
 
@@ -3961,8 +5330,7 @@ declare namespace webdriver {
          *    scripts return value.
          * @template T
          */
-        executeScript<T>(script: string, ...var_args: any[]): webdriver.promise.Promise<T>;
-        executeScript<T>(script: Function, ...var_args: any[]): webdriver.promise.Promise<T>;
+        executeScript<T>(script: string|Function, ...var_args: any[]): webdriver.promise.Promise<T>;
 
         /**
          * Schedules a command to execute asynchronous JavaScript in the context of the
@@ -4179,38 +5547,27 @@ declare namespace webdriver {
          *     var e1 = driver.findElement(By.id('foo'));
          *     var e2 = driver.findElement({id:'foo'});
          *
-         * You may also provide a custom locator function, which takes as input
-         * this WebDriver instance and returns a {@link webdriver.WebElement}, or a
-         * promise that will resolve to a WebElement. For example, to find the first
-         * visible link on a page, you could write:
+         * You may also provide a custom locator function, which takes as input this
+         * instance and returns a {@link WebElement}, or a promise that will resolve
+         * to a WebElement. If the returned promise resolves to an array of
+         * WebElements, WebDriver will use the first element. For example, to find the
+         * first visible link on a page, you could write:
          *
          *     var link = driver.findElement(firstVisibleLink);
          *
          *     function firstVisibleLink(driver) {
          *       var links = driver.findElements(By.tagName('a'));
-         *       return webdriver.promise.filter(links, function(link) {
-         *         return links.isDisplayed();
-         *       }).then(function(visibleLinks) {
-         *         return visibleLinks[0];
+         *       return promise.filter(links, function(link) {
+         *         return link.isDisplayed();
          *       });
          *     }
          *
-         * When running in the browser, a WebDriver cannot manipulate DOM elements
-         * directly; it may do so only through a {@link webdriver.WebElement} reference.
-         * This function may be used to generate a WebElement from a DOM element. A
-         * reference to the DOM element will be stored in a known location and this
-         * driver will attempt to retrieve it through {@link #executeScript}. If the
-         * element cannot be found (eg, it belongs to a different document than the
-         * one this instance is currently focused on), a
-         * {@link bot.ErrorCode.NO_SUCH_ELEMENT} error will be returned.
-         *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|Function)} locator The
-         *     locator to use.
-         * @return {!webdriver.WebElement} A WebElement that can be used to issue
+         * @param {!(by.By|Function)} locator The locator to use.
+         * @return {!WebElementPromise} A WebElement that can be used to issue
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locatorOrElement: Locator|By.Hash|WebElement|Function): WebElementPromise;
+        findElement(locator: By|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if an element is present on the page.
@@ -4219,35 +5576,36 @@ declare namespace webdriver {
          * document the driver is currently focused on. Otherwise, the function will
          * test if at least one element can be found with the given search criteria.
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Element|
-         *           Function)} locatorOrElement The locator to use, or the actual
-         *     DOM element to be located by the server.
-         * @return {!webdriver.promise.Promise.<boolean>} A promise that will resolve
+         * @param {!(by.By|Function)} locator The locator to use.
+         * @return {!promise.Promise<boolean>} A promise that will resolve
          *     with whether the element is present on the page.
+         * @deprecated This method will be removed in Selenium 3.0 for consistency
+         *     with the other Selenium language bindings. This method is equivalent
+         *     to
+         *
+         *      driver.findElements(locator).then(e => !!e.length);
          */
-        isElementPresent(locatorOrElement: Locator|By.Hash|WebElement|Function): webdriver.promise.Promise<boolean>;
+        isElementPresent(locatorOrElement: By|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedule a command to search for multiple elements on the page.
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The locator
-         *     strategy to use when searching for the element.
-         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         * @param {!(by.By|Function)} locator The locator to use.
+         * @return {!promise.Promise.<!Array.<!WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: By|Function): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedule a command to take a screenshot. The driver makes a best effort to
          * return a screenshot of the following, in order of preference:
-         * <ol>
-         *   <li>Entire page
-         *   <li>Current window
-         *   <li>Visible portion of the current frame
-         *   <li>The screenshot of the entire display containing the browser
-         * </ol>
          *
-         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         * 1. Entire page
+         * 2. Current window
+         * 3. Visible portion of the current frame
+         * 4. The entire display containing the browser
+         *
+         * @return {!promise.Promise<string>} A promise that will be
          *     resolved to the screenshot as a base-64 encoded PNG.
          */
         takeScreenshot(): webdriver.promise.Promise<string>;
@@ -4256,45 +5614,25 @@ declare namespace webdriver {
          * @return {!webdriver.WebDriver.Options} The options interface for this
          *     instance.
          */
-        manage(): WebDriverOptions;
+        manage(): webdriver.Options;
 
         /**
          * @return {!webdriver.WebDriver.Navigation} The navigation interface for this
          *     instance.
          */
-        navigate(): WebDriverNavigation;
+        navigate(): Navigation;
 
         /**
          * @return {!webdriver.WebDriver.TargetLocator} The target locator interface for
          *     this instance.
          */
-        switchTo(): WebDriverTargetLocator;
+        switchTo(): webdriver.TargetLocator;
 
         //endregion
     }
 
     interface IWebElementId {
-        ELEMENT: string;
-    }
-
-    /**
-     * Defines an object that can be asynchronously serialized to its WebDriver
-     * wire representation.
-     *
-     * @constructor
-     * @template T
-     */
-    interface Serializable<T> {
-        /**
-         * Returns either this instance's serialized represention, if immediately
-         * available, or a promise for its serialized representation. This function is
-         * conceptually equivalent to objects that have a {@code toJSON()} property,
-         * except the serialize() result may be a promise or an object containing a
-         * promise (which are not directly JSON friendly).
-         *
-         * @return {!(T|IThenable.<!T>)} This instance's serialized wire format.
-         */
-        serialize(): T|webdriver.promise.IThenable<T>;
+        [ELEMENT:string]: string;
     }
 
     /**
@@ -4554,7 +5892,7 @@ declare namespace webdriver {
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
+        findElement(locator: By|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if there is at least one descendant of this
@@ -4565,7 +5903,7 @@ declare namespace webdriver {
          * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
          *     resolved with whether an element could be located on the page.
          */
-        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
+        isElementPresent(locator: By|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to find all of the descendants of this element that
@@ -4576,9 +5914,8 @@ declare namespace webdriver {
          * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: By|Function): webdriver.promise.Promise<WebElement[]>;
     }
-
 
     /**
      * Defines an object that can be asynchronously serialized to its WebDriver
@@ -4599,7 +5936,6 @@ declare namespace webdriver {
          */
         serialize(): T|webdriver.promise.IThenable<T>;
     }
-
 
     /**
      * Represents a DOM element. WebElements can be found by searching from the
@@ -4626,35 +5962,59 @@ declare namespace webdriver {
      */
     class WebElement implements Serializable<IWebElementId> {
         /**
-         * @param {!webdriver.WebDriver} driver The parent WebDriver instance for this
-         *     element.
-         * @param {!(webdriver.promise.Promise.<webdriver.WebElement.Id>|
-         *           webdriver.WebElement.Id)} id The server-assigned opaque ID for the
-         *     underlying DOM element.
-         * @constructor
+         * @param {!WebDriver} driver the parent WebDriver instance for this element.
+         * @param {(!IThenable<string>|string)} id The server-assigned opaque ID for
+         *     the underlying DOM element.
          */
-        constructor(driver: WebDriver, id: webdriver.promise.Promise<IWebElementId>|IWebElementId);
+        constructor(driver: webdriver.WebDriver, id: webdriver.promise.Promise<string>|string);
 
         /**
-         * Wire protocol definition of a WebElement ID.
-         * @typedef {{ELEMENT: string}}
-         * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+         * @param {string} id The raw ID.
+         * @param {boolean=} opt_noLegacy Whether to exclude the legacy element key.
+         * @return {!Object} The element ID for use with WebDriver's wire protocol.
          */
-        static Id: IWebElementId;
+        static buildId(id: string, opt_noLegacy?: boolean): Object;
 
         /**
-         * The property key used in the wire protocol to indicate that a JSON object
-         * contains the ID of a WebElement.
-         * @type {string}
-         * @const
+         * Extracts the encoded WebElement ID from the object.
+         *
+         * @param {?} obj The object to extract the ID from.
+         * @return {string} the extracted ID.
+         * @throws {TypeError} if the object is not a valid encoded ID.
          */
-        static ELEMENT_KEY: string;
+        static extractId(obj: IWebElementId): string;
 
+        /**
+         * @param {?} obj the object to test.
+         * @return {boolean} whether the object is a valid encoded WebElement ID.
+         */
+        static isId(obj: IWebElementId): boolean;
+
+        /**
+         * Compares two WebElements for equality.
+         *
+         * @param {!WebElement} a A WebElement.
+         * @param {!WebElement} b A WebElement.
+         * @return {!promise.Promise<boolean>} A promise that will be
+         *     resolved to whether the two WebElements are equal.
+         */
+        static equals(a: WebElement, b: WebElement): webdriver.promise.Promise<boolean>;
 
         /**
          * @return {!webdriver.WebDriver} The parent driver for this instance.
          */
-        getDriver(): WebDriver;
+        getDriver(): webdriver.WebDriver;
+
+        /**
+         * @return {!promise.Promise<string>} A promise that resolves to
+         *     the server-assigned opaque ID assigned to this element.
+         */
+        getId(): webdriver.promise.Promise<string>;
+
+        /**
+         * @deprecated Use {@link #getId()} instead.
+         */
+        getRawId(): any;
 
         /**
          * Schedule a command to find a descendant of this element. If the element
@@ -4688,35 +6048,40 @@ declare namespace webdriver {
          *       });
          *     }
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.WebElement} A WebElement that can be used to issue
+         * @param {!(by.By|Function)} locator The locator strategy to use when
+         *     searching for the element.
+         * @return {!WebElementPromise} A WebElement that can be used to issue
          *     commands against the located element. If the element is not found, the
          *     element will be invalidated and all scheduled commands aborted.
          */
-        findElement(locator: Locator|By.Hash|Function): WebElementPromise;
+        findElement(locator: By|Function): WebElementPromise;
 
         /**
          * Schedules a command to test if there is at least one descendant of this
          * element that matches the given search criteria.
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the element.
-         * @return {!webdriver.promise.Promise.<boolean>} A promise that will be
+         * @param {!(by.By|Function)} locator The locator strategy to use when
+         *     searching for the element.
+         * @return {!promise.Promise<boolean>} A promise that will be
          *     resolved with whether an element could be located on the page.
+         * @deprecated This method will be removed in Selenium 3.0 for consistency
+         *     with the other Selenium language bindings. This method is equivalent
+         *     to
+         *
+         *      element.findElements(locator).then(e => !!e.length);
          */
-        isElementPresent(locator: Locator|By.Hash|Function): webdriver.promise.Promise<boolean>;
+        isElementPresent(locator: By|Function): webdriver.promise.Promise<boolean>;
 
         /**
          * Schedules a command to find all of the descendants of this element that
          * match the given search criteria.
          *
-         * @param {!(webdriver.Locator|webdriver.By.Hash|Function)} locator The
-         *     locator strategy to use when searching for the elements.
-         * @return {!webdriver.promise.Promise.<!Array.<!webdriver.WebElement>>} A
+         * @param {!(by.By|Function)} locator The locator strategy to use when
+         *     searching for the element.
+         * @return {!promise.Promise<!Array<!WebElement>>} A
          *     promise that will resolve to an array of WebElements.
          */
-        findElements(locator: Locator|By.Hash|Function): webdriver.promise.Promise<WebElement[]>;
+        findElements(locator: By|Function): webdriver.promise.Promise<WebElement[]>;
 
         /**
          * Schedules a command to click on this element.
@@ -4727,7 +6092,7 @@ declare namespace webdriver {
 
         /**
          * Schedules a command to type a sequence on the DOM element represented by this
-         * instance.
+         * promsieinstance.
          *
          * Modifier keys (SHIFT, CONTROL, ALT, META) are stateful; once a modifier is
          * processed in the keysequence, that key state is toggled until one of the
@@ -4799,7 +6164,7 @@ declare namespace webdriver {
          *
          * @param {string} cssStyleProperty The name of the CSS style property to look
          *     up.
-         * @return {!webdriver.promise.Promise.<string>} A promise that will be
+         * @return {!promise.Promise<string>} A promise that will be
          *     resolved with the requested CSS value.
          */
         getCssValue(cssStyleProperty: string): webdriver.promise.Promise<string>;
@@ -4885,10 +6250,10 @@ declare namespace webdriver {
         submit(): webdriver.promise.Promise<void>;
 
         /**
-         * Schedules a command to clear the {@code value} of this element. This command
-         * has no effect if the underlying DOM element is neither a text INPUT element
+         * Schedules a command to clear the `value` of this element. This command has
+         * no effect if the underlying DOM element is neither a text INPUT element
          * nor a TEXTAREA element.
-         * @return {!webdriver.promise.Promise.<void>} A promise that will be resolved
+         * @return {!promise.Promise<void>} A promise that will be resolved
          *     when the element has been cleared.
          */
         clear(): webdriver.promise.Promise<void>;
@@ -4901,30 +6266,23 @@ declare namespace webdriver {
         isDisplayed(): webdriver.promise.Promise<boolean>;
 
         /**
+         * Take a screenshot of the visible region encompassed by this element's
+         * bounding rectangle.
+         *
+         * @param {boolean=} opt_scroll Optional argument that indicates whether the
+         *     element should be scrolled into view before taking a screenshot.
+         *     Defaults to false.
+         * @return {!promise.Promise<string>} A promise that will be
+         *     resolved to the screenshot as a base-64 encoded PNG.
+         */
+        takeScreenshot(opt_scroll?: boolean): webdriver.promise.Promise<string>;
+
+        /**
          * Schedules a command to retrieve the outer HTML of this element.
          * @return {!webdriver.promise.Promise.<string>} A promise that will be
          *     resolved with the element's outer HTML.
          */
         getOuterHtml(): webdriver.promise.Promise<string>;
-
-        /**
-         * @return {!webdriver.promise.Promise.<webdriver.WebElement.Id>} A promise
-         *     that resolves to this element's JSON representation as defined by the
-         *     WebDriver wire protocol.
-         * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol
-         */
-        getId(): webdriver.promise.Promise<IWebElementId>;
-
-        /**
-         * Returns the raw ID string ID for this element.
-         * @return {!webdriver.promise.Promise<string>} A promise that resolves to this
-         *     element's raw ID as a string value.
-         * @package
-         */
-        getRawId(): webdriver.promise.Promise<string>;
-
-        /** @override */
-        serialize(): webdriver.promise.Promise<IWebElementId>;
 
         /**
          * Schedules a command to retrieve the inner HTML of this element.
@@ -4933,14 +6291,8 @@ declare namespace webdriver {
          */
         getInnerHtml(): webdriver.promise.Promise<string>;
 
-        /**
-         * Compares to WebElements for equality.
-         * @param {!webdriver.WebElement} a A WebElement.
-         * @param {!webdriver.WebElement} b A WebElement.
-         * @return {!webdriver.promise.Promise} A promise that will be resolved to
-         *     whether the two WebElements are equal.
-         */
-        static equals(a: WebElement, b: WebElement): webdriver.promise.Promise<boolean>;
+        /** @override */
+        serialize(): webdriver.promise.Promise<IWebElementId>;
     }
 
     /**
@@ -4966,6 +6318,14 @@ declare namespace webdriver {
      * @final
      */
     class WebElementPromise extends WebElement implements webdriver.promise.IThenable<WebElement> {
+        /**
+         * @param {!WebDriver} driver The parent WebDriver instance for this
+         *     element.
+         * @param {!promise.Promise<!WebElement>} el A promise
+         *     that will resolve to the promised element.
+         */
+        constructor(driver: webdriver.WebDriver, el: webdriver.promise.Promise<WebElement>);
+
         /**
          * Cancels the computation of this promise's value, rejecting the promise in the
          * process. This method is a no-op if the promise has alreayd been resolved.
@@ -5075,191 +6435,31 @@ declare namespace webdriver {
          * @template R
          */
         thenFinally<R>(callback: () => any): webdriver.promise.Promise<R>;
-    }
 
-    namespace By {
         /**
-         * Locates elements that have a specific class name. The returned locator
-         * is equivalent to searching for elements with the CSS selector ".clazz".
+         * Registers a listener for when this promise is rejected. This is synonymous
+         * with the {@code catch} clause in a synchronous API:
          *
-         * @param {string} className The class name to search for.
-         * @return {!webdriver.Locator} The new locator.
-         * @see http://www.w3.org/TR/2011/WD-html5-20110525/elements.html#classes
-         * @see http://www.w3.org/TR/CSS2/selector.html#class-html
-         */
-        function className(value: string): Locator;
-
-        /**
-         * Locates elements using a CSS selector. For browsers that do not support
-         * CSS selectors, WebDriver implementations may return an
-         * {@linkplain bot.Error.State.INVALID_SELECTOR invalid selector} error. An
-         * implementation may, however, emulate the CSS selector API.
+         *     // Synchronous API:
+         *     try {
+         *       doSynchronousWork();
+         *     } catch (ex) {
+         *       console.error(ex);
+         *     }
          *
-         * @param {string} selector The CSS selector to use.
-         * @return {!webdriver.Locator} The new locator.
-         * @see http://www.w3.org/TR/CSS2/selector.html
-         */
-        function css(value: string): Locator;
-
-        /**
-         * Locates an element by its ID.
+         *     // Asynchronous promise API:
+         *     doAsynchronousWork().catch(function(ex) {
+         *       console.error(ex);
+         *     });
          *
-         * @param {string} id The ID to search for.
-         * @return {!webdriver.Locator} The new locator.
+         * @param {function(*): (R|IThenable<R>)} errback The
+         *     function to call if this promise is rejected. The function should
+         *     expect a single argument: the rejection reason.
+         * @return {!ManagedPromise<R>} A new promise which will be
+         *     resolved with the result of the invoked callback.
+         * @template R
          */
-        function id(value: string): Locator;
-
-        /**
-         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
-         * text} matches the given string.
-         *
-         * @param {string} text The link text to search for.
-         * @return {!webdriver.Locator} The new locator.
-         */
-        function linkText(value: string): Locator;
-
-        /**
-         * Locates an elements by evaluating a
-         * {@linkplain webdriver.WebDriver#executeScript JavaScript expression}.
-         * The result of this expression must be an element or list of elements.
-         *
-         * @param {!(string|Function)} script The script to execute.
-         * @param {...*} var_args The arguments to pass to the script.
-         * @return {function(!webdriver.WebDriver): !webdriver.promise.Promise} A new,
-         *     JavaScript-based locator function.
-         */
-        function js(script: any, ...var_args: any[]): (WebDriver: webdriver.WebDriver) => webdriver.promise.Promise<any>;
-
-        /**
-         * Locates elements whose {@code name} attribute has the given value.
-         *
-         * @param {string} name The name attribute to search for.
-         * @return {!webdriver.Locator} The new locator.
-         */
-        function name(value: string): Locator;
-
-        /**
-         * Locates link elements whose {@linkplain webdriver.WebElement#getText visible
-         * text} contains the given substring.
-         *
-         * @param {string} text The substring to check for in a link's visible text.
-         * @return {!webdriver.Locator} The new locator.
-         */
-        function partialLinkText(value: string): Locator;
-
-        /**
-         * Locates elements with a given tag name. The returned locator is
-         * equivalent to using the
-         * [getElementsByTagName](https://developer.mozilla.org/en-US/docs/Web/API/Element.getElementsByTagName)
-         * DOM function.
-         *
-         * @param {string} text The substring to check for in a link's visible text.
-         * @return {!webdriver.Locator} The new locator.
-         * @see http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html
-         */
-        function tagName(value: string): Locator;
-
-        /**
-         * Locates elements matching a XPath selector. Care should be taken when
-         * using an XPath selector with a {@link webdriver.WebElement} as WebDriver
-         * will respect the context in the specified in the selector. For example,
-         * given the selector {@code "//div"}, WebDriver will search from the
-         * document root regardless of whether the locator was used with a
-         * WebElement.
-         *
-         * @param {string} xpath The XPath selector to use.
-         * @return {!webdriver.Locator} The new locator.
-         * @see http://www.w3.org/TR/xpath/
-         */
-        function xpath(value: string): Locator;
-
-        /**
-         * Short-hand expressions for the primary element locator strategies.
-         * For example the following two statements are equivalent:
-         *
-         *     var e1 = driver.findElement(webdriver.By.id('foo'));
-         *     var e2 = driver.findElement({id: 'foo'});
-         *
-         * Care should be taken when using JavaScript minifiers (such as the
-         * Closure compiler), as locator hashes will always be parsed using
-         * the un-obfuscated properties listed.
-         *
-         * @typedef {(
-         *     {className: string}|
-         *     {css: string}|
-         *     {id: string}|
-         *     {js: string}|
-         *     {linkText: string}|
-         *     {name: string}|
-         *     {partialLinkText: string}|
-         *     {tagName: string}|
-         *     {xpath: string})}
-         */
-        type Hash = {className: string}|
-            {css: string}|
-            {id: string}|
-            {js: string}|
-            {linkText: string}|
-            {name: string}|
-            {partialLinkText: string}|
-            {tagName: string}|
-            {xpath: string};
-    }
-
-    /**
-     * An element locator.
-     */
-    class Locator {
-        /**
-         * An element locator.
-         * @param {string} using The type of strategy to use for this locator.
-         * @param {string} value The search target of this locator.
-         * @constructor
-         */
-        constructor(using: string, value: string);
-
-
-        /**
-         * Maps {@link webdriver.By.Hash} keys to the appropriate factory function.
-         * @type {!Object.<string, function(string): !(Function|webdriver.Locator)>}
-         * @const
-         */
-        static Strategy: {
-            className: typeof webdriver.By.className;
-            css: typeof webdriver.By.css;
-            id: typeof webdriver.By.id;
-            js: typeof webdriver.By.js;
-            linkText: typeof webdriver.By.linkText;
-            name: typeof webdriver.By.name;
-            partialLinkText: typeof webdriver.By.partialLinkText;
-            tagName: typeof webdriver.By.tagName;
-            xpath: typeof webdriver.By.xpath;
-        };
-
-        /**
-         * Verifies that a {@code value} is a valid locator to use for searching for
-         * elements on the page.
-         *
-         * @param {*} value The value to check is a valid locator.
-         * @return {!(webdriver.Locator|Function)} A valid locator object or function.
-         * @throws {TypeError} If the given value is an invalid locator.
-         */
-        static checkLocator(value: any): Locator | Function;
-
-        /**
-         * The search strategy to use when searching for an element.
-         * @type {string}
-         */
-        using: string;
-
-        /**
-         * The search target for this locator.
-         * @type {string}
-         */
-        value: string;
-
-        /** @return {string} String representation of this locator. */
-        toString(): string;
+        catch<R>(errback: Function): webdriver.promise.Promise<R>;
     }
 
     /**
@@ -5275,8 +6475,7 @@ declare namespace webdriver {
          *     capabilities.
          * @constructor
          */
-        constructor(id: string, capabilities: Capabilities);
-        constructor(id: string, capabilities: any);
+        constructor(id: string, capabilities: Capabilities|Object);
 
         //endregion
 
@@ -5290,7 +6489,7 @@ declare namespace webdriver {
         /**
          * @return {!webdriver.Capabilities} This session's capabilities.
          */
-        getCapabilities(): Capabilities;
+        getCapabilities(): webdriver.Capabilities;
 
         /**
          * Retrieves the value of a specific capability.
@@ -5376,12 +6575,36 @@ declare module 'selenium-webdriver/chrome' {
     export = chrome;
 }
 
-declare module 'selenium-webdriver/firefox' {
-    export = firefox;
+declare module 'selenium-webdriver/edge' {
+  export = edge;
 }
 
 declare module 'selenium-webdriver/executors' {
     export = executors;
+}
+
+declare module 'selenium-webdriver/firefox' {
+  export = firefox;
+}
+
+declare module 'selenium-webdriver/http' {
+  export = http;
+}
+
+declare module 'selenium-webdriver/ie' {
+  export = ie;
+}
+
+declare module 'selenium-webdriver/opera' {
+  export = opera;
+}
+
+declare module 'selenium-webdriver/remote' {
+  export = remote;
+}
+
+declare module 'selenium-webdriver/safari' {
+  export = safari;
 }
 
 declare module 'selenium-webdriver' {

@@ -5,9 +5,10 @@
 
 /// <reference types="node" />
 
-declare var browserify: BrowserifyConstructor;
+declare var browserify: browserify.BrowserifyConstructor;
 export = browserify;
 
+declare namespace browserify {
 /**
  * Options pertaining to an individual file.
  */
@@ -172,4 +173,5 @@ interface BrowserifyObject extends NodeJS.EventEmitter {
    * Set to any until substack/labeled-stream-splicer is defined
    */
   pipeline: any;
+}
 }

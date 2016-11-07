@@ -3,8 +3,8 @@
 // Definitions by: Volox <https://github.com/Volox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../node/node.d.ts" />
-/// <reference path="../geojson/geojson.d.ts" />
+/// <reference types="node" />
+/// <reference types="geojson" />
 
 declare module 'twit' {
   import { IncomingMessage } from 'http';

@@ -1,4 +1,4 @@
-// Type definitions for D3JS d3-array module 1.0.0
+// Type definitions for D3JS d3-array module v1.0.1
 // Project: https://github.com/d3/d3-array
 // Definitions by: Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -157,7 +157,7 @@ export function sum<T>(array: T[], accessor: (datum: T, index: number, array: T[
 export function deviation(array: number[]): number | undefined;
 
 /**
- * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array, 
+ * Compute the standard deviation, defined as the square root of the bias-corrected variance, of the given array,
  * using the given accessor to convert values to numbers.
  */
 export function deviation<T>(array: T[], accessor: (datum: T, index: number, array: T[]) => number): number | undefined;
@@ -195,9 +195,8 @@ export interface Bisector<T, U> {
     right: (array: T[], x: U, lo?: number, hi?: number) => number;
 }
 
+export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>;
 export function bisector<T, U>(accessor: (x: T) => U): Bisector<T, U>;
-
-export function bisector<T, U>(comparator: (a: T, b: U) => number): Bisector<T, U>
 
 // NB. this is limited to primitive values due to D3's use of the <, >, and >= operators. Results get weird for object instances.
 /**
@@ -255,7 +254,7 @@ export function range(start: number, stop: number, step?: number): number[];
 export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
 
 /**
- * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive). 
+ * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).
  */
 export function ticks(start: number, stop: number, count: number): number[];
 
@@ -274,7 +273,7 @@ export function transpose<T>(matrix: T[][]): T[][];
 
 /**
  * Returns an array of arrays, where the ith array contains the ith element from each of the argument arrays.
- * The returned array is truncated in length to the shortest array in arrays. If arrays contains only a single array, the returned array 
+ * The returned array is truncated in length to the shortest array in arrays. If arrays contains only a single array, the returned array
  * contains one-element arrays. With no arguments, the returned array is empty.
  */
 export function zip<T>(...arrays: T[][]): T[][];
@@ -311,7 +310,7 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
     /**
      * Divide the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
-     * 
+     *
      * @param count The desired number of uniform bins.
      */
     thresholds(count: number): this;
@@ -319,10 +318,10 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      * Set a threshold accessor function, which returns the desired number of bins.
      * Divides the domain uniformly into approximately count bins. IMPORTANT: This threshold
      * setting approach only works, when the materialized values are numbers!
-     * 
+     *
      * @param count A function which accepts as arguments the array of materialized values, and
      * optionally the domain minimum and maximum. The function calcutates and returns the suggested
-     * number of bins. 
+     * number of bins.
      */
     thresholds(count: ThresholdCountGenerator): this;
     /**
@@ -332,12 +331,12 @@ export interface HistogramGenerator<Datum, Value extends number | Date> {
      */
     thresholds(thresholds: Value[]): this;
     /**
-     * Set a threshold accessor function, which returns the array of values to be used as 
+     * Set a threshold accessor function, which returns the array of values to be used as
      * thresholds in determining the bins.
-     * 
+     *
      * @param thresholds A function which accepts as arguments the array of materialized values, and
-     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as 
-     * thresholds in determining the bins. 
+     * optionally the domain minimum and maximum. The function calcutates and returns the array of values to be used as
+     * thresholds in determining the bins.
      */
     thresholds(thresholds: ThresholdArrayGenerator<Value>): this;
 }
@@ -354,4 +353,3 @@ export function thresholdFreedmanDiaconis(values: number[], min: number, max: nu
 export function thresholdScott(values: number[], min: number, max: number): number; // of type ThresholdCountGenerator
 
 export function thresholdSturges(values: number[]): number; // of type ThresholdCountGenerator
-

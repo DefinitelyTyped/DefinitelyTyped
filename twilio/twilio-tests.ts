@@ -1,4 +1,5 @@
-import { twilio } from './twilio';
+import * as twilio from 'twilio';
+import * as Express from "express";
 
 // Examples taken from https://twilio.github.io/twilio-node/ (v2.1.0)
 
@@ -212,6 +213,8 @@ resp.say('Your conference call is starting.',
         });
     });
 
+resp.hangup();
+
 /// Capabilities
 var capability = new twilio.Capability(str, str);
 capability.allowClientIncoming('jenny');
@@ -225,8 +228,12 @@ var token = capability.generate(120);
 
 /// Utilities
 twilio.validateRequest(token, str, 'http://example.herokuapp.com', { query: 'val' });
-twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN');
-twilio.validateExpressRequest({}, 'YOUR_TWILIO_AUTH_TOKEN', {});
+twilio.validateExpressRequest(getMockExpressRequest(), 'YOUR_TWILIO_AUTH_TOKEN');
+twilio.validateExpressRequest(getMockExpressRequest(), 'YOUR_TWILIO_AUTH_TOKEN', {});
 twilio.webhook({ validate: false });
+twilio.webhook("MYAUTHTOKEN", { validate: false });
 
 
+function getMockExpressRequest(): Express.Request {
+    return <Express.Request>JSON.parse("{}");
+}

@@ -1,6 +1,6 @@
 // Type definitions for react-select v1.0.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as React from 'react';
@@ -63,6 +63,13 @@ declare namespace ReactSelectClass {
         valueArray: Option[];
     }
 
+    export interface ArrowRendererProps {
+        /**
+         * Arrow mouse down event handler.
+         */
+        onMouseDown: React.MouseEventHandler<{}>;
+    }
+
     export interface ReactSelectProps extends React.Props<ReactSelectClass> {
         /**
          * text to display when `allowCreate` is true.
@@ -70,11 +77,10 @@ declare namespace ReactSelectClass {
          */
         addLabelText?: string;
         /**
-         * allow new options to be created in multi mode (displays an "Add <option> ?" item
-         * when a value not already in the options array is entered)
-         * @default false
+         * renders a custom drop-down arrow to be shown in the right-hand side of the select.
+         * @default undefined
          */
-        allowCreate?: boolean;
+        arrowRenderer?: (props: ArrowRendererProps) => React.ReactElement<any>;
         /**
          * blurs the input element after a selection has been made. Handy for lowering the keyboard on mobile devices.
          * @default false
@@ -94,6 +100,12 @@ declare namespace ReactSelectClass {
          * @default true
          */
         backspaceRemoves?: boolean;
+        /**
+         * Message to use for screenreaders to press backspace to remove the current item
+         * {label} is replaced with the item label
+         * @default "Press backspace to remove..."
+         */
+        backspaceToRemoveMessage?: string;
         /**
          * CSS className for the outer element
          */
@@ -203,11 +215,6 @@ declare namespace ReactSelectClass {
          * field name, for hidden `<input>` tag
          */
         name?: string;
-        /**
-         * factory to create new options when `allowCreate` is true
-         * @default false
-         */
-        newOptionCreator?: (input: string) => Option;
         /**
          * placeholder displayed when there are no matching search results or a falsy value to hide it
          * @default "No results found"
@@ -346,6 +353,35 @@ declare namespace ReactSelectClass {
         simpleValue?: boolean;
     }
 
+    export interface ReactCreatableSelectProps extends ReactSelectProps {
+        /**
+         * Searches for any matching option within the set of options. This function prevents
+         * duplicate options from being created.
+         */
+        isOptionUnique?: (arg: { option: Option, options: Option[], labelKey: string, valueKey: string }) => boolean;
+
+        /**
+         * Determines if the current input text represents a valid option.
+         */
+        isValidNewOption?: (arg: { label: string }) => boolean;
+
+        /**
+         * factory to create new options
+         */
+        newOptionCreator?: (arg: { label: string, labelKey: string, valueKey: string }) => Option;
+
+        /**
+         * Creates prompt/placeholder for option text.
+         */
+        promptTextCreator?: (filterText: string) => string;
+
+        /**
+         * Decides if a keyDown event (eg its 'keyCode') should result in the creation of a new option.
+         */
+        shouldKeyDownEventCreateNewOption?: (arg: { keyCode: number }) => boolean;
+    }
+
+
     export interface ReactAsyncSelectProps extends ReactSelectProps {
         /**
          *  object to use to cache results; can be null to disable cache
@@ -405,5 +441,7 @@ declare namespace ReactSelectClass {
 }
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> {
     static Async: typeof ReactSelectAsyncClass;
+    static Creatable: typeof ReactSelectCreatableClass;
 }
 declare class ReactSelectAsyncClass extends React.Component<ReactSelectClass.ReactAsyncSelectProps, {}> { }
+declare class ReactSelectCreatableClass extends React.Component<ReactSelectClass.ReactCreatableSelectProps, {}> {}

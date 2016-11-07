@@ -3,7 +3,7 @@
 // Definitions by: nickiannone <http://github.com/nickiannone>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../winston/winston.d.ts" />
+/// <reference types="winston" />
 
 import * as winston from 'winston';
 import { TransportInstance } from 'winston';

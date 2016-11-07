@@ -120,7 +120,7 @@ class ModernComponent extends React.Component<Props, State>
                 value: this.state.inputValue
             }),
             React.DOM.input({
-                onChange: event => console.log(event.target.value)
+                onChange: event => console.log(event.target)
             }));
     }
 
@@ -214,8 +214,8 @@ var component: ModernComponent =
 var componentNullContainer: ModernComponent =
     ReactDOM.render(element, null);
 
-var componentElementOrNull: ModernComponent = 
-    ReactDOM.render(element, document.getElementById("anelement"));    
+var componentElementOrNull: ModernComponent =
+    ReactDOM.render(element, document.getElementById("anelement"));
 var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
 var componentNoStateElementOrNull: ModernComponentNoState =
@@ -325,17 +325,23 @@ React.DOM.input(htmlAttr);
 
 React.DOM.svg({ viewBox: "0 0 48 48" },
     React.DOM.rect({
-      x: 22,
-      y: 10,
-      width: 4,
-      height: 28
+        x: 22,
+        y: 10,
+        width: 4,
+        height: 28
     }),
     React.DOM.rect({
-      x: 10,
-      y: 22,
-      width: 28,
-      height: 4
-    }));
+        x: 10,
+        y: 22,
+        width: 28,
+        height: 4
+    }),
+    React.DOM.path({
+        d: "M0,0V3H3V0ZM1,1V2H2V1Z",
+        fill: "#999999",
+        fillRule: "evenodd"
+    })
+);
 
 
 //
@@ -370,6 +376,17 @@ var PropTypesSpecification: React.ComponentSpec<any, any> = {
         customProp: function(props: any, propName: string, componentName: string) {
             if (!/matchme/.test(props[propName])) {
                 return new Error("Validation failed!");
+            }
+            return null;
+        },
+        // https://facebook.github.io/react/warnings/dont-call-proptypes.html#fixing-the-false-positive-in-third-party-proptypes
+        percentage: (object: any, key: string, componentName: string, ...rest: any[]): Error => {
+            const error = React.PropTypes.number(object, key, componentName, ...rest);
+            if (error) {
+                return error;
+            }
+            if (object[key] < 0 || object[key] > 100) {
+                return new Error(`prop ${key} must be between 0 and 100`);
             }
             return null;
         }
@@ -620,4 +637,18 @@ let newObj2 = update(obj, {b: {$set: obj.b * 2}});
 
 let objShallow = {a: 5, b: 3};
 let newObjShallow = update(obj, {$merge: {b: 6, c: 7}}); // => {a: 5, b: 6, c: 7}
+}
+
+//
+// React Component classes super spread arguments
+// --------------------------------------------------------------------------
+class ConstructorSpreadArgsComponent extends React.Component<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
+}
+class ConstructorSpreadArgsPureComponent extends React.PureComponent<{}, {}> {
+    constructor(...args: any[]) {
+        super(...args);
+    }
 }

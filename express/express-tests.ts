@@ -1,52 +1,56 @@
+/// <reference types="node" />
 import * as express from './';
-var app = express();
 
-app.engine('jade', require('jade').__express);
-app.engine('html', require('ejs').renderFile);
+namespace express_tests {
 
-express.static.mime.define({
+    var app = express();
+
+    app.engine('jade', require('jade').__express);
+    app.engine('html', require('ejs').renderFile);
+
+    express.static.mime.define({
 	'application/fx': ['fx']
-});
-app.use('/static', express.static(__dirname + '/public'));
+    });
+    app.use('/static', express.static(__dirname + '/public'));
 
-// simple logger
-app.use(function(req, res, next){
+    // simple logger
+    app.use(function(req, res, next) {
     console.log('%s %s', req.method, req.url);
     next();
-});
+    });
 
-app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+    app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
     console.error(err);
     next(err);
-});
+    });
 
 
-app.get('/', function(req, res){
+    app.get('/', function(req, res) {
     res.send('hello world');
-});
+    });
 
-const router = express.Router();
+    const router = express.Router();
 
 
-const pathStr : string = 'test';
-const pathRE : RegExp = /test/;
-const path = true? pathStr : pathRE;
+    const pathStr: string = 'test';
+    const pathRE: RegExp = /test/;
+    const path = true ? pathStr : pathRE;
 
-router.get(path);
-router.put(path)
-router.post(path);
-router.delete(path);
-router.get(pathStr);
-router.put(pathStr)
-router.post(pathStr);
-router.delete(pathStr);
-router.get(pathRE);
-router.put(pathRE)
-router.post(pathRE);
-router.delete(pathRE);
+    router.get(path);
+    router.put(path)
+    router.post(path);
+    router.delete(path);
+    router.get(pathStr);
+    router.put(pathStr)
+    router.post(pathStr);
+    router.delete(pathStr);
+    router.get(pathRE);
+    router.put(pathRE)
+    router.post(pathRE);
+    router.delete(pathRE);
 
-router.use((req, res, next) => { next(); })
-router.route('/users')
+    router.use((req, res, next) => { next(); })
+    router.route('/users')
     .get((req, res, next) => {
         let types: string[] = req.accepts();
         let type: string | boolean = req.accepts('json');
@@ -71,21 +75,38 @@ router.route('/users')
         res.send(req.query['token']);
     });
 
-router.get('/user/:id', function(req, res, next) {
+    router.get('/user/:id', function(req, res, next) {
     if (req.params.id == 0) next('route');
     else next();
-}, function(req, res, next) {
+    }, function(req, res, next) {
     res.render('regular');
-});
+    });
 
-app.use((req, res, next) => {
+    app.use((req, res, next) => {
     // hacky trick, router is just a handler
     router(req, res, next);
-});
+    });
 
-app.use(router);
+    app.use(router);
 
-app.listen(3000);
+    app.listen(3000);
 
-const next: express.NextFunction = () => {};
-const nextWithArgument: express.NextFunction = (err: any) => {};
+    const next: express.NextFunction = () => { };
+}
+
+/***************************
+ *                         *
+ * Test with other modules *
+ *                         *
+ ***************************/
+import * as http from 'http';
+
+
+namespace node_tests {
+
+    {
+        // http.createServer can take express application
+        const app: express.Application = express();
+        http.createServer(app).listen(5678);
+    }
+}

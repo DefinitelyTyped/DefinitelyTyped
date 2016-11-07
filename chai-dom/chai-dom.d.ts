@@ -3,7 +3,7 @@
 // Definitions by: Matt Lewis <https://github.com/mattlewis92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../chai/chai.d.ts" />
+/// <reference types="chai" />
 
 declare namespace Chai {
 
@@ -24,13 +24,13 @@ declare namespace Chai {
         value(text: string): Assertion;
 
     }
-    
+
     interface Include {
-        
+
         text(text: string|string[]): Assertion;
-        
+
         html(text: string|string[]): Assertion;
-        
+
     }
 
 }

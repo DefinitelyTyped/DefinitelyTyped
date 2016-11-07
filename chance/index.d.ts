@@ -114,8 +114,16 @@ declare namespace Chance {
         capitalize(str: string): string;
         mixin(desc: MixinDescriptor): any;
         pad(num: number, width: number, padChar?: string): string;
+        /**
+         * @deprecated Use pickone
+        */
         pick<T>(arr: T[]): T;
+        pickone<T>(arr: T[]): T;
+        /**
+         * @deprecated Use pickset 
+         */
         pick<T>(arr: T[], count: number): T[];
+        pickset<T>(arr: T[], count: number): T[];
         set: Setter;
         shuffle<T>(arr: T[]): T[];
 
