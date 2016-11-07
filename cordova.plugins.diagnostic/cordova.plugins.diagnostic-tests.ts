@@ -508,3 +508,27 @@ cordova.plugins.diagnostic.getBackgroundRefreshStatus(function(status){
 }, function(error){
     console.error("The following error occurred: "+error);
 });
+
+cordova.plugins.diagnostic.requestBluetoothAuthorization(function(){
+    console.log("Bluetooth authorization requested");
+}, function(error){
+    console.error(error);
+});
+
+cordova.plugins.diagnostic.isMotionAvailable(function(available){
+    console.log("Motion tracking is " + (available ? "available" : "not available") + " on this device");
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.isMotionRequestOutcomeAvailable(function(available){
+    console.log("Motion tracking request outcome is " + (available ? "available" : "not available") + " on this device");
+}, function(error){
+    console.error("The following error occurred: "+error);
+});
+
+cordova.plugins.diagnostic.requestAndCheckMotionAuthorization(function(status){
+    console.log("Motion authorization is " +status);
+}, function(error){
+    console.error(error);
+});
