@@ -3,12 +3,10 @@
 // Definitions by: Steve Jenkins <https://github.com/skysteve>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "trim" {
-    function Trim(str: string): string;
-    namespace Trim {
-        function left(str: string): string;
-        function right(str: string): string;
-    }
-
-    export = Trim;
+declare function Trim(str: string): string;
+declare namespace Trim {
+    function left(str: string): string;
+    function right(str: string): string;
 }
+
+export = Trim;
