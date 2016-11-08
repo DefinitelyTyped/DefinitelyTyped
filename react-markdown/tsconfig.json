@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+	"module": "commonjs",
+	"target": "es6",
+	"noImplicitAny": true,
+	"strictNullChecks": true,
+	"baseUrl": "../",
+	"typeRoots": [
+	  "../"
+	],
+	"types": [],
+  "jsx" : "react",
+	"noEmit": true,
+	"forceConsistentCasingInFileNames": true
+  },
+  "files": [
+	"react-markdown.d.ts",
+	"foo-tests.ts"
+  ]
+}
