@@ -175,10 +175,10 @@ export class device extends NodeJS.EventEmitter {
   /**
    * Publish a message to a topic
    *
-   * @param topic
-   * @param message
-   * @param options
-   * @param callback
+   * @param topic to publish to
+   * @param message to publish
+   * @param publish options
+   * @param called when publish succeeds or fails
    */
   publish(topic: string, message: Buffer | string, options?: mqtt.ClientPublishOptions, callback?: (error?: Error) => void): mqtt.Client;
 
