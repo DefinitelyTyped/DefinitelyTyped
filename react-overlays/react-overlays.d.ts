@@ -89,7 +89,7 @@ declare module "react-overlays" {
   class Affix extends React.Component<AffixProps, {}> { }
   
   // <AutoAffix />
-  interface AutoAffixProps {
+  interface AutoAffixProps extends AffixProps {
   
     /**
      * The logical container node or component for determining offset from bottom
@@ -118,6 +118,8 @@ declare module "react-overlays" {
   
   // <Transition />
   interface TransitionProps {
+    className?: string;
+
     /**
      * Show the component; triggers the enter or exit animation
      */
