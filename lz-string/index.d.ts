@@ -1,4 +1,4 @@
-﻿// Type definitions for lz-string v1.3.4
+﻿// Type definitions for lz-string v1.3.5
 // Project: https://github.com/pieroxy/lz-string
 // Definitions by: Roman Nikitin <https://github.com/M0ns1gn0r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -82,7 +82,7 @@ declare namespace LZString {
         compressToUint8Array(uncompressed: string): Uint8Array;
 
         /**
-        * Decompresses "valid" input string created by the method compressToUint8Array().
+        * Decompresses "valid" array created by the method compressToUint8Array().
         *
         * @param compressed A string obtained from a call to compressToUint8Array().
         */
