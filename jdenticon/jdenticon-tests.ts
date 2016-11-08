@@ -1,4 +1,4 @@
-import {jdenticon} from "./index";
+import jdenticon from require("jdenticon");
 
 function testJdenticon() {
   if (typeof jdenticon.version !== 'string') {
