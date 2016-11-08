@@ -180,8 +180,7 @@ export class device extends NodeJS.EventEmitter {
    * @param options
    * @param callback
    */
-  publish(topic: string, message: Buffer, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
-  publish(topic: string, message: string, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
+  publish(topic: string, message: Buffer | string, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
 
   /**
    * Subscribe to a topic or topics
@@ -189,9 +188,7 @@ export class device extends NodeJS.EventEmitter {
    * @param the options to subscribe with
    * @param callback fired on suback
    */
-  subscribe(topic: string, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  subscribe(topic: string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  subscribe(topic: mqtt.Topic, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  subscribe(topic: string | string[] | mqtt.Topic, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
 
   /**
    * Unsubscribe from a topic or topics
@@ -200,8 +197,7 @@ export class device extends NodeJS.EventEmitter {
    * @param options
    * @param callback  fired on unsuback
    */
-  unsubscribe(topic: string, options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
-  unsubscribe(topic: string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
+  unsubscribe(topic: string | string[], options?: mqtt.ClientSubscribeOptions, callback?: mqtt.ClientSubscribeCallback): mqtt.Client;
 
   /**
    * end - close connection
