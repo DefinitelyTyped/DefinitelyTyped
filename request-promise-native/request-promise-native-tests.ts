@@ -1,5 +1,3 @@
-/// <reference path="request-promise-native.d.ts" />
-
 import * as rp from 'request-promise-native';
 
 rp('http://www.google.com')

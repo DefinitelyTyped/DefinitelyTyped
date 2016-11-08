@@ -1,6 +1,6 @@
 // Type definitions for graphql v0.7.0
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*************************************
@@ -19,92 +19,11 @@ declare module "graphql" {
 
 
     // Create and operate on GraphQL type definitions and schema.
-    export {
-        GraphQLSchema,
-
-        // Definitions
-        GraphQLScalarType,
-        GraphQLObjectType,
-        GraphQLInterfaceType,
-        GraphQLUnionType,
-        GraphQLEnumType,
-        GraphQLInputObjectType,
-        GraphQLList,
-        GraphQLNonNull,
-        GraphQLDirective,
-
-        // "Enum" of Type Kinds
-        TypeKind,
-
-        // "Enum" of Directive Locations
-        DirectiveLocation,
-
-        // Scalars
-        GraphQLInt,
-        GraphQLFloat,
-        GraphQLString,
-        GraphQLBoolean,
-        GraphQLID,
-
-        // Built-in Directives defined by the Spec
-        specifiedDirectives,
-        GraphQLIncludeDirective,
-        GraphQLSkipDirective,
-        GraphQLDeprecatedDirective,
-
-        // Constant Deprecation Reason
-        DEFAULT_DEPRECATION_REASON,
-
-        // Meta-field definitions.
-        SchemaMetaFieldDef,
-        TypeMetaFieldDef,
-        TypeNameMetaFieldDef,
-
-        // GraphQL Types for introspection.
-        __Schema,
-        __Directive,
-        __DirectiveLocation,
-        __Type,
-        __Field,
-        __InputValue,
-        __EnumValue,
-        __TypeKind,
-
-        // Predicates
-        isType,
-        isInputType,
-        isOutputType,
-        isLeafType,
-        isCompositeType,
-        isAbstractType,
-
-        // Un-modifiers
-        getNullableType,
-        getNamedType,
-    } from 'graphql/type';
+    export * from 'graphql/type';
 
 
     // Parse and operate on GraphQL language source files.
-    export {
-        Source,
-        getLocation,
-
-        // Parse
-        parse,
-        parseValue,
-        parseType,
-
-        // Print
-        print,
-
-        // Visit
-        visit,
-        visitInParallel,
-        visitWithTypeInfo,
-        Kind,
-        TokenKind,
-        BREAK,
-    } from 'graphql/language';
+    export * from 'graphql/language';
 
 
     // Execute GraphQL queries.
@@ -128,7 +47,6 @@ declare module "graphql" {
 
 
     // Utilities for operating on GraphQL type schema and parsed sources.
-    /*
     export {
         // The GraphQL query recommended for a full schema introspection.
         introspectionQuery,
@@ -185,7 +103,6 @@ declare module "graphql" {
         // Asserts a string is a valid GraphQL name.
         assertValidName,
     } from 'graphql/utilities';
-    */
 }
 
 declare module "graphql/graphql" {
@@ -256,6 +173,7 @@ declare module "graphql/language" {
 }
 
 declare module "graphql/language/index" {
+    export * from 'graphql/language/ast';
     export { getLocation } from 'graphql/language/location';
     import * as Kind from 'graphql/language/kinds';
     export { Kind };
@@ -273,7 +191,7 @@ declare module "graphql/language/ast" {
      * Contains a range of UTF-8 character offsets and token references that
      * identify the region of the source from which the AST derived.
      */
-    type Location = {
+    export type Location = {
 
         /**
          * The character offset at which this Node begins.
@@ -305,7 +223,7 @@ declare module "graphql/language/ast" {
      * Represents a range of characters represented by a lexical token
      * within a Source.
      */
-    type Token = {
+    export type Token = {
 
         /**
          * The kind of Token.
@@ -368,7 +286,7 @@ declare module "graphql/language/ast" {
     /**
      * The list of all possible AST node types.
      */
-    type Node = Name
+    export type Node = Name
         | Document
         | OperationDefinition
         | VariableDefinition
@@ -407,7 +325,7 @@ declare module "graphql/language/ast" {
 
     // Name
 
-    type Name = {
+    export type Name = {
         kind: 'Name';
         loc?: Location;
         value: string;
@@ -415,17 +333,17 @@ declare module "graphql/language/ast" {
 
     // Document
 
-    type Document = {
+    export type Document = {
         kind: 'Document';
         loc?: Location;
         definitions: Array<Definition>;
     }
 
-    type Definition = OperationDefinition
+    export type Definition = OperationDefinition
         | FragmentDefinition
         | TypeSystemDefinition // experimental non-spec addition.
 
-    type OperationDefinition = {
+    export type OperationDefinition = {
         kind: 'OperationDefinition';
         loc?: Location;
         operation: OperationType;
@@ -436,9 +354,9 @@ declare module "graphql/language/ast" {
     }
 
     // Note: subscription is an experimental non-spec addition.
-    type OperationType = 'query' | 'mutation' | 'subscription';
+    export type OperationType = 'query' | 'mutation' | 'subscription';
 
-    type VariableDefinition = {
+    export type VariableDefinition = {
         kind: 'VariableDefinition';
         loc?: Location;
         variable: Variable;
@@ -446,23 +364,23 @@ declare module "graphql/language/ast" {
         defaultValue?: Value;
     }
 
-    type Variable = {
+    export type Variable = {
         kind: 'Variable';
         loc?: Location;
         name: Name;
     }
 
-    type SelectionSet = {
+    export type SelectionSet = {
         kind: 'SelectionSet';
         loc?: Location;
         selections: Array<Selection>;
     }
 
-    type Selection = Field
+    export type Selection = Field
         | FragmentSpread
         | InlineFragment
 
-    type Field = {
+    export type Field = {
         kind: 'Field';
         loc?: Location;
         alias?: Name;
@@ -472,7 +390,7 @@ declare module "graphql/language/ast" {
         selectionSet?: SelectionSet;
     }
 
-    type Argument = {
+    export type Argument = {
         kind: 'Argument';
         loc?: Location;
         name: Name;
@@ -482,14 +400,14 @@ declare module "graphql/language/ast" {
 
     // Fragments
 
-    type FragmentSpread = {
+    export type FragmentSpread = {
         kind: 'FragmentSpread';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type InlineFragment = {
+    export type InlineFragment = {
         kind: 'InlineFragment';
         loc?: Location;
         typeCondition?: NamedType;
@@ -497,7 +415,7 @@ declare module "graphql/language/ast" {
         selectionSet: SelectionSet;
     }
 
-    type FragmentDefinition = {
+    export type FragmentDefinition = {
         kind: 'FragmentDefinition';
         loc?: Location;
         name: Name;
@@ -509,7 +427,7 @@ declare module "graphql/language/ast" {
 
     // Values
 
-    type Value = Variable
+    export type Value = Variable
         | IntValue
         | FloatValue
         | StringValue
@@ -518,49 +436,49 @@ declare module "graphql/language/ast" {
         | ListValue
         | ObjectValue
 
-    type IntValue = {
+    export type IntValue = {
         kind: 'IntValue';
         loc?: Location;
         value: string;
     }
 
-    type FloatValue = {
+    export type FloatValue = {
         kind: 'FloatValue';
         loc?: Location;
         value: string;
     }
 
-    type StringValue = {
+    export type StringValue = {
         kind: 'StringValue';
         loc?: Location;
         value: string;
     }
 
-    type BooleanValue = {
+    export type BooleanValue = {
         kind: 'BooleanValue';
         loc?: Location;
         value: boolean;
     }
 
-    type EnumValue = {
+    export type EnumValue = {
         kind: 'EnumValue';
         loc?: Location;
         value: string;
     }
 
-    type ListValue = {
+    export type ListValue = {
         kind: 'ListValue';
         loc?: Location;
         values: Array<Value>;
     }
 
-    type ObjectValue = {
+    export type ObjectValue = {
         kind: 'ObjectValue';
         loc?: Location;
         fields: Array<ObjectField>;
     }
 
-    type ObjectField = {
+    export type ObjectField = {
         kind: 'ObjectField';
         loc?: Location;
         name: Name;
@@ -570,7 +488,7 @@ declare module "graphql/language/ast" {
 
     // Directives
 
-    type Directive = {
+    export type Directive = {
         kind: 'Directive';
         loc?: Location;
         name: Name;
@@ -580,23 +498,23 @@ declare module "graphql/language/ast" {
 
     // Type Reference
 
-    type Type = NamedType
+    export type Type = NamedType
         | ListType
         | NonNullType
 
-    type NamedType = {
+    export type NamedType = {
         kind: 'NamedType';
         loc?: Location;
         name: Name;
     };
 
-    type ListType = {
+    export type ListType = {
         kind: 'ListType';
         loc?: Location;
         type: Type;
     }
 
-    type NonNullType = {
+    export type NonNullType = {
         kind: 'NonNullType';
         loc?: Location;
         type: NamedType | ListType;
@@ -604,40 +522,40 @@ declare module "graphql/language/ast" {
 
     // Type System Definition
 
-    type TypeSystemDefinition = SchemaDefinition
+    export type TypeSystemDefinition = SchemaDefinition
         | TypeDefinition
         | TypeExtensionDefinition
         | DirectiveDefinition
 
-    type SchemaDefinition = {
+    export type SchemaDefinition = {
         kind: 'SchemaDefinition';
         loc?: Location;
         directives: Array<Directive>;
         operationTypes: Array<OperationTypeDefinition>;
     }
 
-    type OperationTypeDefinition = {
+    export type OperationTypeDefinition = {
         kind: 'OperationTypeDefinition';
         loc?: Location;
         operation: OperationType;
         type: NamedType;
     }
 
-    type TypeDefinition = ScalarTypeDefinition
+    export type TypeDefinition = ScalarTypeDefinition
         | ObjectTypeDefinition
         | InterfaceTypeDefinition
         | UnionTypeDefinition
         | EnumTypeDefinition
         | InputObjectTypeDefinition
 
-    type ScalarTypeDefinition = {
+    export type ScalarTypeDefinition = {
         kind: 'ScalarTypeDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type ObjectTypeDefinition = {
+    export type ObjectTypeDefinition = {
         kind: 'ObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -646,7 +564,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    type FieldDefinition = {
+    export type FieldDefinition = {
         kind: 'FieldDefinition';
         loc?: Location;
         name: Name;
@@ -655,7 +573,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    type InputValueDefinition = {
+    export type InputValueDefinition = {
         kind: 'InputValueDefinition';
         loc?: Location;
         name: Name;
@@ -664,7 +582,7 @@ declare module "graphql/language/ast" {
         directives?: Array<Directive>;
     }
 
-    type InterfaceTypeDefinition = {
+    export type InterfaceTypeDefinition = {
         kind: 'InterfaceTypeDefinition';
         loc?: Location;
         name: Name;
@@ -672,7 +590,7 @@ declare module "graphql/language/ast" {
         fields: Array<FieldDefinition>;
     }
 
-    type UnionTypeDefinition = {
+    export type UnionTypeDefinition = {
         kind: 'UnionTypeDefinition';
         loc?: Location;
         name: Name;
@@ -680,7 +598,7 @@ declare module "graphql/language/ast" {
         types: Array<NamedType>;
     }
 
-    type EnumTypeDefinition = {
+    export type EnumTypeDefinition = {
         kind: 'EnumTypeDefinition';
         loc?: Location;
         name: Name;
@@ -688,14 +606,14 @@ declare module "graphql/language/ast" {
         values: Array<EnumValueDefinition>;
     }
 
-    type EnumValueDefinition = {
+    export type EnumValueDefinition = {
         kind: 'EnumValueDefinition';
         loc?: Location;
         name: Name;
         directives?: Array<Directive>;
     }
 
-    type InputObjectTypeDefinition = {
+    export type InputObjectTypeDefinition = {
         kind: 'InputObjectTypeDefinition';
         loc?: Location;
         name: Name;
@@ -703,13 +621,13 @@ declare module "graphql/language/ast" {
         fields: Array<InputValueDefinition>;
     }
 
-    type TypeExtensionDefinition = {
+    export type TypeExtensionDefinition = {
         kind: 'TypeExtensionDefinition';
         loc?: Location;
         definition: ObjectTypeDefinition;
     }
 
-    type DirectiveDefinition = {
+    export type DirectiveDefinition = {
         kind: 'DirectiveDefinition';
         loc?: Location;
         name: Name;
@@ -1014,29 +932,7 @@ declare module "graphql/type/index" {
     // GraphQL Schema definition
     export { GraphQLSchema } from 'graphql/type/schema';
 
-    export {
-        // Predicates
-        isType,
-        isInputType,
-        isOutputType,
-        isLeafType,
-        isCompositeType,
-        isAbstractType,
-
-        // Un-modifiers
-        getNullableType,
-        getNamedType,
-
-        // Definitions
-        GraphQLScalarType,
-        GraphQLObjectType,
-        GraphQLInterfaceType,
-        GraphQLUnionType,
-        GraphQLEnumType,
-        GraphQLInputObjectType,
-        GraphQLList,
-        GraphQLNonNull,
-    } from 'graphql/type/definition';
+    export * from 'graphql/type/definition';
 
     export {
         // "Enum" of Directive Locations
@@ -1098,7 +994,7 @@ declare module "graphql/type/definition" {
     /**
      * These are all of the possible kinds of types.
      */
-    type GraphQLType =
+    export type GraphQLType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1108,12 +1004,12 @@ declare module "graphql/type/definition" {
         GraphQLList<any> |
         GraphQLNonNull<any>;
 
-    function isType(type: any): boolean;
+    export function isType(type: any): type is GraphQLType;
 
     /**
      * These types may be used as input types for arguments and directives.
      */
-    type GraphQLInputType =
+    export type GraphQLInputType =
         GraphQLScalarType |
         GraphQLEnumType |
         GraphQLInputObjectType |
@@ -1125,12 +1021,12 @@ declare module "graphql/type/definition" {
         GraphQLList<any>
         >;
 
-    function isInputType(type: GraphQLType): boolean;
+    export function isInputType(type: GraphQLType): type is GraphQLInputType;
 
     /**
      * These types may be used as output types as the result of fields.
      */
-    type GraphQLOutputType =
+    export type GraphQLOutputType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1146,40 +1042,40 @@ declare module "graphql/type/definition" {
         GraphQLList<any>
         >;
 
-    function isOutputType(type: GraphQLType): boolean;
+    export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
 
     /**
      * These types may describe types which may be leaf values.
      */
-    type GraphQLLeafType =
+    export type GraphQLLeafType =
         GraphQLScalarType |
         GraphQLEnumType;
 
-    function isLeafType(type: GraphQLType): boolean;
+    export function isLeafType(type: GraphQLType): type is GraphQLLeafType;
 
     /**
      * These types may describe the parent context of a selection set.
      */
-    type GraphQLCompositeType =
+    export type GraphQLCompositeType =
         GraphQLObjectType |
         GraphQLInterfaceType |
         GraphQLUnionType;
 
-    function isCompositeType(type: GraphQLType): boolean;
+    export function isCompositeType(type: GraphQLType): type is GraphQLCompositeType;
 
     /**
      * These types may describe the parent context of a selection set.
      */
-    type GraphQLAbstractType =
+    export type GraphQLAbstractType =
         GraphQLInterfaceType |
         GraphQLUnionType;
 
-    function isAbstractType(type: GraphQLType): boolean;
+    export function isAbstractType(type: GraphQLType): type is GraphQLAbstractType;
 
     /**
      * These types can all accept null as a value.
      */
-    type GraphQLNullableType =
+    export type GraphQLNullableType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1188,14 +1084,14 @@ declare module "graphql/type/definition" {
         GraphQLInputObjectType |
         GraphQLList<any>;
 
-    function getNullableType<T extends GraphQLType>(
+    export function getNullableType<T extends GraphQLType>(
         type: T
     ): (T & GraphQLNullableType);
 
     /**
      * These named types do not include modifiers like List or NonNull.
      */
-    type GraphQLNamedType =
+    export type GraphQLNamedType =
         GraphQLScalarType |
         GraphQLObjectType |
         GraphQLInterfaceType |
@@ -1203,7 +1099,7 @@ declare module "graphql/type/definition" {
         GraphQLEnumType |
         GraphQLInputObjectType;
 
-    function getNamedType(type: GraphQLType): GraphQLNamedType
+    export function getNamedType(type: GraphQLType): GraphQLNamedType
 
     /**
      * Used while defining GraphQL types to allow for circular references in
@@ -1245,7 +1141,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLScalarTypeConfig<TInternal, TExternal> {
+    export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
         name: string;
         description?: string;
         serialize: (value: any) => TInternal;
@@ -1303,7 +1199,7 @@ declare module "graphql/type/definition" {
 
     //
 
-    interface GraphQLObjectTypeConfig<TSource> {
+    export interface GraphQLObjectTypeConfig<TSource> {
         name: string;
         interfaces?: Thunk<Array<GraphQLInterfaceType>>;
         fields: Thunk<GraphQLFieldConfigMap<TSource>>;
@@ -1311,26 +1207,26 @@ declare module "graphql/type/definition" {
         description?: string
     }
 
-    type GraphQLTypeResolveFn = (
+    export type GraphQLTypeResolveFn = (
         value: any,
         context: any,
         info: GraphQLResolveInfo
     ) => GraphQLObjectType;
 
-    type GraphQLIsTypeOfFn = (
+    export type GraphQLIsTypeOfFn = (
         source: any,
         context: any,
         info: GraphQLResolveInfo
     ) => boolean;
 
-    type GraphQLFieldResolveFn<TSource> = (
+    export type GraphQLFieldResolveFn<TSource> = (
         source: TSource,
         args: { [argName: string]: any },
         context: any,
         info: GraphQLResolveInfo
     ) => any;
 
-    interface GraphQLResolveInfo {
+    export interface GraphQLResolveInfo {
         fieldName: string;
         fieldASTs: Array<Field>;
         returnType: GraphQLOutputType;
@@ -1343,7 +1239,7 @@ declare module "graphql/type/definition" {
         variableValues: { [variableName: string]: any };
     }
 
-    interface GraphQLFieldConfig<TSource> {
+    export interface GraphQLFieldConfig<TSource> {
         type: GraphQLOutputType;
         args?: GraphQLFieldConfigArgumentMap;
         resolve?: GraphQLFieldResolveFn<TSource>;
@@ -1351,21 +1247,21 @@ declare module "graphql/type/definition" {
         description?: string;
     }
 
-    interface GraphQLFieldConfigArgumentMap {
+    export interface GraphQLFieldConfigArgumentMap {
         [argName: string]: GraphQLArgumentConfig;
     }
 
-    interface GraphQLArgumentConfig {
+    export interface GraphQLArgumentConfig {
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface GraphQLFieldConfigMap<TSource> {
+    export interface GraphQLFieldConfigMap<TSource> {
         [fieldName: string]: GraphQLFieldConfig<TSource>;
     }
 
-    interface GraphQLFieldDefinition {
+    export interface GraphQLFieldDefinition {
         name: string;
         description: string;
         type: GraphQLOutputType;
@@ -1375,14 +1271,14 @@ declare module "graphql/type/definition" {
         deprecationReason: string;
     }
 
-    interface GraphQLArgument {
+    export interface GraphQLArgument {
         name: string;
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface GraphQLFieldDefinitionMap {
+    export interface GraphQLFieldDefinitionMap {
         [fieldName: string]: GraphQLFieldDefinition;
     }
 
@@ -1416,7 +1312,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLInterfaceTypeConfig {
+    export interface GraphQLInterfaceTypeConfig {
         name: string,
         fields: Thunk<GraphQLFieldConfigMap<any>>,
         /**
@@ -1463,7 +1359,7 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLUnionTypeConfig {
+    export interface GraphQLUnionTypeConfig {
         name: string,
         types: Thunk<Array<GraphQLObjectType>>,
         /**
@@ -1508,23 +1404,23 @@ declare module "graphql/type/definition" {
         toString(): string;
     }
 
-    interface GraphQLEnumTypeConfig {
+    export interface GraphQLEnumTypeConfig {
         name: string;
         values: GraphQLEnumValueConfigMap;
         description?: string;
     }
 
-    interface GraphQLEnumValueConfigMap {
+    export interface GraphQLEnumValueConfigMap {
         [valueName: string]: GraphQLEnumValueConfig;
     }
 
-    interface GraphQLEnumValueConfig {
+    export interface GraphQLEnumValueConfig {
         value?: any;
         deprecationReason?: string;
         description?: string;
     }
 
-    interface GraphQLEnumValueDefinition {
+    export interface GraphQLEnumValueDefinition {
         name: string;
         description: string;
         deprecationReason: string;
@@ -1554,36 +1450,36 @@ declare module "graphql/type/definition" {
     class GraphQLInputObjectType {
         name: string;
         description: string;
-        constructor(config: InputObjectConfig);
-        getFields(): InputObjectFieldMap;
+        constructor(config: GraphQLInputObjectTypeConfig);
+        getFields(): GraphQLInputFieldDefinitionMap;
         toString(): string;
     }
 
-    interface InputObjectConfig {
+    export interface GraphQLInputObjectTypeConfig {
         name: string;
-        fields: Thunk<InputObjectConfigFieldMap>;
+        fields: Thunk<GraphQLInputFieldConfigMap>;
         description?: string;
     }
 
-    interface InputObjectFieldConfig {
+    export interface GraphQLInputFieldConfig {
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface InputObjectConfigFieldMap {
-        [fieldName: string]: InputObjectFieldConfig;
+    export interface GraphQLInputFieldConfigMap {
+        [fieldName: string]: GraphQLInputFieldConfig;
     }
 
-    interface InputObjectField {
+    export interface GraphQLInputFieldDefinition {
         name: string;
         type: GraphQLInputType;
         defaultValue?: any;
         description?: string;
     }
 
-    interface InputObjectFieldMap {
-        [fieldName: string]: InputObjectField;
+    export interface GraphQLInputFieldDefinitionMap {
+        [fieldName: string]: GraphQLInputFieldDefinition;
     }
 
     /**
@@ -2197,194 +2093,543 @@ declare module "graphql/error/syntaxError" {
 ///////////////////////////
 // graphql/utilities     //
 ///////////////////////////
-// declare module "graphql/utilities/index" {
-//     // The GraphQL query recommended for a full schema introspection.
-//     export { introspectionQuery } from 'graphql/utilities/introspectionQuery';
+declare module "graphql/utilities" {
+    export * from "graphql/utilities/index";
+}
 
-//     // Gets the target Operation from a Document
-//     export { getOperationAST } from 'graphql/utilities/getOperationAST';
+declare module "graphql/utilities/index" {
+    // The GraphQL query recommended for a full schema introspection.
+    export { introspectionQuery } from 'graphql/utilities/introspectionQuery';
 
-//     // Build a GraphQLSchema from an introspection result.
-//     export { buildClientSchema } from 'graphql/utilities/buildClientSchema';
+    // Gets the target Operation from a Document
+    export { getOperationAST } from 'graphql/utilities/getOperationAST';
 
-//     // Build a GraphQLSchema from GraphQL Schema language.
-//     export { buildASTSchema, buildSchema } from 'graphql/utilities/buildASTSchema';
+    // Build a GraphQLSchema from an introspection result.
+    export { buildClientSchema } from 'graphql/utilities/buildClientSchema';
 
-//     // Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
-//     export { extendSchema } from 'graphql/utilities/extendSchema';
+    // Build a GraphQLSchema from GraphQL Schema language.
+    export { buildASTSchema, buildSchema } from 'graphql/utilities/buildASTSchema';
 
-//     // Print a GraphQLSchema to GraphQL Schema language.
-//     export { printSchema, printIntrospectionSchema } from 'graphql/utilities/schemaPrinter';
+    // Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
+    export { extendSchema } from 'graphql/utilities/extendSchema';
 
-//     // Create a GraphQLType from a GraphQL language AST.
-//     export { typeFromAST } from 'graphql/utilities/typeFromAST';
+    // Print a GraphQLSchema to GraphQL Schema language.
+    export { printSchema, printIntrospectionSchema } from 'graphql/utilities/schemaPrinter';
 
-//     // Create a JavaScript value from a GraphQL language AST.
-//     export { valueFromAST } from 'graphql/utilities/valueFromAST';
+    // Create a GraphQLType from a GraphQL language AST.
+    export { typeFromAST } from 'graphql/utilities/typeFromAST';
 
-//     // Create a GraphQL language AST from a JavaScript value.
-//     export { astFromValue } from 'graphql/utilities/astFromValue';
+    // Create a JavaScript value from a GraphQL language AST.
+    export { valueFromAST } from 'graphql/utilities/valueFromAST';
 
-//     // A helper to use within recursive-descent visitors which need to be aware of
-//     // the GraphQL type system.
-//     export { TypeInfo } from 'graphql/utilities/TypeInfo';
+    // Create a GraphQL language AST from a JavaScript value.
+    export { astFromValue } from 'graphql/utilities/astFromValue';
 
-//     // Determine if JavaScript values adhere to a GraphQL type.
-//     export { isValidJSValue } from 'graphql/utilities/isValidJSValue';
+    // A helper to use within recursive-descent visitors which need to be aware of
+    // the GraphQL type system.
+    export { TypeInfo } from 'graphql/utilities/TypeInfo';
 
-//     // Determine if AST values adhere to a GraphQL type.
-//     export { isValidLiteralValue } from 'graphql/utilities/isValidLiteralValue';
+    // Determine if JavaScript values adhere to a GraphQL type.
+    export { isValidJSValue } from 'graphql/utilities/isValidJSValue';
 
-//     // Concatenates multiple AST together.
-//     export { concatAST } from 'graphql/utilities/concatAST';
+    // Determine if AST values adhere to a GraphQL type.
+    export { isValidLiteralValue } from 'graphql/utilities/isValidLiteralValue';
 
-//     // Separates an AST into an AST per Operation.
-//     export { separateOperations } from 'graphql/utilities/separateOperations';
+    // Concatenates multiple AST together.
+    export { concatAST } from 'graphql/utilities/concatAST';
 
-//     // Comparators for types
-//     export {
-//         isEqualType,
-//         isTypeSubTypeOf,
-//         doTypesOverlap
-//     } from 'graphql/utilities/typeComparators';
+    // Separates an AST into an AST per Operation.
+    export { separateOperations } from 'graphql/utilities/separateOperations';
 
-//     // Asserts that a string is a valid GraphQL name
-//     export { assertValidName } from 'graphql/utilities/assertValidName';
-// }
+    // Comparators for types
+    export {
+        isEqualType,
+        isTypeSubTypeOf,
+        doTypesOverlap
+    } from 'graphql/utilities/typeComparators';
 
-// declare module "graphql/utilities/assertValidName" {
-//     // Helper to assert that provided names are valid.
-//     function assertValidName(name: string): void;
-// }
+    // Asserts that a string is a valid GraphQL name
+    export { assertValidName } from 'graphql/utilities/assertValidName';
+}
 
-// declare module "graphql/utilities/astFromValue" {
-//     import {
-//         Value,
-//         //IntValue,
-//         //FloatValue,
-//         //StringValue,
-//         //BooleanValue,
-//         //EnumValue,
-//         //ListValue,
-//         //ObjectValue,
-//     } from 'graphql/language/ast';
-//     import { GraphQLInputType } from 'graphql/type/definition';
+declare module "graphql/utilities/assertValidName" {
+    // Helper to assert that provided names are valid.
+    function assertValidName(name: string): void;
+}
 
-//     /**
-//      * Produces a GraphQL Value AST given a JavaScript value.
-//      *
-//      * A GraphQL type must be provided, which will be used to interpret different
-//      * JavaScript values.
-//      *
-//      * | JSON Value    | GraphQL Value        |
-//      * | ------------- | -------------------- |
-//      * | Object        | Input Object         |
-//      * | Array         | List                 |
-//      * | Boolean       | Boolean              |
-//      * | String        | String / Enum Value  |
-//      * | Number        | Int / Float          |
-//      * | Mixed         | Enum Value           |
-//      *
-//      */
-//     // TODO: this should set overloads according to above the table
-//     export function astFromValue(
-//         value: any,
-//         type: GraphQLInputType
-//     ): Value // Warning: there is a code in bottom: throw new TypeError
+declare module "graphql/utilities/astFromValue" {
+    import {
+        Value,
+        //IntValue,
+        //FloatValue,
+        //StringValue,
+        //BooleanValue,
+        //EnumValue,
+        //ListValue,
+        //ObjectValue,
+    } from 'graphql/language/ast';
+    import { GraphQLInputType } from 'graphql/type/definition';
 
-// }
+    /**
+     * Produces a GraphQL Value AST given a JavaScript value.
+     *
+     * A GraphQL type must be provided, which will be used to interpret different
+     * JavaScript values.
+     *
+     * | JSON Value    | GraphQL Value        |
+     * | ------------- | -------------------- |
+     * | Object        | Input Object         |
+     * | Array         | List                 |
+     * | Boolean       | Boolean              |
+     * | String        | String / Enum Value  |
+     * | Number        | Int / Float          |
+     * | Mixed         | Enum Value           |
+     *
+     */
+    // TODO: this should set overloads according to above the table
+    export function astFromValue(
+        value: any,
+        type: GraphQLInputType
+    ): Value // Warning: there is a code in bottom: throw new TypeError
+}
 
-// declare module "graphql/utilities/buildASTSchema" {
-//     import { Document } from 'graphql/language/ast';
-//     import { Source } from 'graphql/language/source';
-//     import { GraphQLSchema } from 'graphql/type/schema';
+declare module "graphql/utilities/buildASTSchema" {
+    import { Document } from 'graphql/language/ast';
+    import { Source } from 'graphql/language/source';
+    import { GraphQLSchema } from 'graphql/type/schema';
 
-//     /**
-//      * This takes the ast of a schema document produced by the parse function in
-//      * src/language/parser.js.
-//      *
-//      * If no schema definition is provided, then it will look for types named Query
-//      * and Mutation.
-//      *
-//      * Given that AST it constructs a GraphQLSchema. The resulting schema
-//      * has no resolve methods, so execution will use default resolvers.
-//      */
-//     function buildASTSchema(ast: Document): GraphQLSchema;
+    /**
+     * This takes the ast of a schema document produced by the parse function in
+     * src/language/parser.js.
+     *
+     * If no schema definition is provided, then it will look for types named Query
+     * and Mutation.
+     *
+     * Given that AST it constructs a GraphQLSchema. The resulting schema
+     * has no resolve methods, so execution will use default resolvers.
+     */
+    function buildASTSchema(ast: Document): GraphQLSchema;
 
-//     /**
-//      * Given an ast node, returns its string description based on a contiguous
-//      * block full-line of comments preceding it.
-//      */
-//     function getDescription(node: { loc?: Location }): string;
+    /**
+     * Given an ast node, returns its string description based on a contiguous
+     * block full-line of comments preceding it.
+     */
+    function getDescription(node: { loc?: Location }): string;
 
-//     /**
-//      * A helper function to build a GraphQLSchema directly from a source
-//      * document.
-//      */
-//     function buildSchema(source: string | Source): GraphQLSchema;
-// }
+    /**
+     * A helper function to build a GraphQLSchema directly from a source
+     * document.
+     */
+    function buildSchema(source: string | Source): GraphQLSchema;
 
-// declare module "graphql/utilities/buildClientSchema" {
-//     import { IntrospectionQuery } from 'graphql/utilities/introspectionQuery';
-//     import { GraphQLSchema } from 'graphql/type/schema';
-//     /**
-//      * Build a GraphQLSchema for use by client tools.
-//      *
-//      * Given the result of a client running the introspection query, creates and
-//      * returns a GraphQLSchema instance which can be then used with all graphql-js
-//      * tools, but cannot be used to execute a query, as introspection does not
-//      * represent the "resolver", "parse" or "serialize" functions or any other
-//      * server-internal mechanisms.
-//      */
-//     export function buildClientSchema(
-//         introspection: IntrospectionQuery
-//     ): GraphQLSchema;
-// }
+    /**
+     * Given an ast node, returns its string description based on a contiguous
+     * block full-line of comments preceding it.
+     */
+    function getDescription(node: { loc?: Location }): string;
 
-// declare module "graphql/utilities/concatAST" {
+    /**
+     * A helper function to build a GraphQLSchema directly from a source
+     * document.
+     */
+    function buildSchema(source: string | Source): GraphQLSchema;
+}
 
-// }
+declare module "graphql/utilities/buildClientSchema" {
+    import { IntrospectionQuery } from 'graphql/utilities/introspectionQuery';
+    import { GraphQLSchema } from 'graphql/type/schema';
+    /**
+     * Build a GraphQLSchema for use by client tools.
+     *
+     * Given the result of a client running the introspection query, creates and
+     * returns a GraphQLSchema instance which can be then used with all graphql-js
+     * tools, but cannot be used to execute a query, as introspection does not
+     * represent the "resolver", "parse" or "serialize" functions or any other
+     * server-internal mechanisms.
+     */
+    function buildClientSchema(
+        introspection: IntrospectionQuery
+    ): GraphQLSchema;
+}
 
-// declare module "graphql/utilities/extendSchema" {
+declare module "graphql/utilities/concatAST" {
+    import { Document } from 'graphql/language/ast';
+    /**
+     * Provided a collection of ASTs, presumably each from different files,
+     * concatenate the ASTs together into batched AST, useful for validating many
+     * GraphQL source files which together represent one conceptual application.
+     */
+    function concatAST(asts: Array<Document>): Document;
+}
 
-// }
+declare module "graphql/utilities/extendSchema" {
+    import { GraphQLSchema } from 'graphql/type/schema';
 
-// declare module "graphql/utilities/getOperationAST" {
+    /**
+     * Produces a new schema given an existing schema and a document which may
+     * contain GraphQL type extensions and definitions. The original schema will
+     * remain unaltered.
+     *
+     * Because a schema represents a graph of references, a schema cannot be
+     * extended without effectively making an entire copy. We do not know until it's
+     * too late if subgraphs remain unchanged.
+     *
+     * This algorithm copies the provided schema, applying extensions while
+     * producing the copy. The original schema remains unaltered.
+     */
+    function extendSchema(
+        schema: GraphQLSchema,
+        documentAST: Document
+    ): GraphQLSchema;
+}
 
-// }
+declare module "graphql/utilities/getOperationAST" {
+    import { Document, OperationDefinition } from 'graphql/language/ast';
 
-// declare module "graphql/utilities/introspectionQuery" {
+    /**
+     * Returns an operation AST given a document AST and optionally an operation
+     * name. If a name is not provided, an operation is only returned if only one is
+     * provided in the document.
+     */
+    export function getOperationAST(
+        documentAST: Document,
+        operationName: string
+    ): OperationDefinition;
+}
 
-// }
+declare module "graphql/utilities/introspectionQuery" {
+    import { DirectiveLocationEnum } from 'graphql/type/directives';
 
-// declare module "graphql/utilities/isValidJSValue" {
+    /*
+    query IntrospectionQuery {
+        __schema {
+        queryType { name }
+        mutationType { name }
+        subscriptionType { name }
+        types {
+            ...FullType
+        }
+        directives {
+            name
+            description
+            locations
+            args {
+            ...InputValue
+            }
+        }
+        }
+    }
 
-// }
+    fragment FullType on __Type {
+        kind
+        name
+        description
+        fields(includeDeprecated: true) {
+        name
+        description
+        args {
+            ...InputValue
+        }
+        type {
+            ...TypeRef
+        }
+        isDeprecated
+        deprecationReason
+        }
+        inputFields {
+        ...InputValue
+        }
+        interfaces {
+        ...TypeRef
+        }
+        enumValues(includeDeprecated: true) {
+        name
+        description
+        isDeprecated
+        deprecationReason
+        }
+        possibleTypes {
+        ...TypeRef
+        }
+    }
 
-// declare module "graphql/utilities/isValidLiteralValue" {
+    fragment InputValue on __InputValue {
+        name
+        description
+        type { ...TypeRef }
+        defaultValue
+    }
 
-// }
+    fragment TypeRef on __Type {
+        kind
+        name
+        ofType {
+        kind
+        name
+        ofType {
+            kind
+            name
+            ofType {
+            kind
+            name
+            ofType {
+                kind
+                name
+                ofType {
+                kind
+                name
+                ofType {
+                    kind
+                    name
+                    ofType {
+                    kind
+                    name
+                    }
+                }
+                }
+            }
+            }
+        }
+        }
+    }
+    */
+    const introspectionQuery: string;
 
-// declare module "graphql/utilities/schemaPrinter" {
 
-// }
+    interface IntrospectionQuery {
+        __schema: IntrospectionSchema
+    }
 
-// declare module "graphql/utilities/separateOperations" {
+    interface IntrospectionSchema {
+        queryType: IntrospectionNamedTypeRef;
+        mutationType?: IntrospectionNamedTypeRef;
+        subscriptionType?: IntrospectionNamedTypeRef;
+        types: Array<IntrospectionType>;
+        directives: Array<IntrospectionDirective>;
+    }
 
-// }
+    type IntrospectionType =
+        IntrospectionScalarType |
+        IntrospectionObjectType |
+        IntrospectionInterfaceType |
+        IntrospectionUnionType |
+        IntrospectionEnumType |
+        IntrospectionInputObjectType;
 
-// declare module "graphql/utilities/typeComparators" {
+    interface IntrospectionScalarType {
+        kind: 'SCALAR';
+        name: string;
+        description?: string;
+    }
 
-// }
+    interface IntrospectionObjectType {
+        kind: 'OBJECT';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        interfaces: Array<IntrospectionNamedTypeRef>;
+    }
 
-// declare module "graphql/utilities/typeFromAST" {
+    interface IntrospectionInterfaceType {
+        kind: 'INTERFACE';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
+    }
 
-// }
+    interface IntrospectionUnionType {
+        kind: 'UNION';
+        name: string;
+        description?: string;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
+    }
+
+    interface IntrospectionEnumType {
+        kind: 'ENUM';
+        name: string;
+        description?: string;
+        enumValues: Array<IntrospectionEnumValue>;
+    }
+
+    interface IntrospectionInputObjectType {
+        kind: 'INPUT_OBJECT';
+        name: string;
+        description?: string;
+        inputFields: Array<IntrospectionInputValue>;
+    }
+
+    type IntrospectionTypeRef =
+        IntrospectionNamedTypeRef |
+        IntrospectionListTypeRef |
+        IntrospectionNonNullTypeRef
+
+    interface IntrospectionNamedTypeRef {
+        kind: string;
+        name: string;
+    }
+
+    interface IntrospectionListTypeRef {
+        kind: 'LIST';
+        ofType?: IntrospectionTypeRef;
+    }
+
+    interface IntrospectionNonNullTypeRef {
+        kind: 'NON_NULL';
+        ofType?: IntrospectionTypeRef;
+    }
+
+    interface IntrospectionField {
+        name: string;
+        description?: string;
+        args: Array<IntrospectionInputValue>;
+        type: IntrospectionTypeRef;
+        isDeprecated: boolean;
+        deprecationReason?: string;
+    }
+
+    interface IntrospectionInputValue {
+        name: string;
+        description?: string;
+        type: IntrospectionTypeRef;
+        defaultValue?: string;
+    }
+
+    interface IntrospectionEnumValue {
+        name: string;
+        description?: string;
+        isDeprecated: boolean;
+        deprecationReason?: string;
+    }
+
+    interface IntrospectionDirective {
+        name: string;
+        description?: string;
+        locations: Array<DirectiveLocationEnum>;
+        args: Array<IntrospectionInputValue>;
+    }
+}
+
+declare module "graphql/utilities/isValidJSValue" {
+    import { GraphQLInputType } from 'graphql/type/definition';
+
+    /**
+     * Given a JavaScript value and a GraphQL type, determine if the value will be
+     * accepted for that type. This is primarily useful for validating the
+     * runtime values of query variables.
+     */
+    function isValidJSValue(
+        value: any,
+        type: GraphQLInputType
+    ): Array<string>
+}
+
+declare module "graphql/utilities/isValidLiteralValue" {
+    import { Value } from 'graphql/language/ast';
+    import { GraphQLInputType } from 'graphql/type/definition';
+
+    /**
+     * Utility for validators which determines if a value literal AST is valid given
+     * an input type.
+     *
+     * Note that this only validates literal values, variables are assumed to
+     * provide values of the correct type.
+     */
+    function isValidLiteralValue(
+        type: GraphQLInputType,
+        valueAST: Value
+    ): Array<string>
+}
+
+declare module "graphql/utilities/schemaPrinter" {
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    function printSchema(schema: GraphQLSchema): string;
+
+    function printIntrospectionSchema(schema: GraphQLSchema): string;
+}
+
+declare module "graphql/utilities/separateOperations" {
+    import {
+        Document,
+        OperationDefinition,
+    } from 'graphql/language/ast';
+
+    function separateOperations(
+        documentAST: Document
+    ): { [operationName: string]: Document }
+}
+
+declare module "graphql/utilities/typeComparators" {
+    import {
+        GraphQLType,
+        GraphQLCompositeType,
+        GraphQLAbstractType
+    } from 'graphql/type/definition';
+    import {
+        GraphQLSchema
+    } from 'graphql/type/schema';
+
+    /**
+     * Provided two types, return true if the types are equal (invariant).
+     */
+    function isEqualType(typeA: GraphQLType, typeB: GraphQLType): boolean;
+
+    /**
+     * Provided a type and a super type, return true if the first type is either
+     * equal or a subset of the second super type (covariant).
+     */
+    function isTypeSubTypeOf(
+        schema: GraphQLSchema,
+        maybeSubType: GraphQLType,
+        superType: GraphQLType
+    ): boolean;
+
+    /**
+     * Provided two composite types, determine if they "overlap". Two composite
+     * types overlap when the Sets of possible concrete types for each intersect.
+     *
+     * This is often used to determine if a fragment of a given type could possibly
+     * be visited in a context of another type.
+     *
+     * This function is commutative.
+     */
+    function doTypesOverlap(
+        schema: GraphQLSchema,
+        typeA: GraphQLCompositeType,
+        typeB: GraphQLCompositeType
+    ): boolean;
+}
+
+declare module "graphql/utilities/typeFromAST" {
+    import { Type } from 'graphql/language/ast';
+    import { GraphQLType, GraphQLNullableType } from 'graphql/type/definition';
+    import { GraphQLSchema } from 'graphql/type/schema';
+
+    function typeFromAST(
+        schema: GraphQLSchema,
+        inputTypeAST: Type
+    ): GraphQLType
+}
 
 declare module "graphql/utilities/TypeInfo" {
     class TypeInfo { }
 }
 
-// declare module "graphql/utilities/valueFromAST" {
+declare module "graphql/utilities/valueFromAST" {
+    import { GraphQLInputType } from 'graphql/type/definition';
+    import {
+        Value,
+        Variable,
+        ListValue,
+        ObjectValue
+    } from 'graphql/language/ast';
 
-// }
+    function valueFromAST(
+        valueAST: Value, 
+        type: GraphQLInputType,
+        variables?: {
+            [key: string]: any
+        }
+    ): any;
+}

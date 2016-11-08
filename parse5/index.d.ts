@@ -59,6 +59,7 @@ export interface ASTNode {
     namespaceURI?: string;
     parentNode?: ASTNode;
     nodeName: string;
+    tagName?: string;
     quirksMode?: boolean;
     value?: string;
     __location: LocationInfo | ElementLocationInfo;

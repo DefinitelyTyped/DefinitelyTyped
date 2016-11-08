@@ -23,7 +23,6 @@ import { Strategy as LocalStrategy } from 'passport-local';
 
 //#region Test Models
 interface User extends PassportLocalDocument {
-    _id: string;
     username: string;
     hash: string;
     salt: string;
