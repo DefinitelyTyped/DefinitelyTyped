@@ -28,7 +28,7 @@ declare namespace React {
     interface ReactElement<P> {
         type: string | ComponentClass<P> | SFC<P>;
         props: P;
-        key?: Key;
+        key: Key | null;
     }
 
     interface SFCElement<P> extends ReactElement<P> {
@@ -74,7 +74,7 @@ declare namespace React {
     type ClassicFactory<P> = CFactory<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMFactory<P extends DOMAttributes<T>, T extends Element> {
-        (props?: P & ClassAttributes<T>, ...children: ReactNode[]): DOMElement<P, T>;
+        (props?: P & ClassAttributes<T> | null, ...children: ReactNode[]): DOMElement<P, T>;
     }
 
     interface HTMLFactory<T extends HTMLElement> extends DOMFactory<HTMLAttributes<T>, T> {
@@ -93,7 +93,7 @@ declare namespace React {
 
     // Should be Array<ReactNode> but type aliases cannot be recursive
     type ReactFragment = {} | Array<ReactChild | any[] | boolean>;
-    type ReactNode = ReactChild | ReactFragment | boolean;
+    type ReactNode = ReactChild | ReactFragment | boolean | null | undefined;
 
     //
     // Top Level API
@@ -201,7 +201,7 @@ declare namespace React {
 
     type SFC<P> = StatelessComponent<P>;
     interface StatelessComponent<P> {
-        (props: P, context?: any): ReactElement<any> | null;
+        (props: P, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
         defaultProps?: P;
@@ -262,7 +262,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any>;
+        render(): ReactElement<any> | null;
 
         [propertyName: string]: any;
     }
@@ -2354,7 +2354,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface Validator<T> {
-        (object: T, key: string, componentName: string, ...rest: any[]): Error;
+        (object: T, key: string, componentName: string, ...rest: any[]): Error | null;
     }
 
     interface Requireable<T> extends Validator<T> {
