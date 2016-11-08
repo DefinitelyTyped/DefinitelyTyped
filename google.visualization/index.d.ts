@@ -331,6 +331,25 @@ declare namespace google {
         export interface ChartAnnotations {
             boxStyle?: ChartBoxStyle;
             textStyle?: ChartTextStyle;
+            datum?: ChartStemAndStyle;
+            domain?: ChartStemAndStyle;
+            highContrast?: boolean;
+            stem?: ChartStem;
+            style?: string; // 'line' or 'point'
+        }
+
+        export interface ChartBarColumnAnnotations extends ChartAnnotations {
+            alwaysOutside?: boolean;
+        }
+
+        export interface ChartStemAndStyle {
+            stem?: ChartStem;
+            style?: string;
+        }
+
+        export interface ChartStem {
+            color?: string;
+            length?: number;
         }
 
         export interface ChartBoxStyle {
@@ -565,7 +584,7 @@ declare namespace google {
         export interface ColumnChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
+            annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
             bar?: GroupWidth;
@@ -645,7 +664,7 @@ declare namespace google {
         export interface BarChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
-            annotations?: ChartAnnotations;
+            annotations?: ChartBarColumnAnnotations;
             axisTitlesPosition?: string; // in, out, none
             backgroundColor?: any;
             bar?: GroupWidth;
@@ -739,6 +758,7 @@ declare namespace google {
         export interface AreaChartOptions {
             aggregationTarget?: string;
             animation?: TransitionAnimation;
+            annotations?: ChartAnnotations;
             areaOpacity?: number;
             axisTitlesPosition?: string;
             backgroundColor?: any;
