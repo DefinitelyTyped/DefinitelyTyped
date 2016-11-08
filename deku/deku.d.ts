@@ -7,31 +7,10 @@ export = deku;
 export as namespace deku;
 
 declare namespace deku {
+
 	interface VirtualElement {
 		type: string;
 	}
-
-	interface Model {
-		props?: any,
-		children?: any[],
-		path?: string,
-		dispatch?: Function,
-		context?: any
-	}
-
-	interface Component {
-		render: (model: Model) => VirtualElement;
-		onCreate?: (model: Model) => any;
-		onUpdate?: (model: Model) => any;
-		onRemove?: (model: Model) => any;
-	}
-
-	/**
-	 * Thunk object passed to `element`
-	 */
-	type Thunk = Component | ((model: Model) => VirtualElement);
-
-	type Render = (vnode: VirtualElement, context?: any) => void;
 
 	/**
 	 * Create a DOM renderer using a container element.
@@ -133,3 +112,26 @@ declare namespace deku {
 		function createPath(...paths: (number|string)[]): string;
 	}
 }
+
+interface Model {
+	props?: any,
+	children?: any[],
+	path?: string,
+	dispatch?: Function,
+	context?: any
+}
+
+interface Component {
+	render: (model: Model) => deku.VirtualElement;
+	onCreate?: (model: Model) => any;
+	onUpdate?: (model: Model) => any;
+	onRemove?: (model: Model) => any;
+}
+
+/**
+ * Thunk object passed to `element`
+ */
+type Thunk = Component | ((model: Model) => deku.VirtualElement);
+
+type Render = (vnode: deku.VirtualElement, context?: any) => void;
+
