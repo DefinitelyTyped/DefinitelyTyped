@@ -168,7 +168,7 @@ export class device extends NodeJS.EventEmitter {
   on(event: "message", listener: (topic: string, payload: any) => void): this;
 
   // The following publish, subscribe, unsubscribe and end Definitions
-  // are copied from the mqtt definition as they are re-surfaced through
+  // are derived from the mqtt definition as they are re-surfaced through
   // thingShadow
   // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/e7772769fab8c206449ce9673cac417370330aa9/mqtt/mqtt.d.ts#L199
 
@@ -180,7 +180,7 @@ export class device extends NodeJS.EventEmitter {
    * @param options
    * @param callback
    */
-  publish(topic: string, message: Buffer | string, options?: mqtt.ClientPublishOptions, callback?: Function): mqtt.Client;
+  publish(topic: string, message: Buffer | string, options?: mqtt.ClientPublishOptions, callback?: (error?: Error) => void): mqtt.Client;
 
   /**
    * Subscribe to a topic or topics
