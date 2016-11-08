@@ -109,7 +109,14 @@ Your package should have this structure:
 | foo-tests.ts | This contains sample code which tests the typings. This code does *not* run, but it is type-checked. |
 | tsconfig.json | This allows you to run `tsc` within the package. |
 
-Generate these by running `tsc -p scripts`, then `node scripts/new-package.js new-package-name`.
+Generate these by running the following from the root directory:
+
+```sh
+npm install
+npm run compile-scripts
+node scripts/new-package.js new-package-name
+```
+
 You may edit the `tsconfig.json` to add new files or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
