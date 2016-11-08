@@ -119,7 +119,7 @@ declare namespace TestUtils {
     export function renderIntoDocument<T extends Component<any, any>>(
         element: CElement<any, T>): T;
     export function renderIntoDocument<P>(
-        element: ReactElement<P>): Component<P, {}> | Element | void;
+        element: ReactElement<P>): Component<P, {}> | StatelessComponent<P> | Element | void;
 
     export function mockComponent(
         mocked: MockedComponentClass, mockTagName?: string): typeof TestUtils;
@@ -157,19 +157,19 @@ declare namespace TestUtils {
         tagName: string): Element;
 
     export function scryRenderedComponentsWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
-        root: Component<any, any>,
+        root: Component<any, any> | StatelessComponent<any>,
         type: ClassType<any, T, C>): T[];
 
     export function scryRenderedComponentsWithType<T extends StatelessComponent<{}>>(
-        root: Component<any, any>,
+        root: Component<any, any> | StatelessComponent<any>,
         type: T): T[];
 
     export function findRenderedComponentWithType<T extends Component<{}, {}>, C extends ComponentClass<{}>>(
-        root: Component<any, any>,
+        root: Component<any, any> | StatelessComponent<any>,
         type: ClassType<any, T, C>): T;
 
     export function findRenderedComponentWithType<T extends StatelessComponent<{}>>(
-        root: Component<any, any>,
+        root: Component<any, any> | StatelessComponent<any>,
         type: T): T;
 
     export function createRenderer(): ShallowRenderer;

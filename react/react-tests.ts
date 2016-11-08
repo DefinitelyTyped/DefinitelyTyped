@@ -599,10 +599,12 @@ var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
 var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
     inst, ModernComponent);
 
+var statelessComp = TestUtils.renderIntoDocument<SCProps>(statelessElement) as React.StatelessComponent<SCProps>;
+
 var statelessFoundComponent = TestUtils.findRenderedComponentWithType(
-    inst, StatelessComponent);
+    statelessComp, StatelessComponent);
 var statelessFoundComponents = TestUtils.scryRenderedComponentsWithType(
-    inst, StatelessComponent);
+    statelessComp, StatelessComponent);
 
 // ReactTestUtils custom type guards
 
