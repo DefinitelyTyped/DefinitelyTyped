@@ -585,6 +585,11 @@ var foundComponent: ModernComponent = TestUtils.findRenderedComponentWithType(
 var foundComponents: ModernComponent[] = TestUtils.scryRenderedComponentsWithType(
     inst, ModernComponent);
 
+var statelessFoundComponent = TestUtils.findRenderedComponentWithType(
+    inst, StatelessComponent);
+var statelessFoundComponents = TestUtils.scryRenderedComponentsWithType(
+    inst, StatelessComponent);
+
 // ReactTestUtils custom type guards
 
 var emptyElement: React.ReactElement<{}>;
