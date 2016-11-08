@@ -49,6 +49,7 @@ import {Menu} from 'material-ui/Menu';
 import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Stepper';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import {
     Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
 } from 'material-ui/Table';
@@ -4918,6 +4919,22 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
 
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
+class BottomNavigationExample extends React.Component<{}, {
+  index?: number
+}> {
+  constructor() {
+    super()
+    this.state = {
+      index: 0
+    };
+  }
+  render() {
+    return <BottomNavigation selectedIndex={this.state.index}>
+      <BottomNavigationItem label='0' icon={<ActionHome/>} onTouchTap={() => this.setState({index: 0})}/>
+      <BottomNavigationItem label='1' icon={<ActionInfo/>} onTouchTap={() => this.setState({index: 1})}/>
+    </BottomNavigation>
+  }
+}
 
 interface MaterialUiTestsState {
 }
