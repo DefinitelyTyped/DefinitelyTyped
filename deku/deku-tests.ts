@@ -152,7 +152,7 @@
 
 	let diffs: any[] = diff.diffNode(element('div'), element('span'))
 
-	let actions: any[] = [
+	let actions: deku.diff.Actions[] = [
 		Actions.setAttribute('class', 'foo', 'bar'),
 		Actions.removeAttribute('foo', {}),
 		Actions.insertChild({}, 0, '0.0'),
@@ -165,6 +165,15 @@
 		Actions.sameNode(),
 		Actions.updateThunk({}, {}, '0.0')
 	]
+
+	actions.forEach(action => {
+		Actions.case({
+			setAttribute: (name: string, value: any, previousValue: any) => {
+			},
+			_: () => {
+			}
+		}, action)
+	})
 })();
 
 // deku.vnode

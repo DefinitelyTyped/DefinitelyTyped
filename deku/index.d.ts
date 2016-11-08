@@ -59,22 +59,23 @@ declare namespace deku {
 		 */
 		function diffNode(prevNode: VirtualElement, nextNode: VirtualElement): any[];
 
-		namespace Actions {
-			function setAttribute(a: string, b: any, c: any): any;
-			function removeAttribute(a: string, b: any): any;
-			function insertChild(a: any, b: number, c: string): any;
-			function removeChild(a: number): any;
-			function updateChild(a: number, b: any[]): any;
-			function updateChildren(a: any[]): any;
-			function insertBefore(a: number): any;
-			function replaceNode(a: any, b: any, c: string): any;
-			function removeNode(a: any): any;
-			function sameNode(): any;
-			function updateThunk(a: any, b: any, c: string): any;
+		class Actions {
+			private _keys: string[];
+			private _name: string;
 
-			// Since "case" is a reserved word, we cannot use "deku.Actions.case" in TypeScript.
-			// TODO: workaround
-			// function case: (pat: any, action: any): void;
+			static setAttribute(a: string, b: any, c: any): Actions;
+			static removeAttribute(a: string, b: any): Actions;
+			static insertChild(a: any, b: number, c: string): Actions;
+			static removeChild(a: number): Actions;
+			static updateChild(a: number, b: any[]): Actions;
+			static updateChildren(a: any[]): Actions;
+			static insertBefore(a: number): Actions;
+			static replaceNode(a: any, b: any, c: string): Actions;
+			static removeNode(a: any): Actions;
+			static sameNode(): Actions;
+			static updateThunk(a: any, b: any, c: string): Actions;
+
+			static case(pat: any, action: Actions): any;
 		}
 	}
 
