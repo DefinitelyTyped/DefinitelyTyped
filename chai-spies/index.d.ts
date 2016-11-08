@@ -3,6 +3,8 @@
 // Definitions by: Ilya Kuznetsov <https://github.com/kuzn-ilya>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="chai" />
+
 declare namespace Chai {
     interface ChaiStatic {
         spy: ChaiSpies.Spy;
