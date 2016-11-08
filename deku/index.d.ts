@@ -17,8 +17,7 @@ declare namespace deku {
 	 * Everything will be rendered inside of that container.
 	 * Returns a function that accepts new state that can replace what is currently rendered.
 	 */
-	function createApp(el: HTMLElement): Render;
-	function createApp(el: HTMLElement, dispatch: Function): Render;
+	function createApp(el: HTMLElement, dispatch?: Dispatch): Render;
 
 	namespace dom {
 		/**
@@ -26,7 +25,7 @@ declare namespace deku {
 		 * When it finds custom elements it will render them, cache them, and keep going,
 		 * so they are treated like any other native element.
 		 */
-		function create<C>(vnode: VirtualElement, path: string, dispatch: Function, context: C): HTMLElement;
+		function create<C>(vnode: VirtualElement, path: string, dispatch: Dispatch, context: C): HTMLElement;
 
 		/**
 		 * Modify a DOM element given an array of actions.
@@ -47,11 +46,9 @@ declare namespace deku {
 	 * It is compatible with JSX transforms so you can use JSX to write nodes that will compile to this function.
 	 */
 	function element(type: string): VirtualElement;
-	function element<A>(type: string, attributes: A): VirtualElement;
 	function element<A>(type: string, attributes: A, ...children: any[]): VirtualElement;
 
 	function element(type: Thunk): VirtualElement;
-	function element<A>(type: Thunk, attributes: A): VirtualElement;
 	function element<A>(type: Thunk, attributes: A, ...children: any[]): VirtualElement;
 
 	var h: typeof element;
@@ -92,7 +89,7 @@ declare namespace deku {
 		/**
 		 * Lazily-rendered virtual nodes
 		 */
-		function createThunkElement<P, T, O>(fn: Function, key: string, props: P, children: T[], options: O): VirtualElement;
+		function createThunkElement<P, T, O>(fn: (model: Model) => VirtualElement, key: string, props: P, children: T[], options: O): VirtualElement;
 
 		function createEmptyElement(): VirtualElement;
 
@@ -117,7 +114,7 @@ interface Model {
 	props?: any,
 	children?: any[],
 	path?: string,
-	dispatch?: Function,
+	dispatch?: Dispatch,
 	context?: any
 }
 
@@ -135,3 +132,4 @@ type Thunk = Component | ((model: Model) => deku.VirtualElement);
 
 type Render = (vnode: deku.VirtualElement, context?: any) => void;
 
+type Dispatch = (action: any) => any;
