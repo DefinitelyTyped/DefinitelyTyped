@@ -20,7 +20,7 @@ interface Winston {
     Logger: winston.LoggerStatic;
     Container: winston.ContainerStatic;
     loggers: winston.ContainerInstance;
-    defaultLogger: winston.LoggerInstance;
+    default: winston.LoggerInstance;
 
     exception: winston.Exception;
 
