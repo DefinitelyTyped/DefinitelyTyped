@@ -58,7 +58,7 @@ declare namespace SourceMap {
         public static GENERATED_ORDER: number;
         public static ORIGINAL_ORDER: number;
 
-        constructor(rawSourceMap: RawSourceMap);
+        constructor(rawSourceMap: RawSourceMap | string);
 
         public computeColumnSpans(): void;
 
@@ -115,9 +115,9 @@ declare namespace SourceMap {
             relativePath?: string
         ): SourceNode;
 
-        public add(chunk: any): SourceNode;
+        public add(chunk: (string | SourceNode)[] | SourceNode | string): SourceNode;
 
-        public prepend(chunk: any): SourceNode;
+        public prepend(chunk: (string | SourceNode)[] | SourceNode | string): SourceNode;
 
         public setSourceContent(sourceFile: string, sourceContent: string): void;
 
