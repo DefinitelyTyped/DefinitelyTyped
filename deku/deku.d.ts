@@ -81,26 +81,24 @@ declare namespace deku {
 		/**
 		 * Compare two virtual nodes and return an array of changes to turn the left into the right.
 		 */
-		function diffNode(prevNode: VirtualElement, nextNode: VirtualElement): Action[];
-
-		interface Action {}
+		function diffNode(prevNode: VirtualElement, nextNode: VirtualElement): any[];
 
 		namespace Actions {
-			function setAttribute(a: string, b: any, c: any): Action;
-			function removeAttribute(a: string, b: any): Action;
-			function insertChild(a: any, b: number, c: string): Action;
-			function removeChild(a: number): Action;
-			function updateChild(a: number, b: any[]): Action;
-			function updateChildren(a: any[]): Action;
-			function insertBefore(a: number): Action;
-			function replaceNode(a: any, b: any, c: string): Action;
-			function removeNode(a: any): Action;
-			function sameNode(): Action;
-			function updateThunk(a: any, b: any, c: string): Action;
+			function setAttribute(a: string, b: any, c: any): any;
+			function removeAttribute(a: string, b: any): any;
+			function insertChild(a: any, b: number, c: string): any;
+			function removeChild(a: number): any;
+			function updateChild(a: number, b: any[]): any;
+			function updateChildren(a: any[]): any;
+			function insertBefore(a: number): any;
+			function replaceNode(a: any, b: any, c: string): any;
+			function removeNode(a: any): any;
+			function sameNode(): any;
+			function updateThunk(a: any, b: any, c: string): any;
 
 			// Since "case" is a reserved word, we cannot use "deku.Actions.case" in TypeScript.
 			// TODO: workaround
-			// function case: (pat: any, action: Action): void;
+			// function case: (pat: any, action: any): void;
 		}
 	}
 
