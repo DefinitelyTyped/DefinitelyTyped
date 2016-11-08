@@ -25,6 +25,11 @@ Mousetrap.bindGlobal('up up down down left right left right b a enter', function
     console.log('konami code');
 });
 
+// Test that union types are accepted.
+const unionTypeKeys: string | string[] = ['a', 'b', 'c'];
+Mousetrap.bindGlobal(unionTypeKeys, function() { console.log('Union type test') });
+
+
 Mousetrap.bindGlobal(['ctrl+s', 'meta+s'], (e, combo) => {
     if (e.preventDefault) {
         e.preventDefault();

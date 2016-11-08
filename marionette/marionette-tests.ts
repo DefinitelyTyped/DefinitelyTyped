@@ -1,6 +1,6 @@
 /// <reference path="marionette.d.ts" />
 
-module Marionette.Tests {
+namespace Marionette.Tests {
     class DestroyWarn extends Marionette.Behavior {
         // you can set default options
         // just like you can in your Backbone Models
@@ -60,6 +60,12 @@ module Marionette.Tests {
             this.mainRegion = new Marionette.Region({ el: '#main' });
             this.layoutView.addRegion('main', this.mainRegion);
             this.layoutView.render();
+            this.layoutView.showChildView('main', new MyView(new MyModel));
+            let view: Backbone.View<Backbone.Model> = this.layoutView.getChildView('main');
+            let regions: {[key: string]: Marionette.Region} = this.layoutView.getRegions();
+            let prefix: string = this.layoutView.childViewEventPrefix;
+            let region: Marionette.Region = this.layoutView.removeRegion('main');
+            let layout: Marionette.LayoutView<Backbone.Model> = this.layoutView.destroy();
         }
     }
 
@@ -108,6 +114,8 @@ module Marionette.Tests {
         behaviors: any;
 
         constructor(model: MyModel) {
+            super({ model: model });
+
             this.ui = {
                 destroy: '.destroy'
             };
@@ -117,9 +125,6 @@ module Marionette.Tests {
                     message: 'hello'
                 }
             };
-
-            super({ model: model });
-
         }
 
         template() {
@@ -130,8 +135,8 @@ module Marionette.Tests {
 
     class MainRegion extends Marionette.Region {
         constructor() {
-            this.el = '#main';
             super();
+            this.el = '#main';
         }
     }
 
@@ -141,13 +146,13 @@ module Marionette.Tests {
         options: any;
 
         constructor() {
+            super();
             this.name = 'Adam';
 
             this.options = {
                 name: 'Foo'
             };
 
-            super();
             this.on("before:destroy", () => {
                 console.log("before:destroy");
             });
@@ -160,27 +165,28 @@ module Marionette.Tests {
 
     class MyRegion extends Marionette.Region {
         constructor() {
-            this.el = '#main-nav';
             super();
+            this.el = '#main-nav';
         }
     }
 
     class MyJQueryRegion extends Marionette.Region {
         constructor() {
-            this.el = $('#main-nav');
             super();
+            this.el = $('#main-nav');
         }
     }
 
     class MyHtmlElRegion extends Marionette.Region {
         constructor() {
-            this.el = document.querySelector("body");
             super();
+            this.el = document.querySelector("body");
         }
     }
 
     class MyCollectionView extends Marionette.CollectionView<MyModel, MyView> {
         constructor() {
+            super();
             this.childView = MyView;
             this.childEvents = {
                 render: function () {
@@ -201,8 +207,6 @@ module Marionette.Tests {
             };
 
             this.childViewEventPrefix = "some:prefix";
-
-            super();
 
             this.on('some:prefix:render', function () {
 
@@ -292,6 +296,10 @@ module Marionette.Tests {
         var cv = new MyCollectionView();
         cv.collection.add(new MyModel());
         app.mainRegion.attachView(cv);
+        cv.addEmptyView(new MyModel, MyView);
+        cv.proxyChildEvents(new MyView(new MyModel));
+        let children: Backbone.ChildViewContainer<Marionette.View<Backbone.Model>> = cv.destroyChildren();
+        let view: Marionette.CollectionView<Backbone.Model, Marionette.View<Backbone.Model>> = cv.destroy();
     }
 
     class MyController extends Marionette.Controller {

@@ -1,10 +1,10 @@
 // Type definitions for node-polyglot v0.4.1
 // Project: https://github.com/airbnb/polyglot.js
 // Definitions by: Tim Jackson-Kiely <https://github.com/timjk>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-polyglot" {
-	module Polyglot {
+	namespace Polyglot {
 		interface InterpolationOptions {
 			smart_count?: number | { length: number };
 			_?: string;

@@ -1,11 +1,11 @@
 // Type definitions for method-override
 // Project: https://github.com/expressjs/method-override
 // Definitions by: Santi Albo <https://github.com/santialbo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 
-declare module Express {
+declare namespace Express {
     export interface Request {
         originalMethod?: string;
     }
@@ -20,8 +20,9 @@ declare module "method-override" {
         }
     }
 
-    function e(getter?: string, options?: e.MethodOverrideOptions): express.RequestHandler;
-    function e(getter?: (req: express.Request, res: express.Response) => string, options?: e.MethodOverrideOptions): express.RequestHandler;
+
+    function e(getter?: string | ((req: express.Request, res: express.Response) => string), options?: e.MethodOverrideOptions): express.RequestHandler;
+
 
     export = e;
 }

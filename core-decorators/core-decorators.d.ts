@@ -1,7 +1,7 @@
-// Type definitions for core-decorators.js v0.1.5
+// Type definitions for core-decorators.js v0.10
 // Project: https://github.com/jayphelps/core-decorators.js
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "core-decorators" {
     export interface ClassDecorator {
@@ -32,11 +32,24 @@ declare module "core-decorators" {
         url: string;
     }
 
+    export interface ThrottleOptions {
+        /** allows to trigger function on the leading. */
+        leading?: boolean;
+        /** allows to trigger function on the trailing edge of the wait interval. */
+        trailing?: boolean;
+    }
+
+    export interface Console {
+        log(message?: any, ...optionalParams: any[]): void;
+        time(timerName?: string): void;
+        timeEnd(timerName?: string): void;
+    }
+
     /**
      * Forces invocations of this function to always have this refer to the class instance,
      * even if the function is passed around or would otherwise lose its this context. e.g. var fn = context.method;
      */
-    var autobind: MethodDecorator;
+    var autobind: Function;
     /**
      * Marks a property or method as not being writable.
      */
@@ -58,6 +71,10 @@ declare module "core-decorators" {
      */
     var debounce: (wait: number) => MethodDecorator;
     /**
+     * Creates a new throttled function which will be invoked in every wait milliseconds. Default timeout is 300 ms.
+     */
+    var throttle: (wait: number, options?: ThrottleOptions) => MethodDecorator;
+    /**
      * Suppresses any JavaScript console.warn() call while the decorated function is called. (i.e. on the stack)
      */
     var suppressWarnings: MethodDecorator;
@@ -73,6 +90,30 @@ declare module "core-decorators" {
      * Initial implementation included, likely slow. WIP.
      */
     var memoize: MethodDecorator;
+    /**
+     * Immediately applies the provided function and arguments to the method, allowing you to wrap methods with arbitrary helpers like those provided by lodash.
+     * The first argument is the function to apply, all further arguments will be passed to that decorating function.
+     */
+    var decorate: (func: Function, ...args: any[]) => MethodDecorator;
+    /**
+     * Prevents a property initializer from running until the decorated property is actually looked up.
+     * Useful to prevent excess allocations that might otherwise not be used, but be careful not to over-optimize things.
+     */
+    var lazyInitialize: PropertyDecorator;
+    /**
+     * Mixes in all property descriptors from the provided Plain Old JavaScript Objects (aka POJOs) as arguments.
+     * Mixins are applied in the order they are passed, but do not override descriptors already on the class, including those inherited traditionally.
+     */
+    var mixin: (...mixins: any[]) => ClassDecorator;
+    /**
+     * Mixes in all property descriptors from the provided Plain Old JavaScript Objects (aka POJOs) as arguments.
+     * Mixins are applied in the order they are passed, but do not override descriptors already on the class, including those inherited traditionally.
+     */
+    var mixins: (...mixins: any[]) => ClassDecorator;
+    /**
+     * Uses console.time and console.timeEnd to provide function timings with a unique label whose default prefix is ClassName.method. Supply a first argument to override the prefix:
+     */
+    var time: (label: string, console?: Console) => MethodDecorator;
 
     export {
         autobind,
@@ -81,9 +122,15 @@ declare module "core-decorators" {
         deprecate,
         deprecated,
         debounce,
+        throttle,
         suppressWarnings,
         nonenumerable,
         nonconfigurable,
-        memoize // WIP
+        memoize,
+        decorate,
+        lazyInitialize,
+        mixin,
+        mixins,
+        time,
     };
 }

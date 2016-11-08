@@ -1,7 +1,7 @@
 // Type definitions for jsdom 2.0.0
 // Project: https://github.com/tmpvar/jsdom
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path='../node/node.d.ts' />
 /// <reference path='../jquery/jquery.d.ts' />
@@ -68,6 +68,7 @@ declare module "jsdom" {
 	export function createCookieJar(): CookieJar;
 	export function nodeLocation(node: Node): any;
 	export function reconfigureWindow(window: Window, newProps: WindowProperties): void;
+	export function changeURL(window: Window, url: string): void;
 	
 	export function jQueryify(window: Window, jqueryUrl: string, callback: (window: Window, jquery: JQuery) => any): void;
 	

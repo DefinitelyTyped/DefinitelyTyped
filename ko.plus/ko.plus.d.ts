@@ -1,7 +1,7 @@
 // Type definitions for ko.plus v0.0.24
 // Project: https://github.com/stevegreatrex/ko.plus
 // Definitions by: Howard Richards <https://github.com/conficient>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 /// <reference path="../knockout/knockout.d.ts" />
@@ -17,7 +17,7 @@
  *
  * Version 1.1 - fixed bug - makeEditable is now a function on .editable
  *               also refactored how the Editable classes inherit to simplify
- * 
+ *
  * Version 1.2 - amended callback on commmand.fail() method - accepts response,
  *               status and message values
  */
@@ -63,7 +63,7 @@ interface KnockoutBindingHandlers {
 //
 // namespace for ko.plus types
 //
-declare module KoPlus {
+declare namespace KoPlus {
 
     //#region Command types
 

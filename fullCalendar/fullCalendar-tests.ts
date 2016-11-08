@@ -4,11 +4,10 @@
 
 // All examples from http://arshaw.com/fullcalendar/docs/
 
-$('#calendar').fullCalendar({
-})
+$('#calendar').fullCalendar({});
 
 $('#calendar').fullCalendar({
-    weekends: false 
+    weekends: false
 });
 
 $('#calendar').fullCalendar({
@@ -67,7 +66,7 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar('option', 'aspectRatio', 1.8);
 
 $('#calendar').fullCalendar({
-    viewRender: function(view) {
+    viewRender: function (view) {
         alert('The new title of the view is ' + view.title);
     }
 });
@@ -81,22 +80,19 @@ $('#calendar').fullCalendar({
 $('#calendar').fullCalendar('render');
 
 $('#calendar').fullCalendar({
-    dragOpacity: {
-        month: .2,
-        '': .5
-    }
+    dragOpacity: .5
 });
 
 var view = $('#calendar').fullCalendar('getView');
 alert("The view's title is " + view.title);
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -155,12 +151,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -220,12 +216,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -274,12 +270,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         editable: true,
         header: {
@@ -339,12 +335,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -603,17 +599,17 @@ $('#calendar').fullCalendar({
 });
 
 $('#calendar').fullCalendar({
-    events: function (start, end, callback) {
+    events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
         $.ajax({
             url: 'myxmlfeed.php',
             dataType: 'xml',
             data: {
                 // our hypothetical feed requires UNIX timestamps
-                start: Math.round(start.getTime() / 1000),
-                end: Math.round(end.getTime() / 1000)
+                start: Math.round(start.toDate().getTime() / 1000),
+                end: Math.round(end.toDate().getTime() / 1000)
             },
             success: function (doc) {
-                var events = [];
+                var events: any[] = [];
                 $(doc).find('event').each(function () {
                     events.push({
                         title: $(this).attr('title'),
@@ -632,7 +628,7 @@ $('#calendar').fullCalendar({
 
         // your event source
         {
-            events: function (start, end, callback) {
+            events: function (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: (events: FullCalendar.EventObject[]) => void) {
                 // ...
             },
             color: 'yellow',   // an option!
@@ -685,7 +681,7 @@ $('#calendar').fullCalendar({
         }
         // more events here
     ],
-    eventRender: function (event: EventWithDescription, element) {
+    eventRender: function (event: EventWithDescription, element: any, view: any) {
         element.qtip({
             content: event.description
         });
@@ -715,12 +711,12 @@ $('#draggable1').draggable();
 $('#draggable2').draggable();
 
 $(document).ready(function () {
-    
+
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $('#calendar').fullCalendar({
         theme: true,
         header: {
@@ -799,11 +795,11 @@ $(document).ready(function () {
             revert: true,      // will cause the event to go back to its
             revertDuration: 0  //  original position after the drag
         });
-    
+
     });
     /* initialize the calendar
     -----------------------------------------------------------------*/
-    
+
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
@@ -833,9 +829,8 @@ $(document).ready(function () {
                 // if so, remove the element from the "Draggable Events" list
                 $(this).remove();
             }
-        
         }
     });
 });
 
-$('#calendar').fullCalendar('refetchEvents')
+$('#calendar').fullCalendar('refetchEvents');

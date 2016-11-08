@@ -1,7 +1,7 @@
 // Type definitions for cookie v0.1.2
 // Project: https://github.com/jshttp/cookie
 // Definitions by: Pine Mizune <https://github.com/pine613>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface CookieSerializeOptions {
     encode?: (val: string) => string;

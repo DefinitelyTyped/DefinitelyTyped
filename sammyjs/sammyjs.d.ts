@@ -1,7 +1,7 @@
 // Type definitions for Sammy.js
 // Project: http://sammyjs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Oisin Grehan <https://github.com/oising>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -10,7 +10,7 @@ declare function Sammy(selector: string): Sammy.Application;
 declare function Sammy(handler: Function): Sammy.Application;
 declare function Sammy(selector: string, handler: Function): Sammy.Application;
 
-declare module Sammy {
+declare namespace Sammy {
 	interface SammyFunc {
 		(): Sammy.Application;
 		(selector: string): Sammy.Application;
@@ -121,8 +121,8 @@ declare module Sammy {
         unload(): Application;
         use(...params: any[]): void;
 	last_location: string[];
-	
-        // Features provided by oauth2 plugin 
+
+        // Features provided by oauth2 plugin
         oauthorize: string;
         requireOAuth();
         requireOAuth(path?:string);
@@ -165,7 +165,7 @@ declare module Sammy {
         toString(): string;
         trigger(name: string, data?: any): EventContext;
 
-        // Provided by common sammy modules: 
+        // Provided by common sammy modules:
         name: any;
         title: any;
     }
@@ -235,7 +235,7 @@ declare module Sammy {
         trigger(name, data);
         wait(): void;
     }
-	
+
     export interface StoreOptions {
         name?: string;
         element?: string;

@@ -26,7 +26,7 @@ FormattedPlural,
 FormattedDate,
 FormattedTime
 } from "react-intl"
-import reactIntlEn = require("react-intl/lib/locale-data/en");
+import reactIntlEn = require("react-intl/locale-data/en");
 
 addLocaleData(reactIntlEn);
 console.log(hasLocaleData("en"));

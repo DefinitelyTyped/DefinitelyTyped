@@ -1,7 +1,7 @@
 // Type definitions for SlickGrid 2.1.0
 // Project: https://github.com/mleibman/SlickGrid
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 SlickGrid-2.1.d.ts may be freely distributed under the MIT license.
@@ -33,7 +33,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 interface DOMEvent extends Event {}
 
-declare module Slick {
+declare namespace Slick {
 
 	/**
 	* slick.core.js
@@ -92,14 +92,16 @@ declare module Slick {
 		* @method subscribe
 		* @param fn {Function} Event handler.
 		*/
-		public subscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public subscribe(fn: (e: EventData, data: T) => any): void;
+		public subscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Removes an event handler added with <code>subscribe(fn)</code>.
 		* @method unsubscribe
 		* @param fn {Function} Event handler to be removed.
 		*/
-		public unsubscribe(fn: (eventData: EventData, data: T) => any ): void;
+		public unsubscribe(fn: (e: EventData, data: T) => any): void;
+		public unsubscribe(fn: (e: DOMEvent, data: T) => any): void;
 
 		/***
 		* Fires an event notifying all subscribers.
@@ -1037,7 +1039,7 @@ declare module Slick {
 		* @param e A standard W3C/jQuery event.
 		* @return
 		**/
-		public getCellFromEvent<T>(e: Event<T>): Cell; // todo: !! Unsure on return type !!
+		public getCellFromEvent(e: DOMEvent): Cell;
 
 		/**
 		* Returns a hash containing row and cell indexes. Coordinates are relative to the top left corner of the grid beginning with the first row (not including the column headers).
@@ -1045,7 +1047,7 @@ declare module Slick {
 		* @param y A y coordinate.
 		* @return
 		**/
-		public getCellFromPoint(x: number, y: number): Cell; // todo: !! Unsure on return type !!
+		public getCellFromPoint(x: number, y: number): Cell;
 
 		/**
 		* Returns a DOM element containing a cell at a given row and cell.
@@ -1395,9 +1397,13 @@ declare module Slick {
 
 	export interface OnSortEventArgs<T extends SlickData> extends GridEventArgs<T> {
 		multiColumnSort: boolean;
-		sortCol?: SortColumn<T>;
-		sortCols?: SortColumn<T>[];
+
+		// Single column returned
+		sortCol?: Column<T>;
 		sortAsc: boolean;
+
+		// Multiple columns returned
+		sortCols?: SortColumn<T>[];
 	}
 
 	export interface OnScrollEventArgs<T extends SlickData> extends GridEventArgs<T> {

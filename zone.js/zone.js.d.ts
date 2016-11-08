@@ -1,9 +1,7 @@
 // Type definitions for Zone.js
 // Project: https://github.com/angular/zone.js
 // Definitions by: angular team <https://github.com/angular/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
-
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Zone {
     constructor(parentZone: Zone, data: any);
@@ -18,4 +16,3 @@ declare class Zone {
 
     static longStackTraceZone: {[key: string]: any};
 }
-

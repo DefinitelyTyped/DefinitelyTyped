@@ -1,9 +1,9 @@
 /// <reference path="jquery.tooltipster.d.ts" />
 
-// Type definition tests for jQuery Tooltipster 3.0.5
+// Type definition tests for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Patrick Magee <https://github.com/pjmagee/>, Dmitry Pesterev <https://github.com/VorobeY1326/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Tests taken from the getting started section of the Tooltipster website
 
 $(document).ready(function () {
@@ -12,6 +12,10 @@ $(document).ready(function () {
 
     $('#my-tooltip').tooltipster({
         content: $('<span><img src="my-image.png" /> <strong>This text is in bold case !</strong></span>')
+    });
+
+    $('#my-tooltip').tooltipster({
+        content: 'string test'
     });
 });
 
@@ -58,6 +62,9 @@ $('.tooltip').tooltipster('content');
 
 // update tooltip content
 $('.tooltip').tooltipster('content', myNewContent);
+
+//update option
+$('.tooltip').tooltipster('option', 'delay', '200');
 
 // reposition and resize the tooltip
 $('.tooltip').tooltipster('reposition');
@@ -163,6 +170,14 @@ $(document).ready(function () {
     // first on page load, initiate the Tooltipster plugin
     $('.tooltip').tooltipster();
 
+    $('.tooltip').tooltipster({
+        contentAsHTML: true
+    });
+
+    $('.tooltip').tooltipster({
+        content: $('<span><img src="my-image.png" /> <strong>This text is in bold case !</strong></span>')
+    });
+
     // then immediately show the tooltip
     $('#example').tooltipster('show');
 
@@ -170,11 +185,6 @@ $(document).ready(function () {
     $(window).keypress(function () {
         $('#example').tooltipster('hide');
     });
-});
-
-$(document).ready(function () {
-
-    $('.tooltip').tooltipster();
 
     $('#example').tooltipster('show', function () {
         alert('The tooltip is now fully open. The content is: ' + this.tooltipster('content'));
@@ -190,5 +200,3 @@ $(document).ready(function () {
         });
     });
 });
-
-$('#my-special-tooltip').tooltipster('content', 'My new content');

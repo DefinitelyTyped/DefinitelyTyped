@@ -1,11 +1,11 @@
 // Type definitions for Angular Growl 2 v.0.7.5
 // Project: http://janstevens.github.io/angular-growl-2
 // Definitions by: Tadeusz Hucal <https://github.com/mkp05>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../angularjs/angular.d.ts" />
 
-declare module angular.growl {
+declare namespace angular.growl {
 
     /**
      * Global Time-To-Leave configuration.
@@ -39,6 +39,16 @@ declare module angular.growl {
      */
     interface IGrowlMessage extends IGrowlMessageConfig {
         text: string;
+
+        /**
+         * Destroy the message.
+         */
+        destroy(): void;
+        /**
+         * Update the message body.
+         * @param newText new message body
+         */
+        setText(newText: string): void;
     }
 
     /**
@@ -223,7 +233,7 @@ declare module angular.growl {
          * @param referenceId
          * @param limitMessages
          */
-        initDirective(referenceId: number, limitMessages: number): ng.IDirective;
+        initDirective(referenceId: number, limitMessages: number): angular.IDirective;
 
         /**
          * Get current messages

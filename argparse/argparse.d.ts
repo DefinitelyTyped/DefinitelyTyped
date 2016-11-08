@@ -1,7 +1,7 @@
 // Type definitions for argparse v1.0.3
 // Project: https://github.com/nodeca/argparse
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "argparse" {
 	export class ArgumentParser extends ArgumentGroup {

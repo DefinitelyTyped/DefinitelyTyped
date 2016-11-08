@@ -1,274 +1,359 @@
-// Type definitions for react-bootstrap 
+// Type definitions for react-bootstrap
 // Project: https://github.com/react-bootstrap/react-bootstrap
-// Definitions by: Walker Burgin <https://github.com/walkerburgin>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
-    
-declare module "react-bootstrap" {
-    // Import React 
-    import React = require("react");
+
+declare namespace ReactBootstrap {
+    // Import React
+    import React = __React;
+
+
+    type Sizes = 'xs' | 'xsmall' | 'sm' | 'small' | 'lg' | 'large';
+
+
+    // Change onSelect signature to be (eventKey: any, event: SyntheticEvent) => any on all React-Bootstrap components, instead of the old inconsistent mishmash (#1604, #1677, #1756)
+    /** ( eventKey:any, e:React.SyntheticEvent ):void */
+    interface SelectCallback {
+        ( eventKey:any, e:React.SyntheticEvent ):void;
+        /**
+            @deprecated
+            This signature is a hack so can still derive from HTMLProps.
+            It does not reflect the underlying event and should not be used.
+        */
+        ( e:React.MouseEvent ):void;
+    }
+
+
+    interface TransitionCallbacks {
+        onEnter?: Function;
+        onEntered?: Function;
+        onEntering?: Function;
+        onExit?: Function;
+        onExited?: Function;
+        onExiting?: Function;
+    }
+
+
+    // <Accordion />
+    interface AccordionProps extends React.HTMLProps<Accordion> {
+        bsSize?: Sizes;
+        bsStyle?: string;
+        collapsible?: boolean;
+        defaultExpanded?: boolean;
+        eventKey?: any;
+        expanded?: boolean;
+        footer?: any; // TODO: Add more specific type
+        header?: any; // TODO: Add more specific type
+    }
+    type Accordion = React.ClassicComponent<AccordionProps, {}>;
+    var Accordion: React.ClassicComponentClass<AccordionProps>;
+
+
+    // <Breadcrumb />
+    interface BreadcrumbProps extends React.Props<Breadcrumb> {
+        bsClass?: string;
+    }
+    interface BreadcrumbClass extends React.ClassicComponentClass<BreadcrumbProps> {
+        Item: typeof BreadcrumbItem;
+    }
+    type Breadcrumb = React.ClassicComponent<BreadcrumbProps, {}>;
+    var Breadcrumb: BreadcrumbClass;
+
+
+    // <BreadcrumbItem />
+    interface BreadcrumbItemProps extends React.Props<BreadcrumbItem> {
+        active?: boolean;
+        id?: string | number;
+        href?: string;
+        title?: React.ReactNode;
+        target?: string;
+    }
+    type BreadcrumbItem = React.ClassicComponent<BreadcrumbItemProps, {}>;
+    var BreadcrumbItem: React.ClassicComponentClass<BreadcrumbItemProps>;
 
 
     // <Button />
-    // ----------------------------------------
-    interface ButtonProps extends React.Props<ButtonClass>{
-
-        // Optional
+    interface ButtonProps extends React.HTMLProps<Button> {
         active?: boolean;
-        disabled?: boolean;
         block?: boolean;
         bsStyle?: string;
-        bsSize?: string;
-        className?: string;
-        navItem?: boolean;
-        navDropdown?: boolean;
-        componentClass?: string;
-        href?: string;
-        onClick?: Function; // Add more specific type 
-        target?: string;
-        type?: string;
+        bsSize?: Sizes;
+        componentClass?: React.ReactType;
     }
-    interface Button extends  React.ReactElement<ButtonProps> { }
-    interface ButtonClass extends  React.ComponentClass<ButtonProps> { }
-    var Button: ButtonClass;
+    type Button = React.ClassicComponent<ButtonProps, {}>;
+    var Button: React.ClassicComponentClass<ButtonProps>;
 
 
     // <ButtonToolbar />
-    // ----------------------------------------
-    interface ButtonToolbarProps extends React.Props<ButtonToolbarClass> {
-
-        // Optional
+    interface ButtonToolbarProps extends React.HTMLProps<ButtonToolbar> {
         block?: boolean;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         justified?: boolean;
         vertical?: boolean;
     }
-    interface ButtonToolbar extends React.ReactElement<ButtonToolbarProps> { }
-    interface ButtonToolbarClass extends  React.ComponentClass<ButtonToolbarProps> { }
-    var ButtonToolbar: ButtonToolbarClass;
+    type ButtonToolbar = React.ClassicComponent<ButtonToolbarProps, {}>;
+    var ButtonToolbar: React.ClassicComponentClass<ButtonToolbarProps>;
+
 
     // <ButtonGroup />
-    // ----------------------------------------
-    interface ButtonGroupProps extends React.Props<ButtonGroupClass> {
-        // Optional
+    interface ButtonGroupProps extends React.HTMLProps<ButtonGroup> {
         block?: boolean;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         justified?: boolean;
         vertical?: boolean;
     }
-    interface ButtonGroup extends React.ReactElement<ButtonGroupProps> { }
-    interface ButtonGroupClass extends  React.ComponentClass<ButtonGroupProps> { }
-    var ButtonGroup: ButtonGroupClass;
-    
+    type ButtonGroup = React.ClassicComponent<ButtonGroupProps, {}>;
+    var ButtonGroup: React.ClassicComponentClass<ButtonGroupProps>;
+
+
+    // <SafeAnchor />
+    interface SafeAnchorProps extends React.HTMLProps<SafeAnchor> {
+        href?: string;
+        onClick?: React.MouseEventHandler;
+        disabled?: boolean;
+        role?: string;
+        componentClass?: React.ReactType;
+    }
+    type SafeAnchor = React.ClassicComponent<SafeAnchorProps, {}>;
+    const SafeAnchor: React.ClassicComponentClass<SafeAnchorProps>;
+
+
+    // <Checkbox />
+    interface CheckboxProps extends React.HTMLProps<Checkbox> {
+        bsClass?: string;
+        disabled?: boolean;
+        inline?: boolean;
+        inputRef?: ( instance:HTMLInputElement ) => void;
+        validationState?: "success" | "warning" | "error";
+    }
+    class Checkbox extends React.Component<CheckboxProps, {}> { }
+
+
+    // <Clearfix />
+    interface ClearfixProps extends React.HTMLProps<Clearfix> {
+        componentClass?: React.ReactType,
+        visibleXsBlock?: boolean;
+        visibleSmBlock?: boolean;
+        visibleMdBlock?: boolean;
+        visibleLgBlock?: boolean;
+    }
+    class Clearfix extends React.Component<ClearfixProps, {}> { }
+
+
+    // <Collapse />
+    interface CollapseProps extends TransitionCallbacks, React.Props<Collapse> {
+        dimension?: 'height' | 'width' | { ( ):string };
+        getDimensionValue?: ( dimension:number, element:React.ReactElement<any> ) => number;
+        in?: boolean;
+        timeout?: number;
+        transitionAppear?: boolean;
+        unmountOnExit?: boolean;
+    }
+    class Collapse extends React.Component<CollapseProps, {}> { }
+
+
+    // <Dropdown />
+    interface DropdownBaseProps {
+        bsClass?: string;
+        componentClass?: React.ReactType;
+        disabled?: boolean;
+        dropup?: boolean;
+        id: string;
+        onClose?: Function;
+        onSelect?: SelectCallback;
+        onToggle?: ( isOpen:boolean ) => void;
+        open?: boolean;
+        pullRight?: boolean;
+        role?: string;
+    }
+    type DropdownProps = DropdownBaseProps & React.HTMLProps<Dropdown>;
+    class Dropdown extends React.Component<DropdownProps, any> {
+        public static Menu: typeof DropdownMenu;
+        public static Toggle: typeof DropdownToggle;
+    }
+
 
     // <DropdownButton />
-    // ----------------------------------------
-    interface DropdownButtonProps extends React.Props<DropdownButtonClass> {
+    interface DropdownButtonBaseProps extends DropdownBaseProps {
+        bsSize?: Sizes;
         bsStyle?: string;
-        bsSize?: string;
-        buttonClassName?: string; 
-        className?: string;
-        dropup?: boolean;
-        href?: string;
-        id?: string | number; 
         navItem?: boolean;
         noCaret?: boolean;
-        onClick?: Function;  // TODO: Add more specifc type 
-        onSelect?: Function; // TODO: Add more specific type 
         pullRight?: boolean;
-        title?: any; // TODO: Add more specific type
     }
-    interface DropdownButton extends React.ReactElement<DropdownButtonProps> { }
-    interface DropdownButtonClass extends React.ComponentClass<DropdownButtonProps> { }
-    var DropdownButton: DropdownButtonClass;
+    type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
+    class DropdownButton extends React.Component<DropdownButtonProps, {}> { }
 
 
-    // <SplitButton />
-    // ----------------------------------------
-    interface SplitButtonProps extends React.Props<SplitButtonClass>{ 
-        bsStyle?: string;
-        bsSize?: string;
-        className?: string;
-        disabled?: boolean;
-        dropdownTitle?: any; // TODO: Add more specific type
-        dropup?: boolean;
-        href?: string;
-        id?: string; 
-        onClick?: Function;  // TODO: Add more specific type 
-        onSelect?: Function; // TODO: Add more specific type 
+    // <Dropdown.Menu />
+    interface DropdownMenuProps extends React.HTMLProps<DropdownMenu> {
+        labelledBy?: string | number;
+        onClose?: Function;
+        onSelect?: SelectCallback;
+        open?: boolean;
         pullRight?: boolean;
-        target?: string;
-        title?: any; // TODO: Add more specific type
     }
-    interface SplitButton extends React.ReactElement<SplitButtonProps> { }
-    interface SplitButtonClass extends React.ComponentClass<SplitButtonProps> { }
-    var SplitButton: SplitButtonClass;
+    class DropdownMenu extends React.Component<DropdownMenuProps, any> { }
+
+
+    // <Dropdown.Toggle />
+    interface DropdownToggleProps extends React.HTMLProps<DropdownToggle> {
+        bsRole?: string;
+        noCaret?: boolean;
+        open?: boolean;
+        title?: string;
+        useAnchor?: boolean;
+        bsClass?:string; // Added since v0.30.0
+    }
+    class DropdownToggle extends React.Component<DropdownToggleProps, any> { }
+
+
+    // <Fade />
+    interface FadeProps extends TransitionCallbacks, React.Props<Fade> {
+        in?: boolean;
+        timeout?: number;
+        transitionAppear?: boolean;
+        unmountOnExit?: boolean;
+    }
+    class Fade extends React.Component<FadeProps, {}> { }
 
 
     // <MenuItem />
-    // ----------------------------------------
-    interface MenuItemProps extends React.Props<MenuItemClass> {
+    interface MenuItemProps extends React.HTMLProps<MenuItem> {
         active?: boolean;
-        className?: string;
+        bsClass?: string;
         disabled?: boolean;
         divider?: boolean;
         eventKey?: any;
         header?: boolean;
-        href?: string;
-        onSelect?: Function;
+        onClick?: React.MouseEventHandler;
+        onSelect?: SelectCallback;
         target?: string;
         title?: string;
     }
-    interface MenuItem extends React.ReactElement<MenuItemProps> { }
-    interface MenuItemClass extends React.ComponentClass<MenuItemProps> { }
-    var MenuItem: MenuItemClass;
+    class MenuItem extends React.Component<MenuItemProps, {}> { }
 
 
     // <Panel />
-    // ----------------------------------------
-    interface PanelProps extends React.Props<PanelClass> {
-        className?: string;
-        bsSize?: string;
+    interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
+        bsClass?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
         collapsible?: boolean;
         defaultExpanded?: boolean;
         eventKey?: any;
         expanded?: boolean;
-        footer?: any; // TODO: Add more specific type
-        header?: any; // TODO: Add more specific type
-        id?: string;
-        onSelect?: Function; // TODO: Add more specific type 
-        onClick?: Function; // TODO: Add more specific type 
+        footer?: React.ReactNode;
+        header?: React.ReactNode;
+        onSelect?: SelectCallback;
     }
-    interface Panel extends React.ReactElement<PanelProps> { }
-    interface PanelClass extends React.ComponentClass<PanelProps> { }
-    var Panel: PanelClass;
-
-
-    // <Accordion />
-    // ----------------------------------------
-    interface AccordionProps extends React.Props<AccordionClass> {
-        bsSize?: string;
-        bsStyle?: string;
-        collapsible?: boolean;
-        defaultExpanded?: boolean;
-        eventKey?: any;
-        expanded?: boolean;
-        footer?: any; // TODO: Add more specific type
-        header?: any; // TODO: Add more specific type
-        id?: string;
-        onSelect?: Function; // TODO: Add more specific type 
-    }
-    interface Accordion extends React.ReactElement<AccordionProps> { }
-    interface AccordionClass extends  React.ComponentClass<AccordionProps> { }
-    var Accordion: AccordionClass;
+    type Panel = React.ClassicComponent<PanelProps, {}>;
+    var Panel: React.ClassicComponentClass<PanelProps>;
 
 
     // <PanelGroup />
-    // ----------------------------------------
-    interface PanelGroupProps extends React.Props<PanelGroupClass> { 
+    interface PanelGroupProps extends React.HTMLProps<PanelGroup> {
         accordion?: boolean;
         activeKey?: any;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         defaultActiveKey?: any;
-        onSelect?: Function;
+        onSelect?: SelectCallback;
     }
-    interface PanelGroup extends React.ReactElement<PanelGroupProps> { }
-    interface PanelGroupClass extends  React.ComponentClass<PanelGroupProps> { }
-    var PanelGroup: PanelGroupClass;
+    type PanelGroup = React.ClassicComponent<PanelGroupProps, {}>;
+    var PanelGroup: React.ClassicComponentClass<PanelGroupProps>;
+
+
+    // <SplitButton />
+    interface SplitButtonProps extends React.HTMLProps<SplitButton> {
+        bsStyle?: string;
+        bsSize?: Sizes;
+        dropdownTitle?: any; // TODO: Add more specific type
+        dropup?: boolean;
+        pullRight?: boolean;
+    }
+    class SplitButton extends React.Component<SplitButtonProps, {}> { }
 
 
     // <Modal.Dialog />
-    // ----------------------------------------
-    interface ModalDialogProps extends React.Props<ModalDialogClass> {
-        // TODO: Add more specific type 
+    interface ModalDialogProps extends React.HTMLProps<ModalDialog> {
+        // TODO: Add more specific type
     }
-    interface ModalDialog extends React.ReactElement<ModalDialogProps> { }
-    interface ModalDialogClass extends React.ComponentClass<ModalHeaderProps> { }
+    type ModalDialog = React.ClassicComponent<ModalDialogProps, {}>;
+    var ModalDialog: React.ClassicComponentClass<ModalDialogProps>;
 
 
     // <Modal.Header />
-    // ----------------------------------------
-  interface ModalHeaderProps extends React.Props<ModalHeaderClass> {
-        className?: string;
+    interface ModalHeaderProps extends React.HTMLProps<ModalHeader> {
         closeButton?: boolean;
         modalClassName?: string;
         onHide?: Function;
         // undefined?: string;
     }
-    interface ModalHeader extends React.ReactElement<ModalHeaderProps> { }
-    interface ModalHeaderClass extends React.ComponentClass<ModalHeaderProps> { }
+    class ModalHeader extends React.Component<ModalHeaderProps, {}> {
+    }
 
 
     // <Modal.Title/>
-    // ----------------------------------------
-    interface ModalTitleProps extends React.Props<ModalTitleClass> {
-        className?: string;
+    interface ModalTitleProps extends React.HTMLProps<ModalTitle> {
         modalClassName?: string;
     }
-    interface ModalTitle extends React.ReactElement<ModalTitleProps> { }
-    interface ModalTitleClass extends React.ComponentClass<ModalTitleProps> { }
-
+    class ModalTitle extends React.Component<ModalTitleProps, {}> {
+    }
 
     // <Modal.Body />
-    // ----------------------------------------
-    interface ModalBodyProps extends React.Props<ModalBodyClass> {
-        className?: string;
+    interface ModalBodyProps extends React.HTMLProps<ModalBody> {
         modalClassName?: string;
     }
-    interface ModalBody extends React.ReactElement<ModalBodyProps> { }
-    interface ModalBodyClass extends React.ComponentClass<ModalBodyProps> { }
-
+    class ModalBody extends React.Component<ModalBodyProps, {}> {
+    }
 
     // <Modal.Footer />
-    // ----------------------------------------
-    interface ModalFooterProps extends React.Props<ModalFooterClass> {
-        className?: string;
+    interface ModalFooterProps extends React.HTMLProps<ModalFooter> {
         modalClassName?: string;
     }
-    interface ModalFooter extends React.ReactElement<ModalFooterProps> { }
-    interface ModalFooterClass extends React.ComponentClass<ModalFooterProps> { }
-
+    class ModalFooter extends React.Component<ModalFooterProps, {}> {
+    }
 
     // <Modal />
-    // ----------------------------------------
-    interface ModalProps extends React.Props<ModalClass> {
+    interface ModalProps extends React.HTMLProps<Modal> {
         // Required
         onHide: Function;
 
         // Optional
         animation?: boolean;
-        autoFocus?: boolean;
         backdrop?: boolean|string;
-        bsSize?: string;
+        bsSize?: Sizes;
         container?: any; // TODO: Add more specific type
         dialogClassName?: string;
         dialogComponent?: any; // TODO: Add more specific type
         enforceFocus?: boolean;
         keyboard?: boolean;
+        onEnter?: (node: HTMLElement) => any;
+        onEntered?: (node: HTMLElement) => any;
+        onEntering?: (node: HTMLElement) => any;
+        onExit?: (node: HTMLElement) => any;
+        onExited?: (node: HTMLElement) => any;
+        onExiting?: (node: HTMLElement) => any;
         show?: boolean;
     }
-    interface Modal extends React.ReactElement<ModalProps> { }
-    interface ModalClass extends React.ComponentClass<ModalProps> {
-        Header: ModalHeaderClass;
-        Title: ModalTitleClass;
-        Body: ModalBodyClass;
-        Footer: ModalFooterClass;
-        Dialog: ModalDialogClass;
+    interface ModalClass extends React.ClassicComponentClass<ModalProps> {
+        Body: typeof ModalBody;
+        Header: typeof ModalHeader;
+        Title: typeof ModalTitle;
+        Footer: typeof ModalFooter;
+        Dialog: typeof ModalDialog;
     }
+    type Modal = React.ClassicComponent<ModalProps, {}>;
     var Modal: ModalClass;
 
 
     // <OverlayTrigger />
-    // ----------------------------------------
-    interface OverlayTriggerProps extends React.Props<OverlayTriggerClass> {
+    interface OverlayTriggerProps {
         // Required
         overlay: any; // TODO: Add more specific type
 
@@ -288,56 +373,41 @@ declare module "react-bootstrap" {
         onExiting?: Function;
         placement?: string;
         rootClose?: boolean;
-        trigger?: string;
+        trigger?: string | string[];
     }
-    interface OverlayTrigger extends React.ReactElement<OverlayTriggerProps> { }
-    interface OverlayTriggerClass extends  React.ComponentClass<OverlayTriggerProps> { }
-    var OverlayTrigger: OverlayTriggerClass;
-
+    type OverlayTrigger = React.ClassicComponent<OverlayTriggerProps, {}>;
+    var OverlayTrigger: React.ClassicComponentClass<OverlayTriggerProps>;
 
     // <Tooltip />
-    // ----------------------------------------
-    interface TooltipProps extends React.Props<TooltipClass> {
+    interface TooltipProps extends React.HTMLProps<Tooltip> {
         // Optional
         arrowOffsetLeft?: number | string;
         arrowOffsetTop?: number | string;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        id?: string; 
         placement?: string;
         positionLeft?: number;
         positionTop?: number;
-        title?: any; // TODO: Add more specific type
     }
-    interface Tooltip extends React.ReactElement<TooltipProps> { }
-    interface TooltipClass extends React.ComponentClass<TooltipProps> { }
-    var Tooltip: TooltipClass;
-
+    type Tooltip = React.ClassicComponent<TooltipProps, {}>;
+    var Tooltip: React.ClassicComponentClass<TooltipProps>;
 
     // <Popover/>
-    // ----------------------------------------
-    interface PopoverProps  extends React.Props<PopoverClass> {
+    interface PopoverProps  extends React.HTMLProps<Popover> {
         // Optional
         arrowOffsetLeft?: number | string;
         arrowOffsetTop?: number | string;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        id?: string; 
         placement?: string;
-        positionLeft?: number;
-        positionTop?: number;
-        title: any; // TODO: Add more specific type
+        positionLeft?: number | string; // String support added since v0.30.0
+        positionTop?: number | string; // String support added since v0.30.0
     }
-    interface Popover extends React.ReactElement<PopoverProps> { }
-    interface PopoverClass extends React.ComponentClass<PopoverProps> { }
-    var Popover: PopoverClass;
-
+    type Popover = React.ClassicComponent<PopoverProps, {}>;
+    var Popover: React.ClassicComponentClass<PopoverProps>;
 
     // <Overlay />
-    // ----------------------------------------
-    interface OverlayProps extends React.Props<OverlayClass> {
+    interface OverlayProps {
         // Optional
         animation?: any; // TODO: Add more specific type
         container?: any; // TODO: Add more specific type
@@ -353,103 +423,103 @@ declare module "react-bootstrap" {
         rootClose?: boolean;
         show?: boolean;
         target?: Function;
+        shouldUpdatePosition?: boolean;
     }
-    interface Overlay extends React.ReactElement<OverlayProps> { }
-    interface OverlayClass extends  React.ComponentClass<OverlayProps> { }
-    var Overlay: OverlayClass;
-
+    class Overlay extends React.Component<OverlayProps, {}> {
+    }
 
     // <ProgressBar />
-    // ----------------------------------------
-    interface ProgressBarProps extends React.Props<ProgressBarClass> {
+    interface ProgressBarProps extends React.HTMLProps<ProgressBar> {
         // Optional
         active?: boolean;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         interpolatedClass?: any; // TODO: Add more specific type
-        label?: any; // TODO: Add more specific type
         max?: number;
         min?: number;
         now?: number;
         srOnly?: boolean;
         striped?: boolean;
     }
-    interface ProgressBar extends React.ReactElement<ProgressBarProps> { }
-    interface ProgressBarClass extends  React.ComponentClass<ProgressBarProps> { }
-    var ProgressBar: ProgressBarClass;
-
+    class ProgressBar extends React.Component<ProgressBarProps, {}> {
+    }
 
     // <Nav />
-    // ----------------------------------------
-    // TODO: This one turned into a union of two different types 
-    interface NavProps extends React.Props<NavClass> {
+        // TODO: This one turned into a union of two different types
+    interface NavProps extends React.HTMLProps<Nav> {
         // Optional
         activeHref?: string;
         activeKey?: any;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         collapsible?: boolean;
         eventKey?: any;
         expanded?: boolean;
-        id?: string;
         justified?: boolean;
         navbar?: boolean;
-        onSelect?: Function;
         pullRight?: boolean;
         right?: boolean;
         stacked?: boolean;
         ulClassName?: string;
         ulId?: string;
     }
-    interface Nav extends React.ReactElement<NavProps> { }
-    interface NavClass extends  React.ComponentClass<NavProps> { }
-    var Nav: NavClass;
-
+    class Nav extends React.Component<NavProps, {}> {
+    }
 
     // <NavItem />
-    // ----------------------------------------
-    interface NavItemProps extends React.Props<NavItemClass> {
+    interface NavItemProps extends React.HTMLProps<NavItem> {
         active?: boolean;
         brand?: any; // TODO: Add more specific type
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
-        disabled?: boolean;
         eventKey?: any;
         fixedBottom?: boolean;
         fixedTop?: boolean;
         fluid?: boolean;
-        href?: string;
         inverse?: boolean;
         linkId?: string;
         navExpanded?: boolean;
-        onClick?: Function;
-        onSelect?: Function;
+        onSelect?: SelectCallback;
         onToggle?: Function;
-        role?: string;
         staticTop?: boolean;
-        target?: string;
-        title?: string;
         toggleButton?: any; // TODO: Add more specific type
         toggleNavKey?: string | number;
     }
-    interface NavItem extends React.ReactElement<NavItemProps> { }
-    interface NavItemClass extends React.ComponentClass<NavItemProps> { }
-    var NavItem: NavItemClass;
+    type NavItem = React.ClassicComponent<NavItemProps, {}>;
+    var NavItem: React.ClassicComponentClass<NavItemProps>;
 
+    // <Navbar.Brand />
+    interface NavbarBrandProps extends React.HTMLProps<NavbarBrand> {
+    }
+    class NavbarBrand extends React.Component<NavbarBrandProps, {}> {
+    }
+
+    // <Navbar.Collapse />
+    interface NavbarCollapseProps {
+    }
+    type NavbarCollapse = React.ClassicComponent<NavbarCollapseProps, {}>;
+    var NavbarCollapse: React.ClassicComponentClass<NavbarCollapseProps>;
+
+    // <Navbar.Header />
+    interface NavbarHeaderProps extends React.HTMLProps<NavbarHeader> {
+    }
+    type NavbarHeader = React.ClassicComponent<NavbarHeaderProps, {}>;
+    var NavbarHeader: React.ClassicComponentClass<NavbarHeaderProps>;
+
+    // <Navbar.Toggle />
+    interface NavbarToggleProps {
+    }
+    type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
+    var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
 
     // <Navbar />
-    // ----------------------------------------
-    interface NavbarProps extends React.Props<NavbarClass> {
+    interface NavbarProps extends React.HTMLProps<Navbar> {
         brand?: any; // TODO: Add more specific type
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
+        componentClass?: React.ReactType;
         defaultNavExpanded?: boolean;
         fixedBottom?: boolean;
         fixedTop?: boolean;
@@ -457,429 +527,420 @@ declare module "react-bootstrap" {
         inverse?: boolean;
         navExpanded?: boolean;
         onToggle?: Function;
-        role?: string;
         staticTop?: boolean;
         toggleButton?: any; // TODO: Add more specific type
         toggleNavKey?: string | number;
     }
-    interface Navbar extends React.ReactElement<NavbarProps> { }
-    interface NavbarClass extends  React.ComponentClass<NavbarProps> { }
-    var Navbar: NavbarClass;
-    
-    // <NavBrand />
-    // ----------------------------------------
-    interface NavBrandProps {
-
+    interface NavbarClass extends React.ClassicComponentClass<NavbarProps> {
+        Brand: typeof NavbarBrand;
+        Collapse: typeof NavbarCollapse;
+        Header: typeof NavbarHeader;
+        Toggle: typeof NavbarToggle;
     }
-    interface NavBrand extends React.ReactElement<NavbarProps> { }
-    interface NavBrandClass extends  React.ComponentClass<NavbarProps> { }
-    var NavBrand: NavBrandClass;
+    type Navbar = React.ClassicComponent<NavbarProps, {}>;
+    var Navbar: NavbarClass;
 
 
     // <NavDropdown />
-    // ----------------------------------------
-    interface NavDropdownProps extends React.Props<NavDropdownClass> {
-        className?: string;
-        eventKey?: any;
-        title?: string;
-        id?: string;
+    interface NavDropdownBaseProps extends DropdownBaseProps {
+        active?: boolean;
+        noCaret?: boolean;
     }
-    interface NavDropdown extends React.ReactElement<NavDropdownProps> { }
-    interface NavDropdownClass extends  React.ComponentClass<NavDropdownProps> { }
-    var NavDropdown: NavDropdownClass;
+    type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
+    class NavDropdown extends React.Component<NavDropdownProps, {}> { }
 
 
     // <Tabs />
-    // ----------------------------------------
-    interface TabsProps extends React.Props<TabsClass> {
-        activeKey?: any; 
+    interface TabsProps extends React.HTMLProps<Tabs> {
+        activeKey?: any;
         animation?: boolean;
         bsStyle?: string;
         defaultActiveKey?: any;
-        id?: string | number;
-        onSelect?: Function;
-        paneWidth?: any; // TODO: Add more specific type 
+        onSelect?: SelectCallback;
+        paneWidth?: any; // TODO: Add more specific type
         position?: string;
         tabWidth?: any; // TODO: Add more specific type
+        unmountOnExit?: boolean;
     }
-    interface Tabs extends React.ReactElement<TabsProps> { }
-    interface TabsClass extends React.ComponentClass<TabsProps> { }
-    var Tabs: TabsClass;
-
+    type Tabs = React.ClassicComponent<TabsProps, {}>;
+    var Tabs: React.ClassicComponentClass<TabsProps>;
 
     // <Tab />
-    // ----------------------------------------
-    interface TabProps extends React.Props<TabClass> {
+    interface TabProps extends React.HTMLProps<Tab> {
         animation?: boolean;
-        className?: string;
-        disabled?: boolean;
         eventKey?: any; // TODO: Add more specific type
-        title?: any; // TODO: Add more specific type
     }
-    interface Tab extends React.ReactElement<TabProps> { }
-    interface TabClass extends React.ComponentClass<TabProps> { }
+    interface TabClass extends React.ClassicComponentClass<TabProps> {
+      Container: TabContainer;
+      Pane: TabPane;
+      Content: TabClass;
+    }
+    type Tab = TabClass;
     var Tab: TabClass;
+
+    // <Tab.Container />
+    // ----------------------------------------
+    interface TabContainerProps extends React.HTMLAttributes {
+      activeKey?: any;
+      defaultActiveKey?: any;
+      generateChildId?: (eventKey: any, type: any) => string;
+    }
+    type TabContainer = React.ClassicComponentClass<TabContainerProps>;
+
+    // <Tab.Pane />
+    // ----------------------------------------
+    interface TabPaneProps extends React.HTMLAttributes {
+      animation?: boolean | React.ComponentClass<any>;
+      'aria-labelledby'?: string;
+      bsClass?: string;
+      eventKey?: any;
+      onEnter?: Function;
+      onEntered?: Function;
+      onEntering?: Function;
+      onExit?: Function;
+      onExited?: Function;
+      onExiting?: Function;
+      unmountOnExit?: boolean;
+    }
+    type TabPane = React.ClassicComponentClass<TabPaneProps>;
 
 
     // <Pager />
-    // ----------------------------------------
-    interface PagerProps extends React.Props<PagerClass> {
-        className?: string;
-        onSelect?: Function;
+    interface PagerProps extends React.HTMLProps<Pager> {
+        onSelect?: SelectCallback;
     }
-    interface Pager extends React.ReactElement<PagerProps> { }
-    interface PagerClass extends  React.ComponentClass<PagerProps> { }
+    interface PagerClass extends React.ClassicComponentClass<PagerProps> {
+        Item: typeof PageItem // Added since v0.30.0
+    }
+    type Pager = React.ClassicComponent<PagerProps, {}>;
     var Pager: PagerClass;
 
 
     // <PageItem />
-    // ----------------------------------------
-    interface PageItemProps extends React.Props<PageItemClass> {
-        className?: string;
+    interface PageItemProps extends React.HTMLProps<PageItem> {
         disabled?: boolean;
-        eventKey?: any; 
-        href?: string;
+        eventKey?: any;
         next?: boolean;
-        onSelect?: Function;
+        onSelect?: SelectCallback;
         previous?: boolean;
         target?: string;
-        title?: string;
     }
-    interface PageItem extends React.ReactElement<PageItemProps> { }
-    interface PageItemClass extends React.ComponentClass<PageItemProps> { }
-    var PageItem: PageItemClass;
+    type PageItem = React.ClassicComponent<PageItemProps, {}>;
+    /** @deprecated since v0.30.0, should use <Pager.Item> instead of <PageItem>*/
+    var PageItem: React.ClassicComponentClass<PageItemProps>;
 
 
     // <Pagination />
-    // ----------------------------------------
-    interface PaginationProps extends React.Props<PaginationClass> {
+    interface PaginationProps extends React.HTMLProps<Pagination> {
         activePage?: number;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        buttonComponentClass?: any; // TODO: Add more specific type
-        className?: string;
-        ellipsis?: boolean;
-        first?: boolean;
+        boundaryLinks?: boolean;
+        buttonComponentClass?: React.ReactType;
+        ellipsis?: React.ReactNode;
+        first?: React.ReactNode;
         items?: number;
-        last?: boolean;
+        last?: React.ReactNode;
         maxButtons?: number;
-        next?: boolean;
-        onSelect?: Function;
-        prev?: boolean;
+        next?: React.ReactNode;
+        onSelect?: SelectCallback;
+        prev?: React.ReactNode;
     }
-    interface Pagination extends React.ReactElement<PaginationProps> { }
-    interface PaginationClass extends React.ComponentClass<PaginationProps> { }
-    var Pagination: PaginationClass;
+    type Pagination = React.ClassicComponent<PaginationProps, {}>;
+    var Pagination: React.ClassicComponentClass<PaginationProps>;
 
 
     // <Alert />
-    // ----------------------------------------
-    interface AlertProps extends React.Props<AlertClass> {
-        bsSize?: string;
+    interface AlertProps extends React.HTMLProps<Alert> {
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         closeLabel?: string;
-        dismissAfter?: number;
+        /** @deprecated since v0.29.0 */ dismissAfter?: number;
         onDismiss?: Function;
     }
-    interface Alert extends React.ReactElement<AlertProps> { }
-    interface AlertClass extends React.ComponentClass<AlertProps> { }
-    var Alert: AlertClass;
+    type Alert = React.ClassicComponent<AlertProps, {}>;
+    var Alert: React.ClassicComponentClass<AlertProps>;
 
 
     // <Carousel />
-    // ----------------------------------------
-    interface CarouselProps extends React.Props<CarouselClass> {
+    interface CarouselProps extends React.HTMLProps<Carousel> {
         activeIndex?: number;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
         controls?: boolean;
         defaultActiveIndex?: number;
         direction?: string;
         indicators?: boolean;
         interval?: number;
-        nextIcon?: any; // TODO: Add more specific type
-        onSelect?: Function;
+        nextIcon?: React.ReactNode;
+        onSelect?: SelectCallback;
         onSlideEnd?: Function;
         pauseOnHover?: boolean;
-        prevIcon?: any; // TODO: Add more specific type
+        prevIcon?: React.ReactNode;
         slide?: boolean;
-        wrap?: boolean;   
+        // wrap?: boolean;
     }
-    interface Carousel extends React.ReactElement<CarouselProps> { }
-    interface CarouselClass extends React.ComponentClass<CarouselProps> { }
+    interface CarouselClass extends React.ClassicComponentClass<CarouselProps> {
+      Caption: typeof CarouselCaption;
+      Item: typeof CarouselItem;
+    }
+    type Carousel = React.ClassicComponent<CarouselProps, {}>;
     var Carousel: CarouselClass;
 
-
     // <CarouselItem />
-    // ----------------------------------------
-    interface CarouselItemProps extends React.Props<CarouselItemClass> {
+    interface CarouselItemProps extends React.HTMLProps<CarouselItem> {
         active?: boolean;
         animtateIn?: boolean;
         animateOut?: boolean;
-        caption?: any; // TODO: Add more specific type
-        className?: string;
         direction?: string;
         index?: number;
         onAnimateOutEnd?: Function;
     }
-    interface CarouselItem extends React.ReactElement<CarouselItemProps> { }
-    interface CarouselItemClass extends React.ComponentClass<CarouselItemProps> { }
-    var CarouselItem: CarouselItemClass;
+    type CarouselItem = React.ClassicComponent<CarouselItemProps, {}>;
+    var CarouselItem: React.ClassicComponentClass<CarouselItemProps>;
 
+    // <CarouselCaption />
+    interface CarouselCaptionProps extends React.HTMLProps<CarouselCaption> {
+      componentClass?: React.ReactType;
+    }
+    type CarouselCaption = React.ClassicComponent<CarouselCaptionProps, {}>;
+    var CarouselCaption: React.ClassicComponentClass<CarouselCaptionProps>;
 
     // <Grid />
-    // ----------------------------------------
-    interface GridProps extends React.Props<GridClass> {
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
-        fluid?: boolean; 
+    interface GridProps extends React.HTMLProps<Grid> {
+        componentClass?: React.ReactType;
+        fluid?: boolean;
     }
-    interface Grid extends React.ReactElement<GridProps> { }
-    interface GridClass extends React.ComponentClass<GridProps> { }
-    var Grid: GridClass;
-
+    type Grid = React.ClassicComponent<GridProps, {}>;
+    var Grid: React.ClassicComponentClass<GridProps>;
 
     // <Row />
-    // ----------------------------------------
-    interface RowProps extends React.Props<RowClass> {
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
+    interface RowProps extends React.HTMLProps<Row> {
+        componentClass?: React.ReactType;
     }
-    interface Row extends React.ReactElement<RowProps> { }
-    interface RowClass extends React.ComponentClass<RowProps> { }
-    var Row: RowClass;
-
+    type Row = React.ClassicComponent<RowProps, {}>;
+    var Row: React.ClassicComponentClass<RowProps>;
 
     // <Col />
-    // ----------------------------------------
-    interface ColProps extends React.Props<ColClass> {
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
+    interface ColProps extends React.HTMLProps<Col> {
+        componentClass?: React.ReactType;
         lg?: number;
+        lgHidden?: boolean;
         lgOffset?: number;
         lgPull?: number;
         lgPush?: number;
         md?: number;
+        mdHidden?: boolean;
         mdOffset?: number;
         mdPull?: number;
         mdPush?: number;
         sm?: number;
+        smHidden?: boolean;
         smOffset?: number;
         smPull?: number;
         smPush?: number;
         xs?: number;
+        xsHidden?: boolean;
         xsOffset?: number;
         xsPull?: number;
         xsPush?: number;
     }
-    interface Col extends React.ReactElement<ColProps> { } 
-    interface ColClass extends React.ComponentClass<ColProps> { }
-    var Col: ColClass;
-
+    type Col = React.ClassicComponent<ColProps, {}>;
+    var Col: React.ClassicComponentClass<ColProps>;
 
     // <Thumbnail />
-    // ----------------------------------------
-    interface ThumbnailProps extends React.Props<ThumbnailClass> {
-        alt?: string;
-        bsSize?: string;
+    interface ThumbnailProps extends React.HTMLProps<Thumbnail> {
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        href?: string;
-        src?: string;
     }
-    interface Thumbnail extends React.ReactElement<ThumbnailProps> { }
-    interface ThumbnailClass extends React.ComponentClass<ThumbnailProps> { }
-    var Thumbnail: ThumbnailClass;    
-
+    type Thumbnail = React.ClassicComponent<ThumbnailProps, {}>;
+    var Thumbnail: React.ClassicComponentClass<ThumbnailProps>;
 
     // <ListGroup />
-    // ----------------------------------------
-    interface ListGroupProps extends React.Props<ListGroupClass> {
-        className?: string;
-        id?: string | number;
+    interface ListGroupProps extends React.HTMLProps<ListGroup> {
+        componentClass?: React.ReactType; // Added since v0.30.0
         fill?: boolean; // TODO: Add more specific type
     }
-    interface ListGroup extends React.ReactElement<ListGroupProps> { }
-    interface ListGroupClass extends React.ComponentClass<ListGroupProps> { }
-    var ListGroup: ListGroupClass;
-
+    class ListGroup extends React.Component<ListGroupProps, {}> {
+    }
 
     // <ListGroupItem />
-    // ----------------------------------------
-    interface ListGroupItemProps extends React.Props<ListGroupItemClass> {
+    interface ListGroupItemProps extends React.HTMLProps<ListGroupItem> {
         active?: any;
-        bsSize?: string;
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
-        disabled?: any;
         eventKey?: any;
         header?: any; // TODO: Add more specific type
-        href?: string;
-        key?: any; // TODO: Add more specific type 
+        key?: any; // TODO: Add more specific type
         listItem?: boolean;
-        onClick?: Function; // TODO: Add more specific type 
-        target?: string;
     }
-    interface ListGroupItem extends React.ReactElement<ListGroupItemProps> { }
-    interface ListGroupItemClass extends React.ComponentClass<ListGroupItemProps> { }
-    var ListGroupItem: ListGroupItemClass;
-
+    class ListGroupItem extends React.Component<ListGroupItemProps, {}> {
+    }
 
     // <Label />
-    // ----------------------------------------
-    interface LabelProps extends React.Props<LabelClass> {
-        bsSize?: string;
+    interface LabelProps extends React.HTMLProps<Label> {
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
     }
-    interface Label extends React.ReactElement<LabelProps> { }
-    interface LabelClass extends React.ComponentClass<LabelProps> { }
-    var Label: LabelClass;
-
+    class Label extends React.Component<LabelProps, {}> {
+    }
 
     // <Badge />
-    // ----------------------------------------
-    interface BadgeProps extends React.Props<BadgeClass> {
-        className?: string;
+    interface BadgeProps extends React.HTMLProps<Badge> {
         pullRight?: boolean;
     }
-    interface Badge extends React.ReactElement<BadgeProps> { }
-    interface BadgeClass extends React.ComponentClass<BadgeProps> { }
-    var Badge: BadgeClass;
-
+    type Badge = React.ClassicComponent<BadgeProps, {}>;
+    var Badge: React.ClassicComponentClass<BadgeProps>;
 
     // <Jumbotron />
-    // ----------------------------------------
-    interface JumbotronProps extends React.Props<JumbotronClass> {
-        className?: string;
-        componentClass?: any; // TODO: Add more specific type
+    interface JumbotronProps extends React.HTMLProps<Jumbotron> {
+        componentClass?: React.ReactType;
     }
-    interface Jumbotron extends React.ReactElement<JumbotronProps> { }
-    interface JumbotronClass extends React.ComponentClass<JumbotronProps> { }
-    var Jumbotron: JumbotronClass;
+    type Jumbotron = React.ClassicComponent<JumbotronProps, {}>;
+    var Jumbotron: React.ClassicComponentClass<JumbotronProps>;
 
+    // <Image />
+   interface ImageProps extends React.HTMLProps<Image> {
+       circle?: boolean;
+       responsive?: boolean;
+       rounded?: boolean;
+       thumbnail?: boolean;
+   }
+   type Image = React.ClassicComponent<ImageProps, {}>;
+   var Image: React.ClassicComponentClass<ImageProps>;
 
     // <PageHeader />
-    // ----------------------------------------
-    interface PageHeaderProps extends React.Props<PageHeaderClass> {
-        className?: string;
+    interface PageHeaderProps extends React.HTMLProps<PageHeader> {
     }
-    interface PageHeader extends React.ReactElement<PageHeaderProps> { }
-    interface PageHeaderClass extends React.ComponentClass<PageHeaderProps> { }
-    var PageHeader: PageHeaderClass;
-
+    class PageHeader extends React.Component<PageHeaderProps, {}> {
+    }
 
     // <Well />
-    // ----------------------------------------
-    interface WellProps extends React.Props<WellClass> {
-        bsSize?: string;
+    interface WellProps extends React.HTMLProps<Well> {
+        bsSize?: Sizes;
         bsStyle?: string;
-        className?: string;
     }
-    interface Well extends React.ReactElement<WellProps> { }
-    interface WellClass extends React.ComponentClass<WellProps> { }
-    var Well: WellClass;
-
+    class Well extends React.Component<WellProps, {}> {
+    }
 
     // <Glyphicon />
-    // ----------------------------------------
-    interface GlyphiconProps extends React.Props<GlyphiconClass> {
-        className?: string;
-        // Required 
+    interface GlyphiconProps extends React.HTMLProps<Glyphicon> {
+        // Required
         glyph: string;
     }
-    interface Glyphicon extends React.ReactElement<GlyphiconProps> { }
-    interface GlyphiconClass extends React.ComponentClass<GlyphiconProps> { }
-    var Glyphicon: GlyphiconClass;
-
+    type Glyphicon = React.ClassicComponent<GlyphiconProps, {}>;
+    var Glyphicon: React.ClassicComponentClass<GlyphiconProps>;
 
     // <Table />
-    // ----------------------------------------
-    interface TableProps extends React.Props<TableClass> {
+    interface TableProps extends React.HTMLProps<Table> {
         bordered?: boolean;
-        className?: string;
         condensed?: boolean;
         hover?: boolean;
         responsive?: boolean;
         striped?: boolean;
     }
-    interface Table extends React.ReactElement<TableProps> { }
-    interface TableClass extends React.ComponentClass<TableProps> { }
-    var Table: TableClass;
+    type Table = React.ClassicComponent<TableProps, {}>;
+    var Table: React.ClassicComponentClass<TableProps>;
 
-
-    // <Input />
-    // ----------------------------------------
-    interface InputProps extends React.Props<InputClass> {
-        addonAfter?: any; // TODO: Add more specific type
-        addonBefore?: any; // TODO: Add more specific type
-        bsSize?: string;
-        bsStyle?: string;
-        buttonAfter?: any; // TODO: Add more specific type
-        buttonBefore?: any; // TODO: Add more specific type
-        className?: string;
-        checked?: boolean;
-        disabled?: boolean;
-        feedbackIcon?: any; // TODO: Add more specific type
-        groupClassName?: string;
-        hasFeedback?: boolean;
-        help?: any; // TODO: Add more specific type
-        id?: string | number;
-        label?: any; // TODO: Add more specific type 
-        labelClassName?: string;
-        multiple?: boolean;
-        placeholder?: string;
-        readOnly?: boolean;
-        type?: string;
-        onChange?: Function; // TODO: Add more specific type 
-        onKeyDown?: Function; // TODO: Add more specific type 
-        onKeyUp?: Function; // TODO: Add more specific type 
-        onKeyPress?: Function; // TODO: Add more specific type 
-        value?: any; // TODO: Add more specific type
-        wrapperClassName?: string; 
+    // <InputGroup />
+    interface InputGroupProps extends React.HTMLProps<InputGroup> {
+        bsClass?: string;
+        bsSize?: Sizes;
     }
-    interface Input extends React.ReactElement<InputProps> { }
-    interface InputClass extends React.ComponentClass<InputProps> { }
-    var Input: InputClass;
-
-
-    // <ButtonInput />
-    // ----------------------------------------
-    interface ButtonInputProps extends React.Props<ButtonInputClass> {
-        addonAfter?: any; // TODO: Add more specific type
-        addonBefore?: any; // TODO: Add more specific type
-        bsSize?: string;
-        bsStyle?: string;
-        buttonAfter?: any; // TODO: Add more specific type
-        buttonBefore?: any; // TODO: Add more specific type
-        className?: string;
-        disabled?: boolean;
-        feedbackIcon?: any; // TODO: Add more specific type
-        groupClassName?: string;
-        hasFeedback?: boolean;
-        help?: any; // TODO: Add more specific type
-        id?: string | number;
-        label?: any; // TODO: Add more specific type 
-        labelClassName?: string;
-        multiple?: boolean;
-        onClick?: Function; // TODO: Add more specific type 
-        type?: string;
-        value?: any; // TODO: Add more specific type
-        wrapperClassName?: string; 
+    interface InputGroupClass extends React.ClassicComponentClass<InputGroupProps> {
+        Addon: typeof InputGroupAddon;
+        Button: typeof InputGroupButton;
     }
-    interface ButtonInput extends React.ReactElement<ButtonInputProps> { }
-    interface ButtonInputClass extends React.ComponentClass<ButtonInputProps> { }
-    var ButtonInput: ButtonInputClass;
+    type InputGroup = React.Component<InputGroupProps, {}>;
+    var InputGroup: InputGroupClass;
 
 
-    // TODO: FormControls.Static
-  
-  
+    // <InputGroup.Addon />
+    interface InputGroupAddonProps extends React.HTMLProps<InputGroupAddon> { }
+    type InputGroupAddon = React.ClassicComponent<InputGroupAddonProps, {}>;
+    var InputGroupAddon: React.ClassicComponentClass<InputGroupAddonProps>;
+
+
+    // <InputGroup.Button />
+    interface InputGroupButtonProps extends React.HTMLProps<InputGroupButton> { }
+    type InputGroupButton = React.ClassicComponent<InputGroupButtonProps, {}>;
+    var InputGroupButton: React.ClassicComponentClass<InputGroupButtonProps>;
+
+
+    // <Form />
+    interface FormProps extends React.HTMLProps<Form> {
+        bsClass?: string;
+        componentClass?: React.ReactType;
+        horizontal?: boolean;
+        inline?: boolean;
+    }
+    class Form extends React.Component<FormProps, {}> {}
+
+    // <FormGroup />
+    interface FormGroupProps extends React.HTMLProps<FormGroup> {
+        bsClass?: string;
+        bsSize?: Sizes;
+        controlId?: string;
+        validationState?: "success" | "warning" | "error";
+    }
+    class FormGroup extends React.Component<FormGroupProps, {}> {}
+
+    // <ControlLabel />
+    interface ControlLabelProps extends React.HTMLProps<ControlLabel> {
+        bsClass?: string;
+        htmlFor?: string;
+        srOnly?: boolean;
+    }
+    class ControlLabel extends React.Component<ControlLabelProps, {}> {}
+
+    // <FormControl />
+    interface FormControlProps extends React.HTMLProps<FormControl> {
+        bsClass?: string;
+        componentClass?: React.ReactType;
+        id?: string;
+        type?: string;
+    }
+    interface FormControlClass extends React.ClassicComponentClass<FormControlProps> {
+        Feedback: typeof FormControlFeedback;
+        Static: typeof FormControlStatic;
+    }
+    type FormControl = React.Component<FormControlProps, {}>;
+    var FormControl: FormControlClass;
+
+    // <FormControl.Feedback />
+    interface FormControlFeedbackProps extends React.HTMLProps<FormControlFeedback> {
+    }
+    class FormControlFeedback extends React.Component<FormControlFeedbackProps, {}> {
+    }
+
+    // <FormControl.Static />
+    interface FormControlStaticProps extends React.HTMLProps<FormControlStatic> {
+      bsClass?: string;
+      componentClass?: React.ReactType;
+    }
+    class FormControlStatic extends React.Component<FormControlStaticProps, {}> { }
+
+
+    // <HelpBlock />
+    interface HelpBlockProps extends React.HTMLProps<HelpBlock> {
+        bsClass?: string;
+    }
+    class HelpBlock extends React.Component<HelpBlockProps, {}> {}
+
+
+    // <Radio />
+    interface RadioProps extends React.HTMLProps<Radio> {
+        bsClass?: string;
+        disabled?: boolean;
+        inline?: boolean;
+        inputRef?: ( instance:HTMLInputElement ) => void;
+        validationState?: "success" | "warning" | "error";
+    }
+    class Radio extends React.Component<RadioProps, {}> { }
+
+
     // <Portal />
-    // ----------------------------------------
-    interface PortalProps extends React.Props<PortalClass> {
+    interface PortalProps extends React.Props<Portal> {
         dimension?: string | Function;
         getDimensionValue?: Function;
         in?: boolean;
@@ -894,48 +955,99 @@ declare module "react-bootstrap" {
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    interface Portal extends React.ReactElement<PortalProps> { }
-    interface PortalClass extends React.ComponentClass<PortalProps> { }
-    var Portal: PortalClass;
+    type Portal = React.ClassicComponent<PortalProps, {}>;
+    var Portal: React.ClassicComponentClass<PortalProps>;
 
-   
     // <Position />
-    // ----------------------------------------
-    interface PositionProps extends React.Props<PositionClass> {
+    interface PositionProps extends TransitionCallbacks, React.Props<Position> {
         dimension?: string | Function;
         getDimensionValue?: Function;
         in?: boolean;
-        onEnter?: Function;
-        onEntered?: Function;
-        onEntering?: Function;
-        onExit?: Function;
-        onExited?: Function;
-        onExiting?: Function;
         role?: string;
         timeout?: number;
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    interface Position extends React.ReactElement<PositionProps> { }
-    interface PositionClass extends  React.ComponentClass<PositionProps> { }
-    var Position: PositionClass;
-
-
-    // <Fade />
-    // ----------------------------------------
-    interface FadeProps extends React.Props<FadeClass> {
-        in?: boolean;
-        onEnter?: Function;
-        onEntered?: Function;
-        onEntering?: Function;
-        onExit?: Function;
-        onExited?: Function;
-        onExiting?: Function;
-        timeout?: number;
-        transitionAppear?: boolean;
-        unmountOnExit?: boolean;
+    class Position extends React.Component<PositionProps, {}> {
     }
-    interface Fade extends React.ReactElement<FadeProps> { }
-    interface FadeClass extends React.ComponentClass<FadeProps> { }
-    var Fade: FadeClass;
+    // <Media.Left />
+    interface MediaLeftProps {
+        align?: string;
+    }
+    type MediaLeft = React.ClassicComponent<MediaLeftProps, {}>;
+    var MediaLeft: React.ClassicComponentClass<MediaLeftProps>;
+
+    // <Media.Right />
+    interface MediaRightProps {
+        align?: string;
+    }
+    type MediaRight = React.ClassicComponent<MediaRightProps, {}>;
+    var MediaRight: React.ClassicComponentClass<MediaRightProps>;
+
+    // <Media.Heading />
+    interface MediaHeadingProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaHeading = React.ClassicComponent<MediaHeadingProps, {}>;
+    var MediaHeading: React.ClassicComponentClass<MediaHeadingProps>;
+
+    // <Media.Body />
+    interface MediaBodyProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaBody = React.ClassicComponent<MediaBodyProps, {}>;
+    var MediaBody: React.ClassicComponentClass<MediaBodyProps>;
+
+    // <Media.List />
+    interface MediaListProps {
+    }
+    type MediaList = React.ClassicComponent<MediaListProps, {}>;
+    var MediaList: React.ClassicComponentClass<MediaListProps>;
+
+    // <Media.ListItem />
+    interface MediaListItemProps {
+        componentClass?: React.ReactType;
+    }
+    type MediaListItem = React.ClassicComponent<MediaListItemProps, {}>;
+    var MediaListItem: React.ClassicComponentClass<MediaListItemProps>;
+
+    // <Media />
+    interface MediaProps extends React.HTMLProps<Media> {
+        componentClass?: React.ReactType;
+    }
+    interface MediaClass extends React.ClassicComponentClass<MediaProps> {
+        Left: typeof MediaLeft;
+        Right: typeof MediaRight;
+        Heading: typeof MediaHeading;
+        Body: typeof MediaBody;
+        List: typeof MediaList;
+        ListItem: typeof MediaListItem;
+    }
+    type Media = React.ClassicComponent<MediaProps, {}>;
+    var Media: MediaClass;
+
+    /* Utils */
+    interface bootstrapUtilsType{
+        // TODO: Implement functions
+    }
+    function createChainedFunctionType(...funcs:Function[]):Function
+    interface ValidComponentChildrenType{
+        map: (children:any,func:any,context:any) => any
+        forEach:(children:any,func:any,context:any) => any
+        count:(children:any) => number
+        filter:(children:any,func:any,context:any) => any
+        find:(children:any,func:any,context:any) => any
+        every:(children:any,func:any,context:any) => any
+        some:(children:any,func:any,context:any) => any
+        toArray:(children:any) => any
+    }
+    class utils {
+        static bootstrapUtils:bootstrapUtilsType
+        static createChainedFunction: typeof createChainedFunctionType
+        static ValidComponentChildren:ValidComponentChildrenType
+    }
+}
+
+declare module "react-bootstrap" {
+    export = ReactBootstrap;
 }

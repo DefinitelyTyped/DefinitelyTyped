@@ -1,7 +1,7 @@
 // Type definitions for node-webkit
 // Project: https://github.com/rogerwang/node-webkit
 // Definitions by: Pedro Casaubon <https://github.com/xperiments>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "nw.gui" {
 
@@ -156,7 +156,7 @@ declare module "nw.gui" {
         eval(frame: HTMLIFrameElement, script: string): void;
     }
 
-    export interface App {
+    export interface App extends EventEmitter {
         argv: any;
         fullArgv: any;
         dataPath: string;
@@ -199,7 +199,7 @@ declare module "nw.gui" {
         menu?: Menu;
     }
 
-    export class Tray implements TrayOption {
+    export class Tray extends EventEmitter implements TrayOption {
         constructor(option: TrayOption);
         title: string;
         tooltip: string;

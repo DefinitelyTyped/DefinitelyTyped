@@ -3,9 +3,9 @@
 /// <reference path="../gulp-concat/gulp-concat" />
 /// <reference path="gulp-load-plugins" />
 
-import gulp = require('gulp');
-import gulpConcat = require('gulp-concat');
-import gulpLoadPlugins = require('gulp-load-plugins');
+import * as gulp from 'gulp';
+import * as gulpConcat from 'gulp-concat';
+import * as gulpLoadPlugins from 'gulp-load-plugins';
 
 interface GulpPlugins extends IGulpPlugins {
 	concat: typeof gulpConcat;
@@ -29,8 +29,8 @@ gulp.task('taskName', () => {
 });
 
 /*
- * From 0.8.0, you can pass in an object of mappings for renaming plugins. For example, 
- * imagine you want to load the  gulp-ruby-sass  plugin, but want to refer to it as just 
+ * From 0.8.0, you can pass in an object of mappings for renaming plugins. For example,
+ * imagine you want to load the  gulp-ruby-sass  plugin, but want to refer to it as just
  *  sass :
  */
 plugins = gulpLoadPlugins<GulpPlugins>({
@@ -39,9 +39,9 @@ plugins = gulpLoadPlugins<GulpPlugins>({
 	}
 });
 /*
- * gulp-load-plugins  comes with npm scope support. The major difference is that scoped 
- * plugins are accessible through an object on  plugins  that represents the scope. For 
- * example, if the plugin is  @myco/gulp-test-plugin  then you can access the plugin as 
+ * gulp-load-plugins  comes with npm scope support. The major difference is that scoped
+ * plugins are accessible through an object on  plugins  that represents the scope. For
+ * example, if the plugin is  @myco/gulp-test-plugin  then you can access the plugin as
  * shown in the following example:
  */
 interface GulpPlugins {
@@ -49,5 +49,5 @@ interface GulpPlugins {
 		testPlugin(): NodeJS.ReadWriteStream;
 	}
 }
- 
+
 plugins.myco.testPlugin();

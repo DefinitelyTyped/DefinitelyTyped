@@ -1,7 +1,7 @@
-// Type definitions for meshblu.js 1.30.1 
+// Type definitions for meshblu.js 1.30.1
 // Project: https://github.com/octoblu/meshblu-npm
 // Definitions by: Felipe Nipo <https://github.com/fnipo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path='../node/node.d.ts' />
 
@@ -22,28 +22,28 @@ interface MeshbluStatic {
 
 }
 
-declare module Meshblu {
-	
+declare namespace Meshblu {
+
 	interface Connection {
-		
+
 		/**
 		 * Authenticate with Meshblu.
 		 * @returns This Connection.
 		 */
 		identify(): Connection;
-		
+
 		/**
-		 * @param data {string|number|object|array|Buffer} - data for signing. 
+		 * @param data {string|number|object|array|Buffer} - data for signing.
 		 */
 		sign(data: any): string;
-		
+
 		/**
 		 * @param message {string|number|object|array|Buffer} - signed data.
 		 * @param signature
 		 * @returns {*}
 		 */
 		verify(message: any, signature: any): any;
-		
+
 		/**
 		 * @param uuid
 		 * @param message {string|number|object|array|Buffer} - data for encrypting.
@@ -53,7 +53,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		encryptMessage(uuid: string, message: any, options: Meshblu.ConnectionOptions, fn:(result: any) => void): Connection;
-		
+
 		/**
 		 * Send a meshblu message.
 		 * @param payload An array of devices UUIDs.
@@ -62,7 +62,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		message(payload: MessagePayload, fn:(result: any) => void): Connection;
-		
+
 		/**
 		 * Update a device record.
 		 * @param data
@@ -70,7 +70,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		update(data: UpdateData, fn:(result: UpdateSuccess) => void): Connection;
-		
+
 		/**
 		 * Register a new device record.
 		 * @param data
@@ -78,7 +78,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		register(data: RegisterData, fn:(result: RegisterResponse) => void): Connection;
-		
+
 		/**
 		 * Removes a device record.
 		 * @param data
@@ -86,7 +86,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		unregister(data: Device, fn:(result: Device) => void): Connection;
-		
+
 		/**
 		 * Get my device info.
 		 * @param data
@@ -94,7 +94,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		whoami(data: any, fn:(result: DeviceResponse) => void): Connection;
-		
+
 		/**
 		 * Find a Meshblu device.
 		 * @param data
@@ -102,7 +102,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		device(data: Device, fn:(result: DeviceResponse) => void): Connection
-		
+
 		/**
 		 * Find Meshblu devices.
 		 * @param data
@@ -110,7 +110,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		devices(data: Color, fn:(result: DeviceResponse[]) => void): Connection
-		
+
 		/**
 		 * Returns device messages as they are sent and received.
 		 * @param data
@@ -118,7 +118,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		subscribe(data: SubscribeData, fn:(result: any) => void): Connection
-		
+
 		/**
 		 * Cancels device subscription.
 		 * @param data
@@ -126,7 +126,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		unsubscribe(data: UnsubscribeData, fn:(result: any) => void): Connection
-		
+
 		/**
 		 * Send a meshblu data message.
 		 * @param data
@@ -134,7 +134,7 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		data(data: DataInput, fn:(result: any) => void): Connection
-		
+
 		/**
 		 * Get a meshblu data for a device.
 		 * @param data
@@ -142,30 +142,30 @@ declare module Meshblu {
 		 * @returns This Connection.
 		 */
 		getdata(data: GetDataInput, fn:(result: any) => void): Connection
-		
+
 		/**
 		 * Generate a new session token for a device.
 		 * @param data
 		 * @param fn The callback to be called. It should take one parameter, result.
 		 */
 		generateAndStoreToken(data: Device, fn:(result: ConnectionOptions) => void): void
-		
+
 		/**
 		 * Remove a session token from a device.
 		 * @param data
 		 * @param fn The callback to be called. It should take one parameter, result.
 		 */
 		revokeToken(data: ConnectionOptions, fn:(result: Device) => void): void
-		
+
 		/**
-		 * 
+		 *
 		 * @param uuid
 		 * @param fn The callback to be called. It should take one parameter, err,
 		 * 	which will be null if there was no problem, and one parameter, publicKey,
 		 * 	of type NodeRSA.
 		 */
 		getPublicKey(uuid: string, fn:(err: Error, publicKey: any) => void): void;
-		
+
 		/*
 		 * Lack of documentation about these api functions.
 		 */
@@ -191,7 +191,7 @@ declare module Meshblu {
 		close(fn:(result: any) => void): Connection
 		resetToken(data: any, fn:(result: any) => void): void
 	}
-	
+
 	/**
 	 * Contains the primary means of identifying a device.
 	 */
@@ -211,7 +211,7 @@ declare module Meshblu {
 		payload: any;
 		qos?: number;
 	}
-	
+
 	interface UpdateData {
 		uuid: string;
 		color: string;
@@ -226,52 +226,52 @@ declare module Meshblu {
 	interface RegisterData {
 		type: string;
 	}
-	
+
 	interface RegisterResponse {
 		uuid: string;
 		token: string;
 		type: string;
 	}
-	
+
 	interface Device {
 		uuid: string;
 	}
-	
+
 	interface DeviceResponse {
 		uuid: string;
 		online: boolean;
 		color: string;
 	}
-	
+
 	interface Color {
 		color: string;
 	}
-	
+
 	interface SubscribeData {
 		uuid: string;
 		types?: string[];
 		topics?: string[];
 	}
-	
+
 	interface UnsubscribeData {
 		uuid: string;
 		types?: string[];
 	}
-	
+
 	interface DataInput {
 		uuid: string;
 		online: boolean;
 		x: number;
 		y: number;
 	}
-	
+
 	interface GetDataInput {
 		uuid: string;
 		start: string;
 		finish: string;
 		limit: number;
 	}
-	
+
 	interface IdentifySuccess {
 		uuid: string;
 		token: string;

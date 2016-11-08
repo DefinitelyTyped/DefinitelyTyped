@@ -1,11 +1,11 @@
 ﻿// Type definitions for YouTube Analytics API
 // Project: https://developers.google.com/youtube/analytics/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../gapi/gapi.d.ts" />
 
-declare module gapi.client.youtubeAnalytics {
+declare namespace gapi.client.youtubeAnalytics {
 
     export interface reports {
 
@@ -30,7 +30,7 @@ declare module gapi.client.youtubeAnalytics {
              */
             metrics: string;
             /**
-             * A comma-separated list of YouTube Analytics dimensions, such as views or ageGroup,gender. 
+             * A comma-separated list of YouTube Analytics dimensions, such as views or ageGroup,gender.
              */
             dimensions?: string;
             /**

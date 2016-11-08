@@ -22,7 +22,7 @@ test_apis();
 
 function test_apis() {
 	var webapi: webapim.WebApi = new webapim.WebApi('http://serverfoobar.com', webapim.getBasicHandler('fooser', 'barssword'));
-	
+
 	var buildapi: buildm.IBuildApi = webapi.getBuildApi();
 	var qbuildapi: buildm.IQBuildApi = webapi.getQBuildApi();
 	var coreapi: corem.ICoreApi = webapi.getCoreApi();
@@ -43,14 +43,14 @@ function test_apis() {
 	var qtfvcapi: tfvcm.IQTfvcApi = webapi.getQTfvcApi();
 	var witapi: workitemtrackingm.IWorkItemTrackingApi = webapi.getWorkItemTrackingApi();
 	var qwitapi: workitemtrackingm.IQWorkItemTrackingApi = webapi.getQWorkItemTrackingApi();
-	
+
 	var apis: basem.ClientApiBase[] = [buildapi, coreapi, filecontainerapi, galleryapi, gitapi, taskapi, agentapi, testapi, tfvcapi, witapi];
 	var qapis: basem.QClientApiBase[] = [qbuildapi, qcoreapi, qfilecontainerapi, qgalleryapi, qgitapi, qtaskapi, qagentapi, qtestapi, qtfvcapi, qwitapi];
-	
-	for(var api in apis) {
+
+	for(var api of apis) {
 		console.log('API user agent name: ' + api.userAgent);
 	}
-	for(var qapi in qapis) {
+	for(var qapi of qapis) {
 		console.log('Q API user agent name: ' + qapi.api.userAgent);
 	}
 }

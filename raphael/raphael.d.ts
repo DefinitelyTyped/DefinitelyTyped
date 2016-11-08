@@ -1,7 +1,7 @@
 // Type definitions for Raphael 2.1
 // Project: http://raphaeljs.com
 // Definitions by: CheCoxshall <https://github.com/CheCoxshall>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 interface BoundingBox {
@@ -19,7 +19,9 @@ interface RaphaelAnimation {
 }
 
 interface RaphaelFont {
-
+    w:number;
+    face:any;
+    glyphs:any;
 }
 
 interface RaphaelElement {
@@ -62,6 +64,7 @@ interface RaphaelElement {
     remove(): void;
     removeData(key?: string): RaphaelElement;
     resume(anim?: RaphaelAnimation): RaphaelElement;
+    rotate(deg: number, cx?: number, cy?: number): RaphaelElement;
     setTime(anim: RaphaelAnimation): void;
     setTime(anim: RaphaelAnimation, value: number): RaphaelElement;
     show(): RaphaelElement;
@@ -208,7 +211,7 @@ interface RaphaelPaper {
     getFont(family: string, weight?: number, style?: string, stretch?: string): RaphaelFont;
     height: number;
     image(src: string, x: number, y: number, width: number, height: number): RaphaelElement;
-    path(pathString?: string): RaphaelPath;
+    path(pathString?: string | (string | number)[]): RaphaelPath;
     print(x: number, y: number, str: string, font: RaphaelFont, size?: number, origin?: string, letter_spacing?: number): RaphaelPath;
     rect(x: number, y: number, width: number, height: number, r?: number): RaphaelElement;
     remove(): void;
@@ -291,3 +294,6 @@ interface RaphaelStatic {
 }
 
 declare var Raphael: RaphaelStatic;
+declare module "raphael" {
+    export = Raphael;
+}

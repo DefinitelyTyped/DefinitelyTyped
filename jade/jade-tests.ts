@@ -1,6 +1,6 @@
 /// <reference path="jade.d.ts"/>
 
-import jade from 'jade';
+import * as jade from 'jade';
 
 jade.compile("b")();
 jade.compileFile("foo.jade", {})();

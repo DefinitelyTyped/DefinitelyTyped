@@ -1,9 +1,9 @@
 // Type definitions for jsUri 1.3+
 // Project: https://github.com/derek-watson/jsUri
 // Definitions by: Chris Charabaruk <http://github.com/coldacid>, Florian Wagner <http://github.com/flqw>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module jsuri {
+declare namespace jsuri {
   type Primitive = string | number | boolean;
 
   export class Uri {

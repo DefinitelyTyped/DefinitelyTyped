@@ -1,12 +1,12 @@
 // Type definitions for sinon-chai 2.7.0
 // Project: https://github.com/domenic/sinon-chai
 // Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, Jed Mao <https://github.com/jedmao/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../chai/chai.d.ts" />
 /// <reference path="../sinon/sinon.d.ts" />
 
-declare module Chai {
+declare namespace Chai {
 
     interface LanguageChains {
         always: Assertion;
@@ -80,5 +80,6 @@ declare module Chai {
 
 declare module "sinon-chai" {
     function sinonChai(chai: any, utils: any): void;
+    namespace sinonChai { }
     export = sinonChai;
 }

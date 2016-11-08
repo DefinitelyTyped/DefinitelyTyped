@@ -1,24 +1,36 @@
 /// <reference path="stacktrace-js.d.ts" />
 
-function interestingFn() {
+function interestingFn(): string {
     return 'https://github.com/exceptionless/Exceptionless';
 }
 
-var callback = function(stackframes:StackTrace.StackFrame[]) {
-    var stringifiedStack = stackframes.map(function(sf:StackTrace.StackFrame) {
+const callback = (stackframes: StackTrace.StackFrame[]) => {
+    const stringifiedStack = stackframes.map((sf: StackTrace.StackFrame): string => {
+        console.log(sf.functionName);
+        console.log(sf.args);
+        console.log(sf.fileName);
+        console.log(sf.lineNumber);
+        console.log(sf.columnNumber);
+        console.log(sf.source);
+        console.log(sf.isEval);
+        console.log(sf.isNative);
         return sf.toString();
     }).join('\n');
     console.log(stringifiedStack);
 };
 
-var errorCallback = function(err:Error) { console.log(err.message); };
+const errorCallback = (err: Error) => console.log(err.message);
+const logger = (stackframes: StackTrace.StackFrame[]) => console.log(stackframes);
+const options: StackTrace.StackTraceOptions = {
+    filter: (stackframe: StackTrace.StackFrame) => true,
+    sourceCache: {},
+    offline: false
+};
+const error = new Error('BOOM!');
 
-StackTrace.get();
+StackTrace.get(options).then(logger);
+StackTrace.fromError(error, options).then(logger);
+StackTrace.generateArtificially(options).then(logger);
 
-// Somewhere else...
-var error = new Error('BOOM!');
-StackTrace.fromError(error);
-StackTrace.generateArtificially();
-
-StackTrace.instrument(interestingFn, callback, errorCallback);
-StackTrace.deinstrument(interestingFn);
+const instrumented: () => string = StackTrace.instrument(interestingFn, callback, errorCallback);
+const original: () => string = StackTrace.deinstrument(interestingFn);

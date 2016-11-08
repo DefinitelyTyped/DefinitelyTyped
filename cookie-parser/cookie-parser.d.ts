@@ -1,7 +1,7 @@
 // Type definitions for cookie-parser v1.3.4
 // Project: https://github.com/expressjs/cookie-parser
 // Definitions by: Santi Albo <https://github.com/santialbo/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../express/express.d.ts" />
 

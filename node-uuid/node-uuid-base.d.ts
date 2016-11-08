@@ -1,7 +1,7 @@
 // Type definitions for node-uuid.js
 // Project: https://github.com/broofa/node-uuid
 // Definitions by: Jeff May <https://github.com/jeffmay>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Common definitions for all environments */
 declare namespace __NodeUUID {
@@ -35,12 +35,6 @@ declare namespace __NodeUUID {
     interface UUID {
         v1(options?: UUIDOptions): string;
         v1(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
-
-        v2(options?: UUIDOptions): string;
-        v2(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
-
-        v3(options?: UUIDOptions): string;
-        v3(options?: UUIDOptions, buffer?: number[], offset?: number): number[];
 
         v4(options?: UUIDOptions): string;
         v4(options?: UUIDOptions, buffer?: number[], offset?: number): number[];

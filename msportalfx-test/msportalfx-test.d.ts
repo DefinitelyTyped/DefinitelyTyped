@@ -1,11 +1,11 @@
 // Type definitions for msportalfx-test
 // Project: https://msazure.visualstudio.com/DefaultCollection/AzureUX/_git/portalfx-msportalfx-test
 // Definitions by: Julio Casal <https://github.com/julioct>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../q/Q.d.ts" />
 
-declare module MsPortalTestFx {
+declare namespace MsPortalTestFx {
 
     export module Locators {
         export class Locator {
@@ -97,7 +97,7 @@ declare module MsPortalTestFx {
             pickSpec(specCode: string): Q.Promise<void>;
         }
 
-        export class QuickStartBlade extends Blade {            
+        export class QuickStartBlade extends Blade {
             constructor();
             clickLink(linkText: string): Q.Promise<void>;
         }

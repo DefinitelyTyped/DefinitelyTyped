@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.0 (ngResource module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="angular-1.0.d.ts" />
 
@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // ngResource module (angular-resource.js)
 ///////////////////////////////////////////////////////////////////////////////
-declare module ng.resource {
+declare namespace ng.resource {
 
     ///////////////////////////////////////////////////////////////////////////
     // ResourceService
@@ -20,7 +20,7 @@ declare module ng.resource {
     ///////////////////////////////////////////////////////////////////////////
     interface IResourceService {
     	(url: string, paramDefaults?: any,
-			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor } 
+			/** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
 			where deleteDescriptor : IActionDescriptor */
 			actionDescriptors?: any): IResourceClass;
     }
@@ -73,7 +73,7 @@ declare module ng.resource {
 }
 
 /** extensions to base ng based on using angular-resource */
-declare module ng {
+declare namespace ng {
 
     interface IModule {
         /** creating a resource service factory */

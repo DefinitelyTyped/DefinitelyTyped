@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Maps {
     /**
      * An enum representing the types of restrictions to avoid when finding directions.
@@ -20,11 +20,11 @@ declare module GoogleAppsScript {
 
     /**
      * Allows for the retrieval of directions between locations.
-     *  
+     *
      *  The example below shows how you can use this class to get the directions from Times Square to
      *  Central Park, stopping first at Lincoln Center, plot the locations and path on a map,
      *  and send the map in an email.
-     * 
+     *
      *      // Get the directions.
      *      var directions = Maps.newDirectionFinder()
      *          .setOrigin('Times Square, New York, NY')
@@ -33,12 +33,12 @@ declare module GoogleAppsScript {
      *          .setMode(Maps.DirectionFinder.Mode.DRIVING)
      *          .getDirections();
      *      var route = directions.routes[0];
-     *     
+     *
      *      // Set up marker styles.
      *      var markerSize = Maps.StaticMap.MarkerSize.MID;
      *      var markerColor = Maps.StaticMap.Color.GREEN
      *      var markerLetterCode = 'A'.charCodeAt();
-     *     
+     *
      *      // Add markers to the map.
      *      var map = Maps.newStaticMap();
      *      for (var i = 0; i < route.legs.length; i++) {
@@ -53,10 +53,10 @@ declare module GoogleAppsScript {
      *        map.addMarker(leg.end_location.lat, leg.end_location.lng);
      *        markerLetterCode++;
      *      }
-     *     
+     *
      *      // Add a path for the entire route.
      *      map.addPath(route.overview_polyline.points);
-     *     
+     *
      *      // Send the map in an email.
      *      var toAddress = Session.getActiveUser().getEmail();
      *      MailApp.sendEmail(toAddress, 'Directions', 'Please open: ' + map.getMapUrl(), {
@@ -65,9 +65,9 @@ declare module GoogleAppsScript {
      *          mapImage: Utilities.newBlob(map.getMapImage(), 'image/png')
      *        }
      *      });
-     * 
+     *
      * See also
-     * 
+     *
      * Google Directions API
      */
     export interface DirectionFinder {
@@ -99,10 +99,10 @@ declare module GoogleAppsScript {
 
     /**
      * Allows for the sampling of elevations at particular locations.
-     *  
+     *
      *  The example below shows how you can use this class to determine the highest point along the route
      *  from Denver to Grand Junction in Colorado, plot it on a map, and save the map to Google Drive.
-     * 
+     *
      *      // Get directions from Denver to Grand Junction.
      *      var directions = Maps.newDirectionFinder()
      *          .setOrigin('Denver, CO')
@@ -110,12 +110,12 @@ declare module GoogleAppsScript {
      *          .setMode(Maps.DirectionFinder.Mode.DRIVING)
      *          .getDirections();
      *      var route = directions.routes[0];
-     *     
+     *
      *      // Get elevation samples along the route.
      *      var numberOfSamples = 30;
      *      var response = Maps.newElevationSampler()
      *          .samplePath(route.overview_polyline.points, numberOfSamples)
-     *     
+     *
      *      // Determine highest point.
      *      var maxElevation = Number.MIN_VALUE;
      *      var highestPoint = null;
@@ -126,17 +126,17 @@ declare module GoogleAppsScript {
      *          highestPoint = sample.location;
      *        }
      *      }
-     *     
+     *
      *      // Add the path and marker to a map.
      *      var map = Maps.newStaticMap()
      *          .addPath(route.overview_polyline.points)
      *          .addMarker(highestPoint.lat, highestPoint.lng);
-     *     
+     *
      *      // Save the map to your drive
      *      DocsList.createFile(Utilities.newBlob(map.getMapImage(), 'image/png', 'map.png'));
-     * 
+     *
      * See also
-     * 
+     *
      * Google Elevation API
      */
     export interface ElevationSampler {
@@ -150,27 +150,27 @@ declare module GoogleAppsScript {
     /**
      * An enum representing the format of the map image.
      * See also
-     * 
+     *
      * Google Static Maps API
      */
     export enum Format { PNG, PNG8, PNG32, GIF, JPG, JPG_BASELINE }
 
     /**
      * Allows for the conversion between an address and geographical coordinates.
-     *  
+     *
      *  The example below shows how you can use this class find the top nine matches for the location
      *  "Main St" in Colorado, add them to a map, and then embed it in a new Google Doc.
-     * 
+     *
      *      // Find the best matches for "Main St" in Colorado.
      *      var response = Maps.newGeocoder()
      *          // The latitudes and longitudes of southwest and northeast corners of Colorado, respectively.
      *          .setBounds(36.998166, -109.045486, 41.001666,-102.052002)
      *          .geocode('Main St');
-     *     
+     *
      *      // Create a Google Doc and map.
      *      var doc = DocumentApp.create('My Map');
      *      var map = Maps.newStaticMap();
-     *     
+     *
      *      // Add each result to the map and doc.
      *      for (var i = 0; i < response.results.length && i < 9; i++) {
      *        var result = response.results[i];
@@ -178,12 +178,12 @@ declare module GoogleAppsScript {
      *        map.addMarker(result.geometry.location.lat, result.geometry.location.lng);
      *        doc.appendListItem(result.formatted_address);
      *      }
-     *     
+     *
      *      // Add the finished map to the doc.
      *      doc.appendImage(Utilities.newBlob(map.getMapImage(), 'image/png'));
-     * 
+     *
      * See also
-     * 
+     *
      * Google Geocoding API
      */
     export interface Geocoder {
@@ -214,7 +214,7 @@ declare module GoogleAppsScript {
     /**
      * An enum representing the size of a marker added to a map.
      * See also
-     * 
+     *
      * Google Static Maps API
      */
     export enum MarkerSize { TINY, MID, SMALL }
@@ -226,21 +226,21 @@ declare module GoogleAppsScript {
 
     /**
      * Allows for the creation and decoration of static map images.
-     *  
+     *
      *  The example below shows how you can use this class to create a map of New York City's Theatre
      *  District, including nearby train stations, and display it in a simple web app.
-     * 
+     *
      *      function doGet(event) {
      *        // Create a map centered on Times Square.
      *        var map = Maps.newStaticMap()
      *            .setSize(600, 600)
      *            .setCenter('Times Square, New York, NY');
-     *     
+     *
      *        // Add markers for the nearbye train stations.
      *        map.setMarkerStyle(Maps.StaticMap.MarkerSize.MID, Maps.StaticMap.Color.RED, 'T');
      *        map.addMarker('Grand Central Station, New York, NY');
      *        map.addMarker('Penn Station, New York, NY');
-     *     
+     *
      *        // Show the boundaries of the Theatre District.
      *        var corners = [
      *          '8th Ave & 53rd St, New York, NY',
@@ -253,15 +253,15 @@ declare module GoogleAppsScript {
      *        for (var i = 0; i < corners.length; i++) {
      *          map.addAddress(corners[i]);
      *        }
-     *     
+     *
      *        // Create the user interface and add the map image.
      *        var app = UiApp.createApplication().setTitle('NYC Theatre District');
      *        app.add(app.createImage(map.getMapUrl()));
      *        return app;
      *      }
-     * 
+     *
      * See also
-     * 
+     *
      * Google Static Maps API
      */
     export interface StaticMap {
@@ -308,7 +308,7 @@ declare module GoogleAppsScript {
     /**
      * An enum representing the type of map to render.
      * See also
-     * 
+     *
      * Google Static Maps API
      */
     export enum Type { ROADMAP, SATELLITE, TERRAIN, HYBRID }

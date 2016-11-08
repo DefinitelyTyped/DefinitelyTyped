@@ -6,7 +6,7 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Utilities {
     /**
      * A typesafe enum for character sets.

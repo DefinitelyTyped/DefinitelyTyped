@@ -6,17 +6,17 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module HTML {
     /**
      * An HtmlOutput object that can be served from a script. Due to security considerations,
      *  scripts cannot directly return HTML to a browser. Instead, they must sanitize it so that it
      *  cannot perform malicious actions. You can return sanitized HTML like this:
-     * 
+     *
      *      function doGet() {
      *        return HtmlService.createHtmlOutput('<b>Hello, world!</b>');
      *      }
-     * 
+     *
      * HtmlOutput
      * Google Caja
      * guide to restrictions in HTML service
@@ -41,7 +41,7 @@ declare module GoogleAppsScript {
 
     /**
      * Service for returning HTML and other text content from a script.
-     * 
+     *
      * Due to security considerations, scripts cannot directly return content to a browser. Instead,
      *  they must sanitize the HTML so that it cannot perform malicious actions. See the description of
      *  HtmlOutput for what limitations this implies on what can be returned.
@@ -73,7 +73,7 @@ declare module GoogleAppsScript {
      * An enum representing the sandbox modes that can be used for client-side HtmlService
      *  scripts. These values can be accessed from HtmlService.SandboxMode, and set by calling
      *  HtmlOutput.setSandboxMode(mode).
-     * 
+     *
      * To protect users from being served malicious HTML or JavaScript, client-side code served from
      *  HTML service executes in a security sandbox that imposes restrictions on the code. The method
      *  HtmlOutput.setSandboxMode(mode) allows script authors to choose between
@@ -88,13 +88,13 @@ declare module GoogleAppsScript {
      *  mode, most notably Internet Explorer 9. NATIVE mode is the middle ground. If
      *  NATIVE mode is set but not supported in the user's browser, the sandbox mode falls back
      *  to EMULATED mode for that user.
-     * 
+     *
      *      // Serve HTML with a defined sandbox mode (in Apps Script server-side code).
      *      var output = HtmlService.createHtmlOutput('<b>Hello, world!</b>');
      *      output.setSandboxMode(HtmlService.SandboxMode.IFRAME);
-     * 
+     *
      * google.script.sandbox.mode
-     * 
+     *
      *      <!-- Read the sandbox mode (in a client-side script). -->
      *      <script>
      *        alert(google.script.sandbox.mode);

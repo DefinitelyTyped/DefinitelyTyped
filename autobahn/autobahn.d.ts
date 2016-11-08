@@ -1,12 +1,11 @@
 // Type definitions for AutobahnJS v0.9.6
 // Project: http://autobahn.ws/js/
 // Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../when/when.d.ts" />
-/// <reference path="../jquery/jquery.d.ts" />
 
-declare module autobahn {
+declare namespace autobahn {
 
     export class Session {
         id: number;
@@ -46,7 +45,7 @@ declare module autobahn {
 
     interface IInvocation {
         caller?: number;
-        progress?: boolean;
+        progress?: (args : any[], kwargs : any) => void;
         procedure: string;
     }
 
@@ -164,6 +163,7 @@ declare module autobahn {
     }
 
     interface IPublishOptions {
+        acknowledge?: boolean;
         exclude?: number[];
         eligible?: number[];
         disclose_me?: Boolean;
@@ -182,7 +182,7 @@ declare module autobahn {
 
         open(): void;
 
-        close(reason: string, message: string): void;
+        close(reason?: string, message?: string): void;
 
         onopen: (session: Session, details: any) => void;
         onclose: (reason: string, details: any) => boolean;
@@ -194,7 +194,7 @@ declare module autobahn {
         type: string;
     }
 
-    type DeferFactory = () => JQueryPromise<any>;
+    type DeferFactory = () => When.Promise<any>;
 
     type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
 
@@ -211,7 +211,7 @@ declare module autobahn {
         retry_delay_jitter?: number;
         url?: string;
         protocols?: string[];
-        onchallenge?: (session: Session, method: string, extra: any) => OnChallengeHandler;
+        onchallenge?: OnChallengeHandler;
         realm?: string;
         authmethods?: string[];
         authid?: string;

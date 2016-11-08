@@ -1,12 +1,11 @@
 // Type definitions for Alt 0.16.10
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../react/react.d.ts"/>
-///<reference path="../es6-promise/es6-promise.d.ts" />
 
-declare module AltJS {
+declare namespace AltJS {
 
   interface StoreReduce {
     action:any;
@@ -54,8 +53,8 @@ declare module AltJS {
   export type Source = {[name:string]: () => SourceModel<any>};
 
   export interface SourceModel<S> {
-    local(state:any):any;
-    remote(state:any):Promise<S>;
+    local(state:any, ...args: any[]):any;
+    remote(state:any, ...args: any[]):Promise<S>;
     shouldFetch?(fetchFn:(...args:Array<any>) => boolean):void;
     loading?:(args:any) => void;
     success?:(state:S) => void;

@@ -1,11 +1,11 @@
 // Type definitions for better-curry
 // Project: https://github.com/pocesar/js-bettercurry
 // Definitions by: Paulo Cesar <https://github.com/pocesar>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var BetterCurry: BetterCurryModule.BetterCurry;
 
-declare module BetterCurryModule {
+declare namespace BetterCurryModule {
 
     export interface DelegateOptions {
         as?: string;

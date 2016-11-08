@@ -1,7 +1,7 @@
 // Type definitions for React v0.13.3 (namespace)
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="react-0.13.3.d.ts" />
 
@@ -128,7 +128,7 @@ declare namespace __React {
         totalTime: number;
     }
 
-    module ReactPerf {
+    namespace ReactPerf {
         export function start(): void;
         export function stop(): void;
         export function printInclusive(measurements: Measurements[]): void;
@@ -146,7 +146,7 @@ declare namespace __React {
         new(): any;
     }
 
-    module ReactTestUtils {
+    namespace ReactTestUtils {
         export import Simulate = ReactSimulate;
 
         export function renderIntoDocument<P>(
@@ -240,7 +240,7 @@ declare namespace __React {
         (component: Component<any, any>, eventData?: SyntheticEventData): void;
     }
 
-    module ReactSimulate {
+    namespace ReactSimulate {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;

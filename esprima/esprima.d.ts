@@ -1,11 +1,11 @@
 // Type definitions for Esprima v2.1.0
 // Project: http://esprima.org
 // Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../estree/estree.d.ts" />
 
-declare module esprima {
+declare namespace esprima {
 
     const version: string;
 
@@ -30,6 +30,7 @@ declare module esprima {
         attachComment?: boolean;
         tolerant?: boolean;
         source?: boolean;
+        sourceType?: 'script' | 'module';
     }
 
     const Syntax: {
@@ -71,6 +72,7 @@ declare module esprima {
         LabeledStatement: string,
         LogicalExpression: string,
         MemberExpression: string,
+        MetaProperty: string,
         MethodDefinition: string,
         NewExpression: string,
         ObjectExpression: string,

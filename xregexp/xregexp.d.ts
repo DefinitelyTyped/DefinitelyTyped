@@ -2,14 +2,14 @@
 // Project: http://xregexp.com
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>,
 //                 Johannes Fahrenkrug <https://github.com/jfahrenkrug>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'xregexp' {
 
 	function OuterXRegExp(pattern: string, flags?: string): RegExp;
 	function OuterXRegExp(pattern: RegExp): RegExp;
 
-	module OuterXRegExp {
+	namespace OuterXRegExp {
 		// scopes: 'default', 'class', or 'all'
 		/*
 		 Native flags:
@@ -87,7 +87,7 @@ declare module 'xregexp' {
 		var version: string;
 		// end API definitions
 
-		module XRegExp {
+		namespace XRegExp {
 			// begin API definitions
 			function addToken(regex: RegExp, handler: (matchArr: RegExpExecArray, scope: string) => string, options?: TokenOpts): void;
 

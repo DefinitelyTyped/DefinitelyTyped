@@ -1,11 +1,11 @@
 // Type definitions for jQuery Knob 1.2.11
 // Project: http://anthonyterrien.com/knob/
 // Definitions by: Iain Buchanan <https://github.com/iain8/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts" />
 
-declare module JQueryKnob {
+declare namespace JQueryKnob {
 	export interface JQueryKnobOptions {
 		/**
 		 * min value | default=0
@@ -40,8 +40,8 @@ declare module JQueryKnob {
 		 */
 		rotation?: string;
 		/**
-		 * display mode "cursor", cursor size could be changed passing a 
-		 * numeric value to the option, default width is used when passing 
+		 * display mode "cursor", cursor size could be changed passing a
+		 * numeric value to the option, default width is used when passing
 		 * boolean value "true" | default=gauge
 		 */
 		cursor?: string | boolean;

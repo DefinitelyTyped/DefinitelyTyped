@@ -216,6 +216,7 @@ moment().isBetween(moment(), moment());
 moment().isBetween(new Date(), new Date());
 moment().isBetween([1,1,2000], [1,1,2001], "year");
 
+moment().localeData().firstDayOfWeek();
 moment.localeData('fr');
 moment(1316116057189).fromNow();
 
@@ -315,6 +316,10 @@ moment.locale('en', {
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
             (b === 3) ? 'rd' : 'th';
+    },
+    week: {
+        dow: 1,
+        doy: 4
     }
 });
 

@@ -1,7 +1,7 @@
 // Type definitions for Libxmljs v0.14.2
 // Project: https://github.com/polotek/libxmljs
 // Definitions by: François de Campredon <https://github.com/fdecampredon>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 

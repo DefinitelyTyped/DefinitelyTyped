@@ -1,7 +1,7 @@
 ﻿// Type definitions for ftp 0.3.8
 // Project: https://github.com/mscdex/node-ftp
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 
@@ -10,7 +10,7 @@ declare module "ftp" {
 	import events = require("events");
 	import tls = require("tls");
 
-	module Client {
+	namespace Client {
 
 		/**
 		 * Options for Client#connect()

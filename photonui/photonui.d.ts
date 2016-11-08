@@ -1,11 +1,11 @@
 // Type definitions for PhotonUI v1.0.0
 // Project: https://github.com/wanadev/PhotonUI
 // Definitions by: Florent Poujol <https://github.com/florentpoujol/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module photonui {
+declare namespace photonui {
     // Base
-    module Helpers {
+    namespace Helpers {
         function escapeHtml(string: string): void;
         function uuid4(): string;
         function cleanNode(node: HTMLElement): void;
@@ -18,7 +18,7 @@ declare module photonui {
         destroy(): void;
         registerCallback(id: string, wEvent: string, callback: Function, thisArg: any): void;
         removeCallback(id: string): void;
-    }  
+    }
 
     class Widget extends Base {
         absolutePosition: { x: number; y: number; }; // readonly
@@ -54,7 +54,7 @@ declare module photonui {
         acceptedMimes: string[];
         dropZone: HTMLElement;
         multiselect: boolean;
-        
+
         open(): void;
     }
 
@@ -77,10 +77,10 @@ declare module photonui {
     class MouseManager extends Base {
         constructor(params?: { [key: string]: any });
         constructor(element?: Widget|HTMLElement, params?: { [key: string]: any });
-        
+
         element: HTMLElement;
         threshold: number;
-        
+
         action: string; // readonly
         btnLeft: boolean; // readonly
         btnMiddle: boolean; // readonly
@@ -136,7 +136,7 @@ declare module photonui {
         getIconCSS(iconName: string): string;
 
         static getSpriteSheet(name: string): SpriteSheet;
-    } 
+    }
 
     class Canvas extends Widget {
         canvas: HTMLElement;
@@ -182,11 +182,11 @@ declare module photonui {
     class Button extends Widget {
         appearance: string; //  normal | flat
         buttonColor: string;
-        
+
         leftIconName: string;
         leftIcon: BaseIcon;
         leftIconVisible: boolean;
-        
+
         rightIconName: string;
         rightIcon: BaseIcon;
         rightIconVisible: boolean;
@@ -372,7 +372,7 @@ declare module photonui {
     }
 
     // -----------------------------------
-    
+
     class BaseWindow extends Container {
         width: number;
         minWidth: number;

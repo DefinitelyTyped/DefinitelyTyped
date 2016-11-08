@@ -58,4 +58,8 @@ app.controller("Ctrl", ($scope:angular.IScope,
     growlMessages.destroyAllMessages(0);
     growlMessages.addMessage(messages[0]);
     growlMessages.deleteMessage(messages[1]);
+    
+    var testMessage = growl.warning(message);
+    testMessage.setText("Some other message");
+    testMessage.destroy();
 });

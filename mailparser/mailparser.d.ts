@@ -1,13 +1,15 @@
 // Type definitions for mailparser v0.5.2
 // Project: https://www.npmjs.com/package/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path='../node/node.d.ts' />
 
 
 declare module 'mailparser' {
+    import StreamModule = require("stream");
+    import Stream = StreamModule.Stream;
     import WritableStream = NodeJS.WritableStream;
     import EventEmitter = NodeJS.EventEmitter;
 
@@ -36,6 +38,7 @@ declare module 'mailparser' {
         generatedFileName: string;   // e.g. 'image.png'
         checksum: string;  // the md5 hash of the file, e.g. 'e4cef4c6e26037bcf8166905207ea09b'
         content: Buffer;   // possibly a SlowBuffer
+        stream: Stream; // a stream to read the attachment if streamAttachments is set to true 
     }
     
     // emitted with the 'end' event
@@ -57,10 +60,10 @@ declare module 'mailparser' {
     
 
 
-    class MailParser implements WritableStream {
-        constructor(options? : Options);
-        on(event : string, callback : (any : any) => void) : void;
-        
+    class MailParser extends StreamModule.Writable {
+        constructor(options?: Options);
+        on(event: string, callback: (any: any) => void): this;
+
         // from WritableStream
         writable: boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -70,17 +73,18 @@ declare module 'mailparser' {
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
-        
+
         // from EventEmitter
         static listenerCount(emitter: EventEmitter, event: string): number;
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
-        setMaxListeners(n: number): void;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
+        setMaxListeners(n: number): this;
+        getMaxListeners(): number;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
+        listenerCount(type: string): number;
     }
 }
-

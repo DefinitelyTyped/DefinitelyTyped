@@ -1,9 +1,9 @@
 // Type definitions for sigma.js v1.0.3
 // Project: https://github.com/jacomyal/sigma.js
 // Definitions by: Qinfeng Chen <https://github.com/qinfchen>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module SigmaJs{
+declare namespace SigmaJs{
     interface Animation {
         camera(camera: Camera, target: { [index: string]: any }, options: { [index: string]: any }): number;
     }

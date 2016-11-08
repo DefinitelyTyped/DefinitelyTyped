@@ -1,102 +1,109 @@
-// Type definitions for EventEmitter3 0.1.6
+// Type definitions for EventEmitter3 1.2.0
 // Project: https://github.com/primus/eventemitter3
-// Definitions by: Yuichi Murata <https://github.com/mrk21>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Yuichi Murata <https://github.com/mrk21>, Leon Yu <https://github.com/leonyu>, Boriss Nazarovs <https://github.com/Stubb0rn>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module EventEmitter3 {
-    // __Base is hack for https://github.com/Microsoft/TypeScript/issues/3602
-    class __Base {
-        /**
-         * Minimal EventEmitter interface that is molded against the Node.js
-         * EventEmitter interface.
-         *
-         * @constructor
-         * @api public
-         */
+declare namespace EventEmitter3 {
+    /**
+     * Minimal EventEmitter interface that is molded against the Node.js
+     * EventEmitter interface.
+     */
+    class EventEmitter {
         constructor();
 
         /**
-         * Return a list of assigned event listeners.
+         * Return an array listing the events for which the emitter has registered listeners.
          *
-         * @param {String} event The events that should be listed.
-         * @returns {Array}
-         * @api public
+         * @returns {(string|symbol)[]}
          */
-        listeners(event: string): Function[];
+        eventNames(): (string|symbol)[];
 
         /**
-         * Emit an event to all registered event listeners.
+         * Return the listeners registered for a given event.
          *
-         * @param {String} event The name of the event.
-         * @returns {Boolean} Indication if we've emitted an event.
-         * @api public
+         * @param {(string|symbol)} event The event name.
+         * @returns {Function[]}
          */
-        emit(event: string, ...args: any[]): boolean;
+        listeners(event: string|symbol): Function[];
 
         /**
-         * Register a new EventListener for the given event.
+         * Check if there listeners for a given event.
+         * If `exists` argument is not `true` lists listeners.
          *
-         * @param {String} event Name of the event.
-         * @param {Functon} fn Callback function.
-         * @param {Mixed} context The context of the function.
-         * @api public
+         * @param {(string|symbol)} event The event name.
+         * @param {boolean} exists Only check if there are listeners.
+         * @returns {boolean}
          */
-        on(event: string, fn: Function, context?: any): EventEmitter;
+        listeners(event: string|symbol, exists: boolean): boolean;
 
         /**
-         * Add an EventListener that's only called once.
+         * Calls each of the listeners registered for a given event.
          *
-         * @param {String} event Name of the event.
-         * @param {Function} fn Callback function.
-         * @param {Mixed} context The context of the function.
-         * @api public
+         * @param {(string|symbol)} event The event name.
+         * @param {...*} args Arguments that are passed to registered listeners
+         * @returns {boolean} `true` if the event had listeners, else `false`.
          */
-        once(event: string, fn: Function, context?: any): EventEmitter;
+        emit(event: string|symbol, ...args: any[]): boolean;
 
         /**
-         * Remove event listeners.
+         * Add a listener for a given event.
          *
-         * @param {String} event The event we want to remove.
-         * @param {Function} fn The listener that we need to find.
-         * @param {Boolean} once Only remove once listeners.
-         * @api public
+         * @param {(string|symbol)} event The event name.
+         * @param {Function} fn The listener function.
+         * @param {*} [context=this] The context to invoke the listener with.
+         * @returns {EventEmitter} `this`.
          */
-        removeListener(event: string, fn: Function, once?: boolean): EventEmitter;
+        on(event: string|symbol, fn: Function, context?: any): this;
 
         /**
-         * Remove all listeners or only the listeners for the specified event.
+         * Add a one-time listener for a given event.
          *
-         * @param {String} event The event want to remove all listeners for.
-         * @api public
+         * @param {(string|symbol)} event The event name.
+         * @param {Function} fn The listener function.
+         * @param {*} [context=this] The context to invoke the listener with.
+         * @returns {EventEmitter} `this`.
          */
-        removeAllListeners(event: string): EventEmitter;
+        once(event: string|symbol, fn: Function, context?: any): this;
 
-        //
-        // Alias methods names because people roll like that.
-        //
-        off(event: string, fn: Function, once?: boolean): EventEmitter;
-        addListener(event: string, fn: Function, context?: any): EventEmitter;
+        /**
+         * Remove the listeners of a given event.
+         *
+         * @param {(string|symbol)} event The event name.
+         * @param {Function} fn Only remove the listeners that match this function.
+         * @param {*} context Only remove the listeners that have this context.
+         * @param {boolean} once Only remove one-time listeners.
+         * @returns {EventEmitter} `this`.
+         */
+        removeListener(event: string|symbol, fn?: Function, context?: any, once?: boolean): this;
 
-        //
-        // This function doesn't apply anymore.
-        //
-        setMaxListeners(): EventEmitter;
-    }
-    export class EventEmitter extends __Base { }
-    export module EventEmitter {
-        //
-        // Expose the module.
-        //
-        export class EventEmitter extends __Base {}
-        export class EventEmitter2 extends __Base {}
-        export class EventEmitter3 extends __Base {}
+        /**
+         * Remove all listeners, or those of the specified event.
+         *
+         * @param {(string|symbol)} event The event name.
+         * @returns {EventEmitter} `this`.
+         */
+        removeAllListeners(event?: string|symbol): this;
+
+        /**
+         * Alias method for `removeListener`
+         */
+        off(event: string|symbol, fn?: Function, context?: any, once?: boolean): this;
+
+        /**
+         * Alias method for `on`
+         */
+        addListener(event: string|symbol, fn: Function, context?: any): this;
+
+        /**
+         * This function doesn't apply anymore.
+         * @deprecated
+         */
+        setMaxListeners(): this;
+
+        static prefixed: string|boolean;
     }
 }
 
 declare module 'eventemitter3' {
-    //
-    // Expose the module.
-    //
-    class EventEmitter extends EventEmitter3.EventEmitter {}
-    export = EventEmitter;
+    export = EventEmitter3.EventEmitter;
 }

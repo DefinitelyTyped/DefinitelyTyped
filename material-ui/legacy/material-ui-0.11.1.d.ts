@@ -1,9 +1,9 @@
 // Type definitions for material-ui v0.11.1
 // Project: https://github.com/callemall/material-ui
 // Definitions by: Nathan Brown <https://github.com/ngbrown>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference path='../../react/react.d.ts' />
+///<reference path='../../react/react-0.13.3.d.ts' />
 
 declare module "material-ui" {
     // The reason for exporting the namespace types (__MaterialUI.*) is to also export the type for casting variable.
@@ -233,7 +233,7 @@ declare namespace __MaterialUI {
     }
 
     // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes, React.Props<T> {
+    interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributesBase<T> {
         // <input/> is root element
         id?: string;
         iconStyle?: React.CSSProperties;
@@ -412,7 +412,7 @@ declare namespace __MaterialUI {
     }
 
     // non generally overridden elements of EnhancedButton
-    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributes, React.Props<T> {
+    interface SharedEnhancedButtonProps<T> extends React.HTMLAttributesBase<T> {
         centerRipple?: boolean;
         containerElement?: string | React.ReactElement<any>;
         disabled?: boolean;

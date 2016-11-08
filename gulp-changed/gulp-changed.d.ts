@@ -1,7 +1,7 @@
 // Type definitions for gulp-changed
 // Project: https://github.com/sindresorhus/gulp-changed
 // Definitions by: Thomas Corbière <https://github.com/tomc974>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 /// <reference path="../vinyl/vinyl.d.ts"/>

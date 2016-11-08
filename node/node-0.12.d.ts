@@ -1,7 +1,7 @@
 // Type definitions for Node.js v0.12.0
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/borisyankov/DefinitelyTyped>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
 *                                               *
@@ -158,7 +158,7 @@ declare var Buffer: {
 *               GLOBAL INTERFACES               *
 *                                               *
 ************************************************/
-declare module NodeJS {
+declare namespace NodeJS {
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -168,11 +168,11 @@ declare module NodeJS {
     }
 
     export interface EventEmitter {
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -228,6 +228,7 @@ declare module NodeJS {
             ares: string;
             uv: string;
             zlib: string;
+            modules: string;
             openssl: string;
         };
         config: {
@@ -256,7 +257,7 @@ declare module NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string): void;
+        kill(pid:number, signal?: string|number): void;
         pid: number;
         title: string;
         arch: string;
@@ -364,7 +365,7 @@ interface NodeBuffer {
     readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
     readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
-    readUInt8(offset: number, noAsset?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
     readUInt16LE(offset: number, noAssert?: boolean): number;
     readUInt16BE(offset: number, noAssert?: boolean): number;
     readUInt32LE(offset: number, noAssert?: boolean): number;
@@ -415,11 +416,11 @@ declare module "events" {
     export class EventEmitter implements NodeJS.EventEmitter {
         static listenerCount(emitter: EventEmitter, event: string): number;
 
-        addListener(event: string, listener: Function): EventEmitter;
-        on(event: string, listener: Function): EventEmitter;
-        once(event: string, listener: Function): EventEmitter;
-        removeListener(event: string, listener: Function): EventEmitter;
-        removeAllListeners(event?: string): EventEmitter;
+        addListener(event: string, listener: Function): this;
+        on(event: string, listener: Function): this;
+        once(event: string, listener: Function): this;
+        removeListener(event: string, listener: Function): this;
+        removeAllListeners(event?: string): this;
         setMaxListeners(n: number): void;
         listeners(event: string): Function[];
         emit(event: string, ...args: any[]): boolean;
@@ -828,6 +829,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
+        connected: boolean;
         disconnect(): void;
         unref(): void;
     }
@@ -953,6 +955,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -997,7 +1000,7 @@ declare module "net" {
         new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
     };
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, host?: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
         listen(handle: any, listeningListener?: Function): Server;
@@ -1005,6 +1008,49 @@ declare module "net" {
         address(): { port: number; family: string; address: string; };
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
@@ -1232,7 +1278,7 @@ declare module "fs" {
     export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     /*
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1479,10 +1525,10 @@ declare module "path" {
 declare module "string_decoder" {
     export interface NodeStringDecoder {
         write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        end(): string;
     }
     export var StringDecoder: {
-        new (encoding: string): NodeStringDecoder;
+        new (encoding?: string): NodeStringDecoder;
     };
 }
 
@@ -1654,8 +1700,8 @@ declare module "crypto" {
         setPrivateKey(public_key: string, encoding?: string): void;
     }
     export function getDiffieHellman(group_name: string): DiffieHellman;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
-    export function pbkdf2(password: string, salt: string, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, callback: (err: Error, derivedKey: Buffer) => any): void;
+    export function pbkdf2(password: string|Buffer, salt: string|Buffer, iterations: number, keylen: number, digest: string, callback: (err: Error, derivedKey: Buffer) => any): void;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number) : Buffer;
     export function pbkdf2Sync(password: string, salt: string, iterations: number, keylen: number, digest: string) : Buffer;
     export function randomBytes(size: number): Buffer;
@@ -1680,7 +1726,7 @@ declare module "stream" {
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
+        protected _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -1701,7 +1747,7 @@ declare module "stream" {
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -1717,7 +1763,7 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -1732,8 +1778,8 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: any, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
+        protected _transform(chunk: any, encoding: string, callback: Function): void;
+        protected _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -1779,7 +1825,7 @@ declare module "util" {
 
 declare module "assert" {
     function internal (value: any, message?: string): void;
-    module internal {
+    namespace internal {
         export class AssertionError implements Error {
             name: string;
             message: string;
@@ -1844,12 +1890,6 @@ declare module "domain" {
         bind(cb: (err: Error, data: any) => any): any;
         intercept(cb: (data: any) => any): any;
         dispose(): void;
-
-        addListener(event: string, listener: Function): Domain;
-        on(event: string, listener: Function): Domain;
-        once(event: string, listener: Function): Domain;
-        removeListener(event: string, listener: Function): Domain;
-        removeAllListeners(event?: string): Domain;
     }
 
     export function create(): Domain;

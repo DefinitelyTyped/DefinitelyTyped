@@ -1,11 +1,11 @@
 // Type definitions for Google Recaptcha v2
 // Project: https://www.google.com/recaptcha
 // Definitions by: Kristof Mattei <http://kristofmattei.be>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var grecaptcha: ReCaptchaV2.ReCaptcha;
 
-declare module ReCaptchaV2
+declare namespace ReCaptchaV2
 {
   class ReCaptcha
   {
@@ -15,7 +15,7 @@ declare module ReCaptchaV2
       * @param parameters An object containing parameters as key=value pairs, for example, {"sitekey": "your_site_key", "theme": "light"}. See @see render parameters.
       * @return the ID of the newly created widget.
       **/
-    render(container: (string | HTMLElement), parameters?: Parameters): number;    
+    render(container: (string | HTMLElement), parameters?: Parameters): number;
     /**
       * Resets the reCAPTCHA widget.
       * @param opt_widget_id Optional widget ID, defaults to the first widget created if unspecified.
@@ -29,6 +29,10 @@ declare module ReCaptchaV2
     getResponse(opt_widget_id?: number): string;
   }
 
+  type Theme = "light" | "dark";
+  type Type = "image" | "audio";
+  type Size = "normal" | "compact";
+
   interface Parameters
   {
     /**
@@ -39,16 +43,25 @@ declare module ReCaptchaV2
       * Optional. The color theme of the widget.
       * Accepted values: "light", "dark"
       * @default "light"
+      * @type {Theme}
       **/
-    theme?: string;
+    theme?: Theme;
     /**
       * Optional. The type of CAPTCHA to serve.
-      * Accepted values: "audio ", "image"
+      * Accepted values: "audio", "image"
       * @default "image"
+      * @type {Type}
       **/
-    type?: string;
+    type?: Type;
     /**
-      * Optional. The tabindex of the widget and challenge. 
+      * Optional. The size of the widget.
+      * Accepted values: "compact", "normal"
+      * @default "compact"
+      * @type {Size}
+      */
+    size?: Size;
+    /**
+      * Optional. The tabindex of the widget and challenge.
       * If other elements in your page use tabindex, it should be set to make user navigation easier.
       **/
     tabindex?: number;
@@ -61,7 +74,7 @@ declare module ReCaptchaV2
       * Optional. Your callback function that's executed when the recaptcha response expires and the user needs to solve a new CAPTCHA.
       **/
     // Notice to the reader
-    // I need to surround this object with quotes, this will however break intellisense in VS 2013. 
+    // I need to surround this object with quotes, this will however break intellisense in VS 2013.
     "expired-callback"?: () => void;
   }
 }

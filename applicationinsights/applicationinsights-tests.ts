@@ -1,5 +1,5 @@
 ///<reference path='applicationinsights.d.ts' />
-import appInsights = require("applicationinsights");
+import * as appInsights from "applicationinsights";
 
 // basic use
 appInsights.setup("<instrumentation_key>").start();
@@ -24,3 +24,8 @@ appInsights.client.trackDependency("dependency name", "commandName", 500, true);
 appInsights.client.commonProperties = {
     environment: "dev"
 };
+
+// send any pending data and log the response
+appInsights.client.sendPendingData(function (response) {
+    console.log(response);
+});

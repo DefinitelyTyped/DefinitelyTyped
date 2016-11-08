@@ -1,11 +1,11 @@
 // Type definitions for three.js (EditorControls.js)
 // Project: https://github.com/mrdoob/three.js/blob/master/examples/js/controls/EditorControls.js
 // Definitions by: Qinsi ZHU <https://github.com/qszhusightp>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="./three.d.ts" />
 
-declare module THREE {
+declare namespace THREE {
 
   class EditorControls extends EventDispatcher {
 

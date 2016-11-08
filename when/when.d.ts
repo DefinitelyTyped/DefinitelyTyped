@@ -1,7 +1,7 @@
 // Type definitions for When 2.4.0
 // Project: https://github.com/cujojs/when
 // Definitions by: Derek Cicerone <https://github.com/derekcicerone>, Wim Looman <https://github.com/Nemo157>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function When<T>(value: When.Promise<T>): When.Promise<T>;
 declare function When<T>(value: When.Thenable<T>): When.Promise<T>;
@@ -11,7 +11,7 @@ declare function When<T, U>(value: When.Promise<T>, transform: (val: T) => U): W
 declare function When<T, U>(value: When.Thenable<T>, transform: (val: T) => U): When.Promise<U>;
 declare function When<T, U>(value: T, transform: (val: T) => U): When.Promise<U>;
 
-declare module When {
+declare namespace When {
     // Helper interfaces
     module _ {
         interface Fn0<T> { (): T }
@@ -100,6 +100,40 @@ declare module When {
      *      of {@link Promise}s and values
      */
     function all<T>(promisesOrValues: any[]): Promise<T>;
+
+    /**
+     * Promise-aware array map function, similar to `Array.prototype.map()`,
+     * but input array may contain promises or values.
+     * @param promisesOrValues array of anything, may contain a mix of {@link Promise}s and values
+     * @param mapFunc map function which may return a promise or value
+     * @returns a promise that will fulfill with an array of mapped values
+     *  or reject if any input promise rejects.
+     */
+    function map<T>(promisesOrValues: any[], mapFunc: (value: any, index?: Number) => any): Promise<T>;
+
+    /**
+     * Traditional reduce function, similar to `Array.prototype.reduce()`, but
+     * input may contain promises and/or values, and reduceFunc
+     * may return either a value or a promise, *and* initialValue may
+     * be a promise for the starting value.
+     * @param promisesOrValues array or promise for an array of anything,
+     *      may contain a mix of promises and values.
+     * @param reduceFunc function(accumulated:*, x:*, index:Number):*} f reduce function
+     * @returns a promise that will resolve to the final reduced value
+     */
+    function reduce<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index?: Number) => T | Promise<T>, initialValue: T): Promise<T>;
+
+    /**
+     * Traditional reduce function, similar to `Array.prototype.reduceRight()`, but
+     * input may contain promises and/or values, and reduceFunc
+     * may return either a value or a promise, *and* initialValue may
+     * be a promise for the starting value.
+     * @param promisesOrValues array or promise for an array of anything,
+     *      may contain a mix of promises and values.
+     * @param reduceFunc function(accumulated:*, x:*, index:Number):*} f reduce function
+     * @returns a promise that will resolve to the final reduced value
+     */
+    function reduceRight<T>(promisesOrValues: any[], reduceFunc: (reduction: T, value: any, index?: Number) => T | Promise<T>, initialValue: T): Promise<T>;
 
     /**
      * Describes the status of a promise.

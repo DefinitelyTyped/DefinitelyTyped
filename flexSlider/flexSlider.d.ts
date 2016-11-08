@@ -1,7 +1,7 @@
 // Type definitions for FlexSlider 2 jquery plugin
 // Project: https://github.com/woothemes/FlexSlider
 // Definitions by: Diullei Gomes <https://github.com/diullei>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 
@@ -78,10 +78,10 @@ interface FlexSliderOptions {
 	// Callback API
 	start?: (slider: SliderObject) => any;            //Callback: function(slider) - Fires when the slider loads the first slide
 	before?: (slider: SliderObject) => any;           //Callback: function(slider) - Fires asynchronously with each slider animation
-	after?: () => any;            //Callback: function(slider) - Fires after each slider animation completes
-	end?: () => any;              //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
-	added?: () => any;            //{NEW} Callback: function(slider) - Fires after a slide is added
-	removed?: () => any;
+	after?: (slider: SliderObject) => any;            //Callback: function(slider) - Fires after each slider animation completes
+	end?: (slider: SliderObject) => any;              //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
+	added?: (slider: SliderObject) => any;            //{NEW} Callback: function(slider) - Fires after a slide is added
+	removed?: (slider: SliderObject) => any;
 }
 
 

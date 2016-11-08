@@ -5,11 +5,11 @@
 
 /// <reference path="google-apps-script.types.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Language {
     /**
      * The Language service provides scripts a way to compute automatic translations of text.
-     * 
+     *
      *      // The code below will write "Esta es una prueba" to the log.
      *      var spanish = LanguageApp.translate('This is a test', 'en', 'es');
      *      Logger.log(spanish);

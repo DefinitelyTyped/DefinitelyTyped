@@ -1,7 +1,7 @@
 // Type definitions for sax js
 // Project: https://github.com/isaacs/sax-js
 // Definitions by: Asana <https://asana.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference path="../node/node.d.ts" />
 
 declare module "sax" {
@@ -16,15 +16,30 @@ declare module "sax" {
         position?: boolean;
     }
 
-    export interface Tag {
+    export interface QualifiedName {
         name: string;
-        attributes: { [key: string]: string };
+        prefix: string;
+        local: string;
+        uri: string;
+    }
 
-        // Available if opt.xmlns
-        ns?: { [key: string]: string };
-        prefix?: string;
-        local?: string;
-        uri?: string;
+    export interface QualifiedAttribute extends QualifiedName {
+        value: string;
+    }
+
+    interface BaseTag {
+        name: string;
+        isSelfClosing: boolean;
+    }
+
+    // Interface used when the xmlns option is set
+    export interface QualifiedTag extends QualifiedName, BaseTag {
+        ns: { [key: string]: string };
+        attributes: { [key: string]: QualifiedAttribute };
+    }
+
+    export interface Tag extends BaseTag {
+        attributes: { [key: string]: string };
     }
 
     export function parser(strict: boolean, opt: SAXOptions): SAXParser;
@@ -54,7 +69,7 @@ declare module "sax" {
         ontext(t: string): void;
         ondoctype(doctype: string): void;
         onprocessinginstruction(node: { name: string; body: string }): void;
-        onopentag(tag: Tag): void;
+        onopentag(tag: Tag | QualifiedTag): void;
         onclosetag(tagName: string): void;
         onattribute(attr: { name: string; value: string }): void;
         oncomment(comment: string): void;
@@ -75,4 +90,3 @@ declare module "sax" {
         private _parser: SAXParser;
     }
 }
-

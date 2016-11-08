@@ -1,13 +1,13 @@
 // Type definitions for Rappid 1.5
 // Project: http://jointjs.com/about-rappid
 // Definitions by: Ewout Van Gossum <https://github.com/DenEwout>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jointjs/jointjs.d.ts" />
 /// <reference path="../backbone/backbone.d.ts" />
 
-declare module joint{
-    module ui{
+declare namespace joint{
+    namespace ui{
         interface Handle {
             name : string;
             position : string;

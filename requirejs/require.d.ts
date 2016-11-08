@@ -1,7 +1,7 @@
 // Type definitions for RequireJS 2.1.20
 // Project: http://requirejs.org/
 // Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
 require-2.1.8.d.ts may be freely distributed under the MIT license.
@@ -185,8 +185,28 @@ interface RequireConfig {
 	*
 	* @example
 	* urlArgs: "bust= + (new Date()).getTime()
+	*
+ 	* As of RequireJS 2.2.0, urlArgs can be a function. If a
+	* function, it will receive the module ID and the URL as
+	* parameters, and it should return a string that will be added
+	* to the end of the URL. Return an empty string if no args.
+	* Be sure to take care of adding the '?' or '&' depending on
+	* the existing state of the URL.
+	*
+	* @example
+
+	* requirejs.config({
+	* 	urlArgs: function(id, url) {
+	* 		var args = 'v=1';
+	*		if (url.indexOf('view.html') !== -1) {
+	* 			args = 'v=2'
+	* 		}
+	*
+	*		return (url.indexOf('?') === -1 ? '?' : '&') + args;
+	* 	}
+	* });
 	**/
-	urlArgs?: string;
+	urlArgs?: string | ((id: string, url: string) => string); 
 
 	/**
 	* Specify the value for the type="" attribute used for script

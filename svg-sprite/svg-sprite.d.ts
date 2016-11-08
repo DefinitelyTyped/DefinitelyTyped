@@ -1,7 +1,7 @@
 // Type definitions for svg-sprite
 // Project: https://github.com/jkphl/svg-sprite
 // Definitions by: Qubo <https://github.com/tkqubo>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts" />
 /// <reference path="../vinyl/vinyl.d.ts" />

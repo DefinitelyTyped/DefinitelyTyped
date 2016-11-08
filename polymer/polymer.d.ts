@@ -1,17 +1,17 @@
-// Type definitions for polymer v1.1.5
+// Type definitions for polymer v1.1.6
 // Project: https://github.com/Polymer/polymer
 // Definitions by: Louis Grignon <https://github.com/lgrignon>, Suguru Inatomi <https://github.com/laco0416>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ///<reference path="../webcomponents.js/webcomponents.js.d.ts"/>
 
-declare module polymer {
+declare namespace polymer {
 
-  type PropConstructorType = StringConstructor|ObjectConstructor|BooleanConstructor|NumberConstructor|DateConstructor|ArrayConstructor;
+  type PropConstructorType = StringConstructor | ObjectConstructor | BooleanConstructor | NumberConstructor | DateConstructor | ArrayConstructor;
 
   interface PropObjectType {
     type: PropConstructorType;
-    value?: boolean | number | string | Function;
+    value?: boolean | number | string | Function | Object;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     notify?: boolean;
@@ -127,15 +127,16 @@ declare module polymer {
 
     unlinkPaths?(path: string): void;
 
-    push?(path: string): number;
+    push?(path: string, ...item: any[]): number;
 
     pop?(path: string): any;
 
-    splice?(path: string, start: number, deleteCount: number): number;
+    splice?(path: string, index: number, removeCount: number, ...item: any[]):
+        number;
 
     shift?(path: string): any;
 
-    unshift?(path: string): number;
+    unshift?(path: string, ...item: any[]): number;
 
     // ResolveUrl
 
@@ -291,25 +292,42 @@ declare module polymer {
   }
 
   interface Settings {
+      hasNativeCSSProperties: boolean
+      hasNativeImports: boolean
+      hasShadow: boolean
+      nativeShadow: boolean
+      useNativeCSSProperties: boolean
+      useNativeCustomElements: boolean
+      useNativeImports: boolean
+      useNativeShadow: boolean
+      usePolyfillProto: boolean
+      useShadow: boolean
+      wantShadow: boolean
+  }
 
-    wantShadow:boolean;
-    hasShadow:boolean;
-    nativeShadow:boolean;
-    useShadow:boolean;
-    useNativeShadow:boolean;
-    useNativeImports:boolean;
-    useNativeCustomElements:boolean;
+  interface RenderStatus {
+    afterNextRender(element: Element, fn: Function, args?: any): void;
+    hasRendered(): boolean;
+    whenReady(cb: Function): void;
+  }
+
+  interface ImportStatus extends RenderStatus {
+    whenLoaded(cb: Function): void;
   }
 
   interface PolymerStatic {
-
     Settings: Settings;
 
-    dom:DomApiStatic;
+    dom: DomApiStatic;
 
-    (prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
+    (prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
 
-    Class(prototype: Base|{new ():Base}):webcomponents.CustomElementConstructor;
+    Class(prototype: Base | { new (): Base }): webcomponents.CustomElementConstructor;
+
+    RenderStatus: RenderStatus
+
+    /** @deprecated */
+    ImportStatus: ImportStatus
   }
 }
 

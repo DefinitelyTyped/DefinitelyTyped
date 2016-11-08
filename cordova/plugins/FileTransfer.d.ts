@@ -1,7 +1,7 @@
 // Type definitions for Apache Cordova FileTransfer plugin.
 // Project: https://github.com/apache/cordova-plugin-file-transfer
 // Definitions by: Microsoft Open Technologies, Inc. <http://msopentech.com>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Copyright (c) Microsoft Open Technologies, Inc.
 // Licensed under the MIT license.
@@ -93,7 +93,7 @@ interface FileUploadOptions {
     /** Whether to upload the data in chunked streaming mode. Defaults to true. */
     chunkedMode?: boolean;
     /** A map of header name/header values. Use an array to specify more than one value. */
-    headers?: Object[];
+    headers?: Object;
 }
 
 /** Optional parameters for download method. */

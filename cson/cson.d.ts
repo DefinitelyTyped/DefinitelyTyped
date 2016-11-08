@@ -1,7 +1,7 @@
 // Type definitions for CSON
 // Project: https://github.com/bevry/cson
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "cson" {
 	// Create Strings

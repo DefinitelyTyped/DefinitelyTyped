@@ -1,7 +1,7 @@
 // Type definitions for os-locale 1.4.0
 // Project: https://github.com/sindresorhus/os-locale
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "os-locale" {
 	function osLocale(options: {spawn?: boolean}, cb: (err: any, locale: string) => void): void;

@@ -1,7 +1,7 @@
 // Type definitions for SoundJS 0.6.0
 // Project: http://www.createjs.com/#!/SoundJS
 // Definitions by: Pedro Ferreira <https://bitbucket.org/drk4>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
     Copyright (c) 2012 Pedro Ferreira
@@ -15,7 +15,7 @@
 /// <reference path="../createjs-lib/createjs-lib.d.ts" />
 /// <reference path="../preloadjs/preloadjs.d.ts" />
 
-declare module createjs {
+declare namespace createjs {
 
     export class AbstractPlugin
         {
@@ -100,14 +100,14 @@ declare module createjs {
      */
     export class FlashPlugin {
         constructor();
-        
+
         // properties
         static buildDate: string;
         flashReady: boolean;
         showOutput: boolean;
         static swfPath: string;
         static version: string;
-        
+
         // methods
         create(src: string): AbstractSoundInstance;
         getVolume(): number;
@@ -120,16 +120,16 @@ declare module createjs {
         setMute(value: boolean): boolean;
         setVolume(value: number): boolean;
     }
-    
+
     export class HTMLAudioPlugin extends AbstractPlugin
         {
         constructor();
-        
+
         // properties
         defaultNumChannels: number;
         enableIOS: boolean;     // deprecated
         static MAX_INSTANCES: number;
-        
+
         // methods
         static isSupported(): boolean;
         }
@@ -157,7 +157,7 @@ declare module createjs {
 	static create( value:PlayPropsConfig|any ): PlayPropsConfig;
 	set ( props:any ): PlayPropsConfig;
 	}
-    
+
     export class Sound extends EventDispatcher
         {
         // properties
@@ -178,7 +178,7 @@ declare module createjs {
 	static muted: boolean;
 	static volume: number;
         static capabilities: any;
-        
+
         // methods
         static createInstance(src: string): AbstractSoundInstance;
         static getCapabilities(): Object;
@@ -199,7 +199,7 @@ declare module createjs {
         static setMute(value: boolean): boolean;
         static setVolume(value: number): void;
         static stop(): void;
-        
+
         // EventDispatcher mixins
         static addEventListener(type: string, listener: (eventObj: Object) => boolean, useCapture?: boolean): Function;
         static addEventListener(type: string, listener: (eventObj: Object) => void, useCapture?: boolean): Function;
@@ -239,13 +239,13 @@ declare module createjs {
     export class WebAudioPlugin extends AbstractPlugin
         {
         constructor();
-        
+
         // properties
         static context: AudioContext;
         context: AudioContext;
         dynamicsCompressorNode: DynamicsCompressorNode;
         gainNode: GainNode;
-        
+
         // methods
         static isSupported(): boolean;
         static playEmptySound(): void;

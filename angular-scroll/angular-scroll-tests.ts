@@ -1,6 +1,6 @@
 /// <reference path="angular-scroll.d.ts" />
 
-module TestApp {
+namespace TestApp {
 
     class TestController {
 

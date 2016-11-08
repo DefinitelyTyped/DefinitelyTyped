@@ -17,7 +17,8 @@ bootbox.confirm("Click cancel to pass test", function (result) {
 	console.log(!result);
 });
 bootbox.confirm({
-	message: "Click confirm to pass test",
+	title: "Click confirm to pass test",
+	message: "Please confirm this.",
 	callback: function (result) {
 		console.log(result);
 	}
@@ -27,13 +28,13 @@ bootbox.prompt("Enter 'ok' to pass test", function (result) {
 	console.log(result);
 });
 bootbox.prompt({
-	message: "Enter 'ok' to pass test", callback: function (result) {
+	title: "Enter 'ok' to pass test", callback: function (result) {
 		console.log(result);
 	}
 });
 bootbox.prompt({
 	size: "large",
-	message: "Enter 'ok' to pass test", callback: function (result) {
+	title: "Enter 'ok' to pass test", callback: function (result) {
 		console.log(result);
 	}
 });
@@ -42,7 +43,7 @@ bootbox.prompt({
 bootbox.dialog({
 	title: "Wassup?",
 	message: "Test Dialog",
-	callback: function (result) { }
+	callback: function () { }
 });
 
 // Testing the return object of the call. Using the pointer to disable the animation on success callback.

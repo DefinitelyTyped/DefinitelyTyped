@@ -1,9 +1,9 @@
 // Type definitions for heatmap.js v2.0
 // Project: https://github.com/pa7/heatmap.js/
 // Definitions by: Yang Guan <https://github.com/lookuptable>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 /*
  * Configuration object of a heatmap
@@ -77,8 +77,9 @@ interface HeatmapConfiguration {
 
     /*
      * The property name of the value/weight in a datapoint
+     * Default value: 'value'
      */
-    valueField: string;
+    valueField?: string;
 }
 
 /*

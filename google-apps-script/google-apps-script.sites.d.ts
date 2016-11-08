@@ -6,16 +6,16 @@
 /// <reference path="google-apps-script.types.d.ts" />
 /// <reference path="google-apps-script.base.d.ts" />
 
-declare module GoogleAppsScript {
+declare namespace GoogleAppsScript {
   export module Sites {
     /**
      * A Sites Attachment such as a file attached to a page.
-     * 
+     *
      *  Note that an Attachment is a Blob and can be used anywhere Blob input is expected.
-     * 
+     *
      *      var filesPage = SitesApp.getSite('example.com', 'mysite').getChildByName("files");
      *      var attachments = filesPage.getAttachments();
-     *     
+     *
      *      // DocsList.createFile accepts a blob input. Since an Attachment is just a blob, we can
      *      // just pass it directly to that method
      *      var file = DocsList.createFile(attachments[0]);

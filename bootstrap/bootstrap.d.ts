@@ -1,7 +1,7 @@
 // Type definitions for Bootstrap 3.3.5
 // Project: http://twitter.github.com/bootstrap/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 /// <reference path="../jquery/jquery.d.ts"/>
@@ -53,7 +53,7 @@ interface PopoverOptions {
 }
 
 interface CollapseOptions {
-    parent?: any;    
+    parent?: any;
     toggle?: boolean;
 }
 
@@ -77,6 +77,10 @@ interface TypeaheadOptions {
 interface AffixOptions {
     offset?: number | Function | Object;
     target?: any;
+}
+
+interface TransitionEventNames {
+    end: string;
 }
 
 interface JQuery {
@@ -114,6 +118,12 @@ interface JQuery {
     typeahead(options?: TypeaheadOptions): JQuery;
 
     affix(options?: AffixOptions): JQuery;
+
+    emulateTransitionEnd(duration: number): JQuery;
+}
+
+interface JQuerySupport {
+    transition: boolean | TransitionEventNames;
 }
 
 declare module "bootstrap" {

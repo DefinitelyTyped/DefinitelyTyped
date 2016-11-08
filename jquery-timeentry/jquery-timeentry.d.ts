@@ -1,7 +1,7 @@
 // Type definitions for jQuery-timeentry.js 2.0.1
 // Project: https://github.com/kbwood/timeentry
 // Definitions by: Mark Nadig <https://github.com/marknadig>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../jquery/jquery.d.ts"/>
 

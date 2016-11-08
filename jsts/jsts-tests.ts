@@ -1,4 +1,7 @@
 ﻿/// <reference path="jsts.d.ts" />
+
+import * as jsts from 'jsts';
+
 var str: string;
 var n: number;
 var bool: boolean;

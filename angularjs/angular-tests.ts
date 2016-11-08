@@ -1,6 +1,6 @@
 /// <reference path="angular.d.ts" />
 
-// issue: https://github.com/borisyankov/DefinitelyTyped/issues/369
+// issue: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/369
 // https://github.com/witoldsz/angular-http-auth/blob/master/src/angular-http-auth.js
 /**
  * @license HTTP Auth Interceptor Module for AngularJS
@@ -62,6 +62,10 @@ angular.module('http-auth-interceptor', [])
  */
     .config(['$httpProvider', 'authServiceProvider', <any>function ($httpProvider: ng.IHttpProvider, authServiceProvider: any) {
 
+        $httpProvider.defaults.headers.common = {'Authorization': 'Bearer token'};
+        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
+        $httpProvider.defaults.headers.post['Authorization'] = function (config:ng.IRequestConfig):string { return 'Bearer token'; }
+
         var interceptor = ['$rootScope', '$q', <any>function ($rootScope: ng.IScope, $q: ng.IQService) {
             function success(response: ng.IHttpPromiseCallbackArg<any>) {
                 return response;
@@ -87,7 +91,7 @@ angular.module('http-auth-interceptor', [])
     }]);
 
 
-module HttpAndRegularPromiseTests {
+namespace HttpAndRegularPromiseTests {
     interface Person {
         firstName: string;
         lastName: string;
@@ -170,31 +174,74 @@ module HttpAndRegularPromiseTests {
 
 // Test for AngularJS Syntax
 
-module My.Namespace {
+namespace My.Namespace {
     export var x: any; // need to export something for module to kick in
 }
 
 // IModule Registering Test
 var mod = angular.module('tests', []);
-mod.controller('name', function ($scope: ng.IScope) { })
-mod.controller('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.controller(My.Namespace);
-mod.directive('name', <any>function ($scope: ng.IScope) { })
-mod.directive('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.directive(My.Namespace);
+mod.controller('name', function ($scope: ng.IScope) { });
+mod.controller('name', ['$scope', function ($scope: ng.IScope) { }]);
+mod.controller('name', class {
+    // Uncommenting the next line should lead to a type error because this signature isn't compatible
+    // with the signature of the `$onChanges` hook:
+    // $onChanges(x: number) { }
+});
+mod.controller({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
+mod.directive('myDirectiveA', ($rootScope: ng.IRootScopeService) => {
+    return (scope, el, attrs) => {
+        let foo = 'none';
+        el.click(e => {
+            foo = e.type;
+            $rootScope.$apply();
+        });
+        scope.$watch(() => foo, () => el.text(foo));
+    };
+});
+mod.directive('myDirectiveB', ['$rootScope', function ($rootScope: ng.IRootScopeService) {
+    return {
+        link(scope, el, attrs) {
+            el.click(e => {
+                el.hide();
+            });
+        }
+    };
+}]);
+mod.directive({
+    myFooDir: () => ({
+        template: 'my-foo-dir.tpl.html'
+    }),
+    myBarDir: ['$fooService', ($fooService: any) => ({
+        template: 'my-bar-dir.tpl.html'
+    })]
+});
 mod.factory('name', function ($scope: ng.IScope) { })
-mod.factory('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.factory(My.Namespace);
+mod.factory('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.factory({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.filter('name', function ($scope: ng.IScope) { })
-mod.filter('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.filter(My.Namespace);
+mod.filter('name', ['$scope', function ($scope: ng.IScope) { }])
+mod.filter({
+    name1: function (foo: any) { },
+    name2: ['foo', function (foo: any) { }]
+});
 mod.provider('name', function ($scope: ng.IScope) { return { $get: () => { } } })
 mod.provider('name', TestProvider);
 mod.provider('name', ['$scope', <any>function ($scope: ng.IScope) { }])
 mod.provider(My.Namespace);
 mod.service('name', function ($scope: ng.IScope) { })
 mod.service('name', ['$scope', <any>function ($scope: ng.IScope) { }])
-mod.service(My.Namespace);
+mod.service({
+    MyCtrl: class{},
+    MyCtrl2: function() {},
+    MyCtrl3: ['$fooService', function($fooService: any) { }]
+});
 mod.constant('name', 23);
 mod.constant('name', "23");
 mod.constant(My.Namespace);
@@ -243,14 +290,20 @@ foo.then((x) => {
 });
 
 // $q signature tests
-module TestQ {
+namespace TestQ {
     interface TResult {
         a: number;
         b: string;
         c: boolean;
     }
+    interface TValue {
+        e: number;
+        f: boolean;
+    }
     var tResult: TResult;
     var promiseTResult: angular.IPromise<TResult>;
+    var tValue: TValue;
+    var promiseTValue: angular.IPromise<TValue>;
 
     var $q: angular.IQService;
     var promiseAny: angular.IPromise<any>;
@@ -268,6 +321,9 @@ module TestQ {
     {
         let result: angular.IPromise<any[]>;
         result = $q.all([promiseAny, promiseAny]);
+        // TS should infer that n1 and n2 are numbers and have toFixed.
+        $q.all([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
+        $q.all([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
     }
     {
         let result: angular.IPromise<TResult[]>;
@@ -316,6 +372,22 @@ module TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.when<TResult>(tResult);
         result = $q.when<TResult>(promiseTResult);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => tResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(tValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
+
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any);
+        result = $q.when<TResult, TValue>(promiseTValue, (result: TValue) => promiseTResult, (any) => any, (any) => any);
     }
 }
 
@@ -339,7 +411,7 @@ httpFoo.success((data, status, headers, config) => {
 
 
 // Deferred signature tests
-module TestDeferred {
+namespace TestDeferred {
     var any: any;
 
     interface TResult {
@@ -379,9 +451,18 @@ module TestDeferred {
     }
 }
 
+namespace TestInjector {
+    let $injector: angular.auto.IInjectorService;
+
+    $injector.strictDi = true;
+
+    $injector.annotate(() => {});
+    $injector.annotate(() => {}, true);
+}
+
 
 // Promise signature tests
-module TestPromise {
+namespace TestPromise {
     var result: any;
     var any: any;
 
@@ -460,10 +541,12 @@ function test_angular_forEach() {
 var element = angular.element("div.myApp");
 var scope: ng.IScope = element.scope();
 var isolateScope: ng.IScope = element.isolateScope();
+isolateScope = element.find('div.foo').isolateScope();
+isolateScope = element.children().isolateScope();
 
 
 // $timeout signature tests
-module TestTimeout {
+namespace TestTimeout {
     interface TResult {
         a: number;
         b: string;
@@ -510,6 +593,7 @@ test_IAttributes({
     $normalize: function (classVal){ return "foo" },
     $addClass: function (classVal){},
     $removeClass: function(classVal){},
+    $updateClass: function(newClass, oldClass){},
     $set: function(key, value){},
     $observe: function(name: any, fn: any){
         return fn;
@@ -748,6 +832,7 @@ angular.module('docsTransclusionExample', [])
         };
     });
 
+
 angular.module('docsIsoFnBindExample', [])
     .controller('Controller', ['$scope', '$timeout', function($scope: any, $timeout: any) {
         $scope.name = 'Tobias';
@@ -847,6 +932,50 @@ angular.module('docsTabsExample', [])
         };
     });
 
+angular.module('multiSlotTranscludeExample', [])
+    .directive('dropDownMenu', function() {
+        return {
+            transclude: {
+                button: 'button',
+                list: 'ul',
+            },
+            link: function(scope, element, attrs, ctrl, transclude) {
+                // without scope
+                transclude().appendTo(element);
+                transclude(clone => clone.appendTo(element));
+
+                // with scope
+                transclude(scope, clone => clone.appendTo(element));
+                transclude(scope, clone => clone.appendTo(element), element, 'button');
+                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+            }
+        };
+    });
+
+angular.module('componentExample', [])
+    .component('counter', {
+        require: {'ctrl': '^ctrl'},
+        bindings: {
+            count: '='
+        },
+        controller: 'CounterCtrl',
+        controllerAs: 'counterCtrl',
+        template: function () {
+            return '';
+        },
+        transclude: {
+            'el': 'target'
+        }
+    })
+    .component('anotherCounter', {
+        controller: function(){},
+        require: {
+            'parent': '^parentCtrl'
+        },
+        template: '',
+        transclude: true
+    });
+
 interface copyExampleUser {
     name?: string;
     email?: string;
@@ -878,7 +1007,7 @@ angular.module('copyExample', [])
         $scope.reset();
     }]);
 
-module locationTests {
+namespace locationTests {
 
     var $location: ng.ILocationService;
 
@@ -957,7 +1086,7 @@ function NgModelControllerTyping() {
     };
 }
 
-var $filter:  angular.IFilterService;
+var $filter: angular.IFilterService;
 
 function testFilter() {
 
@@ -1054,6 +1183,12 @@ function parseTyping() {
     }
 }
 
+function parseWithParams() {
+    var $parse: angular.IParseService;
+    var compiledExp = $parse('a.b.c', () => null);
+    var compiledExp = $parse('a.b.c', null, false);
+}
+
 function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjectorService {
     if (mode === 'debug') {
         return angular.bootstrap(element, ['main', function($provide: ng.auto.IProvideService) {
@@ -1061,10 +1196,17 @@ function doBootstrap(element: Element | JQuery, mode: string): ng.auto.IInjector
                 $delegate['debug'] = true;
             });
         }, 'debug-helpers'], {
-            debugInfoEnabled: true
+            strictDi: true
         });
     }
     return angular.bootstrap(element, ['main'], {
-        debugInfoEnabled: false
+        strictDi: false
+    });
+}
+
+function testIHttpParamSerializerJQLikeProvider() {
+    let serializer: angular.IHttpParamSerializer;
+    serializer({
+        a: "b"
     });
 }

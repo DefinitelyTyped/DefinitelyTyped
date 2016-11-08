@@ -422,7 +422,7 @@ User4.create({name: 'John'}, {
     }
 });
 
-module CustomAdapterTest {
+namespace CustomAdapterTest {
 
     class MyCustomAdapter implements JSData.IDSAdapter {
 
@@ -505,7 +505,7 @@ interface MyResourceDefinition {
 
 }
 
-module JSData {
+namespace JSData {
 
     interface DS {
 
@@ -600,3 +600,5 @@ customActionResource.emit("DS.change", customActionResource, customActionResourc
 customActionResourceInstance.on("DS.change", myEvtHandler);
 customActionResourceInstance.off("DS.change", myEvtHandler);
 customActionResourceInstance.emit("DS.change", customActionResource, customActionResourceInstance);
+
+JSData.DSUtils.Promise = Promise;

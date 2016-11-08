@@ -1,14 +1,14 @@
 // Type definitions for DCJS
 // Project: https://github.com/dc-js/dc.js
 // Definitions by: hans windhoff <https://github.com/hansrwindhoff>, matt traynham <https://github.com/mtraynham>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // this makes only sense together with d3 and crossfilter so you need the d3.d.ts and crossfilter.d.ts files
 
 ///<reference path="../d3/d3.d.ts" />
 ///<reference path="../crossfilter/crossfilter.d.ts" />
 
-declare module DC {
+declare namespace DC {
     // helper for get/set situation
     export interface IGetSet<T, V> {
         (): T;

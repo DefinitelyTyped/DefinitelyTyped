@@ -20,9 +20,17 @@ class AppController {
             },
             plotOptions: {}
         },
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
+        series: [
+            {
+                data: [10, 15, 12, 8, 7]
+            },
+            {
+                data: [[0, 10], [1, 15], [2, 12], [3, 8], [4, 7]]
+            },
+            {
+                data: [{ name: "A", y: 10 }, { name: "B", y: 15 }, { name: "C", y: 12 }, { name: "D", y: 8 }, { name: "E", y: 7 }]
+            }
+        ],
         title: {
             text: 'My Awesome Chart'
         },

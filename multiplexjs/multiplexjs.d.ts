@@ -1,7 +1,7 @@
 ﻿// Type definitions for Multiplex.js 0.9
 // Project: http://github.com/multiplex/multiplex.js
 // Definitions by: Kamyar Nazeri <http://github.com/KamyarNazeri>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 
@@ -24,7 +24,7 @@ interface String extends multiplex.Iterable<string> { }
 
 
 
-declare module multiplex {
+declare namespace multiplex {
 
     /**
     * ES6 Iterable
@@ -54,8 +54,8 @@ declare module multiplex {
         */
         next(): boolean;
 
-        /** 
-        * Gets the element in the collection at the current position of the enumerator. 
+        /**
+        * Gets the element in the collection at the current position of the enumerator.
         */
         current: T;
     }
@@ -71,8 +71,8 @@ declare module multiplex {
     */
     interface Enumerable<T> extends Iterable<T> {
 
-        /** 
-        * Returns an enumerator that iterates through the collection. 
+        /**
+        * Returns an enumerator that iterates through the collection.
         */
         getEnumerator(): Enumerator<T>;
     }
@@ -321,8 +321,8 @@ declare module multiplex {
 
         /**
         * Searches the entire sorted List for an element using the default comparer and returns the zero-based index of the element.
-        * Returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number 
-        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element, 
+        * Returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number
+        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element,
         * the bitwise complement of List.count().
         * @param item The object to locate. The value can be null for reference types.
         */
@@ -331,8 +331,8 @@ declare module multiplex {
 
         /**
         * Searches the entire sorted List for an element using the specified comparer and returns the zero-based index of the element.
-        * returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number 
-        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element, 
+        * returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number
+        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element,
         * the bitwise complement of List.count().
         * @param item The object to locate. The value can be null for reference types.
         * @param comparer The Comparer implementation to use when comparing elements.
@@ -342,8 +342,8 @@ declare module multiplex {
 
         /**
         * Searches a range of elements in the sorted List for an element using the specified comparer and returns the zero-based index of the element.
-        * returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number 
-        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element, 
+        * returns The zero-based index of item in the sorted List, if item is found; otherwise, a negative number
+        * that is the  bitwise complement of the index of the  next element that is larger than item or, if there is no larger element,
         * the bitwise complement of List.count().
         * @param item The object to locate. The value can be null for reference types.
         * @param index The zero-based starting index of the range to search.
@@ -381,7 +381,7 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
+        * Searches for an element that matches the conditions defined by the specified predicate,
         * and returns the zero-based index of the first occurrence within the entire List, if found; otherwise, –1.
         * @param match The predicate function that defines the conditions of the elements to search for.
         */
@@ -389,8 +389,8 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
-        * and returns the zero-based index of the first occurrence within the range of elements 
+        * Searches for an element that matches the conditions defined by the specified predicate,
+        * and returns the zero-based index of the first occurrence within the range of elements
         * in the List that extends from the specified index to the last element, if found; otherwise, –1.
         * @param startIndex The zero-based starting index of the search.
         * @param match The predicate function that defines the conditions of the elements to search for.
@@ -399,8 +399,8 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
-        * and returns the zero-based index of the first occurrence within the range of elements 
+        * Searches for an element that matches the conditions defined by the specified predicate,
+        * and returns the zero-based index of the first occurrence within the range of elements
         * in the List that starts at the specified index and contains the specified number of elements, if found; otherwise, –1.
         * @param startIndex The zero-based starting index of the search.
         * @param count The number of elements in the section to search.
@@ -410,7 +410,7 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
+        * Searches for an element that matches the conditions defined by the specified predicate,
         * and returns the last occurrence within the entire List.
         * @param match The predicate function that defines the conditions of the elements to search for.
         */
@@ -418,7 +418,7 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
+        * Searches for an element that matches the conditions defined by the specified predicate,
         * and returns the zero-based index of the last occurrence within the entire List, if found; otherwise, –1.
         * @param match The predicate function that defines the conditions of the elements to search for.
         */
@@ -426,8 +426,8 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
-        * and returns the zero-based index  of the last occurrence within the range of elements 
+        * Searches for an element that matches the conditions defined by the specified predicate,
+        * and returns the zero-based index  of the last occurrence within the range of elements
         * in the List that extends from the first element to the specified index, if found; otherwise, –1.
         * @param startIndex The zero-based starting index of the search.
         * @param match The predicate function that defines the conditions of the elements to search for.
@@ -436,8 +436,8 @@ declare module multiplex {
 
 
         /**
-        * Searches for an element that matches the conditions defined by the specified predicate, 
-        * and returns the zero-based index  of the last occurrence within the range of elements 
+        * Searches for an element that matches the conditions defined by the specified predicate,
+        * and returns the zero-based index  of the last occurrence within the range of elements
         * in the List that contains the specified number of elements and ends at the specified index, if found; otherwise, –1.
         * @param startIndex The zero-based starting index of the search.
         * @param count The number of elements in the section to search.
@@ -476,7 +476,7 @@ declare module multiplex {
 
 
         /**
-        *   Searches for the specified object and returns the zero-based index of the first occurrence within 
+        *   Searches for the specified object and returns the zero-based index of the first occurrence within
         *   the range of elements in the List that extends from the specified index to the last element, if found; otherwise, –1.
         *   @param item The object to locate in the List.
         *   @param index The zero-based starting index of the search. 0 (zero) is valid in an empty list.
@@ -508,15 +508,15 @@ declare module multiplex {
 
         /**
         *   Searches for the specified object and returns the zero-based index of the last occurrence within the entire List, if found; otherwise, –1.
-        *   @param item The object to locate in the List. 
+        *   @param item The object to locate in the List.
         */
         lastIndexOf(item: T): number
 
 
         /**
-        *   Searches for the specified object and returns the zero-based index of the last occurrence 
+        *   Searches for the specified object and returns the zero-based index of the last occurrence
         *   within the range of elements in the List that extends from the specified index to the last element if found; otherwise, –1.
-        *   @param item The object to locate in the List. 
+        *   @param item The object to locate in the List.
         *   @param index The zero-based starting index of the search. 0 (zero) is valid in an empty list.
         */
         lastIndexOf(item: T, index: number): number
@@ -637,7 +637,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the List class that contains elements copied from the specified collection 
+        * Initializes a new instance of the List class that contains elements copied from the specified collection
         * and has sufficient capacity to accommodate the number of elements copied.
         * @param collection The collection whose elements are copied to the new list.
         */
@@ -765,14 +765,14 @@ declare module multiplex {
     interface SortedListConstructor {
 
         /**
-        * Initializes a new instance of the SortedList class that is empty, 
+        * Initializes a new instance of the SortedList class that is empty,
         * has the default initial capacity, and uses the default Comparer.
         */
         new <TKey, TValue>(): SortedList<TKey, TValue>
 
 
         /**
-        * Initializes a new instance of the SortedList class that contains elements  copied from the specified Dictionary, 
+        * Initializes a new instance of the SortedList class that contains elements  copied from the specified Dictionary,
         * has sufficient capacity to accommodate the number of elements copied,  and uses the default Comparer.
         * @param dictionary The Dictionary whose elements are copied to the new SortedList.
         */
@@ -780,7 +780,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the SortedList class that is empty, 
+        * Initializes a new instance of the SortedList class that is empty,
         * has the default initial capacity, and uses the specified Comparer.
         * @param comparer The Comparer implementation to use when comparing keys.-or-null to use the default Comparer for the type of the key.
         */
@@ -788,7 +788,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the SortedList class that is empty, 
+        * Initializes a new instance of the SortedList class that is empty,
         * has the specified initial capacity, and uses the default Comparer.
         * @param capacity The initial number of elements that the SortedList can contain.
         */
@@ -805,7 +805,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the SortedList class that is empty, 
+        * Initializes a new instance of the SortedList class that is empty,
         * has the specified initial capacity, and uses the specified Comparer.
         * @param capacity The initial number of elements that the SortedList can contain.
         * @param comparer The Comparer implementation to use when comparing keys.-or-null to use the default Comparer for the type of the key.
@@ -930,13 +930,13 @@ declare module multiplex {
     interface DictionaryConstructor {
 
         /**
-        * Initializes a new instance of the Dictionary class that is empty, 
+        * Initializes a new instance of the Dictionary class that is empty,
         */
         new <TKey, TValue>(): Dictionary<TKey, TValue>
 
 
         /**
-        * Initializes a new instance of the Dictionary class that contains elements copied 
+        * Initializes a new instance of the Dictionary class that contains elements copied
         * from the specified Dictionary and uses the default equality comparer for the key type.
         * @param dictionary The Dictionary whose elements are copied to the new Dictionary.
         */
@@ -966,7 +966,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the Dictionary class that contains elements copied 
+        * Initializes a new instance of the Dictionary class that contains elements copied
         * from the specified Dictionary and uses the specified EqualityComparer.
         * @param dictionary The Dictionary whose elements are copied to the new Dictionary.
         * @param comparer The EqualityComparer implementation to use when comparing keys.
@@ -1119,7 +1119,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the HashSet class that uses the default equality comparer for the set type, 
+        * Initializes a new instance of the HashSet class that uses the default equality comparer for the set type,
         * and contains elements copied from the specified collection.
         * @param collection The collection whose elements are copied to the new set.
         */
@@ -1134,7 +1134,7 @@ declare module multiplex {
 
 
         /**
-        * Initializes a new instance of the HashSet class that uses the specified equality comparer for the set type, 
+        * Initializes a new instance of the HashSet class that uses the specified equality comparer for the set type,
         * contains elements copied from the specified collection, and uses the specified equality comparer for the set type.
         * @param collection The collection whose elements are copied to the new set.
         * @param comparer The EqualityComparer implementation to use when comparing values in the set.
@@ -1142,7 +1142,7 @@ declare module multiplex {
         new <T>(collection: Iterable<T>, comparer: EqualityComparer<T>): HashSet<T>
     }
 
-    
+
 
     /**
     * Represents a node in a LinkedList.
@@ -1273,7 +1273,7 @@ declare module multiplex {
 
         /**
         * Adds the specified new node at the end of the LinkedList.
-        * returns The new LinkedListNode. 
+        * returns The new LinkedListNode.
         * @param node The new LinkedListNode to add at the end of the LinkedList.
         */
         addLast(node: LinkedListNode<T>): LinkedListNode<T>
@@ -1302,7 +1302,7 @@ declare module multiplex {
 
         /**
         * Removes the node at the start of the LinkedList.
-        * returns true if the node is successfully removed; otherwise, false. 
+        * returns true if the node is successfully removed; otherwise, false.
         * This method also returns false if value was not found in the original LinkedList.
         * @param node
         */
@@ -1311,7 +1311,7 @@ declare module multiplex {
 
         /**
         * Removes the first occurrence of the specified value from the LinkedList.
-        * returns true if the element containing value is successfully removed; otherwise, false. 
+        * returns true if the element containing value is successfully removed; otherwise, false.
         * This method also returns false if value was not found in the original LinkedList.
         * @param value The value to remove from the LinkedList.
         */
@@ -1436,7 +1436,7 @@ declare module multiplex {
 
         /**
         * Inserts an object at the top of the Stack.
-        * @param item The object to push onto the Stack. 
+        * @param item The object to push onto the Stack.
         */
         push(item: T): void
 
@@ -1541,7 +1541,7 @@ declare module multiplex {
         /**
         * Performs a subsequent ordering of the elements in a sequence in descending order, according to a key.
         * Returns an OrderedEnumerable whose elements are sorted in descending order according to a key.
-        * @param keySelector A function to extract a key from each element. 
+        * @param keySelector A function to extract a key from each element.
         * @param comparer A Comparer to compare keys.
         */
         thenByDescending<TKey>(keySelector: (item: TElement) => TKey, comparer: Comparer<TKey>): OrderedEnumerable<TElement>
@@ -1573,11 +1573,11 @@ declare module multiplex {
 
 
         /**
-        * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value, 
+        * Applies an accumulator function over a sequence. The specified seed value is used as the initial accumulator value,
         * and the specified function is used to select the result value.
         * Returns the final accumulator value.
         * @param seed The initial accumulator value.
-        * @param func An accumulator function to be invoked on each element. 
+        * @param func An accumulator function to be invoked on each element.
         * @param resultSelector A function to transform the final accumulator value into the result value.
         */
         aggregate<TAccumulate, TResult>(seed: TAccumulate, func: (accumulate: TAccumulate, item: T) => TAccumulate, resultSelector: (accumulate: TAccumulate) => TResult): TResult;
@@ -1586,7 +1586,7 @@ declare module multiplex {
         /**
         * Determines whether all elements of a sequence satisfy a condition.
         * Returns true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
-        * @param predicate A function to test each element for a condition. 
+        * @param predicate A function to test each element for a condition.
         */
         all(predicate: (item: T) => boolean): boolean
 
@@ -1601,7 +1601,7 @@ declare module multiplex {
         /**
         * Determines whether any element of a sequence satisfies a condition.
         * Returns true if any elements in the source sequence pass the test in the specified predicate; otherwise, false.
-        * @param predicate A function to test each element for a condition. 
+        * @param predicate A function to test each element for a condition.
         */
         any(predicate: (item: T) => boolean): boolean
 
@@ -1620,7 +1620,7 @@ declare module multiplex {
 
         /**
         * Computes the average of a sequence of numeric values that are obtained by invoking a transform function on each element of the input sequence.
-        * @param selector A transform function to apply to each element. 
+        * @param selector A transform function to apply to each element.
         */
         average(selector: (item: number) => number): number
 
@@ -1655,7 +1655,7 @@ declare module multiplex {
 
         /**
         * Returns a number that represents how many elements in the specified sequence satisfy a condition.
-        * @param predicate A function to test each element for a condition. 
+        * @param predicate A function to test each element for a condition.
         */
         count(predicate: (item: T) => boolean): number
 
@@ -1780,9 +1780,9 @@ declare module multiplex {
 
 
         /**
-        * Groups the elements of a sequence according to a key selector function. 
+        * Groups the elements of a sequence according to a key selector function.
         * The keys are compared by using a comparer and each group's elements are projected by using a specified function.
-        * @param keySelector A function to extract the key for each element. 
+        * @param keySelector A function to extract the key for each element.
         * @param elementSelector A function to map each source element to an element in the Grouping.
         * @param comparer An equality comparer to compare values.
         */
@@ -1791,15 +1791,15 @@ declare module multiplex {
 
         /**
         * Groups the elements of a sequence according to a specified key selector function and projects the elements for each group by using a specified function.
-        * @param keySelector A function to extract the key for each element. 
-        * @param elementSelector A function to map each source element to an element in the Grouping. 
+        * @param keySelector A function to extract the key for each element.
+        * @param elementSelector A function to map each source element to an element in the Grouping.
         * @param resultSelector A function to extract the key for each element.
         */
         groupBy<TKey, TElement, TResult>(keySelector: (item: T) => TKey, elementSelector: (item: T) => TElement, resultSelector: (key: TKey, elements: Iterable<TElement>) => TResult): Enumerable<TResult>;
 
 
         /**
-        * Groups the elements of a sequence according to a key selector function. 
+        * Groups the elements of a sequence according to a key selector function.
         * The keys are compared by using a comparer and each group's elements are projected by using a specified function.
         * @param keySelector A function to extract the key for each element.
         * @param elementSelector A function to map each source element to an element in the Grouping.
@@ -1812,7 +1812,7 @@ declare module multiplex {
         /**
         * Correlates the elements of two sequences based on equality of keys and groups the results. The default equality comparer is used to compare keys.
         * @param inner The sequence to join to the current sequence.
-        * @param outerKeySelector A function to extract the join key from each element of the first sequence. 
+        * @param outerKeySelector A function to extract the join key from each element of the first sequence.
         * @param innerKeySelector A function to extract the join key from each element of the second sequence.
         * @param resultSelector A function to create a result element from an element from the first sequence and a collection of matching elements from the second sequence.
         */
@@ -1822,7 +1822,7 @@ declare module multiplex {
         /**
         * Correlates the elements of two sequences based on key equality and groups the results. A specified EqualityComparer is used to compare keys.
         * @param inner The sequence to join to the current sequence.
-        * @param outerKeySelector A function to extract the join key from each element of the first sequence. 
+        * @param outerKeySelector A function to extract the join key from each element of the first sequence.
         * @param innerKeySelector A function to extract the join key from each element of the second sequence.
         * @param resultSelector A function to create a result element from an element from the first sequence and a collection of matching elements from the second sequence.
         * @param comparer An equality comparer to compare values.
@@ -2276,7 +2276,7 @@ declare module multiplex {
         hash(obj: any): number;
 
 
-        /** 
+        /**
         * Determines whether the specified object instances are considered equal.
         * @param objA The first object to compare.
         * @param objB The second object to compare.

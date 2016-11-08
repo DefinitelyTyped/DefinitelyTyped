@@ -1,7 +1,7 @@
 // Type definitions for node-progress v1.1.8
 // Project: https://github.com/tj/node-progress
 // Definitions by: Sebastian Lenz <https://github.com/sebastian-lenz>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference path="../node/node.d.ts"/>
 
@@ -114,8 +114,13 @@ declare module "progress"
          * Terminates a progress bar.
          */
         terminate():void;
+        
+        /**
+         * Completed status of progress (Boolean)
+         */
+        complete:boolean;
     }
-
+    namespace ProgressBar { }
 
     export = ProgressBar;
 }

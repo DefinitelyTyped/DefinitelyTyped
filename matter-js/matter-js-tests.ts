@@ -7,25 +7,25 @@ var Engine = Matter.Engine,
 	Composites = Matter.Composites,
 	Constraint = Matter.Constraint,
 	Events = Matter.Events,
-	Query = Matter.Query
+	Query = Matter.Query;
 	
 	
-var engine = Engine.create(document.body)
+var engine = Engine.create();
 
 //Bodies
-var box1 = Bodies.rectangle(400,200,80,80)
+var box1 = Bodies.rectangle(400,200,80,80);
 var box2 = Bodies.rectangle(400,610,810,60, {
 	angle: 10,
 	angularSpeed: 11,
 	angularVelocity: 1,
 	density: 4,
 	isStatic: true
-})
+});
 
-var circle1 = Bodies.circle(100,100,50)
+var circle1 = Bodies.circle(100,100,50);
 
-World.addBody(engine.world, box1)
-World.add(engine.world, [box2, circle1])
+World.addBody(engine.world, box1);
+World.add(engine.world, [box2, circle1]);
 
 
 //Composites
@@ -40,18 +40,18 @@ var constraint1 = Constraint.create({
 	bodyA: box1,
 	bodyB: box2,
 	stiffness: 0.02
-})
+});
 
 //Query 
 var collisions = Query.ray([box1, box2, circle1], {x:1, y:2}, {x:3, y:4});
 
-World.addConstraint(engine.world, constraint1)
+World.addConstraint(engine.world, constraint1);
 
 
 //events
-Events.on(engine, "beforeTick", (e:any)=>{
-		
-})
+Events.on(engine, "beforeTick", (e:Matter.IEventTimestamped<Matter.Engine>)=>{
+
+});
 
 
-Engine.run(engine)
+Engine.run(engine);

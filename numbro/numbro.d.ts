@@ -1,7 +1,7 @@
 // Type definitions for Numbro.js
 // Project: https://github.com/foretagsplatsen/numbro
 // Definitions by: Vincent Bortone <https://github.com/vbortone/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface NumbroLanguage {
 	delimiters: {

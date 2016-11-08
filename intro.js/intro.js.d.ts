@@ -1,20 +1,13 @@
-// Type definitions for intro.js 1.0.0
+// Type definitions for intro.js 2.0
 // Project: https://github.com/usablica/intro.js
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module IntroJs {
-    enum Positions {
-        top,
-        left,
-        right,
-        bottom
-    }
-
+declare namespace IntroJs {
     interface Step {
         intro: string;
-        element?: string|HTMLElement;
-        position?: Positions;
+        element?: string|HTMLElement|Element;
+        position?: string;
     }
 
     interface Options {
@@ -36,12 +29,15 @@ declare module IntroJs {
         overlayOpacity?: number;
         positionPrecedence?: string[];
         disableInteraction?: boolean;
-        steps: Step[];
+        hintPosition?: string;
+        hintButtonLabel?: string;
+        steps?: Step[];
     }
 
     interface IntroJs {
         start(): IntroJs;
         exit(): IntroJs;
+        clone(): IntroJs;
 
         goToStep(step: number): IntroJs;
         nextStep(): IntroJs;
@@ -49,18 +45,26 @@ declare module IntroJs {
 
         refresh(): IntroJs;
 
-        setOption(option: string, value: string|number): IntroJs;
+        setOption(option: string, value: string|number|boolean): IntroJs;
         setOptions(options: Options): IntroJs;
 
         onexit(callback: Function): IntroJs;
         onbeforechange(callback: (element: HTMLElement) => any): IntroJs;
         onafterchange(callback: (element: HTMLElement) => any): IntroJs;
-        onchange(callback: Function): IntroJs;
+        onchange(callback: (element: HTMLElement) => any): IntroJs;
         oncomplete(callback: Function): IntroJs;
+
+        addHints(): IntroJs;
+
+        onhintsadded(callback: Function): IntroJs;
+        onhintclick(callback: (hintElement: HTMLElement, item: Step, stepId: number) => any): IntroJs;
+        onhintclose(callback: (stepId: number) => any): IntroJs;
     }
 
     interface Factory {
-        (element?: string): IntroJs;
+        (): IntroJs;
+        (element: HTMLElement): IntroJs;
+        (querySelector: string): IntroJs;
     }
 }
 

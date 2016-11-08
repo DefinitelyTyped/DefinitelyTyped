@@ -12,6 +12,7 @@ import net = require("net");
 import dgram = require("dgram");
 import querystring = require('querystring');
 import readline = require('readline');
+import string_decoder = require('string_decoder');
 
 assert(1 + 1 - 2 === 0, "The universe isn't how it should.");
 
@@ -24,7 +25,8 @@ assert.notStrictEqual(2, "2", "uses === comparator");
 assert.throws(() => { throw "a hammer at your face"; }, undefined, "DODGED IT");
 
 assert.doesNotThrow(() => {
-    if (false) { throw "a hammer at your face"; }
+    const b = false;
+    if (b) { throw "a hammer at your face"; }
 }, undefined, "What the...*crunch*");
 
 ////////////////////////////////////////////////////
@@ -114,11 +116,23 @@ request.abort();
 ////////////////////////////////////////////////////
 /// Http tests : http://nodejs.org/api/http.html
 ////////////////////////////////////////////////////
-module http_tests {
+namespace http_tests {
     // Status codes
     var code = 100;
     var codeMessage = http.STATUS_CODES['400'];
     var codeMessage = http.STATUS_CODES[400];
+}
+
+////////////////////////////////////////////////////
+/// string_decoder tests : https://nodejs.org/api/string_decoder.html
+////////////////////////////////////////////////////
+
+namespace string_decoder_tests {
+    var StringDecoder = string_decoder.StringDecoder;
+    var buffer = new Buffer('test');
+    var decoder = new StringDecoder('utf8');
+    var part: string = decoder.write(new Buffer('test'));
+    var end: string = decoder.end();
 }
 
 ////////////////////////////////////////////////////

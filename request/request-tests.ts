@@ -3,8 +3,8 @@
 import request = require('request');
 import http = require('http');
 import stream = require('stream');
-import formData = require('form-data');
 import fs = require('fs');
+import FormData = require('form-data');
 
 var value: any;
 var str: string;
@@ -21,7 +21,7 @@ var headers: {[key: string]: string};
 var agent: http.Agent;
 var write: stream.Writable;
 var req: request.Request;
-var form1: formData.FormData;
+var form1: FormData;
 
 var bodyArr: request.RequestPart[] = [{
 	body: value
@@ -92,6 +92,7 @@ var options: request.Options = {
 	qs: obj,
 	json: value,
 	multipart: value,
+	agent: new http.Agent(),
 	agentOptions: value,
 	agentClass: value,
 	forever: value,
@@ -109,6 +110,15 @@ var options: request.Options = {
 	proxy: value,
 	strictSSL: bool
 };
+
+// Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.
+// options.uri = str;
+
+const opt: request.OptionsWithUri = {
+  baseUrl: 'http://localhost',
+  uri: 'bar'
+};
+opt.uri = str;
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -233,14 +243,14 @@ request
     console.log(response.headers['content-type']); // 'image/png'
   })
   .pipe(request.put('http://mysite.com/img.png'));
-  
+
 request
   .get('http://mysite.com/doodle.png')
   .on('error', function(err: any) {
     console.log(err);
   })
   .pipe(fs.createWriteStream('doodle.png'));
-  
+
 http.createServer(function (req, resp) {
   if (req.url === '/doodle.png') {
     if (req.method === 'PUT') {
@@ -352,7 +362,7 @@ request({
     }
     console.log('Upload successful!  Server responded with:', body);
   });
-  
+
 request.get('http://some.server.com/').auth('username', 'password', false);
 // or
 request.get('http://some.server.com/', {
@@ -442,8 +452,8 @@ request.post({url:url, oauth:oauth}, function (e, r, body) {
         , token_secret: perm_data.oauth_token_secret
         };
     var url = 'https://api.twitter.com/1.1/users/show.json';
-    var query = { 
-      screen_name: perm_data.screen_name, 
+    var query = {
+      screen_name: perm_data.screen_name,
       user_id: perm_data.user_id
     };
     request.get({url:url, oauth:oauth, qs:query, json:true}, function (e, r, user) {
@@ -530,7 +540,7 @@ request({
       }
     }
   });
-  
+
 //requests using baseRequest() will set the 'x-token' header
 var baseRequest = request.defaults({
   headers: {'x-token': 'my-token'}
@@ -583,7 +593,7 @@ var rand = Math.floor(Math.random()*100000000).toString();
       }
     }
   );
-  
+
 request(
     { method: 'GET'
     , uri: 'http://www.google.com'
@@ -605,7 +615,7 @@ request(
       console.log('received ' + data.length + ' bytes of compressed data')
     })
   });
-  
+
 var requestWithJar = request.defaults({jar: true})
 requestWithJar('http://www.google.com', function () {
   requestWithJar('http://images.google.com');
@@ -640,3 +650,15 @@ request({url: 'http://www.google.com', jar: j}, function () {
   var cookies = j.getCookies(url);
   // [{key: 'key1', value: 'value1', domain: "www.google.com", ...}, ...]
 });
+
+request(
+    { method: 'GET'
+    , uri: 'http://www.google.com'
+    , gzip: true
+    }
+  )
+  .on('request', function(req: http.ClientRequest) { })
+  .on('response', function(resp: http.IncomingMessage) { })
+  .on('data', function(data: Buffer | string) { })
+  .on('error', function(e: Error) { })
+  .on('complete', function(resp: http.IncomingMessage, body?: string | Buffer) { });

@@ -1,9 +1,9 @@
 // Type definitions for Segment's analytics.js for Node.js
 // Project: https://segment.com/docs/libraries/node/
 // Definitions by: Andrew Fong <https://github.com/fongandrew>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module AnalyticsNode {
+declare namespace AnalyticsNode {
 
   interface Integrations {
     [index: string]: boolean;

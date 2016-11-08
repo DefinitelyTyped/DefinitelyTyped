@@ -1,7 +1,7 @@
 // Type definitions for tabtab 0.0.4
 // Project: https://github.com/mklabs/node-tabtab
 // Definitions by: Vojtěch Habarta <https://github.com/vojtechhabarta>
-// Definitions: https://github.com/borisyankov/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "tabtab" {
 
@@ -51,37 +51,37 @@ declare module "tabtab" {
      * Holds interesting values to drive the output of the completion.
      */
     interface Data {
-		
+
         /**
          * full command being completed
          */
         line: string;
-		
+
         /**
          * number of words
          */
         words: number;
-		
+
         /**
          * cursor position
          */
         point: number;
-		
+
         /**
          * tabing in the middle of a word: foo bar baz bar foobarrrrrrr
          */
         partial: string;
-		
+
         /**
          * last word of the line
          */
         last: string;
-		
+
         /**
          * last partial of the line
          */
         lastPartial: string;
-		
+
         /**
          * the previous word
          */
