@@ -1,4 +1,4 @@
-/// <reference path="../qunit/qunit.d.ts" />
+/// <reference path="../qunit/qunit-1.16.d.ts" />
 /// <reference path="jquery.bbq.d.ts" />
 
 

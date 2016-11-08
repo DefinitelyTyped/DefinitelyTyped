@@ -44,11 +44,21 @@ namespace ShallowWrapperTest {
         stringVal: String,
         elementWrapper: ShallowWrapper<HTMLAttributes, {}>
 
+    function test_shallow_options() {
+        shallow(<MyComponent propsProperty={1}/>, {
+            context: {
+                test: "a",
+            },
+            lifecycleExperimental: true
+        });
+    }
+
     function test_find() {
         elementWrapper = shallowWrapper.find('.selector');
         shallowWrapper = shallowWrapper.find(MyComponent);
         shallowWrapper.find(MyStatelessComponent).props().stateless;
         shallowWrapper.find(MyStatelessComponent).shallow();
+        shallowWrapper.find({ prop: 'value' });
     }
 
     function test_findWhere() {
@@ -59,6 +69,7 @@ namespace ShallowWrapperTest {
     function test_filter() {
         elementWrapper = shallowWrapper.filter('.selector');
         shallowWrapper = shallowWrapper.filter(MyComponent).shallow();
+        shallowWrapper.filter({ prop: 'val' });
     }
 
     function test_filterWhere() {
@@ -85,6 +96,18 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.containsAnyMatchingElements([<div className="foo bar"/>]);
     }
 
+    function test_dive() {
+        interface TmpProps {
+            foo: any
+        }
+
+        interface TmpState {
+            bar: any
+        }
+
+        const diveWrapper: ShallowWrapper<TmpProps, TmpState> = shallowWrapper.dive<TmpProps, TmpState>({ context: { foobar: 'barfoo' }});
+    }
+
     function test_equals() {
         boolVal = shallowWrapper.equals(<div className="foo bar"/>);
     }
@@ -101,6 +124,10 @@ namespace ShallowWrapperTest {
         boolVal = shallowWrapper.is('.some-class');
     }
 
+    function test_isEmpty() {
+        boolVal = shallowWrapper.isEmpty()
+    }
+
     function test_not() {
         elementWrapper = shallowWrapper.find('.foo').not('.bar');
     }
@@ -108,6 +135,7 @@ namespace ShallowWrapperTest {
     function test_children() {
         shallowWrapper = shallowWrapper.children();
         shallowWrapper.children(MyStatelessComponent).props().stateless;
+        shallowWrapper.children({ prop: 'myprop' });
     }
 
     function test_childAt() {
@@ -135,6 +163,7 @@ namespace ShallowWrapperTest {
     function test_closest() {
         elementWrapper = shallowWrapper.closest('.selector');
         shallowWrapper = shallowWrapper.closest(MyComponent);
+        shallowWrapper = shallowWrapper.closest({ prop: 'myprop' });
     }
 
     function test_shallow() {
@@ -175,7 +204,7 @@ namespace ShallowWrapperTest {
     }
 
     function test_state() {
-        shallowWrapper.state();
+        const state: MyComponentState = shallowWrapper.state();
         shallowWrapper.state('key');
         const tmp: String = shallowWrapper.state<String>('key');
     }
@@ -205,11 +234,11 @@ namespace ShallowWrapperTest {
     }
 
     function test_setState() {
-        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' });
+        shallowWrapper = shallowWrapper.setState({ stateProperty: 'state' }, () => console.log('state updated'));
     }
 
     function test_setProps() {
-        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' });
+        shallowWrapper = shallowWrapper.setProps({ propsProperty: 'foo' }, () => console.log('props updated'));
     }
 
     function test_setContext() {
@@ -277,6 +306,10 @@ namespace ShallowWrapperTest {
     function test_everyWhere() {
         boolVal = shallowWrapper.everyWhere((aShallowWrapper: ShallowWrapper<MyComponentProps, MyComponentState>) => true);
     }
+
+    function test_isEmptyRender() {
+        boolVal = shallowWrapper.isEmptyRender();
+    }
 }
 
 
@@ -297,30 +330,38 @@ namespace ReactWrapperTest {
 
     function test_mount() {
         reactWrapper = reactWrapper.mount();
+
+        mount(<MyComponent propsProperty={1}/>, {
+            attachTo: document.getElementById('test'),
+            context: {
+                a: "b"
+            }
+        });
     }
 
     function test_ref() {
         reactWrapper = reactWrapper.ref('refName');
-        
+
         interface TmpType1 {
             foo: string
         }
-        
+
         interface TmpType2 {
             bar: string
         }
-        
+
         const tmp: ReactWrapper<TmpType1, TmpType2> = reactWrapper.ref<TmpType1, TmpType2>('refName');
     }
-    
+
     function test_detach() {
         reactWrapper.detach();
     }
-    
+
     function test_find() {
         elementWrapper = reactWrapper.find('.selector');
         reactWrapper = reactWrapper.find(MyComponent);
         reactWrapper.find(MyStatelessComponent).props().stateless;
+        reactWrapper.find({ prop: 'myprop' });
     }
 
     function test_findWhere() {
@@ -331,6 +372,7 @@ namespace ReactWrapperTest {
     function test_filter() {
         elementWrapper = reactWrapper.filter('.selector');
         reactWrapper = reactWrapper.filter(MyComponent);
+        reactWrapper = reactWrapper.filter({ prop: 'myprop' });
     }
 
     function test_filterWhere() {
@@ -373,6 +415,10 @@ namespace ReactWrapperTest {
         boolVal = reactWrapper.is('.some-class');
     }
 
+    function test_isEmpty() {
+        boolVal = reactWrapper.isEmpty()
+    }
+
     function test_not() {
         elementWrapper = reactWrapper.find('.foo').not('.bar');
     }
@@ -406,6 +452,7 @@ namespace ReactWrapperTest {
     function test_closest() {
         elementWrapper = reactWrapper.closest('.selector');
         reactWrapper = reactWrapper.closest(MyComponent);
+        reactWrapper = reactWrapper.closest({ prop: 'myprop' });
     }
 
     function test_text() {
@@ -535,6 +582,9 @@ namespace ReactWrapperTest {
     function test_everyWhere() {
         boolVal = reactWrapper.everyWhere((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>) => true);
     }
+    function test_isEmptyRender() {
+        boolVal = reactWrapper.isEmptyRender();
+    }
 }
 
 // CheerioWrapper
@@ -552,6 +602,7 @@ namespace CheerioWrapperTest {
         elementWrapper = cheerioWrapper.find('.selector');
         cheerioWrapper = cheerioWrapper.find(MyComponent);
         cheerioWrapper.find(MyStatelessComponent).props().stateless;
+        cheerioWrapper.find({ prop: 'myprop' });
     }
 
     function test_findWhere() {
@@ -562,6 +613,7 @@ namespace CheerioWrapperTest {
     function test_filter() {
         elementWrapper = cheerioWrapper.filter('.selector');
         cheerioWrapper = cheerioWrapper.filter(MyComponent);
+        cheerioWrapper = cheerioWrapper.filter({ prop: 'myprop' });
     }
 
     function test_filterWhere() {
@@ -604,6 +656,10 @@ namespace CheerioWrapperTest {
         boolVal = cheerioWrapper.is('.some-class');
     }
 
+    function test_isEmpty() {
+        boolVal = cheerioWrapper.isEmpty()
+    }
+
     function test_not() {
         elementWrapper = cheerioWrapper.find('.foo').not('.bar');
     }
@@ -637,6 +693,7 @@ namespace CheerioWrapperTest {
     function test_closest() {
         elementWrapper = cheerioWrapper.closest('.selector');
         cheerioWrapper = cheerioWrapper.closest(MyComponent);
+        cheerioWrapper = cheerioWrapper.closest({ prop: 'myprop' });
     }
 
     function test_text() {

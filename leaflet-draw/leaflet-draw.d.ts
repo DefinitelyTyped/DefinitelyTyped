@@ -3,7 +3,7 @@
 // Definitions by: Matt Guest <https://github.com/matt-guest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts" />
+/// <reference path="../leaflet/leaflet-0.7.d.ts" />
 
 declare namespace L {
 	export interface MapOptions {

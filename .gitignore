@@ -35,3 +35,4 @@ node_modules
 
 .sublimets
 .settings/launch.json
+yarn.lock

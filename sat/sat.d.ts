@@ -140,3 +140,7 @@ declare namespace SAT {
 	export function testPolygonPolygon(a: Polygon, b: Polygon, response?: Response): boolean;
 
 }
+
+declare module "sat" {
+	export = SAT;
+}

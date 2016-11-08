@@ -4,8 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class HowlerGlobal {
-    mute(): HowlerGlobal;
-    unmute(): HowlerGlobal;
+    mute(muted: boolean): HowlerGlobal;
     volume(): number;
     volume(volume: number): HowlerGlobal;
     codecs(extension: string): boolean;
@@ -52,20 +51,19 @@ interface Howl {
     onpause: Function;
     onplay: Function;
     load(): Howl;
-    play(sprite?: string, callback?: (soundId: number) => void): Howl;
-    play(callback?: (soundId: number) => void): Howl;
-    pause(soundId?: number): Howl;
-    stop(soundId?: number): Howl;
-    mute(soundId?: number): Howl;
-    unmute(soundId?: number): Howl;
-    fade(from: number, to: number, duration: number, callback?: Function, soundId?: number): Howl;
+    play(sprite?: string, callback?: (soundId: string) => void): Howl;
+    play(callback?: (soundId: string) => void): Howl;
+    pause(soundId?: string): Howl;
+    stop(soundId?: string): Howl;
+    mute(muted?: boolean, soundId?: string): Howl;
+    fade(from: number, to: number, duration: number, callback?: Function, soundId?: string): Howl;
     loop(): boolean;
     loop(loop: boolean): Howl;
-    pos(position?: number, soundId?: number): number;
-    pos3d(x: number, y: number, z: number, soundId?: number): any;
+    pos(position?: number, soundId?: string): number;
+    pos3d(x: number, y: number, z: number, soundId?: string): any;
     sprite(definition?: IHowlSoundSpriteDefinition): IHowlSoundSpriteDefinition;
     volume(): number;
-    volume(volume?: number, soundId?: number): Howl;
+    volume(volume?: number, soundId?: string): Howl;
     urls(): string[];
     urls(urls: string[]): Howl;
     on(event: string, listener?: Function): Howl;

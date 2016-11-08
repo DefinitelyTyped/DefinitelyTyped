@@ -116,12 +116,12 @@ declare namespace NodeCacheTypes {
 	}
 
 	interface Options {
-		forceString: boolean;
-		objectValueSize: number;
-		arrayValueSize: number;
-		stdTTL: number;
-		checkperiod: number;
-		useClones: boolean;
+		forceString?: boolean;
+		objectValueSize?: number;
+		arrayValueSize?: number;
+		stdTTL?: number;
+		checkperiod?: number;
+		useClones?: boolean;
 	}
 
 	interface Stats {

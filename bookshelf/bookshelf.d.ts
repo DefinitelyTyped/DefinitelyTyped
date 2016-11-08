@@ -3,7 +3,7 @@
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../bluebird/bluebird.d.ts" />
+/// <reference path="../bluebird/bluebird-2.0.d.ts" />
 /// <reference path='../lodash/lodash-3.10.d.ts' />
 /// <reference path="../knex/knex.d.ts" />
 /// <reference path="../create-error/create-error.d.ts" />
@@ -93,6 +93,8 @@ declare module 'bookshelf' {
 			static fetchAll<T extends Model<any>>() : Promise<Collection<T>>;
 			/** @deprecated should use `new` objects instead. */
 			static forge<T>(attributes? : any, options? : ModelOptions) : T;
+			static where<T>(properties: { [key: string]: any }): T;
+			static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
 			belongsTo<R extends Model<any>>(target : {new(...args : any[]) : R}, foreignKey? : string) : R;
 			belongsToMany<R extends Model<any>>(target : {new(...args : any[]) : R}, table? : string, foreignKey? : string, otherKey? : string) : Collection<R>;

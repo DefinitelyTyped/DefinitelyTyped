@@ -42,9 +42,10 @@ declare namespace angular.ui {
          */
         topVisibleScope: ng.IRepeatScope;
         /**
-         * calling this method reinitializes and reloads the scroller content.
+         * calling this method reinitializes and reloads the scroller content. 
+         * @param startIndex is an integer indicating what item index the scroller will use to start the load process.
          */
-        reload(): void;
+        reload(startIndex?: number): void;
         /**
          * Replaces the item in the buffer at the given index with the new items.
          *

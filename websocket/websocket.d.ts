@@ -1,5 +1,5 @@
 // Type definitions for websocket
-// Project: https://github.com/Worlize/WebSocket-Node
+// Project: https://github.com/theturtle32/WebSocket-Node
 // Definitions by: Paul Loyd <https://github.com/loyd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -236,8 +236,9 @@ declare module "websocket" {
          * You may optionally pass in an HTTP Status code (such as 404) and a textual
          * description that will be sent to the client in the form of an
          * `X-WebSocket-Reject-Reason` header.
+         * Optional extra http headers can be added via Object key/values on extraHeaders.
          */
-        reject(httpStatus?: number, reason?: string): void;
+        reject(httpStatus?: number, reason?: string, extraHeaders?: Object): void;
 
         // Events
         on(event: string, listener: () => void): this;
@@ -541,7 +542,7 @@ declare module "websocket" {
         url: url.Url;
         secure: boolean;
         socket: net.Socket;
-        response: http.ClientResponse;
+        response: http.IncomingMessage;
 
         constructor(clientConfig?: IClientConfig);
 

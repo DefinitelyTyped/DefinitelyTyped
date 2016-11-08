@@ -13,6 +13,10 @@ interface Error {
     stack?: string;
 }
 
+interface ErrorConstructor {
+    captureStackTrace(targetObject: Object, constructorOpt?: Function): void;
+    stackTraceLimit: number;
+}
 
 // compat for TypeScript 1.8
 // if you use with --target es3 or --target es5 and use below definitions,
@@ -48,7 +52,7 @@ interface NodeRequire extends NodeRequireFunction {
     resolve(id:string): string;
     cache: any;
     extensions: any;
-    main: any;
+    main: NodeModule;
 }
 
 declare var require: NodeRequire;
@@ -59,8 +63,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    parent: any;
-    children: any[];
+    parent: NodeModule;
+    children: NodeModule[];
 }
 
 declare var module: NodeModule;
@@ -286,6 +290,7 @@ declare namespace NodeJS {
         cwd(): string;
         env: any;
         exit(code?: number): void;
+        exitCode: number;
         getgid(): number;
         setgid(id: number): void;
         setgid(id: string): void;
@@ -334,6 +339,7 @@ declare namespace NodeJS {
         title: string;
         arch: string;
         platform: string;
+        mainModule?: NodeModule;
         memoryUsage(): MemoryUsage;
         nextTick(callback: Function): void;
         umask(mask?: number): number;
@@ -425,7 +431,7 @@ declare namespace NodeJS {
 interface NodeBuffer extends Uint8Array {
     write(string: string, offset?: number, length?: number, encoding?: string): number;
     toString(encoding?: string, start?: number, end?: number): string;
-    toJSON(): any;
+    toJSON(): {type: 'Buffer', data: any[]};
     equals(otherBuffer: Buffer): boolean;
     compare(otherBuffer: Buffer): number;
     copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
@@ -543,7 +549,7 @@ declare module "http" {
         agent?: Agent|boolean;
     }
 
-    export interface Server extends events.EventEmitter, net.Server {
+    export interface Server extends net.Server {
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
@@ -632,6 +638,7 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -885,6 +892,14 @@ declare module "https" {
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
+        pfx?: any;
+        key?: any;
+        passphrase?: string;
+        cert?: any;
+        ca?: any;
+        ciphers?: string;
+        rejectUnauthorized?: boolean;
+        secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
@@ -1022,6 +1037,7 @@ declare module "child_process" {
         pid: number;
         kill(signal?: string): void;
         send(message: any, sendHandle?: any): void;
+        connected: boolean;
         disconnect(): void;
         unref(): void;
     }
@@ -1221,6 +1237,7 @@ declare module "dns" {
 
 declare module "net" {
     import * as stream from "stream";
+    import * as events from "events";
 
     export interface Socket extends stream.Duplex {
         // Extended base methods
@@ -1273,7 +1290,7 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends Socket {
+    export interface Server extends events.EventEmitter {
         listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port: number, hostname?: string, listeningListener?: Function): Server;
         listen(port: number, backlog?: number, listeningListener?: Function): Server;
@@ -1290,6 +1307,49 @@ declare module "net" {
         unref(): Server;
         maxConnections: number;
         connections: number;
+
+        /**
+         * events.EventEmitter
+         *   1. close
+         *   2. connection
+         *   3. error
+         *   4. listening
+         */
+        addListener(event: string, listener: Function): this;
+        addListener(event: "close", listener: () => void): this;
+        addListener(event: "connection", listener: (socket: Socket) => void): this;
+        addListener(event: "error", listener: (err: Error) => void): this;
+        addListener(event: "listening", listener: () => void): this;
+
+        emit(event: string, ...args: any[]): boolean;
+        emit(event: "close"): boolean;
+        emit(event: "connection", socket: Socket): boolean;
+        emit(event: "error", err: Error): boolean;
+        emit(event: "listening"): boolean;
+
+        on(event: string, listener: Function): this;
+        on(event: "close", listener: () => void): this;
+        on(event: "connection", listener: (socket: Socket) => void): this;
+        on(event: "error", listener: (err: Error) => void): this;
+        on(event: "listening", listener: () => void): this;
+
+        once(event: string, listener: Function): this;
+        once(event: "close", listener: () => void): this;
+        once(event: "connection", listener: (socket: Socket) => void): this;
+        once(event: "error", listener: (err: Error) => void): this;
+        once(event: "listening", listener: () => void): this;
+
+        prependListener(event: string, listener: Function): this;
+        prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependListener(event: "error", listener: (err: Error) => void): this;
+        prependListener(event: "listening", listener: () => void): this;
+
+        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
+        prependOnceListener(event: "error", listener: (err: Error) => void): this;
+        prependOnceListener(event: "listening", listener: () => void): this;
     }
     export function createServer(connectionListener?: (socket: Socket) =>void ): Server;
     export function createServer(options?: { allowHalfOpen?: boolean; }, connectionListener?: (socket: Socket) =>void ): Server;
@@ -1532,7 +1592,7 @@ declare module "fs" {
     export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     export function writeSync(fd: number, data: any, position?: number, enconding?: string): number;
     export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number): number;
+    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number): number;
     /*
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1779,10 +1839,10 @@ declare module "path" {
 declare module "string_decoder" {
     export interface NodeStringDecoder {
         write(buffer: Buffer): string;
-        detectIncompleteChar(buffer: Buffer): number;
+        end(): string;
     }
     export var StringDecoder: {
-        new (encoding: string): NodeStringDecoder;
+        new (encoding?: string): NodeStringDecoder;
     };
 }
 
@@ -1993,7 +2053,7 @@ declare module "stream" {
     export class Readable extends events.EventEmitter implements NodeJS.ReadableStream {
         readable: boolean;
         constructor(opts?: ReadableOptions);
-        _read(size: number): void;
+        protected _read(size: number): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2014,7 +2074,7 @@ declare module "stream" {
     export class Writable extends events.EventEmitter implements NodeJS.WritableStream {
         writable: boolean;
         constructor(opts?: WritableOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2030,7 +2090,7 @@ declare module "stream" {
     export class Duplex extends Readable implements NodeJS.ReadWriteStream {
         writable: boolean;
         constructor(opts?: DuplexOptions);
-        _write(chunk: any, encoding: string, callback: Function): void;
+        protected _write(chunk: any, encoding: string, callback: Function): void;
         write(chunk: any, cb?: Function): boolean;
         write(chunk: any, encoding?: string, cb?: Function): boolean;
         end(): void;
@@ -2045,8 +2105,8 @@ declare module "stream" {
         readable: boolean;
         writable: boolean;
         constructor(opts?: TransformOptions);
-        _transform(chunk: any, encoding: string, callback: Function): void;
-        _flush(callback: Function): void;
+        protected _transform(chunk: any, encoding: string, callback: Function): void;
+        protected _flush(callback: Function): void;
         read(size?: number): any;
         setEncoding(encoding: string): void;
         pause(): void;
@@ -2388,4 +2448,63 @@ declare module "constants" {
     export var W_OK: number;
     export var X_OK: number;
     export var UV_UDP_REUSEADDR: number;
+    export var EDQUOT: number;
+    export var EMULTIHOP: number;
+    export var ESTALE: number;
+    export var O_DIRECT: number;
+    export var O_DIRECTORY: number;
+    export var O_NOCTTY: number;
+    export var O_NOFOLLOW: number;
+    export var O_NONBLOCK: number;
+    export var O_SYNC: number;
+    export var SIGALRM: number;
+    export var SIGBUS: number;
+    export var SIGCHLD: number;
+    export var SIGCONT: number;
+    export var SIGIO: number;
+    export var SIGIOT: number;
+    export var SIGPIPE: number;
+    export var SIGPOLL: number;
+    export var SIGPROF: number;
+    export var SIGPWR: number;
+    export var SIGQUIT: number;
+    export var SIGSTKFLT: number;
+    export var SIGSTOP: number;
+    export var SIGSYS: number;
+    export var SIGTRAP: number;
+    export var SIGTSTP: number;
+    export var SIGTTIN: number;
+    export var SIGTTOU: number;
+    export var SIGUNUSED: number;
+    export var SIGURG: number;
+    export var SIGUSR1: number;
+    export var SIGUSR2: number;
+    export var SIGVTALRM: number;
+    export var SIGXCPU: number;
+    export var SIGXFSZ: number;
+    export var S_IFBLK: number;
+    export var S_IFIFO: number;
+    export var S_IFSOCK: number;
+    export var S_IRGRP: number;
+    export var S_IROTH: number;
+    export var S_IRUSR: number;
+    export var S_IRWXG: number;
+    export var S_IRWXO: number;
+    export var S_IRWXU: number;
+    export var S_IWGRP: number;
+    export var S_IWOTH: number;
+    export var S_IWUSR: number;
+    export var S_IXGRP: number;
+    export var S_IXOTH: number;
+    export var S_IXUSR: number;
+    export var defaultCipherList: string;
+    export var defaultCoreCipherList: string;
+}
+
+declare module "process" {
+    export = process;
+}
+
+declare module "console" {
+    export = console;
 }

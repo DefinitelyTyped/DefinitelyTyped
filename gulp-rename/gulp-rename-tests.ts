@@ -3,6 +3,9 @@
 import gulp = require("gulp");
 import rename = require("gulp-rename");
 
+// Test that new import syntax works
+import * as newRename from 'gulp-rename';
+
 // rename via string
 gulp.src("./src/main/text/hello.txt")
     .pipe(rename("main/text/ciao/goodbye.md"))

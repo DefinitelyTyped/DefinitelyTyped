@@ -4,51 +4,52 @@ import { inject, Kernel } from "inversify";
 import { autoProvide, makeProvideDecorator, makeFluentProvideDecorator } from "inversify-binding-decorators";
 
 module decorator {
+
     let kernel = new Kernel();
     let provide = makeProvideDecorator(kernel);
 
-    interface INinja {
+    interface Warrior {
         fight(): string;
         sneak(): string;
     }
 
-    interface IKatana {
+    interface Weapon {
         hit(): string;
     }
 
-    interface IShuriken {
+    interface ThrowableWeapon {
         throw(): string;
     }
 
     let TYPE = {
-        IKatana: "IKatana",
-        INinja: "INinja",
-        IShuriken: "IShuriken"
+        ThrowableWeapon: "ThrowableWeapon",
+        Warrior: "Warrior",
+        Weapon: "Weapon"
     };
 
-    @provide(TYPE.IKatana)
-    class Katana implements IKatana {
+    @provide(TYPE.Weapon)
+    class Katana implements Weapon {
         public hit() {
             return "cut!";
         }
     }
 
-    @provide(TYPE.IShuriken)
-    class Shuriken implements IShuriken {
+    @provide(TYPE.ThrowableWeapon)
+    class Shuriken implements ThrowableWeapon {
         public throw() {
             return "hit!";
         }
     }
 
-    @provide(TYPE.INinja)
-    class Ninja implements INinja {
+    @provide(TYPE.Warrior)
+    class Ninja implements Warrior {
 
-        private _katana: IKatana;
-        private _shuriken: IShuriken;
+        private _katana: Weapon;
+        private _shuriken: ThrowableWeapon;
 
         public constructor(
-            @inject("IKatana") katana: IKatana,
-            @inject("IShuriken") shuriken: IShuriken
+            @inject(TYPE.Weapon) katana: Weapon,
+            @inject(TYPE.ThrowableWeapon) shuriken: ThrowableWeapon
         ) {
             this._katana = katana;
             this._shuriken = shuriken;
@@ -59,12 +60,13 @@ module decorator {
 
     }
 
-    let ninja = kernel.get<INinja>(TYPE.INinja);
+    let ninja = kernel.get<Warrior>(TYPE.Warrior);
     console.log(ninja);
 
 }
 
 module fluent_decorator {
+
     let kernel = new Kernel();
     let provide = makeFluentProvideDecorator(kernel);
 
@@ -76,27 +78,27 @@ module fluent_decorator {
         return provide(identifier).done();
     };
 
-    interface INinja {
+    interface Warrior {
         fight(): string;
         sneak(): string;
     }
 
-    interface IKatana {
+    interface Weapon {
         hit(): string;
     }
 
-    interface IShuriken {
+    interface ThrowableWeapon {
         throw(): string;
     }
 
     let TYPE = {
-        IKatana: "IKatana",
-        INinja: "INinja",
-        IShuriken: "IShuriken"
+        ThrowableWeapon: "ThrowableWeapon",
+        Warrior: "Warrior",
+        Weapon: "Weapon"
     };
 
-    @provideSingleton(TYPE.IKatana)
-    class Katana implements IKatana {
+    @provideSingleton(TYPE.Weapon)
+    class Katana implements Weapon {
         private _mark: any;
         public constructor() {
             this._mark = Math.random();
@@ -106,8 +108,8 @@ module fluent_decorator {
         }
     }
 
-    @provideTransient(TYPE.IShuriken)
-    class Shuriken implements IShuriken {
+    @provideTransient(TYPE.ThrowableWeapon)
+    class Shuriken implements ThrowableWeapon {
         private _mark: any;
         public constructor() {
             this._mark = Math.random();
@@ -117,15 +119,15 @@ module fluent_decorator {
         }
     }
 
-    @provideTransient(TYPE.INinja)
-    class Ninja implements INinja {
+    @provideTransient(TYPE.Warrior)
+    class Ninja implements Warrior {
 
-        private _katana: IKatana;
-        private _shuriken: IShuriken;
+        private _katana: Weapon;
+        private _shuriken: ThrowableWeapon;
 
         public constructor(
-            @inject("IKatana") katana: IKatana,
-            @inject("IShuriken") shuriken: IShuriken
+            @inject(TYPE.Weapon) katana: Weapon,
+            @inject(TYPE.ThrowableWeapon) shuriken: ThrowableWeapon
         ) {
             this._katana = katana;
             this._shuriken = shuriken;
@@ -136,7 +138,7 @@ module fluent_decorator {
 
     }
 
-    let ninja = kernel.get<INinja>(TYPE.INinja);
+    let ninja = kernel.get<Warrior>(TYPE.Warrior);
     console.log(ninja);
 
 }

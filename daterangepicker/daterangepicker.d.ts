@@ -11,7 +11,7 @@ interface JQuery {
     daterangepicker(settings?: daterangepicker.Settings, callback?: (start?: string | Date | moment.Moment, end?: string | Date | moment.Moment, label?: string) => any): JQuery;
 }
 
-declare module daterangepicker {
+declare namespace daterangepicker {
 
     interface DatepickerEventObject extends JQueryEventObject {
         date: Date;
@@ -163,4 +163,8 @@ declare module daterangepicker {
          */
         monthNames?: string[];
     }
+}
+
+declare module "daterangepicker" {
+    export = daterangepicker;
 }

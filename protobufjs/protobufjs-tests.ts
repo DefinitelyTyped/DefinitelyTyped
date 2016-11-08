@@ -44,7 +44,7 @@ function testProtoBufJs() {
      assertIsNamespace(protoFile.ns, "protoFile.ns");
      assertIsNamespace(protoFile.ptr, "protoFile.ptr");
 
-     assertIsProtoBuf(protoFile.build(), "protoFile.build()");
+     assertIsMetaMessage<any>(protoFile.build(), "protoFile.build()");
      assertIsProtoBuf(protoFile.result, "protoFile.result");
 
      assertIsProtoBuilder(protoFile.create(), "protoFile.create()");
@@ -117,11 +117,12 @@ function assertIsProtoBuf(pb: ProtoBuf.ProtoBuf, name: string) {
     }
 }
 
-function assertIsMetaMessage(mm: ProtoBuf.MetaMessage, name: string) {
+function assertIsMetaMessage<T>(mm: ProtoBuf.MetaMessage<T>, name: string) {
     assert.ok("decode" in mm, name + " should contain property decode");
     assert.ok("decodeDelimited" in mm, name + " should contain property decodeDelimited");
     assert.ok("decode64" in mm, name + " should contain property decode64");
     assert.ok("decodeHex" in mm, name + " should contain property decodeHex");
+    assert.ok("decodeJSON" in mm, name + " should contain property decodeJSON");
 }
 
 function assertIsDotProto(dp: ProtoBuf.DotProto, name: string) {
@@ -179,7 +180,9 @@ function assertIsProtoEnum(pe: ProtoBuf.ProtoEnum, name: string) {
     assert.ok("values" in pe, name + " should contain property values");
     assert.ok("options" in pe, name + " should contain property options");
 
-    assertIsProtoEnumValue(pe.values, name + ".values");
+    for (var value in pe.values) {
+        assertIsProtoEnumValue(pe.values[value], name + ".values." + value);
+    }
 }
 
 function assertIsProtoEnumValue(pev: ProtoBuf.ProtoEnumValue, name: string) {

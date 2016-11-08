@@ -63,7 +63,7 @@ declare module 'react-widgets/lib/Combobox' {
          * textField` prop may also also used as to find an item in the list as you type. Providing
          * an accessor function allows for computed text values
          */
-        textField?: string;
+        textField?: string | ((dataItem: any) => string);
         /**
          * This component is used to render each possible item in the Combobox. The default
          * component renders the text of the selected item (specified by textfield)
@@ -157,7 +157,7 @@ declare module 'react-widgets/lib/DateTimePicker' {
 
     interface DateTimePickerProps extends __React.Props<DateTimePickerClass> {
         /**
-         * Whether to show the date picker button. 
+         * Whether to show the date picker button.
          * @default true
          */
         calendar?: boolean;
@@ -330,8 +330,8 @@ declare module 'react-widgets/lib/Multiselect' {
         /**
          * A dataItem field name for uniquely identifying items in the data list. A valueField is
          * required when the value prop is not itself a dataItem. A valueField is useful when
-         * specifying the selected item, by its id instead of using the model as the value. 
-         * When a valueField is not provided, the Multiselect will use strict equality checks (===) 
+         * specifying the selected item, by its id instead of using the model as the value.
+         * When a valueField is not provided, the Multiselect will use strict equality checks (===)
          * to locate the value in the data list.
          */
         valueField?: string;
@@ -823,7 +823,7 @@ declare module 'react-widgets/lib/DropdownList' {
          * ThetextFieldprop may also also used as to find an item in the list as you type. Providing
          * an accessor function allows for computed text values
          */
-        textField?: string;
+        textField?: string | ((dataItem: any) => string);
         /**
          * This component is used to render the selected value of the DropdownList. The default
          * component renders the text of the selected item (specified by textfield)
@@ -881,9 +881,9 @@ declare module 'react-widgets/lib/DropdownList' {
          */
         onToggle?: (isOpen: boolean) => void;
         /**
-         * Specify a filtering method used to reduce the items in the dropdown as you type. 
+         * Specify a filtering method used to reduce the items in the dropdown as you type.
          * There are a few built-in filtering methods that can be specified by passing the String name.
-         * To handle custom filtering techniques provide a function that returns true or false 
+         * To handle custom filtering techniques provide a function that returns true or false
          * for each passed in item (analogous to the array.filter builtin)
          * @enum false "startsWith" "endsWith" "contains"
          */

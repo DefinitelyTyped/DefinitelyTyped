@@ -39,7 +39,7 @@ declare namespace Axios {
         /**
          * custom headers to be sent
          */
-        headers?: Object;
+        headers?: {[key: string]: any};
 
         /**
          * URL parameters to be sent with the request
@@ -122,6 +122,18 @@ declare namespace Axios {
          * When no `transformRequest` is set, must be a string, an ArrayBuffer or a hash
          */
         data?: T;
+    }
+
+    interface AxiosXHRConfigDefaults<T> extends AxiosXHRConfigBase<T> {
+        /**
+         * custom headers to be sent
+         */
+        headers: {
+            common: {[index: string]: string};
+            patch: {[index: string]: string};
+            post: {[index: string]: string};
+            put: {[index: string]: string};
+        };
     }
 
     /**
@@ -222,6 +234,11 @@ declare namespace Axios {
          * intercept requests or responses before they are handled by then or catch
          */
         interceptors: Interceptor;
+
+        /**
+         * Config defaults
+         */
+        defaults: AxiosXHRConfigDefaults<any>;
 
         /**
          * equivalent to `Promise.all`

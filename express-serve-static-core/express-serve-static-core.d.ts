@@ -1,4 +1,4 @@
-﻿// Type definitions for Express 4.x
+// Type definitions for Express 4.x
 // Project: http://expressjs.com
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,26 +17,33 @@ declare namespace Express {
 declare module "express-serve-static-core" {
     import * as http from "http";
 
-    type RequestHandlerParams = RequestHandler | RequestHandler[];
-
-    interface IRoute {
-        path: string;
-        stack: any;
-        all(...handler: RequestHandlerParams[]): IRoute;
-        get(...handler: RequestHandlerParams[]): IRoute;
-        post(...handler: RequestHandlerParams[]): IRoute;
-        put(...handler: RequestHandlerParams[]): IRoute;
-        delete(...handler: RequestHandlerParams[]): IRoute;
-        patch(...handler: RequestHandlerParams[]): IRoute;
-        options(...handler: RequestHandlerParams[]): IRoute;
-        head(...handler: RequestHandlerParams[]): IRoute;
+    interface NextFunction {
+        (err?: any): void;
     }
+
+    interface RequestHandler {
+        (req: Request, res: Response, next: NextFunction): any;
+    }
+
+    interface ErrorRequestHandler {
+        (err: any, req: Request, res: Response, next: NextFunction): any;
+    }
+
+    type PathParams = string | RegExp | (string | RegExp)[];
+
+    type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
     interface IRouterMatcher<T> {
-        (name: string | RegExp, ...handlers: RequestHandlerParams[]): T;
+        (path: PathParams, ...handlers: RequestHandler[]): T;
+        (path: PathParams, ...handlers: RequestHandlerParams[]): T;
     }
 
-    interface IRouter<T> extends RequestHandler {
+    interface IRouterHandler<T> {
+        (...handlers: RequestHandler[]): T;
+        (...handlers: RequestHandlerParams[]): T;
+    }
+
+    interface IRouter extends RequestHandler {
         /**
             * Map the given param placeholder `name`(s) to the given callback(s).
             *
@@ -66,11 +73,10 @@ declare module "express-serve-static-core" {
             * @param name
             * @param fn
             */
-        param(name: string, handler: RequestParamHandler): T;
-        param(name: string, matcher: RegExp): T;
-        param(name: string, mapper: (param: any) => any): T;
+        param(name: string, handler: RequestParamHandler): this;
         // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
-        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): T;
+        // deprecated since express 4.11.0
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
         /**
             * Special-cased "all" method, applying the given route `path`,
@@ -79,44 +85,86 @@ declare module "express-serve-static-core" {
             * @param path
             * @param fn
             */
-        all: IRouterMatcher<T>;
-        get: IRouterMatcher<T>;
-        post: IRouterMatcher<T>;
-        put: IRouterMatcher<T>;
-        delete: IRouterMatcher<T>;
-        patch: IRouterMatcher<T>;
-        options: IRouterMatcher<T>;
-        head: IRouterMatcher<T>;
+        all: IRouterMatcher<this>;
+        get: IRouterMatcher<this>;
+        post: IRouterMatcher<this>;
+        put: IRouterMatcher<this>;
+        delete: IRouterMatcher<this>;
+        patch: IRouterMatcher<this>;
+        options: IRouterMatcher<this>;
+        head: IRouterMatcher<this>;
+        
+        checkout: IRouterMatcher<this>;
+        copy: IRouterMatcher<this>;
+        lock: IRouterMatcher<this>;
+        merge: IRouterMatcher<this>;
+        mkactivity: IRouterMatcher<this>;
+        mkcol: IRouterMatcher<this>;
+        move: IRouterMatcher<this>;
+        "m-search": IRouterMatcher<this>;
+        notify: IRouterMatcher<this>;
+        purge: IRouterMatcher<this>;
+        report: IRouterMatcher<this>;
+        search: IRouterMatcher<this>;
+        subscribe: IRouterMatcher<this>;
+        trace: IRouterMatcher<this>;
+        unlock: IRouterMatcher<this>;
+        unsubscribe: IRouterMatcher<this>;
 
-        route(path: string | RegExp): IRoute;
+        use: IRouterHandler<this> & IRouterMatcher<this>;
 
-        use(...handler: RequestHandlerParams[]): T;
-        use(handler: ErrorRequestHandler | RequestHandlerParams): T;
-        use(path: string, ...handler: RequestHandlerParams[]): T;
-        use(path: string, handler: ErrorRequestHandler | RequestHandlerParams): T;
-        use(path: string[], ...handler: RequestHandlerParams[]): T;
-        use(path: string[], handler: ErrorRequestHandler): T;
-        use(path: RegExp, ...handler: RequestHandlerParams[]): T;
-        use(path: RegExp, handler: ErrorRequestHandler): T;
-        use(path: string, router: Router): T;
+        route(prefix: PathParams): IRoute;
+        /**
+         * Stack of configured routes
+         */
+        stack: any[];
     }
 
+    interface IRoute {
+        path: string;
+        stack: any;
+        all: IRouterHandler<this>;
+        get: IRouterHandler<this>;
+        post: IRouterHandler<this>;
+        put: IRouterHandler<this>;
+        delete: IRouterHandler<this>;
+        patch: IRouterHandler<this>;
+        options: IRouterHandler<this>;
+        head: IRouterHandler<this>;
+        
+        checkout: IRouterHandler<this>;
+        copy: IRouterHandler<this>;
+        lock: IRouterHandler<this>;
+        merge: IRouterHandler<this>;
+        mkactivity: IRouterHandler<this>;
+        mkcol: IRouterHandler<this>;
+        move: IRouterHandler<this>;
+        "m-search": IRouterHandler<this>;
+        notify: IRouterHandler<this>;
+        purge: IRouterHandler<this>;
+        report: IRouterHandler<this>;
+        search: IRouterHandler<this>;
+        subscribe: IRouterHandler<this>;
+        trace: IRouterHandler<this>;
+        unlock: IRouterHandler<this>;
+        unsubscribe: IRouterHandler<this>
+    }
 
-    export interface Router extends IRouter<Router> { }
+    export interface Router extends IRouter { }
 
     interface CookieOptions {
         maxAge?: number;
         signed?: boolean;
-        expires?: Date;
+        expires?: Date | boolean;
         httpOnly?: boolean;
         path?: string;
         domain?: string;
-        secure?: boolean;
+        secure?: boolean | 'auto';
     }
 
     interface Errback { (err: Error): void; }
 
-    interface Request extends http.ServerRequest, Express.Request {
+    interface Request extends http.IncomingMessage, Express.Request {
 
         /**
             * Return request header.
@@ -182,40 +230,50 @@ declare module "express-serve-static-core" {
             *     req.accepts('html, json');
             *     // => "json"
             */
-        accepts(type: string): string;
-
-        accepts(type: string[]): string;
+        accepts(): string[];
+        accepts(type: string): string | boolean;
+        accepts(type: string[]): string | boolean;
+        accepts(...type: string[]): string | boolean;
 
         /**
             * Returns the first accepted charset of the specified character sets,
-            * based on the request’s Accept-Charset HTTP header field.
+            * based on the request's Accept-Charset HTTP header field.
             * If none of the specified charsets is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             * @param charset
             */
-        acceptsCharsets(charset?: string | string[]): string[];
+        acceptsCharsets(): string[];
+        acceptsCharsets(charset: string): string | boolean;
+        acceptsCharsets(charset: string[]): string | boolean;
+        acceptsCharsets(...charset: string[]): string | boolean;
 
         /**
             * Returns the first accepted encoding of the specified encodings,
-            * based on the request’s Accept-Encoding HTTP header field.
+            * based on the request's Accept-Encoding HTTP header field.
             * If none of the specified encodings is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             * @param encoding
             */
-        acceptsEncodings(encoding?: string | string[]): string[];
+        acceptsEncodings(): string[];
+        acceptsEncodings(encoding: string): string | boolean;
+        acceptsEncodings(encoding: string[]): string | boolean;
+        acceptsEncodings(...encoding: string[]): string | boolean;
 
         /**
             * Returns the first accepted language of the specified languages,
-            * based on the request’s Accept-Language HTTP header field.
+            * based on the request's Accept-Language HTTP header field.
             * If none of the specified languages is accepted, returns false.
             *
             * For more information, or if you have issues or concerns, see accepts.
             *
             * @param lang
             */
-        acceptsLanguages(lang?: string | string[]): string[];
+        acceptsLanguages(): string[];
+        acceptsLanguages(lang: string): string | boolean;
+        acceptsLanguages(lang: string[]): string | boolean;
+        acceptsLanguages(...lang: string[]): string | boolean;
 
         /**
             * Parse Range header field,
@@ -243,6 +301,8 @@ declare module "express-serve-static-core" {
         accepted: MediaType[];
 
         /**
+            * @deprecated Use either req.params, req.body or req.query, as applicable.
+            *
             * Return the value of param `name` when present or `defaultValue`.
             *
             *  - Checks route placeholders, ex: _/user/:id_
@@ -373,10 +433,6 @@ declare module "express-serve-static-core" {
         method: string;
 
         params: any;
-
-        user: any;
-
-        authenticatedUser: any;
 
         /**
             * Clear cookie `name`.
@@ -782,24 +838,30 @@ declare module "express-serve-static-core" {
         locals: any;
 
         charset: string;
-    }
 
-    interface NextFunction {
-        (err?: any): void;
+        /**
+         * Adds the field to the Vary response header, if it is not there already.
+         * Examples:
+         *
+         *     res.vary('User-Agent').render('docs');
+         *
+         */
+        vary(field: string): Response;
     }
-
-    interface ErrorRequestHandler {
-        (err: any, req: Request, res: Response, next: NextFunction): any;
-    }
-
 
     interface Handler extends RequestHandler { }
 
     interface RequestParamHandler {
-        (req: Request, res: Response, next: NextFunction, param: any): any;
+        (req: Request, res: Response, next: NextFunction, value: any, name: string): any;
     }
 
-    interface Application extends IRouter<Application>, Express.Application {
+    interface Application extends IRouter, Express.Application {
+        /**
+         * Express instance itself is a request handler, which could be invoked without
+         * third argument.
+         */
+        (req: Request, res: Response): any;
+        
         /**
             * Initialize the server.
             *
@@ -860,10 +922,11 @@ declare module "express-serve-static-core" {
             * @param val
             */
         set(setting: string, val: any): Application;
-        get: {
-            (name: string): any; // Getter
-            (name: string | RegExp, ...handlers: RequestHandlerParams[]): Application;
-        };
+        get: {(name: string): any;} & IRouterMatcher<this>;
+
+        param(name: string | string[], handler: RequestParamHandler): this;
+        // Alternatively, you can pass only a callback, in which case you have the opportunity to alter the app.param() API
+        param(callback: (name: string, matcher: RegExp) => RequestParamHandler): this;
 
         /**
             * Return the app's absolute pathname
@@ -1008,8 +1071,6 @@ declare module "express-serve-static-core" {
         listen(path: string, callback?: Function): http.Server;
         listen(handle: any, listeningListener?: Function): http.Server;
 
-        route(path: string | RegExp): IRoute;
-
         router: string;
 
         settings: any;
@@ -1029,36 +1090,16 @@ declare module "express-serve-static-core" {
             * simply by removing them from this object.
             */
         routes: any;
+        
+        /**
+         * Used to get all registered routes in Express Application
+         */
+        _router: any;
     }
 
     interface Express extends Application {
-        /**
-            * Framework version.
-            */
-        version: string;
-
-        /**
-            * Expose mime.
-            */
-        mime: string;
-
-        (): Application;
-
-        /**
-        * Create an express application.
-        */
-        createApplication(): Application;
-
-        createServer(): Application;
-
-        application: any;
-
         request: Request;
 
         response: Response;
-    }
-
-    interface RequestHandler {
-        (req: Request, res: Response, next: NextFunction): any;
     }
 }

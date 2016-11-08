@@ -9,6 +9,7 @@ type WebixTemplate = (...args: any[])=>string;
 type WebixCallback = (...args: any[])=>any;
 interface PromisedData {
     then(handler:(data:any)=>any):PromisedData;
+    fail(handler:(error:any)=>any):PromisedData;
 }
 
 function ajax():webix._ajax;
@@ -5940,7 +5941,10 @@ interface richselect extends webix.ui.baseview{
 	getChildViews():any[];
 	getFormView():webix.ui.baseview;
 	getInputNode():HTMLElement;
-	getList():webix.ui.baseview;
+	/**
+	* returns list view of the control
+	*/
+	getList():webix.ui.list;
 	getNode():any;
 	getParentView():any;
 	getPopup():webix.ui.baseview;

@@ -57,6 +57,7 @@ declare module BezierJs {
         back: Bezier;
         endcap: BezierCap;
         bbox: BBox;
+        intersections: (shape: Shape) => string[][] | number[][];
     }
     interface ABC {
         A: Point;
@@ -76,8 +77,8 @@ declare module BezierJs {
      *
      */
     class Bezier {
-        clockwise: boolean;
         private _linear;
+        clockwise: boolean;
         _3d: boolean;
         _t1: number;
         _t2: number;
@@ -124,16 +125,16 @@ declare module BezierJs {
         overlaps(curve: Bezier): boolean;
         offset(t: number, d?: number): Offset | Bezier[];
         simple(): boolean;
-        reduce(): any[];
+        reduce(): Bezier[];
         scale(d: Function): Bezier;
         scale(d: number): Bezier;
         outline(d1: number, d2?: number, d3?: number, d4?: number): PolyBezier;
-        outlineshapes(d1: number, d2: number): Shape[];
-        intersects(curve: Bezier): string[] | number[];
+        outlineshapes(d1: number, d2: number, curveIntersectionThreshold?: number): Shape[];
+        intersects(curve: Bezier, curveIntersectionThreshold?: number): string[] | number[];
         intersects(curve: Line): string[] | number[];
         lineIntersects(line: Line): number[];
-        selfintersects(): string[];
-        curveintersects(c1: Bezier[], c2: Bezier[]): string[];
+        selfintersects(curveIntersectionThreshold?: number): string[];
+        curveintersects(c1: Bezier[], c2: Bezier[], curveIntersectionThreshold?: number): string[];
         arcs(errorThreshold?: number): Arc[];
         private _error(pc, np1, s, e);
         private _iterate(errorThreshold, circles);
@@ -165,8 +166,8 @@ declare module BezierJs.utils {
     function lli(v1: Offset, v2: Offset): Point;
     function makeline(p1: Point, p2: Point): Bezier;
     function findbbox(sections: Bezier[]): BBox;
-    function shapeintersections(s1: Shape, bbox1: BBox, s2: Shape, bbox2: BBox): string[][] | number[][];
-    function makeshape(forward: Bezier, back: Bezier): Shape;
+    function shapeintersections(s1: Shape, bbox1: BBox, s2: Shape, bbox2: BBox, curveIntersectionThreshold?: number): string[][] | number[][];
+    function makeshape(forward: Bezier, back: Bezier, curveIntersectionThreshold?: number): Shape;
     function getminmax(curve: Bezier, d: string, list: number[]): MinMax;
     function align(points: Point[], line: Line): Point[];
     function roots(points: Point[], line: Line): number[];
@@ -174,7 +175,7 @@ declare module BezierJs.utils {
     function inflections(points: Point[]): number[];
     function bboxoverlap(b1: BBox, b2: BBox): boolean;
     function expandbox(bbox: BBox, _bbox: BBox): void;
-    function pairiteration(c1: Bezier, c2: Bezier): string[];
+    function pairiteration(c1: Bezier, c2: Bezier, curveIntersectionThreshold?: number): string[];
     function getccenter(p1: Point, p2: Point, p3: Point): Arc;
 }
 declare module BezierJs {

@@ -63,6 +63,8 @@ declare module "webpack" {
             recordsOutputPath?: string;
             /** Add additional plugins to the compiler. */
             plugins?: (Plugin|Function)[];
+            /** Stats options for logging  */
+            stats?: compiler.StatsOptions;
         }
 
         interface Entry {
@@ -102,7 +104,7 @@ declare module "webpack" {
             /** Include comments with information about the modules. */
             pathinfo?: boolean;
             /** If set, export the bundle as library. output.library is the name. */
-            library?: boolean;
+            library?: string;
             /**
              * Which format to export the library:
              * <ul>
@@ -404,7 +406,7 @@ declare module "webpack" {
         }
 
         interface HotModuleReplacementPluginStatic {
-            new(): Plugin;
+            new(options?: any): Plugin;
         }
 
         interface ExtendedAPIPluginStatic {
@@ -482,12 +484,12 @@ declare module "webpack" {
                 /** Returns true if there were warnings while compiling. */
                 hasWarnings(): boolean;
                 /** Return information as json object */
-                toJson(options?: StatsToJsonOptions): any; //TODO: type this
+                toJson(options?: StatsOptions): any; //TODO: type this
                 /** Returns a formatted string of the result. */
                 toString(options?: StatsToStringOptions): string;
             }
 
-            interface StatsToJsonOptions {
+            interface StatsOptions {
                 /** context directory for request shortening */
                 context?: boolean;
                 /** add the hash of the compilation */
@@ -524,7 +526,7 @@ declare module "webpack" {
                 assetsSort?: string;
             }
 
-            interface StatsToStringOptions extends StatsToJsonOptions {
+            interface StatsToStringOptions extends StatsOptions {
                 /** With console colors */
                 colors?: boolean;
             }

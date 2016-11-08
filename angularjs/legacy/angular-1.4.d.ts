@@ -886,7 +886,7 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
-        (expression: string): ICompiledExpression;
+        (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
     }
 
     interface IParseProvider {

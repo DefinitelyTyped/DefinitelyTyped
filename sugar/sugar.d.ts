@@ -907,7 +907,7 @@ interface String {
 }
 
 // Todo: fix when TypeScript supports adding static functions to native types.
-interface NumberStatic {
+interface NumberConstructor {
 
 	/**
 	* Returns a random integer between [n1] and [n2].
@@ -1963,8 +1963,8 @@ interface Number {
 	upto(num: number, fn?: Function, step?: number): number[];
 }
 
-// Todo: Fix when TypeScript supports static members on native types.
-interface ArrayStatic {
+//Static members on native types.
+interface ArrayConstructor {
 
 	/**
 	* Alternate array constructor.
@@ -2918,7 +2918,7 @@ interface Array<T> {
 	//zip(...arrays: T[]): T[][];
 }
 
-interface ObjectStatic {
+interface ObjectConstructor {
 
 	/**
 	* Creates a new object, equivalent to %new Object()% or %{}%, but with extended methods.
@@ -3075,6 +3075,11 @@ interface ObjectStatic {
 	* @see map
 	**/
 	map<T, U>(obj: T, map: (key: string, value: any) => any): U;
+
+	/**
+	* @see map
+	**/
+	each(obj: any, map: (key: string, value: any) => void): void;
 
 	/**
 	* @see map
@@ -4003,7 +4008,7 @@ interface Function {
 	throttle(ms: number): Function;
 }
 
-interface RegExpStatic {
+interface RegExpConstructor {
 
 	/**
 	* Escapes all RegExp tokens in a string.
@@ -4080,7 +4085,7 @@ interface Locale {
 	timeParse: string[];
 }
 
-interface DateStatic {
+interface DateConstructor {
 
 	/**
 	* Adds a locale <set> to the locales understood by Sugar.
@@ -4127,6 +4132,11 @@ interface DateStatic {
 
 	/**
 	* @see create
+	* @param timestamp 	
+	create(timestamp?: number): Date;
+
+	/**
+	* @see create
 	* @param year Year YYYY
 	* @param month Month MM
 	* @param day Day DD
@@ -4169,7 +4179,7 @@ interface DateStatic {
 	* @example
 	*   Date.now() -> ex. 1311938296231
 	**/
-	now(): string;
+	now(): number;
 
 	/**
 	* Alternate form of %Date.create% with any ambiguity assumed to be the past.

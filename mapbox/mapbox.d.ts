@@ -3,7 +3,7 @@
 // Definitions by: Maxime Fabre <https://github.com/anahkiasen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../leaflet/leaflet.d.ts"/>
+/// <reference path="../leaflet/leaflet-0.7.d.ts"/>
 
 //////////////////////////////////////////////////////////////////////
 ///////////////////////////// MAP OBJECT /////////////////////////////

@@ -1,3 +1,4 @@
+/// <reference path="../node/node.d.ts" />
 /// <reference path="node-dir.d.ts" />
 
 import * as dir from "node-dir";

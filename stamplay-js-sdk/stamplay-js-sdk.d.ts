@@ -3,7 +3,7 @@
 // Definitions by: Riderman de Sousa Barbosa <https://github.com/ridermansb/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="..\promises-a-plus\promises-a-plus.d.ts"/>
+/// <reference path="../promises-a-plus/promises-a-plus.d.ts"/>
 
 declare namespace Stamplay {
 

@@ -7,6 +7,18 @@
 
 declare namespace angular.websocket {
 
+    /**
+     * Options available to be specified for IWebSocketProvider.
+     */
+    type IWebSocketConfigOptions = {
+      scope?: ng.IScope;
+      rootScopeFailOver?: boolean;
+      useApplyAsync?: boolean;
+      initialTimeout?: number;
+      maxTimeout?: number;
+      binaryType?: "blob" | "arraybuffer";
+      reconnectIfNotNormalClose?: boolean;
+    }
     interface IWebSocketProvider {
         /**
          * Creates and opens an IWebSocket instance.
@@ -14,7 +26,7 @@ declare namespace angular.websocket {
          * @param url url to connect to
          * @return websocket instance
          */
-        (url: string): IWebSocket;
+         (url: string, protocols?: string | string[] | IWebSocketConfigOptions, options?: IWebSocketConfigOptions): IWebSocket;
     }
 
     /** Options available to be specified for IWebSocket.onMessage */
@@ -28,6 +40,19 @@ declare namespace angular.websocket {
 
         /** If true, each message handled will safely call `$rootScope.$digest()`. */
         autoApply?: boolean;
+    }
+
+    /** Type corresponding to onMessage callbaks stored in $Websocket#onMessageCallbacks instance. */
+    type IWebSocketMessageHandler = {
+    fn: (evt: MessageEvent) => void;
+      pattern: string | RegExp;
+      autoApply: boolean;
+    }
+
+    /** Type corresponding to items stored in $WebSocket#sendQueue instance. */
+    type IWebSocketQueueItem = {
+      message: any;
+      defered: ng.IPromise<void>;
     }
 
     interface IWebSocket {
@@ -81,6 +106,52 @@ declare namespace angular.websocket {
          *
          * @param data data to send, if this is an object, it will be stringified before sending
          */
-        send(data: string | {}): ng.IPromise<any>;
+         send(data: string | {}): ng.IPromise<any>;
+
+        /**
+         * WebSocket instance.
+         */
+        socket: WebSocket;
+
+        /**
+         * Queue of send calls to be made on socket when socket is able to receive data.
+         */
+        sendQueue: IWebSocketQueueItem[];
+
+        /**
+         * List of callbacks to be executed when the socket is opened.
+         */
+        onOpenCallbacks: ((evt: Event) => void)[];
+
+        /**
+         * List of callbacks to be executed when a message is received from the socket.
+         */
+        onMessageCallbacks: IWebSocketMessageHandler[];
+
+        /**
+         * List of callbacks to be executed when an error is received from the socket.
+         */
+        onErrorCallbacks: ((evt: Event) => void)[];
+
+        /**
+         * List of callbacks to be executed when the socket is closed.
+         */
+        onCloseCallbacks: ((evt: CloseEvent) => void)[];
+
+        /**
+         * Returns either the readyState value from the underlying WebSocket instance
+         * or a proprietary value representing the internal state
+         */
+        readyState: number;
+
+        /**
+         * The initial timeout.
+         */
+        initialTimeout: number;
+
+        /**
+         * Maximun timeout used to determine reconnection delay.
+         */
+        maxTimeout: number;
     }
 }

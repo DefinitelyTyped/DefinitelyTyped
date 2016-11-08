@@ -16,9 +16,8 @@ declare module "ejs" {
         function renderFile(path: string, data?: Data, opts?: Options, cb?: Function): any;// TODO RenderFileCallback return type
         function clearCache(): any;
 
-        function TemplateFunction(data: Data): any;
         interface TemplateFunction {
-            dependencies: Dependencies;
+            (data: Data): any;
         }
         interface Options {
             cache?: any;

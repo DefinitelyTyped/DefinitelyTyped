@@ -1,8 +1,9 @@
-// Type definitions for ProtoBuf.js
+// Type definitions for ProtoBuf.js 5.0.1
 // Project: https://github.com/dcodeIO/ProtoBuf.js
 // Definitions by: Panu Horsmalahti <https://github.com/panuhorsmalahti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference path="../bytebuffer/bytebuffer.d.ts" />
 /// <reference path="../node/node.d.ts" />
 
 declare namespace ProtoBuf {
@@ -10,25 +11,25 @@ declare namespace ProtoBuf {
     // protobufjs/src/ProtoBuf.js
 
     var Builder: Builder;
-    var ByteBuffer: Buffer;
     var Long: LongStatic;
     var DotProto: DotProto;
     var Reflect: Reflect;
+    var Util: Util;
+    var convertFieldsToCamelCase: boolean;
 
     // var Lang: Lang; TODO: implement interface Lang
-    // var Util: Util; TODO: implement interface Util
 
-    export function loadJson(json: string, builder?: ProtoBuilder,
-        filename?: string): ProtoBuilder;
+    export function loadJson(json: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
 
-    export function loadJsonFile(filename: string,
+    export function loadJsonFile(filename: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
 
-    export function loadProto(proto: string, builder?: ProtoBuilder,
-        filename?: string): ProtoBuilder;
+    export function loadProto(proto: string, builder?: ProtoBuilder | string | {},
+        filename?: string | {}): ProtoBuilder;
 
-    export function loadProtoFile(filePath: string,
+    export function loadProtoFile(filePath: string | {},
         callback?: (error: any, builder: ProtoBuilder) => void,
         builder?: ProtoBuilder): ProtoBuilder;
 
@@ -117,6 +118,26 @@ declare namespace ProtoBuf {
      */
     export interface Message {
         new(values?: {[key: string]: any}, var_args?: string[]): Message;
+        $add(key: string, value: any, noAssert?: boolean): Message;
+        $get<T>(key: string): T;
+        $set(key: string | {[key: string]: any}, value?: any | boolean, noAssert?: boolean): void;
+        add(key: string, value: any, noAssert?: boolean): Message;
+        calculate(): number;
+        encode(buffer?: ByteBuffer | boolean, noVerify?: boolean): ByteBuffer;
+        encode64(): string;
+        encodeAB(): ArrayBuffer;
+        encodeNB(): Buffer;
+        encodeHex(): string;
+        encodeJSON(): string;
+        encodeDelimited(buffer?: ByteBuffer | boolean, noVerify?: boolean): ByteBuffer;
+        get<T>(key: string, noAssert?: boolean): T;
+        set(key: string | {[key: string]: any}, value?: any | boolean, noAssert?: boolean): void;
+        toArrayBuffer(): ArrayBuffer;
+        toBase64(): string;
+        toBuffer(): Buffer;
+        toHex(): string;
+        toRaw(binaryAsBase64?: boolean, longsAsStrings?: boolean): {[key: string]: any};
+        toString(): string;
         [field: string]: any;
   	}
 
@@ -144,20 +165,22 @@ declare namespace ProtoBuf {
         define(pkg: string, options?: {[key: string]: any}): ProtoBuilder;
         create(defs?: {[key: string]: any}[]): ProtoBuilder;
         resolveAll(): void;
-    		build(path?: string): ProtoBuf;
+        build(path?: string | [string]): MetaMessage<Message>;
+   		build<T>(path?: string | [string]): MetaMessage<T>;
         lookup(path?: string): ReflectT;
   	}
 
     export interface ProtoBuf {
-        [package: string]: {[key: string]: MetaMessage | any};
+        [package: string]: {[key: string]: MetaMessage<Message> | any};
     }
 
-    export interface MetaMessage {
-        new(values?: {[key: string]: any}, var_args?: string[]): Message;
-        decode(buffer?: Buffer, enc?: string): Message;
-        decodeDelimited(buffer?: Buffer, enc?: string): Message;
-        decode64(str: string): Message;
-        decodeHex(str: string): Message;
+    export interface MetaMessage<T> {
+        new(values?: {[key: string]: any}, var_args?: string[]): T & Message;
+        decode(buffer: ArrayBuffer | ByteBuffer | Buffer | string, length?: number | string, enc?: string): T & Message;
+        decodeDelimited(buffer: ByteBuffer | ArrayBuffer | Buffer | string, enc?: string): T & Message;
+        decode64(str: string): T & Message;
+        decodeHex(str: string): T & Message;
+        decodeJSON(str: string): T & Message;
     }
 
     // ==========
@@ -202,7 +225,7 @@ declare namespace ProtoBuf {
 
     export interface ProtoEnum {
         name: string;
-        values: ProtoEnumValue;
+        values: ProtoEnumValue[];
         options: {[key: string]: any};
     }
 
@@ -240,6 +263,16 @@ declare namespace ProtoBuf {
         name: string;
         rpc: {[key: string]:ProtoRpcService};
         options: {[key: string]: any};
+    }
+
+    // ==========
+    // protobufjs/src/ProtoBuf/Util.js
+
+    export interface Util {
+        IS_NODE: boolean
+        fetch(path: string, callback?: (data: string) => any): string;
+        toCamelCase(str: string): string;
+        XHR(): XMLHttpRequest;
     }
 
 
@@ -288,9 +321,10 @@ declare namespace ProtoBuf {
                                           // new ProtoBuf.Reflect.Message.ExtensionField();
         OneOf: ReflectOneOf; // NOTE: only for new ProtoBuf.Reflect.Message.OneOf();
         extensions: number[];
-        clazz(): MetaMessage;
+        clazz(): MetaMessage<Message>;
         isGroup: boolean;
-        build(rebuild?: boolean): MetaMessage|any;
+        build(rebuild?: boolean): MetaMessage<Message>|any;
+        build<T>(rebuild?: boolean): MetaMessage<T>|any;
         encode(message: Message, buffer: Buffer, noVerify?: boolean): Buffer;
         calculate(message: Message): number;
         decode(buffer: Buffer, length?: number, expectedGroupEndId?: number): Message;
@@ -385,5 +419,9 @@ declare namespace ProtoBuf {
 }
 
 declare module "protobufjs" {
+    export = ProtoBuf;
+}
+
+declare module "protobufjs/dist/protobuf-light" {
     export = ProtoBuf;
 }

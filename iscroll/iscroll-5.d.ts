@@ -51,10 +51,10 @@ interface IScrollOptions {
 	bounceTime?: number;
 
 	///String or function
-	bounceEasing?: any;
+	bounceEasing?: string|{ style: string, fn: (k: any) => any };
 
 	preventDefault?: boolean;
-	preventDefaultException?: boolean;
+	preventDefaultException?: Array<RegExp>|Object;
 
 	HWCompositing?: boolean;
 

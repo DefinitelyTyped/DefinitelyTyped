@@ -1,4 +1,4 @@
-// Type definitions for Lo-Dash
+// Type definitions for Lo-Dash 3.10
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12065,8 +12065,8 @@ declare module _ {
         /**
          * @see _.sum
          */
-        sum<T>(
-            collection: List<number>|Dictionary<number>,
+        sum(
+            collection: List<{}>|Dictionary<{}>,
             iteratee: string
         ): number;
 
@@ -14718,6 +14718,27 @@ declare module _ {
          * @see _.snakeCase
          */
         snakeCase(): LoDashExplicitWrapper<string>;
+    }
+
+    //_.split
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * Splits string by separator.
+         *
+         * Note: This method is based on String#split.
+         * 
+         * @param separator The separator pattern to split by.
+         * @param limit The length to truncate results to.
+         * @return Returns the new array with the terms splitted.
+         */
+        split(separator?: RegExp|string, limit?: number): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.split
+         */
+        split(separator?: RegExp|string, limit?: number): LoDashImplicitArrayWrapper<string>;
     }
 
     //_.startCase

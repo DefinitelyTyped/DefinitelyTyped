@@ -35,3 +35,14 @@ ReactDOM.render(
     </Tooltip>,
     document.querySelector('.another-app')
 );
+
+ReactDOM.render(
+    <Tooltip
+        placement="bottomRight"
+        trigger={['click', 'focus']}
+        overlay={() => <span>tooltip</span>}
+    >
+        <a href='#'>hover</a>
+    </Tooltip>,
+    document.querySelector('.another-app')
+);

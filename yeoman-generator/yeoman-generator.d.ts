@@ -31,7 +31,7 @@ declare namespace yo {
         fs: IMemFsEditor;
     }
 
-    export class YeomanGeneratorBase implements IYeomanGenerator, NodeJS.EventEmitter {
+    export class YeomanGeneratorBase extends NodeJS.EventEmitter implements IYeomanGenerator  {
         argument(name: string, config: IArgumentConfig): void;
         composeWith(namespace: string, options: any, settings?: IComposeSetting): IYeomanGenerator;
         defaultFor(name: string): void;

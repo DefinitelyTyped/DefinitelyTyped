@@ -1,14 +1,14 @@
-// Type definitions for Chroma.js v0.5.6
+// Type definitions for Chroma.js v1.1.1
 // Project: https://github.com/gka/chroma.js
-// Definitions by: Sebastian Brückner <https://github.com/invliD>
+// Definitions by: Sebastian Brückner <https://github.com/invliD>, Marcin Pacholec <https://github.com/mpacholec>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
 declare namespace Chroma {
-
     export interface ChromaStatic {
+
         /**
          * Creates a color from a string representation (as supported in CSS).
          *
@@ -18,6 +18,14 @@ declare namespace Chroma {
         (color: string): Color;
 
         /**
+         * Creates a color from a number representation [0; 16777215]
+         * 
+         * @param color The number to convert to a color.
+         * @return the color object.
+         */
+        (number: number): Color;
+
+        /**
          * Create a color in the specified color space using a, b and c as values.
          *
          * @param a
@@ -25,71 +33,19 @@ declare namespace Chroma {
          * @param c
          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
          * @return the color object.
-         */
+        */
         (a: number, b: number, c: number, colorSpace?: string): Color;
 
+        (a: number, b: number, c: number, d: number, colorSpace?: string): Color;
+
         /**
-         * Create a color in the specified color space using values.
-         *
-         * @param values An array of values (e.g. [r, g, b, a?]).
-         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-         * @return the color object.
-         */
+          * Create a color in the specified color space using values.
+          *
+          * @param values An array of values (e.g. [r, g, b, a?]).
+          * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
+          * @return the color object.
+          */
         (values: number[], colorSpace?: string): Color;
-
-        /**
-         * Create a color in the specified color space using a, b and c as values.
-         *
-         * @param a
-         * @param b
-         * @param c
-         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-         * @return the color object.
-         */
-        color(a: number, b: number, c: number, colorSpace?: string): Color;
-
-        /**
-         * Calculate the contrast ratio of two colors.
-         *
-         * @param color1 The first color.
-         * @param color2 The second color.
-         * @return the contrast ratio.
-         */
-        contrast(color1: Color, color2: Color): number;
-        /**
-         * Calculate the contrast ratio of two colors.
-         *
-         * @param color1 The first color.
-         * @param color2 The second color.
-         * @return the contrast ratio.
-         */
-        contrast(color1: Color, color2: string): number;
-        /**
-         * Calculate the contrast ratio of two colors.
-         *
-         * @param color1 The first color.
-         * @param color2 The second color.
-         * @return the contrast ratio.
-         */
-        contrast(color1: string, color2: Color): number;
-        /**
-         * Calculate the contrast ratio of two colors.
-         *
-         * @param color1 The first color.
-         * @param color2 The second color.
-         * @return the contrast ratio.
-         */
-        contrast(color1: string, color2: string): number;
-
-        /**
-         * Create a color from a hex or string representation (as supported in CSS).
-         *
-         * This is an alias of chroma.hex().
-         *
-         * @param color The string to convert to a color.
-         * @return the color object.
-         */
-        css(color: string): Color;
 
         /**
          * Create a color from a hex or string representation (as supported in CSS).
@@ -101,217 +57,213 @@ declare namespace Chroma {
          */
         hex(color: string): Color;
 
-        rgb(red: number, green: number, blue: number, alpha?: number): Color;
-        hsl(hue: number, saturation: number, lightness: number, alpha?: number): Color;
-        hsv(hue: number, saturation: number, value: number, alpha?: number): Color;
+        hsl(h: number, s: number, l: number): Color;
+
+        hsv(h: number, s: number, v: number): Color;
+
         lab(lightness: number, a: number, b: number, alpha?: number): Color;
-        lch(lightness: number, chroma: number, hue: number, alpha?: number): Color;
+
+        lch(l: number, c: number, h: number): Color;
+
+        rgb(r: number, g: number, b: number): Color;
+
+        /** 
+         * GL is a variant of RGB(A), with the only difference that the components are normalized to the range of 0..1.
+        */
         gl(red: number, green: number, blue: number, alpha?: number): Color;
 
-        interpolate: InterpolateFunction;
-        mix: InterpolateFunction;
+        /** 
+         * light 2000K, bright sunlight 6000K. Based on Neil Bartlett's implementation. 
+         * https://github.com/neilbartlett/color-temperature
+        */
+        temperature(t: number): Color;
 
-        luminance(color: Color): number;
-        luminance(color: string): number;
+        mix(col1: string | Color, col2: string | Color, f?: number, colorSpace?: string): Color;
+
+        interpolate(col1: string | Color, col2: string | Color, f?: number, colorSpace?: string): Color;
 
         /**
-         * Creates a color scale using a pre-defined color scale.
-         *
-         * @param name The name of the color scale.
-         * @return the resulting color scale.
+         * Blends two colors using RGB channel-wise blend functions. Valid blend modes are multiply, darken, lighten, screen, overlay, burn, and dogde.
          */
+        blend(col1: string, col2: string, blendMode: string): Color;
+
+        /**
+         * Returns a random color.
+         */
+        random(): Color;
+
+        /**
+         * Computes the WCAG contrast ratio between two colors. 
+         * A minimum contrast of 4.5:1 is recommended to ensure that text is still readable against a background color.
+         *
+         * @param color1 The first color.
+         * @param color2 The second color.
+         * @return the contrast ratio.
+         */
+        contrast(col1: string | Color, col2: string | Color): number;
+
+        bezier(colors: string[]): Scale;
+
+        /**
+         * chroma.brewer is an map of ColorBrewer scales that are included in chroma.js for convenience. 
+         * chroma.scale uses the colors to construct.
+         */
+        brewer: {
+            OrRd: string[];
+            PuBu: string[];
+            BuPu: string[];
+            Oranges: string[];
+            BuGn: string[];
+            YlOrBr: string[];
+            YlGn: string[];
+            Reds: string[];
+            RdPu: string[];
+            Greens: string[];
+            YlGnBu: string[];
+            Purples: string[];
+            GnBu: string[];
+            Greys: string[];
+            YlOrRd: string[];
+            PuRd: string[];
+            Blues: string[];
+            PuBuGn: string[];
+            Spectral: string[];
+            RdYlGn: string[];
+            RdBu: string[];
+            PiYG: string[];
+            PRGn: string[];
+            RdYlBu: string[];
+            BrBG: string[];
+            RdGy: string[];
+            PuOr: string[];
+            Set2: string[];
+            Accent: string[];
+            Set1: string[];
+            Set3: string[];
+            Dark2: string[];
+            Paired: string[];
+            Pastel2: string[];
+            Pastel1: string[];
+        };
+
+        /**
+         * Helper function that computes class breaks for you, based on actual data. 
+         * Supports three different modes: equidistant breaks, quantiles breaks and breaks based on k-means clusting.
+         */
+        limits(data: number[], mode: string, c: number): number[];
+
         scale(name: string): Scale;
 
-        /**
-         * Creates a color scale function from the given set of colors.
-         *
-         * @param colors An Array of at least two color names or hex values.
-         * @return the resulting color scale.
-         */
         scale(colors?: string[]): Scale;
 
-        scales: PredefinedScales;
-    }
+        cubehelix(): Cubehelix;
 
-    interface InterpolateFunction {
-        (color1: Color, color2: Color, f: number, mode?: string): Color;
-        (color1: Color, color2: string, f: number, mode?: string): Color;
-        (color1: string, color2: Color, f: number, mode?: string): Color;
-        (color1: string, color2: string, f: number, mode?: string): Color;
-
-        bezier(colors: any[]): (t: number) => Color;
-    }
-
-    interface PredefinedScales {
-        [key: string]: Scale;
-
-        cool: Scale;
-        hot: Scale;
+        cmyk(c: number, m: number, y: number, k: number): Color;
+        
+        /**
+         * Create a color from a hex or string representation (as supported in CSS).
+         *
+         * This is an alias of chroma.hex().
+         *
+         * @param color The string to convert to a color.
+         * @return the color object.
+         */
+        css(col: string, mode?: string): string;
     }
 
     export interface Color {
-        /**
-         * Creates a color from a string representation (as supported in CSS).
-         *
-         * @param color The string to convert to a color.
-         */
-        new(color: string): Color;
+        alpha(a?: number): Color;
 
-        /**
-         * Create a color in the specified color space using a, b and c as values.
-         *
-         * @param a
-         * @param b
-         * @param c
-         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-         */
-        new(a: number, b: number, c: number, colorSpace?: string): Color;
+        darken(f?: number): Color;
 
-        /**
-         * Create a color in the specified color space using a, b and c as color values and alpha as the alpha value.
-         *
-         * @param a
-         * @param b
-         * @param c
-         * @param alpha The alpha value of the color.
-         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-         */
-        new(a: number, b: number, c: number, alpha: number, colorSpace?: string): Color;
+        brighten(f?: number): Color;
 
-        /**
-         * Create a color in the specified color space using values.
-         *
-         * @param values An array of values (e.g. [r, g, b, a?]).
-         * @param colorSpace The color space to use (one of "rgb", "hsl", "hsv", "lab", "lch", "gl"). Defaults to "rgb".
-         */
-        new(values: number[], colorSpace: string): Color;
+        saturate(s?: number): Color;
 
-        /**
-         * Convert this color to CSS hex representation.
-         *
-         * @return this color's hex representation.
-         */
-        hex(): string;
+        desaturate(s?: number): Color;
 
-        /**
-         * @return the relative luminance of the color, which is a value between 0 (black) and 1 (white).
-         */
+        set(modechan: string, v: number | string): Color;
+
+        get(modechan: string): number;
+
         luminance(): number;
 
-        /**
-         * @return the X11 name of this color or its hex value if it does not have a name.
-         */
+        luminance(l: number, mode?: string): Color;
+
+        hex(): string;
+
         name(): string;
 
         /**
-         * @return the alpha value of the color.
-         */
-        alpha(): number;
-
-        /**
-         * Set the alpha value.
+         * Create a color from a hex or string representation (as supported in CSS).
          *
-         * @param alpha The alpha value.
-         * @return this
+         * This is an alias of chroma.hex().
+         *
+         * @param color The string to convert to a color.
+         * @return the color object.
          */
-        alpha(alpha: number): Color;
-
         css(mode?: string): string;
 
-        interpolate(color: Color, f: number, mode?: string): Color;
-        interpolate(color: string, f: number, mode?: string): Color;
-
-        premultiply(): Color;
-
         rgb(): number[];
+
         rgba(): number[];
+
         hsl(): number[];
+
         hsv(): number[];
-        lab(): number[];
-        lch(): number[];
+
         hsi(): number[];
+
+        lab(): number[];
+
+        lch(): number[];
+
+        hcl(): number[];
+
+        temperature(): number;
+
         gl(): number[];
-
-        darken(amount?: number): Color;
-        darker(amount: number): Color;
-        brighten(amount?: number): Color;
-        brighter(amount: number): Color;
-        saturate(amount?: number): Color;
-        desaturate(amount?: number): Color;
-
-        toString(): string;
     }
 
     export interface Scale {
-        /**
-         * Interpolate a color using the currently set range and domain.
-         *
-         * @param value The value to use for interpolation.
-         * @return the interpolated hex color OR a Color object (depending on the mode set on this Scale).
-         */
+        (c: string[]): Scale;
+
         (value: number): any;
 
-        /**
-         * Retreive all possible colors generated by this scale if it has distinct classes.
-         *
-         * @param mode The output mode to use. Must be one of Color's getters. Defaults to "hex".
-         * @return an array of colors in the type specified by mode.
-         */
-        colors(mode?: string): any[];
+        domain(d?: number[], n?: number, mode?: string): Scale;
 
-        correctLightness(): boolean;
+        mode(mode: string): Scale;
 
-        /**
-         * Enable or disable automatic lightness correction of this scale.
-         *
-         * @param Whether to enable or disable automatic lightness correction.
-         * @return this
-         */
-        correctLightness(enable: boolean): Scale;
+        correctLightness(enable?: boolean): Scale;
 
-        /**
-         * Get the current domain.
-         *
-         * @return The current domain.
-         */
-        domain(): number[];
+        bezier(colors: string[]): Scale;
 
-        /**
-         * Set the domain.
-         *
-         * @param domain An Array of at least two numbers (min and max).
-         * @param classes The number of fixed classes to create between min and max.
-         * @param mode The scale to use. Examples: log, quantiles, k-means.
-         * @return this
-         */
-        domain(domain: number[], classes?: number, mode?: string): Scale;
+        padding(p: number | number[]): Scale;
 
-        /**
-         * Specify in which color space the colors should be interpolated. Defaults to "rgb".
-         * You can use any of the following spaces: rgb, hsv, hsl, lab, lch
-         *
-         * @param colorSpace The color space to use for interpolation.
-         * @return this
-         */
-        mode(colorSpace: string): Scale;
+        colors(c?: number): string[];
 
-        /**
-         * Set the output mode of this Scale.
-         *
-         * @param mode The output mode to use. Must be one of Color's getters.
-         * @return this
-         */
+        classes(c: number | number[]): (t: number) => Color;
+
+        range(arg: string[]): Scale;
+
+        scale(): Scale;
+
         out(mode: string): Scale;
-
-        /**
-         * Set the color range after initialization.
-         *
-         * @param colors An Array of at least two color names or hex values.
-         * @return this
-         */
-        range(colors: string[]): Scale;
     }
 
+    export interface Cubehelix extends Scale {
+        start(s: number): Cubehelix;
+
+        rotations(r: number): Cubehelix;
+
+        gamma(g: number): Cubehelix;
+
+        lightness(l: number[]): Cubehelix;
+    }
 }
 
 declare var chroma: Chroma.ChromaStatic;
+
+declare module "chroma-js" {
+    export = chroma;
+}

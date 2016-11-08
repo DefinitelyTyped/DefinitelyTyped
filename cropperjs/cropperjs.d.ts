@@ -11,7 +11,26 @@ declare module cropperjs {
         CanvasShouldNotBeWithInTheContainer = 2,
         ContainerSshouldBeWithInTheCanvas = 3
     }
+    export interface CropperCustomEvent extends CustomEvent {
+        detail: Data;
+    }
     export interface CropperOptions {
+        /**
+        * Function called when crop box is moved or resized
+        */
+        crop?: (event: CropperCustomEvent) => void;
+        /**
+        * Function called at start of crop box being moved or resized
+        */
+        cropstart?: (event: CropperCustomEvent) => void;
+        /**
+        * Function called when crop box is moved
+        */
+        cropmove?: (event: CropperCustomEvent) => void;
+        /**
+        * Function called when crop box is finished being moved or resized
+        */
+        cropend?: (event: CropperCustomEvent) => void;
         /**
         * Define the view mode of the cropper.
         * @default 0
@@ -448,5 +467,5 @@ declare module cropperjs {
 
 declare module "cropperjs" {
     const Cropper: typeof cropperjs.Cropper;
-    export = Cropper;
+    export default Cropper;
 }

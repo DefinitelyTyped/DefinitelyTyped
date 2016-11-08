@@ -11,7 +11,7 @@ declare module 'soap' {
     interface Security {
     }
     class WSSecurity implements   Security {
-        constructor(username: string, password: string, options: any);
+        constructor(username: string, password: string, options?: any);
     }
     class ClientSSLSecurity implements   Security {
         constructor(key: string, cert: string, ca: string, defaults: any);

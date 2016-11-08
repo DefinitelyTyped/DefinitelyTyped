@@ -6,10 +6,10 @@
 /// <reference path="../jquery/jquery.d.ts" />
 
 interface ColorboxResizeSettings {
-    height?: number;
-    innerHeight?: number;
-    width?: number;
-    innerWidth?: number;
+    height?: number | string;
+    innerHeight?: number | string;
+    width?: number | string;
+    innerWidth?: number | string;
 }
 
 interface ColorboxSettings {
@@ -140,35 +140,35 @@ interface ColorboxSettings {
     /**
     * Set a fixed total width. This includes borders and buttons. Example: "100%", "500px", or 500
     */
-    width?: any;
+    width?: number | string;
     /**
     * Set a fixed total height. This includes borders and buttons. Example: "100%", "500px", or 500
     */
-    height?: any;
+    height?: number | string;
     /**
     * This is an alternative to 'width' used to set a fixed inner width. This excludes borders and buttons. Example: "50%", "500px", or 500
     */
-    innerWidth?: any;
+    innerWidth?: number | string;
     /**
     * This is an alternative to 'height' used to set a fixed inner height. This excludes borders and buttons. Example: "50%", "500px", or 500
     */
-    innerHeight?: any;
+    innerHeight?: number | string;
     /**
     * Set the initial width, prior to any content being loaded.
     */
-    initialWidth?: number;
+    initialWidth?: number | string;
     /**
     * Set the initial height, prior to any content being loaded.
     */
-    initialHeight?: number;
+    initialHeight?: number | string;
     /**
     * Set a maximum width for loaded content. Example: "100%", 500, "500px"
     */
-    maxWidth?: any;
+    maxWidth?: number | string;
     /**
     * Set a maximum height for loaded content. Example: "100%", 500, "500px"
     */
-    maxHeight?: any;
+    maxHeight?: number | string;
     /**
     * If true, adds an automatic slideshow to a content group / gallery.
     */
@@ -252,7 +252,7 @@ interface ColorboxStatic {
     /**
     * This method allows you to call Colorbox without having to assign it to an element.
     */
-    (settings: ColorboxSettings);
+    (settings: ColorboxSettings): any;
     /**
     * This method moves to the next item in a group and are the same as pressing the 'next' or 'previous' buttons.
     */
@@ -266,15 +266,15 @@ interface ColorboxStatic {
     */
     close(): void;
     /**
-    * This method is used to fetch the current HTML element that Colorbox is associated with. 
+    * This method is used to fetch the current HTML element that Colorbox is associated with.
     */
     element(): JQuery;
     /**
-    * This allows Colorbox to be resized based on it's own auto-calculations, or to a specific size. This must be called manually after Colorbox's content has loaded. 
+    * This allows Colorbox to be resized based on it's own auto-calculations, or to a specific size. This must be called manually after Colorbox's content has loaded.
     */
     resize(): void;
     /**
-    * This allows Colorbox to be resized based on it's own auto-calculations, or to a specific size. This must be called manually after Colorbox's content has loaded. 
+    * This allows Colorbox to be resized based on it's own auto-calculations, or to a specific size. This must be called manually after Colorbox's content has loaded.
     */
     resize(settings: ColorboxResizeSettings): void;
     /**

@@ -80,6 +80,20 @@ declare module "natural" {
     static restore(classifier: any, stemmer?: Stemmer): BayesClassifier;
   }
 
+  interface LogisticRegressionClassifierCallback { (err: any, classifier: any): void }
+  class LogisticRegressionClassifier {
+    events: events.EventEmitter;
+    addDocument(text: string, stem: string): void;
+    addDocument(text: string[], stem: string): void;
+    train(): void;
+    classify(observation: string): string;
+    getClassifications(observation: string): string[];
+    save(filename: string, callback: LogisticRegressionClassifierCallback): void;
+    static load(filename: string, stemmer: Stemmer, callback: LogisticRegressionClassifierCallback): void;
+    static restore(classifier: any, stemmer?: Stemmer): LogisticRegressionClassifier;
+  }
+
+
   interface Phonetic {
     compare(stringA: string, stringB: string): boolean;
     process(token: string, maxLength?: number): string;

@@ -1,8 +1,8 @@
-﻿// Type definitions for jsTree v3.3.1 
+﻿// Type definitions for jsTree v3.3.2 
 // Project: http://www.jstree.com/
 // Definitions by: Adam Pluciński <https://github.com/adaskothebeast>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// 1 commit 3b8f55d3797cd299eb36695b62d75c2313a3e3b3 2016-05-10
+// 1 commit bb0473ae8cfc205585b6404ef86f650df2f6996e 2016-08-15
 
 ///<reference path="../jquery/jquery.d.ts" />
 
@@ -465,6 +465,7 @@ interface JSTreeStaticDefaultsContextMenu {
     * * `separator_after` - a boolean indicating if there should be a separator after this item
     * * `_disabled` - a boolean indicating if this action should be disabled
     * * `label` - a string - the name of the action (could be a function returning a string)
+    * * `title` - a string - an optional tooltip for the item
     * * `action` - a function to be executed if this item is chosen, the function will receive 
     * * `icon` - a string, can be a path to an icon or a className, if using an image that is in the current directory use a `./` prefix, otherwise it will be detected as a class
     * * `shortcut` - keyCode which will trigger the action if the menu is open (for example `113` for rename, which equals F2)
@@ -830,7 +831,7 @@ interface JSTree extends JQuery {
     * @param  {Boolean} ids if set to true build the path using ID, otherwise node text is used
     * @return {mixed}
     */
-    get_path: (obj: any, glue: string, ids: boolean) => any;
+    get_path: (obj: any, glue?: string, ids?: boolean) => any;
 
     /**
     * get the next visible node that is below the `obj` node. If `strict` is set to `true` only sibling nodes are returned.
@@ -1339,6 +1340,8 @@ interface JSTree extends JQuery {
     * @param  {Boolean} options.no_id do not return ID
     * @param  {Boolean} options.no_children do not include children
     * @param  {Boolean} options.no_data do not include node data
+    * @param  {Boolean} options.no_li_attr do not include LI attributes
+    * @param  {Boolean} options.no_a_attr do not include A attributes
     * @param  {Boolean} options.flat return flat JSON instead of nested
     * @return {Object}
     */
@@ -1881,6 +1884,16 @@ interface JSTreeGetJsonOptions {
     * do not include node data
     */
     no_data: boolean;
+
+    /** 
+    * do not include LI attributes
+    */
+    no_li_attr: boolean;
+    
+    /**
+    * do not include A attributes
+    */
+    no_a_attr: boolean;
 
     /**
     * return flat JSON instead of nested
