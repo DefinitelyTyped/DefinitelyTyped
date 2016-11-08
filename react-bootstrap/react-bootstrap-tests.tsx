@@ -184,7 +184,7 @@ export class ReactBootstrapTest extends Component<any, any> {
                 </div>
 
                 <div style={style}>
-                    <DropdownButton bsStyle={'default'} title={'hello'} key={0} id={0}>
+                    <DropdownButton bsStyle={'default'} title={'hello'} key={0} id='default-dropdown'>
                         <MenuItem eventKey='1'>Action</MenuItem>
                         <MenuItem eventKey='2'>Another action</MenuItem>
                         <MenuItem eventKey='3' active>Active Item</MenuItem>
@@ -519,7 +519,20 @@ export class ReactBootstrapTest extends Component<any, any> {
                                     <MenuItem divider />
                                     <MenuItem eventKey='4'>Separated link</MenuItem>
                                 </NavDropdown>
+                                <NavDropdown eventKey={4} title={(<span>Dropdown</span>)} id='other-nav-dropdown'>
+                                    <MenuItem eventKey='1'>Action</MenuItem>
+                                </NavDropdown>
                             </Nav>
+                            <Navbar.Text>
+                                Signed in as: <Navbar.Link href="#">Mark Otto</Navbar.Link>
+                            </Navbar.Text>
+                            <Navbar.Form pullRight>
+                                <FormGroup>
+                                    <FormControl type="text" placeholder="Search" />
+                                </FormGroup>
+                                {' '}
+                                <Button type="submit">Submit</Button>
+                            </Navbar.Form>
                         </Navbar.Collapse>
                     </Navbar>
                 </div>
