@@ -9,7 +9,7 @@ import { ArrayLike, BaseType, Selection, ValueFn } from 'd3-selection';
  * Extend interface 'Selection' by declaration merging with 'd3-selection'
  */
 declare module 'd3-selection' {
-    export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+    export interface Selection<GElement extends BaseType | null, Datum, PElement extends BaseType | null, PDatum> {
         /**
          * Interrupts the active transition of the specified name on the selected elements, and cancels any pending transitions with the specified name, if any.
          * If a name is not specified, null is used.
@@ -74,7 +74,7 @@ export function interrupt(node: BaseType, name?: string): void;
  * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection in the Transition.
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s) in the Transition.
  */
-export interface Transition<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+export interface Transition<GElement extends BaseType | null, Datum, PElement extends BaseType | null, PDatum> {
 
     // Sub-selection -------------------------
 

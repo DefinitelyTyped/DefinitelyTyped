@@ -337,7 +337,7 @@ export function forceSimulation<NodeDatum extends SimulationNodeDatum, LinkDatum
  *
  * Forces may optionally implement force.initialize to receive the simulation’s array of nodes.
  */
-export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum>> {
+export interface Force<NodeDatum extends SimulationNodeDatum, LinkDatum extends SimulationLinkDatum<NodeDatum> | undefined> {
     /**
      * Apply this force, optionally observing the specified alpha.
      * Typically, the force is applied to the array of nodes previously passed to force.initialize,

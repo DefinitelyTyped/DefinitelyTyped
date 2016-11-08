@@ -149,7 +149,6 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: GElement[]
  */
 export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<GElement>): Selection<GElement, OldDatum, null, undefined>;
 
-
 /**
  * A D3 Selection of elements.
  *
@@ -158,7 +157,7 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
  * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
-interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+interface Selection<GElement extends BaseType | null, Datum, PElement extends BaseType | null, PDatum> {
 
     // Sub-selection -------------------------
 
