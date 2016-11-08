@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare abstract class Tapable {
+    private _plugins: {
+        [index: string]: Tapable.Handler[]
+    }
+
     /**
      * Register plugin(s)
      * This acts as the same as on() of EventEmitter, for registering a handler/listener to do something when the
@@ -12,9 +16,9 @@ declare abstract class Tapable {
      * @param names a string or an array of strings to generate the id(group name) of plugins
      * @param handler a function which provides the plugin functionality *
      */
-    plugin(names: string, handler: Tapable.Listener): void;
+    plugin(names: string, handler: Tapable.Handler): void;
 
-    plugin(names: string[], handler: Tapable.Listener): void;
+    plugin(names: string[], handler: Tapable.Handler): void;
 
     /**
      * invoke all plugins with this attached.
@@ -185,7 +189,7 @@ declare abstract class Tapable {
 }
 
 declare namespace Tapable {
-    interface Listener {
+    interface Handler {
         (...args: any[]): void;
     }
 
