@@ -1,4 +1,4 @@
-// Type definitions for Leaflet.js 1.0.0-rc3
+// Type definitions for Leaflet.js 1.0.0
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1222,12 +1222,35 @@ declare namespace L {
     }
 
     export namespace DomEvent {
-        export function on(el: HTMLElement, types: string, fn: Function, context?: Object): typeof DomEvent;
+        export function on(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
         export function on(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
-        export function off(el: HTMLElement, types: string, fn: Function, context?: Object): typeof DomEvent;
+
+        export function off(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
         export function off(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function stopPropagation(ev: Event): typeof DomEvent;
+
         export function disableScrollPropagation(el: HTMLElement): typeof DomEvent;
+
         export function disableClickPropagation(el: HTMLElement): typeof DomEvent;
+
+        export function preventDefault(ev: Event): typeof DomEvent;
+
+        export function stop(ev: Event): typeof DomEvent;
+
+        export function getMousePosition(ev: Event, container?: HTMLElement): Point;
+
+        export function getWheelDelta(ev: Event): number;
+
+        export function addListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function addListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, types: string, fn: (ev: Event) => any, context?: Object): typeof DomEvent;
+
+        export function removeListener(el: HTMLElement, eventMap: {[eventName: string]: Function}, context?: Object): typeof DomEvent;
     }
 
     interface DefaultMapPanes {
@@ -1448,45 +1471,25 @@ declare namespace L {
         export const gecko: boolean;
         export const android: boolean;
         export const android23: boolean;
-
         export const chrome: boolean;
-
         export const safari: boolean;
-
         export const win: boolean;
-
         export const ie3d: boolean;
-
         export const webkit3d: boolean;
-
         export const gecko3d: boolean;
-
         export const opera12: boolean;
-
         export const any3d: boolean;
-
         export const mobile: boolean;
-
         export const mobileWebkit: boolean;
-
         export const mobiWebkit3d: boolean;
-
         export const mobileOpera: boolean;
-
         export const mobileGecko: boolean;
-
         export const touch: boolean;
-
         export const msPointer: boolean;
-
         export const pointer: boolean;
-
         export const retina: boolean;
-
         export const canvas: boolean;
-
         export const vml: boolean;
-
         export const svg: boolean;
     }
 }
