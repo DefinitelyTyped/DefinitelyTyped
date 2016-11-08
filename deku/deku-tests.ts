@@ -152,9 +152,9 @@
 
 	const { Actions } = diff
 
-	let diffs: deku.diff.Action[] = diff.diffNode(element('div'), element('span'))
+	let diffs: any[] = diff.diffNode(element('div'), element('span'))
 
-	let actions: deku.diff.Action[] = [
+	let actions: any[] = [
 		Actions.setAttribute('class', 'foo', 'bar'),
 		Actions.removeAttribute('foo', {}),
 		Actions.insertChild({}, 0, '0.0'),
