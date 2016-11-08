@@ -1,5 +1,3 @@
-/// <reference path="./deku.d.ts" />
-
 // Example from deku/examples/basic
 (function (){
 	const {h, createApp} = deku
