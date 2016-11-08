@@ -1172,7 +1172,7 @@ declare module "mongodb" {
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#limit
     limit(value: number): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#map
-    map(transform: Function): void;
+    map(transform: Function): Cursor;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#max
     max(max: number): Cursor;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#maxAwaitTimeMS
