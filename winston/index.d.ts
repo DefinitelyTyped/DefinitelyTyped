@@ -11,48 +11,48 @@
 ///  Winston v2.2.x
 ///******************
 
-declare var winston: Winston;
+declare var winston: winston.Winston;
 export = winston;
 
-interface Winston {
-    transports: winston.Transports;
-    Transport: winston.TransportStatic;
-    Logger: winston.LoggerStatic;
-    Container: winston.ContainerStatic;
-    loggers: winston.ContainerInstance;
-    default: winston.LoggerInstance;
-
-    exception: winston.Exception;
-
-    exitOnError: boolean;
-    level: string;
-
-    log: winston.LogMethod;
-
-    debug: winston.LeveledLogMethod;
-    info: winston.LeveledLogMethod;
-    warn: winston.LeveledLogMethod;
-    error: winston.LeveledLogMethod;
-
-    query(options: winston.QueryOptions, callback?: (err: Error, results: any) => void): any;
-    query(callback: (err: Error, results: any) => void): any;
-    stream(options?: any): NodeJS.ReadableStream;
-    handleExceptions(...transports: winston.TransportInstance[]): void;
-    unhandleExceptions(...transports: winston.TransportInstance[]): void;
-    add(transport: winston.TransportInstance, options?: winston.TransportOptions, created?: boolean): winston.LoggerInstance;
-    clear(): void;
-    remove(transport: string): winston.LoggerInstance;
-    remove(transport: winston.TransportInstance): winston.LoggerInstance;
-    startTimer(): winston.ProfileHandler;
-    profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
-    addColors(target: any): any;
-    setLevels(target: any): any;
-    cli(): winston.LoggerInstance;
-    close(): void;
-    configure(options: winston.LoggerOptions): void;
-}
-
 declare namespace winston {
+    export interface Winston {
+        transports: winston.Transports;
+        Transport: winston.TransportStatic;
+        Logger: winston.LoggerStatic;
+        Container: winston.ContainerStatic;
+        loggers: winston.ContainerInstance;
+        default: winston.LoggerInstance;
+
+        exception: winston.Exception;
+
+        exitOnError: boolean;
+        level: string;
+
+        log: winston.LogMethod;
+
+        debug: winston.LeveledLogMethod;
+        info: winston.LeveledLogMethod;
+        warn: winston.LeveledLogMethod;
+        error: winston.LeveledLogMethod;
+
+        query(options: winston.QueryOptions, callback?: (err: Error, results: any) => void): any;
+        query(callback: (err: Error, results: any) => void): any;
+        stream(options?: any): NodeJS.ReadableStream;
+        handleExceptions(...transports: winston.TransportInstance[]): void;
+        unhandleExceptions(...transports: winston.TransportInstance[]): void;
+        add(transport: winston.TransportInstance, options?: winston.TransportOptions, created?: boolean): winston.LoggerInstance;
+        clear(): void;
+        remove(transport: string): winston.LoggerInstance;
+        remove(transport: winston.TransportInstance): winston.LoggerInstance;
+        startTimer(): winston.ProfileHandler;
+        profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
+        addColors(target: any): any;
+        setLevels(target: any): any;
+        cli(): winston.LoggerInstance;
+        close(): void;
+        configure(options: winston.LoggerOptions): void;
+    }
+
     export interface ExceptionProcessInfo {
         pid: number;
         uid?: number;
