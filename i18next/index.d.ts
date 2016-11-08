@@ -119,6 +119,8 @@ declare namespace i18n {
         createInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
 
         cloneInstance(options?:Options, callback?:(err:any, t:TranslationFunction) => void):I18n;
+
+        options: Options;
     }
 }
 
