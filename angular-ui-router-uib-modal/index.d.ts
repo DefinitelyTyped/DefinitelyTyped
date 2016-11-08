@@ -3,10 +3,12 @@
 // Definitions by: Stepan Riha <https://github.com/nonplus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="../angular-ui-router/angular-ui-router.d.ts" />
+import * as auir from "angular-ui-router";
 
-declare namespace angular.ui {
-	interface IState {
-		modal?: boolean | string[];
+declare module "angular" {
+	namespace ui {
+		interface IState {
+			modal?: boolean | string[];
+		}
 	}
 }
