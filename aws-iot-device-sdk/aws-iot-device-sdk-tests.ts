@@ -3,7 +3,6 @@
 // and
 // https://github.com/aws/aws-iot-device-sdk-js/blob/97b0b468d59e02e2f6a1dce321000d914cb47894/examples/thing-example.js
 
-/// <reference path="./index.d.ts" />
 /// <reference types="mqtt" />
 
 import * as awsIot from "aws-iot-device-sdk";
