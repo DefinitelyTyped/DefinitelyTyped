@@ -1,7 +1,7 @@
 /// <reference types="tapable" />
 import Tapable = require('tapable');
-import { ResolveParseResult, ResolverRequest, LoggingCallbackWrapper, BaseFileSystem } from './common-types'
-import { Context } from './concord'
+import { ResolveParseResult, ResolverRequest, LoggingCallbackWrapper, BaseFileSystem } from './common-types';
+import { Context } from './concord';
 declare class Resolver extends Tapable {
     fileSystem: BaseFileSystem;
 

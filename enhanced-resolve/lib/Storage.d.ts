@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { CommonFileSystemMethod } from './common-types'
+import { CommonFileSystemMethod } from './common-types';
 
 declare class Storage {
     duration: number;

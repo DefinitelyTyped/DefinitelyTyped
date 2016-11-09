@@ -6,7 +6,7 @@
 /// <reference types="node" />
 /// <reference types="tapable" />
 
-import fs = require('fs')
+import fs = require('fs');
 import {
     ResolveResult,
     LoggingCallbackWrapper,
@@ -14,36 +14,36 @@ import {
     CommonFileSystemMethod,
     BaseFileSystem,
     ResolverRequest
-} from './lib/common-types'
-import { Context } from './lib/concord'
-import Resolver = require('./lib/Resolver')
+} from './lib/common-types';
+import { Context } from './lib/concord';
+import Resolver = require('./lib/Resolver');
 
 declare namespace Resolve {
-    function sync(path: string, request: string): ResolveResult
-    function sync(context: Context, path: string, request: string): ResolveResult
+    function sync(path: string, request: string): ResolveResult;
+    function sync(context: Context, path: string, request: string): ResolveResult;
 
-    function context(path: string, request: string, callback: LoggingCallbackWrapper): void
-    function context(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void
-
-    namespace context {
-        function sync(path: string, request: string): ResolveResult
-        function sync(context: Context, path: string, request: string): ResolveResult
-    }
-
-    function loader(path: string, request: string, callback: LoggingCallbackWrapper): void
-    function loader(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void
+    function context(path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function context(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     namespace context {
-        function sync(path: string, request: string): ResolveResult
-        function sync(context: Context, path: string, request: string): ResolveResult
+        function sync(path: string, request: string): ResolveResult;
+        function sync(context: Context, path: string, request: string): ResolveResult;
     }
 
-    function create(path: string, request: string, callback: LoggingCallbackWrapper): void
-    function create(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void
+    function loader(path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function loader(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
+
+    namespace context {
+        function sync(path: string, request: string): ResolveResult;
+        function sync(context: Context, path: string, request: string): ResolveResult;
+    }
+
+    function create(path: string, request: string, callback: LoggingCallbackWrapper): void;
+    function create(context: Context, path: string, request: string, callback: LoggingCallbackWrapper): void;
 
     export namespace create {
-        function sync(path: string, request: string): ResolveResult
-        function sync(context: Context, path: string, request: string): ResolveResult
+        function sync(path: string, request: string): ResolveResult;
+        function sync(context: Context, path: string, request: string): ResolveResult;
     }
 
     export namespace ResolverFactory {
@@ -54,7 +54,7 @@ declare namespace Resolve {
             mainFields?: string[];
             aliasFields?: string[];
             mainFiles?: string[];
-            extensions?: string[];
+            extensions: string[];
             enforceExtension?: boolean;
             moduleExtensions?: string[];
             enforceModuleExtension?: boolean;
@@ -63,7 +63,7 @@ declare namespace Resolve {
             resolveToContext?: boolean;
             unsafeCache?: boolean | {};
             cachePredicate?: (val: ResolverRequest) => boolean;
-            fileSystem?: any;
+            fileSystem: any;
             resolver?: Resolver;
         }
         interface AliasItem {
@@ -81,8 +81,8 @@ declare namespace Resolve {
 
         stat(path: string, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
 
-        readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void
-        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void
+        readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+        readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
 
         readlink(path: string, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
     }
@@ -92,8 +92,8 @@ declare namespace Resolve {
 
         stat: CommonFileSystemMethod;
         readdir: CommonFileSystemMethod;
-        readFile(path: string, encoding?: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void
-        readFile(path: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void
+        readFile(path: string, encoding?: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void;
+        readFile(path: string, callback?: (err: NodeJS.ErrnoException, result: Buffer) => void): void;
         readlink: CommonFileSystemMethod;
     }
 
