@@ -3,7 +3,7 @@
 // Definitions by: Lukas May <https://www.dscsag.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
-/// <reference path="../jquery/jquery.d.ts" />
+/// <reference path="../jquery/index.d.ts" />
 
 interface Ui5Logger {
   //Allows to add a new LogListener that will be notified for new log entries.
