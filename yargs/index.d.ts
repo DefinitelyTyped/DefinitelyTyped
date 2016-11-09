@@ -188,9 +188,9 @@ declare namespace yargs {
         default?: any;
         defaultDescription?: string;
         demand?: boolean | string;
-        desc?: string | {[key: string]: string};
-        describe?: string | {[key: string]: string};
-        description?: string | {[key: string]: string};
+        desc?: string;
+        describe?: string;
+        description?: string;
         global?: boolean;
         group?: string;
         nargs?: number;
