@@ -1,10 +1,8 @@
-// Type definitions for OpenUI5
+// Type definitions for OpenUI5 1.40.
 // Project: http://openui5.org/
 // Definitions by: Lukas May <https://www.dscsag.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="./jquery.sap.d.ts" />
-/// <reference path="./sap.m.d.ts" />
 declare namespace sap {
   namespace ui {
 
