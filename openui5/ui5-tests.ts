@@ -1,4 +1,6 @@
-/// <reference path="sap.m.d.ts" />
+/// <reference path="./jquery.sap.d.ts" />
+/// <reference path="./sap.m.d.ts" />
+/// <reference path="./sap.ui.d.ts" />
 
 sap.ui.getCore().attachInit(function () {
     new sap.m.Text({

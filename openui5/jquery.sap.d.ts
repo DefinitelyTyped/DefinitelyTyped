@@ -1,11 +1,11 @@
-// Type definitions for OpenUI5
+// Type definitions for OpenUI5 1.40.
 // Project: http://openui5.org/
 // Definitions by: Lukas May <https://www.dscsag.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /// <reference path="../jquery/index.d.ts" />
 
-interface Ui5Logger {
+declare interface Ui5Logger {
   //Allows to add a new LogListener that will be notified for new log entries.
   addLogListener(oListener: any): void;
   //Creates a new debug-level entry in the log with the given message, details and calling component.
@@ -33,7 +33,7 @@ interface Ui5Logger {
   //Creates a new warning-level entry in the log with the given message, details and calling component.
   warning(sMessage: string, sDetails?: string, sComponent?: string): void;
 }
-interface JquerySap {
+declare interface JquerySap {
   log: Ui5Logger
   // Adds a whitelist entry for URL valiadtion 
   addUrlWhitelist(protocol: any, host: any, port: any, path: any): void;
@@ -182,6 +182,6 @@ interface JquerySap {
   // Validates an URL. 
   validateUrl(sUrl: any): void;
 }
-interface JQueryStatic {
+declare interface JQueryStatic {
   sap: JquerySap
 }
