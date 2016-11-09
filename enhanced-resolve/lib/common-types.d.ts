@@ -1,12 +1,11 @@
-import { Context } from './concord'
-/**
- * Created by cloud on 16-11-4.
- */
+import { Context } from './concord';
+
 export interface ResolveError extends Error {
     details: string;
     missing: string[];
     recursion: boolean;
 }
+
 export interface ResolveParseResult {
     request: string;
     query: string;
@@ -14,10 +13,12 @@ export interface ResolveParseResult {
     directory: boolean;
     file: boolean;
 }
+
 export interface ResolveResult {
     path: boolean | string;
     query: string;
 }
+
 export interface ResolverRequest {
     request: string;
     relativePath?: string;
@@ -30,6 +31,7 @@ export interface ResolverRequest {
     directory?: boolean;
     module?: boolean;
 }
+
 export interface LoggingCallbackTools {
     log?(msg: string): void;
     stack?: string[];
@@ -37,26 +39,25 @@ export interface LoggingCallbackTools {
         push: (item: string) => void;
     };
 }
+
 export interface LoggingCallbackWrapper extends LoggingCallbackTools {
-    (...args: any[]): any;
+    (err?: Error | null, ...args: any[]): any;
 }
 
 export interface ErrorCallback {
-    (err: Error | null, ...args: any[]): any
+    (err: Error | null, ...args: any[]): any;
 }
 
 export interface CommonFileSystemMethod {
-    (name: string, callback: (err: Error | null, ...args: any[]) => void): void
+    (name: string, callback: (err: Error | null, ...args: any[]) => void): void;
 }
 
 export interface BaseFileSystem {
-    stat: CommonFileSystemMethod
-    readdir?: CommonFileSystemMethod
-    readFile?(path: string, encoding: string, callback: any): void
-    readFile?(path: string, callback: any): void
-    readJson?: CommonFileSystemMethod
-    readlink?: CommonFileSystemMethod
-    isSync: () => boolean
+    stat: CommonFileSystemMethod;
+    readdir?: CommonFileSystemMethod;
+    readFile?(path: string, encoding: string, callback: ErrorCallback): void;
+    readFile?(path: string, callback: ErrorCallback): void;
+    readJson?: CommonFileSystemMethod;
+    readlink?: CommonFileSystemMethod;
+    isSync: () => boolean;
 }
-
-

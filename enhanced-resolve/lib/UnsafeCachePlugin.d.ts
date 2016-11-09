@@ -1,5 +1,5 @@
 import Resolver = require('./Resolver');
-import { ResolverRequest } from './common-types'
+import { ResolverRequest } from './common-types';
 declare class UnsafeCachePlugin {
     source: string;
     filterPredicate: (str: ResolverRequest) => boolean;
